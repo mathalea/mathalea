@@ -239,7 +239,7 @@ export function ajouteChampTexteMathLive (exercice, i) {
  * @param {'numero de la question'} i
  * @param {array || number} a
  */
-export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0 } = {}) {
+export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, formatInteractif = 'calcul' } = {}) {
   let reponses = []
   if (!Array.isArray(valeurs)) {
     reponses = [valeurs]
@@ -252,7 +252,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   if (exercice.autoCorrection[i].reponse === undefined) {
     exercice.autoCorrection[i].reponse = {}
   }
-  exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx }
+  exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx, formatInteractif }
   exercice.autoCorrection[i].reponse.valeur = reponses
 }
 
@@ -313,19 +313,25 @@ export function exerciceMathLive (exercice) {
           let saisie = champTexte.value
           for (let reponse of reponses) {
             // Pour le calcul littéral on remplace dfrac en frac
-            if (typeof reponse === 'string') {
-              reponse = reponse.replaceAll('dfrac', 'frac')
-              // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
-              // saisie = neTientCompteQueDuDernierMembre(saisie)
+            console.log(exercice.autoCorrection[i].reponse.param.formatInteractif)
+            if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') {
+              if (typeof reponse === 'string') {
+                reponse = reponse.replaceAll('dfrac', 'frac')
+                // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
+                // saisie = neTientCompteQueDuDernierMembre(saisie)
+              }
+              // Pour le calcul numérique, on transforme la saisie en nombre décimal
+              if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
+              // console.log(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))
+              if (engine.same(
+                engine.canonical(parse(saisie)),
+                engine.canonical(parse(reponse))
+              )) resultat = 'OK'
+            } else { // Format texte
+              if (saisie === reponse) {
+                resultat = 'OK'
+              }
             }
-            // Pour le calcul numérique, on transforme la saisie en nombre décimal
-            if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
-            console.log(reponse)
-            console.log(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))
-            if (engine.same(
-              engine.canonical(parse(saisie)),
-              engine.canonical(parse(reponse))
-            )) resultat = 'OK'
           }
           if (resultat === 'OK') {
             spanReponseLigne.innerHTML = '😎'

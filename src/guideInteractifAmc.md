@@ -120,6 +120,8 @@ function propositionsQcm (exercice, i) // Cette fonction va retourner un objet {
 
 Il suffit de définir `this.interactiveType = 'mathLive'`, de mettre dans la boucle `setReponse(this, i, maRéponse)` avec maRéponse un string LaTeX ou une valeur numérique (donc sans texNombre ou des équivalents) puis de faire `texte += ajouteChampTexteMathLive(this, i)` pour ajouter le champ de réponse.
 
+Par défaut, on compare des expressions littérales ou des nombres. Pour comparer des textes sans traitement, on fait `setReponse(this, i, '+', { formatInteractif: 'texte' })`.
+
 ## Remarque  : 
 Afin de ne pas se retrouver avec un code hors contexte, les fonctions ajouteChampTexte, propositionsQcm et ajouteChampTexteMathLive retourne des chaines vides lorsque le contexte est la sortie Latex ou le générateur AMC.
 Il convient donc de ne pas utiliser l'affectation texte = ... mais la concaténation texte += ...
