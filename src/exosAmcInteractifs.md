@@ -2,11 +2,16 @@
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |2G50|Déterminer le coefficient directeur d'une droite.|KO|KO|OK|mathLive|
 |3F21-1|Déterminer une fonction affine|OK|AMCOpen|KO|KO|
+|3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
+|3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
+|3F13-1|Lecture graphique d’images et d’antécédents|KO|KO|OK|mathLive|
+|3F21-1|Déterminer une fonction affine|OK|AMCOpen|OK|mathLive|
 |3F21-3|Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine|KO|KO|OK|mathLive|
 |3G21|Contrôler si deux droites sont parallèles|OK|AMCOpen|KO|KO|
 |3G30|Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|KO|KO|
 |3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|KO|KO|
 |3G32-1|Calcul d’un parallèle terrestre|OK|AMCOpen|KO|KO|
+|3G42|Volume d’une boule|KO|KO|OK|mathLive|
 |3L11-1|Utiliser la double distributivité|OK|AMCOpenNum✖︎3|OK|mathLive|
 |3L11-2|Réduire une expression|KO|KO|OK|mathLive|
 |3L11-3|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
@@ -17,6 +22,8 @@
 |3L12|Factoriser a²-b²|KO|KO|OK|mathLive|
 |3P10-1|Coefficient multiplicateur d’une variation en pourcentage|KO|KO|OK|mathLive|
 |3P10|Variations en pourcentage|KO|KO|OK|mathLive|
+|3S12|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
+|3S15|Calculer des étendues|KO|KO|OK|mathLive|
 |4C21|Additionner ou soustraire deux fractions|OK|AMCOpenNum✖︎2|KO|KO|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|numerique|
@@ -65,6 +72,8 @@
 |6G25-1|Symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
 |6G33|Reconnaitre un quadrilatère particulier à partir de ses propriétés|OK|qcmMult|OK|export const interactifType non présent|
 |6G41|Compléter une représentation en perspective cavalière|OK|AMCOpen|KO|KO|
+|6M30|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|6M31|Conversions de volume|OK|qcmMono|OK|qcm,mathLive|
 |6N20-2|Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.|KO|KO|OK|mathLive|
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1).|KO|KO|OK|mathLive|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|export const interactifType non présent|

@@ -277,14 +277,16 @@ export default {
     "titre": "Lectures d’images et d’antécédents depuis un tableau de valeurs",
     "url": "/exercices/3e/3F10.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F10"
   },
   "3F12-2": {
     "titre": "Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique",
     "url": "/exercices/3e/3F12-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F12-2"
   },
   "3F12-3": {
@@ -312,7 +314,8 @@ export default {
     "titre": "Lecture graphique d’images et d’antécédents",
     "url": "/exercices/3e/3F13-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F13-1"
   },
   "3F13-2": {
@@ -337,7 +340,8 @@ export default {
       "num": 3,
       "text": "AMCOpen"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F21-1"
   },
   "3F21-2": {
@@ -557,7 +561,8 @@ export default {
     "titre": "Volume d’une boule",
     "url": "/exercices/3e/3G42.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G42"
   },
   "3G43": {
@@ -725,14 +730,16 @@ export default {
     "titre": "Calculer des effectifs et des fréquences",
     "url": "/exercices/3e/3S12.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3S12"
   },
   "3S15": {
     "titre": "Calculer des étendues",
     "url": "/exercices/3e/3S15.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3S15"
   },
   "3S20": {
@@ -1111,6 +1118,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "4G51"
+  },
+  "4G52": {
+    "titre": "Exercice de repérage dans un pavé droit",
+    "url": "/exercices/4e/4G52.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4G52"
   },
   "4G53": {
     "titre": "Calculs de volumes",
@@ -2509,8 +2523,16 @@ export default {
   "6M30": {
     "titre": "Calculs de volumes",
     "url": "/exercices/6e/6M30.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "6M30"
   },
   "6M31-2": {
@@ -2523,8 +2545,16 @@ export default {
   "6M31": {
     "titre": "Conversions de volume",
     "url": "/exercices/6e/6M31.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "6M31"
   },
   "6N10-1": {
@@ -3558,13 +3588,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betareperagepave"
-  },
-  "betareperagepave3d": {
-    "titre": "Exercice de repérage dans un pavé droit",
-    "url": "/exercices/beta/betareperagepave3d.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betareperagepave3d"
   },
   "betarotation3d": {
     "titre": "Rotation 3d de polygones",
