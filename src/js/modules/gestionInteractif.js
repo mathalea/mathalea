@@ -4,6 +4,7 @@ import { shuffleJusqua } from './outils.js'
 import { messageFeedback } from './messages.js'
 import { addElement, get, setStyles } from './dom.js'
 import { ComputeEngine, parse } from '@cortex-js/math-json'
+import Fraction from './Fraction.js'
 
 export function exerciceInteractif (exercice) {
   if (context.isAmc) {
@@ -313,7 +314,6 @@ export function exerciceMathLive (exercice) {
           let saisie = champTexte.value
           for (let reponse of reponses) {
             // Pour le calcul littéral on remplace dfrac en frac
-            console.log(exercice.autoCorrection[i].reponse.param.formatInteractif)
             if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') {
               if (typeof reponse === 'string') {
                 reponse = reponse.replaceAll('dfrac', 'frac')
@@ -327,6 +327,30 @@ export function exerciceMathLive (exercice) {
                 engine.canonical(parse(saisie)),
                 engine.canonical(parse(reponse))
               )) resultat = 'OK'
+            } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionPlusSimple') {
+              const saisieParsee = parse(saisie)
+              if (saisieParsee) {
+                if (saisieParsee[1].num && saisieParsee[2].num) {
+                  const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+                  if (fSaisie.estUneSimplification(reponse)) resultat = 'OK'
+                }
+              }
+            } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionEgale') {
+              const saisieParsee = parse(saisie)
+              if (saisieParsee) {
+                if (saisieParsee[1].num && saisieParsee[2].num) {
+                  const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+                  if (fSaisie.egal(reponse)) resultat = 'OK'
+                }
+              }
+            } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fraction') {
+              const saisieParsee = parse(saisie)
+              if (saisieParsee) {
+                if (saisieParsee[1].num && saisieParsee[2].num) {
+                  const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+                  if (fSaisie.num === reponse.num && fSaisie.den === reponse.den) resultat = 'OK'
+                }
+              }
             } else { // Format texte
               if (saisie === reponse) {
                 resultat = 'OK'
