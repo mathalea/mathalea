@@ -5,24 +5,32 @@
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
 |3F13-1|Lecture graphique d’images et d’antécédents|KO|KO|OK|mathLive|
 |3F21-1|Déterminer une fonction affine|OK|AMCOpen|OK|mathLive|
+|3F21-2|Déterminer une fonction affine par la donnée des images de deux nombres|KO|KO|OK|mathLive|
 |3F21-3|Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine|KO|KO|OK|mathLive|
 |3G21|Contrôler si deux droites sont parallèles|OK|AMCOpen|KO|KO|
 |3G30|Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|KO|KO|
 |3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|KO|KO|
 |3G32-1|Calcul d’un parallèle terrestre|OK|AMCOpen|KO|KO|
 |3G42|Volume d’une boule|KO|KO|OK|mathLive|
+|3G43|Calculs de volumes|KO|KO|OK|qcm,mathLive|
 |3L11-1|Utiliser la double distributivité|OK|AMCOpenNum✖︎3|OK|mathLive|
 |3L11-2|Réduire une expression|KO|KO|OK|mathLive|
 |3L11-3|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |3L11-4|Factoriser une expression|KO|KO|OK|mathLive|
+|3L11-5|Calcul mental et calcul littéral|KO|KO|OK|mathLive|
 |3L11-6|Factoriser une expression complexe|KO|KO|OK|mathLive|
 |3L11|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |3L12-1|Développer (a-b)(a+b)|KO|KO|OK|mathLive|
 |3L12|Factoriser a²-b²|KO|KO|OK|mathLive|
+|3L15-1|Résoudre une équation $x^2 = a$|KO|KO|OK|mathLive|
 |3P10-1|Coefficient multiplicateur d’une variation en pourcentage|KO|KO|OK|mathLive|
 |3P10|Variations en pourcentage|KO|KO|OK|mathLive|
 |3S12|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
 |3S15|Calculer des étendues|KO|KO|OK|mathLive|
+|4C10-0|Signe d’un produit ou d’un quotient de nombres relatifs|KO|KO|OK|mathLive|
+|4C10-3|Multiplication de deux entiers relatifs|KO|KO|OK|mathLive|
+|4C10-4|Quotient de deux entiers relatifs|KO|KO|OK|mathLive|
+|4C11|Calculs utilisant les priorités opératoires|KO|KO|OK|mathLive|
 |4C21|Additionner ou soustraire deux fractions|OK|AMCOpenNum✖︎2|KO|KO|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|numerique|
@@ -32,11 +40,13 @@
 |4G21|Déterminer si un triangle est rectangle ou pas.|OK|qcmMono|OK|qcm|
 |4G30|Calculer des longueurs avec la propriété de Thalès|OK|AMCOpenNum|KO|KO|
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|KO|KO|
+|4G53|Calculs de volumes|KO|KO|OK|qcm,mathLive|
 |5L10-2|Traduire un programme de calcul par une expression littérale|OK|qcmMono|OK|qcm|
 |5L10|Écrire une expression littérale|OK|qcmMult|OK|export const interactifType non présent|
 |5L13|Réduire une expression de la forme $ax+bx$ |KO|KO|OK|mathLive|
 |5L14-2|Substitution|OK|AMCNum|OK|numerique|
 |5L14|Calculer la valeur d’une expression littérale|KO|KO|OK|mathLive|
+|5M20|Calculs de volumes|KO|KO|OK|qcm,mathLive|
 |5N13-2|Égalités entre fractions simples|OK|qcmMono|KO|KO|
 |5N13|Simplification de fractions|OK|AMCOpen|KO|KO|
 |5N14-3|Fractions égales et égalité des produits en croix|OK|qcmMono|OK|qcm|

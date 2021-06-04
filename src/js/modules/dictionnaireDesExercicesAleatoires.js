@@ -334,7 +334,8 @@ export default {
     "titre": "Déterminer une fonction affine par la donnée des images de deux nombres",
     "url": "/exercices/3e/3F21-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F21-2"
   },
   "3F21-3": {
@@ -555,7 +556,11 @@ export default {
     "titre": "Calculs de volumes",
     "url": "/exercices/3e/3G43.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "3G43"
   },
   "3L10-1": {
@@ -612,7 +617,8 @@ export default {
     "titre": "Calcul mental et calcul littéral",
     "url": "/exercices/3e/3L11-5.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L11-5"
   },
   "3L11-6": {
@@ -686,7 +692,8 @@ export default {
     "titre": "Résoudre une équation $x^2 = a$",
     "url": "/exercices/3e/3L15-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L15-1"
   },
   "3L15": {
@@ -746,7 +753,8 @@ export default {
     "titre": "Signe d’un produit ou d’un quotient de nombres relatifs",
     "url": "/exercices/4e/4C10-0.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C10-0"
   },
   "4C10-1": {
@@ -767,14 +775,16 @@ export default {
     "titre": "Multiplication de deux entiers relatifs",
     "url": "/exercices/4e/4C10-3.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C10-3"
   },
   "4C10-4": {
     "titre": "Quotient de deux entiers relatifs",
     "url": "/exercices/4e/4C10-4.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C10-4"
   },
   "4C10-5": {
@@ -795,7 +805,8 @@ export default {
     "titre": "Calculs utilisant les priorités opératoires",
     "url": "/exercices/4e/4C11.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C11"
   },
   "4C21-1": {
@@ -1116,7 +1127,11 @@ export default {
     "titre": "Calculs de volumes",
     "url": "/exercices/4e/4G53.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "4G53"
   },
   "4L10-1": {
@@ -1609,7 +1624,11 @@ export default {
     "titre": "Calculs de volumes",
     "url": "/exercices/5e/5M20.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "5M20"
   },
   "5N11-1": {
