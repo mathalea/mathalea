@@ -27,7 +27,7 @@ export default function CalculDeVolumes () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
-  this.sup3 = 1
+  this.sup3 = 2
 
   let typesDeQuestionsDisponibles
 
@@ -132,7 +132,7 @@ export default function CalculDeVolumes () {
             texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^2\\times${h}${listeUnites[j][0]}=${texNombrec(
               r * r * h
             )}\\pi${listeUnites[j][1]}\\approx${texNombrec(
-              arrondi(volume, 1)
+              arrondi(volume, 0)
             )}${listeUnites[j][1]}$`
           } else {
             j = randint(2, 3) // pour le choix de l'unité
@@ -285,7 +285,7 @@ export default function CalculDeVolumes () {
         texte += propositionsQcm(this, i).texte
       } else {
         texte += ajouteChampTexteMathLive(this, i)
-        setReponse(this, i, parseFloat(resultat))
+        setReponse(this, i, Math.round(volume))
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

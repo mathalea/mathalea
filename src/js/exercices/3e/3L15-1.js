@@ -1,7 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'// eslint-disable-next-line camelcase
 import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Résoudre une équation $x^2 = a$'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Résoudre une équation de type x²=a
@@ -9,9 +12,10 @@ export const titre = 'Résoudre une équation $x^2 = a$'
 * 3L15
 */
 export default function ResoudreEquatioeX2EgalA () {
-  'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.consigne = 'Résoudre les équations suivantes'
   this.nbQuestions = 5
   this.nbCols = 1
@@ -43,6 +47,7 @@ export default function ResoudreEquatioeX2EgalA () {
           texte = `$x^2=${a * a}$`
           texteCorr = `$x^2=${a * a}$ équivaut à $x = \\sqrt{${a * a}}$ ou $x = -\\sqrt{${a * a}}$<br>Soit $x = ${a}$ ou $x = -${a}$<br>`
           texteCorr += `Il est équivalent de résoudre $x^2 - ${a * a}=0$ c'est à dire $x^2 - ${a}^{2}=0$ <br>Soit $(x - ${a})(x + ${a})=0$ qui donne les deux solutions ci-dessus. `
+          setReponse(this, i, [`${a};${-a}`, `${-a};${a}`])
           break
         case 2: // x²=(ns*ns)/(ds*ds) solutions rationnelles
           fraction = choice(listeFractions)
@@ -51,14 +56,17 @@ export default function ResoudreEquatioeX2EgalA () {
           texte = `$x^2=\\dfrac{${ns * ns}}{${ds * ds}}$`
           texteCorr = `$x^2=\\dfrac{${ns * ns}}{${ds * ds}}$ équivaut à $x = \\sqrt{\\dfrac{${ns * ns}}{${ds * ds}}}$ ou $x = -\\sqrt{\\dfrac{${ns * ns}}{${ds * ds}}}$<br>Soit $x = \\dfrac{${ns}}{${ds}}$ ou $x = -\\dfrac{${ns}}{${ds}}$<br>`
           texteCorr += `Il est équivalent de résoudre $x^2 - \\dfrac{${ns * ns}}{${ds * ds}}=0$ c'est à dire $x^2 - (\\dfrac{${ns}}{${ds}})^{2}=0$<br>Soit $(x - \\dfrac{${ns}}{${ds}})(x + \\dfrac{${ns}}{${ds}})=0$ qui donne les deux solutions ci-dessus. `
+          setReponse(this, i, [`\\dfrac{${ns}}{${ds}};-\\dfrac{${ns}}{${ds}}`, `-\\dfrac{${ns}}{${ds}};\\dfrac{${ns}}{${ds}}`])
           break
 
         case 3: a = randint(2, 50, [4, 9, 16, 25, 36, 49]) // solution irrationnelles
           texte = `$x^2=${a}$`
           texteCorr = `$x^2=${a}$ équivaut à $x = \\sqrt{${a}}$ ou $x = -\\sqrt{${a}}$<br>`
           texteCorr += `Il est équivalent de résoudre $x^2 - ${a}=0$  c'est à dire $x^2 - (\\sqrt{${a}})^{2}=0$<br>Soit $(x - \\sqrt{${a}})(x + \\sqrt{${a}})=0$ qui donne les deux solutions ci-dessus. `
+          setReponse(this, i, `\\sqrt{${a}};-\\sqrt{${a}}`)
           break
       }
+      texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -68,6 +76,7 @@ export default function ResoudreEquatioeX2EgalA () {
       }
       cpt++
     }
+    this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, séparer les avec un point-virgule.</em>" : ''
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : solutions entières\n 2 : solutions rationnelles\n 3 : Solutions irrationnelles\n 4 : Mélange des 3 autres niveaux']

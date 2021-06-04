@@ -320,6 +320,7 @@ export function exerciceMathLive (exercice) {
             }
             // Pour le calcul numérique, on transforme la saisie en nombre décimal
             if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
+            console.log(reponse)
             console.log(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))
             if (engine.same(
               engine.canonical(parse(saisie)),
