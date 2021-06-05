@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
-import { PerimetreOuAireDeCarresRectanglesTriangles, amcReady, interactifReady, amcType, interactifType } from './6M11-1.js'
+import { amcReady, interactifReady, amcType, interactifType } from './6M11-1.js'
+import PerimetreOuAireDeCarresRectanglesTriangles from './6M11-1.js'
 export const titre = 'Aires carrés, rectangles et triangles rectangles'
 
 /**
