@@ -1,7 +1,9 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, ecritureNombreRelatif, texteEnCouleurEtGras, Relatif } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const titre = 'Signe d’un produit ou d’un quotient de nombres relatifs'
 
@@ -18,6 +20,8 @@ export const titre = 'Signe d’un produit ou d’un quotient de nombres relatif
 export default function Signe_produit_quotient_relatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.consigne = 'Donner le signe des expressions numériques.'
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -119,6 +123,11 @@ export default function Signe_produit_quotient_relatifs () {
           )} $ est ${texteEnCouleurEtGras(
             num.getSigneProduitString(num.relatifs[0], num.relatifs[1])
           )}.`
+          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1]) === 'positif') {
+            setReponse(this, i, '+', { formatInteractif: 'texte' })
+          } else {
+            setReponse(this, i, '-', { formatInteractif: 'texte' })
+          }
           break
         case 2: // 3 facteurs
           texte = `$ ${ecritureNombreRelatif(
@@ -148,6 +157,11 @@ export default function Signe_produit_quotient_relatifs () {
               num.relatifs[2]
             )
           )}.`
+          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2]) === 'positif') {
+            setReponse(this, i, '+', { formatInteractif: 'texte' })
+          } else {
+            setReponse(this, i, '-', { formatInteractif: 'texte' })
+          }
           break
         case 3: // 4 facteurs
           texte = `$ ${ecritureNombreRelatif(
@@ -181,6 +195,11 @@ export default function Signe_produit_quotient_relatifs () {
               num.relatifs[3]
             )
           )}.`
+          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2], num.relatifs[3]) === 'positif') {
+            setReponse(this, i, '+', { formatInteractif: 'texte' })
+          } else {
+            setReponse(this, i, '-', { formatInteractif: 'texte' })
+          }
           break
         case 4: // quotient de 2 nombres
           texte = `$ \\dfrac{${ecritureNombreRelatif(
@@ -198,6 +217,11 @@ export default function Signe_produit_quotient_relatifs () {
           )}} $ est ${texteEnCouleurEtGras(
             num.getSigneProduitString(num.relatifs[0], num.relatifs[1])
           )}.`
+          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1]) === 'positif') {
+            setReponse(this, i, '+', { formatInteractif: 'texte' })
+          } else {
+            setReponse(this, i, '-', { formatInteractif: 'texte' })
+          }
           break
         case 5: // quotient d'1 nombre sur un produit de 2 nombres
           texte = `$ \\dfrac{${ecritureNombreRelatif(
@@ -227,6 +251,11 @@ export default function Signe_produit_quotient_relatifs () {
               num.relatifs[2]
             )
           )}.`
+          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2]) === 'positif') {
+            setReponse(this, i, '+', { formatInteractif: 'texte' })
+          } else {
+            setReponse(this, i, '-', { formatInteractif: 'texte' })
+          }
           break
         case 6: // quotient d'1 produit de 2 nombres sur 1 nombre
           texte = `$ \\dfrac{${ecritureNombreRelatif(
@@ -256,6 +285,11 @@ export default function Signe_produit_quotient_relatifs () {
               num.relatifs[2]
             )
           )}.`
+          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2]) === 'positif') {
+            setReponse(this, i, '+', { formatInteractif: 'texte' })
+          } else {
+            setReponse(this, i, '-', { formatInteractif: 'texte' })
+          }
           break
         case 7: // quotient de 2 produits de 2 nombres
           texte = `$ \\dfrac{${ecritureNombreRelatif(
@@ -289,8 +323,14 @@ export default function Signe_produit_quotient_relatifs () {
               num.relatifs[3]
             )
           )}.`
+          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2], num.relatifs[3]) === 'positif') {
+            setReponse(this, i, '+', { formatInteractif: 'texte' })
+          } else {
+            setReponse(this, i, '-', { formatInteractif: 'texte' })
+          }
           break
       }
+      texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

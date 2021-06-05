@@ -2,8 +2,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import Fraction from '../../modules/Fraction.js'
 export const amcReady = true
 export const amcType = 3 // type de question AMC
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const titre = 'Simplification de fractions'
 
@@ -15,7 +19,10 @@ export const titre = 'Simplification de fractions'
 export default function Exercice_fractions_simplifier (max = 11) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max // Correspond au facteur commun
+  this.sup2 = false
   this.titre = titre
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.consigne = 'Simplifier les fractions suivantes.'
   this.spacing = 2
   this.spacingCorr = 2
@@ -23,9 +30,11 @@ export default function Exercice_fractions_simplifier (max = 11) {
   this.amcReady = amcReady
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.consigne = this.sup2 ? 'Simplifier les fractions suivantes au maximum.' : 'Simplifier les fractions suivantes.'
     const liste_fractions = [
       [1, 2],
       [1, 3],
@@ -85,15 +94,20 @@ export default function Exercice_fractions_simplifier (max = 11) {
           ' = ' +
           texFraction(a, b) +
           ' $'
+      texte += ajouteChampTexteMathLive(this, i)
+      if (this.interactif && context.isHtml) texte = texte.replace(' \\dfrac{\\phantom{00000000000000}}{} = \\dfrac{\\phantom{0000}}{}', '')
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       // Pour AMC question AmcOpen
       this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
+      if (this.sup2) {
+        setReponse(this, i, new Fraction(a, b), { formatInteractif: 'fraction' })
+      } else {
+        setReponse(this, i, new Fraction(k * a, k * b), { formatInteractif: 'fractionPlusSimple' })
+      }
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireNumerique = [
-    'Valeur maximale du facteur commun',
-    99999
-  ]
+  this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99999]
+  this.besoinFormulaire2CaseACocher = ['Simplification maximale exigée']
 }

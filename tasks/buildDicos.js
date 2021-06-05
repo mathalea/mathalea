@@ -35,7 +35,9 @@ const exercicesList = getAllFiles(exercicesDir)
 const dicoAlea = {}
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 
-var warnings = 0;
+var warnings = 0; // Pour compter les alertes
+var nbAmcReady = 0; // Pour compter les exos amcReady
+var nbInteractifReady = 0 ; // Pour compter les exos interactifReady
 
 function beginWarnText() {
   warnings+=1
@@ -87,8 +89,14 @@ for (const file of exercicesList) {
       console.error(`\x1b[33m${file} a un export amcType mais amcReady est false => VÉRIFIER ÇA !!! (module)\x1b[37m`)
     } 
     // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e
-    if (amcReady) {    
-      amcType.num = module.amcType      
+    if (amcReady) {
+       // On verifie s'il y a un amcType
+      if (!module.amcType) {
+        amcType.text = 'export const amcType non présent'
+      } else {
+        amcType.num = module.amcType
+      }                
+      nbAmcReady +=1; // On incrémente pour la compet !      
     }    
 
     if (module.interactifType && !module.interactifReady) {
@@ -102,6 +110,7 @@ for (const file of exercicesList) {
       } else {
         interactifType = module.interactifType
       }
+      nbInteractifReady +=1; // On incrémente pour la compet ! 
       
     }      
   } catch (error) {
@@ -126,7 +135,14 @@ for (const file of exercicesList) {
       }
       // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e   
       if (amcReady) {
-        amcType.num = parseInt(srcContent.match(/export +const +amcType *= *(\d*)/)[1])
+        
+        // On verifie s'il y a un amcType
+        if (/export +const +amcType */.test(srcContent)) {
+          amcType.num = parseInt(srcContent.match(/export +const +amcType *= *(\d*)/)[1])            
+        } else {
+          amcType.text = `export const amcType non présent (à l'ancienne)`
+        } 
+        nbAmcReady +=1; // On incrémente pour la compet ! 
       }
       // On vérifie la cohérence interactifType, interactifReady
       if (/export +const +interactifType */.test(srcContent) && !interactifReady) {
@@ -140,7 +156,8 @@ for (const file of exercicesList) {
           interactifType = srcContent.match(/export +const +interactifType *= *(\"[a-zA-Z0-9].*\")/)[1]
         } else {
           interactifType = `export const interactifType non présent (à l'ancienne)`
-        }        
+        }   
+        nbInteractifReady +=1; // On incrémente pour la compet !      
       }    
     } else {
       console.error(Error(`Pas trouvé de titre dans ${file} => IGNORÉ`))
@@ -250,8 +267,12 @@ console.log(`${dictFile} généré ${sumWarnings()}`)
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 const mdDir = path.resolve(__dirname, '..', 'src', '.')
 let mdFile  = path.resolve(mdDir,'.','exosAmcInteractifs.md')
-// On avait un fonctionnement avec description cf commit 832f123  
-fs.writeFileSync(mdFile,`|id|titre|amcReady|amcType|interactifReady|interactifType|\r\n`)
+// On avait un fonctionnement avec description cf commit 832f123 
+fs.writeFileSync(mdFile,`# Liste des exos AMC et INTERACTIFS\r\n`) 
+fs.appendFileSync(mdFile,`- nombre d'exos amcReady ${nbAmcReady} \r\n`) 
+fs.appendFileSync(mdFile,`- nombre d'exos interactifReady ${nbInteractifReady} \r\n`) 
+fs.appendFileSync(mdFile,`\r\n`)
+fs.appendFileSync(mdFile,`|id|titre|amcReady|amcType|interactifReady|interactifType|\r\n`)
 fs.appendFileSync(mdFile,`|:-:|:-:|:-:|:-:|:-:|:-:|\r\n`)
 Object.entries(dicoAlea).forEach(([id,props]) => {
   if (props.amcReady && props.interactifReady) {

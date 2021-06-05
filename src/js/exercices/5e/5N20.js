@@ -1,12 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { calcul, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
+import Fraction from '../../modules/Fraction.js'
 
 export const amcReady = true
-export const amcType =1 // QCM 
+export const amcType = 1 // QCM
 export const interactifReady = true
-
+export const interactifType = 'mathLive' // Le QCM est prêt mais pas géré
 
 export const titre = 'Additionner ou soustraire deux fractions (dénominateurs multiples)'
 
@@ -26,6 +27,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.sup = max // Correspond au facteur commun
   this.sup2 = false // Si true alors il n'y aura que des soustractions
   this.titre = titre
@@ -103,7 +105,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if (this.level === 6) {
           // En 6e, pas de fraction simplifiée
           // Les fractions ont le même dénominateur (b=d)
-          this.autoCorrection[i].propositions[0].texte = `$${texFraction(a + c, b )}$`
+          this.autoCorrection[i].propositions[0].texte = `$${texFraction(a + c, b)}$`
         }
         /*************************************************************************/
         const ordreDesFractions = randint(1, 2)
@@ -138,8 +140,11 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if (s !== 1) {
           texteCorr += `$=${texFraction(calcul((a * k + c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k + c) / s), calcul(d / s))}$`
         }
-        if ((this.modeQcm && !context.isAmc) || this.interactif) {
+        if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
           texte += '<br>' + propositionsQcm(this, i).texte
+        }
+        if (context.isHtml && this.interactifType === 'mathLive') {
+          setReponse(this, i, new Fraction(a * d + c * b, b * d), { formatInteractif: 'fractionEgale' })
         }
       } else { // une soustraction
         /** ***************** Choix des réponses du QCM ***********************************/
@@ -168,7 +173,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if (this.level === 6) {
           // En 6e, pas de fraction simplifiée
           // Les fractions ont le même dénominateur (b=d)
-          this.autoCorrection[i].propositions[0].texte = `$${texFraction(Math.abs(a - c), b )}$`
+          this.autoCorrection[i].propositions[0].texte = `$${texFraction(Math.abs(a - c), b)}$`
         }
         /*********************************************************************************/
         if ((a / b) > (c / d)) {
@@ -201,11 +206,14 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
             texteCorr += `$=${texFraction(calcul((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((abs(a * k - c)) / s), calcul(d / s))}$`
           }
         }
-        if ((this.modeQcm && !context.isAmc) || this.interactif) {
+        if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
           texte += '<br>' + propositionsQcm(this, i).texte
         }
+        if (context.isHtml && this.interactifType === 'mathLive') {
+          setReponse(this, i, new Fraction(a * d - c * b, b * d), { formatInteractif: 'fractionEgale' })
+        }
       }
-
+      if (context.isHtml && this.interactifType === 'mathLive') texte += ajouteChampTexteMathLive(this, i)
       texte = texte.replaceAll('$$', ' ')
       texteCorr = texteCorr.replaceAll('$$', ' ')
       if (context.isAmc) {
