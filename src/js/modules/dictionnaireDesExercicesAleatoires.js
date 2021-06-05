@@ -91,6 +91,27 @@ export default {
     "interactifType": "mathLive",
     "name": "2G50"
   },
+  "2G51-1": {
+    "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur.",
+    "url": "/exercices/2e/2G51-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G51-1"
+  },
+  "2G51": {
+    "titre": "Equation cartésienne de droite",
+    "url": "/exercices/2e/2G51.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G51"
+  },
+  "2G52": {
+    "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
+    "url": "/exercices/2e/2G52.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G52"
+  },
   "2L10": {
     "titre": "Développer avec les identités remarquables",
     "url": "/exercices/2e/2L10.js",
@@ -1688,7 +1709,8 @@ export default {
       "num": 1,
       "text": "qcmMono"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5N13-2"
   },
   "5N13": {
@@ -1699,7 +1721,8 @@ export default {
       "num": 3,
       "text": "AMCOpen"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5N13"
   },
   "5N14-2": {
@@ -1751,7 +1774,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "mathLive",
     "name": "5N20"
   },
   "5P10": {
@@ -1765,7 +1788,8 @@ export default {
     "titre": "Problème de vitesse",
     "url": "/exercices/5e/5P11-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5P11-1"
   },
   "5R10-0": {
@@ -2490,6 +2514,13 @@ export default {
     "interactifReady": false,
     "name": "6M11-2"
   },
+  "6M11": {
+    "titre": "Aires carrés, rectangles et triangles rectangles",
+    "url": "/exercices/6e/6M11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6M11"
+  },
   "6M12": {
     "titre": "Conversions de longueurs",
     "url": "/exercices/6e/6M12.js",
@@ -2910,7 +2941,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "mathLive",
     "name": "6N41"
   },
   "6N43-2": {
@@ -3340,27 +3371,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "P012"
-  },
-  "2G51-1": {
-    "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur.",
-    "url": "/exercices/beta/2G51-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2G51-1"
-  },
-  "2G51": {
-    "titre": "Equation cartésienne de droite",
-    "url": "/exercices/beta/2G51.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2G51"
-  },
-  "2G52": {
-    "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
-    "url": "/exercices/beta/2G52.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2G52"
   },
   "beta1F10": {
     "titre": "Calculs de dérivés",

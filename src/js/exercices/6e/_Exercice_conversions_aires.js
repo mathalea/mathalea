@@ -1,6 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,texTexte,calcul} from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
+export const amcReady = true
+export const amcType = 1 // type de question AMC
+export const interactifReady = true
+export const interactifType = ['qcm', 'mathLive']
 
 /**
  * Conversions d'aires en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -17,16 +22,21 @@ import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNomb
  * @author Rémi Angot
  * Référence 6M23
  */
-export default function Exercice_conversions_aires(niveau = 1) {
+export default function ExerciceConversionsAires (niveau = 1) {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = niveau; // Niveau de difficulté de l'exercice
   this.sup2 = false; // Avec des nombres décimaux ou pas
+  this.sup3 = 1 // interactifType Qcm
   this.titre = "Conversions d'aires";
   this.consigne = "Compléter";
   this.spacing = 2;
   this.nbColsCorr = 1;
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactifReady = interactifReady
 
   this.nouvelleVersion = function () {
+    this.interactifType = parseInt(this.sup3) === 2 ? 'mathLive' : 'qcm'
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let prefixe_multi = [
@@ -47,10 +57,14 @@ export default function Exercice_conversions_aires(niveau = 1) {
       k,
       div,
       resultat,
+      resultat2,
+      resultat3,
+      resultat4,
       typesDeQuestions,
       texte,
       texteCorr,
       cpt = 0; i < this.nbQuestions && cpt < 50;) {
+        this.autoCorrection[i] = {}
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (this.sup < 6) {
         typesDeQuestions = this.sup;
@@ -98,6 +112,9 @@ export default function Exercice_conversions_aires(niveau = 1) {
           [" k", "\\times1~000\\times1~000", 1000000],
         ]; // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
         resultat = calcul(a * prefixe_multi[k][2]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat2 = calcul(a * 10 ** (k + 1))
+        resultat3 = calcul(a * 10 ** (k - 2))
+        resultat4 = calcul(a * 10 ** ((k + 3)))
         texte =
           "$ " +
           texNombre(a) +
@@ -130,7 +147,10 @@ export default function Exercice_conversions_aires(niveau = 1) {
         ];
         k = randint(0, 1); // Pas de conversions de mm^2 en m^2 avec des nombres décimaux car résultat inférieur à 10e-8
         resultat = calcul(a / prefixe_div[k][2]).toString(); // Attention aux notations scientifiques pour 10e-8
-        texte =
+        resultat2 = calcul(a / 10 ** (k + 1))
+        resultat3 = calcul(a / 10 ** (k - 2))
+        resultat4 = calcul(a / 10 ** ((k + 3)))
+         texte =
           "$ " +
           texNombre(a) +
           texTexte(prefixe_div[k][0] + unite) +
@@ -163,6 +183,9 @@ export default function Exercice_conversions_aires(niveau = 1) {
         let unite2 = unite1 + ecart;
         if (randint(0, 1) > 0) {
           resultat = calcul(a * Math.pow(10, 2 * ecart));
+          resultat2 = calcul(a * Math.pow(10, ecart))
+          resultat3 = calcul(a * Math.pow(10, 2 * ecart + 1))
+          resultat4 = calcul(a * Math.pow(10, -2 * ecart))
           texte =
             "$ " +
             texNombre(a) +
@@ -190,6 +213,9 @@ export default function Exercice_conversions_aires(niveau = 1) {
             "$";
         } else {
           resultat = calcul(a / Math.pow(10, 2 * ecart));
+          resultat2 = calcul(a / Math.pow(10, ecart))
+          resultat3 = calcul(a / Math.pow(10, 2 * ecart + 1))
+          resultat4 = calcul(a / Math.pow(10, -2 * ecart))
           texte =
             "$ " +
             texNombre(a) +
@@ -248,6 +274,30 @@ export default function Exercice_conversions_aires(niveau = 1) {
           "^2" +
           "$";
       }
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = [{
+        texte: `$${texNombre(resultat)}$`,
+        statut: true
+      },
+      {
+        texte: `$${texNombre(resultat2)}$`,
+        statut: false
+      },
+      {
+        texte: `$${texNombre(resultat3)}$`,
+        statut: false
+      },
+      {
+        texte: `$${texNombre(resultat4)}$`,
+        statut: false
+      }
+      ]
+      if (this.interactif && this.interactifType === 'qcm') {
+        texte += propositionsQcm(this, i).texte
+      } else {
+        texte += ajouteChampTexteMathLive(this, i)
+        setReponse(this, i, parseFloat(resultat))
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
@@ -276,4 +326,6 @@ export default function Exercice_conversions_aires(niveau = 1) {
 5 : Conversions d'hectares et ares en m² \n6 : Toutes les conversions",
   ];
   this.besoinFormulaire2CaseACocher = ["Avec des nombres décimaux"];
+  if (context.isHtml && !context.isDiaporama) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+
 }

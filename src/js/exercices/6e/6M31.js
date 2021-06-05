@@ -25,7 +25,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = niveau // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
-  this.sup3 = 1
+  this.sup3 = 1 // interactifType Qcm
   this.titre = titre
   this.consigne = 'Compléter'
   this.spacing = 2

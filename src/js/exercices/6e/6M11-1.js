@@ -5,6 +5,10 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul } from '../../modules/outils.js'
 
 export const titre = 'Périmètres et aires carrés, rectangles et triangles rectangles'
+export const interactifReady = false
+export const interactifType = 'mathLive'
+export const amcReady = false
+export const amcType = 4
 
 /**
  * Un carré, un rectangle et un triangle rectangle sont tracés.
@@ -15,13 +19,19 @@ export const titre = 'Périmètres et aires carrés, rectangles et triangles rec
  * @author Rémi Angot
  * Référence 6M11-1
  */
-export default function Perimetre_ou_aire_de_carres_rectangles_triangles () {
+export default function PerimetreOuAireDeCarresRectanglesTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
+  this.ref = '6M11-1'
   this.consigne = "Calculer le périmètre et l'aire des 3 figures suivantes"
   this.spacing = 2
   this.nbCols = 1
   this.nbColsCorr = 1
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactif = false
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
 
   // eslint-disable-next-line no-undef
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
@@ -59,18 +69,24 @@ export default function Perimetre_ou_aire_de_carres_rectangles_triangles () {
       rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codeSegments('/', 'red', E, F, G, H), codeSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
       triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)
     )
-
-    texteCorr = `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}+${c}~\\text{cm}+${c}~\\text{cm}+${c}~\\text{cm}=${4 * c
+    texteCorr = ''
+    if (this.ref === '6M11-1') {
+      texteCorr += `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}+${c}~\\text{cm}+${c}~\\text{cm}+${c}~\\text{cm}=${4 * c
       }~\\text{cm}$`
+    }
     texteCorr += `<br>$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${c * c
       }~\\text{cm}^2$`
-    texteCorr += `<br>$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}+${l}~\\text{cm}+${L}~\\text{cm}+${l}~\\text{cm}=${2 * L + 2 * l
+    if (this.ref === '6M11-1') {
+      texteCorr += `<br>$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}+${l}~\\text{cm}+${L}~\\text{cm}+${l}~\\text{cm}=${2 * L + 2 * l
       }~\\text{cm}$`
+    }
     texteCorr += `<br>$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${L * l
       }~\\text{cm}^2$`
-    texteCorr += `<br>$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}+${b}~\\text{cm}+${texNombre(
+    if (this.ref === '6M11-1') {
+      texteCorr += `<br>$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}+${b}~\\text{cm}+${texNombre(
       c2.toFixed(1)
     )}~\\text{cm}=${texNombre(pIJK)}~\\text{cm}$`
+    }
     texteCorr += `<br>$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(
       calcul((a * b) / 2)
     )}~\\text{cm}^2$`
