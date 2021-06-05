@@ -5,6 +5,8 @@ import { point3d, vecteur3d, sphere3d, cylindre3d } from '../../modules/3d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 4
 
 export const titre = 'Volume d’une boule'
 
@@ -20,6 +22,8 @@ export default function VolumeBoule () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
+  this.amcReady = amcReady
+  this.amcType = amcType
   this.consigne = 'On arrondira les résultats à ' + nombreDecimal(0.1) + ' cm' + exposant(3) + '. <br>'
   this.video = 'YQF7CBY-uEk'
   this.nbQuestions = 4 // Ici le nombre de questions
