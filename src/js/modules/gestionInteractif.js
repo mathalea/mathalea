@@ -133,6 +133,10 @@ export function propositionsQcm (exercice, i) {
       } else {
         texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
       }
+      if (exercice.autoCorrection[i].options.vertical) {
+        texte += '<br>'
+        texteCorr +='<br>'
+      }
     }
     if (context.isHtml) {
       texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
