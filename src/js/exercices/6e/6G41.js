@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDe
 import { point, tracePoint, milieu, labelPoint, segment, translation2Points, similitude, grille, seyes, mathalea2d } from '../../modules/2d.js'
 
 export const amcReady = true
-export const amcType =3 //type de question AMC 
+export const amcType = 3 // type de question AMC
 
 export const titre = 'Compléter une représentation en perspective cavalière'
 
@@ -355,7 +355,6 @@ export default function RepresenterUnSolide () {
     }
     listeQuestionsToContenu(this)
     if (context.isAmc) {
-      
     }
   }
 

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, objet, randint, prenom, texPrix, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, choice, randint, prenom, texPrix, texNombre, texNombrec, miseEnEvidence, texMasse } from '../../modules/outils.js'
 import { mathalea2d, tableau } from '../../modules/2d.js'
 export const titre = 'Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité'
 
@@ -35,93 +35,186 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
 
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
-    let np, cm, ng, o, pp, pg, pu, tp, index
+    let np, cm, ng, o, pp, pg, pu, tp, index, a
     const fruits = [
-      ['pêches', 4, 10, 30],
-      ['Noix', 5.4, 4, 13],
-      ['cerises', 5.6, 11, 20],
-      ['pommes', 2.2, 20, 40],
-      ['framboises', 15, 1, 5],
-      ['fraises', 7.5, 5, 10],
-      ['citrons', 1.5, 15, 30],
-      ['bananes', 1.5, 15, 25]
+      ['pêches', 0.24],
+      ['noix', 0.29],
+      ['cerises', 0.31],
+      ['pommes', 0.12],
+      ['framboises', 0.75],
+      ['fraises', 0.37],
+      ['citrons', 0.08],
+      ['bananes', 0.09]
     ]
 
-    const a = choice([1, 2, 3])
+    const objets = [
+      ['billes', 0.1],
+      ['bonbons', 0.1],
+      ['bougies', 1.2],
+      ['crayons', 0.5],
+      ['gâteaux', 1.3],
+      ['gommes', 0.4],
+      ['stickers', 0.2],
+      ['cahiers', 1.4]
+    ]
 
     for (let i = 0, texte, texteCorr, monTableau, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      a = choice([1, 2, 3])
       // Boucle principale où i+1 correspond au numéro de la question
+
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: // multiplication
           if (a === 1) {
+            index = randint(0, 7)
             np = randint(1, 10)
             cm = randint(2, 7)
             ng = np * cm
-            pp = np * randint(8, 9) / 10
+            pp = np * randint(8, 9) * ([objets[index][1]]) / 10
             pg = cm * pp
-            o = choice([objet()])
+            o = choice([objets[index][0]])
             texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
             monTableau = tableau({
-              largeurTitre: 9,
+              largeurTitre: 10,
               ligne1: [`\\text{Nombre de ${o}}`, np, ng],
               ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
-          } else {
+          } else if (a === 2) {
             index = randint(0, 7)
             np = randint(1, 10)
             cm = randint(2, 7)
             ng = np * cm
             pp = np * fruits[index][1]
             pg = cm * pp
-            o = choice([fruits()])
-            texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
+            o = choice([fruits[index][0]])
+            texte = `${prenom()} achète ${texMasse(pp)} kg de ${o} pour ${texPrix(np)} €. Quelle masse pourrait être achetée avec ${ng} € ? `
             monTableau = tableau({
-              largeurTitre: 9,
-              ligne1: [`\\text{Nombre de ${o}}`, np, ng],
-              ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pg))}`],
+              largeurTitre: 10,
+              ligne1: [`\\text{Prix des ${o} (en euros)}`, np, ng],
+              ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pp)}`, `${miseEnEvidence(texMasse(pg))}`],
+              flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
+            })
+          } else if (a === 3) {
+            index = randint(0, 7)
+            np = randint(1, 10)
+            cm = randint(2, 7)
+            ng = np * cm
+            pp = np * randint(11, 48) / 10
+            pg = cm * pp
+            texte = `${np} objets occupent un volume de ${texNombre(pp)} cm³. Quel volume serait occupé par ${ng} de ces objets ? `
+            monTableau = tableau({
+              largeurTitre: 10,
+              ligne1: ['\\text{Nombre d\'objets}', np, ng],
+              ligne2: ['\\text{Volume des objets (en cm³)}', `${texNombre(pp)}`, `${miseEnEvidence(texNombrec(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
           }
-          texteCorr = mathalea2d({ xmin: -1, xmax: 15, ymin: 0, ymax: 7, style: 'display: block' }, monTableau)
+          texteCorr = mathalea2d({ xmin: -1, xmax: 16, ymin: 0, ymax: 7.5, style: 'display: block' }, monTableau)
           break
+
         case 2: // division
-          np = randint(1, 10)
-          cm = randint(2, 7)
-          ng = np * cm
-          pp = np * randint(8, 9) / 10
-          pg = cm * pp
-          o = choice([objet()])
-          texte = `${prenom()} achète ${ng} ${o} pour ${texPrix(pg)} €. Combien faudrait-il payer pour en acheter ${np} ? `
-          monTableau = tableau({
-            ligne1: [`\\text{Nombre de ${o}}`, ng, np],
-            ligne2: ['\\text{Prix (en euros)}', `${texPrix(pg)}`, `${miseEnEvidence(texPrix(pp))}`],
-            flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]],
-            largeurTitre: 9
-          })
-          texteCorr = mathalea2d({ xmin: -1, xmax: 15, ymin: 0, ymax: 7, style: 'display: block' }, monTableau)
+          if (a === 1) {
+            index = randint(0, 7)
+            np = randint(1, 10)
+            cm = randint(2, 7)
+            ng = np * cm
+            pp = np * randint(8, 9) / 10
+            pg = cm * pp
+            o = choice([objets[index][0]])
+            texte = `${prenom()} achète ${ng} ${o} pour ${texPrix(pg)} €. Combien faudrait-il payer pour en acheter ${np} ? `
+            monTableau = tableau({
+              ligne1: [`\\text{Nombre de ${o}}`, ng, np],
+              ligne2: ['\\text{Prix (en euros)}', `${texPrix(pg)}`, `${miseEnEvidence(texPrix(pp))}`],
+              flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]],
+              largeurTitre: 9
+            })
+          } else if (a === 2) {
+            np = randint(1, 10)
+            cm = randint(2, 7)
+            ng = np * cm
+            pp = np * randint(40, 60)
+            pg = cm * pp
+            texte = `${prenom()} peint une surface de ${pg} m² en ${ng} jours. Quelle surface serait peinte en ${np} jours ? `
+            monTableau = tableau({
+              largeurTitre: 10,
+              ligne1: ['\\text{Durée (en jours)}', ng, np],
+              ligne2: ['\\text{Surface peinte (en m²)}', `${texNombre(pg)}`, `${miseEnEvidence(texNombre(pp))}`],
+              flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
+            })
+          } else if (a === 3) {
+            index = randint(0, 7)
+            np = randint(1, 10)
+            cm = randint(2, 7)
+            ng = np * cm
+            pp = np * fruits[index][1]
+            pg = cm * pp
+            o = choice([fruits[index][0]])
+            texte = `${prenom()} achète ${texMasse(pg)} kg de ${o} pour ${texPrix(ng)} €. Quelle masse pourrait être achetée avec ${np} € ? `
+            monTableau = tableau({
+              largeurTitre: 10,
+              ligne1: [`\\text{Prix des ${o} (en euros)}`, ng, np],
+              ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pg)}`, `${miseEnEvidence(texMasse(pp))}`],
+              flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
+            })
+          }
+          texteCorr = mathalea2d({ xmin: -1, xmax: 16, ymin: 0, ymax: 7.5, style: 'display: block' }, monTableau)
           break
+
         case 3: // passage par l'unité
-          pu = (1, 19) / 10
-          np = randint(2, 10)
-          pp = pu * np
-          ng = randint(2, 10, np)
-          pg = pu * ng
-          o = choice([objet()])
-          texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
-          monTableau = tableau({
-            ligne1: [`\\text{Nombre de ${o}}`, np, 1, ng],
-            ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pu))}`, `${miseEnEvidence(texPrix(pg))}`],
-            flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]],
-            largeurTitre: 9
-          })
-          texteCorr = mathalea2d({ xmin: -1, xmax: 19, ymin: 0, ymax: 7, style: 'display: block' }, monTableau)
+          if (a === 1) {
+            index = randint(0, 7)
+            pu = randint(1, 19) * ([objets[index][1]]) / 10
+            np = randint(2, 10)
+            pp = pu * np
+            ng = randint(2, 10, np)
+            pg = pu * ng
+            o = choice([objets[index][0]])
+            texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
+            monTableau = tableau({
+              ligne1: [`\\text{Nombre de ${o}}`, np, 1, ng],
+              ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pu))}`, `${miseEnEvidence(texPrix(pg))}`],
+              flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]],
+              largeurTitre: 9
+            })
+          } else if (a === 2) {
+            pu = randint(40, 60)
+            np = randint(2, 10)
+            pp = pu * np
+            ng = randint(2, 10, np)
+            pg = pu * ng
+            texte = `${prenom()} peint une surface de ${pp} m² en ${np} jours. Quelle surface serait peinte en ${ng} jours ? `
+            monTableau = tableau({
+              largeurTitre: 10,
+              ligne1: ['\\text{Durée (en jours)}', np, 1, ng],
+              ligne2: ['\\text{Surface peinte (en m²)}', `${pp}`, `${miseEnEvidence(pu)}`, `${miseEnEvidence(pg)}`],
+              flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]]
+
+            })
+          } else if (a === 3) {
+            index = randint(0, 7)
+            pu = randint(8, 12) * fruits[index][1] / 10
+            np = randint(2, 10)
+            pp = pu * np
+            ng = randint(2, 10, np)
+            pg = pu * ng
+            o = choice([fruits[index][0]])
+            texte = `${prenom()} achète ${texMasse(pp)} kg de ${o} pour ${texPrix(np)} €. Quelle masse pourrait être achetée avec ${ng} € ? `
+            monTableau = tableau({
+              largeurTitre: 10,
+              ligne1: [`\\text{Prix des ${o} (en euros)}`, np, 1, ng],
+              ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pp)}`, `${miseEnEvidence(texMasse(pu))}`, `${miseEnEvidence(texMasse(pg))}`],
+              flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]]
+            })
+          }
+          texteCorr = mathalea2d({ xmin: -1, xmax: 19, ymin: 0, ymax: 7.5, style: 'display: block' }, monTableau)
+
           break
+
         case 4: // Non proportionnalité
           if (a === 1) {
             tp = randint(120, 165) / 100
             np = randint(10, 14)
-            cm = randint(2, 5)
+            cm = randint(2, 4)
             ng = np * cm
             texte = `${prenom()} mesure ${texNombre(tp)} m à ${np} ans. Quelle sera sa taille à ${ng} ans ?`
             texteCorr = 'On ne peut pas savoir car la taille n\'est pas proportionnelle à l\'âge.'
