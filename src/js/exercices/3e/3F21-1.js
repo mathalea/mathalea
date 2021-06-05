@@ -43,19 +43,12 @@ export default function LectureExpressionFonctionsAffines () {
     context.fenetreMathalea2d = [-5.5, -5.5, 5.5, 5.5]
     const Pente = []
     let OrdX0
-    if (!this.lineaire) {
-      Pente.push(randint(-2 * k, 2 * k))
-      Pente.push(randint(-2 * k, 2 * k, [Pente[0]]))
-      Pente.push(randint(-2 * k, 2 * k, [Pente[0], Pente[1]]))
-      Pente.push(randint(-2 * k, 2 * k, [Pente[0], Pente[1], Pente[2]]))
-      Pente.push(randint(-2 * k, 2 * k, [Pente[0], Pente[1], Pente[2], Pente[3]]))
-    } else {
-      Pente.push(randint(-3 * k, 3 * k, [0]))
-      Pente.push(randint(-3 * k, 3 * k, [Pente[0], 0]))
-      Pente.push(randint(-3 * k, 3 * k, [Pente[0], Pente[1], 0]))
-      Pente.push(randint(-3 * k, 3 * k, [Pente[0], Pente[1], Pente[2], 0]))
-      Pente.push(randint(-3 * k, 3 * k, [Pente[0], Pente[1], Pente[2], Pente[3], 0]))
-    }
+
+    Pente.push(randint(-3 * k, 3 * k, 0))
+    Pente.push(randint(-3 * k, 3 * k, [Pente[0], 0]))
+    Pente.push(randint(-3 * k, 3 * k, [Pente[0], Pente[1], 0]))
+    Pente.push(randint(-3 * k, 3 * k, [Pente[0], Pente[1], Pente[2], 0]))
+    Pente.push(randint(-3 * k, 3 * k, [Pente[0], Pente[1], Pente[2], Pente[3], 0]))
     const d = []
     for (let i = 0; i < 5; i++) {
       if (this.lineaire) { OrdX0 = 0 } else { OrdX0 = randint(-1 + Pente[i] / k, 1 + Pente[i] / k) }
