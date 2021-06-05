@@ -1,8 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,arrondi,simplificationDeFractionAvecEtapes,calcul,texNombrec,miseEnEvidence,texFraction} from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Calculer la fraction d’un nombre'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 4
 
 /**
  * Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.
@@ -16,6 +21,10 @@ export default function Fraction_d_un_nombre() {
   this.titre = titre;
   this.nbQuestions = 5;
   this.consigne = "Calculer";
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
+  this.amcReady = amcReady
+  this.amcType = amcType
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2);
   context.isHtml ? (this.spacing = 2) : (this.spacing = 2);
   this.sup = true;
@@ -162,6 +171,9 @@ export default function Fraction_d_un_nombre() {
             calcul(a / b)
           )}\\times${n}=${texNombrec(calcul((n / b) * a))}$`;
       }
+
+      setReponse(this, i, calcul(n*a/b))
+      texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
