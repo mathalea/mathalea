@@ -5,6 +5,7 @@ import { messageFeedback } from './messages.js'
 import { addElement, get, setStyles } from './dom.js'
 import { ComputeEngine, parse } from '@cortex-js/math-json'
 import Fraction from './Fraction.js'
+import Grandeur from './Grandeur.js'
 
 export function exerciceInteractif (exercice) {
   if (context.isAmc) {
@@ -226,9 +227,11 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
     return ''
   }
 }
-export function ajouteChampTexteMathLive (exercice, i) {
+export function ajouteChampTexteMathLive (exercice, i, style = '') {
   if (context.isHtml && exercice.interactif) {
-    return `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field><div style="margin-top:10px" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
+    if (style === '') {
+      return `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field><div style="margin-top:10px" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
+    } else return `<math-field virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field><div style="margin-top:10px" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
   } else {
     return ''
   }
@@ -322,7 +325,6 @@ export function exerciceMathLive (exercice) {
               }
               // Pour le calcul numérique, on transforme la saisie en nombre décimal
               if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
-              // console.log(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))
               if (engine.same(
                 engine.canonical(parse(saisie)),
                 engine.canonical(parse(reponse))
@@ -350,6 +352,11 @@ export function exerciceMathLive (exercice) {
                   const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
                   if (fSaisie.num === reponse.num && fSaisie.den === reponse.den) resultat = 'OK'
                 }
+              }
+            } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'grandeur') {
+              const grandeurSaisie = saisieToGrandeur(saisie)
+              if (grandeurSaisie) {
+                if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
               }
             } else { // Format texte
               if (saisie === reponse) {
@@ -381,3 +388,10 @@ export function exerciceMathLive (exercice) {
 //     return texte
 //   }
 // }
+
+function saisieToGrandeur (saisie) {
+  const split = saisie.split('\\operatorname{')
+  const mesure = parseFloat(split[0].replace(',', '.'))
+  const unite = split[1].substring(0, split[1].length - 1)
+  return new Grandeur(mesure, unite)
+}

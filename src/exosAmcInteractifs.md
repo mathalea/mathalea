@@ -1,7 +1,6 @@
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |2G50|Déterminer le coefficient directeur d'une droite.|KO|KO|OK|mathLive|
-|3F21-1|Déterminer une fonction affine|OK|AMCOpen|KO|KO|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
 |3F13-1|Lecture graphique d’images et d’antécédents|KO|KO|OK|mathLive|
@@ -48,10 +47,11 @@
 |5L14-2|Substitution|OK|AMCNum|OK|numerique|
 |5L14|Calculer la valeur d’une expression littérale|KO|KO|OK|mathLive|
 |5M20|Calculs de volumes|KO|KO|OK|qcm,mathLive|
-|5N13-2|Égalités entre fractions simples|OK|qcmMono|KO|KO|
-|5N13|Simplification de fractions|OK|AMCOpen|KO|KO|
+|5N13-2|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
+|5N13|Simplification de fractions|OK|AMCOpen|OK|mathLive|
 |5N14-3|Fractions égales et égalité des produits en croix|OK|qcmMono|OK|qcm|
-|5N20|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|export const interactifType non présent|
+|5N20|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|mathLive|
+|5P11-1|Problème de vitesse|KO|KO|OK|mathLive|
 |5R10|Trouver le terme manquant d’une somme de nombres relatifs|OK|AMCNum|OK|numerique|
 |5R20-2|Addition à trou de deux entiers relatifs|OK|qcmMono|OK|export const interactifType non présent|
 |5R20-3|Additions de 5 nombres relatifs|OK|AMCNum|OK|numerique|
@@ -89,7 +89,7 @@
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|export const interactifType non présent|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|export const interactifType non présent|
 |6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|OK|numerique|
-|6N41|Égalités entre fractions simples|OK|qcmMono|OK|export const interactifType non présent|
+|6N41|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
 |6N43-2|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|KO|KO|
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|export const interactifType non présent|
 |6N43|Critères de divisibilité|OK|qcmMono|OK|export const interactifType non présent|
