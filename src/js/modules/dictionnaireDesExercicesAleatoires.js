@@ -582,7 +582,11 @@ export default {
   "3G42": {
     "titre": "Volume d’une boule",
     "url": "/exercices/3e/3G42.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3G42"
@@ -2559,8 +2563,16 @@ export default {
   "6M23": {
     "titre": "Conversions d’aires",
     "url": "/exercices/6e/6M23.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "6M23"
   },
   "6M25": {
@@ -2914,8 +2926,13 @@ export default {
   "6N33": {
     "titre": "Calculer la fraction d’un nombre",
     "url": "/exercices/6e/6N33.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N33"
   },
   "6N34": {
