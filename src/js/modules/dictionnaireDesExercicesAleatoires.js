@@ -1688,7 +1688,8 @@ export default {
       "num": 1,
       "text": "qcmMono"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5N13-2"
   },
   "5N13": {
@@ -1699,7 +1700,8 @@ export default {
       "num": 3,
       "text": "AMCOpen"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5N13"
   },
   "5N14-2": {
@@ -1751,7 +1753,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "mathLive",
     "name": "5N20"
   },
   "5P10": {
@@ -1765,7 +1767,8 @@ export default {
     "titre": "Problème de vitesse",
     "url": "/exercices/5e/5P11-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5P11-1"
   },
   "5R10-0": {
@@ -2910,7 +2913,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "mathLive",
     "name": "6N41"
   },
   "6N43-2": {
