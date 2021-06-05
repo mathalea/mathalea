@@ -21,6 +21,7 @@ export const interactifReady = true
 
 export const amcReady = true
 export const amcType = 4
+export const interactifType = 'numerique'
 
 /**
  * Effectuer la somme de 5 nombres relatifs.
@@ -43,6 +44,7 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
   this.nbColsCorr = 1
   this.interactif = true
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
 

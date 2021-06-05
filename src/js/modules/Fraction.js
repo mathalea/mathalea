@@ -355,6 +355,15 @@ class Fraction {
   }
 
   /**
+   * Retourne true si la fraction est égale et "plus simple"
+   * @param {Fraction} f2
+   * @return {boolean}
+   */
+  estUneSimplification (f2) {
+    return this.egal(f2) && (Math.abs(this.num) < Math.abs(f2.num))
+  }
+
+  /**
    * Retourne true si la fraction courante est inférieure ou égale à f2
    * @param {Fraction} f2
    * @return {boolean}

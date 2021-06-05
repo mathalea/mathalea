@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, te
 export const titre = 'Quart'
 export const amcReady = true
 export const interactifReady = true
-
+export const interactifType = 'numerique'
 export const amcType = 4
 
 /**
@@ -18,6 +18,7 @@ export default function Quart () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.consigne = 'Calculer'
   this.nbQuestions = 10
   this.nbCols = 2

@@ -1534,7 +1534,7 @@ export function nombreDecimal (expression, arrondir = false) {
   if (!arrondir) {
     return stringNombre(calcul(expression))
   } else {
-    return stringNombre(calcul(expression, 1))
+    return stringNombre(calcul(expression, arrondir))
   }
 }
 
@@ -1814,7 +1814,7 @@ export function objetM () {
 * @author Mireille Gain
 */
 export function objet () {
-  return choice(['billes', 'bougies', 'cartes de voeux', 'gommes', 'images', 'auto-collants', 'bonbons', 'cahiers', 'livres', 'stylos'])
+  return choice(['lots de billes', 'lots de bonbons', 'bougies', 'cartes de voeux', 'crayons', 'gâteaux', 'gommes', 'photos', 'stickers', 'cahiers'])
 }
 
 /**
@@ -2427,7 +2427,7 @@ export function texPrix (nb) {
   // Remplace le . par la ,
   const nombre = Number(nb)
   let result
-  if (nombre === nombre.toFixed(0)) {
+  if (nombre.toString() === nombre.toFixed(0)) {
     result = nombre
   } else {
     result = nombre.toFixed(2).toString().replace('.', ',') // Ne gère pas l'espace des milliers
@@ -6763,9 +6763,9 @@ export function exportQcmAmc (exercice, idExo) {
     switch (type) {
       case 1: // question QCM 1 bonne réponse
         texQr += `\\element{${ref}}{\n `
-        if (j === 0 && exercice.introduction !== '' && exercice.introduction !== undefined){
-          texQr += `${exercice.introduction}\\\\ \n`
-        }
+        //  if (j === 0 && exercice.introduction !== '' && exercice.introduction !== undefined) {
+        //  texQr += `${exercice.introduction}\\\\ \n`
+        // }
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
         texQr += `\t\\begin{${horizontalite}}`

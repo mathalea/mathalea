@@ -4,8 +4,9 @@ import { shuffle2tableaux, calcul, listeQuestionsToContenu, combinaisonListes, r
 import { propositionsQcm, elimineDoublons } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType =1 // QCM 
+export const amcType = 1 // QCM 
 export const interactifReady = true
+export const interactifType = 'qcm'
 
 
 export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)'
@@ -22,6 +23,7 @@ export default function MultiplierPar001 () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.nbQuestions = 4 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX

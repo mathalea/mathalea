@@ -4,7 +4,7 @@ import { mathalea2d } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions'
 import { combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 
-export const titre = 'Faire des camenberts pour travailler les fractions'
+export const titre = 'Faire des camemberts pour travailler les fractions'
 
 /**
  * Fonction permettant aux enseignants de proposer rapidement des diques partagés en parts

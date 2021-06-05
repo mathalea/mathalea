@@ -133,8 +133,18 @@ export async function loadMathLive () {
           '.': { mode: 'math', value: ',' }
         },
         // virtualKeyboards: 'numeric roman',
-        virtualKeyboardMode: 'onfocus'
+        virtualKeyboardMode: 'manual'
+        // "auto": on touch-enabled devices, show the virtual keyboard panel when the mathfield is focused, otherwise, don’t show it.
+        // "manual": a toggle button to control the virtual keyboard panel is displayed in the mathfield
+        // "onfocus": the virtual keyboard panel is displayed when the mathfield is focused
+        // "off": never show the virtual keyboard panel
       })
+      if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
+        // Sur les écrans tactils, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
+        mf.setOptions({
+          virtualKeyboardMode: 'onfocus'
+        })
+      }
       mf.style = 'font-size: 20px; margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);}'
     }
   }
@@ -185,8 +195,8 @@ const collegeKeyboardLayer = {
         { latex: '\\times' },
         { class: 'separator w5' },
         { class: 'small', latex: '\\frac{#0}{#0}' },
-        { class: 'separator' },
-        { class: 'separator' }
+        { label: '=', key: '=' },
+        { latex: 'f' }
       ],
       [
         { class: 'tex', label: '<i>c</i>' },
@@ -197,9 +207,9 @@ const collegeKeyboardLayer = {
         { label: '3', key: '3' },
         { latex: '-' },
         { class: 'separator w5' },
-        { class: 'separator' },
-        { class: 'separator' },
-        { class: 'separator' }
+        { label: ';', key: ';' },
+        { label: 'oui', key: 'oui' },
+        { label: 'non', key: 'non' }
       ],
       [
         { latex: '(' },

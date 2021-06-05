@@ -1,6 +1,8 @@
-import Egalites_entre_fractions from '../6e/6N41.js'
+import EgalitesEntreFractions from '../6e/6N41.js'
 export const amcReady = true
-export const amcType =1 //type de question AMC 
+export const amcType = 1 // type de question AMC
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const titre = 'Égalités entre fractions simples'
 
@@ -9,7 +11,9 @@ export const titre = 'Égalités entre fractions simples'
  * @author Rémi Angot
  * 5N13-2 et 6N41
  */
-export default function Egalites_entre_fractions5e() {
-    Egalites_entre_fractions.call(this)
-    this.titre = titre;
+export default function EgalitesEntreFractions5e () {
+  EgalitesEntreFractions.call(this)
+  this.titre = titre
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
 }

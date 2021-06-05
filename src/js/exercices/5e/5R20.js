@@ -5,6 +5,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
 export const interactifReady = true
+export const interactifType = 'qcm'
 
 
 export const titre = 'Addition de deux entiers relatifs'
@@ -24,6 +25,7 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.consigne = 'Calculer'
   this.spacing = 2
   this.qcmDisponible = true

@@ -7,7 +7,7 @@ export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const amcType = 5 // Question numérique
 export const amcReady = true // Il reste à gérer les options numériques
 export const interactifReady = true
-
+export const interactifType = 'numerique'
 
 /**
  * Exercices sur le théorème de Pythagore avec MathALEA2D
@@ -21,6 +21,7 @@ export default function Pythagore2D () {
   this.amcType = amcType
   this.interactifReady = interactifReady
   this.interactif = true
+  this.interactifType = interactifType
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1
@@ -39,7 +40,7 @@ export default function Pythagore2D () {
     } else if (this.sup === 2) {
       this.consigne = "Dans chaque cas, compléter l'égalité en utilisant le théorème de Pythagore."
     } else {
-      this.consigne = 'Dans chaque cas, calculer la longueur manquante.'
+      this.consigne = 'Dans chaque cas, calculer la longueur manquante (si nécessaire, l\'arrondir au dixième près).'
     }
     if (this.sup === 2 || this.typeExercice === 'Calculer') {
       listeTypeDeQuestions = combinaisonListes(['AB', 'BC', 'AC'], this.nbQuestions)

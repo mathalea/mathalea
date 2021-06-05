@@ -24,6 +24,12 @@ export default function Exercice () {
   this.besoinFormulaireNumerique = false // Sinon this.besoinFormulaireNumerique = [texte,max,tooltip facultatif];
   this.besoinFormulaireTexte = false // Sinon this.besoinFormulaireTexte = [texte,tooltip];
   this.besoinFormulaireCaseACocher = false // Sinon this.besoinFormulaireCaseACocher = [texte];
+  this.besoinFormulaire2Numerique = false // Sinon this.besoinFormulaire2Numerique = [texte,max,tooltip facultatif];
+  this.besoinFormulaire2Texte = false // Sinon this.besoinFormulaire2Texte = [texte,tooltip];
+  this.besoinFormulaire2CaseACocher = false // Sinon this.besoinFormulaire2CaseACocher = [texte];
+  this.besoinFormulair2eNumerique = false // Sinon this.besoinFormulair2eNumerique = [texte,max,tooltip facultatif];
+  this.besoinFormulair2eTexte = false // Sinon this.besoinFormulair2eTexte = [texte,tooltip];
+  this.besoinFormulair2eCaseACocher = false // Sinon this.besoinFormulair2eCaseACocher = [texte];
   this.consigneModifiable = true
   this.nbQuestionsModifiable = true
   this.nbColsModifiable = true

@@ -41,6 +41,20 @@ export default {
     "interactifReady": false,
     "name": "1N11"
   },
+  "2F20": {
+    "titre": "Reconnaître une fonction affine.",
+    "url": "/exercices/2e/2F20.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F20"
+  },
+  "2F21": {
+    "titre": "Déterminer une fonction affine à partir de deux images.",
+    "url": "/exercices/2e/2F21.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F21"
+  },
   "2G10": {
     "titre": "Utiliser la distance entre deux points dans un repère orthonormé",
     "url": "/exercices/2e/2G10.js",
@@ -61,6 +75,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "2G12"
+  },
+  "2G50-1": {
+    "titre": "Déterminer une équation réduite de droite",
+    "url": "/exercices/2e/2G50-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G50-1"
+  },
+  "2G50": {
+    "titre": "Déterminer le coefficient directeur d'une droite.",
+    "url": "/exercices/2e/2G50.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2G50"
   },
   "2L10": {
     "titre": "Développer avec les identités remarquables",
@@ -248,14 +277,16 @@ export default {
     "titre": "Lectures d’images et d’antécédents depuis un tableau de valeurs",
     "url": "/exercices/3e/3F10.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F10"
   },
   "3F12-2": {
     "titre": "Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique",
     "url": "/exercices/3e/3F12-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F12-2"
   },
   "3F12-3": {
@@ -283,7 +314,8 @@ export default {
     "titre": "Lecture graphique d’images et d’antécédents",
     "url": "/exercices/3e/3F13-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F13-1"
   },
   "3F13-2": {
@@ -308,14 +340,16 @@ export default {
       "num": 3,
       "text": "AMCOpen"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F21-1"
   },
   "3F21-2": {
     "titre": "Déterminer une fonction affine par la donnée des images de deux nombres",
     "url": "/exercices/3e/3F21-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F21-2"
   },
   "3F21-3": {
@@ -528,14 +562,19 @@ export default {
     "titre": "Volume d’une boule",
     "url": "/exercices/3e/3G42.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G42"
   },
   "3G43": {
     "titre": "Calculs de volumes",
     "url": "/exercices/3e/3G43.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "3G43"
   },
   "3L10-1": {
@@ -592,7 +631,8 @@ export default {
     "titre": "Calcul mental et calcul littéral",
     "url": "/exercices/3e/3L11-5.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L11-5"
   },
   "3L11-6": {
@@ -666,7 +706,8 @@ export default {
     "titre": "Résoudre une équation $x^2 = a$",
     "url": "/exercices/3e/3L15-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L15-1"
   },
   "3L15": {
@@ -696,14 +737,16 @@ export default {
     "titre": "Calculer des effectifs et des fréquences",
     "url": "/exercices/3e/3S12.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3S12"
   },
   "3S15": {
     "titre": "Calculer des étendues",
     "url": "/exercices/3e/3S15.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3S15"
   },
   "3S20": {
@@ -724,7 +767,8 @@ export default {
     "titre": "Signe d’un produit ou d’un quotient de nombres relatifs",
     "url": "/exercices/4e/4C10-0.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C10-0"
   },
   "4C10-1": {
@@ -745,14 +789,16 @@ export default {
     "titre": "Multiplication de deux entiers relatifs",
     "url": "/exercices/4e/4C10-3.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C10-3"
   },
   "4C10-4": {
     "titre": "Quotient de deux entiers relatifs",
     "url": "/exercices/4e/4C10-4.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C10-4"
   },
   "4C10-5": {
@@ -773,7 +819,8 @@ export default {
     "titre": "Calculs utilisant les priorités opératoires",
     "url": "/exercices/4e/4C11.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C11"
   },
   "4C21-1": {
@@ -866,7 +913,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "4C32-1"
   },
   "4C32-2": {
@@ -891,7 +938,8 @@ export default {
       "num": 4,
       "text": "AMCNum"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "numerique",
     "name": "4C32"
   },
   "4C33-1": {
@@ -970,7 +1018,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "4G20-2"
   },
   "4G20-5": {
@@ -989,7 +1037,7 @@ export default {
       "text": "AMCOpenNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "4G20"
   },
   "4G20MG32": {
@@ -1008,7 +1056,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "4G21"
   },
   "4G22": {
@@ -1082,11 +1130,22 @@ export default {
     "interactifReady": false,
     "name": "4G51"
   },
+  "4G52": {
+    "titre": "Exercice de repérage dans un pavé droit",
+    "url": "/exercices/4e/4G52.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4G52"
+  },
   "4G53": {
     "titre": "Calculs de volumes",
     "url": "/exercices/4e/4G53.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "4G53"
   },
   "4L10-1": {
@@ -1455,7 +1514,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "5L10-2"
   },
   "5L10-3": {
@@ -1522,7 +1581,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "5L14-2"
   },
   "5L14-3": {
@@ -1557,7 +1616,8 @@ export default {
     "titre": "Calculer la valeur d’une expression littérale",
     "url": "/exercices/5e/5L14.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5L14"
   },
   "5L15": {
@@ -1578,7 +1638,11 @@ export default {
     "titre": "Calculs de volumes",
     "url": "/exercices/5e/5M20.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "5M20"
   },
   "5N11-1": {
@@ -1654,7 +1718,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "5N14-3"
   },
   "5N14": {
@@ -1727,7 +1791,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "5R10"
   },
   "5R11-2": {
@@ -1779,7 +1843,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "5R20-3"
   },
   "5R20-4": {
@@ -1805,7 +1869,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "5R20"
   },
   "5R21": {
@@ -1817,7 +1881,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "5R21"
   },
   "5R22-2": {
@@ -1836,7 +1900,7 @@ export default {
       "text": "AMCOpenNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "5R22"
   },
   "5S12": {
@@ -1911,7 +1975,10 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "6C10-2"
   },
   "6C10-3": {
@@ -1923,7 +1990,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "6C10-3"
   },
   "6C10-4": {
@@ -1935,7 +2002,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C10-4"
   },
   "6C10-5": {
@@ -1958,7 +2025,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C10"
   },
   "6C10bis": {
@@ -2011,7 +2078,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C20"
   },
   "6C21": {
@@ -2034,7 +2101,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "6C23"
   },
   "6C30-1": {
@@ -2046,7 +2113,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C30-1"
   },
   "6C30-2": {
@@ -2058,7 +2125,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C30-2"
   },
   "6C30-3": {
@@ -2070,7 +2137,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "6C30-3"
   },
   "6C30-4": {
@@ -2082,7 +2149,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "6C30-4"
   },
   "6C30-5": {
@@ -2094,7 +2161,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "6C30-5"
   },
   "6C30": {
@@ -2106,7 +2173,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C30"
   },
   "6C31-2": {
@@ -2125,7 +2192,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C31"
   },
   "6C32": {
@@ -2144,7 +2211,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C33"
   },
   "6C34": {
@@ -2156,7 +2223,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C34"
   },
   "6C35": {
@@ -2334,7 +2401,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": 1,
+    "interactifType": "qcm",
     "name": "6G25-1"
   },
   "6G25-2": {
@@ -2475,8 +2542,16 @@ export default {
   "6M30": {
     "titre": "Calculs de volumes",
     "url": "/exercices/6e/6M30.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "6M30"
   },
   "6M31-2": {
@@ -2489,8 +2564,16 @@ export default {
   "6M31": {
     "titre": "Conversions de volume",
     "url": "/exercices/6e/6M31.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "6M31"
   },
   "6N10-1": {
@@ -2779,7 +2862,8 @@ export default {
       "num": 4,
       "text": "AMCNum"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "numerique",
     "name": "6N33-1"
   },
   "6N33-2": {
@@ -2886,7 +2970,7 @@ export default {
     "name": "6P11-1"
   },
   "6P11-2": {
-    "titre": "Exercice exemple",
+    "titre": "Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité",
     "url": "/exercices/6e/6P11-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2929,7 +3013,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM000"
   },
   "CM001": {
@@ -2941,7 +3025,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM001"
   },
   "CM002": {
@@ -2953,7 +3037,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM002"
   },
   "CM003": {
@@ -2965,7 +3049,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "mathLive",
     "name": "CM003"
   },
   "CM004": {
@@ -2977,7 +3061,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM004"
   },
   "CM005": {
@@ -2989,7 +3073,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM005"
   },
   "CM006": {
@@ -3001,7 +3085,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM006"
   },
   "CM007": {
@@ -3013,7 +3097,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM007"
   },
   "CM008": {
@@ -3025,7 +3109,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM008"
   },
   "CM009": {
@@ -3037,7 +3121,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM009"
   },
   "CM010": {
@@ -3049,7 +3133,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM010"
   },
   "CM011": {
@@ -3061,7 +3145,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM011"
   },
   "CM012": {
@@ -3073,7 +3157,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM012"
   },
   "CM013": {
@@ -3085,7 +3169,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM013"
   },
   "CM014": {
@@ -3097,7 +3181,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM014"
   },
   "CM015": {
@@ -3109,7 +3193,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM015"
   },
   "CM016": {
@@ -3121,7 +3205,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM016"
   },
   "CM017": {
@@ -3133,7 +3217,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM017"
   },
   "CM018": {
@@ -3145,7 +3229,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM018"
   },
   "CM019": {
@@ -3251,28 +3335,14 @@ export default {
     "name": "P011"
   },
   "P012": {
-    "titre": "Faire des camenberts pour travailler les fractions",
+    "titre": "Faire des camemberts pour travailler les fractions",
     "url": "/exercices/Profs/P012.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P012"
   },
-  "2G50": {
-    "titre": "Coefficient directeur",
-    "url": "/exercices/beta/2G50.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2G50"
-  },
-  "2G50_1": {
-    "titre": "Equation réduite de droite",
-    "url": "/exercices/beta/2G50_1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2G50_1"
-  },
   "2G51-1": {
-    "titre": "Equation cartésienne de droite",
+    "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur.",
     "url": "/exercices/beta/2G51-1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3284,6 +3354,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "2G51"
+  },
+  "2G52": {
+    "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
+    "url": "/exercices/beta/2G52.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G52"
   },
   "beta1F10": {
     "titre": "Calculs de dérivés",
@@ -3530,13 +3607,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betareperagepave"
-  },
-  "betareperagepave3d": {
-    "titre": "Exercice de repérage dans un pavé droit",
-    "url": "/exercices/beta/betareperagepave3d.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betareperagepave3d"
   },
   "betarotation3d": {
     "titre": "Rotation 3d de polygones",

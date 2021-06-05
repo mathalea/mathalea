@@ -1,11 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, miseEnEvidence, texFraction } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
+import Fraction from '../../modules/Fraction.js'
 export const titre = 'Égalités entre fractions simples'
 export const amcReady = true
-export const amcType =1 // QCM 
+export const amcType = 1 // QCM 
 export const interactifReady = true
+export const interactifType = 'mathLive' // On pourrait ajouter QCM
 
 
 /**
@@ -22,6 +24,7 @@ export default function EgalitesEntreFractions () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.consigne = 'Compléter les égalités.'
   this.spacing = 2
   this.spacingCorr = 2
@@ -154,7 +157,7 @@ export default function EgalitesEntreFractions () {
       } else {
         // écrire un entier sous la forme d'une fraction
         a = randint(1, 9)
-        if (this.interactif && !context.isAmc) {
+        if (this.interactif && !context.isAmc && this.interactif === 'qcm') {
           d = randint(3, 9, [a, 2 * a])
         } else {
           d = randint(2, 9)
@@ -168,7 +171,7 @@ export default function EgalitesEntreFractions () {
         switch (choix) {
           case 0 :
             texte = `$${a} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = ${texFraction('\\phantom{0000}', d)}$`
-            if (this.interactif) {
+            if (this.interactif && this.interactifType !== 'mathLive') {
               texte = `$${a} = \\ldots$`
             }
             texteCorr = `$${a} = \\dfrac{${a}}{1} =${texFraction(a + miseEnEvidence('\\times' + d), '1' + miseEnEvidence('\\times' + d))} = ${texFraction(c, d)}$`
@@ -231,8 +234,12 @@ export default function EgalitesEntreFractions () {
             break
         }
       }
-      if (this.interactif) {
-        texte += '<br>' + propositionsQcm(this, i).texte
+      // if (this.interactif) {
+      //   texte += '<br>' + propositionsQcm(this, i).texte
+      // }
+      if (this.interactif && context.isHtml) {
+        setReponse(this, i, new Fraction(c, d), { formatInteractif: 'fraction' })
+        texte += ajouteChampTexteMathLive(this, i)
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
