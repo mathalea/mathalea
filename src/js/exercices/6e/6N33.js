@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,arrondi,simplificationDeFractionAvecEtapes,calcul,texNombrec,miseEnEvidence,texFraction} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, simplificationDeFractionAvecEtapes, calcul, texNombrec, miseEnEvidence, texFraction } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Calculer la fraction d’un nombre'
@@ -16,26 +16,26 @@ export const amcType = 4
  * @author Rémi Angot + Jean-Claude Lhote
  * référence 6N33
  */
-export default function Fraction_d_un_nombre() {
-  Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = titre;
-  this.nbQuestions = 5;
-  this.consigne = "Calculer";
+export default function FractionDUnNombre () {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.titre = titre
+  this.nbQuestions = 5
+  this.consigne = 'Calculer'
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.amcReady = amcReady
   this.amcType = amcType
-  context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2);
-  context.isHtml ? (this.spacing = 2) : (this.spacing = 2);
-  this.sup = true;
-  this.sup2 = false;
-  this.nbCols = 2;
-  this.nbColsCorr = 1;
+  context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
+  context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+  this.sup = true
+  this.sup2 = false
+  this.nbCols = 2
+  this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []; // Liste de questions
-    this.listeCorrections = []; // Liste de questions corrigées
-    let liste_fractions = [
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    const listeFractions = [
       [1, 2],
       [1, 3],
       [2, 3],
@@ -66,42 +66,42 @@ export default function Fraction_d_un_nombre() {
       [1, 10],
       [3, 10],
       [7, 10],
-      [9, 10],
-    ]; // Couples de nombres premiers entre eux
+      [9, 10]
+    ] // Couples de nombres premiers entre eux
 
     for (
       let i = 0, a, b, k, n, j, fraction, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      fraction = choice(liste_fractions);
-      a = fraction[0];
-      b = fraction[1];
-      k = randint(1, 11);
-      j = false;
-      if (this.sup) n = b * k;
-      else if (randint(0, 1) == 0) n = b * k;
-      else n = randint(10, b * 11);
-      texte = `$${texFraction(a, b)}\\times${n}=$`;
-      texteCorr = ``;
-      if (a == 1) {
+      fraction = choice(listeFractions)
+      a = fraction[0]
+      b = fraction[1]
+      k = randint(1, 11)
+      j = false
+      if (this.sup) n = b * k
+      else if (randint(0, 1) === 0) n = b * k
+      else n = randint(10, b * 11)
+      texte = `$${texFraction(a, b)}\\times${n}=$`
+      texteCorr = ''
+      if (a === 1) {
         // Si n * 1/b
-        if (calcul(n / b - arrondi(n / b, 4)) == 0)
+        if (calcul(n / b - arrondi(n / b, 4)) === 0) {
           texteCorr += `$${texFraction(
             a,
             miseEnEvidence(b)
           )}\\times${n}=${n}\\div${miseEnEvidence(b)}=${texNombrec(
             calcul(n / b)
-          )}$`;
-        // si résultat décimal
-        else
+          )}$`
+        } else { // si résultat décimal
           texteCorr += `$${texFraction(a, b)}\\times${n}=${texFraction(
             n,
             b
-          )}${simplificationDeFractionAvecEtapes(n, b)}$`; //si résultat non décimal
+          )}${simplificationDeFractionAvecEtapes(n, b)}$`
+        } // si résultat non décimal
       } else {
-        if (calcul(n / b - arrondi(n / b, 4)) == 0) {
-          //si n/b décimal calcul (n/b)*a
+        if (calcul(n / b - arrondi(n / b, 4)) === 0) {
+          // si n/b décimal calcul (n/b)*a
           texteCorr += `$${texFraction(
             a,
             miseEnEvidence(b)
@@ -109,9 +109,9 @@ export default function Fraction_d_un_nombre() {
             b
           )})\\times${a}=${texNombrec(
             calcul(n / b)
-          )}\\times${a}=${texNombrec(calcul((n / b) * a))}$<br>`;
+          )}\\times${a}=${texNombrec(calcul((n / b) * a))}$<br>`
         } else {
-          if (calcul((n * a) / b - arrondi((n * a) / b, 4)) == 0) {
+          if (calcul((n * a) / b - arrondi((n * a) / b, 4)) === 0) {
             // si n/b non décimal, alors on se rabat sur (n*a)/b
             texteCorr += ` $${texFraction(
               a,
@@ -120,7 +120,7 @@ export default function Fraction_d_un_nombre() {
               b
             )}=${calcul(n * a)}\\div${miseEnEvidence(
               b
-            )}=${texNombrec(calcul((n / b) * a))}$<br>`;
+            )}=${texNombrec(calcul((n / b) * a))}$<br>`
           } else {
             // si autre méthode et résultat fractionnaire calcul (n*a)/b
             texteCorr += ` $${texFraction(
@@ -130,12 +130,12 @@ export default function Fraction_d_un_nombre() {
               b
             )}=${calcul(n * a)}\\div${miseEnEvidence(
               b
-            )}=${texFraction(n * a, miseEnEvidence(b))}$<br>`;
+            )}=${texFraction(n * a, miseEnEvidence(b))}$<br>`
           }
-          j = true;
+          j = true
         }
         if (
-          calcul((n * a) / b - arrondi((n * a) / b, 4)) == 0 &&
+          calcul((n * a) / b - arrondi((n * a) / b, 4)) === 0 &&
           this.sup2 &&
           !j
         ) {
@@ -147,10 +147,10 @@ export default function Fraction_d_un_nombre() {
             b
           )}=${calcul(n * a)}\\div${miseEnEvidence(b)}=${texNombrec(
             calcul((n / b) * a)
-          )}$<br>`;
+          )}$<br>`
         } else {
           // si autre méthode et résultat fractionnaire calcul (n*a)/b
-          if (this.sup2 && !j)
+          if (this.sup2 && !j) {
             texteCorr += ` $${texFraction(
               a,
               miseEnEvidence(b)
@@ -158,10 +158,11 @@ export default function Fraction_d_un_nombre() {
               b
             )}=${calcul(n * a)}\\div${miseEnEvidence(
               b
-            )}=${texFraction(n * a, miseEnEvidence(b))}$<br>`;
+            )}=${texFraction(n * a, miseEnEvidence(b))}$<br>`
+          }
         }
         // si autre méthode et a/b décimal calcul (a/b)*n
-        if ((b == 2 || b == 4 || b == 5 || b == 8 || b == 10) && this.sup2)
+        if ((b === 2 || b === 4 || b === 5 || b === 8 || b === 10) && this.sup2) {
           texteCorr += ` $${texFraction(
             a,
             miseEnEvidence(b)
@@ -169,22 +170,25 @@ export default function Fraction_d_un_nombre() {
             b
           )})\\times${n}=${texNombrec(
             calcul(a / b)
-          )}\\times${n}=${texNombrec(calcul((n / b) * a))}$`;
+          )}\\times${n}=${texNombrec(calcul((n / b) * a))}$`
+        }
       }
 
-      setReponse(this, i, calcul(n*a/b))
+      setReponse(this, i, calcul(n * a / b))
+      if (n * a % b !== 0) {
+        setReponse(this, i, [calcul(n * a / b), texFraction(n * a, b)])
+      }
       texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte);
-        this.listeCorrections.push(texteCorr);
-        i++;
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
       }
-      cpt++;
+      cpt++
     }
-    listeQuestionsToContenu(this);
-  };
-  this.besoinFormulaireCaseACocher = ["Forcer résultat entier", true];
-  this.besoinFormulaire2CaseACocher = ["Plusieurs méthodes", false];
+    listeQuestionsToContenu(this)
+  }
+  this.besoinFormulaireCaseACocher = ['Forcer résultat entier', true]
+  this.besoinFormulaire2CaseACocher = ['Plusieurs méthodes', false]
 }
-
