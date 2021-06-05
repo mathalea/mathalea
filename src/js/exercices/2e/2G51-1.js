@@ -35,14 +35,14 @@ export default function equationcartesienne () {
           yu = randint(-5, 5)
           texte = `passant par le point $A$ de coordonnées : $A(${xA};${yA})$ et ayant le vecteur $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ comme vecteur directeur.`
           if (this.sup === 1) {
-            texteCorr = 'On sait qu\'une équation cartésienne de la droite $(AB)$ est de la forme '
-            texteCorr += ' $(d) : ax+by+c=0$, avec $(a;b)\\neq (0;0)$.'
-            texteCorr += '<br>On sait aussi que dans ces conditions, un vecteur directeur de cette droite a pour coordonnées :'
-            texteCorr += ' $\\vec {u} \\begin{pmatrix}-b\\\\a\\end{pmatrix}$.'
-            texteCorr += `<br>Avec les données de l'énoncé, $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$.`
-            texteCorr += ` <br>On en déduit donc que :$-b = ${xu}$ et $a=${yu}$.`
+            texte += '<br><i>On demande une rédaction utilisant un résultat de cours.</i>'
+            texteCorr = 'On sait, d\'après le cours, que si une droite $(d)$ admet un vecteur directeur de coordonnées :'
+            texteCorr += ' $\\vec {u} \\begin{pmatrix}-b\\\\a\\end{pmatrix}$, '
+            texteCorr += '<br>alors une équation cartésienne de la droite $(d)$ est de la forme $ax+by+c=0$. '
+            texteCorr += `<br>Avec les données de l'énoncé, $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$,`
+            texteCorr += ` <br>on en déduit donc que :$-b = ${xu}$ et $a=${yu}$.`
             texteCorr += ` <br>L'équation cartésienne est donc de la forme : $ ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y + c=0$. `
-            texteCorr += `<br>On cherche maintenant la valeur correspondante de $c$. <br>On utilise pour cela que $A(${xA};${yA}) \\in(AB)$. `
+            texteCorr += `<br>On cherche maintenant la valeur correspondante de $c$. <br>On utilise pour cela que $A(${xA};${yA}) \\in(d)$. `
             texteCorr += ` <br>$\\iff ${yu} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebrique(-xu)} \\times ${ecritureParentheseSiNegatif(yA)}+ c=0$ `
             texteCorr += ` <br>$\\iff  ${yu * xA} ${ecritureAlgebrique(-xu * yA)} + c=0$ `
             texteCorr += ` <br>$\\iff  c= ${-xA * yu + yA * xu}$ `
@@ -54,16 +54,17 @@ export default function equationcartesienne () {
             }
           }
           if (this.sup === 2) {
-            texteCorr = 'On sait qu\'une équation cartésienne de la droite $(d)$ est de la forme '
-            texteCorr += ' $(d) : ax+by+c=0$, avec $(a;b)\\neq (0;0)$.'
-            texteCorr += '<br>Soit $M(x;y) \\in (d)$'
-            texteCorr += ' <br>$\\overrightarrow {AM}$ est donc un vecteur directeur de la droite $(d)$. '
-            texteCorr += ' <br>$\\overrightarrow {AM}$ et $\\vec u$ sont donc des vecteurs colinéaires. '
-            texteCorr += ' <br>On en déduit que $Det\\big(\\overrightarrow {AM};\\vec u\\big)=0$ <br>'
-            texteCorr += ' <br>$\\phantom{On en déduit que} \\iff \\begin{vmatrix}x-x_A&x_u\\\\y-y_A&y_u\\end{vmatrix}=0$ <br>'
-            texteCorr += `<br>$\\phantom{On en déduit que} \\iff \\begin{vmatrix}x-${ecritureParentheseSiNegatif(xA)}&${xu}\\\\y-${ecritureParentheseSiNegatif(yA)}&${yu}\\end{vmatrix}=0$<br>`
-            texteCorr += `<br>$\\phantom{On en déduit que} \\iff (x-${ecritureParentheseSiNegatif(xA)})\\times ${yu}-( y-${ecritureParentheseSiNegatif(yA)}) \\times ${ecritureParentheseSiNegatif(xu)}=0$`
-            texteCorr += `<br>$\\phantom{On en déduit que} \\iff ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y -${ecritureParentheseSiNegatif(xA)} \\times ${yu} ${ecritureAlgebrique(yA)} \\times ${ecritureParentheseSiNegatif(xu)}=0$`
+            texte += '<br><i>On demande une démonstration n\'utilisant pas de résultat de cours.</i>'
+
+            texteCorr = '<br>Soit $M(x;y)$ un point du plan distinct de $A$.'
+            texteCorr += '<br>$M(x;y) \\in (d)$'
+            texteCorr += ' <br>$\\iff \\overrightarrow {AM}$ est un vecteur directeur de la droite $(d)$. '
+            texteCorr += ' <br>$\\iff \\overrightarrow {AM}$ et $\\vec u$ sont donc des vecteurs colinéaires. '
+            texteCorr += ' <br>$\\iff Det\\big(\\overrightarrow {AM};\\vec u\\big)=0$ <br>'
+            texteCorr += ' <br>$\\iff \\begin{vmatrix}x-x_A&x_u\\\\y-y_A&y_u\\end{vmatrix}=0$ <br>'
+            texteCorr += `<br>$\\iff \\begin{vmatrix}x-${ecritureParentheseSiNegatif(xA)}&${xu}\\\\y-${ecritureParentheseSiNegatif(yA)}&${yu}\\end{vmatrix}=0$<br>`
+            texteCorr += `<br>$\\iff (x-${ecritureParentheseSiNegatif(xA)})\\times ${yu}-( y-${ecritureParentheseSiNegatif(yA)}) \\times ${ecritureParentheseSiNegatif(xu)}=0$`
+            texteCorr += `<br>$\\iff ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y -${ecritureParentheseSiNegatif(xA)} \\times ${yu} ${ecritureAlgebrique(yA)} \\times ${ecritureParentheseSiNegatif(xu)}=0$`
             texteCorr += ` <br>Après réduction, une équation cartésienne est de la forme : $ (d): ${reduireAxPlusB(yu, -xu)}y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$ `
           }
           break
