@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 81 
-- nombre d'exos interactifReady 99 
+- nombre d'exos amcReady 85 
+- nombre d'exos interactifReady 102 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -15,7 +15,7 @@
 |3G30|Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|KO|KO|
 |3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|KO|KO|
 |3G32-1|Calcul d’un parallèle terrestre|OK|AMCOpen|KO|KO|
-|3G42|Volume d’une boule|KO|KO|OK|mathLive|
+|3G42|Volume d’une boule|OK|AMCNum|OK|mathLive|
 |3G43|Calculs de volumes|KO|KO|OK|qcm,mathLive|
 |3L11-1|Utiliser la double distributivité|OK|AMCOpenNum✖︎3|OK|mathLive|
 |3L11-2|Réduire une expression|KO|KO|OK|mathLive|
@@ -86,6 +86,8 @@
 |6G25-1|Symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
 |6G33|Reconnaitre un quadrilatère particulier à partir de ses propriétés|OK|qcmMult|OK|export const interactifType non présent|
 |6G41|Compléter une représentation en perspective cavalière|OK|AMCOpen|KO|KO|
+|6M20|Aires de triangles|OK|AMCNum|OK|mathLive|
+|6M23|Conversions d’aires|OK|qcmMono|OK|qcm,mathLive|
 |6M30|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |6M31|Conversions de volume|OK|qcmMono|OK|qcm,mathLive|
 |6N20-2|Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.|KO|KO|OK|mathLive|
@@ -93,6 +95,7 @@
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|export const interactifType non présent|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|export const interactifType non présent|
 |6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|OK|numerique|
+|6N33|Calculer la fraction d’un nombre|OK|AMCNum|OK|mathLive|
 |6N41|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
 |6N43-2|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|KO|KO|
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|export const interactifType non présent|

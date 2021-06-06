@@ -260,9 +260,17 @@ export default function identitesCalculs () {
       };
       texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-        i++
+        let mybool = false
+        this.listeQuestions.forEach(elt=>{
+          if (texte.split('$')[1].substr(2).indexOf(elt.split('$')[1].substr(2)) !== -1) {
+            mybool = true
+          }
+        })
+        if (!mybool){
+          this.listeQuestions.push(texte)
+          this.listeCorrections.push(texteCorr)  
+          i++
+        }
       }
       cpt++
     }
