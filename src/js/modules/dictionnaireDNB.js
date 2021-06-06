@@ -610,7 +610,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2013_09_metropole_7.tex",
         "urlcor": "/dnb/2013/tex/dnb_2013_09_metropole_7_cor.tex",
-        "tags": ["Vrai/Faux","Vitesses","Calcul littéral","Statistiques"]
+        "tags": ["Vrai-faux","Vitesses","Calcul littéral","Statistiques"]
     },
     "dnb_2013_09_metropole_8": {
         "annee": "2013",
@@ -840,7 +840,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_6.tex",
         "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_6_cor.tex",
-        "tags": ["Prise d'initiative"]
+        "tags": ["Prise d'initiatives"]
     },
     //fin amerique sud secours nov 2013
     "dnb_2013_12_caledonie_1": {
@@ -1022,7 +1022,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2014_03_caledonie_7.tex",
         "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_7_cor.tex",
-        "tags": ["Vrai/Faux"]
+        "tags": ["Vrai-faux"]
     },
     "dnb_2014_03_caledonie_8": {
         "annee": "2013",
