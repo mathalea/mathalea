@@ -36,6 +36,8 @@ export function exerciceQcm (exercice) {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
       button.addEventListener('click', event => {
+        let nbQuestionsValidees = 0
+        let nbQuestionsNonValidees = 0
         for (let i = 0; i < exercice.nbQuestions; i++) {
           // i est l'indice de la question
           let nbBonnesReponses = 0
@@ -65,9 +67,11 @@ export function exerciceQcm (exercice) {
           let typeFeedback = 'positive'
           if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
             spanReponseLigne.innerHTML = '😎'
+            nbQuestionsValidees++
           } else {
             spanReponseLigne.innerHTML = '☹️'
             typeFeedback = 'error'
+            nbQuestionsNonValidees++
           }
           spanReponseLigne.style.fontSize = 'large'
           if (indiceFeedback > -1 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback) {
@@ -85,6 +89,7 @@ export function exerciceQcm (exercice) {
           uicheck.classList.add('read-only')
         })
         button.classList.add('disabled')
+        afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees)
       })
     }
   })
@@ -187,24 +192,24 @@ export function exerciceNumerique (exercice) {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
       button.addEventListener('click', event => {
-        // let nbBonnesReponses = 0
-        // let nbMauvaisesReponses = 0
-        // const nbBonnesReponsesAttendues = exercice.nbQuestions
+        let nbBonnesReponses = 0
+        let nbMauvaisesReponses = 0
         for (const i in exercice.autoCorrection) {
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
           // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
           const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
           if (champTexte.value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '').replaceAll('.', ',')) {
             spanReponseLigne.innerHTML = '😎'
-            // nbBonnesReponses++
+            nbBonnesReponses++
           } else {
             spanReponseLigne.innerHTML = '☹️'
-            // nbMauvaisesReponses++
+            nbMauvaisesReponses++
           }
           champTexte.readOnly = true
           spanReponseLigne.style.fontSize = 'large'
         }
         button.classList.add('disabled')
+        afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
       })
     }
   })
@@ -304,16 +309,14 @@ export function exerciceMathLive (exercice) {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
       button.addEventListener('click', event => {
-        // let nbBonnesReponses = 0
-        // let nbMauvaisesReponses = 0
-        // const nbBonnesReponsesAttendues = exercice.nbQuestions
-        let pasBesoinDe2eEssai = true
+        let nbBonnesReponses = 0
+        let nbMauvaisesReponses = 0
+        let besoinDe2eEssai = false
         for (const i in exercice.autoCorrection) {
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
           // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
           const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
           let reponses = []
-          console.log(exercice.autoCorrection[i])
           if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
             reponses = [exercice.autoCorrection[i].reponse.valeur]
           } else {
@@ -331,10 +334,9 @@ export function exerciceMathLive (exercice) {
               }
               // Pour le calcul numérique, on transforme la saisie en nombre décimal
               if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
-              if (engine.same(
-                engine.canonical(parse(saisie)),
-                engine.canonical(parse(reponse))
-              )) resultat = 'OK'
+              if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
+                resultat = 'OK'
+              }
             // Pour les exercices de simplifications de fraction
             } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionPlusSimple') {
               const saisieParsee = parse(saisie)
@@ -369,7 +371,6 @@ export function exerciceMathLive (exercice) {
                 if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
               } else {
                 resultat = 'essaieEncore'
-                pasBesoinDe2eEssai = true
               }
             // Pour les exercice où la saisie doit correspondre exactement à la réponse
             } else { // Format texte
@@ -381,19 +382,23 @@ export function exerciceMathLive (exercice) {
           if (resultat === 'OK') {
             spanReponseLigne.innerHTML = '😎'
             spanReponseLigne.style.fontSize = 'large'
-            // nbBonnesReponses++
+            nbBonnesReponses++
           } else if (resultat === 'essaieEncore') {
             spanReponseLigne.innerHTML = '<em>Il faut saisir une longueur et une unité (cm par exemple).</em>'
             spanReponseLigne.style.color = '#f15929'
             spanReponseLigne.style.fontWeight = 'bold'
+            besoinDe2eEssai = true
           } else {
             spanReponseLigne.innerHTML = '☹️'
             spanReponseLigne.style.fontSize = 'large'
-            // nbMauvaisesReponses++
+            nbMauvaisesReponses++
           }
           if (resultat !== 'essaieEncore') champTexte.readOnly = true
         }
-        if (!pasBesoinDe2eEssai) button.classList.add('disabled')
+        if (!besoinDe2eEssai) {
+          button.classList.add('disabled')
+          afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
+        }
       })
     }
   })
@@ -417,4 +422,15 @@ function saisieToGrandeur (saisie) {
   } else {
     return false
   }
+}
+
+function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
+  const divExercice = get(`exercice${exercice.numeroExercice}`)
+  let divScore = get(`score${exercice.numeroExercice}`, false)
+  if (!divScore) divScore = addElement(divExercice, 'div', { className: 'score', id: `score${exercice.numeroExercice}` })
+  divScore.innerHTML = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
+  divScore.style.color = '#f15929'
+  divScore.style.fontWeight = 'bold'
+  divScore.style.fontSize = 'x-large'
+  divScore.style.display = 'inline'
 }
