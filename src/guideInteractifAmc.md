@@ -129,6 +129,8 @@ Par défaut, on compare des expressions littérales ou des nombres.
 
 - Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionEgale' })` et la réponse doit être un objet fraction égale à la réponse.
 
+- Pour comparer des longueurs (ou des aires), on peut faire `setReponse(this, i, new Grandeur(4, 'cm'), { formatInteractif: 'longueur' })` et personnaliser le champ texte avec `ajouteChampTexteMathLive(this, i, 'longueur')`
+
 
 ## Remarque  : 
 Afin de ne pas se retrouver avec un code hors contexte, les fonctions ajouteChampTexte, propositionsQcm et ajouteChampTexteMathLive retourne des chaines vides lorsque le contexte est la sortie Latex ou le générateur AMC.

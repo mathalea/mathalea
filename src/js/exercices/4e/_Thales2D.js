@@ -171,11 +171,11 @@ export default function Thales2D () {
       if (this.interactif && context.isHtml) {
         texte += '<br><br><em>Il faut saisir une unité.</em>'
         texte += `<br><br>$${nomM + nomN} = $`
-        setReponse(this, i * 2, new Grandeur(calcul(Math.abs(k) * ab), 'cm'), { formatInteractif: 'grandeur' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
-        texte += ajouteChampTexteMathLive(this, i * 2, 'longueurs')
+        setReponse(this, i * 2, new Grandeur(calcul(Math.abs(k) * ab), 'cm'), { formatInteractif: 'longueur' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
+        texte += ajouteChampTexteMathLive(this, i * 2, 'longueur')
         texte += `$${nomC + nomB} = $`
-        texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'longueurs')
-        setReponse(this, i * 2 + 1, new Grandeur(bc, 'cm'), { formatInteractif: 'grandeur' })
+        texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'longueur')
+        setReponse(this, i * 2 + 1, new Grandeur(bc, 'cm'), { formatInteractif: 'longueur' })
         console.log(this.autoCorrection)
         console.log(new Grandeur(bc, 'cm'))
       }

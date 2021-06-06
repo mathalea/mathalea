@@ -122,14 +122,14 @@ export default function Pythagore2D () {
             AB = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1))
             reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1)
             texteCorr += `<br> $${A.nom + B.nom}=${AB}$ cm.`
-            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + B.nom}=$` + ajouteChampTexteMathLive(this, i, 'longueurs')
+            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + B.nom}=$` + ajouteChampTexteMathLive(this, i, 'longueur')
           } else {
             AB = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1))
             reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1)
             texteCorr += `<br> $${A.nom + B.nom}\\approx${AB}$ cm.`
-            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + B.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'longueurs')
+            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + B.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'longueur')
           }
-          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'grandeur' })
+          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'longueur' })
         }
         if (listeTypeDeQuestions[i] === 'BC') {
           const BC = texNombre(calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1))
@@ -138,12 +138,12 @@ export default function Pythagore2D () {
           texteCorr += `<br> $${B.nom + C.nom}=\\sqrt{${texNombrec(longueurAB ** 2 + longueurAC ** 2)}}$`
           if (calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1) === calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 5)) {
             texteCorr += `<br> $${B.nom + C.nom}=${BC}$ cm.`
-            if (this.interactif && context.isHtml) texte += `<br>$${B.nom + C.nom}=$` + ajouteChampTexteMathLive(this, i, 'longueurs')
+            if (this.interactif && context.isHtml) texte += `<br>$${B.nom + C.nom}=$` + ajouteChampTexteMathLive(this, i, 'longueur')
           } else {
             texteCorr += `<br> $${B.nom + C.nom}\\approx${BC}$ cm.`
-            if (this.interactif && context.isHtml) texte += `<br>$${B.nom + C.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'longueurs')
+            if (this.interactif && context.isHtml) texte += `<br>$${B.nom + C.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'longueur')
           }
-          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'grandeur' })
+          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'longueur' })
         }
         if (listeTypeDeQuestions[i] === 'AC') {
           const AC = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1))
@@ -153,12 +153,12 @@ export default function Pythagore2D () {
           texteCorr += `<br> $${A.nom + C.nom}=\\sqrt{${texNombrec(longueurBC ** 2 - longueurAB ** 2)}}$`
           if (calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1) === calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 5)) {
             texteCorr += `<br> $${A.nom + C.nom}=${AC}$ cm.`
-            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + C.nom}=$` + ajouteChampTexteMathLive(this, i, 'longueurs')
+            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + C.nom}=$` + ajouteChampTexteMathLive(this, i, 'longueur')
           } else {
             texteCorr += `<br> $${A.nom + C.nom}\\approx${AC}$ cm.`
-            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + C.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'longueurs')
+            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + C.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'longueur')
           }
-          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'grandeur' })
+          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'longueur' })
         }
       }
 
