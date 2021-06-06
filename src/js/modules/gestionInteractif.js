@@ -136,7 +136,7 @@ export function propositionsQcm (exercice, i) {
       }
       if (exercice.autoCorrection[i].options.vertical) {
         texte += '<br>'
-        texteCorr +='<br>'
+        texteCorr += '<br>'
       }
     }
     if (context.isHtml) {
