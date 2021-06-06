@@ -1,16 +1,15 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, pgcd } from '../../modules/outils.js'
 import { repere2, courbe2, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
-import { max } from 'mathjs'
-// import { setReponse, ajouteChampTexteMathlive } from '../../modules.gestionInteractifs.js'
-export const titre = 'Lecture graphique des coefficients d\'une équation réduite '
-// export const interactifReady = true
-// export const interactifType = 'mathlive'
+import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+export const titre = "Lecture graphique des coefficients d'une équation réduite "
+export const interactifReady = true
+export const interactifType = 'mathLive'
 /**
  totoche
 
 */
-export default function lecturegraphiquedeaetb () {
+export default function lecturegraphiquedeaetb (numeroExercice) {
   Exercice.call(this)
   this.titre = titre
   // this.interactifReady = interactifReady
@@ -25,6 +24,8 @@ export default function lecturegraphiquedeaetb () {
   this.spacingCorr = 1
   this.spacingCorr = 3
   this.sup = 1
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []
@@ -109,7 +110,7 @@ export default function lecturegraphiquedeaetb () {
           }
         }
         // On trace le graphique
-        // setReponse(this, i, reduireAxPlusB(a, b))
+        setReponse(this, i, 'y=' + reduireAxPlusB(a, b))
       }
       if (this.sup === 2) { // cas du coeff directeur fractionnaire
         a = randint(-5, 5) // numérateut coefficient directeur
@@ -185,10 +186,10 @@ export default function lecturegraphiquedeaetb () {
 
             }, r, f, s1, s2, t, l, c)
           }// On trace le graphique
-        // setReponse(this, i, reduireAxPlusB(a / d, b))
+        setReponse(this, i, 'y=' + reduireAxPlusB(a / d, b))
         }
       }
-      // texte += ajouteChampTexteMathlive(this, i)
+      texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
