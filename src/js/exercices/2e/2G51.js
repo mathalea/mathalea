@@ -10,7 +10,7 @@ export const titre = 'Equation cartésienne de droite'
 export default function equationcartesienne () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Déterminer l\'équation cartésienne de la droite $(AB)$'
+  this.consigne = 'Déterminer une équation cartésienne de la droite $(AB)$'
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX

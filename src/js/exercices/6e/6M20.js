@@ -2,9 +2,13 @@ import { longueur, segment, mathalea2d, afficheLongueurSegment, afficheCoteSegme
 import { combinaisonListesSansChangerOrdre, creerNomDePolygone, listeQuestionsToContenu, randint, shuffle, texNombre, calcul } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Aires de triangles'
-
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 4
 /**
  * Calculer l'aire de 3 triangles dont une hauteur est tracée.
  *
@@ -15,6 +19,10 @@ export const titre = 'Aires de triangles'
  */
 export default function AireDeTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
+  this.amcReady = amcReady
+  this.amcType = amcType
   this.titre = titre
   this.consigne =
     "Calculer l'aire des 3 triangles suivants."
@@ -72,7 +80,8 @@ export default function AireDeTriangles () {
       texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${texNombre(
       calcul((cotes[i] * hauteurs[i]) / 2)
     )}~\\text{cm}^2$`
-
+    setReponse(this, i, calcul((cotes[i] * hauteurs[i]) / 2))
+    texte += ajouteChampTexteMathLive(this, i)
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
