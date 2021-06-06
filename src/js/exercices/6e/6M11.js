@@ -90,8 +90,8 @@ export default function AireCarresRectanglesTriangles () {
       texte += ajouteChampTexteMathLive(this, i, 'longueur')
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
-      listeQuestionsToContenu(this)
     }
+    listeQuestionsToContenu(this)
   }
 
   // this.besoinFormulaireNumerique = ['Niveau de difficulté',3,"1 : Périmètres\n\
