@@ -1,7 +1,10 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint, prenom, texPrix, texNombre, texNombrec, miseEnEvidence, texMasse } from '../../modules/outils.js'
 import { mathalea2d, tableau } from '../../modules/2d.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Résoudre un problème de proportionnalité avec linéarité via tableau
@@ -10,6 +13,8 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
 */export default function ProportionnaliteParLineariteTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>On demande de les résoudre à l\'aide d\'un tableau.'
   this.nbQuestions = 5
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -79,6 +84,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
               ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
+            setReponse(this, i, texPrix(pg))
           } else if (a === 2) {
             index = randint(0, 7)
             np = randint(1, 10)
@@ -94,6 +100,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
               ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pp)}`, `${miseEnEvidence(texMasse(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
+            setReponse(this, i, texMasse(pg))
           } else if (a === 3) {
             index = randint(0, 7)
             np = randint(1, 10)
@@ -108,6 +115,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
               ligne2: ['\\text{Volume des objets (en cm³)}', `${texNombre(pp)}`, `${miseEnEvidence(texNombrec(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
+            setReponse(this, i, texNombrec(pg))
           }
           texteCorr = mathalea2d({ xmin: -1, xmax: 16, ymin: 0, ymax: 7.5, style: 'display: block' }, monTableau)
           break
@@ -128,6 +136,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]],
               largeurTitre: 9
             })
+            setReponse(this, i, texPrix(pp))
           } else if (a === 2) {
             np = randint(1, 10)
             cm = randint(2, 7)
@@ -141,6 +150,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
               ligne2: ['\\text{Surface peinte (en m²)}', `${texNombre(pg)}`, `${miseEnEvidence(texNombre(pp))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
             })
+            setReponse(this, i, texNombre(pp))
           } else if (a === 3) {
             index = randint(0, 7)
             np = randint(1, 10)
@@ -156,6 +166,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
               ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pg)}`, `${miseEnEvidence(texMasse(pp))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
             })
+            setReponse(this, i, texMasse(pp))
           }
           texteCorr = mathalea2d({ xmin: -1, xmax: 16, ymin: 0, ymax: 7.5, style: 'display: block' }, monTableau)
           break
@@ -176,6 +187,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]],
               largeurTitre: 9
             })
+            setReponse(this, i, texPrix(pg))
           } else if (a === 2) {
             pu = randint(40, 60)
             np = randint(2, 10)
@@ -188,8 +200,8 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
               ligne1: ['\\text{Durée (en jours)}', np, 1, ng],
               ligne2: ['\\text{Surface peinte (en m²)}', `${pp}`, `${miseEnEvidence(pu)}`, `${miseEnEvidence(pg)}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]]
-
             })
+            setReponse(this, i, pg)
           } else if (a === 3) {
             index = randint(0, 7)
             pu = randint(8, 12) * fruits[index][1] / 10
@@ -205,6 +217,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
               ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pp)}`, `${miseEnEvidence(texMasse(pu))}`, `${miseEnEvidence(texMasse(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]]
             })
+            setReponse(this, i, texMasse(pg))
           }
           texteCorr = mathalea2d({ xmin: -1, xmax: 19, ymin: 0, ymax: 7.5, style: 'display: block' }, monTableau)
 
@@ -233,7 +246,15 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
             texte = `${prenom()} chausse du ${texNombre(tp)} à ${np} ans. Quelle sera sa pointure à ${ng} ans ?`
             texteCorr = 'On ne peut pas savoir car la pointure n\'est pas proportionnelle à l\'âge.'
           }
+
+          setReponse(this, i, 'non')
       }
+      if (!this.interactif) {
+        this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>On demande de les résoudre à l\'aide d\'un tableau.'
+      } else {
+        this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>Attention à donner le résultat avec le bon format : deux chiffres après la virgule si c\'est un prix, trois si c\'est une masse; écrire "non" si ce n\'est pas une situation de proportionnalité.'
+      }
+      texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
