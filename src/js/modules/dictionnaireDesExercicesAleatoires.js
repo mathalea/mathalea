@@ -87,7 +87,8 @@ export default {
     "titre": "Lecture graphique des coefficients d'une équation réduite ",
     "url": "/exercices/2e/2G50-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "2G50-2"
   },
   "2G50": {

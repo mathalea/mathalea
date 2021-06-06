@@ -433,4 +433,5 @@ function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   divScore.style.fontWeight = 'bold'
   divScore.style.fontSize = 'x-large'
   divScore.style.display = 'inline'
+  a
 }
