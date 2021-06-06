@@ -1,10 +1,8 @@
 import ExerciceConversionsAires from './_Exercice_conversions_aires.js'
-
+import { amcReady, interactifReady, amcType, interactifType } from './_Exercice_conversions_aires.js'
 export const titre = 'Conversions d’aires'
-export const amcReady = true
-export const amcType = 1 // type de question AMC
-export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+
+export { amcReady, interactifReady, amcType, interactifType } from './_Exercice_conversions_aires.js'
 /**
  * @author Rémi Angot
  * référence 6M23

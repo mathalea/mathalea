@@ -83,6 +83,13 @@ export default {
     "interactifReady": false,
     "name": "2G50-1"
   },
+  "2G50-2": {
+    "titre": "Lecture graphique des coefficients d'une équation réduite ",
+    "url": "/exercices/2e/2G50-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G50-2"
+  },
   "2G50": {
     "titre": "Déterminer le coefficient directeur d'une droite.",
     "url": "/exercices/2e/2G50.js",
@@ -99,7 +106,7 @@ export default {
     "name": "2G51-1"
   },
   "2G51": {
-    "titre": "Equation cartésienne de droite",
+    "titre": "Déterminer une équation cartésienne de droite à partir de deux points.",
     "url": "/exercices/2e/2G51.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1062,7 +1069,7 @@ export default {
       "text": "AMCOpenNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "4G20"
   },
   "4G20MG32": {
@@ -3026,7 +3033,8 @@ export default {
     "titre": "Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité",
     "url": "/exercices/6e/6P11-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6P11-2"
   },
   "6P11": {
