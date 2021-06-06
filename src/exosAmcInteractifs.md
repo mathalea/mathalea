@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 85 
-- nombre d'exos interactifReady 102 
+- nombre d'exos interactifReady 103 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -40,7 +40,7 @@
 |4C32|Notation scientifique|OK|AMCNum|OK|numerique|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
 |4G20-2|Racine carré d’un carré parfait (calcul mental)|OK|AMCNum|OK|numerique|
-|4G20|Calculer une longueur avec le théorème de Pythagore|OK|AMCOpenNum|OK|numerique|
+|4G20|Calculer une longueur avec le théorème de Pythagore|OK|AMCOpenNum|OK|mathLive|
 |4G21|Déterminer si un triangle est rectangle ou pas.|OK|qcmMono|OK|qcm|
 |4G30|Calculer des longueurs avec la propriété de Thalès|OK|AMCOpenNum|KO|KO|
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|KO|KO|
@@ -100,6 +100,7 @@
 |6N43-2|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|KO|KO|
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|export const interactifType non présent|
 |6N43|Critères de divisibilité|OK|qcmMono|OK|export const interactifType non présent|
+|6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
