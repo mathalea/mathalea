@@ -303,11 +303,13 @@ export function exerciceMathLive (exercice) {
         // let nbBonnesReponses = 0
         // let nbMauvaisesReponses = 0
         // const nbBonnesReponsesAttendues = exercice.nbQuestions
+        let pasBesoinDe2eEssai = true
         for (const i in exercice.autoCorrection) {
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
           // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
           const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
           let reponses = []
+          console.log(exercice.autoCorrection[i])
           if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
             reponses = [exercice.autoCorrection[i].reponse.valeur]
           } else {
@@ -317,7 +319,7 @@ export function exerciceMathLive (exercice) {
           let saisie = champTexte.value
           for (let reponse of reponses) {
             // Pour le calcul littéral on remplace dfrac en frac
-            if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') {
+            if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') { // Le format par défautt
               if (typeof reponse === 'string') {
                 reponse = reponse.replaceAll('dfrac', 'frac')
                 // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
@@ -329,6 +331,7 @@ export function exerciceMathLive (exercice) {
                 engine.canonical(parse(saisie)),
                 engine.canonical(parse(reponse))
               )) resultat = 'OK'
+            // Pour les exercices de simplifications de fraction
             } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionPlusSimple') {
               const saisieParsee = parse(saisie)
               if (saisieParsee) {
@@ -337,6 +340,7 @@ export function exerciceMathLive (exercice) {
                   if (fSaisie.estUneSimplification(reponse)) resultat = 'OK'
                 }
               }
+            // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
             } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionEgale') {
               const saisieParsee = parse(saisie)
               if (saisieParsee) {
@@ -345,6 +349,7 @@ export function exerciceMathLive (exercice) {
                   if (fSaisie.egal(reponse)) resultat = 'OK'
                 }
               }
+            // Pour les exercices où l'on attend un écriture donnée d'une fraction
             } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fraction') {
               const saisieParsee = parse(saisie)
               if (saisieParsee) {
@@ -353,11 +358,16 @@ export function exerciceMathLive (exercice) {
                   if (fSaisie.num === reponse.num && fSaisie.den === reponse.den) resultat = 'OK'
                 }
               }
+            // Pour les exercices où l'on attend une mesure avec une unité au choix
             } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'grandeur') {
               const grandeurSaisie = saisieToGrandeur(saisie)
               if (grandeurSaisie) {
                 if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
+              } else {
+                resultat = 'essaieEncore'
+                pasBesoinDe2eEssai = true
               }
+            // Pour les exercice où la saisie doit correspondre exactement à la réponse
             } else { // Format texte
               if (saisie === reponse) {
                 resultat = 'OK'
@@ -366,15 +376,20 @@ export function exerciceMathLive (exercice) {
           }
           if (resultat === 'OK') {
             spanReponseLigne.innerHTML = '😎'
+            spanReponseLigne.style.fontSize = 'large'
             // nbBonnesReponses++
+          } else if (resultat === 'essaieEncore') {
+            spanReponseLigne.innerHTML = '<em>Il faut saisir une longueur et une unité (cm par exemple).</em>'
+            spanReponseLigne.style.color = '#f15929'
+            spanReponseLigne.style.fontWeight = 'bold'
           } else {
             spanReponseLigne.innerHTML = '☹️'
+            spanReponseLigne.style.fontSize = 'large'
             // nbMauvaisesReponses++
           }
-          champTexte.readOnly = true
-          spanReponseLigne.style.fontSize = 'large'
+          if (resultat !== 'essaieEncore') champTexte.readOnly = true
         }
-        button.classList.add('disabled')
+        if (!pasBesoinDe2eEssai) button.classList.add('disabled')
       })
     }
   })
@@ -392,6 +407,10 @@ export function exerciceMathLive (exercice) {
 function saisieToGrandeur (saisie) {
   const split = saisie.split('\\operatorname{')
   const mesure = parseFloat(split[0].replace(',', '.'))
-  const unite = split[1].substring(0, split[1].length - 1)
-  return new Grandeur(mesure, unite)
+  if (split[1]) {
+    const unite = split[1].substring(0, split[1].length - 1)
+    return new Grandeur(mesure, unite)
+  } else {
+    return false
+  }
 }

@@ -21,7 +21,7 @@ export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing)
     if (exercice.interactif) {
-      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px" id="btnValidationEx${exercice.numeroExercice}">Vérifier les réponses</button>`
+      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr)
   } else {

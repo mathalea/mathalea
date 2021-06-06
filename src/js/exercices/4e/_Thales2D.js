@@ -34,7 +34,7 @@ export default function Thales2D () {
     let reponse
 
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      this.autoCorrection[i] = {}
+      // this.autoCorrection[i] = {}
       if ((i + 1) % 3 === 0) { // Toutes les 3 questions, on repart à zéro sur les noms des polygones
         listeDeNomsDePolygones = []
       }
@@ -171,11 +171,13 @@ export default function Thales2D () {
       if (this.interactif && context.isHtml) {
         texte += '<br><br><em>Il faut saisir une unité.</em>'
         texte += `<br><br>$${nomM + nomN} = $`
-        setReponse(this, i * 2, new Grandeur(Math.abs(k) * ab, 'cm'), { formatInteractif: 'grandeur' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
+        setReponse(this, i * 2, new Grandeur(calcul(Math.abs(k) * ab), 'cm'), { formatInteractif: 'grandeur' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
         texte += ajouteChampTexteMathLive(this, i * 2, 'longueurs')
         texte += `$${nomC + nomB} = $`
         texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'longueurs')
         setReponse(this, i * 2 + 1, new Grandeur(bc, 'cm'), { formatInteractif: 'grandeur' })
+        console.log(this.autoCorrection)
+        console.log(new Grandeur(bc, 'cm'))
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

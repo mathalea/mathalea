@@ -263,8 +263,8 @@ const longueursKeyboardLayer = {
     styles: '',
     rows: [
       [
-        { label: 'mm', key: 'mm' },
-        { label: 'cm', key: 'cm' },
+        { label: 'mm', latex: '\\operatorname{mm}' },
+        { label: 'cm', latex: '\\operatorname{cm}' },
         { class: 'separator w5' },
         { label: '7', key: '7' },
         { label: '8', key: '8' },
@@ -288,8 +288,8 @@ const longueursKeyboardLayer = {
         }
       ],
       [
-        { label: 'dm', key: 'dm' },
-        { label: 'm', key: 'm' },
+        { label: 'dm', latex: '\\operatorname{dm}' },
+        { label: 'm', latex: '\\operatorname{m}' },
         { class: 'separator w5' },
         { label: '4', latex: '4' },
         { label: '5', key: '5' },
@@ -301,8 +301,8 @@ const longueursKeyboardLayer = {
         { latex: 'f' }
       ],
       [
-        { label: 'dam', key: 'dam' },
-        { label: 'hm', key: 'hm' },
+        { label: 'dam', latex: '\\operatorname{dam}' },
+        { label: 'hm', latex: '\\operatorname{hm}' },
         { class: 'separator w5' },
         { label: '1', key: '1' },
         { label: '2', key: '2' },
@@ -314,8 +314,7 @@ const longueursKeyboardLayer = {
         { label: 'non', key: 'non' }
       ],
       [
-        { label: 'km', key: 'km' },
-      //  { label: 'cm', key: 'cm' },
+        { label: 'km', latex: '\\operatorname{km}' },
 
         { class: 'separator w15' },
         { label: '0', key: '0' },
