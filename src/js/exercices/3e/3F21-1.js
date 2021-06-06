@@ -6,7 +6,7 @@ import { droiteParPointEtPente, point, repere2, mathalea2d } from '../../modules
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 export const titre = 'Déterminer une fonction affine'
 export const amcReady = true
-export const amcType = 3
+export const amcType = 6
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -36,26 +36,29 @@ export default function LectureExpressionFonctionsAffines () {
 
   this.nouvelleVersion = function (numeroExercice) {
     let explain = ''
-    const k = Math.pow(2, parseInt(this.sup) - 1)
-    const nbDroites = parseInt(this.sup2)
+    let k = Math.pow(2, parseInt(this.sup) - 1)
+    let nbDroites = parseInt(this.sup2)
     this.listeQuestions = []
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     const listeDroites = []
     context.fenetreMathalea2d = [-5.5, -5.5, 5.5, 5.5]
-    const Pente = []
+    const pente = []
     let OrdX0
-
-    Pente.push(randint(-3 * k, 3 * k, 0))
-    Pente.push(randint(-3 * k, 3 * k, [Pente[0], 0]))
-    Pente.push(randint(-3 * k, 3 * k, [Pente[0], Pente[1], 0]))
-    Pente.push(randint(-3 * k, 3 * k, [Pente[0], Pente[1], Pente[2], 0]))
-    Pente.push(randint(-3 * k, 3 * k, [Pente[0], Pente[1], Pente[2], Pente[3], 0]))
+    if (context.isAmc) {
+      nbDroites = 1
+      k = 1
+    }
+    pente.push(randint(-3 * k, 3 * k, 0))
+    pente.push(randint(-3 * k, 3 * k, [pente[0], 0]))
+    pente.push(randint(-3 * k, 3 * k, [pente[0], pente[1], 0]))
+    pente.push(randint(-3 * k, 3 * k, [pente[0], pente[1], pente[2], 0]))
+    pente.push(randint(-3 * k, 3 * k, [pente[0], pente[1], pente[2], pente[3], 0]))
     const d = []
     for (let i = 0; i < 5; i++) {
-      if (this.lineaire) { OrdX0 = 0 } else { OrdX0 = randint(-1 + Pente[i] / k, 1 + Pente[i] / k) }
-      listeDroites.push([OrdX0, Pente[i] / k])
+      if (this.lineaire) { OrdX0 = 0 } else { OrdX0 = randint(-1 + pente[i] / k, 1 + pente[i] / k, [pente[i],0]) }
+      listeDroites.push([OrdX0, pente[i] / k])
     }
     d[0] = droiteParPointEtPente(point(0, listeDroites[0][0]), listeDroites[0][1], '(d_1)', 'blue')
     d[1] = droiteParPointEtPente(point(0, listeDroites[1][0]), listeDroites[1][1], '(d_2)', 'red')
@@ -92,8 +95,10 @@ export default function LectureExpressionFonctionsAffines () {
     }
     if (context.isAmc) {
       this.autoCorrection[0] = {
-        enonce: "Déterminer l'expression  des fonctions représentées ci dessous : <br>" + mathalea2d({ xmin: -5.5, ymin: -5.5, xmax: 5.5, ymax: 5.5, pixelsParCm: 30, scale: 0.75 }, objets2d),
-        propositions: [{ texte: explain, statut: 5 }]
+        enonce: "Déterminer l'expression  de la fonction représentée ci dessous : <br>" + mathalea2d({ xmin: -5.5, ymin: -5.5, xmax: 5.5, ymax: 5.5, pixelsParCm: 30, scale: 0.5 }, objets2d)+'<br>',
+        propositions: [{ texte: explain, statut: 2 }],
+        reponse: {texte: 'coefficient', valeur: pente[0], param: {digits: 1, decimals:0, signe: true, exposantNbChiffres:0, exposantSigne:false, approx: 0}},
+        reponse2: {texte: "ordonnée \\\\\nà l'origine", valeur: listeDroites[0][0], param: {digits: 1, decimals:0, signe: true, exposantNbChiffres:0, exposantSigne:false, approx: 0}},
       }
     }
   }
