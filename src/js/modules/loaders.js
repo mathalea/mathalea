@@ -152,7 +152,13 @@ export async function loadMathLive () {
           customVirtualKeyboards: longueursKeyboard,
           virtualKeyboards: 'longueursKeyboard roman',
           inlineShortcuts: {
-            m: { mode: 'math', value: '\\operatorname{m}' }
+            mm: { mode: 'math', value: '\\operatorname{mm}' },
+            cm: { mode: 'math', value: '\\operatorname{cm}' },
+            dm: { mode: 'math', value: '\\operatorname{dm}' },
+            m: { mode: 'math', value: '\\operatorname{m}' },
+            dam: { mode: 'math', value: '\\operatorname{dam}' },
+            hm: { mode: 'math', value: '\\operatorname{hm}' },
+            km: { mode: 'math', value: '\\operatorname{km}' }
           }
         })
       }
