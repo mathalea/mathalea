@@ -2535,8 +2535,13 @@ export default {
   "6M20": {
     "titre": "Aires de triangles",
     "url": "/exercices/6e/6M20.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6M20"
   },
   "6M22-1": {

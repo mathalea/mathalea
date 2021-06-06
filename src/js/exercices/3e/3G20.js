@@ -6,8 +6,8 @@ export const titre = 'Calculer des longueurs avec la propriété de Thalès'
  * @author Rémi Angot
  * Référence 3G20
 */
-export default function Thales2D_3e() {
-  Thales2D.call(this);
-  this.sup = 2;
-  this.titre = titre;
+export default function Thales2D3e () {
+  Thales2D.call(this)
+  this.sup = 2
+  this.titre = titre
 }

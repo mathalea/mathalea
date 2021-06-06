@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 84 
-- nombre d'exos interactifReady 101 
+- nombre d'exos amcReady 85 
+- nombre d'exos interactifReady 102 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -86,6 +86,7 @@
 |6G25-1|Symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
 |6G33|Reconnaitre un quadrilatère particulier à partir de ses propriétés|OK|qcmMult|OK|export const interactifType non présent|
 |6G41|Compléter une représentation en perspective cavalière|OK|AMCOpen|KO|KO|
+|6M20|Aires de triangles|OK|AMCNum|OK|mathLive|
 |6M23|Conversions d’aires|OK|qcmMono|OK|qcm,mathLive|
 |6M30|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |6M31|Conversions de volume|OK|qcmMono|OK|qcm,mathLive|

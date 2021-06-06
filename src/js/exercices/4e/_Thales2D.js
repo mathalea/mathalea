@@ -2,8 +2,12 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, texNombrec, creerNomDePolygone, texNombre, creerBoutonMathalea2d, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longueurs, homothetie, similitude, texteParPoint, longueur, angle, angleOriente, mathalea2d } from '../../modules/2d.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import Grandeur from '../../modules/Grandeur'
 export const amcReady = true
 export const amcType = 5
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Calcul de longueurs avec le théorème de Thalès
@@ -13,6 +17,8 @@ export const amcType = 5
 export default function Thales2D () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = 'Calculer des longueurs avec le théorème de Thalès'
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 1
@@ -28,7 +34,7 @@ export default function Thales2D () {
     let reponse
 
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      this.autoCorrection[i] = {}
+      // this.autoCorrection[i] = {}
       if ((i + 1) % 3 === 0) { // Toutes les 3 questions, on repart à zéro sur les noms des polygones
         listeDeNomsDePolygones = []
       }
@@ -87,7 +93,9 @@ export default function Thales2D () {
         texte = ''
       }
       texte += `Sur la figure suivante, $${nomA + nomC}=${ac}~\\text{cm}$, $${nomA + nomB}=${ab}~\\text{cm}$, $${nomC + nomM}=${texNombrec(Math.abs(k) * ac)}~\\text{cm}$, $${nomC + nomN}=${texNombrec(Math.abs(k) * bc)}~\\text{cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`
-      texte += `Calculer $${nomM + nomN}$ et $${nomC + nomB}$.<br><br>`
+      if (!this.interactif) {
+        texte += `Calculer $${nomM + nomN}$ et $${nomC + nomB}$.<br><br>`
+      }
       if (!context.isHtml) {
         texte += '\\end{minipage}\n'
         texte += '\\begin{minipage}{.5\\linewidth}\n'
@@ -103,6 +111,7 @@ export default function Thales2D () {
 
       ABC, MNC, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN
       )
+
       if (!context.isHtml) {
         texte += '\\end{minipage}\n'
       }
@@ -157,6 +166,18 @@ export default function Thales2D () {
       reponse = bc
       if (context.isHtml) {
         texte += `<br><div style="display: inline-block;margin-top:20px;">${boutonAideMathalea2d}</div>`
+      }
+
+      if (this.interactif && context.isHtml) {
+        texte += '<br><br><em>Il faut saisir une unité.</em>'
+        texte += `<br><br>$${nomM + nomN} = $`
+        setReponse(this, i * 2, new Grandeur(calcul(Math.abs(k) * ab), 'cm'), { formatInteractif: 'grandeur' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
+        texte += ajouteChampTexteMathLive(this, i * 2, 'longueurs')
+        texte += `$${nomC + nomB} = $`
+        texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'longueurs')
+        setReponse(this, i * 2 + 1, new Grandeur(bc, 'cm'), { formatInteractif: 'grandeur' })
+        console.log(this.autoCorrection)
+        console.log(new Grandeur(bc, 'cm'))
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
