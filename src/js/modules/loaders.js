@@ -146,7 +146,7 @@ export async function loadMathLive () {
         })
       }
       mf.style = 'font-size: 20px; margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);}'
-      if (mf.classList.contains('longueurs')) {
+      if (mf.classList.contains('longueur')) {
         mf.setOptions({
           customVirtualKeyboardLayers: longueursKeyboardLayer,
           customVirtualKeyboards: longueursKeyboard,

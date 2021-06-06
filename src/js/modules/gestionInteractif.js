@@ -365,7 +365,7 @@ export function exerciceMathLive (exercice) {
                 }
               }
             // Pour les exercices où l'on attend une mesure avec une unité au choix
-            } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'grandeur') {
+            } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'longueur') {
               const grandeurSaisie = saisieToGrandeur(saisie)
               if (grandeurSaisie) {
                 if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
