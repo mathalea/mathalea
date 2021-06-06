@@ -45,6 +45,7 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE,QSA]
 
 #RedirectMatch 301 ex([0-9]?[A-Za-z]{1,2}[0-9]+-?_?[0-9]*)$ https://coopmaths.fr/exercice.html?ex=$1
 
+RedirectMatch 301 /exi([0-9a-zA-Z,=\-&]*)$ https://coopmaths.fr/exercice.html?ex=$1,interactif=1
 RedirectMatch 301 /ex([0-9a-zA-Z,=\-&]*)$ https://coopmaths.fr/exercice.html?ex=$1
 
 # Redirection pour les pdf
