@@ -6,7 +6,7 @@ import Grandeur from '../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Aires carrés, rectangles et triangles rectangles'
 export const amcReady = true
-export const amcType = 6
+export const amcType = 4
 export const interactifType = 'mathLive'
 export const interactifReady = true
 
@@ -145,12 +145,12 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           setReponse(this, i, new Grandeur(pIJK, 'cm'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer le périmètre du triangle rectangle dont les côtés de l'angle droit mesurent ${a}cm et ${b}cm en cm`,
+              enonce: `Calculer le périmètre du triangle rectangle dont les côtés mesurent ${a}cm, ${b}cm et ${texNombre(c2.toFixed(1))}m en cm`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Périmètre en cm',
                 valeur: pIJK,
-                param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+                param: { digits: 3, decimals: 1, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
               }
             }
           }
