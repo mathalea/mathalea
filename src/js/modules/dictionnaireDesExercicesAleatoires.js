@@ -87,7 +87,8 @@ export default {
     "titre": "Lecture graphique des coefficients d'une équation réduite ",
     "url": "/exercices/2e/2G50-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "2G50-2"
   },
   "2G50": {
@@ -118,6 +119,14 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "2G52"
+  },
+  "2G53": {
+    "titre": "Alignement de 3 points.",
+    "url": "/exercices/2e/2G53.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2G53"
   },
   "2L10": {
     "titre": "Développer avec les identités remarquables",
