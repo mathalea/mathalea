@@ -1,14 +1,15 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 85 
-- nombre d'exos interactifReady 103 
+- nombre d'exos amcReady 86 
+- nombre d'exos interactifReady 105 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
+|2G50-2|Lecture graphique des coefficients d'une équation réduite |KO|KO|OK|mathLive|
 |2G50|Déterminer le coefficient directeur d'une droite.|KO|KO|OK|mathLive|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
 |3F13-1|Lecture graphique d’images et d’antécédents|KO|KO|OK|mathLive|
-|3F21-1|Déterminer une fonction affine|OK|AMCOpen|OK|mathLive|
+|3F21-1|Déterminer une fonction affine|OK|AMCOpenNum✖︎2|OK|mathLive|
 |3F21-2|Déterminer une fonction affine par la donnée des images de deux nombres|KO|KO|OK|mathLive|
 |3F21-3|Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine|KO|KO|OK|mathLive|
 |3G21|Contrôler si deux droites sont parallèles|OK|AMCOpen|KO|KO|
@@ -86,6 +87,7 @@
 |6G25-1|Symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
 |6G33|Reconnaitre un quadrilatère particulier à partir de ses propriétés|OK|qcmMult|OK|export const interactifType non présent|
 |6G41|Compléter une représentation en perspective cavalière|OK|AMCOpen|KO|KO|
+|6M11|Aires carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M20|Aires de triangles|OK|AMCNum|OK|mathLive|
 |6M23|Conversions d’aires|OK|qcmMono|OK|qcm,mathLive|
 |6M30|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|

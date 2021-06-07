@@ -87,7 +87,8 @@ export default {
     "titre": "Lecture graphique des coefficients d'une équation réduite ",
     "url": "/exercices/2e/2G50-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "2G50-2"
   },
   "2G50": {
@@ -365,8 +366,8 @@ export default {
     "url": "/exercices/3e/3F21-1.js",
     "amcReady": true,
     "amcType": {
-      "num": 3,
-      "text": "AMCOpen"
+      "num": 6,
+      "text": "AMCOpenNum✖︎2"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -2528,8 +2529,13 @@ export default {
   "6M11": {
     "titre": "Aires carrés, rectangles et triangles rectangles",
     "url": "/exercices/6e/6M11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6M11"
   },
   "6M12": {

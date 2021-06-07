@@ -99,9 +99,14 @@ for (const file of exercicesList) {
       nbAmcReady +=1; // On incrémente pour la compet !      
     }    
 
+    // On vérifie la cohérence interactifType, interactifReady
     if (module.interactifType && !module.interactifReady) {
     beginWarnText()
       console.error(`\x1b[34m${file} a un export interactifType mais interactifReady est false => VÉRIFIER ÇA !!! (module)\x1b[37m`)
+    }
+    if (!module.interactifType && module.interactifReady) {
+      beginWarnText()
+      console.error(`\x1b[34m${file} est interactifReady mais n'a pas d'export interactifType => Il FAUT L'AJOUTER !!! (module)\x1b[37m`)
     }
     if (interactifReady) {
       // On verifie s'il y a un interactifType
@@ -146,8 +151,12 @@ for (const file of exercicesList) {
       }
       // On vérifie la cohérence interactifType, interactifReady
       if (/export +const +interactifType */.test(srcContent) && !interactifReady) {
-      beginWarnText()
-        console.error(`\x1b[34m${file} a un export interactifType mais interactifReady est false => VÉRIFIER ÇA !!! (module)\x1b[37m`)
+        beginWarnText()
+        console.error(`\x1b[34m${file} a un export interactifType mais interactifReady est false => VÉRIFIER ÇA !!! (à l'ancienne)\x1b[37m`)
+      }
+      if (!/export +const +interactifType */.test(srcContent) && interactifReady) {
+        beginWarnText()
+        console.error(`\x1b[34m${file} est interactifReady mais n'a pas d'export interactifType => Il FAUT L'AJOUTER !!! (à l'ancienne)\x1b[37m`)
       }
       if (interactifReady) {
         // On verifie s'il y a un interactifType
