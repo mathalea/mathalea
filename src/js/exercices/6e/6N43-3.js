@@ -6,7 +6,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType =1 //type de question AMC 
 export const interactifReady = true
-
+export const interactifType = 'qcm'
 export const titre = 'Diviseur, multiple, divisible - Vrai ou faux'
 
 /**
@@ -20,6 +20,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.consigne = 'Pour chaque affirmation, indiquer si elle est vraie ou fausse.'
   this.nbQuestions = 5
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
