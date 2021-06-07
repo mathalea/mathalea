@@ -105,7 +105,7 @@ export default function AireCarresRectanglesTriangles () {
           }
           break
         case 2 :
-          texte = `Calculer l'aire du rectangle en cm${exposant(2)}`
+          texte = `Calculer l'aire du triangle rectangle en cm${exposant(2)}`
           texteCorr += `<br>$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(calcul((a * b) / 2))}~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(calcul((a * b) / 2), 'cm^2'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
