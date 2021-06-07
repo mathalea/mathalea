@@ -7,6 +7,7 @@ import { cos } from '../../modules/fonctionsMaths.js'
 export const amcReady = true
 export const amcType = 2 // type de question AMC
 export const interactifReady = true
+export const interactifType = 'qcm'
 
 export const titre = 'Arrondir une valeur'
 
@@ -25,6 +26,7 @@ export default function ArrondirUneValeur () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = false
+  this.interactifType = interactifType
   this.interactifReady = interactifReady
   this.interactif = true
   this.amcReady = amcReady
