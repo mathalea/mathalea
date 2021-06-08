@@ -22,14 +22,14 @@ if ($contentType === "application/json") {
   if (!file_exists($path)) {
     mkdir($path, 0775, true);
   };
-  
+
   // Il faut créer le fichier de stockage s'il n'existe pas à partir de la clef  
   $keypass = strval($decoded->myObj->clef); // On peut ajouter un test pour savoir si c'est déjà un stirng
   $pathToFile = './resultats/R/S/T/'.$keypass.'score.csv';  
   // On ouvre le fichier
   $fp = fopen($pathToFile, 'a+');      
   // S'il n'existe pas on crée l'entete et on ajoute les données
-  if (strlen(file_get_contents($fp))==0) {
+  if (strlen(file_get_contents($pathToFile))==0) {
     fputs($fp, "idUser,idExo,nbBonnesReponse,nbQuestions,date,heure \r\n");  
   };
   fputs($fp, $decoded->myObj->user.','.$decoded->myObj->refEx.','.$decoded->myObj->nbBonnesReponses.','.$decoded->myObj->nbQuestions.','.$currentDate.','.$currentTime."\r\n");  
