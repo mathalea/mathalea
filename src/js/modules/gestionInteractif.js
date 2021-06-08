@@ -424,14 +424,41 @@ function saisieToGrandeur (saisie) {
   }
 }
 
+/**
+ * 
+ * @param {*} myObj // myObj est un objet avec tout ce qu'on veut, on adapte au besoin
+  // ATTENTION, si on passe des propriétés il faut aussi modifier le script score.php en conséquence
+ * @author Sébastien LOZANO
+ */
+function appelFetch(myObj) {
+  fetch("score.php", {
+    method: "POST",
+    mode: "same-origin",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      myObj      
+    })
+  })
+}
+
 function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   const divExercice = get(`exercice${exercice.numeroExercice}`)
   let divScore = get(`score${exercice.numeroExercice}`, false)
+  let score = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
+  appelFetch({
+    clef : Math.floor(Math.random() * 10000),
+    user : 'user',
+    refEx : 'refEx',
+    nbBonnesReponses : nbBonnesReponses,
+    nbQuestions : nbBonnesReponses + nbMauvaisesReponses  
+  })
   if (!divScore) divScore = addElement(divExercice, 'div', { className: 'score', id: `score${exercice.numeroExercice}` })
   divScore.innerHTML = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
   divScore.style.color = '#f15929'
   divScore.style.fontWeight = 'bold'
   divScore.style.fontSize = 'x-large'
   divScore.style.display = 'inline'
-  a
 }
