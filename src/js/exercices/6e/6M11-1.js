@@ -77,7 +77,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           setReponse(this, i, new Grandeur(c * 4, 'cm'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer le périmètre d'un carré de côté ${c}cm en cm.`,
+              enonce: `Calculer le périmètre en cm d'un carré de côté ${c}cm.`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Périmètre en cm',
@@ -95,7 +95,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           setReponse(this, i, new Grandeur(c * c, 'cm^2'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer l'aire du carré de côté ${c}cm en cm${exposant(2)}`,
+              enonce: `Calculer l'aire en cm${exposant(2)} du carré de côté ${c}cm`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
@@ -112,7 +112,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           setReponse(this, i, new Grandeur((L + l) * 2, 'cm'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer le périmètre du rectangle de longueur ${L}cm et de largeur ${l}cm en cm`,
+              enonce: `Calculer le périmètre en cm du rectangle de longueur ${L}cm et de largeur ${l}cm`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Périmètre en cm',
@@ -129,7 +129,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           setReponse(this, i, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer l'aire du rectangle de longueur ${L}cm et de largeur ${l}cm en cm${exposant(2)}`,
+              enonce: `Calculer l'aire en cm${exposant(2)} du rectangle de longueur ${L}cm et de largeur ${l}cm`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
@@ -145,7 +145,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           setReponse(this, i, new Grandeur(pIJK, 'cm'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer le périmètre du triangle rectangle dont les côtés mesurent ${a}cm, ${b}cm et ${texNombre(c2.toFixed(1))}m en cm`,
+              enonce: `Calculer le périmètre en cm du triangle rectangle dont les côtés mesurent ${a}cm, ${b}cm et ${texNombre(c2.toFixed(1))}m`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Périmètre en cm',
@@ -161,7 +161,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           setReponse(this, i, new Grandeur(calcul((a * b) / 2), 'cm^2'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer l'aire du triangle rectangle dont les côtés de l'angle droit mesurent ${a}cm et ${b}cm en cm${exposant(2)}`,
+              enonce: `Calculer l'aire en cm${exposant(2)} du triangle rectangle dont les côtés de l'angle droit mesurent ${a}cm et ${b}cm`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
