@@ -6,6 +6,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType = 2 //type de question AMC qcm Mult 
 export const interactifReady = true
+export const interactifType = 'qcm'
 
 export const titre = 'Écrire une expression littérale'
 
@@ -27,6 +28,7 @@ export default function EcrireUneExpressionLitterale () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.interactif = true
   this.amcReady = amcReady
   this.amcType = amcType

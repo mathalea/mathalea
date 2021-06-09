@@ -417,7 +417,8 @@ function saisieToGrandeur (saisie) {
   const split = saisie.split('\\operatorname{')
   const mesure = parseFloat(split[0].replace(',', '.'))
   if (split[1]) {
-    const unite = split[1].substring(0, split[1].length - 1)
+    const split2 = split[1].split('}')
+    const unite = split2[0] + split2[1]
     return new Grandeur(mesure, unite)
   } else {
     return false
