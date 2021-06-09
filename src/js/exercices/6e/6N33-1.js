@@ -81,7 +81,7 @@ $${p}~\\%~\\text{de }${n}= ${calcul(p / 10)} \\times ${n}\\div${10} =  ${texNomb
       if (context.isHtml && this.interactif) texte += ajouteChampTexte(this, i, { inline: true })
       setReponse(this, i, calcul(n * p / 100))
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = texte + '$~=$'
+        this.autoCorrection[i].enonce = texte + '='
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
         this.autoCorrection[i].reponse.param.digits = 3
         this.autoCorrection[i].reponse.param.decimals = 1

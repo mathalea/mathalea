@@ -4,6 +4,7 @@ import Algebrite from 'algebrite'
 import { format, evaluate } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
+import { elimineDoublons } from './gestionInteractif.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -6761,6 +6762,7 @@ export function exportQcmAmc (exercice, idExo) {
   let lastchoice = false
   let ordered = false
   let nbChiffresPd, nbChiffresPe
+
   for (let j = 0; j < autoCorrection.length; j++) {
     if (autoCorrection[j].options !== undefined) {
       if (autoCorrection[j].options.vertical === undefined) {
@@ -6774,6 +6776,9 @@ export function exportQcmAmc (exercice, idExo) {
       if (autoCorrection[j].options.lastChoice !== undefined) {
         lastchoice = autoCorrection[j].options.lastChoice
       }
+    }
+    if (type < 3) {
+      console.log(elimineDoublons(autoCorrection[j].propositions))
     }
     // tabQCM = tabQCMs[1][j].propositions.slice(0)
     switch (type) {
