@@ -120,7 +120,17 @@ function propositionsQcm (exercice, i) // Cette fonction va retourner un objet {
 
 Il suffit de définir `this.interactiveType = 'mathLive'`, de mettre dans la boucle `setReponse(this, i, maRéponse)` avec maRéponse un string LaTeX ou une valeur numérique (donc sans texNombre ou des équivalents) puis de faire `texte += ajouteChampTexteMathLive(this, i)` pour ajouter le champ de réponse.
 
-Par défaut, on compare des expressions littérales ou des nombres. Pour comparer des textes sans traitement, on fait `setReponse(this, i, '+', { formatInteractif: 'texte' })`.
+Par défaut, on compare des expressions littérales ou des nombres. 
+- Pour comparer des textes sans traitement, on fait `setReponse(this, i, '+', { formatInteractif: 'texte' })`.
+
+- Pour comparer des fractions et attendre exactement une forme, on fait `setReponse(this, i, '+', { formatInteractif: 'fraction' })` et la réponse doit être un objet fraction.
+
+- Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionPlusSimple' })` et la réponse doit être un objet fraction égale à la réponse mais avec un numérateur strictement inférieur (on compare les valeurs absolues).
+
+- Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionEgale' })` et la réponse doit être un objet fraction égale à la réponse.
+
+- Pour comparer des longueurs (ou des aires), on peut faire `setReponse(this, i, new Grandeur(4, 'cm'), { formatInteractif: 'longueur' })` et personnaliser le champ texte avec `ajouteChampTexteMathLive(this, i, 'longueur')`
+
 
 ## Remarque  : 
 Afin de ne pas se retrouver avec un code hors contexte, les fonctions ajouteChampTexte, propositionsQcm et ajouteChampTexteMathLive retourne des chaines vides lorsque le contexte est la sortie Latex ou le générateur AMC.

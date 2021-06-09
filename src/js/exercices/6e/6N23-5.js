@@ -6,6 +6,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType =1 // QCM
 export const interactifReady = true
+export const interactifType = 'qcm'
 
 export const titre = 'Sens de l’écriture fractionnaire'
 
@@ -21,6 +22,7 @@ export default function SensDeLaFraction () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.nbQuestions = 4
   this.nbQuestionsModifiable = true
   this.nbCols = 1

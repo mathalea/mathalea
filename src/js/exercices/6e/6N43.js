@@ -5,6 +5,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType =1 //type de question AMC 
 export const interactifReady = true
+export const interactifType = 'qcm'
 
 export const titre = 'Critères de divisibilité'
 
@@ -24,6 +25,7 @@ export default function CriteresDeDivisibilite () {
   this.titre = titre
   this.amcReady = amcReady
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.amcType = amcType
   this.consigne = 'Répondre aux questions suivantes en justifiant.'
   this.spacing = 2

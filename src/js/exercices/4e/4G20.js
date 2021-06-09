@@ -2,12 +2,13 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, creerNomDePolygone, texNombre, arrondi } from '../../modules/outils.js'
 import { point, polygone, nommePolygone, rotation, similitude, codageAngleDroit, afficheLongueurSegment, longueur, mathalea2d } from '../../modules/2d.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import Grandeur from '../../modules/Grandeur.js'
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const amcType = 5 // Question numérique
 export const amcReady = true // Il reste à gérer les options numériques
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 
 /**
  * Exercices sur le théorème de Pythagore avec MathALEA2D
@@ -40,7 +41,7 @@ export default function Pythagore2D () {
     } else if (this.sup === 2) {
       this.consigne = "Dans chaque cas, compléter l'égalité en utilisant le théorème de Pythagore."
     } else {
-      this.consigne = 'Dans chaque cas, calculer la longueur manquante (si nécessaire, l\'arrondir au dixième près).'
+      this.consigne = 'Dans chaque cas, calculer la longueur manquante (si nécessaire, l\'arrondir au millimètre près).'
     }
     if (this.sup === 2 || this.typeExercice === 'Calculer') {
       listeTypeDeQuestions = combinaisonListes(['AB', 'BC', 'AC'], this.nbQuestions)
@@ -87,13 +88,13 @@ export default function Pythagore2D () {
       texte += mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, scale: 0.6, style: 'display: block' }, mesObjetsATracer)
       if (this.sup === 2) {
         if (listeTypeDeQuestions[i] === 'AB') {
-          texte += `<br>$${A.nom + B.nom}^2=\\ldots$`
+          if (this.interactif && context.isHtml) texte += `<br>$${A.nom + B.nom}^2=\\ldots$`
         }
         if (listeTypeDeQuestions[i] === 'BC') {
-          texte += `<br>$${B.nom + C.nom}^2=\\ldots$`
+          if (this.interactif && context.isHtml) texte += `<br>$${B.nom + C.nom}^2=\\ldots$`
         }
         if (listeTypeDeQuestions[i] === 'AC') {
-          texte += `<br>$${A.nom + C.nom}^2=\\ldots$`
+          if (this.interactif && context.isHtml) texte += `<br>$${A.nom + C.nom}^2=\\ldots$`
         }
       }
       if (!context.isHtml && !context.isAmc && i !== this.nbQuestions - 1) { texte += '\\columnbreak' } // pour la sortie LaTeX sauf la dernière question
@@ -121,14 +122,14 @@ export default function Pythagore2D () {
             AB = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1))
             reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1)
             texteCorr += `<br> $${A.nom + B.nom}=${AB}$ cm.`
-            texte += '<br>' + ajouteChampTexte(this, i, { texte: `$${A.nom + B.nom} = $`, texteApres: 'cm' })
+            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + B.nom}=$` + ajouteChampTexteMathLive(this, i, 'longueur')
           } else {
             AB = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1))
             reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1)
             texteCorr += `<br> $${A.nom + B.nom}\\approx${AB}$ cm.`
-            texte += '<br>' + ajouteChampTexte(this, i, { texte: `$${A.nom + B.nom}\\approx$`, texteApres: 'cm' })
+            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + B.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'longueur')
           }
-          setReponse(this, i, reponse)
+          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'longueur' })
         }
         if (listeTypeDeQuestions[i] === 'BC') {
           const BC = texNombre(calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1))
@@ -137,12 +138,12 @@ export default function Pythagore2D () {
           texteCorr += `<br> $${B.nom + C.nom}=\\sqrt{${texNombrec(longueurAB ** 2 + longueurAC ** 2)}}$`
           if (calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1) === calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 5)) {
             texteCorr += `<br> $${B.nom + C.nom}=${BC}$ cm.`
-            texte += '<br>' + ajouteChampTexte(this, i, { texte: `$${B.nom + C.nom}=$`, texteApres: 'cm' })
+            if (this.interactif && context.isHtml) texte += `<br>$${B.nom + C.nom}=$` + ajouteChampTexteMathLive(this, i, 'longueur')
           } else {
             texteCorr += `<br> $${B.nom + C.nom}\\approx${BC}$ cm.`
-            texte += '<br>' + ajouteChampTexte(this, i, { texte: `$${B.nom + C.nom}\\approx$`, texteApres: 'cm' })
+            if (this.interactif && context.isHtml) texte += `<br>$${B.nom + C.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'longueur')
           }
-          setReponse(this, i, reponse)
+          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'longueur' })
         }
         if (listeTypeDeQuestions[i] === 'AC') {
           const AC = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1))
@@ -152,12 +153,12 @@ export default function Pythagore2D () {
           texteCorr += `<br> $${A.nom + C.nom}=\\sqrt{${texNombrec(longueurBC ** 2 - longueurAB ** 2)}}$`
           if (calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1) === calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 5)) {
             texteCorr += `<br> $${A.nom + C.nom}=${AC}$ cm.`
-            texte += '<br>' + ajouteChampTexte(this, i, { texte: `$${B.nom + C.nom}=$`, texteApres: 'cm' })
+            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + C.nom}=$` + ajouteChampTexteMathLive(this, i, 'longueur')
           } else {
             texteCorr += `<br> $${A.nom + C.nom}\\approx${AC}$ cm.`
-            texte += '<br>' + ajouteChampTexte(this, i, { texte: `$${A.nom + C.nom}\\approx$`, texteApres: 'cm' })
+            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + C.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'longueur')
           }
-          setReponse(this, i, reponse)
+          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'longueur' })
         }
       }
 

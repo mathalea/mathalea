@@ -59,7 +59,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           n = yB - yA
           d = xB - xA
 
-          texte = `Avec $A(${xA};${yA})$ et $B(${xB};${yB})$. `
+          texte = `avec $A(${xA};${yA})$ et $B(${xB};${yB})$. `
           texteCorr = 'On observe que $ x_B = x_A$.'
           texteCorr += '<br>La droite $(AB)$ est donc verticale.'
           texteCorr += '<br>Elle n\'admet donc pas de coefficient directeur.'
@@ -67,9 +67,9 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           break
       }
       if (!this.interactif) {
-        this.consigne = 'Déterminer, s\'il existe et en l\'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$,'
+        this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s\'il existe et en l\'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$,'
       } else {
-        this.consigne = 'Déterminer, s\'il existe et en l\'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$, écrire "non" si la droite n\'a pas de coefficicient directeur,'
+        this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s\'il existe et en l\'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$, écrire "non" si la droite n\'a pas de coefficicient directeur,'
       }
       texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {

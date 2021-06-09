@@ -1,14 +1,21 @@
-import Exercice_conversions_aires from './_Exercice_conversions_aires.js'
+import ExerciceConversionsAires from './_Exercice_conversions_aires.js'
+import { amcReady, interactifReady, amcType, interactifType } from './_Exercice_conversions_aires.js'
 export const titre = 'Conversions d’aires'
 
-/** 
+export { amcReady, interactifReady, amcType, interactifType } from './_Exercice_conversions_aires.js'
+/**
  * @author Rémi Angot
  * référence 6M23
- * 
+ *
 */
-export default function Reglages_6M23() {
-  Exercice_conversions_aires.call(this);
-  this.titre = titre;
-  this.sup = 3;
-  this.nbColsCorr = 1;
+export default function Reglages6M23 () {
+  ExerciceConversionsAires.call(this)
+  this.titre = titre
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactif = false
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
+  this.sup = 3
+  this.nbColsCorr = 1
 }

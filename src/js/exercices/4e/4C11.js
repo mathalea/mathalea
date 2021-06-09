@@ -6,7 +6,6 @@ export const titre = 'Calculs utilisant les priorités opératoires'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-
 /**
  * Plusieurs type de calcul avec des entiers.
  *
@@ -87,7 +86,7 @@ export default function PrioritesEtRelatifs () {
           texteCorr = `$${a}${miseEnEvidence('~' + ecritureAlgebrique(b) + '\\times' + ecritureParentheseSiNegatif(c))}=${a}${ecritureAlgebrique(b * c)
             }=${a + b * c}$`
           setReponse(this, i, a + b * c)
-            break
+          break
         case 2: // a+b/c
           a = randint(2, 11) * choice([-1, 1])
           c = randint(2, 11) * choice([-1, 1])
@@ -101,7 +100,7 @@ export default function PrioritesEtRelatifs () {
           texteCorr = `$${a}${miseEnEvidence('~' + ecritureAlgebrique(b) + '\\div' + ecritureParentheseSiNegatif(c))}=${a}${ecritureAlgebrique(b / c)
             }=${a + b / c}$`
           setReponse(this, i, a + b / c)
-            break
+          break
         case 3: // a/b*c
           b = randint(2, 11) * choice([-1, 1])
           c = randint(2, 11) * choice([-1, 1])
@@ -115,7 +114,7 @@ export default function PrioritesEtRelatifs () {
           texteCorr = `$${miseEnEvidence(a + '\\div' + ecritureParentheseSiNegatif(b))}\\times${ecritureParentheseSiNegatif(c)}=${a / b
             }\\times${ecritureParentheseSiNegatif(c)}=${(a / b) * c}$`
           setReponse(this, i, (a / b) * c)
-            break
+          break
         case 4: // a*b/c
           if (choice([true, false])) {
             // a est un multiple de c
@@ -142,7 +141,7 @@ export default function PrioritesEtRelatifs () {
           texteCorr = `$${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b))}\\div${ecritureParentheseSiNegatif(c)}=${a * b
             }\\div${ecritureParentheseSiNegatif(c)}=${(a * b) / c}$`
           setReponse(this, i, (a * b) / c)
-            break
+          break
         case 5: // a*b+c
           a = randint(2, 11) * choice([-1, 1])
           b = randint(2, 11) * choice([-1, 1])
@@ -156,7 +155,7 @@ export default function PrioritesEtRelatifs () {
           texteCorr = `$${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b))}${ecritureAlgebrique(c)}=${a * b
             }${ecritureAlgebrique(c)}=${a * b + c}$`
           setReponse(this, i, a * b + c)
-            break
+          break
         case 6: // a-b+c
           a = randint(2, 11) * choice([-1, 1])
           b = randint(2, 11) * choice([-1, 1])
@@ -170,7 +169,7 @@ export default function PrioritesEtRelatifs () {
           texteCorr = `$${a}${miseEnEvidence(ecritureAlgebrique(-b))}${ecritureAlgebrique(c)}=${a - b}${ecritureAlgebrique(c)}=${a - b + c
             }$`
           setReponse(this, i, a - b + c)
-            break
+          break
         case 7: // a+b+c*d
           a = randint(2, 20) * choice([-1, 1])
           b = randint(2, 20) * choice([-1, 1])
@@ -204,7 +203,7 @@ export default function PrioritesEtRelatifs () {
             }${ecritureAlgebrique(c) + miseEnEvidence('\\times') + ecritureParentheseSiNegatif(d)}=${a * b}${ecritureAlgebrique(c * d)}=${a * b + c * d
             }$`
           setReponse(this, i, a * b + c * d)
-            break
+          break
         case 9: // a*b*c+d
           a = randint(2, 5) * choice([-1, 1])
           b = randint(2, 5) * choice([-1, 1])
@@ -234,7 +233,7 @@ export default function PrioritesEtRelatifs () {
             ecritureAlgebrique(c) + miseEnEvidence('\\div') + ecritureParentheseSiNegatif(d)}=${a * b}${ecritureAlgebrique(c / d)}=${a * b + c / d
             }$`
           setReponse(this, i, a * b + c / d)
-            break
+          break
         case 11: // a*(b+c)
           a = randint(2, 11) * choice([-1, 1])
           b = randint(1, 11) * choice([-1, 1])
@@ -274,7 +273,7 @@ export default function PrioritesEtRelatifs () {
           texteCorr = `$(${miseEnEvidence(a + ecritureAlgebrique(b))})\\div${ecritureParentheseSiNegatif(c)}=${a + b
             }\\div${ecritureParentheseSiNegatif(c)}=${(a + b) / c}$`
           setReponse(this, i, (a + b) / c)
-            break
+          break
         case 14: // a/(b+c)
           b = randint(-5, 5, [-1, 0, 1])
           c = randint(-6, 6, [-1, 0, 1, -b])
@@ -318,7 +317,7 @@ export default function PrioritesEtRelatifs () {
           texteCorr = `$${a}\\times${ecritureParentheseSiNegatif(b)}\\times(${miseEnEvidence(
             c + ecritureAlgebrique(d))})=${a}\\times${ecritureParentheseSiNegatif(b)}\\times${ecritureParentheseSiNegatif(c + d)}=${a * b * (c + d)}$`
           setReponse(this, i, a * b * (c + d))
-            break
+          break
         case 17: // a*(b/c+d)
           a = randint(2, 11) * choice([-1, 1])
           c = randint(2, 11) * choice([-1, 1])
@@ -358,7 +357,7 @@ export default function PrioritesEtRelatifs () {
             c + ecritureAlgebrique(d))})=${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b))}\\div${ecritureParentheseSiNegatif(c + d)}=${a * b
             }\\div${ecritureParentheseSiNegatif(c + d)}=${(a * b) / (c + d)}$`
           setReponse(this, i, (a * b) / (c + d))
-            break
+          break
         case 19: // a-(b+c)
           a = randint(1, 9) * choice([-1, 1])
           b = randint(1, 9) * choice([-1, 1])
