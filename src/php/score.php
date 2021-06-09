@@ -25,7 +25,8 @@ if ($contentType === "application/json") {
 
   // Il faut créer le fichier de stockage s'il n'existe pas à partir de la clef  
   $keypass = strval($decoded->myObj->clef); // On peut ajouter un test pour savoir si c'est déjà un stirng
-  $pathToFile = './resultats/R/S/T/'.$keypass.'score.csv';  
+  //$keypass = md5(uniqid(rand(), true));
+  $pathToFile = './resultats/R/S/T/'.$keypass.'scores.csv';  
   // On ouvre le fichier
   $fp = fopen($pathToFile, 'a+');      
   // S'il n'existe pas on crée l'entete et on ajoute les données
