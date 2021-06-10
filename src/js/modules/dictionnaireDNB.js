@@ -792,7 +792,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_2.tex",
         "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_2_cor.tex",
-        "tags": ["Calculs numérqiues","Calcul littéral","Équations"]
+        "tags": ["Calculs numériques","Calcul littéral","Équations"]
     },
     "dnb_2013_11_amdusudsecours_3": {
         "annee": "2013",

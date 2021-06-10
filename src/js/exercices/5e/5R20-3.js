@@ -14,14 +14,14 @@ import {
   lettreDepuisChiffre,
   nombreDeChiffresDansLaPartieEntiere
 } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Additions de 5 nombres relatifs'
 export const interactifReady = true
 
 export const amcReady = true
 export const amcType = 4
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 
 /**
  * Effectuer la somme de 5 nombres relatifs.
@@ -51,7 +51,6 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
   this.nouvelleVersion = function () {
     if (!context.isHtml) this.interactif = false
     this.sup = parseInt(this.sup)
-    this.sup2 = parseInt(this.sup2)
     if (this.interactif) {
       this.spacing = 3
     }
@@ -81,9 +80,8 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
           e
         )} = \\dotfill $`
         if (this.interactif && !context.isAmc) {
-          texte = ajouteChampTexte(this, i, {
-            texte: `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = $`
-          })
+          texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = $`
+          texte += ajouteChampTexteMathLive(this, i)
         }
         if (!context.isHtml && !context.isAmc) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
@@ -96,11 +94,9 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
           c
         )}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = \\dotfill $`
         if (this.interactif && !context.isAmc) {
-          texte = ajouteChampTexte(this, i, {
-            texte: `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
-              c
-            )}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = $`
-          })
+          texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
+            c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = $`
+          texte += ajouteChampTexteMathLive(this, i)
         }
 
         if (!context.isHtml && !context.isAmc) {
