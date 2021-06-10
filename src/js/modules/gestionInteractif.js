@@ -425,7 +425,7 @@ function saisieToGrandeur (saisie) {
   }
 }
 
-function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
+export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   const divExercice = get(`exercice${exercice.numeroExercice}`)
   let divScore = get(`score${exercice.numeroExercice}`, false)
   if (!divScore) divScore = addElement(divExercice, 'div', { className: 'score', id: `score${exercice.numeroExercice}` })

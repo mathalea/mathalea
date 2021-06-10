@@ -1879,7 +1879,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "5R20-3"
   },
   "5R20-4": {
@@ -3075,6 +3075,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "6S11"
+  },
+  "beta6N21-2D": {
+    "titre": "Utiliser les abscisses fractionnaires",
+    "url": "/exercices/6e/beta6N21-2D.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta6N21-2D"
   },
   "CM000": {
     "titre": "Additions et de soustractions",
