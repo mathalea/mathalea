@@ -1670,7 +1670,11 @@ export default {
   "5M20": {
     "titre": "Calculs de volumes",
     "url": "/exercices/5e/5M20.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "interactifReady": true,
     "interactifType": [
       "qcm",

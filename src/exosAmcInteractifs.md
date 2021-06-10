@@ -1,5 +1,5 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 87 
+- nombre d'exos amcReady 88 
 - nombre d'exos interactifReady 106 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
@@ -51,7 +51,7 @@
 |5L13|Réduire une expression de la forme $ax+bx$ |KO|KO|OK|mathLive|
 |5L14-2|Substitution|OK|AMCNum|OK|numerique|
 |5L14|Calculer la valeur d’une expression littérale|KO|KO|OK|mathLive|
-|5M20|Calculs de volumes|KO|KO|OK|qcm,mathLive|
+|5M20|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |5N13-2|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
 |5N13|Simplification de fractions|OK|AMCOpen|OK|mathLive|
 |5N14-3|Fractions égales et égalité des produits en croix|OK|qcmMono|OK|qcm|
