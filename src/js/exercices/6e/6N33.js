@@ -79,7 +79,7 @@ export default function FractionDUnNombre () {
       b = fraction[1]
       k = randint(1, 11)
       j = false
-      if (this.sup) n = b * k
+      if (this.sup || context.isAMC) n = b * k
       else if (randint(0, 1) === 0) n = b * k
       else n = randint(10, b * 11)
       texte = `$${texFraction(a, b)}\\times${n}=$`
@@ -175,7 +175,7 @@ export default function FractionDUnNombre () {
       }
 
       setReponse(this, i, calcul(n * a / b))
-      if (n * a % b !== 0) {
+      if (n * a % b !== 0 && !context.isAmc) {
         setReponse(this, i, [calcul(n * a / b), texFraction(n * a, b)])
       }
       texte += ajouteChampTexteMathLive(this, i)
