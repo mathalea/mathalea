@@ -446,7 +446,7 @@ function appelFetch(myObj) {
   })
 }
 
-function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
+export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   const divExercice = get(`exercice${exercice.numeroExercice}`)
   let divScore = get(`score${exercice.numeroExercice}`, false)
   let score = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
