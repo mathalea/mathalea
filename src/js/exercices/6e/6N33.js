@@ -179,6 +179,12 @@ export default function FractionDUnNombre () {
         setReponse(this, i, [calcul(n * a / b), texFraction(n * a, b)])
       }
       texte += ajouteChampTexteMathLive(this, i)
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte + '='
+        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
+        this.autoCorrection[i].reponse.param.digits = 2
+        this.autoCorrection[i].reponse.param.decimals = 0
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

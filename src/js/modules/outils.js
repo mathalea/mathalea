@@ -6862,12 +6862,6 @@ export function exportQcmAmc (exercice, idExo) {
             autoCorrection[j].reponse.param.decimals = 0
           }
         }
-        if (exercice.autoCorrection[j].enonce === undefined) {
-          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
-        }
-        if (exercice.autoCorrection[j].propositions === undefined) {
-          exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '', feedback: '' }]
-        }
         texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
