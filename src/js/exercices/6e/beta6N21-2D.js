@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, lettreDepuisChiffre, randint, texFraction } from '../../modules/outils.js'
-import { mathalea2d, droiteGraduee2 } from '../../modules/2d.js'
+import { mathalea2d, droiteGraduee2, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 export const titre = 'Utiliser les abscisses fractionnaires'
@@ -18,7 +18,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.consigne = ''
-  this.nbQuestions = 1
+  this.nbQuestions = 5
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
@@ -34,7 +34,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     const pointsSolutions = []
     const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
     const fractionsUtilisees = [] // Pour s'assurer de ne pas poser 2 fois la même question
-    for (let i = 0, texte, texteCorr, origine, num, den, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, origine, num, den, A, traceA, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1:
@@ -42,7 +42,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           den = randint(2, 4)
           num = randint(1, den * 4)
           texte = `Place le point $${lettreDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
-          texteCorr = `Correction ${i + 1} de type 1`
           break
       }
       const tailleUnite = 4
@@ -55,17 +54,29 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       })
       const mesObjets = [d]
       pointsNonSolutions[i] = []
-      for (let indicePoint = 0, monPoint; indicePoint < 60; indicePoint++) {
-        monPoint = pointCliquable(indicePoint / den * tailleUnite, 0, { size: 8, width: 5, color: 'blue', radius: tailleUnite / den / 2 })
-        mesObjets.push(monPoint)
-        if (indicePoint === num) {
-          pointsSolutions[i] = monPoint
-        } else {
-          pointsNonSolutions[i].push(monPoint)
+      if (this.interactif) {
+        for (let indicePoint = 0, monPoint; indicePoint < 60; indicePoint++) {
+          monPoint = pointCliquable(indicePoint / den * tailleUnite, 0, { size: 8, width: 5, color: 'blue', radius: tailleUnite / den / 2 })
+          mesObjets.push(monPoint)
+          if (indicePoint === num) {
+            pointsSolutions[i] = monPoint
+          } else {
+            pointsNonSolutions[i].push(monPoint)
+          }
         }
       }
       texte += '<br>' + mathalea2d({ xmin: -1, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2, style: 'display:block, top-margin:20px' }, mesObjets)
       texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
+
+      A = point(num / den * tailleUnite, 0)
+      console.log(A)
+      traceA = tracePoint(A)
+      traceA.color = 'blue'
+      traceA.epaisseur = 5
+      traceA.taille = 8
+      console.log(traceA)
+
+      texteCorr = mathalea2d({ xmin: -1, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2 }, d, traceA)
 
       if (!isArrayInArray(fractionsUtilisees, [num, den])) {
         // Si la question n'a jamais été posée, on en crée une autre

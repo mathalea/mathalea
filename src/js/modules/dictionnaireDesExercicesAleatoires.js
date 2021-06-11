@@ -3080,7 +3080,8 @@ export default {
     "titre": "Utiliser les abscisses fractionnaires",
     "url": "/exercices/6e/beta6N21-2D.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "beta6N21-2D"
   },
   "CM000": {
