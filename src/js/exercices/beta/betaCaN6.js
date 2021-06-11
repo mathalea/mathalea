@@ -17,7 +17,7 @@ export default function CourseAuxNombres6e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
-  this.nbQuestions = 10
+  this.nbQuestions = 12
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
@@ -40,6 +40,11 @@ export default function CourseAuxNombres6e () {
       'q5', // Double ou triple d'un nombre entier de 2 chiffres
       'q6', // Double ou triple d'un nombre décimal
       'q7', // Recomposition d'un entier
+      'q8', // tables de multiplication
+      'q9', // soustraire un nombre se finissant par 9
+      'q10', // Le quart ou le tiers d'un nombre.
+      'q11', // Recomposer un nombre à partir d'un nombre de centaines et d'un nombre d'unités
+      'q12', // Recomposer une nombre avec chevauchement.
     ] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -53,8 +58,8 @@ export default function CourseAuxNombres6e () {
           texte += ajouteChampTexteMathLive(this, i)
           break
         case 'q2':
-          a = randint(1, 25)
-          b = randint(1, 25, a)
+          a = randint(2, 25)
+          b = randint(2, 25, a)
           a = calcul(a / pgcd(a, b))
           b = calcul(b / pgcd(a, b))
           c = new Fraction(a, b)
@@ -130,6 +135,61 @@ export default function CourseAuxNombres6e () {
           texte = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100$`
           texteCorr = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(d)}$`
           setReponse(this, i, texNombre(d), { formatInteractif: 'calcul' })
+          texte += ajouteChampTexteMathLive(this, i)
+          break
+        case 'q8':
+          a = randint(5, 9)
+          b = randint(5, 9)
+          texte = `$${a} \\times ${b}$`
+          texteCorr = `$${a} \\times ${b}=${a * b}$`
+          setReponse(this, i, a * b, { formatInteractif: 'calcul' })
+          texte += ajouteChampTexteMathLive(this, i)
+          break
+        case 'q9':
+          a = randint(5, 9)
+          b = randint(2, 8)
+          c = randint(1, 3)
+          d = calcul(a * 10 + b - c * 10 - 9)
+          texte = `$${a * 10 + b} - ${c * 10 + 9}$`
+          texteCorr = `$${a * 10 + b} - ${c * 10 + 9}=${a * 10 + b}-${(c + 1) * 10} + 1 = ${d}$`
+          setReponse(this, i, d, { formatInteractif: 'calcul' })
+          texte += ajouteChampTexteMathLive(this, i)
+          break
+        case 'q10':
+          a = randint(5, 15)
+
+          if (choice([true, false])) {
+            b = a * 8
+            texte = `Quel est le quart de $${b}$ ?`
+            texteCorr = `Le quart de $${b}$ est $${a * 2}.$`
+            setReponse(this, i, a * 2, { formatInteractif: 'calcul' })
+            texte += ajouteChampTexteMathLive(this, i)
+          } else {
+            b = a * 6
+            texte = `Quel est le tiers de $${b}$ ?`
+            texteCorr = `Le tiers de $${b}$ est $${a * 2}.$`
+            setReponse(this, i, a * 2, { formatInteractif: 'calcul' })
+            texte += ajouteChampTexteMathLive(this, i)
+          }
+          break
+        case 'q11':
+          a = randint(20, 70)
+          b = randint(20, 70, a)
+          c = randint(1, 3)
+          d = calcul(a * 10 + b - c * 10 - 9)
+          texte = `$${a}$ centaines et $${b}$ unités = ?$`
+          texteCorr = `$${a} \\times 100 + ${b} = ${a * 100 + b}$`
+          setReponse(this, i, a * 100 + b, { formatInteractif: 'calcul' })
+          texte += ajouteChampTexteMathLive(this, i)
+          break
+        case 'q12':
+          a = randint(20, 70)
+          b = randint(20, 70, a)
+          c = randint(1, 3)
+          d = calcul(a * 10 + b - c * 10 - 9)
+          texte = `$${a}$ centaines et $${b}$ dizaines = ?`
+          texteCorr = `$${a} \\times 100 + ${b} \\times 10 = ${a * 100 + b * 10}$`
+          setReponse(this, i, a * 100 + b * 10, { formatInteractif: 'calcul' })
           texte += ajouteChampTexteMathLive(this, i)
           break
       }
