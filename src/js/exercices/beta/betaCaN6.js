@@ -33,10 +33,13 @@ export default function CourseAuxNombres6e () {
     this.listeCorrections = [] // Liste de questions corrigées
     let a, b, c, d
     const typeQuestionsDisponibles = [
-      'q1',
-      'q2',
-      'q3',
-      'q4'
+      'q1', // On donne le double d'un nombre et on demande sa moitié
+      'q2', // On demande le nombre qui, multiplié par a donne b (3 type de réponses acceptés : décimale, fractionnaire ou a+b/c)
+      'q3', // Somme astucieuse de 4 nombres entiers
+      'q4', // Somme de deux décimaux avec retenue
+      'q5', // Double ou triple d'un nombre entier de 2 chiffres
+      'q6', // Double ou triple d'un nombre décimal
+      'q7', // Recomposition d'un entier
     ] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -118,6 +121,16 @@ export default function CourseAuxNombres6e () {
             setReponse(this, i, texNombrec(2 * c), { formatInteractif: 'calcul' })
             texte += ajouteChampTexteMathLive(this, i)
           }
+          break
+        case 'q7':
+          a = randint(1, 3)
+          b = randint(1, 9, a)
+          c = randint(1, 9, [a, b])
+          d = calcul(a * 1000 + b * 10 + c * 100)
+          texte = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100$`
+          texteCorr = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(d)}$`
+          setReponse(this, i, texNombre(d), { formatInteractif: 'calcul' })
+          texte += ajouteChampTexteMathLive(this, i)
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
