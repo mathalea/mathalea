@@ -63,7 +63,6 @@ export default function CourseAuxNombres6e () {
           texte = `Le double d'un nombre vaut ${2 * a}, combien vaut sa moitié ?`
           texteCorr = `Le nombre est ${a}, sam moitié est ${calcul(a / 2)}.`
           setReponse(this, i, calcul(a / 2), { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, i)
           break
         case 'q2':
           a = randint(2, 25)
@@ -80,8 +79,6 @@ export default function CourseAuxNombres6e () {
             setReponse(this, i, c.texFraction, { formatInteractif: 'calcul' })
           }
           setReponse(this, i, [c.texFraction, resultat, `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`], { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, i)
-
           break
         case 'q3':
           a = randint(1, 9)
@@ -92,7 +89,6 @@ export default function CourseAuxNombres6e () {
           texte = `$${c - a} + ${d + b} + ${c + a} + ${d - b}$`
           texteCorr = `$${2 * c} + ${2 * d}= ${2 * (c + d)}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, i)
           break
         case 'q4':
           a = randint(1, 9)
@@ -103,7 +99,6 @@ export default function CourseAuxNombres6e () {
           texte = `$${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}$`
           texteCorr = `$${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}=${texNombrec(10 + (b + d) * 0.1 + c * 0.01)}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, i)
           break
         case 'q5':
           a = randint(1, 3)
@@ -114,13 +109,11 @@ export default function CourseAuxNombres6e () {
             texte = `Quel est le triple de $${c}$ ?`
             texteCorr = `Le triple de $${c}$ est $3 \\times ${c}=${calcul(3 * c)}$.`
             setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-            texte += ajouteChampTexteMathLive(this, i)
           } else {
             resultat = calcul(2 * c)
             texte = `Quel est le double de $${c}$ ?`
             texteCorr = `Le double de $${c}$ est $2 \\times ${c}=${calcul(2 * c)}$.`
             setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-            texte += ajouteChampTexteMathLive(this, i)
           }
           break
         case 'q6':
@@ -133,13 +126,11 @@ export default function CourseAuxNombres6e () {
             texte = `Quel est le triple de $${texNombre(c)}$ ?`
             texteCorr = `Le triple de $${texNombre(c)}$ est $3 \\times ${texNombre(c)}=${texNombrec(3 * c)}$.`
             setReponse(this, i, texNombre(resultat), { formatInteractif: 'calcul' })
-            texte += ajouteChampTexteMathLive(this, i)
           } else {
             resultat = calcul(2 * c)
             texte = `Quel est le double de $${texNombre(c)}$ ?`
             texteCorr = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${texNombrec(2 * c)}$.`
             setReponse(this, i, texNombre(resultat), { formatInteractif: 'calcul' })
-            texte += ajouteChampTexteMathLive(this, i)
           }
           break
         case 'q7':
@@ -150,7 +141,6 @@ export default function CourseAuxNombres6e () {
           texte = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100$`
           texteCorr = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(d)}$`
           setReponse(this, i, texNombre(resultat), { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, i)
           break
         case 'q8':
           a = randint(5, 9)
@@ -159,7 +149,6 @@ export default function CourseAuxNombres6e () {
           texte = `$${a} \\times ${b}$`
           texteCorr = `$${a} \\times ${b}=${a * b}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, i)
           break
         case 'q9':
           a = randint(5, 9)
@@ -169,7 +158,6 @@ export default function CourseAuxNombres6e () {
           texte = `$${a * 10 + b} - ${c * 10 + 9}$`
           texteCorr = `$${a * 10 + b} - ${c * 10 + 9}=${a * 10 + b}-${(c + 1) * 10} + 1 = ${d}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, i)
           break
         case 'q10':
           a = randint(5, 15)
@@ -180,14 +168,12 @@ export default function CourseAuxNombres6e () {
             texte = `Quel est le quart de $${b}$ ?`
             texteCorr = `Le quart de $${b}$ est $${a * 2}.$`
             setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-            texte += ajouteChampTexteMathLive(this, i)
           } else {
             b = a * 6
             resultat = a * 2
             texte = `Quel est le tiers de $${b}$ ?`
             texteCorr = `Le tiers de $${b}$ est $${a * 2}.$`
             setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-            texte += ajouteChampTexteMathLive(this, i)
           }
           break
         case 'q11':
@@ -197,7 +183,6 @@ export default function CourseAuxNombres6e () {
           texte = `$${a}$ centaines et $${b}$ unités = ?`
           texteCorr = `$${a} \\times 100 + ${b} = ${a * 100 + b}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, i)
           break
         case 'q12':
           a = randint(20, 70)
@@ -206,7 +191,6 @@ export default function CourseAuxNombres6e () {
           texte = `$${a}$ centaines et $${b}$ dizaines = ?`
           texteCorr = `$${a} \\times 100 + ${b} \\times 10 = ${a * 100 + b * 10}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, i)
           break
         case 'q13':
           a = randint(2, 4)
@@ -215,7 +199,6 @@ export default function CourseAuxNombres6e () {
           texte = `Convertir $${d}$ minutes en heures(h) et minutes(min) :`
           texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min`
           setReponse(this, i, `${a}h ${b}min`)
-          texte += ajouteChampTexte(this, i)
           break
         case 'q14':
           b = randint(1, 9)
@@ -226,7 +209,6 @@ export default function CourseAuxNombres6e () {
           texte = `Quel est le reste de la division de $${a}$ par $3$ ?`
           texteCorr = `Le reste de la division de $${a}$ par $3$ est ${a % 3}`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-          texte += ajouteChampTexte(this, i)
           break
         case 'q15':
           b = randint(5, 9)
@@ -235,7 +217,6 @@ export default function CourseAuxNombres6e () {
           texte = `$${a}\\div 9$`
           texteCorr = `$${a}\\div 9 = ${c}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-          texte += ajouteChampTexte(this, i)
           break
         case 'q16':
           a = randint(5, 9)
@@ -245,7 +226,6 @@ export default function CourseAuxNombres6e () {
           texte = `$${a * 10 + b} + ${c * 10 + 9}$`
           texteCorr = `$${a * 10 + b} + ${c * 10 + 9}=${a * 10 + b}+${(c + 1) * 10} - 1 = ${d}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, i)
           break
         case 'q17':
           a = randint(1, 9)
@@ -272,7 +252,6 @@ export default function CourseAuxNombres6e () {
               break
           }
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, i)
           break
         case 'q18':
           a = randint(5, 9)
@@ -283,7 +262,6 @@ export default function CourseAuxNombres6e () {
           texte = `$${c * 10 + a} + \\dots = ${calcul((c + d) * 10 + b + a)}$`
           texteCorr = `$${calcul((c + d) * 10 + b + a)} - ${c * 10 + a} = ${resultat}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, i)
           break
         case 'q19':
           a = randint(11, 24) * 2
@@ -291,7 +269,6 @@ export default function CourseAuxNombres6e () {
           texte = `$${a}\\times 5$`
           texteCorr = `$${a}\\times 5 = ${a} \\div 2 \\times 10 = ${calcul(a / 2)}\\times 10 =${resultat}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, i)
           break
   /*        case 'q20':
             a = randint(2,6)
@@ -299,10 +276,10 @@ export default function CourseAuxNombres6e () {
             texte = `$${a}\\times 5$`
             texteCorr = `$${a}\\times 5 = ${a} \\div 2 \\times 10 = ${calcul(a / 2)}\\times 10 =${resultat}$`
             setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-            texte += ajouteChampTexteMathLive(this, i)
             break
             */
       }
+      texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
