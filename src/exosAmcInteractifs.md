@@ -1,5 +1,5 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 91 
+- nombre d'exos amcReady 87 
 - nombre d'exos interactifReady 107 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
@@ -104,8 +104,7 @@
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|qcm|
 |6N43|Critères de divisibilité|OK|qcmMono|OK|qcm|
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
-|betaCaN6|Exercice exemple|OK|AMCNum|OK|mathLive|
-|betaExempleFigureClic|Sommets du triangle|KO|KO|OK|custom|
+|beta6N21-2D|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
