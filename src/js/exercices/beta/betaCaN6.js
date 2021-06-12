@@ -1,9 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'// eslint-disable-next-line camelcase
 import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
-export const titre = 'Exercice exemple'
+export const titre = 'Course aux nombres 6e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -17,7 +17,7 @@ export default function CourseAuxNombres6e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
-  this.nbQuestions = 12
+  this.nbQuestions = 15
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
@@ -45,6 +45,9 @@ export default function CourseAuxNombres6e () {
       'q10', // Le quart ou le tiers d'un nombre.
       'q11', // Recomposer un nombre à partir d'un nombre de centaines et d'un nombre d'unités
       'q12', // Recomposer une nombre avec chevauchement.
+      'q13', // conversion heures et minutes
+      'q14', // Reste de la division par 3
+      'q15', // Une division par 9 qui tombe juste
     ] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -191,6 +194,34 @@ export default function CourseAuxNombres6e () {
           texteCorr = `$${a} \\times 100 + ${b} \\times 10 = ${a * 100 + b * 10}$`
           setReponse(this, i, a * 100 + b * 10, { formatInteractif: 'calcul' })
           texte += ajouteChampTexteMathLive(this, i)
+          break
+        case 'q13':
+          a = randint(2, 4)
+          b = randint(10, 59)
+          d = calcul(a * 60 + b)
+          texte = `Convertir $${d}$ minutes en heures(h) et minutes(min) :`
+          texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min`
+          setReponse(this, i, `${a}h ${b}min`)
+          texte += ajouteChampTexte(this, i)
+          break
+        case 'q14':
+          b = randint(1, 9)
+          c = randint(0, 9)
+          d = randint(0, 9, [b, c])
+          a = calcul(b * 100 + c * 10 + d)
+          texte = `Quel est le reste de la division de $${a}$ par $3$ ?`
+          texteCorr = `Le reste de la division de $${a}$ par $3$ est ${a % 3}`
+          setReponse(this, i, a % 3, { formatInteractif: 'calcul' })
+          texte += ajouteChampTexte(this, i)
+          break
+        case 'q15':
+          b = randint(5, 9)
+          a = calcul(b * 90 + 9)
+          c = b * 10 + 1
+          texte = `$${a}\\div 9$`
+          texteCorr = `$${a}\\div 9 = ${c}$`
+          setReponse(this, i, c, { formatInteractif: 'calcul' })
+          texte += ajouteChampTexte(this, i)
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
