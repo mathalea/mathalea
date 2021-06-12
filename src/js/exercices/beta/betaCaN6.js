@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'// eslint-disable-next-line camelcase
 import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre } from '../../modules/outils.js'
-import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
 export const titre = 'Course aux nombres 6e'
 export const interactifReady = true
@@ -17,7 +17,7 @@ export default function CourseAuxNombres6e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
-  this.nbQuestions = 19
+  this.nbQuestions = 20
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
@@ -32,6 +32,16 @@ export default function CourseAuxNombres6e () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let a, b, c, d, resultat
+    const fruits = [
+      ['pêches', 4, 10, 30],
+      ['Noix', 5, 4, 13],
+      ['cerises', 6, 11, 20],
+      ['pommes', 2, 20, 40],
+      ['framboises', 15, 1, 5],
+      ['fraises', 7, 5, 10],
+      ['citrons', 1.5, 15, 30],
+      ['bananes', 1.5, 15, 25]
+    ]
     const typeQuestionsDisponibles = [
       'q1', // On donne le double d'un nombre et on demande sa moitié
       'q2', // On demande le nombre qui, multiplié par a donne b (3 type de réponses acceptés : décimale, fractionnaire ou a+b/c)
@@ -51,8 +61,8 @@ export default function CourseAuxNombres6e () {
       'q16', // ajouter un nombre de la forme 10n+9
       'q17', // 4 × #,## × 25 ou 2 × #,## × 50
       'q18', // addition à trou
-      'q19' // Nombre pair de 2 chiffres × 2
-      //    'q20' // Proportionnalité simple
+      'q19', // Nombre pair de 2 chiffres × 2
+      'q20' // Proportionnalité simple
     ] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -270,14 +280,15 @@ export default function CourseAuxNombres6e () {
           texteCorr = `$${a}\\times 5 = ${a} \\div 2 \\times 10 = ${calcul(a / 2)}\\times 10 =${resultat}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
-  /*        case 'q20':
-            a = randint(2,6)
-            b = randint()
-            texte = `$${a}\\times 5$`
-            texteCorr = `$${a}\\times 5 = ${a} \\div 2 \\times 10 = ${calcul(a / 2)}\\times 10 =${resultat}$`
-            setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-            break
-            */
+        case 'q20':
+          a = randint(0, 7)
+          b = fruits[a][1]
+          c = randint(fruits[a][2], fruits[a][3])
+          resultat = calcul(c / 50 * b)
+          texte = `$${texNombrec(c / 100)}$ kg de ${fruits[a][0]} coûtent $${texNombrec(c / 100 * b)}$ €, combien coûtent $${texNombrec(c / 50)}$ kg de ${fruits[a][0]} ?`
+          texteCorr = `$${texNombrec(c / 100 * b)} \\times 2 = ${resultat}$`
+          setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+          break
       }
       texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
