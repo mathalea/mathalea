@@ -17,23 +17,31 @@ if ($contentType === "application/json") {
   $currentTime = utf8_encode(strftime('%H:%M'));
 
 
-  // Il faut créer le répertoire sur le serveur s'il n'existe pas 
-  $path = './resultats/R/S/T';
+  // Il faut créer le répertoire sur le serveur s'il n'existe pas
+  // On récupère les 3 premières lettres du userId pour créer l'arboresscence
+  $lettre1 = $decoded->myObj->userId[0];
+  $lettre2 = $decoded->myObj->userId[1];
+  $lettre3 = $decoded->myObj->userId[2];
+  $path = './resultats/'.$lettre1.'/'.$lettre2.'/'.$lettre3;
+  // On génère une nouvelle clef uniquement si l'arborescence n'existe pas
+  // Sinon on récupère la clef dans le nom du fichier on verra plus tard s'il y a plusieurs fichiers
   if (!file_exists($path)) {
     mkdir($path, 0775, true);
+    //$keypass = strval($decoded->myObj->clef); // On peut ajouter un test pour savoir si c'est déjà un stirng
+    $keypass = md5(uniqid(rand(), true));
+  } else {    
+    $keypass = substr(scandir($path)[2],0,-10);
   };
 
   // Il faut créer le fichier de stockage s'il n'existe pas à partir de la clef  
-  $keypass = strval($decoded->myObj->clef); // On peut ajouter un test pour savoir si c'est déjà un stirng
-  //$keypass = md5(uniqid(rand(), true));
-  $pathToFile = './resultats/R/S/T/'.$keypass.'scores.csv';  
+  $pathToFile = $path.'/'.$keypass.'scores.csv';  
   // On ouvre le fichier
   $fp = fopen($pathToFile, 'a+');      
   // S'il n'existe pas on crée l'entete et on ajoute les données
   if (strlen(file_get_contents($pathToFile))==0) {
     fputs($fp, "idUser,idExo,nbBonnesReponse,nbQuestions,date,heure \r\n");  
   };
-  fputs($fp, $decoded->myObj->user.','.$decoded->myObj->refEx.','.$decoded->myObj->nbBonnesReponses.','.$decoded->myObj->nbQuestions.','.$currentDate.','.$currentTime."\r\n");  
+  fputs($fp, $decoded->myObj->userId.','.$decoded->myObj->refEx.','.$decoded->myObj->nbBonnesReponses.','.$decoded->myObj->nbQuestions.','.$currentDate.','.$currentTime."\r\n");  
   fclose($fp);
   // Si json_decode échoue, le JSON est invalide.
   if(! is_array($decoded)) {

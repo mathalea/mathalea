@@ -451,8 +451,8 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   let divScore = get(`score${exercice.numeroExercice}`, false)
   let score = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
   appelFetch({
-    clef : Math.floor(Math.random() * 10000),
-    user : 'RST99',
+    //clef : Math.floor(Math.random() * 10000),
+    userId : 'RST99',
     refEx : exercice.id,
     nbBonnesReponses : nbBonnesReponses,
     nbQuestions : nbBonnesReponses + nbMauvaisesReponses  
