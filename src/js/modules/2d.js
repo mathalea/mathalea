@@ -5234,9 +5234,10 @@ function DroiteGraduee2 ({
   this.Max = Max
 
   const objets = []; let S; let T; let P; let i
-  let longueurTotale = (Max - Min) * Unite + 1.1
-  let absord = [1, 0]
+  let longueurTotale = (Max - Min) * Unite + 1.1 // la longueur totale de l'axe flèche comprise
+  let absord = [1, 0] // Constantes pour gérer la verticalité ou l'horizontalité de l'axe
   if (axePosition !== 'H') absord = [0, 1]
+  // dessin de l'axe
   if (axeStyle === '->') {
     longueurTotale += 0.2
     S = segment(point(x - 0.2 * absord[0], y - 0.2 * absord[1]), point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]), axeCouleur)
@@ -5256,7 +5257,8 @@ function DroiteGraduee2 ({
   else if (thickSec) factor = calcul(1 / thickSecDist)
   else factor = calcul(1 / thickDistance)
 
-  const Min2 = Math.round((Min + thickOffset) * factor); const Max2 = Math.round((Max - thickOffset) * factor)
+  const Min2 = Math.round((Min + thickOffset) * factor) // début des graduations (ne coïncide pas nécéssairement avec le début de la droite)
+  const Max2 = Math.round((Max - thickOffset) * factor) // fin des graduations
   const pas1 = Math.round(thickDistance * factor); const pas2 = Math.round(thickSecDist * factor)
   for (let j = Min2; j <= Max2; j++) {
     i = calcul((j - Min * factor) / factor)
