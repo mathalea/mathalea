@@ -28,7 +28,7 @@ export default function CalculDeVolumes () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
-  this.interactifType=interactifType
+  this.interactifType = interactifType
   this.sup3 = 2
 
   let typesDeQuestionsDisponibles
