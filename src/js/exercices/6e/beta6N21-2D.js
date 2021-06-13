@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, lettreDepuisChiffre, randint, texFraction } from '../../modules/outils.js'
-import { mathalea2d, droiteGraduee2, point, tracePoint } from '../../modules/2d.js'
+import { mathalea2d, droiteGraduee2, point, tracePoint, labelPoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 export const titre = 'Utiliser les abscisses fractionnaires'
@@ -28,21 +28,39 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
-    const typeQuestionsDisponibles = [1] // On créé 3 types de questions
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let typeDeQuestions
+    if (this.sup === 4) {
+      typeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
+    } else {
+      typeDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions)
+    }
     const pointsSolutions = []
     const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
     const fractionsUtilisees = [] // Pour s'assurer de ne pas poser 2 fois la même question
-    for (let i = 0, texte, texteCorr, origine, num, den, A, traceA, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, origine, num, num2, num3, den, A, B, C, traceA, traceB, traceC, labels, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 1:
+      switch (typeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+        case 1: // Placer des demis aux quarts sur un axe
           origine = 0
           den = randint(2, 4)
           num = randint(1, den * 4)
-          texte = `Place le point $${lettreDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
           break
+        case 2: // Placer des cinquièmes aux neuvièmes sur un axe
+          origine = 0
+          den = randint(5, 9)
+          num = randint(1, den * 4)
+          break
+        case 3: // Placer des demis aux neuvièmes à partir d'un entier >=1 sur un axe
+          origine = randint(1, 7)
+          den = randint(2, 9)
+          num = randint(origine * den + 1, (origine + 4) * den)
+      }
+      if (this.interactif) {
+        texte = `Place le point $${lettreDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
+      } else {
+        num2 = randint(origine + 1, (origine + 4) * den, num)
+        num3 = randint(origine + 1, (origine + 4) * den, [num, num2])
+        texte = `Place les points $${lettreDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$.`
       }
       const tailleUnite = 4
       const d = droiteGraduee2({
@@ -58,25 +76,44 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         for (let indicePoint = 0, monPoint; indicePoint < 60; indicePoint++) {
           monPoint = pointCliquable(indicePoint / den * tailleUnite, 0, { size: 8, width: 5, color: 'blue', radius: tailleUnite / den / 2 })
           mesObjets.push(monPoint)
-          if (indicePoint === num) {
+          if (indicePoint === num - origine * den) {
             pointsSolutions[i] = monPoint
           } else {
             pointsNonSolutions[i].push(monPoint)
           }
         }
       }
-      texte += '<br>' + mathalea2d({ xmin: -1, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2, style: 'display:block, top-margin:20px' }, mesObjets)
+      texte += '<br>' + mathalea2d({ xmin: -2, xmax: 4 * tailleUnite + 1, ymin: -1, ymax: 2, style: 'display:block, top-margin:20px' }, mesObjets)
       texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
 
-      A = point(num / den * tailleUnite, 0)
-      console.log(A)
+      A = point(((num / den) - origine) * tailleUnite, 0, lettreDepuisChiffre(i + 1))
       traceA = tracePoint(A)
       traceA.color = 'blue'
-      traceA.epaisseur = 5
-      traceA.taille = 8
-      console.log(traceA)
+      traceA.epaisseur = 3
+      traceA.taille = 5
+      labels = labelPoint(A)
+      if (!this.interactif) {
+        A.nom = lettreDepuisChiffre(i * 3 + 1)
+        B = point(((num2 / den) - origine) * tailleUnite, 0, lettreDepuisChiffre(i * 3 + 2))
+        traceB = tracePoint(B)
+        traceB.color = 'blue'
+        traceB.epaisseur = 3
+        traceB.taille = 5
+        C = point(((num3 / den) - origine) * tailleUnite, 0, lettreDepuisChiffre(i * 3 + 3))
+        traceC = tracePoint(C)
+        traceC.color = 'blue'
+        traceC.epaisseur = 3
+        traceC.taille = 5
+        labels = labelPoint(A, B, C)
+      }
 
-      texteCorr = mathalea2d({ xmin: -1, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2 }, d, traceA)
+      if (this.interactif) {
+        texteCorr = `$${lettreDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
+        texteCorr += '<br>' + mathalea2d({ xmin: -1, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2 }, d, traceA, labels)
+      } else {
+        texteCorr = `$${lettreDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$`
+        texteCorr += '<br>' + mathalea2d({ xmin: -1, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2 }, d, traceA, traceB, traceC, labels)
+      }
 
       if (!isArrayInArray(fractionsUtilisees, [num, den])) {
         // Si la question n'a jamais été posée, on en crée une autre
