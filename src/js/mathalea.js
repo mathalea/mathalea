@@ -1774,6 +1774,33 @@ window.addEventListener('DOMContentLoaded', () => {
     })
   }
 
+  // Pour générer une clef, beta test
+  if (document.getElementById('keyProf')) {
+    document.getElementById('keyProf').addEventListener('click', function () {
+      let rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
+      let lettre1 = String.fromCharCode(rand)
+      rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
+      let lettre2 = String.fromCharCode(rand)
+      rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
+      let lettre3 = String.fromCharCode(rand)
+      fetch("keyProf.php", {
+        method: "POST",
+        mode: "same-origin",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          lettre1:lettre1,
+          lettre2:lettre2,
+          lettre3:lettre3
+        })
+      })
+      .then(response =>response.json())
+      .then(response => alert(`Vous pourrez recuperer vos scores à l'url : ${JSON.stringify(response)}`))      
+    })
+  }
+
   // Récupère la graine pour l'aléatoire dans l'URL
   const params = new URL(document.location).searchParams
   const serie = params.get('serie')
