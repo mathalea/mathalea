@@ -115,8 +115,6 @@ const config = {
     clean: true,
     // le dossier dans lequel mettre les js|css|html compilés
     path: path.resolve(__dirname, 'build'),
-    // pour tester les dev php
-    //path: path.resolve(__dirname, '../../public/'),
     // on ajoute le hash dans le nom du fichier => plus besoin de demander aux utilisateur de vider leur cache tout le temps
     // cf https://webpack.js.org/configuration/output/#outputfilename
     filename: 'js/[name].[contenthash].js',
