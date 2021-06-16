@@ -3243,6 +3243,18 @@ export default {
     "interactifReady": false,
     "name": "betabonhomme"
   },
+  "betaCaN5": {
+    "titre": "Course aux nombres 6e",
+    "url": "/exercices/beta/betaCaN5.js",
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCaN5"
+  },
   "betaCaN6": {
     "titre": "Course aux nombres 6e",
     "url": "/exercices/beta/betaCaN6.js",
