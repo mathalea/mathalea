@@ -180,7 +180,7 @@ export default function FractionDUnNombre () {
       }
       texte += ajouteChampTexteMathLive(this, i)
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = texte + '='
+        this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
         this.autoCorrection[i].reponse.param.digits = 2
         this.autoCorrection[i].reponse.param.decimals = 0

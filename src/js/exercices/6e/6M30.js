@@ -28,11 +28,12 @@ export default function CalculDeVolumes () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.sup3 = 2
 
   let typesDeQuestionsDisponibles
 
-  this.nouvelleVersion = function () {
+  this.nouvelleVersion = function (numeroExercice) {
     this.interactifType = parseInt(this.sup3) === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     if (this.classe === 6) { // sixième : cube et pavé droit
@@ -293,8 +294,8 @@ export default function CalculDeVolumes () {
       if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
       } else {
+        setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'longueur' })
         texte += ajouteChampTexteMathLive(this, i, 'longueur')
-        setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]))
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
