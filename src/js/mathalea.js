@@ -1775,15 +1775,15 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   // Pour générer une clef, beta test
-  if (document.getElementById('keyProf')) {
-    document.getElementById('keyProf').addEventListener('click', function () {
+  if (document.getElementById('keyScores')) {
+    document.getElementById('keyScores').addEventListener('click', function () {
       let rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
       let lettre1 = String.fromCharCode(rand)
       rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
       let lettre2 = String.fromCharCode(rand)
       rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
       let lettre3 = String.fromCharCode(rand)
-      fetch("keyProf.php", {
+      fetch("keyScores.php", {
         method: "POST",
         mode: "same-origin",
         credentials: "same-origin",
