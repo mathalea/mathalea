@@ -74,7 +74,7 @@ sudo xed /etc/apache2/sites-available/mathalea.conf
 Ce qui ouvre l'éditeur xed dans lequel nous allons coller :
 ```
     <VirtualHost *:80>
-    	DocumentRoot "/var/www/mathalea"
+    	DocumentRoot "/var/www/mathalea/build"
     	<Directory "/var/www/mathalea">
     		Options +FollowSymLinks
     		AllowOverride all
@@ -90,7 +90,7 @@ Puis Ctrl+S pour sauvegarder et Ctrl+Q pour quitter.
 Il faut ensuite activer cet hôte :
 
 ```shell
-sudo a2ensite public
+sudo a2ensite mathalea
 ```
 
 Ce VirtualHost ne possède pas de directive ServerName ou ServerAlias. Il sera donc utilisé par défaut pour les requêtes sur le port 80 si aucun autre VirtualHost ne correspond exactement au nom de domaine appelé. Pour qu'il soit pris en compte il faut par contre désactiver l'hôte virtuel par défaut d'Apache, qui arrive en priorité en suivant l'alphabet :
