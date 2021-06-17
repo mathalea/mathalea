@@ -11,24 +11,20 @@ import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
 
-// import { MathfieldElement } from 'mathlive'
 
-// @todo importer katex à la demande
-// import katex from 'katex'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 
 import '../css/style_mathalea.css'
 import { context, setOutputDiaporama, setOutputLatex } from './modules/context.js'
-import { i } from 'mathjs'
-import { e } from 'mathjs'
+import { gestionVue } from './modules/gestionVue.js'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
-function isNumeric(n) {
+function isNumeric (n) {
   return !isNaN(parseFloat(n)) && isFinite(n)
 }
 
-// Pour le menu du haut
+// Pour le menu dans le nav géré par SemanticUI
 document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()
 })
@@ -79,41 +75,9 @@ if (document.getElementById('filtre')) {
   })
 }
 
-const vue = getVueFromUrl()
-if (vue) {
-  context.vue = vue
-  const nav = document.getElementsByTagName('nav')
-  const footer = document.getElementsByTagName('footer')
-  const divMessageIntro = document.getElementById('messageIntro')
-  const divBoutonsAuDessusDesExercices = document.getElementById('boutonsAuDessusDesExercices')
-  const divParametres = document.getElementById('parametres')
-  if (context.vue === 'recto' || context.vue === 'verso') {
-    for (const e of [nav[0], footer[0], divMessageIntro, divBoutonsAuDessusDesExercices, divParametres]) {
-      e.style.display = 'none'
-    }
-    if (context.vue === 'verso') {
-      const divExercice = document.getElementById('exercices')
-      divExercice.style.display = 'none'
-      const accordion = document.getElementsByClassName('ui fluid accordion')
-      accordion[0].style.visibility = 'hidden'
-      const divCorrection = document.getElementById('corrections')
-      const body = document.getElementsByTagName('body')
-      body[0].appendChild(divCorrection)
-    }
-    // Le titre de l'exercice ne peut être masqué qu'après l'affichage
-    const masqueTitreExercice = () => {
-      const titresExercice = document.getElementsByClassName('ui dividing header')
-      for (const titre of titresExercice) {
-        titre.style.display = 'none'
-      }
-      const espaces = document.getElementsByClassName('ui hidden divider')
-      for (const espace of espaces) {
-        espace.style.display = 'none'
-      }
-    }
-    document.addEventListener('exercicesAffiches', masqueTitreExercice)
-  }
-}
+// gestion de la vue
+// si dans l'url il y a un paramètre &v=... on modifie le DOM et/ou le CSS
+gestionVue()
 
 // fonctions de gestion de la liste des exercices cg 04-2021 ****
 // fonctions : copierVersExerciceForm ; selectionnerCode ; ajoutHandlersEtiquetteExo ; gestionSpanChoixExercice ; copierExercicesFormVersAffichage
