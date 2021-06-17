@@ -72,9 +72,10 @@ sudo xed /etc/apache2/sites-available/mathalea.conf
 ```
 
 Ce qui ouvre l'éditeur xed dans lequel nous allons coller :
+
 ```
     <VirtualHost *:80>
-    	DocumentRoot "/var/www/mathalea"
+    	DocumentRoot "/var/www/mathalea/build"
     	<Directory "/var/www/mathalea">
     		Options +FollowSymLinks
     		AllowOverride all
@@ -84,13 +85,14 @@ Ce qui ouvre l'éditeur xed dans lequel nous allons coller :
     	CustomLog /var/log/apache2/access.mathalea.log combined
     </VirtualHost>
 ```
+> Le docRoot pointe sur le dossier build du projet afin de pouvoir tester les scripts php
 
 Puis Ctrl+S pour sauvegarder et Ctrl+Q pour quitter.
 
 Il faut ensuite activer cet hôte :
 
 ```shell
-sudo a2ensite public
+sudo a2ensite mathalea
 ```
 
 Ce VirtualHost ne possède pas de directive ServerName ou ServerAlias. Il sera donc utilisé par défaut pour les requêtes sur le port 80 si aucun autre VirtualHost ne correspond exactement au nom de domaine appelé. Pour qu'il soit pris en compte il faut par contre désactiver l'hôte virtuel par défaut d'Apache, qui arrive en priorité en suivant l'alphabet :
@@ -110,6 +112,8 @@ C'est prêt à l'adresse http://127.0.0.1
 > Il est possible de modifier le fichier `/etc/hosts` pour taper http://mathalea.local plutôt que http://127.0.0.1 dans la barre d'adresse
 
 > Il est aussi possible d'utiliser un autre port d'écoute que le port 80
+
+Reste à **cloner** le [dépôt mathalea](https://github.com/mathalea/mathalea)
 
 ## Mac Serveur Web MAMP
 ***
