@@ -72,6 +72,8 @@ sudo xed /etc/apache2/sites-available/mathalea.conf
 ```
 
 Ce qui ouvre l'éditeur xed dans lequel nous allons coller :
+> Le docRoot pointe sur le dossier build du projet afin de pouvoir tester les script php
+
 ```
     <VirtualHost *:80>
     	DocumentRoot "/var/www/mathalea/build"
@@ -110,6 +112,8 @@ C'est prêt à l'adresse http://127.0.0.1
 > Il est possible de modifier le fichier `/etc/hosts` pour taper http://mathalea.local plutôt que http://127.0.0.1 dans la barre d'adresse
 
 > Il est aussi possible d'utiliser un autre port d'écoute que le port 80
+
+Reste à **cloner** le [dépôt mathalea](https://github.com/mathalea/mathalea)
 
 ## Mac Serveur Web MAMP
 ***
