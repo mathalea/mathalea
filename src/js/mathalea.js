@@ -1,6 +1,6 @@
 /* global $ fetch event Event */
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl, getVueFromUrl } from './modules/getUrlVars.js'
+import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -10,7 +10,6 @@ import { exerciceInteractif } from './modules/gestionInteractif.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
-
 
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
@@ -55,7 +54,7 @@ if (document.getElementById('filtre')) {
   }
   document.getElementById('filtre').addEventListener('change', function () {
     // gestion du changement du select.
-    const regex = new RegExp('([?;&])filtre[^&;]*[;&]?')
+    const regex = /'([?;&])filtre[^&;]*[;&]?'/
     const query = window.location.search.replace(regex, '$1').replace(/&$/, '')
     const filtre = document.getElementById('filtre').value
     const url = (query.length > 2 ? query + '&' : '?') + (filtre !== 'tous' ? 'filtre=' + filtre : '')
@@ -82,7 +81,7 @@ gestionVue()
 // fonctions de gestion de la liste des exercices cg 04-2021 ****
 // fonctions : copierVersExerciceForm ; selectionnerCode ; ajoutHandlersEtiquetteExo ; gestionSpanChoixExercice ; copierExercicesFormVersAffichage
 
-function copierVersExerciceForm() {
+function copierVersExerciceForm () {
   // envoie des informations depuis les étiquettes vers le formulaire et déclenchement de l'evt change.
   // utilisé lorsque l'utilisateur valide/supprime ou déplace une étiquette exercices.
   let i, texteCode
@@ -101,7 +100,7 @@ function copierVersExerciceForm() {
   document.getElementById('choix_des_exercices').dispatchEvent(evenement)
 }
 
-function selectionnerCode(elem) {
+function selectionnerCode (elem) {
   // Fonction permettant de sélectionner tout le texte de l'étiquette lors du click sur cette dernière.
   const range = document.createRange()
   range.selectNodeContents(elem)
@@ -111,7 +110,7 @@ function selectionnerCode(elem) {
 }
 
 // Gestionnaire d'evenement sur les étiquettes d'exercice.
-function ajoutHandlersEtiquetteExo() {
+function ajoutHandlersEtiquetteExo () {
   $('.choix_exercices')
     .off('input')
     .on('input', function (e) {
@@ -148,7 +147,7 @@ function ajoutHandlersEtiquetteExo() {
     })
 }
 
-function gestionSpanChoixExercice(elem) {
+function gestionSpanChoixExercice (elem) {
   // quand on donne le code d'un exercice existant, le style change et on créé un autre span à suivre.
   const listeCodesExercices = Object.keys(dictionnaireDesExercices)
   if (listeCodesExercices.indexOf($(event.target).text()) >= 0 && !$(event.target).hasClass('valide')) {
@@ -172,7 +171,7 @@ if (document.getElementById('choix_exercices_div')) {
   ajoutHandlersEtiquetteExo()
 }
 
-function copierExercicesFormVersAffichage(exliste) {
+function copierExercicesFormVersAffichage (exliste) {
   // fonction déclenchée à chaque mise à jour du formulaire (ajout, suppression, déplacement d'un exercice via les icones)
   // pour mettre à jour l'affichage des étiquettes.
   // (on créé les étiquettes à partir du formulaire)
@@ -233,7 +232,7 @@ if (document.getElementById('choix_exercices_div')) {
  * @param listeObjetsExercice
  * @return {Promise}
  */
-async function gestionModules(isdiaporama, listeObjetsExercice) {
+async function gestionModules (isdiaporama, listeObjetsExercice) {
   // besoin katex, mg32, iep, scratch
   // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
   loadMathLive()
@@ -304,7 +303,7 @@ async function gestionModules(isdiaporama, listeObjetsExercice) {
   }
 }
 
-function contenuExerciceHtml(obj, numeroExercice, isdiaporama) {
+function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
   // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
   // fonction construisant le html pour l'affichage d'un exercice :
   // * mise en page du titre,
@@ -402,7 +401,7 @@ function contenuExerciceHtml(obj, numeroExercice, isdiaporama) {
   }
 }
 
-function miseAJourDuCode() {
+function miseAJourDuCode () {
   // fonction permettant de mettre à jour la liste des exercices affichées.
   // puis gère les gestionnaires d'évènements sur les éléments en provenance des exercices (icones pour supprimer/déplacer...)
   // Appelée dès lors que l'on a une modification sur l'affichage d'un ou plusieurs exercices
@@ -428,7 +427,7 @@ function miseAJourDuCode() {
   // Contrôle l'aléatoire grâce à SeedRandom
   seedrandom(context.graine, { global: true })
   // ajout des paramètres des exercices dans l'URL et pour le bouton "copier l'url"
-  ;(function gestionURL() {
+  ;(function gestionURL () {
     if (listeDesExercices.length > 0) {
       let finUrl = ''
       if (context.isHtml && !context.isDiaporama && window.location.pathname.indexOf('exo.html') < 0) {
@@ -851,7 +850,7 @@ function miseAJourDuCode() {
 
   // ******** possibilité de manipuler la liste des exercices via les exercices. ******
 
-  function monterExo(num) {
+  function monterExo (num) {
     // remonte un exercice d'un cran dans la liste (déclenché sur l'icone fleche vers le haut au niveau du titre d'un exercice.
     // récupère la liste des exercices dans le formulaire, la réordonne et relance la fonction miseAJourDeLaListeDesExercices()
     const formChoixDesExercices = document.getElementById('choix_des_exercices')
@@ -865,7 +864,7 @@ function miseAJourDuCode() {
     }
   }
 
-  function descendreExo(num) {
+  function descendreExo (num) {
     // descend un exercice d'un cran dans la liste (déclenché sur l'icone fleche vers le bas au niveau du titre d'un exercice.
     // récupère la liste des exercices dans le formulaire, la réordonne et relance la fonction miseAJourDeLaListeDesExercices()
     const formChoixDesExercices = document.getElementById('choix_des_exercices')
@@ -912,7 +911,7 @@ function miseAJourDuCode() {
  * sans l'ajouter à la liste
  * @private
  */
-function miseAJourDeLaListeDesExercices(preview) {
+function miseAJourDeLaListeDesExercices (preview) {
   let besoinXCas = false
   const promises = []
   const listeExercices = listeDesExercices
@@ -1151,7 +1150,7 @@ const formSup2 = []
 const formSup3 = []
 const formInteractif = [] // Création de tableaux qui recevront les éléments HTML de chaque formulaires
 
-function parametresExercice(exercice) {
+function parametresExercice (exercice) {
   /* Pour l'exercice i, on rajoute un formulaire avec 5 inputs :
         nombre de questions, nombre de colonnes,nombre de colonnes dans le corrigé,
         espacement et espacement dans le corrigé.
@@ -1757,7 +1756,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if (btnMiseAJourCode) {
     btnMiseAJourCode.addEventListener('click', nouvellesDonnees)
   }
-  function nouvellesDonnees() {
+  function nouvellesDonnees () {
     context.graine = strRandom({
       includeUpperCase: true,
       includeNumbers: true,
@@ -1808,7 +1807,7 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 
   // handlers pour la prévisualisation des exercices cg 04-20201
-  function afficherPopup() {
+  function afficherPopup () {
     // lors du clic sur l'oeil, si la popup est affichée on la cache, sinon on ouvre la prévisulisation.
     if ($('.popuptext').is(':visible')) {
       $('.popuptext').empty()

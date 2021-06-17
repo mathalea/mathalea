@@ -1,4 +1,5 @@
 import { context } from './context'
+import { get } from './dom'
 import { getVueFromUrl } from './getUrlVars'
 
 export function gestionVue () {
@@ -7,15 +8,15 @@ export function gestionVue () {
     context.vue = vue
     const nav = document.getElementsByTagName('nav')
     const footer = document.getElementsByTagName('footer')
-    const divMessageIntro = document.getElementById('messageIntro')
-    const divBoutonsAuDessusDesExercices = document.getElementById('boutonsAuDessusDesExercices')
-    const divParametres = document.getElementById('parametres')
-    const divExercice = document.getElementById('exercices')
-    const divCorrection = document.getElementById('corrections')
-    const btnZoomPlus = document.getElementById('btn_zoom_plus')
-    const btnZoomMoins = document.getElementById('btn_zoom_moins')
-    const btnEdit = document.getElementById('btn_edit')
-    const btnMiseAJourCode = document.getElementById('btn_mise_a_jour_code')
+    const divMessageIntro = get('messageIntro')
+    const divBoutonsAuDessusDesExercices = get('boutonsAuDessusDesExercices')
+    const divParametres = get('parametres')
+    const divExercice = get('exercices')
+    const divCorrection = get('corrections')
+    const btnZoomPlus = get('btn_zoom_plus')
+    const btnZoomMoins = get('btn_zoom_moins')
+    const btnEdit = get('btn_edit')
+    const btnMiseAJourCode = get('btn_mise_a_jour_code')
     const masqueEspaces = () => {
       const espaces = document.getElementsByClassName('ui hidden divider')
       for (const espace of espaces) {
