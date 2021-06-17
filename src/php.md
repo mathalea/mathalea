@@ -72,7 +72,6 @@ sudo xed /etc/apache2/sites-available/mathalea.conf
 ```
 
 Ce qui ouvre l'éditeur xed dans lequel nous allons coller :
-> Le docRoot pointe sur le dossier build du projet afin de pouvoir tester les script php
 
 ```
     <VirtualHost *:80>
@@ -86,6 +85,7 @@ Ce qui ouvre l'éditeur xed dans lequel nous allons coller :
     	CustomLog /var/log/apache2/access.mathalea.log combined
     </VirtualHost>
 ```
+> Le docRoot pointe sur le dossier build du projet afin de pouvoir tester les scripts php
 
 Puis Ctrl+S pour sauvegarder et Ctrl+Q pour quitter.
 
