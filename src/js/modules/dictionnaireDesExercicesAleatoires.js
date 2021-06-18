@@ -3244,7 +3244,7 @@ export default {
     "name": "betabonhomme"
   },
   "betaCaN5": {
-    "titre": "Course aux nombres 6e",
+    "titre": "Course aux nombres 5e",
     "url": "/exercices/beta/betaCaN5.js",
     "amcReady": true,
     "amcType": {
