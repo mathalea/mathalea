@@ -39,7 +39,6 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
   this.tailleDiaporama = 100
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestions, reponse

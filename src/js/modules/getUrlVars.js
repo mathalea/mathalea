@@ -4,6 +4,11 @@ export function getFilterFromUrl () {
   const urlParams = new URLSearchParams(queryString)
   return urlParams.get('filtre')
 }
+export function getVueFromUrl () {
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  return urlParams.get('v')
+}
 
 export function getUrlVars () { // Récupère les variables de l'URL
   const url = new URL(window.location.href)
