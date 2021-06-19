@@ -452,10 +452,12 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   const divExercice = get(`exercice${exercice.numeroExercice}`)
   let divScore = get(`score${exercice.numeroExercice}`, false)
   let score = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
-  
+  let str = location.href
+  let url = new URL(str)
+  let userId = url.searchParams.get("userId");
   appelFetch({
     //clef : Math.floor(Math.random() * 10000),
-    userId : 'RST99',
+    userId : userId,//'RST99',
     refEx : exercice.id,
     nbBonnesReponses : nbBonnesReponses,
     nbQuestions : nbBonnesReponses + nbMauvaisesReponses  

@@ -1903,6 +1903,10 @@ window.addEventListener('DOMContentLoaded', () => {
       let lettre2 = String.fromCharCode(rand)
       rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
       let lettre3 = String.fromCharCode(rand)
+      rand = Math.floor( Math.random() * (9 - 0 + 1) ) + 0;
+      let chiffre1 = rand.toString();
+      rand = Math.floor( Math.random() * (9 - 0 + 1) ) + 0;
+      let chiffre2 = rand.toString();
       fetch("scoresKey.php", {
         method: "POST",
         mode: "same-origin",
@@ -1913,11 +1917,15 @@ window.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({
           lettre1:lettre1,
           lettre2:lettre2,
-          lettre3:lettre3
+          lettre3:lettre3,
+          chiffre1:chiffre1,
+          chiffre2:chiffre2
         })
       })
       .then(response =>response.json())
       .then(response => {
+        // On ajoute un parametre userId à l'url
+        window.history.pushState('', '', location.href+'&userId='+response.userId)
         $('#modalScoresKey').modal('show')
         })
               
