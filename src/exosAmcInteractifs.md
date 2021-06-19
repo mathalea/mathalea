@@ -128,5 +128,3 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
-|betaCaN6|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
-|betaExempleFigureClic|Sommets du triangle|KO|KO|OK|custom|
