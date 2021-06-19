@@ -1896,7 +1896,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Pour générer une clef, beta test
   if (document.getElementById('keyScores')) {
-    document.getElementById('keyScores').addEventListener('click', function () {
+    document.getElementById('keyScores').addEventListener('click', function () {      
       let rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
       let lettre1 = String.fromCharCode(rand)
       rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
@@ -1917,7 +1917,10 @@ window.addEventListener('DOMContentLoaded', () => {
         })
       })
       .then(response =>response.json())
-      .then(response => alert(`Vous pourrez recuperer vos scores à l'url : ${JSON.stringify(response)}`))      
+      .then(response => {
+        $('#modalKeyScores').modal('show')
+        })
+              
     })
   }
 
