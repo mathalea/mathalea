@@ -431,11 +431,11 @@ function saisieToGrandeur (saisie) {
 /**
  * 
  * @param {*} myObj // myObj est un objet avec tout ce qu'on veut, on adapte au besoin
-  // ATTENTION, si on passe des propriétés il faut aussi modifier le script score.php en conséquence
+  // ATTENTION, si on passe des propriétés il faut aussi modifier le script scoresVerifResult.php en conséquence
  * @author Sébastien LOZANO
  */
 function appelFetch(myObj) {
-  fetch("score.php", {
+  fetch("scoresVerifResult.php", {
     method: "POST",
     mode: "same-origin",
     credentials: "same-origin",
@@ -452,6 +452,7 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   const divExercice = get(`exercice${exercice.numeroExercice}`)
   let divScore = get(`score${exercice.numeroExercice}`, false)
   let score = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
+  
   appelFetch({
     //clef : Math.floor(Math.random() * 10000),
     userId : 'RST99',

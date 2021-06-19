@@ -158,13 +158,14 @@
             data-tooltip="QRCode de lien vers les exercices"><i class="qrcode icon"></i></button>
           <button id="FullScreen" style="margin:10px" class="btn ui button icon" data-tooltip="Exercices en plein écran"
             onClick="window.location.reload();"><i class="external alternate icon"></i></button>
-            <button  id="keyScores" style="margin:10px" class="btn ui button icon" data-tooltip="Gérer les scores"><i class="key icon"></i><i class="save icon"></i></button>
-            <!-- <button  id="saveScores" style="margin:10px" class="btn ui button icon" data-tooltip="Sauver mes scores"><i class="key icon"></i><i class="save icon"></i></button> -->
+            <button  id="scoresKey" style="margin:10px" class="btn ui button icon" data-tooltip="Gérer les scores"><i class="key icon"></i><i class="save icon"></i></button>
+            <!-- <button  id="scoresSave" style="margin:10px" class="btn ui button icon" data-tooltip="Sauver mes scores"><i class="key icon"></i><i class="save icon"></i></button> -->
         </div>
 
         <div id="ModalQRcode" class="ui basic modal"></div>
         <div id="ModalEmbed" class="ui  modal"></div>
-        <div id="modalKeyScores" class="ui modal">
+        <!-- Modale pour les scores -->
+        <div id="modalScoresKey" class="ui modal">
           <i class="close icon"></i>
           <div class="header">
             Gestion des scores
@@ -186,7 +187,7 @@
               Créer un espace
               <i class="key icon"></i>
             </div>
-            <div class="ui positive right labeled icon button">
+            <div id="saveScores" class="ui positive right labeled icon button">
               Enregistrer des scores
               <i class="save icon"></i>
             </div>
