@@ -160,6 +160,12 @@
             onClick="window.location.reload();"><i class="external alternate icon"></i></button>
             <button  id="scoresKey" style="margin:10px" class="btn ui button icon" data-tooltip="Gérer les scores"><i class="key icon"></i><i class="save icon"></i></button>            
         </div>
+        
+        <!-- Feedback pour les scores -->
+        <div id="scoresFeedback" class="ui positive message" hidden>          
+          <div id="scoresFeedbackHeader" class="header">            
+          </div>          
+        </div>
 
         <div id="ModalQRcode" class="ui basic modal"></div>
         <div id="ModalEmbed" class="ui  modal"></div>
@@ -180,7 +186,7 @@
                 <li>Enregistrer des scores</li>
               </ul>             
             </div>
-          </div>
+          </div>          
           <div class="actions">
             <div id="scoresCreateSpace" class="ui positive right labeled icon button">
               Créer un espace

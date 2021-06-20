@@ -128,7 +128,15 @@
   <button  id="scoresKey" style="margin:10px" class="btn ui button icon" data-tooltip="Gérer les scores"><i class="key icon"></i><i class="save icon"></i></button>  
 </div>
 
+<!-- Feedback pour les scores -->
+<div id="scoresFeedback" class="ui positive message" hidden>          
+  <div id="scoresFeedbackHeader" class="header">            
+  </div>          
+</div>
+
+
 <div id="ModalQRcode" class="ui basic modal"></div>
+
 <!-- Modale pour les scores -->
 <div id="modalScoresKey" class="ui modal">
   <i class="close icon"></i>
@@ -147,6 +155,7 @@
       </ul>             
     </div>
   </div>
+  <div id="scoresFeedback"></div>
   <div class="actions">
     <div id="scoresCreateSpace" class="ui positive right labeled icon button">
       Créer un espace

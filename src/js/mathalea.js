@@ -1907,7 +1907,6 @@ window.addEventListener('DOMContentLoaded', () => {
   // Si on clique sur enregistrer des scores => ce sera une autre modale
   if (document.getElementById('scoresCreateSpace')) {
     document.getElementById('scoresCreateSpace').addEventListener('click', function () {
-      console.log('Espace user créé')
       let rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
       const lettre1 = String.fromCharCode(rand)
       rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
@@ -1937,7 +1936,15 @@ window.addEventListener('DOMContentLoaded', () => {
         .then(response => {
           // On ajoute un parametre userId à l'url
           window.history.pushState('', '', location.href + '&userId=' + response.userId)
-          alert('Vos fichiers de scores seront listés à l\'url suivante : ' + response.url)
+          if (document.getElementById('scoresFeedback')) {
+            document.getElementById('scoresFeedbackHeader').innerHTML = 'Création d\'un espace scores validé'
+            document.getElementById('scoresFeedback').insertAdjacentHTML('beforeend', `
+              Vos fichiers de scores seront listés sur <a href="${response.url}" target="_blank">cette page</a><br>
+              Vous pourrez ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
+            `)
+            document.getElementById('scoresFeedback').hidden = false
+          }
+          console.log('Création d\'un espace scores OK')
         })
     })
   }
