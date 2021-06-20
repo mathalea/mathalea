@@ -148,6 +148,13 @@ export default {
     "interactifReady": false,
     "name": "2L12"
   },
+  "2L13": {
+    "titre": "Inéquation du premier degré",
+    "url": "/exercices/2e/2L13.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2L13"
+  },
   "2N10-1": {
     "titre": "Connaître les propriétés calculatoires des racines carrées",
     "url": "/exercices/2e/2N10-1.js",
