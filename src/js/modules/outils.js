@@ -2585,6 +2585,28 @@ export function texFraction (a, b) {
 }
 
 /**
+ * Retourne le code LateX correspondant à un symbole
+ * @param {string} symbole 
+ * @returns {string} string
+ * @author Guillaume Valmont
+ * @example texSymbole("≤") retourne "\\leq"
+ */
+export function texSymbole (symbole) {
+  switch (symbole){
+    case "<":
+      return "<";
+    case ">":
+      return ">";
+    case "≤":
+      return "\\leq";
+    case "≥":
+      return "\\geq";
+    default:
+      return "symbole non connu par texSymbole()";
+  }
+}
+
+/**
 * Utilise printlatex et quote de Algebrite
 * @author Rémi Angot
 */
