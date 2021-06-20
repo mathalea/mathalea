@@ -207,7 +207,7 @@ export default function ExerciceInequation1 () {
           b = randint(1, 9)
           d = randint(b + 1, 15) // d sera plus grand que b pour que d-b>0
         }
-        texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}${texSymbole(symboleInegalite)}${rienSi1(c)}x${ecritureAlgebrique(d)}$`
+        texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}${texSymbole(symboleInegalite)} ${rienSi1(c)}x${ecritureAlgebrique(d)}$`
         texteCorr = texte + '<br>'
         if (this.correctionDetaillee) {
           if (c > 0) {
