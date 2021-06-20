@@ -125,12 +125,42 @@
   <button id="btnLaTeX"  style="margin:10px" class="btn ui button labeled icon" ><i class="edit icon"></i>Version LaTeX</button> 
   <button id="btnQRcode"  style="margin:10px" class="btn ui button icon" ><i class="qrcode icon"></i></button>  -->
   <button   style="margin:10px" id="btn_edit" class="btn ui button icon" onclick="window.location.href=window.location.href.replace('/exercice.html','/mathalea.html')" ><i class="edit icon"></i></button>
-  <button  id="scoresKey" style="margin:10px" class="btn ui button icon" data-tooltip="Gérer les scores"><i class="key icon"></i><i class="save icon"></i></button>
-  <!-- <button  id="scoresSave" style="margin:10px" class="btn ui button icon" data-tooltip="Sauver mes scores"><i class="key icon"></i><i class="save icon"></i></button> -->
+  <button  id="scoresKey" style="margin:10px" class="btn ui button icon" data-tooltip="Gérer les scores"><i class="key icon"></i><i class="save icon"></i></button>  
 </div>
 
 <div id="ModalQRcode" class="ui basic modal"></div>
-
+<!-- Modale pour les scores -->
+<div id="modalScoresKey" class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Gestion des scores
+  </div>
+  <div class="image content">
+    <div class="ui medium image">
+      <i class="key icon"></i><i class="save icon"></i>
+    </div>
+    <div class="description">
+      <div class="ui header">Vous pouvez au choix :</div>
+      <ul>
+        <li>Créer un espace de sauvegarde.</li>
+        <li>Enregistrer des scores</li>
+      </ul>             
+    </div>
+  </div>
+  <div class="actions">
+    <div id="scoresCreateSpace" class="ui positive right labeled icon button">
+      Créer un espace
+      <i class="key icon"></i>
+    </div>
+    <div id="scoresSaveToUserId" class="ui positive right labeled icon button">
+      Enregistrer des scores
+      <i class="save icon"></i>
+    </div>
+    <div class="ui black deny button">
+      Annuler
+    </div>
+  </div>
+</div>
 
 <div class="ui hidden divider"></div>
 
