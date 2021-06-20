@@ -1907,12 +1907,43 @@ window.addEventListener('DOMContentLoaded', () => {
   // Si on clique sur enregistrer des scores => ce sera une autre modale
   if (document.getElementById('scoresCreateSpace')) {
     document.getElementById('scoresCreateSpace').addEventListener('click',function (){
-      alert('Espace user créé')
+      console.log('Espace user créé')
+      let rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
+      let lettre1 = String.fromCharCode(rand)
+      rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
+      let lettre2 = String.fromCharCode(rand)
+      rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
+      let lettre3 = String.fromCharCode(rand)
+      rand = Math.floor( Math.random() * (9 - 0 + 1) ) + 0;
+      let chiffre1 = rand.toString();
+      rand = Math.floor( Math.random() * (9 - 0 + 1) ) + 0;
+      let chiffre2 = rand.toString();
+      fetch("scoresKey.php", {
+        method: "POST",
+        mode: "same-origin",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          lettre1:lettre1,
+          lettre2:lettre2,
+          lettre3:lettre3,
+          chiffre1:chiffre1,
+          chiffre2:chiffre2
+        })
+      })
+      .then(response =>response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
+      .then(response => {      
+        // On ajoute un parametre userId à l'url
+        window.history.pushState('', '', location.href+'&userId='+response.userId)        
+        })
     })
   }
 
   if (document.getElementById('scoresSaveToUserId')) {
     document.getElementById('scoresSaveToUserId').addEventListener('click',function (){
+      // ici il faudra ajouter le userId saisi à l'url
       let userId = prompt('Entrer le userId pour sauver dans cet espace')
       alert('Vos résultats seront sauver pour le userId : '+userId)
 
