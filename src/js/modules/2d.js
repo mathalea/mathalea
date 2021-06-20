@@ -8397,6 +8397,10 @@ function ObjetLutin () {
   ObjetMathalea2D.call(this)
   this.x = 0
   this.y = 0
+  this.xMin = 0
+  this.xMax = 0
+  this.yMin = 0
+  this.yMax = 0
   this.xSVG = function (coeff) {
     return this.x * coeff
   }
@@ -8507,6 +8511,10 @@ export function avance (d, lutin = context.lutin) { // A faire avec pointSurCerc
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   }
+  lutin.xMin = Math.min(lutin.xMin, lutin.x)
+  lutin.yMin = Math.min(lutin.yMin, lutin.y)
+  lutin.xMax = Math.max(lutin.xMax, lutin.x)
+  lutin.yMax = Math.max(lutin.yMax, lutin.y)
 }
 /**
  * Fait entrer le lutin dans le mode "trace"
@@ -8562,6 +8570,10 @@ export function allerA (x, y, lutin = context.lutin) {
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   }
+  lutin.xMin = Math.min(lutin.xMin, lutin.x)
+  lutin.yMin = Math.min(lutin.yMin, lutin.y)
+  lutin.xMax = Math.max(lutin.xMax, lutin.x)
+  lutin.yMax = Math.max(lutin.yMax, lutin.y)
 }
 /**
  * Change en x à l'abscisse du lutin
@@ -8575,6 +8587,8 @@ export function mettrexA (x, lutin = context.lutin) {
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
   }
+  lutin.xMin = Math.min(lutin.xMin, lutin.x)
+  lutin.xMax = Math.max(lutin.xMax, lutin.x)
 }
 /**
  * change en y l'ordonnée du lutin
@@ -8588,6 +8602,8 @@ export function mettreyA (y, lutin = context.lutin) {
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
   }
+  lutin.yMin = Math.min(lutin.yMin, lutin.y)
+  lutin.yMax = Math.max(lutin.yMax, lutin.y)
 }
 /**
  * Ajoute x à l'abscisse du lutin
@@ -8601,6 +8617,8 @@ export function ajouterAx (x, lutin = context.lutin) {
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
   }
+  lutin.xMin = Math.min(lutin.xMin, lutin.x)
+  lutin.xMax = Math.max(lutin.xMax, lutin.x)
 }
 /**
  * Ajoute y à l'ordonnée du lutin
@@ -8614,6 +8632,8 @@ export function ajouterAy (y, lutin = context.lutin) {
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
   }
+  lutin.yMin = Math.min(lutin.yMin, lutin.y)
+  lutin.yMax = Math.max(lutin.yMax, lutin.y)
 }
 /**
  * fait "vibrer" le lutin tempo fois autour de sa position courante
@@ -8678,6 +8698,10 @@ export function scratchblock (stringLatex) {
           case 'control':
             texte = translatex(chaine, index + taille + 1, compteAccolades)
             resultat = [texte[0], texte[1], texte[2]]
+            break
+          case 'pen':
+            texte = translatex(chaine, index + taille + 1, compteAccolades)
+            resultat = [texte[0] + ' :: pen', texte[1], texte[2]]
             break
           case 'list':
             texte = translatex(chaine, index + taille + 1, compteAccolades)
