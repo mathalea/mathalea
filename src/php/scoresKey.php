@@ -30,13 +30,14 @@ if ($contentType === "application/json") {
   if (!file_exists($path)) {
     mkdir($path, 0775, true);
     //$keypass = strval($decoded->myObj->clef); // On peut ajouter un test pour savoir si c'est déjà un string
-    $keypass = md5(uniqid(rand(), true));
+    //$keypass = md5(uniqid(rand(), true));
   } else {    
-    $keypass = substr(scandir($path)[2],0,-10);
+    //$keypass = substr(scandir($path)[2],0,-10);
   };
 
   echo json_encode(array(
-    "url" => $path.'/'.$keypass.'scores.csv',
+    //"url" => $path.'/'.$keypass.'scores.csv',
+    "url" => $path,
     "userId" => $lettre1.$lettre2.$lettre3.$chiffre1.$chiffre2
   ));  
 
