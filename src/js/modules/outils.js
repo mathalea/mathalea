@@ -568,7 +568,7 @@ export function numTrie (arr) {
   })
 }
 
-/*
+/**
 * Mélange les items d'un tableau, sans modifier le tableau passé en argument
 *
 * @Example
@@ -604,7 +604,7 @@ export function shuffleJusqua (array, indice) {
   }
 }
 
-/*
+/**
 * Mélange les lettres d'un string
 *
 * @Example
@@ -616,7 +616,7 @@ export function shuffleLettres (txt) {
   return shuffle(array).join('')
 }
 
-/*
+/**
 * Mélange les items de deux tableaux de la même manière
 *
 *
@@ -638,7 +638,7 @@ export function shuffle2tableaux (obj1, obj2) {
   }
 }
 
-/*
+/**
 * Trie un dictionnaire suivant ses clés
 *
 * @Example
@@ -660,7 +660,7 @@ export function tridictionnaire (dict) {
   return tempDict
 }
 
-/*
+/**
 * Filtre un dictionnaire suivant les premiers caractères de ses clés
 *
 * @Example
@@ -672,10 +672,10 @@ export function filtreDictionnaire (dict, sub) {
   )
 }
 
-/*
+/**
 * Polyfill Object.fromEntries
 *
-* Source : https://gitlab.com/moongoal/js-polyfill-object.fromentries/
+* @Source : https://gitlab.com/moongoal/js-polyfill-object.fromentries/
 */
 if (!Object.fromEntries) {
   Object.defineProperty(Object, 'fromEntries', {
@@ -695,7 +695,7 @@ if (!Object.fromEntries) {
   })
 }
 
-/*
+/**
 * Filtre un dictionnaire suivant la valeur d'une clé
 *
 * @Example
@@ -706,7 +706,7 @@ export function filtreDictionnaireValeurCle (dict, key, val) {
   return Object.fromEntries(Object.entries(dict).filter(([k, v]) => v[key] === val))
 }
 
-/*
+/**
 * Filtre un dictionnaire si une valeur appartient à une clé de type tableau
 *
 * @Example
@@ -725,7 +725,7 @@ function cleExisteEtContient (v, val) {
   }
 }
 
-/*
+/**
 * Concatène liste à elle même en changeant l'ordre à chaque cycle
 *
 *
@@ -3494,7 +3494,7 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
  * Ecrit un string sans accents
  * @param {string} str
  * @author Sébastien Lozano
- * source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent
+ * @source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent
  */
 /* export function sansAccent(str) {
   var accent = [
