@@ -77,7 +77,7 @@ Le code est libre, AGPL, vous pouvez donc télécharger les sources sur [GitHub]
 
 ### Outil de suivi des bugs
 
-<a href="https://www.bugsnag.com" target="_blank"><img class="ui centered image" src="/images/bugsnag.png"></a>
+<a href="https://www.bugsnag.com" target="_blank"><img class="ui centered image" src="https://coopmaths.fr/images/bugsnag.png"></a>
 
 ### ToDo
 
