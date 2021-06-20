@@ -35,7 +35,7 @@ export function exerciceQcm (exercice) {
     const monVert = 'rgba(123, 239, 178, 0.5)'
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
-      button.addEventListener('click', event => {
+      button.addEventListener('click', event => {        
         let nbQuestionsValidees = 0
         let nbQuestionsNonValidees = 0
         for (let i = 0; i < exercice.nbQuestions; i++) {
@@ -89,6 +89,7 @@ export function exerciceQcm (exercice) {
           uicheck.classList.add('read-only')
         })
         button.classList.add('disabled')
+        isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) // ajout seb
         afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees)
       })
     }
@@ -193,7 +194,7 @@ export function exerciceNumerique (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
-      button.addEventListener('click', event => {
+      button.addEventListener('click', event => {        
         let nbBonnesReponses = 0
         let nbMauvaisesReponses = 0
         for (const i in exercice.autoCorrection) {
@@ -211,6 +212,7 @@ export function exerciceNumerique (exercice) {
           spanReponseLigne.style.fontSize = 'large'
         }
         button.classList.add('disabled')
+        isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
         afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
       })
     }
@@ -281,7 +283,7 @@ export function exerciceCustom (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
-      button.addEventListener('click', event => {
+      button.addEventListener('click', event => {        
         // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
         let eltFeedback = get(`feedbackEx${exercice.numeroExercice}`, false)
         // On ajoute le div pour le feedback
@@ -294,6 +296,7 @@ export function exerciceCustom (exercice) {
         // On utilise la correction définie dans l'exercice
         exercice.correctionInteractive(eltFeedback)
         button.classList.add('disabled')
+        isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
       })
     }
   })
@@ -310,7 +313,7 @@ export function exerciceMathLive (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
-      button.addEventListener('click', event => {
+      button.addEventListener('click', event => {        
         let nbBonnesReponses = 0
         let nbMauvaisesReponses = 0
         let besoinDe2eEssai = false
@@ -399,6 +402,7 @@ export function exerciceMathLive (exercice) {
         }
         if (!besoinDe2eEssai) {
           button.classList.add('disabled')
+          isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
           afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
         }
       })
@@ -448,20 +452,40 @@ function appelFetch(myObj) {
   })
 }
 
-export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
-  const divExercice = get(`exercice${exercice.numeroExercice}`)
-  let divScore = get(`score${exercice.numeroExercice}`, false)
-  let score = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
+function isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) {
   let str = location.href
   let url = new URL(str)
   let userId = url.searchParams.get("userId");
-  appelFetch({
-    //clef : Math.floor(Math.random() * 10000),
-    userId : userId,//'RST99',
-    refEx : exercice.id,
-    nbBonnesReponses : nbBonnesReponses,
-    nbQuestions : nbBonnesReponses + nbMauvaisesReponses  
-  })
+  console.log(userId)
+  userId === null ? (
+    alert("userId KO : "+userId)
+    ) : (
+    alert("userId OK : "+userId),
+    appelFetch({  
+      userId : userId,//'RST99',
+      refEx : exercice.id,
+      nbBonnesReponses : nbBonnesReponses,
+      nbQuestions : nbBonnesReponses + nbMauvaisesReponses  
+    })
+  )
+}
+
+export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
+  const divExercice = get(`exercice${exercice.numeroExercice}`)
+  let divScore = get(`score${exercice.numeroExercice}`, false)
+  // let score = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
+  // let str = location.href
+  // let url = new URL(str)
+  // let userId = url.searchParams.get("userId");
+  // console.log(userId)
+  // userId === null ? alert("userId KO : "+userId) : alert("userId OK : "+userId)
+  // appelFetch({
+  //   //clef : Math.floor(Math.random() * 10000),
+  //   userId : userId,//'RST99',
+  //   refEx : exercice.id,
+  //   nbBonnesReponses : nbBonnesReponses,
+  //   nbQuestions : nbBonnesReponses + nbMauvaisesReponses  
+  // })
   if (!divScore) divScore = addElement(divExercice, 'div', { className: 'score', id: `score${exercice.numeroExercice}` })
   divScore.innerHTML = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
   divScore.style.color = '#f15929'

@@ -31,8 +31,12 @@ if ($contentType === "application/json") {
     mkdir($path, 0775, true);
     //$keypass = strval($decoded->myObj->clef); // On peut ajouter un test pour savoir si c'est déjà un stirng
     $keypass = md5(uniqid(rand(), true));
-  } else {    
-    $keypass = substr(scandir($path)[2],0,-10);
+  } else {
+    if (sizeof(scandir($path))>2) {
+      $keypass = substr(scandir($path)[2],0,-10);
+    } else {
+      $keypass = md5(uniqid(rand(), true));
+    };        
   };
 
   // Il faut créer le fichier de stockage s'il n'existe pas à partir de la clef  
