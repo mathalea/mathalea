@@ -25,7 +25,7 @@ export default function Exercice_inequation1() {
     this.correctionDetaillee = false;
   }
   this.sup = true; // Avec des nombres relatifs
-  this.sup2 = 4; // Choix du type d'équation
+  this.sup2 = 4; // Choix du type d'inéquation
   this.nbQuestions = 6;
 
   this.nouvelleVersion = function () {
@@ -139,7 +139,7 @@ export default function Exercice_inequation1() {
       if (listeTypeDeQuestions[i] == "x+b≤c") {
         a = 1;
         if (!this.sup && c < b) {
-          b = randint(-9, 9, [0]); // b peut être négatif, ça sera une équation du type x-b=c
+          b = randint(-9, 9, [0]); // b peut être négatif, ça sera une inéquation du type x-b=c
           c = abs(randint(b, 15)); // c sera plus grand que b pour que c-b>0
         }
         texte = `$x${ecritureAlgebrique(b)}${texSymbole(symboleInegalite)}${c}$`;
@@ -273,7 +273,7 @@ export default function Exercice_inequation1() {
   };
   this.besoinFormulaireCaseACocher = ["Avec des nombres relatifs"];
   this.besoinFormulaire2Numerique = [
-    "Type d'équations",
+    "Type d'inéquations",
     4,
     "1: ax≤b ou x+a≤b ou x-a≤b\n2: ax+b≤c\n3: ax+b≤cx+d\n4: Les 2 types précédents",
   ];
