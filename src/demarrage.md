@@ -82,7 +82,7 @@ Vous avez des modèles pour commencer votre exercice :
 - src/js/beta/betaExemple1TypeCalculLettre.js // Un même type de question répété  mais présenté A=..., B=...
 - src/js/beta/betaExemple3Types.js // On créé 3 types de questions  qui seront alternés (et que l'on peut pondérer)
 
-Vous pouvez installer l'extension ESLint pour repérer les erreurs et améliorer la mise en forme de votre document (avec les règles de StandardJS).
+Vous pouvez installer l'extension ESLint pour repérer les erreurs et améliorer la mise en forme de votre document (avec les règles de StandardJS). Dans VScode il s'agit d'ajouter l'extension **ESLint** de **Dirk Baeumer**, puis un `CTRL+MAJ+P` suivi de la commande `ESLint: Fix all auto-fixable Problems`
 
 ## git
 * windows : https://gitforwindows.org/ (installe aussi gitBash qui vous permettra de taper les commandes trouvées un peu partout dans un terminal)
