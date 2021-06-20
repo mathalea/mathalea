@@ -1895,42 +1895,67 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   // Pour générer une clef, beta test
+  // Si le bouton existe et que l'utilisateur clique de dessus on ouvre une modale
   if (document.getElementById('scoresKey')) {
     document.getElementById('scoresKey').addEventListener('click', function () {      
-      let rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
-      let lettre1 = String.fromCharCode(rand)
-      rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
-      let lettre2 = String.fromCharCode(rand)
-      rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
-      let lettre3 = String.fromCharCode(rand)
-      rand = Math.floor( Math.random() * (9 - 0 + 1) ) + 0;
-      let chiffre1 = rand.toString();
-      rand = Math.floor( Math.random() * (9 - 0 + 1) ) + 0;
-      let chiffre2 = rand.toString();
-      fetch("scoresKey.php", {
-        method: "POST",
-        mode: "same-origin",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          lettre1:lettre1,
-          lettre2:lettre2,
-          lettre3:lettre3,
-          chiffre1:chiffre1,
-          chiffre2:chiffre2
-        })
-      })
-      .then(response =>response.json())
-      .then(response => {
-        // On ajoute un parametre userId à l'url
-        window.history.pushState('', '', location.href+'&userId='+response.userId)
-        $('#modalScoresKey').modal('show')
-        })
-              
+      $('#modalScoresKey').modal('show')
     })
   }
+
+  // Dans la modale :
+  // Si on clique sur créer un espace => on se contente de créer l'espace
+  // Si on clique sur enregistrer des scores => ce sera une autre modale
+  if (document.getElementById('scoresCreateSpace')) {
+    document.getElementById('scoresCreateSpace').addEventListener('click',function (){
+      alert('Espace user créé')
+    })
+  }
+
+  if (document.getElementById('scoresSaveToUserId')) {
+    document.getElementById('scoresSaveToUserId').addEventListener('click',function (){
+      let userId = prompt('Entrer le userId pour sauver dans cet espace')
+      alert('Vos résultats seront sauver pour le userId : '+userId)
+
+    })
+  }
+
+
+  // if (document.getElementById('scoresKey')) {
+  //   document.getElementById('scoresKey').addEventListener('click', function () {      
+  //     let rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
+  //     let lettre1 = String.fromCharCode(rand)
+  //     rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
+  //     let lettre2 = String.fromCharCode(rand)
+  //     rand = Math.floor( Math.random() * (90 - 65 + 1) ) + 65;
+  //     let lettre3 = String.fromCharCode(rand)
+  //     rand = Math.floor( Math.random() * (9 - 0 + 1) ) + 0;
+  //     let chiffre1 = rand.toString();
+  //     rand = Math.floor( Math.random() * (9 - 0 + 1) ) + 0;
+  //     let chiffre2 = rand.toString();
+  //     fetch("scoresKey.php", {
+  //       method: "POST",
+  //       mode: "same-origin",
+  //       credentials: "same-origin",
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify({
+  //         lettre1:lettre1,
+  //         lettre2:lettre2,
+  //         lettre3:lettre3,
+  //         chiffre1:chiffre1,
+  //         chiffre2:chiffre2
+  //       })
+  //     })
+  //     .then(response =>response.json())
+  //     .then(response => {
+  //       // On ajoute un parametre userId à l'url
+  //       window.history.pushState('', '', location.href+'&userId='+response.userId)
+  //       $('#modalScoresKey').modal('show')
+  //       })
+              
+  //   })
+  // }
 
   // Récupère la graine pour l'aléatoire dans l'URL
   const params = new URL(document.location).searchParams
