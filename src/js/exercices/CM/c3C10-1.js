@@ -1,4 +1,4 @@
-import TablesDeMultiplications from '../6e/_Tables_de_multiplications.js'
+import ExerciceLabyrintheMultiplesMultiplications from '../6e/_Tables_de_multiplications.js'
 export const titre = 'Tables de multiplications'
 
 /**
@@ -8,8 +8,8 @@ export const titre = 'Tables de multiplications'
  *
  * @author Jean-Claude Lhote
  */
-export default function TablesDeMultiplicationsCM() {
-    TablesDeMultiplications.call(this);
+export default function ExerciceLabyrintheMultiplesMultiplicationsCM() {
+    ExerciceLabyrintheMultiplesMultiplications.call(this);
     this.titre = titre;
   this.sup2=1
 }

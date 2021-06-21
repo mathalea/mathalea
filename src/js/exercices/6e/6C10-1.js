@@ -1,4 +1,4 @@
-import TablesDeMultiplications from './_TablesDeMultiplications.js'
+import TablesDeMultiplications from './_Tables_de_multiplications.js'
 
 export const titre = 'Tables de multiplication'
 
