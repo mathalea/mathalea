@@ -8,8 +8,8 @@ export const titre = 'Tables de multiplications'
  *
  * @author Jean-Claude Lhote
  */
-export default function TablesDeMultiplicationsCM() {
-    TablesDeMultiplications.call(this);
-    this.titre = titre;
-  this.sup2=1
+export default function TablesDeMultiplicationsCM () {
+  TablesDeMultiplications.call(this)
+  this.titre = titre
+  this.sup2 = 1
 }

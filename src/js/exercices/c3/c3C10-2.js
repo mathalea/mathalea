@@ -8,11 +8,11 @@ export const titre = 'Labyrinthe de multiples'
  *
  * @author Jean-Claude Lhote
  */
-export default function Labyrinthe_de_multiplesCM() {
-    ExerciceLabyrintheMultiples.call(this);
-  this.niveau = 'CM';
-  this.titre = titre;
-  this.sup = 5;
-    this.sup2=10
-    this.sup3=3
+export default function LabyrintheDeMultiplesCM () {
+  ExerciceLabyrintheMultiples.call(this)
+  this.niveau = 'CM'
+  this.titre = titre
+  this.sup = 5
+  this.sup2 = 10
+  this.sup3 = 3
 }

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombre,nombreEnLettres} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, nombreEnLettres } from '../../modules/outils.js'
 export const titre = 'Écrire un nombre en chiffres ou en lettres'
 
 /**
@@ -10,41 +10,37 @@ export const titre = 'Écrire un nombre en chiffres ou en lettres'
  * Référence 6N10
  */
 
-export default function Ecrire_nombres_entiers() {
-  "use strict"
+export default function EcrireNombresEntiers () {
+  'use strict'
   Exercice.call(this)
-  this.titre = titre;
-  this.nbQuestions = 5;
-  this.nbCols = 1;
-  this.nbColsCorr = 1;
+  this.titre = titre
+  this.nbQuestions = 5
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 3
   this.nouvelleVersion = function () {
-    if (this.sup == 2)
-      this.consigne = "Écrire le nombre en chiffres"
-    else
-      this.consigne = "Écrire le nombre en lettres"
-    this.listeQuestions = []; // Liste de questions
-    this.listeCorrections = []; // Liste de questions corrigées 
-    let typesDeQuestionsDisponibles;
-    if (this.sup2 == 1) typesDeQuestionsDisponibles = [1, 1, 1, 2, 2]
-    else if (this.sup2 == 2) typesDeQuestionsDisponibles = [1, 2, 2, 2, 3]
-    else if (this.sup2 == 3) typesDeQuestionsDisponibles = [2, 2, 3, 3, 4]
+    if (parseInt(this.sup) === 2) { this.consigne = 'Écrire le nombre en chiffres' } else { this.consigne = 'Écrire le nombre en lettres' }
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    let typesDeQuestionsDisponibles
+    if (parseInt(this.sup2) === 1) typesDeQuestionsDisponibles = [1, 1, 1, 2, 2]
+    else if (parseInt(this.sup2) === 2) typesDeQuestionsDisponibles = [1, 2, 2, 2, 3]
+    else if (parseInt(this.sup2) === 3) typesDeQuestionsDisponibles = [2, 2, 3, 3, 4]
     else typesDeQuestionsDisponibles = [2, 3, 3, 4, 4]
 
-    let listeTypeDeQuestions = combinaisonListes(
+    const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions
-    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
       let i = 0, texte, texteCorr, a, b, c, nombre, tranche, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-
       nombre = 0
       tranche = []
-      while (nombre == 0) {
+      while (nombre === 0) {
         tranche.splice(0)
         for (let j = 0; j < listeTypeDeQuestions[i]; j++) {
           a = randint(1, 9)
@@ -55,15 +51,14 @@ export default function Ecrire_nombres_entiers() {
         for (let j = 0; j < listeTypeDeQuestions[i]; j++) {
           nombre += tranche[j] * 10 ** (j * 3)
         }
-        if (tranche[listeTypeDeQuestions[i] - 1] == 0) nombre = 0
+        if (tranche[listeTypeDeQuestions[i] - 1] === 0) nombre = 0
       }
-      if (this.sup == 1) {
+      if (parseInt(this.sup) === 1) {
         if (!context.isDiaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
         else texte = `$${texNombre(nombre)}$`
         if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
         else texteCorr = `${nombreEnLettres(nombre)}.`
-      }
-      else {
+      } else {
         if (!context.isDiaporama) texte = `${nombreEnLettres(nombre)} : \\dotfill`
         else texte = `${nombreEnLettres(nombre)}`
         if (!context.isDiaporama) texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$.`
@@ -71,15 +66,14 @@ export default function Ecrire_nombres_entiers() {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte);
-        this.listeCorrections.push(texteCorr);
-        i++;
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
       }
-      cpt++;
+      cpt++
     }
-    listeQuestionsToContenu(this);
-  };
-  this.besoinFormulaireNumerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
+    listeQuestionsToContenu(this)
+  }
+  this.besoinFormulaireNumerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres']
   this.besoinFormulaire2Numerique = ['Niveau', 4, '1 : Élémentaire\n2 : Facile\n3 : Moyen\n4 : Difficile']
 }
-

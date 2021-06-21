@@ -8,8 +8,8 @@ export const titre = 'Tables de multiplications'
  *
  * @author Jean-Claude Lhote
  */
-export default function ExerciceLabyrintheMultiplesMultiplicationsCM() {
-    ExerciceLabyrintheMultiplesMultiplications.call(this);
-    this.titre = titre;
-  this.sup2=1
+export default function ExerciceLabyrintheMultiplesMultiplicationsCM () {
+  ExerciceLabyrintheMultiplesMultiplications.call(this)
+  this.titre = titre
+  this.sup2 = 1
 }
