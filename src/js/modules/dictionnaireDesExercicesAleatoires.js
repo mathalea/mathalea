@@ -3243,12 +3243,12 @@ export default {
     "interactifReady": false,
     "name": "beta999"
   },
-  "betabonhomme": {
-    "titre": "bonhomme de neige",
-    "url": "/exercices/beta/betabonhomme.js",
+  "betaAlgoTortue": {
+    "titre": "AlgoTortue",
+    "url": "/exercices/beta/betaAlgoTortue.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betabonhomme"
+    "name": "betaAlgoTortue"
   },
   "betaCaN5": {
     "titre": "Course aux nombres 5e",
@@ -3359,13 +3359,6 @@ export default {
     "interactifReady": false,
     "name": "betaPuissances"
   },
-  "betareperagepave": {
-    "titre": "Exercice de repérage dans un pavé droit",
-    "url": "/exercices/beta/betareperagepave.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betareperagepave"
-  },
   "betarotation3d": {
     "titre": "Rotation 3d de polygones",
     "url": "/exercices/beta/betarotation3d.js",
@@ -3403,7 +3396,7 @@ export default {
   },
   "c3C10-1": {
     "titre": "Tables de multiplications",
-    "url": "/exercices/c3/c3C10-1.js",
+    "url": "/exercices/CM/c3C10-1.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "c3C10-1"

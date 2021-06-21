@@ -1,5 +1,5 @@
-import ExerciceLabyrintheMultiples from '../6e/6C10-5.js'
-export const titre = 'Labyrinthe de multiples'
+import ExerciceLabyrintheMultiplesMultiplications from '../6e/_Tables_de_multiplications.js'
+export const titre = 'Tables de multiplications'
 
 /**
  * Lire des nombres déciamux sur une portion de droite graduée
@@ -8,11 +8,8 @@ export const titre = 'Labyrinthe de multiples'
  *
  * @author Jean-Claude Lhote
  */
-export default function LabyrintheDeMultiplesCM () {
-  ExerciceLabyrintheMultiples.call(this)
-  this.niveau = 'CM'
+export default function ExerciceLabyrintheMultiplesMultiplicationsCM () {
+  ExerciceLabyrintheMultiplesMultiplications.call(this)
   this.titre = titre
-  this.sup = 5
-  this.sup2 = 10
-  this.sup3 = 3
+  this.sup2 = 1
 }
