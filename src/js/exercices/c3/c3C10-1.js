@@ -1,4 +1,4 @@
-import Tables_de_multiplications from '../6e/_Tables_de_multiplications.js'
+import TablesDeMultiplications from '../6e/_TablesDeMultiplications.js'
 export const titre = 'Tables de multiplications'
 
 /**
@@ -8,8 +8,8 @@ export const titre = 'Tables de multiplications'
  *
  * @author Jean-Claude Lhote
  */
-export default function Tables_de_multiplicationsCM() {
-    Tables_de_multiplications.call(this);
+export default function TablesDeMultiplicationsCM() {
+    TablesDeMultiplications.call(this);
     this.titre = titre;
   this.sup2=1
 }

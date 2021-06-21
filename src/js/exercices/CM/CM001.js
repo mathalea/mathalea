@@ -1,4 +1,4 @@
-import TablesDeMultiplications from '../6e/_Tables_de_multiplications.js'
+import TablesDeMultiplications from '../6e/_TablesDeMultiplications.js'
 
 export const titre = 'Tables de multiplication'
 export const interactifReady = true
