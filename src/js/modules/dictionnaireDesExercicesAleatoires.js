@@ -3396,7 +3396,7 @@ export default {
   },
   "c3C10-1": {
     "titre": "Tables de multiplications",
-    "url": "/exercices/c3/c3C10-1.js",
+    "url": "/exercices/CM/c3C10-1.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "c3C10-1"
