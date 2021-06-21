@@ -8,7 +8,7 @@ export const titre = 'Écrire correctement les grands nombres entiers.'
  * Supprimer les zéros inutiles, séparer les classes d'un nombre entier.
  * @author Jean-Claude Lhote
  */
-export default function Ecrire_nombres_entiers_formates() {
+export default function EcrireNombresEntiersFormates() {
   "use strict"
   Exercice.call(this)
   this.titre = titre;
