@@ -36,6 +36,10 @@ export function dessineAvecScratch (instruction, lutin) {
       lutin.codeScratch += '\\blockpen{stylo en position d\'écriture}\n'
       baisseCrayon(lutin)
       break
+    case 'lèveCrayon' :
+      lutin.codeScratch += '\\blockpen{relever le stylo}\n'
+      leveCrayon(lutin)
+      break
   }
 }
 
@@ -103,7 +107,7 @@ export default function AlgoTortue () {
         dessineAvecScratch({ texte: 'tournerG', val1: ag1 }, lutin)
       }
       dessineAvecScratch({ texte: 'avancer', val1: np2 }, lutin)
-
+      dessineAvecScratch({ texte: 'lèveCrayon' }, lutin)
       lutin.codeScratch += '\\end{scratch}'
       texte = 'Dessine la figure tracée par le lutin à l\'éxécution du programme ci-dessous.<br>'
       objetsEnonce.push(lutin)
