@@ -126,7 +126,7 @@ function listeHtmlDesExercicesDUnNiveau (liste_de_themes) { // liste_de_themes =
 
 function getListeHtmlDesExercicesDNB () {
   let liste = '<div class="accordion">'
-  for (const annee of ['2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
+  for (const annee of ['2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
     liste += `<div class="title"><i class="dropdown icon"></i> ${annee}</div><div class="content">`
     liste += listeHtmlDesExercicesDNBAnnee(annee)
     liste += '</div>'
