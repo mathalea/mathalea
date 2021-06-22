@@ -1896,6 +1896,10 @@ window.addEventListener('DOMContentLoaded', () => {
     })
   }
 
+  // ========================================================================================================
+  // Gestion des scores
+  // Sébastien LOZANO
+  // ========================================================================================================
   // Pour générer une clef, beta test
   // Si le bouton existe et que l'utilisateur clique de dessus on ouvre une modale
   if (document.getElementById('scoresKey')) {
@@ -1968,16 +1972,9 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   if (document.getElementById('scoresSaveToUserId')) {
-    document.getElementById('scoresSaveToUserId').addEventListener('click', function () {      
-      // On supprime le userId de l'url s'il existe
-      const params = new URLSearchParams(location.search)
-      if (params.has('userId')) {
-        params.delete('userId')  
-        history.replaceState(null, '', '?' + params + location.hash)
-      } 
-      // ici il faudra ajouter le userId saisi à l'url
+    document.getElementById('scoresSaveToUserId').addEventListener('click', function () {
+      // Il faudra remplacer le prompt
       const userId = prompt('Entrer le userId pour sauver dans cet espace')      
-      window.history.pushState('', '', location.href + '&userId=' + userId)
       fetch('scoresKey.php', {
         method: 'POST',
         mode: 'same-origin',
@@ -1995,10 +1992,23 @@ window.addEventListener('DOMContentLoaded', () => {
       })
         .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
         .then(response => {
-          alert(
-            `Vos résultats seront sauver pour le userId : ${userId}.\n
-            Vos fichiers de scores seront listés à l'url suivante : ${response.url}
-          `)
+          // On ajoute un parametre userId à l'url          
+          // On supprime le userId de l'url s'il existe
+          const params = new URLSearchParams(location.search)
+          if (params.has('userId')) {
+            params.delete('userId')  
+            history.replaceState(null, '', '?' + params + location.hash)
+          }
+          window.history.pushState('', '', location.href + '&userId=' + response.userId)
+          if (document.getElementById('scoresFeedback')) {
+            document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
+            document.getElementById('scoresFeedbackBody').innerHTML = `
+              Vos fichiers de scores seront listés sur <a href="${response.url}" target="_blank">cette page</a><br>
+              Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
+            `
+            document.getElementById('scoresFeedback').hidden = false
+          }
+          console.log('Enregistrement vers un espace scores OK')
         })
     })
   }
