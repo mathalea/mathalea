@@ -449,6 +449,12 @@ function miseAJourDuCode () {
       if (listeObjetsExercice[0].video.length > 1) {
         finUrl += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
       }
+      if (listeObjetsExercice[0].correctionDetaillee && listeObjetsExercice[0].correctionDetailleeDisponible) {
+        finUrl += ',cd=1'
+      }
+      if (!listeObjetsExercice[0].correctionDetaillee && listeObjetsExercice[0].correctionDetailleeDisponible) {
+        finUrl += ',cd=0'
+      }
       if (listeObjetsExercice[0].interactif && !context.isDiaporama) {
         finUrl += ',interactif=1'
       }
@@ -472,6 +478,12 @@ function miseAJourDuCode () {
             // Pour dnb, video est à false, pour les exercices interactif, par défaut c'est ''
             finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
           }
+        }
+        if (listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
+          finUrl += ',cd=1'
+        }
+        if (!listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
+          finUrl += ',cd=0'
         }
         if (listeObjetsExercice[i].interactif && !context.isDiaporama) {
           finUrl += ',interactif=1'
@@ -1025,6 +1037,16 @@ function miseAJourDeLaListeDesExercices (preview) {
           if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
             listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
             formVideo[i].value = listeObjetsExercice[i].video
+          }
+          if (urlVars[i].cd !== undefined) {
+            if (urlVars[i].cd === 1) {
+              listeObjetsExercice[i].correctionDetaillee = true
+              formCorrectionDetaillee[i].checked = true
+            }
+            if (urlVars[i].cd === 0) {
+              listeObjetsExercice[i].correctionDetaillee = false
+              formCorrectionDetaillee[i].checked = false
+            }
           }
           if (urlVars[i].interactif) {
             listeObjetsExercice[i].interactif = true
