@@ -147,7 +147,7 @@ function getListeHtmlDesExercicesDNBTheme () {
     //   "Calculs numériques",
     //   "Géométrie dans l'espace",
     //   "Durées",
-    //   "Equations",
+    //   "Équations",
     //   "Fractions",
     //   "Fonctions",
     //   "Géométrie plane",
