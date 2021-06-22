@@ -16,23 +16,25 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
+  this.interactif = true
   this.consigne = ''
   this.nbQuestionsModifiable = false
+  this.nbQuestions = 25 // Pour la boucle des feedbacks
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   // this.sup = 1
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
+  this.spacing = 3
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.introduction = 'Dans cet exercice...'
 
     let question0 = '15 centaines + 32 dizaines'
     this.autoCorrection[0] = {}
-    this.autoCorrection[0].options = { ordered: true }
+    this.autoCorrection[0].options = { ordered: true, vertical: true }
     this.autoCorrection[0].propositions = [
       {
         texte: '$1532$',
@@ -51,12 +53,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: true
       }
     ]
-    question0 += '<br>' + propositionsQcm(this, 0).texte
+    question0 += propositionsQcm(this, 0).texte
     const correction0 = ''
 
     let question1 = '$7 + 2 \\times 6$'
     this.autoCorrection[1] = {}
-    this.autoCorrection[1].options = { ordered: true }
+    this.autoCorrection[1].options = { ordered: true, vertical: true }
     this.autoCorrection[1].propositions = [
       {
         texte: '$54$',
@@ -75,12 +77,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question1 += '<br>' + propositionsQcm(this, 1).texte
+    question1 += propositionsQcm(this, 1).texte
     const correction1 = ''
 
     let question2 = '$2,501 - 0,04$'
     this.autoCorrection[2] = {}
-    this.autoCorrection[2].options = { ordered: true }
+    this.autoCorrection[2].options = { ordered: true, vertical: true }
     this.autoCorrection[2].propositions = [
       {
         texte: '$2,497$',
@@ -99,12 +101,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: true
       }
     ]
-    question2 += '<br>' + propositionsQcm(this, 2).texte
+    question2 += propositionsQcm(this, 2).texte
     const correction2 = ''
 
     let question3 = '$\\dfrac{1}{2}+\\dfrac{1}{5}$'
     this.autoCorrection[3] = {}
-    this.autoCorrection[3].options = { ordered: true }
+    this.autoCorrection[3].options = { ordered: true, vertical: true }
     this.autoCorrection[3].propositions = [
       {
         texte: '$\\dfrac{1}{7}$',
@@ -123,12 +125,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: true
       }
     ]
-    question3 += '<br>' + propositionsQcm(this, 3).texte
+    question3 += propositionsQcm(this, 3).texte
     const correction3 = ''
 
     let question4 = '$\\dfrac{1}{2}\\times\\dfrac{1}{5}$'
     this.autoCorrection[4] = {}
-    this.autoCorrection[4].options = { ordered: true }
+    this.autoCorrection[4].options = { ordered: true, vertical: true }
     this.autoCorrection[4].propositions = [
       {
         texte: '$\\dfrac{1}{7}$',
@@ -147,11 +149,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question4 += '<br>' + propositionsQcm(this, 4).texte
+    question4 += propositionsQcm(this, 4).texte
     const correction4 = ''
 
     let question5 = 'Si $x=3$ alors $2x^2+4=\\ldots$'
     this.autoCorrection[5] = {}
+    this.autoCorrection[5].options = { ordered: true, vertical: true }
     this.autoCorrection[5].propositions = [
       {
         texte: '40',
@@ -170,12 +173,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question5 += '<br>' + propositionsQcm(this, 5).texte
+    question5 += propositionsQcm(this, 5).texte
     const correction5 = ''
 
     let question6 = 'L\'équation $7x+1=5x-3$ admet pour solution'
     this.autoCorrection[6] = {}
-    this.autoCorrection[6].options = { ordered: true }
+    this.autoCorrection[6].options = { ordered: true, vertical: true }
     this.autoCorrection[6].propositions = [
       {
         texte: '$x=-2$',
@@ -194,12 +197,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question6 += '<br>' + propositionsQcm(this, 6).texte
+    question6 += propositionsQcm(this, 6).texte
     const correction6 = ''
 
     let question7 = figure7()
     this.autoCorrection[7] = {}
-    this.autoCorrection[7].options = { ordered: true }
+    this.autoCorrection[7].options = { ordered: true, vertical: true }
     this.autoCorrection[7].propositions = [
       {
         texte: '$1700$',
@@ -218,12 +221,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: true
       }
     ]
-    question7 += '<br>' + propositionsQcm(this, 7).texte
+    question7 += propositionsQcm(this, 7).texte
     const correction7 = ''
 
     let question8 = 'Dans un triangle équilatéral'
     this.autoCorrection[8] = {}
-    this.autoCorrection[8].options = { ordered: true }
+    this.autoCorrection[8].options = { ordered: true, vertical: true }
     this.autoCorrection[8].propositions = [
       {
         texte: 'Les 3 angles mesurent 50°.',
@@ -242,12 +245,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question8 += '<br>' + propositionsQcm(this, 8).texte
+    question8 += propositionsQcm(this, 8).texte
     const correction8 = ''
 
     let question9 = '$31 \\text{cm} + 12,5 \\text{m} + 15 \\text{mm} = $'
     this.autoCorrection[9] = {}
-    this.autoCorrection[9].options = { ordered: true }
+    this.autoCorrection[9].options = { ordered: true, vertical: true }
     this.autoCorrection[9].propositions = [
       {
         texte: '$128,25 \\text{dm}$',
@@ -266,12 +269,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question9 += '<br>' + propositionsQcm(this, 9).texte
+    question9 += propositionsQcm(this, 9).texte
     const correction9 = ''
 
     let question10 = 'Pour tout nombre réel $x$, l\'expression $(2x+1)^2-4$ est égale à '
     this.autoCorrection[10] = {}
-    this.autoCorrection[10].options = { ordered: true }
+    this.autoCorrection[10].options = { ordered: true, vertical: true }
     this.autoCorrection[10].propositions = [
       {
         texte: '$(2x+3)(2x-1)$',
@@ -290,12 +293,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question10 += '<br>' + propositionsQcm(this, 10).texte
+    question10 += propositionsQcm(this, 10).texte
     const correction10 = ''
 
     let question11 = 'Un pantalon coûte 58 €. Son prix en euros après une réduction de 20 % est '
     this.autoCorrection[11] = {}
-    this.autoCorrection[11].options = { ordered: true }
+    this.autoCorrection[11].options = { ordered: true, vertical: true }
     this.autoCorrection[11].propositions = [
       {
         texte: '$38$',
@@ -314,15 +317,15 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question11 += '<br>' + propositionsQcm(this, 11).texte
+    question11 += propositionsQcm(this, 11).texte
     const correction11 = ''
 
     let question12 = 'Dans laquelle de ces 3 situations le pourcentage de remise est-il le plus élevé ?'
-    question12 += '<br><br> Situation 1 : Article à 120 € soldé à 105 €.'
+    question12 += '<br>Situation 1 : Article à 120 € soldé à 105 €.'
     question12 += '<br>Situation 2 : Article à 45 euros soldé à $-30$ %.'
     question12 += '<br>Situation 3 : Article à 25 euros avec une réduction de 12,50 €.'
     this.autoCorrection[12] = {}
-    this.autoCorrection[12].options = { ordered: true }
+    this.autoCorrection[12].options = { ordered: true, vertical: true }
     this.autoCorrection[12].propositions = [
       {
         texte: '1',
@@ -341,12 +344,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question12 += '<br>' + propositionsQcm(this, 12).texte
+    question12 += propositionsQcm(this, 12).texte
     const correction12 = ''
 
     let question13 = figure13()
     this.autoCorrection[13] = {}
-    this.autoCorrection[13].options = { ordered: true }
+    this.autoCorrection[13].options = { ordered: true, vertical: true }
     this.autoCorrection[13].propositions = [
       {
         texte: 'Il existe des valeurs de $x$ pour lesquelles le périmètre du triangle est plus grand que celui du rectangle.',
@@ -365,12 +368,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: true
       }
     ]
-    question13 += '<br>' + propositionsQcm(this, 13).texte
+    question13 += propositionsQcm(this, 13).texte
     const correction13 = ''
 
     let question14 = 'Le nombre $(-2)^4$ est égal à'
     this.autoCorrection[14] = {}
-    this.autoCorrection[14].options = { ordered: true }
+    this.autoCorrection[14].options = { ordered: true, vertical: true }
     this.autoCorrection[14].propositions = [
       {
         texte: '$16$',
@@ -389,11 +392,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question14 += '<br>' + propositionsQcm(this, 14).texte
+    question14 += propositionsQcm(this, 14).texte
     const correction14 = ''
 
     let question15 = 'Si on multiplie par 3 toutes les dimensions d\'un rectangle, son aire est multipliée par'
     this.autoCorrection[15] = {}
+    this.autoCorrection[15].options = { ordered: true, vertical: true }
     this.autoCorrection[15].propositions = [
       {
         texte: '$3$',
@@ -412,12 +416,13 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question15 += '<br>' + propositionsQcm(this, 15).texte
+    question15 += propositionsQcm(this, 15).texte
     const correction15 = ''
 
     let question16 = figure16()
     question16 += '<br> Quelle figure a la plus grande aire ? (Les longueurs sont données en cm.)'
     this.autoCorrection[16] = {}
+    this.autoCorrection[16].options = { ordered: true, vertical: true }
     this.autoCorrection[16].propositions = [
       {
         texte: 'Le triangle',
@@ -436,12 +441,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question16 += '<br>' + propositionsQcm(this, 16).texte
+    question16 += propositionsQcm(this, 16).texte
     const correction16 = ''
 
     let question17 = '$1^2+2^2+3^2$'
     this.autoCorrection[17] = {}
-    this.autoCorrection[17].options = { ordered: true }
+    this.autoCorrection[17].options = { ordered: true, vertical: true }
     this.autoCorrection[17].propositions = [
       {
         texte: '$6^6$',
@@ -460,11 +465,35 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question17 += '<br>' + propositionsQcm(this, 17).texte
+    question17 += propositionsQcm(this, 17).texte
     const correction17 = ''
+    
+    let question19 = 'Un coureur qui parcourt 100 mètres en 10 secondes a une vitesse égale à'
+    this.autoCorrection[19] = {}
+    this.autoCorrection[19].options = { ordered: true, vertical: true }
+    this.autoCorrection[19].propositions = [
+      {
+        texte: '6 km/min',
+        statut: false
+      },
+      {
+        texte: '10 km/h',
+        statut: false
+      },
+      {
+        texte: '36 km/h',
+        statut: true
+      },
+      {
+        texte: 'Aucune de ces 3 propositions.',
+        statut: false
+      }
+    ]
+    question19 += propositionsQcm(this, 19).texte
+    const correction19 = ''
 
-    this.listeQuestions.push(question0, question1, question2, question3, question4, question5, question6, question7, question8, question9, question10, question11, question12, question13, question14, question15, question16, question17)
-    this.listeCorrections.push(correction0, correction1, correction2, correction3, correction4, correction5, correction6, correction7, correction8, correction9, correction10, correction11, correction12, correction13, correction14, correction15, correction16, correction17)
+    this.listeQuestions.push(question0, question1, question2, question3, question4, question5, question6, question7, question8, question9, question10, question11, question12, question13, question14, question15, question16, question17, question19)
+    this.listeCorrections.push(correction0, correction1, correction2, correction3, correction4, correction5, correction6, correction7, correction8, correction9, correction10, correction11, correction12, correction13, correction14, correction15, correction16, correction17, correction19)
     listeQuestionsToContenu(this)
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3];
@@ -546,5 +575,5 @@ function figure16 () {
   const t3 = texteParPosition('5', 8, -0.5)
   const t4 = texteParPosition('7', 15.5, -0.5)
   const t5 = texteParPosition('3', 11.5, 1.5)
-  return mathalea2d({ xmin: -0.5, xmax: 20.5, ymin: -.5, ymax: 6, pixelsParCm: 30 }, t, r, c, c1, c2, c3, c4, c5, c6, c7, c8, c9, t1, t2, t3, t4, t5, monCodage)
+  return mathalea2d({ xmin: -1.5, xmax: 20.5, ymin: -1.5, ymax: 6, pixelsParCm: 30 }, t, r, c, c1, c2, c3, c4, c5, c6, c7, c8, c9, t1, t2, t3, t4, t5, monCodage)
 }
