@@ -1900,7 +1900,17 @@ window.addEventListener('DOMContentLoaded', () => {
   // Si le bouton existe et que l'utilisateur clique de dessus on ouvre une modale
   if (document.getElementById('scoresKey')) {
     document.getElementById('scoresKey').addEventListener('click', function () {
-      $('#modalScoresKey').modal('show')
+      $('#modalScoresKey').modal({
+        onApprove: function () {
+          return false
+        },
+        onHide: function () {
+          document.getElementById('scoresFeedback').hidden = true
+        }
+        // onShow: function () {
+        //   document.getElementById('scoresFeedback').hidden = false
+        // }
+      }).modal('show')
     })
   }
 
@@ -1936,14 +1946,20 @@ window.addEventListener('DOMContentLoaded', () => {
       })
         .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
         .then(response => {
-          // On ajoute un parametre userId à l'url
+          // On ajoute un parametre userId à l'url          
+          // On supprime le userId de l'url s'il existe
+          const params = new URLSearchParams(location.search)
+          if (params.has('userId')) {
+            params.delete('userId')  
+            history.replaceState(null, '', '?' + params + location.hash)
+          }
           window.history.pushState('', '', location.href + '&userId=' + response.userId)
           if (document.getElementById('scoresFeedback')) {
-            document.getElementById('scoresFeedbackHeader').innerHTML = 'Création d\'un espace scores validé'
-            document.getElementById('scoresFeedback').insertAdjacentHTML('beforeend', `
+            document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
+            document.getElementById('scoresFeedbackBody').innerHTML = `
               Vos fichiers de scores seront listés sur <a href="${response.url}" target="_blank">cette page</a><br>
-              Vous pourrez ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
-            `)
+              Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
+            `
             document.getElementById('scoresFeedback').hidden = false
           }
           console.log('Création d\'un espace scores OK')
@@ -1952,9 +1968,15 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   if (document.getElementById('scoresSaveToUserId')) {
-    document.getElementById('scoresSaveToUserId').addEventListener('click', function () {
+    document.getElementById('scoresSaveToUserId').addEventListener('click', function () {      
+      // On supprime le userId de l'url s'il existe
+      const params = new URLSearchParams(location.search)
+      if (params.has('userId')) {
+        params.delete('userId')  
+        history.replaceState(null, '', '?' + params + location.hash)
+      } 
       // ici il faudra ajouter le userId saisi à l'url
-      const userId = prompt('Entrer le userId pour sauver dans cet espace')
+      const userId = prompt('Entrer le userId pour sauver dans cet espace')      
       window.history.pushState('', '', location.href + '&userId=' + userId)
       fetch('scoresKey.php', {
         method: 'POST',

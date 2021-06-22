@@ -129,10 +129,10 @@
 </div>
 
 <!-- Feedback pour les scores -->
-<div id="scoresFeedback" class="ui positive message" hidden>          
+<!-- <div id="scoresFeedback" class="ui positive message" hidden>          
   <div id="scoresFeedbackHeader" class="header">            
   </div>          
-</div>
+</div> -->
 
 
 <div id="ModalQRcode" class="ui basic modal"></div>
@@ -151,11 +151,16 @@
       <div class="ui header">Vous pouvez au choix :</div>
       <ul>
         <li>Créer un espace de sauvegarde.</li>
-        <li>Enregistrer des scores</li>
-      </ul>             
-    </div>
-  </div>
-  <div id="scoresFeedback"></div>
+        <li>Enregistrer des scores dans un espace existant</li>
+      </ul>
+      <br>
+      <!-- Feedback pour les scores -->
+      <div id="scoresFeedback" class="ui positive message" hidden>          
+          <div id="scoresFeedbackHeader" class="header"></div>          
+          <div id="scoresFeedbackBody"></div>          
+      </div>
+    </div>             
+  </div>          
   <div class="actions">
     <div id="scoresCreateSpace" class="ui positive right labeled icon button">
       Créer un espace
@@ -166,10 +171,11 @@
       <i class="save icon"></i>
     </div>
     <div class="ui black deny button">
-      Annuler
+      Fermer
     </div>
   </div>
 </div>
+
 
 <div class="ui hidden divider"></div>
 
