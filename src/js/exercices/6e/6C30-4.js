@@ -7,7 +7,6 @@ export const amcType = 1 // QCM
 export const interactifType = 'qcm'
 export const interactifReady = true
 
-
 export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)'
 
 /**

@@ -14,7 +14,7 @@ export const interactifType = 'numerique'
  * @author Rémi Angot
  * Référence 6C10-4
  */
-export default function Exercice_tables_d_additions (max = 20) {
+export default function ExerciceTablesAdditions (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.amcReady = amcReady
