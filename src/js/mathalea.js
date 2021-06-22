@@ -927,6 +927,7 @@ function miseAJourDeLaListeDesExercices (preview) {
     } catch (error) {
       console.log(error)
       console.log(`Exercice ${id} non disponible`)
+      // eslint-disable-next-line no-throw-literal
       throw {
         code: 'codeExerciceInconnu',
         exercice: id
@@ -966,6 +967,7 @@ function miseAJourDeLaListeDesExercices (preview) {
           })
           .then((module) => {
             if (module) {
+              // eslint-disable-next-line new-cap
               listeObjetsExercice[i] = new module.default() // Ajoute l'objet dans la liste des
               if (dictionnaireDesExercices[id].sup !== undefined) {
                 listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
