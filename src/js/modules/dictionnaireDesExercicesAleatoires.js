@@ -3689,6 +3689,14 @@ export default {
     "interactifReady": false,
     "name": "betaExoSimpleMatthieu"
   },
+  "betaLicence": {
+    "titre": "QCM de positionnement",
+    "url": "/exercices/beta/betaLicence.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "betaLicence"
+  },
   "betaProbabilites": {
     "titre": "Probabilités simples",
     "url": "/exercices/beta/betaProbabilites.js",

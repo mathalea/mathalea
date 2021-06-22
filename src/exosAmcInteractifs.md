@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 92 
-- nombre d'exos interactifReady 109 
+- nombre d'exos interactifReady 110 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -128,3 +128,4 @@
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
 |betaCaN6|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
 |betaExempleFigureClic|Sommets du triangle|KO|KO|OK|custom|
+|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
