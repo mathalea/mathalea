@@ -2586,23 +2586,23 @@ export function texFraction (a, b) {
 
 /**
  * Retourne le code LateX correspondant à un symbole
- * @param {string} symbole 
+ * @param {string} symbole
  * @returns {string} string
  * @author Guillaume Valmont
  * @example texSymbole("≤") retourne "\\leq"
  */
 export function texSymbole (symbole) {
-  switch (symbole){
-    case "<":
-      return "<";
-    case ">":
-      return ">";
-    case "≤":
-      return "\\leq";
-    case "≥":
-      return "\\geq";
+  switch (symbole) {
+    case '<':
+      return '<'
+    case '>':
+      return '>'
+    case '≤':
+      return '\\leq'
+    case '≥':
+      return '\\geq'
     default:
-      return "symbole non connu par texSymbole()";
+      return 'symbole non connu par texSymbole()'
   }
 }
 

@@ -50,7 +50,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
       }
       break
     case 2: // expressions de niveau 1 (2 opérations)
-      souscas = randint(0, 5)
+      souscas = randint(0, 9)
       switch (souscas) {
         case 0: // a(b+c)
           expf = `Le produit de ${nombreAvecEspace(a)} par la somme de ${nombreAvecEspace(b)} et ${nombreAvecEspace(c)}`
@@ -90,6 +90,30 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           expf = `Le quotient de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par ${nombreAvecEspace(c)}`
           expn = `$(${texNombre(a)}-${texNombre(b)})\\div ${texNombre(c)}$ ou $\\dfrac{${texNombre(a)}-${texNombre(b)}}{${texNombre(c)}}$`
           expc = `$(${texNombre(a)}-${texNombre(b)})\\div ${texNombre(c)} = ${texNombrec(a - b)}\\div ${texNombre(c)}=${texNombrec((a - b) / c)}$`
+          break
+        case 6: // a + bc
+          expf = `La somme de ${nombreAvecEspace(a)} et du produit de ${nombreAvecEspace(b)} et $${nombreAvecEspace(c)}$`
+          expn = `$${texNombre(a)}+${texNombre(b)}\\times ${texNombre(c)}$`
+          expc = `$${texNombre(a)}+${texNombre(b)}\\times ${texNombre(c)}=${texNombre(a)}+${texNombre(b * c)} = ${texNombre(a + (b * c))}$`
+          break
+        case 7: // a - bc
+          a = calcul(a + b * c)
+          expf = `La différence zentre ${nombreAvecEspace(a)} et le produit de ${nombreAvecEspace(b)} et $${texNombre(c)}$`
+          expn = `$${texNombre(a)}-${texNombre(b)}\\times ${texNombre(c)}$`
+          expc = `$${texNombre(a)}-${texNombre(b)}\\times ${c}=${texNombre(a)}-${texNombre(b * c)} = ${texNombre(a - (b * c))}$`
+          break
+        case 8: // a + b/c
+          b = calcul(b * c)
+          expf = `La somme de ${nombreAvecEspace(a)} et du quotient de ${nombreAvecEspace(b)} par $${texNombre(c)}$`
+          expn = `$${texNombre(a)}+${texNombre(b)}\\div ${texNombre(c)}$ ou $${texNombre(a)}+\\dfrac{${texNombre(b)}}{${texNombre(c)}}$`
+          expc = `$${texNombre(a)}+${texNombre(b)}\\div ${c}=${texNombre(a)}+${texNombre(b / c)} = ${texNombre(a + (b / c))}$`
+          break
+        case 9: // a - b/c
+          a = calcul(a + b)
+          b = calcul(b * c)
+          expf = `La différence entre ${nombreAvecEspace(a)} et le quotient de ${nombreAvecEspace(b)} par $${texNombre(c)}$`
+          expn = `$${texNombre(a)}-${texNombre(b)}\\div ${texNombre(c)}$ ou $${texNombre(a)}-\\dfrac{${texNombre(b)}}{${texNombre(c)}}$`
+          expc = `$${texNombre(a)}-${texNombre(b)}\\div ${texNombre(c)}=${texNombre(a)}-${texNombre(b / c)} = ${texNombre(a - (b / c))}$`
           break
       }
       break
