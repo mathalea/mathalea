@@ -1,5 +1,5 @@
 // on importe les fonctions nécessaires.
- Exercice from '../Exercice.js'
+import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
@@ -21,7 +21,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   this.sup = 7 // 7 instructions par défaut, paramètre réglable.
   this.sup2 = 1 // types d'instructionsde déplacement (ici seulement avancer et tourner)
 
-  this.nouvelleVersion = function (numeroExercice) { 
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     const objetsEnonce = []
@@ -61,9 +61,9 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     lutin.codeScratch = '\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n '
     lutin.codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
     allerA(xDepart, yDepart, lutin) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
-   
+
     lutin.codeScratch += '\\blockpen{stylo en position d\'écriture}\n'
-    baisseCrayon(lutin)  // à partir de là, le lutin laissera une trace (ses positions successives sont enregistrées dans lutin.listeTraces)
+    baisseCrayon(lutin) // à partir de là, le lutin laissera une trace (ses positions successives sont enregistrées dans lutin.listeTraces)
     lutin.codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n`
     orienter(angleScratchTo2d(angleDepart), lutin) // l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
 
@@ -105,12 +105,11 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
           break
       }
     }
-
     lutin.codeScratch += '\\blockpen{relever le stylo}\n'
     leveCrayon(lutin)
 
     lutin.codeScratch += '\\end{scratch}'
-
+    console.log(lutin.codeScratch)
     texte = 'Dessine la figure tracée par le lutin à l\'éxécution du programme ci-dessous.<br>'
     objetsEnonce.push(lutin)
 
@@ -133,7 +132,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     paramsCorrection.ymin = lutin.yMin - 1.5
     paramsCorrection.xmax = lutin.xMax + 1.5
     paramsCorrection.ymax = lutin.yMax + 1.5
-// mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
+    // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
     texte += mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, scale: 0.5 }, grille(-10, -10, 10, 10), tracePoint(point(0, 0)))
     if (context.isHtml) {
       texte += '</td><td>'
