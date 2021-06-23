@@ -19,7 +19,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.interactif = true
   this.consigne = ''
   this.nbQuestionsModifiable = false
-  this.nbQuestions = 25 // Pour la boucle des feedbacks
+  this.nbQuestions = 19 // Pour la boucle des feedbacks
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   // this.sup = 1
@@ -467,11 +467,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     ]
     question17 += propositionsQcm(this, 17).texte
     const correction17 = ''
-    
-    let question19 = 'Un coureur qui parcourt 100 mètres en 10 secondes a une vitesse égale à'
-    this.autoCorrection[19] = {}
-    this.autoCorrection[19].options = { ordered: true, vertical: true }
-    this.autoCorrection[19].propositions = [
+
+    let question18 = 'Un coureur qui parcourt 100 mètres en 10 secondes a une vitesse égale à'
+    this.autoCorrection[18] = {}
+    this.autoCorrection[18].options = { ordered: true, vertical: true }
+    this.autoCorrection[18].propositions = [
       {
         texte: '6 km/min',
         statut: false
@@ -489,11 +489,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         statut: false
       }
     ]
-    question19 += propositionsQcm(this, 19).texte
-    const correction19 = ''
+    question18 += propositionsQcm(this, 18).texte
+    const correction18 = ''
 
-    this.listeQuestions.push(question0, question1, question2, question3, question4, question5, question6, question7, question8, question9, question10, question11, question12, question13, question14, question15, question16, question17, question19)
-    this.listeCorrections.push(correction0, correction1, correction2, correction3, correction4, correction5, correction6, correction7, correction8, correction9, correction10, correction11, correction12, correction13, correction14, correction15, correction16, correction17, correction19)
+    this.listeQuestions.push(question0, question1, question2, question3, question4, question5, question6, question7, question8, question9, question10, question11, question12, question13, question14, question15, question16, question17, question18)
+    this.listeCorrections.push(correction0, correction1, correction2, correction3, correction4, correction5, correction6, correction7, correction8, correction9, correction10, correction11, correction12, correction13, correction14, correction15, correction16, correction17, correction18)
     listeQuestionsToContenu(this)
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3];
