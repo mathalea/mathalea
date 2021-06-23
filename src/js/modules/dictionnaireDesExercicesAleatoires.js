@@ -3244,7 +3244,7 @@ export default {
     "name": "beta999"
   },
   "betaAlgoTortue": {
-    "titre": "Note la couleur",
+    "titre": "Tortue Scratch",
     "url": "/exercices/beta/betaAlgoTortue.js",
     "amcReady": false,
     "interactifReady": false,

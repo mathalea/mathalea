@@ -28,7 +28,7 @@ export default function AlgoTortue () {
   this.pas_de_version_HMTL = false
   this.typeExercice = 'Scratch'
   this.listePackages = 'scratch3'
-  this.sup = 10
+  this.sup = 7
   this.sup2 = 2
 
   this.nouvelleVersion = function (numeroExercice) {
@@ -53,6 +53,7 @@ export default function AlgoTortue () {
       choix = randint(4, 7)
     }
     const commandes = combinaisonListesSansChangerOrdre(sequences[choix], parseInt(this.sup))
+    console.log(commandes)
     let val1, val2
     const lutin = creerLutin()
     lutin.color = 'green'
@@ -76,10 +77,10 @@ export default function AlgoTortue () {
     lutin.codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n`
     orienter(angleScratchTo2d(angleDepart), lutin)
 
-    for (let i = 0; i < commandes.length; i++) {
+    for (let i = 0; i < parseInt(this.sup); i++) {
       switch (commandes[i]) {
         case 'avancer':
-          val1 = randint(1, 3) * 20
+          val1 = randint(1, 4) * 10
           lutin.codeScratch += `\\blockmove{avancer de \\ovalnum{${val1}} pas}\n`
           avance(val1, lutin)
           break
@@ -92,12 +93,12 @@ export default function AlgoTortue () {
           tournerG(90, lutin)
           break
         case 'ajouter à x' :
-          val1 = randint(1, 3) * 20
+          val1 = randint(1, 4) * 10
           lutin.codeScratch += `\\blockmove{ajouter \\ovalnum{${val1}}  à  x}\n`
           ajouterAx(val1, lutin)
           break
         case 'ajouter à y' :
-          val1 = randint(1, 3) * 20
+          val1 = randint(1, 4) * 10
           lutin.codeScratch += `\\blockmove{ajouter \\ovalnum{${val1}}  à  y}\n`
           ajouterAy(val1, lutin)
           break
@@ -139,13 +140,13 @@ export default function AlgoTortue () {
     paramsCorrection.ymin = lutin.yMin - 1.5
     paramsCorrection.xmax = lutin.xMax + 1.5
     paramsCorrection.ymax = lutin.yMax + 1.5
-    texte += mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10 }, grille(-10, -10, 10, 10), tracePoint(point(0, 0)))
+    texte += mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, scale: 0.5 }, grille(-10, -10, 10, 10), tracePoint(point(0, 0)))
     if (context.isHtml) {
       texte += '</td><td>'
     } else {
       texte += '\\end{minipage} '
     }
-    texteCorr += '<br><br>' + mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10 }, grille(-10, -10, 10, 10), tracePoint(point(0, 0)), lutin)
+    texteCorr += '<br><br>' + mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, scale: 0.5 }, grille(-10, -10, 10, 10), tracePoint(point(0, 0)), lutin)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenuSansNumero(this)
