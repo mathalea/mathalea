@@ -195,12 +195,13 @@
               <!-- https://semantic-ui.com/collections/message.html -->
               <!-- https://semantic-ui.com/elements/input.html -->
               <div id="scoresPromptUserId" hidden>
-                <div id="scoresInputUserId" class="ui right labeled left icon input">
+                <div class="ui right labeled left icon input">
                   <i class="user icon"></i>
-                  <input type="text" placeholder="UserId ...">
+                  <input id="scoresInputUserId" type="text" placeholder="UserId ...">
                   <span class="ui tag label">
                     Set UserId here
                   </span>
+                  <button id="scoresSubmitUserId" class="ui positive button">Submit</button>
                 </div>
                 <div id ="scoresInputUserIdError" class="ui negative message" hidden>
                   <div id="scoresInputUserIdErrorHeader" class="header"></div>          
@@ -211,11 +212,11 @@
           </div>          
           <div class="actions">
             <div id="scoresCreateSpace" class="ui positive right labeled icon button">
-              Créer un espace
+              Créer un espace tout neuf
               <i class="key icon"></i>
             </div>
             <div id="scoresSaveToUserId" class="ui positive right labeled icon button">
-              Enregistrer des scores
+              Enregistrer des scores dans un espace existant
               <i class="save icon"></i>
             </div>
             <div class="ui black deny button">

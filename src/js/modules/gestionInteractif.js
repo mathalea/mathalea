@@ -89,7 +89,7 @@ export function exerciceQcm (exercice) {
           uicheck.classList.add('read-only')
         })
         button.classList.add('disabled')
-        isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) // ajout seb
+        isUserIdOk(exercice,nbQuestionsValidees, nbQuestionsNonValidees) // ajout seb
         afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees)
       })
     }

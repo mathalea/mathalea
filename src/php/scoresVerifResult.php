@@ -1,4 +1,11 @@
 <?php
+// TODO
+// => Problème de la duplication des requetes, ne semble pas se produire sur exercice.html mais sur mathalea avec 6C10 par exemple
+// => 
+// => Vérifier/Nettoyer les variables qui arrivent du client
+// => Gestion d'un feedback d'erreur sur le format du userId
+// => Placement de la variable $keypass cf post de Rémi
+
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 
 if ($contentType === "application/json") {

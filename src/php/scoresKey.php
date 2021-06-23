@@ -1,4 +1,9 @@
 <?php
+// TODO
+// => Vérifier/Nettoyer les variables qui arrivent du client
+// => Gestion d'un feedback d'erreur sur le format du userId
+// => Gestion d'un feedback d'erreur si le userId n'existe pas et qu'on demande d'enregistrer avec
+
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 
 if ($contentType === "application/json") {

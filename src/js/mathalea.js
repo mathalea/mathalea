@@ -1918,123 +1918,6 @@ window.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  // ========================================================================================================
-  // Gestion des scores
-  // Sébastien LOZANO
-  // ========================================================================================================
-  // Pour générer une clef, beta test
-  // Si le bouton existe et que l'utilisateur clique de dessus on ouvre une modale
-  if (document.getElementById('scoresKey')) {
-    document.getElementById('scoresKey').addEventListener('click', function () {
-      $('#modalScoresKey').modal({
-        onApprove: function () {
-          return false
-        },
-        onHide: function () {
-          document.getElementById('scoresFeedback').hidden = true
-        }
-        // onShow: function () {
-        //   document.getElementById('scoresFeedback').hidden = false
-        // }
-      }).modal('show')
-    })
-  }
-
-  // Dans la modale :
-  // Si on clique sur créer un espace => on se contente de créer l'espace
-  // Si on clique sur enregistrer des scores => ce sera une autre modale
-  if (document.getElementById('scoresCreateSpace')) {
-    document.getElementById('scoresCreateSpace').addEventListener('click', function () {
-      let rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
-      const lettre1 = String.fromCharCode(rand)
-      rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
-      const lettre2 = String.fromCharCode(rand)
-      rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
-      const lettre3 = String.fromCharCode(rand)
-      rand = Math.floor(Math.random() * (9 - 0 + 1)) + 0
-      const chiffre1 = rand.toString()
-      rand = Math.floor(Math.random() * (9 - 0 + 1)) + 0
-      const chiffre2 = rand.toString()
-      fetch('scoresKey.php', {
-        method: 'POST',
-        mode: 'same-origin',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          lettre1: lettre1,
-          lettre2: lettre2,
-          lettre3: lettre3,
-          chiffre1: chiffre1,
-          chiffre2: chiffre2
-        })
-      })
-        .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
-        .then(response => {
-          // On ajoute un parametre userId à l'url          
-          // On supprime le userId de l'url s'il existe
-          const params = new URLSearchParams(location.search)
-          if (params.has('userId')) {
-            params.delete('userId')  
-            history.replaceState(null, '', '?' + params + location.hash)
-          }
-          window.history.pushState('', '', location.href + '&userId=' + response.userId)
-          if (document.getElementById('scoresFeedback')) {
-            document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
-            document.getElementById('scoresFeedbackBody').innerHTML = `
-              Vos fichiers de scores seront listés sur <a href="${response.url}" target="_blank">cette page</a><br>
-              Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
-            `
-            document.getElementById('scoresFeedback').hidden = false
-          }
-          console.log('Création d\'un espace scores OK')
-        })
-    })
-  }
-
-  if (document.getElementById('scoresSaveToUserId')) {
-    document.getElementById('scoresSaveToUserId').addEventListener('click', function () {
-      // Il faudra remplacer le prompt
-      const userId = prompt('Entrer le userId pour sauver dans cet espace')      
-      fetch('scoresKey.php', {
-        method: 'POST',
-        mode: 'same-origin',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          lettre1: userId[0],
-          lettre2: userId[1],
-          lettre3: userId[2],
-          chiffre1: userId[3],
-          chiffre2: userId[4]
-        })
-      })
-        .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
-        .then(response => {
-          // On ajoute un parametre userId à l'url          
-          // On supprime le userId de l'url s'il existe
-          const params = new URLSearchParams(location.search)
-          if (params.has('userId')) {
-            params.delete('userId')  
-            history.replaceState(null, '', '?' + params + location.hash)
-          }
-          window.history.pushState('', '', location.href + '&userId=' + response.userId)
-          if (document.getElementById('scoresFeedback')) {
-            document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
-            document.getElementById('scoresFeedbackBody').innerHTML = `
-              Vos fichiers de scores seront listés sur <a href="${response.url}" target="_blank">cette page</a><br>
-              Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
-            `
-            document.getElementById('scoresFeedback').hidden = false
-          }
-          console.log('Enregistrement vers un espace scores OK')
-        })
-    })
-  }
-
   // Récupère la graine pour l'aléatoire dans l'URL
   const params = new URL(document.location).searchParams
   const serie = params.get('serie')
@@ -2062,3 +1945,155 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 })
+
+// =============================================================================================================================
+// Gestion des scores
+// Sébastien LOZANO
+// TODO
+// => Il faut voir comment conserver le paramètre userId dans l'url s'il existe lorsque :
+// ===> On sélectionne/ajoute des exos
+// ===> On rafraichit la page
+// =============================================================================================================================
+
+// Si le bouton existe et que l'utilisateur clique de dessus on ouvre une modale et on propose deux choix
+// => Créer un userId
+// => Utiliser un userId existant
+if (document.getElementById('scoresKey')) {
+  document.getElementById('scoresKey').addEventListener('click', function () {
+    $('#modalScoresKey').modal({
+      onApprove: function () {
+        // On ne veut pas que la modale se ferme au click sur un bouton vert
+        return false
+      },
+      onHide: function () {
+        // On cache le feedback lorsqu'on ferme la modale
+        document.getElementById('scoresFeedback').hidden = true
+      }
+    }).modal('show')
+  })
+}
+
+// Dans la modale :
+// Si on clique sur créer un espace => on se contente de créer l'espace
+// Si on clique sur enregistrer des scores => ce sera une autre modale
+
+// Gestion du click sur "Créer un espace tout neuf"
+if (document.getElementById('scoresCreateSpace')) {
+  document.getElementById('scoresCreateSpace').addEventListener('click', function () {
+    // Peut être faudra-t-il générer ça coé serveur
+    // Ou alors simplement faire une verif côté serveur et renvoyer un feedback d'erreur selon le cas
+    let rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
+    const lettre1 = String.fromCharCode(rand)
+    rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
+    const lettre2 = String.fromCharCode(rand)
+    rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
+    const lettre3 = String.fromCharCode(rand)
+    rand = Math.floor(Math.random() * (9 - 0 + 1)) + 0
+    const chiffre1 = rand.toString()
+    rand = Math.floor(Math.random() * (9 - 0 + 1)) + 0
+    const chiffre2 = rand.toString()
+    fetch('scoresKey.php', {
+      method: 'POST',
+      mode: 'same-origin',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        lettre1: lettre1,
+        lettre2: lettre2,
+        lettre3: lettre3,
+        chiffre1: chiffre1,
+        chiffre2: chiffre2
+      })
+    })
+      .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
+      .then(response => {
+        // On ajoute un parametre userId à l'url
+        // On supprime le userId de l'url s'il existe
+        const params = new URLSearchParams(location.search)
+        if (params.has('userId')) {
+          params.delete('userId')
+          history.replaceState(null, '', '?' + params + location.hash)
+        } else {
+          history.replaceState(null, '', '?' + params + location.hash)
+        }
+        window.history.replaceState('', '', location.href + '&userId=' + response.userId)
+        if (document.getElementById('scoresFeedback')) {
+          document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
+          // Peut être que plutôt que de diriger vers une page, un lien vers le csv suffit ?
+          document.getElementById('scoresFeedbackBody').innerHTML = `
+              Vos fichiers de scores seront listés sur <a href="${response.url}" target="_blank">cette page</a><br>
+              Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
+            `
+          document.getElementById('scoresFeedback').hidden = false
+        }
+        // alert('userId yyy : ' + response.userId)
+        console.log('Création d\'un espace scores OK')
+      })
+  })
+}
+
+// Gestion du click sur "Enregistrer dans un espace existant"
+// Il faut encore gérer le feedback des erreurs sur le userId
+if (document.getElementById('scoresSaveToUserId')) {
+  document.getElementById('scoresSaveToUserId').addEventListener('click', function () {
+    if (document.getElementById('scoresFeedback')) {
+      // On cache le feedback si il y en a un
+      document.getElementById('scoresFeedback').hidden = true
+    }
+    if (document.getElementById('scoresPromptUserId')) {
+      // On affiche le champ de saisie
+      document.getElementById('scoresPromptUserId').hidden = false
+      // On vide le champ input
+      document.getElementById('scoresInputUserId').value = ''
+    }
+  })
+}
+if (document.getElementById('scoresSubmitUserId')) {
+  document.getElementById('scoresSubmitUserId').addEventListener('click', function () {
+    // On récupère la valeur saisie
+    // Il faudra vérifier tout ça côté serveur
+    const userId = document.getElementById('scoresInputUserId').value    
+    // alert('userId sss : ' + userId)
+    fetch('scoresKey.php', {
+      method: 'POST',
+      mode: 'same-origin',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        lettre1: userId[0],
+        lettre2: userId[1],
+        lettre3: userId[2],
+        chiffre1: userId[3],
+        chiffre2: userId[4]
+      })
+    })
+      .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
+      .then(response => {
+        // On ajoute un parametre userId à l'url
+        // On supprime le userId de l'url s'il existe
+        const params = new URLSearchParams(location.search)
+        if (params.has('userId')) {
+          params.delete('userId')
+          history.replaceState(null, '', '?' + params + location.hash)
+        } else {
+          history.replaceState(null, '', '?' + params + location.hash)
+        }
+        window.history.replaceState('', '', location.href + '&userId=' + response.userId)
+        if (document.getElementById('scoresFeedback')) {
+          document.getElementById('scoresFeedbackHeader').innerHTML = `Espace scores - Enregistrement pour le userId ${response.userId} validé`
+          document.getElementById('scoresFeedbackBody').innerHTML = `
+                          Vos fichiers de scores seront listés sur <a href="${response.url}" target="_blank">cette page</a><br>
+                          Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
+                        `
+          document.getElementById('scoresFeedback').hidden = false
+          document.getElementById('scoresPromptUserId').hidden = true
+        }
+        // alert('userId rrr : ' + response.userId)
+        console.log('Enregistrement vers un espace scores OK')
+      })
+  })
+}

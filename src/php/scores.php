@@ -1,4 +1,7 @@
 <?php
+// TODO
+// => Vérifier si ce script est encore utilisé
+
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 
 if ($contentType === "application/json") {
