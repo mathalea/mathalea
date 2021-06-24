@@ -3250,6 +3250,13 @@ export default {
     "interactifReady": false,
     "name": "betaAlgoTortue"
   },
+  "betaAlgoTortue2": {
+    "titre": "Tortue Scratch avec répétitions",
+    "url": "/exercices/beta/betaAlgoTortue2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaAlgoTortue2"
+  },
   "betaCaN5": {
     "titre": "Course aux nombres 5e",
     "url": "/exercices/beta/betaCaN5.js",
