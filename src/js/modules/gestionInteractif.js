@@ -89,7 +89,7 @@ export function exerciceQcm (exercice) {
           uicheck.classList.add('read-only')
         })
         button.classList.add('disabled')
-        isUserIdOk(exercice,nbQuestionsValidees, nbQuestionsNonValidees) // ajout seb
+        // isUserIdOk(exercice,nbQuestionsValidees, nbQuestionsNonValidees) // ajout seb
         afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees)
       })
     }
@@ -212,7 +212,7 @@ export function exerciceNumerique (exercice) {
           spanReponseLigne.style.fontSize = 'large'
         }
         button.classList.add('disabled')
-        isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
+        // isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
         afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
       })
     }
@@ -296,7 +296,7 @@ export function exerciceCustom (exercice) {
         // On utilise la correction définie dans l'exercice
         exercice.correctionInteractive(eltFeedback)
         button.classList.add('disabled')
-        isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
+        // isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
       })
     }
   })
@@ -402,7 +402,7 @@ export function exerciceMathLive (exercice) {
         }
         if (!besoinDe2eEssai) {
           button.classList.add('disabled')
-          isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
+          // isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
           afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
         }
       })
@@ -473,6 +473,7 @@ function isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) {
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   const divExercice = get(`exercice${exercice.numeroExercice}`)
   let divScore = get(`score${exercice.numeroExercice}`, false)
+  isUserIdOk(exercice, nbBonnesReponses, nbMauvaisesReponses)
   // let score = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
   // let str = location.href
   // let url = new URL(str)
