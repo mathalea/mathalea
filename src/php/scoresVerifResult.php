@@ -4,6 +4,7 @@
 // => 
 // => Vérifier/Nettoyer les variables qui arrivent du client
 // => Gestion d'un feedback d'erreur sur le format du userId
+// =>OK=> Gestion d'un feedback d'erreur si le userId n'existe pas et qu'on demande d'enregistrer avec
 // =>OK=> Placement de la variable $keypass cf post de Rémi
 // => Suppression des espaces userId trop vieux, On garde 15 jours un autre délai qu'on pourra adapter,
 // la routine de nettoyage serait lancée à chaque requete 
