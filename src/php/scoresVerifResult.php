@@ -4,7 +4,7 @@
 // => 
 // => Vérifier/Nettoyer les variables qui arrivent du client
 // => Gestion d'un feedback d'erreur sur le format du userId
-// => Placement de la variable $keypass cf post de Rémi
+// =>OK=> Placement de la variable $keypass cf post de Rémi
 // => Suppression des espaces userId trop vieux, On garde 15 jours un autre délai qu'on pourra adapter,
 // la routine de nettoyage serait lancée à chaque requete 
 
@@ -38,18 +38,24 @@ if ($contentType === "application/json") {
   // Sinon on récupère la clef dans le nom du fichier on verra plus tard s'il y a plusieurs fichiers
   if (!file_exists($path)) {
     mkdir($path, 0775, true);
-    //$keypass = strval($decoded->myObj->clef); // On peut ajouter un test pour savoir si c'est déjà un stirng
+    // On génère une clef
     $keypass = md5(uniqid(rand(), true));
+    // On crée le sous-repertoire
+    mkdir($path.'/'.$keypass, 0775, true);
   } else {
-    if (sizeof(scandir($path))>2) {
-      $keypass = substr(scandir($path)[2],0,-10);
+    if (sizeof(scandir($path))>2) {// S'il y a déjà un sous-dossier son nom est le keypass à recuperer pour les enregistrements
+      //$keypass = substr(scandir($path)[2],0,-10);
+      $keypass = scandir($path)[2];
     } else {
       $keypass = md5(uniqid(rand(), true));
+      // On crée le sous-repertoire
+      mkdir($path.'/'.$keypass, 0775, true);
     };        
-  };
+  };  
 
   // Il faut créer le fichier de stockage s'il n'existe pas à partir de la clef  
-  $pathToFile = $path.'/'.$keypass.'scores.csv';  
+  $pathToFile = $path.'/'.$keypass.'/scores.csv';  
+  
   // On ouvre le fichier
   $fp = fopen($pathToFile, 'a+');      
   // S'il n'existe pas on crée l'entete et on ajoute les données
@@ -60,7 +66,7 @@ if ($contentType === "application/json") {
   fclose($fp);
 
   echo json_encode(array(
-    "url" => $path.'/'.$keypass.'scores.csv',
+    "url" => $pathToFile,//$path.'/'.$keypass.'/scores.csv',
     "userId" => $lettre1.$lettre2.$lettre3.$chiffre1.$chiffre2
   ));  
 

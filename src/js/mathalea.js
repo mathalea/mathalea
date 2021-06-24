@@ -2023,7 +2023,7 @@ if (document.getElementById('scoresCreateSpace')) {
           document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
           // Peut être que plutôt que de diriger vers une page, un lien vers le csv suffit ?
           document.getElementById('scoresFeedbackBody').innerHTML = `
-              Vos fichiers de scores seront listés sur <a href="${response.url}" target="_blank">cette page</a><br>
+              Vos scores seront enregistrés <a href="${response.url}" target="_blank">dans ce fichier</a><br>
               Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
             `
           document.getElementById('scoresFeedback').hidden = false
@@ -2086,7 +2086,7 @@ if (document.getElementById('scoresSubmitUserId')) {
         if (document.getElementById('scoresFeedback')) {
           document.getElementById('scoresFeedbackHeader').innerHTML = `Espace scores - Enregistrement pour le userId ${response.userId} validé`
           document.getElementById('scoresFeedbackBody').innerHTML = `
-                          Vos fichiers de scores seront listés sur <a href="${response.url}" target="_blank">cette page</a><br>
+                          Vos scores seront enregistrés <a href="${response.url}" target="_blank">dans ce fichier</a><br>                          
                           Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
                         `
           document.getElementById('scoresFeedback').hidden = false
