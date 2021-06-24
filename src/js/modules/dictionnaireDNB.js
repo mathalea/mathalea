@@ -962,7 +962,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2014_03_caledonie_2.tex",
         "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_2_cor.tex",
-        "tags": ["Pythagore","Périmètre"]
+        "tags": ["Pythagore","Périmètres"]
     },
     "dnb_2014_03_caledonie_3": {
         "annee": "2013",
