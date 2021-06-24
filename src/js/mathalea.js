@@ -1968,6 +1968,7 @@ if (document.getElementById('scoresKey')) {
       onHide: function () {
         // On cache le feedback lorsqu'on ferme la modale
         document.getElementById('scoresFeedback').hidden = true
+        document.getElementById('scoresInputUserIdError').hidden = true
       }
     }).modal('show')
   })
@@ -2000,6 +2001,7 @@ if (document.getElementById('scoresCreateSpace')) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        isSubmitUserId: false,
         lettre1: lettre1,
         lettre2: lettre2,
         lettre3: lettre3,
@@ -2064,6 +2066,7 @@ if (document.getElementById('scoresSubmitUserId')) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        isSubmitUserId: true,
         lettre1: userId[0],
         lettre2: userId[1],
         lettre3: userId[2],
@@ -2073,27 +2076,39 @@ if (document.getElementById('scoresSubmitUserId')) {
     })
       .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
       .then(response => {
-        // On ajoute un parametre userId à l'url
-        // On supprime le userId de l'url s'il existe
-        const params = new URLSearchParams(location.search)
-        if (params.has('userId')) {
-          params.delete('userId')
-          history.replaceState(null, '', '?' + params + location.hash)
-        } else {
-          history.replaceState(null, '', '?' + params + location.hash)
+        if (response.errors !== '') { // S'il y a des erreurs on ne fait rien
+          if (document.getElementById('scoresInputUserIdError')) {
+            document.getElementById('scoresInputUserIdErrorHeader').innerHTML = `Erreurs...`
+            document.getElementById('scoresInputUserIdErrorBody').innerHTML = `
+                            ${response.errors}
+                          `
+            document.getElementById('scoresFeedback').hidden = true
+            document.getElementById('scoresInputUserIdError').hidden = false
+          }
+          console.log('Enregistrement vers un espace scores KO')
+        } else { // sinon
+          // On ajoute un parametre userId à l'url
+          // On supprime le userId de l'url s'il existe
+          const params = new URLSearchParams(location.search)
+          if (params.has('userId')) {
+            params.delete('userId')
+            history.replaceState(null, '', '?' + params + location.hash)
+          } else {
+            history.replaceState(null, '', '?' + params + location.hash)
+          }
+          window.history.replaceState('', '', location.href + '&userId=' + response.userId)
+          if (document.getElementById('scoresFeedback')) {
+            document.getElementById('scoresFeedbackHeader').innerHTML = `Espace scores - Enregistrement pour le userId ${response.userId} validé`
+            document.getElementById('scoresFeedbackBody').innerHTML = `
+                            Vos scores seront enregistrés <a href="${response.url}" target="_blank">dans ce fichier</a><br>                          
+                            Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
+                          `
+            document.getElementById('scoresFeedback').hidden = false
+            document.getElementById('scoresPromptUserId').hidden = true
+          }
+          // alert('userId rrr : ' + response.userId)
+          console.log('Enregistrement vers un espace scores OK') 
         }
-        window.history.replaceState('', '', location.href + '&userId=' + response.userId)
-        if (document.getElementById('scoresFeedback')) {
-          document.getElementById('scoresFeedbackHeader').innerHTML = `Espace scores - Enregistrement pour le userId ${response.userId} validé`
-          document.getElementById('scoresFeedbackBody').innerHTML = `
-                          Vos scores seront enregistrés <a href="${response.url}" target="_blank">dans ce fichier</a><br>                          
-                          Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
-                        `
-          document.getElementById('scoresFeedback').hidden = false
-          document.getElementById('scoresPromptUserId').hidden = true
-        }
-        // alert('userId rrr : ' + response.userId)
-        console.log('Enregistrement vers un espace scores OK')
       })
   })
 }

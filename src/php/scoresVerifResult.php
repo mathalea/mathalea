@@ -25,7 +25,8 @@ if ($contentType === "application/json") {
   $currentDate = utf8_encode($date);
   $currentTime = utf8_encode(strftime('%H:%M'));
 
-
+  // On prévoit une variable vide avec les erreurs éventuelles
+  $errors = "";
   // Il faut créer le répertoire sur le serveur s'il n'existe pas
   // On récupère les 3 premières lettres du userId pour créer l'arboresscence
   $lettre1 = $decoded->myObj->userId[0];
@@ -37,11 +38,12 @@ if ($contentType === "application/json") {
   // On génère une nouvelle clef uniquement si l'arborescence n'existe pas
   // Sinon on récupère la clef dans le nom du fichier on verra plus tard s'il y a plusieurs fichiers
   if (!file_exists($path)) {
-    mkdir($path, 0775, true);
-    // On génère une clef
-    $keypass = md5(uniqid(rand(), true));
-    // On crée le sous-repertoire
-    mkdir($path.'/'.$keypass, 0775, true);
+    $errors = "Ce userId n'existe pas - scoresVerifResult.php\r\n";
+    // mkdir($path, 0775, true);
+    // // On génère une clef
+    // $keypass = md5(uniqid(rand(), true));
+    // // On crée le sous-repertoire
+    // mkdir($path.'/'.$keypass, 0775, true);
   } else {
     if (sizeof(scandir($path))>2) {// S'il y a déjà un sous-dossier son nom est le keypass à recuperer pour les enregistrements
       //$keypass = substr(scandir($path)[2],0,-10);
@@ -67,7 +69,8 @@ if ($contentType === "application/json") {
 
   echo json_encode(array(
     "url" => $pathToFile,//$path.'/'.$keypass.'/scores.csv',
-    "userId" => $lettre1.$lettre2.$lettre3.$chiffre1.$chiffre2
+    "userId" => $lettre1.$lettre2.$lettre3.$chiffre1.$chiffre2,
+    "errors" => $errors
   ));  
 
   // Si json_decode échoue, le JSON est invalide.
