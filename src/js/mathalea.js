@@ -435,19 +435,19 @@ function miseAJourDuCode () {
       }
       finUrl += `?ex=${listeDesExercices[0]}`
       if (typeof listeObjetsExercice[0].sup !== 'undefined') {
-        finUrl += `,sup=${listeObjetsExercice[0].sup}`
+        finUrl += `,s=${listeObjetsExercice[0].sup}`
       }
       if (typeof listeObjetsExercice[0].sup2 !== 'undefined') {
-        finUrl += `,sup2=${listeObjetsExercice[0].sup2}`
+        finUrl += `,s2=${listeObjetsExercice[0].sup2}`
       }
       if (typeof listeObjetsExercice[0].sup3 !== 'undefined') {
-        finUrl += `,sup3=${listeObjetsExercice[0].sup3}`
+        finUrl += `,s3=${listeObjetsExercice[0].sup3}`
       }
       if (listeObjetsExercice[0].nbQuestionsModifiable) {
-        finUrl += `,nbQuestions=${listeObjetsExercice[0].nbQuestions}`
+        finUrl += `,n=${listeObjetsExercice[0].nbQuestions}`
       }
       if (listeObjetsExercice[0].video.length > 1) {
-        finUrl += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
+        finUrl += `,v${encodeURIComponent(listeObjetsExercice[0].video)}`
       }
       if (listeObjetsExercice[0].correctionDetaillee && listeObjetsExercice[0].correctionDetailleeDisponible) {
         finUrl += ',cd=1'
@@ -456,27 +456,27 @@ function miseAJourDuCode () {
         finUrl += ',cd=0'
       }
       if (listeObjetsExercice[0].interactif && !context.isDiaporama) {
-        finUrl += ',interactif=1'
+        finUrl += ',i=1'
       }
       listeObjetsExercice[0].numeroExercice = 0
       for (let i = 1; i < listeDesExercices.length; i++) {
         finUrl += `&ex=${listeDesExercices[i]}`
         if (typeof listeObjetsExercice[i].sup !== 'undefined') {
-          finUrl += `,sup=${listeObjetsExercice[i].sup}`
+          finUrl += `,s=${listeObjetsExercice[i].sup}`
         }
         if (typeof listeObjetsExercice[i].sup2 !== 'undefined') {
-          finUrl += `,sup2=${listeObjetsExercice[i].sup2}`
+          finUrl += `,s2=${listeObjetsExercice[i].sup2}`
         }
         if (typeof listeObjetsExercice[i].sup3 !== 'undefined') {
-          finUrl += `,sup3=${listeObjetsExercice[i].sup3}`
+          finUrl += `,s3=${listeObjetsExercice[i].sup3}`
         }
         if (listeObjetsExercice[i].nbQuestionsModifiable) {
-          finUrl += `,nbQuestions=${listeObjetsExercice[i].nbQuestions}`
+          finUrl += `,n=${listeObjetsExercice[i].nbQuestions}`
         }
         if (listeObjetsExercice[i].video) {
           if (listeObjetsExercice[i].video.length > 1) {
             // Pour dnb, video est à false, pour les exercices interactif, par défaut c'est ''
-            finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
+            finUrl += `,v${encodeURIComponent(listeObjetsExercice[i].video)}`
           }
         }
         if (listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
@@ -486,7 +486,7 @@ function miseAJourDuCode () {
           finUrl += ',cd=0'
         }
         if (listeObjetsExercice[i].interactif && !context.isDiaporama) {
-          finUrl += ',interactif=1'
+          finUrl += ',i=1'
         }
         listeObjetsExercice[i].numeroExercice = i
       }
@@ -1030,11 +1030,11 @@ function miseAJourDeLaListeDesExercices (preview) {
         for (let i = 0; i < urlVars.length; i++) {
           // récupère les éventuels paramètres dans l'URL
           // et les recopie dans les formulaires des paramètres
-          if (urlVars[i].nbQuestions && listeObjetsExercice[i].nbQuestionsModifiable) {
+          if (urlVars[i].n && listeObjetsExercice[i].nbQuestionsModifiable) {
             listeObjetsExercice[i].nbQuestions = parseInt(urlVars[i].nbQuestions)
             formNbQuestions[i].value = listeObjetsExercice[i].nbQuestions
           }
-          if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
+          if (urlVars[i].v && context.isHtml && !context.isDiaporama) {
             listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
             formVideo[i].value = listeObjetsExercice[i].video
           }
@@ -1048,39 +1048,39 @@ function miseAJourDeLaListeDesExercices (preview) {
               formCorrectionDetaillee[i].checked = false
             }
           }
-          if (urlVars[i].interactif) {
+          if (urlVars[i].i) {
             listeObjetsExercice[i].interactif = true
             if (formInteractif[i]) {
               formInteractif[i].checked = true
             }
           }
-          if (typeof urlVars[i].sup !== 'undefined') {
+          if (typeof urlVars[i].s !== 'undefined') {
             // Si le string peut être convertit en int alors on le fait
-            if (isNumeric(urlVars[i].sup)) {
-              listeObjetsExercice[i].sup = parseInt(urlVars[i].sup)
+            if (isNumeric(urlVars[i].s)) {
+              listeObjetsExercice[i].sup = parseInt(urlVars[i].s)
             } else {
-              listeObjetsExercice[i].sup = urlVars[i].sup
+              listeObjetsExercice[i].sup = urlVars[i].s
             }
             // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
             try {
               formSup[i].value = listeObjetsExercice[i].sup
             } catch {}
           }
-          if (typeof urlVars[i].sup2 !== 'undefined') {
-            if (isNumeric(urlVars[i].sup2)) {
-              listeObjetsExercice[i].sup2 = parseInt(urlVars[i].sup2)
+          if (typeof urlVars[i].s2 !== 'undefined') {
+            if (isNumeric(urlVars[i].s2)) {
+              listeObjetsExercice[i].sup2 = parseInt(urlVars[i].s2)
             } else {
-              listeObjetsExercice[i].sup2 = urlVars[i].sup2
+              listeObjetsExercice[i].sup2 = urlVars[i].s2
             }
             try {
               formSup2[i].value = listeObjetsExercice[i].sup2
             } catch (error) {}
           }
-          if (typeof urlVars[i].sup3 !== 'undefined') {
-            if (isNumeric(urlVars[i].sup3)) {
-              listeObjetsExercice[i].sup3 = parseInt(urlVars[i].sup3)
+          if (typeof urlVars[i].s3 !== 'undefined') {
+            if (isNumeric(urlVars[i].s3)) {
+              listeObjetsExercice[i].sup3 = parseInt(urlVars[i].s3)
             } else {
-              listeObjetsExercice[i].sup3 = urlVars[i].sup3
+              listeObjetsExercice[i].sup3 = urlVars[i].s3
             }
             try {
               formSup3[i].value = listeObjetsExercice[i].sup3
