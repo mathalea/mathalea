@@ -88,6 +88,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     */
     const typeDeQuestions = [
       'polygonesReguliers',
+      'spirales',
       'rosaces'
     ]
 
@@ -111,13 +112,12 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     lutin.codeScratch = '\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n '
     lutin.codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
     allerA(xDepart, yDepart, lutin) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
-    lutin.codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n`
+    lutin.codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n `
     orienter(angleScratchTo2d(angleDepart), lutin) // l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
-    lutin.codeScratch += '\\blockpen{stylo en position d\'écriture}\n'
+    lutin.codeScratch += '\\blockpen{stylo en position d\'écriture}\n '
     baisseCrayon(lutin) // à partir de là, le lutin laissera une trace (ses positions successives sont enregistrées dans lutin.listeTraces)
     switch (choix) {
       case 'polygonesReguliers':
-      case 'spirales':
       case 'frises':
 
         n = choice([3, 4, 5, 6, 8]) // Nombre de côtés
@@ -171,6 +171,28 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
             tournerD(360 / n, lutin)
           } else {
             tournerG(360 / n, lutin)
+          }
+        }
+        break
+      case 'spirales':
+        n = choice([3, 4, 5, 6, 8]) // Nombre de côtés
+        n2 = randint(5, 8)
+        val1 = randint(1, 4) * 5
+        val2 = 80 + randint(0, 6) * 5
+        val3 = calcul(360 / n)
+        lutin.codeScratch += `\\blockvariable{mettre \\ovalvariable{longueur} à \\ovalnum{${val1}}}
+\\blockrepeat{répéter jusqu'à ce que \\booloperator{\\ovalvariable{longueur}>\\ovalnum{${val2}}}}
+{
+\\blockmove{avancer de \\ovalvariable{longueur} pas}
+\\blockmove{tourner \\${sens}{} de \\ovalnum{${val3}} degrés}
+\\blockvariable{ajouter \\ovalnum{${n2}} à \\ovalvariable{longueur}}
+}`
+        for (let i = 0; i < n; i++) {
+          avance(val1 + i * n2, lutin)
+          if (sens === 'turnright') {
+            tournerD(val3, lutin)
+          } else {
+            tournerG(val3, lutin)
           }
         }
         break
