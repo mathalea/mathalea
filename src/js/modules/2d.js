@@ -8397,6 +8397,10 @@ function ObjetLutin () {
   ObjetMathalea2D.call(this)
   this.x = 0
   this.y = 0
+  this.xMin = 0
+  this.xMax = 0
+  this.yMin = 0
+  this.yMax = 0
   this.xSVG = function (coeff) {
     return this.x * coeff
   }
@@ -8407,16 +8411,14 @@ function ObjetLutin () {
   this.historiquePositions = []
   this.crayonBaisse = false
   this.isVisible = true
-  this.costume = `<radialGradient id="Ball" cx="29.7275" cy="-13.1396" r="38.5299" gradientUnits="userSpaceOnUse">
-  <stop offset="0" style="stop-color:#FFFF99"/>
-  <stop offset="1" style="stop-color:#FF9400"/>
-</radialGradient> <circle fill="url(#Ball)"  r="22.5" stroke-width="1" `
+  this.costume = ''
   this.listeTraces = [] // [[x0,y0,x1,y1,style]...]
   this.color = 'black'
   this.epaisseur = 2
   this.pointilles = false
   this.opacite = 1
   this.style = ''
+  this.animation = ''
   this.svg = function (coeff) {
     let code = ''
     for (const trace of this.listeTraces) {
@@ -8440,15 +8442,8 @@ function ObjetLutin () {
         coeff
       )}" x2="${B.xSVG(coeff)}" y2="${B.ySVG(coeff)}" stroke="${color}" ${style}  />`
     }
-    if (this.isVisible) {
-      code += `\n<g>${this.costume} x="${this.listeTraces[0][0] * coeff}" y="${-this.listeTraces[0][1] * coeff}">\n<animateMotion path="M ${this.listeTraces[0][0] * coeff} ${-this.listeTraces[0][1] * coeff} L`
-      for (let i = 0; i < this.listeTraces.length; i++) {
-        const B = point(this.listeTraces[i][2], this.listeTraces[i][3])
-        code += ` ${B.xSVG(coeff)} ${B.ySVG(coeff)} `
-      }
-      code += `" 'begin="10s" dur="10s" repeatCount="indefinite"' />;
-    </circle>
-    </g>`
+    if (this.isVisible && this.animation !== '') {
+      code += '\n <g>' + this.animation + '</g>'
     }
     return code
   }
@@ -8507,6 +8502,10 @@ export function avance (d, lutin = context.lutin) { // A faire avec pointSurCerc
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   }
+  lutin.xMin = Math.min(lutin.xMin, lutin.x)
+  lutin.yMin = Math.min(lutin.yMin, lutin.y)
+  lutin.xMax = Math.max(lutin.xMax, lutin.x)
+  lutin.yMax = Math.max(lutin.yMax, lutin.y)
 }
 /**
  * Fait entrer le lutin dans le mode "trace"
@@ -8562,6 +8561,10 @@ export function allerA (x, y, lutin = context.lutin) {
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   }
+  lutin.xMin = Math.min(lutin.xMin, lutin.x)
+  lutin.yMin = Math.min(lutin.yMin, lutin.y)
+  lutin.xMax = Math.max(lutin.xMax, lutin.x)
+  lutin.yMax = Math.max(lutin.yMax, lutin.y)
 }
 /**
  * Change en x à l'abscisse du lutin
@@ -8575,6 +8578,8 @@ export function mettrexA (x, lutin = context.lutin) {
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
   }
+  lutin.xMin = Math.min(lutin.xMin, lutin.x)
+  lutin.xMax = Math.max(lutin.xMax, lutin.x)
 }
 /**
  * change en y l'ordonnée du lutin
@@ -8588,6 +8593,8 @@ export function mettreyA (y, lutin = context.lutin) {
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
   }
+  lutin.yMin = Math.min(lutin.yMin, lutin.y)
+  lutin.yMax = Math.max(lutin.yMax, lutin.y)
 }
 /**
  * Ajoute x à l'abscisse du lutin
@@ -8601,6 +8608,8 @@ export function ajouterAx (x, lutin = context.lutin) {
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
   }
+  lutin.xMin = Math.min(lutin.xMin, lutin.x)
+  lutin.xMax = Math.max(lutin.xMax, lutin.x)
 }
 /**
  * Ajoute y à l'ordonnée du lutin
@@ -8614,6 +8623,8 @@ export function ajouterAy (y, lutin = context.lutin) {
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
   }
+  lutin.yMin = Math.min(lutin.yMin, lutin.y)
+  lutin.yMax = Math.max(lutin.yMax, lutin.y)
 }
 /**
  * fait "vibrer" le lutin tempo fois autour de sa position courante
@@ -8631,7 +8642,8 @@ export function attendre (tempo, lutin = context.lutin) {
 /**
  * Traducteur scratch3 (Latex) -> scratchblocks
  * On lui passe une chaine de caractères contenant une série de commande Latex du package Latex Scratch3
- * Elle retourne une chaine de caractères contenant l'équivalent en langage scratchblocks
+ * Elle retourne une chaine de caractères contenant l'équivalent en langage scratchblocks si le contexte est isHtml !
+ * Si le contexte est !isHtml alors elle retourne la chaine passée en argument.
  * http://mirrors.ctan.org/macros/latex/contrib/scratch3/scratch3-fr.pdf
  * https://scratchblocks.github.io
  * @author Jean-Claude Lhote.
@@ -8678,6 +8690,10 @@ export function scratchblock (stringLatex) {
           case 'control':
             texte = translatex(chaine, index + taille + 1, compteAccolades)
             resultat = [texte[0], texte[1], texte[2]]
+            break
+          case 'pen':
+            texte = translatex(chaine, index + taille + 1, compteAccolades)
+            resultat = [texte[0] + ' :: pen', texte[1], texte[2]]
             break
           case 'list':
             texte = translatex(chaine, index + taille + 1, compteAccolades)

@@ -1,10 +1,10 @@
 // on importe les fonctions nécessaires.
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, choice, calcul } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, ajouterAx, ajouterAy, segment, texteParPosition } from '../../modules/2d.js'
-export const titre = 'Tortue Scratch'
+import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPosition, tournerG } from '../../modules/2d.js'
+export const titre = 'Tortue Scratch avec répétitions'
 export const colibri = `<g transform="translate(-15,10) scale(0.0025,-0.0025)"
 fill="#000000" stroke="none">
 <path d="M3 12694 c21 -342 271 -746 807 -1308 567 -593 1692 -1486 2805
@@ -79,24 +79,21 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     this.listeCorrections = []
     const objetsEnonce = []
     const paramsCorrection = { pixelsParCm: 20, scale: 0.5 }
-    const sequences = [ // séquences d'intruction pré-établies, on en choisit une parmi celles-ci
-      ['tournerD', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer'],
-      ['tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerD', 'avancer'],
-      ['avancer', 'tournerD', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD'],
-      ['avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerG'],
-      ['tournerG', 'avancer', 'tournerG', 'ajouter à x', 'tournerD', 'avancer', 'tournerG', 'ajouter à y', 'tournerG', 'avancer'],
-      ['ajouter à y', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'ajouter à y', 'tournerD', 'avancer', 'tournerD'],
-      ['avancer', 'tournerG', 'ajouter à y', 'tournerG', 'avancer', 'tournerG', 'ajouter à x', 'tournerD', 'avancer', 'tournerG'],
-      ['tournerD', 'ajouter à x', 'ajouter à y', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerD', 'aller à', 'tournerG']
+    /*  const typeDeQuestions = [
+      'polygonesReguliers',
+      'spirales',
+      'frises',
+      'rosaces'
     ]
-    let choix
-    if (parseInt(this.sup2) === 1) {
-      choix = randint(0, 3) // si le paramètre est à 1 (defaut) on choisit parmi les 4 premières séquences
-    } else {
-      choix = randint(4, 7) // sinon, on choisit parmi les 4 dernières
-    }
-    const commandes = combinaisonListesSansChangerOrdre(sequences[choix], parseInt(this.sup)) // on crée la succession de commandes en répétant la séquence choisie si le nombre d'instructions demandées dépasse la longueur de la séquence
-    let val1, val2
+    */
+    const typeDeQuestions = [
+      'polygonesReguliers',
+      'rosaces'
+    ]
+
+    const choix = typeDeQuestions[randint(0, 1)]
+    let val1, val2, n, n2, val3
+    const sens = choice(['turnright', 'turnleft'])
     const lutin = creerLutin() // Ici on crée une instance de l'objet Lutin.
     lutin.color = 'green' // la couleur de la trace
     lutin.epaisseur = 3 // son epaisseur
@@ -115,13 +112,72 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     lutin.codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
     allerA(xDepart, yDepart, lutin) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
     lutin.codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n`
+    orienter(angleScratchTo2d(angleDepart), lutin) // l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
     lutin.codeScratch += '\\blockpen{stylo en position d\'écriture}\n'
     baisseCrayon(lutin) // à partir de là, le lutin laissera une trace (ses positions successives sont enregistrées dans lutin.listeTraces)
+    switch (choix) {
+      case 'polygonesReguliers':
+      case 'spirales':
+      case 'frises':
 
-    orienter(angleScratchTo2d(angleDepart), lutin) // l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
-
+        n = choice([3, 4, 5, 6, 8]) // Nombre de côtés
+        val1 = calcul(360 / n)
+        val2 = (10 - n) * 10
+        lutin.codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
+{
+\\blockmove{avancer de \\ovalnum{${val2}} pas}
+\\blockmove{tourner \\${sens}{} de \\ovalnum{${val1}} degrés}
+}
+`
+        for (let i = 0; i < n; i++) {
+          avance(val2, lutin)
+          if (sens === 'turnright') {
+            tournerD(val1, lutin)
+          } else {
+            tournerG(val1, lutin)
+          }
+        }
+        break
+      case 'rosaces':
+        n = choice([3, 4, 5, 6, 8]) // Nombre branches
+        n2 = randint(3, 6, 5)
+        val1 = randint(2, 4) * 10
+        val2 = (10 - n) * 5
+        val3 = (8 - n2) * 4
+        lutin.codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
+{
+\\blockmove{aller à x: \\ovalnum{0} y: \\ovalnum{0}}
+\\blockmove{avancer de \\ovalnum{${val1}} pas}
+\\blockmove{tourner \\turnright{} de \\ovalnum{${calcul(90 - 180 / n2)}} degrés}
+\\blockrepeat{répéter \\ovalnum{${n2}} fois}
+{
+\\blockmove{avancer de \\ovalnum{${val3}} pas}
+\\blockmove{tourner \\turnleft{} de \\ovalnum{${calcul(360 / n2)}} degrés}
+}
+\\blockmove{tourner \\turnleft{} de \\ovalnum{${calcul(90 - 180 / n2)}} degrés}
+\\blockmove{tourner \\${sens}{} de \\ovalnum{${calcul(360 / n)}} degrés}
+}
+`
+        for (let i = 0; i < n; i++) {
+          allerA(0, 0, lutin)
+          avance(val1, lutin)
+          tournerD(90 - 180 / n2, lutin)
+          for (let j = 0; j < n2; j++) {
+            avance(val3, lutin)
+            tournerG(360 / n2, lutin)
+          }
+          tournerG(90 - 180 / n2, lutin)
+          if (sens === 'turnright') {
+            tournerD(360 / n, lutin)
+          } else {
+            tournerG(360 / n, lutin)
+          }
+        }
+        break
+    }
+    /*
     for (let i = 0; i < parseInt(this.sup); i++) { // On va parcourir la listes des commandes de déplacement
-      switch (commandes[i]) {
+    switch (commandes[i]) {
         case 'avancer':
           val1 = randint(1, 4) * 10 // La longueur du déplacement est 10, 20, 30 ou 40
           lutin.codeScratch += `\\blockmove{avancer de \\ovalnum{${val1}} pas}\n`
@@ -157,33 +213,28 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
           orienter(angleScratchTo2d(val1), lutin)
           break
       }
-    }
+
+    }     */
     lutin.codeScratch += '\\blockpen{relever le stylo}\n'
     leveCrayon(lutin)
-
     lutin.codeScratch += '\\end{scratch}'
-    console.log(lutin.codeScratch)
     texte = 'Dessine la figure tracée par le lutin à l\'éxécution du programme ci-dessous.<br>Un carreau représente 10 pas<br>'
-
     lutin.animation = `${colibri} 
    x="${lutin.listeTraces[0][0] * context.pixelsParCm}"
     y="${-lutin.listeTraces[0][1] * context.pixelsParCm}">\n
     <animateMotion path="M ${lutin.listeTraces[0][0] * context.pixelsParCm} ${-lutin.listeTraces[0][1] * context.pixelsParCm} L`
-
     for (let i = 0; i < lutin.listeTraces.length; i++) {
       const B = point(lutin.listeTraces[i][2], lutin.listeTraces[i][3])
       lutin.animation += ` ${B.xSVG(context.pixelsParCm)} ${B.ySVG(context.pixelsParCm)} `
     }
     lutin.animation += '" begin="0s" dur="5s" repeatCount="indefinite" />;'
     objetsEnonce.push(lutin)
-
     if (context.isHtml) { // On crée 2 colonnes selon le contexte html / Latex
       texte += '<table style="width: 100%"><tr><td>'
     } else {
       texte += '\\begin{minipage}[t]{.25\\textwidth}'
     }
     texte += scratchblock(lutin.codeScratch) // la fonction scratchblock va convertir le code Latex en code html si besoin.
-
     if (context.isHtml) { // on change de colonne...
       texte += '</td><td>'
       texte += '    '
