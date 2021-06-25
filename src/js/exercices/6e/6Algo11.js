@@ -1,9 +1,8 @@
 /* eslint-disable camelcase */
-/* globals mathalea */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, texteGras, modalUrl, modalPdf } from '../../modules/outils.js'
-import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA } from '../../modules/2d.js'
+import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, point } from '../../modules/2d.js'
 export const titre = 'Note la couleur'
 
 /**
@@ -498,6 +497,19 @@ export default function Note_la_couleur () {
     for (let i = 1; i < couleurs.length; i++) {
       texteCorr += `- ${texteGras(couleurs[i])} `
     }
+    lutin.animation = `<radialGradient id="Ball" cx="29.7275" cy="-13.1396" r="38.5299" gradientUnits="userSpaceOnUse">
+    <stop offset="0" style="stop-color:#FFFF99"/>
+    <stop offset="1" style="stop-color:#FF9400"/>
+  </radialGradient> <circle fill="url(#Ball)"  r="22.5" stroke-width="1"
+   x="${lutin.listeTraces[0][0] * context.pixelsParCm}"
+    y="${-lutin.listeTraces[0][1] * context.pixelsParCm}">\n
+    <animateMotion path="M ${lutin.listeTraces[0][0] * context.pixelsParCm} ${-lutin.listeTraces[0][1] * context.pixelsParCm} L`
+
+    for (let i = 0; i < lutin.listeTraces.length; i++) {
+      const B = point(lutin.listeTraces[i][2], lutin.listeTraces[i][3])
+      lutin.animation += ` ${B.xSVG(context.pixelsParCm)} ${B.ySVG(context.pixelsParCm)} `
+    }
+    lutin.animation += '" begin="10s" dur="10s" repeatCount="indefinite" />; </circle>'
     texteCorr += '<br><br>' + mathalea2d(paramsCorrection, objetsCorrection, lutin)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
