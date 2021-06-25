@@ -962,7 +962,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2014_03_caledonie_2.tex",
         "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_2_cor.tex",
-        "tags": ["Pythagore","Périmètre"]
+        "tags": ["Pythagore","Périmètres"]
     },
     "dnb_2014_03_caledonie_3": {
         "annee": "2013",
@@ -6781,7 +6781,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_ameriquenord_1.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_ameriquenord_1_cor.tex",
-        "tags": [ "Fonctions, Calcul littéral, Arithmétique, Probabilités, Trigonométrie, Pythagore"]
+        "tags": [ "Fonctions", "Calcul littéral", "Arithmétique", "Probabilités", "Trigonométrie", "Pythagore"]
     },
     "dnb_2021_06_ameriquenord_2": {
         "annee": "2021",
@@ -6793,7 +6793,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_ameriquenord_2.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_ameriquenord_2_cor.tex",
-        "tags": [ "Lecture graphique, Vitesses"]
+        "tags": [ "Lecture graphique", "Vitesses"]
     },
     "dnb_2021_06_ameriquenord_3": {
         "annee": "2021",
@@ -6829,7 +6829,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_ameriquenord_5.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_ameriquenord_5_cor.tex",
-        "tags": [ "Prise d'initiatives, Pourcentages, Proportionnalité, Aires et périmètres"]
+        "tags": [ "Prise d'initiatives", "Pourcentages", "Proportionnalité", "Aires et périmètres"]
     },
     "dnb_2021_06_etrangers_1": {
         "annee": "2021",
@@ -6841,7 +6841,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_etrangers_1.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_etrangers_1_cor.tex",
-        "tags": [ "Arithmétique, Transformations, Fractions, Calculs numériques, Volumes, Trigonométrie, Aires et périmètres "]
+        "tags": [ "Arithmétique", "Transformations", "Fractions", "Calculs numériques", "Volumes", "Trigonométrie", "Aires et périmètres"]
     },
     "dnb_2021_06_etrangers_2": {
         "annee": "2021",
@@ -6853,7 +6853,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_etrangers_2.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_etrangers_2_cor.tex",
-        "tags": [ "Probabilités, Arithmétique"]
+        "tags": [ "Probabilités", "Arithmétique"]
     },
     "dnb_2021_06_etrangers_3": {
         "annee": "2021",
@@ -6865,7 +6865,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_etrangers_3.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_etrangers_3_cor.tex",
-        "tags": [ "Algorithmique-programmation, Programme de calculs, Équations"]
+        "tags": [ "Algorithmique-programmation", "Programme de calculs", "Équations"]
     },
     "dnb_2021_06_etrangers_4": {
         "annee": "2021",
@@ -6877,7 +6877,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_etrangers_4.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_etrangers_4_cor.tex",
-        "tags": [ "Thalès, Grandeurs composées, Trigonométrie"]
+        "tags": [ "Thalès", "Grandeurs composées", "Trigonométrie"]
     },
     "dnb_2021_06_etrangers_5": {
         "annee": "2021",
@@ -6889,6 +6889,6 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_etrangers_5.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_etrangers_5_cor.tex",
-        "tags": [ "Fonctions, Lecture grapghique, Équations"]
+        "tags": [ "Fonctions", "Lecture graphique", "Équations"]
     },
 }
