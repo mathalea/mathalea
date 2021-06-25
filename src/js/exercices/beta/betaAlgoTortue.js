@@ -1,9 +1,9 @@
 // on importe les fonctions nécessaires.
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, ajouterAx, ajouterAy, segment, texteParPosition } from '../../modules/2d.js'
+import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPosition } from '../../modules/2d.js'
 export const titre = 'Tortue Scratch'
 export const colibri = `<g transform="translate(-15,10) scale(0.0025,-0.0025)"
 fill="#000000" stroke="none">
@@ -71,119 +71,154 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   this.pas_de_version_HMTL = false
   this.typeExercice = 'Scratch'
   this.listePackages = 'scratch3'
-  this.sup = 7 // 7 instructions par défaut, paramètre réglable.
+  this.sup = 9 // 7 instructions par défaut, paramètre réglable.
   this.sup2 = 1 // types d'instructionsde déplacement (ici seulement avancer et tourner)
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
+    const angleDepart = 90 // On choisit l'orientation de départ (On pourrait en faire un paramètre de l'exo)
+    const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
+    const yDepart = 0
     const objetsEnonce = []
     const paramsCorrection = { pixelsParCm: 20, scale: 0.5 }
     const sequences = [ // séquences d'intruction pré-établies, on en choisit une parmi celles-ci
-      ['tournerD', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer'],
+      ['tournerD', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer'],
       ['tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerD', 'avancer'],
+      ['tournerD', 'avancer', 'tournerD', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer'],
+      ['tournerD', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer'],
       ['avancer', 'tournerD', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD'],
-      ['avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerG'],
-      ['tournerG', 'avancer', 'tournerG', 'ajouter à x', 'tournerD', 'avancer', 'tournerG', 'ajouter à y', 'tournerG', 'avancer'],
-      ['ajouter à y', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'ajouter à y', 'tournerD', 'avancer', 'tournerD'],
-      ['avancer', 'tournerG', 'ajouter à y', 'tournerG', 'avancer', 'tournerG', 'ajouter à x', 'tournerD', 'avancer', 'tournerG'],
-      ['tournerD', 'ajouter à x', 'ajouter à y', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerD', 'aller à', 'tournerG']
+      ['avancer', 'tournerD', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerG'],
+      ['avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerD'],
+      ['avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerD', 'avancer', 'tournerG'],
+      ['tournerG', 'avancer', 'tournerD', 'avancer', 'tournerD', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer'],
+      ['tournerG', 'avancer', 'tournerD', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer'],
+      ['tournerG', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerD', 'avancer'],
+      ['tournerG', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer']
     ]
-    let choix
-    if (parseInt(this.sup2) === 1) {
-      choix = randint(0, 3) // si le paramètre est à 1 (defaut) on choisit parmi les 4 premières séquences
-    } else {
-      choix = randint(4, 7) // sinon, on choisit parmi les 4 dernières
-    }
+    const choix = randint(0, 11)
     const commandes = combinaisonListesSansChangerOrdre(sequences[choix], parseInt(this.sup)) // on crée la succession de commandes en répétant la séquence choisie si le nombre d'instructions demandées dépasse la longueur de la séquence
-    let val1, val2
-    const lutin = creerLutin() // Ici on crée une instance de l'objet Lutin.
-    lutin.color = 'green' // la couleur de la trace
-    lutin.epaisseur = 3 // son epaisseur
-    lutin.pointilles = 2 // le type de pointillés (on peut mettre false pour avoir un trait plein)
-    const angleDepart = 90 // On choisit l'orientation de départ
-    const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
-    const yDepart = 0 // Mais on pourrait envisager de changer ça et de recadrer...
+    const val = []
+    const lutins = []
+    lutins[0] = creerLutin() // Ici on crée une instance de l'objet Lutin.
+    lutins[1] = creerLutin() // et trois autres lutins pour les figures fausses
+    lutins[2] = creerLutin()
+    lutins[3] = creerLutin()
+    lutins[4] = creerLutin()
+    let listePositionsFig = [[0, 0], [50, 0], [100, 0], [150, 0], [200, 0]] // emplacements des figures proposées en unité de lutin
+    listePositionsFig = shuffle(listePositionsFig) // On mélange les emplacements pour éviter d'avoir la bonne réponse au même endroit
+    for (let i = 0; i < 5; i++) {
+      lutins[i].color = 'green' // la couleur de la trace
+      lutins[i].epaisseur = 3 // son epaisseur
+      lutins[i].pointilles = false
+    }
     context.unitesLutinParCm = 10 // avancer de 10 pour le lutin lui fait parcourir 1cm (en fait 0,5cm car j'ai ajouté un scale=0.5 pour la sortie latex)
     context.pixelsParCm = 20 // 20 pixels d'écran représentent 1cm (enfin ça dépend du zoom, donc c'est juste un réglage par défaut)
 
     let texte = '' // la chaine qui va contenir l'énoncé
     let texteCorr = '' // la chaine qui va contenir la correction
-    // On écrit le début du programme dans l'attribut codeScratch du lutin... cet attribut de type chaine contient le code du programme du lutin en Scratch Latex
-    // A chaque instruction ajoutée dans le programme correspond une action à effectuée sur l'objet lutin..
-    lutin.codeScratch = '\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n '
-    lutin.codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
-    allerA(xDepart, yDepart, lutin) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
-    lutin.codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n`
-    lutin.codeScratch += '\\blockpen{stylo en position d\'écriture}\n'
-    baisseCrayon(lutin) // à partir de là, le lutin laissera une trace (ses positions successives sont enregistrées dans lutin.listeTraces)
+    // On écrit le début du programme dans l'attribut codeScratch du lutins[0][0]... cet attribut de type chaine contient le code du programme du lutin en Scratch Latex
+    // A chaque instruction ajoutée dans le programme correspond une action à effectuée sur l'objet lutins[0]..
+    lutins[0].codeScratch = '\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n '
+    lutins[0].codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
+    lutins[0].codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n`
+    lutins[0].codeScratch += '\\blockpen{stylo en position d\'écriture}\n'
+    allerA(listePositionsFig[0][0], listePositionsFig[0][1], lutins[0]) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
+    allerA(listePositionsFig[1][0], listePositionsFig[1][1], lutins[1])
+    allerA(listePositionsFig[2][0], listePositionsFig[2][1], lutins[2])
+    allerA(listePositionsFig[3][0], listePositionsFig[3][1], lutins[3])
+    allerA(listePositionsFig[4][0], listePositionsFig[4][1], lutins[4])
+    baisseCrayon(lutins[0]) // à partir de là, le lutin laissera une trace (ses positions successives sont enregistrées dans lutins[0].listeTraces)
+    baisseCrayon(lutins[1])
+    baisseCrayon(lutins[2])
+    baisseCrayon(lutins[3])
+    baisseCrayon(lutins[4])
 
-    orienter(angleScratchTo2d(angleDepart), lutin) // l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
-
+    orienter(angleScratchTo2d(angleDepart), lutins[0]) // l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
+    orienter(angleScratchTo2d(angleDepart), lutins[1])
+    orienter(angleScratchTo2d(angleDepart), lutins[2])
+    orienter(angleScratchTo2d(angleDepart), lutins[3])
+    orienter(angleScratchTo2d(angleDepart), lutins[4])
     for (let i = 0; i < parseInt(this.sup); i++) { // On va parcourir la listes des commandes de déplacement
       switch (commandes[i]) {
         case 'avancer':
-          val1 = randint(1, 4) * 10 // La longueur du déplacement est 10, 20, 30 ou 40
-          lutin.codeScratch += `\\blockmove{avancer de \\ovalnum{${val1}} pas}\n`
-          avance(val1, lutin)
+          val[i] = randint(1, 4) * 5 // La longueur du déplacement est 10, 20, 30 ou 40
+          lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${val[i]}} pas}\n`
+          avance(val[i], lutins[0])
+          avance(val[i], lutins[1])
+          avance(val[i], lutins[2])
+          avance(val[i], lutins[3])
+          avance(val[i] + 5, lutins[4]) // avance trop
           break
         case 'tournerD' : // On peut difficilement choisir autre chose que de tourner de 90°... on aurait pu faire 180° aussi...
-          lutin.codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
-          tournerD(90, lutin)
+          lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
+          tournerD(90, lutins[0])
+          tournerD(90, lutins[2])
+          tournerD(90, lutins[4])
+          tournerG(90, lutins[1]) // tournent dans le mauvais sens
+          tournerG(90, lutins[3])
           break
         case 'tournerG' :
-          lutin.codeScratch += '\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
-          tournerG(90, lutin)
+          lutins[0].codeScratch += '\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
+          tournerG(90, lutins[0])
+          tournerG(90, lutins[1])
+          tournerG(90, lutins[4])
+          tournerD(90, lutins[2]) // tournent dans le mauvais sens
+          tournerD(90, lutins[3])
           break
-        case 'ajouter à x' : // Je n'aime pas trop utiliser ceci ne sachant pas si la progression se fait déjà horizontalement ou pas...
-          val1 = randint(1, 4) * 10
-          lutin.codeScratch += `\\blockmove{ajouter \\ovalnum{${val1}}  à  x}\n`
-          ajouterAx(val1, lutin)
+     /*   case 'ajouter à x' : // Je n'aime pas trop utiliser ceci ne sachant pas si la progression se fait déjà horizontalement ou pas...
+          val[i] = randint(1, 4) * 10
+          lutins[0].codeScratch += `\\blockmove{ajouter \\ovalnum{${val[i]}}  à  x}\n`
+          ajouterAx(val[i], lutins[0])
           break
         case 'ajouter à y' :
-          val1 = randint(1, 4) * 10
-          lutin.codeScratch += `\\blockmove{ajouter \\ovalnum{${val1}}  à  y}\n`
-          ajouterAy(val1, lutin)
+          val[i] = randint(1, 4) * 10
+          lutins[0].codeScratch += `\\blockmove{ajouter \\ovalnum{${val[i]}}  à  y}\n`
+          ajouterAy(val[i], lutins[0])
           break
         case 'aller à' : // Là c'est encore pire... on peut très bien se retrouver... à l'endroit ou l'on est déjà !
-          val1 = randint(-3, 3) * 10
+          val[i] = randint(-3, 3) * 10
           val2 = randint(-3, 3) * 10
-          lutin.codeScratch += `\\blockmove{aller à x: \\ovalnum{${val1}} y: \\ovalnum{${val2}}}\n `
-          allerA(val1, val2, lutin)
+          lutins[0].codeScratch += `\\blockmove{aller à x: \\ovalnum{${val[i]}} y: \\ovalnum{${val2}}}\n `
+          allerA(val[i], val2, lutins[0])
           break
         case "s'orienter à" :
-          val1 = choice([0, -90, 90, 180])
-          lutin.codeScratch += `\\blockmove{s'orienter à \\ovalnum{${val1}}}\n`
-          orienter(angleScratchTo2d(val1), lutin)
+          val[i] = choice([0, -90, 90, 180])
+          lutins[0].codeScratch += `\\blockmove{s'orienter à \\ovalnum{${val[i]}}}\n`
+          orienter(angleScratchTo2d(val[i]), lutins[0])
           break
+          */
       }
     }
-    lutin.codeScratch += '\\blockpen{relever le stylo}\n'
-    leveCrayon(lutin)
+    lutins[0].codeScratch += '\\blockpen{relever le stylo}\n'
+    leveCrayon(lutins[0])
+    leveCrayon(lutins[1])
+    leveCrayon(lutins[2])
+    leveCrayon(lutins[3])
+    leveCrayon(lutins[4])
 
-    lutin.codeScratch += '\\end{scratch}'
-    console.log(lutin.codeScratch)
-    texte = 'Dessine la figure tracée par le lutin à l\'éxécution du programme ci-dessous.<br>Un carreau représente 10 pas<br>'
+    lutins[0].codeScratch += '\\end{scratch}'
+    console.log(lutins[0].codeScratch)
+    texte = 'Quelle figure est tracée par le stylo à l\'éxécution du programme ci-dessous.<br>Un carreau représente 10 pas<br>Le tracé démarre à la croix bleue.'
+    /*
+    lutins[0].animation = `${colibri}
+   x="${lutins[0].listeTraces[0][0] * context.pixelsParCm}"
+    y="${-lutins[0].listeTraces[0][1] * context.pixelsParCm}">\n
+    <animateMotion path="M ${lutins[0].listeTraces[0][0] * context.pixelsParCm} ${-lutins[0].listeTraces[0][1] * context.pixelsParCm} L`
 
-    lutin.animation = `${colibri} 
-   x="${lutin.listeTraces[0][0] * context.pixelsParCm}"
-    y="${-lutin.listeTraces[0][1] * context.pixelsParCm}">\n
-    <animateMotion path="M ${lutin.listeTraces[0][0] * context.pixelsParCm} ${-lutin.listeTraces[0][1] * context.pixelsParCm} L`
-
-    for (let i = 0; i < lutin.listeTraces.length; i++) {
-      const B = point(lutin.listeTraces[i][2], lutin.listeTraces[i][3])
-      lutin.animation += ` ${B.xSVG(context.pixelsParCm)} ${B.ySVG(context.pixelsParCm)} `
+    for (let i = 0; i < lutins[0].listeTraces.length; i++) {
+      const B = point(lutins[0].listeTraces[i][2], lutins[0].listeTraces[i][3])
+      lutins[0].animation += ` ${B.xSVG(context.pixelsParCm)} ${B.ySVG(context.pixelsParCm)} `
     }
-    lutin.animation += '" begin="0s" dur="5s" repeatCount="indefinite" />;'
-    objetsEnonce.push(lutin)
-
+    lutins[0].animation += '" begin="0s" dur="5s" repeatCount="indefinite" />;'
+    objetsEnonce.push(lutins[0])
+*/
     if (context.isHtml) { // On crée 2 colonnes selon le contexte html / Latex
       texte += '<table style="width: 100%"><tr><td>'
     } else {
       texte += '\\begin{minipage}[t]{.25\\textwidth}'
     }
-    texte += scratchblock(lutin.codeScratch) // la fonction scratchblock va convertir le code Latex en code html si besoin.
-
+    texte += scratchblock(lutins[0].codeScratch) // la fonction scratchblock va convertir le code Latex en code html si besoin.
     if (context.isHtml) { // on change de colonne...
       texte += '</td><td>'
       texte += '    '
@@ -192,18 +227,40 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       texte += '\\end{minipage} '
       texte += '\\hfill \\begin{minipage}[t]{.74\\textwidth}'
     }
-    paramsCorrection.xmin = lutin.xMin - 1.5
-    paramsCorrection.ymin = lutin.yMin - 1.5
-    paramsCorrection.xmax = lutin.xMax + 1.5
-    paramsCorrection.ymax = lutin.yMax + 1.5
-    const echelle = segment(-9, 9, -8, 9)
+    let largeur = 0; let depart
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < lutins[i].listeTraces.length; j++) { // On recadre les traces des lutins...
+        lutins[i].listeTraces[j][0] -= lutins[i].xMin
+        lutins[i].listeTraces[j][2] -= lutins[i].xMin
+        lutins[i].listeTraces[j][1] -= lutins[i].yMin
+        lutins[i].listeTraces[j][3] -= lutins[i].yMin
+      }
+    }
+    for (let i = 0; i < 5; i++) {
+      largeur = Math.max(largeur, lutins[i].xMax - lutins[i].xMin, lutins[i].yMax - lutins[i].yMin)
+      objetsEnonce.push(lutins[i])
+      depart = tracePoint(point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]))
+      depart.taille = 5
+      depart.color = 'blue'
+      depart.epaisseur = 2
+      objetsEnonce.push(depart)
+    }
+    objetsEnonce.push(grille(-1, -1, 26, 10, 'gray', 0.5, 0.5))
+    console.log(largeur)
+    paramsCorrection.xmin = -1
+    paramsCorrection.ymin = -1
+    paramsCorrection.xmax = 26
+    paramsCorrection.ymax = 10
+    paramsCorrection.pixelsParCm = calcul(largeur * 1.5)
+    paramsCorrection.scale = calcul(1 / largeur)
+    const echelle = segment(0, 9, 1, 9)
     echelle.styleExtremites = '|-|'
     // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
-    texte += mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, scale: 0.5 },
-      grille(-10, -10, 10, 10),
+    texte += '<br>' + mathalea2d(paramsCorrection,
       echelle,
-      tracePoint(point(0, 0)),
-      texteParPosition('10 pas', -8.5, 8.5)
+      objetsEnonce,
+      texteParPosition('10 pas', 0.5, 8.5)
+
     )
     if (context.isHtml) {
       texte += '</td><td>'
@@ -211,11 +268,10 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       texte += '\\end{minipage} '
     }
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
-    texteCorr += '<br><br>' + mathalea2d(paramsCorrection, grille(-10, -10, 10, 10), tracePoint(point(0, 0)), lutin)
+    texteCorr += '<br><br>' + mathalea2d(paramsCorrection, grille(-10, -10, 10, 10), tracePoint(point(0, 0)), lutins[0])
     this.listeQuestions.push(texte) // on met à jour la liste des questions
     this.listeCorrections.push(texteCorr) // et la liste des corrections
     listeQuestionsToContenuSansNumero(this) // on envoie tout à la fonction qui va mettre en forme.
   }
   this.besoinFormulaireNumerique = ["Nombre d'instructions"] // gestion des paramètres supplémentaires
-  this.besoinFormulaire2Numerique = ["Type d'instructions", '1 : sans calcul\n 2: Avec calcul']
 }
