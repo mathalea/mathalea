@@ -93,5 +93,4 @@ export default function DevelopperIdentitesRemarquables3 () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x négatif\n 4 : Coefficient de x rationnel\n 5 : Mélange des cas précédents']
-
-}
+ }
