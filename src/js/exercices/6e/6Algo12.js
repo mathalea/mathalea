@@ -316,28 +316,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     this.listeQuestions.push(texte) // on met à jour la liste des questions
     this.listeCorrections.push(texteCorr) // et la liste des corrections
-    
-    this.correctionInteractive = (elt) => {
-      let nbBonnesReponses = 0
-      let nbMauvaisesReponses = 0
-      for (let i = 0, aucunMauvaisPointsCliques; i < this.nbQuestions; i++) {
-        aucunMauvaisPointsCliques = true
-        const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-        pointsSolutions[i].stopCliquable()
-        for (const monPoint of pointsNonSolutions[i]) {
-          if (monPoint.etat) aucunMauvaisPointsCliques = false
-          monPoint.stopCliquable()
-        }
-        if (aucunMauvaisPointsCliques && pointsSolutions[i].etat) {
-          divFeedback.innerHTML = '😎'
-          nbBonnesReponses++
-        } else {
-          divFeedback.innerHTML = '☹️'
-          nbMauvaisesReponses++
-        }
-      }
-      afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
-    }
 
     listeQuestionsToContenuSansNumero(this) // on envoie tout à la fonction qui va mettre en forme.
   }
