@@ -20,8 +20,8 @@ export default function DevelopperIdentitesRemarquables3 () {
   this.nbColsCorr = 1
   this.spacing = 1
   this.spacingCorr = 1
-  this.nbQuestions = 1
-  this.sup = 1
+  this.nbQuestions = 4
+  this.sup = 5
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
