@@ -3,8 +3,8 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPosition } from '../../modules/2d.js'
-export const interactifReady = false
+import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPointEchelle } from '../../modules/2d.js'
+export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
 export const interactifType = 'custom' // La correction doit être gérée dans l'exercice avec la méthode this.correctionInteractive()
 export const amcReady = true
@@ -90,7 +90,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     const angleDepart = 90 // On choisit l'orientation de départ (On pourrait en faire un paramètre de l'exo)
     const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
     const yDepart = 0
-    const objetsEnonce = []
     const objetsCorrection = []
     const paramsEnonces = {}
     const paramsCorrection = {}
@@ -190,8 +189,8 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
     lutins[0].codeScratch += '\\blockpen{relever le stylo}\n'
 
-    let largeur = 3
-    let hauteur = 5
+    let largeur = 1
+    let hauteur = 1
     for (let i = 0; i < 5; i++) { // on calcule la largeur et la hauteur maximale des parcours.
       leveCrayon(lutins[i])
       largeur = Math.max(largeur, lutins[i].xMax - lutins[i].xMin)
@@ -221,67 +220,64 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
     texte += scratchblock(lutins[0].codeScratch) // la fonction scratchblock va convertir le code Latex en code html si besoin.
     if (context.isHtml) { // on change de colonne...
-      texte += '</td><td>'
-      texte += '    '
       texte += '</td><td style="vertical-align: top; text-align: center">'
     } else {
       texte += '\\end{minipage} '
       texte += '\\hfill \\begin{minipage}{.74\\textwidth}'
     }
-    const listePositionsFig = [[0, 0], [largeur, 0], [largeur * 2, 0], [largeur * 3, 0], [largeur * 4, 0]] // emplacements des figures proposées en unité de lutin
     let ordreLutins = [0, 1, 2, 3, 4]
     ordreLutins = shuffle(ordreLutins) // On mélange les emplacements pour éviter d'avoir la bonne réponse au même endroit
     console.log(ordreLutins)
     for (let i = 0; i < 5; i++) {
       for (let j = 0; j < lutins[i].listeTraces.length; j++) { // On recadre les traces des lutins...
-        lutins[i].listeTraces[j][0] -= lutins[i].xMin - listePositionsFig[ordreLutins.indexOf(i)][0]
-        lutins[i].listeTraces[j][2] -= lutins[i].xMin - listePositionsFig[ordreLutins.indexOf(i)][0]
+        lutins[i].listeTraces[j][0] -= lutins[i].xMin
+        lutins[i].listeTraces[j][2] -= lutins[i].xMin
         lutins[i].listeTraces[j][1] -= lutins[i].yMin
         lutins[i].listeTraces[j][3] -= lutins[i].yMin
       }
     }
-    let depart
+    const depart = []
     for (let i = 0; i < 5; i++) { // ajouter le point de départ de chaque tracé
-      objetsEnonce.push(lutins[i])
-      depart = tracePoint(point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]))
-      depart.taille = 5
-      depart.color = 'blue'
-      depart.epaisseur = 2
-      objetsEnonce.push(depart)
+      depart[i] = tracePoint(point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]))
+      depart[i].taille = 5
+      depart[i].color = 'blue'
+      depart[i].epaisseur = 2
       if (i === 0) {
-        objetsCorrection.push(depart)
+        objetsCorrection.push(depart[0])
       }
     }
-    let nom
-    for (let i = 0; i < 5; i++) { // i est le numéro du lutin
-      nom = texteParPosition(`figure ${ordreLutins.indexOf(i) + 1}`, (lutins[ordreLutins.indexOf(i)].xMax - lutins[ordreLutins.indexOf(i)].xMin) / 2 + largeur * ordreLutins.indexOf(i), -0.5)
-      objetsEnonce.push(nom)
-    }
-    objetsEnonce.push(texteParPosition('10 pas', 0.5, Math.ceil(hauteur + 1) - 0.5))
-    const echelle = segment(0, Math.ceil(hauteur + 1), 1, Math.ceil(hauteur + 1))
+    const echelle = segment(0, hauteur + 0.5, 1, hauteur + 0.5)
     echelle.epaisseur = 2
     echelle.styleExtremites = '|-|'
-    objetsEnonce.push(grille(-1, -1, Math.ceil(largeur * 5), Math.ceil(hauteur + 2), 'gray', 0.5, 0.5))
-    objetsEnonce.push(echelle)
-    objetsCorrection.push(grille(Math.round(largeur * ordreLutins.indexOf(0) - 1), -1, Math.round(largeur * (ordreLutins.indexOf(0) + 1) - 1), hauteur, 'gray', 0.5, 0.5))
+    objetsCorrection.push(grille(-1, -1, largeur + 1), hauteur + 1, 'gray', 0.5, 0.5)
     objetsCorrection.push(lutins[0])
-    paramsEnonces.xmin = -1
-    paramsEnonces.ymin = -1
-    paramsEnonces.xmax = Math.ceil(largeur * 5)
-    paramsEnonces.ymax = Math.ceil(hauteur + 2)
+    paramsEnonces.xmin = -0.5
+    paramsEnonces.ymin = -0.5
+    paramsEnonces.xmax = largeur
+    paramsEnonces.ymax = hauteur + 1
     paramsEnonces.pixelsParCm = Math.round(200 / largeur)
-    paramsEnonces.scale = calcul(2.5 / largeur)
-    paramsCorrection.xmin = Math.round(largeur * ordreLutins.indexOf(0) - 1)
-    paramsCorrection.ymin = -1
-    paramsCorrection.xmax = Math.round(largeur * (ordreLutins.indexOf(0) + 1) - 1)
-    paramsCorrection.ymax = hauteur
+    paramsEnonces.scale = calcul(2 / largeur)
+    paramsEnonces.style = ''
+    paramsCorrection.xmin = -0.5
+    paramsCorrection.ymin = -0.5
+    paramsCorrection.xmax = largeur
+    paramsCorrection.ymax = hauteur + 1
     paramsCorrection.pixelsParCm = Math.round(200 / largeur)
-    paramsCorrection.scale = calcul(2.5 / largeur)
+    paramsCorrection.scale = calcul(2 / largeur)
 
     // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
-    texte += '<br>' + mathalea2d(paramsEnonces, objetsEnonce)
+    for (let i = 0; i < 5; i++) {
+      paramsEnonces.id = `figure${i}exo${numeroExercice}`
+      texte += mathalea2d(paramsEnonces,
+        lutins[ordreLutins.indexOf(i)],
+        depart[ordreLutins.indexOf(i)],
+        grille(-0.5, -0.5, largeur, hauteur + 1, 'gray', 0.5, 0.5),
+        texteParPointEchelle('10 pas', point(0.5, hauteur + 0.2), 'milieu', 'black', 0.7),
+        texteParPointEchelle(`figure ${i + 1}`, point((lutins[ordreLutins.indexOf(i)].xMax - lutins[ordreLutins.indexOf(i)].xMin) / 2, -0.3), 'milieu', 'black', 0.7),
+        echelle)
+    }
     if (context.isHtml) {
-      texte += '</td><td>'
+      texte += '</td></tr>'
     } else {
       texte += '\\end{minipage} '
     }
@@ -320,6 +316,29 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     this.listeQuestions.push(texte) // on met à jour la liste des questions
     this.listeCorrections.push(texteCorr) // et la liste des corrections
+    
+    this.correctionInteractive = (elt) => {
+      let nbBonnesReponses = 0
+      let nbMauvaisesReponses = 0
+      for (let i = 0, aucunMauvaisPointsCliques; i < this.nbQuestions; i++) {
+        aucunMauvaisPointsCliques = true
+        const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+        pointsSolutions[i].stopCliquable()
+        for (const monPoint of pointsNonSolutions[i]) {
+          if (monPoint.etat) aucunMauvaisPointsCliques = false
+          monPoint.stopCliquable()
+        }
+        if (aucunMauvaisPointsCliques && pointsSolutions[i].etat) {
+          divFeedback.innerHTML = '😎'
+          nbBonnesReponses++
+        } else {
+          divFeedback.innerHTML = '☹️'
+          nbMauvaisesReponses++
+        }
+      }
+      afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
+    }
+
     listeQuestionsToContenuSansNumero(this) // on envoie tout à la fonction qui va mettre en forme.
   }
   this.besoinFormulaireNumerique = ["Nombre d'instructions"] // gestion des paramètres supplémentaires
