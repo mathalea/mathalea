@@ -1,9 +1,15 @@
 // on importe les fonctions nécessaires.
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
 import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPosition } from '../../modules/2d.js'
+export const interactifReady = true
+// il y avait un fonctionnement avec amcType cf commit 3ae7c43
+export const interactifType = 'custom' // La correction doit être gérée dans l'exercice avec la méthode this.correctionInteractive()
+export const amcReady = true
+export const amcType = 1
+
 export const titre = 'Trouver le bon tracé'
 export const colibri = `<g transform="translate(-15,10) scale(0.0025,-0.0025)"
 fill="#000000" stroke="none">
@@ -73,6 +79,8 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   this.listePackages = 'scratch3'
   this.sup = 9 // 7 instructions par défaut, paramètre réglable.
   this.sup2 = 1 // types d'instructionsde déplacement (ici seulement avancer et tourner)
+  this.amcReady = amcReady
+  this.amcType = amcType
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
@@ -206,7 +214,8 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
     largeur++
     lutins[0].codeScratch += '\\end{scratch}'
-    texte = 'Quelle figure est tracée par le stylo à l\'éxécution du programme ci-dessous.<br>Un carreau représente 5 pas<br>Le tracé démarre à la croix bleue.<br>'
+    texte = 'Quelle figure est tracée par le stylo à l\'éxécution du programme ci-dessous ?<br>Un carreau représente 5 pas<br>Le tracé démarre à la croix bleue.<br>'
+    texte += "S'orienter à 90° signifie s'orienter vers la droite de l'écran.<br>"
     /*
     lutins[0].animation = `${colibri}
    x="${lutins[0].listeTraces[0][0] * context.pixelsParCm}"
@@ -265,6 +274,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
     objetsEnonce.push(texteParPosition('10 pas', 0.5, Math.ceil(hauteur + 1) - 0.5))
     const echelle = segment(0, Math.ceil(hauteur + 1), 1, Math.ceil(hauteur + 1))
+    echelle.epaisseur = 2
     echelle.styleExtremites = '|-|'
     objetsEnonce.push(grille(-1, -1, Math.ceil(largeur * 5), Math.ceil(hauteur + 2), 'gray', 0.5, 0.5))
     objetsEnonce.push(echelle)
@@ -290,6 +300,36 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     } else {
       texte += '\\end{minipage} '
     }
+    if (context.isAmc) {
+      this.autoCorrection[0] = {
+        enonce: texte,
+        propositions: [
+          {
+            texte: 'figure 1',
+            statut: false
+          },
+          {
+            texte: 'figure 2',
+            statut: false
+          },
+          {
+            texte: 'figure 3',
+            statut: false
+          },
+          {
+            texte: 'figure 4',
+            statut: false
+          },
+          {
+            texte: 'figure 5',
+            statut: false
+          }
+        ],
+        options: { ordered: true }
+      }
+      this.autoCorrection[0].propositions[ordreLutins.indexOf(0)].statut = true
+    }
+
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
     texteCorr += `La bonne figure est la figure ${ordreLutins.indexOf(0) + 1}`
     texteCorr += mathalea2d(paramsCorrection, objetsCorrection)

@@ -2017,8 +2017,13 @@ export default {
   "6Algo12": {
     "titre": "Trouver le bon tracé",
     "url": "/exercices/6e/6Algo12.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "6Algo12"
   },
   "6C10-1": {
