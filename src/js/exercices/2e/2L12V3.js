@@ -2,9 +2,8 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, texFraction, combinaisonListes, pgcd, texFractionReduite } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Développer (a+b)²'
-/*export const interactifReady = true
-export const interactifType = 'mathLive'*/
-
+export const interactifReady = true
+export const interactifType = 'mathLive'
 /**
  * Développer (ax+b)²
 * @author Matthieu Devillers très très largement inspiré par Jean-Claude Lhote
