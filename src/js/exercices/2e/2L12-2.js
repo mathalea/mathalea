@@ -56,7 +56,7 @@ export default function DevelopperIdentitesRemarquables3 () {
           reponse = `x^2+${2 * a}x+${a * a}`
           break
         case 2:
-          texte = `$\\left(${b}x+${a})^2$` // b>1
+          texte = `$\\left(${b}x+${a}\\right)^2$` // b>1
           texteCorr = `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{blue} b = ${a} \\color{black} $ : <br> <br>`
           texteCorr += `$\\left(\\color{red}${b}x\\color{black}+\\color{blue}${a}\\right)\\color{black}^2 = \\left(\\color{red}${b}x\\color{black}\\right)^2 + 2 \\times \\color{red}${b}x\\color{black} \\times \\color{blue}${a} + ${a}\\color{black}^2$ <br>`
           texteCorr += `$\\phantom{(${b}x+${a})^2} = ${b * b}x^2+${2 * b * a}x+${a * a}$`
