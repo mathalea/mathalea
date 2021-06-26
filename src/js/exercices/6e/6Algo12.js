@@ -121,7 +121,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     let texteCorr = '' // la chaine qui va contenir la correction
     // On écrit le début du programme dans l'attribut codeScratch du lutins[0][0]... cet attribut de type chaine contient le code du programme du lutin en Scratch Latex
     // A chaque instruction ajoutée dans le programme correspond une action à effectuée sur l'objet lutins[0]..
-    lutins[0].codeScratch = '\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n '
+    lutins[0].codeScratch = '\\begin{scratch}[print,fill,blocks,scale=0.75]\n \\blockinit{quand \\greenflag est cliqué}\n '
     lutins[0].codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
     lutins[0].codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n`
     lutins[0].codeScratch += '\\blockpen{stylo en position d\'écriture}\n'
@@ -198,7 +198,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     leveCrayon(lutins[2])
     leveCrayon(lutins[3])
     leveCrayon(lutins[4])
-    let largeur = 5
+    let largeur = 3
     let hauteur = 5
     for (let i = 0; i < 5; i++) { // on calcule la largeur et la hauteur maximale des parcours.
       largeur = Math.max(largeur, lutins[i].xMax - lutins[i].xMin)
@@ -206,7 +206,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
     largeur++
     lutins[0].codeScratch += '\\end{scratch}'
-    texte = 'Quelle figure est tracée par le stylo à l\'éxécution du programme ci-dessous.<br>Un carreau représente 10 pas<br>Le tracé démarre à la croix bleue.'
+    texte = 'Quelle figure est tracée par le stylo à l\'éxécution du programme ci-dessous.<br>Un carreau représente 5 pas<br>Le tracé démarre à la croix bleue.<br>'
     /*
     lutins[0].animation = `${colibri}
    x="${lutins[0].listeTraces[0][0] * context.pixelsParCm}"
@@ -223,7 +223,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     if (context.isHtml) { // On crée 2 colonnes selon le contexte html / Latex
       texte += '<table style="width: 100%"><tr><td>'
     } else {
-      texte += '\\begin{minipage}[t]{.25\\textwidth}'
+      texte += '\\begin{minipage}{.25\\textwidth}'
     }
     texte += scratchblock(lutins[0].codeScratch) // la fonction scratchblock va convertir le code Latex en code html si besoin.
     if (context.isHtml) { // on change de colonne...
@@ -232,7 +232,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       texte += '</td><td style="vertical-align: top; text-align: center">'
     } else {
       texte += '\\end{minipage} '
-      texte += '\\hfill \\begin{minipage}[t]{.74\\textwidth}'
+      texte += '\\hfill \\begin{minipage}{.74\\textwidth}'
     }
     const listePositionsFig = [[0, 0], [largeur, 0], [largeur * 2, 0], [largeur * 3, 0], [largeur * 4, 0]] // emplacements des figures proposées en unité de lutin
     let ordreLutins = [0, 1, 2, 3, 4]
@@ -275,13 +275,13 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     paramsEnonces.xmax = Math.ceil(largeur * 5)
     paramsEnonces.ymax = Math.ceil(hauteur + 2)
     paramsEnonces.pixelsParCm = Math.round(200 / largeur)
-    paramsEnonces.scale = calcul(1 / largeur)
+    paramsEnonces.scale = calcul(2.5 / largeur)
     paramsCorrection.xmin = Math.round(largeur * ordreLutins.indexOf(0) - 1)
     paramsCorrection.ymin = -1
     paramsCorrection.xmax = Math.round(largeur * (ordreLutins.indexOf(0) + 1) - 1)
     paramsCorrection.ymax = hauteur
     paramsCorrection.pixelsParCm = Math.round(200 / largeur)
-    paramsCorrection.scale = calcul(1 / largeur)
+    paramsCorrection.scale = calcul(2.5 / largeur)
 
     // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
     texte += '<br>' + mathalea2d(paramsEnonces, objetsEnonce)
