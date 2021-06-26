@@ -1,10 +1,10 @@
 // on importe les fonctions nécessaires.
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul, combinaisonListes } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
 import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPosition } from '../../modules/2d.js'
-export const titre = 'Tortue Scratch'
+export const titre = 'Trouver le bon tracé'
 export const colibri = `<g transform="translate(-15,10) scale(0.0025,-0.0025)"
 fill="#000000" stroke="none">
 <path d="M3 12694 c21 -342 271 -746 807 -1308 567 -593 1692 -1486 2805
@@ -81,7 +81,9 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
     const yDepart = 0
     const objetsEnonce = []
-    const paramsCorrection = { pixelsParCm: 20, scale: 0.5 }
+    const objetsCorrection = []
+    const paramsEnonces = {}
+    const paramsCorrection = {}
     const sequences = [ // séquences d'intruction pré-établies, on en choisit une parmi celles-ci
       ['tournerD', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer'],
       ['tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerD', 'avancer'],
@@ -96,6 +98,8 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       ['tournerG', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer', 'tournerD', 'avancer'],
       ['tournerG', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer']
     ]
+    let erreursDeDeplacement = [0, 1, 0]
+    erreursDeDeplacement = combinaisonListesSansChangerOrdre(erreursDeDeplacement, parseInt(this.sup))
     const choix = randint(0, 11)
     const commandes = combinaisonListesSansChangerOrdre(sequences[choix], parseInt(this.sup)) // on crée la succession de commandes en répétant la séquence choisie si le nombre d'instructions demandées dépasse la longueur de la séquence
     const val = []
@@ -105,8 +109,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     lutins[2] = creerLutin()
     lutins[3] = creerLutin()
     lutins[4] = creerLutin()
-    let listePositionsFig = [[0, 0], [50, 0], [100, 0], [150, 0], [200, 0]] // emplacements des figures proposées en unité de lutin
-    listePositionsFig = shuffle(listePositionsFig) // On mélange les emplacements pour éviter d'avoir la bonne réponse au même endroit
     for (let i = 0; i < 5; i++) {
       lutins[i].color = 'green' // la couleur de la trace
       lutins[i].epaisseur = 3 // son epaisseur
@@ -123,11 +125,11 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     lutins[0].codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
     lutins[0].codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n`
     lutins[0].codeScratch += '\\blockpen{stylo en position d\'écriture}\n'
-    allerA(listePositionsFig[0][0], listePositionsFig[0][1], lutins[0]) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
-    allerA(listePositionsFig[1][0], listePositionsFig[1][1], lutins[1])
-    allerA(listePositionsFig[2][0], listePositionsFig[2][1], lutins[2])
-    allerA(listePositionsFig[3][0], listePositionsFig[3][1], lutins[3])
-    allerA(listePositionsFig[4][0], listePositionsFig[4][1], lutins[4])
+    allerA(0, 0, lutins[0]) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
+    allerA(0, 0, lutins[1])
+    allerA(0, 0, lutins[2])
+    allerA(0, 0, lutins[3])
+    allerA(0, 0, lutins[4])
     baisseCrayon(lutins[0]) // à partir de là, le lutin laissera une trace (ses positions successives sont enregistrées dans lutins[0].listeTraces)
     baisseCrayon(lutins[1])
     baisseCrayon(lutins[2])
@@ -148,13 +150,13 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
           avance(val[i], lutins[1])
           avance(val[i], lutins[2])
           avance(val[i], lutins[3])
-          avance(val[i] + 5, lutins[4]) // avance trop
+          avance(val[i] + 5 * erreursDeDeplacement[i], lutins[4]) // avance trop
           break
         case 'tournerD' : // On peut difficilement choisir autre chose que de tourner de 90°... on aurait pu faire 180° aussi...
           lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
           tournerD(90, lutins[0])
           tournerD(90, lutins[2])
-          tournerD(90, lutins[4])
+          orienter(90, lutins[4])
           tournerG(90, lutins[1]) // tournent dans le mauvais sens
           tournerG(90, lutins[3])
           break
@@ -196,9 +198,14 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     leveCrayon(lutins[2])
     leveCrayon(lutins[3])
     leveCrayon(lutins[4])
-
+    let largeur = 5
+    let hauteur = 5
+    for (let i = 0; i < 5; i++) { // on calcule la largeur et la hauteur maximale des parcours.
+      largeur = Math.max(largeur, lutins[i].xMax - lutins[i].xMin)
+      hauteur = Math.max(hauteur, lutins[i].yMax - lutins[i].yMin)
+    }
+    largeur++
     lutins[0].codeScratch += '\\end{scratch}'
-    console.log(lutins[0].codeScratch)
     texte = 'Quelle figure est tracée par le stylo à l\'éxécution du programme ci-dessous.<br>Un carreau représente 10 pas<br>Le tracé démarre à la croix bleue.'
     /*
     lutins[0].animation = `${colibri}
@@ -227,48 +234,65 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       texte += '\\end{minipage} '
       texte += '\\hfill \\begin{minipage}[t]{.74\\textwidth}'
     }
-    let largeur = 0; let depart
+    const listePositionsFig = [[0, 0], [largeur, 0], [largeur * 2, 0], [largeur * 3, 0], [largeur * 4, 0]] // emplacements des figures proposées en unité de lutin
+    let ordreLutins = [0, 1, 2, 3, 4]
+    ordreLutins = shuffle(ordreLutins) // On mélange les emplacements pour éviter d'avoir la bonne réponse au même endroit
+    console.log(ordreLutins)
     for (let i = 0; i < 5; i++) {
       for (let j = 0; j < lutins[i].listeTraces.length; j++) { // On recadre les traces des lutins...
-        lutins[i].listeTraces[j][0] -= lutins[i].xMin
-        lutins[i].listeTraces[j][2] -= lutins[i].xMin
+        lutins[i].listeTraces[j][0] -= lutins[i].xMin - listePositionsFig[ordreLutins.indexOf(i)][0]
+        lutins[i].listeTraces[j][2] -= lutins[i].xMin - listePositionsFig[ordreLutins.indexOf(i)][0]
         lutins[i].listeTraces[j][1] -= lutins[i].yMin
         lutins[i].listeTraces[j][3] -= lutins[i].yMin
       }
     }
-    for (let i = 0; i < 5; i++) {
-      largeur = Math.max(largeur, lutins[i].xMax - lutins[i].xMin, lutins[i].yMax - lutins[i].yMin)
+    let depart
+    for (let i = 0; i < 5; i++) { // ajouter le point de départ de chaque tracé
       objetsEnonce.push(lutins[i])
       depart = tracePoint(point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]))
       depart.taille = 5
       depart.color = 'blue'
       depart.epaisseur = 2
       objetsEnonce.push(depart)
+      if (i === 0) {
+        objetsCorrection.push(depart)
+      }
     }
-    objetsEnonce.push(grille(-1, -1, 26, 10, 'gray', 0.5, 0.5))
-    console.log(largeur)
-    paramsCorrection.xmin = -1
-    paramsCorrection.ymin = -1
-    paramsCorrection.xmax = 26
-    paramsCorrection.ymax = 10
-    paramsCorrection.pixelsParCm = calcul(largeur * 1.5)
-    paramsCorrection.scale = calcul(1 / largeur)
-    const echelle = segment(0, 9, 1, 9)
+    let nom
+    for (let i = 0; i < 5; i++) { // i est le numéro du lutin
+      nom = texteParPosition(`figure ${ordreLutins.indexOf(i) + 1}`, (lutins[ordreLutins.indexOf(i)].xMax - lutins[ordreLutins.indexOf(i)].xMin) / 2 + largeur * ordreLutins.indexOf(i), -0.5)
+      objetsEnonce.push(nom)
+    }
+    objetsEnonce.push(texteParPosition('10 pas', 0.5, Math.ceil(hauteur + 1) - 0.5))
+    const echelle = segment(0, Math.ceil(hauteur + 1), 1, Math.ceil(hauteur + 1))
     echelle.styleExtremites = '|-|'
-    // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
-    texte += '<br>' + mathalea2d(paramsCorrection,
-      echelle,
-      objetsEnonce,
-      texteParPosition('10 pas', 0.5, 8.5)
+    objetsEnonce.push(grille(-1, -1, Math.ceil(largeur * 5), Math.ceil(hauteur + 2), 'gray', 0.5, 0.5))
+    objetsEnonce.push(echelle)
+    objetsCorrection.push(grille(Math.round(largeur * ordreLutins.indexOf(0) - 1), -1, Math.round(largeur * (ordreLutins.indexOf(0) + 1) - 1), hauteur, 'gray', 0.5, 0.5))
+    objetsCorrection.push(lutins[0])
+    paramsEnonces.xmin = -1
+    paramsEnonces.ymin = -1
+    paramsEnonces.xmax = Math.ceil(largeur * 5)
+    paramsEnonces.ymax = Math.ceil(hauteur + 2)
+    paramsEnonces.pixelsParCm = Math.round(200 / largeur)
+    paramsEnonces.scale = calcul(1 / largeur)
+    paramsCorrection.xmin = Math.round(largeur * ordreLutins.indexOf(0) - 1)
+    paramsCorrection.ymin = -1
+    paramsCorrection.xmax = Math.round(largeur * (ordreLutins.indexOf(0) + 1) - 1)
+    paramsCorrection.ymax = hauteur
+    paramsCorrection.pixelsParCm = Math.round(200 / largeur)
+    paramsCorrection.scale = calcul(1 / largeur)
 
-    )
+    // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
+    texte += '<br>' + mathalea2d(paramsEnonces, objetsEnonce)
     if (context.isHtml) {
       texte += '</td><td>'
     } else {
       texte += '\\end{minipage} '
     }
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
-    texteCorr += '<br><br>' + mathalea2d(paramsCorrection, grille(-10, -10, 10, 10), tracePoint(point(0, 0)), lutins[0])
+    texteCorr += `La bonne figure est la figure ${ordreLutins.indexOf(0) + 1}`
+    texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     this.listeQuestions.push(texte) // on met à jour la liste des questions
     this.listeCorrections.push(texteCorr) // et la liste des corrections
     listeQuestionsToContenuSansNumero(this) // on envoie tout à la fonction qui va mettre en forme.
