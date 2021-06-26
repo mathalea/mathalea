@@ -438,7 +438,7 @@ function saisieToGrandeur (saisie) {
   // ATTENTION, si on passe des propriétés il faut aussi modifier le script scoresVerifResult.php en conséquence
  * @author Sébastien LOZANO
  */
-function appelFetch(myObj) {
+function appelFetch(...myObj) {
   fetch("scoresVerifResult.php", {
     method: "POST",
     mode: "same-origin",
@@ -462,7 +462,7 @@ function isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) {
     ) : (
     alert("userId OK : "+userId),
     appelFetch({  
-      userId : userId,//'RST99',
+      userId : userId,
       refEx : exercice.id,
       nbBonnesReponses : nbBonnesReponses,
       nbQuestions : nbBonnesReponses + nbMauvaisesReponses  
@@ -473,20 +473,8 @@ function isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) {
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   const divExercice = get(`exercice${exercice.numeroExercice}`)
   let divScore = get(`score${exercice.numeroExercice}`, false)
+  // Appel Fecth via une fonction
   isUserIdOk(exercice, nbBonnesReponses, nbMauvaisesReponses)
-  // let score = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
-  // let str = location.href
-  // let url = new URL(str)
-  // let userId = url.searchParams.get("userId");
-  // console.log(userId)
-  // userId === null ? alert("userId KO : "+userId) : alert("userId OK : "+userId)
-  // appelFetch({
-  //   //clef : Math.floor(Math.random() * 10000),
-  //   userId : userId,//'RST99',
-  //   refEx : exercice.id,
-  //   nbBonnesReponses : nbBonnesReponses,
-  //   nbQuestions : nbBonnesReponses + nbMauvaisesReponses  
-  // })
   if (!divScore) divScore = addElement(divExercice, 'div', { className: 'score', id: `score${exercice.numeroExercice}` })
   divScore.innerHTML = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
   divScore.style.color = '#f15929'

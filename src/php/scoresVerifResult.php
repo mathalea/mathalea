@@ -18,8 +18,7 @@ if ($contentType === "application/json") {
   // On utilise la notation fléchée pour l'accès aux données décodées du string json 
   // Si on utilise $decoded = json_decode($content,true); l'accès se fait par index de tableau array["ttt"]  
   $decoded = json_decode($content);  
-  echo $decoded->myObj->clef;
-  // On génère la date et l'heure
+    // On génère la date et l'heure
   $date = date('d/m/Y');
   setlocale(LC_TIME, 'fr_FR');
   date_default_timezone_set("Europe/Paris");
