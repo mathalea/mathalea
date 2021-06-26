@@ -6,6 +6,7 @@
 // =>OK=> Placement de la variable $keypass cf post de Rémi
 // => Suppression des espaces userId trop vieux, On garde 15 jours un autre délai qu'on pourra adapter,
 // la routine de nettoyage serait lancée à chaque requete 
+// => Problème url avec des % une fois qu'on affecte un userId
 
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 
