@@ -2010,7 +2010,7 @@ window.addEventListener('DOMContentLoaded', () => {
     window.location.href = window.location.href.replace('exercice.html', 'mathalealatex.html')
   })
   
-  if (context.isAmc) {
+  if (context.isAmc) { //Gestion des cases à cocher sur le format de l'évaluation (taille de la page, entête) pour AMC
     const formNbExemplaires = document.getElementById('nombre_d_exemplaires')
     formNbExemplaires.value = 1 // Rempli le formulaire avec le nombre de questions
     formNbExemplaires.addEventListener('change', function (e) {
