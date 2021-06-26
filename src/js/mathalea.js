@@ -43,7 +43,7 @@ let listeDesExercices = [] // Liste des identifiants des exercices
 let codeLatex = ''
 let listePackages = new Set()
 
-//Variables pour mathalea_AMC
+// Variables pour mathalea_AMC
 let nbExemplaires = 1
 let nbQuestions = []
 let nom_fichier = ''
@@ -53,16 +53,16 @@ let typeEntete = ''
 let format = ''
 
 if (context.isAmc) {
-    if (urlParams.get('e')) {
-      typeEntete = urlParams.get('e')
-    } else {
-      typeEntete = 'AMCcodeGrid'
-    }
-    if (urlParams.get('f')) {
-      format = urlParams.get('f')
-    } else {
-      format = 'A4'
-    }   
+  if (urlParams.get('e')) {
+    typeEntete = urlParams.get('e')
+  } else {
+    typeEntete = 'AMCcodeGrid'
+  }
+  if (urlParams.get('f')) {
+    format = urlParams.get('f')
+  } else {
+    format = 'A4'
+  }
 }
 // création des figures MG32 (géométrie dynamique)
 window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
@@ -522,6 +522,12 @@ function miseAJourDuCode () {
       if (context.vue) {
         finUrl += `&v=${context.vue}`
       }
+      if (context.userId) {
+        finUrl += `&userId=${context.userId}`
+      } else if (window.sessionStorage.getItem('userId') !== null) {
+        context.userId = window.sessionStorage.getItem('userId')
+        finUrl += `&userId=${context.userId}`
+      }
       if (context.isAmc) {
         finUrl += `&f=${format}&e=${typeEntete}`
       }
@@ -674,7 +680,7 @@ function miseAJourDuCode () {
       for (let i = 0; i < listeDesExercices.length; i++) {
         listeObjetsExercice[i].id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
         listeObjetsExercice[i].nouvelleVersion(i)
-        questions.push(listeObjetsExercice[i])  
+        questions.push(listeObjetsExercice[i])
         if (typeof listeObjetsExercice[i].listePackages === 'string') {
           listePackages.add(listeObjetsExercice[i].listePackages)
         } else {
@@ -684,9 +690,9 @@ function miseAJourDuCode () {
       }
       context.isHtml = output
       codeLatex = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nbExemplaires: nbExemplaires, typeEntete: typeEntete, format: format }).replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
-  
+
       $('#message_liste_exercice_vide').hide()
-      $('#cache').show()  
+      $('#cache').show()
       div.innerHTML = '<pre><code class="language-latex">' + codeLatex + '</code></pre>'
       loadPrism().then(() => {
         /* global Prism */
@@ -706,7 +712,7 @@ function miseAJourDuCode () {
     // Gestion du téléchargement
     $('#btn_telechargement').off('click').on('click', function () {
       // Gestion du style pour l'entête du fichier
-  
+
       let contenu_fichier = `
       
                   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -719,7 +725,7 @@ function miseAJourDuCode () {
                   `
       const load = function (monFichier) {
         let request
-  
+
         if (window.XMLHttpRequest) { // Firefox
           request = new XMLHttpRequest()
         } else if (window.ActiveXObject) { // IE
@@ -727,16 +733,16 @@ function miseAJourDuCode () {
         } else {
           return // Non supporte
         }
-  
+
         // Pour éviter l'erreur d'interpretation du type Mime
         request.overrideMimeType('text/plain')
-  
+
         request.open('GET', monFichier, false) // Synchro
         request.send(null)
-  
+
         return request.responseText
       }
-  
+
       contenu_fichier += codeLatex
       const monzip = new JSZip()
       if ($('#nom_du_fichier').val() != '') {
@@ -755,7 +761,7 @@ function miseAJourDuCode () {
 
     $('#btn_overleaf').off('click').on('click', function () {
       // Gestion du style pour l'entête du fichier
-  
+
       let contenu_fichier = `
                 
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -770,7 +776,7 @@ function miseAJourDuCode () {
       contenu_fichier += codeLatex
       // Gestion du LaTeX statique
       // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
-  
+
       $('input[name=encoded_snip]').val(encodeURIComponent(contenu_fichier))
       if (listePackages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
         $('input[name=engine]').val('xelatex')
@@ -778,7 +784,7 @@ function miseAJourDuCode () {
       if ($('#nom_du_fichier').val()) {
         $('input[name=snip_name]').val($('#nom_du_fichier').val()) // nomme le projet sur Overleaf
       }
-    })      
+    })
   }
   if (!context.isHtml && !context.isAmc) {
     // Sortie LaTeX
@@ -1407,13 +1413,13 @@ function parametresExercice (exercice) {
       if (exercice[i].spacingCorrModifiable) {
         divParametresGeneraux.innerHTML +=
                           '<div><label for="form_nbColsCorr' + i + '">Espacement dans la correction : </label><input id="form_spacingCorr' + i + '" type="number" min="1" max="99"></div>'
-  
+
         // Si le nombre de versions changent
         $('#nombre_de_versions').change(function () {
           miseAJourDuCode()
         })
       }
-    }  else {
+    } else {
       divParametresGeneraux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
 
       if (exercice[i].consigneModifiable) {
@@ -2009,8 +2015,8 @@ window.addEventListener('DOMContentLoaded', () => {
   $('#btnLaTeX').click(function () {
     window.location.href = window.location.href.replace('exercice.html', 'mathalealatex.html')
   })
-  
-  if (context.isAmc) { //Gestion des cases à cocher sur le format de l'évaluation (taille de la page, entête) pour AMC
+
+  if (context.isAmc) { // Gestion des cases à cocher sur le format de l'évaluation (taille de la page, entête) pour AMC
     const formNbExemplaires = document.getElementById('nombre_d_exemplaires')
     formNbExemplaires.value = 1 // Rempli le formulaire avec le nombre de questions
     formNbExemplaires.addEventListener('change', function (e) {
@@ -2028,20 +2034,20 @@ window.addEventListener('DOMContentLoaded', () => {
     const formEntete = document.getElementById('options_type_entete')
     if (urlParams.get('e')) {
       formEntete.value = urlParams.get('e')
-      $('#type_AMCcodeGrid').attr('checked',false)
-      $('#type_champnom').attr('checked',false)
-      $('#type_AMCassociation').attr('checked',false)
+      $('#type_AMCcodeGrid').attr('checked', false)
+      $('#type_champnom').attr('checked', false)
+      $('#type_AMCassociation').attr('checked', false)
       $('#type_AMCcodeGrid').hide()
       $('#type_champnom').hide()
       $('#type_AMCassociation').hide()
-      $(`#type_${urlParams.get('e')}`).attr('checked',true)
+      $(`#type_${urlParams.get('e')}`).attr('checked', true)
       $(`#type_${urlParams.get('e')}`).show()
     } else {
       formEntete.value = 'AMCcodeGrid'
       $('#type_AMCcodeGrid').show()
       $('#type_champnom').hide()
       $('#type_AMCassociation').hide()
-    }   
+    }
     formEntete.addEventListener('change', function (e) {
       typeEntete = e.target.value
       if (typeEntete == 'AMCassociation') {
@@ -2050,23 +2056,23 @@ window.addEventListener('DOMContentLoaded', () => {
       }
       miseAJourDuCode()
     })
-  
+
     // gestion du format
     const formFormat = document.getElementById('options_format')
     if (urlParams.get('f')) {
       formFormat.value = urlParams.get('f')
-      $('#format_A4').attr('checked',false)
-      $('#format_A3').attr('checked',true)
+      $('#format_A4').attr('checked', false)
+      $('#format_A3').attr('checked', true)
     } else {
       formFormat.value = 'A4'
       $('#format_A4').show()
       $('#format_A3').hide()
-    }   
+    }
     formFormat.addEventListener('change', function (e) {
       format = e.target.value
       miseAJourDuCode()
     })
-  
+
     const form_nbQuestions = document.getElementById('nbQuestions_par_groupe')
     form_nbQuestions.value = []
     form_nbQuestions.addEventListener('change', function (e) {
@@ -2172,6 +2178,10 @@ window.addEventListener('DOMContentLoaded', () => {
   const vue = params.get('v')
   if (vue) {
     context.vue = vue
+  }
+  if (params.get('userId')) {
+    context.userId = params.get('userId')
+    window.sessionStorage.setItem('userId', context.userId)
   }
   if (params.get('duree')) {
     context.duree = params.get('duree')
