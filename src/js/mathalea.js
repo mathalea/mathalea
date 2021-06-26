@@ -47,9 +47,23 @@ let listePackages = new Set()
 let nbExemplaires = 1
 let nbQuestions = []
 let nom_fichier = ''
-let typeEntete = 'AMCcodeGrid'
-let format = 'A4'
+const queryString = window.location.search
+const urlParams = new URLSearchParams(queryString)
+let typeEntete = ''
+let format = ''
 
+if (context.isAmc) {
+    if (urlParams.get('e')) {
+      typeEntete = urlParams.get('e')
+    } else {
+      typeEntete = 'AMCcodeGrid'
+    }
+    if (urlParams.get('f')) {
+      format = urlParams.get('f')
+    } else {
+      format = 'A4'
+    }   
+}
 // création des figures MG32 (géométrie dynamique)
 window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
 window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
@@ -507,6 +521,9 @@ function miseAJourDuCode () {
       finUrl += `&serie=${context.graine}`
       if (context.vue) {
         finUrl += `&v=${context.vue}`
+      }
+      if (context.isAmc) {
+        finUrl += `&f=${format}&e=${typeEntete}`
       }
       window.history.pushState('', '', finUrl)
       const url = window.location.href.split('&serie')[0] // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
@@ -1994,12 +2011,68 @@ window.addEventListener('DOMContentLoaded', () => {
   })
   
   if (context.isAmc) {
+    const formNbExemplaires = document.getElementById('nombre_d_exemplaires')
+    formNbExemplaires.value = 1 // Rempli le formulaire avec le nombre de questions
+    formNbExemplaires.addEventListener('change', function (e) {
+      // Dès que le nombre change, on met à jour
+      if (typeEntete == 'AMCassociation') {
+        nbExemplaires = 1
+        formNbExemplaires.value = 1
+      } else {
+        nbExemplaires = e.target.value
+      }
+      miseAJourDuCode()
+    })
+    // Gestion des paramètres du fichier LaTeX
+    // gestion de l'entête
+    const formEntete = document.getElementById('options_type_entete')
+    if (urlParams.get('e')) {
+      formEntete.value = urlParams.get('e')
+      $('#type_AMCcodeGrid').attr('checked',false)
+      $('#type_champnom').attr('checked',false)
+      $('#type_AMCassociation').attr('checked',false)
+      $('#type_AMCcodeGrid').hide()
+      $('#type_champnom').hide()
+      $('#type_AMCassociation').hide()
+      $(`#type_${urlParams.get('e')}`).attr('checked',true)
+      $(`#type_${urlParams.get('e')}`).show()
+    } else {
+      formEntete.value = 'AMCcodeGrid'
+      $('#type_AMCcodeGrid').show()
+      $('#type_champnom').hide()
+      $('#type_AMCassociation').hide()
+    }   
+    formEntete.addEventListener('change', function (e) {
+      typeEntete = e.target.value
+      if (typeEntete == 'AMCassociation') {
+        nbExemplaires = 1
+        formNbExemplaires.value = 1
+      }
+      miseAJourDuCode()
+    })
+  
+    // gestion du format
+    const formFormat = document.getElementById('options_format')
+    if (urlParams.get('f')) {
+      formFormat.value = urlParams.get('f')
+      $('#format_A4').attr('checked',false)
+      $('#format_A3').attr('checked',true)
+    } else {
+      formFormat.value = 'A4'
+      $('#format_A4').show()
+      $('#format_A3').hide()
+    }   
+    formFormat.addEventListener('change', function (e) {
+      format = e.target.value
+      miseAJourDuCode()
+    })
+  
     const form_nbQuestions = document.getElementById('nbQuestions_par_groupe')
     form_nbQuestions.value = []
     form_nbQuestions.addEventListener('change', function (e) {
       const saisie = e.target.value
       nbQuestions = saisie.split(',')
-      mise_a_jour_du_code()
+      miseAJourDuCode()
     })
   }
   // handlers pour la prévisualisation des exercices cg 04-20201
