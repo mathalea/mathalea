@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
 import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPosition } from '../../modules/2d.js'
-export const interactifReady = true
+export const interactifReady = false
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
 export const interactifType = 'custom' // La correction doit être gérée dans l'exercice avec la méthode this.correctionInteractive()
 export const amcReady = true
@@ -81,6 +81,8 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   this.sup2 = 1 // types d'instructionsde déplacement (ici seulement avancer et tourner)
   this.amcReady = amcReady
   this.amcType = amcType
+  this.interactifReady = interactifReady
+  this.interactifReadyType = interactifType
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
@@ -108,19 +110,16 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     ]
     let erreursDeDeplacement = [0, 1, 0]
     erreursDeDeplacement = combinaisonListesSansChangerOrdre(erreursDeDeplacement, parseInt(this.sup))
-    const choix = randint(0, 11)
+    const choix = randint(0, 11) // On va choisir une des 12 sequences
     const commandes = combinaisonListesSansChangerOrdre(sequences[choix], parseInt(this.sup)) // on crée la succession de commandes en répétant la séquence choisie si le nombre d'instructions demandées dépasse la longueur de la séquence
     const val = []
     const lutins = []
-    lutins[0] = creerLutin() // Ici on crée une instance de l'objet Lutin.
-    lutins[1] = creerLutin() // et trois autres lutins pour les figures fausses
-    lutins[2] = creerLutin()
-    lutins[3] = creerLutin()
-    lutins[4] = creerLutin()
+
+    // Ici on crée 5 instances de l'objet Lutin.
     for (let i = 0; i < 5; i++) {
+      lutins[i] = creerLutin()
       lutins[i].color = 'green' // la couleur de la trace
       lutins[i].epaisseur = 3 // son epaisseur
-      lutins[i].pointilles = false
     }
     context.unitesLutinParCm = 10 // avancer de 10 pour le lutin lui fait parcourir 1cm (en fait 0,5cm car j'ai ajouté un scale=0.5 pour la sortie latex)
     context.pixelsParCm = 20 // 20 pixels d'écran représentent 1cm (enfin ça dépend du zoom, donc c'est juste un réglage par défaut)
@@ -133,23 +132,12 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     lutins[0].codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
     lutins[0].codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n`
     lutins[0].codeScratch += '\\blockpen{stylo en position d\'écriture}\n'
-    allerA(0, 0, lutins[0]) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
-    allerA(0, 0, lutins[1])
-    allerA(0, 0, lutins[2])
-    allerA(0, 0, lutins[3])
-    allerA(0, 0, lutins[4])
-    baisseCrayon(lutins[0]) // à partir de là, le lutin laissera une trace (ses positions successives sont enregistrées dans lutins[0].listeTraces)
-    baisseCrayon(lutins[1])
-    baisseCrayon(lutins[2])
-    baisseCrayon(lutins[3])
-    baisseCrayon(lutins[4])
-
-    orienter(angleScratchTo2d(angleDepart), lutins[0]) // l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
-    orienter(angleScratchTo2d(angleDepart), lutins[1])
-    orienter(angleScratchTo2d(angleDepart), lutins[2])
-    orienter(angleScratchTo2d(angleDepart), lutins[3])
-    orienter(angleScratchTo2d(angleDepart), lutins[4])
-    for (let i = 0; i < parseInt(this.sup); i++) { // On va parcourir la listes des commandes de déplacement
+    for (let i = 0; i < 5; i++) {
+      allerA(0, 0, lutins[i]) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
+      baisseCrayon(lutins[i])
+      orienter(angleScratchTo2d(angleDepart), lutins[i])// l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
+    }
+    for (let i = 0; i < parseInt(this.sup); i++) { // On va parcourir la listes des commandes de déplacement mais certains lutins font des erreurs
       switch (commandes[i]) {
         case 'avancer':
           val[i] = randint(1, 4) * 5 // La longueur du déplacement est 10, 20, 30 ou 40
@@ -160,7 +148,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
           avance(val[i], lutins[3])
           avance(val[i] + 5 * erreursDeDeplacement[i], lutins[4]) // avance trop
           break
-        case 'tournerD' : // On peut difficilement choisir autre chose que de tourner de 90°... on aurait pu faire 180° aussi...
+        case 'tournerD' : // On peut difficilement choisir autre chose que de tourner de 90°...
           lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
           tournerD(90, lutins[0])
           tournerD(90, lutins[2])
@@ -201,14 +189,11 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       }
     }
     lutins[0].codeScratch += '\\blockpen{relever le stylo}\n'
-    leveCrayon(lutins[0])
-    leveCrayon(lutins[1])
-    leveCrayon(lutins[2])
-    leveCrayon(lutins[3])
-    leveCrayon(lutins[4])
+
     let largeur = 3
     let hauteur = 5
     for (let i = 0; i < 5; i++) { // on calcule la largeur et la hauteur maximale des parcours.
+      leveCrayon(lutins[i])
       largeur = Math.max(largeur, lutins[i].xMax - lutins[i].xMin)
       hauteur = Math.max(hauteur, lutins[i].yMax - lutins[i].yMin)
     }
