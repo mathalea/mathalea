@@ -75,8 +75,9 @@ export default function DevelopperIdentitesRemarquables3 () {
           texteCorr = `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${texFraction(ns, ds)}x\\color{black}$ et $\\color{blue} b = ${a} \\color{black} $ : <br> <br>`
           texteCorr += `$(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{blue}${a})\\color{black}^2 = (\\color{red}${texFraction(ns, ds)}x\\color{black})^2 + 2 \\times \\color{red}${texFraction(ns, ds)}x\\color{black} \\times \\color{blue}${a} + ${a}\\color{black}^2 $ <br><br>`
           texteCorr += `$\\phantom{\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{blue}${a})\\color{black}^2} = ${texFraction(ns * ns, ds * ds)}x^2+${texFraction(2 * ns * a, ds)}x+${a * a}$`
-          if ( pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1 ) {
+          if (pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1) {
             texteCorr += `$\\phantom{\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{blue}${a})\\color{black}^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
+          }
           reponse = [`${texFraction(ns * ns, ds * ds)}x^2+${texFraction(2 * ns * a, ds)}x+${a * a}$`, `${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`]
           break
       }
@@ -93,4 +94,4 @@ export default function DevelopperIdentitesRemarquables3 () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x négatif\n 4 : Coefficient de x rationnel\n 5 : Mélange des cas précédents']
- }
+}
