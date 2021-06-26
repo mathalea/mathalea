@@ -141,6 +141,14 @@ export default {
     "interactifReady": false,
     "name": "2L12-1"
   },
+  "2L12-2": {
+    "titre": "Développer (a+b)²",
+    "url": "/exercices/2e/2L12-2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2L12-2"
+  },
   "2L12": {
     "titre": "Résoudre les équations produit-nul",
     "url": "/exercices/2e/2L12.js",
