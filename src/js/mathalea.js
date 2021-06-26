@@ -1,5 +1,5 @@
 /* global $ fetch event Event */
-import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
+import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
@@ -15,7 +15,7 @@ import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 
 import '../css/style_mathalea.css'
-import { context, setOutputDiaporama, setOutputLatex } from './modules/context.js'
+import { context, setOutputDiaporama, setOutputLatex, setOutputAmc } from './modules/context.js'
 import { gestionVue } from './modules/gestionVue.js'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()
 })
 
+if (document.location.href.indexOf('mathalea_amc.html') > 0) {
+  setOutputAmc()
+}
 if (document.location.href.indexOf('mathalealatex.html') > 0) {
   setOutputLatex()
 }
@@ -39,6 +42,28 @@ let listeObjetsExercice = [] // Liste des objets listeObjetsExercices
 let listeDesExercices = [] // Liste des identifiants des exercices
 let codeLatex = ''
 let listePackages = new Set()
+
+//Variables pour mathalea_AMC
+let nbExemplaires = 1
+let nbQuestions = []
+let nom_fichier = ''
+const queryString = window.location.search
+const urlParams = new URLSearchParams(queryString)
+let typeEntete = ''
+let format = ''
+
+if (context.isAmc) {
+    if (urlParams.get('e')) {
+      typeEntete = urlParams.get('e')
+    } else {
+      typeEntete = 'AMCcodeGrid'
+    }
+    if (urlParams.get('f')) {
+      format = urlParams.get('f')
+    } else {
+      format = 'A4'
+    }   
+}
 // création des figures MG32 (géométrie dynamique)
 window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
 window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
@@ -497,6 +522,9 @@ function miseAJourDuCode () {
       if (context.vue) {
         finUrl += `&v=${context.vue}`
       }
+      if (context.isAmc) {
+        finUrl += `&f=${format}&e=${typeEntete}`
+      }
       window.history.pushState('', '', finUrl)
       const url = window.location.href.split('&serie')[0] // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
       const clipboardURL = new Clipboard('#btnCopieURL', { text: () => url })
@@ -524,7 +552,8 @@ function miseAJourDuCode () {
   // Dans la suite test selon les affichages :
   // 1/ context.isHtml && diaporama => cm.html pour le calcul mental.
   // 2/ context.isHtml && !diaporama => pour mathalea.html ; exercice.html ; exo.html
-  // 3/ !context.isHtml => pour mathalealatex.html
+  // 3/ context.isAmc => pour mathalea_amc.html
+  // 4/ !context.isHtml && !context.isAmc => pour mathalealatex.html
   if (context.isHtml && context.isDiaporama) {
     if (listeDesExercices.length > 0) {
       // Pour les diaporamas tout cacher quand un exercice est choisi
@@ -635,7 +664,123 @@ function miseAJourDuCode () {
       })
     }
   }
-  if (!context.isHtml) {
+  if (context.isAmc) {
+    const questions = []
+    codeLatex = ''
+    const output = context.isHtml
+    context.isHtml = false
+    listePackages = new Set()
+    if (listeDesExercices.length > 0) {
+      for (let i = 0; i < listeDesExercices.length; i++) {
+        listeObjetsExercice[i].id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
+        listeObjetsExercice[i].nouvelleVersion(i)
+        questions.push(listeObjetsExercice[i])  
+        if (typeof listeObjetsExercice[i].listePackages === 'string') {
+          listePackages.add(listeObjetsExercice[i].listePackages)
+        } else {
+          // si c'est un tableau
+          listeObjetsExercice[i].listePackages.forEach(listePackages.add, listePackages)
+        }
+      }
+      context.isHtml = output
+      codeLatex = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nbExemplaires: nbExemplaires, typeEntete: typeEntete, format: format }).replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
+  
+      $('#message_liste_exercice_vide').hide()
+      $('#cache').show()  
+      div.innerHTML = '<pre><code class="language-latex">' + codeLatex + '</code></pre>'
+      loadPrism().then(() => {
+        /* global Prism */
+        Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
+      }).catch(error => console.error(error))
+      const clipboardURL = new Clipboard('#btnCopieLatex', { text: () => codeLatex })
+      clipboardURL.on('success', function (e) {
+        console.info('Code LaTeX copié dans le presse-papier.')
+      })
+    } else {
+      codeLatex = ''
+      $('#message_liste_exercice_vide').show() // Message au dessus de la liste des exercices
+      $('#cache').hide() // Cache au dessus du code LaTeX
+      div.innerHTML = ''
+    }
+
+    // Gestion du téléchargement
+    $('#btn_telechargement').off('click').on('click', function () {
+      // Gestion du style pour l'entête du fichier
+  
+      let contenu_fichier = `
+      
+                  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                  % Document généré avec MathALEA sous licence CC-BY-SA
+                  %
+                  % ${window.location.href}
+                  %
+                  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                  
+                  `
+      const load = function (monFichier) {
+        let request
+  
+        if (window.XMLHttpRequest) { // Firefox
+          request = new XMLHttpRequest()
+        } else if (window.ActiveXObject) { // IE
+          request = new ActiveXObject('Microsoft.XMLHTTP')
+        } else {
+          return // Non supporte
+        }
+  
+        // Pour éviter l'erreur d'interpretation du type Mime
+        request.overrideMimeType('text/plain')
+  
+        request.open('GET', monFichier, false) // Synchro
+        request.send(null)
+  
+        return request.responseText
+      }
+  
+      contenu_fichier += codeLatex
+      const monzip = new JSZip()
+      if ($('#nom_du_fichier').val() != '') {
+        nom_fichier = $('#nom_du_fichier').val() + '.tex'
+      } else {
+        nom_fichier = 'mathalea.tex'
+      }
+      monzip.file(`${nom_fichier}`, codeLatex)
+      monzip.file('automultiplechoice.sty', load('assets/fichiers/automultiplechoice.sty'))
+      monzip.generateAsync({ type: 'blob' })
+        .then(function (content) {
+          // see FileSaver.js
+          saveAs(content, 'Projet.zip')
+        })
+    })
+
+    $('#btn_overleaf').off('click').on('click', function () {
+      // Gestion du style pour l'entête du fichier
+  
+      let contenu_fichier = `
+                
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                % Document généré avec MathALEA sous licence CC-BY-SA
+                %
+                % ${window.location.href}
+                %
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                
+                
+                `
+      contenu_fichier += codeLatex
+      // Gestion du LaTeX statique
+      // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
+  
+      $('input[name=encoded_snip]').val(encodeURIComponent(contenu_fichier))
+      if (listePackages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
+        $('input[name=engine]').val('xelatex')
+      }
+      if ($('#nom_du_fichier').val()) {
+        $('input[name=snip_name]').val($('#nom_du_fichier').val()) // nomme le projet sur Overleaf
+      }
+    })      
+  }
+  if (!context.isHtml && !context.isAmc) {
     // Sortie LaTeX
     // code pour la sortie LaTeX
     let codeEnonces = ''
@@ -729,8 +874,7 @@ function miseAJourDuCode () {
     }
     $('.icone_param').remove() // dans mathalealatex pas d'engrenage pour les paramètres.
     $('.iconeInteractif').remove() // dans l'aperçu pas d'icone QCM.
-  }
-  if (!context.isHtml) {
+
     // Gestion du téléchargement
     $('#btn_telechargement')
       .off('click')
@@ -1031,11 +1175,11 @@ function miseAJourDeLaListeDesExercices (preview) {
           // récupère les éventuels paramètres dans l'URL
           // et les recopie dans les formulaires des paramètres
           if (urlVars[i].n && listeObjetsExercice[i].nbQuestionsModifiable) {
-            listeObjetsExercice[i].nbQuestions = parseInt(urlVars[i].nbQuestions)
+            listeObjetsExercice[i].nbQuestions = parseInt(urlVars[i].n)
             formNbQuestions[i].value = listeObjetsExercice[i].nbQuestions
           }
           if (urlVars[i].v && context.isHtml && !context.isDiaporama) {
-            listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
+            listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].v)
             formVideo[i].value = listeObjetsExercice[i].video
           }
           if (urlVars[i].cd !== undefined) {
@@ -1231,7 +1375,45 @@ function parametresExercice (exercice) {
       ) {
         divParametresGeneraux.innerHTML += '<p><em>Cet exercice ne peut pas être paramétré.</em></p>'
       }
-    } else {
+    } else if (context.isAmc) {
+      exercice[i].modeQcm = true
+      divParametresGeneraux.innerHTML += `<h4 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>Exercice n°` + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
+
+      if (exercice[i].consigneModifiable) {
+        divParametresGeneraux.innerHTML += '<div><label for="form_consigne' + i + '">Consigne : </label> <input id="form_consigne' + i + '" type="texte" size="20"></div>'
+      }
+      if (exercice[i].nbQuestionsModifiable) {
+        divParametresGeneraux.innerHTML +=
+                          '<div><label for="form_nbQuestions' + i + '">Nombre de questions : </label> <input id="form_nbQuestions' + i + '" type="number"  min="1" max="99"></div>'
+      }
+      if (exercice[i].correctionDetailleeDisponible) {
+        divParametresGeneraux.innerHTML +=
+                          '<div><label for="form_correctionDetaillee' + i + '">Correction détaillée : </label> <input id="form_correctionDetaillee' + i + '" type="checkbox" ></div>'
+      }
+      if (exercice[i].qcmDisponible) {
+        divParametresGeneraux.innerHTML +=
+                          '<div><label for="form_modeQcm' + i + '">Mode QCM : </label> <input id="form_modeQcm' + i + '" type="checkbox" ></div>'
+      }
+      if (exercice[i].nbColsModifiable) {
+        divParametresGeneraux.innerHTML += '<div><label for="form_nbCols' + i + '">Nombre de colonnes : </label><input id="form_nbCols' + i + '" type="number" min="1" max="99"></div>'
+      }
+      if (exercice[i].nbColsCorrModifiable) {
+        divParametresGeneraux.innerHTML +=
+                          '<div><label for="form_nbColsCorr' + i + '">Nombre de colonnes dans la correction : </label><input id="form_nbColsCorr' + i + '" type="number" min="1" max="99"></div>'
+      }
+      if (exercice[i].spacingModifiable) {
+        divParametresGeneraux.innerHTML += '<div><label for="form_nbColsCorr' + i + '">Espacement : </label><input id="form_spacing' + i + '" type="number" min="1" max="99"></div>'
+      }
+      if (exercice[i].spacingCorrModifiable) {
+        divParametresGeneraux.innerHTML +=
+                          '<div><label for="form_nbColsCorr' + i + '">Espacement dans la correction : </label><input id="form_spacingCorr' + i + '" type="number" min="1" max="99"></div>'
+  
+        // Si le nombre de versions changent
+        $('#nombre_de_versions').change(function () {
+          miseAJourDuCode()
+        })
+      }
+    }  else {
       divParametresGeneraux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
 
       if (exercice[i].consigneModifiable) {
@@ -1474,7 +1656,7 @@ function parametresExercice (exercice) {
   }
 
   for (let i = 0; i < exercice.length; i++) {
-    if (!context.isHtml) {
+    if (!context.isHtml && !context.isAmc) {
       // Les paramètres à ne gérer que pour la version LaTeX
       // Gestion de la consigne
       if (exercice[i].consigneModifiable) {
@@ -1827,7 +2009,72 @@ window.addEventListener('DOMContentLoaded', () => {
   $('#btnLaTeX').click(function () {
     window.location.href = window.location.href.replace('exercice.html', 'mathalealatex.html')
   })
-
+  
+  if (context.isAmc) { //Gestion des cases à cocher sur le format de l'évaluation (taille de la page, entête) pour AMC
+    const formNbExemplaires = document.getElementById('nombre_d_exemplaires')
+    formNbExemplaires.value = 1 // Rempli le formulaire avec le nombre de questions
+    formNbExemplaires.addEventListener('change', function (e) {
+      // Dès que le nombre change, on met à jour
+      if (typeEntete == 'AMCassociation') {
+        nbExemplaires = 1
+        formNbExemplaires.value = 1
+      } else {
+        nbExemplaires = e.target.value
+      }
+      miseAJourDuCode()
+    })
+    // Gestion des paramètres du fichier LaTeX
+    // gestion de l'entête
+    const formEntete = document.getElementById('options_type_entete')
+    if (urlParams.get('e')) {
+      formEntete.value = urlParams.get('e')
+      $('#type_AMCcodeGrid').attr('checked',false)
+      $('#type_champnom').attr('checked',false)
+      $('#type_AMCassociation').attr('checked',false)
+      $('#type_AMCcodeGrid').hide()
+      $('#type_champnom').hide()
+      $('#type_AMCassociation').hide()
+      $(`#type_${urlParams.get('e')}`).attr('checked',true)
+      $(`#type_${urlParams.get('e')}`).show()
+    } else {
+      formEntete.value = 'AMCcodeGrid'
+      $('#type_AMCcodeGrid').show()
+      $('#type_champnom').hide()
+      $('#type_AMCassociation').hide()
+    }   
+    formEntete.addEventListener('change', function (e) {
+      typeEntete = e.target.value
+      if (typeEntete == 'AMCassociation') {
+        nbExemplaires = 1
+        formNbExemplaires.value = 1
+      }
+      miseAJourDuCode()
+    })
+  
+    // gestion du format
+    const formFormat = document.getElementById('options_format')
+    if (urlParams.get('f')) {
+      formFormat.value = urlParams.get('f')
+      $('#format_A4').attr('checked',false)
+      $('#format_A3').attr('checked',true)
+    } else {
+      formFormat.value = 'A4'
+      $('#format_A4').show()
+      $('#format_A3').hide()
+    }   
+    formFormat.addEventListener('change', function (e) {
+      format = e.target.value
+      miseAJourDuCode()
+    })
+  
+    const form_nbQuestions = document.getElementById('nbQuestions_par_groupe')
+    form_nbQuestions.value = []
+    form_nbQuestions.addEventListener('change', function (e) {
+      const saisie = e.target.value
+      nbQuestions = saisie.split(',')
+      miseAJourDuCode()
+    })
+  }
   // handlers pour la prévisualisation des exercices cg 04-20201
   function afficherPopup () {
     // lors du clic sur l'oeil, si la popup est affichée on la cache, sinon on ouvre la prévisulisation.
