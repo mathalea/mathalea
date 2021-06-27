@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 93 
-- nombre d'exos interactifReady 111 
+- nombre d'exos amcReady 94 
+- nombre d'exos interactifReady 112 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -106,6 +106,7 @@
 |6N43|Critères de divisibilité|OK|qcmMono|OK|qcm|
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
 |beta6N21-2D|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
+|betaAlgoTortue2|Tortue Scratch avec répétitions|OK|qcmMono|OK|custom|
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
 |betaCaN6|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
 |betaExempleFigureClic|Sommets du triangle|KO|KO|OK|custom|

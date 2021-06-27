@@ -3258,8 +3258,13 @@ export default {
   "betaAlgoTortue2": {
     "titre": "Tortue Scratch avec répétitions",
     "url": "/exercices/beta/betaAlgoTortue2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "betaAlgoTortue2"
   },
   "betaCaN5": {
