@@ -3215,17 +3215,6 @@ export default {
     "interactifType": "numerique",
     "name": "CM006"
   },
-  "betaAlgoTortue2": {
-    "titre": "Tortue Scratch avec répétitions",
-    "url": "/exercices/beta/betaAlgoTortue2.js",
-    "amcReady": true,
-    "amcType": {
-      "num": 1,
-      "text": "qcmMono"
-    },
-    "interactifReady": true,
-    "interactifType": "custom",
-    "name": "betaAlgoTortue2"
   "CM007": {
     "titre": "Ajouter 11",
     "url": "/exercices/CM/CM007.js",
@@ -3629,8 +3618,13 @@ export default {
   "betaAlgoTortue2": {
     "titre": "Tortue Scratch avec répétitions",
     "url": "/exercices/beta/betaAlgoTortue2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "betaAlgoTortue2"
   },
   "betaCaN5": {
