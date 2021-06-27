@@ -1,16 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeNombresPremiersStrictJusqua, choice, listeQuestionsToContenu, randint, troncature, texNombre } from '../../modules/outils.js'
-
+import { listeNombresPremiersStrictJusqua, choice, listeQuestionsToContenu, randint, troncature, texNombre, arrondi } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
 import { cos } from '../../modules/fonctionsMaths.js'
 
 export const amcReady = true
 export const amcType = 2 // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
 export const titre = 'Arrondir une racine carrée'
 
 /**
@@ -39,7 +36,7 @@ export default function ArrondirUneValeur () {
 
     this.listeQuestions = []
     this.listeCorrections = []
-    let di, ci, mi, n, nb, rac, angle, v
+    let n, nb, rac, angle, v
 
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
@@ -47,24 +44,15 @@ export default function ArrondirUneValeur () {
         rac = randint(2, 300, [listeNombresPremiersStrictJusqua(300)])
         n = Math.sqrt(rac)
         nb = `\\sqrt{${rac}}`
-        di = 10 * (troncature(n - troncature(n, 0), 1))
-        ci = 100 * (troncature(n - troncature(n, 1), 2))
-        mi = 1000 * (troncature(n - troncature(n, 2), 3))
       } else if (this.sup === 2) {
         v = randint(11, 99) / 10
         angle = randint(1, 89, 60)
         if (choice([true, false])) {
           n = v * cos(angle)
           nb = `${texNombre(v)}\\cos(${angle})`
-          di = 10 * (troncature(n - troncature(n, 0), 1))
-          ci = 100 * (troncature(n - troncature(n, 1), 2))
-          mi = 1000 * (troncature(n - troncature(n, 2), 3))
         } else {
           n = v / cos(angle)
           nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle})}`
-          di = 10 * (troncature(n - troncature(n, 0), 1))
-          ci = 100 * (troncature(n - troncature(n, 1), 2))
-          mi = 1000 * (troncature(n - troncature(n, 2), 3))
         }
       }
 
@@ -73,35 +61,20 @@ export default function ArrondirUneValeur () {
       texte += '<br><br>Arrondi à l\'unité : '
       texte += ajouteChampTexteMathLive(this, 3 * i)
       texteCorr = "Arrondi à l'unité : "
-      if (di < 5) {
-        texteCorr += `$${texNombre(troncature(n, 0))}$`
-        setReponse(this, 3 * i, texNombre(troncature(n, 0)))
-      } else {
-        texteCorr += `$${texNombre(troncature(n + 1, 0))}$`
-        setReponse(this, 3 * i, texNombre(troncature(n + 1, 0)))
-      }
+      texteCorr += `$${texNombre(arrondi(n, 0))}$`
+      setReponse(this, 3 * i, texNombre(arrondi(n, 0)))
 
       texte += '<br>Arrondi au dixième : '
       texte += ajouteChampTexteMathLive(this, 3 * i + 1)
       texteCorr += '<br>Arrondi au dixième : '
-      if (ci < 5) {
-        texteCorr += `$${texNombre(troncature(n, 1))}$`
-        setReponse(this, 3 * i + 1, texNombre(troncature(n, 1)))
-      } else {
-        texteCorr += `$${texNombre(troncature(n + 0.1, 1))}$`
-        setReponse(this, 3 * i + 1, texNombre(troncature(n + 0.1, 1)))
-      }
+      texteCorr += `$${texNombre(arrondi(n, 1))}$`
+      setReponse(this, 3 * i, texNombre(arrondi(n, 1)))
 
       texte += '<br>Arrondi au centième : '
       texte += ajouteChampTexteMathLive(this, 3 * i + 2)
-      texteCorr += '<br>Arrondi au centième : $~$'
-      if (mi < 5) {
-        texteCorr += `$${texNombre(troncature(n, 2))}$`
-        setReponse(this, 3 * i + 2, texNombre(troncature(n, 2)))
-      } else {
-        texteCorr += `$${texNombre(troncature(n + 0.01, 2))}$`
-        setReponse(this, 3 * i + 2, texNombre(troncature(n + 0.01, 2)))
-      }
+      texteCorr += '<br>Arrondi au centième : '
+      texteCorr += `$${texNombre(arrondi(n, 0))}$`
+      setReponse(this, 3 * i, texNombre(arrondi(n, 0)))
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
