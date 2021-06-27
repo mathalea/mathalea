@@ -396,7 +396,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   // Gestion de la souris
   document.addEventListener('exercicesAffiches', () => {
   // Dès que l'exercice est affiché, on rajoute des listenners sur chaque Svg.
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       const figSvg = document.getElementById(`figure${i}exo${this.numeroExercice}`)
       figSvg.addEventListener('mouseover', mouseOverSvgEffect)
       figSvg.addEventListener('mouseout', mouseOutSvgEffect)
@@ -413,7 +413,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     let nbFiguresCliquees = 0
     const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${0}`)
     const figures = []
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       const figure = document.getElementById(`figure${i}exo${this.numeroExercice}`)
       figures.push(figure)
       figure.removeEventListener('mouseover', mouseOverSvgEffect)
