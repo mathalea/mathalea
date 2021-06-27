@@ -141,6 +141,14 @@ export default {
     "interactifReady": false,
     "name": "2L12-1"
   },
+  "2L12-2": {
+    "titre": "Développer (a+b)²",
+    "url": "/exercices/2e/2L12-2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2L12-2"
+  },
   "2L12": {
     "titre": "Résoudre les équations produit-nul",
     "url": "/exercices/2e/2L12.js",
@@ -2014,6 +2022,13 @@ export default {
     "interactifReady": false,
     "name": "6Algo11"
   },
+  "6Algo12": {
+    "titre": "Trouver le bon tracé",
+    "url": "/exercices/6e/6Algo12.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6Algo12"
+  },
   "6C10-1": {
     "titre": "Tables de multiplication",
     "url": "/exercices/6e/6C10-1.js",
@@ -3587,12 +3602,12 @@ export default {
     "interactifReady": false,
     "name": "beta999"
   },
-  "betaAlgoTortue": {
-    "titre": "AlgoTortue",
-    "url": "/exercices/beta/betaAlgoTortue.js",
+  "betaAlgoTortue2": {
+    "titre": "Tortue Scratch avec répétitions",
+    "url": "/exercices/beta/betaAlgoTortue2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaAlgoTortue"
+    "name": "betaAlgoTortue2"
   },
   "betaCaN5": {
     "titre": "Course aux nombres 5e",
