@@ -4,8 +4,6 @@ import { listeNombresPremiersStrictJusqua, choice, listeQuestionsToContenu, rand
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { cos } from '../../modules/fonctionsMaths.js'
 
-export const amcReady = true
-export const amcType = 2 // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Arrondir une racine carrée'
@@ -75,8 +73,8 @@ export default function ArrondirUneValeur () {
       texte += '<br>Arrondi au centième : '
       texte += ajouteChampTexteMathLive(this, 3 * i + 2)
       texteCorr += '<br>Arrondi au centième : '
-      texteCorr += `$${texNombre(arrondi(n, 0))}$`
-      setReponse(this, 3 * i, arrondi(n, 0))
+      texteCorr += `$${texNombre(arrondi(n, 2))}$`
+      setReponse(this, 3 * i, arrondi(n, 2))
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
