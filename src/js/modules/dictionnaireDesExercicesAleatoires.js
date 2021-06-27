@@ -149,6 +149,14 @@ export default {
     "interactifType": "mathLive",
     "name": "2L12-2"
   },
+  "2L12-3": {
+    "titre": "Développer (a-b)²",
+    "url": "/exercices/2e/2L12-3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2L12-3"
+  },
   "2L12": {
     "titre": "Résoudre les équations produit-nul",
     "url": "/exercices/2e/2L12.js",
@@ -2025,8 +2033,13 @@ export default {
   "6Algo12": {
     "titre": "Trouver le bon tracé",
     "url": "/exercices/6e/6Algo12.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "6Algo12"
   },
   "6C10-1": {
@@ -3605,8 +3618,13 @@ export default {
   "betaAlgoTortue2": {
     "titre": "Tortue Scratch avec répétitions",
     "url": "/exercices/beta/betaAlgoTortue2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "betaAlgoTortue2"
   },
   "betaCaN5": {

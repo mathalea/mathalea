@@ -1,9 +1,16 @@
 // on importe les fonctions nécessaires.
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPosition } from '../../modules/2d.js'
+import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPointEchelle } from '../../modules/2d.js'
+import { afficheScore } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+// il y avait un fonctionnement avec amcType cf commit 3ae7c43
+export const interactifType = 'custom' // La correction doit être gérée dans l'exercice avec la méthode this.correctionInteractive()
+export const amcReady = true
+export const amcType = 1
+
 export const titre = 'Trouver le bon tracé'
 export const colibri = `<g transform="translate(-15,10) scale(0.0025,-0.0025)"
 fill="#000000" stroke="none">
@@ -73,6 +80,10 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   this.listePackages = 'scratch3'
   this.sup = 9 // 7 instructions par défaut, paramètre réglable.
   this.sup2 = 1 // types d'instructionsde déplacement (ici seulement avancer et tourner)
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
@@ -80,7 +91,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     const angleDepart = 90 // On choisit l'orientation de départ (On pourrait en faire un paramètre de l'exo)
     const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
     const yDepart = 0
-    const objetsEnonce = []
     const objetsCorrection = []
     const paramsEnonces = {}
     const paramsCorrection = {}
@@ -100,19 +110,16 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     ]
     let erreursDeDeplacement = [0, 1, 0]
     erreursDeDeplacement = combinaisonListesSansChangerOrdre(erreursDeDeplacement, parseInt(this.sup))
-    const choix = randint(0, 11)
+    const choix = randint(0, 11) // On va choisir une des 12 sequences
     const commandes = combinaisonListesSansChangerOrdre(sequences[choix], parseInt(this.sup)) // on crée la succession de commandes en répétant la séquence choisie si le nombre d'instructions demandées dépasse la longueur de la séquence
     const val = []
     const lutins = []
-    lutins[0] = creerLutin() // Ici on crée une instance de l'objet Lutin.
-    lutins[1] = creerLutin() // et trois autres lutins pour les figures fausses
-    lutins[2] = creerLutin()
-    lutins[3] = creerLutin()
-    lutins[4] = creerLutin()
+
+    // Ici on crée 5 instances de l'objet Lutin.
     for (let i = 0; i < 5; i++) {
+      lutins[i] = creerLutin()
       lutins[i].color = 'green' // la couleur de la trace
       lutins[i].epaisseur = 3 // son epaisseur
-      lutins[i].pointilles = false
     }
     context.unitesLutinParCm = 10 // avancer de 10 pour le lutin lui fait parcourir 1cm (en fait 0,5cm car j'ai ajouté un scale=0.5 pour la sortie latex)
     context.pixelsParCm = 20 // 20 pixels d'écran représentent 1cm (enfin ça dépend du zoom, donc c'est juste un réglage par défaut)
@@ -125,23 +132,12 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     lutins[0].codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
     lutins[0].codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n`
     lutins[0].codeScratch += '\\blockpen{stylo en position d\'écriture}\n'
-    allerA(0, 0, lutins[0]) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
-    allerA(0, 0, lutins[1])
-    allerA(0, 0, lutins[2])
-    allerA(0, 0, lutins[3])
-    allerA(0, 0, lutins[4])
-    baisseCrayon(lutins[0]) // à partir de là, le lutin laissera une trace (ses positions successives sont enregistrées dans lutins[0].listeTraces)
-    baisseCrayon(lutins[1])
-    baisseCrayon(lutins[2])
-    baisseCrayon(lutins[3])
-    baisseCrayon(lutins[4])
-
-    orienter(angleScratchTo2d(angleDepart), lutins[0]) // l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
-    orienter(angleScratchTo2d(angleDepart), lutins[1])
-    orienter(angleScratchTo2d(angleDepart), lutins[2])
-    orienter(angleScratchTo2d(angleDepart), lutins[3])
-    orienter(angleScratchTo2d(angleDepart), lutins[4])
-    for (let i = 0; i < parseInt(this.sup); i++) { // On va parcourir la listes des commandes de déplacement
+    for (let i = 0; i < 5; i++) {
+      allerA(0, 0, lutins[i]) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
+      baisseCrayon(lutins[i])
+      orienter(angleScratchTo2d(angleDepart), lutins[i])// l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
+    }
+    for (let i = 0; i < parseInt(this.sup); i++) { // On va parcourir la listes des commandes de déplacement mais certains lutins font des erreurs
       switch (commandes[i]) {
         case 'avancer':
           val[i] = randint(1, 4) * 5 // La longueur du déplacement est 10, 20, 30 ou 40
@@ -152,7 +148,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
           avance(val[i], lutins[3])
           avance(val[i] + 5 * erreursDeDeplacement[i], lutins[4]) // avance trop
           break
-        case 'tournerD' : // On peut difficilement choisir autre chose que de tourner de 90°... on aurait pu faire 180° aussi...
+        case 'tournerD' : // On peut difficilement choisir autre chose que de tourner de 90°...
           lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
           tournerD(90, lutins[0])
           tournerD(90, lutins[2])
@@ -193,20 +189,18 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       }
     }
     lutins[0].codeScratch += '\\blockpen{relever le stylo}\n'
-    leveCrayon(lutins[0])
-    leveCrayon(lutins[1])
-    leveCrayon(lutins[2])
-    leveCrayon(lutins[3])
-    leveCrayon(lutins[4])
-    let largeur = 3
-    let hauteur = 5
+
+    let largeur = 1
+    let hauteur = 1
     for (let i = 0; i < 5; i++) { // on calcule la largeur et la hauteur maximale des parcours.
+      leveCrayon(lutins[i])
       largeur = Math.max(largeur, lutins[i].xMax - lutins[i].xMin)
       hauteur = Math.max(hauteur, lutins[i].yMax - lutins[i].yMin)
     }
     largeur++
     lutins[0].codeScratch += '\\end{scratch}'
-    texte = 'Quelle figure est tracée par le stylo à l\'éxécution du programme ci-dessous.<br>Un carreau représente 5 pas<br>Le tracé démarre à la croix bleue.<br>'
+    texte = 'Quelle figure est tracée par le stylo à l\'éxécution du programme ci-dessous ?<br>Un carreau représente 5 pas<br>Le tracé démarre à la croix bleue.<br>'
+    texte += "S'orienter à 90° signifie s'orienter vers la droite de l'écran.<br>"
     /*
     lutins[0].animation = `${colibri}
    x="${lutins[0].listeTraces[0][0] * context.pixelsParCm}"
@@ -227,75 +221,165 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
     texte += scratchblock(lutins[0].codeScratch) // la fonction scratchblock va convertir le code Latex en code html si besoin.
     if (context.isHtml) { // on change de colonne...
-      texte += '</td><td>'
-      texte += '    '
       texte += '</td><td style="vertical-align: top; text-align: center">'
     } else {
       texte += '\\end{minipage} '
       texte += '\\hfill \\begin{minipage}{.74\\textwidth}'
     }
-    const listePositionsFig = [[0, 0], [largeur, 0], [largeur * 2, 0], [largeur * 3, 0], [largeur * 4, 0]] // emplacements des figures proposées en unité de lutin
     let ordreLutins = [0, 1, 2, 3, 4]
     ordreLutins = shuffle(ordreLutins) // On mélange les emplacements pour éviter d'avoir la bonne réponse au même endroit
-    console.log(ordreLutins)
     for (let i = 0; i < 5; i++) {
       for (let j = 0; j < lutins[i].listeTraces.length; j++) { // On recadre les traces des lutins...
-        lutins[i].listeTraces[j][0] -= lutins[i].xMin - listePositionsFig[ordreLutins.indexOf(i)][0]
-        lutins[i].listeTraces[j][2] -= lutins[i].xMin - listePositionsFig[ordreLutins.indexOf(i)][0]
+        lutins[i].listeTraces[j][0] -= lutins[i].xMin
+        lutins[i].listeTraces[j][2] -= lutins[i].xMin
         lutins[i].listeTraces[j][1] -= lutins[i].yMin
         lutins[i].listeTraces[j][3] -= lutins[i].yMin
       }
     }
-    let depart
+    const depart = []
     for (let i = 0; i < 5; i++) { // ajouter le point de départ de chaque tracé
-      objetsEnonce.push(lutins[i])
-      depart = tracePoint(point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]))
-      depart.taille = 5
-      depart.color = 'blue'
-      depart.epaisseur = 2
-      objetsEnonce.push(depart)
+      depart[i] = tracePoint(point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]))
+      depart[i].taille = 5
+      depart[i].color = 'blue'
+      depart[i].epaisseur = 2
       if (i === 0) {
-        objetsCorrection.push(depart)
+        objetsCorrection.push(depart[0])
       }
     }
-    let nom
-    for (let i = 0; i < 5; i++) { // i est le numéro du lutin
-      nom = texteParPosition(`figure ${ordreLutins.indexOf(i) + 1}`, (lutins[ordreLutins.indexOf(i)].xMax - lutins[ordreLutins.indexOf(i)].xMin) / 2 + largeur * ordreLutins.indexOf(i), -0.5)
-      objetsEnonce.push(nom)
-    }
-    objetsEnonce.push(texteParPosition('10 pas', 0.5, Math.ceil(hauteur + 1) - 0.5))
-    const echelle = segment(0, Math.ceil(hauteur + 1), 1, Math.ceil(hauteur + 1))
+    const echelle = segment(0, hauteur + 0.5, 1, hauteur + 0.5)
+    echelle.epaisseur = 2
     echelle.styleExtremites = '|-|'
-    objetsEnonce.push(grille(-1, -1, Math.ceil(largeur * 5), Math.ceil(hauteur + 2), 'gray', 0.5, 0.5))
-    objetsEnonce.push(echelle)
-    objetsCorrection.push(grille(Math.round(largeur * ordreLutins.indexOf(0) - 1), -1, Math.round(largeur * (ordreLutins.indexOf(0) + 1) - 1), hauteur, 'gray', 0.5, 0.5))
+    objetsCorrection.push(grille(-1, -1, largeur + 1), hauteur + 1, 'gray', 0.5, 0.5)
     objetsCorrection.push(lutins[0])
-    paramsEnonces.xmin = -1
-    paramsEnonces.ymin = -1
-    paramsEnonces.xmax = Math.ceil(largeur * 5)
-    paramsEnonces.ymax = Math.ceil(hauteur + 2)
+    paramsEnonces.xmin = -0.5
+    paramsEnonces.ymin = -0.5
+    paramsEnonces.xmax = largeur
+    paramsEnonces.ymax = hauteur + 1
     paramsEnonces.pixelsParCm = Math.round(200 / largeur)
-    paramsEnonces.scale = calcul(2.5 / largeur)
-    paramsCorrection.xmin = Math.round(largeur * ordreLutins.indexOf(0) - 1)
-    paramsCorrection.ymin = -1
-    paramsCorrection.xmax = Math.round(largeur * (ordreLutins.indexOf(0) + 1) - 1)
-    paramsCorrection.ymax = hauteur
+    paramsEnonces.scale = calcul(2 / largeur)
+    paramsEnonces.style = ''
+    paramsCorrection.xmin = -0.5
+    paramsCorrection.ymin = -0.5
+    paramsCorrection.xmax = largeur
+    paramsCorrection.ymax = hauteur + 1
     paramsCorrection.pixelsParCm = Math.round(200 / largeur)
-    paramsCorrection.scale = calcul(2.5 / largeur)
+    paramsCorrection.scale = calcul(2 / largeur)
 
     // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
-    texte += '<br>' + mathalea2d(paramsEnonces, objetsEnonce)
+    for (let i = 0; i < 5; i++) {
+      paramsEnonces.id = `figure${i}exo${numeroExercice}`
+      texte += mathalea2d(paramsEnonces,
+        lutins[ordreLutins[i]],
+        depart[ordreLutins[i]],
+        grille(-0.5, -0.5, largeur, hauteur + 1, 'gray', 0.5, 0.5),
+        texteParPointEchelle('10 pas', point(0.5, hauteur + 0.2), 'milieu', 'black', 0.7),
+        texteParPointEchelle(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.3), 'milieu', 'black', 0.7),
+        echelle)
+    }
     if (context.isHtml) {
-      texte += '</td><td>'
+      texte += '</td></tr>'
+      texte += `<div id="resultatCheckEx${this.numeroExercice}Q${0}"></div>`
     } else {
       texte += '\\end{minipage} '
     }
+    if (context.isAmc) {
+      this.autoCorrection[0] = {
+        enonce: texte,
+        propositions: [
+          {
+            texte: 'figure 1',
+            statut: false
+          },
+          {
+            texte: 'figure 2',
+            statut: false
+          },
+          {
+            texte: 'figure 3',
+            statut: false
+          },
+          {
+            texte: 'figure 4',
+            statut: false
+          },
+          {
+            texte: 'figure 5',
+            statut: false
+          }
+        ],
+        options: { ordered: true }
+      }
+      this.autoCorrection[0].propositions[ordreLutins.indexOf(0)].statut = true
+    }
+    this.indiceBonneFigure = ordreLutins.indexOf(0)
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
-    texteCorr += `La bonne figure est la figure ${ordreLutins.indexOf(0) + 1}`
+    texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`
+
     texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     this.listeQuestions.push(texte) // on met à jour la liste des questions
     this.listeCorrections.push(texteCorr) // et la liste des corrections
+
     listeQuestionsToContenuSansNumero(this) // on envoie tout à la fonction qui va mettre en forme.
   }
   this.besoinFormulaireNumerique = ["Nombre d'instructions"] // gestion des paramètres supplémentaires
+  // Gestion de la souris
+  document.addEventListener('exercicesAffiches', () => {
+    // Dès que l'exercice est affiché, on rajoute des listenners sur chaque Svg.
+    for (let i = 0; i < 5; i++) {
+      const figSvg = document.getElementById(`figure${i}exo${this.numeroExercice}`)
+      figSvg.addEventListener('mouseover', mouseOverSvgEffect)
+      figSvg.addEventListener('mouseout', mouseOutSvgEffect)
+      figSvg.addEventListener('click', mouseSvgClick)
+      figSvg.etat = false
+    }
+  })
+  // Pour pouvoir récupérer this dans la correction interactive
+  const exercice = this
+  // Gestion de la correction
+  this.correctionInteractive = (elt) => {
+    let nbBonnesReponses = 0
+    let nbMauvaisesReponses = 0
+    let nbFiguresCliquees = 0
+    const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${0}`)
+    const figures = []
+    for (let i = 0; i < 5; i++) {
+      const figure = document.getElementById(`figure${i}exo${this.numeroExercice}`)
+      figures.push(figure)
+      figure.removeEventListener('mouseover', mouseOverSvgEffect)
+      figure.removeEventListener('mouseout', mouseOutSvgEffect)
+      figure.removeEventListener('click', mouseSvgClick)
+      if (figure.etat) nbFiguresCliquees++
+    }
+    if (nbFiguresCliquees === 1 && figures[exercice.indiceBonneFigure].etat) {
+      divFeedback.innerHTML = '😎'
+      nbBonnesReponses++
+    } else {
+      divFeedback.innerHTML = '☹️'
+      nbMauvaisesReponses++
+    }
+    afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
+  }
+}
+
+function mouseOverSvgEffect () {
+  this.style.border = 'inset'
+}
+function mouseOutSvgEffect () {
+  this.style.border = 'none'
+}
+function mouseSvgClick () {
+  if (this.etat) {
+    // Déja choisi, donc on le réinitialise
+    this.style.border = 'none'
+    this.addEventListener('mouseover', mouseOverSvgEffect)
+    this.addEventListener('mouseout', mouseOutSvgEffect)
+    this.addEventListener('click', mouseSvgClick)
+    this.etat = false
+  } else {
+    // Passe à l'état choisi donc on désactive les listenners pour over et pour out
+    this.removeEventListener('mouseover', mouseOverSvgEffect)
+    this.removeEventListener('mouseout', mouseOutSvgEffect)
+    this.style.border = 'solid #f15929'
+    this.etat = true
+  }
 }

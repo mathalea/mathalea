@@ -1,9 +1,15 @@
 // on importe les fonctions nécessaires.
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, choice, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, choice, calcul, shuffle } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPosition, tournerG } from '../../modules/2d.js'
+import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, tournerG, texteParPointEchelle } from '../../modules/2d.js'
+import { afficheScore } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+// il y avait un fonctionnement avec amcType cf commit 3ae7c43
+export const interactifType = 'custom' // La correction doit être gérée dans l'exercice avec la méthode this.correctionInteractive()
+export const amcReady = true
+export const amcType = 1
 export const titre = 'Tortue Scratch avec répétitions'
 export const colibri = `<g transform="translate(-15,10) scale(0.0025,-0.0025)"
 fill="#000000" stroke="none">
@@ -77,8 +83,9 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
-    const objetsEnonce = []
-    const paramsCorrection = { pixelsParCm: 20, scale: 0.5 }
+    const objetsCorrection = []
+    const paramsCorrection = {}
+    const paramsEnonces = {}
     /*  const typeDeQuestions = [
       'polygonesReguliers',
       'spirales',
@@ -92,13 +99,11 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       'rosaces'
     ]
 
-    const choix = typeDeQuestions[randint(0, 1)]
+    const choix = typeDeQuestions[randint(0, 2)]
+    console.log(choix)
     let val1, val2, n, n2, val3
     const sens = choice(['turnright', 'turnleft'])
-    const lutin = creerLutin() // Ici on crée une instance de l'objet Lutin.
-    lutin.color = 'green' // la couleur de la trace
-    lutin.epaisseur = 3 // son epaisseur
-    lutin.pointilles = 2 // le type de pointillés (on peut mettre false pour avoir un trait plein)
+    const lutins = []
     const angleDepart = 90 // On choisit l'orientation de départ
     const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
     const yDepart = 0 // Mais on pourrait envisager de changer ça et de recadrer...
@@ -107,15 +112,22 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
 
     let texte = '' // la chaine qui va contenir l'énoncé
     let texteCorr = '' // la chaine qui va contenir la correction
+
+    for (let i = 0; i < 4; i++) { // Ici on crée 4 instance de l'objet Lutin.
+      lutins[i] = creerLutin()
+      lutins.color = 'green' // la couleur de la trace
+      lutins.epaisseur = 3 // son epaisseur
+      lutins.pointilles = false // le type de pointillés (on peut mettre false pour avoir un trait plein)
+      allerA(xDepart, yDepart, lutins[i]) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
+      baisseCrayon(lutins[i]) // à partir de là, le lutin laissera une trace (ses positions successives sont enregistrées dans lutin.listeTraces)
+      orienter(angleScratchTo2d(angleDepart), lutins[i]) // l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
+    }
     // On écrit le début du programme dans l'attribut codeScratch du lutin... cet attribut de type chaine contient le code du programme du lutin en Scratch Latex
     // A chaque instruction ajoutée dans le programme correspond une action à effectuée sur l'objet lutin..
-    lutin.codeScratch = '\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n '
-    lutin.codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
-    allerA(xDepart, yDepart, lutin) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
-    lutin.codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n `
-    orienter(angleScratchTo2d(angleDepart), lutin) // l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
-    lutin.codeScratch += '\\blockpen{stylo en position d\'écriture}\n '
-    baisseCrayon(lutin) // à partir de là, le lutin laissera une trace (ses positions successives sont enregistrées dans lutin.listeTraces)
+    lutins[0].codeScratch = '\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n '
+    lutins[0].codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
+    lutins[0].codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n `
+    lutins[0].codeScratch += '\\blockpen{stylo en position d\'écriture}\n '
     switch (choix) {
       case 'polygonesReguliers':
       case 'frises':
@@ -123,18 +135,35 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         n = choice([3, 4, 5, 6, 8]) // Nombre de côtés
         val1 = calcul(360 / n)
         val2 = (10 - n) * 10
-        lutin.codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
+        lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
 {
 \\blockmove{avancer de \\ovalnum{${val2}} pas}
 \\blockmove{tourner \\${sens}{} de \\ovalnum{${val1}} degrés}
 }
 `
+        orienter(-90, lutins[2])
         for (let i = 0; i < n; i++) {
-          avance(val2, lutin)
+          avance(val2, lutins[0])
+          avance(val2, lutins[1])
+          avance(val2, lutins[2])
+          if (i !== 0) avance(val2, lutins[3])
+
           if (sens === 'turnright') {
-            tournerD(val1, lutin)
+            tournerD(val1, lutins[0])
+            tournerD(val1, lutins[3])
+            tournerG(val1, lutins[1])
+            if (val1 !== 90) {
+              tournerD(180 - val1, lutins[2])
+            } else {
+              tournerD(val1, lutins[2])
+              avance(val2, lutins[2])
+              tournerD(val1, lutins[2])
+            }
           } else {
-            tournerG(val1, lutin)
+            tournerG(val1, lutins[0])
+            tournerG(val1, lutins[3])
+            tournerD(val1, lutins[1])
+            tournerG(180 - val1, lutins[2])
           }
         }
         break
@@ -144,7 +173,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         val1 = randint(2, 4) * 10
         val2 = (10 - n) * 5
         val3 = (8 - n2) * 4
-        lutin.codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
+        lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
 {
 \\blockmove{aller à x: \\ovalnum{0} y: \\ovalnum{0}}
 \\blockmove{avancer de \\ovalnum{${val1}} pas}
@@ -159,89 +188,84 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
 }
 `
         for (let i = 0; i < n; i++) {
-          allerA(0, 0, lutin)
-          avance(val1, lutin)
-          tournerD(90 - 180 / n2, lutin)
+          allerA(0, 0, lutins[0])
+          allerA(0, 0, lutins[1])
+          //  allerA(0, 0, lutins[2])
+          // allerA(0, 0, lutins[3])
+          avance(val1, lutins[0])
+          avance(val1 / 2, lutins[1])
+          avance(val1, lutins[2])
+          avance(val1 + 2, lutins[3])
+          tournerD(90 - 180 / n2, lutins[0])
+          tournerD(90, lutins[1])
+          tournerG(90, lutins[2])
           for (let j = 0; j < n2; j++) {
-            avance(val3, lutin)
-            tournerG(360 / n2, lutin)
+            avance(val3, lutins[0])
+            avance(val3, lutins[1])
+            avance(val3, lutins[2])
+            avance(val3, lutins[3])
+            tournerG(360 / n2, lutins[0])
+            tournerG(360 / n2, lutins[1])
+            tournerG(360 / n2, lutins[2])
+            tournerG(360 / n2, lutins[3])
           }
-          tournerG(90 - 180 / n2, lutin)
+          tournerG(90 - 180 / n2, lutins[0])
+          tournerG(90, lutins[1])
+          tournerD(90, lutins[2])
+          tournerD(180, lutins[3])
           if (sens === 'turnright') {
-            tournerD(360 / n, lutin)
+            tournerD(360 / n, lutins[0])
+            tournerD(360 / n, lutins[1])
+            tournerD(360 / n, lutins[2])
+            tournerD(360 / n, lutins[3])
           } else {
-            tournerG(360 / n, lutin)
+            tournerG(360 / n, lutins[0])
+            tournerG(360 / n, lutins[1])
+            tournerG(360 / n, lutins[2])
+            tournerG(360 / n, lutins[3])
           }
         }
         break
       case 'spirales':
         n = choice([3, 4, 5, 6, 8]) // Nombre de côtés
-        n2 = randint(5, 8)
+        n2 = randint(1, 4) + Math.floor((9 - n) / 2)
         val1 = randint(1, 4) * 5
         val2 = 80 + randint(0, 6) * 5
         val3 = calcul(360 / n)
-        lutin.codeScratch += `\\blockvariable{mettre \\ovalvariable{longueur} à \\ovalnum{${val1}}}
+        lutins[0].codeScratch += `\\blockvariable{mettre \\ovalvariable{longueur} à \\ovalnum{${val1}}}
 \\blockrepeat{répéter jusqu'à ce que \\booloperator{\\ovalvariable{longueur}>\\ovalnum{${val2}}}}
 {
 \\blockmove{avancer de \\ovalvariable{longueur} pas}
 \\blockmove{tourner \\${sens}{} de \\ovalnum{${val3}} degrés}
 \\blockvariable{ajouter \\ovalnum{${n2}} à \\ovalvariable{longueur}}
-}`
-        for (let i = 0; i < n; i++) {
-          avance(val1 + i * n2, lutin)
+}
+`
+        for (let i = val1; i < val2; i += n2) {
+          avance(i, lutins[0])
+          avance(i, lutins[1]) // Le lutin 1 tourne dans le mauvais sens
+          avance(val2 - i, lutins[2]) // Le lutin2 diminue la logneur de ses déplacements
+          avance(i, lutins[3]) // le lutin3 ne tourne pas assez
           if (sens === 'turnright') {
-            tournerD(val3, lutin)
+            tournerD(val3, lutins[0])
+            tournerG(val3, lutins[1])
+            tournerD(val3, lutins[2])
+            tournerD(val3 - 10, lutins[3])
           } else {
-            tournerG(val3, lutin)
+            tournerG(val3, lutins[0])
+            tournerD(val3, lutins[1])
+            tournerG(val3, lutins[2])
+            tournerG(val3 - 10, lutins[3])
           }
         }
         break
     }
-    /*
-    for (let i = 0; i < parseInt(this.sup); i++) { // On va parcourir la listes des commandes de déplacement
-    switch (commandes[i]) {
-        case 'avancer':
-          val1 = randint(1, 4) * 10 // La longueur du déplacement est 10, 20, 30 ou 40
-          lutin.codeScratch += `\\blockmove{avancer de \\ovalnum{${val1}} pas}\n`
-          avance(val1, lutin)
-          break
-        case 'tournerD' : // On peut difficilement choisir autre chose que de tourner de 90°... on aurait pu faire 180° aussi...
-          lutin.codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
-          tournerD(90, lutin)
-          break
-        case 'tournerG' :
-          lutin.codeScratch += '\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
-          tournerG(90, lutin)
-          break
-        case 'ajouter à x' : // Je n'aime pas trop utiliser ceci ne sachant pas si la progression se fait déjà horizontalement ou pas...
-          val1 = randint(1, 4) * 10
-          lutin.codeScratch += `\\blockmove{ajouter \\ovalnum{${val1}}  à  x}\n`
-          ajouterAx(val1, lutin)
-          break
-        case 'ajouter à y' :
-          val1 = randint(1, 4) * 10
-          lutin.codeScratch += `\\blockmove{ajouter \\ovalnum{${val1}}  à  y}\n`
-          ajouterAy(val1, lutin)
-          break
-        case 'aller à' : // Là c'est encore pire... on peut très bien se retrouver... à l'endroit ou l'on est déjà !
-          val1 = randint(-3, 3) * 10
-          val2 = randint(-3, 3) * 10
-          lutin.codeScratch += `\\blockmove{aller à x: \\ovalnum{${val1}} y: \\ovalnum{${val2}}}\n `
-          allerA(val1, val2, lutin)
-          break
-        case "s'orienter à" :
-          val1 = choice([0, -90, 90, 180])
-          lutin.codeScratch += `\\blockmove{s'orienter à \\ovalnum{${val1}}}\n`
-          orienter(angleScratchTo2d(val1), lutin)
-          break
-      }
 
-    }     */
-    lutin.codeScratch += '\\blockpen{relever le stylo}\n'
-    leveCrayon(lutin)
-    lutin.codeScratch += '\\end{scratch}'
-    texte = 'Dessine la figure tracée par le lutin à l\'éxécution du programme ci-dessous.<br>Un carreau représente 10 pas<br>'
-    lutin.animation = `${colibri} 
+    lutins[0].codeScratch += '\\blockpen{relever le stylo}\n'
+    lutins[0].codeScratch += '\\end{scratch}'
+    texte = 'Quelle figure est tracée par le stylo à l\'éxécution du programme ci-dessous ?<br>Le tracé démarre à la croix bleue.<br>'
+    texte += "S'orienter à 90° signifie s'orienter vers la droite de l'écran.<br>"
+    /*
+    lutin.animation = `${colibri}
    x="${lutin.listeTraces[0][0] * context.pixelsParCm}"
     y="${-lutin.listeTraces[0][1] * context.pixelsParCm}">\n
     <animateMotion path="M ${lutin.listeTraces[0][0] * context.pixelsParCm} ${-lutin.listeTraces[0][1] * context.pixelsParCm} L`
@@ -250,13 +274,22 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       lutin.animation += ` ${B.xSVG(context.pixelsParCm)} ${B.ySVG(context.pixelsParCm)} `
     }
     lutin.animation += '" begin="0s" dur="5s" repeatCount="indefinite" />;'
-    objetsEnonce.push(lutin)
+    */
+    let largeur = 1
+    let hauteur = 1
+    for (let i = 0; i < 4; i++) { // on calcule la largeur et la hauteur maximale des parcours.
+      leveCrayon(lutins[i])
+      largeur = Math.max(largeur, lutins[i].xMax - lutins[i].xMin)
+      hauteur = Math.max(hauteur, lutins[i].yMax - lutins[i].yMin)
+    }
+    largeur = Math.round(largeur + 1)
+
     if (context.isHtml) { // On crée 2 colonnes selon le contexte html / Latex
       texte += '<table style="width: 100%"><tr><td>'
     } else {
       texte += '\\begin{minipage}[t]{.25\\textwidth}'
     }
-    texte += scratchblock(lutin.codeScratch) // la fonction scratchblock va convertir le code Latex en code html si besoin.
+    texte += scratchblock(lutins[0].codeScratch) // la fonction scratchblock va convertir le code Latex en code html si besoin.
     if (context.isHtml) { // on change de colonne...
       texte += '</td><td>'
       texte += '    '
@@ -265,30 +298,159 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       texte += '\\end{minipage} '
       texte += '\\hfill \\begin{minipage}[t]{.74\\textwidth}'
     }
-    paramsCorrection.xmin = lutin.xMin - 1.5
-    paramsCorrection.ymin = lutin.yMin - 1.5
-    paramsCorrection.xmax = lutin.xMax + 1.5
-    paramsCorrection.ymax = lutin.yMax + 1.5
-    const echelle = segment(-9, 9, -8, 9)
+
+    let ordreLutins = [0, 1, 2, 3]
+    ordreLutins = shuffle(ordreLutins) // On mélange les emplacements pour éviter d'avoir la bonne réponse au même endroit
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < lutins[i].listeTraces.length; j++) { // On recadre les traces des lutins...
+        lutins[i].listeTraces[j][0] -= Math.floor(lutins[i].xMin)
+        lutins[i].listeTraces[j][2] -= Math.floor(lutins[i].xMin)
+        lutins[i].listeTraces[j][1] -= Math.floor(lutins[i].yMin)
+        lutins[i].listeTraces[j][3] -= Math.floor(lutins[i].yMin)
+      }
+    }
+    const depart = []
+    for (let i = 0; i < 4; i++) { // ajouter le point de départ de chaque tracé
+      depart[i] = tracePoint(point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]))
+      depart[i].taille = 5
+      depart[i].color = 'blue'
+      depart[i].epaisseur = 2
+      if (i === 0) {
+        objetsCorrection.push(depart[0])
+      }
+    }
+    const echelle = segment(0, hauteur + 0.5, 1, hauteur + 0.5)
+    echelle.epaisseur = 2
     echelle.styleExtremites = '|-|'
+    objetsCorrection.push(grille(-1, -1, largeur + 1), hauteur + 1, 'gray', 0.5, 0.5)
+    objetsCorrection.push(lutins[0])
+    paramsEnonces.xmin = -0.5
+    paramsEnonces.ymin = -0.5
+    paramsEnonces.xmax = largeur
+    paramsEnonces.ymax = hauteur + 1
+    paramsEnonces.pixelsParCm = Math.round(300 / largeur)
+    paramsEnonces.scale = calcul(3 / largeur)
+    paramsEnonces.style = ''
+    paramsCorrection.xmin = -0.5
+    paramsCorrection.ymin = -0.5
+    paramsCorrection.xmax = largeur
+    paramsCorrection.ymax = hauteur + 1
+    paramsCorrection.pixelsParCm = Math.round(300 / largeur)
+    paramsCorrection.scale = calcul(3 / largeur)
+
     // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
-    texte += mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, scale: 0.5 },
-      grille(-10, -10, 10, 10),
-      echelle,
-      tracePoint(point(0, 0)),
-      texteParPosition('10 pas', -8.5, 8.5)
-    )
+    for (let i = 0; i < 4; i++) {
+      paramsEnonces.id = `figure${i}exo${numeroExercice}`
+      texte += mathalea2d(paramsEnonces,
+        lutins[ordreLutins[i]],
+        depart[ordreLutins[i]],
+        grille(-0.5, -0.5, largeur, hauteur + 1, 'gray', 0.5, 0.5),
+        texteParPointEchelle('10 pas', point(0.5, hauteur + 0.2), 'milieu', 'black', 0.7),
+        texteParPointEchelle(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.3), 'milieu', 'black', 0.7),
+        echelle
+      )
+      if (i === 1) texte += '<br>'
+    }
     if (context.isHtml) {
-      texte += '</td><td>'
+      texte += '</td></tr>'
+      texte += `<div id="resultatCheckEx${this.numeroExercice}Q${0}"></div>`
     } else {
       texte += '\\end{minipage} '
     }
+    if (context.isAmc) {
+      this.autoCorrection[0] = {
+        enonce: texte,
+        propositions: [
+          {
+            texte: 'figure 1',
+            statut: false
+          },
+          {
+            texte: 'figure 2',
+            statut: false
+          },
+          {
+            texte: 'figure 3',
+            statut: false
+          },
+          {
+            texte: 'figure 4',
+            statut: false
+          }
+        ],
+        options: { ordered: true }
+      }
+      this.autoCorrection[0].propositions[ordreLutins.indexOf(0)].statut = true
+    }
+    this.indiceBonneFigure = ordreLutins.indexOf(0)
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
-    texteCorr += '<br><br>' + mathalea2d(paramsCorrection, grille(-10, -10, 10, 10), tracePoint(point(0, 0)), lutin)
+    texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`
+
+    texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     this.listeQuestions.push(texte) // on met à jour la liste des questions
     this.listeCorrections.push(texteCorr) // et la liste des corrections
     listeQuestionsToContenuSansNumero(this) // on envoie tout à la fonction qui va mettre en forme.
   }
   this.besoinFormulaireNumerique = ["Nombre d'instructions"] // gestion des paramètres supplémentaires
   this.besoinFormulaire2Numerique = ["Type d'instructions", '1 : sans calcul\n 2: Avec calcul']
+  // Gestion de la souris
+  document.addEventListener('exercicesAffiches', () => {
+  // Dès que l'exercice est affiché, on rajoute des listenners sur chaque Svg.
+    for (let i = 0; i < 5; i++) {
+      const figSvg = document.getElementById(`figure${i}exo${this.numeroExercice}`)
+      figSvg.addEventListener('mouseover', mouseOverSvgEffect)
+      figSvg.addEventListener('mouseout', mouseOutSvgEffect)
+      figSvg.addEventListener('click', mouseSvgClick)
+      figSvg.etat = false
+    }
+  })
+  // Pour pouvoir récupérer this dans la correction interactive
+  const exercice = this
+  // Gestion de la correction
+  this.correctionInteractive = (elt) => {
+    let nbBonnesReponses = 0
+    let nbMauvaisesReponses = 0
+    let nbFiguresCliquees = 0
+    const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${0}`)
+    const figures = []
+    for (let i = 0; i < 5; i++) {
+      const figure = document.getElementById(`figure${i}exo${this.numeroExercice}`)
+      figures.push(figure)
+      figure.removeEventListener('mouseover', mouseOverSvgEffect)
+      figure.removeEventListener('mouseout', mouseOutSvgEffect)
+      figure.removeEventListener('click', mouseSvgClick)
+      if (figure.etat) nbFiguresCliquees++
+    }
+    if (nbFiguresCliquees === 1 && figures[exercice.indiceBonneFigure].etat) {
+      divFeedback.innerHTML = '😎'
+      nbBonnesReponses++
+    } else {
+      divFeedback.innerHTML = '☹️'
+      nbMauvaisesReponses++
+    }
+    afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
+  }
+}
+
+function mouseOverSvgEffect () {
+  this.style.border = 'inset'
+}
+function mouseOutSvgEffect () {
+  this.style.border = 'none'
+}
+function mouseSvgClick () {
+  if (this.etat) {
+  // Déja choisi, donc on le réinitialise
+    this.style.border = 'none'
+    this.addEventListener('mouseover', mouseOverSvgEffect)
+    this.addEventListener('mouseout', mouseOutSvgEffect)
+    this.addEventListener('click', mouseSvgClick)
+    this.etat = false
+  } else {
+  // Passe à l'état choisi donc on désactive les listenners pour over et pour out
+    this.removeEventListener('mouseover', mouseOverSvgEffect)
+    this.removeEventListener('mouseout', mouseOutSvgEffect)
+    this.style.border = 'solid #f15929'
+    this.etat = true
+  }
 }

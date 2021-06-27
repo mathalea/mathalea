@@ -1,12 +1,13 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 92 
-- nombre d'exos interactifReady 111 
+- nombre d'exos amcReady 94 
+- nombre d'exos interactifReady 114 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |2G50-2|Lecture graphique des coefficients d'une équation réduite |KO|KO|OK|mathLive|
 |2G50|Déterminer le coefficient directeur d'une droite.|KO|KO|OK|mathLive|
 |2L12-2|Développer (a+b)²|KO|KO|OK|mathLive|
+|2L12-3|Développer (a-b)²|KO|KO|OK|mathLive|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
 |3F13-1|Lecture graphique d’images et d’antécédents|KO|KO|OK|mathLive|
@@ -64,6 +65,7 @@
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|numerique|
 |5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|numerique|
+|6Algo12|Trouver le bon tracé|OK|qcmMono|OK|custom|
 |6C10-2|Tables de multiplications et multiples de 10|OK|qcmMono|OK|qcm,mathLive|
 |6C10-3|Tables de multiplications et nombres décimaux|OK|qcmMono|OK|qcm|
 |6C10-4|Addition de deux entiers|OK|AMCNum|OK|numerique|
@@ -126,6 +128,7 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
+|betaAlgoTortue2|Tortue Scratch avec répétitions|OK|qcmMono|OK|custom|
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
 |betaCaN6|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
 |betaExempleFigureClic|Sommets du triangle|KO|KO|OK|custom|

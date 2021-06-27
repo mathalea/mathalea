@@ -3,7 +3,8 @@
 Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la possibilité d'avoir un mode interactif.
 
 # Tout d'abord les 'marqueurs' :
-    ```js
+
+  ```js
   this.interactif = false // définit le mode dans lequel l'exercice va s'afficher par défaut
   this.interactifReady = interactifReady // définit si l'exercice peut s'afficher en mode interactif.
   this.amcReady = amcReady // définit si l'exercice peut servir à AMC
