@@ -7299,6 +7299,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %\\usepackage{pdflscape}
    \\usepackage[framemethod=tikz]{mdframed} % Pour les cadres
    \\usepackage{tikzsymbols}
+   \\usepackage{scratch3}
   %\\usepackage{tasks}\t% Pour les listes horizontales
 \\usepackage{csvsimple}
   
