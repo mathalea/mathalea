@@ -80,10 +80,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   this.listePackages = 'scratch3'
   this.sup = 9 // 7 instructions par défaut, paramètre réglable.
   this.sup2 = 1 // types d'instructionsde déplacement (ici seulement avancer et tourner)
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
