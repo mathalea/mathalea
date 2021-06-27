@@ -311,9 +311,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       }
       this.autoCorrection[0].propositions[ordreLutins.indexOf(0)].statut = true
     }
-    console.log(ordreLutins)
     this.indiceBonneFigure = ordreLutins.indexOf(0)
-    console.log(this.indiceBonneFigure)
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
     texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`
 
