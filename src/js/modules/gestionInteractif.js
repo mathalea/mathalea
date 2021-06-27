@@ -35,7 +35,7 @@ export function exerciceQcm (exercice) {
     const monVert = 'rgba(123, 239, 178, 0.5)'
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
-      button.addEventListener('click', event => {        
+      button.addEventListener('click', event => {
         let nbQuestionsValidees = 0
         let nbQuestionsNonValidees = 0
         for (let i = 0; i < exercice.nbQuestions; i++) {
@@ -194,7 +194,7 @@ export function exerciceNumerique (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
-      button.addEventListener('click', event => {        
+      button.addEventListener('click', event => {
         let nbBonnesReponses = 0
         let nbMauvaisesReponses = 0
         for (const i in exercice.autoCorrection) {
@@ -283,7 +283,7 @@ export function exerciceCustom (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
-      button.addEventListener('click', event => {        
+      button.addEventListener('click', event => {
         // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
         let eltFeedback = get(`feedbackEx${exercice.numeroExercice}`, false)
         // On ajoute le div pour le feedback
@@ -313,7 +313,7 @@ export function exerciceMathLive (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
-      button.addEventListener('click', event => {        
+      button.addEventListener('click', event => {
         let nbBonnesReponses = 0
         let nbMauvaisesReponses = 0
         let besoinDe2eEssai = false
@@ -433,41 +433,47 @@ function saisieToGrandeur (saisie) {
 }
 
 /**
- * 
+ *
  * @param {*} myObj // myObj est un objet avec tout ce qu'on veut, on adapte au besoin
   // ATTENTION, si on passe des propriétés il faut aussi modifier le script scoresVerifResult.php en conséquence
  * @author Sébastien LOZANO
  */
-function appelFetch(...myObj) {
-  fetch("scoresVerifResult.php", {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "same-origin",
+function appelFetch (myObj) {
+  fetch('scoresVerifResult.php', {
+    method: 'POST',
+    mode: 'same-origin',
+    credentials: 'same-origin',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      myObj      
+      myObj
     })
   })
 }
 
-function isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) {
-  let str = location.href
-  let url = new URL(str)
-  let userId = url.searchParams.get("userId");
+function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
+  // TODO
+  // => vérifier si le paramètre existe dans l'url
+  // il a pu être entré manuellement
+  // agir en fonction pour les enregistrements
+  const str = location.href
+  const url = new URL(str)
+  const userId = url.searchParams.get('userId')
   console.log(userId)
-  userId === null ? (
-    alert("userId KO : "+userId)
-    ) : (
-    alert("userId OK : "+userId),
-    appelFetch({  
-      userId : userId,
-      refEx : exercice.id,
-      nbBonnesReponses : nbBonnesReponses,
-      nbQuestions : nbBonnesReponses + nbMauvaisesReponses  
-    })
-  )
+  userId === null
+    ? (
+        alert('userId KO : ' + userId)
+      )
+    : (
+        alert('userId OK : ' + userId),
+        appelFetch({
+          userId: userId,
+          refEx: exercice.id,
+          nbBonnesReponses: nbBonnesReponses,
+          nbQuestions: nbBonnesReponses + nbMauvaisesReponses
+        })
+      )
 }
 
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {

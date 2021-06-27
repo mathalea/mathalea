@@ -2206,15 +2206,12 @@ window.addEventListener('DOMContentLoaded', () => {
 // =============================================================================================================================
 // Gestion des scores
 // Sébastien LOZANO
-// TODO
-// => Il faut voir comment conserver le paramètre userId dans l'url s'il existe lorsque :
-// ===> On sélectionne/ajoute des exos
-// ===> On rafraichit la page
 // =============================================================================================================================
 
 // Si le bouton existe et que l'utilisateur clique de dessus on ouvre une modale et on propose deux choix
 // => Créer un userId
 // => Utiliser un userId existant
+
 if (document.getElementById('scoresKey')) {
   document.getElementById('scoresKey').addEventListener('click', function () {
     $('#modalScoresKey').modal({
@@ -2238,7 +2235,7 @@ if (document.getElementById('scoresKey')) {
 // Gestion du click sur "Créer un espace tout neuf"
 if (document.getElementById('scoresCreateSpace')) {
   document.getElementById('scoresCreateSpace').addEventListener('click', function () {
-    // Peut être faudra-t-il générer ça coé serveur
+    // Peut être faudra-t-il générer ça coté serveur
     // Ou alors simplement faire une verif côté serveur et renvoyer un feedback d'erreur selon le cas
     let rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
     const lettre1 = String.fromCharCode(rand)
@@ -2246,10 +2243,10 @@ if (document.getElementById('scoresCreateSpace')) {
     const lettre2 = String.fromCharCode(rand)
     rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
     const lettre3 = String.fromCharCode(rand)
-    rand = Math.floor(Math.random() * (9 - 0 + 1)) + 0
-    const chiffre1 = rand.toString()
-    rand = Math.floor(Math.random() * (9 - 0 + 1)) + 0
-    const chiffre2 = rand.toString()
+    // rand = Math.floor(Math.random() * (9 - 0 + 1)) + 0
+    // const chiffre1 = rand.toString()
+    // rand = Math.floor(Math.random() * (9 - 0 + 1)) + 0
+    // const chiffre2 = rand.toString()
     fetch('scoresKey.php', {
       method: 'POST',
       mode: 'same-origin',
