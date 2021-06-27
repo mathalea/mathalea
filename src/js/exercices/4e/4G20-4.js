@@ -39,7 +39,9 @@ export default function ArrondirUneValeur () {
     let n, nb, rac, angle, v
 
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      this.autoCorrection[i] = {}
+      this.autoCorrection[3 * i] = {}
+      this.autoCorrection[3 * i + 1] = {}
+      this.autoCorrection[3 * i + 2] = {}
       if (this.sup === 1) {
         rac = randint(2, 300, [listeNombresPremiersStrictJusqua(300)])
         n = Math.sqrt(rac)
