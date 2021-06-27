@@ -121,7 +121,7 @@ Le code est libre, AGPL, vous pouvez donc télécharger les sources sur [GitHub]
 - Export au format AMC.
 - Exercices sur les ratios.
 - Arrivée de Cédric Grolleau pour la programmation d'exercices et le travail sur l'interface utilisateur.
-- Arrivée de Deviller Matthieu pour la programmation d'exercices.
+- Arrivée de Matthieu Devillers pour la programmation d'exercices.
 
 
 #### 01/21

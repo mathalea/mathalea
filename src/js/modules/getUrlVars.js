@@ -32,6 +32,25 @@ export function getUrlVars () { // Récupère les variables de l'URL
         }
       }
     }
+    // Pour assurer la rétrocompatibilité avec les paramètres long 07/2021
+    if (ObjetParametres.sup !== undefined) {
+      ObjetParametres.s = ObjetParametres.sup
+    }
+    if (ObjetParametres.sup2 !== undefined) {
+      ObjetParametres.s2 = ObjetParametres.sup2
+    }
+    if (ObjetParametres.sup3 !== undefined) {
+      ObjetParametres.s3 = ObjetParametres.sup3
+    }
+    if (ObjetParametres.interactif !== undefined) {
+      ObjetParametres.i = ObjetParametres.interactif
+    }
+    if (ObjetParametres.nbQuestions !== undefined) {
+      ObjetParametres.n = ObjetParametres.nbQuestions
+    }
+    if (ObjetParametres.video !== undefined) {
+      ObjetParametres.v = ObjetParametres.video
+    }
     tableauObjetsExercices.push(ObjetParametres)
   }
   return tableauObjetsExercices
