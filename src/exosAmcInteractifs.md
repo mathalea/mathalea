@@ -6,6 +6,8 @@
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |2G50-2|Lecture graphique des coefficients d'une équation réduite |KO|KO|OK|mathLive|
 |2G50|Déterminer le coefficient directeur d'une droite.|KO|KO|OK|mathLive|
+|2L12-2|Développer (a+b)²|KO|KO|OK|mathLive|
+|2L12-3|Développer (a-b)²|KO|KO|OK|mathLive|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
 |3F13-1|Lecture graphique d’images et d’antécédents|KO|KO|OK|mathLive|
@@ -131,3 +133,7 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
+|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
+|betaCaN6|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
+|betaExempleFigureClic|Sommets du triangle|KO|KO|OK|custom|
+|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
