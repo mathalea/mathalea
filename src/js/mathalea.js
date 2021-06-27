@@ -2206,6 +2206,7 @@ window.addEventListener('DOMContentLoaded', () => {
 // =============================================================================================================================
 // Gestion des scores
 // Sébastien LOZANO
+// https://docs.google.com/document/d/17ajVHWDkrSYj2VA_OulWgl9iz8zxBLAkfgeEK6m0OXU/edit?usp=sharing
 // =============================================================================================================================
 
 // Si le bouton existe et que l'utilisateur clique de dessus on ouvre une modale et on propose deux choix
