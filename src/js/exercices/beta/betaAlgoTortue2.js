@@ -96,7 +96,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     const typeDeQuestions = [
       'polygonesReguliers',
       'spirales',
-      'rosaces'
+      'rosaces1'
     ]
 
     const choix = typeDeQuestions[randint(0, 2)]
@@ -104,6 +104,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     let val1, val2, n, n2, val3
     const sens = choice(['turnright', 'turnleft'])
     const lutins = []
+    const bonneReponse = randint(0, 3)
     const angleDepart = 90 // On choisit l'orientation de départ
     const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
     const yDepart = 0 // Mais on pourrait envisager de changer ça et de recadrer...
@@ -167,26 +168,60 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
           }
         }
         break
-      case 'rosaces':
+      case 'rosaces1':
         n = choice([3, 4, 5, 6, 8]) // Nombre branches
         n2 = randint(3, 6, 5)
         val1 = randint(2, 4) * 10
         val2 = (10 - n) * 5
         val3 = (8 - n2) * 4
-        lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
-{
-\\blockmove{aller à x: \\ovalnum{0} y: \\ovalnum{0}}
-\\blockmove{avancer de \\ovalnum{${val1}} pas}
-\\blockmove{tourner \\turnright{} de \\ovalnum{${calcul(90 - 180 / n2)}} degrés}
-\\blockrepeat{répéter \\ovalnum{${n2}} fois}
-{
-\\blockmove{avancer de \\ovalnum{${val3}} pas}
-\\blockmove{tourner \\turnleft{} de \\ovalnum{${calcul(360 / n2)}} degrés}
-}
-\\blockmove{tourner \\turnleft{} de \\ovalnum{${calcul(90 - 180 / n2)}} degrés}
-\\blockmove{tourner \\${sens}{} de \\ovalnum{${calcul(360 / n)}} degrés}
-}
-`
+        lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois} \n{`
+        if (bonneReponse < 2) {
+          lutins[0].codeScratch += '\\blockmove{aller à x: \\ovalnum{0} y: \\ovalnum{0}}\n'
+        }
+        if (bonneReponse % 2 === 0) {
+          lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${val1}} pas}\n`
+        } else {
+          if (bonneReponse === 1) {
+            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${calcul(val1 / 2)}} pas}\n`
+          } else {
+            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${calcul(val1 + 2)}} pas}\n`
+          }
+        }
+        switch (bonneReponse) {
+          case 0:
+            lutins[0].codeScratch += `\n\\blockmove{tourner \\turnright{} de \\ovalnum{${calcul(90 - 180 / n2)}} degrés}\n`
+            break
+          case 1:
+            lutins[0].codeScratch += '\n\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
+            break
+          case 2:
+            lutins[0].codeScratch += '\n\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
+            break
+          case 3:
+            lutins[0].codeScratch += '\n'
+            break
+        }
+        lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n2}} fois}\n
+        {
+          \\blockmove{avancer de \\ovalnum{${val3}} pas}\n
+          \\blockmove{tourner \\turnleft{} de \\ovalnum{${calcul(360 / n2)}} degrés}\n
+        }\n`
+        switch (bonneReponse) {
+          case 0:
+            lutins[0].codeScratch += `\\blockmove{tourner \\turnleft{} de \\ovalnum{${calcul(90 - 180 / n2)}} degrés}\n`
+            break
+          case 1:
+            lutins[0].codeScratch += '\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
+            break
+          case 2:
+            lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
+            break
+          case 3:
+            lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{180} degrés}\n'
+            break
+        }
+        lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${calcul(360 / n)}} degrés}\n}\n`
+
         for (let i = 0; i < n; i++) {
           allerA(0, 0, lutins[0])
           allerA(0, 0, lutins[1])
@@ -282,7 +317,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       largeur = Math.max(largeur, lutins[i].xMax - lutins[i].xMin)
       hauteur = Math.max(hauteur, lutins[i].yMax - lutins[i].yMin)
     }
-    largeur = Math.round(largeur + 1)
+    largeur = Math.round(largeur + 1.5)
 
     if (context.isHtml) { // On crée 2 colonnes selon le contexte html / Latex
       texte += '<table style="width: 100%"><tr><td>'
@@ -315,28 +350,28 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       depart[i].taille = 5
       depart[i].color = 'blue'
       depart[i].epaisseur = 2
-      if (i === 0) {
-        objetsCorrection.push(depart[0])
+      if (i === bonneReponse) {
+        objetsCorrection.push(depart[i])
       }
     }
     const echelle = segment(0, hauteur + 0.5, 1, hauteur + 0.5)
     echelle.epaisseur = 2
     echelle.styleExtremites = '|-|'
-    objetsCorrection.push(grille(-1, -1, largeur + 1), hauteur + 1, 'gray', 0.5, 0.5)
-    objetsCorrection.push(lutins[0])
+    objetsCorrection.push(grille(-1, -1, largeur + 1, hauteur + 1, 'gray', 0.5, 0.5))
+    objetsCorrection.push(lutins[bonneReponse])
     paramsEnonces.xmin = -0.5
     paramsEnonces.ymin = -0.5
     paramsEnonces.xmax = largeur
     paramsEnonces.ymax = hauteur + 1
-    paramsEnonces.pixelsParCm = Math.round(300 / largeur)
-    paramsEnonces.scale = calcul(3 / largeur)
+    paramsEnonces.pixelsParCm = Math.round(400 / largeur)
+    paramsEnonces.scale = calcul(4 / largeur)
     paramsEnonces.style = ''
     paramsCorrection.xmin = -0.5
     paramsCorrection.ymin = -0.5
     paramsCorrection.xmax = largeur
     paramsCorrection.ymax = hauteur + 1
-    paramsCorrection.pixelsParCm = Math.round(300 / largeur)
-    paramsCorrection.scale = calcul(3 / largeur)
+    paramsCorrection.pixelsParCm = Math.round(400 / largeur)
+    paramsCorrection.scale = calcul(4 / largeur)
 
     // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
     for (let i = 0; i < 4; i++) {
@@ -380,9 +415,9 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         ],
         options: { ordered: true }
       }
-      this.autoCorrection[0].propositions[ordreLutins.indexOf(0)].statut = true
+      this.autoCorrection[0].propositions[ordreLutins.indexOf(bonneReponse)].statut = true
     }
-    this.indiceBonneFigure = ordreLutins.indexOf(0)
+    this.indiceBonneFigure = ordreLutins.indexOf(bonneReponse)
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
     texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`
 
