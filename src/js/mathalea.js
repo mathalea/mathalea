@@ -2235,14 +2235,14 @@ if (document.getElementById('scoresKey')) {
 // Gestion du click sur "Créer un espace tout neuf"
 if (document.getElementById('scoresCreateSpace')) {
   document.getElementById('scoresCreateSpace').addEventListener('click', function () {
-    // Peut être faudra-t-il générer ça coté serveur
+    // Peut être faudra-t-il générer ça coé serveur
     // Ou alors simplement faire une verif côté serveur et renvoyer un feedback d'erreur selon le cas
-    let rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
-    const lettre1 = String.fromCharCode(rand)
-    rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
-    const lettre2 = String.fromCharCode(rand)
-    rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
-    const lettre3 = String.fromCharCode(rand)
+    // let rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
+    // const lettre1 = String.fromCharCode(rand)
+    // rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
+    // const lettre2 = String.fromCharCode(rand)
+    // rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
+    // const lettre3 = String.fromCharCode(rand)
     // rand = Math.floor(Math.random() * (9 - 0 + 1)) + 0
     // const chiffre1 = rand.toString()
     // rand = Math.floor(Math.random() * (9 - 0 + 1)) + 0
@@ -2255,12 +2255,12 @@ if (document.getElementById('scoresCreateSpace')) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        isSubmitUserId: false,
-        lettre1: lettre1,
-        lettre2: lettre2,
-        lettre3: lettre3,
-        chiffre1: chiffre1,
-        chiffre2: chiffre2
+        isSubmitUserId: false//,
+        // lettre1: lettre1,
+        // lettre2: lettre2,
+        // lettre3: lettre3,
+        // chiffre1: chiffre1,
+        // chiffre2: chiffre2
       })
     })
       .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
@@ -2310,7 +2310,7 @@ if (document.getElementById('scoresSubmitUserId')) {
   document.getElementById('scoresSubmitUserId').addEventListener('click', function () {
     // On récupère la valeur saisie
     // Il faudra vérifier tout ça côté serveur
-    const userId = document.getElementById('scoresInputUserId').value    
+    const userId = document.getElementById('scoresInputUserId').value
     // alert('userId sss : ' + userId)
     fetch('scoresKey.php', {
       method: 'POST',
@@ -2332,6 +2332,7 @@ if (document.getElementById('scoresSubmitUserId')) {
       .then(response => {
         if (response.errors !== '') { // S'il y a des erreurs on ne fait rien
           if (document.getElementById('scoresInputUserIdError')) {
+            // eslint-disable-next-line quotes
             document.getElementById('scoresInputUserIdErrorHeader').innerHTML = `Erreurs...`
             document.getElementById('scoresInputUserIdErrorBody').innerHTML = `
                             ${response.errors}
@@ -2361,7 +2362,7 @@ if (document.getElementById('scoresSubmitUserId')) {
             document.getElementById('scoresPromptUserId').hidden = true
           }
           // alert('userId rrr : ' + response.userId)
-          console.log('Enregistrement vers un espace scores OK') 
+          console.log('Enregistrement vers un espace scores OK')
         }
       })
   })

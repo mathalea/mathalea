@@ -31,12 +31,19 @@ if ($contentType === "application/json") {
 
   // Il faut créer le répertoire sur le serveur s'il n'existe pas
   // On récupère les 3 premières lettres du userId pour créer l'arboresscence
-  $lettre1 = $decoded->lettre1;
-  $lettre2 = $decoded->lettre2;
-  $lettre3 = $decoded->lettre3;
-  $chiffre1 = $decoded->chiffre1;
-  $chiffre2 = $decoded->chiffre2;
-  $path = './resultats/'.$lettre1.'/'.$lettre2.'/'.$lettre3.'/'.$chiffre1.'/'.$chiffre2;
+  // On teste une création côté serveur
+  // $lettre1 = $decoded->lettre1;
+  // $lettre2 = $decoded->lettre2;
+  // $lettre3 = $decoded->lettre3;
+  // $chiffre1 = $decoded->chiffre1;
+  // $chiffre2 = $decoded->chiffre2;
+  // $path = './resultats/'.$lettre1.'/'.$lettre2.'/'.$lettre3.'/'.$chiffre1.'/'.$chiffre2;
+  $lettre1 = chr(rand(65,90));
+  $lettre2 = chr(rand(65,90));
+  $lettre3 = chr(rand(65,90));  
+  $path = './resultats/'.$lettre1.'/'.$lettre2.'/'.$lettre3;
+
+
 
   // On génère une nouvelle clef uniquement si l'arborescence n'existe pas
   // Sinon on récupère la clef dans le nom du fichier on verra plus tard s'il y a plusieurs fichiers
@@ -62,7 +69,8 @@ if ($contentType === "application/json") {
   };  
 
   // Il faut créer le fichier de stockage s'il n'existe pas à partir de la clef  
-  $pathToFile = $path.'/'.$keypass.'/scores.csv';
+  //$pathToFile = $path.'/'.$keypass.'/scores.csv';
+  $pathToFile = $path.'/'.$keypass;
   // On ouvre le fichier
   $fp = fopen($pathToFile, 'a+');      
   // S'il n'existe pas on crée l'entete
@@ -74,7 +82,8 @@ if ($contentType === "application/json") {
   echo json_encode(array(
     //"url" => $path.'/'.$keypass.'scores.csv',
     "url" => $pathToFile,
-    "userId" => $lettre1.$lettre2.$lettre3.$chiffre1.$chiffre2,
+    //"userId" => $lettre1.$lettre2.$lettre3.$chiffre1.$chiffre2,
+    "userId" => $lettre1.$lettre2.$lettre3,
     "errors" => $errors
   ));  
 
