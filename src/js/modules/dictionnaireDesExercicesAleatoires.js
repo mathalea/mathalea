@@ -1073,6 +1073,18 @@ export default {
     "interactifType": "numerique",
     "name": "4G20-2"
   },
+  "4G20-4": {
+    "titre": "Arrondir une racine carrée",
+    "url": "/exercices/4e/4G20-4.js",
+    "amcReady": true,
+    "amcType": {
+      "num": 2,
+      "text": "qcmMult"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4G20-4"
+  },
   "4G20-5": {
     "titre": "Trouver la valeur arrondie d’une racine carrée",
     "url": "/exercices/4e/4G20-5.js",

@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 
 /**
  * Résoudre un problème de proportionnalité avec linéarité via tableau
- * @Mireille Gain, 30 ami 2021
+ * @Mireille Gain, 30 mai 2021
  * Référence 6P11-2
 */export default function ProportionnaliteParLineariteTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
