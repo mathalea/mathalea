@@ -4,6 +4,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
 import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPointEchelle } from '../../modules/2d.js'
+import { afficheScore } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
 export const interactifType = 'custom' // La correction doit être gérée dans l'exercice avec la méthode this.correctionInteractive()
@@ -82,7 +83,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
-  this.interactifReadyType = interactifType
+  this.interactifType = interactifType
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
@@ -227,7 +228,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
     let ordreLutins = [0, 1, 2, 3, 4]
     ordreLutins = shuffle(ordreLutins) // On mélange les emplacements pour éviter d'avoir la bonne réponse au même endroit
-    console.log(ordreLutins)
     for (let i = 0; i < 5; i++) {
       for (let j = 0; j < lutins[i].listeTraces.length; j++) { // On recadre les traces des lutins...
         lutins[i].listeTraces[j][0] -= lutins[i].xMin
@@ -278,6 +278,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
     if (context.isHtml) {
       texte += '</td></tr>'
+      texte += `<div id="resultatCheckEx${this.numeroExercice}Q${0}"></div>`
     } else {
       texte += '\\end{minipage} '
     }
@@ -310,9 +311,10 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       }
       this.autoCorrection[0].propositions[ordreLutins.indexOf(0)].statut = true
     }
-
+    this.indiceBonneFigure = ordreLutins.indexOf(0)
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
-    texteCorr += `La bonne figure est la figure ${ordreLutins.indexOf(0) + 1}`
+    texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`
+
     texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     this.listeQuestions.push(texte) // on met à jour la liste des questions
     this.listeCorrections.push(texteCorr) // et la liste des corrections
@@ -320,4 +322,64 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     listeQuestionsToContenuSansNumero(this) // on envoie tout à la fonction qui va mettre en forme.
   }
   this.besoinFormulaireNumerique = ["Nombre d'instructions"] // gestion des paramètres supplémentaires
+  // Gestion de la souris
+  document.addEventListener('exercicesAffiches', () => {
+    // Dès que l'exercice est affiché, on rajoute des listenners sur chaque Svg.
+    for (let i = 0; i < 5; i++) {
+      const figSvg = document.getElementById(`figure${i}exo${this.numeroExercice}`)
+      figSvg.addEventListener('mouseover', mouseOverSvgEffect)
+      figSvg.addEventListener('mouseout', mouseOutSvgEffect)
+      figSvg.addEventListener('click', mouseSvgClick)
+      figSvg.etat = false
+    }
+  })
+  // Pour pouvoir récupérer this dans la correction interactive
+  const exercice = this
+  // Gestion de la correction
+  this.correctionInteractive = (elt) => {
+    let nbBonnesReponses = 0
+    let nbMauvaisesReponses = 0
+    let nbFiguresCliquees = 0
+    const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${0}`)
+    const figures = []
+    for (let i = 0; i < 5; i++) {
+      const figure = document.getElementById(`figure${i}exo${this.numeroExercice}`)
+      figures.push(figure)
+      figure.removeEventListener('mouseover', mouseOverSvgEffect)
+      figure.removeEventListener('mouseout', mouseOutSvgEffect)
+      figure.removeEventListener('click', mouseSvgClick)
+      if (figure.etat) nbFiguresCliquees++
+    }
+    if (nbFiguresCliquees === 1 && figures[exercice.indiceBonneFigure].etat) {
+      divFeedback.innerHTML = '😎'
+      nbBonnesReponses++
+    } else {
+      divFeedback.innerHTML = '☹️'
+      nbMauvaisesReponses++
+    }
+    afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
+  }
+}
+
+function mouseOverSvgEffect () {
+  this.style.border = 'inset'
+}
+function mouseOutSvgEffect () {
+  this.style.border = 'none'
+}
+function mouseSvgClick () {
+  if (this.etat) {
+    // Déja choisi, donc on le réinitialise
+    this.style.border = 'none'
+    this.addEventListener('mouseover', mouseOverSvgEffect)
+    this.addEventListener('mouseout', mouseOutSvgEffect)
+    this.addEventListener('click', mouseSvgClick)
+    this.etat = false
+  } else {
+    // Passe à l'état choisi donc on désactive les listenners pour over et pour out
+    this.removeEventListener('mouseover', mouseOverSvgEffect)
+    this.removeEventListener('mouseout', mouseOutSvgEffect)
+    this.style.border = 'solid #f15929'
+    this.etat = true
+  }
 }
