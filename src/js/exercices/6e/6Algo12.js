@@ -269,11 +269,11 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
     for (let i = 0; i < 5; i++) {
       paramsEnonces.id = `figure${i}exo${numeroExercice}`
       texte += mathalea2d(paramsEnonces,
-        lutins[ordreLutins.indexOf(i)],
-        depart[ordreLutins.indexOf(i)],
+        lutins[ordreLutins[i]],
+        depart[ordreLutins[i]],
         grille(-0.5, -0.5, largeur, hauteur + 1, 'gray', 0.5, 0.5),
         texteParPointEchelle('10 pas', point(0.5, hauteur + 0.2), 'milieu', 'black', 0.7),
-        texteParPointEchelle(`figure ${i + 1}`, point((lutins[ordreLutins.indexOf(i)].xMax - lutins[ordreLutins.indexOf(i)].xMin) / 2, -0.3), 'milieu', 'black', 0.7),
+        texteParPointEchelle(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.3), 'milieu', 'black', 0.7),
         echelle)
     }
     if (context.isHtml) {
@@ -311,7 +311,9 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
       }
       this.autoCorrection[0].propositions[ordreLutins.indexOf(0)].statut = true
     }
+    console.log(ordreLutins)
     this.indiceBonneFigure = ordreLutins.indexOf(0)
+    console.log(this.indiceBonneFigure)
     // Ici, la figure contient la grille, le point de d√©part et le lutin qui s'anime sur sa trace...
     texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`
 
