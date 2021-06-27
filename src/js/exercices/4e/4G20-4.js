@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeNombresPremiersStrictJusqua, choice, listeQuestionsToContenu, randint, troncature, texNombre, arrondi } from '../../modules/outils.js'
+import { listeNombresPremiersStrictJusqua, choice, listeQuestionsToContenu, randint, texNombre, arrondi } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { cos } from '../../modules/fonctionsMaths.js'
 
@@ -64,19 +64,19 @@ export default function ArrondirUneValeur () {
       texte += ajouteChampTexteMathLive(this, 3 * i)
       texteCorr = "Arrondi à l'unité : "
       texteCorr += `$${texNombre(arrondi(n, 0))}$`
-      setReponse(this, 3 * i, texNombre(arrondi(n, 0)))
+      setReponse(this, 3 * i, arrondi(n, 0))
 
       texte += '<br>Arrondi au dixième : '
       texte += ajouteChampTexteMathLive(this, 3 * i + 1)
       texteCorr += '<br>Arrondi au dixième : '
       texteCorr += `$${texNombre(arrondi(n, 1))}$`
-      setReponse(this, 3 * i, texNombre(arrondi(n, 1)))
+      setReponse(this, 3 * i, arrondi(n, 1))
 
       texte += '<br>Arrondi au centième : '
       texte += ajouteChampTexteMathLive(this, 3 * i + 2)
       texteCorr += '<br>Arrondi au centième : '
       texteCorr += `$${texNombre(arrondi(n, 0))}$`
-      setReponse(this, 3 * i, texNombre(arrondi(n, 0)))
+      setReponse(this, 3 * i, arrondi(n, 0))
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
