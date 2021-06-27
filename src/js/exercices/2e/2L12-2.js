@@ -61,7 +61,7 @@ export default function DevelopperIdentitesRemarquables3 () {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
             texteCorr += `$\\left(\\color{red}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2=\\color{red}x\\color{black}^2+2 \\times \\color{red}x \\color{black}\\times \\color{green}${a} \\color{black}+ \\color{green}${a}\\color{black}^2$ <br>`
             texteCorr += `$\\phantom{\\left(\\color{red}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = x^2+${2 * a}x+${a * a}$`
-          } else { texteCorr += `$\\left(x+${a} \\right)^2=x^2+${2 * a}x+${a * a}$`}
+          } else { texteCorr += `$\\left(x+${a} \\right)^2=x^2+${2 * a}x+${a * a}$` }
           reponse = `x^2+${2 * a}x+${a * a}`
           break
         case 2:
@@ -90,7 +90,7 @@ export default function DevelopperIdentitesRemarquables3 () {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${texFraction(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
             texteCorr += `$\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${texFraction(ns, ds)}x\\color{black}\\right)^2 + 2 \\times \\color{red}${texFraction(ns, ds)}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2 $ <br><br>`
             texteCorr += `$\\phantom{\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFraction(ns * ns, ds * ds)}x^2+${texFraction(2 * ns * a, ds)}x+${a * a}$`
-          } else { texteCorr = texte + `$= ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`}
+          } else { texteCorr = texte + `$= ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$` }
           if (pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1) {
             texteCorr += `<br><br>$\\phantom{\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
           }
