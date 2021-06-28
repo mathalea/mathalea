@@ -2236,18 +2236,7 @@ if (document.getElementById('scoresKey')) {
 // Gestion du click sur "Créer un espace tout neuf"
 if (document.getElementById('scoresCreateSpace')) {
   document.getElementById('scoresCreateSpace').addEventListener('click', function () {
-    // Peut être faudra-t-il générer ça coé serveur
-    // Ou alors simplement faire une verif côté serveur et renvoyer un feedback d'erreur selon le cas
-    // let rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
-    // const lettre1 = String.fromCharCode(rand)
-    // rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
-    // const lettre2 = String.fromCharCode(rand)
-    // rand = Math.floor(Math.random() * (90 - 65 + 1)) + 65
-    // const lettre3 = String.fromCharCode(rand)
-    // rand = Math.floor(Math.random() * (9 - 0 + 1)) + 0
-    // const chiffre1 = rand.toString()
-    // rand = Math.floor(Math.random() * (9 - 0 + 1)) + 0
-    // const chiffre2 = rand.toString()
+    // On génère le userId côté serveur
     fetch('scoresKey.php', {
       method: 'POST',
       mode: 'same-origin',
@@ -2256,36 +2245,32 @@ if (document.getElementById('scoresCreateSpace')) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        isSubmitUserId: false//,
-        // lettre1: lettre1,
-        // lettre2: lettre2,
-        // lettre3: lettre3,
-        // chiffre1: chiffre1,
-        // chiffre2: chiffre2
+        // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
+        isSubmitUserId: false
       })
     })
       .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
       .then(response => {
         // On ajoute un parametre userId à l'url
         // On supprime le userId de l'url s'il existe
-        const params = new URLSearchParams(location.search)
-        if (params.has('userId')) {
-          params.delete('userId')
-          history.replaceState(null, '', '?' + params + location.hash)
-        } else {
-          history.replaceState(null, '', '?' + params + location.hash)
-        }
-        window.history.replaceState('', '', location.href + '&userId=' + response.userId)
+        // On n'ajoute pasle userId à l'url lors de la création d'un espace
+        // const params = new URLSearchParams(location.search)
+        // if (params.has('userId')) {
+        //   params.delete('userId')
+        //   history.replaceState(null, '', '?' + params + location.hash)
+        // } else {
+        //   history.replaceState(null, '', '?' + params + location.hash)
+        // }
+        // window.history.replaceState('', '', location.href + '&userId=' + response.userId)
         if (document.getElementById('scoresFeedback')) {
           document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
           // Peut être que plutôt que de diriger vers une page, un lien vers le csv suffit ?
           document.getElementById('scoresFeedbackBody').innerHTML = `
-              Vos scores seront enregistrés <a href="${response.url}" target="_blank">dans ce fichier</a><br>
-              Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
+              Vos fichiers seront enregistrés <a href="${response.url}" target="_blank">à cette url</a>. Conservez la précieusement.<br>
+              Vous pourrez y ajouter des éléments en utilisant le code prof suivant : <b>${response.userId}</b>
             `
           document.getElementById('scoresFeedback').hidden = false
         }
-        // alert('userId yyy : ' + response.userId)
         console.log('Création d\'un espace scores OK')
       })
   })
