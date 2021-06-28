@@ -140,7 +140,7 @@ function ajoutHandlersEtiquetteExo () {
     .off('input')
     .on('input', function (e) {
       // On détecte le changement de la valeur de l'étiquette.
-      gestionSpanChoixExercice(event.target)
+      gestionSpanChoixExercice(e.target)
     })
   $('.choix_exercices')
     .off('keyup')
@@ -175,19 +175,19 @@ function ajoutHandlersEtiquetteExo () {
 function gestionSpanChoixExercice (elem) {
   // quand on donne le code d'un exercice existant, le style change et on créé un autre span à suivre.
   const listeCodesExercices = Object.keys(dictionnaireDesExercices)
-  if (listeCodesExercices.indexOf($(event.target).text()) >= 0 && !$(event.target).hasClass('valide')) {
-    $(event.target).addClass('valide')
+  if (listeCodesExercices.indexOf($(elem).text()) >= 0 && !$(elem).hasClass('valide')) {
+    $(elem).addClass('valide')
     if ($('.choix_exercices:last').hasClass('valide')) {
       // si le dernier élément n'est pas valide on n'en créé pas un nouveau.
-      $(event.target.parentElement.parentElement).append(
+      $(elem.parentElement.parentElement).append(
         '<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br/></span></div>'
       )
     }
     ajoutHandlersEtiquetteExo() // On ajoute la gestion des evenements sur l'étiquette créée.
     // sur la perte de focus, si le span est valide alors on met à jour la liste des exercices (maj du champ texte + event change)
-  } else if (listeCodesExercices.indexOf($(event.target).text()) < 0 && $(event.target).hasClass('valide')) {
+  } else if (listeCodesExercices.indexOf($(elem).text()) < 0 && $(elem).hasClass('valide')) {
     // si on change le contenteditable et que l'exercice n'est plus un code valide
-    $(event.target).removeClass('valide')
+    $(elem).removeClass('valide')
   }
 }
 
@@ -593,6 +593,8 @@ function miseAJourDuCode () {
       $('#message_liste_exercice_vide').show() // Message au dessus de la liste des exercices
       $('#cache').dimmer('show') // Cache au dessus du code LaTeX
     }
+    $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
+    $('#popup_preview .iconeInteractif').remove() // dans l'aperçu pas d'icone interactif.
     document.getElementById('exercices').innerHTML = contenuDesExercices
     document.getElementById('corrections').innerHTML = contenuDesCorrections
     gestionModules(true, listeObjetsExercice)
@@ -987,7 +989,7 @@ function miseAJourDuCode () {
     .on('click', function (e) {
       // Au click sur l'icone interactif on coche le mode interactif de l'exercice dans les paramètres et on relance la mise à jour des exercices.
       $('#accordeon_parametres >div').addClass('active')
-      const numeroExerciceExercice = $(event.target).attr('data-num')
+      const numeroExerciceExercice = $(e.target).attr('data-num')
       const checkElem = $(`#formInteractif${numeroExerciceExercice}`)
       if (checkElem.prop('checked')) {
         $(`#formInteractif${numeroExerciceExercice}`).prop('checked', false).trigger('change')
@@ -1006,7 +1008,7 @@ function miseAJourDuCode () {
     .off('click')
     .on('click', function (e) {
       $('#accordeon_parametres >div').addClass('active')
-      const numeroExercice = event.target.parentElement.parentElement.parentElement.id
+      const numeroExercice = e.target.parentElement.parentElement.parentElement.id
       $(`.${numeroExercice} + div :input`).focus()
     })
 
@@ -1045,19 +1047,19 @@ function miseAJourDuCode () {
   $('.icone_moins')
     .off('click')
     .on('click', function (e) {
-      supprimerExo(event.target.id) // fonction présente dans menuDesExercicesDisponibles car utilisée aussi avec le petit icone - dans l'apparence de la ligne exercice
+      supprimerExo(e.target.id) // fonction présente dans menuDesExercicesDisponibles car utilisée aussi avec le petit icone - dans l'apparence de la ligne exercice
     })
 
   $('.icone_up')
     .off('click')
     .on('click', function (e) {
-      monterExo(event.target.id)
+      monterExo(e.target.id)
     })
 
   $('.icone_down')
     .off('click')
     .on('click', function (e) {
-      descendreExo(event.target.id)
+      descendreExo(e.target.id)
     })
   //* ***************
 }
@@ -1123,11 +1125,8 @@ function miseAJourDeLaListeDesExercices (preview) {
       promises.push(
         // cf https://webpack.js.org/api/module-methods/#magic-comments
         import(/* webpackMode: "lazy" */ './exercices/' + path)
-          .catch((error) => {
-            console.log(error)
-            listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: '', contenuCorrection: '' } // Un exercice vide pour l'exercice qui n'existe pas
-          })
           .then((module) => {
+<<<<<<< HEAD
             if (module) {
               // eslint-disable-next-line new-cap
               listeObjetsExercice[i] = new module.default() // Ajoute l'objet dans la liste des
@@ -1146,6 +1145,27 @@ function miseAJourDeLaListeDesExercices (preview) {
               if (listeObjetsExercice[i].typeExercice === 'XCas') {
                 besoinXCas = true
               }
+=======
+            if (!module) throw Error(`l'import de ${path} a réussi mais on ne récupère rien, il doit y avoir un oubli d'export`)
+            listeObjetsExercice[i] = new module.default()
+            ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach(p => {
+              if (module[p] !== undefined) listeObjetsExercice[i][p] = module[p]
+            })
+            if (dictionnaireDesExercices[id].sup !== undefined) {
+              listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
+            }
+            if (dictionnaireDesExercices[id].sup2 !== undefined) {
+              listeObjetsExercice[i].sup2 = dictionnaireDesExercices[id].sup2
+            }
+            if (dictionnaireDesExercices[id].sup3 !== undefined) {
+              listeObjetsExercice[i].sup3 = dictionnaireDesExercices[id].sup3
+            }
+            if (dictionnaireDesExercices[id].nbQuestions !== undefined) {
+              listeObjetsExercice[i].nbQuestions = dictionnaireDesExercices[id].nbQuestions
+            }
+            if (listeObjetsExercice[i].typeExercice === 'XCas') {
+              besoinXCas = true
+>>>>>>> master
             }
           })
       )
@@ -2084,26 +2104,27 @@ window.addEventListener('DOMContentLoaded', () => {
     })
   }
   // handlers pour la prévisualisation des exercices cg 04-20201
-  function afficherPopup () {
+  function afficherPopup (exoId) {
     // lors du clic sur l'oeil, si la popup est affichée on la cache, sinon on ouvre la prévisulisation.
     if ($('.popuptext').is(':visible')) {
       $('.popuptext').empty()
       $('.popuptext').hide()
     } else {
-      miseAJourDeLaListeDesExercices(event.target.id)
+      miseAJourDeLaListeDesExercices(exoId)
     }
   }
 
   $('.popup')
     .off('click')
     .on('click', function (e) {
-      event.stopPropagation()
-      afficherPopup()
+      e.stopPropagation()
+      afficherPopup($('.popup').attr("data-exoId"))
+      $('.popup').attr("data-exoId","")
     })
 
-  $(document).click(function (event) {
+  $(document).click(function (e) {
     // On ferme la popup si au clic partout sur la feuille.
-    if ($('.popuptext').is(':visible') || !$(event.target).hasClass('poppup') || !$(event.target).hasClass('icone_ppreview')) {
+    if ($('.popuptext').is(':visible') || !$(e.target).hasClass('popup') || !$(e.target).hasClass('icone_preview')) {
       $('.popuptext').hide()
       $('.popuptext').empty()
       $('.icone_preview')
@@ -2115,7 +2136,7 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 
   // Gestion de l'évènement sur le click sur les flèches pour basculer les exercices en plein écran.
-  $('#exo_plein_ecran').click(function (event) {
+  $('#exo_plein_ecran').click(function (e) {
     if ($('#exo_plein_ecran').hasClass('left')) {
       $('#left').hide()
       $('#right').removeClass('column')
