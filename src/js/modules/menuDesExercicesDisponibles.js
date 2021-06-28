@@ -256,11 +256,13 @@ export function apparenceExerciceActif () {
     elem_liste.addClass('exerciceactif')
   }
   $('.delexercice').off('click').on('click', function (e) {
-    supprimerExo(event.target.id, true)
-    event.stopPropagation()
+    supprimerExo(e.target.id, true)
+    e.stopPropagation()
   })
   $('.icone_preview').off('click').on('click', function (e) {
-    $('.popup').trigger('click')
+    e.stopPropagation()
+    $('.popup').attr("data-exoId",e.target.id)
+    $('.popup').trigger(e)
   })
 }
 
@@ -650,7 +652,7 @@ export function menuDesExercicesDisponibles () {
       trust: false
     })
     apparenceExerciceActif() // Lorsqu'on déplie un accordéon il faut gérer l'apprence des exercices qui avaient été sélectionnés.
-    $('.lien_id_exercice').off('click').on('click', function () { addExercice(event) })
+    $('.lien_id_exercice').off('click').on('click', function (e) { addExercice(e) })
     $('.icone_preview').off('click').on('click', function (e) {
       $('.popup').trigger('click')
     })
