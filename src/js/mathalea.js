@@ -2307,11 +2307,13 @@ if (document.getElementById('scoresSubmitUserId')) {
       },
       body: JSON.stringify({
         isSubmitUserId: true,
-        lettre1: userId[0],
-        lettre2: userId[1],
-        lettre3: userId[2],
-        chiffre1: userId[3],
-        chiffre2: userId[4]
+        prof1: userId[0],
+        prof2: userId[1],
+        prof3: userId[2],
+        classe1: userId[3],
+        classe2: userId[4],
+        eleve1: userId[5],
+        eleve2: userId[6]
       })
     })
       .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
@@ -2341,7 +2343,7 @@ if (document.getElementById('scoresSubmitUserId')) {
           if (document.getElementById('scoresFeedback')) {
             document.getElementById('scoresFeedbackHeader').innerHTML = `Espace scores - Enregistrement pour le userId ${response.userId} validé`
             document.getElementById('scoresFeedbackBody').innerHTML = `
-                            Vos scores seront enregistrés <a href="${response.url}" target="_blank">dans ce fichier</a><br>                          
+                            Vos scores seront enregistrés <a href="${response.url}" target="_blank">dans ce dossier</a><br>                          
                             Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
                           `
             document.getElementById('scoresFeedback').hidden = false
