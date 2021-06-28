@@ -2246,7 +2246,8 @@ if (document.getElementById('scoresCreateSpace')) {
       },
       body: JSON.stringify({
         // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
-        isSubmitUserId: false
+        isSubmitUserId: false,
+        isVerifResult: false
       })
     })
       .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
@@ -2307,6 +2308,7 @@ if (document.getElementById('scoresSubmitUserId')) {
       },
       body: JSON.stringify({
         isSubmitUserId: true,
+        isVerifResult: false,
         userId: userId,
         prof1: userId[0],
         prof2: userId[1],
@@ -2344,9 +2346,9 @@ if (document.getElementById('scoresSubmitUserId')) {
           if (document.getElementById('scoresFeedback')) {
             document.getElementById('scoresFeedbackHeader').innerHTML = `Espace scores - Enregistrement pour le userId ${response.userId} validé`
             document.getElementById('scoresFeedbackBody').innerHTML = `
-                            Un bilan de vos scores sera accessible en fin de session<br>
-                            Et enregistré <a href="${response.url}" target="_blank">dans ce dossier</a> qui ne sera pas en acces eleve<br>                          
-                            Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
+                            Un bilan de vos scores sera accessible en fin de session en cliquant sur ...<br>
+                            ${response.url}<br>                          
+                            Vous pourrez ajouter des scores pour votre prof en utilisant le code suivant : <b>${response.userId}</b>
                           `
             document.getElementById('scoresFeedback').hidden = false
             document.getElementById('scoresPromptUserId').hidden = true

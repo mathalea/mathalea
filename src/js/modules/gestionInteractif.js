@@ -438,7 +438,7 @@ function saisieToGrandeur (saisie) {
   // ATTENTION, si on passe des propriétés il faut aussi modifier le script scoresVerifResult.php en conséquence
  * @author Sébastien LOZANO
  */
-function appelFetch (myObj) {
+function appelFetchOld (myObj) {
   fetch('scoresVerifResult.php', {
     method: 'POST',
     mode: 'same-origin',
@@ -452,6 +452,18 @@ function appelFetch (myObj) {
   })
 }
 
+function appelFetch (myObj) {
+  fetch('scoresKey.php', {
+    method: 'POST',
+    mode: 'same-origin',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: myObj
+  })
+}
+
 function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   // TODO
   // => vérifier si le paramètre existe dans l'url
@@ -461,17 +473,40 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   const url = new URL(str)
   const userId = url.searchParams.get('userId')
   console.log(userId)
+  // eslint-disable-next-line no-unused-expressions
   userId === null
     ? (
-        alert('userId KO : ' + userId)
+        console.log('userId KO : ' + userId)
       )
     : (
-        alert('userId OK : ' + userId),
-        appelFetch({
-          userId: userId,
-          refEx: exercice.id,
-          nbBonnesReponses: nbBonnesReponses,
-          nbQuestions: nbBonnesReponses + nbMauvaisesReponses
+        console.log('userId OK : ' + userId),
+        fetch('scoresKey.php', {
+          method: 'POST',
+          mode: 'same-origin',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
+            isSubmitUserId: false,
+            isVerifResult: true,
+            userId: userId,
+            prof1: userId[0],
+            prof2: userId[1],
+            prof3: userId[2],
+            classe1: userId[3],
+            classe2: userId[4],
+            eleve1: userId[5],
+            eleve2: userId[6],
+            exId: exercice.id,
+            sup: exercice.sup,
+            sup1: exercice.sup1,
+            sup2: exercice.sup3,
+            nbBonnesReponses: nbBonnesReponses,
+            nbQuestions: nbBonnesReponses + nbMauvaisesReponses,
+            score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100
+          })
         })
       )
 }
