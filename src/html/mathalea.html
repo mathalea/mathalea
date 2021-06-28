@@ -183,7 +183,13 @@
               <div class="ui header">Vous pouvez au choix :</div>
               <ul>
                 <li>Créer un espace de sauvegarde.</li>
-                <li>Enregistrer des scores dans un espace existant</li>
+                <li>Enregistrer des scores dans un espace existant avec un userId au format suivant :
+                  <ul>
+                    <li>Le code prof => 3 lettres majuscules.</li>
+                    <li>Le code classe => 2 caractères alphanumériques, les lettres sont des majuscules.</li>
+                    <li>Le code eleve => 2 caractères alphanumériques, les lettres sont des majuscules.</li>
+                  </ul>
+                </li>
               </ul>
               <br>
               <!-- Feedback pour les scores -->
@@ -199,7 +205,7 @@
                   <i class="user icon"></i>
                   <input id="scoresInputUserId" type="text" placeholder="UserId ...">
                   <span class="ui tag label">
-                    Set UserId here
+                    userId ici
                   </span>
                   <button id="scoresSubmitUserId" class="ui positive button">Submit</button>
                 </div>

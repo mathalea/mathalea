@@ -2307,6 +2307,7 @@ if (document.getElementById('scoresSubmitUserId')) {
       },
       body: JSON.stringify({
         isSubmitUserId: true,
+        userId: userId,
         prof1: userId[0],
         prof2: userId[1],
         prof3: userId[2],
@@ -2321,7 +2322,7 @@ if (document.getElementById('scoresSubmitUserId')) {
         if (response.errors !== '') { // S'il y a des erreurs on ne fait rien
           if (document.getElementById('scoresInputUserIdError')) {
             // eslint-disable-next-line quotes
-            document.getElementById('scoresInputUserIdErrorHeader').innerHTML = `Erreurs...`
+            document.getElementById('scoresInputUserIdErrorHeader').innerHTML = `Échec de la création, corriger les erreurs suivantes :`
             document.getElementById('scoresInputUserIdErrorBody').innerHTML = `
                             ${response.errors}
                           `
@@ -2343,7 +2344,8 @@ if (document.getElementById('scoresSubmitUserId')) {
           if (document.getElementById('scoresFeedback')) {
             document.getElementById('scoresFeedbackHeader').innerHTML = `Espace scores - Enregistrement pour le userId ${response.userId} validé`
             document.getElementById('scoresFeedbackBody').innerHTML = `
-                            Vos scores seront enregistrés <a href="${response.url}" target="_blank">dans ce dossier</a><br>                          
+                            Un bilan de vos scores sera accessible en fin de session<br>
+                            Et enregistré <a href="${response.url}" target="_blank">dans ce dossier</a> qui ne sera pas en acces eleve<br>                          
                             Vous pourrez y ajouter des scores en utilisant le code suivant : <b>${response.userId}</b>
                           `
             document.getElementById('scoresFeedback').hidden = false
