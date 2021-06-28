@@ -501,8 +501,8 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
             eleve2: userId[6],
             exId: exercice.id,
             sup: exercice.sup,
-            sup1: exercice.sup1,
-            sup2: exercice.sup3,
+            sup2: exercice.sup2,
+            sup3: exercice.sup3,
             nbBonnesReponses: nbBonnesReponses,
             nbQuestions: nbBonnesReponses + nbMauvaisesReponses,
             score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100
