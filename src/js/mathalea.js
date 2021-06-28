@@ -1126,26 +1126,6 @@ function miseAJourDeLaListeDesExercices (preview) {
         // cf https://webpack.js.org/api/module-methods/#magic-comments
         import(/* webpackMode: "lazy" */ './exercices/' + path)
           .then((module) => {
-<<<<<<< HEAD
-            if (module) {
-              // eslint-disable-next-line new-cap
-              listeObjetsExercice[i] = new module.default() // Ajoute l'objet dans la liste des
-              if (dictionnaireDesExercices[id].sup !== undefined) {
-                listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
-              }
-              if (dictionnaireDesExercices[id].sup2 !== undefined) {
-                listeObjetsExercice[i].sup2 = dictionnaireDesExercices[id].sup2
-              }
-              if (dictionnaireDesExercices[id].sup3 !== undefined) {
-                listeObjetsExercice[i].sup3 = dictionnaireDesExercices[id].sup3
-              }
-              if (dictionnaireDesExercices[id].nbQuestions !== undefined) {
-                listeObjetsExercice[i].nbQuestions = dictionnaireDesExercices[id].nbQuestions
-              }
-              if (listeObjetsExercice[i].typeExercice === 'XCas') {
-                besoinXCas = true
-              }
-=======
             if (!module) throw Error(`l'import de ${path} a réussi mais on ne récupère rien, il doit y avoir un oubli d'export`)
             listeObjetsExercice[i] = new module.default()
             ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach(p => {
@@ -1165,7 +1145,6 @@ function miseAJourDeLaListeDesExercices (preview) {
             }
             if (listeObjetsExercice[i].typeExercice === 'XCas') {
               besoinXCas = true
->>>>>>> master
             }
           })
       )
