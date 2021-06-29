@@ -26,10 +26,6 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
   };
 
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
   this.consigne = ''
 
   this.nbCols = 1

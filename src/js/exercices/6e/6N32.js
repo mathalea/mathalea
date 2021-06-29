@@ -12,7 +12,6 @@ export const titre = 'Représenter une fraction de l’unité'
  */
 
 export default function FractionsDunite () {
-  'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.nbQuestions = 5
@@ -64,7 +63,7 @@ export default function FractionsDunite () {
       texte = `$${frac.texFraction}$ unité en prenant ${unit} carreaux pour une unité.`
       if (this.sup2 < 3) g = grille(0, 0, 26, 2, 'gray', 0.7)
       else g = ''
-      if (this.sup2 === 2) {
+      if (parseInt(this.sup2) === 2) {
         sc = 0.6
         carreaux = seyes(0, 0, 26, 2)
       } else {

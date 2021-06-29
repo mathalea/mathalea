@@ -45,7 +45,7 @@ export default function MultiplierPar001 () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     let typeDeQuestionsDisponibles
-    if (this.sup2 === 4) {
+    if (parseInt(this.sup2) === 4) {
       typeDeQuestionsDisponibles = [1, 2, 3]
     } else {
       typeDeQuestionsDisponibles = [parseInt(this.sup2)]

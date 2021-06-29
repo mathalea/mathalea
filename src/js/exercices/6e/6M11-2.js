@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, arrondi, calcul, texNombrec, texNombre, texTexte } from '../../modules/outils.js'
 export const titre = 'Périmètres et aires de figures composées'
 
@@ -14,7 +13,7 @@ export const titre = 'Périmètres et aires de figures composées'
  * @author Rémi Angot
  * Référence 6M11-2
  */
-export default function Perimetre_ou_aire_de_figures_composees () {
+export default function PerimetreOuAireDeFiguresComposees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.pasDeVersionLatex = true
   this.titre = titre
@@ -31,7 +30,7 @@ export default function Perimetre_ou_aire_de_figures_composees () {
     const L1 = randint(4, 7)
     let l1 = randint(2, 4)
     const L2 = randint(2, 4)
-    if (L1 == l1) {
+    if (L1 === l1) {
       l1--
     } // pour que le rectangle ne soit pas un carré
     const c = randint(4, 7)

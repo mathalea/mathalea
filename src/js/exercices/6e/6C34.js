@@ -19,10 +19,6 @@ export default function dernierChiffre () {
   Exercice.call(this)
   this.sup = 3
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
   this.consigne = 'Pour chaque calcul, déterminer le dernier chiffre du résultat.'
   this.nbQuestions = 4 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions

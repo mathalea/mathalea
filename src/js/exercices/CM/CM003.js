@@ -8,7 +8,6 @@ export const amcType = 4
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-
 /**
  * Tables de multiplications et de divisions classiques, à trou ou un mélange des deux.
  *
@@ -60,9 +59,9 @@ export default function TablesMultiplicationsDivisions (
     for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
       a = couples[i][0]
       b = couples[i][1]
-      if (this.sup2 === 1) {
+      if (parseInt(this.sup2) === 1) {
         typesDeQuestions = 'classique'
-      } else if (this.sup2 === 2) {
+      } else if (parseInt(this.sup2) === 2) {
         typesDeQuestions = 'a_trous'
       } else {
         typesDeQuestions = listeTypeDeQuestions[i]
