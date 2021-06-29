@@ -32,7 +32,7 @@ export default function cliqueFigure () {
       texte += mathalea2d({ xmin: -4, xmax: 6, ymin: -1, style: '', id: `figure0Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B))
       texte += mathalea2d({ xmin: -4, xmax: 6, ymin: -1, style: '', id: `figure1Ex${this.numeroExercice}Q${i}` }, labels, droite(A, B), segmentAvecExtremites(A, B))
       texte += mathalea2d({ xmin: -4, xmax: 6, ymin: -1, style: '', id: `figure2Ex${this.numeroExercice}Q${i}` }, labels, demiDroite(A, B), segmentAvecExtremites(A, B))
-     texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
+      texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
       texteCorr = mathalea2d({ xmin: -4, xmax: 6, ymin: -1, style: '', id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), segmentAvecExtremites(A, B))
       this.figures[i] = [{ id: `figure0Ex${this.numeroExercice}Q${i}`, solution: true },
         { id: `figure1Ex${this.numeroExercice}Q${i}`, solution: false },

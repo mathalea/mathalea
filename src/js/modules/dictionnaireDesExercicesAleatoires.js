@@ -3123,6 +3123,14 @@ export default {
     "interactifReady": false,
     "name": "6S11"
   },
+  "beta6G10-3": {
+    "titre": "Choisir la bonne figure",
+    "url": "/exercices/6e/beta6G10-3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "cliqueFigure",
+    "name": "beta6G10-3"
+  },
   "beta6N21-2D": {
     "titre": "Utiliser les abscisses fractionnaires",
     "url": "/exercices/6e/beta6N21-2D.js",
@@ -3680,11 +3688,11 @@ export default {
     "name": "betaExemple3Types"
   },
   "betaExempleFigureClic": {
-    "titre": "Sommets du triangle",
+    "titre": "Choisir la bonne figure",
     "url": "/exercices/beta/betaExempleFigureClic.js",
     "amcReady": false,
     "interactifReady": true,
-    "interactifType": "custom",
+    "interactifType": "cliqueFigure",
     "name": "betaExempleFigureClic"
   },
   "betaExempleQuestionsDifferentes": {

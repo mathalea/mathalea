@@ -228,6 +228,7 @@ export function exerciceCliqueFigure (exercice) {
         figSvg.addEventListener('mouseout', mouseOutSvgEffect)
         figSvg.addEventListener('click', mouseSvgClick)
         figSvg.etat = false
+        figSvg.style.margin = '10px'
       }
     }
     // Gestion de la correction
@@ -271,7 +272,7 @@ export function exerciceCliqueFigure (exercice) {
     }
 
     function mouseOverSvgEffect () {
-      this.style.border = 'inset'
+      this.style.border = '1px solid #1DA962'
     }
     function mouseOutSvgEffect () {
       this.style.border = 'none'
@@ -288,7 +289,7 @@ export function exerciceCliqueFigure (exercice) {
         // Passe à l'état choisi donc on désactive les listenners pour over et pour out
         this.removeEventListener('mouseover', mouseOverSvgEffect)
         this.removeEventListener('mouseout', mouseOutSvgEffect)
-        this.style.border = 'solid #f15929'
+        this.style.border = '3px solid #f15929'
         this.etat = true
       }
     }
