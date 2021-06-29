@@ -6901,7 +6901,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_metropole_1.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_metropole_1_cor.tex",
-        "tags": ["", "", "", ""]
+        "tags": ["Statistiques", "Tableur"]
     },
     "dnb_2021_06_metropole_2": {
         "annee": "2021",
@@ -6913,7 +6913,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_metropole_2.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_metropole_2_cor.tex",
-        "tags": ["", "", "", ""]
+        "tags": ["Arithmétique", "Thalès"]
     },
     "dnb_2021_06_metropole_3": {
         "annee": "2021",
@@ -6925,7 +6925,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_metropole_3.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_metropole_3_cor.tex",        
-        "tags": ["", "", "", ""]
+        "tags": ["Probabilités", "Transformations", "Agrandissements-réduction"]
     },
     "dnb_2021_06_metropole_4": {
         "annee": "2021",
@@ -6937,7 +6937,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_metropole_4.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_metropole_4_cor.tex",
-        "tags": ["", "", "", ""]
+        "tags": ["Programme de calculs", "Algorithmique-programmation", "Calcul littéral"]
     },
     "dnb_2021_06_metropole_5": {
         "annee": "2021",
@@ -6949,7 +6949,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_metropole_5.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_metropole_5_cor.tex",
-        "tags": ["", "", "", ""]
+        "tags": ["Pourcentages", "Volumes", "Pythagore"]
     },
     "dnb_2021_06_asie_1": {
         "annee": "2021",
