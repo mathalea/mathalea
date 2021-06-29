@@ -3135,6 +3135,14 @@ export default {
     "interactifReady": false,
     "name": "6S11"
   },
+  "beta6G10-3": {
+    "titre": "Choisir la bonne figure",
+    "url": "/exercices/6e/beta6G10-3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "cliqueFigure",
+    "name": "beta6G10-3"
+  },
   "beta6N21-2D": {
     "titre": "Utiliser les abscisses fractionnaires",
     "url": "/exercices/6e/beta6N21-2D.js",
@@ -3683,6 +3691,27 @@ export default {
     "interactifType": "numerique",
     "name": "CM015"
   },
+  "betaExempleFigureClic": {
+    "titre": "Choisir la bonne figure",
+    "url": "/exercices/beta/betaExempleFigureClic.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "cliqueFigure",
+    "name": "betaExempleFigureClic"
+  },
+  "betaExempleQuestionsDifferentes": {
+    "titre": "Exercice exemple avec un nombre fixe de questions différentes",
+    "url": "/exercices/beta/betaExempleQuestionsDifferentes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleQuestionsDifferentes"
+  },
+  "betaExempleTableau": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/betaExempleTableau.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleTableau"
   "CM016": {
     "titre": "Diviser un entier par 10, 100 ou 1000",
     "url": "/exercices/CM/CM016.js",

@@ -1,186 +1,165 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, texFractionReduite, calcul, lettreDepuisChiffre, htmlConsigne, texFraction } from '../../modules/outils.js'
-import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
+import { listeQuestionsToContenu, combinaisonListes, lettreDepuisChiffre, randint, texFraction } from '../../modules/outils.js'
+import { mathalea2d, droiteGraduee2, point, tracePoint, labelPoint } from '../../modules/2d.js'
+import { pointCliquable } from '../../modules/2dinteractif.js'
+import { afficheScore } from '../../modules/gestionInteractif.js'
+export const titre = 'Utiliser les abscisses fractionnaires'
+export const interactifReady = true
+export const interactifType = 'custom'
 
-export const titre = 'Lire l’abscisse fractionnaire d’un point'
+// Version SVGJS commit 87bd9a3
 
 /**
- * Lire l'abscisse fractionnaire d'un point
- * @author Jean-Claude Lhote et Rémi Angot
- * référence 6N21
- */
-export default function LireAbscisseFractionnaire () {
-  'use strict'
+ * Description didactique de l'exercice
+ * @author
+ * Référence
+*/
+export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = "Lire l'abscisse de chacun des points suivants et donner le résultat sous la forme d'une fraction."
-  this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.sup = 1
-  this.listePackages = 'tkz-euclide'
+  this.consigne = ''
+  this.nbQuestions = 5
+  this.nbCols = 2 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  this.sup = 1 // Niveau de difficulté
+  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.video = '' // Id YouTube ou url
 
-  this.nouvelleVersion = function (numeroExercice) {
-    // numeroExercice est 0 pour l'exercice 1
+  this.nouvelleVersion = function () {
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
     let typeDeQuestions
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
-    if (parseInt(this.sup) === 4) { typeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
-      typeDeQuestions = combinaisonListes(
-        [parseInt(this.sup)],
-        this.nbQuestions
-      )
+    if (this.sup === 4) {
+      typeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
+    } else {
+      typeDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions)
     }
-
-    this.contenu = htmlConsigne(this.consigne)
-    for (let i = 0,
-      abs0,
-      l1,
-      l2,
-      l3,
-      x1,
-      x2,
-      x3,
-      x11,
-      x22,
-      x33,
-      pas1,
-      pas2,
-      idUnique,
-      texte,
-      texteCorr; i < this.nbQuestions; i++) {
-      l1 = lettreDepuisChiffre(i * 3 + 1)
-      l2 = lettreDepuisChiffre(i * 3 + 2)
-      l3 = lettreDepuisChiffre(i * 3 + 3)
-      switch (typeDeQuestions[i]) {
+    const pointsSolutions = []
+    const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
+    const fractionsUtilisees = [] // Pour s'assurer de ne pas poser 2 fois la même question
+    for (let i = 0, texte, texteCorr, origine, num, num2, num3, den, A, B, C, traceA, traceB, traceC, labels, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      // Boucle principale où i+1 correspond au numéro de la question
+      switch (typeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: // Placer des demis aux quarts sur un axe
-          abs0 = 0
-          pas1 = 1
-          pas2 = choice([2, 3, 4])
+          origine = 0
+          den = randint(2, 4)
+          num = randint(1, den * 4)
           break
-
         case 2: // Placer des cinquièmes aux neuvièmes sur un axe
-          abs0 = 0
-          pas1 = 1
-          pas2 = randint(5, 9)
+          origine = 0
+          den = randint(5, 9)
+          num = randint(1, den * 4)
           break
-
         case 3: // Placer des demis aux neuvièmes à partir d'un entier >=1 sur un axe
-          abs0 = randint(1, 5)
-          pas1 = 1
-          pas2 = randint(2, 9)
-          break
+          origine = randint(1, 7)
+          den = randint(2, 9)
+          num = randint(origine * den + 1, (origine + 4) * den)
       }
-      x1 = randint(0, 1)
-      x2 = randint(2, 3)
-      x3 = randint(4, 5)
-      x11 = randint(1, pas2 - 1)
-      x22 = randint(1, pas2 - 1)
-      x33 = randint(1, pas2 - 1)
-      if (context.isHtml) {
-        idUnique = `${i}_${Date.now()}`
-        this.contenu += `<div id="div_svg${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
-        SVG_reperage_sur_un_axe(
-          `div_svg${numeroExercice}${idUnique}`,
-          abs0,
-          6,
-          pas1,
-          pas2,
-          [
-            [l1, x1, x11],
-            [l2, x2, x22],
-            [l3, x3, x33]
-          ],
-          [
-            [abs0 + 1 / pas1, 1, 0],
-            [abs0 + 2 / pas1, 2, 0],
-            [abs0 + 3 / pas1, 3, 0],
-            [abs0 + 4 / pas1, 4, 0],
-            [abs0 + 5 / pas1, 5, 0],
-            [abs0 + 6 / pas1, 6, 0]
-          ],
-          false
-        )
-        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
-        SVG_reperage_sur_un_axe(
-          `div_svg_corr${numeroExercice}${idUnique}`,
-          abs0,
-          6,
-          pas1,
-          pas2,
-          [
-            [l1, x1, x11, true],
-            [l2, x2, x22, true],
-            [l3, x3, x33, true]
-          ],
-          [
-            [abs0 + 1 / pas1, 1, 0],
-            [abs0 + 2 / pas1, 2, 0],
-            [abs0 + 3 / pas1, 3, 0],
-            [abs0 + 4 / pas1, 4, 0],
-            [abs0 + 5 / pas1, 5, 0],
-            [abs0 + 6 / pas1, 6, 0]
-          ],
-          true
-        )
-        this.contenuCorrection += '<br>'
-        if (pgcd(x11, pas2) !== 1 || pgcd(x22, pas2) !== 1 || pgcd(x33, pas2) !== 1) { this.contenuCorrection += 'Remarque : ' }
-        if (pgcd(x11, pas2) !== 1) { this.contenuCorrection += `$${texFraction(x1 * pas2 + x11, pas2)}$ peut se simplifier en $${texFractionReduite(x1 * pas2 + x11, pas2)}\\phantom{espace}$` }
-        if (pgcd(x22, pas2) !== 1) { this.contenuCorrection += `$${texFraction(x2 * pas2 + x22, pas2)}$ peut se simplifier en $${texFractionReduite(x2 * pas2 + x22, pas2)}\\phantom{espace}$` }
-        if (pgcd(x33, pas2) !== 1) { this.contenuCorrection += `$${texFraction(x3 * pas2 + x33, pas2)}$ peut se simplifier en $${texFractionReduite(x3 * pas2 + x33, pas2)}\\phantom{espace}$` }
+      if (this.interactif) {
+        texte = `Place le point $${lettreDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
       } else {
-        // sortie Latex
-        texte = Latex_reperage_sur_un_axe(
-          2,
-          abs0,
-          pas1,
-          pas2,
-          [
-            [l1, x1, x11],
-            [l2, x2, x22],
-            [l3, x3, x33]
-          ],
-          [
-            [calcul(abs0, 0), 0, 0],
-            [calcul(abs0 + 1 / pas1, 0), 1, 0]
-          ],
-          false
-        )
-        texteCorr = Latex_reperage_sur_un_axe(
-          2,
-          abs0,
-          pas1,
-          pas2,
-          [
-            [l1, x1, x11, true],
-            [l2, x2, x22, true],
-            [l3, x3, x33, true]
-          ],
-          [
-            [calcul(abs0, 0), 0, 0],
-            [calcul(abs0 + 1 / pas1, 0), 1, 0]
-          ],
-          true
-        )
-        if (pgcd(x11, pas2) !== 1) { texteCorr += `<br>$\\left(${texFraction(x1 * pas2 + x11, pas2)}$ peut se simplifier en $${texFractionReduite(x1 * pas2 + x11, pas2)}\\right)$.` }
-        if (pgcd(x22, pas2) !== 1) { texteCorr += `<br>$\\left(${texFraction(x2 * pas2 + x22, pas2)}$ peut se simplifier en $${texFractionReduite(x2 * pas2 + x22, pas2)}\\right)$.` }
-        if (pgcd(x33, pas2) !== 1) { texteCorr += `<br>$\\left(${texFraction(x3 * pas2 + x33, pas2)}$ peut se simplifier en $${texFractionReduite(x3 * pas2 + x33, pas2)}\\right)$.` }
+        num2 = randint(origine + 1, (origine + 4) * den, num)
+        num3 = randint(origine + 1, (origine + 4) * den, [num, num2])
+        texte = `Place les points $${lettreDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$.`
+      }
+      const tailleUnite = 4
+      const d = droiteGraduee2({
+        Min: origine,
+        Max: origine + 4 * tailleUnite,
+        Unite: tailleUnite,
+        thickSec: true,
+        thickSecDist: 1 / den
+      })
+      const mesObjets = [d]
+      pointsNonSolutions[i] = []
+      if (this.interactif) {
+        for (let indicePoint = 0, monPoint; indicePoint < 60; indicePoint++) {
+          monPoint = pointCliquable(indicePoint / den * tailleUnite, 0, { size: 8, width: 5, color: 'blue', radius: tailleUnite / den / 2 })
+          mesObjets.push(monPoint)
+          if (indicePoint === num - origine * den) {
+            pointsSolutions[i] = monPoint
+          } else {
+            pointsNonSolutions[i].push(monPoint)
+          }
+        }
+      }
+      texte += '<br>' + mathalea2d({ xmin: -2, xmax: 4 * tailleUnite + 1, ymin: -1, ymax: 2, style: 'display:block, top-margin:20px' }, mesObjets)
+      texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
 
+      A = point(((num / den) - origine) * tailleUnite, 0, lettreDepuisChiffre(i + 1))
+      traceA = tracePoint(A)
+      traceA.color = 'blue'
+      traceA.epaisseur = 3
+      traceA.taille = 5
+      labels = labelPoint(A)
+      if (!this.interactif) {
+        A.nom = lettreDepuisChiffre(i * 3 + 1)
+        B = point(((num2 / den) - origine) * tailleUnite, 0, lettreDepuisChiffre(i * 3 + 2))
+        traceB = tracePoint(B)
+        traceB.color = 'blue'
+        traceB.epaisseur = 3
+        traceB.taille = 5
+        C = point(((num3 / den) - origine) * tailleUnite, 0, lettreDepuisChiffre(i * 3 + 3))
+        traceC = tracePoint(C)
+        traceC.color = 'blue'
+        traceC.epaisseur = 3
+        traceC.taille = 5
+        labels = labelPoint(A, B, C)
+      }
+
+      if (this.interactif) {
+        texteCorr = `$${lettreDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
+        texteCorr += '<br>' + mathalea2d({ xmin: -1, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2 }, d, traceA, labels)
+      } else {
+        texteCorr = `$${lettreDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$`
+        texteCorr += '<br>' + mathalea2d({ xmin: -1, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2 }, d, traceA, traceB, traceC, labels)
+      }
+
+      if (!isArrayInArray(fractionsUtilisees, [num, den])) {
+        // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        i++
+        fractionsUtilisees[i] = [num, den]
       }
+      cpt++
     }
-    if (!context.isHtml) { listeQuestionsToContenu(this) }
+    this.correctionInteractive = (elt) => {
+      let nbBonnesReponses = 0
+      let nbMauvaisesReponses = 0
+      for (let i = 0, aucunMauvaisPointsCliques; i < this.nbQuestions; i++) {
+        aucunMauvaisPointsCliques = true
+        const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+        pointsSolutions[i].stopCliquable()
+        for (const monPoint of pointsNonSolutions[i]) {
+          if (monPoint.etat) aucunMauvaisPointsCliques = false
+          monPoint.stopCliquable()
+        }
+        if (aucunMauvaisPointsCliques && pointsSolutions[i].etat) {
+          divFeedback.innerHTML = '😎'
+          nbBonnesReponses++
+        } else {
+          divFeedback.innerHTML = '☹️'
+          nbMauvaisesReponses++
+        }
+      }
+      afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
+    }
+    listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    4,
-    '1 : Demis, tiers ou quarts avec zéro placé\n2 : Des cinquièmes aux neuvièmes avec zéro placé \n3 : Toutes les fractions précédentes mais zéro non visible\n4 : Mélange'
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Demis, tiers ou quarts avec zéro placé\n2 : Des cinquièmes aux neuvièmes avec zéro placé \n3 : Toutes les fractions précédentes mais zéro non visible\n4 : Mélange'
   ]
+}
+
+/**
+ * Vérifie la présence d'un tableau dans un tableau de tableau
+ * @param {array} arr
+ * @param {array} item
+ * @returns {boolean}
+ */
+function isArrayInArray (arr, item) {
+  const itemAsString = JSON.stringify(item)
+  const contains = arr.some(function (ele) {
+    return JSON.stringify(ele) === itemAsString
+  })
+  return contains
 }
