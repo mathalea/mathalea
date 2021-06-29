@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPointEchelle, texteParPoint } from '../../modules/2d.js'
+import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPoint } from '../../modules/2d.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
