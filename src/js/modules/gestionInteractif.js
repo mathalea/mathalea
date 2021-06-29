@@ -224,10 +224,15 @@ export function exerciceCliqueFigure (exercice) {
     for (let i = 0; i < exercice.nbQuestions; i++) {
       for (const objetFigure of exercice.figures[i]) {
         const figSvg = document.getElementById(objetFigure.id)
-        figSvg.addEventListener('mouseover', mouseOverSvgEffect)
-        figSvg.addEventListener('mouseout', mouseOutSvgEffect)
-        figSvg.addEventListener('click', mouseSvgClick)
-        figSvg.etat = false
+        if (!figSvg.hasMathaleaListeners) {
+          figSvg.addEventListener('mouseover', mouseOverSvgEffect)
+          figSvg.addEventListener('mouseout', mouseOutSvgEffect)
+          figSvg.addEventListener('click', mouseSvgClick)
+          figSvg.etat = false
+          figSvg.style.margin = '10px'
+          figSvg.hasMathaleaListeners = true 
+          // On enregistre que l'élément a déjà un listenner pour ne pas lui remettre le même à l'appui sur "Nouvelles Données"
+        }
       }
     }
     // Gestion de la correction
@@ -255,6 +260,7 @@ export function exerciceCliqueFigure (exercice) {
             eltFigure.removeEventListener('mouseover', mouseOverSvgEffect)
             eltFigure.removeEventListener('mouseout', mouseOutSvgEffect)
             eltFigure.removeEventListener('click', mouseSvgClick)
+            eltFigure.hasMathaleaListeners = false
             if (eltFigure.etat) nbFiguresCliquees++
             if (eltFigure.etat !== objetFigure.solution) erreur = true
           }
@@ -271,7 +277,7 @@ export function exerciceCliqueFigure (exercice) {
     }
 
     function mouseOverSvgEffect () {
-      this.style.border = 'inset'
+      this.style.border = '1px solid #1DA962'
     }
     function mouseOutSvgEffect () {
       this.style.border = 'none'
@@ -288,7 +294,7 @@ export function exerciceCliqueFigure (exercice) {
         // Passe à l'état choisi donc on désactive les listenners pour over et pour out
         this.removeEventListener('mouseover', mouseOverSvgEffect)
         this.removeEventListener('mouseout', mouseOutSvgEffect)
-        this.style.border = 'solid #f15929'
+        this.style.border = '3px solid #f15929'
         this.etat = true
       }
     }
