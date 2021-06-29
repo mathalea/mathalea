@@ -87,6 +87,7 @@
 |6C31|Divisions décimales|OK|AMCNum|OK|numerique|
 |6C33|Calculer en utilisant les priorités opératoires|OK|AMCNum|OK|numerique|
 |6C34|Dernier chiffre d’un calcul|OK|AMCNum|OK|numerique|
+|6G10-3|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |6G23-1|Mesurer un angle|OK|qcmMono|OK|qcm|
 |6G25-1|Symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
 |6G33|Reconnaitre un quadrilatère particulier à partir de ses propriétés|OK|qcmMult|OK|qcm|
@@ -99,6 +100,7 @@
 |6M31|Conversions de volume|OK|qcmMono|OK|qcm,mathLive|
 |6N20-2|Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.|KO|KO|OK|mathLive|
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1).|KO|KO|OK|mathLive|
+|6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|OK|numerique|
@@ -108,12 +110,6 @@
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|qcm|
 |6N43|Critères de divisibilité|OK|qcmMono|OK|qcm|
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
-|beta6G10-3|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
-|beta6N21-2D|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
-|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
-|betaCaN6|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
-|betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
-|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
@@ -134,7 +130,6 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
-|betaAlgoTortue2|Tortue Scratch avec répétitions|OK|qcmMono|OK|custom|
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
 |betaCaN6|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
 |betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
