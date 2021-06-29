@@ -1,9 +1,9 @@
 // on importe les fonctions nécessaires.
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, choice, calcul, shuffle } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, choice, calcul, shuffle, arrondi } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, tournerG, texteParPointEchelle } from '../../modules/2d.js'
+import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, tournerG, texteParPointEchelle, texteParPoint } from '../../modules/2d.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
@@ -96,14 +96,22 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     const typeDeQuestions = [
       'polygonesReguliers',
       'spirales',
-      'rosaces'
+      'rosaces1',
+      'roueDentee'
     ]
 
-    const choix = typeDeQuestions[randint(0, 2)]
-    console.log(choix)
+    const choix = typeDeQuestions[randint(0, 3)]
     let val1, val2, n, n2, val3
     const sens = choice(['turnright', 'turnleft'])
+    let sensOppose
+    if (sens === 'turnright') {
+      sensOppose = 'turnleft'
+    } else {
+      sensOppose = 'turnright'
+    }
     const lutins = []
+    const bonneReponse = randint(0, 3)
+    console.log(bonneReponse)
     const angleDepart = 90 // On choisit l'orientation de départ
     const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
     const yDepart = 0 // Mais on pourrait envisager de changer ça et de recadrer...
@@ -124,23 +132,45 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
     // On écrit le début du programme dans l'attribut codeScratch du lutin... cet attribut de type chaine contient le code du programme du lutin en Scratch Latex
     // A chaque instruction ajoutée dans le programme correspond une action à effectuée sur l'objet lutin..
-    lutins[0].codeScratch = '\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n '
+    lutins[0].codeScratch = '\\begin{scratch}[print,fill,blocks,scale=0.75]\n \\blockinit{quand \\greenflag est cliqué}\n '
     lutins[0].codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
     lutins[0].codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n `
     lutins[0].codeScratch += '\\blockpen{stylo en position d\'écriture}\n '
     switch (choix) {
       case 'polygonesReguliers':
-      case 'frises':
-
-        n = choice([3, 4, 5, 6, 8]) // Nombre de côtés
-        val1 = calcul(360 / n)
+        n = choice([3, 5, 6, 7, 8]) // Nombre de côtés
+        val1 = arrondi(360 / n, 1)
         val2 = (10 - n) * 10
-        lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
+        if (bonneReponse !== 3) {
+          lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
+{
+\\blockmove{avancer de \\ovalnum{${val2}} pas}\n`
+        } else {
+          lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val1}} degrés}
+\\blockrepeat{répéter \\ovalnum{${n - 1}} fois}
 {
 \\blockmove{avancer de \\ovalnum{${val2}} pas}
-\\blockmove{tourner \\${sens}{} de \\ovalnum{${val1}} degrés}
-}
-`
+\n`
+        }
+        if (bonneReponse === 0 || bonneReponse === 3) {
+          lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val1}} degrés}
+}\n`
+        } else {
+          if (bonneReponse === 1) {
+            lutins[0].codeScratch += `\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${val1}} degrés}
+}\n`
+          } else {
+            if (val1 !== 90) {
+              lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${180 - val1}} degrés}
+}\n`
+            } else {
+              lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val1}} degrés}
+              \\blockmove{avancer de \\ovalnum{${val2}} pas}\n
+              \\blockmove{tourner \\${sens}{} de \\ovalnum{${val1}} degrés}
+}\n`
+            }
+          }
+        }
         orienter(-90, lutins[2])
         for (let i = 0; i < n; i++) {
           avance(val2, lutins[0])
@@ -163,30 +193,70 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
             tournerG(val1, lutins[0])
             tournerG(val1, lutins[3])
             tournerD(val1, lutins[1])
-            tournerG(180 - val1, lutins[2])
+            if (val1 !== 90) {
+              tournerG(180 - val1, lutins[2])
+            } else {
+              tournerG(val1, lutins[2])
+              avance(val2, lutins[2])
+              tournerG(val1, lutins[2])
+            }
           }
         }
         break
-      case 'rosaces':
+      case 'rosaces1':
         n = choice([3, 4, 5, 6, 8]) // Nombre branches
         n2 = randint(3, 6, 5)
         val1 = randint(2, 4) * 10
         val2 = (10 - n) * 5
         val3 = (8 - n2) * 4
-        lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
-{
-\\blockmove{aller à x: \\ovalnum{0} y: \\ovalnum{0}}
-\\blockmove{avancer de \\ovalnum{${val1}} pas}
-\\blockmove{tourner \\turnright{} de \\ovalnum{${calcul(90 - 180 / n2)}} degrés}
-\\blockrepeat{répéter \\ovalnum{${n2}} fois}
-{
-\\blockmove{avancer de \\ovalnum{${val3}} pas}
-\\blockmove{tourner \\turnleft{} de \\ovalnum{${calcul(360 / n2)}} degrés}
-}
-\\blockmove{tourner \\turnleft{} de \\ovalnum{${calcul(90 - 180 / n2)}} degrés}
-\\blockmove{tourner \\${sens}{} de \\ovalnum{${calcul(360 / n)}} degrés}
-}
-`
+        lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois} \n{`
+        if (bonneReponse < 2) {
+          lutins[0].codeScratch += '\\blockmove{aller à x: \\ovalnum{0} y: \\ovalnum{0}}\n'
+        }
+        if (bonneReponse % 2 === 0) {
+          lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${val1}} pas}\n`
+        } else {
+          if (bonneReponse === 1) {
+            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${calcul(val1 / 2)}} pas}\n`
+          } else {
+            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${calcul(val1 + 2)}} pas}\n`
+          }
+        }
+        switch (bonneReponse) {
+          case 0:
+            lutins[0].codeScratch += `\n\\blockmove{tourner \\turnright{} de \\ovalnum{${calcul(90 - 180 / n2)}} degrés}\n`
+            break
+          case 1:
+            lutins[0].codeScratch += '\n\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
+            break
+          case 2:
+            lutins[0].codeScratch += '\n\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
+            break
+          case 3:
+            lutins[0].codeScratch += '\n'
+            break
+        }
+        lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n2}} fois}\n
+        {
+          \\blockmove{avancer de \\ovalnum{${val3}} pas}\n
+          \\blockmove{tourner \\turnleft{} de \\ovalnum{${calcul(360 / n2)}} degrés}\n
+        }\n`
+        switch (bonneReponse) {
+          case 0:
+            lutins[0].codeScratch += `\\blockmove{tourner \\turnleft{} de \\ovalnum{${calcul(90 - 180 / n2)}} degrés}\n`
+            break
+          case 1:
+            lutins[0].codeScratch += '\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
+            break
+          case 2:
+            lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
+            break
+          case 3:
+            lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{180} degrés}\n'
+            break
+        }
+        lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${calcul(360 / n)}} degrés}\n}\n`
+
         for (let i = 0; i < n; i++) {
           allerA(0, 0, lutins[0])
           allerA(0, 0, lutins[1])
@@ -230,36 +300,146 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         n = choice([3, 4, 5, 6, 8]) // Nombre de côtés
         n2 = randint(1, 4) + Math.floor((9 - n) / 2)
         val1 = randint(1, 4) * 5
-        val2 = 80 + randint(0, 6) * 5
+        val2 = 60 + randint(0, 4) * 5
         val3 = calcul(360 / n)
-        lutins[0].codeScratch += `\\blockvariable{mettre \\ovalvariable{longueur} à \\ovalnum{${val1}}}
-\\blockrepeat{répéter jusqu'à ce que \\booloperator{\\ovalvariable{longueur}>\\ovalnum{${val2}}}}
-{
-\\blockmove{avancer de \\ovalvariable{longueur} pas}
-\\blockmove{tourner \\${sens}{} de \\ovalnum{${val3}} degrés}
-\\blockvariable{ajouter \\ovalnum{${n2}} à \\ovalvariable{longueur}}
-}
-`
+
+        if (bonneReponse !== 2) {
+          lutins[0].codeScratch += `\\blockvariable{mettre \\ovalvariable*{longueur} à \\ovalnum{${val1}}}
+          \\blockrepeat{répéter jusqu'à ce que \\booloperator{\\ovalvariable{longueur}>\\ovalnum{${val2}}}}
+          {
+          \\blockmove{avancer de \\ovalvariable{longueur} pas}\n`
+        } else {
+          lutins[0].codeScratch += `\\blockvariable{mettre \\ovalvariable*{longueur} à \\ovalnum{${val2}}}
+          \\blockrepeat{répéter jusqu'à ce que \\booloperator{\\ovalvariable{longueur}<\\ovalnum{${val1}}}}
+          {
+          \\blockmove{avancer de \\ovalvariable{longueur} pas}\n`
+        }
+        if (bonneReponse % 2 === 0) { // les lutins 0 et 2 tournent normalement
+          lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val3}} degrés}\n`
+        } else {
+          if (bonneReponse === 1) {
+            if (sens === 'turnright') { // Le lutin 1 tourne dans le mauvais sens
+              lutins[0].codeScratch += `\\blockmove{tourner \\turnleft{} de \\ovalnum{${val3}} degrés}\n`
+            } else {
+              lutins[0].codeScratch += `\\blockmove{tourner \\turnright{} de \\ovalnum{${val3}} degrés}\n`
+            }
+          } else { // le lutin 3 ne tourne pas assez
+            lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val3 - 10}} degrés}\n`
+          }
+        }
+        if (bonneReponse === 2) {
+          lutins[0].codeScratch += `\\blockvariable{ajouter \\ovalnum{${-n2}} à \\ovalvariable{longueur}}\n`
+          lutins[0].codeScratch += '}\n'
+        } else {
+          lutins[0].codeScratch += `\\blockvariable{ajouter \\ovalnum{${n2}} à \\ovalvariable{longueur}}\n`
+          lutins[0].codeScratch += '}\n'
+        }
         for (let i = val1; i < val2; i += n2) {
           avance(i, lutins[0])
           avance(i, lutins[1]) // Le lutin 1 tourne dans le mauvais sens
-          avance(val2 - i, lutins[2]) // Le lutin2 diminue la logneur de ses déplacements
           avance(i, lutins[3]) // le lutin3 ne tourne pas assez
           if (sens === 'turnright') {
             tournerD(val3, lutins[0])
             tournerG(val3, lutins[1])
-            tournerD(val3, lutins[2])
             tournerD(val3 - 10, lutins[3])
           } else {
             tournerG(val3, lutins[0])
             tournerD(val3, lutins[1])
-            tournerG(val3, lutins[2])
             tournerG(val3 - 10, lutins[3])
+          }
+        }
+        for (let i = val2; i > val1; i -= n2) {
+          avance(i, lutins[2]) // Le lutin2 diminue la logneur de ses déplacements
+          if (sens === 'turnright') {
+            tournerD(val3, lutins[2])
+          } else {
+            tournerG(val3, lutins[2])
+          }
+        }
+        break
+      case 'roueDentee':
+        n = choice([3, 4, 5, 6, 8]) // Nombre de côtés
+        n2 = randint(1, 4) + Math.floor((9 - n) / 2)
+        val1 = randint(1, 2) * 10
+        val2 = calcul(720 / n)
+        val3 = calcul(360 / n)
+
+        if (bonneReponse < 5) {
+          lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
+{
+\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`
+          if (bonneReponse < 2) {
+            lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val3}} degrés}\n`
+          } else {
+            lutins[0].codeScratch += `\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${val3}} degrés}\n`
+          }
+          lutins[0].codeScratch += `\\blockmove{avancer de \\ovalvariable{${val1 * 2}} pas}\n`
+          if (bonneReponse === 0) {
+            lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val2}} degrés}\n`
+          } else {
+            lutins[0].codeScratch += `\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${val2}} degrés}\n`
+          }
+          if (bonneReponse < 3) {
+            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalvariable{${val1 * 2}} pas}\n`
+          } else {
+            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`
+          }
+          if (bonneReponse > 0) {
+            lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val2}} degrés}\n`
+          } else {
+            lutins[0].codeScratch += `\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${val2}} degrés}\n`
+          }
+          lutins[0].codeScratch += '}\n'
+        }
+        for (let i = 0; i < n; i++) {
+          avance(val1, lutins[0])
+          avance(val1, lutins[1])
+          avance(val1, lutins[2])
+          avance(val1, lutins[3])
+          if (sens === 'turnright') {
+            tournerD(val3, lutins[0])
+            tournerD(val3, lutins[1])
+            tournerG(val3, lutins[2])
+            tournerG(val3, lutins[3])
+          } else {
+            tournerG(val3, lutins[0])
+            tournerG(val3, lutins[1])
+            tournerD(val3, lutins[2])
+            tournerD(val3, lutins[3])
+          }
+          avance(val1 * 2, lutins[0])
+          avance(val1 * 2, lutins[1])
+          avance(val1 * 2, lutins[2])
+          avance(val1 * 2, lutins[3])
+          if (sens === 'turnright') {
+            tournerD(val2, lutins[0])
+            tournerG(val2, lutins[1])
+            tournerG(val2, lutins[2])
+            tournerG(val2, lutins[3])
+          } else {
+            tournerG(val2, lutins[0])
+            tournerD(val2, lutins[1])
+            tournerD(val2, lutins[2])
+            tournerD(val2, lutins[3])
+          }
+          avance(val1 * 2, lutins[0])
+          avance(val1 * 2, lutins[1])
+          avance(val1 * 2, lutins[2])
+          avance(val1, lutins[3])
+          if (sens === 'turnright') {
+            tournerG(val2, lutins[0])
+            tournerD(val2, lutins[1])
+            tournerD(val2, lutins[2])
+            tournerD(val2, lutins[3])
+          } else {
+            tournerD(val2, lutins[0])
+            tournerG(val2, lutins[1])
+            tournerG(val2, lutins[2])
+            tournerG(val2, lutins[3])
           }
         }
         break
     }
-
     lutins[0].codeScratch += '\\blockpen{relever le stylo}\n'
     lutins[0].codeScratch += '\\end{scratch}'
     texte = 'Quelle figure est tracée par le stylo à l\'éxécution du programme ci-dessous ?<br>Le tracé démarre à la croix bleue.<br>'
@@ -282,7 +462,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       largeur = Math.max(largeur, lutins[i].xMax - lutins[i].xMin)
       hauteur = Math.max(hauteur, lutins[i].yMax - lutins[i].yMin)
     }
-    largeur = Math.round(largeur + 1)
+    largeur = Math.round(largeur + 1.5)
 
     if (context.isHtml) { // On crée 2 colonnes selon le contexte html / Latex
       texte += '<table style="width: 100%"><tr><td>'
@@ -300,7 +480,9 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
 
     let ordreLutins = [0, 1, 2, 3]
-    ordreLutins = shuffle(ordreLutins) // On mélange les emplacements pour éviter d'avoir la bonne réponse au même endroit
+    ordreLutins = shuffle(ordreLutins) // On mélange les emplacements pour éviter d'avoir la bonne réponse au même endroit-
+    console.log(ordreLutins)
+
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < lutins[i].listeTraces.length; j++) { // On recadre les traces des lutins...
         lutins[i].listeTraces[j][0] -= Math.floor(lutins[i].xMin)
@@ -315,28 +497,28 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       depart[i].taille = 5
       depart[i].color = 'blue'
       depart[i].epaisseur = 2
-      if (i === 0) {
-        objetsCorrection.push(depart[0])
+      if (i === bonneReponse) {
+        objetsCorrection.push(depart[i])
       }
     }
     const echelle = segment(0, hauteur + 0.5, 1, hauteur + 0.5)
     echelle.epaisseur = 2
     echelle.styleExtremites = '|-|'
-    objetsCorrection.push(grille(-1, -1, largeur + 1), hauteur + 1, 'gray', 0.5, 0.5)
-    objetsCorrection.push(lutins[0])
+    // objetsCorrection.push(grille(-1, -1, largeur + 1, hauteur + 1, 'gray', 0.5, 0.5))
+    objetsCorrection.push(lutins[bonneReponse])
     paramsEnonces.xmin = -0.5
-    paramsEnonces.ymin = -0.5
+    paramsEnonces.ymin = -1.5
     paramsEnonces.xmax = largeur
     paramsEnonces.ymax = hauteur + 1
-    paramsEnonces.pixelsParCm = Math.round(300 / largeur)
-    paramsEnonces.scale = calcul(3 / largeur)
+    paramsEnonces.pixelsParCm = Math.round(400 / largeur)
+    paramsEnonces.scale = calcul(4 / largeur)
     paramsEnonces.style = ''
     paramsCorrection.xmin = -0.5
     paramsCorrection.ymin = -0.5
     paramsCorrection.xmax = largeur
     paramsCorrection.ymax = hauteur + 1
-    paramsCorrection.pixelsParCm = Math.round(300 / largeur)
-    paramsCorrection.scale = calcul(3 / largeur)
+    paramsCorrection.pixelsParCm = Math.round(400 / largeur)
+    paramsCorrection.scale = calcul(4 / largeur)
 
     // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
     for (let i = 0; i < 4; i++) {
@@ -344,10 +526,10 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       texte += mathalea2d(paramsEnonces,
         lutins[ordreLutins[i]],
         depart[ordreLutins[i]],
-        grille(-0.5, -0.5, largeur, hauteur + 1, 'gray', 0.5, 0.5),
-        texteParPointEchelle('10 pas', point(0.5, hauteur + 0.2), 'milieu', 'black', 0.7),
-        texteParPointEchelle(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.3), 'milieu', 'black', 0.7),
-        echelle
+        // grille(-0.5, -0.5, largeur, hauteur + 1, 'gray', 0.5, 0.5),
+        // texteParPointEchelle('10 pas', point(0.5, hauteur + 0.2), 'milieu', 'black', 0.7),
+        texteParPoint(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.8), 'milieu', 'black', 1)
+        // echelle
       )
       if (i === 1) texte += '<br>'
     }
@@ -380,9 +562,9 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         ],
         options: { ordered: true }
       }
-      this.autoCorrection[0].propositions[ordreLutins.indexOf(0)].statut = true
+      this.autoCorrection[0].propositions[ordreLutins.indexOf(bonneReponse)].statut = true
     }
-    this.indiceBonneFigure = ordreLutins.indexOf(0)
+    this.indiceBonneFigure = ordreLutins.indexOf(bonneReponse)
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
     texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`
 
