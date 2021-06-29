@@ -6894,7 +6894,7 @@ export let dictionnaireDNB = {
     "dnb_2021_06_metropole_1": {
         "annee": "2021",
         "lieu": "Métropole",
-        "mois": "Septembre",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/dnb/2021/tex/png/dnb_2021_06_metropole_1.png",
         "pngcor": "/dnb/2021/tex/png/dnb_2021_06_metropole_1_cor.png",
@@ -6906,7 +6906,7 @@ export let dictionnaireDNB = {
     "dnb_2021_06_metropole_2": {
         "annee": "2021",
         "lieu": "Métropole",
-        "mois": "Septembre",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/dnb/2021/tex/png/dnb_2021_06_metropole_2.png",
         "pngcor": "/dnb/2021/tex/png/dnb_2021_06_metropole_2_cor.png",
@@ -6918,19 +6918,19 @@ export let dictionnaireDNB = {
     "dnb_2021_06_metropole_3": {
         "annee": "2021",
         "lieu": "Métropole",
-        "mois": "Septembre",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/dnb/2021/tex/png/dnb_2021_06_metropole_3.png",
         "pngcor": "/dnb/2021/tex/png/dnb_2021_06_metropole_3_cor.png",
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_metropole_3.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_metropole_3_cor.tex",        
-        "tags": ["Probabilités", "Transformations", "Agrandissements-réduction"]
+        "tags": ["Probabilités", "Transformations", "Agrandissements-réduction","QCM"]
     },
     "dnb_2021_06_metropole_4": {
         "annee": "2021",
         "lieu": "Métropole",
-        "mois": "Septembre",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/dnb/2021/tex/png/dnb_2021_06_metropole_4.png",
         "pngcor": "/dnb/2021/tex/png/dnb_2021_06_metropole_4_cor.png",
@@ -6942,7 +6942,7 @@ export let dictionnaireDNB = {
     "dnb_2021_06_metropole_5": {
         "annee": "2021",
         "lieu": "Métropole",
-        "mois": "Septembre",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/dnb/2021/tex/png/dnb_2021_06_metropole_5.png",
         "pngcor": "/dnb/2021/tex/png/dnb_2021_06_metropole_5_cor.png",
@@ -6961,7 +6961,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_asie_1.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_asie_1_cor.tex",
-        "tags": ["", "", "", ""]
+        "tags": ["QCM", "Fonctions", "Tableur", "Équations","Puissances"]
     },
     "dnb_2021_06_asie_2": {
         "annee": "2021",
@@ -6973,7 +6973,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_asie_2.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex",
-        "tags": ["", "", "", ""]
+        "tags": ["Pythagore", "Transformations", "Agrandissement-réduction", "Trigonométrie"]
     },
     "dnb_2021_06_asie_3": {
         "annee": "2021",
@@ -6985,7 +6985,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_asie_3.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_asie_3_cor.tex",
-        "tags": ["", "", "", ""]
+        "tags": ["Algorithmique-programmation", "Probabilités"]
     },
     "dnb_2021_06_asie_4": {
         "annee": "2021",
@@ -6997,7 +6997,7 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_asie_4.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_asie_4_cor.tex",
-        "tags": ["", "", "", ""]
+        "tags": ["Vitesses", "Statistiques", "Grandeurs composées", "Vrai-faux"]
     },
     "dnb_2021_06_asie_5": {
         "annee": "2021",
@@ -7009,6 +7009,6 @@ export let dictionnaireDNB = {
         "typeExercice": "dnb",
         "url": "/dnb/2021/tex/dnb_2021_06_asie_5.tex",
         "urlcor": "/dnb/2021/tex/dnb_2021_06_asie_5_cor.tex",
-        "tags": ["", "", "", ""]
+        "tags": ["Géométrie dans l'espace", "Volumes", "Prise d'initiatives"]
     },
 }
