@@ -10,7 +10,7 @@ export const titre = 'Lire l’abscisse fractionnaire d’un point'
  * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N21
  */
-export default function Lire_abscisse_fractionnaire () {
+export default function LireAbscisseFractionnaire () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -31,7 +31,7 @@ export default function Lire_abscisse_fractionnaire () {
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup == 4) { typeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+    if (parseInt(this.sup) === 4) { typeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
       typeDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions
@@ -52,7 +52,7 @@ export default function Lire_abscisse_fractionnaire () {
       x33,
       pas1,
       pas2,
-      id_unique,
+      idUnique,
       texte,
       texteCorr; i < this.nbQuestions; i++) {
       l1 = lettreDepuisChiffre(i * 3 + 1)
@@ -84,10 +84,10 @@ export default function Lire_abscisse_fractionnaire () {
       x22 = randint(1, pas2 - 1)
       x33 = randint(1, pas2 - 1)
       if (context.isHtml) {
-        id_unique = `${i}_${Date.now()}`
-        this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
+        idUnique = `${i}_${Date.now()}`
+        this.contenu += `<div id="div_svg${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
-          `div_svg${numeroExercice}${id_unique}`,
+          `div_svg${numeroExercice}${idUnique}`,
           abs0,
           6,
           pas1,
@@ -107,9 +107,9 @@ export default function Lire_abscisse_fractionnaire () {
           ],
           false
         )
-        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
+        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
-          `div_svg_corr${numeroExercice}${id_unique}`,
+          `div_svg_corr${numeroExercice}${idUnique}`,
           abs0,
           6,
           pas1,
@@ -130,10 +130,10 @@ export default function Lire_abscisse_fractionnaire () {
           true
         )
         this.contenuCorrection += '<br>'
-        if (pgcd(x11, pas2) != 1 || pgcd(x22, pas2) != 1 || pgcd(x33, pas2) != 1) { this.contenuCorrection += 'Remarque : ' }
-        if (pgcd(x11, pas2) != 1) { this.contenuCorrection += `$${texFraction(x1 * pas2 + x11, pas2)}$ peut se simplifier en $${texFractionReduite(x1 * pas2 + x11, pas2)}\\phantom{espace}$` }
-        if (pgcd(x22, pas2) != 1) { this.contenuCorrection += `$${texFraction(x2 * pas2 + x22, pas2)}$ peut se simplifier en $${texFractionReduite(x2 * pas2 + x22, pas2)}\\phantom{espace}$` }
-        if (pgcd(x33, pas2) != 1) { this.contenuCorrection += `$${texFraction(x3 * pas2 + x33, pas2)}$ peut se simplifier en $${texFractionReduite(x3 * pas2 + x33, pas2)}\\phantom{espace}$` }
+        if (pgcd(x11, pas2) !== 1 || pgcd(x22, pas2) !== 1 || pgcd(x33, pas2) !== 1) { this.contenuCorrection += 'Remarque : ' }
+        if (pgcd(x11, pas2) !== 1) { this.contenuCorrection += `$${texFraction(x1 * pas2 + x11, pas2)}$ peut se simplifier en $${texFractionReduite(x1 * pas2 + x11, pas2)}\\phantom{espace}$` }
+        if (pgcd(x22, pas2) !== 1) { this.contenuCorrection += `$${texFraction(x2 * pas2 + x22, pas2)}$ peut se simplifier en $${texFractionReduite(x2 * pas2 + x22, pas2)}\\phantom{espace}$` }
+        if (pgcd(x33, pas2) !== 1) { this.contenuCorrection += `$${texFraction(x3 * pas2 + x33, pas2)}$ peut se simplifier en $${texFractionReduite(x3 * pas2 + x33, pas2)}\\phantom{espace}$` }
       } else {
         // sortie Latex
         texte = Latex_reperage_sur_un_axe(
@@ -168,9 +168,9 @@ export default function Lire_abscisse_fractionnaire () {
           ],
           true
         )
-        if (pgcd(x11, pas2) != 1) { texteCorr += `<br>$\\left(${texFraction(x1 * pas2 + x11, pas2)}$ peut se simplifier en $${texFractionReduite(x1 * pas2 + x11, pas2)}\\right)$.` }
-        if (pgcd(x22, pas2) != 1) { texteCorr += `<br>$\\left(${texFraction(x2 * pas2 + x22, pas2)}$ peut se simplifier en $${texFractionReduite(x2 * pas2 + x22, pas2)}\\right)$.` }
-        if (pgcd(x33, pas2) != 1) { texteCorr += `<br>$\\left(${texFraction(x3 * pas2 + x33, pas2)}$ peut se simplifier en $${texFractionReduite(x3 * pas2 + x33, pas2)}\\right)$.` }
+        if (pgcd(x11, pas2) !== 1) { texteCorr += `<br>$\\left(${texFraction(x1 * pas2 + x11, pas2)}$ peut se simplifier en $${texFractionReduite(x1 * pas2 + x11, pas2)}\\right)$.` }
+        if (pgcd(x22, pas2) !== 1) { texteCorr += `<br>$\\left(${texFraction(x2 * pas2 + x22, pas2)}$ peut se simplifier en $${texFractionReduite(x2 * pas2 + x22, pas2)}\\right)$.` }
+        if (pgcd(x33, pas2) !== 1) { texteCorr += `<br>$\\left(${texFraction(x3 * pas2 + x33, pas2)}$ peut se simplifier en $${texFractionReduite(x3 * pas2 + x33, pas2)}\\right)$.` }
 
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

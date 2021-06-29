@@ -10,8 +10,7 @@ export const titre = 'Lire l’abscisse décimale d’un point'
  * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N30
  */
-export default function Lire_abscisse_decimale () {
-  'use strict'
+export default function LireAbscisseDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = "Lire l'abscisse de chacun des points suivants."
@@ -31,7 +30,7 @@ export default function Lire_abscisse_decimale () {
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup == 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+    if (parseInt(this.sup) === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
       typesDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions
@@ -52,7 +51,7 @@ export default function Lire_abscisse_decimale () {
       x33,
       pas1,
       pas2,
-      id_unique,
+      idUnique,
       texte,
       texteCorr; i < this.nbQuestions; i++) {
       l1 = lettreDepuisChiffre(i * 3 + 1)
@@ -84,10 +83,10 @@ export default function Lire_abscisse_decimale () {
       x22 = randint(1, 9)
       x33 = randint(1, 3)
       if (context.isHtml) {
-        id_unique = `${i}_${Date.now()}`
-        this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
+        idUnique = `${i}_${Date.now()}`
+        this.contenu += `<div id="div_svg${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
-          `div_svg${numeroExercice}${id_unique}`,
+          `div_svg${numeroExercice}${idUnique}`,
           abs0,
           6,
           pas1,
@@ -103,9 +102,9 @@ export default function Lire_abscisse_decimale () {
           ],
           false
         )
-        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
+        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
-          `div_svg_corr${numeroExercice}${id_unique}`,
+          `div_svg_corr${numeroExercice}${idUnique}`,
           abs0,
           6,
           pas1,
