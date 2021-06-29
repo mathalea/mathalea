@@ -101,7 +101,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       'roueDentee',
       'frise1'
     ])
-    let val1, val2, n, n2, val3
+    let val1, val2, val3, n, n2, n3
     const sens = choice(['turnright', 'turnleft'])
     let sequenceFrise1
     let sensOppose
@@ -441,22 +441,24 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         break
       case 'frise1':
         n = 3 // Nombre de répétitions
+        n2 = choice([45, 60, 90])
+        n3 = choice([45, 60, 90])
         val1 = randint(1, 2) * 5
         val2 = randint(1, 3) * 5
         val3 = randint(2, 4) * 5
         sequenceFrise1 = [
           [`\\blockmove{avancer de \\ovalvariable{${val2}} pas}\n`, val2],
-          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{90} degrés}\n`, sens],
+          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{${n2}} degrés}\n`, sens, n2],
           [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
-          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{90} degrés}\n`, sens],
+          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{90} degrés}\n`, sens, n3],
           [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
-          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{90} degrés}\n`, sensOppose],
+          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{90} degrés}\n`, sensOppose, n3],
           [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
-          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{90} degrés}\n`, sensOppose],
+          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{90} degrés}\n`, sensOppose, n3],
           [`\\blockmove{avancer de \\ovalvariable{${val3}} pas}\n`, val3],
-          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{90} degrés}\n`, sensOppose],
+          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${n2}} degrés}\n`, sensOppose, n2],
           [`\\blockmove{avancer de \\ovalvariable{${val2}} pas}\n`, val2],
-          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{90} degrés}\n`, sens]
+          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{90} degrés}\n`, sens, n3]
         ]
         lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
 {\n`
@@ -470,9 +472,9 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
             for (let j = 0; j < 4; j++) {
               avance(sequenceFrise1[(2 * (j + i)) % 12][1], lutins[j])
               if (sequenceFrise1[(2 * (j + i) + 1) % 12][1] === 'turnright') {
-                tournerD(90, lutins[j])
+                tournerD(sequenceFrise1[(2 * (j + i) + 1) % 12][2], lutins[j])
               } else {
-                tournerG(90, lutins[j])
+                tournerG(sequenceFrise1[(2 * (j + i) + 1) % 12][2], lutins[j])
               }
             }
           }
