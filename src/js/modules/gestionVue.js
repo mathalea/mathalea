@@ -47,7 +47,7 @@ export function gestionVue () {
       document.addEventListener('exercicesAffiches', masqueTitreExerciceEtEspaces)
       document.addEventListener('exercicesAffiches', () => {
         // Envoi des informations à Anki
-        const hauteur = window.contentWindow.document.body.scrollHeight
+        const hauteur = window.document.body.scrollHeight
         window.parent.postMessage(hauteur, '*')
       })
     }
