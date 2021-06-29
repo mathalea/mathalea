@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, calcul, shuffle, arrondi } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, tournerG, texteParPointEchelle } from '../../modules/2d.js'
+import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, tournerG, texteParPointEchelle, texteParPoint } from '../../modules/2d.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
@@ -132,7 +132,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
     // On écrit le début du programme dans l'attribut codeScratch du lutin... cet attribut de type chaine contient le code du programme du lutin en Scratch Latex
     // A chaque instruction ajoutée dans le programme correspond une action à effectuée sur l'objet lutin..
-    lutins[0].codeScratch = '\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n '
+    lutins[0].codeScratch = '\\begin{scratch}[print,fill,blocks,scale=0.75]\n \\blockinit{quand \\greenflag est cliqué}\n '
     lutins[0].codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
     lutins[0].codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n `
     lutins[0].codeScratch += '\\blockpen{stylo en position d\'écriture}\n '
@@ -365,9 +365,9 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         val3 = calcul(360 / n)
 
         if (bonneReponse < 5) {
-          lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}\n
-          {
-          \\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`
+          lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
+{
+\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`
           if (bonneReponse < 2) {
             lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val3}} degrés}\n`
           } else {
@@ -504,10 +504,10 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     const echelle = segment(0, hauteur + 0.5, 1, hauteur + 0.5)
     echelle.epaisseur = 2
     echelle.styleExtremites = '|-|'
-    objetsCorrection.push(grille(-1, -1, largeur + 1, hauteur + 1, 'gray', 0.5, 0.5))
+    // objetsCorrection.push(grille(-1, -1, largeur + 1, hauteur + 1, 'gray', 0.5, 0.5))
     objetsCorrection.push(lutins[bonneReponse])
     paramsEnonces.xmin = -0.5
-    paramsEnonces.ymin = -0.5
+    paramsEnonces.ymin = -1.5
     paramsEnonces.xmax = largeur
     paramsEnonces.ymax = hauteur + 1
     paramsEnonces.pixelsParCm = Math.round(400 / largeur)
@@ -526,10 +526,10 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       texte += mathalea2d(paramsEnonces,
         lutins[ordreLutins[i]],
         depart[ordreLutins[i]],
-        grille(-0.5, -0.5, largeur, hauteur + 1, 'gray', 0.5, 0.5),
-        texteParPointEchelle('10 pas', point(0.5, hauteur + 0.2), 'milieu', 'black', 0.7),
-        texteParPointEchelle(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.3), 'milieu', 'black', 0.7),
-        echelle
+        // grille(-0.5, -0.5, largeur, hauteur + 1, 'gray', 0.5, 0.5),
+        // texteParPointEchelle('10 pas', point(0.5, hauteur + 0.2), 'milieu', 'black', 0.7),
+        texteParPoint(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.8), 'milieu', 'black', 1)
+        // echelle
       )
       if (i === 1) texte += '<br>'
     }

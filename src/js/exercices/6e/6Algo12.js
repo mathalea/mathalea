@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPointEchelle } from '../../modules/2d.js'
+import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPointEchelle, texteParPoint } from '../../modules/2d.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
@@ -248,7 +248,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     objetsCorrection.push(grille(-1, -1, largeur + 1), hauteur + 1, 'gray', 0.5, 0.5)
     objetsCorrection.push(lutins[0])
     paramsEnonces.xmin = -0.5
-    paramsEnonces.ymin = -0.5
+    paramsEnonces.ymin = -1.5
     paramsEnonces.xmax = largeur
     paramsEnonces.ymax = hauteur + 1
     paramsEnonces.pixelsParCm = Math.round(200 / largeur)
@@ -268,8 +268,8 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         lutins[ordreLutins[i]],
         depart[ordreLutins[i]],
         grille(-0.5, -0.5, largeur, hauteur + 1, 'gray', 0.5, 0.5),
-        texteParPointEchelle('10 pas', point(0.5, hauteur + 0.2), 'milieu', 'black', 0.7),
-        texteParPointEchelle(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.3), 'milieu', 'black', 0.7),
+        texteParPoint('10 pas', point(0.5, hauteur + 0.2), 'milieu', 'black', 1),
+        texteParPoint(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.8), 'milieu', 'black', 1),
         echelle)
     }
     if (context.isHtml) {
