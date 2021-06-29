@@ -47,7 +47,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       'roueDentee',
       'frise1'
     ])
-    let val1, val2, val3, n, n2, n3
+    let val1, val2, val3, n, n2
     const sens = choice(['turnright', 'turnleft'])
     let sequenceFrise1
     let sensOppose
@@ -284,7 +284,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         for (let i = val1; i < val2; i += n2) {
           avance(i, lutins[0])
           avance(i, lutins[1]) // Le lutin 1 tourne dans le mauvais sens
-          avance(i, lutins[3]) // le lutin3 ne tourne pas assez
+          avance(i, lutins[3]) // le lutin2 ne tourne pas assez
           if (sens === 'turnright') {
             tournerD(val3, lutins[0])
             tournerG(val3, lutins[1])
@@ -388,7 +388,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       case 'frise1':
         n = 3 // Nombre de répétitions
         n2 = choice([45, 60, 90])
-        n3 = choice([45, 60, 90])
+        n2 = choice([45, 60, 90])
         val1 = randint(1, 2) * 5
         val2 = randint(1, 3) * 5
         val3 = randint(2, 4) * 5
@@ -396,15 +396,15 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
           [`\\blockmove{avancer de \\ovalvariable{${val2}} pas}\n`, val2],
           [`\\blockmove{tourner \\${sens}{} de \\ovalnum{${n2}} degrés}\n`, sens, n2],
           [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
-          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{90} degrés}\n`, sens, n3],
+          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{${n2}} degrés}\n`, sens, n2],
           [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
-          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{90} degrés}\n`, sensOppose, n3],
+          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${n2}} degrés}\n`, sensOppose, n2],
           [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
-          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{90} degrés}\n`, sensOppose, n3],
+          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${n2}} degrés}\n`, sensOppose, n2],
           [`\\blockmove{avancer de \\ovalvariable{${val3}} pas}\n`, val3],
           [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${n2}} degrés}\n`, sensOppose, n2],
           [`\\blockmove{avancer de \\ovalvariable{${val2}} pas}\n`, val2],
-          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{90} degrés}\n`, sens, n3]
+          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{${n2}} degrés}\n`, sens, n2]
         ]
         lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
 {\n`
