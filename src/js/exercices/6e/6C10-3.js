@@ -24,10 +24,6 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
   this.consigne = 'Calculer'
   this.spacing = 2
   this.tailleDiaporama = 100
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcReady = amcReady
-  this.amcType = amcType
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []

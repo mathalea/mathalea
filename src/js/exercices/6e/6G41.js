@@ -49,7 +49,7 @@ export default function RepresenterUnSolide () {
       typeDeQuestionsDisponibles = [1, 2, 4, 6]
     }
 
-    if (this.sup2 === 1) { sc = 0.5 } else { sc = 0.8 }
+    if (parseInt(this.sup2) === 1) { sc = 0.5 } else { sc = 0.8 }
 
     let A; let B; let C; let D; let E; let F; let G; let H; let I
     let AB; let BC; let CD; let DA; let EF; let FG; let GH; let HE; let AE; let BF; let CG; let DH; let IA; let IB; let IE; let IF; let BD; let FH
@@ -226,7 +226,7 @@ export default function RepresenterUnSolide () {
       ppc = 20
 
       if (this.sup2 < 3) { g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7) } else { g = '' }
-      if (this.sup2 === 2) { carreaux = seyes(Xmin, Ymin, Xmax, Ymax); sc = 0.8 } else { carreaux = ''; sc = 0.5 }
+      if (parseInt(this.sup2) === 2) { carreaux = seyes(Xmin, Ymin, Xmax, Ymax); sc = 0.8 } else { carreaux = ''; sc = 0.5 }
 
       const params = {
         xmin: Xmin,
@@ -354,10 +354,7 @@ export default function RepresenterUnSolide () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    if (context.isAmc) {
-    }
   }
-
   this.besoinFormulaireNumerique = ['Type de solides', 3, '1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés']
 
   this.besoinFormulaire2Numerique = [

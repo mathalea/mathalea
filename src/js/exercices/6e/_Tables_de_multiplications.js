@@ -46,9 +46,9 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
       a = couples[i][0]
       b = couples[i][1]
-      if (this.sup2 === 1) {
+      if (parseInt(this.sup2) === 1) {
         typesDeQuestions = 'classique'
-      } else if (this.sup2 === 2) {
+      } else if (parseInt(this.sup2) === 2) {
         typesDeQuestions = 'a_trous'
       } else {
         typesDeQuestions = choice(['classique', 'a_trous'])

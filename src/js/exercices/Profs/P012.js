@@ -24,14 +24,14 @@ export default function Camemberts () {
     if (this.sup === '') {
       this.sup = '2-3-4-5'
     }
-    if (this.sup2 === '') {
+    if (parseInt(this.sup2) === '') {
       this.sup2 = '5'
     }
     this.contenu = ''
     const nbParts = this.sup.split('-')
     const secteurs = combinaisonListesSansChangerOrdre(nbParts, this.nbQuestions)
     const nbDisques = this.sup2.split('-')
-    const unites = combinaisonListesSansChangerOrdre(nbDisques,this.nbQuestions)
+    const unites = combinaisonListesSansChangerOrdre(nbDisques, this.nbQuestions)
     let f
     const fenetre = { xmin: -2.5, xmax: 35, ymin: -2.5, ymax: 2.5, pixelsParCm: 20, scale: 0.5 }
     for (let i = 0; i < this.nbQuestions; i++) {

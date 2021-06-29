@@ -23,10 +23,6 @@ export const titre = 'Opérations avec les nombres décimaux'
 export default function MultiplicationMentalDecimaux () {
   Exercice.call(this)
   this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.interactifObligatoire = true // Il n'existe pas de version non QCM
   this.interactif = true
   this.consigne = 'Trouver la réponse exacte du calcul parmi les réponses proposées.'

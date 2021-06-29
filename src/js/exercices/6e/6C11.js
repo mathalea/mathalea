@@ -30,10 +30,6 @@ export default function DivisionsEuclidiennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = parseInt(this.sup)
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.amcType = amcType
-  this.interactifType = interactifType
   this.consigne =
     "Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante."
   this.spacing = 2

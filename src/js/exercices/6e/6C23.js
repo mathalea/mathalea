@@ -14,8 +14,4 @@ export default function ExerciceAdditionnerFractions6e () {
   this.level = 6
   this.titre = titre
   this.besoinFormulaireNumerique2 = false
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
-  this.amcReady = amcReady
 }

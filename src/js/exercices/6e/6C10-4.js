@@ -17,10 +17,6 @@ export const interactifType = 'numerique'
 export default function ExerciceTablesAdditions (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
   this.consigne = 'Calculer'
   this.sup = max // Le paramètre accessible à l'utilisateur sera la valeur maximale
   this.spacing = 2
@@ -35,8 +31,8 @@ export default function ExerciceTablesAdditions (max = 20) {
 
     ) {
       this.autoCorrection[i] = {}
-      a = randint(2, this.sup)
-      b = randint(2, this.sup)
+      a = randint(2, parseInt(this.sup))
+      b = randint(2, parseInt(this.sup))
       texte = `$ ${texNombre(a)} + ${texNombre(b)} = \\dotfill $`
       texteCorr = `$ ${texNombre(a)} + ${texNombre(b)} = ${texNombre(a + b)} $`
       setReponse(this, i, a + b)
