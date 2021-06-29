@@ -93,16 +93,17 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       'rosaces'
     ]
     */
-    const typeDeQuestions = [
+
+    const choix = choice([
       'polygonesReguliers',
       'spirales',
       'rosaces1',
-      'roueDentee'
-    ]
-
-    const choix = typeDeQuestions[randint(0, 3)]
+      'roueDentee',
+      'frise1'
+    ])
     let val1, val2, n, n2, val3
     const sens = choice(['turnright', 'turnleft'])
+    let sequenceFrise1
     let sensOppose
     if (sens === 'turnright') {
       sensOppose = 'turnleft'
@@ -359,7 +360,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         break
       case 'roueDentee':
         n = choice([3, 4, 5, 6, 8]) // Nombre de côtés
-        n2 = randint(1, 4) + Math.floor((9 - n) / 2)
         val1 = randint(1, 2) * 10
         val2 = calcul(720 / n)
         val3 = calcul(360 / n)
@@ -439,6 +439,45 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
           }
         }
         break
+      case 'frise1':
+        n = 3 // Nombre de répétitions
+        val1 = randint(1, 2) * 5
+        val2 = randint(1, 3) * 5
+        val3 = randint(2, 4) * 5
+        sequenceFrise1 = [
+          [`\\blockmove{avancer de \\ovalvariable{${val2}} pas}\n`, val2],
+          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{90} degrés}\n`, sens],
+          [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
+          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{90} degrés}\n`, sens],
+          [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
+          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{90} degrés}\n`, sensOppose],
+          [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
+          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{90} degrés}\n`, sensOppose],
+          [`\\blockmove{avancer de \\ovalvariable{${val3}} pas}\n`, val3],
+          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{90} degrés}\n`, sensOppose],
+          [`\\blockmove{avancer de \\ovalvariable{${val2}} pas}\n`, val2],
+          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{90} degrés}\n`, sens]
+        ]
+        lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
+{\n`
+        for (let i = 0; i < 6; i++) {
+          lutins[0].codeScratch += sequenceFrise1[(2 * (bonneReponse + i)) % 12][0]
+          lutins[0].codeScratch += sequenceFrise1[(2 * (bonneReponse + i) + 1) % 12][0]
+        }
+        lutins[0].codeScratch += '}\n'
+        for (let k = 0; k < n; k++) {
+          for (let i = 0; i < 6; i++) {
+            for (let j = 0; j < 4; j++) {
+              avance(sequenceFrise1[(2 * (j + i)) % 12][1], lutins[j])
+              if (sequenceFrise1[(2 * (j + i) + 1) % 12][1] === 'turnright') {
+                tournerD(90, lutins[j])
+              } else {
+                tournerG(90, lutins[j])
+              }
+            }
+          }
+        }
+        break
     }
     lutins[0].codeScratch += '\\blockpen{relever le stylo}\n'
     lutins[0].codeScratch += '\\end{scratch}'
@@ -467,7 +506,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     if (context.isHtml) { // On crée 2 colonnes selon le contexte html / Latex
       texte += '<table style="width: 100%"><tr><td>'
     } else {
-      texte += '\\begin{minipage}[t]{.25\\textwidth}'
+      texte += '\\begin{minipage}[b]{.25\\textwidth}'
     }
     texte += scratchblock(lutins[0].codeScratch) // la fonction scratchblock va convertir le code Latex en code html si besoin.
     if (context.isHtml) { // on change de colonne...
@@ -476,7 +515,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       texte += '</td><td style="vertical-align: top; text-align: center">'
     } else {
       texte += '\\end{minipage} '
-      texte += '\\hfill \\begin{minipage}[t]{.74\\textwidth}'
+      texte += '\\hfill \\begin{minipage}[b]{.74\\textwidth}'
     }
 
     let ordreLutins = [0, 1, 2, 3]
