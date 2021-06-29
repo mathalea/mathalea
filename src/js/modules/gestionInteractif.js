@@ -224,11 +224,15 @@ export function exerciceCliqueFigure (exercice) {
     for (let i = 0; i < exercice.nbQuestions; i++) {
       for (const objetFigure of exercice.figures[i]) {
         const figSvg = document.getElementById(objetFigure.id)
-        figSvg.addEventListener('mouseover', mouseOverSvgEffect)
-        figSvg.addEventListener('mouseout', mouseOutSvgEffect)
-        figSvg.addEventListener('click', mouseSvgClick)
-        figSvg.etat = false
-        figSvg.style.margin = '10px'
+        if (!figSvg.hasMathaleaListeners) {
+          figSvg.addEventListener('mouseover', mouseOverSvgEffect)
+          figSvg.addEventListener('mouseout', mouseOutSvgEffect)
+          figSvg.addEventListener('click', mouseSvgClick)
+          figSvg.etat = false
+          figSvg.style.margin = '10px'
+          figSvg.hasMathaleaListeners = true 
+          // On enregistre que l'élément a déjà un listenner pour ne pas lui remettre le même à l'appui sur "Nouvelles Données"
+        }
       }
     }
     // Gestion de la correction
@@ -256,6 +260,7 @@ export function exerciceCliqueFigure (exercice) {
             eltFigure.removeEventListener('mouseover', mouseOverSvgEffect)
             eltFigure.removeEventListener('mouseout', mouseOutSvgEffect)
             eltFigure.removeEventListener('click', mouseSvgClick)
+            eltFigure.hasMathaleaListeners = false
             if (eltFigure.etat) nbFiguresCliquees++
             if (eltFigure.etat !== objetFigure.solution) erreur = true
           }
