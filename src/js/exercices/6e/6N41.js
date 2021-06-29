@@ -1,14 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, miseEnEvidence, texFraction } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
 export const titre = 'Égalités entre fractions simples'
 export const amcReady = true
-export const amcType = 1 // QCM 
+export const amcType = 1 // QCM
 export const interactifReady = true
 export const interactifType = 'mathLive' // On pourrait ajouter QCM
-
 
 /**
  * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)
@@ -21,14 +20,9 @@ export default function EgalitesEntreFractions () {
   this.sup = 11 // Correspond au facteur commun
   this.sup2 = 2 // alternace numérateur ou dénominateur imposé.
   this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = 'Compléter les égalités.'
   this.spacing = 2
   this.spacingCorr = 2
-
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
@@ -163,7 +157,7 @@ export default function EgalitesEntreFractions () {
           d = randint(2, 9)
         }
         c = a * d
-        if (this.sup2 === 3) {
+        if (parseInt(this.sup2) === 3) {
           choix = i % 2
         } else {
           choix = this.sup2 % 2

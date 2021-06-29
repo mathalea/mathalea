@@ -45,8 +45,6 @@ export default function AireCarresRectanglesTriangles () {
     const l = randint(2, 5, L)
     const a = randint(2, 5)
     const b = randint(2, 5)
-    const c2 = Math.sqrt(a * a + b * b)
-    const pIJK = calcul(a + b + c2, 1)
     const A = point(0, 0, nom[0])
     const B = rotation(point(c, 0), A, randint(-15, 15), nom[1])
     const C = rotation(A, B, -90, nom[2])

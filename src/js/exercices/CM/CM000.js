@@ -10,7 +10,6 @@ export const interactifType = 'numerique'
 export const amcReady = true
 export const amcType = 4
 
-
 /**
  * Additions et/ou soustractions classique et/ou à trou.
  *

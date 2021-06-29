@@ -44,10 +44,6 @@ export const amcType = 4 // Question numérique
 export default function Priorites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
   this.consigne = 'Calculer'
   this.nbQuestions = 5
   this.nbCols = 2
@@ -59,9 +55,9 @@ export default function Priorites () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let questionsDisponibles = [] //
-    if (this.sup === 1) {
+    if (parseInt(this.sup) === 1) {
       questionsDisponibles = range1(12)
-    } else if (this.sup === 2) {
+    } else if (parseInt(this.sup) === 2) {
       questionsDisponibles = range1(22, range1(12))
     } else {
       questionsDisponibles = range1(22)

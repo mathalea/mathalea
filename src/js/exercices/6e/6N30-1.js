@@ -11,11 +11,10 @@ export const titre = 'Lire l’abscisse décimale d’un point repéré par une 
  * @author Jean-Claude Lhote
  * Référence 6N30-1
  */
-export default function Lire_abscisse_decimale_bis () {
-  'use strict'
+export default function LireAbscisseDecimaleBis () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Lire l\’abscisse de chacun des points suivants et donner le résultat sous la forme d\’un nombre en écriture décimale.'
+  this.consigne = 'Lire l’abscisse de chacun des points suivants et donner le résultat sous la forme d’un nombre en écriture décimale.'
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
   this.nbCols = 1
@@ -32,7 +31,7 @@ export default function Lire_abscisse_decimale_bis () {
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup == 5) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+    if (parseInt(this.sup) === 5) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
       typesDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions
@@ -53,7 +52,7 @@ export default function Lire_abscisse_decimale_bis () {
       x33,
       pas1,
       pas2,
-      id_unique,
+      idUnique,
       texte,
       texteCorr; i < this.nbQuestions; i++) {
       l1 = lettreDepuisChiffre(i * 3 + 1)
@@ -90,10 +89,10 @@ export default function Lire_abscisse_decimale_bis () {
       x22 = randint(1, pas2 - 1)
       x33 = randint(1, pas2 - 1)
       if (context.isHtml) {
-        id_unique = `${i}_${Date.now()}`
-        this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
+        idUnique = `${i}_${Date.now()}`
+        this.contenu += `<div id="div_svg${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
-          `div_svg${numeroExercice}${id_unique}`,
+          `div_svg${numeroExercice}${idUnique}`,
           abs0,
           6,
           pas1,
@@ -113,9 +112,9 @@ export default function Lire_abscisse_decimale_bis () {
           ],
           false
         )
-        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
+        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
-          `div_svg_corr${numeroExercice}${id_unique}`,
+          `div_svg_corr${numeroExercice}${idUnique}`,
           abs0,
           6,
           pas1,

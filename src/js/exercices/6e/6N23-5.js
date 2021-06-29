@@ -4,7 +4,7 @@ import { fraction } from '../../modules/fractions.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType =1 // QCM
+export const amcType = 1 // QCM
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -29,7 +29,6 @@ export default function SensDeLaFraction () {
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
-
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []

@@ -23,7 +23,7 @@ export default function LeCompteEstBonV4 () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let solutionMathador = []
-    let tirage, solution, expression, min, max, texte, texteCorr
+    let tirage, min, max, texteCorr
     let minmax = []
     if (!this.sup2) {
       // Si rien n'est saisi
@@ -55,10 +55,10 @@ export default function LeCompteEstBonV4 () {
     }
 
     tirage = solutionMathador[0]
-    solution = solutionMathador[1]
-    expression = solutionMathador[3]
+    const solution = solutionMathador[1]
+    const expression = solutionMathador[3]
 
-    texte = `Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>La cible est : $${solution}$`
+    const texte = `Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>La cible est : $${solution}$`
     texteCorr = `Pour le tirage $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ et pour la cible $${solution}$, la solution est : $${expression}=${solution}$ `
     texteCorr += `ou $${solutionMathador[4]}$.<br>`
     texteCorr += 'En effet : <br>'

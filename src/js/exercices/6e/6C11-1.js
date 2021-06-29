@@ -23,17 +23,15 @@ export default function DivisionsEuclidiennesEgalite () {
   this.nbQuestions = 4
   this.sup = 1
   this.interactif = true
-  this.interactifReady = interactifReady
-  this.amcType = amcType
-  this.amcReady = amcReady
+
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles, typesDeQuestions
-    if (this.sup === 1) {
+    if (parseInt(this.sup) === 1) {
       typesDeQuestionsDisponibles = [1, 2, 2]
-    } else if (this.sup === 2) {
+    } else if (parseInt(this.sup) === 2) {
       typesDeQuestionsDisponibles = [1, 2, 3, 4]
     }
     const listeTypeDeQuestions = combinaisonListes(

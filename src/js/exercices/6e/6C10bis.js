@@ -22,8 +22,6 @@ export const titre = 'Additions, soustractions, multiplications et divisions pos
  */
 export default function AdditionsSoustractionsMultiplicationsDivisionsPosees () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.amcReady = amcReady
-  this.amcType = amcType
   this.titre = titre
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
