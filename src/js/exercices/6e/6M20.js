@@ -8,7 +8,7 @@ export const titre = 'Aires de triangles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 /**
  * Calculer l'aire de 3 triangles dont une hauteur est tracée.
  *

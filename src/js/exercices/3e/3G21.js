@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, arrondi, abs, texNombrec, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js'
 
 export const amcReady = true
-export const amcType = 3 // type de question AMC
+export const amcType = 'AMCOpen' // type de question AMC
 
 export const titre = 'Contrôler si deux droites sont parallèles'
 

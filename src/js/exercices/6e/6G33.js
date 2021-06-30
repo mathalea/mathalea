@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.j
 import { point, segment, polygone, codageAngleDroit, codeSegments, mathalea2d } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 2 // QCM
+export const amcType = 'qcmMult' // QCM
 export const interactifReady = true
 export const interactifType = 'qcm'
 

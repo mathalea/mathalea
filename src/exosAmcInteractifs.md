@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 94 
-- nombre d'exos interactifReady 115 
+- nombre d'exos amcReady 95 
+- nombre d'exos interactifReady 116 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -98,6 +98,7 @@
 |6M23|Conversions d’aires|OK|qcmMono|OK|qcm,mathLive|
 |6M30|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |6M31|Conversions de volume|OK|qcmMono|OK|qcm,mathLive|
+|6N11|Lire l’abscisse entière d’un point (grands nombres)|OK|AMCOpen|OK|mathLive|
 |6N20-2|Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.|KO|KO|OK|mathLive|
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1).|KO|KO|OK|mathLive|
 |6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|

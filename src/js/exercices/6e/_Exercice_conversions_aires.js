@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, arrondi, texNombre, texTexte, calcul } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 1 // type de question AMC
+export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 

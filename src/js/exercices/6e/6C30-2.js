@@ -6,7 +6,7 @@ export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
 
-export const amcType = 4 // Question numérique
+export const amcType = 'AMCNum' // Question numérique
 export const titre = 'Calculer le produit de deux décimaux connaissant le produit de deux entiers'
 
 /**

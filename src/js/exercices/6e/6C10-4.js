@@ -5,7 +5,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif'
 import { context } from '../../modules/context.js'
 export const titre = 'Addition de deux entiers'
 export const amcReady = true
-export const amcType = 4 // Question numérique
+export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
 export const interactifType = 'numerique'
 

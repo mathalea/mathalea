@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre } from '../../modules/outils.js'
 
 export const amcReady = true
-export const amcType = 3 // type de question AMC
+export const amcType = 'AMCOpen' // type de question AMC
 
 export const titre = 'Additions, soustractions, multiplications et divisions posées de nombres entiers'
 

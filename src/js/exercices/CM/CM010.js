@@ -5,7 +5,7 @@ export const titre = 'Tiers'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * Calculer le tiers d'un multiple de 3, d'un multiple de 300, d'un multiple de 30 ou d'un nombre a,b avec a et b multiples de 3

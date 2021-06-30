@@ -5216,7 +5216,7 @@ function DroiteGraduee2 ({
   Max = 2, // Là où finit la droite prévoir 0,5cm pour la flèche
   x = 0, y = 0, // les coordonnées du début du tracé dans le SVG
   axeEpaisseur = 2, axeCouleur = 'black', axeStyle = '->', axeHauteur = 4, axePosition = 'H', // Les caractéristiques de l'axe
-  thickEpaisseur = 2, thickCouleur = axeCouleur, thickDistance = 1, thickOffset = 0.1, // Les caractéristiques des graduations principales
+  thickEpaisseur = 2, thickCouleur = axeCouleur, thickDistance = 1, thickOffset = 0, // Les caractéristiques des graduations principales
   thickSecDist = 0.1, thickSec = false, // Les caractéristiques des graduations secondaires. Pas de couleur, on joue sur l'opacité
   thickTerDist = 0.01, thickTer = false, // Les caractéristiques des graduations tertiaires. Pas de couleur, on joue sur l'opacité
   pointListe = false, pointCouleur = 'blue', pointTaille = 4, pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2, // Liste de points et caractéristiques des points de ces points

@@ -35,73 +35,72 @@ const exercicesList = getAllFiles(exercicesDir)
 const dicoAlea = {}
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 
-var warnings = 0; // Pour compter les alertes
-var nbAmcReady = 0; // Pour compter les exos amcReady
-var nbInteractifReady = 0 ; // Pour compter les exos interactifReady
+let warnings = 0 // Pour compter les alertes
+let nbAmcReady = 0 // Pour compter les exos amcReady
+let nbInteractifReady = 0 // Pour compter les exos interactifReady
 
-function beginWarnText() {
-  warnings+=1
+function beginWarnText () {
+  warnings += 1
   if (warnings === 1) {
-    return console.log(`\x1b[33m ============================================================= WARNINGS =============================================================\x1b[37m`)
-  }  
-}
-
-function endWarnText() {
-  if (warnings != 0) {
-    return console.log(`\x1b[33m =========================================================== END WARNINGS ===========================================================\x1b[37m`)
+    return console.log('\x1b[33m ============================================================= WARNINGS =============================================================\x1b[37m')
   }
 }
 
+function endWarnText () {
+  if (warnings != 0) {
+    return console.log('\x1b[33m =========================================================== END WARNINGS ===========================================================\x1b[37m')
+  }
+}
 
-function sumWarnings() {    
-    if (warnings === 1) {
-      out = `avec \x1b[33m ${warnings} WARNING\x1b[37m`
-    } else {
-      out = `avec \x1b[33m ${warnings} WARNINGS\x1b[37m`
-    };
-    return out;  
+function sumWarnings () {
+  if (warnings === 1) {
+    out = `avec \x1b[33m ${warnings} WARNING\x1b[37m`
+  } else {
+    out = `avec \x1b[33m ${warnings} WARNINGS\x1b[37m`
+  };
+  return out
 }
 
 for (const file of exercicesList) {
   const name = path.basename(file, '.js')
   // interactifReady est un booléen qui permet de savoir qu'on peut avoir une sortie html qcm interactif
   // amcType est un objet avec une propriété num et une propriété text pour le type de question AMC
-  // On avait un fonctionnement avec description cf commit 832f123  
-  let titre, amcReady, amcType={}, interactifReady, interactifType
+  // On avait un fonctionnement avec description cf commit 832f123
+  let titre; let amcReady; const amcType = {}; let interactifReady; let interactifType
   try {
     if (dicoAlea[name]) throw Error(`${file} en doublon, on avait déjà un ${name}`)
     const module = requireImport(file)
     if (!module.titre) {
       console.error(`${file} n’a pas d’export titre => IGNORÉ`)
       continue
-    } 
+    }
     titre = module.titre
     amcReady = Boolean(module.amcReady)
     interactifReady = Boolean(module.interactifReady)
-    // On avait un fonctionnement avec description cf commit 832f123  
-    // On verifie s'il y a une incohérence amcType amcReady et on affiche un warning au besoin         
-    if (amcReady && !module.amcType) {      
-     beginWarnText()
+    // On avait un fonctionnement avec description cf commit 832f123
+    // On verifie s'il y a une incohérence amcType amcReady et on affiche un warning au besoin
+    if (amcReady && !module.amcType) {
+      beginWarnText()
       console.error(`\x1b[33m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (module)\x1b[37m`)
     }
     if (module.amcType && !module.amcReady) {
-     beginWarnText()
+      beginWarnText()
       console.error(`\x1b[33m${file} a un export amcType mais amcReady est false => VÉRIFIER ÇA !!! (module)\x1b[37m`)
-    } 
+    }
     // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e
     if (amcReady) {
-       // On verifie s'il y a un amcType
+      // On verifie s'il y a un amcType
       if (!module.amcType) {
         amcType.text = 'export const amcType non présent'
       } else {
         amcType.num = module.amcType
-      }                
-      nbAmcReady +=1; // On incrémente pour la compet !      
-    }    
+      }
+      nbAmcReady += 1 // On incrémente pour la compet !
+    }
 
     // On vérifie la cohérence interactifType, interactifReady
     if (module.interactifType && !module.interactifReady) {
-    beginWarnText()
+      beginWarnText()
       console.error(`\x1b[34m${file} a un export interactifType mais interactifReady est false => VÉRIFIER ÇA !!! (module)\x1b[37m`)
     }
     if (!module.interactifType && module.interactifReady) {
@@ -115,11 +114,10 @@ for (const file of exercicesList) {
       } else {
         interactifType = module.interactifType
       }
-      nbInteractifReady +=1; // On incrémente pour la compet ! 
-      
-    }      
+      nbInteractifReady += 1 // On incrémente pour la compet !
+    }
   } catch (error) {
-    //console.log(`${error} dans ${file}`)
+    // console.log(`${error} dans ${file}`)
     // ça marche pas pour ce fichier, probablement parce qu'il importe du css et qu'on a pas les loader webpack
     // on passe à l'ancienne méthode qui fouille dans le code simport { amcReady } from '../src/js/exercices/3e/3G21';
     const srcContent = fs.readFileSync(file, { encoding: 'utf8' })
@@ -128,26 +126,25 @@ for (const file of exercicesList) {
       titre = chunks[2]
       amcReady = /export +const +amcReady *= *true/.test(srcContent)
       interactifReady = /export +const +interactifReady *= *true/.test(srcContent)
-      // On avait un fonctionnement avec description cf commit 832f123  
-      // On verifie s'il y a une incohérence amcType amcReady et on affiche un warning au besoin               
+      // On avait un fonctionnement avec description cf commit 832f123
+      // On verifie s'il y a une incohérence amcType amcReady et on affiche un warning au besoin
       if (amcReady && !/export +const +amcType */.test(srcContent)) {
-       beginWarnText()
+        beginWarnText()
         console.error(`\x1b[33m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (à l'ancienne)\x1b[37m`)
       }
       if (/export +const +amcType */.test(srcContent) && !amcReady) {
-       beginWarnText()
+        beginWarnText()
         console.error(`\x1b[33m${file} a un export amcType mais amcReady est false => VÉRIFIER ÇA !!! (à l'ancienne)\x1b[37m`)
       }
-      // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e   
+      // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e
       if (amcReady) {
-        
         // On verifie s'il y a un amcType
         if (/export +const +amcType */.test(srcContent)) {
-          amcType.num = parseInt(srcContent.match(/export +const +amcType *= *(\d*)/)[1])            
+          amcType.num = parseInt(srcContent.match(/export +const +amcType *= *(\d*)/)[1])
         } else {
-          amcType.text = `export const amcType non présent (à l'ancienne)`
-        } 
-        nbAmcReady +=1; // On incrémente pour la compet ! 
+          amcType.text = 'export const amcType non présent (à l\'ancienne)'
+        }
+        nbAmcReady += 1 // On incrémente pour la compet !
       }
       // On vérifie la cohérence interactifType, interactifReady
       if (/export +const +interactifType */.test(srcContent) && !interactifReady) {
@@ -161,13 +158,13 @@ for (const file of exercicesList) {
       if (interactifReady) {
         // On verifie s'il y a un interactifType
         if (/export +const +interactifType */.test(srcContent)) {
-          //regex à vérifier même si elle ne doit théoriquement pas servir puisque le module fonctionne
+          // regex à vérifier même si elle ne doit théoriquement pas servir puisque le module fonctionne
           interactifType = srcContent.match(/export +const +interactifType *= *(\"[a-zA-Z0-9].*\")/)[1]
         } else {
-          interactifType = `export const interactifType non présent (à l'ancienne)`
-        }   
-        nbInteractifReady +=1; // On incrémente pour la compet !      
-      }    
+          interactifType = 'export const interactifType non présent (à l\'ancienne)'
+        }
+        nbInteractifReady += 1 // On incrémente pour la compet !
+      }
     } else {
       console.error(Error(`Pas trouvé de titre dans ${file} => IGNORÉ`))
     }
@@ -180,116 +177,121 @@ for (const file of exercicesList) {
     // On ajoute amcType que si amcReady est à true
     if (amcReady) {
       // On ajuste la propriété text de amcType différemment si c'est un tableau ou non
-      let typeText = ["qcmMono","qcmMult","AMCOpen","AMCNum","AMCOpenNum","AMCOpenNum✖︎2","AMCOpenNum✖︎3"]      
-      //let typeText = ["qcmMono","qcmMult","AMCOpen","AMCNum","AMCOpenNum","AMCOpenNum×2","AMCOpenNum×3"]      
-      if (typeof amcType.num === 'number')  {        
+      const typeText = ['qcmMono', 'qcmMult', 'AMCOpen', 'AMCNum', 'AMCOpenNum', 'AMCOpenNum✖︎2', 'AMCOpenNum✖︎3']
+      // let typeText = ["qcmMono","qcmMult","AMCOpen","AMCNum","AMCOpenNum","AMCOpenNum×2","AMCOpenNum×3"]
+      if (typeof amcType.num === 'string') {
+        amcType.text = amcType.num
+      } else if (typeof amcType.num === 'number') {
         switch (amcType.num) {
           case 1:
-            amcType.text = typeText[0];
-            break;
+            amcType.text = typeText[0]
+            break
           case 2:
-            amcType.text = typeText[1];
-            break;
+            amcType.text = typeText[1]
+            break
           case 3:
-            amcType.text = typeText[2];
-            break;
+            amcType.text = typeText[2]
+            break
           case 4:
-            amcType.text = typeText[3];
-            break;
+            amcType.text = typeText[3]
+            break
           case 5:
-            amcType.text = typeText[4];
-            break;
+            amcType.text = typeText[4]
+            break
           case 6:
-            amcType.text = typeText[5];
-            break;
+            amcType.text = typeText[5]
+            break
           case 7:
-            amcType.text = typeText[6];
-            break;  
+            amcType.text = typeText[6]
+            break
           default:
-           beginWarnText()
+            beginWarnText()
             console.error(`\x1b[33m${file} contient un amcType numerique non prévu => IL FAUT VÉRIFIER ÇA (number)!!!\x1b[37m`)
-            amcType.text = "type de question AMC non prévu";
+            amcType.text = 'type de question AMC non prévu'
         }
-      } else  if (typeof amcType.num === 'object')  {
+      } else if (typeof amcType.num === 'object') {
         amcType.text = []
         amcType.num.forEach(
-          function(num) { 
-            switch (num) {
-              case 1:
-                amcType.text = typeText[0];
-                break;
-              case 2:
-                amcType.text = typeText[1];
-                break;
-              case 3:
-                amcType.text = typeText[2];
-                break;
-              case 4:
-                amcType.text = typeText[3];
-                break;
-              case 5:
-                amcType.text = typeText[4];
-                break;
-              case 6:
-                amcType.text = typeText[5];
-                break;
-              case 7:
-                amcType.text = typeText[6];
-                break;  
-              default:
-               beginWarnText()
-                console.error(`\x1b[33m${file} contient un element numérique non prévu dans le tableau amcType => IL FAUT VÉRIFIER ÇA (object)!!!\x1b[37m`)
-                amcType.text.push("type de question AMC non prévu");
+          function (num) {
+            if (typeof num === 'string') {
+              amcType.text.push(num)
+            } else {
+              switch (num) {
+                case 1:
+                  amcType.text.push(typeText[0])
+                  break
+                case 2:
+                  amcType.text.push(typeText[1])
+                  break
+                case 3:
+                  amcType.text.push(typeText[2])
+                  break
+                case 4:
+                  amcType.text.push(typeText[3])
+                  break
+                case 5:
+                  amcType.text.push(typeText[4])
+                  break
+                case 6:
+                  amcType.text.push(typeText[5])
+                  break
+                case 7:
+                  amcType.text.push(typeText[6])
+                  break
+                default:
+                  beginWarnText()
+                  console.error(`\x1b[33m${file} contient un element numérique non prévu dans le tableau amcType => IL FAUT VÉRIFIER ÇA (object)!!!\x1b[37m`)
+                  amcType.text.push('type de question AMC non prévu')
+              }
             }
-          }        
+          }
         )
       } else {
-       beginWarnText()
+        beginWarnText()
         console.error(`\x1b[33m${file} contient amcType ni entier ni liste => IL FAUT VÉRIFIER ÇA !!!\x1b[37m`)
-        amcType.text = "bug amcType.num"
+        amcType.text = 'bug amcType.num'
       }
-      // On avait un fonctionnement avec description cf commit 832f123  
+      // On avait un fonctionnement avec description cf commit 832f123
       if (interactifReady) {
         dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, interactifType, name }
       } else {
-        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, name}
-      }            
+        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, name }
+      }
     } else {
       if (interactifReady) {
-        dicoAlea[name] = { titre, url, amcReady, interactifReady, interactifType, name}
+        dicoAlea[name] = { titre, url, amcReady, interactifReady, interactifType, name }
       } else {
-        dicoAlea[name] = { titre, url, amcReady, interactifReady, name}
+        dicoAlea[name] = { titre, url, amcReady, interactifReady, name }
       }
-      
-    }    
-// ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
+    }
+    // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
     logIfVerbose(`${name} traité (${titre})`)
   } else {
     console.error(`${name} ignoré (pas de titre)`)
   }
 }
 
-let dictFile = path.resolve(jsDir, 'modules', 'dictionnaireDesExercicesAleatoires.js')
+const dictFile = path.resolve(jsDir, 'modules', 'dictionnaireDesExercicesAleatoires.js')
 fs.writeFileSync(dictFile, `export default ${JSON.stringify(dicoAlea, null, 2)}`)
 endWarnText()
 console.log(`${dictFile} généré ${sumWarnings()}`)
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 const mdDir = path.resolve(__dirname, '..', 'src', '.')
-let mdFile  = path.resolve(mdDir,'.','exosAmcInteractifs.md')
-// On avait un fonctionnement avec description cf commit 832f123 
-fs.writeFileSync(mdFile,`# Liste des exos AMC et INTERACTIFS\r\n`) 
-fs.appendFileSync(mdFile,`- nombre d'exos amcReady ${nbAmcReady} \r\n`) 
-fs.appendFileSync(mdFile,`- nombre d'exos interactifReady ${nbInteractifReady} \r\n`) 
-fs.appendFileSync(mdFile,`\r\n`)
-fs.appendFileSync(mdFile,`|id|titre|amcReady|amcType|interactifReady|interactifType|\r\n`)
-fs.appendFileSync(mdFile,`|:-:|:-:|:-:|:-:|:-:|:-:|\r\n`)
-Object.entries(dicoAlea).forEach(([id,props]) => {
+const mdFile = path.resolve(mdDir, '.', 'exosAmcInteractifs.md')
+// On avait un fonctionnement avec description cf commit 832f123
+fs.writeFileSync(mdFile, '# Liste des exos AMC et INTERACTIFS\r\n')
+fs.appendFileSync(mdFile, `- nombre d'exos amcReady ${nbAmcReady} \r\n`)
+fs.appendFileSync(mdFile, `- nombre d'exos interactifReady ${nbInteractifReady} \r\n`)
+fs.appendFileSync(mdFile, '\r\n')
+fs.appendFileSync(mdFile, '|id|titre|amcReady|amcType|interactifReady|interactifType|\r\n')
+fs.appendFileSync(mdFile, '|:-:|:-:|:-:|:-:|:-:|:-:|\r\n')
+Object.entries(dicoAlea).forEach(([id, props]) => {
   if (props.amcReady && props.interactifReady) {
-    fs.appendFileSync(mdFile,`|${id}|${props.titre}|OK|${props.amcType.text}|OK|${props.interactifType}|\r\n`)    
+    fs.appendFileSync(mdFile, `|${id}|${props.titre}|OK|${props.amcType.text}|OK|${props.interactifType}|\r\n`)
   } else if (props.amcReady && !props.interactifReady) {
-    fs.appendFileSync(mdFile,`|${id}|${props.titre}|OK|${props.amcType.text}|KO|KO|\r\n`)    
+    fs.appendFileSync(mdFile, `|${id}|${props.titre}|OK|${props.amcType.text}|KO|KO|\r\n`)
   } else if (!props.amcReady && props.interactifReady) {
-    fs.appendFileSync(mdFile,`|${id}|${props.titre}|KO|KO|OK|${props.interactifType}|\r\n`)    
+    fs.appendFileSync(mdFile, `|${id}|${props.titre}|KO|KO|OK|${props.interactifType}|\r\n`)
   }
 })
 console.log(`${mdFile} généré`)

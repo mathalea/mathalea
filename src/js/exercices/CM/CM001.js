@@ -4,7 +4,7 @@ export const titre = 'Tables de multiplication'
 export const interactifReady = true
 export const interactifType = 'numerique'
 export const amcReady = true
-export const amcType = 4 // Question numérique
+export const amcType = 'AMCNum' // Question numérique
 
 /**
  * Tables de multiplications classiques, à trou ou un mélange des deux.

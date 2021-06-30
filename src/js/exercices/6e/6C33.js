@@ -6,7 +6,7 @@ export const titre = 'Calculer en utilisant les priorités opératoires'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4 // Question numérique
+export const amcType = 'AMCNum' // Question numérique
 
 /**
  * Plusieurs type de calcul avec des entiers.

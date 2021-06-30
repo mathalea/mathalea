@@ -5,7 +5,7 @@ export const titre = 'Soustraire 11'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * Un nombre à 2 chiffres -11
