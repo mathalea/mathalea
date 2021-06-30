@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Exercice exemple avec un nombre fixe de questions différentes'
 
@@ -36,5 +35,3 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3];
 }
-
-

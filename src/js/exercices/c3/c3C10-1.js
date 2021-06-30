@@ -10,6 +10,5 @@ export const titre = 'Tables de multiplications'
  */
 export default function TablesDeMultiplicationsCM () {
   TablesDeMultiplications.call(this)
-  this.titre = titre
   this.sup2 = 1
 }

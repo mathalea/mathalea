@@ -9,5 +9,4 @@ export const titre = 'Conversions avec tous les préfixes de milli à tera.'
 export default function Reglages6N34 () {
   ExerciceConversions.call(this)
   this.sup = 5
-  this.titre = titre
 }

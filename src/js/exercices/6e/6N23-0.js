@@ -12,7 +12,6 @@ export const titre = 'Écrire un nombre décimal en chiffres ou en lettres'
 
 export default function EcrireNombresDecimal () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -28,7 +27,7 @@ export default function EcrireNombresDecimal () {
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
-      let i = 0, texte, texteCorr, a, b, c, nombre, tranche, partEnt, partDec, nbDec, cpt = 0;
+      let i = 0, texte, texteCorr, a, b, c, nombre, tranche, partEnt, partDec, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -54,8 +53,6 @@ export default function EcrireNombresDecimal () {
         if (tranche[1] < 2) nombre = 0
         if (tranche[0] === 0) nombre = 0
       }
-      if (partDec % 10 !== 0) nbDec = 3
-      else if (partDec % 100 !== 0) nbDec = 2
       if (parseInt(this.sup) === 1) {
         if (!context.isDiaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
         else texte = `$${texNombre(nombre)}$`

@@ -4,7 +4,6 @@ import Algebrite from 'algebrite'
 import { format, evaluate } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
-import { elimineDoublons } from './gestionInteractif.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -6798,9 +6797,6 @@ export function exportQcmAmc (exercice, idExo) {
         lastchoice = autoCorrection[j].options.lastChoice
       }
     }
-    if (type < 3) {
-     // console.log(elimineDoublons(autoCorrection[j].propositions))
-    }
     switch (type) {
       case 1: // question QCM 1 bonne réponse
         texQr += `\\element{${ref}}{\n `
@@ -7181,6 +7177,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
       groupeDeQuestions.push(code[1])
       indexOfCode = groupeDeQuestions.indexOf(code[1])
       texQuestions[indexOfCode] = code[0]
+
       // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
       if (typeof nbQuestions[indexOfCode] === 'undefined') {
         nombreDeQuestionsIndefinie[indexOfCode] = true

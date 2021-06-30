@@ -12,7 +12,6 @@ export const titre = 'Représenter des fractions'
  */
 export default function RepresenterUneFraction () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 2

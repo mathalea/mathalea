@@ -11,7 +11,6 @@ export default function LireUneAbscisseAvecZoom () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.niveau = 'sixième'
   this.sup = 3
-  this.titre = titre
   this.consigne = ''
   if (context.isHtml) {
     this.spacing = 2

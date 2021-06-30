@@ -19,18 +19,13 @@ export const titre = 'Arrondir une valeur'
 
 export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
 
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = false
-  this.interactifType = interactifType
-  this.interactifReady = interactifReady
   this.interactif = true
-  this.amcReady = amcReady
-  this.amcType = amcType
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 
   this.nouvelleVersion = function () {
@@ -86,17 +81,17 @@ export default function ArrondirUneValeur () {
         v = randint(11, 99) / 10
         angle = randint(1, 89, 60)
         if (choice([true, false])) {
-        n = v * cos(angle)
-        nb = `${texNombre(v)}\\cos(${angle})`
-        di = 10 * (troncature(n - troncature(n, 0), 1))
-        ci = 100 * (troncature(n - troncature(n, 1), 2))
-        mi = 1000 * (troncature(n - troncature(n, 2), 3))
+          n = v * cos(angle)
+          nb = `${texNombre(v)}\\cos(${angle})`
+          di = 10 * (troncature(n - troncature(n, 0), 1))
+          ci = 100 * (troncature(n - troncature(n, 1), 2))
+          mi = 1000 * (troncature(n - troncature(n, 2), 3))
         } else {
-        n = v / cos(angle)
-        nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle})}`
-        di = 10 * (troncature(n - troncature(n, 0), 1))
-        ci = 100 * (troncature(n - troncature(n, 1), 2))
-        mi = 1000 * (troncature(n - troncature(n, 2), 3))
+          n = v / cos(angle)
+          nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle})}`
+          di = 10 * (troncature(n - troncature(n, 0), 1))
+          ci = 100 * (troncature(n - troncature(n, 1), 2))
+          mi = 1000 * (troncature(n - troncature(n, 2), 3))
         }
       }
 
@@ -104,7 +99,6 @@ export default function ArrondirUneValeur () {
       else if (this.sup === 2) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${num}\\div ${den}, \\text{~elle~renvoie} : ${texNombre(n)}$`
       else if (this.sup === 3) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$`
       else if (this.sup === 4) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$`
-
 
       texteCorr = "Encadrement et arrondi à l'unité : "
       if (di < 5) {

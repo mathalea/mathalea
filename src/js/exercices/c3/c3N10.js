@@ -9,7 +9,6 @@ export const titre = 'Écrire un nombre en chiffres ou en lettres'
  */
 export default function EcrireEntiersCycle3 () {
   EcrireNombresEntiers.call(this)
-  this.titre = titre
   this.sup2 = 0
   this.sup = 1
 }

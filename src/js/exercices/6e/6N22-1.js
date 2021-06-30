@@ -12,7 +12,6 @@ export const titre = 'Rapport de deux longueurs sur un segment'
  */
 
 export default function RapportsSurUnSegment () {
-  'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false
   if (this.beta) {
@@ -21,7 +20,6 @@ export default function RapportsSurUnSegment () {
     this.nbQuestions = 2
   };
 
-  this.titre = titre
   this.consigne = 'Sur tous les axes, les graduations sont régulières.'
 
   this.nbCols = 1

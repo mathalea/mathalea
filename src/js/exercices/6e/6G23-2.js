@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, texNombre } from '../../modules/outils.js'
 import { point, pointSurSegment, pointIntersectionDD, droite, segment, rotation, longueur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'

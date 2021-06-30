@@ -12,7 +12,6 @@ export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 00
  */
 export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = "Donner l'écriture décimale"
   this.spacing = 2
   this.spacingCorr = 2

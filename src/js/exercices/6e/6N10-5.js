@@ -11,7 +11,6 @@ export const titre = 'Labyrinthe de numération décimale'
  */
 export default function ExerciceLabyrintheNumeration () {
   Exercice.call(this)
-  this.titre = titre
   this.consigne = ''
   this.niveau = '6e'
   this.nbQuestions = 1

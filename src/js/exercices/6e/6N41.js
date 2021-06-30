@@ -19,7 +19,6 @@ export default function EgalitesEntreFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 11 // Correspond au facteur commun
   this.sup2 = 2 // alternace numérateur ou dénominateur imposé.
-  this.titre = titre
   this.consigne = 'Compléter les égalités.'
   this.spacing = 2
   this.spacingCorr = 2
