@@ -1,4 +1,4 @@
-import ConstruireUnTriangleAvecCible from '../6e/_ConstruireUnTriangleAvecCible.js'
+import ConstruireUnTriangleAvecCible from '../6e/_Construire_un_triangle_avec_cible.js'
 export const titre = 'Construire un triangle avec cible auto-corrective'
 
 /**
