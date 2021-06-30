@@ -1,13 +1,13 @@
-import Construire_un_triangle_avec_cible from '../6e/_Construire_un_triangle_avec_cible.js';
+import ConstruireUnTriangleAvecCible from '../6e/_ConstruireUnTriangleAvecCible.js'
 export const titre = 'Construire un triangle avec cible auto-corrective'
 
 /**
  * @author Jean-Claude Lhote
  * référence 5G20
- * 
+ *
  */
-export default function Construire_un_triangle_avec_cible_5e() {
-	Construire_un_triangle_avec_cible.call(this);
-	this.titre = titre;
-	this.classe = 5;
+export default function ConstruireUnTriangleAvecCible5e () {
+  ConstruireUnTriangleAvecCible.call(this)
+  this.titre = titre
+  this.classe = 5
 }

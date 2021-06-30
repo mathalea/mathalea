@@ -26,10 +26,6 @@ export const titre = 'Additions et soustractions de nombres décimaux'
 export default function AdditionnerSoustrairesDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
