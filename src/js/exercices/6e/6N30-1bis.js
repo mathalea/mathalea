@@ -1,71 +1,81 @@
 import Exercice from '../Exercice.js'
-import { randint, combinaisonListes, calcul, lettreDepuisChiffre, texNombre, listeQuestionsToContenu } from '../../modules/outils.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
+import { calcul, choice, htmlConsigne, lettreDepuisChiffre, combinaisonListes, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
 
-export const titre = 'Lire l’abscisse entière d’un point (grands nombres)'
-export const interactifReady = true
-export const interactifType = 'mathLive'
-export const amcReady = true
-export const amcType = 'AMCOpen'
+export const titre = 'Lire l’abscisse décimale d’un point repéré par une fraction'
 
 /**
- * Lire l'abscisse entière d'un point
- * @author Jean-Claude Lhote et Rémi Angot
- * référence 6N11
+ * Exercice calqué sur lire abscisse fractionnaire sauf que le résultat attendu est en écriture décimale.
+ * demis, quart, cinquièmes dixièmes et centièmes
+ * @author Jean-Claude Lhote
+ * Référence 6N30-1
  */
-export default function LireAbscisseEntiere2d () {
+export default function LireAbscisseDecimaleBis2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = "Lire l'abscisse de chacun des points suivants."
+  this.consigne = 'Lire l’abscisse de chacun des points suivants et donner le résultat sous la forme d’un nombre en écriture décimale.'
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1
   this.spacingCorr = 1
-  this.sup = 4
-  this.interactif = false
+  this.sup = 1
+
   this.nouvelleVersion = function (numeroExercice) {
     // numeroExercice est 0 pour l'exercice 1
     let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
-    this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (parseInt(this.sup) === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+    if (parseInt(this.sup) === 5) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
       typesDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions
       )
     }
     const d = []
-    for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, pas1, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // La ligne suivante ne doit pas être mise après les setReponses car sinon elle les efface
-      this.autoCorrection[i] = { propositions: [{ statut: 4, feedback: '' }] }
+    this.contenu = htmlConsigne(this.consigne)
+    for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, xA, xB, xC, pas1, pas2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
       switch (typesDeQuestions[i]) {
-        case 1: // Placer des entiers sur un axe (milliers)
-          abs0 = randint(1, 9) * 1000
-          pas1 = 0.001
+        case 3: // Placer des demis ou des quarts sur un axe
+          abs0 = 0
+          pas1 = 1
+          pas2 = choice([2, 4])
           break
 
-        case 2: // Placer des entiers sur un axe (dizaines de mille)
-          abs0 = randint(5, 15) * 10000
-          pas1 = 0.0001
+        case 4: // Placer des cinquièmes
+          abs0 = 0
+          pas1 = 1
+          pas2 = 5
           break
 
-        case 3: // Placer des entiers sur un axe (centaines de mille)
-          abs0 = randint(35, 85) * 100000
-          pas1 = 0.00001
+        case 1: // Placer des dixièmes
+          abs0 = randint(1, 5)
+          pas1 = 1
+          pas2 = 10
+          break
+        case 2: // Placer des centièmes
+          abs0 = calcul(randint(10, 50) / 10)
+          pas1 = 10
+          pas2 = 10
           break
       }
-      x1 = calcul(randint(0, 27) / 10)
-      x2 = calcul(randint(33, 47) / 10)
-      x3 = calcul(randint(53, 67) / 10)
+      x1 = randint(0, 1)
+      x2 = randint(2, 3)
+      x3 = randint(4, 5)
+      x11 = randint(1, pas2 - 1)
+      x22 = randint(1, pas2 - 1)
+      x33 = randint(1, pas2 - 1)
+
+      xA = calcul(x1 + x11 / pas2)
+      xB = calcul(x2 + x22 / pas2)
+      xC = calcul(x3 + x33 / pas2)
 
       d[2 * i] = droiteGraduee2({
         Unite: 4,
@@ -76,9 +86,9 @@ export default function LireAbscisseEntiere2d () {
         pointStyle: 'x',
         labelsPrincipaux: false,
         thickSec: true,
-        step1: 10,
+        step1: pas2,
         labelListe: [[0, `${texNombre(abs0)}`], [1, `${texNombre(calcul(abs0 + 1 / pas1))}`]],
-        pointListe: [[x1, l1], [x2, l2], [x3, l3]]
+        pointListe: [[xA, l1], [xB, l2], [xC, l3]]
       })
       d[2 * i + 1] = droiteGraduee2({
         Unite: 4,
@@ -87,13 +97,13 @@ export default function LireAbscisseEntiere2d () {
         axeStyle: '->',
         labelsPrincipaux: false,
         thickSec: true,
-        step1: 10,
+        step1: pas2,
         labelListe: [
-          [x1, texNombre(calcul(x1 / pas1 + abs0))],
-          [x2, texNombre(calcul(x2 / pas1 + abs0))],
-          [x3, texNombre(calcul(x3 / pas1 + abs0))]
+          [xA, texNombre(calcul(xA + abs0))],
+          [xB, texNombre(calcul(xB + abs0))],
+          [xC, texNombre(calcul(xC + abs0))]
         ],
-        pointListe: [[x1, l1], [x2, l2], [x3, l3]]
+        pointListe: [[xA, l1], [xB, l2], [xC, l3]]
 
       })
 
@@ -101,9 +111,9 @@ export default function LireAbscisseEntiere2d () {
       texteCorr = mathalea2d({ xmin: -2, ymin: -2, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1])
 
       if (this.interactif && context.isHtml) {
-        setReponse(this, 3 * i, calcul(x1 / pas1 + abs0))
-        setReponse(this, 3 * i + 1, calcul(x2 / pas1 + abs0))
-        setReponse(this, 3 * i + 2, calcul(x3 / pas1 + abs0))
+        setReponse(this, 3 * i, `${xA + abs0}`)
+        setReponse(this, 3 * i + 1, `${xB + abs0}`)
+        setReponse(this, 3 * i + 2, `${xC + abs0}`)
         texte += l1 + ajouteChampTexteMathLive(this, 3 * i)
         texte += l2 + ajouteChampTexteMathLive(this, 3 * i + 1)
         texte += l3 + ajouteChampTexteMathLive(this, 3 * i + 2)
@@ -125,7 +135,7 @@ export default function LireAbscisseEntiere2d () {
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
-    4,
-    '1 : Milliers\n2 : Dizaines de mille\n3 : Centaines de mille\n4 : Mélange'
+    5,
+    '1 : Dixièmes\n2 : Centièmes\n3 : Demis et quarts\n4 : Cinquièmes\n5 : Mélange'
   ]
 }

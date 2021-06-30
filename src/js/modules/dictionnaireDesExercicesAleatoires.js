@@ -2925,6 +2925,13 @@ export default {
     "interactifReady": false,
     "name": "6N30-1"
   },
+  "6N30-1bis": {
+    "titre": "Lire l’abscisse décimale d’un point repéré par une fraction",
+    "url": "/exercices/6e/6N30-1bis.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6N30-1bis"
+  },
   "6N30-2": {
     "titre": "Placer un point d’abscisse décimale",
     "url": "/exercices/6e/6N30-2.js",
