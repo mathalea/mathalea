@@ -10,6 +10,5 @@ export const titre = 'Divisions euclidiennes'
  */
 export default function DivisionCycle3 () {
   DivisionsEuclidiennes.call(this)
-  this.titre = titre
   this.sup = 0
 }

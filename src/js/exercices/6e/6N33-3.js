@@ -10,7 +10,6 @@ export const titre = 'Problèmes avec des calculs de pourcentages'
  */
 export default function AppliquerUnPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.nbQuestions = 1
   this.consigne = 'Calculer'
   this.spacing = 2

@@ -10,7 +10,6 @@ export const titre = 'Problèmes de calcul de pourcentage par complément à 100
  */
 export default function CalculerUnPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.nbQuestions = 1
   this.consigne = 'Calculer'
   this.spacing = 2

@@ -15,11 +15,6 @@ export const amcType = 4
 */
 export default function ComplementAUneDizaine () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = 'Calculer'
   this.nbQuestions = 10
   this.nbCols = 2

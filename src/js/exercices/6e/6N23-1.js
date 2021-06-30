@@ -15,7 +15,6 @@ export const titre = 'Différentes écritures des nombres décimaux'
  */
 export default function ExerciceDifferentesEcrituresNombresDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = "Compléter l'égalité puis donner l'écriture décimale."
   this.spacing = 2
   this.spacingCorr = 2

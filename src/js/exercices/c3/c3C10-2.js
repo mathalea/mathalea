@@ -11,7 +11,6 @@ export const titre = 'Labyrinthe de multiples'
 export default function LabyrintheDeMultiplesCM () {
   ExerciceLabyrintheMultiples.call(this)
   this.niveau = 'CM'
-  this.titre = titre
   this.sup = 5
   this.sup2 = 10
   this.sup3 = 3

@@ -18,11 +18,6 @@ export const titre = 'Sens de l’écriture fractionnaire'
  */
 export default function SensDeLaFraction () {
   Exercice.call(this)
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nbQuestions = 4
   this.nbQuestionsModifiable = true
   this.nbCols = 1

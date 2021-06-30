@@ -10,7 +10,6 @@ export const titre = 'Ranger une liste de nombres entiers dans l’ordre croissa
 */
 
 export default function RangerOrdreCroissantDecroissant () {
-  'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false
   this.sup = 1
@@ -20,7 +19,6 @@ export default function RangerOrdreCroissantDecroissant () {
     this.nbQuestions = 2
   };
 
-  this.titre = titre
   // this.consigne = `Classer les nombres suivants dans l'ordre indiqué.`;
 
   this.nbCols = 1

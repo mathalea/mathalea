@@ -19,18 +19,13 @@ export const titre = 'Arrondir une valeur'
 
 export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
 
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = false
-  this.interactifType = interactifType
-  this.interactifReady = interactifReady
   this.interactif = true
-  this.amcReady = amcReady
-  this.amcType = amcType
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 
   this.nouvelleVersion = function () {

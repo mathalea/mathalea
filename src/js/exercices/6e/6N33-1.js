@@ -18,7 +18,6 @@ export const titre = 'Calculer le pourcentage d’un nombre de tête'
  */
 export default function PourcentageDunNombre () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.nbQuestions = 5
   this.consigne = 'Calculer'
   this.spacing = 2
@@ -26,11 +25,7 @@ export default function PourcentageDunNombre () {
   this.nbCols = 2
   this.nbColsCorr = 1
   this.sup = 1
-  this.amcReady = amcReady
-  this.amcType = amcType
   this.interactif = false
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
 
   this.nouvelleVersion = function () {
     let listePourcentages = []

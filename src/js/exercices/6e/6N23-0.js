@@ -12,7 +12,6 @@ export const titre = 'Écrire un nombre décimal en chiffres ou en lettres'
 
 export default function EcrireNombresDecimal () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1

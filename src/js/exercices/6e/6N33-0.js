@@ -12,7 +12,6 @@ export const titre = 'Calculer la fraction d’une quantité'
  */
 export default function FractionDuneQuantite () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.nbQuestions = 5
   this.consigne = 'Calculer'
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)

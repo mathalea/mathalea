@@ -10,7 +10,6 @@ export const titre = 'Lire des abscisses décimales sous trois formes'
 export default function LireAbscisseDecimaleTroisFormes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.niveau = 'sixième'
-  this.titre = titre
   this.consigne = ''
   if (context.isHtml) {
     this.spacing = 2

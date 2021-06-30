@@ -14,16 +14,11 @@ export const amcType = 4
 */
 export default function SommeDeDeuxNombresMaries () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = 'Calculer'
   this.nbQuestions = 10
   this.nbCols = 2
   this.nbColsCorr = 2
   this.tailleDiaporama = 100
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

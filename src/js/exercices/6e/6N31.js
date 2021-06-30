@@ -22,7 +22,6 @@ export const titre = 'Comparer des nombres décimaux'
  */
 export default function ComparerDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = 'Compléter avec le signe < , > ou =.'
   this.nbQuestions = 8
   this.nbCols = 2

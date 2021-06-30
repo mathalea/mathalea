@@ -12,7 +12,6 @@ export const titre = 'Mettre bout à bout des segments'
  */
 export default function AjouterDesFractionsDunite () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 2

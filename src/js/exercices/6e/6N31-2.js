@@ -10,7 +10,6 @@ export const titre = 'Ordre de grandeur et opérations sur les décimaux'
  */
 
 export default function OrdreDeGrandeurOperationsDecimaux () {
-  'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false
   if (this.beta) {
@@ -19,7 +18,6 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
     this.nbQuestions = 1
   };
 
-  this.titre = titre
   this.consigne = 'Pour chaque opération proposée dans la première colonne, cocher la case correspondant à l\'ordre de grandeur du résultat.'
 
   this.nbCols = 1
