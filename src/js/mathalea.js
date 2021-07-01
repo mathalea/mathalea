@@ -17,6 +17,7 @@ import 'katex/dist/katex.min.css'
 import '../css/style_mathalea.css'
 import { context, setOutputDiaporama, setOutputLatex, setOutputAmc } from './modules/context.js'
 import { gestionVue } from './modules/gestionVue.js'
+import { initDom } from './modules/initDom.js'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
 function isNumeric (n) {
@@ -67,37 +68,7 @@ if (context.isAmc) {
 // création des figures MG32 (géométrie dynamique)
 window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
 window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
-menuDesExercicesDisponibles()
-
-// gestion des filtres :
-//  au chargement de la page on vérifie s'il y a un filtre dans l'url si c'est le cas on selectionne le filtre dans la page html.
-//  gestion d'evenement sur le "select" filtre. Au changement on place la valeur dans l'url et on relance le calcul des exercices à afficher.
-if (document.getElementById('filtre')) {
-  const filtre = getFilterFromUrl()
-  if (filtre) {
-    document.getElementById('filtre').value = filtre
-  }
-  document.getElementById('filtre').addEventListener('change', function () {
-    // gestion du changement du select.
-    const regex = /'([?;&])filtre[^&;]*[;&]?'/
-    const query = window.location.search.replace(regex, '$1').replace(/&$/, '')
-    const filtre = document.getElementById('filtre').value
-    const url = (query.length > 2 ? query + '&' : '?') + (filtre !== 'tous' ? 'filtre=' + filtre : '')
-    let modeTableauActif = false // Gestion pour le mode tableau particulière pour gérer l'activation de "datatable"
-    window.history.pushState('', '', url)
-    if ($('#mode_choix_liste').is(':visible')) {
-      $('#mode_choix_liste').trigger('click')
-      modeTableauActif = true
-    }
-    menuDesExercicesDisponibles() // Calcul de la liste des exercices à afficher.
-    if (modeTableauActif) {
-      $('#mode_choix_tableau').trigger('click')
-    }
-    $('.ui.dropdown').dropdown() // Pour le menu des exercices, mise à jour des "accordion"
-    $('.ui.accordion').accordion('refresh')
-    $('.ui.checkbox').checkbox()
-  })
-}
+// menuDesExercicesDisponibles() // Fait une fois le dom initialisé
 
 // gestion de la vue
 // si dans l'url il y a un paramètre &v=... on modifie le DOM et/ou le CSS
@@ -223,23 +194,25 @@ function copierExercicesFormVersAffichage (exliste) {
 //  * du déplacement, suppression d'un exercice (manipulation des étiquettes et ou utilisation des icones.
 // A la fin appel de la fonction miseAJourDeLaListeDesExercices() => pour l'affichage des exercices choisis.
 const formChoixDesExercices = document.getElementById('choix_des_exercices')
-formChoixDesExercices.addEventListener('change', function (e) {
+if (formChoixDesExercices !== null) {
+  formChoixDesExercices.addEventListener('change', function (e) {
   // Changement du texte
-  if (e.target.value === '') {
-    listeDesExercices = []
-    listeObjetsExercice = []
-  } else {
-    listeDesExercices = []
-    listeObjetsExercice = []
-    listeDesExercices = e.target.value.replace(/\s/g, '').replace(';', ',').split(',') // Récupère  la saisie de l'utilisateur
+    if (e.target.value === '') {
+      listeDesExercices = []
+      listeObjetsExercice = []
+    } else {
+      listeDesExercices = []
+      listeObjetsExercice = []
+      listeDesExercices = e.target.value.replace(/\s/g, '').replace(';', ',').split(',') // Récupère  la saisie de l'utilisateur
     // en supprimant les espaces et en remplaçant les points-virgules par des virgules.
-  }
-  if (document.getElementById('affichageErreur')) {
-    document.getElementById('affichageErreur').remove()
-  }
-  copierExercicesFormVersAffichage(listeDesExercices)
-  miseAJourDeLaListeDesExercices()
-})
+    }
+    if (document.getElementById('affichageErreur')) {
+      document.getElementById('affichageErreur').remove()
+    }
+    copierExercicesFormVersAffichage(listeDesExercices)
+    miseAJourDeLaListeDesExercices()
+  })
+}
 
 if (document.getElementById('choix_exercices_div')) {
   // On cache le formulaire pour les feuilles qui ont les étiquettes.
@@ -1954,13 +1927,8 @@ function parametresExercice (exercice) {
 }
 
 // Initialisation de la page
-window.addEventListener('DOMContentLoaded', () => {
-  $('.ui.dropdown').dropdown() // Pour le menu des exercices
-  $('.ui.accordion').accordion('refresh')
-  $('.ui.checkbox').checkbox()
-  // Gestion du bouton de copie
-  $('.ui.button.toggle').state() // initialise le bouton
-
+document.addEventListener('DOMContentLoaded', async () => { // Evènement lancé par initDom.js
+  await initDom()
   // Gestion du bouton « Nouvelles données »
   const btnMiseAJourCode = document.getElementById('btn_mise_a_jour_code')
   if (btnMiseAJourCode) {
@@ -2096,8 +2064,8 @@ window.addEventListener('DOMContentLoaded', () => {
     .off('click')
     .on('click', function (e) {
       e.stopPropagation()
-      afficherPopup($('.popup').attr("data-exoId"))
-      $('.popup').attr("data-exoId","")
+      afficherPopup($('.popup').attr('data-exoId'))
+      $('.popup').attr('data-exoId', '')
     })
 
   $(document).click(function (e) {
