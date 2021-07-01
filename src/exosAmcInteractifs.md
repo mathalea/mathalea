@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 95 
-- nombre d'exos interactifReady 116 
+- nombre d'exos amcReady 96 
+- nombre d'exos interactifReady 117 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -103,6 +103,7 @@
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1).|KO|KO|OK|mathLive|
 |6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
+|6N30-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCOpen|OK|mathLive|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|OK|numerique|
 |6N33|Calculer la fraction d’un nombre|OK|AMCNum|OK|mathLive|

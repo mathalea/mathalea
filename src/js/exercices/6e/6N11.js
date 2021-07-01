@@ -26,6 +26,7 @@ export default function LireAbscisseEntiere2d () {
   this.spacingCorr = 1
   this.sup = 4
   this.interactif = false
+
   this.nouvelleVersion = function (numeroExercice) {
     // numeroExercice est 0 pour l'exercice 1
     let typesDeQuestions
@@ -43,7 +44,9 @@ export default function LireAbscisseEntiere2d () {
     const d = []
     for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, pas1, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // La ligne suivante ne doit pas être mise après les setReponses car sinon elle les efface
-      this.autoCorrection[i] = { propositions: [{ statut: 4, feedback: '' }] }
+      this.autoCorrection[3 * i] = { propositions: [{ statut: 4, feedback: '' }] }
+      this.autoCorrection[3 * i + 1] = { propositions: [{ statut: 4, feedback: '' }] }
+      this.autoCorrection[3 * i + 2] = { propositions: [{ statut: 4, feedback: '' }] }
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
@@ -85,6 +88,8 @@ export default function LireAbscisseEntiere2d () {
         Min: 0,
         Max: 7.1,
         axeStyle: '->',
+        pointTaille: 5,
+        pointStyle: 'x',
         labelsPrincipaux: false,
         thickSec: true,
         step1: 10,

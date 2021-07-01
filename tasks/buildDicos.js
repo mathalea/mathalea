@@ -47,12 +47,13 @@ function beginWarnText () {
 }
 
 function endWarnText () {
-  if (warnings != 0) {
+  if (warnings !== 0) {
     return console.log('\x1b[33m =========================================================== END WARNINGS ===========================================================\x1b[37m')
   }
 }
 
 function sumWarnings () {
+  let out
   if (warnings === 1) {
     out = `avec \x1b[33m ${warnings} WARNING\x1b[37m`
   } else {
