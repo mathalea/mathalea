@@ -119,8 +119,9 @@ if ($contentType === "application/json") {
   
 
   if ($errors=="") {
+    // On va créer le repertoire pour le stockage des résultats par semaine
     $path = './resultats/'.$prof1.'/'.$prof2.'/'.$prof3;
-
+    
     // On génère une nouvelle clef uniquement si l'arborescence n'existe pas
     // Sinon on récupère la clef dans le nom du fichier on verra plus tard s'il y a plusieurs fichiers
     if (!file_exists($path)) {
@@ -162,7 +163,7 @@ if ($contentType === "application/json") {
         $fp = fopen($fileNameToSaveDatas, 'a+');      
         // S'il n'existe pas on crée l'entete et on ajoute les données
         if (strlen(file_get_contents($fileNameToSaveDatas))==0) {
-          fputs($fp, "idUser,idExo,sup,sup2,sup3,nbBonnesReponse,nbQuestions,score en pourcentage,date,heure \r\n");  
+          fputs($fp, "idUser,idExo,sup,sup2,sup3,nbBonnesReponses,nbQuestions,score en %,date,heure \r\n");  
         };
         fputs($fp, $decoded->userId.','.$decoded->exId.','.$decoded->sup.','.$decoded->sup2.','.$decoded->sup3.','.$decoded->nbBonnesReponses.','.$decoded->nbQuestions.','.$decoded->score.'%,'.$currentDate.','.$currentTime."\r\n");  
         fclose($fp);
@@ -172,10 +173,7 @@ if ($contentType === "application/json") {
   }
 
   echo json_encode(array(
-    //"url" => $path.'/'.$keypass.'scores.csv',
-    //"url" => $pathToFile,
     "url" => $url,
-    //"userId" => $lettre1.$lettre2.$lettre3.$chiffre1.$chiffre2,
     "userId" => $prof1.$prof2.$prof3.$classe1.$classe2.$eleve1.$eleve2,
     "errors" => $errors
   ));  
