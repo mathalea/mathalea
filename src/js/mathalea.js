@@ -2184,6 +2184,9 @@ window.addEventListener('DOMContentLoaded', () => {
   if (params.get('userId')) {
     context.userId = params.get('userId')
     window.sessionStorage.setItem('userId', context.userId)
+    if (document.getElementById('userIdDisplayValue')) {
+      document.getElementById('userIdDisplayValue').value = context.userId
+    }
   }
   if (params.get('duree')) {
     context.duree = params.get('duree')
