@@ -2236,6 +2236,12 @@ if (document.getElementById('scoresKey')) {
 // Gestion du click sur "Créer un espace tout neuf"
 if (document.getElementById('scoresCreateSpace')) {
   document.getElementById('scoresCreateSpace').addEventListener('click', function () {
+    if (document.getElementById('scoresPromptUserId')) {
+      // On cache le champ de saisie
+      document.getElementById('scoresPromptUserId').hidden = true
+      // On vide le champ input
+      document.getElementById('scoresInputUserId').value = ''
+    }
     // On génère le userId côté serveur
     fetch('scoresKey.php', {
       method: 'POST',
@@ -2322,7 +2328,7 @@ if (document.getElementById('scoresSubmitUserId')) {
           console.log('Enregistrement vers un espace scores KO')
         } else { // sinon
           // On ajoute/met à jourle parametre userId dans l'url
-          // On récrit d'abord l'url pour éviter les trnasformation de caractères intempestives
+          // On récrit d'abord l'url pour éviter les transformations de caractères intempestives
           const urlRacine = window.location.href.split('?')[0]
           console.log(urlRacine)
           const queryString = window.location.search
@@ -2336,7 +2342,7 @@ if (document.getElementById('scoresSubmitUserId')) {
             urlParams.append('userId', response.userId)
             console.log(`Ajout du parametre userId => ${response.userId}`)
           }
-          // On met à jour/ajoute au stockage local dans le navigateur
+          // On met à jour/ajoute au stockage de session dans le navigateur
           context.userId = urlParams.get('userId')
           window.sessionStorage.setItem('userId', context.userId)
           const entries = urlParams.entries()
@@ -2362,7 +2368,6 @@ if (document.getElementById('scoresSubmitUserId')) {
             document.getElementById('scoresFeedback').hidden = false
             document.getElementById('scoresPromptUserId').hidden = true
           }
-          // alert('userId rrr : ' + response.userId)
           console.log('Enregistrement vers un espace scores OK')
         }
       })
