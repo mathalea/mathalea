@@ -46,7 +46,7 @@ let listePackages = new Set()
 // Variables pour mathalea_AMC
 let nbExemplaires = 1
 let nbQuestions = []
-let nom_fichier = ''
+let nomFichier = ''
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 let typeEntete = ''
@@ -715,7 +715,7 @@ function miseAJourDuCode () {
     $('#btn_telechargement').off('click').on('click', function () {
       // Gestion du style pour l'entête du fichier
 
-      let contenu_fichier = `
+      let contenuFichier = `
       
                   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                   % Document généré avec MathALEA sous licence CC-BY-SA
@@ -745,14 +745,14 @@ function miseAJourDuCode () {
         return request.responseText
       }
 
-      contenu_fichier += codeLatex
+      contenuFichier += codeLatex
       const monzip = new JSZip()
-      if ($('#nom_du_fichier').val() != '') {
-        nom_fichier = $('#nom_du_fichier').val() + '.tex'
+      if ($('#nom_du_fichier').val() !== '') {
+        nomFichier = $('#nom_du_fichier').val() + '.tex'
       } else {
-        nom_fichier = 'mathalea.tex'
+        nomFichier = 'mathalea.tex'
       }
-      monzip.file(`${nom_fichier}`, codeLatex)
+      monzip.file(`${nomFichier}`, codeLatex)
       monzip.file('automultiplechoice.sty', load('assets/fichiers/automultiplechoice.sty'))
       monzip.generateAsync({ type: 'blob' })
         .then(function (content) {
@@ -764,7 +764,7 @@ function miseAJourDuCode () {
     $('#btn_overleaf').off('click').on('click', function () {
       // Gestion du style pour l'entête du fichier
 
-      let contenu_fichier = `
+      let contenuFichier = `
                 
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                 % Document généré avec MathALEA sous licence CC-BY-SA
@@ -775,11 +775,11 @@ function miseAJourDuCode () {
                 
                 
                 `
-      contenu_fichier += codeLatex
+      contenuFichier += codeLatex
       // Gestion du LaTeX statique
       // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
-      $('input[name=encoded_snip]').val(encodeURIComponent(contenu_fichier))
+      $('input[name=encoded_snip]').val(encodeURIComponent(contenuFichier))
       if (listePackages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
         $('input[name=engine]').val('xelatex')
       }
@@ -1346,9 +1346,9 @@ function parametresExercice (exercice) {
       }
       if (exercice[i].nbQuestionsModifiable) {
         divParametresGeneraux.innerHTML +=
-          '<div><label for="form_nbQuestions' +
+          '<div><label for="formNbQuestionsParGroupe' +
           i +
-          '">Nombre de questions : </label> <input id="form_nbQuestions' +
+          '">Nombre de questions : </label> <input id="formNbQuestionsParGroupe' +
           i +
           '" type="number"  min="1" max="99"></div>'
       }
@@ -1391,7 +1391,7 @@ function parametresExercice (exercice) {
       }
       if (exercice[i].nbQuestionsModifiable) {
         divParametresGeneraux.innerHTML +=
-                          '<div><label for="form_nbQuestions' + i + '">Nombre de questions : </label> <input id="form_nbQuestions' + i + '" type="number"  min="1" max="99"></div>'
+                          '<div><label for="formNbQuestionsParGroupe' + i + '">Nombre de questions : </label> <input id="formNbQuestionsParGroupe' + i + '" type="number"  min="1" max="99"></div>'
       }
       if (exercice[i].correctionDetailleeDisponible) {
         divParametresGeneraux.innerHTML +=
@@ -1429,9 +1429,9 @@ function parametresExercice (exercice) {
       }
       if (exercice[i].nbQuestionsModifiable) {
         divParametresGeneraux.innerHTML +=
-          '<div><label for="form_nbQuestions' +
+          '<div><label for="formNbQuestionsParGroupe' +
           i +
-          '">Nombre de questions : </label> <input id="form_nbQuestions' +
+          '">Nombre de questions : </label> <input id="formNbQuestionsParGroupe' +
           i +
           '" type="number"  min="1" max="99"></div>'
       }
@@ -1767,7 +1767,7 @@ function parametresExercice (exercice) {
 
     // Gestion du nombre de questions
     if (exercice[i].nbQuestionsModifiable) {
-      formNbQuestions[i] = document.getElementById('form_nbQuestions' + i)
+      formNbQuestions[i] = document.getElementById('formNbQuestionsParGroupe' + i)
       formNbQuestions[i].value = exercice[i].nbQuestions // Rempli le formulaire avec le nombre de questions
       formNbQuestions[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
@@ -2022,7 +2022,7 @@ window.addEventListener('DOMContentLoaded', () => {
     formNbExemplaires.value = 1 // Rempli le formulaire avec le nombre de questions
     formNbExemplaires.addEventListener('change', function (e) {
       // Dès que le nombre change, on met à jour
-      if (typeEntete == 'AMCassociation') {
+      if (typeEntete === 'AMCassociation') {
         nbExemplaires = 1
         formNbExemplaires.value = 1
       } else {
@@ -2051,7 +2051,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     formEntete.addEventListener('change', function (e) {
       typeEntete = e.target.value
-      if (typeEntete == 'AMCassociation') {
+      if (typeEntete === 'AMCassociation') {
         nbExemplaires = 1
         formNbExemplaires.value = 1
       }
@@ -2074,9 +2074,9 @@ window.addEventListener('DOMContentLoaded', () => {
       miseAJourDuCode()
     })
 
-    const form_nbQuestions = document.getElementById('nbQuestions_par_groupe')
-    form_nbQuestions.value = []
-    form_nbQuestions.addEventListener('change', function (e) {
+    const formNbQuestionsParGroupe = document.getElementById('nbQuestions_par_groupe')
+    formNbQuestionsParGroupe.value = []
+    formNbQuestionsParGroupe.addEventListener('change', function (e) {
       const saisie = e.target.value
       nbQuestions = saisie.split(',')
       miseAJourDuCode()
@@ -2097,8 +2097,8 @@ window.addEventListener('DOMContentLoaded', () => {
     .off('click')
     .on('click', function (e) {
       e.stopPropagation()
-      afficherPopup($('.popup').attr("data-exoId"))
-      $('.popup').attr("data-exoId","")
+      afficherPopup($('.popup').attr('data-exoId'))
+      $('.popup').attr('data-exoId', '')
     })
 
   $(document).click(function (e) {

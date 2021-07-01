@@ -1,7 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
-import { context } from '../../modules/context.js'
 export const titre = 'Générateur de compte est bon'
 export const amcReady = true
 export const interactifReady = false
@@ -15,10 +14,6 @@ export const amcType = 3
 
 export default function LeCompteEstBonV3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.amcType = amcType
   this.consigne =
     'Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.'
   this.nbQuestions = 5

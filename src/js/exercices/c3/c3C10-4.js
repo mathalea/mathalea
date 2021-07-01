@@ -10,5 +10,4 @@ export const titre = 'Tables d’addition'
  */
 export default function TablesAdditionsCycle3 () {
   ExerciceTablesAdditions.call(this, 10)
-  this.titre = titre
 }

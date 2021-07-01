@@ -120,7 +120,9 @@ export function propositionsQcm (exercice, i) {
   } else { // Si les options ne sont pas définies, on mélange
     exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions)
   }
-  elimineDoublons(exercice.autoCorrection[i].propositions)
+  if (elimineDoublons(exercice.autoCorrection[i].propositions)) {
+    console.log('doublons trouvés')
+  }
   if (!context.isAmc) {
     if (context.isHtml) {
       texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
@@ -232,7 +234,7 @@ export function exerciceCliqueFigure (exercice) {
           figSvg.addEventListener('click', mouseSvgClick)
           figSvg.etat = false
           figSvg.style.margin = '10px'
-          figSvg.hasMathaleaListeners = true 
+          figSvg.hasMathaleaListeners = true
           // On enregistre que l'élément a déjà un listenner pour ne pas lui remettre le même à l'appui sur "Nouvelles Données"
         }
       }

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { calcul, choice, htmlConsigne, lettreDepuisChiffre, combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
+import { SvgReperageSurUnAxe, LatexReperageSurUnAxe } from '../../modules/macroSvgJs.js'
 
 export const titre = 'Lire l’abscisse décimale d’un point repéré par une fraction'
 
@@ -13,7 +13,6 @@ export const titre = 'Lire l’abscisse décimale d’un point repéré par une 
  */
 export default function LireAbscisseDecimaleBis () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = 'Lire l’abscisse de chacun des points suivants et donner le résultat sous la forme d’un nombre en écriture décimale.'
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
@@ -91,7 +90,7 @@ export default function LireAbscisseDecimaleBis () {
       if (context.isHtml) {
         idUnique = `${i}_${Date.now()}`
         this.contenu += `<div id="div_svg${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
-        SVG_reperage_sur_un_axe(
+        SvgReperageSurUnAxe(
           `div_svg${numeroExercice}${idUnique}`,
           abs0,
           6,
@@ -113,7 +112,7 @@ export default function LireAbscisseDecimaleBis () {
           false
         )
         this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
-        SVG_reperage_sur_un_axe(
+        SvgReperageSurUnAxe(
           `div_svg_corr${numeroExercice}${idUnique}`,
           abs0,
           6,
@@ -136,7 +135,7 @@ export default function LireAbscisseDecimaleBis () {
         )
       } else {
         // sortie Latex
-        texte = Latex_reperage_sur_un_axe(
+        texte = LatexReperageSurUnAxe(
           2,
           abs0,
           pas1,
@@ -152,7 +151,7 @@ export default function LireAbscisseDecimaleBis () {
           ],
           false
         )
-        texteCorr = Latex_reperage_sur_un_axe(
+        texteCorr = LatexReperageSurUnAxe(
           2,
           abs0,
           pas1,

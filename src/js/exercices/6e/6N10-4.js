@@ -10,7 +10,6 @@ export const titre = 'Écrire correctement les grands nombres entiers.'
  */
 export default function EcrireNombresEntiersFormates () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1

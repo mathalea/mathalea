@@ -1,7 +1,7 @@
 import { combinaisonListes, listeQuestionsToContenu, randint, calcul, htmlConsigne, lettreDepuisChiffre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
+import { SvgReperageSurUnAxe, LatexReperageSurUnAxe } from '../../modules/macroSvgJs.js'
 
 export const titre = 'Lire l’abscisse décimale d’un point'
 
@@ -12,7 +12,6 @@ export const titre = 'Lire l’abscisse décimale d’un point'
  */
 export default function LireAbscisseDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = "Lire l'abscisse de chacun des points suivants."
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
@@ -85,7 +84,7 @@ export default function LireAbscisseDecimale () {
       if (context.isHtml) {
         idUnique = `${i}_${Date.now()}`
         this.contenu += `<div id="div_svg${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
-        SVG_reperage_sur_un_axe(
+        SvgReperageSurUnAxe(
           `div_svg${numeroExercice}${idUnique}`,
           abs0,
           6,
@@ -103,7 +102,7 @@ export default function LireAbscisseDecimale () {
           false
         )
         this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
-        SVG_reperage_sur_un_axe(
+        SvgReperageSurUnAxe(
           `div_svg_corr${numeroExercice}${idUnique}`,
           abs0,
           6,
@@ -122,7 +121,7 @@ export default function LireAbscisseDecimale () {
         )
       } else {
         // sortie Latex
-        texte = Latex_reperage_sur_un_axe(
+        texte = LatexReperageSurUnAxe(
           2,
           abs0,
           pas1,
@@ -138,7 +137,7 @@ export default function LireAbscisseDecimale () {
           ],
           false
         )
-        texteCorr = Latex_reperage_sur_un_axe(
+        texteCorr = LatexReperageSurUnAxe(
           2,
           abs0,
           pas1,
