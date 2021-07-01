@@ -2286,6 +2286,10 @@ if (document.getElementById('scoresSaveToUserId')) {
       // On vide le champ input
       document.getElementById('scoresInputUserId').value = ''
     }
+    if (document.getElementById('userIdDisplay')) {
+      // On montre le champ prévu pour l'affichage du userId courant
+      document.getElementById('userIdDisplay').hidden = false
+    }
   })
 }
 if (document.getElementById('scoresSubmitUserId')) {
@@ -2369,6 +2373,10 @@ if (document.getElementById('scoresSubmitUserId')) {
             document.getElementById('scoresPromptUserId').hidden = true
           }
           console.log('Enregistrement vers un espace scores OK')
+          // On affiche le userId dans la fenetre principale
+          if (document.getElementById('userIdDisplayValue')) {
+            document.getElementById('userIdDisplayValue').value = response.userId
+          }
         }
       })
   })
