@@ -170,10 +170,11 @@ if ($contentType === "application/json") {
         };
         if ($isVerifResult) {
           $url = "pas d'url pour les verifsResult";
+          $fileNameToSaveDatas = $pathToFile.'/semaine'.$currentWeek.'.csv';
           // On ouvre le fichier
-          $fp = fopen($pathToFile.'/semaine'.$currentWeek.'.csv', 'a+');      
+          $fp = fopen($fileNameToSaveDatas, 'a+');      
           // S'il n'existe pas on crée l'entete et on ajoute les données
-          if (strlen(file_get_contents($pathToFile))==0) {
+          if (strlen(file_get_contents($fileNameToSaveDatas))==0) {
             fputs($fp, "idUser,idExo,sup,sup2,sup3,nbBonnesReponse,nbQuestions,score en pourcentage,date,heure \r\n");  
           };
           fputs($fp, $decoded->userId.','.$decoded->exId.','.$decoded->sup.','.$decoded->sup2.','.$decoded->sup3.','.$decoded->nbBonnesReponses.','.$decoded->nbQuestions.','.$decoded->score.'%,'.$currentDate.','.$currentTime."\r\n");  

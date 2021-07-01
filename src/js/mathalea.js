@@ -2252,17 +2252,6 @@ if (document.getElementById('scoresCreateSpace')) {
     })
       .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
       .then(response => {
-        // On ajoute un parametre userId à l'url
-        // On supprime le userId de l'url s'il existe
-        // On n'ajoute pasle userId à l'url lors de la création d'un espace
-        // const params = new URLSearchParams(location.search)
-        // if (params.has('userId')) {
-        //   params.delete('userId')
-        //   history.replaceState(null, '', '?' + params + location.hash)
-        // } else {
-        //   history.replaceState(null, '', '?' + params + location.hash)
-        // }
-        // window.history.replaceState('', '', location.href + '&userId=' + response.userId)
         if (document.getElementById('scoresFeedback')) {
           document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
           // Peut être que plutôt que de diriger vers une page, un lien vers le csv suffit ?
@@ -2298,7 +2287,6 @@ if (document.getElementById('scoresSubmitUserId')) {
     // On récupère la valeur saisie
     // Il faudra vérifier tout ça côté serveur
     const userId = document.getElementById('scoresInputUserId').value
-    // alert('userId sss : ' + userId)
     fetch('scoresKey.php', {
       method: 'POST',
       mode: 'same-origin',
@@ -2333,16 +2321,35 @@ if (document.getElementById('scoresSubmitUserId')) {
           }
           console.log('Enregistrement vers un espace scores KO')
         } else { // sinon
-          // On ajoute un parametre userId à l'url
-          // On supprime le userId de l'url s'il existe
-          const params = new URLSearchParams(location.search)
-          if (params.has('userId')) {
-            params.delete('userId')
-            history.replaceState(null, '', '?' + params + location.hash)
+          // On ajoute/met à jourle parametre userId dans l'url
+          // On récrit d'abord l'url pour éviter les trnasformation de caractères intempestives
+          const urlRacine = window.location.href.split('?')[0]
+          console.log(urlRacine)
+          const queryString = window.location.search
+          console.log(queryString)
+          const urlParams = new URLSearchParams(queryString)
+          console.log(urlParams)
+          if (urlParams.has('userId')) {
+            urlParams.set('userId', response.userId)
+            console.log(`Modification du parametre userId => ${response.userId}`)
           } else {
-            history.replaceState(null, '', '?' + params + location.hash)
+            urlParams.append('userId', response.userId)
+            console.log(`Ajout du parametre userId => ${response.userId}`)
           }
-          window.history.replaceState('', '', location.href + '&userId=' + response.userId)
+          const
+            //keys = urlParams.keys (),
+            //values = urlParams.values (),
+            entries = urlParams.entries ()
+          
+          let urlRewrite = urlRacine + '?'
+          for (const entry of entries) {
+            urlRewrite += entry[0] + '=' + entry[1] + '&'
+          }
+          urlRewrite = urlRewrite.slice(0, -1)
+          console.log(urlRewrite)
+          urlRewrite = new URL(urlRewrite)
+
+          window.history.replaceState('', '', urlRewrite)
           if (document.getElementById('scoresFeedback')) {
             document.getElementById('scoresFeedbackHeader').innerHTML = `Espace scores - Enregistrement pour le userId ${response.userId} validé`
             document.getElementById('scoresFeedbackBody').innerHTML = `
