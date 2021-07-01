@@ -2336,11 +2336,13 @@ if (document.getElementById('scoresSubmitUserId')) {
             urlParams.append('userId', response.userId)
             console.log(`Ajout du parametre userId => ${response.userId}`)
           }
-          const
-            //keys = urlParams.keys (),
-            //values = urlParams.values (),
-            entries = urlParams.entries ()
-          
+          // On met à jour/ajoute au stockage local dans le navigateur
+          context.userId = urlParams.get('userId')
+          window.sessionStorage.setItem('userId', context.userId)
+          const entries = urlParams.entries()
+          // keys = urlParams.keys (),
+          // values = urlParams.values (),
+
           let urlRewrite = urlRacine + '?'
           for (const entry of entries) {
             urlRewrite += entry[0] + '=' + entry[1] + '&'
