@@ -2184,7 +2184,11 @@ window.addEventListener('DOMContentLoaded', () => {
   if (params.get('userId')) {
     context.userId = params.get('userId')
     window.sessionStorage.setItem('userId', context.userId)
+    // Pour afficher le userId sur la page courante et le conserver en cas de changement de page
+    // On montre le champ prévu pour l'affichage du userId courant
+    document.getElementById('userIdDisplay').hidden = false
     if (document.getElementById('userIdDisplayValue')) {
+      // On complète le champ prévu pour l'affichage du userId courant
       document.getElementById('userIdDisplayValue').value = context.userId
     }
   }
