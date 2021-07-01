@@ -161,11 +161,13 @@ if ($contentType === "application/json") {
         $fileNameToSaveDatas = $pathToFile.'/semaine'.$currentWeek.'.csv';
         // On ouvre le fichier
         $fp = fopen($fileNameToSaveDatas, 'a+');      
+        // On définit le séparateur pour le csv
+        $sep = ';';
         // S'il n'existe pas on crée l'entete et on ajoute les données
         if (strlen(file_get_contents($fileNameToSaveDatas))==0) {
-          fputs($fp, "idUser,idExo,sup,sup2,sup3,nbBonnesReponses,nbQuestions,score en %,date,heure \r\n");  
+          fputs($fp, "Identifiant utilisateur".$sep."Identifiant exercice".$sep."Niveau sup".$sep."Niveau sup2".$sep."Nniveau sup3".$sep."Nombre de bonnes réponses".$sep."Nombre de questions".$sep."Score en %;Date".$sep."Heure \r\n");  
         };
-        fputs($fp, $decoded->userId.','.$decoded->exId.','.$decoded->sup.','.$decoded->sup2.','.$decoded->sup3.','.$decoded->nbBonnesReponses.','.$decoded->nbQuestions.','.$decoded->score.'%,'.$currentDate.','.$currentTime."\r\n");  
+        fputs($fp, $decoded->userId.$sep.$decoded->exId.$sep.$decoded->sup.$sep.$decoded->sup2.$sep.$decoded->sup3.$sep.$decoded->nbBonnesReponses.$sep.$decoded->nbQuestions.$sep.$decoded->score.'%'.$sep.$currentDate.$sep.$currentTime."\r\n");  
         fclose($fp);
       };
       
