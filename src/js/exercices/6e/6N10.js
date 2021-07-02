@@ -11,9 +11,7 @@ export const titre = 'Écrire un nombre en chiffres ou en lettres'
  */
 
 export default function EcrireNombresEntiers () {
-  'use strict'
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1

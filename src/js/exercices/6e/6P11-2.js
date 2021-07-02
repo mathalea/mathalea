@@ -12,9 +12,6 @@ export const interactifType = 'mathLive'
  * Référence 6P11-2
 */export default function ProportionnaliteParLineariteTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>On demande de les résoudre à l\'aide d\'un tableau.'
   this.nbQuestions = 5
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

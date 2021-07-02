@@ -20,11 +20,6 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.interactif = true
   this.consigne = 'Calculer'
   this.spacing = 2
@@ -58,9 +53,9 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
     for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
       a = couples[i][0]
       b = couples[i][1]
-      if (this.sup2 === 1) {
+      if (parseInt(this.sup2) === 1) {
         typeDeQuestions = 'classique'
-      } else if (this.sup2 === 2) {
+      } else if (parseInt(this.sup2) === 2) {
         typeDeQuestions = 'a_trous'
       } else {
         typeDeQuestions = listeTypeDeQuestions[i]

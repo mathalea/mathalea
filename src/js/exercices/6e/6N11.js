@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, lettreDepuisChiffre, htmlConsigne } from '../../modules/outils.js'
-import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
+import { SvgReperageSurUnAxe, LatexReperageSurUnAxe } from '../../modules/macroSvgJs.js'
 
 export const titre = 'Lire l’abscisse entière d’un point (grands nombres)'
 
@@ -10,10 +10,8 @@ export const titre = 'Lire l’abscisse entière d’un point (grands nombres)'
  * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N11
  */
-export default function Lire_abscisse_entiere () {
-  'use strict'
+export default function LireAbscisseEntiere () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = "Lire l'abscisse de chacun des points suivants."
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
@@ -31,7 +29,7 @@ export default function Lire_abscisse_entiere () {
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup == 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+    if (parseInt(this.sup) === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
       typesDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions
@@ -52,7 +50,7 @@ export default function Lire_abscisse_entiere () {
       x33,
       pas1,
       pas2,
-      id_unique,
+      idUnique,
       texte,
       texteCorr; i < this.nbQuestions; i++) {
       l1 = lettreDepuisChiffre(i * 3 + 1)
@@ -84,10 +82,10 @@ export default function Lire_abscisse_entiere () {
       x22 = randint(1, 9)
       x33 = randint(1, 3)
       if (context.isHtml) {
-        id_unique = `${i}_${Date.now()}`
-        this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-        SVG_reperage_sur_un_axe(
-          `div_svg${numeroExercice}${id_unique}`,
+        idUnique = `${i}_${Date.now()}`
+        this.contenu += `<div id="div_svg${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
+        SvgReperageSurUnAxe(
+          `div_svg${numeroExercice}${idUnique}`,
           abs0,
           6,
           pas1,
@@ -103,9 +101,9 @@ export default function Lire_abscisse_entiere () {
           ],
           false
         )
-        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-        SVG_reperage_sur_un_axe(
-          `div_svg_corr${numeroExercice}${id_unique}`,
+        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
+        SvgReperageSurUnAxe(
+          `div_svg_corr${numeroExercice}${idUnique}`,
           abs0,
           6,
           pas1,
@@ -123,7 +121,7 @@ export default function Lire_abscisse_entiere () {
         )
       } else {
         // sortie Latex
-        texte = Latex_reperage_sur_un_axe(
+        texte = LatexReperageSurUnAxe(
           2,
           abs0,
           pas1,
@@ -139,7 +137,7 @@ export default function Lire_abscisse_entiere () {
           ],
           false
         )
-        texteCorr = Latex_reperage_sur_un_axe(
+        texteCorr = LatexReperageSurUnAxe(
           2,
           abs0,
           pas1,

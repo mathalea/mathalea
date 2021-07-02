@@ -45,6 +45,11 @@ export function gestionVue () {
       }
       // Le titre de l'exercice ne peut être masqué qu'après l'affichage
       document.addEventListener('exercicesAffiches', masqueTitreExerciceEtEspaces)
+      document.addEventListener('exercicesAffiches', () => {
+        // Envoi des informations à Anki
+        const hauteur = window.contentWindow.document.body.scrollHeight
+        window.parent.postMessage(hauteur, '*')
+      })
     }
     if (context.vue === 'l' || context.vue === 'light') { // Affichage léger pour embed par exemple
       divExercice.style.fontSize = '1.5em'

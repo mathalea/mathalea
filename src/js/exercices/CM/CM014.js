@@ -14,11 +14,6 @@ export const amcType = 4
  */
 export default function DoubleMoitieTiersTriple () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifType = interactifType
-  this.interactifReady = interactifReady
   this.consigne = 'Calculer'
   this.nbQuestions = 10
   this.nbCols = 2

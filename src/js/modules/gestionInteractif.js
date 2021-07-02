@@ -14,6 +14,7 @@ export function exerciceInteractif (exercice) {
   } else if (context.isHtml && !context.isDiaporama) {
     if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
     if (exercice.interactifType === 'numerique')exerciceNumerique(exercice)
+    if (exercice.interactifType === 'cliqueFigure')exerciceCliqueFigure(exercice)
     if (exercice.interactifType === 'custom') exerciceCustom(exercice)
     // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
     if (exercice.interactifType === 'mathLive') exerciceMathLive(exercice)
@@ -118,7 +119,9 @@ export function propositionsQcm (exercice, i) {
   } else { // Si les options ne sont pas définies, on mélange
     exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions)
   }
-  elimineDoublons(exercice.autoCorrection[i].propositions)
+  if (elimineDoublons(exercice.autoCorrection[i].propositions)) {
+    console.log('doublons trouvés')
+  }
   if (!context.isAmc) {
     if (context.isHtml) {
       texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
@@ -213,6 +216,89 @@ export function exerciceNumerique (exercice) {
         button.classList.add('disabled')
         afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
       })
+    }
+  })
+}
+
+export function exerciceCliqueFigure (exercice) {
+  document.addEventListener('exercicesAffiches', () => {
+    // Dès que l'exercice est affiché, on rajoute des listenners sur chaque éléments de this.figures.
+    for (let i = 0; i < exercice.nbQuestions; i++) {
+      for (const objetFigure of exercice.figures[i]) {
+        const figSvg = document.getElementById(objetFigure.id)
+        if (!figSvg.hasMathaleaListeners) {
+          figSvg.addEventListener('mouseover', mouseOverSvgEffect)
+          figSvg.addEventListener('mouseout', mouseOutSvgEffect)
+          figSvg.addEventListener('click', mouseSvgClick)
+          figSvg.etat = false
+          figSvg.style.margin = '10px'
+          figSvg.hasMathaleaListeners = true
+          // On enregistre que l'élément a déjà un listenner pour ne pas lui remettre le même à l'appui sur "Nouvelles Données"
+        }
+      }
+    }
+    // Gestion de la correction
+    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
+    if (button) {
+      button.addEventListener('click', event => {
+        let nbBonnesReponses = 0
+        let nbMauvaisesReponses = 0
+        let nbFiguresCliquees = 0
+        for (let i = 0; i < exercice.nbQuestions; i++) {
+          // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
+          let eltFeedback = get(`resultatCheckEx${exercice.numeroExercice}Q${i}`, false)
+          // On ajoute le div pour le feedback
+          if (!eltFeedback) {
+            const eltExercice = get(`exercice${exercice.numeroExercice}`)
+            eltFeedback = addElement(eltExercice, 'div', { id: `resultatCheckEx${exercice.numeroExercice}Q${i}` })
+          }
+          setStyles(eltFeedback, 'marginBottom: 20px')
+          if (eltFeedback) eltFeedback.innerHTML = ''
+          const figures = []
+          let erreur = false // Aucune erreur détectée
+          for (const objetFigure of exercice.figures[i]) {
+            const eltFigure = document.getElementById(objetFigure.id)
+            figures.push(eltFigure)
+            eltFigure.removeEventListener('mouseover', mouseOverSvgEffect)
+            eltFigure.removeEventListener('mouseout', mouseOutSvgEffect)
+            eltFigure.removeEventListener('click', mouseSvgClick)
+            eltFigure.hasMathaleaListeners = false
+            if (eltFigure.etat) nbFiguresCliquees++
+            if (eltFigure.etat !== objetFigure.solution) erreur = true
+          }
+          if (nbFiguresCliquees > 0 && !erreur) {
+            eltFeedback.innerHTML = '😎'
+            nbBonnesReponses++
+          } else {
+            eltFeedback.innerHTML = '☹️'
+            nbMauvaisesReponses++
+          }
+        }
+        afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
+      })
+    }
+
+    function mouseOverSvgEffect () {
+      this.style.border = '1px solid #1DA962'
+    }
+    function mouseOutSvgEffect () {
+      this.style.border = 'none'
+    }
+    function mouseSvgClick () {
+      if (this.etat) {
+        // Déja choisi, donc on le réinitialise
+        this.style.border = 'none'
+        this.addEventListener('mouseover', mouseOverSvgEffect)
+        this.addEventListener('mouseout', mouseOutSvgEffect)
+        this.addEventListener('click', mouseSvgClick)
+        this.etat = false
+      } else {
+        // Passe à l'état choisi donc on désactive les listenners pour over et pour out
+        this.removeEventListener('mouseover', mouseOverSvgEffect)
+        this.removeEventListener('mouseout', mouseOutSvgEffect)
+        this.style.border = '3px solid #f15929'
+        this.etat = true
+      }
     }
   })
 }

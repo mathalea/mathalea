@@ -4,7 +4,7 @@ import { fraction } from '../../modules/fractions.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType =1 // QCM
+export const amcType = 1 // QCM
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -18,18 +18,12 @@ export const titre = 'Sens de l’écriture fractionnaire'
  */
 export default function SensDeLaFraction () {
   Exercice.call(this)
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nbQuestions = 4
   this.nbQuestionsModifiable = true
   this.nbCols = 1
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
-
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []

@@ -16,9 +16,6 @@ export const titre = 'Labyrinthe de multiples'
 export default function ExerciceLabyrintheMultiples () {
   'use strict'
   Exercice.call(this)
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.amcType = amcType
   this.titre = titre
   this.consigne = ''
   this.niveau = '6e'

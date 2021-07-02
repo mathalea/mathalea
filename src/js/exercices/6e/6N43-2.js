@@ -16,8 +16,6 @@ export const titre = 'Critères de divisibilité (plusieurs possibles)'
  */
 export default function TableauCriteresDeDivisibilite () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.amcType = amcType
   this.spacing = 1
   this.spacingCorr = 1
   this.nbQuestions = 5

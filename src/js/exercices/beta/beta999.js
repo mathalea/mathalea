@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Exercice exemple'
 
@@ -23,15 +22,15 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let question1, question2, correction1, correction2
+    let question1, question2
 
     question1 = 'texte de la question 1.'
     question1 += '<br>'
     question2 = 'texte de la question 2.'
     question2 += '<br>'
 
-    correction1 = 'texte de la correction 1'
-    correction2 = 'texte de la correction2'
+    const correction1 = 'texte de la correction 1'
+    const correction2 = 'texte de la correction2'
     this.listeQuestions.push(question1, question2)
     this.listeCorrections.push(correction1, correction2)
 

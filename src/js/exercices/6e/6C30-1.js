@@ -24,10 +24,6 @@ export const titre = 'Multiplications d’un nombre décimal par 10, 100 ou 1 00
 export default function MultiplierDecimauxPar101001000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
   this.consigne = 'Calculer.'
   this.sup = 3
   this.sup2 = false

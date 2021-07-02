@@ -18,10 +18,6 @@ export default function PlacerLaVirgule () {
   'use strict'
   Exercice.call(this)
   this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.interactif = true
   this.interactifObligatoire = true
   this.nbQuestions = 4 // Ici le nombre de questions

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, texFraction, combinaisonListes, pgcd, texFractionReduite } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Développer (a+b)²'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,6 +16,11 @@ export default function DevelopperIdentitesRemarquables3 () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
+  this.correctionDetailleeDisponible = true
+  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+  if (!context.isHtml) {
+    this.correctionDetaillee = false
+  }
   this.consigne = 'Développer puis réduire les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -47,34 +53,44 @@ export default function DevelopperIdentitesRemarquables3 () {
       fraction = choice(listeFractions)
       ns = fraction[0]
       ds = fraction[1]
+      texteCorr = ''
       switch (typesDeQuestions) {
         case 1:
           texte = `$\\left(x+${a}\\right)^2$` // (x+a)^2
-          texteCorr = `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-          texteCorr += `$\\left(\\color{red}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2=\\color{red}x\\color{black}^2+2 \\times \\color{red}x \\color{black}\\times \\color{green}${a} \\color{black}+ \\color{green}${a}\\color{black}^2$ <br>`
-          texteCorr += `$\\phantom{\\left(\\color{red}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = x^2+${2 * a}x+${a * a}$`
+          if (this.correctionDetaillee) {
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{red}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2=\\color{red}x\\color{black}^2+2 \\times \\color{red}x \\color{black}\\times \\color{green}${a} \\color{black}+ \\color{green}${a}\\color{black}^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{red}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = x^2+${2 * a}x+${a * a}$`
+          } else { texteCorr += `$\\left(x+${a} \\right)^2=x^2+${2 * a}x+${a * a}$` }
           reponse = `x^2+${2 * a}x+${a * a}`
           break
         case 2:
           texte = `$\\left(${b}x+${a}\\right)^2$` // b>1
-          texteCorr = `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-          texteCorr += `$\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${b}x\\color{black}\\right)^2 + 2 \\times \\color{red}${b}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
-          texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2+${2 * b * a}x+${a * a}$`
+          if (this.correctionDetaillee) {
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${b}x\\color{black}\\right)^2 + 2 \\times \\color{red}${b}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2+${2 * b * a}x+${a * a}$`
+          } else { texteCorr += `$\\left(${b}x+${a}\\right)^2 = ${b * b}x^2+${2 * b * a}x+${a * a}$` }
           reponse = `${b * b}x^2+${2 * b * a}x+${a * a}`
           break
         case 3:
           b = -b
           texte = `$\\left(${b}x+${a}\\right)^2$` // b<-1
-          texteCorr = `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-          texteCorr += `$\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${b}x\\color{black}\\right)^2 + 2 \\times \\color{red}(${b}x)\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
-          texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2 -${-2 * b * a}x+${a * a}$`
+          if (this.correctionDetaillee) {
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${b}x\\color{black}\\right)^2 + 2 \\times \\color{red}(${b}x)\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2 -${-2 * b * a}x+${a * a}$`
+          } else { texteCorr = texte + `$= ${b * b}x^2 -${-2 * b * a}x+${a * a}$` }
+
           reponse = `${b * b}x^2+${2 * b * a}x+${a * a}`
           break
         case 4:
           texte = `$\\left(${texFraction(ns, ds)}x+${a}\\right)^2$`
-          texteCorr = `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${texFraction(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-          texteCorr += `$\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${texFraction(ns, ds)}x\\color{black}\\right)^2 + 2 \\times \\color{red}${texFraction(ns, ds)}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2 $ <br><br>`
-          texteCorr += `$\\phantom{\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFraction(ns * ns, ds * ds)}x^2+${texFraction(2 * ns * a, ds)}x+${a * a}$`
+          if (this.correctionDetaillee) {
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${texFraction(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${texFraction(ns, ds)}x\\color{black}\\right)^2 + 2 \\times \\color{red}${texFraction(ns, ds)}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2 $ <br><br>`
+            texteCorr += `$\\phantom{\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFraction(ns * ns, ds * ds)}x^2+${texFraction(2 * ns * a, ds)}x+${a * a}$`
+          } else { texteCorr = texte + `$= ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$` }
           if (pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1) {
             texteCorr += `<br><br>$\\phantom{\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
           }

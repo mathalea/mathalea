@@ -49,13 +49,13 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions
-    if (this.sup2 === 1) {
+    if (parseInt(this.sup2) === 1) {
       listeTypeDeQuestions = combinaisonListes(['+'], this.nbQuestions)
     }
-    if (this.sup2 === 2) {
+    if (parseInt(this.sup2) === 2) {
       listeTypeDeQuestions = combinaisonListes(['-'], this.nbQuestions)
     }
-    if (this.sup2 === 3) {
+    if (parseInt(this.sup2) === 3) {
       listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions)
     }
     for (let i = 0, a, b, c, d, k, texte, texteCorr; i < this.nbQuestions; i++) {
