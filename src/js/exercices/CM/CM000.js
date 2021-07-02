@@ -8,7 +8,7 @@ export const titre = 'Additions et de soustractions'
 export const interactifReady = true
 export const interactifType = 'numerique'
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * Additions et/ou soustractions classique et/ou à trou.

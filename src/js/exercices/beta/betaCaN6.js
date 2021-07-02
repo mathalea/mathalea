@@ -8,7 +8,7 @@ export const titre = 'Course aux nombres 6e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 /**
  * Description didactique de l'exercice
  * @author

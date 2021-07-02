@@ -6,7 +6,7 @@ export const titre = 'Complément à une dizaine'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * Une soustraction dont le premier terme est un multiple de 10

@@ -6,7 +6,7 @@ export const titre = 'Tables de divisions'
 export const interactifReady = true
 export const interactifType = 'numerique'
 export const amcReady = true
-export const amcType = 4 // Question numérique
+export const amcType = 'AMCNum' // Question numérique
 
 /**
  * Tables de divisions classiques, à trou ou un mélange des deux.

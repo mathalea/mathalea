@@ -4,7 +4,7 @@ import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
 export const titre = 'Générateur de compte est bon'
 export const amcReady = true
 export const interactifReady = false
-export const amcType = 3
+export const amcType = 'AMCOpen'
 
 /**
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).

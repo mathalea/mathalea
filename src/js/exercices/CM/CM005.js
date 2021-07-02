@@ -5,7 +5,7 @@ export const titre = 'Ajouter 9'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9

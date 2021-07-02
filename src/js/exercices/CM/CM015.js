@@ -5,7 +5,7 @@ export const titre = 'Somme de deux nombres mariés'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * Somme de deux nombres dont les chiffres des unités sont des compléments à 10

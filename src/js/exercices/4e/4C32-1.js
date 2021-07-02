@@ -4,7 +4,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Calcul avec les puissances de dix'
 
 export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
-export const amcType = 1 // QCM
+export const amcType = 'qcmMono' // QCM
 export const interactifType = 'qcm'
 export const interactifReady = true
 

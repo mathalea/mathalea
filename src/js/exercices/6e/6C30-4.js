@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choic
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 1 // QCM
+export const amcType = 'qcmMono' // QCM
 export const interactifType = 'qcm'
 export const interactifReady = true
 

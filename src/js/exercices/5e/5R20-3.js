@@ -20,7 +20,7 @@ export const titre = 'Additions de 5 nombres relatifs'
 export const interactifReady = true
 
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
 
 /**

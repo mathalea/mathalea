@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes, randi
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Tables de multiplications et de divisions'
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

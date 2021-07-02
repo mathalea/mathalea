@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, sommeDesChiffres, calcul, texNombre, randint, choice } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 1 // type de question AMC
+export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const titre = 'Diviseur, multiple, divisible - Vrai ou faux'

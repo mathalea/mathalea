@@ -6,7 +6,7 @@ export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
 
-export const amcType = 4
+export const amcType = 'AMCNum'
 /**
  * Division d'un entier par 10, 100, 1000
  * @author Rémi Angot

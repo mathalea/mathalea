@@ -4,7 +4,7 @@ export const titre = 'Calculs de volumes'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const amcReady = true
-export const amcType = 1
+export const amcType = 'qcmMono'
 
 /**
  * @author Jean-claude Lhote

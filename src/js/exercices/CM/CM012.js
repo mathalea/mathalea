@@ -5,7 +5,7 @@ export const titre = 'Complément à 100'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * 100-...=
