@@ -2219,15 +2219,33 @@ window.addEventListener('DOMContentLoaded', () => {
 // Deconnexion scores
 if (document.getElementById('scoresKeyLogOut')) {
   document.getElementById('scoresKeyLogOut').addEventListener('click', function () {
-    const params = new URL(document.location).searchParams
-    if (params.get('userId')) {
+    // Réécrire l'url sans le userId
+    const urlRacine = window.location.href.split('?')[0]
+    console.log(urlRacine)
+    const queryString = window.location.search
+    console.log(queryString)
+    const urlParams = new URLSearchParams(queryString)
+    console.log(urlParams)
+    if (urlParams.has('userId')) {
+      urlParams.delete('userId')
+      console.log(`Suppression du parametre userId `)
       // On supprime le userId du stockage
       window.sessionStorage.removeItem('userId')
       // Pour cacher le champ userId sur la page courante et le conserver en cas de changement de page
       // On cache le champ prévu pour l'affichage du userId courant
-      document.getElementById('userIdDisplay').hidden = true
+      document.getElementById('userIdDisplay').hidden = true      
+    }     
+    const entries = urlParams.entries()
+  
+    let urlRewrite = urlRacine + '?'
+    for (const entry of entries) {
+      urlRewrite += entry[0] + '=' + entry[1] + '&'
     }
-    // Réécrire l'url fair une fonction
+    urlRewrite = urlRewrite.slice(0, -1)
+    console.log(urlRewrite)
+    urlRewrite = new URL(urlRewrite)
+  
+    window.history.replaceState('', '', urlRewrite)
   })
 }
 
