@@ -2216,6 +2216,21 @@ window.addEventListener('DOMContentLoaded', () => {
 // https://docs.google.com/document/d/17ajVHWDkrSYj2VA_OulWgl9iz8zxBLAkfgeEK6m0OXU/edit?usp=sharing
 // =============================================================================================================================
 
+// Deconnexion scores
+if (document.getElementById('scoresKeyLogOut')) {
+  document.getElementById('scoresKeyLogOut').addEventListener('click', function () {
+    const params = new URL(document.location).searchParams
+    if (params.get('userId')) {
+      // On supprime le userId du stockage
+      window.sessionStorage.removeItem('userId')
+      // Pour cacher le champ userId sur la page courante et le conserver en cas de changement de page
+      // On cache le champ prévu pour l'affichage du userId courant
+      document.getElementById('userIdDisplay').hidden = true
+    }
+    // Réécrire l'url fair une fonction
+  })
+}
+
 // Si le bouton existe et que l'utilisateur clique de dessus on ouvre une modale et on propose deux choix
 // => Créer un userId
 // => Utiliser un userId existant
