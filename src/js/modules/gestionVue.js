@@ -2,21 +2,36 @@ import { context } from './context'
 import { get } from './dom'
 import { getVueFromUrl } from './getUrlVars'
 
-export function gestionVue () {
-  const vue = getVueFromUrl()
+export function gestionVue (vue) {
   if (vue) {
     context.vue = vue
+  } else {
+    context.vue = getVueFromUrl()
+  }
+  if (context.vue) {
     const nav = document.getElementsByTagName('nav')
     const footer = document.getElementsByTagName('footer')
-    const divMessageIntro = get('messageIntro')
-    const divBoutonsAuDessusDesExercices = get('boutonsAuDessusDesExercices')
-    const divParametres = get('parametres')
-    const divExercice = get('exercices')
-    const divCorrection = get('corrections')
-    const btnZoomPlus = get('btn_zoom_plus')
-    const btnZoomMoins = get('btn_zoom_moins')
-    const btnEdit = get('btn_edit')
-    const btnMiseAJourCode = get('btn_mise_a_jour_code')
+    const divChoixExercices = document.getElementById('choix_exercices_menu')
+    const divMessageIntro = get('messageIntro', false)
+    const divBoutonsAuDessusDesExercices = get('boutonsAuDessusDesExercices', false)
+    const divParametres = get('parametres', false)
+    const divExercice = get('exercices', false)
+    const divCorrection = get('corrections', false)
+    const btnZoomPlus = get('btn_zoom_plus', false)
+    const btnZoomMoins = get('btn_zoom_moins', false)
+    const btnEdit = get('btn_edit', false)
+    const btnMiseAJourCode = get('btn_mise_a_jour_code', false)
+    const btnCopieURL = get('btnCopieURL', false)
+    const btnLaTeX = get('btnLaTeX', false)
+    const btnEmbed = get('btnEmbed', false)
+    const btnQRcode = get('btnQRcode', false)
+    const buttonFullScreen = get('buttonFullScreen', false)
+    const colonneGauche = document.getElementById('left')
+    const colonneDroite = document.getElementById('right')
+    const container2Colonnes = document.getElementById('mathaleaContainer')
+    const boutonDoubleChevron = document.getElementById('exo_plein_ecran')
+    const titreExerciceAvecChevron = document.getElementById('titreExerciceAvecChevron')
+
     const masqueEspaces = () => {
       const espaces = document.getElementsByClassName('ui hidden divider')
       for (const espace of espaces) {
@@ -31,9 +46,43 @@ export function gestionVue () {
       masqueEspaces()
     }
 
+    const masqueMenuDesExercices = () => {
+      if (colonneGauche !== null) {
+        colonneGauche.style = ''
+        colonneGauche.style.display = 'none'
+      }
+      if (colonneDroite !== null) colonneDroite.style = ''
+      container2Colonnes.classList.remove('ui', 'stackable', 'two', 'column', 'grid')
+      const boutonDoubleChevron = document.getElementById('exo_plein_ecran')
+      boutonDoubleChevron.classList.add('right')
+      boutonDoubleChevron.classList.remove('left')
+    }
+
+    const demasqueMenuDesExercices = () => {
+      if (colonneGauche !== null) {
+        colonneGauche.style.height = '75vh'
+        colonneGauche.style.display = 'block'
+      }
+      if (colonneDroite !== null) {
+        colonneDroite.style.height = '75vh'
+        colonneDroite.style.overflowY = 'auto'
+      }
+      container2Colonnes.classList.add('ui', 'stackable', 'two', 'column', 'grid')
+      boutonDoubleChevron.classList.add('left')
+      boutonDoubleChevron.classList.remove('right')
+    }
+
+    const minifieTousLesBoutons = () => {
+      const boutons = document.getElementsByTagName('button')
+      for (const btn of boutons) {
+        console.log(btn)
+        btn.classList.add('mini')
+      }
+    }
+
     if (context.vue === 'recto' || context.vue === 'verso') {
       for (const e of [nav[0], footer[0], divMessageIntro, divBoutonsAuDessusDesExercices, divParametres]) {
-        e.style.display = 'none'
+        if (e !== null) e.style.display = 'none'
       }
       divExercice.style.fontSize = '1.5em'
       divCorrection.style.fontSize = '1.5em'
@@ -47,18 +96,31 @@ export function gestionVue () {
       document.addEventListener('exercicesAffiches', masqueTitreExerciceEtEspaces)
       document.addEventListener('exercicesAffiches', () => {
         // Envoi des informations à Anki
-        const hauteur = window.contentWindow.document.body.scrollHeight
+        const hauteur = document.body.scrollHeight
         window.parent.postMessage(hauteur, '*')
       })
     }
     if (context.vue === 'l' || context.vue === 'light') { // Affichage léger pour embed par exemple
-      divExercice.style.fontSize = '1.5em'
-      divCorrection.style.fontSize = '1.5em'
-      btnMiseAJourCode.classList.add('mini')
+      // divExercice.style.fontSize = '1.5em'
+      // divCorrection.style.fontSize = '1.5em'
+
+      // Si l'URL de départ est sur cette vue
+      document.addEventListener('exercicesAffiches', () => {
+        minifieTousLesBoutons()
+      })
+      // Si les exercices sont déjà affichés
+      minifieTousLesBoutons()
       masqueEspaces()
-      for (const e of [nav[0], footer[0], divMessageIntro, btnZoomPlus, btnZoomMoins, btnEdit]) {
-        e.style.display = 'none'
+      masqueMenuDesExercices()
+      for (const e of [nav[0], footer[0], divMessageIntro, btnZoomPlus, btnZoomMoins, btnCopieURL, btnLaTeX, btnEmbed, btnQRcode, buttonFullScreen, btnEdit, divChoixExercices, titreExerciceAvecChevron]) {
+        if (e !== null) e.style.display = 'none'
       }
+    }
+    if (context.vue === 'ex') { // Affichage des seuls exercices
+      masqueMenuDesExercices()
+    }
+    if (context.vue === 'menu') { // Affichage des seuls exercices
+      demasqueMenuDesExercices()
     }
   }
 }

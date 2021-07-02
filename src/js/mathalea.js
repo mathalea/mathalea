@@ -18,6 +18,7 @@ import '../css/style_mathalea.css'
 import { context, setOutputDiaporama, setOutputLatex, setOutputAmc } from './modules/context.js'
 import { gestionVue } from './modules/gestionVue.js'
 import { initDom } from './modules/initDom.js'
+import { get } from './modules/dom.js'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
 function isNumeric (n) {
@@ -69,10 +70,6 @@ if (context.isAmc) {
 window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
 window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
 // menuDesExercicesDisponibles() // Fait une fois le dom initialisé
-
-// gestion de la vue
-// si dans l'url il y a un paramètre &v=... on modifie le DOM et/ou le CSS
-gestionVue()
 
 // fonctions de gestion de la liste des exercices cg 04-2021 ****
 // fonctions : copierVersExerciceForm ; selectionnerCode ; ajoutHandlersEtiquetteExo ; gestionSpanChoixExercice ; copierExercicesFormVersAffichage
@@ -150,9 +147,7 @@ function gestionSpanChoixExercice (elem) {
     $(elem).addClass('valide')
     if ($('.choix_exercices:last').hasClass('valide')) {
       // si le dernier élément n'est pas valide on n'en créé pas un nouveau.
-      $(elem.parentElement.parentElement).append(
-        '<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br/></span></div>'
-      )
+      $(elem.parentElement.parentElement).append('<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br/></span></div>')
     }
     ajoutHandlersEtiquetteExo() // On ajoute la gestion des evenements sur l'étiquette créée.
     // sur la perte de focus, si le span est valide alors on met à jour la liste des exercices (maj du champ texte + event change)
@@ -160,11 +155,6 @@ function gestionSpanChoixExercice (elem) {
     // si on change le contenteditable et que l'exercice n'est plus un code valide
     $(elem).removeClass('valide')
   }
-}
-
-// pour ne pas déclencher la gestion des evenemet sur les pages qui n'ont pas la div choix d'exercice.
-if (document.getElementById('choix_exercices_div')) {
-  ajoutHandlersEtiquetteExo()
 }
 
 function copierExercicesFormVersAffichage (exliste) {
@@ -186,37 +176,6 @@ function copierExercicesFormVersAffichage (exliste) {
     divExercice.innerHTML = tagexercices
     ajoutHandlersEtiquetteExo()
   }
-}
-
-// Mise à jour du formulaire (gestion de l'evenement "change" du formulaire de la liste des exercices activé lors :
-//  * du chargement
-//  * de l'ajout d'un exercice (click sur le lien)
-//  * du déplacement, suppression d'un exercice (manipulation des étiquettes et ou utilisation des icones.
-// A la fin appel de la fonction miseAJourDeLaListeDesExercices() => pour l'affichage des exercices choisis.
-const formChoixDesExercices = document.getElementById('choix_des_exercices')
-if (formChoixDesExercices !== null) {
-  formChoixDesExercices.addEventListener('change', function (e) {
-  // Changement du texte
-    if (e.target.value === '') {
-      listeDesExercices = []
-      listeObjetsExercice = []
-    } else {
-      listeDesExercices = []
-      listeObjetsExercice = []
-      listeDesExercices = e.target.value.replace(/\s/g, '').replace(';', ',').split(',') // Récupère  la saisie de l'utilisateur
-    // en supprimant les espaces et en remplaçant les points-virgules par des virgules.
-    }
-    if (document.getElementById('affichageErreur')) {
-      document.getElementById('affichageErreur').remove()
-    }
-    copierExercicesFormVersAffichage(listeDesExercices)
-    miseAJourDeLaListeDesExercices()
-  })
-}
-
-if (document.getElementById('choix_exercices_div')) {
-  // On cache le formulaire pour les feuilles qui ont les étiquettes.
-  $('#choix_des_exercices').parent().hide()
 }
 
 //* ************
@@ -429,7 +388,7 @@ function miseAJourDuCode () {
     if (listeDesExercices.length > 0) {
       let finUrl = ''
       if (context.isHtml && !context.isDiaporama && window.location.pathname.indexOf('exo.html') < 0) {
-        finUrl += 'exercice.html'
+        finUrl += 'mathalea.html'
       }
       finUrl += `?ex=${listeDesExercices[0]}`
       if (typeof listeObjetsExercice[0].sup !== 'undefined') {
@@ -664,15 +623,19 @@ function miseAJourDuCode () {
         }
       }
       context.isHtml = output
-      codeLatex = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nbExemplaires: nbExemplaires, typeEntete: typeEntete, format: format }).replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
+      codeLatex = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nbExemplaires: nbExemplaires, typeEntete: typeEntete, format: format })
+        .replace(/<br><br>/g, '\n\n\\medskip\n')
+        .replace(/<br>/g, '\\\\\n')
 
       $('#message_liste_exercice_vide').hide()
       $('#cache').show()
       div.innerHTML = '<pre><code class="language-latex">' + codeLatex + '</code></pre>'
-      loadPrism().then(() => {
-        /* global Prism */
-        Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
-      }).catch(error => console.error(error))
+      loadPrism()
+        .then(() => {
+          /* global Prism */
+          Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
+        })
+        .catch((error) => console.error(error))
       const clipboardURL = new Clipboard('#btnCopieLatex', { text: () => codeLatex })
       clipboardURL.on('success', function (e) {
         console.info('Code LaTeX copié dans le presse-papier.')
@@ -685,10 +648,12 @@ function miseAJourDuCode () {
     }
 
     // Gestion du téléchargement
-    $('#btn_telechargement').off('click').on('click', function () {
-      // Gestion du style pour l'entête du fichier
+    $('#btn_telechargement')
+      .off('click')
+      .on('click', function () {
+        // Gestion du style pour l'entête du fichier
 
-      let contenu_fichier = `
+        let contenu_fichier = `
       
                   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                   % Document généré avec MathALEA sous licence CC-BY-SA
@@ -698,46 +663,49 @@ function miseAJourDuCode () {
                   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                   
                   `
-      const load = function (monFichier) {
-        let request
+        const load = function (monFichier) {
+          let request
 
-        if (window.XMLHttpRequest) { // Firefox
-          request = new XMLHttpRequest()
-        } else if (window.ActiveXObject) { // IE
-          request = new ActiveXObject('Microsoft.XMLHTTP')
-        } else {
-          return // Non supporte
+          if (window.XMLHttpRequest) {
+            // Firefox
+            request = new XMLHttpRequest()
+          } else if (window.ActiveXObject) {
+            // IE
+            request = new ActiveXObject('Microsoft.XMLHTTP')
+          } else {
+            return // Non supporte
+          }
+
+          // Pour éviter l'erreur d'interpretation du type Mime
+          request.overrideMimeType('text/plain')
+
+          request.open('GET', monFichier, false) // Synchro
+          request.send(null)
+
+          return request.responseText
         }
 
-        // Pour éviter l'erreur d'interpretation du type Mime
-        request.overrideMimeType('text/plain')
-
-        request.open('GET', monFichier, false) // Synchro
-        request.send(null)
-
-        return request.responseText
-      }
-
-      contenu_fichier += codeLatex
-      const monzip = new JSZip()
-      if ($('#nom_du_fichier').val() != '') {
-        nom_fichier = $('#nom_du_fichier').val() + '.tex'
-      } else {
-        nom_fichier = 'mathalea.tex'
-      }
-      monzip.file(`${nom_fichier}`, codeLatex)
-      monzip.file('automultiplechoice.sty', load('assets/fichiers/automultiplechoice.sty'))
-      monzip.generateAsync({ type: 'blob' })
-        .then(function (content) {
+        contenu_fichier += codeLatex
+        const monzip = new JSZip()
+        if ($('#nom_du_fichier').val() != '') {
+          nom_fichier = $('#nom_du_fichier').val() + '.tex'
+        } else {
+          nom_fichier = 'mathalea.tex'
+        }
+        monzip.file(`${nom_fichier}`, codeLatex)
+        monzip.file('automultiplechoice.sty', load('assets/fichiers/automultiplechoice.sty'))
+        monzip.generateAsync({ type: 'blob' }).then(function (content) {
           // see FileSaver.js
           saveAs(content, 'Projet.zip')
         })
-    })
+      })
 
-    $('#btn_overleaf').off('click').on('click', function () {
-      // Gestion du style pour l'entête du fichier
+    $('#btn_overleaf')
+      .off('click')
+      .on('click', function () {
+        // Gestion du style pour l'entête du fichier
 
-      let contenu_fichier = `
+        let contenu_fichier = `
                 
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                 % Document généré avec MathALEA sous licence CC-BY-SA
@@ -748,18 +716,19 @@ function miseAJourDuCode () {
                 
                 
                 `
-      contenu_fichier += codeLatex
-      // Gestion du LaTeX statique
-      // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
+        contenu_fichier += codeLatex
+        // Gestion du LaTeX statique
+        // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
-      $('input[name=encoded_snip]').val(encodeURIComponent(contenu_fichier))
-      if (listePackages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
-        $('input[name=engine]').val('xelatex')
-      }
-      if ($('#nom_du_fichier').val()) {
-        $('input[name=snip_name]').val($('#nom_du_fichier').val()) // nomme le projet sur Overleaf
-      }
-    })
+        $('input[name=encoded_snip]').val(encodeURIComponent(contenu_fichier))
+        if (listePackages.has('dnb')) {
+          // Force le passage à xelatex sur Overleaf pour les exercices de DNB
+          $('input[name=engine]').val('xelatex')
+        }
+        if ($('#nom_du_fichier').val()) {
+          $('input[name=snip_name]').val($('#nom_du_fichier').val()) // nomme le projet sur Overleaf
+        }
+      })
   }
   if (!context.isHtml && !context.isAmc) {
     // Sortie LaTeX
@@ -1096,29 +1065,28 @@ function miseAJourDeLaListeDesExercices (preview) {
       const path = chunks[1]
       promises.push(
         // cf https://webpack.js.org/api/module-methods/#magic-comments
-        import(/* webpackMode: "lazy" */ './exercices/' + path)
-          .then((module) => {
-            if (!module) throw Error(`l'import de ${path} a réussi mais on ne récupère rien, il doit y avoir un oubli d'export`)
-            listeObjetsExercice[i] = new module.default()
-            ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach(p => {
-              if (module[p] !== undefined) listeObjetsExercice[i][p] = module[p]
-            })
-            if (dictionnaireDesExercices[id].sup !== undefined) {
-              listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
-            }
-            if (dictionnaireDesExercices[id].sup2 !== undefined) {
-              listeObjetsExercice[i].sup2 = dictionnaireDesExercices[id].sup2
-            }
-            if (dictionnaireDesExercices[id].sup3 !== undefined) {
-              listeObjetsExercice[i].sup3 = dictionnaireDesExercices[id].sup3
-            }
-            if (dictionnaireDesExercices[id].nbQuestions !== undefined) {
-              listeObjetsExercice[i].nbQuestions = dictionnaireDesExercices[id].nbQuestions
-            }
-            if (listeObjetsExercice[i].typeExercice === 'XCas') {
-              besoinXCas = true
-            }
+        import(/* webpackMode: "lazy" */ './exercices/' + path).then((module) => {
+          if (!module) throw Error(`l'import de ${path} a réussi mais on ne récupère rien, il doit y avoir un oubli d'export`)
+          listeObjetsExercice[i] = new module.default()
+          ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
+            if (module[p] !== undefined) listeObjetsExercice[i][p] = module[p]
           })
+          if (dictionnaireDesExercices[id].sup !== undefined) {
+            listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
+          }
+          if (dictionnaireDesExercices[id].sup2 !== undefined) {
+            listeObjetsExercice[i].sup2 = dictionnaireDesExercices[id].sup2
+          }
+          if (dictionnaireDesExercices[id].sup3 !== undefined) {
+            listeObjetsExercice[i].sup3 = dictionnaireDesExercices[id].sup3
+          }
+          if (dictionnaireDesExercices[id].nbQuestions !== undefined) {
+            listeObjetsExercice[i].nbQuestions = dictionnaireDesExercices[id].nbQuestions
+          }
+          if (listeObjetsExercice[i].typeExercice === 'XCas') {
+            besoinXCas = true
+          }
+        })
       )
     }
   }
@@ -1278,10 +1246,8 @@ function miseAJourDeLaListeDesExercices (preview) {
     })
 }
 
-// Gestion des paramètres
-const div = document.getElementById('div_codeLatex') // Récupère le div dans lequel le code va être affiché
-// const div_overleaf = document.getElementById('overleaf') // Récupère le div dans lequel le code va être affiché
-const divParametresGeneraux = document.getElementById('parametres_generaux') // Récupère le div dans lequel seront inscrit les paramètres
+let div// div dans lequel le code va être affiché
+let divParametresGeneraux // div dans lequel vont être inséré tous les formulaires
 const formConsigne = []
 const formNbQuestions = []
 const formVideo = []
@@ -1356,36 +1322,60 @@ function parametresExercice (exercice) {
       }
     } else if (context.isAmc) {
       exercice[i].modeQcm = true
-      divParametresGeneraux.innerHTML += `<h4 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>Exercice n°` + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
+      divParametresGeneraux.innerHTML +=
+        `<h4 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>Exercice n°` +
+        (i + 1) +
+        ' : ' +
+        exercice[i].titre +
+        '</h4>'
 
       if (exercice[i].consigneModifiable) {
-        divParametresGeneraux.innerHTML += '<div><label for="form_consigne' + i + '">Consigne : </label> <input id="form_consigne' + i + '" type="texte" size="20"></div>'
+        divParametresGeneraux.innerHTML +=
+          '<div><label for="form_consigne' + i + '">Consigne : </label> <input id="form_consigne' + i + '" type="texte" size="20"></div>'
       }
       if (exercice[i].nbQuestionsModifiable) {
         divParametresGeneraux.innerHTML +=
-                          '<div><label for="form_nbQuestions' + i + '">Nombre de questions : </label> <input id="form_nbQuestions' + i + '" type="number"  min="1" max="99"></div>'
+          '<div><label for="form_nbQuestions' +
+          i +
+          '">Nombre de questions : </label> <input id="form_nbQuestions' +
+          i +
+          '" type="number"  min="1" max="99"></div>'
       }
       if (exercice[i].correctionDetailleeDisponible) {
         divParametresGeneraux.innerHTML +=
-                          '<div><label for="form_correctionDetaillee' + i + '">Correction détaillée : </label> <input id="form_correctionDetaillee' + i + '" type="checkbox" ></div>'
+          '<div><label for="form_correctionDetaillee' +
+          i +
+          '">Correction détaillée : </label> <input id="form_correctionDetaillee' +
+          i +
+          '" type="checkbox" ></div>'
       }
       if (exercice[i].qcmDisponible) {
         divParametresGeneraux.innerHTML +=
-                          '<div><label for="form_modeQcm' + i + '">Mode QCM : </label> <input id="form_modeQcm' + i + '" type="checkbox" ></div>'
+          '<div><label for="form_modeQcm' + i + '">Mode QCM : </label> <input id="form_modeQcm' + i + '" type="checkbox" ></div>'
       }
       if (exercice[i].nbColsModifiable) {
-        divParametresGeneraux.innerHTML += '<div><label for="form_nbCols' + i + '">Nombre de colonnes : </label><input id="form_nbCols' + i + '" type="number" min="1" max="99"></div>'
+        divParametresGeneraux.innerHTML +=
+          '<div><label for="form_nbCols' + i + '">Nombre de colonnes : </label><input id="form_nbCols' + i + '" type="number" min="1" max="99"></div>'
       }
       if (exercice[i].nbColsCorrModifiable) {
         divParametresGeneraux.innerHTML +=
-                          '<div><label for="form_nbColsCorr' + i + '">Nombre de colonnes dans la correction : </label><input id="form_nbColsCorr' + i + '" type="number" min="1" max="99"></div>'
+          '<div><label for="form_nbColsCorr' +
+          i +
+          '">Nombre de colonnes dans la correction : </label><input id="form_nbColsCorr' +
+          i +
+          '" type="number" min="1" max="99"></div>'
       }
       if (exercice[i].spacingModifiable) {
-        divParametresGeneraux.innerHTML += '<div><label for="form_nbColsCorr' + i + '">Espacement : </label><input id="form_spacing' + i + '" type="number" min="1" max="99"></div>'
+        divParametresGeneraux.innerHTML +=
+          '<div><label for="form_nbColsCorr' + i + '">Espacement : </label><input id="form_spacing' + i + '" type="number" min="1" max="99"></div>'
       }
       if (exercice[i].spacingCorrModifiable) {
         divParametresGeneraux.innerHTML +=
-                          '<div><label for="form_nbColsCorr' + i + '">Espacement dans la correction : </label><input id="form_spacingCorr' + i + '" type="number" min="1" max="99"></div>'
+          '<div><label for="form_nbColsCorr' +
+          i +
+          '">Espacement dans la correction : </label><input id="form_spacingCorr' +
+          i +
+          '" type="number" min="1" max="99"></div>'
 
         // Si le nombre de versions changent
         $('#nombre_de_versions').change(function () {
@@ -1927,8 +1917,88 @@ function parametresExercice (exercice) {
 }
 
 // Initialisation de la page
-document.addEventListener('DOMContentLoaded', async () => { // Evènement lancé par initDom.js
+document.addEventListener('DOMContentLoaded', async () => {
+  // Evènement lancé par initDom.js
   await initDom()
+  // Gestion des paramètres
+  div = document.getElementById('div_codeLatex') // Récupère le div dans lequel le code va être affiché
+  divParametresGeneraux = document.getElementById('parametres_generaux') // Récupère le div dans lequel seront inscrit les paramètres
+
+  // gestion de la vue
+  // si dans l'url il y a un paramètre &v=... on modifie le DOM et/ou le CSS
+  gestionVue()
+  // Mise à jour du formulaire (gestion de l'evenement "change" du formulaire de la liste des exercices activé lors :
+  //  * du chargement
+  //  * de l'ajout d'un exercice (click sur le lien)
+  //  * du déplacement, suppression d'un exercice (manipulation des étiquettes et ou utilisation des icones.
+  // A la fin appel de la fonction miseAJourDeLaListeDesExercices() => pour l'affichage des exercices choisis.
+  const formChoixDesExercices = document.getElementById('choix_des_exercices')
+  if (formChoixDesExercices !== null) {
+    formChoixDesExercices.addEventListener('change', function (e) {
+    // Changement du texte
+      if (e.target.value === '') {
+        listeDesExercices = []
+        listeObjetsExercice = []
+      } else {
+        listeDesExercices = []
+        listeObjetsExercice = []
+        listeDesExercices = e.target.value.replace(/\s/g, '').replace(';', ',').split(',') // Récupère  la saisie de l'utilisateur
+      // en supprimant les espaces et en remplaçant les points-virgules par des virgules.
+      }
+      if (document.getElementById('affichageErreur')) {
+        document.getElementById('affichageErreur').remove()
+      }
+      copierExercicesFormVersAffichage(listeDesExercices)
+      miseAJourDeLaListeDesExercices()
+    })
+  }
+
+  if (document.getElementById('choix_exercices_div')) {
+  // On cache le formulaire pour les feuilles qui ont les étiquettes.
+    $('#choix_des_exercices').parent().hide()
+  }
+
+  // pour ne pas déclencher la gestion des evenemet sur les pages qui n'ont pas la div choix d'exercice.
+  if (document.getElementById('choix_exercices_div')) {
+    ajoutHandlersEtiquetteExo()
+  }
+
+  await menuDesExercicesDisponibles()
+  // gestion des filtres :
+  //  au chargement de la page on vérifie s'il y a un filtre dans l'url si c'est le cas on selectionne le filtre dans la page html.
+  //  gestion d'evenement sur le "select" filtre. Au changement on place la valeur dans l'url et on relance le calcul des exercices à afficher.
+  if (document.getElementById('filtre')) {
+    const filtre = getFilterFromUrl()
+    if (filtre) {
+      document.getElementById('filtre').value = filtre
+    }
+    document.getElementById('filtre').addEventListener('change', function () {
+      // gestion du changement du select.
+      const regex = /'([?;&])filtre[^&;]*[;&]?'/
+      const query = window.location.search.replace(regex, '$1').replace(/&$/, '')
+      const filtre = document.getElementById('filtre').value
+      const url = (query.length > 2 ? query + '&' : '?') + (filtre !== 'tous' ? 'filtre=' + filtre : '')
+      let modeTableauActif = false // Gestion pour le mode tableau particulière pour gérer l'activation de "datatable"
+      window.history.pushState('', '', url)
+      if ($('#mode_choix_liste').is(':visible')) {
+        $('#mode_choix_liste').trigger('click')
+        modeTableauActif = true
+      }
+      menuDesExercicesDisponibles() // Calcul de la liste des exercices à afficher.
+      if (modeTableauActif) {
+        $('#mode_choix_tableau').trigger('click')
+      }
+      $('.ui.dropdown').dropdown() // Pour le menu des exercices, mise à jour des "accordion"
+      $('.ui.accordion').accordion('refresh')
+      $('.ui.checkbox').checkbox()
+    })
+  }
+  $('.ui.dropdown').dropdown() // Pour le menu des exercices
+  $('.ui.accordion').accordion('refresh')
+  $('.ui.checkbox').checkbox()
+  // Gestion du bouton de copie
+  $('.ui.button.toggle').state() // initialise le bouton
+
   // Gestion du bouton « Nouvelles données »
   const btnMiseAJourCode = document.getElementById('btn_mise_a_jour_code')
   if (btnMiseAJourCode) {
@@ -1981,10 +2051,11 @@ document.addEventListener('DOMContentLoaded', async () => { // Evènement lancé
 
   // Gestion de la redirection vers MathaleaLaTeX
   $('#btnLaTeX').click(function () {
-    window.location.href = window.location.href.replace('exercice.html', 'mathalealatex.html')
+    window.location.href = window.location.href.replace('mathalea.html', 'mathalealatex.html')
   })
 
-  if (context.isAmc) { // Gestion des cases à cocher sur le format de l'évaluation (taille de la page, entête) pour AMC
+  if (context.isAmc) {
+    // Gestion des cases à cocher sur le format de l'évaluation (taille de la page, entête) pour AMC
     const formNbExemplaires = document.getElementById('nombre_d_exemplaires')
     formNbExemplaires.value = 1 // Rempli le formulaire avec le nombre de questions
     formNbExemplaires.addEventListener('change', function (e) {
@@ -2084,19 +2155,18 @@ document.addEventListener('DOMContentLoaded', async () => { // Evènement lancé
   // Gestion de l'évènement sur le click sur les flèches pour basculer les exercices en plein écran.
   $('#exo_plein_ecran').click(function (e) {
     if ($('#exo_plein_ecran').hasClass('left')) {
-      $('#left').hide()
-      $('#right').removeClass('column')
-      $('#right').css('width', '100%')
-      $('#exo_plein_ecran').removeClass('left')
-      $('#exo_plein_ecran').addClass('right')
+      gestionVue('ex')
     } else {
-      $('#left').show()
-      $('#right').addClass('column')
-      $('#right').css('width', $('#left').css('width'))
-      $('#exo_plein_ecran').removeClass('right')
-      $('#exo_plein_ecran').addClass('left')
+      gestionVue('menu')
     }
   })
+
+  const btnPleinEcran = document.getElementById('buttonFullScreen')
+  if (btnPleinEcran !== null) {
+    btnPleinEcran.addEventListener('click', () => {
+      gestionVue('l')
+    })
+  }
 
   window.addEventListener('resize', function (e) {
     // Pour gérer un problème de dimension de la colonne de droite si on change la taille de fenêtre après un passage en mode plein écran des exercices.
@@ -2121,14 +2191,14 @@ document.addEventListener('DOMContentLoaded', async () => { // Evènement lancé
     document.getElementById('btnEmbed').addEventListener('click', function () {
       $('#ModalEmbed').html(`<div class="content"><p><pre><code>&lt;iframe width="660"
         height="315" 
-        src="${window.location.href.replace('exercice.html', 'exo.html')}"
+        src="${window.location.href.replace('mathalea.html', 'exo.html')}"
         frameborder="0" >
 &lt;/iframe></code><pre></p>
         <button id="btnEmbedCode" style="margin:10px" class="btn ui toggle button labeled icon url"
         data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le code HTML</button></div>`)
       const clipboard = new Clipboard('#btnEmbedCode', {
         text: () =>
-          `<iframe\n\t width="660" height="315"\n\t src="${window.location.href.replace('exercice.html', 'exo.html')}"\n\tframeborder="0" >\n</iframe>`
+          `<iframe\n\t width="660" height="315"\n\t src="${window.location.href.replace('mathalea.html', 'exo.html')}"\n\tframeborder="0" >\n</iframe>`
       })
       clipboard.on('success', function (e) {
         console.info(e.text + ' copié dans le presse-papier.')
