@@ -81,15 +81,18 @@ export function gestionVue (vue) {
     }
 
     if (context.vue === 'recto' || context.vue === 'verso') {
-      for (const e of [nav[0], footer[0], divMessageIntro, divBoutonsAuDessusDesExercices, divParametres]) {
+      masqueMenuDesExercices()
+      const accordions = document.getElementsByClassName('ui fluid accordion')
+      for (const accordion of accordions) {
+        accordion.style.visibility = 'hidden'
+      }
+      for (const e of [nav[0], footer[0], divMessageIntro, btnMiseAJourCode, btnZoomPlus, btnZoomMoins, btnCopieURL, btnLaTeX, btnEmbed, btnQRcode, buttonFullScreen, btnEdit, divChoixExercices, titreExerciceAvecChevron]) {
         if (e !== null) e.style.display = 'none'
       }
       divExercice.style.fontSize = '1.5em'
       divCorrection.style.fontSize = '1.5em'
       if (context.vue === 'verso') {
         divExercice.style.display = 'none'
-        const accordion = document.getElementsByClassName('ui fluid accordion')
-        accordion[0].style.visibility = 'hidden'
         document.body.appendChild(divCorrection)
       }
       // Le titre de l'exercice ne peut être masqué qu'après l'affichage
