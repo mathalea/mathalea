@@ -47,8 +47,8 @@ export function gestionVue () {
       document.addEventListener('exercicesAffiches', masqueTitreExerciceEtEspaces)
       document.addEventListener('exercicesAffiches', () => {
         // Envoi des informations à Anki
-        const hauteur = window.contentWindow.document.body.scrollHeight
-        window.parent.postMessage(hauteur, '*')
+        const hauteur = window.document.body.scrollHeight
+        window.parent.postMessage({ hauteur: hauteur, reponse: 'A_COMPLETER' }, '*')
       })
     }
     if (context.vue === 'l' || context.vue === 'light') { // Affichage léger pour embed par exemple

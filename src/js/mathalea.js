@@ -522,12 +522,16 @@ function miseAJourDuCode () {
       if (context.vue) {
         finUrl += `&v=${context.vue}`
       }
-      if (context.userId) {
-        finUrl += `&userId=${context.userId}`
-      } else if (window.sessionStorage.getItem('userId') !== null) {
-        context.userId = window.sessionStorage.getItem('userId')
-        finUrl += `&userId=${context.userId}`
-      }
+      try {
+        if (context.userId) {
+          finUrl += `&userId=${context.userId}`
+        } else if (typeof (window.sessionStorage) === 'object') {
+          if (window.sessionStorage.getItem('userId') !== null) {
+            context.userId = window.sessionStorage.getItem('userId')
+            finUrl += `&userId=${context.userId}`
+          }
+        }
+      } catch (err) {}
       if (context.isAmc) {
         finUrl += `&f=${format}&e=${typeEntete}`
       }
@@ -2182,7 +2186,11 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   if (params.get('userId')) {
     context.userId = params.get('userId')
-    window.sessionStorage.setItem('userId', context.userId)
+    try {
+      if (typeof (window.sessionStorage) === 'object') {
+        window.sessionStorage.setItem('userId', context.userId)
+      }
+    } catch (err) {}
   }
   if (params.get('duree')) {
     context.duree = params.get('duree')
