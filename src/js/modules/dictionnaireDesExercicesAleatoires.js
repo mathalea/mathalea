@@ -1076,11 +1076,7 @@ export default {
   "4G20-4": {
     "titre": "Arrondir une racine carrée",
     "url": "/exercices/4e/4G20-4.js",
-    "amcReady": true,
-    "amcType": {
-      "num": 2,
-      "text": "qcmMult"
-    },
+    "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "4G20-4"
@@ -1156,11 +1152,18 @@ export default {
     "name": "4G31"
   },
   "4G40-1": {
-    "titre": "Arrondir une valeur arrondie comprenant un cosinus",
+    "titre": "Encadrer puis arrondir une valeur comprenant un cosinus",
     "url": "/exercices/4e/4G40-1.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "4G40-1"
+  },
+  "4G40-2": {
+    "titre": "Arrondir une valeur comprenant un cosinus",
+    "url": "/exercices/4e/4G40-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4G40-2"
   },
   "4G40-MG32": {
     "titre": "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle",
