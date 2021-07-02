@@ -1,7 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 94 
 - nombre d'exos interactifReady 115 
-
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |2G50-2|Lecture graphique des coefficients d'une équation réduite |KO|KO|OK|mathLive|
@@ -44,6 +43,7 @@
 |4C32|Notation scientifique|OK|AMCNum|OK|numerique|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
 |4G20-2|Racine carré d’un carré parfait (calcul mental)|OK|AMCNum|OK|numerique|
+|4G20-4|Arrondir une racine carrée|KO|KO|OK|mathLive|
 |4G20|Calculer une longueur avec le théorème de Pythagore|OK|AMCOpenNum|OK|mathLive|
 |4G21|Déterminer si un triangle est rectangle ou pas.|OK|qcmMono|OK|qcm|
 |4G30|Calculer des longueurs avec la propriété de Thalès|OK|AMCOpenNum|KO|KO|
