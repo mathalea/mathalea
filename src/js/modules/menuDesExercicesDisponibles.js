@@ -7,6 +7,7 @@ import $ from 'jquery'
 import 'datatables.net-dt/css/jquery.dataTables.css'
 import { getFilterFromUrl } from './getUrlVars.js'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+import { context } from './context.js'
 
 // Liste tous les tags qui ont été utilisé
 const tags = new Set()
@@ -23,12 +24,13 @@ enleveElement(tableauTags, 'Hors programme')
 // On concatène les différentes listes d'exercices
 export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3 }
 let liste_des_exercices_disponibles
-if (window.location.href.indexOf('mathalea_amc.html') > 0) {
+if (context.isAmc) {
   const dictionnaireDesExercicesAMC = {}
   Object.entries(dictionnaireDesExercicesAleatoires).forEach(([id, props]) => {
     if (props.amcReady) dictionnaireDesExercicesAMC[id] = props
   })
   liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercicesAMC)
+  console.log(dictionnaireDesExercicesAMC)
 } else {
   liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercices)
 }
@@ -58,7 +60,7 @@ function spanExercice (id, titre) {
     ? 'data-tooltip="' + coupeChaine(titre, max_length + 20) + '"'
     : ''
   const titre_tronque = titre.length > max_length ? titre.substr(0, max_length) + '...' : titre
-  const amcPrecisionType = window.location.href.indexOf('mathalea_amc.html') > 0 ? `<span style="color:#f15929;"> ${liste_des_exercices_disponibles[id].amcType.text} </span>` : ''
+  const amcPrecisionType = context.isAmc ? `<span style="color:#f15929;"> ${liste_des_exercices_disponibles[id].amcType} </span>` : ''
   return `<span class="id_exercice">${id}</span> - <a class="ui bouton lien_id_exercice" ${tooltip} data-id_exercice="${id}">${titre_tronque} ${amcPrecisionType ? '-' + amcPrecisionType : ''}</a></a><span data-content="Prévisualiser l'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
 }
 
@@ -74,7 +76,7 @@ function listeHtmlDesExercicesDUnTheme (theme) {
       if (dictionnaire[id].interactifReady) {
         liste += spanExercice(id, dictionnaire[id].titre)
       }
-    } else if (window.location.href.indexOf('mathalea_amc.html') > 0) {
+    } else if (context.isAmc > 0) {
       // à supprimer avant push liste += '<b>'+ dictionnaire[id].amcType.text+'</b> '
       liste += spanExercice(id, dictionnaire[id].titre)
     } else {
@@ -261,7 +263,7 @@ export function apparenceExerciceActif () {
   })
   $('.icone_preview').off('click').on('click', function (e) {
     e.stopPropagation()
-    $('.popup').attr("data-exoId",e.target.id)
+    $('.popup').attr('data-exoId', e.target.id)
     $('.popup').trigger(e)
   })
 }
@@ -289,7 +291,7 @@ function ligneTableau (exercice) {
   // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
   const modeInteractif = dictionnaireDesExercices[exercice].interactifReady ? ' Interactif' : ''
   if (dictionnaireDesExercices[exercice].titre) {
-    if (window.location.href.indexOf('mathalea_amc.html') > 0) {
+    if (context.isAmc) {
       ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}
       </span></td> <td> <a class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].titre}
       </a></td><td> ${modeAmc} <br> ${modeInteractif}
@@ -556,7 +558,7 @@ export function menuDesExercicesDisponibles () {
     })
     liste_html_des_exercices += html_affichage.liste + '</div>'
     liste_html_des_exercicestab += html_affichage.lignes
-  } else if (window.location.href.indexOf('mathalea_amc.html') > 0) {
+  } else if (context.isAmc) {
     html_affichage = htmlListes({
       liste_affichage: ['c3', 6, 5, 4, 3, 2, 1, 'T', 'PE', 'C'],
       active: '',

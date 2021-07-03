@@ -1,3 +1,4 @@
+import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from "./context"
 
 export function getFilterFromUrl () {
   const queryString = window.location.search

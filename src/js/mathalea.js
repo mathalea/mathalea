@@ -1,6 +1,6 @@
 /* global $ fetch event Event */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
+import { getUrlVars, getFilterFromUrl, setContextFromUrl } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -18,7 +18,6 @@ import '../css/style_mathalea.css'
 import { context, setOutputDiaporama, setOutputLatex, setOutputAmc } from './modules/context.js'
 import { gestionVue } from './modules/gestionVue.js'
 import { initDom } from './modules/initDom.js'
-import { get } from './modules/dom.js'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
 function isNumeric (n) {
@@ -54,18 +53,7 @@ const urlParams = new URLSearchParams(queryString)
 let typeEntete = ''
 let format = ''
 
-if (context.isAmc) {
-  if (urlParams.get('e')) {
-    typeEntete = urlParams.get('e')
-  } else {
-    typeEntete = 'AMCcodeGrid'
-  }
-  if (urlParams.get('f')) {
-    format = urlParams.get('f')
-  } else {
-    format = 'A4'
-  }
-}
+
 // création des figures MG32 (géométrie dynamique)
 window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
 window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
@@ -1918,7 +1906,6 @@ function parametresExercice (exercice) {
 
 // Initialisation de la page
 document.addEventListener('DOMContentLoaded', async () => {
-  // Evènement lancé par initDom.js
   await initDom()
   // Gestion des paramètres
   div = document.getElementById('div_codeLatex') // Récupère le div dans lequel le code va être affiché
@@ -1927,6 +1914,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   // gestion de la vue
   // si dans l'url il y a un paramètre &v=... on modifie le DOM et/ou le CSS
   gestionVue()
+  if (context.isAmc) {
+    if (urlParams.get('e')) {
+      typeEntete = urlParams.get('e')
+    } else {
+      typeEntete = 'AMCcodeGrid'
+    }
+    if (urlParams.get('f')) {
+      format = urlParams.get('f')
+    } else {
+      format = 'A4'
+    }
+  }
   // Mise à jour du formulaire (gestion de l'evenement "change" du formulaire de la liste des exercices activé lors :
   //  * du chargement
   //  * de l'ajout d'un exercice (click sur le lien)

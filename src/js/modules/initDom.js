@@ -1,4 +1,4 @@
-import { context, setOutputAmc, setOutputHtml } from './context'
+import { context, setOutputAmc, setOutputHtml, setOutputLatex } from './context'
 import { addElement, create, addFetchHtmlToParent, fetchHtmlToElement } from './dom'
 import { getVueFromUrl } from './getUrlVars'
 
@@ -13,7 +13,7 @@ export async function initDom () {
   const section = addElement(document.body, 'section', { class: 'ui container' })
   if (vue === 'latex') {
     await addFetchHtmlToParent('templates/mathaleaLatex.html', document.body)
-    setOutputHtml()
+    setOutputLatex()
   } else if (vue === 'amc') {
     await addFetchHtmlToParent('templates/amc.html', document.body)
     setOutputAmc()
