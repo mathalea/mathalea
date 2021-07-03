@@ -8,7 +8,7 @@ export const titre = 'Additions et de soustractions'
 export const interactifReady = true
 export const interactifType = 'numerique'
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * Additions et/ou soustractions classique et/ou à trou.
@@ -21,15 +21,10 @@ export default function TablesAdditionsSoustractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 20
   this.sup2 = 6 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
-  this.titre = titre
   this.consigne = 'Calculer'
   this.spacing = 2
   this.tailleDiaporama = 100
   this.interactif = true
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
-  this.amcReady = amcReady
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)

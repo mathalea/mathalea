@@ -5,7 +5,7 @@ export const titre = 'Somme de deux nombres mariés'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * Somme de deux nombres dont les chiffres des unités sont des compléments à 10
@@ -14,16 +14,11 @@ export const amcType = 4
 */
 export default function SommeDeDeuxNombresMaries () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = 'Calculer'
   this.nbQuestions = 10
   this.nbCols = 2
   this.nbColsCorr = 2
   this.tailleDiaporama = 100
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

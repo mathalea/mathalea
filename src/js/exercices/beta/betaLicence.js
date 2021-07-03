@@ -13,9 +13,6 @@ export const interactifType = 'qcm'
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.interactif = true
   this.consigne = ''
   this.nbQuestionsModifiable = false

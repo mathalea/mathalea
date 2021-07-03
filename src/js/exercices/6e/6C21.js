@@ -1,6 +1,6 @@
 import DivisionsEuclidiennes from './6C11.js'
 export const amcReady = true
-export const amcType = 3 // type de question AMC
+export const amcType = 'AMCOpen' // type de question AMC
 
 export const titre = 'Divisions euclidiennes - Niveau 2'
 

@@ -8,7 +8,7 @@ export const titre = 'Course aux nombres 5e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 /**
  * Description didactique de l'exercice
  * @author
@@ -16,7 +16,6 @@ export const amcType = 4
 */
 export default function CourseAuxNombres6e (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = ''
   this.nbQuestions = 30
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -24,10 +23,6 @@ export default function CourseAuxNombres6e (numeroExercice) {
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcReady = amcReady
-  this.amcType = amcType
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, lettreDepuisChiffre, htmlConsigne, stringNombre } from '../../modules/outils.js'
-import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
+import { SvgReperageSurUnAxe, LatexReperageSurUnAxe } from '../../modules/macroSvgJs.js'
 
 export const titre = 'Placer un point d’abscisse entière (grands nombres)'
 
@@ -10,10 +10,8 @@ export const titre = 'Placer un point d’abscisse entière (grands nombres)'
  * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N11-2
  */
-export default function Placer_un_point_abscisse_entiere () {
-  'use strict'
+export default function PlacerUnPointAbscisseEntiere () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = ' Placer trois points sur un axe gradué.'
   this.nbQuestions = 5
   this.nbQuestionsModifiable = true
@@ -32,7 +30,7 @@ export default function Placer_un_point_abscisse_entiere () {
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup == 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+    if (parseInt(this.sup) === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
       typesDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions
@@ -56,7 +54,7 @@ export default function Placer_un_point_abscisse_entiere () {
       x33,
       pas1,
       pas2,
-      id_unique,
+      idUnique,
       texte,
       texteCorr; i < this.nbQuestions; i++) {
       l1 = lettreDepuisChiffre(i * 3 + 1)
@@ -105,10 +103,10 @@ export default function Placer_un_point_abscisse_entiere () {
         this.contenu += `<h3> Placer les points : ${l1}(${stringNombre(
           abs1
         )}), ${l2}(${stringNombre(abs2)}), ${l3}(${stringNombre(abs3)})</h3>`
-        id_unique = `${i}_${Date.now()}`
-        this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-        SVG_reperage_sur_un_axe(
-          `div_svg${numeroExercice}${id_unique}`,
+        idUnique = `${i}_${Date.now()}`
+        this.contenu += `<div id="div_svg${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
+        SvgReperageSurUnAxe(
+          `div_svg${numeroExercice}${idUnique}`,
           abs0,
           6,
           pas1,
@@ -120,9 +118,9 @@ export default function Placer_un_point_abscisse_entiere () {
           ],
           false
         )
-        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-        SVG_reperage_sur_un_axe(
-          `div_svg_corr${numeroExercice}${id_unique}`,
+        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${idUnique}" style="width: 90%; height: 200px;  "></div>`
+        SvgReperageSurUnAxe(
+          `div_svg_corr${numeroExercice}${idUnique}`,
           abs0,
           6,
           pas1,
@@ -145,7 +143,7 @@ export default function Placer_un_point_abscisse_entiere () {
         )}), $${l2}$(${stringNombre(abs2)}), $${l3}$(${stringNombre(
           abs3
         )})}<br>`
-        texte += Latex_reperage_sur_un_axe(
+        texte += LatexReperageSurUnAxe(
           2,
           abs0,
           pas1,
@@ -162,7 +160,7 @@ export default function Placer_un_point_abscisse_entiere () {
         )}), $${l2}$(${stringNombre(abs2)}), $${l3}$(${stringNombre(
           abs3
         )}) sont placés ci dessous}<br>`
-        texteCorr += Latex_reperage_sur_un_axe(
+        texteCorr += LatexReperageSurUnAxe(
           2,
           abs0,
           pas1,

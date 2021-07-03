@@ -7,7 +7,7 @@ export const titre = 'Calculer la fraction d’un nombre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.
@@ -18,13 +18,8 @@ export const amcType = 4
  */
 export default function FractionDUnNombre () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.nbQuestions = 5
   this.consigne = 'Calculer'
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcReady = amcReady
-  this.amcType = amcType
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
   context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
   this.sup = true

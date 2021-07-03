@@ -4,7 +4,6 @@ import Algebrite from 'algebrite'
 import { format, evaluate } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
-import { elimineDoublons } from './gestionInteractif.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -6798,11 +6797,8 @@ export function exportQcmAmc (exercice, idExo) {
         lastchoice = autoCorrection[j].options.lastChoice
       }
     }
-    if (type < 3) {
-     // console.log(elimineDoublons(autoCorrection[j].propositions))
-    }
     switch (type) {
-      case 1: // question QCM 1 bonne réponse
+      case 'qcmMono': // question QCM 1 bonne réponse
         texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
@@ -6826,7 +6822,7 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
 
-      case 2: // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
+      case 'qcmMult': // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
         texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
@@ -6849,7 +6845,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += ' \\end{questionmult}\n }\n '
         id++
         break
-      case 3: // AMCOpen question ouverte corrigée par l'enseignant
+      case 'AMCOpen': // AMCOpen question ouverte corrigée par l'enseignant
         texQr += `\\element{${ref}}{\n `
         texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `\t\t${autoCorrection[j].enonce} \n `
@@ -6858,7 +6854,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\t\\end{question}\n }\n'
         id++
         break
-      case 4: // AMCOpen question ouverte avec encodage numérique de la réponse
+      case 'AMCNum': // AMCOpen question ouverte avec encodage numérique de la réponse
         /********************************************************************/
         // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericChoices
         // On pourra rajouter des options : les paramètres sont nommés.
@@ -6904,7 +6900,7 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
 
-      case 5: // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum': // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
         // On pourra rajouter des options : les paramètres sont nommés.
@@ -6968,7 +6964,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
         id++
         break
-      case 6: // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum✖︎2': // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // /!\/!\/!\/!\ ATTENTION /!\/!\/!\/!\
         // Pour ce type :
@@ -7040,7 +7036,7 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
 
-      case 7: // Un amcOpen et trois  AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum✖︎3': // Un amcOpen et trois  AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // /!\/!\/!\/!\ ATTENTION /!\/!\/!\/!\
         // Pour ce type :
@@ -7181,6 +7177,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
       groupeDeQuestions.push(code[1])
       indexOfCode = groupeDeQuestions.indexOf(code[1])
       texQuestions[indexOfCode] = code[0]
+
       // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
       if (typeof nbQuestions[indexOfCode] === 'undefined') {
         nombreDeQuestionsIndefinie[indexOfCode] = true

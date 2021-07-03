@@ -6,7 +6,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 export const interactifReady = true
 
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 export const interactifType = 'numerique'
 export const titre = 'Trouver le terme manquant d’une somme de nombres relatifs'
 

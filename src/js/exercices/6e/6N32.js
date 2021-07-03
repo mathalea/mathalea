@@ -13,7 +13,6 @@ export const titre = 'Représenter une fraction de l’unité'
 
 export default function FractionsDunite () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.nbQuestions = 5
   this.consigne = 'Colorier en bleu un segment de longueur ...'
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)

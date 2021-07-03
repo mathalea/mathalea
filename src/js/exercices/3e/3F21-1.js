@@ -6,7 +6,7 @@ import { droiteParPointEtPente, point, repere2, mathalea2d } from '../../modules
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 export const titre = 'Déterminer une fonction affine'
 export const amcReady = true
-export const amcType = 6
+export const amcType = 'AMCOpenNum✖︎2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
