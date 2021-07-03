@@ -657,7 +657,7 @@ function miseAJourDuCode () {
       .on('click', function () {
         // Gestion du style pour l'entête du fichier
 
-      let contenuFichier = `
+        let contenuFichier = `
       
                   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                   % Document généré avec MathALEA sous licence CC-BY-SA
@@ -689,20 +689,20 @@ function miseAJourDuCode () {
           return request.responseText
         }
 
-      contenuFichier += codeLatex
-      const monzip = new JSZip()
-      if ($('#nom_du_fichier').val() !== '') {
-        nomFichier = $('#nom_du_fichier').val() + '.tex'
-      } else {
-        nomFichier = 'mathalea.tex'
-      }
-      monzip.file(`${nomFichier}`, codeLatex)
-      monzip.file('automultiplechoice.sty', load('assets/fichiers/automultiplechoice.sty'))
-      monzip.generateAsync({ type: 'blob' })
-        .then(function (content) {
+        contenuFichier += codeLatex
+        const monzip = new JSZip()
+        if ($('#nom_du_fichier').val() !== '') {
+          nomFichier = $('#nom_du_fichier').val() + '.tex'
+        } else {
+          nomFichier = 'mathalea.tex'
+        }
+        monzip.file(`${nomFichier}`, codeLatex)
+        monzip.file('automultiplechoice.sty', load('assets/fichiers/automultiplechoice.sty'))
+        monzip.generateAsync({ type: 'blob' })
+          .then(function (content) {
           // see FileSaver.js
-          saveAs(content, 'Projet.zip')
-        })
+            saveAs(content, 'Projet.zip')
+          })
       })
 
     $('#btn_overleaf')
@@ -710,7 +710,7 @@ function miseAJourDuCode () {
       .on('click', function () {
         // Gestion du style pour l'entête du fichier
 
-      let contenuFichier = `
+        let contenuFichier = `
                 
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                 % Document généré avec MathALEA sous licence CC-BY-SA
@@ -721,18 +721,18 @@ function miseAJourDuCode () {
                 
                 
                 `
-      contenuFichier += codeLatex
-      // Gestion du LaTeX statique
-      // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
+        contenuFichier += codeLatex
+        // Gestion du LaTeX statique
+        // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
-      $('input[name=encoded_snip]').val(encodeURIComponent(contenuFichier))
-      if (listePackages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
-        $('input[name=engine]').val('xelatex')
-      }
-      if ($('#nom_du_fichier').val()) {
-        $('input[name=snip_name]').val($('#nom_du_fichier').val()) // nomme le projet sur Overleaf
-      }
-    })
+        $('input[name=encoded_snip]').val(encodeURIComponent(contenuFichier))
+        if (listePackages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
+          $('input[name=engine]').val('xelatex')
+        }
+        if ($('#nom_du_fichier').val()) {
+          $('input[name=snip_name]').val($('#nom_du_fichier').val()) // nomme le projet sur Overleaf
+        }
+      })
   }
   if (!context.isHtml && !context.isAmc) {
     // Sortie LaTeX
@@ -1405,7 +1405,7 @@ function parametresExercice (exercice) {
           i +
           '" type="checkbox" ></div>'
       }
-      if (exercice[i].interactifReady && (exercice[i].amcType === 1 || exercice[i].amcType === 2)) {
+      if (exercice[i].interactifReady && (exercice[i].amcType === 'qcmMono' || exercice[i].amcType === 'qcmMult')) {
         // En LaTeX les seuls exercices interactifs sont les QCM
         divParametresGeneraux.innerHTML +=
           '<div><label for="formInteractif' + i + '">QCM : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
