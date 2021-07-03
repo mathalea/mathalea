@@ -75,7 +75,6 @@ export function gestionVue (vue) {
     const minifieTousLesBoutons = () => {
       const boutons = document.getElementsByTagName('button')
       for (const btn of boutons) {
-        console.log(btn)
         btn.classList.add('mini')
       }
     }
@@ -120,6 +119,12 @@ export function gestionVue (vue) {
       }
     }
     if (context.vue === 'ex') { // Affichage des seuls exercices
+      masqueMenuDesExercices()
+      for (const e of [divChoixExercices, titreExerciceAvecChevron]) {
+        if (e !== null) e.style.display = 'none'
+      }
+    }
+    if (context.vue === 'exEtChoix') { // Affichage des seuls exercices
       masqueMenuDesExercices()
     }
     if (context.vue === 'menu') { // Affichage des seuls exercices

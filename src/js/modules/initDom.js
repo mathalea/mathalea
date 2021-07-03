@@ -18,6 +18,7 @@ export async function initDom () {
     await addFetchHtmlToParent('templates/amc.html', document.body)
     setOutputAmc()
   } else {
+    setOutputHtml()
     section.append(espaceVertical())
     section.append(espaceVertical())
     addElement(section, 'div', { id: 'containerErreur' })
@@ -32,13 +33,6 @@ export async function initDom () {
     section.append(espaceVertical())
   }
   await addFetchHtmlToParent('templates/footer.html', document.body, 'footer')
-
-  if (context.vue === 'ex') {
-    await fetchHtmlToElement('templates/exercicesEtCorrections.html', section)
-  }
-  // if (context.vue === 'cm') {
-  //   await fetchHtmlToElement('templates/calculMental.html', section)
-  // }
 }
 
 function espaceVertical () {

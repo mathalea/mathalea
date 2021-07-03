@@ -24,20 +24,6 @@ function isNumeric (n) {
   return !isNaN(parseFloat(n)) && isFinite(n)
 }
 
-// Pour le menu dans le nav géré par SemanticUI
-document.addEventListener('DOMContentLoaded', (event) => {
-  $('.ui.dropdown').dropdown()
-})
-
-if (document.location.href.indexOf('mathalea_amc.html') > 0) {
-  setOutputAmc()
-}
-if (document.location.href.indexOf('mathalealatex.html') > 0) {
-  setOutputLatex()
-}
-if (document.location.href.indexOf('cm.html') > 0) {
-  setOutputDiaporama()
-}
 
 let listeObjetsExercice = [] // Liste des objets listeObjetsExercices
 let listeDesExercices = [] // Liste des identifiants des exercices
@@ -309,9 +295,9 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       }
       if (
         (!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.interactifReady) ||
-        window.location.href.indexOf('exo.html') > 0
+        context.vue === 'l'
       ) {
-        // Dans exo.html on ne mets pas les raccourcis vers interactif et paramètres.
+        // Dans v=l on ne met pas les raccourcis vers interactif et paramètres.
         contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
       } else {
         if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
@@ -375,7 +361,7 @@ function miseAJourDuCode () {
   ;(function gestionURL () {
     if (listeDesExercices.length > 0) {
       let finUrl = ''
-      if (context.isHtml && !context.isDiaporama && window.location.pathname.indexOf('exo.html') < 0) {
+      if (context.isHtml && !context.isDiaporama) {
         finUrl += 'mathalea.html'
       }
       finUrl += `?ex=${listeDesExercices[0]}`
@@ -476,10 +462,10 @@ function miseAJourDuCode () {
   })
   let contenu, contenuDesExercices, contenuDesCorrections
   // Dans la suite test selon les affichages :
-  // 1/ context.isHtml && diaporama => cm.html pour le calcul mental.
-  // 2/ context.isHtml && !diaporama => pour mathalea.html ; exercice.html ; exo.html
-  // 3/ context.isAmc => pour mathalea_amc.html
-  // 4/ !context.isHtml && !context.isAmc => pour mathalealatex.html
+  // 1/ context.isHtml && diaporama => &v=cm pour le calcul mental.
+  // 2/ context.isHtml && !diaporama => &v=menu, &v=ex, &v=exEtChoix
+  // 3/ context.isAmc => &v=amc
+  // 4/ !context.isHtml && !context.isAmc => &v=latex
   if (context.isHtml && context.isDiaporama) {
     if (listeDesExercices.length > 0) {
       // Pour les diaporamas tout cacher quand un exercice est choisi
@@ -538,7 +524,7 @@ function miseAJourDuCode () {
         listeObjetsExercice[i].id = listeDesExercices[i]
         contenu = contenuExerciceHtml(listeObjetsExercice[i], i + 1, false)
         if ($('#liste_des_exercices').is(':visible') || $('#exercices_disponibles').is(':visible') || $('#exo_plein_ecran').is(':visible')) {
-          // si on n'a plus la liste des exercices il ne faut plus pouvoir en supprimer (pour exercice.html et exo.html)
+          // si on n'a plus la liste des exercices il ne faut plus pouvoir en supprimer (pour v=l)
           if (listeDesExercices.length === 1) {
             // si on a q'un seul exercice, uniquement l'icone poubelle
             contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
@@ -2154,7 +2140,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Gestion de l'évènement sur le click sur les flèches pour basculer les exercices en plein écran.
   $('#exo_plein_ecran').click(function (e) {
     if ($('#exo_plein_ecran').hasClass('left')) {
-      gestionVue('ex')
+      gestionVue('exEtChoix')
     } else {
       gestionVue('menu')
     }
@@ -2190,14 +2176,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('btnEmbed').addEventListener('click', function () {
       $('#ModalEmbed').html(`<div class="content"><p><pre><code>&lt;iframe width="660"
         height="315" 
-        src="${window.location.href.replace('mathalea.html', 'exo.html')}"
+        src="${window.location.href + 'v=l'}"
         frameborder="0" >
 &lt;/iframe></code><pre></p>
         <button id="btnEmbedCode" style="margin:10px" class="btn ui toggle button labeled icon url"
         data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le code HTML</button></div>`)
       const clipboard = new Clipboard('#btnEmbedCode', {
         text: () =>
-          `<iframe\n\t width="660" height="315"\n\t src="${window.location.href.replace('mathalea.html', 'exo.html')}"\n\tframeborder="0" >\n</iframe>`
+          `<iframe\n\t width="660" height="315"\n\t src="${window.location.href + 'v=l'}"\n\tframeborder="0" >\n</iframe>`
       })
       clipboard.on('success', function (e) {
         console.info(e.text + ' copié dans le presse-papier.')
