@@ -177,11 +177,6 @@ const config = {
       chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
-      template: 'src/html/mathalealatex.html',
-      filename: 'mathalealatex.html',
-      chunks: ['mathalea']
-    }),
-    new HtmlWebpackPlugin({
       template: 'src/html/exo.html',
       filename: 'exo.html',
       chunks: ['mathalea']
@@ -210,11 +205,6 @@ const config = {
       template: 'src/html/2d.html',
       filename: '2d.html',
       chunks: ['mathalea2d']
-    }),
-    new HtmlWebpackPlugin({
-      template: 'src/html/mathalea_amc.html',
-      filename: 'mathalea_amc.html',
-      chunks: ['mathalea_amc']
     }),
     new HtmlWebpackPlugin({
       template: 'src/html/mathalea2iep.html',

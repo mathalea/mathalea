@@ -5,7 +5,7 @@ import { dictionnaireC3 } from './dictionnaireC3.js'
 import { dictionnaireDNB } from './dictionnaireDNB.js'
 import $ from 'jquery'
 import 'datatables.net-dt/css/jquery.dataTables.css'
-import { getFilterFromUrl } from './getUrlVars.js'
+import { getFilterFromUrl, getVueFromUrl } from './getUrlVars.js'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import { context } from './context.js'
 
@@ -24,7 +24,7 @@ enleveElement(tableauTags, 'Hors programme')
 // On concatène les différentes listes d'exercices
 export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3 }
 let liste_des_exercices_disponibles
-if (context.isAmc) {
+if (getVueFromUrl() === 'amc') {
   const dictionnaireDesExercicesAMC = {}
   Object.entries(dictionnaireDesExercicesAleatoires).forEach(([id, props]) => {
     if (props.amcReady) dictionnaireDesExercicesAMC[id] = props

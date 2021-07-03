@@ -2050,7 +2050,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Gestion de la redirection vers MathaleaLaTeX
   $('#btnLaTeX').click(function () {
-    window.location.href = window.location.href.replace('mathalea.html', 'mathalealatex.html')
+    window.location.href += '&v=latex'
   })
 
   if (context.isAmc) {
