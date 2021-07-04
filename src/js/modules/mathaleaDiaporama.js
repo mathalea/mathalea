@@ -1,11 +1,14 @@
+/* global $ */
 import { context } from './context.js'
+// import { loadSlick } from './loaders.js'
 
 let premierClicSurPlay = true
 let chrono
 let intervalID = {}
 let pause = false
 
-$(document).ready(function () {
+export const initDiaporama = async () => {
+  // await loadSlick()
   $('#prev').hide()
   $('#next').hide()
   $('#icones').hide()
@@ -64,13 +67,13 @@ $(document).ready(function () {
   $('#formulaire_choix_des_exercices').hide()
   $('#exercices').hide()
 
-  /*fonctions de gestion des boutons du diaporama*/
-  function pauseDiapo() {
+  /* fonctions de gestion des boutons du diaporama */
+  function pauseDiapo () {
     clearInterval(intervalID)
     pause = true
   }
-  
-  function playDiapo() {
+
+  function playDiapo () {
     if (premierClicSurPlay) {
       $('#prev').show()
       $('#next').show()
@@ -115,21 +118,21 @@ $(document).ready(function () {
     }
     pause = false
   }
-  
-  function slidePrecedente() {
+
+  function slidePrecedente () {
     chrono = context.duree * 1000
     $('#timer').html('&ndash; ' + chrono / 1000 + ' s')
     $('.single-item').slick('slickPrev')
   }
-  
-  function slideSuivante() {
+
+  function slideSuivante () {
     chrono = context.duree * 1000
     $('#timer').html('&ndash; ' + chrono / 1000 + ' s')
     $('.single-item').slick('slickNext')
   }
-  
-  /*========*/
-  
+
+  /* ======== */
+
   $('#pause').click(function () {
     pauseDiapo()
   })
@@ -137,7 +140,7 @@ $(document).ready(function () {
   $('#play').click(function () {
     playDiapo()
   })
-  
+
   $('#prev').click(function () {
     slidePrecedente()
   })
@@ -146,18 +149,18 @@ $(document).ready(function () {
     slideSuivante()
   })
 
-  window.addEventListener('keydown', function(e) { //gestion du calcul mental avec le clavier
-    if (e.which === 32 && pause) { //touche espace pendant la pause
-      document.getElementById("play").focus()
+  window.addEventListener('keydown', function (e) { // gestion du calcul mental avec le clavier
+    if (e.which === 32 && pause) { // touche espace pendant la pause
+      document.getElementById('play').focus()
       playDiapo()
-    } else if (e.which === 32 && !pause) { //touche espace pendant le diaporama
-      document.getElementById("pause").focus()
+    } else if (e.which === 32 && !pause) { // touche espace pendant le diaporama
+      document.getElementById('pause').focus()
       pauseDiapo()
     }
-    if (e.which === 37) { //fleche gauche
+    if (e.which === 37) { // fleche gauche
       slidePrecedente()
     }
-    if (e.which === 39) { //fleche droite
+    if (e.which === 39) { // fleche droite
       slideSuivante()
     }
   })
@@ -177,5 +180,4 @@ $(document).ready(function () {
     }
     $('#timer').html('&ndash; ' + chrono / 1000 + ' s')
   }
- 
-})
+}

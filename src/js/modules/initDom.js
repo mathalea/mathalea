@@ -1,6 +1,7 @@
-import { context, setOutputAmc, setOutputHtml, setOutputLatex } from './context'
+import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
 import { addElement, create, addFetchHtmlToParent, fetchHtmlToElement } from './dom'
 import { getVueFromUrl } from './getUrlVars'
+import { initDiaporama } from './mathaleaDiaporama.js'
 
 export async function initDom () {
   // Il FAUT TOUJOURS mettre await avant FetchHtmlToElement sinon la création des formulaires bug car les éléments n'existent pas encore
@@ -17,6 +18,10 @@ export async function initDom () {
   } else if (vue === 'amc') {
     await addFetchHtmlToParent('templates/amc.html', document.body)
     setOutputAmc()
+  } else if (vue === 'cm') {
+    await addFetchHtmlToParent('templates/cm.html', document.body)
+    setOutputDiaporama()
+    initDiaporama()
   } else {
     setOutputHtml()
     section.append(espaceVertical())

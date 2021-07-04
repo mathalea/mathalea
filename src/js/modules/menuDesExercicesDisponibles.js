@@ -513,7 +513,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercices += divNiveau(objExercicesDisponibles.be, 'active', 'be')
     listeHtmlDesExercices += '</div>'
     listeHtmlDesExercicesTab += objExercicesDisponibles.be.lignes_tableau
-  } else if (window.location.href.indexOf('cm.html') > 0) {
+  } else if (context.vue === 'cm') {
     htmlAffichage = htmlListes({
       liste_affichage: ['C', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'PE'],
       active: 'C',
@@ -575,7 +575,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercices += htmlAffichage.liste
     listeHtmlDesExercicesTab += htmlAffichage.lignes
     // Ajoute les outils prof sur mathalealatex
-    if (window.location.href.indexOf('mathalealatex.html') > 0) {
+    if (context.vue === 'latex') {
       listeHtmlDesExercices += divNiveau(objExercicesDisponibles.P0, '', 'P0')
       listeHtmlDesExercicesTab += objExercicesDisponibles.P0.lignes_tableau
     }
@@ -782,7 +782,7 @@ export function menuTheme (theme) {
   const dictionnaire = filtreDictionnaire(listeDesExercicesDisponibles, theme)
   for (const id in dictionnaire) {
     codeHTML +=
-      `<a class="item" href="/exercice.html?ex=${id}" target="_blank">
+      `<a class="item" href="/mathalea.html?ex=${id}&v=ex" target="_blank">
       <img class="ui avatar image" src="/images/dice.png"> <div class="header content">${id} - ${dictionnaire[id].titre} </div>
     </a>`
   }
@@ -803,7 +803,7 @@ export function menuThemeDNB (theme) {
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     codeHTML +=
-      `<a style="line-height:2.5" class="item" href="/exercice.html?ex=${id}" target="_blank"><div class="header content"> ${dictionnaire[id].annee} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice} ${listeHtmlDesTags(dictionnaire[id])} </div></a> \n`
+      `<a style="line-height:2.5" class="item" href="/mathalea.html?ex=${id}&v=ex" target="_blank"><div class="header content"> ${dictionnaire[id].annee} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice} ${listeHtmlDesTags(dictionnaire[id])} </div></a> \n`
   }
   codeHTML += '\n</div>'
   return codeHTML

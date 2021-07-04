@@ -105,7 +105,6 @@ const config = {
   entry: {
     mathalea: './src/js/mathalea.js',
     mathalea2d: './src/js/modules/mathalea2d-gui.js',
-    mathaleaDiaporama: ['./src/js/modules/mathalea_diaporama.js', './src/js/mathalea.js'],
     mathalea2iep: './src/js/modules/mathalea2iep-gui.js',
     alacarte: './src/js/alacarte.js'
   },
@@ -171,11 +170,6 @@ const config = {
       template: 'src/html/mathalea.html',
       filename: 'mathalea.html',
       chunks: ['mathalea']
-    }),
-    new HtmlWebpackPlugin({
-      template: 'src/html/cm.html',
-      filename: 'cm.html',
-      chunks: ['mathaleaDiaporama']
     }),
     new HtmlWebpackPlugin({
       template: 'src/html/mathalea2d.html',
