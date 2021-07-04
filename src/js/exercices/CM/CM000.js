@@ -27,6 +27,7 @@ export default function TablesAdditionsSoustractions () {
   this.interactif = true
 
   this.nouvelleVersion = function () {
+    this.autoCorrection = []
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
@@ -71,7 +72,7 @@ export default function TablesAdditionsSoustractions () {
     for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
       a = randint(2, this.sup)
       b = randint(2, this.sup)
-
+      this.autoCorrection[i] = {}
       switch (listeTypeDeQuestions[i]) {
         case 'addition':
           texte = `$${a} + ${b} = \\dotfill$`

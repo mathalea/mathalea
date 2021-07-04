@@ -6878,7 +6878,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
@@ -6920,7 +6922,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         // texQr += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
@@ -6982,7 +6986,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
         reponse = autoCorrection[j].reponse.valeur
@@ -7054,7 +7060,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.4 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
         reponse = autoCorrection[j].reponse.valeur

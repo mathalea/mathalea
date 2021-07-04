@@ -18,12 +18,13 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
 
   amcType peut prendre les valeurs suivantes :
 
-  1 : qcm avec une seule bonne réponse (évolution vers le bouton radio ?). Modèle : 6C10-2
-  2 : qcm avec possibilité de plusieures bonnes réponses. Modèle : 6N43-2
-  3 : question ouverte -> il n'y a pas d'interactivité l'affichage est classique par contre on peut l'exporter vers AMC en question ouverte. Modèle : 6C10-5
-  4 : réponse numérique à entrer dans un formulaire texte. AmcNumeriqueChoice (voire attribut reponse). Modèle : 6C10
-  5 : réponse identique au type 4 mais AMC ajoute une zone pour une réponse ouverte. Modèle : 3G30
-  6 : plusieures réponses numériques (plusieurs attributs reponse, reponse2,...). Modèle : 4C21
+  'qcmMono' : qcm avec une seule bonne réponse (évolution vers le bouton radio ?). Modèle : 6C10-2
+  'qcmMult' : qcm avec possibilité de plusieures bonnes réponses. Modèle : 6N43-2
+  'amcOpen' : question ouverte -> il n'y a pas d'interactivité l'affichage est classique par contre on peut l'exporter vers AMC en question ouverte. Modèle : 6C10-5
+  'amcNum' : réponse numérique à entrer dans un formulaire texte. AmcNumeriqueChoice (voire attribut reponse). Modèle : 6C10
+  'amcOpenNum' : réponse identique au type 4 mais AMC ajoute une zone pour une réponse ouverte. Modèle : 3G30
+  'AMCOpenNum✖︎2' : plusieures réponses numériques (plusieurs attributs reponse, reponse2,...). Modèle : 4C21
+  AMCOpenNum✖︎3 : Une réponse en plus ... 
   custom : Ces exercices ne sont pas prédéfinis, ils partagent le bouton de validation puis appellent la méthode correctionInteractive() définie dans l'exercice. Ils ne sont pas compatibles avec AMC
 
   # La variable this.autoCorrection
@@ -35,7 +36,7 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
   ```
   Selon les types, l'objet s'adapte :
 
-  type 1 :
+  type 'qcmMono' :
   ```js
   this.autoCorrection[i] = {
       enonce: 'la question est posée ici',
@@ -61,9 +62,9 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
   }
   ```
 
-type 2 : il est identique au type 1, à la différence près qu'il y aura peut-être plusieurs statut à true
+type 'qcmMult' : il est identique au type 1, à la différence près qu'il y aura peut-être plusieurs statut à true
 
-type 3 : (uniquement pour AMC) ici un exemple pour une exercice ne produisant qu'une question (il y aura autant d'objet que this.nbQuestion>1)
+type 'amcOpen' : (uniquement pour AMC) ici un exemple pour une exercice ne produisant qu'une question (il y aura autant d'objet que this.nbQuestion>1)
 
 ```js
   this.autoCorrection = [
@@ -80,7 +81,7 @@ type 3 : (uniquement pour AMC) ici un exemple pour une exercice ne produisant qu
     ]
 ```
  
-type 4 : Voici un élément type (la différence se situe dans l'attribut reponse)
+type 'amcNum' : Voici un élément type (la différence se situe dans l'attribut reponse)
 ```js
 this.autoCorrection[i] = {
         enonce: 'ici la question est posée',
