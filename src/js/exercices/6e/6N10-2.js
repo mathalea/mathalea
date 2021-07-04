@@ -9,7 +9,6 @@ export const titre = 'Décomposer un nombre décimal (nombre de..., chiffre de..
  */
 export default function DecompositionNombreDecimal () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = 'Compléter les phrases suivantes.'
   this.nbQuestions = 5
   this.nbCols = 1

@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } 
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
 export const amcReady = true
-export const amcType = 3 // type de question AMC
+export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

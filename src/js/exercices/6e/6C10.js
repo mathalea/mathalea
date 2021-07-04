@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, te
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif'
 
 export const amcReady = true
-export const amcType = 4 // type de question AMC
+export const amcType = 'AMCNum' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'numerique'
 

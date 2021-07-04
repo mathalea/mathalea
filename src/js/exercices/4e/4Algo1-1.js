@@ -8,7 +8,7 @@ export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
 export const interactifType = 'cliqueFigure' // La correction doit être gérée dans l'exercice avec la méthode this.correctionInteractive()
 export const amcReady = true
-export const amcType = 1
+export const amcType = 'qcmMono'
 export const titre = 'Tortue Scratch avec répétitions'
 export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
   'use strict'

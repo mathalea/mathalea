@@ -5,7 +5,7 @@ import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInter
 import Fraction from '../../modules/Fraction.js'
 export const titre = 'Égalités entre fractions simples'
 export const amcReady = true
-export const amcType = 1 // QCM
+export const amcType = 'qcmMono' // QCM
 export const interactifReady = true
 export const interactifType = 'mathLive' // On pourrait ajouter QCM
 
@@ -19,7 +19,6 @@ export default function EgalitesEntreFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 11 // Correspond au facteur commun
   this.sup2 = 2 // alternace numérateur ou dénominateur imposé.
-  this.titre = titre
   this.consigne = 'Compléter les égalités.'
   this.spacing = 2
   this.spacingCorr = 2

@@ -33,7 +33,7 @@ let listePackages = new Set()
 // Variables pour mathalea_AMC
 let nbExemplaires = 1
 let nbQuestions = []
-let nom_fichier = ''
+let nomFichier = ''
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 let typeEntete = ''
@@ -428,12 +428,16 @@ function miseAJourDuCode () {
       if (context.vue) {
         finUrl += `&v=${context.vue}`
       }
-      if (context.userId) {
-        finUrl += `&userId=${context.userId}`
-      } else if (window.sessionStorage.getItem('userId') !== null) {
-        context.userId = window.sessionStorage.getItem('userId')
-        finUrl += `&userId=${context.userId}`
-      }
+      try {
+        if (context.userId) {
+          finUrl += `&userId=${context.userId}`
+        } else if (typeof (window.sessionStorage) === 'object') {
+          if (window.sessionStorage.getItem('userId') !== null) {
+            context.userId = window.sessionStorage.getItem('userId')
+            finUrl += `&userId=${context.userId}`
+          }
+        }
+      } catch (err) {}
       if (context.isAmc) {
         finUrl += `&f=${format}&e=${typeEntete}`
       }
@@ -627,7 +631,7 @@ function miseAJourDuCode () {
       .on('click', function () {
         // Gestion du style pour l'entête du fichier
 
-        let contenu_fichier = `
+      let contenuFichier = `
       
                   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                   % Document généré avec MathALEA sous licence CC-BY-SA
@@ -659,16 +663,17 @@ function miseAJourDuCode () {
           return request.responseText
         }
 
-        contenu_fichier += codeLatex
-        const monzip = new JSZip()
-        if ($('#nom_du_fichier').val() != '') {
-          nom_fichier = $('#nom_du_fichier').val() + '.tex'
-        } else {
-          nom_fichier = 'mathalea.tex'
-        }
-        monzip.file(`${nom_fichier}`, codeLatex)
-        monzip.file('automultiplechoice.sty', load('assets/fichiers/automultiplechoice.sty'))
-        monzip.generateAsync({ type: 'blob' }).then(function (content) {
+      contenuFichier += codeLatex
+      const monzip = new JSZip()
+      if ($('#nom_du_fichier').val() !== '') {
+        nomFichier = $('#nom_du_fichier').val() + '.tex'
+      } else {
+        nomFichier = 'mathalea.tex'
+      }
+      monzip.file(`${nomFichier}`, codeLatex)
+      monzip.file('automultiplechoice.sty', load('assets/fichiers/automultiplechoice.sty'))
+      monzip.generateAsync({ type: 'blob' })
+        .then(function (content) {
           // see FileSaver.js
           saveAs(content, 'Projet.zip')
         })
@@ -679,7 +684,7 @@ function miseAJourDuCode () {
       .on('click', function () {
         // Gestion du style pour l'entête du fichier
 
-        let contenu_fichier = `
+      let contenuFichier = `
                 
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                 % Document généré avec MathALEA sous licence CC-BY-SA
@@ -690,19 +695,18 @@ function miseAJourDuCode () {
                 
                 
                 `
-        contenu_fichier += codeLatex
-        // Gestion du LaTeX statique
-        // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
+      contenuFichier += codeLatex
+      // Gestion du LaTeX statique
+      // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
-        $('input[name=encoded_snip]').val(encodeURIComponent(contenu_fichier))
-        if (listePackages.has('dnb')) {
-          // Force le passage à xelatex sur Overleaf pour les exercices de DNB
-          $('input[name=engine]').val('xelatex')
-        }
-        if ($('#nom_du_fichier').val()) {
-          $('input[name=snip_name]').val($('#nom_du_fichier').val()) // nomme le projet sur Overleaf
-        }
-      })
+      $('input[name=encoded_snip]').val(encodeURIComponent(contenuFichier))
+      if (listePackages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
+        $('input[name=engine]').val('xelatex')
+      }
+      if ($('#nom_du_fichier').val()) {
+        $('input[name=snip_name]').val($('#nom_du_fichier').val()) // nomme le projet sur Overleaf
+      }
+    })
   }
   if (!context.isHtml && !context.isAmc) {
     // Sortie LaTeX
@@ -1258,9 +1262,9 @@ function parametresExercice (exercice) {
       }
       if (exercice[i].nbQuestionsModifiable) {
         divParametresGeneraux.innerHTML +=
-          '<div><label for="form_nbQuestions' +
+          '<div><label for="formNbQuestionsParGroupe' +
           i +
-          '">Nombre de questions : </label> <input id="form_nbQuestions' +
+          '">Nombre de questions : </label> <input id="formNbQuestionsParGroupe' +
           i +
           '" type="number"  min="1" max="99"></div>'
       }
@@ -1309,11 +1313,7 @@ function parametresExercice (exercice) {
       }
       if (exercice[i].nbQuestionsModifiable) {
         divParametresGeneraux.innerHTML +=
-          '<div><label for="form_nbQuestions' +
-          i +
-          '">Nombre de questions : </label> <input id="form_nbQuestions' +
-          i +
-          '" type="number"  min="1" max="99"></div>'
+                          '<div><label for="formNbQuestionsParGroupe' + i + '">Nombre de questions : </label> <input id="formNbQuestionsParGroupe' + i + '" type="number"  min="1" max="99"></div>'
       }
       if (exercice[i].correctionDetailleeDisponible) {
         divParametresGeneraux.innerHTML +=
@@ -1365,9 +1365,9 @@ function parametresExercice (exercice) {
       }
       if (exercice[i].nbQuestionsModifiable) {
         divParametresGeneraux.innerHTML +=
-          '<div><label for="form_nbQuestions' +
+          '<div><label for="formNbQuestionsParGroupe' +
           i +
-          '">Nombre de questions : </label> <input id="form_nbQuestions' +
+          '">Nombre de questions : </label> <input id="formNbQuestionsParGroupe' +
           i +
           '" type="number"  min="1" max="99"></div>'
       }
@@ -1703,7 +1703,7 @@ function parametresExercice (exercice) {
 
     // Gestion du nombre de questions
     if (exercice[i].nbQuestionsModifiable) {
-      formNbQuestions[i] = document.getElementById('form_nbQuestions' + i)
+      formNbQuestions[i] = document.getElementById('formNbQuestionsParGroupe' + i)
       formNbQuestions[i].value = exercice[i].nbQuestions // Rempli le formulaire avec le nombre de questions
       formNbQuestions[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
@@ -2045,7 +2045,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     formNbExemplaires.value = 1 // Rempli le formulaire avec le nombre de questions
     formNbExemplaires.addEventListener('change', function (e) {
       // Dès que le nombre change, on met à jour
-      if (typeEntete == 'AMCassociation') {
+      if (typeEntete === 'AMCassociation') {
         nbExemplaires = 1
         formNbExemplaires.value = 1
       } else {
@@ -2074,7 +2074,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     formEntete.addEventListener('change', function (e) {
       typeEntete = e.target.value
-      if (typeEntete == 'AMCassociation') {
+      if (typeEntete === 'AMCassociation') {
         nbExemplaires = 1
         formNbExemplaires.value = 1
       }
@@ -2097,9 +2097,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       miseAJourDuCode()
     })
 
-    const form_nbQuestions = document.getElementById('nbQuestions_par_groupe')
-    form_nbQuestions.value = []
-    form_nbQuestions.addEventListener('change', function (e) {
+    const formNbQuestionsParGroupe = document.getElementById('nbQuestions_par_groupe')
+    formNbQuestionsParGroupe.value = []
+    formNbQuestionsParGroupe.addEventListener('change', function (e) {
       const saisie = e.target.value
       nbQuestions = saisie.split(',')
       miseAJourDuCode()
@@ -2205,7 +2205,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   if (params.get('userId')) {
     context.userId = params.get('userId')
-    window.sessionStorage.setItem('userId', context.userId)
+    try {
+      if (typeof (window.sessionStorage) === 'object') {
+        window.sessionStorage.setItem('userId', context.userId)
+      }
+    } catch (err) {}
   }
   if (params.get('duree')) {
     context.duree = params.get('duree')

@@ -7,7 +7,7 @@ export const titre = 'Dernier chiffre d’un calcul'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4 // Question numérique
+export const amcType = 'AMCNum' // Question numérique
 
 /**
 * Trouver le dernier chiffre d'un calcul (somme, produit, différence)

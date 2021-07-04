@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, listeQuestionsToContenu, choice, combinaisonListes, texNombre2 } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 2 // type de question AMC
+export const amcType = 'qcmMult' // type de question AMC
 
 export const titre = 'Critères de divisibilité (plusieurs possibles)'
 
@@ -16,8 +16,6 @@ export const titre = 'Critères de divisibilité (plusieurs possibles)'
  */
 export default function TableauCriteresDeDivisibilite () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.amcType = amcType
   this.spacing = 1
   this.spacingCorr = 1
   this.nbQuestions = 5

@@ -13,7 +13,6 @@ export const titre = 'Donner l’écriture décimale d’une fraction décimale'
  */
 export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = "Donner l'écriture décimale"
   this.spacing = 2
   this.spacingCorr = 2

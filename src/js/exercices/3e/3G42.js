@@ -6,7 +6,7 @@ import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInter
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 export const titre = 'Volume d’une boule'
 

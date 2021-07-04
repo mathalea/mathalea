@@ -6,7 +6,7 @@ import Grandeur from '../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Aires de carrés, rectangles et triangles rectangles'
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 

@@ -9,8 +9,7 @@ export const titre = 'Chiffre des ... Nombre de ...'
  * @author Sébastien Lozano
  */
 
-export default function chiffre_nombre_de () {
-  'use strict'
+export default function chiffreNombreDe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false
   this.sup = 1
@@ -20,7 +19,6 @@ export default function chiffre_nombre_de () {
     this.nbQuestions = 6
   };
 
-  this.titre = titre
   this.consigne = ''
 
   this.nbCols = 1
@@ -46,22 +44,21 @@ export default function chiffre_nombre_de () {
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let u, d, c, mu, md, mc, mmu, mmd, mmc
-      mmc = randint(0, 9, [0])
-      mmd = randint(0, 9, [mmc])
-      mmu = randint(0, 9, [mmc, mmd])
-      mc = randint(0, 9, [mmu, mmd, mmc])
-      md = randint(0, 9, [mmu, mmd, mmc, mc])
-      mu = randint(0, 9, [mmu, mmd, mmc, mc, md])
-      c = randint(0, 9, [mmu, mmd, mmc, mu, md, mc])
-      d = randint(0, 9, [mmu, mmd, mmc, mu, md, mc, c])
-      u = randint(0, 9, [mmu, mmd, mmc, mu, md, mc, c, d])
+      const mmc = randint(0, 9, [0])
+      const mmd = randint(0, 9, [mmc])
+      const mmu = randint(0, 9, [mmc, mmd])
+      const mc = randint(0, 9, [mmu, mmd, mmc])
+      const md = randint(0, 9, [mmu, mmd, mmc, mc])
+      const mu = randint(0, 9, [mmu, mmd, mmc, mc, md])
+      const c = randint(0, 9, [mmu, mmd, mmc, mu, md, mc])
+      const d = randint(0, 9, [mmu, mmd, mmc, mu, md, mc, c])
+      const u = randint(0, 9, [mmu, mmd, mmc, mu, md, mc, c, d])
       // let nb = randint(100000000,999999999);
-      // let nb_str = nb.toString();
-      const nb_str = mmc.toString() + mmd.toString() + mmu.toString() + mc.toString() + md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
-      const nb = Number(nb_str)
+      // let nbStr = nb.toString();
+      const nbStr = mmc.toString() + mmd.toString() + mmu.toString() + mc.toString() + md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
+      const nb = Number(nbStr)
       const cdu = ['unites', 'dizaines', 'centaines']
-      const chiffre_nombre = {
+      const chiffreNombre = {
         chiffre: {
           unites: {
             unites: { determinant: 'des', cdu: ['unités', ''], rangs: [8] },
@@ -133,7 +130,7 @@ export default function chiffre_nombre_de () {
       ]
 
       // une fonction pour la correction selon le type de question
-      function chiffre_nombre_corr (type, str, rang) {
+      function chiffreNombreCorr (type, str, rang) {
         let sortie
         if (type === 'chiffre') {
           sortie = str.split('')[rang[0]]
@@ -148,24 +145,24 @@ export default function chiffre_nombre_de () {
       };
 
       // une fonction pour la justification supplémentaire dans le cas nombre de ...
-      function nombre_de_justif (type, str, rang, cdu_num) {
+      function nombreDeJustif (type, str, rang, cduNum) {
         let sortie
         if (type === 'chiffre') {
           sortie = ''
         };
         if (type === 'nombre') {
-          let nb_de = str.split('')[rang[0]]
+          let nbDe = str.split('')[rang[0]]
           for (let k = 1; k < rang.length; k++) {
-            nb_de += str.split('')[rang[k]]
+            nbDe += str.split('')[rang[k]]
           };
           let j = rang[rang.length - 1]
           j++
-          let nb_de_reste = ''
+          let nbDeReste = ''
           while (j !== 9) {
-            nb_de_reste += str.split('')[j]
+            nbDeReste += str.split('')[j]
             j++
           };
-          sortie = `comme $${texNombre(str)} = ${texNombre(nb_de)}\\times ${texNombre(cdu_num)}+${texNombre(nb_de_reste)}$ alors `
+          sortie = `comme $${texNombre(str)} = ${texNombre(nbDe)}\\times ${texNombre(cduNum)}+${texNombre(nbDeReste)}$ alors `
         };
         return sortie
       };
@@ -174,15 +171,15 @@ export default function chiffre_nombre_de () {
       for (let k = 0; k < situations.length; k++) {
         enonces.push({
           enonce: `
-          Dans $${texNombre(nb)}$, quel est le ${situations[k].type} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} ?					
-					`,
+          Dans $${texNombre(nb)}$, quel est le ${situations[k].type} ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant} ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} ?
+`,
           question: '',
           correction: `
           Dans $${texNombre(nb)}$,           
-          ${nombre_de_justif(situations[k].type, nb_str, chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs, chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[1])}          
-          le ${situations[k].type} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant}  ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} est 
-          $${miseEnEvidence(texNombre(chiffre_nombre_corr(situations[k].type, nb_str, chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs)))}$					
-					`
+          ${nombreDeJustif(situations[k].type, nbStr, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[1])}          
+          le ${situations[k].type} ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant}  ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} est 
+          $${miseEnEvidence(texNombre(chiffreNombreCorr(situations[k].type, nbStr, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs)))}$
+`
         })
       };
 
