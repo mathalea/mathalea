@@ -10,7 +10,36 @@
 
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 
+// // Procédure de suppression des fichiers avec exploration recursive
+function recursiveDelete($pathToClean,$timeBeforeDelete) {
+  $repertoire = opendir($pathToClean); // On définit le répertoire dans lequel on souhaite travailler.
+  
+  while (false !== ($fichier = readdir($repertoire))) // On lit chaque fichier du répertoire dans la boucle.
+  {
+  $chemin = $pathToClean."/".$fichier; // On définit le chemin du fichier à effacer.
+  
+  // Si le fichier n'est pas un répertoire…
+  if ($fichier != ".." && $fichier != "." && !is_dir($fichier))
+        {
+        $Diff = (time() - filectime($chemin));
+        if ($Diff > $timeBeforeDelete) unlink($chemin); // On efface si c'est trop vieux depuis la dernière modification        
+        }
+  elseif (is_dir($fichier)) 
+        {
+          recursiveDelete($fichier,$timeBeforeDelete);
+        }
+  }
+  closedir($repertoire);
+}
+
+  // // On supprime tout ce qui a plus de 1 minute
+  $thisdir = "./resultats";
+  $timeBeforeDelete = 60; // Nombre de secondes 
+  // if (file_exists($thisdir)) {
+  //   recursiveDelete($thisdir,$timeBeforeDelete);
+  // }
 if ($contentType === "application/json") {
+
   // On reçoit les données brutes du post.
   $content = trim(file_get_contents("php://input"));
   
