@@ -1446,7 +1446,8 @@ function parametresExercice (exercice) {
           i +
           '" type="checkbox" ></div>'
       }
-      if (exercice[i].interactifReady && (exercice[i].amcType === 1 || exercice[i].amcType === 2)) {
+      // passage amsType num à string cf commit 385b5ea
+      if (exercice[i].interactifReady && (exercice[i].amcType === 'qcmMono' || exercice[i].amcType === 'qcmMult')) {
         // En LaTeX les seuls exercices interactifs sont les QCM
         divParametresGeneraux.innerHTML +=
           '<div><label for="formInteractif' + i + '">QCM : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
