@@ -1,6 +1,6 @@
-/* global $ fetch event Event */
+/* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl, setContextFromUrl } from './modules/getUrlVars.js'
+import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -15,7 +15,7 @@ import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 
 import '../css/style_mathalea.css'
-import { context, setOutputDiaporama, setOutputLatex, setOutputAmc } from './modules/context.js'
+import { context } from './modules/context.js'
 import { gestionVue } from './modules/gestionVue.js'
 import { initDom } from './modules/initDom.js'
 
@@ -23,7 +23,6 @@ import { initDom } from './modules/initDom.js'
 function isNumeric (n) {
   return !isNaN(parseFloat(n)) && isFinite(n)
 }
-
 
 let listeObjetsExercice = [] // Liste des objets listeObjetsExercices
 let listeDesExercices = [] // Liste des identifiants des exercices
@@ -38,7 +37,6 @@ const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 let typeEntete = ''
 let format = ''
-
 
 // création des figures MG32 (géométrie dynamique)
 window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
@@ -631,7 +629,7 @@ function miseAJourDuCode () {
       .on('click', function () {
         // Gestion du style pour l'entête du fichier
 
-      let contenuFichier = `
+        let contenuFichier = `
       
                   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                   % Document généré avec MathALEA sous licence CC-BY-SA
@@ -663,20 +661,20 @@ function miseAJourDuCode () {
           return request.responseText
         }
 
-      contenuFichier += codeLatex
-      const monzip = new JSZip()
-      if ($('#nom_du_fichier').val() !== '') {
-        nomFichier = $('#nom_du_fichier').val() + '.tex'
-      } else {
-        nomFichier = 'mathalea.tex'
-      }
-      monzip.file(`${nomFichier}`, codeLatex)
-      monzip.file('automultiplechoice.sty', load('assets/fichiers/automultiplechoice.sty'))
-      monzip.generateAsync({ type: 'blob' })
-        .then(function (content) {
+        contenuFichier += codeLatex
+        const monzip = new JSZip()
+        if ($('#nom_du_fichier').val() !== '') {
+          nomFichier = $('#nom_du_fichier').val() + '.tex'
+        } else {
+          nomFichier = 'mathalea.tex'
+        }
+        monzip.file(`${nomFichier}`, contenuFichier)
+        monzip.file('automultiplechoice.sty', load('assets/fichiers/automultiplechoice.sty'))
+        monzip.generateAsync({ type: 'blob' })
+          .then(function (content) {
           // see FileSaver.js
-          saveAs(content, 'Projet.zip')
-        })
+            saveAs(content, 'Projet.zip')
+          })
       })
 
     $('#btn_overleaf')
@@ -684,7 +682,7 @@ function miseAJourDuCode () {
       .on('click', function () {
         // Gestion du style pour l'entête du fichier
 
-      let contenuFichier = `
+        let contenuFichier = `
                 
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                 % Document généré avec MathALEA sous licence CC-BY-SA
@@ -695,18 +693,18 @@ function miseAJourDuCode () {
                 
                 
                 `
-      contenuFichier += codeLatex
-      // Gestion du LaTeX statique
-      // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
+        contenuFichier += codeLatex
+        // Gestion du LaTeX statique
+        // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
-      $('input[name=encoded_snip]').val(encodeURIComponent(contenuFichier))
-      if (listePackages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
-        $('input[name=engine]').val('xelatex')
-      }
-      if ($('#nom_du_fichier').val()) {
-        $('input[name=snip_name]').val($('#nom_du_fichier').val()) // nomme le projet sur Overleaf
-      }
-    })
+        $('input[name=encoded_snip]').val(encodeURIComponent(contenuFichier))
+        if (listePackages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
+          $('input[name=engine]').val('xelatex')
+        }
+        if ($('#nom_du_fichier').val()) {
+          $('input[name=snip_name]').val($('#nom_du_fichier').val()) // nomme le projet sur Overleaf
+        }
+      })
   }
   if (!context.isHtml && !context.isAmc) {
     // Sortie LaTeX
@@ -786,7 +784,6 @@ function miseAJourDuCode () {
       div.innerHTML = '<pre><code class="language-latex">' + codeLatex + '</code></pre>'
       loadPrism()
         .then(() => {
-          /* global Prism */
           Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
         })
         .catch((error) => console.error(error))
@@ -1011,10 +1008,7 @@ function miseAJourDeLaListeDesExercices (preview) {
     } catch (error) {
       console.log(error)
       console.log(`Exercice ${id} non disponible`)
-      throw {
-        code: 'codeExerciceInconnu',
-        exercice: id
-      }
+      throw new Error(`code: 'codeExerciceInconnu', exercice: ${id}`)
     }
     if (dictionnaireDesExercices[id].typeExercice === 'dnb') {
       listeObjetsExercice[i] = dictionnaireDesExercices[id]
@@ -1043,11 +1037,11 @@ function miseAJourDeLaListeDesExercices (preview) {
       const path = chunks[1]
       promises.push(
         // cf https://webpack.js.org/api/module-methods/#magic-comments
-        import(/* webpackMode: "lazy" */ './exercices/' + path).then((module) => {
-          if (!module) throw Error(`l'import de ${path} a réussi mais on ne récupère rien, il doit y avoir un oubli d'export`)
-          listeObjetsExercice[i] = new module.default()
+        import(/* webpackMode: "lazy" */ './exercices/' + path).then(({ default: Exo }) => {
+          if (!Exo) throw Error(`l'import de ${path} a réussi mais on ne récupère rien, il doit y avoir un oubli d'export`)
+          listeObjetsExercice[i] = new Exo()
           ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
-            if (module[p] !== undefined) listeObjetsExercice[i][p] = module[p]
+            if (Exo[p] !== undefined) listeObjetsExercice[i][p] = Exo[p]
           })
           if (dictionnaireDesExercices[id].sup !== undefined) {
             listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
