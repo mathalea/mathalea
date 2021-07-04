@@ -6798,7 +6798,7 @@ export function exportQcmAmc (exercice, idExo) {
       }
     }
     switch (type) {
-      case 1: // question QCM 1 bonne réponse
+      case 'qcmMono': // question QCM 1 bonne réponse
         texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
@@ -6822,7 +6822,7 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
 
-      case 2: // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
+      case 'qcmMult': // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
         texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
@@ -6845,7 +6845,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += ' \\end{questionmult}\n }\n '
         id++
         break
-      case 3: // AMCOpen question ouverte corrigée par l'enseignant
+      case 'AMCOpen': // AMCOpen question ouverte corrigée par l'enseignant
         texQr += `\\element{${ref}}{\n `
         texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `\t\t${autoCorrection[j].enonce} \n `
@@ -6854,7 +6854,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\t\\end{question}\n }\n'
         id++
         break
-      case 4: // AMCOpen question ouverte avec encodage numérique de la réponse
+      case 'AMCNum': // AMCOpen question ouverte avec encodage numérique de la réponse
         /********************************************************************/
         // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericChoices
         // On pourra rajouter des options : les paramètres sont nommés.
@@ -6878,7 +6878,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
@@ -6900,7 +6902,7 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
 
-      case 5: // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum': // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
         // On pourra rajouter des options : les paramètres sont nommés.
@@ -6920,7 +6922,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         // texQr += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
@@ -6964,7 +6968,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
         id++
         break
-      case 6: // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum✖︎2': // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // /!\/!\/!\/!\ ATTENTION /!\/!\/!\/!\
         // Pour ce type :
@@ -6982,7 +6986,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
         reponse = autoCorrection[j].reponse.valeur
@@ -7036,7 +7042,7 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
 
-      case 7: // Un amcOpen et trois  AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum✖︎3': // Un amcOpen et trois  AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // /!\/!\/!\/!\ ATTENTION /!\/!\/!\/!\
         // Pour ce type :
@@ -7054,7 +7060,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.4 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
         reponse = autoCorrection[j].reponse.valeur

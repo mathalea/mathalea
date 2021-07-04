@@ -7,7 +7,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Fractions égales et égalité des produits en croix'
 
 export const amcReady = true
-export const amcType = 1
+export const amcType = 'qcmMono'
 export const interactifType = 'qcm'
 export const interactifReady = true
 

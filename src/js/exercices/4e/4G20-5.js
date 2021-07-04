@@ -12,4 +12,5 @@ export default function ArrondirUneValeur4e () {
   this.titre = titre
   this.sup = 3
   this.sup2 = true
+  this.besoinFormulaireNumerique = false
 }

@@ -7,7 +7,7 @@ export const titre = 'Calculer la fraction d’un nombre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.

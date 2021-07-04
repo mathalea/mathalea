@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre 
 import Operation from '../../modules/operations.js'
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 4 // Question numérique
+export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
 export const interactifType = 'numerique'
 

@@ -5,7 +5,7 @@ export const titre = 'Moitié'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4
+export const amcType = 'AMCNum'
 /**
  * Calculer la moitié d'un nombre pair, d'un impair inférieur à 20, d'un multiple de 200, d'un nombre de la forme a00 avec a impair, d'un nombre de la forme
  *  a,b avec a et b pairs ou 1xx avec xx un nombre pair

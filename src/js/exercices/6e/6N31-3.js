@@ -5,7 +5,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 import { cos } from '../../modules/fonctionsMaths.js'
 
 export const amcReady = true
-export const amcType = 2 // type de question AMC
+export const amcType = 'qcmMult' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -232,5 +232,4 @@ export default function ArrondirUneValeur () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type de nombre', 2, '1 : Nombre décimal\n 2 : Fraction']
-  this.besoinFormulaire2CaseACocher = ['Affichage de la valeur donnée à la calculatrice', false]
 }

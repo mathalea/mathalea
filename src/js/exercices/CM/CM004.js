@@ -5,7 +5,7 @@ export const titre = 'Les quatre opérations'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * Mélange équitable d'additions, de soustractions, de multiplications et de divisions

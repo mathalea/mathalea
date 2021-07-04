@@ -50,7 +50,7 @@ export const titre = 'Ajouter 9'
 export const amcReady = true // Il a une sortie AMC
 export const interactifReady = true // C'est un exercice qui peut être interactif
 export const interactifType = 'numerique'
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 export default function Ajouter9 () {
   Exercice.call(this) // Héritage de la classe Exercice()
