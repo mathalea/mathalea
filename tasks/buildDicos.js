@@ -93,8 +93,8 @@ for (const file of exercicesList) {
       // On verifie s'il y a un amcType
       if (!module.amcType) {
         amcType.text = 'export const amcType non présent'
-      } else {
-        amcType.num = module.amcType
+      } else {        
+        amcType.text = module.amcType
       }
       nbAmcReady += 1 // On incrémente pour la compet !
     }
@@ -141,7 +141,9 @@ for (const file of exercicesList) {
       if (amcReady) {
         // On verifie s'il y a un amcType
         if (/export +const +amcType */.test(srcContent)) {
-          amcType.num = parseInt(srcContent.match(/export +const +amcType *= *(\d*)/)[1])
+          // amcType.num = parseInt(srcContent.match(/export +const +amcType *= *(\d*)/)[1])
+          // regex suivante ne fonctionnera pas quand amcType est un objet
+          amcType.text = /export +const +amcType *= *(['"])([^'"]+)\1/.exec(srcContent)[2]
         } else {
           amcType.text = 'export const amcType non présent (à l\'ancienne)'
         }
@@ -160,6 +162,7 @@ for (const file of exercicesList) {
         // On verifie s'il y a un interactifType
         if (/export +const +interactifType */.test(srcContent)) {
           // regex à vérifier même si elle ne doit théoriquement pas servir puisque le module fonctionne
+          // regex suivante ne fonctionnera pas quand interactifReady est un objet
           interactifType = srcContent.match(/export +const +interactifType *= *(\"[a-zA-Z0-9].*\")/)[1]
         } else {
           interactifType = 'export const interactifType non présent (à l\'ancienne)'
@@ -178,78 +181,26 @@ for (const file of exercicesList) {
     // On ajoute amcType que si amcReady est à true
     if (amcReady) {
       // On ajuste la propriété text de amcType différemment si c'est un tableau ou non
-      const typeText = ['qcmMono', 'qcmMult', 'AMCOpen', 'AMCNum', 'AMCOpenNum', 'AMCOpenNum✖︎2', 'AMCOpenNum✖︎3']
-      // let typeText = ["qcmMono","qcmMult","AMCOpen","AMCNum","AMCOpenNum","AMCOpenNum×2","AMCOpenNum×3"]
-      if (typeof amcType.num === 'string') {
-        amcType.text = amcType.num
-      } else if (typeof amcType.num === 'number') {
-        switch (amcType.num) {
-          case 1:
-            amcType.text = typeText[0]
-            break
-          case 2:
-            amcType.text = typeText[1]
-            break
-          case 3:
-            amcType.text = typeText[2]
-            break
-          case 4:
-            amcType.text = typeText[3]
-            break
-          case 5:
-            amcType.text = typeText[4]
-            break
-          case 6:
-            amcType.text = typeText[5]
-            break
-          case 7:
-            amcType.text = typeText[6]
-            break
-          default:
-            beginWarnText()
-            console.error(`\x1b[33m${file} contient un amcType numerique non prévu => IL FAUT VÉRIFIER ÇA (number)!!!\x1b[37m`)
-            amcType.text = 'type de question AMC non prévu'
+      const typeText = ['qcmMono', 'qcmMult', 'AMCOpen', 'AMCNum', 'AMCOpenNum', 'AMCOpenNum✖︎2', 'AMCOpenNum✖︎3']      
+      if (typeof amcType.text === 'string') {
+        if (!typeText.includes(amcType.text)) {
+          beginWarnText()
+          console.error(`\x1b[33m${file} contient un amcType non prévu => IL FAUT VÉRIFIER ÇA (number)!!!\x1b[37m`)
+          amcType.text = 'type de question AMC non prévu'
         }
-      } else if (typeof amcType.num === 'object') {
-        amcType.text = []
-        amcType.num.forEach(
-          function (num) {
-            if (typeof num === 'string') {
-              amcType.text.push(num)
-            } else {
-              switch (num) {
-                case 1:
-                  amcType.text.push(typeText[0])
-                  break
-                case 2:
-                  amcType.text.push(typeText[1])
-                  break
-                case 3:
-                  amcType.text.push(typeText[2])
-                  break
-                case 4:
-                  amcType.text.push(typeText[3])
-                  break
-                case 5:
-                  amcType.text.push(typeText[4])
-                  break
-                case 6:
-                  amcType.text.push(typeText[5])
-                  break
-                case 7:
-                  amcType.text.push(typeText[6])
-                  break
-                default:
-                  beginWarnText()
-                  console.error(`\x1b[33m${file} contient un element numérique non prévu dans le tableau amcType => IL FAUT VÉRIFIER ÇA (object)!!!\x1b[37m`)
-                  amcType.text.push('type de question AMC non prévu')
-              }
+      } else if (typeof amcType.text === 'object') {
+        amcType.text.forEach(
+          function (text) {
+            if (!typeText.includes(text)) {
+              beginWarnText()
+              console.error(`\x1b[33m${file} contient un amcType non prévu => IL FAUT VÉRIFIER ÇA (number)!!!\x1b[37m`)
+              amcType.text = 'type de question AMC non prévu'
             }
           }
         )
       } else {
         beginWarnText()
-        console.error(`\x1b[33m${file} contient amcType ni entier ni liste => IL FAUT VÉRIFIER ÇA !!!\x1b[37m`)
+        console.error(`\x1b[33m${file} contient amcType ni string ni liste => IL FAUT VÉRIFIER ÇA !!!\x1b[37m`)
         amcType.text = 'bug amcType.num'
       }
       // On avait un fonctionnement avec description cf commit 832f123
