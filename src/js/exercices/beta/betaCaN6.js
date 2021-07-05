@@ -79,13 +79,13 @@ export default function CourseAuxNombres6e (numeroExercice) {
 
     ] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, q = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'q1':
           a = randint(1, 25)
           texte = `Le double d'un nombre vaut ${2 * a}, combien vaut sa moitié ?`
-          texteCorr = `Le nombre est ${a}, sam moitié est ${calcul(a / 2)}.`
+          texteCorr = `Le nombre est ${a}, sa moitié est ${texNombrec(a / 2)}.`
           setReponse(this, i, calcul(a / 2), { formatInteractif: 'calcul' })
           break
         case 'q2':
@@ -111,7 +111,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           d = randint(10, 15) * 10 - c
           resultat = calcul(2 * (c + d))
           texte = `$${c - a} + ${d + b} + ${c + a} + ${d - b}$`
-          texteCorr = `$${2 * c} + ${2 * d}= ${2 * (c + d)}$`
+          texteCorr = `$${c - a} + ${c + a} + ${d + b}  + ${d - b} = ${2 * c} + ${2 * d}= ${2 * (c + d)}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q4':
@@ -180,7 +180,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           c = randint(1, 3)
           resultat = calcul(a * 10 + b - c * 10 - 9)
           texte = `$${a * 10 + b} - ${c * 10 + 9}$`
-          texteCorr = `$${a * 10 + b} - ${c * 10 + 9}=${a * 10 + b}-${(c + 1) * 10} + 1 = ${d}$`
+          texteCorr = `$${a * 10 + b} - ${c * 10 + 9}=${a * 10 + b}-${(c + 1) * 10} + 1 = ${resultat}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q10':
@@ -239,7 +239,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           a = calcul(b * 90 + 9)
           resultat = b * 10 + 1
           texte = `$${a}\\div 9$`
-          texteCorr = `$${a}\\div 9 = ${c}$`
+          texteCorr = `$${a}\\div 9 = ${resultat}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q16':
@@ -248,7 +248,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           c = randint(1, 3)
           resultat = calcul(a * 10 + b + c * 10 + 9)
           texte = `$${a * 10 + b} + ${c * 10 + 9}$`
-          texteCorr = `$${a * 10 + b} + ${c * 10 + 9}=${a * 10 + b}+${(c + 1) * 10} - 1 = ${d}$`
+          texteCorr = `$${a * 10 + b} + ${c * 10 + 9}=${a * 10 + b}+${(c + 1) * 10} - 1 = ${resultat}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q17':
@@ -355,7 +355,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           c = d * a + b
           resultat = c % a
           texte = `Je possède ${c} bonbons et je fabrique des sacs de ${a} bonbons. Une fois mes sacs complétés, combien me restera-t-il de bonbons ?`
-          texteCorr = `$${c}=${d}\\times ${a} + b$ , donc il me restera ${b} bonbons.`
+          texteCorr = `$${c}=${d}\\times ${a} + ${b}$ , donc il me restera ${b} bonbons.`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
         case 'q25':
@@ -380,7 +380,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           b = randint(1, 3)
           resultat = calcul(a * (b + 0.5))
           texte = `Une voiture roule à une vitesse constante de ${a} km/h. Quelle distance en km parcourt-elle en ${b} h et 30 min`
-          texteCorr = `$${a}\\times ${calcul(b + 0.5)} = ${resultat}$`
+          texteCorr = `$${a}\\times ${texNombrec(b + 0.5)} = ${resultat}$`
           setReponse(this, i, new Grandeur(resultat, 'km'), { formatInteractif: 'longueur' })
           break
         case 'q28':
@@ -388,7 +388,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           b = randint(0, 1)
           texte = `Est-il vrai qu'un carré de côté ${a} cm a le même périmètre qu'un rectangle de largeur ${a - b} cm et de longueur ${a + 1} cm ? (V ou F)`
           if (b === 0) {
-            texteCorr = `Faux car $4\\times ${a} cm\\neq 2\\times ${a} cm + 2\\times ${a + 1} cm.`
+            texteCorr = `Faux car $4\\times ${a}$ cm $\\neq 2\\times ${a}$ cm $+ 2\\times ${a + 1}$ cm.`
             setReponse(this, i, 'F')
           } else {
             texteCorr = `Vrai car $4\\times ${a} cm = 2\\times ${a - 1} cm + 2\\times ${a + 1} cm= ${4 * a} cm.`
@@ -413,11 +413,12 @@ export default function CourseAuxNombres6e (numeroExercice) {
             axeStyle: '|->',
             pointListe: [[b / a, 'A']],
             pointCouleur: 'blue',
+            pointStyle: 'x',
             labelsPrincipaux: true,
             step1: 1,
             step2: 1
           }))
-          texteCorr = `L'abscisse du point A est \\dfrac{${b}}{${a}}`
+          texteCorr = `L'abscisse du point A est $\\dfrac{${b}}{${a}}$`
           if (a === 3) {
             setReponse(this, i, [c.texFraction, `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`], { formatInteractif: 'calcul' })
           } else {
@@ -436,9 +437,9 @@ export default function CourseAuxNombres6e (numeroExercice) {
           break
       }
       if (listeTypeQuestions[i] === 'q22' || listeTypeQuestions[i] === 'q25') {
-        texte += ajouteChampTexteMathLive(this, i, 'longueur')
+        texte += ajouteChampTexteMathLive(this, q, 'longueur')
       } else {
-        texte += ajouteChampTexteMathLive(this, i)
+        texte += ajouteChampTexteMathLive(this, q)
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
