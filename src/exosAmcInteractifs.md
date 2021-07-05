@@ -1,6 +1,7 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 96 
-- nombre d'exos interactifReady 117 
+- nombre d'exos amcReady 97 
+- nombre d'exos interactifReady 119 
+
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |2G50-2|Lecture graphique des coefficients d'une équation réduite |KO|KO|OK|mathLive|
@@ -104,6 +105,7 @@
 |6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
 |6N30-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCOpen|OK|mathLive|
+|6N30|Lire l’abscisse décimale d’un point|OK|AMCOpen|OK|mathLive|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|OK|numerique|
 |6N33|Calculer la fraction d’un nombre|OK|AMCNum|OK|mathLive|
@@ -112,10 +114,6 @@
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|qcm|
 |6N43|Critères de divisibilité|OK|qcmMono|OK|qcm|
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
-|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
-|betaCaN6|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
-|betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
-|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
@@ -136,3 +134,7 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
+|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
+|betaCaN6|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
+|betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|betaLicence|QCM de positionnement|KO|KO|OK|qcm|

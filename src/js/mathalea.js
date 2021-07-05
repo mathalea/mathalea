@@ -561,6 +561,7 @@ function miseAJourDuCode () {
     }
     document.getElementById('corrections').innerHTML = contenuDesCorrections
     gestionModules(false, listeObjetsExercice)
+    console.log('event envoyé')
     const exercicesAffiches = new Event('exercicesAffiches', { bubbles: true })
     document.dispatchEvent(exercicesAffiches)
     // En cas de clic sur la correction, on désactive les exercices interactifs
@@ -1037,11 +1038,12 @@ function miseAJourDeLaListeDesExercices (preview) {
       const path = chunks[1]
       promises.push(
         // cf https://webpack.js.org/api/module-methods/#magic-comments
-        import(/* webpackMode: "lazy" */ './exercices/' + path).then(({ default: Exo }) => {
-          if (!Exo) throw Error(`l'import de ${path} a réussi mais on ne récupère rien, il doit y avoir un oubli d'export`)
+        import(/* webpackMode: "lazy" */ './exercices/' + path).then((module) => {
+          if (!module) throw Error(`l'import de ${path} a réussi mais on ne récupère rien, il doit y avoir un oubli d'export`)
+          const Exo = module.default
           listeObjetsExercice[i] = new Exo()
           ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
-            if (Exo[p] !== undefined) listeObjetsExercice[i][p] = Exo[p]
+            if (module[p] !== undefined) listeObjetsExercice[i][p] = module[p]
           })
           if (dictionnaireDesExercices[id].sup !== undefined) {
             listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
