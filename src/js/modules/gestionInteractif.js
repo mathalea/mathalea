@@ -91,6 +91,7 @@ export function exerciceQcm (exercice) {
           uicheck.classList.add('read-only')
         })
         button.classList.add('disabled')
+        // isUserIdOk(exercice,nbQuestionsValidees, nbQuestionsNonValidees) // ajout seb
         afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees)
       })
     }
@@ -215,6 +216,7 @@ export function exerciceNumerique (exercice) {
           spanReponseLigne.style.fontSize = 'large'
         }
         button.classList.add('disabled')
+        // isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
         afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
       })
     }
@@ -381,6 +383,7 @@ export function exerciceCustom (exercice) {
         // On utilise la correction définie dans l'exercice
         exercice.correctionInteractive(eltFeedback)
         button.classList.add('disabled')
+        // isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
       })
     }
   })
@@ -486,6 +489,7 @@ export function exerciceMathLive (exercice) {
         }
         if (!besoinDe2eEssai) {
           button.classList.add('disabled')
+          // isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
           afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
         }
       })
@@ -506,6 +510,7 @@ function saisieToGrandeur (saisie) {
   const split = saisie.split('\\operatorname{')
   const mesure = parseFloat(split[0].replace(',', '.'))
   if (split[1]) {
+    // const unite = split[1].substring(0, split[1].length - 1)
     const split2 = split[1].split('}')
     const unite = split2[0] + split2[1]
     return new Grandeur(mesure, unite)
@@ -514,9 +519,90 @@ function saisieToGrandeur (saisie) {
   }
 }
 
+/**
+ *
+ * @param {*} myObj // myObj est un objet avec tout ce qu'on veut, on adapte au besoin
+  // ATTENTION, si on passe des propriétés il faut aussi modifier le script scoresVerifResult.php en conséquence
+ * @author Sébastien LOZANO
+ */
+function appelFetchOld (myObj) {
+  fetch('scoresVerifResult.php', {
+    method: 'POST',
+    mode: 'same-origin',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      myObj
+    })
+  })
+}
+
+function appelFetch (myObj) {
+  fetch('scoresKey.php', {
+    method: 'POST',
+    mode: 'same-origin',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: myObj
+  })
+}
+
+function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
+  // TODO
+  // => vérifier si le paramètre existe dans l'url
+  // il a pu être entré manuellement
+  // agir en fonction pour les enregistrements
+  const str = location.href
+  const url = new URL(str)
+  const userId = url.searchParams.get('userId')
+  console.log(userId)
+  // eslint-disable-next-line no-unused-expressions
+  userId === null
+    ? (
+        console.log('userId KO : ' + userId)
+      )
+    : (
+        console.log('userId OK : ' + userId),
+        fetch('scoresKey.php', {
+          method: 'POST',
+          mode: 'same-origin',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
+            isSubmitUserId: false,
+            isVerifResult: true,
+            userId: userId,
+            prof1: userId[0],
+            prof2: userId[1],
+            prof3: userId[2],
+            classe1: userId[3],
+            classe2: userId[4],
+            eleve1: userId[5],
+            eleve2: userId[6],
+            exId: exercice.id,
+            sup: exercice.sup,
+            sup2: exercice.sup2,
+            sup3: exercice.sup3,
+            nbBonnesReponses: nbBonnesReponses,
+            nbQuestions: nbBonnesReponses + nbMauvaisesReponses,
+            score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100
+          })
+        })
+      )
+}
+
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   const divExercice = get(`exercice${exercice.numeroExercice}`)
   let divScore = get(`score${exercice.numeroExercice}`, false)
+  // Appel Fecth via une fonction
+  isUserIdOk(exercice, nbBonnesReponses, nbMauvaisesReponses)
   if (!divScore) divScore = addElement(divExercice, 'div', { className: 'score', id: `score${exercice.numeroExercice}` })
   divScore.innerHTML = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
   divScore.style.color = '#f15929'
