@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, texteGras, modalUrl, modalPdf } from '../../modules/outils.js'
 import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, point } from '../../modules/2d.js'
-export const titre = 'Note la couleur'
+export const titre = 'Note la couleur (scratch)'
 
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur

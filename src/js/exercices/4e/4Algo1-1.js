@@ -22,8 +22,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   this.pas_de_version_HMTL = false
   this.typeExercice = 'Scratch'
   this.listePackages = 'scratch3'
-  this.sup = 7 // 7 instructions par défaut, paramètre réglable.
-  this.sup2 = 1 // types d'instructionsde déplacement (ici seulement avancer et tourner)
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
@@ -551,6 +549,4 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     this.listeCorrections.push(texteCorr) // et la liste des corrections
     listeQuestionsToContenuSansNumero(this) // on envoie tout à la fonction qui va mettre en forme.
   }
-  this.besoinFormulaireNumerique = ["Nombre d'instructions"] // gestion des paramètres supplémentaires
-  this.besoinFormulaire2Numerique = ["Type d'instructions", '1 : sans calcul\n 2: Avec calcul']
 }

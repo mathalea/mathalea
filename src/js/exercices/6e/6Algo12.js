@@ -11,7 +11,7 @@ export const interactifType = 'custom' // La correction doit être gérée dans 
 export const amcReady = true
 export const amcType = 'qcmMono'
 
-export const titre = 'Trouver le bon tracé'
+export const titre = 'Trouver le bon tracé avec scratch'
 export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
   'use strict'
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
