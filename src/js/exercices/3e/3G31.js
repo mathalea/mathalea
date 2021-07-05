@@ -4,7 +4,7 @@ import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mat
 import { calcul, texFraction, arrondi, texNombre2, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
 
 export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
-export const amcType = 5 // type de question AMC
+export const amcType = 'AMCOpenNum' // type de question AMC
 export const titre = 'Calculer un angle dans un triangle rectangle en utilisant la trigonométrie'
 
 /**

@@ -8,9 +8,10 @@ import Fraction from './Fraction.js'
 import Grandeur from './Grandeur.js'
 
 export function exerciceInteractif (exercice) {
+  // passage amsType num à string cf commit 385b5ea
   if (context.isAmc) {
-    if (exercice.amcType === 4 || exercice.amcType === 5) exerciceNumerique(exercice)
-    if (exercice.amcType === 1 || exercice.amcType === 2) exerciceQcm(exercice)
+    if (exercice.amcType === 'AMCNum' || exercice.amcType === 'AMCOpenNum') exerciceNumerique(exercice)
+    if (exercice.amcType === 'qcmMono' || exercice.amcType === 'qcmMult') exerciceQcm(exercice)
   } else if (context.isHtml && !context.isDiaporama) {
     if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
     if (exercice.interactifType === 'numerique')exerciceNumerique(exercice)

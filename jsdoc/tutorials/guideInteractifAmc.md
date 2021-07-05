@@ -20,9 +20,9 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
 
   'qcmMono' : qcm avec une seule bonne réponse (évolution vers le bouton radio ?). Modèle : 6C10-2
   'qcmMult' : qcm avec possibilité de plusieures bonnes réponses. Modèle : 6N43-2
-  'amcOpen' : question ouverte -> il n'y a pas d'interactivité l'affichage est classique par contre on peut l'exporter vers AMC en question ouverte. Modèle : 6C10-5
-  'amcNum' : réponse numérique à entrer dans un formulaire texte. AmcNumeriqueChoice (voire attribut reponse). Modèle : 6C10
-  'amcOpenNum' : réponse identique au type 4 mais AMC ajoute une zone pour une réponse ouverte. Modèle : 3G30
+  'AMCOpen' : question ouverte -> il n'y a pas d'interactivité l'affichage est classique par contre on peut l'exporter vers AMC en question ouverte. Modèle : 6C10-5
+  'AMCNum' : réponse numérique à entrer dans un formulaire texte. AmcNumeriqueChoice (voire attribut reponse). Modèle : 6C10
+  'AMCOpenNum' : réponse identique au type 4 mais AMC ajoute une zone pour une réponse ouverte. Modèle : 3G30
   'AMCOpenNum✖︎2' : plusieures réponses numériques (plusieurs attributs reponse, reponse2,...). Modèle : 4C21
   AMCOpenNum✖︎3 : Une réponse en plus ... 
   custom : Ces exercices ne sont pas prédéfinis, ils partagent le bouton de validation puis appellent la méthode correctionInteractive() définie dans l'exercice. Ils ne sont pas compatibles avec AMC
@@ -64,7 +64,7 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
 
 type 'qcmMult' : il est identique au type 1, à la différence près qu'il y aura peut-être plusieurs statut à true
 
-type 'amcOpen' : (uniquement pour AMC) ici un exemple pour une exercice ne produisant qu'une question (il y aura autant d'objet que this.nbQuestion>1)
+type 'AMCOpen' : (uniquement pour AMC) ici un exemple pour une exercice ne produisant qu'une question (il y aura autant d'objet que this.nbQuestion>1)
 
 ```js
   this.autoCorrection = [
@@ -81,7 +81,7 @@ type 'amcOpen' : (uniquement pour AMC) ici un exemple pour une exercice ne produ
     ]
 ```
  
-type 'amcNum' : Voici un élément type (la différence se situe dans l'attribut reponse)
+type 'AMCNum' : Voici un élément type (la différence se situe dans l'attribut reponse)
 ```js
 this.autoCorrection[i] = {
         enonce: 'ici la question est posée',
@@ -105,9 +105,9 @@ this.autoCorrection[i] = {
           }
         }
 ```
-type 5 : idem type 3 avec présence comme pour le type 4 d'un attribut reponse.
+type 'AMCOpenNum' : idem type 'AMCOpen' avec présence comme pour le type 4 d'un attribut reponse.
 
-type 6 : idem type 4 avec présence d'un autre attribut reponse2 qui fonctionne comme le reponse du type 5.
+type 'AMCOpenNum✖︎2' : idem type 'AMCNum' avec présence d'un autre attribut reponse2 qui fonctionne comme le reponse du type 5.
 
 # Les fonctions
 Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont l'appel permet de générer le code nécessaire facilement :
