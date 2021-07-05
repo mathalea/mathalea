@@ -48,7 +48,6 @@ export default function gestionScores () {
 
   if (document.getElementById('scoresKey')) {
     document.getElementById('scoresKey').addEventListener('click', function () {
-        console.log('ok')
       $('#modalScoresKey').modal({
         onApprove: function () {
         // On ne veut pas que la modale se ferme au click sur un bouton vert

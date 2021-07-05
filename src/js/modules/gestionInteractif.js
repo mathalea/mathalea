@@ -1,4 +1,4 @@
-/* global $ */
+/* global fetch $ */
 import { context } from './context.js'
 import { shuffleJusqua } from './outils.js'
 import { messageFeedback } from './messages.js'
@@ -556,7 +556,7 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   // => vérifier si le paramètre existe dans l'url
   // il a pu être entré manuellement
   // agir en fonction pour les enregistrements
-  const str = location.href
+  const str = window.location.href
   const url = new URL(str)
   const userId = url.searchParams.get('userId')
   console.log(userId)

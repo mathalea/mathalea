@@ -1,6 +1,6 @@
 import { context } from './context'
 import { get } from './dom'
-import { getVueFromUrl } from './getUrlVars'
+import { getVueFromUrl, setUrl } from './getUrlVars'
 
 export function gestionVue (vue) {
   if (vue) {
@@ -130,5 +130,7 @@ export function gestionVue (vue) {
     if (context.vue === 'menu') { // Affichage des seuls exercices
       demasqueMenuDesExercices()
     }
+    // Met à jour l'URL avec notamment la nouvelle vue
+    setUrl()
   }
 }

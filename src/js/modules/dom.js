@@ -1,4 +1,4 @@
-/* global HTMLElement SVGElement Element */
+/* global HTMLElement SVGElement Element fetch */
 /**
  * Fonctions de gestion du dom
  * @module

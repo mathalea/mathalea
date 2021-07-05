@@ -1,14 +1,32 @@
-import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from "./context"
+import { context } from './context'
 
+/**
+ *
+ * @returns {string} Filtre depuis l'URL
+ */
 export function getFilterFromUrl () {
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
   return urlParams.get('filtre')
 }
+
+/**
+ *
+ * @returns {string} Vue depuis l'URL
+ */
 export function getVueFromUrl () {
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
   return urlParams.get('v')
+}
+/**
+ *
+ * @returns {string} userId depuis l'URL
+ */
+export function getUserIdFromUrl () {
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  return urlParams.get('userId')
 }
 
 export function getUrlVars () { // Récupère les variables de l'URL
@@ -55,4 +73,31 @@ export function getUrlVars () { // Récupère les variables de l'URL
     tableauObjetsExercices.push(ObjetParametres)
   }
   return tableauObjetsExercices
+}
+
+/**
+ * Récupère l'URL et s'assure que la vue et le userId sont notés
+ * @returns
+ */
+export function getUrlSearch () {
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  if (context.userId) urlParams.set('userId', context.userId)
+  if (context.vue) urlParams.set('v', context.vue)
+  let url = ''
+  let text
+  for (const p of urlParams) {
+    text = p.join()
+    text = text.replace(',', '=')
+    url += text + '&' // Le dernier & est à supprimer avec le slice
+  }
+  if (urlParams) url = window.location + '?' + url.slice(0, -1)
+  return url
+}
+
+/**
+ * Met à jour l'URL avec la vue et le userId s'ils sont connus
+ */
+export function setUrl () {
+  window.history.pushState('', '', getUrlSearch())
 }
