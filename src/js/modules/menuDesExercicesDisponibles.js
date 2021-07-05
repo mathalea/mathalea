@@ -5,7 +5,7 @@ import { dictionnaireC3 } from './dictionnaireC3.js'
 import { dictionnaireDNB } from './dictionnaireDNB.js'
 import $ from 'jquery'
 import 'datatables.net-dt/css/jquery.dataTables.css'
-import { getFilterFromUrl, getVueFromUrl } from './getUrlVars.js'
+import { getFilterFromUrl, getVueFromUrl } from './gestionUrl.js'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import { context } from './context.js'
 

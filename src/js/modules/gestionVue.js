@@ -1,6 +1,6 @@
 import { context } from './context'
 import { get } from './dom'
-import { getVueFromUrl, setUrl } from './getUrlVars'
+import { getVueFromUrl, setUrl } from './gestionUrl'
 
 export function gestionVue (vue) {
   if (vue) {

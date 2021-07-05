@@ -1,6 +1,6 @@
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
 import { addElement, create, addFetchHtmlToParent, fetchHtmlToElement } from './dom'
-import { getVueFromUrl } from './getUrlVars'
+import { getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 
 export async function initDom () {

@@ -1,6 +1,6 @@
 /* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl, setUrl } from './modules/getUrlVars.js'
+import { getUrlVars, getFilterFromUrl, setUrl } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
