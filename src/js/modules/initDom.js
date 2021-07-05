@@ -36,6 +36,7 @@ export async function initDom () {
     await fetchHtmlToElement('templates/mathaleaDroite.html', colonneDroite)
     section.append(espaceVertical())
     section.append(espaceVertical())
+    addFetchHtmlToParent('templates/modalScores.html', document.body)
   }
   await addFetchHtmlToParent('templates/footer.html', document.body, 'footer')
 }
