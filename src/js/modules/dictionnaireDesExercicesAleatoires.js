@@ -389,7 +389,6 @@ export default {
     "url": "/exercices/3e/3F21-1.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpenNum✖︎2",
       "text": "AMCOpenNum✖︎2"
     },
     "interactifReady": true,
@@ -487,7 +486,6 @@ export default {
     "url": "/exercices/3e/3G21.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpen",
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -526,7 +524,6 @@ export default {
     "url": "/exercices/3e/3G30.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": false,
@@ -551,7 +548,6 @@ export default {
     "url": "/exercices/3e/3G31.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": false,
@@ -562,7 +558,6 @@ export default {
     "url": "/exercices/3e/3G32-1.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpen",
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -615,7 +610,6 @@ export default {
     "url": "/exercices/3e/3G42.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -627,7 +621,6 @@ export default {
     "url": "/exercices/3e/3G43.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -656,7 +649,6 @@ export default {
     "url": "/exercices/3e/3L11-1.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpenNum✖︎3",
       "text": "AMCOpenNum✖︎3"
     },
     "interactifReady": true,
@@ -828,7 +820,6 @@ export default {
     "url": "/exercices/4e/4Algo1-1.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -907,7 +898,6 @@ export default {
     "url": "/exercices/4e/4C21.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpenNum✖︎2",
       "text": "AMCOpenNum✖︎2"
     },
     "interactifReady": false,
@@ -981,7 +971,6 @@ export default {
     "url": "/exercices/4e/4C32-1.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1007,7 +996,6 @@ export default {
     "url": "/exercices/4e/4C32.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -1033,7 +1021,6 @@ export default {
     "url": "/exercices/4e/4C34.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": false,
@@ -1086,7 +1073,6 @@ export default {
     "url": "/exercices/4e/4G20-2.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -1113,7 +1099,6 @@ export default {
     "url": "/exercices/4e/4G20.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": true,
@@ -1132,7 +1117,6 @@ export default {
     "url": "/exercices/4e/4G21.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1158,7 +1142,6 @@ export default {
     "url": "/exercices/4e/4G30.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": false,
@@ -1197,7 +1180,6 @@ export default {
     "url": "/exercices/4e/4G40.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": false,
@@ -1229,7 +1211,6 @@ export default {
     "url": "/exercices/4e/4G53.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -1601,7 +1582,6 @@ export default {
     "url": "/exercices/5e/5L10-2.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1627,7 +1607,6 @@ export default {
     "url": "/exercices/5e/5L10.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMult",
       "text": "qcmMult"
     },
     "interactifReady": true,
@@ -1668,7 +1647,6 @@ export default {
     "url": "/exercices/5e/5L14-2.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -1730,7 +1708,6 @@ export default {
     "url": "/exercices/5e/5M20.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1780,7 +1757,6 @@ export default {
     "url": "/exercices/5e/5N13-2.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1792,7 +1768,6 @@ export default {
     "url": "/exercices/5e/5N13.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpen",
       "text": "AMCOpen"
     },
     "interactifReady": true,
@@ -1811,7 +1786,6 @@ export default {
     "url": "/exercices/5e/5N14-3.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1844,7 +1818,6 @@ export default {
     "url": "/exercices/5e/5N20.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1885,7 +1858,6 @@ export default {
     "url": "/exercices/5e/5R10.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -1925,7 +1897,6 @@ export default {
     "url": "/exercices/5e/5R20-2.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1937,7 +1908,6 @@ export default {
     "url": "/exercices/5e/5R20-3.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -1963,7 +1933,6 @@ export default {
     "url": "/exercices/5e/5R20.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1975,7 +1944,6 @@ export default {
     "url": "/exercices/5e/5R21.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -1994,7 +1962,6 @@ export default {
     "url": "/exercices/5e/5R22.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": true,
@@ -2062,7 +2029,6 @@ export default {
     "url": "/exercices/6e/6Algo12.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2081,7 +2047,6 @@ export default {
     "url": "/exercices/6e/6C10-2.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2096,7 +2061,6 @@ export default {
     "url": "/exercices/6e/6C10-3.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2108,7 +2072,6 @@ export default {
     "url": "/exercices/6e/6C10-4.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2120,7 +2083,6 @@ export default {
     "url": "/exercices/6e/6C10-5.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpen",
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -2131,7 +2093,6 @@ export default {
     "url": "/exercices/6e/6C10.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2143,7 +2104,6 @@ export default {
     "url": "/exercices/6e/6C10bis.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpen",
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -2154,7 +2114,6 @@ export default {
     "url": "/exercices/6e/6C11-1.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpen",
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -2165,7 +2124,6 @@ export default {
     "url": "/exercices/6e/6C11.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpen",
       "text": "AMCOpen"
     },
     "interactifReady": true,
@@ -2184,7 +2142,6 @@ export default {
     "url": "/exercices/6e/6C20.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2196,7 +2153,6 @@ export default {
     "url": "/exercices/6e/6C21.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpen",
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -2207,7 +2163,6 @@ export default {
     "url": "/exercices/6e/6C23.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2219,7 +2174,6 @@ export default {
     "url": "/exercices/6e/6C30-1.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2231,7 +2185,6 @@ export default {
     "url": "/exercices/6e/6C30-2.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2243,7 +2196,6 @@ export default {
     "url": "/exercices/6e/6C30-3.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2255,7 +2207,6 @@ export default {
     "url": "/exercices/6e/6C30-4.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2267,7 +2218,6 @@ export default {
     "url": "/exercices/6e/6C30-5.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2279,7 +2229,6 @@ export default {
     "url": "/exercices/6e/6C30.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2298,7 +2247,6 @@ export default {
     "url": "/exercices/6e/6C31.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2317,7 +2265,6 @@ export default {
     "url": "/exercices/6e/6C33.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2329,7 +2276,6 @@ export default {
     "url": "/exercices/6e/6C34.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2461,7 +2407,6 @@ export default {
     "url": "/exercices/6e/6G23-1.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2515,7 +2460,6 @@ export default {
     "url": "/exercices/6e/6G25-1.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2555,7 +2499,6 @@ export default {
     "url": "/exercices/6e/6G33.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMult",
       "text": "qcmMult"
     },
     "interactifReady": true,
@@ -2567,7 +2510,6 @@ export default {
     "url": "/exercices/6e/6G41.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpen",
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -2599,7 +2541,6 @@ export default {
     "url": "/exercices/6e/6M11-1.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2618,7 +2559,6 @@ export default {
     "url": "/exercices/6e/6M11.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2637,7 +2577,6 @@ export default {
     "url": "/exercices/6e/6M20.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2670,7 +2609,6 @@ export default {
     "url": "/exercices/6e/6M23.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2692,7 +2630,6 @@ export default {
     "url": "/exercices/6e/6M30.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2714,7 +2651,6 @@ export default {
     "url": "/exercices/6e/6M31.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2792,7 +2728,6 @@ export default {
     "url": "/exercices/6e/6N11.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpen",
       "text": "AMCOpen"
     },
     "interactifReady": true,
@@ -2905,7 +2840,6 @@ export default {
     "url": "/exercices/6e/6N23-5.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2938,7 +2872,6 @@ export default {
     "url": "/exercices/6e/6N30-1.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpen",
       "text": "AMCOpen"
     },
     "interactifReady": true,
@@ -2957,7 +2890,6 @@ export default {
     "url": "/exercices/6e/6N30.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpen",
       "text": "AMCOpen"
     },
     "interactifReady": true,
@@ -2983,7 +2915,6 @@ export default {
     "url": "/exercices/6e/6N31-3.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMult",
       "text": "qcmMult"
     },
     "interactifReady": true,
@@ -3023,7 +2954,6 @@ export default {
     "url": "/exercices/6e/6N33-1.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3049,7 +2979,6 @@ export default {
     "url": "/exercices/6e/6N33.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3075,7 +3004,6 @@ export default {
     "url": "/exercices/6e/6N41.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -3087,7 +3015,6 @@ export default {
     "url": "/exercices/6e/6N43-2.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMult",
       "text": "qcmMult"
     },
     "interactifReady": false,
@@ -3098,7 +3025,6 @@ export default {
     "url": "/exercices/6e/6N43-3.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -3117,7 +3043,6 @@ export default {
     "url": "/exercices/6e/6N43.js",
     "amcReady": true,
     "amcType": {
-      "num": "qcmMono",
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -3179,7 +3104,6 @@ export default {
     "url": "/exercices/CM/CM000.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3191,7 +3115,6 @@ export default {
     "url": "/exercices/CM/CM001.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3203,7 +3126,6 @@ export default {
     "url": "/exercices/CM/CM002.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3215,7 +3137,6 @@ export default {
     "url": "/exercices/CM/CM003.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3227,7 +3148,6 @@ export default {
     "url": "/exercices/CM/CM004.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3239,7 +3159,6 @@ export default {
     "url": "/exercices/CM/CM005.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3251,7 +3170,6 @@ export default {
     "url": "/exercices/CM/CM006.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3263,7 +3181,6 @@ export default {
     "url": "/exercices/CM/CM007.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3275,7 +3192,6 @@ export default {
     "url": "/exercices/CM/CM008.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3287,7 +3203,6 @@ export default {
     "url": "/exercices/CM/CM009.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3299,7 +3214,6 @@ export default {
     "url": "/exercices/CM/CM010.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3311,7 +3225,6 @@ export default {
     "url": "/exercices/CM/CM011.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3323,7 +3236,6 @@ export default {
     "url": "/exercices/CM/CM012.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3335,7 +3247,6 @@ export default {
     "url": "/exercices/CM/CM013.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3347,7 +3258,6 @@ export default {
     "url": "/exercices/CM/CM014.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3359,7 +3269,6 @@ export default {
     "url": "/exercices/CM/CM015.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3371,7 +3280,6 @@ export default {
     "url": "/exercices/CM/CM016.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3383,7 +3291,6 @@ export default {
     "url": "/exercices/CM/CM017.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3395,7 +3302,6 @@ export default {
     "url": "/exercices/CM/CM018.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3407,7 +3313,6 @@ export default {
     "url": "/exercices/CM/CM019.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCOpen",
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -3663,7 +3568,6 @@ export default {
     "url": "/exercices/beta/betaCaN5.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3675,7 +3579,6 @@ export default {
     "url": "/exercices/beta/betaCaN6.js",
     "amcReady": true,
     "amcType": {
-      "num": "AMCNum",
       "text": "AMCNum"
     },
     "interactifReady": true,
