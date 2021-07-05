@@ -39,6 +39,7 @@ export default function gestionScores () {
       urlRewrite = new URL(urlRewrite)
 
       window.history.replaceState('', '', urlRewrite)
+      window.location.reload(true)
     })
   }
 
