@@ -519,47 +519,14 @@ function saisieToGrandeur (saisie) {
   }
 }
 
-/**
- *
- * @param {*} myObj // myObj est un objet avec tout ce qu'on veut, on adapte au besoin
-  // ATTENTION, si on passe des propriétés il faut aussi modifier le script scoresVerifResult.php en conséquence
- * @author Sébastien LOZANO
- */
-function appelFetchOld (myObj) {
-  fetch('scoresVerifResult.php', {
-    method: 'POST',
-    mode: 'same-origin',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      myObj
-    })
-  })
-}
-
-function appelFetch (myObj) {
-  fetch('scoresKey.php', {
-    method: 'POST',
-    mode: 'same-origin',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: myObj
-  })
-}
-
 function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   // TODO
-  // => vérifier si le paramètre existe dans l'url
+  // => OK => vérifier si le paramètre existe dans l'url
   // il a pu être entré manuellement
   // agir en fonction pour les enregistrements
   const str = window.location.href
   const url = new URL(str)
   const userId = url.searchParams.get('userId')
-  console.log(userId)
   // eslint-disable-next-line no-unused-expressions
   userId === null
     ? (
