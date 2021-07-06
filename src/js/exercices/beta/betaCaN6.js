@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
@@ -9,6 +9,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+
 /**
  * Description didactique de l'exercice
  * @author
@@ -16,7 +17,12 @@ export const amcType = 'AMCNum'
 */
 export default function CourseAuxNombres6e (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
+  this.interactif = true
+  if (this.interactif) {
+    this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
+  } else {
+    this.consigne = ''
+  }
   this.nbQuestions = 30
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -78,7 +84,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
       'q30' // Proportionnalité par linéarité
 
     ] // On créé 3 types de questions
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    const listeTypeQuestions = combinaisonListesSansChangerOrdre(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, q = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -219,10 +225,9 @@ export default function CourseAuxNombres6e (numeroExercice) {
           a = randint(2, 4)
           b = randint(10, 59)
           d = calcul(a * 60 + b)
-          texte = `Convertir $${d}$ minutes en heures(h) et minutes(min) :`
+          texte = `Convertir $${d}$ minutes en heures et minutes (format : ...h...min)`
           texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min`
-          setReponse(this, q, a, { formatInteractif: 'calcul' })
-          setReponse(this, q + 1, b, { formatInteractif: 'calcul' })
+          setReponse(this, q, `${a}h${b}min`, { formatInteractif: 'texte' })
           break
         case 'q14':
           b = randint(1, 9)
@@ -336,9 +341,9 @@ export default function CourseAuxNombres6e (numeroExercice) {
         case 'q22':
           a = randint(11, 24) * 10 + randint(0, 9)
           resultat = calcul(a / 100)
-          texte = `Convertir $${a}$ cm en m (réponse avec unité obligatoire)`
+          texte = `$${a}$ cm font combien de mètres ?`
           texteCorr = `$${a} cm = ${texNombre(resultat)} m$`
-          setReponse(this, q, new Grandeur(resultat, 'm'), { formatInteractif: 'longueur' })
+          setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
         case 'q23':
           a = randint(3, 5)
@@ -362,7 +367,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           a = randint(0, 4)
           b = randint(hauteurs[a][1], hauteurs[a][2])
           propositions = shuffle([`$${b}$ m`, `$${b}$ dm`, `$${b}$ cm`])
-          texte = `Choisis parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]}<br>`
+          texte = `Choisis parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]} (nombre et unité)<br>`
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}`
           setReponse(this, q, new Grandeur(b, hauteurs[a][3]), { formatInteractif: 'longueur' })
@@ -379,9 +384,9 @@ export default function CourseAuxNombres6e (numeroExercice) {
           a = randint(3, 6) * 20
           b = randint(1, 3)
           resultat = calcul(a * (b + 0.5))
-          texte = `Une voiture roule à une vitesse constante de ${a} km/h. Quelle distance en km parcourt-elle en ${b} h et 30 min ? (réponse avec unité obligatoire)`
+          texte = `Une voiture roule à une vitesse constante de ${a} km/h. Combien de kilomètres parcourt-elle en ${b} h et 30 min ?`
           texteCorr = `$${a}\\times ${texNombrec(b + 0.5)} = ${resultat}$`
-          setReponse(this, q, new Grandeur(resultat, 'km'), { formatInteractif: 'longueur' })
+          setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
         case 'q28':
           a = randint(3, 9)
@@ -436,10 +441,10 @@ export default function CourseAuxNombres6e (numeroExercice) {
           setReponse(this, q, texPrix(resultat) + '€')
           break
       }
-      if (listeTypeQuestions[i] === 'q22' || listeTypeQuestions[i] === 'q25' || listeTypeQuestions[i] === 'q27') {
+      if (listeTypeQuestions[i] === 'q25') {
         texte += ajouteChampTexteMathLive(this, q, 'longueur')
       } else if (listeTypeQuestions[i] === 'q13') {
-        texte += ajouteChampTexteMathLive(this, q) + ' h ' + ajouteChampTexteMathLive(this, q + 1) + ' min'
+        texte += ajouteChampTexte(this, q)
       } else {
         texte += ajouteChampTexteMathLive(this, q)
       }
@@ -448,12 +453,8 @@ export default function CourseAuxNombres6e (numeroExercice) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        q++
         i++
-        if (listeTypeQuestions[i] === 'q13') {
-          q += 2
-        } else {
-          q++
-        }
       }
       cpt++
     }
