@@ -7,7 +7,7 @@ import { estentier, randint, arrondi, simplificationDeFractionAvecEtapes, calcul
  * @param {number} val2
  * @returns [expf,expl,expc,nbval,lastOp]
  * @author Jean Claude Lhote forked by Sébastien LOZANO
- * Référence 5C11,5C11-1, 5C11-2, 5L13, 5L13-1, 5L13-2, 5L13-3
+ * Référence 5C11,5C11-1, 5C11-2, 5L13
  */
 export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 = 1, val2 = 2, timesOn = true) {
   let expf; let expl; let expc; const arrondir = Math.log10(decimal)
