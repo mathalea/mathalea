@@ -6,6 +6,7 @@ import { addElement, get, setStyles } from './dom.js'
 import { ComputeEngine, parse } from '@cortex-js/math-json'
 import Fraction from './Fraction.js'
 import Grandeur from './Grandeur.js'
+import { getUserIdFromUrl } from './gestionUrl.js'
 
 export function exerciceInteractif (exercice) {
   // passage amsType num à string cf commit 385b5ea
@@ -91,7 +92,6 @@ export function exerciceQcm (exercice) {
           uicheck.classList.add('read-only')
         })
         button.classList.add('disabled')
-        // isUserIdOk(exercice,nbQuestionsValidees, nbQuestionsNonValidees) // ajout seb
         afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees)
       })
     }
@@ -216,7 +216,6 @@ export function exerciceNumerique (exercice) {
           spanReponseLigne.style.fontSize = 'large'
         }
         button.classList.add('disabled')
-        // isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
         afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
       })
     }
@@ -383,7 +382,6 @@ export function exerciceCustom (exercice) {
         // On utilise la correction définie dans l'exercice
         exercice.correctionInteractive(eltFeedback)
         button.classList.add('disabled')
-        // isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
       })
     }
   })
@@ -489,7 +487,6 @@ export function exerciceMathLive (exercice) {
         }
         if (!besoinDe2eEssai) {
           button.classList.add('disabled')
-          // isUserIdOk(exercice,nbBonnesReponses, nbMauvaisesReponses) //ajout seb
           afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
         }
       })
@@ -524,9 +521,7 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   // => OK => vérifier si le paramètre existe dans l'url
   // il a pu être entré manuellement
   // agir en fonction pour les enregistrements
-  const str = window.location.href
-  const url = new URL(str)
-  const userId = url.searchParams.get('userId')
+  const userId = getUserIdFromUrl()
   // eslint-disable-next-line no-unused-expressions
   userId === null
     ? (
