@@ -2705,8 +2705,12 @@ export default {
   "6N11-2": {
     "titre": "Placer un point d’abscisse entière (grands nombres)",
     "url": "/exercices/6e/6N11-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "6N11-2"
   },
   "6N11-3": {
