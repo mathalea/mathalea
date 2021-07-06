@@ -7,6 +7,7 @@
 // =============================================================================================================================
 
 import { context } from './context.js'
+import { setUrl } from './gestionUrl.js'
 
 export default function gestionScores () {
 // Deconnexion scores
@@ -14,20 +15,26 @@ export default function gestionScores () {
     document.getElementById('scoresKeyLogOut').addEventListener('click', function () {
     // Réécrire l'url sans le userId
       const urlRacine = window.location.href.split('?')[0]
-      console.log(urlRacine)
+      // console.log(urlRacine)
       const queryString = window.location.search
-      console.log(queryString)
+      // console.log(queryString)
       const urlParams = new URLSearchParams(queryString)
-      console.log(urlParams)
+      // console.log(urlParams)
       if (urlParams.has('userId')) {
+        // On supprime le userId de l'url
         urlParams.delete('userId')
-        console.log('Suppression du parametre userId ')
+        console.log('Suppression du parametre userId de l\'url OK => ' + urlParams.has('userId'))
         // On supprime le userId du stockage
         window.sessionStorage.removeItem('userId')
+        console.log('Suppression du userId de session.stockage OK => ' + window.sessionStorage.getItem('userId'))
+        // On suprime le userId du context
+        delete context.userId
+        console.log('suppression de la propriété context.userId OK => ' + context.userId)
         // Pour cacher le champ userId sur la page courante et le conserver en cas de changement de page
         // On cache le champ prévu pour l'affichage du userId courant
         document.getElementById('userIdDisplay').hidden = true
       }
+      // On finit la réécriture de l'url
       const entries = urlParams.entries()
 
       let urlRewrite = urlRacine + '?'
@@ -35,11 +42,12 @@ export default function gestionScores () {
         urlRewrite += entry[0] + '=' + entry[1] + '&'
       }
       urlRewrite = urlRewrite.slice(0, -1)
-      console.log(urlRewrite)
+      // console.log(urlRewrite)
       urlRewrite = new URL(urlRewrite)
-
+      // On remplace dans l'historique
       window.history.replaceState('', '', urlRewrite)
-      window.location.reload(true)
+      // On met à jour l'url
+      setUrl()
     })
   }
 

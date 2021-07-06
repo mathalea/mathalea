@@ -563,7 +563,7 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   const divExercice = get(`exercice${exercice.numeroExercice}`)
   let divScore = get(`score${exercice.numeroExercice}`, false)
-  // Appel Fecth via une fonction
+  // Appel Fecth via une fonction est-ce que c'est ça qui multiplie les appels ?
   isUserIdOk(exercice, nbBonnesReponses, nbMauvaisesReponses)
   if (!divScore) divScore = addElement(divExercice, 'div', { className: 'score', id: `score${exercice.numeroExercice}` })
   divScore.innerHTML = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
