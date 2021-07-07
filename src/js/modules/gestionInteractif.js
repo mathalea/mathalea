@@ -536,10 +536,10 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   // => OK => vérifier si le paramètre existe dans l'url
   // il a pu être entré manuellement
   // agir en fonction pour les enregistrements
-  // const userId = getUserIdFromUrl() // ne renvoit pas ce que je veux
-  const str = window.location.href
-  const url = new URL(str)
-  const userId = url.searchParams.get('userId')
+  const userId = getUserIdFromUrl() // ne renvoit pas ce que je veux, en fait si ??? bizarre
+  // const str = window.location.href
+  // const url = new URL(str)
+  // const userId = url.searchParams.get('userId')
   // eslint-disable-next-line no-unused-expressions
   userId === null
     ? (
