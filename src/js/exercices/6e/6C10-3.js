@@ -24,6 +24,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
   this.consigne = 'Calculer'
   this.spacing = 2
   this.tailleDiaporama = 100
+  this.nbQuestions = 10
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
@@ -102,8 +103,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
         }
       ]
       this.autoCorrection[i].options = {
-        ordered: false,
-        lastChoice: 5
+        ordered: false
       }
       if (this.interactif) {
         texte += propositionsQcm(this, i).texte

@@ -1114,10 +1114,17 @@ function miseAJourDeLaListeDesExercices (preview) {
               formCorrectionDetaillee[i].checked = false
             }
           }
-          if (urlVars[i].i) {
-            listeObjetsExercice[i].interactif = true
-            if (formInteractif[i]) {
-              formInteractif[i].checked = true
+          if (urlVars[i].i !== undefined) {
+            if (urlVars[i].i) {
+              listeObjetsExercice[i].interactif = true
+              if (formInteractif[i]) {
+                formInteractif[i].checked = true
+              }
+            } else {
+              listeObjetsExercice[i].interactif = false
+              if (formInteractif[i]) {
+                formInteractif[i].checked = false
+              }
             }
           }
           if (typeof urlVars[i].s !== 'undefined') {

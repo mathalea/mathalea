@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint} from '../../modules/outils.js'
-export const titre = 'Instruction conditionelle'
+export const titre = 'Instruction conditionelle (scratch)'
 
 /**
  * * Instructions conditionnelles
