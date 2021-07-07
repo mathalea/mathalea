@@ -52,6 +52,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
 
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f, g, x, y; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
+      this.autoCorrection[i] = {}
       switch (typesDeQuestions) {
         case 1: // abcd +efg
           a =
