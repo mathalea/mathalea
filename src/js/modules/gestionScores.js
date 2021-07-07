@@ -24,16 +24,20 @@ export default function gestionScores () {
         // On supprime le userId de l'url
         urlParams.delete('userId')
         console.log('Suppression du parametre userId de l\'url OK => ' + urlParams.has('userId'))
+      }
+      if (window.sessionStorage.getItem('userId')) {
         // On supprime le userId du stockage
         window.sessionStorage.removeItem('userId')
         console.log('Suppression du userId de session.stockage OK => ' + window.sessionStorage.getItem('userId'))
+      }
+      if (context.userId) {
         // On suprime le userId du context
         delete context.userId
-        console.log('suppression de la propriété context.userId OK => ' + context.userId)
-        // Pour cacher le champ userId sur la page courante et le conserver en cas de changement de page
-        // On cache le champ prévu pour l'affichage du userId courant
-        document.getElementById('userIdDisplay').hidden = true
+        console.log('Suppression de la propriété context.userId OK => ' + context.userId)
       }
+      // Pour cacher le champ userId sur la page courante et le conserver en cas de changement de page
+      // On cache le champ prévu pour l'affichage du userId courant
+      document.getElementById('userIdDisplay').hidden = true
       // On finit la réécriture de l'url
       const entries = urlParams.entries()
 
