@@ -1,7 +1,15 @@
 <div id="modalScoresKey" class="ui modal">
-    <i class="close icon"></i>
+    <i class="close icon"></i>    
     <div class="header">
-      Gestion des scores
+      <div class="ui grid">
+        <div class="thirteen wide column">Gestion des scores</div>
+        <div class="one wide column">
+          <button id="scoresDocumentation" class="ui basic button">
+            <i class="book icon"></i>
+            Documentation
+          </button>
+        </div>
+      </div>
     </div>
     <div class="image content">
       <div class="ui medium image">
@@ -19,6 +27,12 @@
             </ul>
           </li>
         </ul>
+        <br>
+        <!-- Feedback pour la documentation -->
+        <div id="scoresDocumentationFeedback" class="ui message" hidden>          
+            <div id="scoresDocumentationFeedbackHeader" class="header"></div>          
+            <div id="scoresDocumentationFeedbackBody"></div>          
+        </div>
         <br>
         <!-- Feedback pour les scores -->
         <div id="scoresFeedback" class="ui positive message" hidden>          
