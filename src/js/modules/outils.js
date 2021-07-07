@@ -6784,6 +6784,9 @@ export function exportQcmAmc (exercice, idExo) {
   let nbChiffresPd, nbChiffresPe
 
   for (let j = 0; j < autoCorrection.length; j++) {
+    if (autoCorrection[j] === undefined) { // normalement, cela ne devrait jamais arriver !
+      autoCorrection[j] = {}
+    }
     if (autoCorrection[j].options !== undefined) {
       if (autoCorrection[j].options.vertical === undefined) {
         horizontalite = 'reponseshoriz'
