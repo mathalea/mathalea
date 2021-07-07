@@ -579,7 +579,7 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
 }
 
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
-  console.log('appel afficheScore()')
+  // console.log('appel afficheScore()')
   const divExercice = get(`exercice${exercice.numeroExercice}`)
   let divScore = get(`score${exercice.numeroExercice}`, false)
   // Appel Fecth via une fonction est-ce que c'est ça qui multiplie les appels ?
