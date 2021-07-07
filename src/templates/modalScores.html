@@ -1,21 +1,13 @@
-<div id="modalScoresKey" class="ui modal">
+<div id="modalScoresKey" class="ui modal fullscreen">
     <i class="close icon"></i>    
     <div class="header">
-      <div class="ui grid">
-        <div class="thirteen wide column">Gestion des scores</div>
-        <div class="one wide column">
-          <button id="scoresDocumentation" class="ui basic button">
-            <i class="book icon"></i>
-            Documentation
-          </button>
-        </div>
-      </div>
+      Gestion des scores
     </div>
     <div class="image content">
       <div class="ui medium image">
         <i class="key icon"></i><i class="save icon"></i>
       </div>
-      <div class="description">
+      <div id="scoresDescription" class="description" hidden>
         <div class="ui header">Vous pouvez au choix :</div>
         <ul>
           <li>Créer un espace de sauvegarde.</li>
@@ -59,12 +51,17 @@
       </div>             
     </div>          
     <div class="actions">
+
+      <div id="scoresDocumentation" class="ui positive right labeled icon button">
+        Documentation
+        <i class="book icon"></i>        
+      </div>
       <div id="scoresCreateSpace" class="ui positive right labeled icon button">
-        Créer un espace tout neuf
+        Créer un espace
         <i class="key icon"></i>
       </div>
       <div id="scoresSaveToUserId" class="ui positive right labeled icon button">
-        Enregistrer des scores dans un espace existant
+        Enregistrer des scores 
         <i class="save icon"></i>
       </div>
       <div class="ui black deny button">

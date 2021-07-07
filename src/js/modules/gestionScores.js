@@ -67,9 +67,15 @@ export default function gestionScores () {
           return false
         },
         onHide: function () {
-        // On cache le feedback lorsqu'on ferme la modale
+        // On cache les feedbacks lorsqu'on ferme la modale
           document.getElementById('scoresFeedback').hidden = true
           document.getElementById('scoresInputUserIdError').hidden = true
+          document.getElementById('scoresDocumentationFeedback').hidden = true
+          // S'il n'y a pas de userId on n'affiche pas le champ du userId courant
+          if (!window.sessionStorage.getItem('userId')) {
+            // On cache le champ prévu pour l'affichage du userId courant
+            document.getElementById('userIdDisplay').hidden = true
+          }
         }
       }).modal('show')
     })
@@ -83,10 +89,14 @@ export default function gestionScores () {
   if (document.getElementById('scoresCreateSpace')) {
     document.getElementById('scoresCreateSpace').addEventListener('click', function () {
       if (document.getElementById('scoresPromptUserId')) {
-      // On cache le champ de saisie
+        // On cache le champ de saisie
         document.getElementById('scoresPromptUserId').hidden = true
         // On vide le champ input
         document.getElementById('scoresInputUserId').value = ''
+      }
+      if (document.getElementById('scoresDocumentationFeedback')) {
+        // On cache le feedback si il y en a un
+        document.getElementById('scoresDocumentationFeedback').hidden = true
       }
       // On génère le userId côté serveur
       fetch('scoresKey.php', {
@@ -125,8 +135,12 @@ export default function gestionScores () {
   if (document.getElementById('scoresSaveToUserId')) {
     document.getElementById('scoresSaveToUserId').addEventListener('click', function () {
       if (document.getElementById('scoresFeedback')) {
-      // On cache le feedback si il y en a un
-        document.getElementById('scoresFeedback').hidden = true
+        // On cache le feedback si il y en a un
+        document.getElementById('scoresFeedback').hidden = true  
+      }
+      if (document.getElementById('scoresDocumentationFeedback')) {
+        // On cache le feedback si il y en a un
+        document.getElementById('scoresDocumentationFeedback').hidden = true
       }
       if (document.getElementById('scoresPromptUserId')) {
       // On affiche le champ de saisie
@@ -140,6 +154,8 @@ export default function gestionScores () {
       }
     })
   }
+
+  // Gestion du click sur le bouton "Submit" qui envoie un userId
   if (document.getElementById('scoresSubmitUserId')) {
     document.getElementById('scoresSubmitUserId').addEventListener('click', function () {
     // On récupère la valeur saisie
@@ -223,6 +239,7 @@ export default function gestionScores () {
                             `
               document.getElementById('scoresFeedback').hidden = false
               document.getElementById('scoresPromptUserId').hidden = true
+              document.getElementById('scoresDocumentationFeedback').hidden = true
             }
             console.log('Enregistrement vers un espace scores OK => ' + response.userId)
             // On affiche le userId dans la fenetre principale
@@ -231,6 +248,32 @@ export default function gestionScores () {
             }
           }
         })
+    })
+  }
+
+  // Gestion du click sur documentation
+  if (document.getElementById('scoresDocumentation')) {
+    document.getElementById('scoresDocumentation').addEventListener('click', function () {
+      // On cache les feedbacks inutiles
+      if (document.getElementById('scoresFeedback')) {
+        document.getElementById('scoresFeedback').hidden = true
+      }
+      if (document.getElementById('scoresPromptUserId')) {
+        // On cache le champ de saisie
+        document.getElementById('scoresPromptUserId').hidden = true
+        // On vide le champ input
+        document.getElementById('scoresInputUserId').value = ''
+      }
+
+      // On affiche la documentation
+      document.getElementById('scoresDocumentationFeedbackHeader').innerHTML = 'Documentation'
+      document.getElementById('scoresDocumentationFeedbackBody').innerHTML = `
+          Ma superDoc : <br>
+          ...<br>
+          ...<br>
+          ...
+        `
+      document.getElementById('scoresDocumentationFeedback').hidden = false
     })
   }
 }
