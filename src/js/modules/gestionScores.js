@@ -104,12 +104,14 @@ export default function gestionScores () {
             document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
             // Peut être que plutôt que de diriger vers une page, un lien vers le csv suffit ?
             document.getElementById('scoresFeedbackBody').innerHTML = `
-                Vos fichiers seront enregistrés <a href="${response.url}" target="_blank">à cette url</a>. Conservez la précieusement.<br>
+                Vos fichiers seront enregistrés à cette adresse : <br>
+                <a href="${response.url}" target="_blank">${response.url}</a>.<br>
+                <b>Conservez la précieusement.</b><br>
                 Vous pourrez y ajouter des éléments en utilisant le code prof suivant : <b>${response.userId}</b>
               `
             document.getElementById('scoresFeedback').hidden = false
           }
-          console.log('Création d\'un espace scores OK')
+          console.log('Création d\'un espace scores OK => ' + response.userId)
         })
     })
   }
@@ -176,21 +178,22 @@ export default function gestionScores () {
           // On ajoute/met à jourle parametre userId dans l'url
           // On récrit d'abord l'url pour éviter les transformations de caractères intempestives
             const urlRacine = window.location.href.split('?')[0]
-            console.log(urlRacine)
+            // console.log(urlRacine)
             const queryString = window.location.search
-            console.log(queryString)
+            // console.log(queryString)
             const urlParams = new URLSearchParams(queryString)
-            console.log(urlParams)
+            // console.log(urlParams)
             if (urlParams.has('userId')) {
               urlParams.set('userId', response.userId)
-              console.log(`Modification du parametre userId => ${response.userId}`)
+              console.log(`Modification du parametre userId OK => ${response.userId}`)
             } else {
               urlParams.append('userId', response.userId)
-              console.log(`Ajout du parametre userId => ${response.userId}`)
+              console.log(`Ajout du parametre userId OK => ${response.userId}`)
             }
             // On met à jour/ajoute au stockage de session dans le navigateur
             context.userId = urlParams.get('userId')
             window.sessionStorage.setItem('userId', context.userId)
+            // On finit la réécriture de l'url
             const entries = urlParams.entries()
             // keys = urlParams.keys (),
             // values = urlParams.values (),
@@ -200,10 +203,13 @@ export default function gestionScores () {
               urlRewrite += entry[0] + '=' + entry[1] + '&'
             }
             urlRewrite = urlRewrite.slice(0, -1)
-            console.log(urlRewrite)
+            // console.log(urlRewrite)
             urlRewrite = new URL(urlRewrite)
-
+            // On remplace dans l'historique
             window.history.replaceState('', '', urlRewrite)
+            // On met à jour l'url
+            setUrl()
+
             if (document.getElementById('scoresFeedback')) {
               document.getElementById('scoresFeedbackHeader').innerHTML = `Espace scores - Enregistrement pour le userId ${response.userId} validé`
               document.getElementById('scoresFeedbackBody').innerHTML = `
@@ -214,7 +220,7 @@ export default function gestionScores () {
               document.getElementById('scoresFeedback').hidden = false
               document.getElementById('scoresPromptUserId').hidden = true
             }
-            console.log('Enregistrement vers un espace scores OK')
+            console.log('Enregistrement vers un espace scores OK => ' + response.userId)
             // On affiche le userId dans la fenetre principale
             if (document.getElementById('userIdDisplayValue')) {
               document.getElementById('userIdDisplayValue').value = response.userId
