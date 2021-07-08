@@ -3,7 +3,8 @@
 Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la possibilité d'avoir un mode interactif.
 
 # Tout d'abord les 'marqueurs' :
-    ```js
+
+  ```js
   this.interactif = false // définit le mode dans lequel l'exercice va s'afficher par défaut
   this.interactifReady = interactifReady // définit si l'exercice peut s'afficher en mode interactif.
   this.amcReady = amcReady // définit si l'exercice peut servir à AMC
@@ -17,12 +18,13 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
 
   amcType peut prendre les valeurs suivantes :
 
-  1 : qcm avec une seule bonne réponse (évolution vers le bouton radio ?). Modèle : 6C10-2
-  2 : qcm avec possibilité de plusieures bonnes réponses. Modèle : 6N43-2
-  3 : question ouverte -> il n'y a pas d'interactivité l'affichage est classique par contre on peut l'exporter vers AMC en question ouverte. Modèle : 6C10-5
-  4 : réponse numérique à entrer dans un formulaire texte. AmcNumeriqueChoice (voire attribut reponse). Modèle : 6C10
-  5 : réponse identique au type 4 mais AMC ajoute une zone pour une réponse ouverte. Modèle : 3G30
-  6 : plusieures réponses numériques (plusieurs attributs reponse, reponse2,...). Modèle : 4C21
+  'qcmMono' : qcm avec une seule bonne réponse (évolution vers le bouton radio ?). Modèle : 6C10-2
+  'qcmMult' : qcm avec possibilité de plusieures bonnes réponses. Modèle : 6N43-2
+  'AMCOpen' : question ouverte -> il n'y a pas d'interactivité l'affichage est classique par contre on peut l'exporter vers AMC en question ouverte. Modèle : 6C10-5
+  'AMCNum' : réponse numérique à entrer dans un formulaire texte. AmcNumeriqueChoice (voire attribut reponse). Modèle : 6C10
+  'AMCOpenNum' : réponse identique au type 4 mais AMC ajoute une zone pour une réponse ouverte. Modèle : 3G30
+  'AMCOpenNum✖︎2' : plusieures réponses numériques (plusieurs attributs reponse, reponse2,...). Modèle : 4C21
+  AMCOpenNum✖︎3 : Une réponse en plus ... 
   custom : Ces exercices ne sont pas prédéfinis, ils partagent le bouton de validation puis appellent la méthode correctionInteractive() définie dans l'exercice. Ils ne sont pas compatibles avec AMC
 
   # La variable this.autoCorrection
@@ -34,7 +36,7 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
   ```
   Selon les types, l'objet s'adapte :
 
-  type 1 :
+  type 'qcmMono' :
   ```js
   this.autoCorrection[i] = {
       enonce: 'la question est posée ici',
@@ -60,9 +62,9 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
   }
   ```
 
-type 2 : il est identique au type 1, à la différence près qu'il y aura peut-être plusieurs statut à true
+type 'qcmMult' : il est identique au type 1, à la différence près qu'il y aura peut-être plusieurs statut à true
 
-type 3 : (uniquement pour AMC) ici un exemple pour une exercice ne produisant qu'une question (il y aura autant d'objet que this.nbQuestion>1)
+type 'AMCOpen' : (uniquement pour AMC) ici un exemple pour une exercice ne produisant qu'une question (il y aura autant d'objet que this.nbQuestion>1)
 
 ```js
   this.autoCorrection = [
@@ -79,7 +81,7 @@ type 3 : (uniquement pour AMC) ici un exemple pour une exercice ne produisant qu
     ]
 ```
  
-type 4 : Voici un élément type (la différence se situe dans l'attribut reponse)
+type 'AMCNum' : Voici un élément type (la différence se situe dans l'attribut reponse)
 ```js
 this.autoCorrection[i] = {
         enonce: 'ici la question est posée',
@@ -103,9 +105,9 @@ this.autoCorrection[i] = {
           }
         }
 ```
-type 5 : idem type 3 avec présence comme pour le type 4 d'un attribut reponse.
+type 'AMCOpenNum' : idem type 'AMCOpen' avec présence comme pour le type 4 d'un attribut reponse.
 
-type 6 : idem type 4 avec présence d'un autre attribut reponse2 qui fonctionne comme le reponse du type 5.
+type 'AMCOpenNum✖︎2' : idem type 'AMCNum' avec présence d'un autre attribut reponse2 qui fonctionne comme le reponse du type 5.
 
 # Les fonctions
 Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont l'appel permet de générer le code nécessaire facilement :

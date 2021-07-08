@@ -4,7 +4,6 @@ import Algebrite from 'algebrite'
 import { format, evaluate } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
-import { elimineDoublons } from './gestionInteractif.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -568,7 +567,7 @@ export function numTrie (arr) {
   })
 }
 
-/*
+/**
 * Mélange les items d'un tableau, sans modifier le tableau passé en argument
 *
 * @Example
@@ -604,7 +603,7 @@ export function shuffleJusqua (array, indice) {
   }
 }
 
-/*
+/**
 * Mélange les lettres d'un string
 *
 * @Example
@@ -616,7 +615,7 @@ export function shuffleLettres (txt) {
   return shuffle(array).join('')
 }
 
-/*
+/**
 * Mélange les items de deux tableaux de la même manière
 *
 *
@@ -638,7 +637,7 @@ export function shuffle2tableaux (obj1, obj2) {
   }
 }
 
-/*
+/**
 * Trie un dictionnaire suivant ses clés
 *
 * @Example
@@ -660,7 +659,7 @@ export function tridictionnaire (dict) {
   return tempDict
 }
 
-/*
+/**
 * Filtre un dictionnaire suivant les premiers caractères de ses clés
 *
 * @Example
@@ -672,10 +671,10 @@ export function filtreDictionnaire (dict, sub) {
   )
 }
 
-/*
+/**
 * Polyfill Object.fromEntries
 *
-* Source : https://gitlab.com/moongoal/js-polyfill-object.fromentries/
+* @Source : https://gitlab.com/moongoal/js-polyfill-object.fromentries/
 */
 if (!Object.fromEntries) {
   Object.defineProperty(Object, 'fromEntries', {
@@ -695,7 +694,7 @@ if (!Object.fromEntries) {
   })
 }
 
-/*
+/**
 * Filtre un dictionnaire suivant la valeur d'une clé
 *
 * @Example
@@ -706,7 +705,7 @@ export function filtreDictionnaireValeurCle (dict, key, val) {
   return Object.fromEntries(Object.entries(dict).filter(([k, v]) => v[key] === val))
 }
 
-/*
+/**
 * Filtre un dictionnaire si une valeur appartient à une clé de type tableau
 *
 * @Example
@@ -725,7 +724,7 @@ function cleExisteEtContient (v, val) {
   }
 }
 
-/*
+/**
 * Concatène liste à elle même en changeant l'ordre à chaque cycle
 *
 *
@@ -2585,6 +2584,28 @@ export function texFraction (a, b) {
 }
 
 /**
+ * Retourne le code LateX correspondant à un symbole
+ * @param {string} symbole
+ * @returns {string} string
+ * @author Guillaume Valmont
+ * @example texSymbole("≤") retourne "\\leq"
+ */
+export function texSymbole (symbole) {
+  switch (symbole) {
+    case '<':
+      return '<'
+    case '>':
+      return '>'
+    case '≤':
+      return '\\leq'
+    case '≥':
+      return '\\geq'
+    default:
+      return 'symbole non connu par texSymbole()'
+  }
+}
+
+/**
 * Utilise printlatex et quote de Algebrite
 * @author Rémi Angot
 */
@@ -3494,7 +3515,7 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
  * Ecrit un string sans accents
  * @param {string} str
  * @author Sébastien Lozano
- * source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent
+ * @source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent
  */
 /* export function sansAccent(str) {
   var accent = [
@@ -6752,7 +6773,6 @@ export async function scratchTraductionFr () {
 export function exportQcmAmc (exercice, idExo) {
   const ref = exercice.id
   const autoCorrection = exercice.autoCorrection
-  console.log(exercice.autoCorrection, exercice.amcType)
   const titre = exercice.titre
   const type = exercice.amcType
   let texQr = ''
@@ -6764,6 +6784,9 @@ export function exportQcmAmc (exercice, idExo) {
   let nbChiffresPd, nbChiffresPe
 
   for (let j = 0; j < autoCorrection.length; j++) {
+    if (autoCorrection[j] === undefined) { // normalement, cela ne devrait jamais arriver !
+      autoCorrection[j] = {}
+    }
     if (autoCorrection[j].options !== undefined) {
       if (autoCorrection[j].options.vertical === undefined) {
         horizontalite = 'reponseshoriz'
@@ -6777,16 +6800,12 @@ export function exportQcmAmc (exercice, idExo) {
         lastchoice = autoCorrection[j].options.lastChoice
       }
     }
-    if (type < 3) {
-      console.log(elimineDoublons(autoCorrection[j].propositions))
-    }
-    // tabQCM = tabQCMs[1][j].propositions.slice(0)
     switch (type) {
-      case 1: // question QCM 1 bonne réponse
+      case 'qcmMono': // question QCM 1 bonne réponse
+        if (exercice.autoCorrection[j].enonce === undefined) {
+          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
         texQr += `\\element{${ref}}{\n `
-        //  if (j === 0 && exercice.introduction !== '' && exercice.introduction !== undefined) {
-        //  texQr += `${exercice.introduction}\\\\ \n`
-        // }
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
         texQr += `\t\\begin{${horizontalite}}`
@@ -6809,7 +6828,11 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
 
-      case 2: // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
+      case 'qcmMult': // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
+        if (exercice.autoCorrection[j].enonce === undefined) {
+          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
+
         texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
@@ -6832,7 +6855,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += ' \\end{questionmult}\n }\n '
         id++
         break
-      case 3: // AMCOpen question ouverte corrigée par l'enseignant
+      case 'AMCOpen': // AMCOpen question ouverte corrigée par l'enseignant
         texQr += `\\element{${ref}}{\n `
         texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `\t\t${autoCorrection[j].enonce} \n `
@@ -6841,16 +6864,17 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\t\\end{question}\n }\n'
         id++
         break
-      case 4: // AMCOpen question ouverte avec encodage numérique de la réponse
+      case 'AMCNum': // AMCOpen question ouverte avec encodage numérique de la réponse
         /********************************************************************/
-        // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericChoices
         // On pourra rajouter des options : les paramètres sont nommés.
         // {digits=0,decimals=0,vertical=false,signe=false,exposantNbChiffres=0,exposantSigne=false,approx=0}
         // si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
         // signe et exposantSigne sont des booléens
         // approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
-        // La correction est dans tabQCM[1][0] et la réponse numérique est dans tabQCM[1][1]
         /********************************************************************/
+        if (exercice.autoCorrection[j].enonce === undefined) {
+          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
           reponse = autoCorrection[j].reponse.valeur
           if (autoCorrection[j].reponse.param.digits === 0) {
@@ -6865,7 +6889,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
@@ -6887,7 +6913,7 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
 
-      case 5: // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum': // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
         // On pourra rajouter des options : les paramètres sont nommés.
@@ -6907,7 +6933,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         // texQr += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
@@ -6951,7 +6979,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
         id++
         break
-      case 6: // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum✖︎2': // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // /!\/!\/!\/!\ ATTENTION /!\/!\/!\/!\
         // Pour ce type :
@@ -6969,7 +6997,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
         reponse = autoCorrection[j].reponse.valeur
@@ -7023,7 +7053,7 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
 
-      case 7: // Un amcOpen et trois  AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum✖︎3': // Un amcOpen et trois  AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // /!\/!\/!\/!\ ATTENTION /!\/!\/!\/!\
         // Pour ce type :
@@ -7041,7 +7071,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.4 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
         reponse = autoCorrection[j].reponse.valeur
@@ -7164,6 +7196,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
       groupeDeQuestions.push(code[1])
       indexOfCode = groupeDeQuestions.indexOf(code[1])
       texQuestions[indexOfCode] = code[0]
+
       // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
       if (typeof nbQuestions[indexOfCode] === 'undefined') {
         nombreDeQuestionsIndefinie[indexOfCode] = true
@@ -7282,6 +7315,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %\\usepackage{pdflscape}
    \\usepackage[framemethod=tikz]{mdframed} % Pour les cadres
    \\usepackage{tikzsymbols}
+   \\usepackage{scratch3}
   %\\usepackage{tasks}\t% Pour les listes horizontales
 \\usepackage{csvsimple}
   

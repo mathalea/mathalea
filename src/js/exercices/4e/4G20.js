@@ -5,7 +5,7 @@ import { point, polygone, nommePolygone, rotation, similitude, codageAngleDroit,
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Grandeur from '../../modules/Grandeur.js'
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
-export const amcType = 5 // Question numérique
+export const amcType = 'AMCOpenNum' // Question numérique
 export const amcReady = true // Il reste à gérer les options numériques
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,7 +30,9 @@ export default function Pythagore2D () {
   this.video = 'M9sceJ8gzNc'
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    if (this.sup) {
+      this.sup = parseInt(this.sup)
+    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions = []

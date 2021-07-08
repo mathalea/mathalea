@@ -6,7 +6,7 @@ import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d } from
 
 export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
 
-export const amcType = 3 // type de question AMC
+export const amcType = 'AMCOpen' // type de question AMC
 
 export const titre = 'Calcul d’un parallèle terrestre'
 

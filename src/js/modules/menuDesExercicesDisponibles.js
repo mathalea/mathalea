@@ -126,7 +126,7 @@ function listeHtmlDesExercicesDUnNiveau (liste_de_themes) { // liste_de_themes =
 
 function getListeHtmlDesExercicesDNB () {
   let liste = '<div class="accordion">'
-  for (const annee of ['2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
+  for (const annee of ['2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
     liste += `<div class="title"><i class="dropdown icon"></i> ${annee}</div><div class="content">`
     liste += listeHtmlDesExercicesDNBAnnee(annee)
     liste += '</div>'
@@ -147,7 +147,7 @@ function getListeHtmlDesExercicesDNBTheme () {
     //   "Calculs numériques",
     //   "Géométrie dans l'espace",
     //   "Durées",
-    //   "Equations",
+    //   "Équations",
     //   "Fractions",
     //   "Fonctions",
     //   "Géométrie plane",
@@ -256,11 +256,13 @@ export function apparenceExerciceActif () {
     elem_liste.addClass('exerciceactif')
   }
   $('.delexercice').off('click').on('click', function (e) {
-    supprimerExo(event.target.id, true)
-    event.stopPropagation()
+    supprimerExo(e.target.id, true)
+    e.stopPropagation()
   })
   $('.icone_preview').off('click').on('click', function (e) {
-    $('.popup').trigger('click')
+    e.stopPropagation()
+    $('.popup').attr("data-exoId",e.target.id)
+    $('.popup').trigger(e)
   })
 }
 
@@ -650,7 +652,7 @@ export function menuDesExercicesDisponibles () {
       trust: false
     })
     apparenceExerciceActif() // Lorsqu'on déplie un accordéon il faut gérer l'apprence des exercices qui avaient été sélectionnés.
-    $('.lien_id_exercice').off('click').on('click', function () { addExercice(event) })
+    $('.lien_id_exercice').off('click').on('click', function (e) { addExercice(e) })
     $('.icone_preview').off('click').on('click', function (e) {
       $('.popup').trigger('click')
     })

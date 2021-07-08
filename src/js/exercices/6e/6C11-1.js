@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texteGr
 export const titre = "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité"
 
 export const amcReady = true
-export const amcType = 3 // type de question AMC
+export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = false
 /**
  * Détermination du reste et quotient à partir de l'égalité découlant de la division euclidienne
@@ -23,17 +23,15 @@ export default function DivisionsEuclidiennesEgalite () {
   this.nbQuestions = 4
   this.sup = 1
   this.interactif = true
-  this.interactifReady = interactifReady
-  this.amcType = amcType
-  this.amcReady = amcReady
+
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles, typesDeQuestions
-    if (this.sup === 1) {
+    if (parseInt(this.sup) === 1) {
       typesDeQuestionsDisponibles = [1, 2, 2]
-    } else if (this.sup === 2) {
+    } else if (parseInt(this.sup) === 2) {
       typesDeQuestionsDisponibles = [1, 2, 3, 4]
     }
     const listeTypeDeQuestions = combinaisonListes(

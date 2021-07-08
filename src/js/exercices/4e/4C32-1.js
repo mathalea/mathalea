@@ -4,7 +4,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Calcul avec les puissances de dix'
 
 export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
-export const amcType = 1 // QCM
+export const amcType = 'qcmMono' // QCM
 export const interactifType = 'qcm'
 export const interactifReady = true
 
@@ -36,8 +36,8 @@ export default function CalculsAvecPuissancesDeDix () {
     let typeDeQuestionsDisponibles
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    if (this.sup2 === 1) typeDeQuestionsDisponibles = [0, 0, 0, 1, 1]
-    else if (this.sup2 === 2) typeDeQuestionsDisponibles = [0, 1, 1, 2, 2]
+    if (parseInt(this.sup2) === 1) typeDeQuestionsDisponibles = [0, 0, 0, 1, 1]
+    else if (parseInt(this.sup2) === 2) typeDeQuestionsDisponibles = [0, 1, 1, 2, 2]
     else typeDeQuestionsDisponibles = [2, 2, 3, 3, 3]
 
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)

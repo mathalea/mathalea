@@ -104,7 +104,7 @@ const config = {
   // les js à compiler, cf https://webpack.js.org/configuration/entry-context/#entry
   entry: {
     mathalea: './src/js/mathalea.js',
-    mathalea_amc: './src/js/mathalea_amc.js',
+    mathalea_amc: './src/js/mathalea.js',
     mathalea2d: './src/js/modules/mathalea2d-gui.js',
     mathaleaDiaporama: ['./src/js/modules/mathalea_diaporama.js', './src/js/mathalea.js'],
     mathalea2iep: './src/js/modules/mathalea2iep-gui.js',

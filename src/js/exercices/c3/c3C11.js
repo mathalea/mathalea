@@ -1,4 +1,4 @@
-import Divisions_euclidiennes from '../6e/6C11.js'
+import DivisionsEuclidiennes from '../6e/6C11.js'
 export const titre = 'Divisions euclidiennes'
 
 /**
@@ -8,8 +8,7 @@ export const titre = 'Divisions euclidiennes'
  *
  * @author Jean-Claude Lhote
  */
-export default function Division_cycle3() {
-    Divisions_euclidiennes.call(this);
-  this.titre = titre;
-  this.sup = 0;
+export default function DivisionCycle3 () {
+  DivisionsEuclidiennes.call(this)
+  this.sup = 0
 }

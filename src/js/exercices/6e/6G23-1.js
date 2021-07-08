@@ -5,11 +5,9 @@ import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 1 // QCM 
+export const amcType = 'qcmMono' // QCM
 export const interactifReady = true
 export const interactifType = 'qcm'
-
-
 
 export const titre = 'Mesurer un angle'
 
@@ -21,10 +19,6 @@ export const titre = 'Mesurer un angle'
 export default function MesurerUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true

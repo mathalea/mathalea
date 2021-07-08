@@ -6,7 +6,7 @@ export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
 
-export const amcType = 4
+export const amcType = 'AMCNum'
 /**
  * Division d'un entier par 10, 100, 1000
  * @author Rémi Angot
@@ -14,11 +14,6 @@ export const amcType = 4
 */
 export default function DiviserPar101001000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = 'Calculer'
   this.nbQuestions = 10
   this.nbCols = 2

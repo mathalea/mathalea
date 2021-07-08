@@ -1,6 +1,5 @@
 import { pointAdistance, point, segment, rotation, cercle, tracePoint, mathalea2d, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, shuffle, arrondi, texNombre } from '../../modules/outils.js'
 
 export const titre = 'Périmètres et aires de disques'
@@ -15,7 +14,7 @@ export const titre = 'Périmètres et aires de disques'
  * @author Rémi Angot
  * Référence 6M22-1
  */
-export default function Perimetre_aire_disques (pa = 3) {
+export default function PerimetreAireDisques (pa = 3) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.pasDeVersionLatex = true
   this.titre = titre
@@ -28,11 +27,11 @@ export default function Perimetre_aire_disques (pa = 3) {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
-    const tableau_des_rayons = shuffle([2, 3, 4, 5, 6, 7, 8]) // pour s'assurer que les 4 rayons sont différents
-    const r1 = tableau_des_rayons[0]
-    const r2 = tableau_des_rayons[1]
-    const r3 = tableau_des_rayons[2]
-    const r4 = tableau_des_rayons[3]
+    const tableauDesRayons = shuffle([2, 3, 4, 5, 6, 7, 8]) // pour s'assurer que les 4 rayons sont différents
+    const r1 = tableauDesRayons[0]
+    const r2 = tableauDesRayons[1]
+    const r3 = tableauDesRayons[2]
+    const r4 = tableauDesRayons[3]
     const A = point(8, 24)
     const B = point(24, 24)
     const C = point(8, 8)

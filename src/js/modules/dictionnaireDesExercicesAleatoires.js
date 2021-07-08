@@ -141,12 +141,35 @@ export default {
     "interactifReady": false,
     "name": "2L12-1"
   },
+  "2L12-2": {
+    "titre": "Développer (a+b)²",
+    "url": "/exercices/2e/2L12-2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2L12-2"
+  },
+  "2L12-3": {
+    "titre": "Développer (a-b)²",
+    "url": "/exercices/2e/2L12-3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2L12-3"
+  },
   "2L12": {
     "titre": "Résoudre les équations produit-nul",
     "url": "/exercices/2e/2L12.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "2L12"
+  },
+  "2L13": {
+    "titre": "Inéquation du premier degré",
+    "url": "/exercices/2e/2L13.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2L13"
   },
   "2N10-1": {
     "titre": "Connaître les propriétés calculatoires des racines carrées",
@@ -289,7 +312,7 @@ export default {
     "name": "3Algo1-2"
   },
   "3Algo1": {
-    "titre": "Instruction conditionelle",
+    "titre": "Instruction conditionelle (scratch)",
     "url": "/exercices/3e/3Algo1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -366,7 +389,6 @@ export default {
     "url": "/exercices/3e/3F21-1.js",
     "amcReady": true,
     "amcType": {
-      "num": 6,
       "text": "AMCOpenNum✖︎2"
     },
     "interactifReady": true,
@@ -464,7 +486,6 @@ export default {
     "url": "/exercices/3e/3G21.js",
     "amcReady": true,
     "amcType": {
-      "num": 3,
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -503,7 +524,6 @@ export default {
     "url": "/exercices/3e/3G30.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": false,
@@ -528,7 +548,6 @@ export default {
     "url": "/exercices/3e/3G31.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": false,
@@ -539,7 +558,6 @@ export default {
     "url": "/exercices/3e/3G32-1.js",
     "amcReady": true,
     "amcType": {
-      "num": 3,
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -592,7 +610,6 @@ export default {
     "url": "/exercices/3e/3G42.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -604,7 +621,6 @@ export default {
     "url": "/exercices/3e/3G43.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -633,7 +649,6 @@ export default {
     "url": "/exercices/3e/3L11-1.js",
     "amcReady": true,
     "amcType": {
-      "num": 7,
       "text": "AMCOpenNum✖︎3"
     },
     "interactifReady": true,
@@ -800,6 +815,17 @@ export default {
     "interactifReady": false,
     "name": "4Algo1-0"
   },
+  "4Algo1-1": {
+    "titre": "Tortue Scratch avec répétitions",
+    "url": "/exercices/4e/4Algo1-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "cliqueFigure",
+    "name": "4Algo1-1"
+  },
   "4C10-0": {
     "titre": "Signe d’un produit ou d’un quotient de nombres relatifs",
     "url": "/exercices/4e/4C10-0.js",
@@ -872,7 +898,6 @@ export default {
     "url": "/exercices/4e/4C21.js",
     "amcReady": true,
     "amcType": {
-      "num": 6,
       "text": "AMCOpenNum✖︎2"
     },
     "interactifReady": false,
@@ -946,7 +971,6 @@ export default {
     "url": "/exercices/4e/4C32-1.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -972,7 +996,6 @@ export default {
     "url": "/exercices/4e/4C32.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -998,7 +1021,6 @@ export default {
     "url": "/exercices/4e/4C34.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": false,
@@ -1051,12 +1073,19 @@ export default {
     "url": "/exercices/4e/4G20-2.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
     "name": "4G20-2"
+  },
+  "4G20-4": {
+    "titre": "Arrondir une racine carrée",
+    "url": "/exercices/4e/4G20-4.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4G20-4"
   },
   "4G20-5": {
     "titre": "Trouver la valeur arrondie d’une racine carrée",
@@ -1070,7 +1099,6 @@ export default {
     "url": "/exercices/4e/4G20.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": true,
@@ -1089,7 +1117,6 @@ export default {
     "url": "/exercices/4e/4G21.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1115,7 +1142,6 @@ export default {
     "url": "/exercices/4e/4G30.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": false,
@@ -1129,11 +1155,18 @@ export default {
     "name": "4G31"
   },
   "4G40-1": {
-    "titre": "Arrondir une valeur arrondie comprenant un cosinus",
+    "titre": "Encadrer puis arrondir une valeur comprenant un cosinus",
     "url": "/exercices/4e/4G40-1.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "4G40-1"
+  },
+  "4G40-2": {
+    "titre": "Arrondir une valeur comprenant un cosinus",
+    "url": "/exercices/4e/4G40-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4G40-2"
   },
   "4G40-MG32": {
     "titre": "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle",
@@ -1147,7 +1180,6 @@ export default {
     "url": "/exercices/4e/4G40.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": false,
@@ -1179,7 +1211,6 @@ export default {
     "url": "/exercices/4e/4G53.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -1551,7 +1582,6 @@ export default {
     "url": "/exercices/5e/5L10-2.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1577,7 +1607,6 @@ export default {
     "url": "/exercices/5e/5L10.js",
     "amcReady": true,
     "amcType": {
-      "num": 2,
       "text": "qcmMult"
     },
     "interactifReady": true,
@@ -1618,7 +1647,6 @@ export default {
     "url": "/exercices/5e/5L14-2.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -1680,7 +1708,6 @@ export default {
     "url": "/exercices/5e/5M20.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1730,7 +1757,6 @@ export default {
     "url": "/exercices/5e/5N13-2.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1742,7 +1768,6 @@ export default {
     "url": "/exercices/5e/5N13.js",
     "amcReady": true,
     "amcType": {
-      "num": 3,
       "text": "AMCOpen"
     },
     "interactifReady": true,
@@ -1761,7 +1786,6 @@ export default {
     "url": "/exercices/5e/5N14-3.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1794,7 +1818,6 @@ export default {
     "url": "/exercices/5e/5N20.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1835,7 +1858,6 @@ export default {
     "url": "/exercices/5e/5R10.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -1875,7 +1897,6 @@ export default {
     "url": "/exercices/5e/5R20-2.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1887,7 +1908,6 @@ export default {
     "url": "/exercices/5e/5R20-3.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -1913,7 +1933,6 @@ export default {
     "url": "/exercices/5e/5R20.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -1925,7 +1944,6 @@ export default {
     "url": "/exercices/5e/5R21.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -1944,7 +1962,6 @@ export default {
     "url": "/exercices/5e/5R22.js",
     "amcReady": true,
     "amcType": {
-      "num": 5,
       "text": "AMCOpenNum"
     },
     "interactifReady": true,
@@ -1994,18 +2011,29 @@ export default {
     "name": "5S21"
   },
   "6Algo10": {
-    "titre": "Programmer des déplacements",
+    "titre": "Programmer des déplacements (scratch)",
     "url": "/exercices/6e/6Algo10.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "6Algo10"
   },
   "6Algo11": {
-    "titre": "Note la couleur",
+    "titre": "Note la couleur (scratch)",
     "url": "/exercices/6e/6Algo11.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "6Algo11"
+  },
+  "6Algo12": {
+    "titre": "Trouver le bon tracé avec scratch",
+    "url": "/exercices/6e/6Algo12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "6Algo12"
   },
   "6C10-1": {
     "titre": "Tables de multiplication",
@@ -2019,7 +2047,6 @@ export default {
     "url": "/exercices/6e/6C10-2.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2034,7 +2061,6 @@ export default {
     "url": "/exercices/6e/6C10-3.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2046,7 +2072,6 @@ export default {
     "url": "/exercices/6e/6C10-4.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2058,7 +2083,6 @@ export default {
     "url": "/exercices/6e/6C10-5.js",
     "amcReady": true,
     "amcType": {
-      "num": 3,
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -2069,7 +2093,6 @@ export default {
     "url": "/exercices/6e/6C10.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2081,7 +2104,6 @@ export default {
     "url": "/exercices/6e/6C10bis.js",
     "amcReady": true,
     "amcType": {
-      "num": 3,
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -2092,7 +2114,6 @@ export default {
     "url": "/exercices/6e/6C11-1.js",
     "amcReady": true,
     "amcType": {
-      "num": 3,
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -2103,7 +2124,6 @@ export default {
     "url": "/exercices/6e/6C11.js",
     "amcReady": true,
     "amcType": {
-      "num": 3,
       "text": "AMCOpen"
     },
     "interactifReady": true,
@@ -2122,7 +2142,6 @@ export default {
     "url": "/exercices/6e/6C20.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2134,7 +2153,6 @@ export default {
     "url": "/exercices/6e/6C21.js",
     "amcReady": true,
     "amcType": {
-      "num": 3,
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -2145,7 +2163,6 @@ export default {
     "url": "/exercices/6e/6C23.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2157,7 +2174,6 @@ export default {
     "url": "/exercices/6e/6C30-1.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2169,7 +2185,6 @@ export default {
     "url": "/exercices/6e/6C30-2.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2181,7 +2196,6 @@ export default {
     "url": "/exercices/6e/6C30-3.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2193,7 +2207,6 @@ export default {
     "url": "/exercices/6e/6C30-4.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2205,7 +2218,6 @@ export default {
     "url": "/exercices/6e/6C30-5.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2217,7 +2229,6 @@ export default {
     "url": "/exercices/6e/6C30.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2236,7 +2247,6 @@ export default {
     "url": "/exercices/6e/6C31.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2255,7 +2265,6 @@ export default {
     "url": "/exercices/6e/6C33.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2267,7 +2276,6 @@ export default {
     "url": "/exercices/6e/6C34.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2322,6 +2330,14 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "6G10-2"
+  },
+  "6G10-3": {
+    "titre": "Choisir la bonne figure",
+    "url": "/exercices/6e/6G10-3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "cliqueFigure",
+    "name": "6G10-3"
   },
   "6G10": {
     "titre": "Notation des droites, segments et demi-droites",
@@ -2391,7 +2407,6 @@ export default {
     "url": "/exercices/6e/6G23-1.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2445,7 +2460,6 @@ export default {
     "url": "/exercices/6e/6G25-1.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2485,7 +2499,6 @@ export default {
     "url": "/exercices/6e/6G33.js",
     "amcReady": true,
     "amcType": {
-      "num": 2,
       "text": "qcmMult"
     },
     "interactifReady": true,
@@ -2497,7 +2510,6 @@ export default {
     "url": "/exercices/6e/6G41.js",
     "amcReady": true,
     "amcType": {
-      "num": 3,
       "text": "AMCOpen"
     },
     "interactifReady": false,
@@ -2529,7 +2541,6 @@ export default {
     "url": "/exercices/6e/6M11-1.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2548,7 +2559,6 @@ export default {
     "url": "/exercices/6e/6M11.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2567,7 +2577,6 @@ export default {
     "url": "/exercices/6e/6M20.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2600,7 +2609,6 @@ export default {
     "url": "/exercices/6e/6M23.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2622,7 +2630,6 @@ export default {
     "url": "/exercices/6e/6M30.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2644,7 +2651,6 @@ export default {
     "url": "/exercices/6e/6M31.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2699,8 +2705,12 @@ export default {
   "6N11-2": {
     "titre": "Placer un point d’abscisse entière (grands nombres)",
     "url": "/exercices/6e/6N11-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "6N11-2"
   },
   "6N11-3": {
@@ -2720,8 +2730,12 @@ export default {
   "6N11": {
     "titre": "Lire l’abscisse entière d’un point (grands nombres)",
     "url": "/exercices/6e/6N11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N11"
   },
   "6N12": {
@@ -2769,10 +2783,11 @@ export default {
     "name": "6N20"
   },
   "6N21": {
-    "titre": "Lire l’abscisse fractionnaire d’un point",
+    "titre": "Utiliser les abscisses fractionnaires",
     "url": "/exercices/6e/6N21.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "6N21"
   },
   "6N22-1": {
@@ -2829,7 +2844,6 @@ export default {
     "url": "/exercices/6e/6N23-5.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -2860,8 +2874,12 @@ export default {
   "6N30-1": {
     "titre": "Lire l’abscisse décimale d’un point repéré par une fraction",
     "url": "/exercices/6e/6N30-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N30-1"
   },
   "6N30-2": {
@@ -2874,8 +2892,12 @@ export default {
   "6N30": {
     "titre": "Lire l’abscisse décimale d’un point",
     "url": "/exercices/6e/6N30.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N30"
   },
   "6N31-1": {
@@ -2897,7 +2919,6 @@ export default {
     "url": "/exercices/6e/6N31-3.js",
     "amcReady": true,
     "amcType": {
-      "num": 2,
       "text": "qcmMult"
     },
     "interactifReady": true,
@@ -2937,7 +2958,6 @@ export default {
     "url": "/exercices/6e/6N33-1.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2963,7 +2983,6 @@ export default {
     "url": "/exercices/6e/6N33.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -2989,7 +3008,6 @@ export default {
     "url": "/exercices/6e/6N41.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -3001,7 +3019,6 @@ export default {
     "url": "/exercices/6e/6N43-2.js",
     "amcReady": true,
     "amcType": {
-      "num": 2,
       "text": "qcmMult"
     },
     "interactifReady": false,
@@ -3012,7 +3029,6 @@ export default {
     "url": "/exercices/6e/6N43-3.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -3031,7 +3047,6 @@ export default {
     "url": "/exercices/6e/6N43.js",
     "amcReady": true,
     "amcType": {
-      "num": 1,
       "text": "qcmMono"
     },
     "interactifReady": true,
@@ -3087,14 +3102,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "6S11"
-  },
-  "beta6N21-2D": {
-    "titre": "Utiliser les abscisses fractionnaires",
-    "url": "/exercices/6e/beta6N21-2D.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "custom",
-    "name": "beta6N21-2D"
   },
   "beta1F10": {
     "titre": "Calculs de dérivés",
@@ -3236,19 +3243,22 @@ export default {
     "interactifReady": false,
     "name": "beta999"
   },
-  "betabonhomme": {
-    "titre": "bonhomme de neige",
-    "url": "/exercices/beta/betabonhomme.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betabonhomme"
+  "betaCaN5": {
+    "titre": "Course aux nombres 5e",
+    "url": "/exercices/beta/betaCaN5.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCaN5"
   },
   "betaCaN6": {
     "titre": "Course aux nombres 6e",
     "url": "/exercices/beta/betaCaN6.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3284,11 +3294,11 @@ export default {
     "name": "betaExemple3Types"
   },
   "betaExempleFigureClic": {
-    "titre": "Sommets du triangle",
+    "titre": "Choisir la bonne figure",
     "url": "/exercices/beta/betaExempleFigureClic.js",
     "amcReady": false,
     "interactifReady": true,
-    "interactifType": "custom",
+    "interactifType": "cliqueFigure",
     "name": "betaExempleFigureClic"
   },
   "betaExempleQuestionsDifferentes": {
@@ -3326,6 +3336,14 @@ export default {
     "interactifReady": false,
     "name": "betaExoSimpleMatthieu"
   },
+  "betaLicence": {
+    "titre": "QCM de positionnement",
+    "url": "/exercices/beta/betaLicence.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "betaLicence"
+  },
   "betaProbabilites": {
     "titre": "Probabilités simples",
     "url": "/exercices/beta/betaProbabilites.js",
@@ -3339,13 +3357,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaPuissances"
-  },
-  "betareperagepave": {
-    "titre": "Exercice de repérage dans un pavé droit",
-    "url": "/exercices/beta/betareperagepave.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betareperagepave"
   },
   "betarotation3d": {
     "titre": "Rotation 3d de polygones",
@@ -3384,7 +3395,7 @@ export default {
   },
   "c3C10-1": {
     "titre": "Tables de multiplications",
-    "url": "/exercices/c3/c3C10-1.js",
+    "url": "/exercices/CM/c3C10-1.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "c3C10-1"
@@ -3443,7 +3454,6 @@ export default {
     "url": "/exercices/CM/CM000.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3455,7 +3465,6 @@ export default {
     "url": "/exercices/CM/CM001.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3467,7 +3476,6 @@ export default {
     "url": "/exercices/CM/CM002.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3479,7 +3487,6 @@ export default {
     "url": "/exercices/CM/CM003.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3491,7 +3498,6 @@ export default {
     "url": "/exercices/CM/CM004.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3503,7 +3509,6 @@ export default {
     "url": "/exercices/CM/CM005.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3515,7 +3520,6 @@ export default {
     "url": "/exercices/CM/CM006.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3527,7 +3531,6 @@ export default {
     "url": "/exercices/CM/CM007.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3539,7 +3542,6 @@ export default {
     "url": "/exercices/CM/CM008.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3551,7 +3553,6 @@ export default {
     "url": "/exercices/CM/CM009.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3563,7 +3564,6 @@ export default {
     "url": "/exercices/CM/CM010.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3575,7 +3575,6 @@ export default {
     "url": "/exercices/CM/CM011.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3587,7 +3586,6 @@ export default {
     "url": "/exercices/CM/CM012.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3599,7 +3597,6 @@ export default {
     "url": "/exercices/CM/CM013.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3611,7 +3608,6 @@ export default {
     "url": "/exercices/CM/CM014.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3623,7 +3619,6 @@ export default {
     "url": "/exercices/CM/CM015.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3635,7 +3630,6 @@ export default {
     "url": "/exercices/CM/CM016.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3647,7 +3641,6 @@ export default {
     "url": "/exercices/CM/CM017.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3659,7 +3652,6 @@ export default {
     "url": "/exercices/CM/CM018.js",
     "amcReady": true,
     "amcType": {
-      "num": 4,
       "text": "AMCNum"
     },
     "interactifReady": true,
@@ -3671,7 +3663,6 @@ export default {
     "url": "/exercices/CM/CM019.js",
     "amcReady": true,
     "amcType": {
-      "num": 3,
       "text": "AMCOpen"
     },
     "interactifReady": false,

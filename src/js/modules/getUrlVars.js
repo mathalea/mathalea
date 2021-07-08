@@ -4,6 +4,11 @@ export function getFilterFromUrl () {
   const urlParams = new URLSearchParams(queryString)
   return urlParams.get('filtre')
 }
+export function getVueFromUrl () {
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  return urlParams.get('v')
+}
 
 export function getUrlVars () { // Récupère les variables de l'URL
   const url = new URL(window.location.href)
@@ -26,6 +31,25 @@ export function getUrlVars () { // Récupère les variables de l'URL
           ObjetParametres[CleValeur[i][0]] = CleValeur[i][1]
         }
       }
+    }
+    // Pour assurer la rétrocompatibilité avec les paramètres long 07/2021
+    if (ObjetParametres.sup !== undefined) {
+      ObjetParametres.s = ObjetParametres.sup
+    }
+    if (ObjetParametres.sup2 !== undefined) {
+      ObjetParametres.s2 = ObjetParametres.sup2
+    }
+    if (ObjetParametres.sup3 !== undefined) {
+      ObjetParametres.s3 = ObjetParametres.sup3
+    }
+    if (ObjetParametres.interactif !== undefined) {
+      ObjetParametres.i = ObjetParametres.interactif
+    }
+    if (ObjetParametres.nbQuestions !== undefined) {
+      ObjetParametres.n = ObjetParametres.nbQuestions
+    }
+    if (ObjetParametres.video !== undefined) {
+      ObjetParametres.v = ObjetParametres.video
     }
     tableauObjetsExercices.push(ObjetParametres)
   }

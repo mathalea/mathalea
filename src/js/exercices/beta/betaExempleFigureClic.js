@@ -1,66 +1,53 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { mathalea2d, point, polygone } from '../../modules/2d.js'
-import { pointCliquable } from '../../modules/2dinteractif.js'
-import { addFeedback } from '../../modules/messages.js'
-export const titre = 'Sommets du triangle'
+import { demiDroite, droite, labelPoint, mathalea2d, point, segmentAvecExtremites } from '../../modules/2d.js'
+export const titre = 'Choisir la bonne figure'
 export const interactifReady = true
-// il y avait un fonctionnement avec amcType cf commit 3ae7c43
-export const interactifType = 'custom' // La correction doit être gérée dans l'exercice avec la méthode this.correctionInteractive()
+export const interactifType = 'cliqueFigure'
 
 /**
- * Description didactique de l'exercice
- * @author
+ * Plusieurs éléments sont proposés, il faut cliquer sur le bon
+ * @author ANGOT Rémi
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactif = true
-  this.amcType = amcType
-  this.consigne = ''
-  this.nbQuestionsModifiable = false
-  // this.nbQuestions = 10
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  // this.sup = 1; // Niveau de difficulté
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+export default function cliqueFigure () {
+  Exercice.call(this)
+  this.consigne = 'Clique sur la bonne figure'
+  this.nbQuestions = 3
+  this.nbCols = 1
+  this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let question
-    const objets2d = []
-    const A = point(0, 0)
-    const B = point(randint(5, 10), randint(-3, 5))
-    const C = point(randint(1, 10), randint(4, 10))
-    const p = polygone(A, B, C)
-    const s1 = pointCliquable(A.x, A.y)
-    const s2 = pointCliquable(B.x, B.y)
-    const s3 = pointCliquable(C.x, C.y)
-    objets2d.push(p, s1, s2, s3)
+    this.figures = [] // Liste des objets de toutes les figures sur lesquelles on pourra cliquer avec leur id et un booléen de réponse
 
-    question = 'Clique sur les sommets du triangle.'
-    question += '<br>' + mathalea2d({ xmin: -2, ymin: -5, xmax: 10, ymax: 11 }, objets2d)
-
-    const correction = 'texte de la correction 1'
-    this.listeQuestions.push(question)
-    this.listeCorrections.push(correction)
-
-    this.correctionInteractive = (elt) => {
-      let cpt = 0
-      for (const s of [s1, s2, s3]) {
-        if (s.etat) cpt++
-        s.stopCliquable()
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      // Boucle principale où i+1 correspond au numéro de la question
+      const A = point(0, 0, 'A')
+      const B = point(4, randint(-3, 3), 'B')
+      const labels = labelPoint(A, B)
+      texte = 'Le segment d\'extrémités $A$ et $B$.'
+      texte += '<br>'
+      texte += mathalea2d({ xmin: -4, xmax: 6, ymin: -1, style: '', id: `figure0Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B))
+      texte += mathalea2d({ xmin: -4, xmax: 6, ymin: -1, style: '', id: `figure1Ex${this.numeroExercice}Q${i}` }, labels, droite(A, B), segmentAvecExtremites(A, B))
+      texte += mathalea2d({ xmin: -4, xmax: 6, ymin: -1, style: '', id: `figure2Ex${this.numeroExercice}Q${i}` }, labels, demiDroite(A, B), segmentAvecExtremites(A, B))
+      texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
+      texteCorr = mathalea2d({ xmin: -4, xmax: 6, ymin: -1, style: '', id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), segmentAvecExtremites(A, B))
+      this.figures[i] = [{ id: `figure0Ex${this.numeroExercice}Q${i}`, solution: true },
+        { id: `figure1Ex${this.numeroExercice}Q${i}`, solution: false },
+        { id: `figure2Ex${this.numeroExercice}Q${i}`, solution: false },
+        { id: `figure3Ex${this.numeroExercice}Q${i}`, solution: false }
+      ]
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en crée une autre
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
       }
-      addFeedback(elt, {
-        message: `Tu as cliqué sur ${cpt} ${cpt > 1 ? 'points' : 'point'}.`,
-        type: 'positive'
-      })
+      cpt++
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3];
+  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
 }

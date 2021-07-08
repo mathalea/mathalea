@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, te
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif'
 
 export const amcReady = true
-export const amcType = 4 // type de question AMC
+export const amcType = 'AMCNum' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'numerique'
 
@@ -26,10 +26,6 @@ export const titre = 'Additions, soustractions et multiplications posées de nom
 export default function AdditionsSoustractionsMultiplicationsPosees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.interactif = 1
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
@@ -39,7 +35,6 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
   this.tailleDiaporama = 100
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestions, reponse
@@ -57,6 +52,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
 
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f, g, x, y; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
+      this.autoCorrection[i] = {}
       switch (typesDeQuestions) {
         case 1: // abcd +efg
           a =
