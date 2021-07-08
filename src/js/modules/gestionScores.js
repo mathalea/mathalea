@@ -7,10 +7,24 @@
 // =============================================================================================================================
 
 import { context } from './context.js'
-import { setUrl } from './gestionUrl.js'
+import { setUrl, getVueFromUrl } from './gestionUrl.js'
 
 export default function gestionScores () {
-// Deconnexion scores
+  // Affichage de l'état de connexion au cas où l'on navigue sur d'autres pages
+  // Sinon on perd l'affichage
+  if (window.sessionStorage.getItem('userId') && (getVueFromUrl() === null || getVueFromUrl() === 'l')) {
+    // On affiche le champ prévu pour l'affichage du userId courant
+    document.getElementById('userIdDisplay').style.display = 'initial'
+    // On affiche le userId dans la fenetre principale
+    if (document.getElementById('userIdDisplayValue')) {
+      document.getElementById('userIdDisplayValue').innerHTML = window.sessionStorage.getItem('userId')
+    }
+    // On affiche le bouton de déconnexion
+    document.getElementById('scoresKeyLogOut').style.display = 'initial'
+    // On cache le bouton de connexion
+    document.getElementById('scoresKey').style.display = 'none'
+  }
+  // Deconnexion scores
   if (document.getElementById('scoresKeyLogOut')) {
     document.getElementById('scoresKeyLogOut').addEventListener('click', function () {
       // Réécrire l'url sans le userId
@@ -163,9 +177,8 @@ export default function gestionScores () {
         document.getElementById('scoresInputUserId').value = ''
       }
       if (document.getElementById('userIdDisplay')) {
-      // On montre le champ prévu pour l'affichage du userId courant
-        // document.getElementById('userIdDisplay').hidden = false
-        document.getElementById('userIdDisplay').style.display = 'block'
+        // On montre le champ prévu pour l'affichage du userId courant
+        document.getElementById('userIdDisplay').style.display = 'initial'
       }
     })
   }
