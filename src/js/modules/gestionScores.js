@@ -37,7 +37,12 @@ export default function gestionScores () {
       }
       // Pour cacher le champ userId sur la page courante et le conserver en cas de changement de page
       // On cache le champ prévu pour l'affichage du userId courant
-      document.getElementById('userIdDisplay').hidden = true
+      // document.getElementById('userIdDisplay').hidden = true      
+      document.getElementById('userIdDisplay').style.display = 'none'
+      // On laisse le bouton de déconnexion caché
+      document.getElementById('scoresKeyLogOut').style.display = 'none'
+      // On affiche le bouton de connexion
+      document.getElementById('scoresKey').style.display = 'initial'
       // On finit la réécriture de l'url
       const entries = urlParams.entries()
 
@@ -74,7 +79,20 @@ export default function gestionScores () {
           // S'il n'y a pas de userId on n'affiche pas le champ du userId courant
           if (!window.sessionStorage.getItem('userId')) {
             // On cache le champ prévu pour l'affichage du userId courant
-            document.getElementById('userIdDisplay').hidden = true
+            // document.getElementById('userIdDisplay').hidden = true
+            document.getElementById('userIdDisplay').style.display = 'none'
+            // On laisse le bouton de déconnexion caché
+            document.getElementById('scoresKeyLogOut').style.display = 'none'
+            // On affiche le bouton de connexion
+            document.getElementById('scoresKey').style.display = 'initial'
+          } else {
+            // On affiche le champ prévu pour l'affichage du userId courant
+            // document.getElementById('userIdDisplay').hidden = true
+            document.getElementById('userIdDisplay').style.display = 'initial'
+            // On affiche le bouton de déconnexion
+            document.getElementById('scoresKeyLogOut').style.display = 'initial'
+            // On cache le bouton de connexion
+            document.getElementById('scoresKey').style.display = 'none'
           }
         }
       }).modal('show')
@@ -150,7 +168,8 @@ export default function gestionScores () {
       }
       if (document.getElementById('userIdDisplay')) {
       // On montre le champ prévu pour l'affichage du userId courant
-        document.getElementById('userIdDisplay').hidden = false
+        // document.getElementById('userIdDisplay').hidden = false
+        document.getElementById('userIdDisplay').style.display = 'block'
       }
     })
   }
@@ -244,7 +263,8 @@ export default function gestionScores () {
             console.log('Enregistrement vers un espace scores OK => ' + response.userId)
             // On affiche le userId dans la fenetre principale
             if (document.getElementById('userIdDisplayValue')) {
-              document.getElementById('userIdDisplayValue').value = response.userId
+              // document.getElementById('userIdDisplayValue').value = response.userId
+              document.getElementById('userIdDisplayValue').innerHTML = response.userId
             }
           }
         })
