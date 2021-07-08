@@ -150,7 +150,7 @@ export default function gestionScores () {
     document.getElementById('scoresSaveToUserId').addEventListener('click', function () {
       if (document.getElementById('scoresFeedback')) {
         // On cache le feedback si il y en a un
-        document.getElementById('scoresFeedback').hidden = true  
+        document.getElementById('scoresFeedback').hidden = true
       }
       if (document.getElementById('scoresDocumentationFeedback')) {
         // On cache le feedback si il y en a un

@@ -100,7 +100,7 @@ export function getUrlSearchOld () {
  * Essai de debug
  * @returns
  */
- export function getUrlSearch () {
+export function getUrlSearch () {
   const urlRacine = window.location.href.split('?')[0]
   // console.log(urlRacine)
   const queryString = window.location.search
@@ -120,7 +120,6 @@ export function getUrlSearchOld () {
   urlRewrite = new URL(urlRewrite)
   return urlRewrite
 }
-
 
 /**
  * Met à jour l'URL avec la vue et le userId s'ils sont connus

@@ -22,6 +22,9 @@ export async function initDom () {
     await addFetchHtmlToParent('templates/cm.html', document.body)
     setOutputDiaporama()
     initDiaporama()
+  } else if (vue === 'scores') {
+    section.append(espaceVertical())
+    await addFetchHtmlToParent('templates/scores.html', document.body)
   } else {
     setOutputHtml()
     section.append(espaceVertical())
