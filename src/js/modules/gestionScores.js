@@ -13,7 +13,7 @@ export default function gestionScores () {
 // Deconnexion scores
   if (document.getElementById('scoresKeyLogOut')) {
     document.getElementById('scoresKeyLogOut').addEventListener('click', function () {
-    // Réécrire l'url sans le userId
+      // Réécrire l'url sans le userId
       const urlRacine = window.location.href.split('?')[0]
       // console.log(urlRacine)
       const queryString = window.location.search
