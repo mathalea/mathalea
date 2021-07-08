@@ -37,7 +37,6 @@ export default function gestionScores () {
       }
       // Pour cacher le champ userId sur la page courante et le conserver en cas de changement de page
       // On cache le champ prévu pour l'affichage du userId courant
-      // document.getElementById('userIdDisplay').hidden = true      
       document.getElementById('userIdDisplay').style.display = 'none'
       // On laisse le bouton de déconnexion caché
       document.getElementById('scoresKeyLogOut').style.display = 'none'
@@ -79,7 +78,6 @@ export default function gestionScores () {
           // S'il n'y a pas de userId on n'affiche pas le champ du userId courant
           if (!window.sessionStorage.getItem('userId')) {
             // On cache le champ prévu pour l'affichage du userId courant
-            // document.getElementById('userIdDisplay').hidden = true
             document.getElementById('userIdDisplay').style.display = 'none'
             // On laisse le bouton de déconnexion caché
             document.getElementById('scoresKeyLogOut').style.display = 'none'
@@ -87,7 +85,6 @@ export default function gestionScores () {
             document.getElementById('scoresKey').style.display = 'initial'
           } else {
             // On affiche le champ prévu pour l'affichage du userId courant
-            // document.getElementById('userIdDisplay').hidden = true
             document.getElementById('userIdDisplay').style.display = 'initial'
             // On affiche le bouton de déconnexion
             document.getElementById('scoresKeyLogOut').style.display = 'initial'
@@ -134,10 +131,9 @@ export default function gestionScores () {
         .then(response => {
           if (document.getElementById('scoresFeedback')) {
             document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
-            // Peut être que plutôt que de diriger vers une page, un lien vers le csv suffit ?
             document.getElementById('scoresFeedbackBody').innerHTML = `
                 Vos fichiers seront enregistrés à cette adresse : <br>
-                <a href="${response.url}" target="_blank">${response.url}</a>.<br>
+                <a href="${response.url}" target="_blank">${window.location.href.split('?')[0] + response.url.substr(1)}</a><br>
                 <b>Conservez la précieusement.</b><br>
                 Vous pourrez y ajouter des éléments en utilisant le code prof suivant : <b>${response.userId}</b>
               `
