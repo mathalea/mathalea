@@ -4720,12 +4720,12 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
     let mesureAngle
     if (label !== '') {
       mesureAngle = label
-      sizelabel = 30
+      sizelabel = 20
     } else {
       mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
       sizelabel = 20
     }
-    return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, 10, '').svg(coeff) + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff)
+    return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, -5, '').svg(coeff) + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff)
   }
   this.tikz = function () {
     // let d = bissectrice(A, B, C);
