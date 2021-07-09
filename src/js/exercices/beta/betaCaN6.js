@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1 } from '../../modules/outils.js'
 import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
 import Grandeur from '../../modules/Grandeur.js'
@@ -23,10 +23,9 @@ export default function CourseAuxNombres6e (numeroExercice) {
   } else {
     this.consigne = ''
   }
-  this.nbQuestions = 30
+
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
@@ -34,6 +33,25 @@ export default function CourseAuxNombres6e (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let a, b, c, d, resultat, propositions
+    let questions = []
+    if (!this.sup) {
+      // Si aucune question n'est sélectionnée
+      questions = combinaisonListes(range1(30), this.nbQuestions)
+    } else {
+      if (typeof this.sup === 'number') {
+        // Si c'est un nombre c'est qu'il y a qu'une seule question
+        questions[0] = this.sup
+        this.nbQuestions = 1
+      } else {
+        questions = this.sup.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
+        this.nbQuestions = questions.length
+      }
+    }
+    for (let i = 0; i < questions.length; i++) {
+      questions[i] = parseInt(questions[i]) - 1
+    }
+    const listeIndex = combinaisonListes(questions, this.nbQuestions)
+    console.log(listeIndex)
     const fruits = [
       ['pêches', 4, 10, 30],
       ['Noix', 5, 4, 13],
@@ -84,10 +102,9 @@ export default function CourseAuxNombres6e (numeroExercice) {
       'q30' // Proportionnalité par linéarité
 
     ] // On créé 3 types de questions
-    const listeTypeQuestions = combinaisonListesSansChangerOrdre(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, q = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
         case 'q1':
           a = randint(1, 25)
           texte = `Le double d'un nombre vaut ${2 * a}, combien vaut sa moitié ?`
@@ -441,9 +458,9 @@ export default function CourseAuxNombres6e (numeroExercice) {
           setReponse(this, q, texPrix(resultat) + '€')
           break
       }
-      if (listeTypeQuestions[i] === 'q25') {
+      if (typeQuestionsDisponibles[listeIndex[i]] === 'q25') {
         texte += ajouteChampTexteMathLive(this, q, 'longueur')
-      } else if (listeTypeQuestions[i] === 'q13') {
+      } else if (typeQuestionsDisponibles[listeIndex[i]] === 'q13') {
         texte += ajouteChampTexte(this, q)
       } else {
         texte += ajouteChampTexteMathLive(this, q)
@@ -460,5 +477,35 @@ export default function CourseAuxNombres6e (numeroExercice) {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
+  this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)',
+  `1 : Moitié et double\n
+  2 : quotient de a par b\n
+  3 : Somme astucieuse de 4 nombres entiers\n
+  4 : Somme de deux décimaux avec retenue\n
+  5 : Double ou triple d'un nombre entier\n
+  6 : Double ou triple d'un nombre décimal\n
+  7 : Recomposition d'un entier\n
+  8 : tables de multiplication\n
+  9 : soustraire un nombre se finissant par 9\n
+  10 :  Le quart ou le tiers d'un nombre.\n
+  11 :  Recomposer un nombre à partir d'un nombre de centaines et d'un nombre d'unités\n
+  12 :  Recomposer une nombre avec chevauchement.\n
+  13 :  conversion heures et minutes\n
+  14 :  Reste de la division par 3\n
+  15 :  Une division par 9 qui tombe juste\n
+  16 :  ajouter un nombre de la forme 10n+9\n
+  17 :  4 × #,## × 25 ou 2 × #,## × 50\n
+  18 :  addition à trou\n
+  19 :  Nombre pair de 2 chiffres × 2\n
+  20 :  Proportionnalité simple\n
+  21 :  Ordre de grandeur\n
+  22 :  Conversion cm -> m\n
+  23 :  Fraction 1/n d'une quantité de L\n
+  24 :  Reste de la division euclidienne\n
+  25 :  Ordre de grandeur : hauteurs\n
+  26 :  Appliquer un pourcentage\n
+  27 :  Calcul de distance à vitesse constante\n
+  28 :  Comparaison de périmètre\n
+  29 :  Repérage fraction\n
+  30 : Proportionnalité par linéarité\n`]
 }
