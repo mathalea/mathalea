@@ -296,12 +296,12 @@ export default function gestionScores () {
 
       // On affiche la documentation
       document.getElementById('scoresDocumentationFeedbackHeader').innerHTML = 'Documentation'
-      document.getElementById('scoresDocumentationFeedbackBody').innerHTML = `
-          Ma superDoc : <br>
-          ...<br>
-          ...<br>
-          ...
-        `
+      // document.getElementById('scoresDocumentationFeedbackBody').innerHTML = `
+      //     Ma superDoc : <br>
+      //     ...<br>
+      //     ...<br>
+      //     ...
+      //   `
       document.getElementById('scoresDocumentationFeedback').hidden = false
     })
   }
