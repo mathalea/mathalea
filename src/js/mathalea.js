@@ -1193,11 +1193,11 @@ function miseAJourDeLaListeDesExercices (preview) {
             formVideo[i].value = listeObjetsExercice[i].video
           }
           if (urlVars[i].cd !== undefined) {
-            if (urlVars[i].cd === 1) {
+            if (urlVars[i].cd === 1 && listeObjetsExercice[i].correctionDetailleeDisponible) {
               listeObjetsExercice[i].correctionDetaillee = true
               formCorrectionDetaillee[i].checked = true
             }
-            if (urlVars[i].cd === 0) {
+            if (urlVars[i].cd === 0 && listeObjetsExercice[i].correctionDetailleeDisponible) {
               listeObjetsExercice[i].correctionDetaillee = false
               formCorrectionDetaillee[i].checked = false
             }
