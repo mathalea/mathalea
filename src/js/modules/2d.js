@@ -4678,7 +4678,11 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
     } else {
       angle = 180 - s.angleAvecHorizontale
     }
-    return texteParPoint(this.texte, N, angle, this.color).svg(coeff)
+    if (this.texte.charAt(0) === '$') {
+      return latexParPoint(this.texte.substr(1, this.texte.length - 2), N, this.color).svg(coeff)
+    } else {
+      return texteParPoint(this.texte, N, angle, this.color).svg(coeff)
+    }
   }
   this.tikz = function () {
     const O = milieu(this.extremite1, this.extremite2)
@@ -7991,7 +7995,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   this.opacite = 1
   this.svg = function (coeff) {
     let code = ''; let style = ''
-    if (math_on) style = ' font-family= "KaTeX_Math" '
+    // if (math_on) style = ' font-family= "KaTeX_Math" '
     if (this.contour) style += ` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
     else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite}" `
     if (typeof (orientation) === 'number') {

@@ -3336,6 +3336,13 @@ export default {
     "interactifReady": false,
     "name": "betaExoSimpleMatthieu"
   },
+  "betaGilles_test": {
+    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
+    "url": "/exercices/beta/betaGilles_test.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaGilles_test"
+  },
   "betaLicence": {
     "titre": "QCM de positionnement",
     "url": "/exercices/beta/betaLicence.js",
