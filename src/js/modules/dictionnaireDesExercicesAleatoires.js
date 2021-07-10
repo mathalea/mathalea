@@ -2289,6 +2289,41 @@ export default {
     "interactifReady": false,
     "name": "6C35"
   },
+  "6C3602": {
+    "titre": "Addition toute simple",
+    "url": "/exercices/6e/6C3602.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6C3602"
+  },
+  "6C3603-niv1": {
+    "titre": "Problème - de plus de moins",
+    "url": "/exercices/6e/6C3603-niv1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6C3603-niv1"
+  },
+  "6C3603-niv2": {
+    "titre": "Problème - de plus de moins",
+    "url": "/exercices/6e/6C3603-niv2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6C3603-niv2"
+  },
+  "6C3603-niv3": {
+    "titre": "Problème - de plus de moins",
+    "url": "/exercices/6e/6C3603-niv3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6C3603-niv3"
+  },
+  "6C3603": {
+    "titre": "Résoudre un Problèmes",
+    "url": "/exercices/6e/6C3603.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6C3603"
+  },
   "6D10": {
     "titre": "Convertir des durées",
     "url": "/exercices/6e/6D10.js",
