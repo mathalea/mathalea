@@ -155,7 +155,7 @@ if ($contentType === "application/json") {
     // Sinon on récupère la clef dans le nom du fichier on verra plus tard s'il y a plusieurs fichiers
     if (!file_exists($path)) {
       if ($isSubmitUserId) {
-        $errors .= "Le code prof n'existe pas - scoresKey.php <br>";
+        $errors .= "Le code prof n'existe pas - scoresManage.php <br>";
         foreach ($prof as $car) {
           if (!(ctype_upper($car))) {
             $errors .= "Le code prof ne doit comporter que des majuscules !<br>";

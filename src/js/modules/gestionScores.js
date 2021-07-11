@@ -12,7 +12,7 @@ import { setUrl, getVueFromUrl } from './gestionUrl.js'
 export default function gestionScores () {
   // Affichage de l'état de connexion au cas où l'on navigue sur d'autres pages
   // Sinon on perd l'affichage
-  if (window.sessionStorage.getItem('userId') && (getVueFromUrl() === null || getVueFromUrl() === 'l')) {
+  if (window.sessionStorage.getItem('userId') && (getVueFromUrl() === null || getVueFromUrl() === 'l' || getVueFromUrl() === 'light')) {
     // On affiche le champ prévu pour l'affichage du userId courant
     document.getElementById('userIdDisplay').style.display = 'initial'
     // On affiche le userId dans la fenetre principale
@@ -20,13 +20,13 @@ export default function gestionScores () {
       document.getElementById('userIdDisplayValue').innerHTML = window.sessionStorage.getItem('userId')
     }
     // On affiche le bouton de déconnexion
-    document.getElementById('scoresKeyLogOut').style.display = 'initial'
+    document.getElementById('scoresLogOut').style.display = 'initial'
     // On cache le bouton de connexion
-    document.getElementById('scoresKey').style.display = 'none'
+    document.getElementById('scoresLogIn').style.display = 'none'
   }
   // Deconnexion scores
-  if (document.getElementById('scoresKeyLogOut')) {
-    document.getElementById('scoresKeyLogOut').addEventListener('click', function () {
+  if (document.getElementById('scoresLogOut')) {
+    document.getElementById('scoresLogOut').addEventListener('click', function () {
       // Réécrire l'url sans le userId
       const urlRacine = window.location.href.split('?')[0]
       // console.log(urlRacine)
@@ -53,9 +53,9 @@ export default function gestionScores () {
       // On cache le champ prévu pour l'affichage du userId courant
       document.getElementById('userIdDisplay').style.display = 'none'
       // On laisse le bouton de déconnexion caché
-      document.getElementById('scoresKeyLogOut').style.display = 'none'
+      document.getElementById('scoresLogOut').style.display = 'none'
       // On affiche le bouton de connexion
-      document.getElementById('scoresKey').style.display = 'initial'
+      document.getElementById('scoresLogIn').style.display = 'initial'
       // On finit la réécriture de l'url
       const entries = urlParams.entries()
 
@@ -73,13 +73,15 @@ export default function gestionScores () {
     })
   }
 
-  // Si le bouton existe et que l'utilisateur clique de dessus on ouvre une modale et on propose deux choix
-  // => Créer un userId
-  // => Utiliser un userId existant
+  // Si le bouton "Connexion" existe et que l'utilisateur clique de dessus on ouvre une modale et on propose :
+  // => Afficher une documentation
+  // => Renseigner/Utiliser un userId élève
+  // => Se rendre sur l'espace professeur
 
-  if (document.getElementById('scoresKey')) {
-    document.getElementById('scoresKey').addEventListener('click', function () {
-      $('#modalScoresKey').modal({
+  // "Connexion"
+  if (document.getElementById('scoresLogIn')) {
+    document.getElementById('scoresLogIn').addEventListener('click', function () {
+      $('#modalScores').modal({
         onApprove: function () {
         // On ne veut pas que la modale se ferme au click sur un bouton vert
           return false
@@ -94,71 +96,49 @@ export default function gestionScores () {
             // On cache le champ prévu pour l'affichage du userId courant
             document.getElementById('userIdDisplay').style.display = 'none'
             // On laisse le bouton de déconnexion caché
-            document.getElementById('scoresKeyLogOut').style.display = 'none'
+            document.getElementById('scoresLogOut').style.display = 'none'
             // On affiche le bouton de connexion
-            document.getElementById('scoresKey').style.display = 'initial'
+            document.getElementById('scoresLogIn').style.display = 'initial'
           } else {
             // On affiche le champ prévu pour l'affichage du userId courant
             document.getElementById('userIdDisplay').style.display = 'initial'
             // On affiche le bouton de déconnexion
-            document.getElementById('scoresKeyLogOut').style.display = 'initial'
+            document.getElementById('scoresLogOut').style.display = 'initial'
             // On cache le bouton de connexion
-            document.getElementById('scoresKey').style.display = 'none'
+            document.getElementById('scoresLogIn').style.display = 'none'
           }
         }
       }).modal('show')
     })
   }
 
-  // Dans la modale :
-  // Si on clique sur créer un espace => on se contente de créer l'espace
-  // Si on clique sur enregistrer des scores => ce sera une autre modale
-
-  // Gestion du click sur "Créer un espace tout neuf"
-  if (document.getElementById('scoresCreateSpace')) {
-    document.getElementById('scoresCreateSpace').addEventListener('click', function () {
+  // Clic sur documentation - page prof et modale connexion
+  if (document.getElementById('scoresDocumentation')) {
+    document.getElementById('scoresDocumentation').addEventListener('click', function () {
+      // On cache les feedbacks inutiles
+      if (document.getElementById('scoresFeedback')) {
+        document.getElementById('scoresFeedback').hidden = true
+      }
       if (document.getElementById('scoresPromptUserId')) {
         // On cache le champ de saisie
         document.getElementById('scoresPromptUserId').hidden = true
         // On vide le champ input
         document.getElementById('scoresInputUserId').value = ''
       }
-      if (document.getElementById('scoresDocumentationFeedback')) {
-        // On cache le feedback si il y en a un
-        document.getElementById('scoresDocumentationFeedback').hidden = true
-      }
-      // On génère le userId côté serveur
-      fetch('scoresKey.php', {
-        method: 'POST',
-        mode: 'same-origin',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-        // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
-          isSubmitUserId: false,
-          isVerifResult: false
-        })
-      })
-        .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
-        .then(response => {
-          if (document.getElementById('scoresFeedback')) {
-            document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
-            document.getElementById('scoresFeedbackBody').innerHTML = `
-                Vos fichiers seront enregistrés à cette adresse : <br>
-                <a href="${response.url}" target="_blank">${window.location.href.split('?')[0] + response.url.substr(1)}</a><br>
-                <b>Conservez la précieusement.</b><br>
-                Vous pourrez y ajouter des éléments en utilisant le code prof suivant : <b>${response.userId}</b>
-              `
-            document.getElementById('scoresFeedback').hidden = false
-          }
-          console.log('Création d\'un espace scores OK => ' + response.userId)
-        })
+
+      // On affiche la documentation
+      document.getElementById('scoresDocumentationFeedbackHeader').innerHTML = 'Documentation'
+      // document.getElementById('scoresDocumentationFeedbackBody').innerHTML = `
+      //     Ma superDoc : <br>
+      //     ...<br>
+      //     ...<br>
+      //     ...
+      //   `
+      document.getElementById('scoresDocumentationFeedback').hidden = false
     })
   }
 
-  // Gestion du click sur "Enregistrer dans un espace existant"
+  // Clic sur "Enregistrer des scores"  - page prof et modale connexion
   // Il faut encore gérer le feedback des erreurs sur le userId
   if (document.getElementById('scoresSaveToUserId')) {
     document.getElementById('scoresSaveToUserId').addEventListener('click', function () {
@@ -183,13 +163,13 @@ export default function gestionScores () {
     })
   }
 
-  // Gestion du click sur le bouton "Submit" qui envoie un userId
+  // Clic sur le bouton "Submit" qui envoie un userId - page prof et modale connexion
   if (document.getElementById('scoresSubmitUserId')) {
     document.getElementById('scoresSubmitUserId').addEventListener('click', function () {
     // On récupère la valeur saisie
     // Il faudra vérifier tout ça côté serveur
       const userId = document.getElementById('scoresInputUserId').value
-      fetch('scoresKey.php', {
+      fetch('scoresManage.php', {
         method: 'POST',
         mode: 'same-origin',
         credentials: 'same-origin',
@@ -280,29 +260,54 @@ export default function gestionScores () {
     })
   }
 
-  // Gestion du click sur documentation
-  if (document.getElementById('scoresDocumentation')) {
-    document.getElementById('scoresDocumentation').addEventListener('click', function () {
-      // On cache les feedbacks inutiles
-      if (document.getElementById('scoresFeedback')) {
-        document.getElementById('scoresFeedback').hidden = true
-      }
+  // Clic sur "Créer un espace" - uniquement sur la page prof
+  if (document.getElementById('scoresCreateSpace')) {
+    document.getElementById('scoresCreateSpace').addEventListener('click', function () {
       if (document.getElementById('scoresPromptUserId')) {
         // On cache le champ de saisie
         document.getElementById('scoresPromptUserId').hidden = true
         // On vide le champ input
         document.getElementById('scoresInputUserId').value = ''
       }
+      if (document.getElementById('scoresDocumentationFeedback')) {
+        // On cache le feedback si il y en a un
+        document.getElementById('scoresDocumentationFeedback').hidden = true
+      }
+      // On génère le userId côté serveur
+      fetch('scoresManage.php', {
+        method: 'POST',
+        mode: 'same-origin',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+        // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
+          isSubmitUserId: false,
+          isVerifResult: false
+        })
+      })
+        .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
+        .then(response => {
+          if (document.getElementById('scoresFeedback')) {
+            document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
+            document.getElementById('scoresFeedbackBody').innerHTML = `
+                Vos fichiers seront enregistrés à cette adresse : <br>
+                <a href="${response.url}" target="_blank">${window.location.href.split('?')[0] + response.url.substr(1)}</a><br>
+                <b>Conservez la précieusement.</b><br>
+                Vous pourrez y ajouter des éléments en utilisant le code prof suivant : <b>${response.userId}</b>
+              `
+            document.getElementById('scoresFeedback').hidden = false
+          }
+          console.log('Création d\'un espace scores OK => ' + response.userId)
+        })
+    })
+  }
 
-      // On affiche la documentation
-      document.getElementById('scoresDocumentationFeedbackHeader').innerHTML = 'Documentation'
-      // document.getElementById('scoresDocumentationFeedbackBody').innerHTML = `
-      //     Ma superDoc : <br>
-      //     ...<br>
-      //     ...<br>
-      //     ...
-      //   `
-      document.getElementById('scoresDocumentationFeedback').hidden = false
+  // Clic sur "Espace professeur" - uniquement dans la modale connexion
+  if (document.getElementById('scoresToProfSpace')) {
+    document.getElementById('scoresToProfSpace').addEventListener('click', function () {
+      console.log('Vers l\'espace prof de gestion des scores')
     })
   }
 }
