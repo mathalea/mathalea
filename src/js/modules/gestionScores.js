@@ -78,6 +78,7 @@ export default function gestionScores () {
   // => Renseigner/Utiliser un userId élève
   // => Se rendre sur l'espace professeur
 
+  // "Connexion"
   if (document.getElementById('scoresLogIn')) {
     document.getElementById('scoresLogIn').addEventListener('click', function () {
       $('#modalScores').modal({
@@ -111,55 +112,33 @@ export default function gestionScores () {
     })
   }
 
-  // Dans la modale :
-  // Si on clique sur créer un espace => on se contente de créer l'espace
-  // Si on clique sur enregistrer des scores => ce sera une autre modale
-
-  // Gestion du click sur "Créer un espace tout neuf"
-  if (document.getElementById('scoresCreateSpace')) {
-    document.getElementById('scoresCreateSpace').addEventListener('click', function () {
+  // Clic sur documentation - page prof et modale connexion
+  if (document.getElementById('scoresDocumentation')) {
+    document.getElementById('scoresDocumentation').addEventListener('click', function () {
+      // On cache les feedbacks inutiles
+      if (document.getElementById('scoresFeedback')) {
+        document.getElementById('scoresFeedback').hidden = true
+      }
       if (document.getElementById('scoresPromptUserId')) {
         // On cache le champ de saisie
         document.getElementById('scoresPromptUserId').hidden = true
         // On vide le champ input
         document.getElementById('scoresInputUserId').value = ''
       }
-      if (document.getElementById('scoresDocumentationFeedback')) {
-        // On cache le feedback si il y en a un
-        document.getElementById('scoresDocumentationFeedback').hidden = true
-      }
-      // On génère le userId côté serveur
-      fetch('scoresManage.php', {
-        method: 'POST',
-        mode: 'same-origin',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-        // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
-          isSubmitUserId: false,
-          isVerifResult: false
-        })
-      })
-        .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
-        .then(response => {
-          if (document.getElementById('scoresFeedback')) {
-            document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
-            document.getElementById('scoresFeedbackBody').innerHTML = `
-                Vos fichiers seront enregistrés à cette adresse : <br>
-                <a href="${response.url}" target="_blank">${window.location.href.split('?')[0] + response.url.substr(1)}</a><br>
-                <b>Conservez la précieusement.</b><br>
-                Vous pourrez y ajouter des éléments en utilisant le code prof suivant : <b>${response.userId}</b>
-              `
-            document.getElementById('scoresFeedback').hidden = false
-          }
-          console.log('Création d\'un espace scores OK => ' + response.userId)
-        })
+
+      // On affiche la documentation
+      document.getElementById('scoresDocumentationFeedbackHeader').innerHTML = 'Documentation'
+      // document.getElementById('scoresDocumentationFeedbackBody').innerHTML = `
+      //     Ma superDoc : <br>
+      //     ...<br>
+      //     ...<br>
+      //     ...
+      //   `
+      document.getElementById('scoresDocumentationFeedback').hidden = false
     })
   }
 
-  // Gestion du click sur "Enregistrer dans un espace existant"
+  // Clic sur "Enregistrer des scores"  - page prof et modale connexion
   // Il faut encore gérer le feedback des erreurs sur le userId
   if (document.getElementById('scoresSaveToUserId')) {
     document.getElementById('scoresSaveToUserId').addEventListener('click', function () {
@@ -184,7 +163,7 @@ export default function gestionScores () {
     })
   }
 
-  // Gestion du click sur le bouton "Submit" qui envoie un userId
+  // Clic sur le bouton "Submit" qui envoie un userId - page prof et modale connexion
   if (document.getElementById('scoresSubmitUserId')) {
     document.getElementById('scoresSubmitUserId').addEventListener('click', function () {
     // On récupère la valeur saisie
@@ -281,29 +260,54 @@ export default function gestionScores () {
     })
   }
 
-  // Gestion du click sur documentation
-  if (document.getElementById('scoresDocumentation')) {
-    document.getElementById('scoresDocumentation').addEventListener('click', function () {
-      // On cache les feedbacks inutiles
-      if (document.getElementById('scoresFeedback')) {
-        document.getElementById('scoresFeedback').hidden = true
-      }
+  // Clic sur "Créer un espace" - uniquement sur la page prof
+  if (document.getElementById('scoresCreateSpace')) {
+    document.getElementById('scoresCreateSpace').addEventListener('click', function () {
       if (document.getElementById('scoresPromptUserId')) {
         // On cache le champ de saisie
         document.getElementById('scoresPromptUserId').hidden = true
         // On vide le champ input
         document.getElementById('scoresInputUserId').value = ''
       }
+      if (document.getElementById('scoresDocumentationFeedback')) {
+        // On cache le feedback si il y en a un
+        document.getElementById('scoresDocumentationFeedback').hidden = true
+      }
+      // On génère le userId côté serveur
+      fetch('scoresManage.php', {
+        method: 'POST',
+        mode: 'same-origin',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+        // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
+          isSubmitUserId: false,
+          isVerifResult: false
+        })
+      })
+        .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
+        .then(response => {
+          if (document.getElementById('scoresFeedback')) {
+            document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
+            document.getElementById('scoresFeedbackBody').innerHTML = `
+                Vos fichiers seront enregistrés à cette adresse : <br>
+                <a href="${response.url}" target="_blank">${window.location.href.split('?')[0] + response.url.substr(1)}</a><br>
+                <b>Conservez la précieusement.</b><br>
+                Vous pourrez y ajouter des éléments en utilisant le code prof suivant : <b>${response.userId}</b>
+              `
+            document.getElementById('scoresFeedback').hidden = false
+          }
+          console.log('Création d\'un espace scores OK => ' + response.userId)
+        })
+    })
+  }
 
-      // On affiche la documentation
-      document.getElementById('scoresDocumentationFeedbackHeader').innerHTML = 'Documentation'
-      // document.getElementById('scoresDocumentationFeedbackBody').innerHTML = `
-      //     Ma superDoc : <br>
-      //     ...<br>
-      //     ...<br>
-      //     ...
-      //   `
-      document.getElementById('scoresDocumentationFeedback').hidden = false
+  // Clic sur "Espace professeur" - uniquement dans la modale connexion
+  if (document.getElementById('scoresToProfSpace')) {
+    document.getElementById('scoresToProfSpace').addEventListener('click', function () {
+      console.log('Vers l\'espace prof de gestion des scores')
     })
   }
 }
