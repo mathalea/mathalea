@@ -1,4 +1,8 @@
 <?php
+// TODO
+// => Ne faire le ménage qu'une fois par mois si jamais la navigation est ralentie ! Prévoir une varaible pour la fréquence
+// => Conserver les espaces V.I.P. mais pas leurs enfants
+
 $msg = "Suppression KO !";
 // // Procédure de suppression des fichiers avec exploration recursive
 function recursiveDelete($pathToClean,$timeBeforeDelete) {

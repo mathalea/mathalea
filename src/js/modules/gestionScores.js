@@ -12,7 +12,7 @@ import { setUrl, getVueFromUrl } from './gestionUrl.js'
 export default function gestionScores () {
   // Affichage de l'état de connexion au cas où l'on navigue sur d'autres pages
   // Sinon on perd l'affichage
-  if (window.sessionStorage.getItem('userId') && (getVueFromUrl() === null || getVueFromUrl() === 'l')) {
+  if (window.sessionStorage.getItem('userId') && (getVueFromUrl() === null || getVueFromUrl() === 'l' || getVueFromUrl() === 'light')) {
     // On affiche le champ prévu pour l'affichage du userId courant
     document.getElementById('userIdDisplay').style.display = 'initial'
     // On affiche le userId dans la fenetre principale
@@ -20,13 +20,13 @@ export default function gestionScores () {
       document.getElementById('userIdDisplayValue').innerHTML = window.sessionStorage.getItem('userId')
     }
     // On affiche le bouton de déconnexion
-    document.getElementById('scoresKeyLogOut').style.display = 'initial'
+    document.getElementById('scoresLogOut').style.display = 'initial'
     // On cache le bouton de connexion
-    document.getElementById('scoresKey').style.display = 'none'
+    document.getElementById('scoresLogIn').style.display = 'none'
   }
   // Deconnexion scores
-  if (document.getElementById('scoresKeyLogOut')) {
-    document.getElementById('scoresKeyLogOut').addEventListener('click', function () {
+  if (document.getElementById('scoresLogOut')) {
+    document.getElementById('scoresLogOut').addEventListener('click', function () {
       // Réécrire l'url sans le userId
       const urlRacine = window.location.href.split('?')[0]
       // console.log(urlRacine)
@@ -53,9 +53,9 @@ export default function gestionScores () {
       // On cache le champ prévu pour l'affichage du userId courant
       document.getElementById('userIdDisplay').style.display = 'none'
       // On laisse le bouton de déconnexion caché
-      document.getElementById('scoresKeyLogOut').style.display = 'none'
+      document.getElementById('scoresLogOut').style.display = 'none'
       // On affiche le bouton de connexion
-      document.getElementById('scoresKey').style.display = 'initial'
+      document.getElementById('scoresLogIn').style.display = 'initial'
       // On finit la réécriture de l'url
       const entries = urlParams.entries()
 
@@ -73,13 +73,14 @@ export default function gestionScores () {
     })
   }
 
-  // Si le bouton existe et que l'utilisateur clique de dessus on ouvre une modale et on propose deux choix
-  // => Créer un userId
-  // => Utiliser un userId existant
+  // Si le bouton "Connexion" existe et que l'utilisateur clique de dessus on ouvre une modale et on propose :
+  // => Afficher une documentation
+  // => Renseigner/Utiliser un userId élève
+  // => Se rendre sur l'espace professeur
 
-  if (document.getElementById('scoresKey')) {
-    document.getElementById('scoresKey').addEventListener('click', function () {
-      $('#modalScoresKey').modal({
+  if (document.getElementById('scoresLogIn')) {
+    document.getElementById('scoresLogIn').addEventListener('click', function () {
+      $('#modalScores').modal({
         onApprove: function () {
         // On ne veut pas que la modale se ferme au click sur un bouton vert
           return false
@@ -94,16 +95,16 @@ export default function gestionScores () {
             // On cache le champ prévu pour l'affichage du userId courant
             document.getElementById('userIdDisplay').style.display = 'none'
             // On laisse le bouton de déconnexion caché
-            document.getElementById('scoresKeyLogOut').style.display = 'none'
+            document.getElementById('scoresLogOut').style.display = 'none'
             // On affiche le bouton de connexion
-            document.getElementById('scoresKey').style.display = 'initial'
+            document.getElementById('scoresLogIn').style.display = 'initial'
           } else {
             // On affiche le champ prévu pour l'affichage du userId courant
             document.getElementById('userIdDisplay').style.display = 'initial'
             // On affiche le bouton de déconnexion
-            document.getElementById('scoresKeyLogOut').style.display = 'initial'
+            document.getElementById('scoresLogOut').style.display = 'initial'
             // On cache le bouton de connexion
-            document.getElementById('scoresKey').style.display = 'none'
+            document.getElementById('scoresLogIn').style.display = 'none'
           }
         }
       }).modal('show')
@@ -128,7 +129,7 @@ export default function gestionScores () {
         document.getElementById('scoresDocumentationFeedback').hidden = true
       }
       // On génère le userId côté serveur
-      fetch('scoresKey.php', {
+      fetch('scoresManage.php', {
         method: 'POST',
         mode: 'same-origin',
         credentials: 'same-origin',
@@ -189,7 +190,7 @@ export default function gestionScores () {
     // On récupère la valeur saisie
     // Il faudra vérifier tout ça côté serveur
       const userId = document.getElementById('scoresInputUserId').value
-      fetch('scoresKey.php', {
+      fetch('scoresManage.php', {
         method: 'POST',
         mode: 'same-origin',
         credentials: 'same-origin',

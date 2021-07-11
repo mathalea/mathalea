@@ -547,7 +547,7 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
       )
     : (
         console.log('userId OK : ' + userId),
-        fetch('scoresKey.php', {
+        fetch('scoresManage.php', {
           method: 'POST',
           mode: 'same-origin',
           credentials: 'same-origin',

@@ -1,38 +1,27 @@
-<div id="modalScoresKey" class="ui modal fullscreen">
+<div id="modalScores" class="ui modal fullscreen">
     <i class="close icon"></i>    
     <div class="header">
-      Gestion des scores
+      Enregistrement des scores
     </div>
     <div class="image content">
       <div class="ui medium image">
         <i class="key icon"></i><i class="save icon"></i>
       </div>
       <div class="description" hidden>
-        <!-- <div class="ui header">Vous pouvez au choix :</div>
+        <div class="ui header">En cliquant sur l'un des boutons, tu peux au choix :</div>
         <ul>
-          <li>Créer un espace de sauvegarde.</li>
-          <li>Enregistrer des scores dans un espace existant avec un userId au format suivant :
-            <ul>
-              <li>Le code prof => 3 lettres majuscules.</li>
-              <li>Le code classe => 2 caractères alphanumériques, les lettres sont des majuscules.</li>
-              <li>Le code eleve => 2 caractères alphanumériques, les lettres sont des majuscules.</li>
-            </ul>
-          </li>
-        </ul> -->
-        <div class="ui header">En cliquant sur l'un des boutons, vous pouvez au choix :</div>
-        <ul>
-          <li>Voir la documentation.</li>
-          <li>Enregistrer des scores dans un espace existant.</li>
-        </ul>
+          <li>Voir la documentation. <b>C'est mieux si tu découvres l'enregistrement des scores !</b></li>
+          <li>Enregistrer des scores dans un espace existant en renseignant un userId.</li>
+        </ul>         
         <br>
         <!-- Feedback pour la documentation -->
         <div id="scoresDocumentationFeedback" class="ui message" hidden>          
             <div id="scoresDocumentationFeedbackHeader" class="header"></div>          
             <div id="scoresDocumentationFeedbackBody">
-              <li>Pour enregistrer des scores dans un espace existant, tu as besoin :
+              Pour enregistrer des scores dans un espace professeur existant, tu as besoin :
                 <ul>
                   <li>Du code prof => 3 lettres majuscules, par exmeple <b>STI</b>.</li>
-                  <li>Du code classe => 2 caractères alphanumériques, les lettres sont des majuscules, par exmeple <b>6A</b>.</li>
+                  <li>Du code classe => 2 caractères alphanumériques, les lettres sont des majuscules, par exemple <b>6A</b>.</li>
                   <li>Le code eleve => 2 caractères alphanumériques, les lettres sont des majuscules, par exemple <b>1E</b>.</li>
                 </ul>
                 Tu renseignes ce code dans la zone de saisie :
@@ -41,8 +30,7 @@
                 <br>
                 Tu peux ensuite fermer la fenêtre et choisir tes exercices. Ton userId est affiché tant que tu es connecté :
                 <br>
-                <img src="./assets/images/scores-userIdConnecte.png"/>
-              </li>
+                <img src="./assets/images/scores-userIdConnecte.png"/>              
             </div>          
         </div>
         <br>
@@ -81,9 +69,13 @@
         <i class="key icon"></i>
       </div> -->
       <div id="scoresSaveToUserId" class="ui positive right labeled icon button">
-        Enregistrer des scores 
+        Élève 
         <i class="save icon"></i>
       </div>
+      <!-- <div id="scoresToProfSpace" class="ui positive right labeled icon button">
+        Espace professeur
+        <i class="cog icon"></i>
+      </div> -->
       <div class="ui black deny button">
         Fermer
       </div>
