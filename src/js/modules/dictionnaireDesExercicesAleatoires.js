@@ -3315,6 +3315,13 @@ export default {
     "interactifReady": false,
     "name": "betaExempleTableau"
   },
+  "betaExempleTableauSignes": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/betaExempleTableauSignes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleTableauSignes"
+  },
   "betaExercice_constructions_basiques": {
     "titre": "Programmes de constructions (en chantier)",
     "url": "/exercices/beta/betaExercice_constructions_basiques.js",
@@ -3335,6 +3342,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExoSimpleMatthieu"
+  },
+  "betaGilles_test": {
+    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
+    "url": "/exercices/beta/betaGilles_test.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaGilles_test"
   },
   "betaLicence": {
     "titre": "QCM de positionnement",
