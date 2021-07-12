@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
+import { mathalea2d, tableau_de_variation } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction, texSymbole } from '../../modules/outils.js'
 
 export const titre = 'Résoudre inéquation produit ou quotient'
@@ -95,15 +96,21 @@ export default function ExerciceInequation2 () {
         texteCorr = texte + '<br>'
         texteCorr += `$x${ecritureAlgebrique(a)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')}${-a}$ <br>`
         texteCorr += `$x${ecritureAlgebrique(b)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')}${-b}$ <br>`
-        texteCorr += `On peut donc en déduire le tableau de signes suivant : <br> $
-        \\def\\arraystretch{1.5}
-        \\begin{array}{|c|c c c c c c c|}
-        \\hline
-        x                                                      & -\\infty &   & ${Math.min(-a, -b)} &   & ${Math.max(-a, -b)} &   & +\\infty \\\\ \\hline
-        x${ecritureAlgebrique(-Math.min(-a, -b))}              &          & - &           0         &   &                     & + &          \\\\ \\hline
-        x${ecritureAlgebrique(-Math.max(-a, -b))}              &          & - &                     &   &           0         & + &          \\\\ \\hline
-        (x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)}) &          & + &           0         & - &           0         & + &          \\\\ \\hline
-        \\end{array} $ <br>`
+        texteCorr += 'On peut donc en déduire le tableau de signes suivant : <br>'
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.5, xmax: 30, ymax: 0.5 }, tableau_de_variation({
+          tabInit: [
+            [
+              ['$x$', 2, 30], [`$x${ecritureAlgebrique(-Math.min(-a, -b))}$`, 2, 50], [`$x${ecritureAlgebrique(-Math.max(-a, -b))}$`, 2, 50], [`$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})$`, 2, 100]
+            ],
+            ['$-\\infty$', 30, `$${Math.min(-a, -b)}$`, 20, `$${Math.max(-a, -b)}$`, 20, '$+\\infty$', 30]
+          ],
+          tabLines: [['Line', 30, 'R/', 0, '-', 20, 'z', 20, '+', 20, 'z', 0, '+', 20], ['Line', 30, 'R/', 0, '-', 20, 'z', 0, '-', 20, 'z', 20, '+', 20], ['Line', 30, 'R/', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
+          colorBackground: '',
+          escpl: 3.5,
+          delatcl: 0.8,
+          lgt: 6,
+          hauteurLignes: [15, 15, 15, 15]
+        }))
         if (inegaliteStricte) {
           pGauche = ']'
           pDroite = '['
@@ -124,6 +131,21 @@ export default function ExerciceInequation2 () {
         texteCorr += `$x${ecritureAlgebrique(b)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')}${-b}$ <br>`
         texteCorr += `$x${ecritureAlgebrique(c)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')}${-c}$ <br>`
         const racines = [-a, -b, -c].sort(function (a, b) { return a - b })
+        texteCorr += 'On peut donc en déduire le tableau de signes suivant : <br>'
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.5, xmax: 30, ymax: 0.5 }, tableau_de_variation({
+          tabInit: [
+            [
+              ['$x$', 2, 30], [`$x${ecritureAlgebrique(-racines[0])}$`, 2, 50], [`$x${ecritureAlgebrique(-racines[1])}$`, 2, 50], [`$x${ecritureAlgebrique(-racines[2])}$`, 2, 50], [`$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})$`, 2, 150]
+            ],
+            ['$-\\infty$', 30, `$${racines[0]}$`, 20, `$${racines[1]}$`, 20, `$${racines[2]}$`, 20, '$+\\infty$', 30]
+          ],
+          tabLines: [['Line', 30, 'R/', 0, '-', 20, 'z', 20, '+', 20, 'z', 0, '+', 20, 'z', 0, '+', 20], ['Line', 30, 'R/', 0, '-', 20, 'z', 0, '-', 20, 'z', 20, '+', 20, 'z', 0, '+', 20], ['Line', 30, 'R/', 0, '-', 20, 'z', 0, '-', 20, 'z', 0, '-', 20, 'z', 20, '+', 20], ['Line', 30, 'R/', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
+          colorBackground: '',
+          escpl: 3.5,
+          delatcl: 0.8,
+          lgt: 10,
+          hauteurLignes: [15, 15, 15, 15, 15]
+        }))
         texteCorr += `On peut donc en déduire le tableau de signes suivant : <br> $
         \\def\\arraystretch{1.5}
         \\begin{array}{|c|c c c c c c c c c|}
