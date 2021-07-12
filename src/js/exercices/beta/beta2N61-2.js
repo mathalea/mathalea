@@ -100,9 +100,9 @@ export default function ExerciceInequation2 () {
         \\begin{array}{|c|c c c c c c c|}
         \\hline
         x                                                      & -\\infty &   & ${Math.min(-a, -b)} &   & ${Math.max(-a, -b)} &   & +\\infty \\\\ \\hline
-        x${ecritureAlgebrique(-Math.min(-a, -b))}              &          & - &           0         &  &                     & + &         \\\\ \\hline
-        x${ecritureAlgebrique(-Math.max(-a, -b))}              &          & - &                    &  &           0          & + &         \\\\ \\hline
-        (x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)}) &          & + &           0         & - &            0         & + &         \\\\ \\hline
+        x${ecritureAlgebrique(-Math.min(-a, -b))}              &          & - &           0         &   &                     & + &          \\\\ \\hline
+        x${ecritureAlgebrique(-Math.max(-a, -b))}              &          & - &                     &   &           0         & + &          \\\\ \\hline
+        (x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)}) &          & + &           0         & - &           0         & + &          \\\\ \\hline
         \\end{array} $ <br>`
         if (inegaliteStricte) {
           pGauche = ']'
@@ -115,6 +115,36 @@ export default function ExerciceInequation2 () {
           texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${Math.min(-a, -b)} , ${Math.max(-a, -b)} \\right${pDroite} $.`
         } else if ((symboleInegalite === '>' || symboleInegalite === '≥')) {
           texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${Math.min(-a, -b)} \\right${pDroite} \\bigcup \\left${pGauche} ${Math.max(-a, -b)}, +\\infty \\right[ $.`
+        }
+      }
+      if (listeTypeDeQuestions[i] === '(x+a)(x+b)(x+c)<0') {
+        texte = `$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})${texSymbole(symboleInegalite)}0$`
+        texteCorr = texte + '<br>'
+        texteCorr += `$x${ecritureAlgebrique(a)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')}${-a}$ <br>`
+        texteCorr += `$x${ecritureAlgebrique(b)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')}${-b}$ <br>`
+        texteCorr += `$x${ecritureAlgebrique(c)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')}${-c}$ <br>`
+        const racines = [-a, -b, -c].sort(function (a, b) { return a - b })
+        texteCorr += `On peut donc en déduire le tableau de signes suivant : <br> $
+        \\def\\arraystretch{1.5}
+        \\begin{array}{|c|c c c c c c c c c|}
+        \\hline
+        x                                                                                &-\\infty& &${racines[0]}& &${racines[1]}& &${racines[2]}& &+\\infty\\\\ \\hline
+        x${ecritureAlgebrique(-racines[0])}                                              &        &-&      0      & &             & &             &+&        \\\\ \\hline
+        x${ecritureAlgebrique(-racines[1])}                                              &        &-&             & &      0      & &             &+&        \\\\ \\hline
+        x${ecritureAlgebrique(-racines[2])}                                              &        &-&             & &             & &      0      &+&        \\\\ \\hline
+        (x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})&        &-&      0      &+&      0      &-&      0      &+&        \\\\ \\hline
+        \\end{array} $ <br>`
+        if (inegaliteStricte) {
+          pGauche = ']'
+          pDroite = '['
+        } else {
+          pGauche = '['
+          pDroite = ']'
+        }
+        if ((symboleInegalite === '<' || symboleInegalite === '≤')) {
+          texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${racines[0]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[1]} , ${racines[2]} \\right${pDroite} $.`
+        } else if ((symboleInegalite === '>' || symboleInegalite === '≥')) {
+          texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${racines[0]} , ${racines[1]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[2]}, +\\infty \\right[ $.`
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
