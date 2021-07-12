@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 98 
-- nombre d'exos interactifReady 120 
+- nombre d'exos amcReady 99 
+- nombre d'exos interactifReady 121 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -117,6 +117,7 @@
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
 |betaCaN6|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
+|betaCaNCM|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
 |betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|

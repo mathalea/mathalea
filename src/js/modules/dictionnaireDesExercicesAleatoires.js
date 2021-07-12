@@ -3265,6 +3265,17 @@ export default {
     "interactifType": "mathLive",
     "name": "betaCaN6"
   },
+  "betaCaNCM": {
+    "titre": "Course aux nombres 6e",
+    "url": "/exercices/beta/betaCaNCM.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCaNCM"
+  },
   "betaExemple": {
     "titre": "Exercice exemple",
     "url": "/exercices/beta/betaExemple.js",
