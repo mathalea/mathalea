@@ -10,6 +10,13 @@ export const interactifType = 'cliqueFigure' // La correction doit être gérée
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const titre = 'Tortue Scratch avec répétitions'
+
+/**
+ * Référence : 4I1-1
+ * Publié le : 29/06/2021
+ * @author Jean-Claude Lhote
+ * Géné
+ */
 export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
   'use strict'
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
