@@ -70,70 +70,70 @@ export default function CourseAuxNombresCM (numeroExercice) {
       ['coline', 75, 150, 'm']
     ]
     const typeQuestionsDisponibles = [ // Les dix premières sont identiques dans le fichier betaCaNCM2
-      'q1', // Somme d'entiers
-      'q2', // Différence d'entiers
-      'q3', // Somme d'entiers avec retenue
-      'q4', // Différence d'entiers avec retenue
-      'q5', // Décomposition
-      'q6', // Division d'entiers
-      'q7', // Somme décimal et entier
-      'q8', // Somme de décimaux
-      'q9', // Différence de décimaux
-      'q10']/*, // Différence décimaux
-      'q11', // Division d'entiers
-      'q12', // Addition d'entiers
-      'q13', // Différence d'entiers
-      'q14', // Produit d'entiers
-      'q15', // Produit décimal entier
-      'q16', // Ajout d'un décimal à un entier
-      'q17', // Fait numérique table de x
-      'q18', // Multiplication par 4
-      'q19', // Différence de décimaux
-      'q20', // Somme de décimaux
-      'q21', // Multiple de 8
-      'q22', // Multiplication entier et décimal
-      'q23', // Multiplier par 20
-      'q24', // Proportionnalité
-      'q25', // Quotient par 4
-      'q26', // Triple d'entier
-      'q27', // Soustraction entiers mesures
-      'q28', // Durée
-      'q29', // Proportionnalité
-      'q30' // Addition d'entiers mesures
+      1 : Somme d'entiers\n
+      2 : Différence d'entiers\n
+      3 : Somme d'entiers avec retenue\n
+      4 : Différence d'entiers avec retenue\n
+      5 : Décomposition\n
+      6 : Division d'entiers\n
+      7 : Somme décimal et entier\n
+      8 : Somme de décimaux\n
+      9 : Différence de décimaux\n
+      10 : Différence décimaux\n
+      11 : Division d'entiers\n
+      12 : Addition d'entiers\n
+      13 : Différence d'entiers\n
+      14 : Produit d'entiers\n
+      15 : Produit décimal entier\n
+      16 : Ajout d'un décimal à un entier\n
+      17 : Fait numérique table de x\n
+      18 : Multiplication par 4\n
+      19 : Différence de décimaux\n
+      20 : Somme de décimaux\n
+      21 : Multiple de 8\n
+      22 : Multiplication entier et décimal\n
+      23 : Multiplier par 20\n
+      24 : Proportionnalité\n
+      25 : Quotient par 4\n
+      26 : Triple d'entier\n
+      27 : Soustraction entiers mesures\n
+      28 : Durée\n
+      29 : Proportionnalité\n
+      30' // Addition d'entiers mesures
     ]
     */
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
-        case 'q1': // somme d'entiers à deux chiffres sans retenue
+        case 1': // somme d'entiers à deux chiffres sans retenue
           a = randint(1, 3) * 10 + randint(1, 5)
           b = randint(1, 5) * 10 + randint(1, 4)
           texte = `$${a}+${b}$`
           texteCorr = `$${a}+${b}=${a + b}$`
           setReponse(this, i, a + b, { formatInteractif: 'calcul' })
           break
-        case 'q2': // différence d'entiers sans retenue
+        case 2': // différence d'entiers sans retenue
           a = randint(1, 3) * 10 + randint(1, 5)
           b = randint(1, 5) * 10 + randint(1, 4)
           texte = `$${a + b}-${a}$`
           texteCorr = `$${a + b}-${a}=${b}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
-        case 'q3': // somme d'entiers à deux chiffres avec retenue
+        case 3': // somme d'entiers à deux chiffres avec retenue
           a = randint(1, 3) * 10 + randint(5, 9)
           b = randint(1, 5) * 10 + randint(11 - a % 10, 9)
           texte = `$${a}+${b}$`
           texteCorr = `$${a}+${b}=${a + b}$`
           setReponse(this, i, a + b, { formatInteractif: 'calcul' })
           break
-        case 'q4': // difference avec retenue
+        case 4': // difference avec retenue
           a = randint(1, 3) * 10 + randint(5, 9)
           b = randint(1, 5) * 10 + randint(11 - a % 10, 9)
           texte = `$${a + b}-${a}$`
           texteCorr = `$${a + b}-${a}=${b}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
-        case 'q5': // Décomposition
+        case 5': // Décomposition
           a = randint(1, 3)
           b = randint(1, 9, a)
           c = randint(1, 9, [a, b])
@@ -142,35 +142,35 @@ export default function CourseAuxNombresCM (numeroExercice) {
           texteCorr = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(resultat)}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
-        case 'q6': // Division d'entiers
+        case 6': // Division d'entiers
           a = randint(2, 9)
           b = randint(3, 9)
           texte = `$${a * b}\\div${a}$`
           texteCorr = `$${a * b}\\div${a}=${b}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
-        case 'q7': // Somme entier et décimal
+        case 7': // Somme entier et décimal
           a = calcul(randint(1, 5) + randint(1, 5) / 10)
           b = randint(1, 4)
           texte = `$${texNombre(a)}+${b}$`
           texteCorr = `$${texNombre(a)}+${b}=${texNombrec(a + b)}$`
           setReponse(this, i, a + b, { formatInteractif: 'calcul' })
           break
-        case 'q8': // Somme décimaux
+        case 8': // Somme décimaux
           a = calcul(randint(1, 5) + randint(1, 5) / 10)
           b = calcul(randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100)
           texte = `$${texNombre(a)}+${texNombre(b)}$`
           texteCorr = `$${texNombre(a)}+${texNombre(b)}=${texNombrec(a + b)}$`
           setReponse(this, i, calcul(a + b), { formatInteractif: 'calcul' })
           break
-        case 'q9': // Différence décimaux
+        case 9': // Différence décimaux
           a = calcul(randint(1, 5) + randint(1, 5) / 10)
           b = calcul(randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100)
           texte = `$${texNombrec(a + b)}-${texNombre(a)}$`
           texteCorr = `$${texNombrec(a + b)}-${texNombre(a)}=${texNombre(b)}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
-        case 'q10': // Différence décimaux avec retenue
+        case 10': // Différence décimaux avec retenue
           a = calcul(randint(1, 5) + randint(5, 9) / 10)
           b = calcul(randint(1, 4) + randint(5, 9) / 10)
           texte = `$${texNombrec(a + b)}-${texNombre(a)}$`
@@ -190,34 +190,34 @@ export default function CourseAuxNombresCM (numeroExercice) {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)',
-  `1 : Moitié et double\n
-  2 : quotient de a par b\n
-  3 : Somme astucieuse de 4 nombres entiers\n
-  4 : Somme de deux décimaux avec retenue\n
-  5 : Double ou triple d'un nombre entier\n
-  6 : Double ou triple d'un nombre décimal\n
-  7 : Recomposition d'un entier\n
-  8 : tables de multiplication\n
-  9 : soustraire un nombre se finissant par 9\n
-  10 :  Le quart ou le tiers d'un nombre.\n
-  11 :  Recomposer un nombre à partir d'un nombre de centaines et d'un nombre d'unités\n
-  12 :  Recomposer une nombre avec chevauchement.\n
-  13 :  conversion heures et minutes\n
-  14 :  Reste de la division par 3\n
-  15 :  Une division par 9 qui tombe juste\n
-  16 :  ajouter un nombre de la forme 10n+9\n
-  17 :  4 × #,## × 25 ou 2 × #,## × 50\n
-  18 :  addition à trou\n
-  19 :  Nombre pair de 2 chiffres × 2\n
-  20 :  Proportionnalité simple\n
-  21 :  Ordre de grandeur\n
-  22 :  Conversion cm -> m\n
-  23 :  Fraction 1/n d'une quantité de L\n
-  24 :  Reste de la division euclidienne\n
-  25 :  Ordre de grandeur : hauteurs\n
-  26 :  Appliquer un pourcentage\n
-  27 :  Calcul de distance à vitesse constante\n
-  28 :  Comparaison de périmètre\n
-  29 :  Repérage fraction\n
-  30 : Proportionnalité par linéarité\n`]
+  `1 : Somme d'entiers\n
+  2 : Différence d'entiers\n
+  3 : Somme d'entiers avec retenue\n
+  4 : Différence d'entiers avec retenue\n
+  5 : Décomposition\n
+  6 : Division d'entiers\n
+  7 : Somme décimal et entier\n
+  8 : Somme de décimaux\n
+  9 : Différence de décimaux\n
+  10 : Différence décimaux\n
+  11 : Division d'entiers\n
+  12 : Addition d'entiers\n
+  13 : Différence d'entiers\n
+  14 : Produit d'entiers\n
+  15 : Produit décimal entier\n
+  16 : Ajout d'un décimal à un entier\n
+  17 : Fait numérique table de x\n
+  18 : Multiplication par 4\n
+  19 : Différence de décimaux\n
+  20 : Somme de décimaux\n
+  21 : Multiple de 8\n
+  22 : Multiplication entier et décimal\n
+  23 : Multiplier par 20\n
+  24 : Proportionnalité\n
+  25 : Quotient par 4\n
+  26 : Triple d'entier\n
+  27 : Soustraction entiers mesures\n
+  28 : Durée\n
+  29 : Proportionnalité\n
+  30 : Addition d'entiers mesures `]
 }
