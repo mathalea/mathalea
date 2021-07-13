@@ -2289,27 +2289,6 @@ export default {
     "interactifReady": false,
     "name": "6C35"
   },
-  "6C3603-niv1": {
-    "titre": "Problème - de plus de moins",
-    "url": "/exercices/6e/6C3603-niv1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "6C3603-niv1"
-  },
-  "6C3603-niv2": {
-    "titre": "Problème - de plus de moins",
-    "url": "/exercices/6e/6C3603-niv2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "6C3603-niv2"
-  },
-  "6C3603-niv3": {
-    "titre": "Problème - de plus de moins",
-    "url": "/exercices/6e/6C3603-niv3.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "6C3603-niv3"
-  },
   "6D10": {
     "titre": "Convertir des durées",
     "url": "/exercices/6e/6D10.js",
@@ -3235,20 +3214,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta6C33-1"
-  },
-  "beta6C36-V2": {
-    "titre": "Problème - de plus de moins",
-    "url": "/exercices/beta/beta6C36-V2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta6C36-V2"
-  },
-  "beta6C36-V3": {
-    "titre": "Addition toute simple",
-    "url": "/exercices/beta/beta6C36-V3.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta6C36-V3"
   },
   "beta6C36": {
     "titre": "Problème - de plus de moins",

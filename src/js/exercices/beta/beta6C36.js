@@ -11,7 +11,7 @@ export const titre = 'Problème - de plus de moins'
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
-  this.nbQuestions = 5
+  this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
@@ -19,7 +19,22 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.video = '' // Id YouTube ou url
   this.interactif = true
   this.interactifType = 'numerique'
-
+  const nombreDecimales = function (n) {
+    let r, e
+    if (n === 0) {
+      r = randint(40, 70)
+      e = randint(10, 30)
+    }
+    if (n === 1) {
+      r = calcul((randint(40, 60) * 100 + randint(1, 9) * 10) / 100) // évite de retomber dans le cas n=0 par ex  4200/100
+      e = calcul((randint(10, 20) * 100 + randint(1, 9) * 10) / 100)
+    }
+    if (n === 2) {
+      r = calcul((randint(40, 60) * 100 + randint(1, 9) * 10 + randint(1, 9)) / 100)
+      e = calcul((randint(10, 20) * 100 + randint(1, 9) * 10 + randint(1, 9)) / 100)
+    }
+    return [r, e]
+  }
   this.nouvelleVersion = function () {
     const n = parseInt(this.sup) - 1
     this.listeQuestions = [] // Liste de questions
@@ -36,23 +51,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     let m // argent de Malika
     let somme // argent total
     let prenom1, prenom2 // choix aleatoire des prenoms des filles
-    let texte
-    
-    function nombredecimales (n) {
-      if (n === 0) {
-        r = randint(40, 70)
-        e = randint(10, 30)
-      }
-      if (n === 1) {
-        r = calcul((randint(40, 60) * 100 + randint(1, 9) * 10) / 100) // évite de retomber dans le cas n=0 par ex  4200/100
-        e = calcul((randint(10, 20) * 100 + randint(1, 9) * 10) / 100)
-      }
-      if (n === 2) {
-        r = calcul((randint(40, 60) * 100 + randint(1, 9) * 10 + randint(1, 9)) / 100)
-        e = calcul((randint(10, 20) * 100 + randint(1, 9) * 10 + randint(1, 9)) / 100)
-      }
-    }
-
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       prenom1 = prenomF()
@@ -60,9 +58,9 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       while (prenom2 === prenom1) {
         prenom2 = prenomF()
       }
+      [r, e] = nombreDecimales(n)
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'deplus':
-          nombredecimales(n)
           m = r - e
           somme = m + r
 
@@ -80,7 +78,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
           break
         case 'demoins':
-          nombredecimales(n)
           m = r + e
           somme = m + r
 
