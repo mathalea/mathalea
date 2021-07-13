@@ -146,7 +146,7 @@ export default function ExerciceInequation2 () {
           colorBackground: '',
           espcl: 3.5, // taille en cm entre deux antécédents
           deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-          lgt: 6, // taille de la première colonne en cm
+          lgt: 8, // taille de la première colonne en cm
           hauteurLignes: [15, 15, 15, 15]
 
         }))
@@ -198,13 +198,8 @@ export default function ExerciceInequation2 () {
         // Affiche le tableau de signes (voir les commentaires du premier type d'exercice)
         texteCorr += 'On peut donc en déduire le tableau de signes suivant : <br>'
         // Modifie la taille du tableau si non html pour qu'il rentre sur la feuille en pdf
-        if (context.isHtml) {
-          longueurColonne = 8
-          ecart = 3.5
-        } else {
-          longueurColonne = 5
-          ecart = 1
-        }
+        longueurColonne = 8
+        ecart = 3.5
         texteCorr += mathalea2d({ xmin: 0, ymin: -10.5, xmax: 30, ymax: 0.5, scale: 0.5 }, tableau_de_variation({
           tabInit: [
             [
@@ -214,9 +209,9 @@ export default function ExerciceInequation2 () {
           ],
           tabLines: [lignes[0], lignes[1], lignes[2], ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
           colorBackground: '',
-          espcl: ecart,
+          espcl: 3.5,
           deltacl: 0.8,
-          lgt: longueurColonne,
+          lgt: 10,
           hauteurLignes: [15, 15, 15, 15, 15]
         }))
         // Affiche l'ensemble de solutions
@@ -305,14 +300,15 @@ export default function ExerciceInequation2 () {
         } else {
           ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
-        // Modifie la hauteur de la première ligne en html pour centrer le texte malgré les fractions
-        if (context.isHtml) {
+        // Modifie la hauteur de la première ligne en html pour centrer le texte malgré les fractions 
+        // Note de Jean-Claude : lgt défini la largeur de la colonne 1.
+      /*  if (context.isHtml) {
           ecart = 3
           longueurColonne = 7
         } else {
           ecart = 2
           longueurColonne = 5
-        }
+        }*/
         // Affiche enfin le tableau
         texteCorr += mathalea2d({ xmin: -0.5, ymin: -13, xmax: 30, ymax: 0.5, scale: 0.5 }, tableau_de_variation({
           tabInit: [
@@ -325,7 +321,7 @@ export default function ExerciceInequation2 () {
           colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
-          lgt: longueurColonne,
+          lgt: 10,
           hauteurLignes: [15, 15, 15, 15]
         }))
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
@@ -374,7 +370,7 @@ export default function ExerciceInequation2 () {
           colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
-          lgt: 4,
+          lgt: 8,
           hauteurLignes: [15, 15, 15, 25]
         }))
         // Affiche l'ensemble de solutions selon le sens de l'inégalité et selon l'ordre des racines (l'intervalle sera toujours ouvert pour la racine du dénominateur)
