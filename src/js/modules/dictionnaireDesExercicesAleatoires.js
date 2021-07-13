@@ -2158,6 +2158,13 @@ export default {
     "interactifReady": false,
     "name": "6C21"
   },
+  "6C22": {
+    "titre": "Problème - de plus de moins",
+    "url": "/exercices/6e/6C22.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6C22"
+  },
   "6C23": {
     "titre": "Additionner ou soustraire des fractions de même dénominateur",
     "url": "/exercices/6e/6C23.js",
