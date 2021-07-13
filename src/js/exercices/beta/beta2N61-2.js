@@ -1,4 +1,5 @@
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { mathalea2d, tableau_de_variation } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole } from '../../modules/outils.js'
 
@@ -63,7 +64,7 @@ export default function ExerciceInequation2 () {
     // Crée une liste d'autant de signes que de questions
     const signes = combinaisonListes(['<', '>', '≤', '≥'], this.nbQuestions)
     // Boucle principale qui servira à créer toutes les questions // On limite le nombre d'essais à 50 pour chercher des valeurs nouvelles
-    for (let i = 0, a, b, c, d, pGauche, pDroite, texte, ligne1, ligne2, ligne3, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, b, c, d, pGauche, pDroite, texte, ligne1, ligne2, ligne3, longueurColonne, ecart, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Génère 4 nombres relatifs a, b, c et d tous différents avec a et c qui ne peuvent pas être 1 car ce sont ceux qui peuvent multiplier x pour éviter à la fois d'avoir '1x' et de diviser par 1
       a = randint(2, 13) * choice([-1, 1])
       b = randint(1, 13, a) * choice([-1, 1])
@@ -196,7 +197,15 @@ export default function ExerciceInequation2 () {
         }
         // Affiche le tableau de signes (voir les commentaires du premier type d'exercice)
         texteCorr += 'On peut donc en déduire le tableau de signes suivant : <br>'
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.5, xmax: 30, ymax: 0.5 }, tableau_de_variation({
+        // Modifie la taille du tableau si non html pour qu'il rentre sur la feuille en pdf
+        if (context.isHtml) {
+          longueurColonne = 8
+          ecart = 3.5
+        } else {
+          longueurColonne = 5
+          ecart = 1
+        }
+        texteCorr += mathalea2d({ xmin: 0, ymin: -10.5, xmax: 30, ymax: 0.5 }, tableau_de_variation({
           tabInit: [
             [
               ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$x${ecritureAlgebrique(c)}$`, 2, 50], [`$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})$`, 2, 150]
@@ -205,11 +214,11 @@ export default function ExerciceInequation2 () {
           ],
           tabLines: [lignes[0], lignes[1], lignes[2], ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
           colorBackground: '',
-          escpl: 3.5,
+          escpl: ecart,
           deltacl: 0.8,
-          lgt: 10,
+          lgt: longueurColonne,
           hauteurLignes: [15, 15, 15, 15, 15],
-          scale: 0.5
+          scale: 0.1
         }))
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
@@ -297,11 +306,19 @@ export default function ExerciceInequation2 () {
         } else {
           ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
+        // Modifie la hauteur de la première ligne en html pour centrer le texte malgré les fractions
+        if (context.isHtml) {
+          ecart = 3
+          longueurColonne = 7
+        } else {
+          ecart = 2
+          longueurColonne = 5
+        }
         // Affiche enfin le tableau
         texteCorr += mathalea2d({ xmin: -0.5, ymin: -13, xmax: 30, ymax: 0.5 }, tableau_de_variation({
           tabInit: [
             [
-              ['$x$', 3, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 3, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 3, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})$`, 3, 200]
+              ['$x$', ecart, 30], [`$${a}x${ecritureAlgebrique(b)}$`, ecart, 75], [`$${c}x${ecritureAlgebrique(d)}$`, ecart, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})$`, ecart, 200]
             ],
             ['$-\\infty$', 30, `$${valPetit}$`, 20, `$${valGrand}$`, 20, '$+\\infty$', 30]
           ],
@@ -309,7 +326,7 @@ export default function ExerciceInequation2 () {
           colorBackground: '',
           escpl: 3.5,
           deltacl: 0.8,
-          lgt: 8,
+          lgt: longueurColonne,
           hauteurLignes: [15, 15, 15, 15],
           scale: 0.5
         }))
