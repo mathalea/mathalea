@@ -25,7 +25,8 @@ export default function ExerciceInequation2 () {
   this.sup = 1 // Choix du type d'inéquation
   this.nbQuestions = 5 // Choix du nombre de questions
   this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
-  this.nbCols = 1 // Fixe le nombre de colonnes pour la sortie LateX
+  this.nbCols = 1 // Fixe le nombre de colonnes pour les énoncés de la sortie LateX
+  this.nbColsCorr = 1 // Fixe le nombre de colonnes pour les réponses de la sortie LateX
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
