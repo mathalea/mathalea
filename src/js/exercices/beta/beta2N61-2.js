@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, tableau_de_variation } from '../../modules/2d.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction, texSymbole } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole } from '../../modules/outils.js'
 
 export const titre = 'Résoudre une inéquation produit ou quotient'
 
