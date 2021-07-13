@@ -24,6 +24,8 @@ export default function ExerciceInequation2 () {
   this.correctionDetaillee = false // Désactive la correction détaillée par défaut
   this.sup = 1 // Choix du type d'inéquation
   this.nbQuestions = 5 // Choix du nombre de questions
+  this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
+  this.nbCols = 1 // Fixe le nombre de colonnes pour la sortie LateX
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -57,32 +59,30 @@ export default function ExerciceInequation2 () {
       listeTypeDeQuestions,
       this.nbQuestions
     )
+    // Crée une liste d'autant de signes que de questions
+    const signes = combinaisonListes(['<', '>', '≤', '≥'], this.nbQuestions)
     // Boucle principale qui servira à créer toutes les questions // On limite le nombre d'essais à 50 pour chercher des valeurs nouvelles
-    for (let i = 0, a, b, c, d, symboleInegalite, pGauche, pDroite, texte, ligne1, ligne2, ligne3, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, b, c, d, pGauche, pDroite, texte, ligne1, ligne2, ligne3, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Génère 4 nombres relatifs a, b, c et d tous différents avec a et c qui ne peuvent pas être 1 car ce sont ceux qui peuvent multiplier x pour éviter à la fois d'avoir '1x' et de diviser par 1
       a = randint(2, 13) * choice([-1, 1])
       b = randint(1, 13, a) * choice([-1, 1])
       c = randint(2, 13, [a, b]) * choice([-1, 1])
       d = randint(1, 13, [a, b, c]) * choice([-1, 1])
       // Pioche un signe d'inégalité parmi <, ≤, ≥, > et définit en fonction si les crochets seront ouverts ou fermés dans l'ensemble de solutions
-      switch (randint(1, 4)) {
-        case 1:
-          symboleInegalite = '<'
+      switch (signes[i]) {
+        case '<':
           pGauche = ']'
           pDroite = '['
           break
-        case 2:
-          symboleInegalite = '≤'
+        case '≤':
           pGauche = '['
           pDroite = ']'
           break
-        case 3:
-          symboleInegalite = '>'
+        case '>':
           pGauche = ']'
           pDroite = '['
           break
-        case 4:
-          symboleInegalite = '≥'
+        case '≥':
           pGauche = '['
           pDroite = ']'
           break
@@ -99,14 +99,14 @@ export default function ExerciceInequation2 () {
       // La première chaîne 'Line' indique que c'est pour un tableau de signes et valeurs ('Var' pour un tableau de variations)
       // 'R' indique qu'il n'y a rien à afficher (pour laisser un espace sous la borne par exemple)
       // ",'z', 20" pour avoir un zéro et ",'z', 0" pour avoir un trait vertical
-      const lignePPM = ['Line', 30, 'R/', 0, '+', 20, 'z', 0, '+', 20, 'z', 20, '-', 20]
-      const lignePMM = ['Line', 30, 'R/', 0, '+', 20, 'z', 20, '-', 20, 'z', 0, '-', 20]
-      const ligneMPP = ['Line', 30, 'R/', 0, '-', 20, 'z', 20, '+', 20, 'z', 0, '+', 20]
-      const ligneMMP = ['Line', 30, 'R/', 0, '-', 20, 'z', 0, '-', 20, 'z', 20, '+', 20]
+      const lignePPM = ['Line', 30, '', 0, '+', 20, 'z', 0, '+', 20, 'z', 20, '-', 20]
+      const lignePMM = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 0, '-', 20]
+      const ligneMPP = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 0, '+', 20]
+      const ligneMMP = ['Line', 30, '', 0, '-', 20, 'z', 0, '-', 20, 'z', 20, '+', 20]
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)(x+b)<0'
       if (listeTypeDeQuestions[i] === '(x+a)(x+b)<0') {
         // Consigne
-        texte = `$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})${texSymbole(symboleInegalite)}0$`
+        texte = `$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})${texSymbole(signes[i])}0$`
         // Correction // Si une correction détaillée est demandée, détaille comment résoudre les équations
         texteCorr = texte + '<br>'
         // Première équation
@@ -140,24 +140,25 @@ export default function ExerciceInequation2 () {
             ['$-\\infty$', 30, `$${Math.min(-a, -b)}$`, 20, `$${Math.max(-a, -b)}$`, 20, '$+\\infty$', 30]
           ],
           // Les autres lignes du tableau dont le fonctionnement est expliqué plus haut
-          tabLines: [ligne1, ligne2, ['Line', 30, 'R/', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
+          tabLines: [ligne1, ligne2, ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
           colorBackground: '',
           escpl: 3.5, // taille en cm entre deux antécédents
-          delatcl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+          deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
           lgt: 6, // taille de la première colonne en cm
-          hauteurLignes: [15, 15, 15, 15]
+          hauteurLignes: [15, 15, 15, 15],
+          scale: 0.5
         }))
         // Affiche l'ensemble de solutions
-        if ((symboleInegalite === '<' || symboleInegalite === '≤')) {
-          texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${Math.min(-a, -b)} , ${Math.max(-a, -b)} \\right${pDroite} $.`
-        } else if ((symboleInegalite === '>' || symboleInegalite === '≥')) {
-          texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${Math.min(-a, -b)} \\right${pDroite} \\bigcup \\left${pGauche} ${Math.max(-a, -b)}, +\\infty \\right[ $.`
+        if ((signes[i] === '<' || signes[i] === '≤')) {
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${Math.min(-a, -b)} , ${Math.max(-a, -b)} \\right${pDroite} $.`
+        } else if ((signes[i] === '>' || signes[i] === '≥')) {
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${Math.min(-a, -b)} \\right${pDroite} \\bigcup \\left${pGauche} ${Math.max(-a, -b)}, +\\infty \\right[ $.`
         }
       }
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)(x+b)(x+c)<0'
       if (listeTypeDeQuestions[i] === '(x+a)(x+b)(x+c)<0') {
         // Consigne
-        texte = `$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})${texSymbole(symboleInegalite)}0$`
+        texte = `$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})${texSymbole(signes[i])}0$`
         // Correction // Si une correction détaillée est demandée, détaille comment résoudre les équations
         texteCorr = texte + '<br>'
         // Première équation
@@ -183,11 +184,11 @@ export default function ExerciceInequation2 () {
           for (let n = 0; n < 3; n++) {
             if (racines[n] === lignes[j]) {
               if (n === 0) { // La racine d'indice 0 est la plus petite des trois, et donc celle la plus à gauche dans le tableau donc le 0 (, 'z', 20) est en première position et les autres sont des | (, 'z', 0)
-                lignes[j] = ['Line', 30, 'R/', 0, '-', 20, 'z', 20, '+', 20, 'z', 0, '+', 20, 'z', 0, '+', 20]
+                lignes[j] = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 0, '+', 20, 'z', 0, '+', 20]
               } else if (n === 1) { // La racine d'indice 1 est la deuxième racine, donc le 0 (, 'z', 20) en deuxième position et les autres sont des | (, 'z', 0)
-                lignes[j] = ['Line', 30, 'R/', 0, '-', 20, 'z', 0, '-', 20, 'z', 20, '+', 20, 'z', 0, '+', 20]
+                lignes[j] = ['Line', 30, '', 0, '-', 20, 'z', 0, '-', 20, 'z', 20, '+', 20, 'z', 0, '+', 20]
               } else if (n === 2) { // La racine d'indice 2 est la plus grande des racines, donc le 0 (, 'z', 20) est en troisième position et les autres sont des | (, 'z', 0)
-                lignes[j] = ['Line', 30, 'R/', 0, '-', 20, 'z', 0, '-', 20, 'z', 0, '-', 20, 'z', 20, '+', 20]
+                lignes[j] = ['Line', 30, '', 0, '-', 20, 'z', 0, '-', 20, 'z', 0, '-', 20, 'z', 20, '+', 20]
               }
             }
           }
@@ -201,24 +202,25 @@ export default function ExerciceInequation2 () {
             ],
             ['$-\\infty$', 30, `$${racines[0]}$`, 20, `$${racines[1]}$`, 20, `$${racines[2]}$`, 20, '$+\\infty$', 30]
           ],
-          tabLines: [lignes[0], lignes[1], lignes[2], ['Line', 30, 'R/', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
+          tabLines: [lignes[0], lignes[1], lignes[2], ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
           colorBackground: '',
           escpl: 3.5,
-          delatcl: 0.8,
+          deltacl: 0.8,
           lgt: 10,
-          hauteurLignes: [15, 15, 15, 15, 15]
+          hauteurLignes: [15, 15, 15, 15, 15],
+          scale: 0.5
         }))
         // Affiche l'ensemble de solutions
-        if ((symboleInegalite === '<' || symboleInegalite === '≤')) {
-          texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${racines[0]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[1]} , ${racines[2]} \\right${pDroite} $.`
-        } else if ((symboleInegalite === '>' || symboleInegalite === '≥')) {
-          texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${racines[0]} , ${racines[1]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[2]}, +\\infty \\right[ $.`
+        if ((signes[i] === '<' || signes[i] === '≤')) {
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${racines[0]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[1]} , ${racines[2]} \\right${pDroite} $.`
+        } else if ((signes[i] === '>' || signes[i] === '≥')) {
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${racines[0]} , ${racines[1]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[2]}, +\\infty \\right[ $.`
         }
       }
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)(cx+d)<0'
       if (listeTypeDeQuestions[i] === '(ax+b)(cx+d)<0') {
         let valPetit, valGrand
-        texte = `$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})${texSymbole(symboleInegalite)}0$`
+        texte = `$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})${texSymbole(signes[i])}0$`
         // Correction
         texteCorr = texte
         // Si une correction détaillée est demandée, détaille comment résoudre les équations
@@ -290,9 +292,9 @@ export default function ExerciceInequation2 () {
         }
         // Détermine la dernière ligne selon le signe du coefficient dominant
         if (a * c > 0) {
-          ligne3 = ['Line', 30, 'R/', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
+          ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
         } else {
-          ligne3 = ['Line', 30, 'R/', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+          ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         // Affiche enfin le tableau
         texteCorr += mathalea2d({ xmin: -0.5, ymin: -13, xmax: 30, ymax: 0.5 }, tableau_de_variation({
@@ -305,21 +307,22 @@ export default function ExerciceInequation2 () {
           tabLines: [ligne1, ligne2, ligne3],
           colorBackground: '',
           escpl: 3.5,
-          delatcl: 0.8,
+          deltacl: 0.8,
           lgt: 8,
-          hauteurLignes: [15, 15, 15, 15]
+          hauteurLignes: [15, 15, 15, 15],
+          scale: 0.5
         }))
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
-        if ((symboleInegalite === '<' || symboleInegalite === '≤')) {
-          texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} , ${valGrand} \\right${pDroite} $.`
-        } else if ((symboleInegalite === '>' || symboleInegalite === '≥')) {
-          texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${valPetit} \\right${pDroite} \\bigcup \\left${pGauche} ${valGrand}, +\\infty \\right[ $.`
+        if ((signes[i] === '<' || signes[i] === '≤')) {
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} , ${valGrand} \\right${pDroite} $.`
+        } else if ((signes[i] === '>' || signes[i] === '≥')) {
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${valPetit} \\right${pDroite} \\bigcup \\left${pGauche} ${valGrand}, +\\infty \\right[ $.`
         }
       }
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)/(x+b)<0'
       if (listeTypeDeQuestions[i] === '(x+a)/(x+b)<0') {
         // Consigne
-        texte = `$\\cfrac{(x${ecritureAlgebrique(a)})}{(x${ecritureAlgebrique(b)})}${texSymbole(symboleInegalite)}0$`
+        texte = `$\\cfrac{(x${ecritureAlgebrique(a)})}{(x${ecritureAlgebrique(b)})}${texSymbole(signes[i])}0$`
         // Correction // Si une correction détaillée est demandée, détaille comment résoudre les équations
         texteCorr = texte + '<br>'
         // Première équation
@@ -337,11 +340,11 @@ export default function ExerciceInequation2 () {
         if (Math.min(-a, -b) === -a) { // Si la plus petite solution est celle de la première équation (au numérateur), la première ligne change de signe en premier
           ligne1 = ligneMPP
           ligne2 = ligneMMP
-          ligne3 = ['Line', 50, 'R/', 0, '+', 20, 'z', 20, '-', 20, 'd', 20, '+', 20] // Le dénominateur change de signe en deuxième donc la double barre (, 'd', 20) intervient en deuxième
+          ligne3 = ['Line', 50, '', 0, '+', 20, 'z', 20, '-', 20, 'd', 20, '+', 20] // Le dénominateur change de signe en deuxième donc la double barre (, 'd', 20) intervient en deuxième
         } else { // Sinon, la deuxième ligne change de signe en premier
           ligne1 = ligneMMP
           ligne2 = ligneMPP
-          ligne3 = ['Line', 50, 'R/', 0, '+', 20, 'd', 20, '-', 20, 'z', 20, '+', 20] // Le dénominateur change de signe en premier donc la double barre (, 'd', 20) intervient en premier
+          ligne3 = ['Line', 50, '', 0, '+', 20, 'd', 20, '-', 20, 'z', 20, '+', 20] // Le dénominateur change de signe en premier donc la double barre (, 'd', 20) intervient en premier
         }
         // Affichage du tableau de signes
         texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.5, xmax: 30, ymax: 0.5 }, tableau_de_variation({
@@ -354,22 +357,23 @@ export default function ExerciceInequation2 () {
           tabLines: [ligne1, ligne2, ligne3],
           colorBackground: '',
           escpl: 3.5,
-          delatcl: 0.8,
+          deltacl: 0.8,
           lgt: 4,
-          hauteurLignes: [15, 15, 15, 25]
+          hauteurLignes: [15, 15, 15, 25],
+          scale: 0.5
         }))
         // Affiche l'ensemble de solutions selon le sens de l'inégalité et selon l'ordre des racines (l'intervalle sera toujours ouvert pour la racine du dénominateur)
         if (Math.min(-a, -b) === -a) {
-          if ((symboleInegalite === '<' || symboleInegalite === '≤')) {
-            texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${-a} , ${-b} \\right[ $.`
-          } else if ((symboleInegalite === '>' || symboleInegalite === '≥')) {
-            texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${-a} \\right${pDroite} \\bigcup \\left] ${-b}, +\\infty \\right[ $.`
+          if ((signes[i] === '<' || signes[i] === '≤')) {
+            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${-a} , ${-b} \\right[ $.`
+          } else if ((signes[i] === '>' || signes[i] === '≥')) {
+            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${-a} \\right${pDroite} \\bigcup \\left] ${-b}, +\\infty \\right[ $.`
           }
         } else {
-          if ((symboleInegalite === '<' || symboleInegalite === '≤')) {
-            texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left] ${-b} , ${-a} \\right${pDroite} $.`
-          } else if ((symboleInegalite === '>' || symboleInegalite === '≥')) {
-            texteCorr += `L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${-b} \\right[ \\bigcup \\left${pGauche} ${-a}, +\\infty \\right[ $.`
+          if ((signes[i] === '<' || signes[i] === '≤')) {
+            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] ${-b} , ${-a} \\right${pDroite} $.`
+          } else if ((signes[i] === '>' || signes[i] === '≥')) {
+            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${-b} \\right[ \\bigcup \\left${pGauche} ${-a}, +\\infty \\right[ $.`
           }
         }
       }
