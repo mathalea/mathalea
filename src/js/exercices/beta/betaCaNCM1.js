@@ -193,7 +193,25 @@ export default function CourseAuxNombresCM (numeroExercice) {
           texteCorr = `${d.prenom} a parcouru : ${a} + ${b} + ${c} = ${a + b + c} km`
           setReponse(this, i, calcul(a + b + c), { formatInteractif: 'calcul' })
           break
+        case 'q13' : // Différence d'entiers
+          a = randint(11, 19)
+          b = randint(3, 8)
+          c = calcul(a - b)
+          d = personne()
+          switch (randint(1, 2)) {
+            case 1:
+              texte = `${d.prenom} a ${a} ans. ${d.pronom} a ${b} ans de plus que son frère.<br>Quel âge a son frère ?`
+              texteCorr = `Le frère de ${d.prenom} a : ${a}-${b}=${a - b} ans.`
+              break
+            case 2:
+              texte = `${d.prenom} a ${a} ans. Sa soeur a ${b} ans.<br>Quelle est leur différence d'âge ?`
+              texteCorr = `La différence d'âge entre ${d.prenom} et sa soeur est : ${a}-${b}=${a - b} ans.`
+              break
+          }
+          setReponse(this, i, calcul(a - b), { formatInteractif: 'calcul' })
+          break
       }
+
       texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
