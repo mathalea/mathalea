@@ -132,7 +132,7 @@ export default function ExerciceInequation2 () {
           ligne2 = ligneMPP
         }
         // Affiche le tableau de signes : xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.5, xmax: 30, ymax: 0.5 }, tableau_de_variation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.5, xmax: 30, ymax: 0.5, scale: 0.5 }, tableau_de_variation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -144,11 +144,11 @@ export default function ExerciceInequation2 () {
           // Les autres lignes du tableau dont le fonctionnement est expliqué plus haut
           tabLines: [ligne1, ligne2, ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
           colorBackground: '',
-          escpl: 3.5, // taille en cm entre deux antécédents
+          espcl: 3.5, // taille en cm entre deux antécédents
           deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
           lgt: 6, // taille de la première colonne en cm
-          hauteurLignes: [15, 15, 15, 15],
-          scale: 0.5
+          hauteurLignes: [15, 15, 15, 15]
+
         }))
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
@@ -205,7 +205,7 @@ export default function ExerciceInequation2 () {
           longueurColonne = 5
           ecart = 1
         }
-        texteCorr += mathalea2d({ xmin: 0, ymin: -10.5, xmax: 30, ymax: 0.5 }, tableau_de_variation({
+        texteCorr += mathalea2d({ xmin: 0, ymin: -10.5, xmax: 30, ymax: 0.5, scale: 0.5 }, tableau_de_variation({
           tabInit: [
             [
               ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$x${ecritureAlgebrique(c)}$`, 2, 50], [`$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})$`, 2, 150]
@@ -214,11 +214,10 @@ export default function ExerciceInequation2 () {
           ],
           tabLines: [lignes[0], lignes[1], lignes[2], ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
           colorBackground: '',
-          escpl: ecart,
+          espcl: ecart,
           deltacl: 0.8,
           lgt: longueurColonne,
-          hauteurLignes: [15, 15, 15, 15, 15],
-          scale: 0.1
+          hauteurLignes: [15, 15, 15, 15, 15]
         }))
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
@@ -315,7 +314,7 @@ export default function ExerciceInequation2 () {
           longueurColonne = 5
         }
         // Affiche enfin le tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -13, xmax: 30, ymax: 0.5 }, tableau_de_variation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -13, xmax: 30, ymax: 0.5, scale: 0.5 }, tableau_de_variation({
           tabInit: [
             [
               ['$x$', ecart, 30], [`$${a}x${ecritureAlgebrique(b)}$`, ecart, 75], [`$${c}x${ecritureAlgebrique(d)}$`, ecart, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})$`, ecart, 200]
@@ -324,11 +323,10 @@ export default function ExerciceInequation2 () {
           ],
           tabLines: [ligne1, ligne2, ligne3],
           colorBackground: '',
-          escpl: 3.5,
+          espcl: 3.5,
           deltacl: 0.8,
           lgt: longueurColonne,
-          hauteurLignes: [15, 15, 15, 15],
-          scale: 0.5
+          hauteurLignes: [15, 15, 15, 15]
         }))
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         if ((signes[i] === '<' || signes[i] === '≤')) {
@@ -365,7 +363,7 @@ export default function ExerciceInequation2 () {
           ligne3 = ['Line', 50, '', 0, '+', 20, 'd', 20, '-', 20, 'z', 20, '+', 20] // Le dénominateur change de signe en premier donc la double barre (, 'd', 20) intervient en premier
         }
         // Affichage du tableau de signes
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.5, xmax: 30, ymax: 0.5 }, tableau_de_variation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.5, xmax: 30, ymax: 0.5, scale: 0.5 }, tableau_de_variation({
           tabInit: [
             [
               ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$\\cfrac{(x${ecritureAlgebrique(a)})}{(x${ecritureAlgebrique(b)})}$`, 2, 50]
@@ -374,11 +372,10 @@ export default function ExerciceInequation2 () {
           ],
           tabLines: [ligne1, ligne2, ligne3],
           colorBackground: '',
-          escpl: 3.5,
+          espcl: 3.5,
           deltacl: 0.8,
           lgt: 4,
-          hauteurLignes: [15, 15, 15, 25],
-          scale: 0.5
+          hauteurLignes: [15, 15, 15, 25]
         }))
         // Affiche l'ensemble de solutions selon le sens de l'inégalité et selon l'ordre des racines (l'intervalle sera toujours ouvert pour la racine du dénominateur)
         if (Math.min(-a, -b) === -a) {
