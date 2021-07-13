@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1, prenom, personne } from '../../modules/outils.js'
 import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
 import Grandeur from '../../modules/Grandeur.js'
@@ -36,7 +36,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
     let questions = []
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(10), this.nbQuestions)
+      questions = combinaisonListesSansChangerOrdre(range1(11), this.nbQuestions)
     } else {
       if (typeof this.sup === 'number') {
         // Si c'est un nombre c'est qu'il y a qu'une seule question
@@ -175,6 +175,23 @@ export default function CourseAuxNombresCM (numeroExercice) {
           texte = `$${texNombrec(a + b)}-${texNombre(a)}$`
           texteCorr = `$${texNombrec(a + b)}-${texNombre(a)}=${texNombre(b)}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
+          break
+        case 'q11' : // Divisions d'entiers
+          a = choice([2, 3, 4, 5])
+          b = randint(3, 9)
+          c = prenom()
+          texte = `J'ai ${calcul(a * b)} ans. Je suis ${a} fois plus âgé que ${c}.<br>Quel âge a ${c} ?`
+          texteCorr = `L'âge de ${c} est : $${calcul(a * b)} \\div ${a}=${b}$.`
+          setReponse(this, i, b, { formatInteractif: 'calcul' })
+          break
+        case 'q12' : // Addition d'entiers
+          a = randint(1, 2) * 10 + randint(1, 9)
+          b = randint(1, 2) * 10 + randint(1, 5)
+          c = randint(1, 2) * 10 + randint(1, 9)
+          d = personne()
+          texte = `${d.prenom} participe à une course par étapes. La première étape fait ${a} km, la deuxième fait ${b} km et la dernière fait ${c} km.<br>Combien de kilomètres ${d.prenom} a-t-${d.pronom} parcourus ?`
+          texteCorr = `${d.prenom} a parcouru : ${a} + ${b} + ${c} = ${a + b + c} km`
+          setReponse(this, i, calcul(a + b + c), { formatInteractif: 'calcul' })
           break
       }
       texte += ajouteChampTexteMathLive(this, i)
