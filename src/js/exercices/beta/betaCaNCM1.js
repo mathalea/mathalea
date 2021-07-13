@@ -52,15 +52,15 @@ export default function CourseAuxNombresCM (numeroExercice) {
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
     console.log(listeIndex)
-    const fruits = [
-      ['pêches', 4, 10, 30],
-      ['Noix', 5, 4, 13],
-      ['cerises', 6, 11, 20],
-      ['pommes', 2, 20, 40],
-      ['framboises', 15, 1, 5],
-      ['fraises', 7, 5, 10],
-      ['citrons', 1.5, 15, 30],
-      ['bananes', 1.5, 15, 25]
+    const fruits2 = [
+      ['pêches', 4.5, 10, 30],
+      ['Noix', 5.2, 4, 13],
+      ['cerises', 6.4, 11, 20],
+      ['pommes', 2.7, 20, 40],
+      ['framboises', 10.5, 1, 5],
+      ['fraises', 7.5, 5, 10],
+      ['citrons', 1.8, 15, 30],
+      ['bananes', 1.7, 15, 25]
     ]
     const hauteurs = [
       ['chaise', 75, 115, 'cm'],
@@ -209,6 +209,31 @@ export default function CourseAuxNombresCM (numeroExercice) {
               break
           }
           setReponse(this, i, calcul(a - b), { formatInteractif: 'calcul' })
+          break
+        case 'q14' : // Produit d'entiers
+          a = randint(2, 6)
+          b = randint(7, 12)
+          d = personne()
+          switch (randint(1, 2)) {
+            case 1:
+              texte = `${d.prenom} possède ${a} lots de ${b} ${choice(['crayons', 'cartes', 'stylos', 'livres'])}. Combien en a-t-${d.pronom} ?`
+              texteCorr = `${d.prenom} en possède : $${a} \\times ${b}=${calcul(a * b)}$`
+              break
+            case 2:
+              texte = `${d.prenom} a couru ${a} séquences de ${b} minutes. Combien de minutes a-t-${d.pronom} couru en tout ?`
+              texteCorr = `${d.prenom} a couru : $${a} \\times ${b}=${calcul(a * b)}$ minutes.`
+              break
+          }
+          setReponse(this, i, calcul(a * b), { formatInteractif: 'calcul' })
+          break
+        case 'q15': // Produit décimal entier
+          a = calcul(randint(1, 5) + randint(1, 5) / 10)
+          b = randint(2, 5)
+          c = choice(fruits2)
+          d = personne()
+          texte = `Les ${c[0]} sont vendus ${texPrix(c[1])} € par kilogramme. ${d.prenom} en achète ${b} kg. Combien va-t-${d.pronom} payer ?`
+          texteCorr = `${d.prenom} devra payer $${b}*${texPrix(c[1])}=${texPrix(c[1] * b)}$ €.`
+          setReponse(this, i, calcul(b * c[1]), { formatInteractif: 'calcul' })
           break
       }
 
