@@ -18,6 +18,7 @@ export const amcType = 'AMCNum'
 export default function CourseAuxNombresCM (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.interactif = true
+  this.nbQuestions = 30
   if (this.interactif) {
     this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
   } else {
@@ -468,7 +469,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
               texteCorr = `Le diamètre est le double du rayon : $2 \\times ${a} = ${2 * a}$`
               break
             case 3:
-              texte = choice([`$2 \\ times ${a}$`, `$${a} \\ times 2$`])
+              texte = choice([`$2 \\times ${a}$`, `$${a} \\times 2$`])
               texteCorr = `$2 \\times ${a} = ${2 * a}$`
               break
           }
