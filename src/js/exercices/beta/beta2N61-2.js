@@ -69,7 +69,7 @@ export default function ExerciceInequation2 () {
       a = randint(-13, 13, [0, 1, -1])
       b = randint(-13, 13, [0, a])
       c = randint(-13, 13, [0, 1, -1, a, b])
-      d = randint(-13, 13, [0, 1, -1, a, b, c])
+      d = randint(-13, 13, [0, a, b, c])
       // Pioche un signe d'inégalité parmi <, ≤, ≥, > et définit en fonction si les crochets seront ouverts ou fermés dans l'ensemble de solutions
       switch (signes[i]) {
         case '<':
@@ -105,7 +105,9 @@ export default function ExerciceInequation2 () {
       const lignePMM = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 5, '-', 20]
       const ligneMPP = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 5, '+', 20]
       const ligneMMP = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20, 'z', 20, '+', 20]
-      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)(x+b)<0'
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)(x+b)<0'                                      Type 1        //
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       if (listeTypeDeQuestions[i] === '(x+a)(x+b)<0') {
         // Consigne
         texte = `$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})${texSymbole(signes[i])}0$`
@@ -157,7 +159,9 @@ export default function ExerciceInequation2 () {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${Math.min(-a, -b)} \\right${pDroite} \\bigcup \\left${pGauche} ${Math.max(-a, -b)}, +\\infty \\right[ $.`
         }
       }
-      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)(x+b)(x+c)<0'
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)(x+b)(x+c)<0'                                 Type 2        //
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       if (listeTypeDeQuestions[i] === '(x+a)(x+b)(x+c)<0') {
         // Consigne
         texte = `$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})${texSymbole(signes[i])}0$`
@@ -218,7 +222,9 @@ export default function ExerciceInequation2 () {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${racines[0]} , ${racines[1]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[2]}, +\\infty \\right[ $.`
         }
       }
-      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)(cx+d)<0'
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)(cx+d)<0'                                    Type 3        //
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       if (listeTypeDeQuestions[i] === '(ax+b)(cx+d)<0') {
         let valPetit, valGrand
         texte = `$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})${texSymbole(signes[i])}0$`
@@ -263,7 +269,6 @@ export default function ExerciceInequation2 () {
         }
         // Prépare l'affichage du tableau de signes
         texteCorr += '<br>On peut donc en déduire le tableau de signes suivant : <br>'
-        // Part du principe que la plus petite solution est celle de la première équation
         if (-b / a < -d / c) { // Si la plus petite solution est celle de la première équation
           if (a > 0) { // La ligne1 change de signe en premier donc ligne1 = PMM ou MPP selon le signe de a
             ligne1 = ligneMPP
@@ -320,7 +325,9 @@ export default function ExerciceInequation2 () {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
         }
       }
-      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)/(x+b)<0'
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)/(x+b)<0'                                     Type 4        //
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       if (listeTypeDeQuestions[i] === '(x+a)/(x+b)<0') {
         // Consigne
         texte = `$\\cfrac{(x${ecritureAlgebrique(a)})}{(x${ecritureAlgebrique(b)})}${texSymbole(signes[i])}0$`
