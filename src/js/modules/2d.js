@@ -7252,7 +7252,7 @@ function TableauDeVariation ({ tabInit, tabLines, lgt, escpl, deltacl, colors, h
   }
 
   this.tikz = function () {
-    let code = `\\tkzTabInit[lgt=${lgt},delatcl=${deltacl},escpl=${escpl}`
+    let code = `\\tkzTabInit[lgt=${lgt},deltacl=${deltacl},espcl=${escpl}`
     for (let i = 0; i < this.colors.length; i++) {
       code += `,${this.colors[i]}`
     }
