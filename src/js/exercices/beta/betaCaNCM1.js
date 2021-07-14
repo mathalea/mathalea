@@ -357,7 +357,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
           }
           setReponse(this, i, c, { formatInteractif: 'calcul' })
           break
-        case 'q21' : // fait numérique multiplication par 4
+        case 'q21' : // fait numérique multiplication par 8
           a = randint(4, 15)
           switch (randint(1, 3)) {
             case 1:
@@ -414,6 +414,48 @@ export default function CourseAuxNombresCM (numeroExercice) {
               break
           }
           setReponse(this, i, calcul(a * b), { formatInteractif: 'calcul' })
+          break
+        case 'q23' : // multiplication par 20
+          a = calcul(randint(1, 9) + randint(1, 5) / 10)
+          switch (randint(1, 2)) {
+            case 1:
+              texte = choice([`$${texNombre(a)} \\times 20$`, `$20 \\times ${texNombre(a)}$`])
+              texteCorr = `$${texNombre(a)} \\times 20=${texNombrec(a * 20)}$`
+              setReponse(this, i, calcul(a * 20), { formatInteractif: 'calcul' })
+              break
+            case 2:
+              texte = `$\\ldots \\times 20=${texNombrec(a * 20)}$`
+              texteCorr = `$${miseEnEvidence(a)} \\times 20=${texNombrec(a * 20)}$`
+              setReponse(this, i, a, { formatInteractif: 'calcul' })
+              break
+          }
+          break
+        case 'q24': // proportionnalité
+          a = randint(0, 7)
+          b = fruits2[a][1]
+          c = randint(2, 5)
+          d = randint(2, 5)
+          texte = `$${c}$ kg de ${fruits2[a][0]} coûtent $${texNombrec(c * b)}$ €, combien coûtent $${c * d}$ kg de ${fruits2[a][0]} ?`
+          texteCorr = `$${c * d}$ kg de ${fruits2[a][0]} coûtent : $${texNombrec(c * b)} \\times ${d} = ${texNombre(c * b * d)}$`
+          setReponse(this, i, calcul(c * d * b), { formatInteractif: 'calcul' })
+          break
+        case 'q25' : // quotient par 4
+          a = randint(4, 15)
+          switch (randint(1, 3)) {
+            case 1:
+              texte = `$${4 * a} \\div 4$`
+              texteCorr = `$${4 * a} \\div 4=${a}$`
+              break
+            case 2:
+              texte = `$\\ldots \\times 4=${4 * a}$`
+              texteCorr = `$${miseEnEvidence(a)} \\times 4=${calcul(a * 4)}$`
+              break
+            case 3:
+              texte = `La moitié de la moitié de ${4 * a}`
+              texteCorr = `$${4 * a} \\div 4=${a}$`
+              break
+          }
+          setReponse(this, i, a, { formatInteractif: 'calcul' })
           break
       }
 
