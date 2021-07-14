@@ -132,7 +132,7 @@ export default function ExerciceInequation2 () {
           ligne2 = ligneMPP
         }
         // Affiche le tableau de signes : xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.5, xmax: 30, ymax: 0.5, scale: 0.5 }, tableau_de_variation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableau_de_variation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -197,10 +197,7 @@ export default function ExerciceInequation2 () {
         }
         // Affiche le tableau de signes (voir les commentaires du premier type d'exercice)
         texteCorr += 'On peut donc en déduire le tableau de signes suivant : <br>'
-        // Modifie la taille du tableau si non html pour qu'il rentre sur la feuille en pdf
-        longueurColonne = 8
-        ecart = 3.5
-        texteCorr += mathalea2d({ xmin: 0, ymin: -10.5, xmax: 30, ymax: 0.5, scale: 0.5 }, tableau_de_variation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableau_de_variation({
           tabInit: [
             [
               ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$x${ecritureAlgebrique(c)}$`, 2, 50], [`$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})$`, 2, 150]
@@ -300,20 +297,12 @@ export default function ExerciceInequation2 () {
         } else {
           ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
-        // Modifie la hauteur de la première ligne en html pour centrer le texte malgré les fractions 
-        // Note de Jean-Claude : lgt défini la largeur de la colonne 1.
-      /*  if (context.isHtml) {
-          ecart = 3
-          longueurColonne = 7
-        } else {
-          ecart = 2
-          longueurColonne = 5
-        }*/
+        // Modifie la hauteur de la première ligne en html pour centrer le texte malgré les fractions
         // Affiche enfin le tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -13, xmax: 30, ymax: 0.5, scale: 0.5 }, tableau_de_variation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableau_de_variation({
           tabInit: [
             [
-              ['$x$', ecart, 30], [`$${a}x${ecritureAlgebrique(b)}$`, ecart, 75], [`$${c}x${ecritureAlgebrique(d)}$`, ecart, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})$`, ecart, 200]
+              ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})$`, 2, 200]
             ],
             ['$-\\infty$', 30, `$${valPetit}$`, 20, `$${valGrand}$`, 20, '$+\\infty$', 30]
           ],
@@ -328,7 +317,7 @@ export default function ExerciceInequation2 () {
         if ((signes[i] === '<' || signes[i] === '≤')) {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} , ${valGrand} \\right${pDroite} $.`
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${valPetit} \\right${pDroite} \\bigcup \\left${pGauche} ${valGrand}, +\\infty \\right[ $.`
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
         }
       }
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)/(x+b)<0'
@@ -358,11 +347,16 @@ export default function ExerciceInequation2 () {
           ligne2 = ligneMPP
           ligne3 = ['Line', 50, '', 0, '+', 20, 'd', 20, '-', 20, 'z', 20, '+', 20] // Le dénominateur change de signe en premier donc la double barre (, 'd', 20) intervient en premier
         }
+        if (context.isHtml) {
+          ecart = 2
+        } else {
+          ecart = 4
+        }
         // Affichage du tableau de signes
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.5, xmax: 30, ymax: 0.5, scale: 0.5 }, tableau_de_variation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableau_de_variation({
           tabInit: [
             [
-              ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$\\cfrac{(x${ecritureAlgebrique(a)})}{(x${ecritureAlgebrique(b)})}$`, 2, 50]
+              ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$\\cfrac{(x${ecritureAlgebrique(a)})}{(x${ecritureAlgebrique(b)})}$`, ecart, 50]
             ],
             ['$-\\infty$', 30, `$${Math.min(-a, -b)}$`, 20, `$${Math.max(-a, -b)}$`, 20, '$+\\infty$', 30]
           ],
