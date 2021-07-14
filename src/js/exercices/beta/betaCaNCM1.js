@@ -326,6 +326,37 @@ export default function CourseAuxNombresCM (numeroExercice) {
           }
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
+        case 'q20': // somme de décimaux
+          a = calcul(randint(2, 5) + randint(1, 5) / 10)
+          b = calcul(randint(2, 5) + randint(1, 5) / 10)
+          c = calcul(a + b)
+          switch (randint(1, 3)) {
+            case 1:
+              texte = `On a soudé ensemble une barre de ${texNombre(a)} m et une autre de ${texNombre(b)} m.<br>Combien de mètres fait l'assemblage ?`
+              texteCorr = `$${texNombre(a)}+${texNombre(b)}=${texNombre(c)}$`
+              break
+            case 2:
+              texte = `$\\ldots - ${texNombre(a)}=${texNombre(b)}$`
+              texteCorr = `$${miseEnEvidence(texNombrec(c))} - ${texNombre(a)}=${texNombre(b)}$`
+              break
+            case 3:
+              A = point(0, 0)
+              B = point(5, 0)
+              C = homothetie(B, A, a / c)
+              objets = []
+              objets[0] = segment(A, B)
+              objets[0].styleExtremites = '|-|'
+              objets[1] = afficheCoteSegment(objets[0], '?', 0.5, 'red')
+              objets[2] = segment(A, C)
+              objets[2].styleExtremites = '|-|'
+              objets[3] = afficheCoteSegment(objets[2], texNombre(a), -1, 'blue')
+              objets[4] = afficheCoteSegment(segment(C, B), texNombre(b), -1, 'green')
+              texte = mathalea2d({ xmin: -0.1, xmax: 5.1, ymin: -1.5, ymax: 1.5, pixelsParCm: 20, scale: 1 }, objets)
+              texteCorr = `$${miseEnEvidence(texNombre(a))} + ${texNombre(b)}=${texNombre(c)}$`
+              break
+          }
+          setReponse(this, i, c, { formatInteractif: 'calcul' })
+          break
       }
 
       texte += ajouteChampTexteMathLive(this, i)
