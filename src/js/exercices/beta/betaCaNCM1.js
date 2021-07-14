@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texN
 import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { afficheCoteSegment, droiteGraduee2, homothetie, mathalea2d, point, segment, texteSurSegment } from '../../modules/2d.js'
+import { afficheCoteSegment, afficheLongueurSegment, codeSegments, droiteGraduee2, homothetie, mathalea2d, point, polygoneRegulier, segment, texteSurSegment } from '../../modules/2d.js'
 export const titre = 'Course aux nombres CM1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -356,6 +356,64 @@ export default function CourseAuxNombresCM (numeroExercice) {
               break
           }
           setReponse(this, i, c, { formatInteractif: 'calcul' })
+          break
+        case 'q21' : // fait numérique multiplication par 4
+          a = randint(4, 15)
+          switch (randint(1, 3)) {
+            case 1:
+              texte = choice([`$${a} \\times 8$`, `$8 \\times ${a}$`])
+              texteCorr = `$${a} \\times 8=${calcul(a * 8)}$`
+
+              setReponse(this, i, calcul(a * 8), { formatInteractif: 'calcul' })
+              break
+            case 2:
+              texte = `$\\ldots \\times 8=${calcul(a * 8)}$`
+              texteCorr = `$${miseEnEvidence(a)} \\times 8=${calcul(a * 8)}$`
+              setReponse(this, i, a, { formatInteractif: 'calcul' })
+              break
+            case 3:
+              texte = `Le quadruple du double de ${a}`
+              texteCorr = `$${a} \\times 8=${calcul(a * 8)}$`
+              setReponse(this, i, calcul(a * 8), { formatInteractif: 'calcul' })
+              break
+          }
+          break
+        case 'q22': // Produit décimal entier
+          switch (randint(1, 3)) {
+            case 1:
+              a = calcul(randint(1, 5) + randint(1, 5) / 10)
+              b = randint(3, 6)
+              objets = []
+              if (b < 5) {
+                A = point(-2, 0)
+              } else {
+                A = point(0, 0)
+              }
+              B = point(2, 0)
+              C = polygoneRegulier(A, B, b)
+              objets[0] = C
+              objets[1] = texteSurSegment(`${texNombre(a)} cm`, B, A)
+              objets[2] = codeSegments('//', 'red', C.listePoints)
+              texte = 'Quel est le périmètre de ce polygone ?<br>'
+              texte += mathalea2d({ xmin: -2.5, xmax: 3, ymin: -1, ymax: 5, pixelsParCm: 20, scale: 0.8 }, objets)
+              texteCorr = `Le périmètre mesure : $${b} \\times ${texNombre(a)}=${calcul(a * b)}$.`
+              break
+            case 2:
+              a = calcul(randint(4, 5) + choice([0.1, 0.25, 0.5]))
+              b = choice([2, 4, 8])
+              d = personne()
+              texte = `${d.prenom} a acheté ${b} ${choice(['livres', 'gâteaux', 'jouets'])} à ${texPrix(a)} € pièce.<br>Combien a-t-${d.pronom} dépensé ?`
+              texteCorr += `${d.prenom} a dépensé : $${b} \\times ${texNombre(a)} = ${texPrix(calcul(a * b))} $`
+              break
+            case 3:
+              a = calcul(randint(1, 9) + randint(1, 5) / 10)
+              b = randint(2, 9)
+              d = personne()
+              texte = `${d.prenom} a vendu ${b} ${choice(['tableaux', 'photos', 'poteries'])} à ${texPrix(a)} € pièce.<br>Quelle somme d'argent a-t-${d.pronom} obtenu ?`
+              texteCorr += `${d.prenom} a obtenu : $${b} \\times ${texNombre(a)} = ${texPrix(calcul(a * b))} $`
+              break
+          }
+          setReponse(this, i, calcul(a * b), { formatInteractif: 'calcul' })
           break
       }
 
