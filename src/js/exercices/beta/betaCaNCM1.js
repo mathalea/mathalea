@@ -36,7 +36,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
     let questions = []
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(11), this.nbQuestions)
+      questions = combinaisonListes(range1(30), this.nbQuestions)
     } else {
       if (typeof this.sup === 'number') {
         // Si c'est un nombre c'est qu'il y a qu'une seule question
@@ -50,7 +50,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
     for (let i = 0; i < questions.length; i++) {
       questions[i] = parseInt(questions[i]) - 1
     }
-    const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
+    const listeIndex = combinaisonListes(questions, this.nbQuestions)
     const fruits2 = [
       ['pêches', 4.5, 10, 30],
       ['Noix', 5.2, 4, 13],
@@ -183,7 +183,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
           b = randint(3, 9)
           c = prenom()
           texte = `J'ai ${calcul(a * b)} ans. Je suis ${a} fois plus âgé que ${c}.<br>Quel âge a ${c} ?`
-          texteCorr = `L'âge de ${c} est : $${calcul(a * b)} \\div ${a}=${b}$.`
+          texteCorr = `L'âge de ${c} est : $${calcul(a * b)} \\div ${a}=${b}$ ans.`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
         case 'q12' : // Addition d'entiers
@@ -203,7 +203,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
           switch (randint(1, 2)) {
             case 1:
               texte = `${d.prenom} a ${a} ans. ${d.pronom} a ${b} ans de plus que son frère.<br>Quel âge a son frère ?`
-              texteCorr = `Le frère de ${d.prenom} a : ${a}-${b}=${a - b} ans.`
+              texteCorr = `Le frère de ${d.prenom} a : ${a} - ${b} = ${a - b} ans.`
               break
             case 2:
               texte = `${d.prenom} a ${a} ans. Sa soeur a ${b} ans.<br>Quelle est leur différence d'âge ?`
@@ -435,7 +435,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
           c = randint(2, 5)
           d = randint(2, 5)
           texte = `$${c}$ kg de ${fruits2[a][0]} coûtent $${texNombrec(c * b)}$ €, combien coûtent $${c * d}$ kg de ${fruits2[a][0]} ?`
-          texteCorr = `$${c * d}$ kg de ${fruits2[a][0]} coûtent : $${texNombrec(c * b)} \\times ${d} = ${texNombre(c * b * d)}$`
+          texteCorr = `$${c * d}$ kg de ${fruits2[a][0]} coûtent : $${texNombrec(c * b)} \\times ${d} = ${texPrix(c * b * d)}$`
           setReponse(this, i, calcul(c * d * b), { formatInteractif: 'calcul' })
           break
         case 'q25' : // quotient par 4
@@ -464,7 +464,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
               texteCorr = `$2 \\times ${a} = ${2 * a}$`
               break
             case 2:
-              texte = `Le diamètre d'un cercle de rayon ${a}$`
+              texte = `Le diamètre d'un cercle de ${a} unités de rayon.`
               texteCorr = `Le diamètre est le double du rayon : $2 \\times ${a} = ${2 * a}$`
               break
             case 3:
