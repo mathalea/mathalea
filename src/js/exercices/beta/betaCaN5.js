@@ -34,7 +34,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
       ['cerises', 6, 11, 20],
       ['pommes', 2, 20, 40],
       ['framboises', 15, 1, 5],
-      ['fraises', 7, 5, 10],
+      ['fraises', 6, 5, 10],
       ['citrons', 1.5, 15, 30],
       ['bananes', 1.5, 15, 25]
     ]
