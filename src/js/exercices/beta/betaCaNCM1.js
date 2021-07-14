@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1, prenom, personne } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1, prenom, personne, miseEnEvidence } from '../../modules/outils.js'
 import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
 import Grandeur from '../../modules/Grandeur.js'
@@ -103,6 +103,9 @@ export default function CourseAuxNombresCM (numeroExercice) {
     ]
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
+      // texNombre(n) permet d'écrire un nombre avec le bon séparateur décimal
+      // calcul(expression) permet d'éviter les erreurs de javascript avec les approximations décimales
+      // texNombrec(expression) fait les deux choses ci-dessus.
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
         case 'q1': // somme d'entiers à deux chiffres sans retenue
           a = randint(1, 3) * 10 + randint(1, 5)
@@ -153,7 +156,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
           b = randint(1, 4)
           texte = `$${texNombre(a)}+${b}$`
           texteCorr = `$${texNombre(a)}+${b}=${texNombrec(a + b)}$`
-          setReponse(this, i, a + b, { formatInteractif: 'calcul' })
+          setReponse(this, i, calcul(a + b), { formatInteractif: 'calcul' })
           break
         case 'q8': // Somme décimaux
           a = calcul(randint(1, 5) + randint(1, 5) / 10)
@@ -234,6 +237,63 @@ export default function CourseAuxNombresCM (numeroExercice) {
           texte = `Les ${c[0]} sont vendus ${texPrix(c[1])} € par kilogramme. ${d.prenom} en achète ${b} kg. Combien va-t-${d.pronom} payer ?`
           texteCorr = `${d.prenom} devra payer $${b}*${texPrix(c[1])}=${texPrix(c[1] * b)}$ €.`
           setReponse(this, i, calcul(b * c[1]), { formatInteractif: 'calcul' })
+          break
+        case 'q16': // ajout d'un décimal à un entier
+          a = calcul(randint(1, 5) + randint(1, 5) / 10)
+          b = randint(1, 15)
+          switch (randint(1, 3)) {
+            case 1:
+              texte = `Combien font ${b} de plus que ${texNombre(a)} ?`
+              texteCorr = `$${texNombre(a)}+${b}=${texNombrec(a + b)}$`
+              break
+            case 2:
+              texte = `$\\ldots - ${texNombre(a)}=${b}$`
+              texteCorr = `$${miseEnEvidence(texNombrec(a + b))} - ${texNombre(a)}=${b}$`
+              break
+            case 3:
+              texte = `$\\ldots - ${b}=${texNombre(a)}$`
+              texteCorr = `$${miseEnEvidence(texNombrec(a + b))} - ${b}=${texNombre(a)}$`
+              break
+          }
+          setReponse(this, i, calcul(a + b), { formatInteractif: 'calcul' })
+          break
+        case 'q17' : // fait numérique table de multiplication
+          a = randint(2, 9)
+          b = randint(5, 9)
+          switch (randint(1, 3)) {
+            case 1:
+              texte = `$${a} \\times ${b}$`
+              texteCorr = `$${a} \\times ${b}=${calcul(a * b)}$`
+              setReponse(this, i, calcul(a * b), { formatInteractif: 'calcul' })
+              break
+            case 2:
+              texte = `$${a} \\times \\ldots = ${calcul(a * b)}$`
+              texteCorr = `$${a} \\times ${miseEnEvidence(b)}=${calcul(a * b)}$`
+              setReponse(this, i, b, { formatInteractif: 'calcul' })
+              break
+            case 3:
+              texte = `$\\ldots \\times ${b}= ${calcul(a * b)}$`
+              texteCorr = `$${miseEnEvidence(a)} \\times ${b}=${calcul(a * b)}$`
+              setReponse(this, i, a, { formatInteractif: 'calcul' })
+              break
+          }
+          break
+        case 'q18' : // fait numérique multiplication par 4
+          a = randint(6, 19)
+          switch (randint(1, 3)) {
+            case 1:
+              texte = choice([`$${a} \\times 4$`, `$4 \\times ${a}$`])
+              break
+            case 2:
+              texte = `Quel est le périmètre d'un carré de côté ${a} ?`
+              texteCorr = `$${a} \\times 4=${calcul(a * 4)}$`
+              break
+            case 3:
+              texte = `Le double du double de ${a}`
+              break
+          }
+          texteCorr = `$${a} \\times 4=${calcul(a * 4)}$`
+          setReponse(this, i, calcul(a * 4), { formatInteractif: 'calcul' })
           break
       }
 
