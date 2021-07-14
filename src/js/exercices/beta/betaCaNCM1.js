@@ -51,7 +51,6 @@ export default function CourseAuxNombresCM (numeroExercice) {
       questions[i] = parseInt(questions[i]) - 1
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    console.log(listeIndex)
     const fruits2 = [
       ['pêches', 4.5, 10, 30],
       ['Noix', 5.2, 4, 13],
@@ -456,6 +455,85 @@ export default function CourseAuxNombresCM (numeroExercice) {
               break
           }
           setReponse(this, i, a, { formatInteractif: 'calcul' })
+          break
+        case 'q26' : // double d'entiers
+          a = randint(11, 99)
+          switch (randint(1, 3)) {
+            case 1:
+              texte = `Le double de ${a}`
+              texteCorr = `$2 \\times ${a} = ${2 * a}$`
+              break
+            case 2:
+              texte = `Le diamètre d'un cercle de rayon ${a}$`
+              texteCorr = `Le diamètre est le double du rayon : $2 \\times ${a} = ${2 * a}$`
+              break
+            case 3:
+              texte = choice([`$2 \\ times ${a}$`, `$${a} \\ times 2$`])
+              texteCorr = `$2 \\times ${a} = ${2 * a}$`
+              break
+          }
+          setReponse(this, i, 2 * a, { formatInteractif: 'calcul' })
+          break
+        case 'q27': // différences d'entiers mesure
+          a = randint(20, 50)
+          b = randint(20, 50)
+          c = calcul(a + b)
+          A = point(0, 0)
+          B = point(5, 0)
+          C = homothetie(B, A, a / c)
+          objets = []
+          objets[0] = segment(A, B)
+          objets[0].styleExtremites = '|-|'
+          objets[1] = afficheCoteSegment(objets[0], c, 0.5, 'green')
+          objets[2] = segment(A, C)
+          objets[2].styleExtremites = '|-|'
+          objets[3] = afficheCoteSegment(objets[2], a, -1, 'blue')
+          objets[4] = afficheCoteSegment(segment(C, B), '?', -1, 'red')
+          texte = mathalea2d({ xmin: -0.1, xmax: 5.1, ymin: -1.5, ymax: 1.5, pixelsParCm: 20, scale: 1 }, objets)
+          texteCorr = `$${miseEnEvidence(c)} - ${a}=${b}$`
+          setReponse(this, i, b, { formatInteractif: 'calcul' })
+          break
+        case 'q28':
+          a = randint(17, 21) // heure pleine de début
+          b = randint(5, 6) * 5 // minutes de début
+          c = randint(17, 23) * 5 // durée en minutes
+          d = a + ((b + c) / 60 >> 0) // heure pleine de fin
+          resultat = calcul((b + c) % 60) // minutes de fin
+          if (resultat !== 0) {
+            texte = `Le film a commencé à ${a} h ${b}. Il s'est terminé à ${d} h ${resultat}.<br> Combien de minutes a-t-il duré ?`
+          } else {
+            texte = `Le film a commencé à ${a} h ${b}. Il s'est terminé à ${d} h.<br> Combien de minutes a-t-il duré ?`
+          }
+          texteCorr = `Il a duré ${calcul(c / 60 >> 0)} h ${c % 60} soit ${c} minutes.`
+          setReponse(this, i, c, { formatInteractif: 'calcul' })
+          break
+        case 'q29': // proportionnalité
+          a = choice([2, 3, 4, 5]) // choix du coefficient
+          b = randint(3, 10) // donnée 1
+          c = randint(2, 10, b) // donnée 2
+          d = choice([['un train électrique', 'il'], ['une voiture électrique', 'elle'], ['un manège', 'il']])
+          texte = `En ${a * b} minutes, ${d[0]} fait ${a * c} tours.<br>En ${b} minutes ${d[1]} fait \\ldots tours.`
+          texteCorr = `En ${a} fois moins de temps, ${d[1]} fait ${a} fois moins de tours, soit : $${a * c} \\div ${a}=${c}$ tours.`
+          setReponse(this, i, c, { formatInteractif: 'calcul' })
+          break
+        case 'q30': // additions d'entiers mesure
+          a = randint(20, 50)
+          b = randint(20, 50)
+          c = calcul(a + b)
+          A = point(0, 0)
+          B = point(5, 0)
+          C = homothetie(B, A, a / c)
+          objets = []
+          objets[0] = segment(A, B)
+          objets[0].styleExtremites = '|-|'
+          objets[1] = afficheCoteSegment(objets[0], '?', 0.5, 'red')
+          objets[2] = segment(A, C)
+          objets[2].styleExtremites = '|-|'
+          objets[3] = afficheCoteSegment(objets[2], a, -1, 'blue')
+          objets[4] = afficheCoteSegment(segment(C, B), b, -1, 'green')
+          texte = mathalea2d({ xmin: -0.1, xmax: 5.1, ymin: -1.5, ymax: 1.5, pixelsParCm: 20, scale: 1 }, objets)
+          texteCorr = `$${a} + ${b}=${c}$`
+          setReponse(this, i, c, { formatInteractif: 'calcul' })
           break
       }
 
