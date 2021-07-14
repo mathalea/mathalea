@@ -304,20 +304,6 @@ export default {
     "interactifReady": false,
     "name": "3A13"
   },
-  "3Algo1-2": {
-    "titre": "Conjecture de Syracuse",
-    "url": "/exercices/3e/3Algo1-2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "3Algo1-2"
-  },
-  "3Algo1": {
-    "titre": "Instruction conditionelle (scratch)",
-    "url": "/exercices/3e/3Algo1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "3Algo1"
-  },
   "3F1-act": {
     "titre": "Fonctions : Notion et vocabulaire",
     "url": "/exercices/3e/3F1-act.js",
@@ -630,6 +616,20 @@ export default {
     ],
     "name": "3G43"
   },
+  "3I1-1": {
+    "titre": "Conjecture de Syracuse",
+    "url": "/exercices/3e/3I1-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3I1-1"
+  },
+  "3I1": {
+    "titre": "Instruction conditionelle (scratch)",
+    "url": "/exercices/3e/3I1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3I1"
+  },
   "3L10-1": {
     "titre": "Additionner ou soustraire une expression entre parenthèses",
     "url": "/exercices/3e/3L10-1.js",
@@ -807,24 +807,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "3S20"
-  },
-  "4Algo1-0": {
-    "titre": "Dessiner avec scratch",
-    "url": "/exercices/4e/4Algo1-0.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "4Algo1-0"
-  },
-  "4Algo1-1": {
-    "titre": "Tortue Scratch avec répétitions",
-    "url": "/exercices/4e/4Algo1-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "qcmMono"
-    },
-    "interactifReady": true,
-    "interactifType": "cliqueFigure",
-    "name": "4Algo1-1"
   },
   "4C10-0": {
     "titre": "Signe d’un produit ou d’un quotient de nombres relatifs",
@@ -1220,6 +1202,13 @@ export default {
     ],
     "name": "4G53"
   },
+  "4I1": {
+    "titre": "Dessiner avec scratch",
+    "url": "/exercices/4e/4I1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4I1"
+  },
   "4L10-1": {
     "titre": "Réduire, si possible, une expression littérale simple",
     "url": "/exercices/4e/4L10-1.js",
@@ -1318,12 +1307,16 @@ export default {
     "interactifReady": false,
     "name": "4S11"
   },
-  "beta4G20-4": {
-    "titre": "Calculer la racine carrée de (x² +/- y²)",
-    "url": "/exercices/4e/beta4G20-4.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta4G20-4"
+  "AI1-1": {
+    "titre": "Tortue Scratch avec répétitions",
+    "url": "/exercices/4e/AI1-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "cliqueFigure",
+    "name": "AI1-1"
   },
   "5A10": {
     "titre": "Écrire la liste de tous les diviseurs d’un entier",
@@ -2010,31 +2003,6 @@ export default {
     "interactifReady": false,
     "name": "5S21"
   },
-  "6Algo10": {
-    "titre": "Programmer des déplacements (scratch)",
-    "url": "/exercices/6e/6Algo10.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "6Algo10"
-  },
-  "6Algo11": {
-    "titre": "Note la couleur (scratch)",
-    "url": "/exercices/6e/6Algo11.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "6Algo11"
-  },
-  "6Algo12": {
-    "titre": "Trouver le bon tracé avec scratch",
-    "url": "/exercices/6e/6Algo12.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "qcmMono"
-    },
-    "interactifReady": true,
-    "interactifType": "custom",
-    "name": "6Algo12"
-  },
   "6C10-1": {
     "titre": "Tables de multiplication",
     "url": "/exercices/6e/6C10-1.js",
@@ -2535,6 +2503,31 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "6G43"
+  },
+  "6I10": {
+    "titre": "Programmer des déplacements (scratch)",
+    "url": "/exercices/6e/6I10.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6I10"
+  },
+  "6I11": {
+    "titre": "Note la couleur (scratch)",
+    "url": "/exercices/6e/6I11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6I11"
+  },
+  "6I12": {
+    "titre": "Trouver le bon tracé avec scratch",
+    "url": "/exercices/6e/6I12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "6I12"
   },
   "6M10": {
     "titre": "Calculer des périmètres et des aires de figures usuelles",
@@ -3215,6 +3208,13 @@ export default {
     "interactifReady": false,
     "name": "beta4G20-3"
   },
+  "beta4G20-4": {
+    "titre": "Calculer la racine carrée de (x² +/- y²)",
+    "url": "/exercices/beta/beta4G20-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta4G20-4"
+  },
   "beta6C33-1": {
     "titre": "Parenthèses manquantes",
     "url": "/exercices/beta/beta6C33-1.js",
@@ -3349,6 +3349,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExoSimpleMatthieu"
+  },
+  "betaGilles_test": {
+    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
+    "url": "/exercices/beta/betaGilles_test.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaGilles_test"
   },
   "betaLicence": {
     "titre": "QCM de positionnement",
