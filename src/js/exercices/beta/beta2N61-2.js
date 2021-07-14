@@ -64,12 +64,12 @@ export default function ExerciceInequation2 () {
     // Crée une liste d'autant de signes que de questions
     const signes = combinaisonListes(['<', '>', '≤', '≥'], this.nbQuestions)
     // Boucle principale qui servira à créer toutes les questions // On limite le nombre d'essais à 50 pour chercher des valeurs nouvelles
-    for (let i = 0, a, b, c, d, pGauche, pDroite, texte, ligne1, ligne2, ligne3, longueurColonne, ecart, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, b, c, d, pGauche, pDroite, texte, ligne1, ligne2, ligne3, ecart, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Génère 4 nombres relatifs a, b, c et d tous différents avec a et c qui ne peuvent pas être 1 car ce sont ceux qui peuvent multiplier x pour éviter à la fois d'avoir '1x' et de diviser par 1
-      a = randint(2, 13) * choice([-1, 1])
-      b = randint(1, 13, a) * choice([-1, 1])
-      c = randint(2, 13, [a, b]) * choice([-1, 1])
-      d = randint(1, 13, [a, b, c]) * choice([-1, 1])
+      a = randint(-13, 13, [0, 1, -1])
+      b = randint(-13, 13, [0, a])
+      c = randint(-13, 13, [0, 1, -1, a, b])
+      d = randint(-13, 13, [0, 1, -1, a, b, c])
       // Pioche un signe d'inégalité parmi <, ≤, ≥, > et définit en fonction si les crochets seront ouverts ou fermés dans l'ensemble de solutions
       switch (signes[i]) {
         case '<':
@@ -100,11 +100,11 @@ export default function ExerciceInequation2 () {
       // Les lignes sont des tableaux qui alternent chaîne de caractère et 'nombre de pixels de largeur estimée du texte pour le centrage'
       // La première chaîne 'Line' indique que c'est pour un tableau de signes et valeurs ('Var' pour un tableau de variations)
       // 'R' indique qu'il n'y a rien à afficher (pour laisser un espace sous la borne par exemple)
-      // ",'z', 20" pour avoir un zéro et ",'z', 0" pour avoir un trait vertical
-      const lignePPM = ['Line', 30, '', 0, '+', 20, 'z', 0, '+', 20, 'z', 20, '-', 20]
-      const lignePMM = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 0, '-', 20]
-      const ligneMPP = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 0, '+', 20]
-      const ligneMMP = ['Line', 30, '', 0, '-', 20, 'z', 0, '-', 20, 'z', 20, '+', 20]
+      // ",'z', 20" pour avoir un zéro sur des pointillés et ",'t', 5" pour juste avoir les pointillés
+      const lignePPM = ['Line', 30, '', 0, '+', 20, 't', 5, '+', 20, 'z', 20, '-', 20]
+      const lignePMM = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 5, '-', 20]
+      const ligneMPP = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 5, '+', 20]
+      const ligneMMP = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20, 'z', 20, '+', 20]
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)(x+b)<0'
       if (listeTypeDeQuestions[i] === '(x+a)(x+b)<0') {
         // Consigne
@@ -185,12 +185,12 @@ export default function ExerciceInequation2 () {
         for (let j = 0; j < 3; j++) {
           for (let n = 0; n < 3; n++) {
             if (racines[n] === lignes[j]) {
-              if (n === 0) { // La racine d'indice 0 est la plus petite des trois, et donc celle la plus à gauche dans le tableau donc le 0 (, 'z', 20) est en première position et les autres sont des | (, 'z', 0)
-                lignes[j] = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 0, '+', 20, 'z', 0, '+', 20]
-              } else if (n === 1) { // La racine d'indice 1 est la deuxième racine, donc le 0 (, 'z', 20) en deuxième position et les autres sont des | (, 'z', 0)
-                lignes[j] = ['Line', 30, '', 0, '-', 20, 'z', 0, '-', 20, 'z', 20, '+', 20, 'z', 0, '+', 20]
-              } else if (n === 2) { // La racine d'indice 2 est la plus grande des racines, donc le 0 (, 'z', 20) est en troisième position et les autres sont des | (, 'z', 0)
-                lignes[j] = ['Line', 30, '', 0, '-', 20, 'z', 0, '-', 20, 'z', 0, '-', 20, 'z', 20, '+', 20]
+              if (n === 0) { // La racine d'indice 0 est la plus petite des trois, et donc celle la plus à gauche dans le tableau donc le 0 (, 'z', 20) est en première position et les autres sont des | (, 't', 5)
+                lignes[j] = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 5, '+', 20, 't', 5, '+', 20]
+              } else if (n === 1) { // La racine d'indice 1 est la deuxième racine, donc le 0 (, 'z', 20) en deuxième position et les autres sont des | (, 't', 5)
+                lignes[j] = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20, 'z', 20, '+', 20, 't', 5, '+', 20]
+              } else if (n === 2) { // La racine d'indice 2 est la plus grande des racines, donc le 0 (, 'z', 20) est en troisième position et les autres sont des | (, 't', 5)
+                lignes[j] = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20, 't', 5, '-', 20, 'z', 20, '+', 20]
               }
             }
           }
