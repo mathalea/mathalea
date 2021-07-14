@@ -1,9 +1,9 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1, prenom, personne, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1, prenom, personne, miseEnEvidence, texteEnCouleur } from '../../modules/outils.js'
 import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { afficheCoteSegment, droiteGraduee2, homothetie, mathalea2d, point, segment, texteSurSegment } from '../../modules/2d.js'
 export const titre = 'Course aux nombres CM1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,7 +32,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let a, b, c, d, resultat, propositions
+    let a, b, c, d, resultat, propositions, objets, A, B, C
     let questions = []
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
@@ -294,6 +294,37 @@ export default function CourseAuxNombresCM (numeroExercice) {
           }
           texteCorr = `$${a} \\times 4=${calcul(a * 4)}$`
           setReponse(this, i, calcul(a * 4), { formatInteractif: 'calcul' })
+          break
+        case 'q19': // différences de décimaux
+          a = calcul(randint(2, 5) + randint(1, 5) / 10)
+          b = calcul(randint(2, 5) + randint(1, 5) / 10)
+          c = calcul(a + b)
+          switch (randint(1, 3)) {
+            case 1:
+              texte = `On a coupé ${texNombre(a)} cm d'une ficelle qui en faisait ${texNombre(c)}.<br>Combien de centimètres en reste-t-il ?`
+              texteCorr = `$${texNombre(c)}-${texNombre(a)}=${texNombre(b)}$`
+              break
+            case 2:
+              texte = `$\\ldots + ${texNombre(a)}=${texNombre(c)}$`
+              texteCorr = `$${miseEnEvidence(texNombrec(b))} + ${texNombre(a)}=${texNombre(c)}$`
+              break
+            case 3:
+              A = point(0, 0)
+              B = point(5, 0)
+              C = homothetie(B, A, a / c)
+              objets = []
+              objets[0] = segment(A, B)
+              objets[0].styleExtremites = '|-|'
+              objets[1] = afficheCoteSegment(objets[0], texNombre(c), 0.5, 'green')
+              objets[2] = segment(A, C)
+              objets[2].styleExtremites = '|-|'
+              objets[3] = afficheCoteSegment(objets[2], texNombre(a), -1, 'blue')
+              objets[4] = afficheCoteSegment(segment(C, B), '?', -1, 'red')
+              texte = mathalea2d({ xmin: -0.1, xmax: 5.1, ymin: -1.5, ymax: 1.5, pixelsParCm: 20, scale: 1 }, objets)
+              texteCorr = `$${miseEnEvidence(texNombre(c))} - ${texNombre(a)}=${texNombre(b)}$`
+              break
+          }
+          setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
       }
 
