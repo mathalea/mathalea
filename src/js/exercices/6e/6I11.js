@@ -2,7 +2,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, texteGras, modalUrl, modalPdf } from '../../modules/outils.js'
-import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, point } from '../../modules/2d.js'
+import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, fondEcran, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, point } from '../../modules/2d.js'
 export const titre = 'Note la couleur (scratch)'
 
 /**
@@ -244,11 +244,11 @@ export default function Note_la_couleur () {
     context.pixelsParCm = 20
     let pion
     if (this.sup) {
-      objetsCorrection = [fond_ecran('assets/images/nlc_an.png', -450, -345, 900, 690)]
-      objetsEnonce = [fond_ecran('assets/images/nlc_an.png', -450, -345, 900, 690)]
+      objetsCorrection = [fondEcran('assets/images/nlc_an.png', -450, -345, 900, 690)]
+      objetsEnonce = [fondEcran('assets/images/nlc_an.png', -450, -345, 900, 690)]
     } else {
-      objetsCorrection = [fond_ecran('assets/images/nlc_sn.png', -450, -345, 900, 690)]
-      objetsEnonce = [fond_ecran('assets/images/nlc_sn.png', -450, -345, 900, 690)]
+      objetsCorrection = [fondEcran('assets/images/nlc_sn.png', -450, -345, 900, 690)]
+      objetsEnonce = [fondEcran('assets/images/nlc_sn.png', -450, -345, 900, 690)]
     }
     let texte = ''
     let texteCorr = ''
