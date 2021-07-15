@@ -7,46 +7,37 @@
 // => Conserver les espaces V.I.P. mais pas leurs enfants
 // Je fais le choix de supprimer tous les répertoires et de recréer les répertoires VIPs, c'est plus simple que de tester si le répertoire existe
 // dans un tableau de codes VIPs, la key md5 des VIPs sera constante !
-// https://gmanier.com/memo/6/php-supprimer-dossier-a-l-aide-de-la-recursivite
-// https://www.it-swarm-fr.com/fr/php/comment-supprimer-recursivement-un-repertoire-et-tout-son-contenu-fichiers-sous-repertoires-en-php/969499939/
-// https://qastack.fr/programming/2524151/php-get-all-subdirectories-of-a-given-directory
-// https://lucidar.me/en/web-dev/how-to-get-subdirectories-in-php/
 // =============================================================================================================================
 
 // ========================
 // VARIABLES 
 // ========================
-$msg = "Suppression KO !\r\n"; // Pour le retour console
+$msg = "Suppression KO !"; // Pour le retour console
+$msgVip = "CRON KO !"; // Pour le retour console
 $scoresDir = "./resultats"; // Pour le repertoire de stockage des espaces de scores
-$timeBeforeDelete = 60; // Temps avant suppression d'un dossier/fichier
+// On met tout à zéro dès lors que 365,25 jours ( 31 557 600 secondes ) se sont écoulés, tous les 14 juillet par exemple
+$deleteDay = 14;
+$deleteMonth = 7;
+$currentDay = intval(date('d'));//$currentDate[mday];
+$currentMonth = intval(date('m'));//$currentDate[mon];
+$currentYear = intval(date('Y'));//$currentDate[year];
+$deleteYear = ($currentDay > $deleteDay && $currentMonth >= $deleteMonth) ? $currentYear+1 : $currentYear;  
+$diff = (time() - filectime($scoresDir));
 
+// On calcule l'intervalle en jours depuis la date anniversaire de l'année précédente
+$currentInterval = date_diff(date_create("$deleteYear/$deleteMonth/$deleteDay"),date_create("$currentYear/$currentMonth/$currentDay"))->format('%a');
+$intervalBeforeDelete = 31557600; // 60; // Temps avant remise à zero des espaces de scores
+// Un booléen pour ne supprimer qu'une fois à la date anniversaire
+// On ne supprimera que si le repertoire d'espace des scores a plus d'un an
+$deletePathToDo = ($diff>$intervalBeforeDelete) ? true : false;
 
-// // Procédure de suppression des fichiers avec exploration recursive
-function recursiveDelete($pathToClean,$timeBeforeDelete) {
-    $repertoire = opendir($pathToClean); // On définit le répertoire dans lequel on souhaite travailler.
-    
-    while (false !== ($fichier = readdir($repertoire))) // On lit chaque fichier du répertoire dans la boucle.
-    {
-    $chemin = $pathToClean."/".$fichier; // On définit le chemin du fichier à effacer.
-    
-    // Si le fichier n'est pas un répertoire…
-    if ($fichier != ".." && $fichier != "." && !is_dir($fichier))
-          {
-          $Diff = (time() - filectime($chemin));
-          if ($Diff > $timeBeforeDelete) unlink($chemin); // On efface si c'est trop vieux depuis la dernière modification        
-          }
-    elseif (is_dir($fichier)) 
-          {
-            recursiveDelete($fichier,$timeBeforeDelete);
-          }
-    }
-    closedir($repertoire);
-};
 /**
-* Fonction qui crée tous les espaces V.I.P. à partir d'un json non suivi par git 
+* Fonction qui crée tous les espaces V.I.P. à partir d'un json non suivi par git
+* le json est en ligne mais son accès est bloqué via .htaccess
 * 
 * @param json $pathToJson contenant les données à parser
-*  
+*
+* @return string un message pour la console  
 */
 
 function createVipScoresSpaces($pathToJson) {
@@ -62,14 +53,41 @@ function createVipScoresSpaces($pathToJson) {
        mkdir($path, 0775, true);
    };      
  };
- $GLOBALS["msg"] .= "Création des espaces de scores VIPs OK ! \r\n";
+
+ return "Création des espaces de scores VIPs OK !";
 };
 
-createVipScoresSpaces('./json/scoresCodesVip.json');
+// Procedure de suppression recursive d'un repertoire et de ses enfants
+function recursiveRmdir($dir) { 
+  if (is_dir($dir)) { 
+    $objects = scandir($dir); 
+    foreach ($objects as $object) { 
+      if ($object != "." && $object != "..") { 
+        if (filetype($dir."/".$object) == "dir") recursiveRmdir($dir."/".$object); else unlink($dir."/".$object); 
+      } 
+    } 
+    reset($objects); 
+    rmdir($dir); 
+  }  
+} 
 
+$deleteBool = ($currentDay == $deleteDay && $currentMonth == $deleteMonth && $currentYear == $deleteYear && $deletePathToDo) || ($currentDay >= $deleteDay && $currentMonth >= $deleteMonth && $currentYear <= $deleteYear && $deletePathToDo);
+
+// Si on est le bon jour et que le répertoire a plus d'un an, on supprime et on recrée les vips
+if ($deleteBool) {
+  recursiveRmdir($scoresDir);
+  $msg = "Suppression OK !"; 
+  $msgVip = createVipScoresSpaces('./json/scoresCodesVip.json');
+  $msgVip .= "CRON OK !";
+}  
 
 echo json_encode(array(
-    "msg" => $msg,
+    "msg" => $msg . "\r\n" . $msgVip . "\r\n" . "Il reste ".$currentInterval . " jour(s) avant suppression". "\r\n" . "Le dossier de stockage a " . $diff . " seconde(s) depuis sa création."
+    ."\r\n"
+    ."année courante : $currentYear "."\r\n"
+    ."année de suppr : $deleteYear "."\r\n"    
+    ."doit-on suppr le repertoire ? $deletePathToDo "."\r\n"
+    ."condition de suppr : $deleteBool ",
   ));  
 
 ?>
