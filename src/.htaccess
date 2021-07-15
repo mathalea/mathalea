@@ -26,6 +26,11 @@ RewriteEngine on
 
 #</Files>
 
+# Interdit l'accès au fichier json des VIPs
+<files scoresCodesVip.json>
+Order allow,deny
+Deny from all
+</files>
 
 # Erreur 404
 ErrorDocument 404 /404.html
