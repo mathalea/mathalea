@@ -39,14 +39,14 @@ export default function gestionScores () {
       if (document.getElementById('scoresInfosTimeLeft')) {
         // console.log(response.timeLeft)
         document.getElementById('scoresInfosTimeLeft').innerHTML = `
+        Ce service ne garantit en rien la pérennité des données. Bien au contraire, les données sont effacées une fois par an.
         <ul>
-          <li>
-            Ce service ne garantit en rien la pérennité des données. Bien au contraire, les données sont effacées une fois par an.
-            Charge aux utilisateurs du service de les récupérer avant.
+          <li>    
+            <b>Charge aux utilisateurs du service de les récupérer avant</b>.
             <ul>
-              <li><b>Le prochain effacement complet est prévu à partir du ${response.deleteNextDate}.</b></li>
+              <li>Nous sommes le ${response.currentDate}, <b>le prochain effacement complet est prévu à partir du ${response.deleteNextDate}.</b></li>
               <li>Il reste donc <b>${response.timeLeft} jour(s) avant la prochaine remise à zéro</b> des espaces de scores.</li>          
-              <li>Le répertoire père est crée depuis ${response.timeSinceCreation} seconde(s).</li>
+              <li>Le répertoire père est créé depuis ${response.timeSinceCreation} seconde(s).</li>
             </ul>
           </li>
           <li>Si vous découvrez l'enregistrement des scores, c'est mieux de <b>consulter la documentation</b> ! </li>
