@@ -82,12 +82,14 @@ if ($deleteBool) {
 }  
 
 echo json_encode(array(
-    "msg" => $msg . "\r\n" . $msgVip . "\r\n" . "Il reste ".$currentInterval . " jour(s) avant suppression". "\r\n" . "Le dossier de stockage a " . $diff . " seconde(s) depuis sa création."
-    ."\r\n"
-    ."année courante : $currentYear "."\r\n"
-    ."année de suppr : $deleteYear "."\r\n"    
-    ."doit-on suppr le repertoire ? $deletePathToDo "."\r\n"
-    ."condition de suppr : $deleteBool ",
+    "msg" => $msg . "\r\n" . $msgVip, // ."\r\n",
+    // ."année courante : $currentYear "."\r\n"
+    // ."année de suppr : $deleteYear "."\r\n"    
+    // ."doit-on suppr le repertoire ? ". boolval($deletePathToDo) ."\r\n"
+    // ."condition de suppr : ". boolval($deleteBool),
+    "timeLeft" => $currentInterval,
+    "timeSinceCreation" => $diff,
+    "deleteNextDate" => "$deleteDay/$deleteMonth/$deleteYear",
   ));  
 
 ?>
