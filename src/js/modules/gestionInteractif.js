@@ -29,13 +29,14 @@ export function exerciceInteractif (exercice) {
  * @param {object} exercice
  */
 export function exerciceQcm (exercice) {
+  console.log('Dans ExerciceQcm : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
   document.addEventListener('exercicesAffiches', () => {
     // On active les checkbox
     $('.ui.checkbox').checkbox()
     // Couleur pour surligner les label avec une opacité de 50%
     const monRouge = 'rgba(217, 30, 24, 0.5)'
     const monVert = 'rgba(123, 239, 178, 0.5)'
-    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
+    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       button.addEventListener('click', event => {
         let nbQuestionsValidees = 0
@@ -194,8 +195,9 @@ export function elimineDoublons (propositions) { // fonction qui va éliminer le
  * @param {object} exercice
  */
 export function exerciceNumerique (exercice) {
+  console.log('Dans ExerciceNumerique : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
   document.addEventListener('exercicesAffiches', () => {
-    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
+    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       button.addEventListener('click', event => {
         let nbBonnesReponses = 0
@@ -239,7 +241,7 @@ export function exerciceCliqueFigure (exercice) {
       }
     }
     // Gestion de la correction
-    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
+    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       button.addEventListener('click', event => {
         let nbBonnesReponses = 0
@@ -366,7 +368,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
  */
 export function exerciceCustom (exercice) {
   document.addEventListener('exercicesAffiches', () => {
-    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
+    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       button.addEventListener('click', event => {
         // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
@@ -395,7 +397,7 @@ export function exerciceCustom (exercice) {
 export function exerciceMathLive (exercice) {
   const engine = new ComputeEngine()
   document.addEventListener('exercicesAffiches', () => {
-    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
+    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       button.addEventListener('click', event => {
         let nbBonnesReponses = 0
