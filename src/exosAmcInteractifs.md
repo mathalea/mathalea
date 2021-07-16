@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 98 
-- nombre d'exos interactifReady 120 
+- nombre d'exos amcReady 100 
+- nombre d'exos interactifReady 122 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -87,6 +87,7 @@
 |6C31|Divisions décimales|OK|AMCNum|OK|numerique|
 |6C33|Calculer en utilisant les priorités opératoires|OK|AMCNum|OK|numerique|
 |6C34|Dernier chiffre d’un calcul|OK|AMCNum|OK|numerique|
+|6C3CaN|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
 |6G10-3|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |6G23-1|Mesurer un angle|OK|qcmMono|OK|qcm|
 |6G25-1|Symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
@@ -116,9 +117,10 @@
 |6N43|Critères de divisibilité|OK|qcmMono|OK|qcm|
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
-|betaCaN6|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
+|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
+|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|

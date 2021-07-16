@@ -2264,6 +2264,17 @@ export default {
     "interactifReady": false,
     "name": "6C35"
   },
+  "6C3CaN": {
+    "titre": "Course aux nombres 6e",
+    "url": "/exercices/6e/6C3CaN.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6C3CaN"
+  },
   "6D10": {
     "titre": "Convertir des durées",
     "url": "/exercices/6e/6D10.js",
@@ -3268,16 +3279,16 @@ export default {
     "interactifType": "mathLive",
     "name": "betaCaN5"
   },
-  "betaCaN6": {
-    "titre": "Course aux nombres 6e",
-    "url": "/exercices/beta/betaCaN6.js",
+  "betaCaNCM2": {
+    "titre": "Course aux nombres CM2",
+    "url": "/exercices/beta/betaCaNCM2.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCaN6"
+    "name": "betaCaNCM2"
   },
   "betaExemple": {
     "titre": "Exercice exemple",
@@ -3441,6 +3452,17 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "c3C11"
+  },
+  "c3C3CaN": {
+    "titre": "Course aux nombres CM1",
+    "url": "/exercices/c3/c3C3CaN.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "c3C3CaN"
   },
   "c3N10": {
     "titre": "Écrire un nombre en chiffres ou en lettres",
