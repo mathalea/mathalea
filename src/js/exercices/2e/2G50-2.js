@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, pgcd, mathtrunc } from '../../modules/outils.js'
 import { repere2, courbe2, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+import { min } from 'mathjs'
 export const titre = "Lecture graphique des coefficients d'une équation réduite "
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -182,7 +183,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -8,
-              ymin: -8,
+              ymin: min(-6, b + a, b - d, b - a) - 1,
               xmax: 8,
               ymax: 8
 
