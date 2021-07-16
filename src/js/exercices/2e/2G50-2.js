@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, pgcd } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, pgcd, mathtrunc } from '../../modules/outils.js'
 import { repere2, courbe2, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+import { min } from 'mathjs'
 export const titre = "Lecture graphique des coefficients d'une équation réduite "
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +24,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
   this.spacing = 1
   this.spacingCorr = 1
   this.spacingCorr = 3
-  this.sup = 1
+
   this.interactifReady = interactifReady
   this.interactifType = interactifType
 
@@ -113,13 +114,14 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
         setReponse(this, i, 'y=' + reduireAxPlusB(a, b))
       }
       if (this.sup === 2) { // cas du coeff directeur fractionnaire
-        a = randint(-5, 5) // numérateut coefficient directeur
+        a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
         b = randint(-5, 5) // ordonnée à l'origine
-        d = randint(2, 5) // dénominateur coefficient directeur
+        d = randint(2, 5, [a, 2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
         if (a === 0 && b === 0) {
           a = 1
           d = 3
         }// On évite la situation de double nullité
+
         r = repere2()// On définit le repère
         f = x => (a / d) * x + b // On définit la fonction affine
         c = courbe2(f, { repere: r, color: 'red' })// On définit l'objet qui tracera la courbe dans le repère
@@ -155,13 +157,14 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           }
           texteCorr += '$'
 
-          texteCorr += '<br>On peut en déduire que l\'équation réduite de la droite $(d)$ est : $y='
-
+          texteCorr += '<br>On peut en déduire que l\'équation réduite de la droite $(d)$ est : $y= '
           if (a === d) { texteCorr += 'x' }
-          if (a !== d) { texteCorr += `${texFractionReduite(a, d)}x` }
+          if (a === -d) { texteCorr += '-x' }
+          if (a !== d & a !== -d) { texteCorr += `${texFractionReduite(a, d)}x` }
 
           if (b !== 0) { texteCorr += `+ ${b}` }
           texteCorr += '$.'
+
           if (a > 0) {
             s1 = segment(0, b - a, -d, b - a, 'blue')
             s1.epaisseur = 4
@@ -179,14 +182,14 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           l.color = 'red'
           if (a !== 0) {
             texteCorr += mathalea2d({
-              xmin: -6,
-              ymin: -6,
-              xmax: 6,
-              ymax: 6
+              xmin: -8,
+              ymin: min(-6, b + a, b - d, b - a) - 1,
+              xmax: 8,
+              ymax: 8
 
             }, r, f, s1, s2, t, l, c)
           }// On trace le graphique
-        setReponse(this, i, 'y=' + reduireAxPlusB(a / d, b))
+          setReponse(this, i, 'y=' + reduireAxPlusB(a / d, b))
         }
       }
       texte += ajouteChampTexteMathLive(this, i)
@@ -201,5 +204,5 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de question :', 2, '1 : Valeurs entières.\n2 : Valeurs fractionnaires.']
+  this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières.\n2 : Valeurs fractionnaires.']
 }

@@ -1,5 +1,7 @@
 Un exercice est un objet de la classe Exercice. Il a plusieurs attributs (son titre, son énoncé, sa correction...) et une méthode `nouvelleVersion()` qui crée un énoncé aléatoire.
 
+Le nom d'un exercice commence par la référence correspondante du [référentiel de CoopMaths](https://coopmaths.fr/pdf/CoopMaths-Referentiel.pdf). Si un exercice de la même référence existe déjà, ajouter un tiret suivi d'un nombre.
+
 Les réglages appliqués par défaut sont dans `src/js/exercices/Exercice.js`.
 
 

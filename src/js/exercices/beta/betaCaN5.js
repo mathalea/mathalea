@@ -14,7 +14,7 @@ export const amcType = 'AMCNum'
  * @author
  * Référence
 */
-export default function CourseAuxNombres6e (numeroExercice) {
+export default function CourseAuxNombres5e (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 30
@@ -34,7 +34,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
       ['cerises', 6, 11, 20],
       ['pommes', 2, 20, 40],
       ['framboises', 15, 1, 5],
-      ['fraises', 7, 5, 10],
+      ['fraises', 6, 5, 10],
       ['citrons', 1.5, 15, 30],
       ['bananes', 1.5, 15, 25]
     ]

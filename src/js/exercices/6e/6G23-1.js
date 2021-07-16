@@ -56,7 +56,7 @@ export default function MesurerUnAngle () {
       B = point(6, 0)
       B = rotation(B, A, anglerot)
 
-      // texte, A, orientation = "milieu", color = 'black', scale = 1, ancrageDeRotation = "middle", math_on = false
+      // texte, A, orientation = "milieu", color = 'black', scale = 1, ancrageDeRotation = "middle", mathOn = false
       Bpos = texteParPoint(p[0], similitude(A, homothetie(B, A, 0.95), signes[i] * 90, 0.1), 'milieu', 'black', 1, 'middle', true)
       s1 = demiDroite(A, B)
       C = rotation(B, A, angle)

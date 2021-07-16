@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
@@ -46,7 +45,7 @@ export function ObjetMathalea2D () {
  * @param {number} largeur
  * @param {number} hauteur
  */
-function Fond_ecran (url, x, y, largeur, hauteur) {
+function FondEcran (url, x, y, largeur, hauteur) {
   ObjetMathalea2D.call(this)
   this.svg = function (coeff) {
     return `<image xlink:href="${url}" x="${x}" y="${y}" height="${hauteur}" width="${largeur}" />`
@@ -57,8 +56,8 @@ function Fond_ecran (url, x, y, largeur, hauteur) {
   }
 }
 
-export function fond_ecran (url, x = 0, y = 0, largeur = context.fenetreMathalea2d.xMax - context.fenetreMathalea2d.xMin, hauteur = context.fenetreMathalea2d.yMax - context.fenetreMathalea2d.yMin) {
-  return new Fond_ecran(url, x, y, largeur, hauteur)
+export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2d.xMax - context.fenetreMathalea2d.xMin, hauteur = context.fenetreMathalea2d.yMax - context.fenetreMathalea2d.yMin) {
+  return new FondEcran(url, x, y, largeur, hauteur)
 }
 /**
  * fork de https://javascript.developpez.com/actu/94357/JavaScript-moins-Realiser-une-copie-parfaite-d-objet/
@@ -1917,32 +1916,32 @@ function Polygone (...points) {
     }
   }
   this.svgml = function (coeff, amp) {
-    let code = ''; let segment_courant
+    let code = ''; let segmentCourant
     let A = this.listePoints[0]; let B
     for (let k = 1; k <= this.listePoints.length; k++) {
       B = this.listePoints[k % this.listePoints.length]
       A = this.listePoints[k - 1]
-      segment_courant = segment(A, B)
-      segment_courant.isVisible = true
-      segment_courant.epaisseur = this.epaisseur
-      segment_courant.color = this.color
-      segment_courant.opacite = this.opacite
-      code += segment_courant.svgml(coeff, amp)
+      segmentCourant = segment(A, B)
+      segmentCourant.isVisible = true
+      segmentCourant.epaisseur = this.epaisseur
+      segmentCourant.color = this.color
+      segmentCourant.opacite = this.opacite
+      code += segmentCourant.svgml(coeff, amp)
     }
     return code
   }
   this.tikzml = function (amp) {
-    let code = ''; let segment_courant
+    let code = ''; let segmentCourant
     let A, B
     for (let k = 1; k <= this.listePoints.length; k++) {
       B = this.listePoints[k % this.listePoints.length]
       A = this.listePoints[k - 1]
-      segment_courant = segment(A, B)
-      segment_courant.isVisible = false
-      segment_courant.epaisseur = this.epaisseur
-      segment_courant.color = this.color
-      segment_courant.opacite = this.opacite
-      code += '\t' + segment_courant.tikzml(amp) + '\n'
+      segmentCourant = segment(A, B)
+      segmentCourant.isVisible = false
+      segmentCourant.epaisseur = this.epaisseur
+      segmentCourant.color = this.color
+      segmentCourant.opacite = this.opacite
+      code += '\t' + segmentCourant.tikzml(amp) + '\n'
     }
     return code
   }
@@ -2631,11 +2630,11 @@ export function pointIntersectionLC (d, C, nom = '', n = 1) {
   const c = d.c
   const xO = O.x
   const yO = O.y
-  let Delta, delta, xi, yi, xi_prime, yi_prime
+  let Delta, delta, xi, yi, xiPrime, yiPrime
   if (b === 0) {
     // la droite est verticale
     xi = calcul(-c / a)
-    xi_prime = xi
+    xiPrime = xi
     Delta = calcul(
       4 * (-xO * xO - (c * c) / (a * a) - (2 * xO * c) / a + r * r)
     )
@@ -2643,16 +2642,16 @@ export function pointIntersectionLC (d, C, nom = '', n = 1) {
     else if (egal(Delta, 0)) {
       // un seul point d'intersection
       yi = calcul(yO + Math.sqrt(Delta) / 2)
-      yi_prime = yi
+      yiPrime = yi
     } else {
       // deux points d'intersection
       yi = calcul(yO - Math.sqrt(Delta) / 2)
-      yi_prime = calcul(yO + Math.sqrt(Delta) / 2)
+      yiPrime = calcul(yO + Math.sqrt(Delta) / 2)
     }
   } else if (a === 0) {
     // la droite est horizontale
     yi = calcul(-c / b)
-    yi_prime = yi
+    yiPrime = yi
     Delta = calcul(
       4 * (-yO * yO - (c * c) / (b * b) - (2 * yO * c) / b + r * r)
     )
@@ -2660,11 +2659,11 @@ export function pointIntersectionLC (d, C, nom = '', n = 1) {
     else if (egal(Delta, 0)) {
       // un seul point d'intersection
       xi = calcul(xO + Math.sqrt(Delta) / 2)
-      xi_prime = xi
+      xiPrime = xi
     } else {
       // deux points d'intersection
       xi = calcul(xO - Math.sqrt(Delta) / 2)
-      xi_prime = calcul(xO + Math.sqrt(Delta) / 2)
+      xiPrime = calcul(xO + Math.sqrt(Delta) / 2)
     }
   } else {
     // cas général
@@ -2682,9 +2681,9 @@ export function pointIntersectionLC (d, C, nom = '', n = 1) {
         (-2 * ((a * c) / (b * b) + (yO * a) / b - xO) - delta) /
         (2 * (1 + (a / b) ** 2))
       )
-      xi_prime = xi
+      xiPrime = xi
       yi = calcul((-a * xi - c) / b)
-      yi_prime = yi
+      yiPrime = yi
     } else {
       // deux points d'intersection
       delta = calcul(Math.sqrt(Delta))
@@ -2692,25 +2691,25 @@ export function pointIntersectionLC (d, C, nom = '', n = 1) {
         (-2 * ((a * c) / (b * b) + (yO * a) / b - xO) - delta) /
         (2 * (1 + (a / b) ** 2))
       )
-      xi_prime = calcul(
+      xiPrime = calcul(
         (-2 * ((a * c) / (b * b) + (yO * a) / b - xO) + delta) /
         (2 * (1 + (a / b) ** 2))
       )
       yi = calcul((-a * xi - c) / b)
-      yi_prime = calcul((-a * xi_prime - c) / b)
+      yiPrime = calcul((-a * xiPrime - c) / b)
     }
   }
   if (n === 1) {
-    if (yi_prime > yi) {
-      return point(xi_prime, yi_prime, nom)
+    if (yiPrime > yi) {
+      return point(xiPrime, yiPrime, nom)
     } else {
       return point(xi, yi, nom)
     }
   } else {
-    if (yi_prime > yi) {
+    if (yiPrime > yi) {
       return point(xi, yi, nom)
     } else {
-      return point(xi_prime, yi_prime, nom)
+      return point(xiPrime, yiPrime, nom)
     }
   }
 }
@@ -2747,20 +2746,20 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
   const rx = -dy * (h / d)
   const ry = dx * (h / d)
   const xi = x2 + rx
-  const xi_prime = x2 - rx
+  const xiPrime = x2 - rx
   const yi = y2 + ry
-  const yi_prime = y2 - ry
+  const yiPrime = y2 - ry
   if (n === 1) {
-    if (yi_prime > yi) {
-      return point(xi_prime, yi_prime, nom)
+    if (yiPrime > yi) {
+      return point(xiPrime, yiPrime, nom)
     } else {
       return point(xi, yi, nom)
     }
   } else {
-    if (yi_prime > yi) {
+    if (yiPrime > yi) {
       return point(xi, yi, nom)
     } else {
-      return point(xi_prime, yi_prime, nom)
+      return point(xiPrime, yiPrime, nom)
     }
   }
 }
@@ -3268,32 +3267,32 @@ function PolygoneMainLevee (points, amp) {
   this.listePoints = points
   //     this.nom = this.listePoints.join();
   this.svg = function (coeff) {
-    let code = ''; let segment_courant
+    let code = ''; let segmentCourant
     let A, B
     for (let k = 1; k <= this.listePoints.length; k++) {
       B = this.listePoints[k % this.listePoints.length]
       A = this.listePoints[k - 1]
-      segment_courant = segment(A, B)
-      segment_courant.isVisible = false
-      segment_courant.epaisseur = this.epaisseur
-      segment_courant.color = this.color
-      segment_courant.opacite = this.opacite
-      code += segment_courant.svgml(coeff, amp)
+      segmentCourant = segment(A, B)
+      segmentCourant.isVisible = false
+      segmentCourant.epaisseur = this.epaisseur
+      segmentCourant.color = this.color
+      segmentCourant.opacite = this.opacite
+      code += segmentCourant.svgml(coeff, amp)
     }
     return code
   }
   this.tikz = function () {
-    let code = ''; let segment_courant
+    let code = ''; let segmentCourant
     let A, B
     for (let k = 1; k <= this.listePoints.length; k++) {
       B = this.listePoints[k % this.listePoints.length]
       A = this.listePoints[k - 1]
-      segment_courant = segment(A, B)
-      segment_courant.isVisible = false
-      segment_courant.epaisseur = this.epaisseur
-      segment_courant.color = this.color
-      segment_courant.opacite = this.opacite
-      code += segment_courant.tikzml(amp)
+      segmentCourant = segment(A, B)
+      segmentCourant.isVisible = false
+      segmentCourant.epaisseur = this.epaisseur
+      segmentCourant.color = this.color
+      segmentCourant.opacite = this.opacite
+      code += segmentCourant.tikzml(amp)
     }
     return code
   }
@@ -4939,7 +4938,7 @@ export function codeSegments (mark = '||', color = 'black', ...args) {
  *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @author Jean-Claude Lhote
  */
-function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesure_on = false) {
+function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.debut = debut
@@ -4978,7 +4977,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
       t.isVisible = false
       objets.push(t)
     }
-    if (mesure_on) {
+    if (mesureOn) {
       const t = texteParPoint(mesure, M, 'milieu', color)
       t.isVisible = false
       objets.push(t)
@@ -5008,7 +5007,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     arcangle.couleurDeRemplissage = this.couleurDeRemplissage
     arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
     if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, color).tikz() + '\n'
-    if (mesure_on) code += texteParPoint(mesure, M, 'milieu', color).tikz() + '\n'
+    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', color).tikz() + '\n'
     code += arcangle.tikz()
     return code
   }
@@ -5027,7 +5026,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     arcangle.couleurDeRemplissage = this.couleurDeRemplissage
     arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
     if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, color).svg(coeff) + '\n'
-    if (mesure_on) code += texteParPoint(mesure, M, 'milieu', color).svg(coeff) + '\n'
+    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', color).svg(coeff) + '\n'
     code += arcangle.svgml(coeff, amp)
     return code
   }
@@ -5045,19 +5044,19 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     arcangle.couleurDeRemplissage = this.couleurDeRemplissage
     arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
     if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, color).tikz() + '\n'
-    if (mesure_on) code += texteParPoint(mesure, M, 'milieu', color).tikz() + '\n'
+    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', color).tikz() + '\n'
     code += arcangle.tikzml(amp)
     return code
   }
 }
 
-export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesure_on = false) {
+export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false) {
   if (typeof (angle) !== 'number') {
     angle = angleOriente(debut, centre, angle)
   }
   if (angle === 90 || angle === -90) {
     return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille)
-  } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, fillOpacite, mesure_on)
+  } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, fillOpacite, mesureOn)
 }
 
 function NomAngleParPosition (nom, x, y, color, s) {
@@ -6463,7 +6462,7 @@ export function traceGraphiqueCartesien (...args) {
 }
 
 /**
- * Classe Tableau_de_variation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote
+ * Classe TableauDeVariation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote
  * publié le 9/02/2021
  * tabInit est un tableau contenant sous forme de chaine les paramètres de la macro Latex \tabInit{}{}
  * tabLines est un tableau contenant sous forme de chaine les paramètres des différentes macro \tabLine{}
@@ -6473,7 +6472,7 @@ export function traceGraphiqueCartesien (...args) {
  * @param {*} param0
  * @author Jean-Claude Lhote
  */
-function Tableau_de_variation ({ tabInit, tabLines, lgt, escpl, deltacl, colors, hauteurLignes, colorBackground }) {
+function TableauDeVariation ({ tabInit, tabLines, lgt, escpl, deltacl, colors, hauteurLignes, colorBackground }) {
   ObjetMathalea2D.call(this)
   this.tabInit = tabInit
   this.tabLines = tabLines
@@ -7257,7 +7256,7 @@ function Tableau_de_variation ({ tabInit, tabLines, lgt, escpl, deltacl, colors,
   }
 
   this.tikz = function () {
-    let code = `\\tkzTabInit[lgt=${lgt},delatcl=${deltacl},escpl=${escpl}`
+    let code = `\\tkzTabInit[lgt=${lgt},deltacl=${deltacl},espcl=${escpl}`
     for (let i = 0; i < this.colors.length; i++) {
       code += `,${this.colors[i]}`
     }
@@ -7307,7 +7306,7 @@ function Tableau_de_variation ({ tabInit, tabLines, lgt, escpl, deltacl, colors,
     return code
   }
 }
-// tableau_de_variation crée une instance de la classe. voici le détail des paramètres.
+// tableauDeVariation crée une instance de la classe. voici le détail des paramètres.
 // escpl=taille en cm entre deux antécédents, deltacl=distance entre la bordure et les premiers et derniers antécédents
 // lgt = taille de la première colonne tout est en cm
 // tabInit contient 2 tableaux
@@ -7323,8 +7322,8 @@ function Tableau_de_variation ({ tabInit, tabLines, lgt, escpl, deltacl, colors,
 // Pour plus d'info sur le codage des variations, voir ce tuto : https://zestedesavoir.com/tutoriels/439/des-tableaux-de-variations-et-de-signes-avec-latex/
 // reste à faire les types  'Slope"
 
-export function tableau_de_variation ({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 5, deltacl = 0.8, colors = [], hauteurLignes = [], colorBackground = 'gray' }) {
-  return new Tableau_de_variation({ tabInit: tabInit, tabLines: tabLines, lgt: lgt, escpl: escpl, deltacl: deltacl, colors: colors, hauteurLignes: hauteurLignes, colorBackground: colorBackground })
+export function tableauDeVariation ({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 5, deltacl = 0.8, colors = [], hauteurLignes = [], colorBackground = 'gray' }) {
+  return new TableauDeVariation({ tabInit: tabInit, tabLines: tabLines, lgt: lgt, escpl: escpl, deltacl: deltacl, colors: colors, hauteurLignes: hauteurLignes, colorBackground: colorBackground })
 }
 
 /*
@@ -7406,16 +7405,16 @@ export function traceBarreHorizontale (...args) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', text_abs = '', text_ord = '') {
+function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = '', textOrd = '') {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
   this.xscale = xscale
   this.yscale = yscale
-  if (text_abs === '') text_abs = x.toString()
-  if (text_ord === '') text_ord = y.toString()
-  this.text_abs = text_abs
-  this.text_ord = text_ord
+  if (textAbs === '') textAbs = x.toString()
+  if (textOrd === '') textOrd = y.toString()
+  this.textAbs = textAbs
+  this.textOrd = textOrd
   this.color = color
 
   this.svg = function (coeff) {
@@ -7430,7 +7429,7 @@ function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', text_abs = '
     Sy.styleExtremites = '->'
     Sx.pointilles = true
     Sy.pointilles = true
-    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + texteParPosition(this.text_abs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.text_ord, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
+    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
   }
   this.tikz = function () {
     const x0 = calcul(this.x / this.xscale)
@@ -7444,7 +7443,7 @@ function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', text_abs = '
     Sy.styleExtremites = '->'
     Sx.pointilles = true
     Sy.pointilles = true
-    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.text_abs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.text_ord, -1 / context.scale, y0, 'milieu', this.color).tikz()
+    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 'milieu', this.color).tikz()
   }
   this.svgml = function (coeff, amp) {
     const x0 = calcul(this.x / this.xscale)
@@ -7458,7 +7457,7 @@ function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', text_abs = '
     Sy.styleExtremites = '->'
     Sx.pointilles = true
     Sy.pointilles = true
-    return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.text_abs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.text_ord, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
+    return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
   }
   this.tikzml = function (amp) {
     const x0 = calcul(this.x / this.xscale)
@@ -7472,24 +7471,24 @@ function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', text_abs = '
     Sy.styleExtremites = '->'
     Sx.pointilles = true
     Sy.pointilles = true
-    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.text_abs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.text_ord, -1 / context.scale, y0, 'milieu', this.color).tikz()
+    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 'milieu', this.color).tikz()
   }
 }
 export function lectureImage (...args) {
   return new LectureImage(...args)
 }
 
-function LectureAntecedent (x, y, xscale, yscale, color, text_ord, text_abs) {
+function LectureAntecedent (x, y, xscale, yscale, color, textOrd, textAbs) {
   'use strict'
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
   this.xscale = xscale
   this.yscale = yscale
-  if (text_abs === '') text_abs = this.x.toString()
-  if (text_ord === '') text_ord = this.y.toString()
-  this.text_abs = text_abs
-  this.text_ord = text_ord
+  if (textAbs === '') textAbs = this.x.toString()
+  if (textOrd === '') textOrd = this.y.toString()
+  this.textAbs = textAbs
+  this.textOrd = textOrd
   this.color = color
 
   this.svg = function (coeff) {
@@ -7504,7 +7503,7 @@ function LectureAntecedent (x, y, xscale, yscale, color, text_ord, text_abs) {
     Sy.styleExtremites = '->'
     Sx.pointilles = true
     Sy.pointilles = true
-    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + texteParPosition(this.text_abs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.text_ord, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
+    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
   }
   this.tikz = function () {
     const x0 = calcul(this.x / this.xscale)
@@ -7518,7 +7517,7 @@ function LectureAntecedent (x, y, xscale, yscale, color, text_ord, text_abs) {
     Sy.styleExtremites = '->'
     Sx.pointilles = true
     Sy.pointilles = true
-    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.text_abs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.text_ord, -1 / context.scale, y0, 'milieu', this.color).tikz()
+    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 'milieu', this.color).tikz()
   }
   this.svgml = function (coeff, amp) {
     const x0 = calcul(this.x / this.xscale)
@@ -7532,7 +7531,7 @@ function LectureAntecedent (x, y, xscale, yscale, color, text_ord, text_abs) {
     Sy.styleExtremites = '->'
     Sx.pointilles = true
     Sy.pointilles = true
-    return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.text_abs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.text_ord, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
+    return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
   }
   this.tikzml = function (amp) {
     const x0 = calcul(this.x / this.xscale)
@@ -7546,7 +7545,7 @@ function LectureAntecedent (x, y, xscale, yscale, color, text_ord, text_abs) {
     Sy.styleExtremites = '->'
     Sx.pointilles = true
     Sy.pointilles = true
-    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.text_abs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.text_ord, -1 / context.scale, y0, 'milieu', this.color).tikz()
+    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 'milieu', this.color).tikz()
   }
 }
 export function lectureAntecedent (...args) {
@@ -7987,7 +7986,7 @@ export function intervalle (A, B, color = 'blue', h = 0) {
  *
  * @author Rémi Angot
  */
-function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', math_on = false) {
+function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.contour = false
@@ -7995,7 +7994,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   this.opacite = 1
   this.svg = function (coeff) {
     let code = ''; let style = ''
-    // if (math_on) style = ' font-family= "KaTeX_Math" '
+    if (mathOn) style = ' font-family= "KaTeX_Math" '
     if (this.contour) style += ` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
     else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite}" `
     if (typeof (orientation) === 'number') {
@@ -8032,7 +8031,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   }
   this.tikz = function () {
     let code = ''
-    if (math_on) texte = '$' + texte + '$'
+    if (mathOn) texte = '$' + texte + '$'
     if (typeof orientation === 'number') {
       let anchor = 'center'
       if (ancrageDeRotation === 'gauche') {
@@ -8063,7 +8062,7 @@ export function texteParPoint (...args) {
   return new TexteParPoint(...args)
 }
 
-function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', math_on = false) {
+function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.contour = false
@@ -8071,7 +8070,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
   this.opacite = 1
   this.svg = function (coeff) {
     let code = ''; let style = ''
-    if (math_on) style = ' font-family= "KaTeX_Math" '
+    if (mathOn) style = ' font-family= "KaTeX_Math" '
     if (this.contour) style += ` style="font-size:${this.taille * coeff / 20}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
     else style += ` style="font-size:${this.taille * coeff / 20}px;fill:${this.color};fill-opacity:${this.opacite}" `
     if (typeof (orientation) === 'number') {
@@ -8108,7 +8107,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
   }
   this.tikz = function (scaleFigure) {
     let code = ''
-    if (math_on) texte = '$' + texte + '$'
+    if (mathOn) texte = '$' + texte + '$'
     if (typeof orientation === 'number') {
       let anchor = 'center'
       if (ancrageDeRotation === 'gauche') {
@@ -8147,8 +8146,8 @@ export function texteParPointEchelle (...args) {
  *
  * @author Rémi Angot
  */
-export function texteParPosition (texte, x, y, orientation = 'milieu', color, scale = 1, ancrageDeRotation = 'middle', math_on = false) {
-  return new TexteParPoint(texte, point(x, y), orientation, color, scale, ancrageDeRotation, math_on)
+export function texteParPosition (texte, x, y, orientation = 'milieu', color, scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
+  return new TexteParPoint(texte, point(x, y), orientation, color, scale, ancrageDeRotation, mathOn)
 }
 
 /**
@@ -9723,7 +9722,7 @@ function Pavage () {
   this.fenetre = {}
 
   this.construit = function (type = 1, Nx = 1, Ny = 1, taille = 3) {
-    const nettoie_objets = function (objets) {
+    const nettoieObjets = function (objets) {
       let barywhite, baryblack // c'est drôle non ?
       for (let i = 0; i < objets.length; i++) {
         barywhite = barycentre(objets[i])
@@ -10200,7 +10199,7 @@ function Pavage () {
     }
     this.echelle = arrondi(80 / Math.sqrt(XMAX - XMIN), 0)
     this.fenetre = { xmin: XMIN - 0.5, ymin: YMIN - 0.5, xmax: XMAX + 0.5, ymax: YMAX + 0.5, pixelsParCm: this.echelle, scale: arrondi(this.echelle / 30, 2) }
-    nettoie_objets(this.polygones) // On supprime les doublons éventuels (grâce à leur barycentre)
+    nettoieObjets(this.polygones) // On supprime les doublons éventuels (grâce à leur barycentre)
     // On ajoute les N°
     this.nb_polygones = this.polygones.length // Le nombre de polygones du pavage qui sert dans les boucles
 
