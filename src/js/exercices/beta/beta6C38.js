@@ -1,9 +1,9 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, prenomF, prenomM, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, prenomF, prenomM, calcul, texPrix, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Augmenter ou diminuer d un pourcentage'
 export const interactifReady = true
-export const interactifType = 'mathlive'
+export const interactifType = 'mathLive'
 
 /**
  * Description didactique de l'exercice
@@ -13,7 +13,7 @@ export const interactifType = 'mathlive'
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
-  this.nbQuestions = 3
+  this.nbQuestions = 2
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
@@ -31,7 +31,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       texte: 'Résoudre les problèmes suivants au brouillon et écrire les réponses dans les cases, ne pas préciser "€" ni "euros" ...',
       couleur: 'nombres'
     })
-    const typeQuestionsDisponibles = ['augmentation', 'réduction', 'augmentation'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['augmentation', 'réduction'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
     let billet, loyer // prix du billet, loyer de l'appart
@@ -53,18 +53,15 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           mr = calcul(pr * billet / 100)
           final1 = calcul(billet - mr)
           texte = `<br> Un billet d'avion coûte ${billet}€. ${prenom1} bénéficie d'une réduction de ${pr} %."<br>`
-          texte += `a) Le montant de la réduction est :${mr}`
+          texte += 'a) Le montant de la réduction est :'
           texte += ajouteChampTexteMathLive(this, i) + '  €<br><br>'
           setReponse(this, i, mr)
-          texte += `b) Finalement, ${prenom2} paiera son loyer :${final1}`
-          texte += ajouteChampTexteMathLive(this, i + this.nbQuestions + 1) + '  €<br>'
-          // texteCorr = `D'après l'énoncé ${prenom2} a : ${texPrix(r)}€<br>${prenom2}  a ${texPrix(e)}€`
-          // texteCorr += texteEnCouleurEtGras(' de plus ')
-          // texteCorr += `que ${prenom1} signifie que ${prenom1} a ${texPrix(e)}€`
-          // texteCorr += texteEnCouleurEtGras(' de moins ')
-          // texteCorr += `que ${prenom2} . <br>${prenom1} a donc : ${texPrix(r)}€ - ${texPrix(e)}€ = ${texPrix(m)}€`
-          // texteCorr += `<br>${texPrix(r)}€ + ${texPrix(m)}€ = ${texPrix(somme)}€`
-          // texteCorr += texteEnCouleur(`<br>Les deux filles possèdent en tout : ${texPrix(somme)}€`)
+          texte += `b) Finalement, ${prenom1} paiera son loyer :`
+          texte += ajouteChampTexteMathLive(this, i + this.nbQuestions) + '  €<br>'
+          texteCorr = `<br>a) Le montant de la réduction est :     $${billet}\\times ${pr} : 100 = $`
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(mr)}€$<br>`)
+          texteCorr += `b) Finalement, ${prenom1} paiera son loyer : $${billet} - ${mr} = $`
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)}€$`)
           setReponse(this, i + this.nbQuestions + 1, final1)
           break
         case 'augmentation':
@@ -72,20 +69,16 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           calcul(final2 = loyer + ma)
 
           texte = `<br> Le loyer de l'appartement de ${prenom2} coûte ${loyer}€. Au 1er janvier, il augmente de ${pa} %."<br>`
-          texte += `a) Le montant de l augmentation est :${ma}`
+          texte += 'a) Le montant de l augmentation est :'
           texte += ajouteChampTexteMathLive(this, i) + '  €<br><br>'
-          texte += `b) Finalement, ${prenom2} paiera son loyer :${final2}`
+          texte += `b) Finalement, ${prenom2} paiera son loyer :`
           setReponse(this, i, ma)
-          texte += ajouteChampTexteMathLive(this, i + this.nbQuestions + 1) + '  €'
+          texte += ajouteChampTexteMathLive(this, i + this.nbQuestions) + '  €'
           setReponse(this, i + this.nbQuestions + 1, final2)
-          // texteCorr = `D'après l'énoncé ${prenom2} a : ${texPrix(r)}€<br>${prenom2}  a ${texPrix(e)}€`
-          // texteCorr += texteEnCouleurEtGras(' de moins ')
-          // texteCorr += `que ${prenom1} signifie que ${prenom1} a ${texPrix(e)}€`
-          // texteCorr += texteEnCouleurEtGras(' de plus ')
-          // texteCorr += `que ${prenom2} . <br>${prenom1} a donc : ${texPrix(r)}€ + ${texPrix(e)}€ = ${texPrix(m)}€`
-          // texteCorr += `<br>${texPrix(r)}€ + ${texPrix(m)}€ = ${texPrix(somme)}€`
-          // texteCorr += texteEnCouleur(`<br>Les deux filles possèdent en tout : ${texPrix(somme)}€`)
-
+          texteCorr = `<br>a) Le montant de l'augmentation est :     $${loyer}\\times ${pa} : 100 = $`
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(ma)}€$<br>`)
+          texteCorr += `b) Finalement, ${prenom2} paiera son loyer : $${loyer} + ${ma} = $`
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)}€$`)
           break
       }
 
