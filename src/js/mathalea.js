@@ -1131,9 +1131,9 @@ function miseAJourDeLaListeDesExercices (preview) {
           .then((module) => {
             if (!module) throw Error(`l'import de ${path} a réussi mais on ne récupère rien, il doit y avoir un oubli d'export`)
             listeObjetsExercice[i] = new module.default()
-            ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach(p => {
+            /*  ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach(p => {
               if (module[p] !== undefined) listeObjetsExercice[i][p] = module[p]
-            })
+            }) */
             if (dictionnaireDesExercices[id].sup !== undefined) {
               listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
             }
