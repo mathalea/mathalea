@@ -120,10 +120,16 @@ export default function gestionScores () {
           return false
         },
         onHide: function () {
-        // On cache les feedbacks lorsqu'on ferme la modale
-          document.getElementById('scoresFeedback').hidden = true
-          document.getElementById('scoresInputUserIdError').hidden = true
-          document.getElementById('scoresDocumentationFeedback').hidden = true
+          // On cache les feedbacks lorsqu'on ferme la modale
+          if (document.getElementById('scoresFeedback')) {
+            document.getElementById('scoresFeedback').hidden = true
+          }
+          if (document.getElementById('scoresInputUserIdError')) {
+            document.getElementById('scoresInputUserIdError').hidden = true
+          }
+          if (document.getElementById('scoresDocumentationFeedback')) {
+            document.getElementById('scoresDocumentationFeedback').hidden = true
+          }          
           // S'il n'y a pas de userId on n'affiche pas le champ du userId courant
           if (!window.sessionStorage.getItem('userId')) {
             // On cache le champ prévu pour l'affichage du userId courant
