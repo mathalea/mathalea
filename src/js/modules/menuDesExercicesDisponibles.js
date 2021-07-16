@@ -338,10 +338,10 @@ export function menuDesExercicesDisponibles () {
     document.getElementById('liste_des_exercices_tableau').innerHTML = ''
     document.getElementById('liste_des_exercices').innerHTML = ''
   }
-  const listeThemesC3 = [
+  const liste_themes_c3 = [
     ['c3C1', 'c3C1 - Calculs niveau 1'], ['c3C2', 'c3C2 - Calculs niveau 2'], ['c3C3', 'c3C3 - Calculs niveau 3'],
     ['c3N1', 'c3N1 - Numération Niveau 1'], ['c3N2', 'c3N2 - Numération Niveau 2'], ['c3N3', 'c3N3 - Numération Niveau 3']]
-  const listeThemes6 = [
+  const liste_themes_6 = [
     ['6C1', '6C1 - Calculs niveau 1'], ['6C2', '6C2 - Calculs niveau 2'], ['6C3', '6C3 - Calculs niveau 3'],
     ['6D1', '6D1 - Les durées'],
     ['6G1', '6G1 - Géométrie niveau 1'], ['6G2', '6G2 - Géométrie niveau 2'], ['6G3', '6G3 - Géométrie niveau 3'], ['6G4', '6G4 - Géométrie niveau 4'],
@@ -357,7 +357,7 @@ export function menuDesExercicesDisponibles () {
     ['5N1', '5N1 - Numération et fractions niveau 1'], ['5N2', '5N2 - Calculs avec les fractions'],
     ['5P1', '5P1 - Proportionnalité'], ['5R1', '5R1 - Relatifs niveau 1'], ['5R2', '5R2 - Relatifs niveau 2'],
     ['5S1', '5S1 - Statistiques'], ['5S2', '5S2 - Probabilités']]
-  const listeThemes4 = [
+  const liste_themes_4 = [
     ['4C1', '4C1 - Relatifs'], ['4C2', '4C2 - Fractions'], ['4C3', '4C3 - Puissances'],
     ['4F1', '4F1 - Notion de fonction'],
     ['4G1', '4G1 - Translation et rotation'], ['4G2', '4G2 - Théorème de Pythagore'], ['4G3', '4G3 - Théorème de Thalès'], ['4G4', "4G4 - Cosinus d'un angle"], ['4G5', '4G5 - Espace'],
@@ -373,31 +373,31 @@ export function menuDesExercicesDisponibles () {
     c3: {
       label: 'CM1 /CM2',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemesC3),
+      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(liste_themes_c3),
       lignes_tableau: ''
     },
     6: {
       label: 'Sixième',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemes6),
+      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(liste_themes_6),
       lignes_tableau: ''
     },
     5: {
       label: 'Cinquième',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemes5),
+      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(liste_themes_5),
       lignes_tableau: ''
     },
     4: {
       label: 'Quatrième',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemes4),
+      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(liste_themes_4),
       lignes_tableau: ''
     },
     3: {
       label: 'Troisième',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemes3),
+      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(liste_themes_3),
       lignes_tableau: ''
     },
     DNB: {
@@ -465,44 +465,44 @@ export function menuDesExercicesDisponibles () {
       if (filtre === 'interactif') {
         // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
-          objExercicesDisponibles[id[0] + id[1]].nombre_exercices_dispo += 1
-          objExercicesDisponibles[id[0] + id[1]].lignes_tableau += ligneTableau(id)
+          obj_exercices_disponibles[id[0] + id[1]].nombre_exercices_dispo += 1
+          obj_exercices_disponibles[id[0] + id[1]].lignes_tableau += ligneTableau(id)
         }
       } else {
-        objExercicesDisponibles[id[0] + id[1]].nombre_exercices_dispo += 1
-        objExercicesDisponibles[id[0] + id[1]].lignes_tableau += ligneTableau(id)
+        obj_exercices_disponibles[id[0] + id[1]].nombre_exercices_dispo += 1
+        obj_exercices_disponibles[id[0] + id[1]].lignes_tableau += ligneTableau(id)
       }
     }
     if (id[0] === '6' || id[0] === '5' || id[0] === '4' || id[0] === '3' || id[0] === '2' || id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
       if (filtre === 'interactif') {
         // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
-          objExercicesDisponibles[id[0]].nombre_exercices_dispo += 1
-          objExercicesDisponibles[id[0]].lignes_tableau += ligneTableau(id)
+          obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
+          obj_exercices_disponibles[id[0]].lignes_tableau += ligneTableau(id)
         }
       } else {
-        objExercicesDisponibles[id[0]].nombre_exercices_dispo += 1
-        objExercicesDisponibles[id[0]].lignes_tableau += ligneTableau(id)
+        obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
+        obj_exercices_disponibles[id[0]].lignes_tableau += ligneTableau(id)
       }
     }
     if (id[0] === '2' || id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
       if (filtre === 'interactif') {
         // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
-          objExercicesDisponibles[id[0]].liste_html_des_exercices += spanExercice(id, dictionnaireDesExercices[id].titre)
+          obj_exercices_disponibles[id[0]].liste_html_des_exercices += spanExercice(id, dictionnaireDesExercices[id].titre)
         }
       } else {
-        objExercicesDisponibles[id[0]].liste_html_des_exercices += spanExercice(id, dictionnaireDesExercices[id].titre)
+        obj_exercices_disponibles[id[0]].liste_html_des_exercices += spanExercice(id, dictionnaireDesExercices[id].titre)
       }
     }
     if ((id[0] === 'P' && id[1] === '0') || (id[0] === 'P' && id[1] === 'E') || (id[0] === 'b' && id[1] === 'e')) {
       if (filtre !== 'interactif') {
-        objExercicesDisponibles[id[0] + id[1]].liste_html_des_exercices += spanExercice(id, dictionnaireDesExercices[id].titre)
+        obj_exercices_disponibles[id[0] + id[1]].liste_html_des_exercices += spanExercice(id, dictionnaireDesExercices[id].titre)
       }
     }
     if (id[0] === 'd' && id[1] === 'n' && id[2] === 'b') {
       if (filtre !== 'interactif') {
-        objExercicesDisponibles.DNB.lignes_tableau += ligneTableau(id)
+        obj_exercices_disponibles.DNB.lignes_tableau += ligneTableau(id)
       }
     }
   }
@@ -510,35 +510,35 @@ export function menuDesExercicesDisponibles () {
   listeHtmlDesExercices = '<div class="ui accordion">'
   // Change l'ordre des exercices suivant l'URL ou le filtre.
   if (filtre === 'beta') {
-    listeHtmlDesExercices += divNiveau(objExercicesDisponibles.be, 'active', 'be')
+    listeHtmlDesExercices += divNiveau(obj_exercices_disponibles.be, 'active', 'be')
     listeHtmlDesExercices += '</div>'
-    listeHtmlDesExercicesTab += objExercicesDisponibles.be.lignes_tableau
+    listeHtmlDesExercicesTab += obj_exercices_disponibles.be.lignes_tableau
   } else if (context.vue === 'cm') {
     htmlAffichage = htmlListes({
       liste_affichage: ['C', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'PE'],
       active: 'C',
-      obj_ex: objExercicesDisponibles
+      obj_ex: obj_exercices_disponibles
     })
     listeHtmlDesExercices += htmlAffichage.liste + '</div>'
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else if (filtre === 'outils') {
-    listeHtmlDesExercices += divNiveau(objExercicesDisponibles.P0, 'active', 'P0')
+    listeHtmlDesExercices += divNiveau(obj_exercices_disponibles.P0, 'active', 'P0')
     listeHtmlDesExercices += '</div>'
-    listeHtmlDesExercicesTab += objExercicesDisponibles.P0.lignes_tableau
+    listeHtmlDesExercicesTab += obj_exercices_disponibles.P0.lignes_tableau
   } else if (filtre === 'dnb') {
-    listeHtmlDesExercices += divNiveau(objExercicesDisponibles.DNB, 'active', 'DNB')
-    listeHtmlDesExercices += divNiveau(objExercicesDisponibles.DNBtheme, 'active', 'DNBtheme')
+    listeHtmlDesExercices += divNiveau(obj_exercices_disponibles.DNB, 'active', 'DNB')
+    listeHtmlDesExercices += divNiveau(obj_exercices_disponibles.DNBtheme, 'active', 'DNBtheme')
     listeHtmlDesExercices += '</div>'
-    listeHtmlDesExercicesTab += objExercicesDisponibles.DNB.lignes_tableau
+    listeHtmlDesExercicesTab += obj_exercices_disponibles.DNB.lignes_tableau
   } else if (filtre === 'primaire') {
-    listeHtmlDesExercices += divNiveau(objExercicesDisponibles.c3, 'active', 'c3')
+    listeHtmlDesExercices += divNiveau(obj_exercices_disponibles.c3, 'active', 'c3')
     listeHtmlDesExercices += '</div>'
-    listeHtmlDesExercicesTab += objExercicesDisponibles.c3.lignes_tableau
+    listeHtmlDesExercicesTab += obj_exercices_disponibles.c3.lignes_tableau
   } else if (filtre === 'college') {
     htmlAffichage = htmlListes({
       liste_affichage: [6, 5, 4, 3, 'DNB', 'DNBtheme', 'C'],
       active: '',
-      obj_ex: objExercicesDisponibles
+      obj_ex: obj_exercices_disponibles
     })
     listeHtmlDesExercices += htmlAffichage.liste + '</div>'
     listeHtmlDesExercicesTab += htmlAffichage.lignes
@@ -546,7 +546,7 @@ export function menuDesExercicesDisponibles () {
     htmlAffichage = htmlListes({
       liste_affichage: [2, 1, 'T'],
       active: '',
-      obj_ex: objExercicesDisponibles
+      obj_ex: obj_exercices_disponibles
     })
     listeHtmlDesExercices += htmlAffichage.liste + '</div>'
     listeHtmlDesExercicesTab += htmlAffichage.lignes
@@ -554,7 +554,7 @@ export function menuDesExercicesDisponibles () {
     htmlAffichage = htmlListes({
       liste_affichage: ['PE'],
       active: '',
-      obj_ex: objExercicesDisponibles
+      obj_ex: obj_exercices_disponibles
     })
     listeHtmlDesExercices += htmlAffichage.liste + '</div>'
     listeHtmlDesExercicesTab += htmlAffichage.lignes
@@ -562,7 +562,7 @@ export function menuDesExercicesDisponibles () {
     htmlAffichage = htmlListes({
       liste_affichage: ['c3', 6, 5, 4, 3, 2, 1, 'T', 'PE', 'C'],
       active: '',
-      obj_ex: objExercicesDisponibles
+      obj_ex: obj_exercices_disponibles
     })
     listeHtmlDesExercices += htmlAffichage.liste + '</div>'
     listeHtmlDesExercicesTab += htmlAffichage.lignes
@@ -570,14 +570,14 @@ export function menuDesExercicesDisponibles () {
     htmlAffichage = htmlListes({
       liste_affichage: ['c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'PE', 'C'],
       active: '',
-      obj_ex: objExercicesDisponibles
+      obj_ex: obj_exercices_disponibles
     })
     listeHtmlDesExercices += htmlAffichage.liste
     listeHtmlDesExercicesTab += htmlAffichage.lignes
     // Ajoute les outils prof sur mathalealatex
     if (context.vue === 'latex') {
-      listeHtmlDesExercices += divNiveau(objExercicesDisponibles.P0, '', 'P0')
-      listeHtmlDesExercicesTab += objExercicesDisponibles.P0.lignes_tableau
+      listeHtmlDesExercices += divNiveau(obj_exercices_disponibles.P0, '', 'P0')
+      listeHtmlDesExercicesTab += obj_exercices_disponibles.P0.lignes_tableau
     }
     listeHtmlDesExercices += '</div>'
   }
@@ -636,7 +636,7 @@ export function menuDesExercicesDisponibles () {
       elem = event.target
     }
     $('.fermer_niveau').trigger('click')
-    $(elem).replaceWith(divNiveau(objExercicesDisponibles[elem.id], 'active', elem.id))
+    $(elem).replaceWith(divNiveau(obj_exercices_disponibles[elem.id], 'active', elem.id))
     $(elem).removeClass('ouvrir_niveau')
     $(elem).addClass('fermer_niveau')
     $('.fermer_niveau').off('click').on('click', function () {
