@@ -3336,6 +3336,17 @@ export default {
     "interactifReady": false,
     "name": "betaExoSimpleMatthieu"
   },
+  "betaGilles_CAN_seconde": {
+    "titre": "Course aux nombres seconde",
+    "url": "/exercices/beta/betaGilles_CAN_seconde.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaGilles_CAN_seconde"
+  },
   "betaGilles_test": {
     "titre": "Modéliser une situation géométrique à l'aide d'une équation",
     "url": "/exercices/beta/betaGilles_test.js",
