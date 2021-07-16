@@ -1,10 +1,10 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 100 
-- nombre d'exos interactifReady 122 
+- nombre d'exos amcReady 101 
+- nombre d'exos interactifReady 123 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|2G50-2|Lecture graphique des coefficients d'une équation réduite |KO|KO|OK|mathLive|
+|2G50-2|Lecture graphique des coefficients d'une équation réduite|KO|KO|OK|mathLive|
 |2G50|Déterminer le coefficient directeur d'une droite.|KO|KO|OK|mathLive|
 |2L12-2|Développer (a+b)²|KO|KO|OK|mathLive|
 |2L12-3|Développer (a-b)²|KO|KO|OK|mathLive|

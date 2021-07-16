@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, pgcd, mathtrunc } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, pgcd } from '../../modules/outils.js'
 import { repere2, courbe2, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import { min } from 'mathjs'
-export const titre = "Lecture graphique des coefficients d'une équation réduite "
+
+export const titre = "Lecture graphique des coefficients d'une équation réduite"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
