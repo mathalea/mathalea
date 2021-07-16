@@ -70,7 +70,7 @@ export default {
     "name": "2G11"
   },
   "2G12": {
-    "titre": "Déterminer la nature d’un polygone.",
+    "titre": "Déterminer la nature d’un polygone",
     "url": "/exercices/2e/2G12.js",
     "amcReady": false,
     "interactifReady": false,
@@ -84,7 +84,7 @@ export default {
     "name": "2G50-1"
   },
   "2G50-2": {
-    "titre": "Lecture graphique des coefficients d'une équation réduite ",
+    "titre": "Lecture graphique des coefficients d'une équation réduite",
     "url": "/exercices/2e/2G50-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -277,7 +277,7 @@ export default {
     "name": "3A11-2"
   },
   "3A11-3": {
-    "titre": "Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers.",
+    "titre": "Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers",
     "url": "/exercices/3e/3A11-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3360,6 +3360,24 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExoSimpleMatthieu"
+  },
+  "betaGilles2N36-3": {
+    "titre": "Modéliser une situation  à l'aide d'une équation",
+    "url": "/exercices/beta/betaGilles2N36-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaGilles2N36-3"
+  },
+  "betaGilles_CAN_seconde": {
+    "titre": "Course aux nombres seconde",
+    "url": "/exercices/beta/betaGilles_CAN_seconde.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaGilles_CAN_seconde"
   },
   "betaGilles_test": {
     "titre": "Modéliser une situation géométrique à l'aide d'une équation",
