@@ -70,7 +70,7 @@ export default {
     "name": "2G11"
   },
   "2G12": {
-    "titre": "Déterminer la nature d’un polygone.",
+    "titre": "Déterminer la nature d’un polygone",
     "url": "/exercices/2e/2G12.js",
     "amcReady": false,
     "interactifReady": false,
@@ -84,7 +84,7 @@ export default {
     "name": "2G50-1"
   },
   "2G50-2": {
-    "titre": "Lecture graphique des coefficients d'une équation réduite ",
+    "titre": "Lecture graphique des coefficients d'une équation réduite",
     "url": "/exercices/2e/2G50-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -277,7 +277,7 @@ export default {
     "name": "3A11-2"
   },
   "3A11-3": {
-    "titre": "Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers.",
+    "titre": "Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers",
     "url": "/exercices/3e/3A11-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2264,6 +2264,17 @@ export default {
     "interactifReady": false,
     "name": "6C35"
   },
+  "6C3CaN": {
+    "titre": "Course aux nombres 6e",
+    "url": "/exercices/6e/6C3CaN.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6C3CaN"
+  },
   "6D10": {
     "titre": "Convertir des durées",
     "url": "/exercices/6e/6D10.js",
@@ -3592,16 +3603,16 @@ export default {
     "interactifType": "mathLive",
     "name": "betaCaN5"
   },
-  "betaCaN6": {
-    "titre": "Course aux nombres 6e",
-    "url": "/exercices/beta/betaCaN6.js",
+  "betaCaNCM2": {
+    "titre": "Course aux nombres CM2",
+    "url": "/exercices/beta/betaCaNCM2.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCaN6"
+    "name": "betaCaNCM2"
   },
   "betaExemple": {
     "titre": "Exercice exemple",
@@ -3673,6 +3684,24 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExoSimpleMatthieu"
+  },
+  "betaGilles2N36-3": {
+    "titre": "Modéliser une situation  à l'aide d'une équation",
+    "url": "/exercices/beta/betaGilles2N36-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaGilles2N36-3"
+  },
+  "betaGilles_CAN_seconde": {
+    "titre": "Course aux nombres seconde",
+    "url": "/exercices/beta/betaGilles_CAN_seconde.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaGilles_CAN_seconde"
   },
   "betaGilles_test": {
     "titre": "Modéliser une situation géométrique à l'aide d'une équation",
@@ -3758,6 +3787,17 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "c3C11"
+  },
+  "c3C3CaN": {
+    "titre": "Course aux nombres CM1",
+    "url": "/exercices/c3/c3C3CaN.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "c3C3CaN"
   },
   "c3N10": {
     "titre": "Écrire un nombre en chiffres ou en lettres",
