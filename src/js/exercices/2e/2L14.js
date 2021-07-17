@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { mathalea2d, tableau_de_variation } from '../../modules/2d.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole } from '../../modules/outils.js'
+import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole } from '../../modules/outils.js'
 
 export const titre = 'Résoudre une inéquation produit ou quotient'
 
@@ -13,7 +13,8 @@ export const titre = 'Résoudre une inéquation produit ou quotient'
  * * Type 4 : (x+a)/(x+b)<0
  * * Tous les types
  * @author Guillaume Valmont
- * 2N61-2
+ * 2L14
+ * 17/07/2021
  */
 export default function ExerciceInequation2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -134,7 +135,7 @@ export default function ExerciceInequation2 () {
           ligne2 = ligneMPP
         }
         // Affiche le tableau de signes : xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableau_de_variation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -201,7 +202,7 @@ export default function ExerciceInequation2 () {
         }
         // Affiche le tableau de signes (voir les commentaires du premier type d'exercice)
         texteCorr += 'On peut donc en déduire le tableau de signes suivant : <br>'
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableau_de_variation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$x${ecritureAlgebrique(c)}$`, 2, 50], [`$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})$`, 2, 150]
@@ -304,7 +305,7 @@ export default function ExerciceInequation2 () {
         }
         // Modifie la hauteur de la première ligne en html pour centrer le texte malgré les fractions
         // Affiche enfin le tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableau_de_variation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})$`, 2, 200]
@@ -360,7 +361,7 @@ export default function ExerciceInequation2 () {
           ecart = 4
         }
         // Affichage du tableau de signes
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableau_de_variation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$\\cfrac{(x${ecritureAlgebrique(a)})}{(x${ecritureAlgebrique(b)})}$`, ecart, 50]
