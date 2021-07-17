@@ -5,10 +5,10 @@ export const titre = 'Déterminer si des droites $(d)$ et $(d\')$ sont parallèl
 
 /**
  * Description didactique de l'exercice
- * @author
+ * @author Stéphane Guyon
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function PositionsDeDroites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Déterminer si les droites $\\bm{(d)}$ et $\\bm{(d\')}$ dont on donne ci-dessous des équations cartésiennes, sont parallèles, confondues ou sécantes.'
