@@ -6,9 +6,10 @@ export const titre = 'Problème - de plus de moins'
 /**
  * Description didactique de l'exercice
  * @author Laurence CANDILLE
- * Référence
+ * Référence 6C22
+ * publié le 10/7/2021
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function ProblemesDePlusEtDeMoins () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 3
