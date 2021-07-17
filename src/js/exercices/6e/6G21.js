@@ -11,7 +11,7 @@ export const titre = 'Construire un triangle aux instruments'
  * Réfrence 6G21 et ... (exercice en 5e ? pas encore fait)
  * Modifié 2021/04/02
  */
-export default function ConstruireUnRTriangle () {
+export default function ConstruireUnTriangle () {
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 2
