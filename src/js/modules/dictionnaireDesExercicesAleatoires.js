@@ -171,6 +171,13 @@ export default {
     "interactifReady": false,
     "name": "2L13"
   },
+  "2L14": {
+    "titre": "Résoudre une inéquation produit ou quotient",
+    "url": "/exercices/2e/2L14.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2L14"
+  },
   "2N10-1": {
     "titre": "Connaître les propriétés calculatoires des racines carrées",
     "url": "/exercices/2e/2N10-1.js",
@@ -3489,13 +3496,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2L12-2"
-  },
-  "beta2N61-2": {
-    "titre": "Résoudre inéquation produit ou quotient",
-    "url": "/exercices/beta/beta2N61-2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2N61-2"
   },
   "beta3F23": {
     "titre": "Déterminer un antécédent",
