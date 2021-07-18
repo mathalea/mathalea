@@ -3111,6 +3111,16 @@ export default {
     "interactifReady": false,
     "name": "6S10"
   },
+  "6S10I": {
+    "titre": "Lire un diagramme en barre",
+    "url": "/exercices/6e/6S10I.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": false,
+    "name": "6S10I"
+  },
   "6S11": {
     "titre": "Organiser des données dans un tableau",
     "url": "/exercices/6e/6S11.js",
@@ -3215,16 +3225,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta6C33-1"
-  },
-  "beta6S10I": {
-    "titre": "Lire un diagramme en barre",
-    "url": "/exercices/beta/beta6S10I.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "type de question AMC non prévu"
-    },
-    "interactifReady": false,
-    "name": "beta6S10I"
   },
   "beta6test2": {
     "titre": "Mon test",
