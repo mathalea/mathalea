@@ -2129,8 +2129,12 @@ export default {
   "6C22": {
     "titre": "Problème - de plus de moins",
     "url": "/exercices/6e/6C22.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
     "name": "6C22"
   },
   "6C23": {
@@ -3114,27 +3118,6 @@ export default {
     "interactifReady": false,
     "name": "6S11"
   },
-  "beta1F10": {
-    "titre": "Calculs de dérivés",
-    "url": "/exercices/beta/beta1F10.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta1F10"
-  },
-  "beta2F20": {
-    "titre": "Reconnaître une fonction affine.",
-    "url": "/exercices/beta/beta2F20.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F20"
-  },
-  "beta2F21": {
-    "titre": "Déterminer une fonction affine à partir de deux images.",
-    "url": "/exercices/beta/beta2F21.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F21"
-  },
   "beta2F22": {
     "titre": "Représentation graphique d’une fonction affine",
     "url": "/exercices/beta/beta2F22.js",
@@ -3233,19 +3216,15 @@ export default {
     "interactifReady": false,
     "name": "beta6C33-1"
   },
-  "beta6C36": {
-    "titre": "Problème - de plus de moins",
-    "url": "/exercices/beta/beta6C36.js",
-    "amcReady": false,
+  "beta6S10I": {
+    "titre": "Lire un diagramme en barre",
+    "url": "/exercices/beta/beta6S10I.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "type de question AMC non prévu"
+    },
     "interactifReady": false,
-    "name": "beta6C36"
-  },
-  "beta6G21": {
-    "titre": "Construire un triangle aux instruments",
-    "url": "/exercices/beta/beta6G21.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta6G21"
+    "name": "beta6S10I"
   },
   "beta6test2": {
     "titre": "Mon test",
@@ -3260,13 +3239,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta6test2021"
-  },
-  "beta999": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/beta999.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta999"
   },
   "betaCaN5": {
     "titre": "Course aux nombres 5e",
@@ -3340,19 +3312,19 @@ export default {
     "interactifReady": false,
     "name": "betaExempleTableau"
   },
+  "betaExempleXcas": {
+    "titre": "Test de XCas",
+    "url": "/exercices/beta/betaExempleXcas.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcas"
+  },
   "betaExercice_constructions_basiques": {
     "titre": "Programmes de constructions (en chantier)",
     "url": "/exercices/beta/betaExercice_constructions_basiques.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExercice_constructions_basiques"
-  },
-  "betaExoLiouba": {
-    "titre": "Tranformations de triangle",
-    "url": "/exercices/beta/betaExoLiouba.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExoLiouba"
   },
   "betaExoSimpleMatthieu": {
     "titre": "Ceci est le titre de l’exercice BetaExosimpleMatthieu",
@@ -3414,13 +3386,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betarotation3d"
-  },
-  "betaXcas": {
-    "titre": "Test de XCas",
-    "url": "/exercices/beta/betaXcas.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaXcas"
   },
   "moule_a_exo_mathalea": {
     "titre": "Exo zéro Mathalea",

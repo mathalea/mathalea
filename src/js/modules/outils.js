@@ -6913,9 +6913,98 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
 
+      case 'AMCNumX' : // Un enoncé et X réponses AMCNumericChoices
+        if (exercice.autoCorrection[j].enonce === undefined) {
+          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
+        if (exercice.autoCorrection[j].propositions === undefined) {
+          exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: 2, feedback: '' }]
+        }
+        texQr += `\\element{${ref}}{\n `
+        texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
+        texQr += `${autoCorrection[j].enonce} \n `
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
+        reponse = autoCorrection[j].reponse.valeur
+        if (autoCorrection[j].reponse.param.digits === 0) {
+          nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+          autoCorrection[j].reponse.param.decimals = nbChiffresPd
+          nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
+          autoCorrection[j].reponse.param.digits = nbChiffresPd + nbChiffresPe
+        } else if (autoCorrection[j].reponse.param.decimals === undefined) {
+          autoCorrection[j].reponse.param.decimals = 0
+        }
+        // premier champ de codage numérique
+        texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
+        if (autoCorrection[j].reponse.textePosition === 'top') texQr += `${autoCorrection[j].reponse.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+        else if (autoCorrection[j].reponse.textePosition === 'left') texQr += `${autoCorrection[j].reponse.texte} `
+        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
+        if (autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+          texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
+        }
+        if (autoCorrection[j].reponse.param.approx !== 0) {
+          texQr += `approx=${autoCorrection[j].reponse.param.approx},`
+        }
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}'
+        if (autoCorrection[j].reponse.textePosition === 'right') texQr += `${autoCorrection[j].reponse.texte}\n`
+        texQr += '\\end{questionmultx}\n'
+
+        // deuxième champ de codage numérique
+        texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}c} \n `
+        reponse2 = autoCorrection[j].reponse2.valeur
+        if (autoCorrection[j].reponse2.param.digits === 0) {
+          nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse2)
+          autoCorrection[j].reponse2.param.decimals = nbChiffresPd
+          nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse2)
+          autoCorrection[j].reponse2.param.digits = nbChiffresPd + nbChiffresPe
+        } else if (autoCorrection[j].reponse2.param.decimals === undefined) {
+          autoCorrection[j].reponse2.param.decimals = 0
+        }
+        if (autoCorrection[j].reponse2.textePosition === 'top') texQr += `${autoCorrection[j].reponse2.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+        else if (autoCorrection[j].reponse2.textePosition === 'left') texQr += `${autoCorrection[j].reponse2.texte} `
+        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse2.valeur}}{digits=${autoCorrection[j].reponse2.param.digits},decimals=${autoCorrection[j].reponse2.param.decimals},sign=${autoCorrection[j].reponse2.param.signe},`
+        if (autoCorrection[j].reponse2.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+          texQr += `exponent=${autoCorrection[j].reponse2.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse2.param.exposantSigne},`
+        }
+        if (autoCorrection[j].reponse2.approx !== 0) {
+          texQr += `approx=${autoCorrection[j].reponse2.param.approx},`
+        }
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}'
+        if (autoCorrection[j].reponse2.textePosition === 'right') texQr += `${autoCorrection[j].reponse2.texte}\n`
+        texQr += '\\end{questionmultx}\n'
+
+        // troisième champ de codage numérique
+        texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}d} \n `
+        reponse3 = autoCorrection[j].reponse3.valeur
+        if (autoCorrection[j].reponse3.param.digits === 0) {
+          nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse3)
+          autoCorrection[j].reponse3.param.decimals = nbChiffresPd
+          nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse3)
+          autoCorrection[j].reponse3.param.digits = nbChiffresPd + nbChiffresPe
+        } else if (autoCorrection[j].reponse3.param.decimals === undefined) {
+          autoCorrection[j].reponse3.param.decimals = 0
+        }
+        if (autoCorrection[j].reponse3.textePosition === 'top') texQr += `${autoCorrection[j].reponse3.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+        else if (autoCorrection[j].reponse3.textePosition === 'left') texQr += `${autoCorrection[j].reponse3.texte} `
+        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse3.valeur}}{digits=${autoCorrection[j].reponse3.param.digits},decimals=${autoCorrection[j].reponse3.param.decimals},sign=${autoCorrection[j].reponse3.param.signe},`
+        if (autoCorrection[j].reponse3.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+          texQr += `exponent=${autoCorrection[j].reponse3.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse3.param.exposantSigne},`
+        }
+        if (autoCorrection[j].reponse3.approx !== 0) {
+          texQr += `approx=${autoCorrection[j].reponse3.param.approx},`
+        }
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true} '
+        if (autoCorrection[j].reponse3.textePosition === 'right') texQr += `${autoCorrection[j].reponse3.texte}\n`
+        texQr += '\\end{questionmultx}\n}\n'
+        id++
+        break
+
       case 'AMCOpenNum': // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
-        // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
         // On pourra rajouter des options : les paramètres sont nommés.
         // {digits=0,decimals=0,signe=false,exposantNbChiffres=0,exposantSigne=false,approx=0}
         // si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
