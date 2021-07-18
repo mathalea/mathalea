@@ -11,10 +11,11 @@ export const interactifType = 'custom'
 
 /**
  * Description didactique de l'exercice
- * @author
- * Référence
+ * @author Rémi Angot
+ * Référence 6N21
+ * publié le 29/6/2021
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function PlacerPointsAbscissesFractionnaires () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 5

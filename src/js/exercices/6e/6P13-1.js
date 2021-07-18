@@ -4,11 +4,12 @@ import { listeQuestionsToContenu, randint, choice, calcul, texPrix } from '../..
 export const titre = 'Facture'
 
 /**
- * Recherche de la vitesse, du temps ou de la distance en utilisant un tableau de proportionnalité et le produit en croix
+ * Compléter une facture
  * @author Rémi Angot
  * Référence 6P13-1
+ * publié le
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function CompleterUneFacture () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Compléter le tableau suivant : '

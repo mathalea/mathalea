@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function PenteEtOrdonneeOrigineDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady

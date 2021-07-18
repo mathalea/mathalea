@@ -1,14 +1,14 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, texteEnCouleurEtGras, shuffle2tableaux } from '../../modules/outils.js'
 export const titre = 'Citer les propriétés des parallélogrammes'
 
 /**
- * Description didactique de l'exercice
- * @author
- * Référence
+ * On doit compléter des propriétés des parallélogrammes
+ * @author Rémi Angot
+ * Référence 5G40-1
+ * Publié le 5/4/2021
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function ProprietesDesParallelogrammes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = "Compléter les phrases suivantes à l'aide de la définition ou des propriétés des parallélogrammes."
@@ -64,5 +64,3 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Propriétés du parallélogramme\n2 : Propriétés pour montrer qu'un quadrilatère est un parallélogramme\n3 : Toutes les propriétés"]
 }
-
-
