@@ -2,6 +2,10 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, texteEnCouleur, texteEnCouleurEtGras, calcul, texPrix, prenomF } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Problème - de plus de moins'
+export const interactifReady = true
+export const interactifType = 'numerique'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 /**
  * Description didactique de l'exercice
@@ -19,7 +23,7 @@ export default function ProblemesDePlusEtDeMoins () {
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.interactif = true
-  this.interactifType = 'numerique'
+
   const nombreDecimales = function (n) {
     let r, e
     if (n === 0) {
@@ -66,8 +70,12 @@ export default function ProblemesDePlusEtDeMoins () {
           somme = m + r
 
           texte = `<br> ${prenom2} dit à ${prenom1}  : "J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de plus que toi."<br>`
-          texte += 'Combien d\'argent en tout possèdent les deux filles ?<br>Les deux filles possèdent en tout : '
-          texte += ajouteChampTexte(this, i) + '  €'
+          if (!context.isAmc) {
+            texte += 'Combien d\'argent en tout possèdent les deux filles ?<br>Les deux filles possèdent en tout : '
+            texte += ajouteChampTexte(this, i) + '  €'
+          } else {
+            texte += 'Combien d\'argent en euros possèdent en tout les deux filles ?<br>'
+          }
           texteCorr = `D'après l'énoncé ${prenom2} a : ${texPrix(r)}€<br>${prenom2}  a ${texPrix(e)}€`
           texteCorr += texteEnCouleurEtGras(' de plus ')
           texteCorr += `que ${prenom1} signifie que ${prenom1} a ${texPrix(e)}€`
@@ -83,8 +91,12 @@ export default function ProblemesDePlusEtDeMoins () {
           somme = m + r
 
           texte = `<br> ${prenom2} dit à ${prenom1} : "J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de moins que toi."<br>`
-          texte += 'Combien d\'argent en tout possèdent les deux filles ?<br>Les deux filles possèdent en tout :'
-          texte += ajouteChampTexte(this, i) + '  €'
+          if (!context.isAmc) {
+            texte += 'Combien d\'argent en tout possèdent les deux filles ?<br>Les deux filles possèdent en tout :'
+            texte += ajouteChampTexte(this, i) + '  €'
+          } else {
+            texte += 'Combien d\'argent en euros possèdent en tout les deux filles ?<br>'
+          }
           texteCorr = `D'après l'énoncé ${prenom2} a : ${texPrix(r)}€<br>${prenom2}  a ${texPrix(e)}€`
           texteCorr += texteEnCouleurEtGras(' de moins ')
           texteCorr += `que ${prenom1} signifie que ${prenom1} a ${texPrix(e)}€`
