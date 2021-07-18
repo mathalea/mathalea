@@ -8,7 +8,7 @@ export const titre = 'Modéliser une situation géométrique à l\'aide d\'une �
  * @author GillesM
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function modeliserEquationsGeometrie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 10

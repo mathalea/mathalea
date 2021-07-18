@@ -8,7 +8,7 @@ export const titre = 'Modéliser une situation  à l\'aide d\'une équation'
  * @author GillesM
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function modeliserEquations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 10
