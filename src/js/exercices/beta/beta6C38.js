@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
  * @author Laurence CANDILLE
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function AugmenterEtReduireDunPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 2
@@ -23,7 +23,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.interactifType = 'numerique'
 
   this.nouvelleVersion = function () {
-    // const n = parseInt(this.sup) - 1
+    const n = parseInt(this.sup) - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.introduction = lampeMessage({
@@ -45,9 +45,19 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       prenom1 = prenomM()
       prenom2 = prenomF()
       billet = randint(100, 200)
-      pr = randint(21, 39, [30])
       loyer = randint(501, 899, [600, 700, 800])
-      pa = randint(2, 9)
+      if (n === 0) {
+        pr = randint(1, 6) * 10
+        pa = randint(1, 3) * 10
+      }
+      if (n === 1) {
+        pr = randint(21, 39, [30])
+        pa = randint(2, 9)
+      }
+      if (n === 2) {
+        pr = calcul((randint(40, 60) * 100 + randint(1, 9) * 10) / 100)
+        pa = calcul((randint(1, 9) * 10 + randint(1, 9)) / 10)
+      }
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'réduction':
           mr = calcul(pr * billet / 100)
@@ -56,11 +66,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           texte += 'a) Le montant de la réduction est :'
           texte += ajouteChampTexteMathLive(this, i) + '  €<br><br>'
           setReponse(this, i, mr)
-          texte += `b) Finalement, ${prenom1} paiera son loyer :`
+          texte += `b) Finalement, ${prenom1} paiera son billet :`
           texte += ajouteChampTexteMathLive(this, i + this.nbQuestions) + '  €<br>'
           texteCorr = `<br>a) Le montant de la réduction est :     $${billet}\\times ${pr} : 100 = $`
           texteCorr += texteEnCouleurEtGras(`$${texPrix(mr)}€$<br>`)
-          texteCorr += `b) Finalement, ${prenom1} paiera son loyer : $${billet} - ${mr} = $`
+          texteCorr += `b) Finalement, ${prenom1} paiera son billet : $${billet} - ${mr} = $`
           texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)}€$`)
           setReponse(this, i + this.nbQuestions + 1, final1)
           break
@@ -92,5 +102,5 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Valeurs entières\n2 : Une décimale\n3 : Deux décimales']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Valeurs entières et 10%, 20% ..\n2 : Valeurs entières et 4%, 23% ..\n3 : Une décimales']
 }
