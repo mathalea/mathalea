@@ -1011,7 +1011,10 @@ export default {
   "4F12": {
     "titre": "Problème s’appuyant sur la lecture d’une représentation graphique",
     "url": "/exercices/4e/4F12.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": false,
     "name": "4F12"
   },
@@ -3107,19 +3110,12 @@ export default {
   "6S10": {
     "titre": "Lire un diagramme en barre",
     "url": "/exercices/6e/6S10.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "6S10"
-  },
-  "6S10I": {
-    "titre": "Lire un diagramme en barre",
-    "url": "/exercices/6e/6S10I.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCHybride"
     },
     "interactifReady": false,
-    "name": "6S10I"
+    "name": "6S10"
   },
   "6S11": {
     "titre": "Organiser des données dans un tableau",

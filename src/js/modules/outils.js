@@ -7171,7 +7171,7 @@ export function exportQcmAmc (exercice, idExo) {
         for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les question-reponse de l'élément j
           prop = autoCorrection[j].propositions[qr] // proposition est un objet avec cette structure : {type,propositions,reponse}
           qrType = prop.type
-          rep = prop.reponse
+
           propositions = prop.propositions
           switch (qrType) {
             case 'QcmMono':
@@ -7243,6 +7243,7 @@ export function exportQcmAmc (exercice, idExo) {
               id++
               break
             case 'AMCNum':
+              rep = prop.propositions[0].reponse
               if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres === 0) {
                 reponse = rep.valeur
                 if (rep.param.digits === 0) {
@@ -7256,7 +7257,7 @@ export function exportQcmAmc (exercice, idExo) {
               }
               texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
               if (propositions !== undefined) {
-                texQr += `\\explain{${propositions[qr].texte}}\n`
+                texQr += `\\explain{${propositions[0].texte}}\n`
               }
               texQr += `\\AMCnumericChoices{${rep.valeur}}{digits=${rep.param.digits},decimals=${rep.param.decimals},sign=${rep.param.signe},`
               if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
@@ -7280,8 +7281,8 @@ export function exportQcmAmc (exercice, idExo) {
               break
             case 'AMCOpen':
               texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-              texQr += `\t\t\\explain{${propositions[qr].texte}}\n`
-              texQr += `\t\t\\notation{${propositions[qr].statut}}\n` // le statut contiendra le nombre de lignes pour ce type
+              texQr += `\t\t\\explain{${propositions[0].texte}}\n`
+              texQr += `\t\t\\notation{${propositions[0].statut}}\n` // le statut contiendra le nombre de lignes pour ce type
               texQr += '\t\\end{question}\n'
               id++
               break
