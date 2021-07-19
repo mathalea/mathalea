@@ -98,7 +98,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           break
         case 7: // a - bc
           a = calcul(a + b * c)
-          expf = `La différence zentre ${nombreAvecEspace(a)} et le produit de ${nombreAvecEspace(b)} et $${texNombre(c)}$`
+          expf = `La différence entre ${nombreAvecEspace(a)} et le produit de ${nombreAvecEspace(b)} et $${texNombre(c)}$`
           expn = `$${texNombre(a)}-${texNombre(b)}\\times ${texNombre(c)}$`
           expc = `$${texNombre(a)}-${texNombre(b)}\\times ${c}=${texNombre(a)}-${texNombre(b * c)} = ${texNombre(a - (b * c))}$`
           break
