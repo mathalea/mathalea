@@ -88,7 +88,7 @@ this.autoCorrection[i] = {
         propositions: [
           {
             texte: 'ce qui est affiché dans le corrigé AMC,
-            statut: // (pour l'instant il n'a pas d'utilité),
+            statut: // nombre de réponses numériques,
             feedback: ''
           }
         ],
@@ -105,9 +105,9 @@ this.autoCorrection[i] = {
           }
         }
 ```
-type 'AMCOpenNum' : idem type 'AMCOpen' avec présence comme pour le type 4 d'un attribut reponse.
+type 'AMCOpenNum' : idem type 'AMCOpen' avec présence comme pour le type 'AMCNum d'un attribut reponse.
 
-type 'AMCOpenNum✖︎2' : idem type 'AMCNum' avec présence d'un autre attribut reponse2 qui fonctionne comme le reponse du type 5.
+type 'AMCOpenNum✖︎2' : idem type 'AMCNum' avec présence d'un autre attribut reponse2 qui fonctionne comme le reponse du type 'AMCOpenNum.
 
 # Les fonctions
 Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont l'appel permet de générer le code nécessaire facilement :

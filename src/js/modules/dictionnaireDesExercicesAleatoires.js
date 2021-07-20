@@ -21,7 +21,7 @@ export default {
     "name": "1E12"
   },
   "1F10": {
-    "titre": "Calculs de dérivés",
+    "titre": "Calculs de dérivées",
     "url": "/exercices/1e/1F10.js",
     "amcReady": false,
     "interactifReady": false,
@@ -170,6 +170,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "2L13"
+  },
+  "2L14": {
+    "titre": "Résoudre une inéquation produit ou quotient",
+    "url": "/exercices/2e/2L14.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2L14"
   },
   "2N10-1": {
     "titre": "Connaître les propriétés calculatoires des racines carrées",
@@ -2129,8 +2136,12 @@ export default {
   "6C22": {
     "titre": "Problème - de plus de moins",
     "url": "/exercices/6e/6C22.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
     "name": "6C22"
   },
   "6C23": {
@@ -3438,27 +3449,6 @@ export default {
     "interactifReady": false,
     "name": "P012"
   },
-  "beta1F10": {
-    "titre": "Calculs de dérivés",
-    "url": "/exercices/beta/beta1F10.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta1F10"
-  },
-  "beta2F20": {
-    "titre": "Reconnaître une fonction affine.",
-    "url": "/exercices/beta/beta2F20.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F20"
-  },
-  "beta2F21": {
-    "titre": "Déterminer une fonction affine à partir de deux images.",
-    "url": "/exercices/beta/beta2F21.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F21"
-  },
   "beta2F22": {
     "titre": "Représentation graphique d’une fonction affine",
     "url": "/exercices/beta/beta2F22.js",
@@ -3500,6 +3490,20 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2L12-2"
+  },
+  "beta2N60-X1": {
+    "titre": "Modéliser une situation  à l'aide d'une équation",
+    "url": "/exercices/beta/beta2N60-X1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2N60-X1"
+  },
+  "beta2N60-X2": {
+    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
+    "url": "/exercices/beta/beta2N60-X2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2N60-X2"
   },
   "beta3F23": {
     "titre": "Déterminer un antécédent",
@@ -3557,19 +3561,15 @@ export default {
     "interactifReady": false,
     "name": "beta6C33-1"
   },
-  "beta6C36": {
-    "titre": "Problème - de plus de moins",
-    "url": "/exercices/beta/beta6C36.js",
-    "amcReady": false,
+  "beta6S10I": {
+    "titre": "Lire un diagramme en barre",
+    "url": "/exercices/beta/beta6S10I.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "type de question AMC non prévu"
+    },
     "interactifReady": false,
-    "name": "beta6C36"
-  },
-  "beta6G21": {
-    "titre": "Construire un triangle aux instruments",
-    "url": "/exercices/beta/beta6G21.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta6G21"
+    "name": "beta6S10I"
   },
   "beta6test2": {
     "titre": "Mon test",
@@ -3584,13 +3584,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta6test2021"
-  },
-  "beta999": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/beta999.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta999"
   },
   "betaCaN5": {
     "titre": "Course aux nombres 5e",
@@ -3664,6 +3657,13 @@ export default {
     "interactifReady": false,
     "name": "betaExempleTableau"
   },
+  "betaExempleXcas": {
+    "titre": "Test de XCas",
+    "url": "/exercices/beta/betaExempleXcas.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcas"
+  },
   "betaExercice_constructions_basiques": {
     "titre": "Programmes de constructions (en chantier)",
     "url": "/exercices/beta/betaExercice_constructions_basiques.js",
@@ -3671,26 +3671,12 @@ export default {
     "interactifReady": false,
     "name": "betaExercice_constructions_basiques"
   },
-  "betaExoLiouba": {
-    "titre": "Tranformations de triangle",
-    "url": "/exercices/beta/betaExoLiouba.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExoLiouba"
-  },
   "betaExoSimpleMatthieu": {
     "titre": "Ceci est le titre de l’exercice BetaExosimpleMatthieu",
     "url": "/exercices/beta/betaExoSimpleMatthieu.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExoSimpleMatthieu"
-  },
-  "betaGilles2N36-3": {
-    "titre": "Modéliser une situation  à l'aide d'une équation",
-    "url": "/exercices/beta/betaGilles2N36-3.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaGilles2N36-3"
   },
   "betaGilles_CAN_seconde": {
     "titre": "Course aux nombres seconde",
@@ -3702,13 +3688,6 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "betaGilles_CAN_seconde"
-  },
-  "betaGilles_test": {
-    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
-    "url": "/exercices/beta/betaGilles_test.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaGilles_test"
   },
   "betaLicence": {
     "titre": "QCM de positionnement",
@@ -3731,13 +3710,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaPuissances"
-  },
-  "betaXcas": {
-    "titre": "Test de XCas",
-    "url": "/exercices/beta/betaXcas.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaXcas"
   },
   "betarotation3d": {
     "titre": "Rotation 3d de polygones",

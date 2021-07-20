@@ -1,9 +1,8 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,ecritureAlgebrique,ecritureAlgebriqueSauf1,lettreMinusculeDepuisChiffre} from '../../modules/outils.js'
 import {simplify, parse, derivative } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative}
-export const titre = 'Calculs de dérivés'
+export const titre = 'Calculs de dérivées'
 
 /**
  * Calculs de dérivés
