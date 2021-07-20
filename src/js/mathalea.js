@@ -662,6 +662,8 @@ function miseAJourDuCode () {
     // En cas de clic sur la correction, on désactive les exercices interactifs
     const bntCorrection = document.getElementById('btnCorrection')
     if (bntCorrection) {
+      // Cache la correction et les paramètres au clic sur "Nouvelles données"
+      $('.ui.accordion').accordion('close', 0)
       bntCorrection.addEventListener('click', () => {
         // Le bouton "Vérifier les réponses" devient inactif
         const boutonsCheck = document.querySelectorAll('.checkReponses')
