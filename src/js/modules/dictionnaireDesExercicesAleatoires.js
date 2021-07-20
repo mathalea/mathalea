@@ -21,7 +21,7 @@ export default {
     "name": "1E12"
   },
   "1F10": {
-    "titre": "Calculs de dérivés",
+    "titre": "Calculs de dérivées",
     "url": "/exercices/1e/1F10.js",
     "amcReady": false,
     "interactifReady": false,
@@ -170,6 +170,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "2L13"
+  },
+  "2L14": {
+    "titre": "Résoudre une inéquation produit ou quotient",
+    "url": "/exercices/2e/2L14.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2L14"
   },
   "2N10-1": {
     "titre": "Connaître les propriétés calculatoires des racines carrées",
