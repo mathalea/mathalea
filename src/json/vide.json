@@ -1,0 +1,2 @@
+// Dans ce répertoire sera stocké (mais non mis en clair sur le dépôt) les clés VIP
+// Fichier nécessaire pour la copie faite par webpack { from: 'src/json', to: 'json', info: { minimized: true } } 
