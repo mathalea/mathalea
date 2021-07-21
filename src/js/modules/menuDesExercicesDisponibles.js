@@ -1,12 +1,13 @@
-/* eslint-disable camelcase */
+/* global Event */
 import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtreDictionnaireValeurTableauCle, enleveElement, compteOccurences } from './outils.js'
 import dictionnaireDesExercicesAleatoires from './dictionnaireDesExercicesAleatoires.js'
 import { dictionnaireC3 } from './dictionnaireC3.js'
 import { dictionnaireDNB } from './dictionnaireDNB.js'
 import $ from 'jquery'
 import 'datatables.net-dt/css/jquery.dataTables.css'
-import { getFilterFromUrl } from './getUrlVars.js'
+import { getFilterFromUrl, getVueFromUrl } from './gestionUrl.js'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+import { context } from './context.js'
 
 // Liste tous les tags qui ont été utilisé
 const tags = new Set()
@@ -22,20 +23,21 @@ enleveElement(tableauTags, 'Hors programme')
 
 // On concatène les différentes listes d'exercices
 export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3 }
-let liste_des_exercices_disponibles
-if (window.location.href.indexOf('mathalea_amc.html') > 0) {
+let listeDesExercicesDisponibles
+if (getVueFromUrl() === 'amc') {
   const dictionnaireDesExercicesAMC = {}
   Object.entries(dictionnaireDesExercicesAleatoires).forEach(([id, props]) => {
     if (props.amcReady) dictionnaireDesExercicesAMC[id] = props
   })
-  liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercicesAMC)
+  listeDesExercicesDisponibles = tridictionnaire(dictionnaireDesExercicesAMC)
+  console.log(dictionnaireDesExercicesAMC)
 } else {
-  liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercices)
+  listeDesExercicesDisponibles = tridictionnaire(dictionnaireDesExercices)
 }
 
-function coupeChaine (titre, max_length) {
+function coupeChaine (titre, maxLength) {
   // permet de couper les titres trop longs pour affichage
-  for (let i = max_length; i > 5; i--) {
+  for (let i = maxLength; i > 5; i--) {
     if (titre[i] === ' ') {
       return titre.substr(0, i) + '\n' + titre.substr(i + 1, titre.length)
     }
@@ -44,29 +46,29 @@ function coupeChaine (titre, max_length) {
 
 function spanExercice (id, titre) {
   // Construit le span de la ligne d'exercice (sauf pour les exercices dnb qui sont particuliers.
-  let max_length
+  let maxLength
   // Selon la taille de la fenêtre (de l'écran) on tronque les titres trop longs pour qu'ils restent sur une ligne.
   if (document.getElementById('exercices_disponibles') && document.getElementById('exercices_disponibles').clientWidth > 600) {
-    max_length = 80
+    maxLength = 80
   } else if (document.getElementById('exercices_disponibles') && document.getElementById('exercices_disponibles').clientWidth > 490) {
-    max_length = 60
+    maxLength = 60
   } else {
-    max_length = 50
+    maxLength = 50
   }
   // pour les titres trop longs on ajoute un tooltip avec le titre complet
-  const tooltip = titre.length > max_length
-    ? 'data-tooltip="' + coupeChaine(titre, max_length + 20) + '"'
+  const tooltip = titre.length > maxLength
+    ? 'data-tooltip="' + coupeChaine(titre, maxLength + 20) + '"'
     : ''
-  const titre_tronque = titre.length > max_length ? titre.substr(0, max_length) + '...' : titre
-  const amcPrecisionType = window.location.href.indexOf('mathalea_amc.html') > 0 ? `<span style="color:#f15929;"> ${liste_des_exercices_disponibles[id].amcType.text} </span>` : ''
-  return `<span class="id_exercice">${id}</span> - <a class="ui bouton lien_id_exercice" ${tooltip} data-id_exercice="${id}">${titre_tronque} ${amcPrecisionType ? '-' + amcPrecisionType : ''}</a></a><span data-content="Prévisualiser l'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
+  const titreTronque = titre.length > maxLength ? titre.substr(0, maxLength) + '...' : titre
+  const amcPrecisionType = context.isAmc ? `<span style="color:#f15929;"> ${listeDesExercicesDisponibles[id].amcType} </span>` : ''
+  return `<span class="id_exercice">${id}</span> - <a class="ui bouton lien_id_exercice" ${tooltip} data-id_exercice="${id}">${titreTronque} ${amcPrecisionType ? '-' + amcPrecisionType : ''}</a></a><span data-content="Prévisualiser l'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
 }
 
 function listeHtmlDesExercicesDUnTheme (theme) {
   // Pour un thème donné fait la liste des titres des exercices disponibles
   // Appelée lorsqu'on fait la liste par niveau
   let liste = ''
-  const dictionnaire = filtreDictionnaire(liste_des_exercices_disponibles, theme)
+  const dictionnaire = filtreDictionnaire(listeDesExercicesDisponibles, theme)
   const filtre = getFilterFromUrl()
   for (const id in dictionnaire) {
     if (filtre === 'interactif') {
@@ -74,7 +76,7 @@ function listeHtmlDesExercicesDUnTheme (theme) {
       if (dictionnaire[id].interactifReady) {
         liste += spanExercice(id, dictionnaire[id].titre)
       }
-    } else if (window.location.href.indexOf('mathalea_amc.html') > 0) {
+    } else if (context.isAmc > 0) {
       // à supprimer avant push liste += '<b>'+ dictionnaire[id].amcType.text+'</b> '
       liste += spanExercice(id, dictionnaire[id].titre)
     } else {
@@ -114,10 +116,10 @@ function listeHtmlDesExercicesDNBTheme (theme) {
   return liste
 }
 
-function listeHtmlDesExercicesDUnNiveau (liste_de_themes) { // liste_de_themes = [['6N1','6N1 - Numérations et fractions niveau 1'] , [' ',' '] ]
+function listeHtmlDesExercicesDUnNiveau (listeDeThemes) { // liste_de_themes = [['6N1','6N1 - Numérations et fractions niveau 1'] , [' ',' '] ]
   // Appelée par la fonction menuDesExercicesDisponibles
   let liste = ''
-  for (const theme of liste_de_themes) {
+  for (const theme of listeDeThemes) {
     liste += `<h3>${theme[1]}</h3>`
     liste += listeHtmlDesExercicesDUnTheme(theme[0])
   }
@@ -193,11 +195,11 @@ function listeHtmlDesTags (objet) {
 
 function divNiveau (obj, active, id) {
   // construction de la div contenant l'ensemble d'un niveau.
-  let nombre_exo = ''
+  let nombreExo = ''
   if (id !== 'DNB' && id !== 'DNBtheme') {
-    nombre_exo = '(' + obj.nombre_exercices_dispo + ')'
+    nombreExo = '(' + obj.nombre_exercices_dispo + ')'
   }
-  return `<div id=${id} class="${active ? 'active title fermer_niveau' : 'title ouvrir_niveau'}"><i class="dropdown icon"></i>${obj.label} ${nombre_exo}</div><div id="content${id}" class="${active} content">${active ? obj.liste_html_des_exercices : ''}</div>`
+  return `<div id=${id} class="${active ? 'active title fermer_niveau' : 'title ouvrir_niveau'}"><i class="dropdown icon"></i>${obj.label} ${nombreExo}</div><div id="content${id}" class="${active} content">${active ? obj.liste_html_des_exercices : ''}</div>`
 }
 
 function addExercice (e) {
@@ -234,26 +236,26 @@ export function apparenceExerciceActif () {
   // appelée dans miseajourducode et afficheniveau (dès lors que les listes sont susceptibles d'être changées)
   $('.exerciceactif').removeClass('exerciceactif')
   $('.delexercice').remove()
-  const liste_exercices_selectionnes = document.getElementById('choix_des_exercices').value.split(',')
-  for (let i = 0; i < liste_exercices_selectionnes.length; i++) {
-    const elem_liste = $(`a.lien_id_exercice[data-id_exercice='${liste_exercices_selectionnes[i]}']`)
+  const listeExercicesSelectionnes = document.getElementById('choix_des_exercices').value.split(',')
+  for (let i = 0; i < listeExercicesSelectionnes.length; i++) {
+    const elemListe = $(`a.lien_id_exercice[data-id_exercice='${listeExercicesSelectionnes[i]}']`)
     // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
-    if (compteOccurences(liste_exercices_selectionnes, liste_exercices_selectionnes[i]) > 1) {
+    if (compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i]) > 1) {
       // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
-      if (document.getElementById(`count¤${liste_exercices_selectionnes[i]}`)) {
-        document.getElementById(`count¤${liste_exercices_selectionnes[i]}`).innerText = ` ✖︎ ${compteOccurences(liste_exercices_selectionnes, liste_exercices_selectionnes[i])}`
+      if (document.getElementById(`count¤${listeExercicesSelectionnes[i]}`)) {
+        document.getElementById(`count¤${listeExercicesSelectionnes[i]}`).innerText = ` ✖︎ ${compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i])}`
       } else {
-        elem_liste.after(`<span id="count¤${liste_exercices_selectionnes[i]}"> ✖︎ ${compteOccurences(liste_exercices_selectionnes, liste_exercices_selectionnes[i])} </span>`)
+        elemListe.after(`<span id="count¤${listeExercicesSelectionnes[i]}"> ✖︎ ${compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i])} </span>`)
       }
     } else {
-      if (document.getElementById(`count¤${liste_exercices_selectionnes[i]}`)) {
-        document.getElementById(`count¤${liste_exercices_selectionnes[i]}`).remove()
+      if (document.getElementById(`count¤${listeExercicesSelectionnes[i]}`)) {
+        document.getElementById(`count¤${listeExercicesSelectionnes[i]}`).remove()
       }
     }
-    if (!elem_liste.hasClass('exerciceactif')) {
-      elem_liste.after(`<span data-tooltip="Supprimer le dernière occurence de l'exercice." class="delexercice"><i class="minus square icon delexercice" id="del¤${liste_exercices_selectionnes[i]}" ></i></span>`)
+    if (!elemListe.hasClass('exerciceactif')) {
+      elemListe.after(`<span data-tooltip="Supprimer le dernière occurence de l'exercice." class="delexercice"><i class="minus square icon delexercice" id="del¤${listeExercicesSelectionnes[i]}" ></i></span>`)
     }
-    elem_liste.addClass('exerciceactif')
+    elemListe.addClass('exerciceactif')
   }
   $('.delexercice').off('click').on('click', function (e) {
     supprimerExo(e.target.id, true)
@@ -268,16 +270,16 @@ export function apparenceExerciceActif () {
 
 export function supprimerExo (num, last) {
 // fonction suppression d'un exercice : supprime l'exercice dans l'input avec la liste des exercice et provoque l'evt change pour recalcul de la page.
-  let id_exo; const form_choix_des_exercices = document.getElementById('choix_des_exercices')
-  const liste_exercices_selectionnes = form_choix_des_exercices.value.replace(/\s/g, '').replace(';', ',').split(',')
+  let idExo; const formChoixDesExercices = document.getElementById('choix_des_exercices')
+  const listeExercicesSelectionnes = formChoixDesExercices.value.replace(/\s/g, '').replace(';', ',').split(',')
   if (last) { // alors on est dans le cas de la liste : on supprime la dernière occurence de l'identifiant de l'exercice.
-    id_exo = num.split('¤')
-    num = liste_exercices_selectionnes.lastIndexOf(id_exo[1])
+    idExo = num.split('¤')
+    num = listeExercicesSelectionnes.lastIndexOf(idExo[1])
   } else {
     num = parseInt(num)
   }
-  liste_exercices_selectionnes.splice(num, 1)
-  form_choix_des_exercices.value = liste_exercices_selectionnes.toString()
+  listeExercicesSelectionnes.splice(num, 1)
+  formChoixDesExercices.value = listeExercicesSelectionnes.toString()
   const event = new Event('change')
   document.getElementById('choix_des_exercices').dispatchEvent(event)
 }
@@ -289,7 +291,7 @@ function ligneTableau (exercice) {
   // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
   const modeInteractif = dictionnaireDesExercices[exercice].interactifReady ? ' Interactif' : ''
   if (dictionnaireDesExercices[exercice].titre) {
-    if (window.location.href.indexOf('mathalea_amc.html') > 0) {
+    if (context.isAmc) {
       ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}
       </span></td> <td> <a class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].titre}
       </a></td><td> ${modeAmc} <br> ${modeInteractif}
@@ -311,9 +313,9 @@ function ligneTableau (exercice) {
 }
 
 function htmlListes (objaff) {
-  const liste_affichage_length = objaff.liste_affichage.length
+  const listeAffichageLength = objaff.liste_affichage.length
   let liste = ''; let lignes = ''
-  for (let i = 0; i < liste_affichage_length; i++) {
+  for (let i = 0; i < listeAffichageLength; i++) {
     if (objaff.liste_affichage[i] === objaff.liste_affichage.active) { // liste active
       liste += divNiveau(objaff.obj_ex[objaff.liste_affichage[i]], 'active', objaff.liste_affichage[i])
     } else {
@@ -331,7 +333,7 @@ export function menuDesExercicesDisponibles () {
 //   * au chargement de mathalea.html, cm.html, mathalealatex.html mathalea_amc.html, beta.html
 //   * lors de l'application des filtres (evenement change du select des filtres)
 // le tableau est mis dans le DOM, la liste des exercices n'est pas mise dans le DOM mais conservée pour les ajouter lorsqu'on déplie les accordéons.
-  let liste_html_des_exercices, html_affichage, liste_html_des_exercicestab
+  let listeHtmlDesExercices, htmlAffichage, listeHtmlDesExercicesTab
   if (document.getElementById('liste_des_exercices_tableau')) {
     document.getElementById('liste_des_exercices_tableau').innerHTML = ''
     document.getElementById('liste_des_exercices').innerHTML = ''
@@ -454,11 +456,11 @@ export function menuDesExercicesDisponibles () {
     }
   }
 
-  liste_html_des_exercicestab = ''
+  listeHtmlDesExercicesTab = ''
   const filtre = getFilterFromUrl()
 
   // Calcul et comptage des lignes
-  for (const id in liste_des_exercices_disponibles) {
+  for (const id in listeDesExercicesDisponibles) {
     if ((id[0] === 'c' && id[1] === '3') || (id[0] === 'P' && id[1] === '0') || (id[0] === 'P' && id[1] === 'E') || (id[0] === 'b' && id[1] === 'e')) {
       if (filtre === 'interactif') {
         // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
@@ -505,89 +507,89 @@ export function menuDesExercicesDisponibles () {
     }
   }
 
-  liste_html_des_exercices = '<div class="ui accordion">'
+  listeHtmlDesExercices = '<div class="ui accordion">'
   // Change l'ordre des exercices suivant l'URL ou le filtre.
   if (filtre === 'beta') {
-    liste_html_des_exercices += divNiveau(obj_exercices_disponibles.be, 'active', 'be')
-    liste_html_des_exercices += '</div>'
-    liste_html_des_exercicestab += obj_exercices_disponibles.be.lignes_tableau
-  } else if (window.location.href.indexOf('cm.html') > 0) {
-    html_affichage = htmlListes({
+    listeHtmlDesExercices += divNiveau(obj_exercices_disponibles.be, 'active', 'be')
+    listeHtmlDesExercices += '</div>'
+    listeHtmlDesExercicesTab += obj_exercices_disponibles.be.lignes_tableau
+  } else if (context.vue === 'cm') {
+    htmlAffichage = htmlListes({
       liste_affichage: ['C', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'PE'],
       active: 'C',
       obj_ex: obj_exercices_disponibles
     })
-    liste_html_des_exercices += html_affichage.liste + '</div>'
-    liste_html_des_exercicestab += html_affichage.lignes
+    listeHtmlDesExercices += htmlAffichage.liste + '</div>'
+    listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else if (filtre === 'outils') {
-    liste_html_des_exercices += divNiveau(obj_exercices_disponibles.P0, 'active', 'P0')
-    liste_html_des_exercices += '</div>'
-    liste_html_des_exercicestab += obj_exercices_disponibles.P0.lignes_tableau
+    listeHtmlDesExercices += divNiveau(obj_exercices_disponibles.P0, 'active', 'P0')
+    listeHtmlDesExercices += '</div>'
+    listeHtmlDesExercicesTab += obj_exercices_disponibles.P0.lignes_tableau
   } else if (filtre === 'dnb') {
-    liste_html_des_exercices += divNiveau(obj_exercices_disponibles.DNB, 'active', 'DNB')
-    liste_html_des_exercices += divNiveau(obj_exercices_disponibles.DNBtheme, 'active', 'DNBtheme')
-    liste_html_des_exercices += '</div>'
-    liste_html_des_exercicestab += obj_exercices_disponibles.DNB.lignes_tableau
+    listeHtmlDesExercices += divNiveau(obj_exercices_disponibles.DNB, 'active', 'DNB')
+    listeHtmlDesExercices += divNiveau(obj_exercices_disponibles.DNBtheme, 'active', 'DNBtheme')
+    listeHtmlDesExercices += '</div>'
+    listeHtmlDesExercicesTab += obj_exercices_disponibles.DNB.lignes_tableau
   } else if (filtre === 'primaire') {
-    liste_html_des_exercices += divNiveau(obj_exercices_disponibles.c3, 'active', 'c3')
-    liste_html_des_exercices += '</div>'
-    liste_html_des_exercicestab += obj_exercices_disponibles.c3.lignes_tableau
+    listeHtmlDesExercices += divNiveau(obj_exercices_disponibles.c3, 'active', 'c3')
+    listeHtmlDesExercices += '</div>'
+    listeHtmlDesExercicesTab += obj_exercices_disponibles.c3.lignes_tableau
   } else if (filtre === 'college') {
-    html_affichage = htmlListes({
+    htmlAffichage = htmlListes({
       liste_affichage: [6, 5, 4, 3, 'DNB', 'DNBtheme', 'C'],
       active: '',
       obj_ex: obj_exercices_disponibles
     })
-    liste_html_des_exercices += html_affichage.liste + '</div>'
-    liste_html_des_exercicestab += html_affichage.lignes
+    listeHtmlDesExercices += htmlAffichage.liste + '</div>'
+    listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else if (filtre === 'lycee') {
-    html_affichage = htmlListes({
+    htmlAffichage = htmlListes({
       liste_affichage: [2, 1, 'T'],
       active: '',
       obj_ex: obj_exercices_disponibles
     })
-    liste_html_des_exercices += html_affichage.liste + '</div>'
-    liste_html_des_exercicestab += html_affichage.lignes
+    listeHtmlDesExercices += htmlAffichage.liste + '</div>'
+    listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else if (filtre === 'crpe') {
-    html_affichage = htmlListes({
+    htmlAffichage = htmlListes({
       liste_affichage: ['PE'],
       active: '',
       obj_ex: obj_exercices_disponibles
     })
-    liste_html_des_exercices += html_affichage.liste + '</div>'
-    liste_html_des_exercicestab += html_affichage.lignes
-  } else if (window.location.href.indexOf('mathalea_amc.html') > 0) {
-    html_affichage = htmlListes({
+    listeHtmlDesExercices += htmlAffichage.liste + '</div>'
+    listeHtmlDesExercicesTab += htmlAffichage.lignes
+  } else if (context.isAmc) {
+    htmlAffichage = htmlListes({
       liste_affichage: ['c3', 6, 5, 4, 3, 2, 1, 'T', 'PE', 'C'],
       active: '',
       obj_ex: obj_exercices_disponibles
     })
-    liste_html_des_exercices += html_affichage.liste + '</div>'
-    liste_html_des_exercicestab += html_affichage.lignes
+    listeHtmlDesExercices += htmlAffichage.liste + '</div>'
+    listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else {
-    html_affichage = htmlListes({
+    htmlAffichage = htmlListes({
       liste_affichage: ['c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'PE', 'C'],
       active: '',
       obj_ex: obj_exercices_disponibles
     })
-    liste_html_des_exercices += html_affichage.liste
-    liste_html_des_exercicestab += html_affichage.lignes
+    listeHtmlDesExercices += htmlAffichage.liste
+    listeHtmlDesExercicesTab += htmlAffichage.lignes
     // Ajoute les outils prof sur mathalealatex
-    if (window.location.href.indexOf('mathalealatex.html') > 0) {
-      liste_html_des_exercices += divNiveau(obj_exercices_disponibles.P0, '', 'P0')
-      liste_html_des_exercicestab += obj_exercices_disponibles.P0.lignes_tableau
+    if (context.vue === 'latex') {
+      listeHtmlDesExercices += divNiveau(obj_exercices_disponibles.P0, '', 'P0')
+      listeHtmlDesExercicesTab += obj_exercices_disponibles.P0.lignes_tableau
     }
-    liste_html_des_exercices += '</div>'
+    listeHtmlDesExercices += '</div>'
   }
 
-  $('#liste_des_exercices').html(liste_html_des_exercices)
+  $('#liste_des_exercices').html(listeHtmlDesExercices)
   $('.lien_id_exercice').off('click').on('click', function () { addExercice(event) })
-  liste_html_des_exercicestab = `<div id="recherche"> </div><table id='listtab' class="stripe"><thead>
+  listeHtmlDesExercicesTab = `<div id="recherche"> </div><table id='listtab' class="stripe"><thead>
     <tr><th class="colonnecode">Code</th><th>Intitulé de l'exercice</th><th>Mode</th><th>Prévisualiser</th></thead><tbody>
-    ${liste_html_des_exercicestab}
+    ${listeHtmlDesExercicesTab}
     </tbody><tfoot><tr><th class="colonnecode">Code</th><th>Intitulé de l'exercice</th><th>Mode</th><th>prévisualiser</th></tr>
     </tfoot></table>`
-  $('#liste_des_exercices_tableau').html(liste_html_des_exercicestab)
+  $('#liste_des_exercices_tableau').html(listeHtmlDesExercicesTab)
   $('#liste_des_exercices_tableau').hide()
   $('#mode_choix_liste').hide()
   $('.popuptext').hide()
@@ -625,7 +627,7 @@ export function menuDesExercicesDisponibles () {
     })
   })
 
-  function afficher_niveau () {
+  function afficherNiveau () {
   // Fonction qui permet l'ajout dans le dom de la liste des exercices correspondant à l'accordéo déplié.
     let elem
     if ($(event.target).hasClass('dropdown')) {
@@ -638,7 +640,7 @@ export function menuDesExercicesDisponibles () {
     $(elem).removeClass('ouvrir_niveau')
     $(elem).addClass('fermer_niveau')
     $('.fermer_niveau').off('click').on('click', function () {
-      masquer_niveau()
+      masquerNiveau()
     })
     // Actualise KaTeX pour les titres d'exercices utilisant LaTeX
     renderMathInElement(document.body, {
@@ -658,23 +660,23 @@ export function menuDesExercicesDisponibles () {
     })
   }
 
-  function masquer_niveau () {
+  function masquerNiveau () {
   // Lorsqu'on ferme un niveau on supprime du DOM la liste des exercices.
     $('.fermer_niveau').next().remove()
     $('.fermer_niveau').removeClass('active')
     $('.fermer_niveau').addClass('ouvrir_niveau')
     $('.fermer_niveau').removeClass('fermer_niveau')
     $('.ouvrir_niveau').off('click').on('click', function () {
-      afficher_niveau()
+      afficherNiveau()
     })
   }
 
   // Gestionnaire d'évenement de l'ouverture/fermeture d'un niveau d'exercices.
   $('.ouvrir_niveau').off('click').on('click', function () {
-    afficher_niveau()
+    afficherNiveau()
   })
   $('.fermer_niveau').off('click').on('click', function () {
-    masquer_niveau()
+    masquerNiveau()
   })
 
   async function gestionTableau () {
@@ -777,10 +779,10 @@ export function menuDesExercicesDisponibles () {
 export function menuTheme (theme) {
   let codeHTML = '<h2 class="ui horizontal divider header">Exercices en ligne à données aléatoires</h2>'
   codeHTML += '\n<div class="ui middle aligned animated selection divided list">'
-  const dictionnaire = filtreDictionnaire(liste_des_exercices_disponibles, theme)
+  const dictionnaire = filtreDictionnaire(listeDesExercicesDisponibles, theme)
   for (const id in dictionnaire) {
     codeHTML +=
-      `<a class="item" href="/exercice.html?ex=${id}" target="_blank">
+      `<a class="item" href="/mathalea.html?ex=${id}&v=ex" target="_blank">
       <img class="ui avatar image" src="/images/dice.png"> <div class="header content">${id} - ${dictionnaire[id].titre} </div>
     </a>`
   }
@@ -801,7 +803,7 @@ export function menuThemeDNB (theme) {
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     codeHTML +=
-      `<a style="line-height:2.5" class="item" href="/exercice.html?ex=${id}" target="_blank"><div class="header content"> ${dictionnaire[id].annee} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice} ${listeHtmlDesTags(dictionnaire[id])} </div></a> \n`
+      `<a style="line-height:2.5" class="item" href="/mathalea.html?ex=${id}&v=ex" target="_blank"><div class="header content"> ${dictionnaire[id].annee} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice} ${listeHtmlDesTags(dictionnaire[id])} </div></a> \n`
   }
   codeHTML += '\n</div>'
   return codeHTML

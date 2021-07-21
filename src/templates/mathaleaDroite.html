@@ -1,0 +1,69 @@
+
+<h3 class="ui block header">
+  <span id="titreExerciceAvecChevron"><i id="exo_plein_ecran" class="angle double left icon"></i>Exercices</span>
+  <button id="scoresLogIn" class="ui button labeled icon mini right floated" data-tooltip="Connexion" data-position="bottom center">
+    <i class="save icon"></i>
+    Connexion
+  </button>
+  <button id="scoresLogOut" class="ui button labeled icon mini right floated" data-tooltip="Déconnexion" data-position="bottom center" style="display:none">
+    <i class="power off icon"></i>
+    Déconnexion
+  </button>
+  <button id="userIdDisplay" class="ui button labeled icon mini right floated" data-tooltip="userId" data-position="bottom center" style="display:none">
+    <i class="user icon"></i>
+    userId actuel => <span id="userIdDisplayValue"></span>
+
+  </button>
+</h3>
+
+<div>
+  <button class="btn ui labeled icon button" id="btn_mise_a_jour_code" style="margin: 10px"><i class="redo icon"></i>Nouvelles données</button>
+  <div class="ui buttons" style="margin: 10px">
+    <button class="btn ui right labeled icon button" id="btn_zoom_plus">Zoom<i class="plus icon"></i></button>
+    <button class="btn ui icon button" id="btn_zoom_moins"><i class="minus icon"></i></button>
+  </div>
+  <button
+    id="btnCopieURL"
+    style="margin: 10px"
+    class="btn ui toggle button labeled icon url"
+    data-clipboard-action="copy"
+    data-tooltip="Copier le lien vers les exercices paramétrés"
+    data-clipboard-text="url_courant()"
+  >
+    <i class="copy icon"></i>Lien
+  </button>
+  <button id="btnLaTeX" style="margin: 10px" class="btn ui button labeled icon"><i class="edit icon"></i> LaTeX / PDF</button>
+  <button id="btnEmbed" style="margin: 10px" class="btn ui button icon" data-tooltip="Code HTML pour intégrer les exercices dans votre site">
+    <i class="code icon"></i>
+  </button>
+  <button id="btnQRcode" style="margin: 10px" class="btn ui button icon" data-tooltip="QRCode de lien vers les exercices"><i class="qrcode icon"></i></button>
+  <button id="buttonFullScreen" style="margin: 10px" class="btn ui button icon" data-tooltip="Exercices en plein écran">
+    <i class="external alternate icon"></i>
+  </button>
+</div>
+
+<div id="ModalQRcode" class="ui basic modal"></div>
+<div id="ModalEmbed" class="ui modal"></div>
+
+<div class="ui hidden divider"></div>
+
+<div id="affichage_exercices">
+  <div id="exercices"></div>
+
+  <div class="ui fluid accordion">
+    <div class="title" id="btnCorrection">
+      <i class="dropdown icon"></i>
+      Corrections
+    </div>
+    <div class="content">
+      <div id="corrections"></div>
+    </div>
+  </div>
+  <div class="ui fluid accordion" id="accordeon_parametres">
+    <div class="title">
+      <i class="dropdown icon"></i>
+      Paramètres
+    </div>
+    <div class="content" id="parametres_generaux"></div>
+  </div>
+</div>
