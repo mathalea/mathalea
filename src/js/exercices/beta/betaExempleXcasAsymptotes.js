@@ -5,7 +5,7 @@ export const titre = 'Recherche d\'une asymptote oblique'
 
 /**
  * Description didactique de l'exercice
- * @author
+ * @author Eric Schrafstetter
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {

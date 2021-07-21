@@ -30,7 +30,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeDeQuestions[i]) { 
         case 'type1':
-          polyn = `${xcas(`a:=randpoly(1,m)`)}`       
+          a = randint(-5,5,0)
+          polyn = `${xcas(`a:=${a}`)}`       
           polyn = `${xcas(`b:=randint(-2,2)*m+randint(-3,3)`)}` 
           polyn = `${xcas(`c:=randint(-2,2)*m+randint(-3,3)`)}` 
           polyn = `${xcas(`P:= a*x^2+b*x+c`)}` 
