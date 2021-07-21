@@ -1,4 +1,5 @@
 import loadjs from 'loadjs'
+import slick from '../../assets/externalJs/slick/slick'
 
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
@@ -8,7 +9,8 @@ const apps = {
   giac: '/assets/externalJs/giacsimple.js',
   mathgraph: 'https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js',
   prism: ['/assets/externalJs/prism.js', '/assets/externalJs/prism.css'],
-  scratchblocks: 'assets/externalJs/scratchblocks-v3.5-min.js'
+  scratchblocks: 'assets/externalJs/scratchblocks-v3.5-min.js',
+  slick: ['/assets/externalJs/semantic-ui/semantic.min.css', '/assets/externalJs/semantic-ui/semantic.min.js', '/assets/externalJs/semantic-ui/components/state.min.js']
 }
 
 /**
@@ -113,6 +115,20 @@ export async function loadPrism () {
  */
 export async function loadScratchblocks () {
   await load('scratchblocks')
+}
+
+/**
+ * Charge Slick pour les diaporama
+ * @return {Promise} qui peut échouer…
+ */
+export async function loadSlick () {
+  try {
+    await load('slick')
+    slick()
+  } catch (error) {
+    console.error(error)
+    return Error('Erreur de chargement de slick')
+  }
 }
 
 /**

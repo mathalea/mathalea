@@ -1,3 +1,4 @@
+/* globals UI */
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
@@ -1503,13 +1504,21 @@ export function texRacineCarree (n) {
 }
 
 /**
-* Utilise giac/xcas
-*
-* @author Rémi Angot
-*/
+ *
+ * @param {'string | array'} expression ou tableau d'expressions à évaluer avec XCas
+ * @returns string
+ * @author Rémi Angot
+ */
 export function xcas (expression) {
-  // eslint-disable-next-line no-undef
-  return UI.eval(`latex(${expression})`).replaceAll('\\cdot ', '~').replaceAll('\\frac', '\\dfrac').replaceAll('"', '')
+  const sortie = (txt) => UI.eval(`latex(${txt})`).replaceAll('\\cdot ', '~').replaceAll('\\frac', '\\dfrac').replaceAll('"', '')
+  if (typeof expression === 'string') return sortie(expression)
+  else {
+    const result = []
+    for (const txt of expression) {
+      result.push(sortie(txt))
+    }
+    return result
+  }
 }
 
 /**
