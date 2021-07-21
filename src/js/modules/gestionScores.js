@@ -128,7 +128,7 @@ export default function gestionScores () {
           }
           if (document.getElementById('scoresDocumentationFeedback')) {
             document.getElementById('scoresDocumentationFeedback').hidden = true
-          }          
+          }
           // S'il n'y a pas de userId on n'affiche pas le champ du userId courant
           if (!window.sessionStorage.getItem('userId')) {
             // On cache le champ prévu pour l'affichage du userId courant
