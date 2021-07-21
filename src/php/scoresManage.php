@@ -1,43 +1,9 @@
 <?php
-// TODO
-// =>OK => Vérifier/Nettoyer les variables qui arrivent du client, il n'y en a plus 
-// =>OK => Gestion d'un feedback d'erreur sur le format du userId
-// =>OK => Gestion d'un feedback d'erreur si le userId n'existe pas et qu'on demande d'enregistrer avec PLUS D'ACTUALITE
-// =>OK => Placement de la variable $keypass cf post de Rémi
-// => Suppression des espaces userId trop vieux, On garde 15 jours un autre délai qu'on pourra adapter,
-// la routine de nettoyage serait lancée à chaque requete 
-// =>OK => Problème url avec des % une fois qu'on affecte un userId
-
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 
-// // Procédure de suppression des fichiers avec exploration recursive
-function recursiveDelete($pathToClean,$timeBeforeDelete) {
-  $repertoire = opendir($pathToClean); // On définit le répertoire dans lequel on souhaite travailler.
-  
-  while (false !== ($fichier = readdir($repertoire))) // On lit chaque fichier du répertoire dans la boucle.
-  {
-  $chemin = $pathToClean."/".$fichier; // On définit le chemin du fichier à effacer.
-  
-  // Si le fichier n'est pas un répertoire…
-  if ($fichier != ".." && $fichier != "." && !is_dir($fichier))
-        {
-        $Diff = (time() - filectime($chemin));
-        if ($Diff > $timeBeforeDelete) unlink($chemin); // On efface si c'est trop vieux depuis la dernière modification        
-        }
-  elseif (is_dir($fichier)) 
-        {
-          recursiveDelete($fichier,$timeBeforeDelete);
-        }
-  }
-  closedir($repertoire);
-}
+// $thisdir = "./resultats";
+$scoresDir = "./resultats";
 
-  // // On supprime tout ce qui a plus de 1 minute
-  $thisdir = "./resultats";
-  $timeBeforeDelete = 60; // Nombre de secondes 
-  // if (file_exists($thisdir)) {
-  //   recursiveDelete($thisdir,$timeBeforeDelete);
-  // }
 if ($contentType === "application/json") {
 
   // On reçoit les données brutes du post.
@@ -149,7 +115,7 @@ if ($contentType === "application/json") {
 
   if ($errors=="") {
     // On va créer le repertoire pour le stockage des résultats par semaine
-    $path = './resultats/'.$prof1.'/'.$prof2.'/'.$prof3;
+    $path = $scoresDir.'/'.$prof1.'/'.$prof2.'/'.$prof3;
     
     // On génère une nouvelle clef uniquement si l'arborescence n'existe pas
     // Sinon on récupère la clef dans le nom du fichier on verra plus tard s'il y a plusieurs fichiers
@@ -171,6 +137,30 @@ if ($contentType === "application/json") {
       // Il faut créer le dossier de stockage s'il n'existe pas à partir de la clef  
       $pathToFile = $path.'/'.$keypass;
       $url = $pathToFile;
+            // Une fois tout ça créer,
+      // On va créer un fichier index.php qui va bien pour afficher tout ce qu'on veut
+      $indexProfSpace = $url.'/index.php';
+      // On ouvre le fichier
+      $fp = fopen($indexProfSpace, 'a+');
+      // On écrit dedans un template de base à modifier plus tard
+      fputs($fp,"
+      <!DOCTYPE html>
+      <html>
+          <head>
+              <title>Espace $prof1$prof2$prof3</title>
+              <meta charset=\"utf-8\">              
+          </head>
+          
+          <body>
+              <h1>Espace des scores <b>$prof1$prof2$prof3</b></h1>
+              <h2>Liste des fichiers par classe et par semaine</h2>
+              <?php
+                  echo 'Hello World !';
+              ?>              
+          </body>
+      </html>
+      ");
+      fclose($fp); 
     } else {
       if (sizeof(scandir($path))>2) {// S'il y a déjà un sous-dossier son nom est le keypass à recuperer pour les enregistrements      
         $keypass = scandir($path)[2];
@@ -216,5 +206,4 @@ if ($contentType === "application/json") {
     // On peut envoyer un message d'erreur à l'utilisateur
   }
 }
-
 ?>

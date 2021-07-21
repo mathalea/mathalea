@@ -15,10 +15,6 @@ $msgVip = "Création des espaces de scores VIPs KO !"; // Pour le retour console
 $msgCron = "CRON KO !"; // Pour le retour console
 $scoresDir = "./resultats"; // Pour le repertoire de stockage des espaces de scores
 // On met tout à zéro dès lors que 365,25 jours ( 31 557 600 secondes ) se sont écoulés après la création du répertoire resultats
-// if (!is_dir($scoresDir)) {
-//   mkdir($scoresDir, 0775, true);  
-//   createVipScoresSpaces('./json/scoresCodesVip.json');
-// }; 
 $intervalBeforeDelete = 31557600; // 60; // Temps avant remise à zero des espaces de scores
 $deleteDay = intval(date('d',filectime($scoresDir)));
 $deleteMonth = intval(date('m',filectime($scoresDir)));
@@ -51,12 +47,36 @@ function createVipScoresSpaces($pathToJson) {
   // on décode le flux JSON et on accède à ce qu'on veut, ici les VIPs !
   $vips = json_decode($data)->vips;
   // on crée les repertoires ad hoc, le repertoire resultats a été crée au debut s'il n'existait pas
-  if (!is_dir($GLOBALS["scoresDir"])) {
- // if (is_dir($GLOBALS["scoresDir"])) {
+  if (!is_dir($GLOBALS["scoresDir"])) { 
     mkdir($GLOBALS["scoresDir"],0775, true);
     foreach ($vips as $vip) {
         $path = $GLOBALS["scoresDir"].'/'.$vip->codeProf[0].'/'.$vip->codeProf[1].'/'.$vip->codeProf[2].'/'.$vip->md5Key;
         mkdir($path, 0775, true);
+        // On crée la page d'index pour l'espace
+        // Une fois tout ça créer,
+        // On va créer un fichier index.php qui va bien pour afficher tout ce qu'on veut
+        $indexProfSpace = $path.'/index.php';
+        // On ouvre le fichier
+        $fp = fopen($indexProfSpace, 'a+');
+        // On écrit dedans un template de base à modifier plus tard
+        fputs($fp,"
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Espace ".$vip->codeProf[0].$vip->codeProf[1].$vip->codeProf[2]."</title>
+                <meta charset=\"utf-8\">              
+            </head>
+            
+            <body>
+                <h1>Espace des scores <b>".$vip->codeProf[0].$vip->codeProf[1].$vip->codeProf[2]."</b></h1>
+                <h2>Liste des fichiers par classe et par semaine</h2>                
+                <?php
+                    echo 'Hello World !';
+                ?>              
+            </body>
+        </html>
+        ");
+        fclose($fp); 
     };      
   };
  
@@ -105,6 +125,5 @@ echo json_encode(array(
     "timeSinceCreation" => $timeSinceCreation,
     "deleteNextDate" => $deleteNextDate,
     "currentDate" => "$currentDay / $currentMonth / $currentYear",
-  ));  
-  
+  ));    
 ?>
