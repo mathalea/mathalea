@@ -24,7 +24,6 @@ export default function variationPolynomeDegre3 () {
   this.typeExercice = 'XCas'
 
   this.nouvelleVersion = function () {
-    console.log(xcas(['4+3', '4*3']))
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
