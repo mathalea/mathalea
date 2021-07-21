@@ -33,9 +33,8 @@ export default function gestionScores () {
       'Content-Type': 'application/json'
     }
   })
-    .then(response => response.json())
+    .then(response => response.text())
     .then(response => {
-      console.log(response.msg)
       if (document.getElementById('scoresInfosTimeLeft')) {
         // console.log(response.timeLeft)
         document.getElementById('scoresInfosTimeLeft').innerHTML = `
@@ -228,7 +227,7 @@ export default function gestionScores () {
           eleve2: userId[6]
         })
       })
-        .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
+        .then(response => response.text())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
         .then(response => {
           if (response.errors !== '') { // S'il y a des erreurs on ne fait rien
             if (document.getElementById('scoresInputUserIdError')) {
@@ -326,7 +325,7 @@ export default function gestionScores () {
           isVerifResult: false
         })
       })
-        .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
+        .then(response => response.text())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
         .then(response => {
           if (document.getElementById('scoresFeedback')) {
             document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
