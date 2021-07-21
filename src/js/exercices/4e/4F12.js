@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, prenomF } from '../../modules/outils.js'
-import { point, polyline, axes, labelX, labelY, grille, repere, courbe, courbeInterpolee, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { point, polyline, axes, labelX, labelY, grille, repere, courbeInterpolee, texteParPosition, mathalea2d, repere2, courbe2 } from '../../modules/2d.js'
 export const titre = 'Problème s’appuyant sur la lecture d’une représentation graphique'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -24,13 +24,16 @@ export default function ExploiterRepresentationGraphique () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    const VitessesInitiales = [10.9, 11, 12.6, 12.7, 14.1, 14.2, 15.5, 16.7, 17.9, 19, 20, 21, 21.9, 22.8, 23.7, 24.5, 25.3, 26.1, 26.8, 27.6, 28.2, 29]
+    const V0 = choice(VitessesInitiales)
     let typeDeProbleme
     let enonceAMC
-    let xscale, v1, v2, v3, situation
+    let v1, v2, v3, situation
+    let repeRe
     let tempsPause
     let periodeRapide
     if (this.sup === 1) {
-      typeDeProbleme = 'projectile'
+      typeDeProbleme = choice(['projectile2', 'projectile2'])
     }
     if (this.sup === 2) {
       typeDeProbleme = 'velo'
@@ -41,9 +44,9 @@ export default function ExploiterRepresentationGraphique () {
     if (this.sup === 4) {
       typeDeProbleme = choice(['temperature', 'projectile', 'velo'])
     }
-    let a, f, t1, l, l1, l2, g1, g2, g3, r, graphique, texte1, texte2, fille, hmin, hmax, tmin, tmax
+    let f, t1, l, l1, l2, g1, g2, g3, r, graphique, texte1, texte2, fille, hmin, hmax, tmin, tmax
     switch (typeDeProbleme) {
-      case 'projectile':
+      /*    case 'projectile':
         // Parabole qui a pour zéro, 0 et 6,8 ou 10
         // Et qui a pour maximum un multiple de 5
         t1 = choice([6, 8, 10])
@@ -51,14 +54,13 @@ export default function ExploiterRepresentationGraphique () {
         f = (x) => calcul(-a * x * (x - t1))
 
         // Mettre des dixièmes de secondes à la place des secondes
-        xscale = choice([1, 0.1])
         g1 = grille(-1, -1, t1 + 2, 8)
         g1.color = 'black'
         g1.opacite = 1
         g2 = grille(-1, -1, t1 + 2, 8, 'gray', 0.2, 0.2)
         g3 = axes(0, 0, t1 + 1, 8)
         texte1 = texteParPosition('hauteur (en mètre)', 0.2, 7.3, 'droite')
-        l1 = labelX(0, calcul((t1 + 1) * xscale), 1, 'black', -0.6, xscale)
+        l1 = labelX(0, calcul((t1 + 1) ), 1, 'black', -0.6, 1)
         l2 = labelY(5, 35, 1, 'black', -0.6, 5)
         graphique = courbe(f, 0, t1, 'blue', 2, [1, 5])
         texte2 = texteParPosition('temps (en s)', t1 + 0.5, 0.4, 'droite')
@@ -96,9 +98,9 @@ export default function ExploiterRepresentationGraphique () {
         )
         this.listeCorrections.push(
           `Au bout de ${texNombrec(
-            t1 * xscale
+            t1
           )} s, le projectile retombe au sol car la courbe passe par le point de coordonnées $(${texNombrec(
-            t1 * xscale
+            t1
           )}~;~0)$.`
         )
 
@@ -107,13 +109,78 @@ export default function ExploiterRepresentationGraphique () {
         )
         this.listeCorrections.push(
           `Le point le plus haut de la courbe a pour abscisse $${texNombrec(
-            (t1 / 2) * xscale
+            (t1 / 2)
           )}$ et pour ordonnée $${f(
             t1 / 2
           )}$ donc la hauteur maximale est de $${f(t1 / 2)}$ m.`
         )
 
         break
+        */
+      case 'projectile2':
+      /*  const solutions = [] // bout de code pour déterminer les vitesses initiales qui donnent des valeurs presque entières de h et d
+        for (let x = 10; x < 30; x += 0.1) {
+          if (Math.abs(x * x / 40 - Math.round(x * x / 40)) < 0.05) {
+            solutions.push(arrondi(x, 2))
+          }
+        }
+        console.log(solutions)
+        */
+        // Parabole qui a pour zéro, 0 et 6,8 ou 10
+        // Et qui a pour maximum un multiple de 5
+        t1 = Math.round(V0 ** 2 / 10)
+        f = (x) => calcul(-10 * x ** 2 / (V0 ** 2) + x)
+
+        // Mettre des dixièmes de secondes à la place des secondes
+        repeRe = repere2({ xUnite: 0.25, yUnite: 0.5, xMin: 0, yMin: 0, xMax: t1 + 4, yMax: f(t1 / 2) + 3, xThickDistance: 4, yThickDistance: 1 }) // ()
+        texte1 = texteParPosition('hauteur (en mètre)', 0.2, f(t1 / 2) / 2 + 1.5, 'droite')
+        graphique = courbe2(f, repeRe)
+        texte2 = texteParPosition('distance (en m)', (t1 + 0.5) / 4, 0.4, 'droite')
+
+        this.introduction =
+            'On a représenté ci-dessous la trajectoire d’un projectile lancé depuis le sol.'
+
+        this.introduction +=
+            '<br><br>' +
+            mathalea2d(
+              {
+                xmin: -1,
+                ymin: -1,
+                xmax: t1 + 3,
+                ymax: f(t1 / 2) / 2 + 2,
+                pixelsParCm: 30,
+                scale: 0.6
+              },
+              repeRe,
+              graphique,
+              texte1,
+              texte2,
+              l1,
+              l2
+            )
+
+        this.introduction +=
+            '<br><br>' +
+            'À l’aide de ce graphique, répondre aux questions suivantes :'
+
+        this.listeQuestions.push(
+          'A quelle ditance le projectile est-il retombé ?'
+        )
+        this.listeCorrections.push(
+            `Le projectile retombe au sol à une distance de ${t1} m, car la courbe passe par le point de coordonnées $(${texNombrec(
+              t1
+            )}~;~0)$.`
+        )
+
+        this.listeQuestions.push(
+          'Quelle est la hauteur maximale atteinte par le projectile ?'
+        )
+        this.listeCorrections.push(
+            `Le point le plus haut de la courbe a pour abscisse $${texNombrec((t1 / 2))}$ et pour ordonnée $${Math.round(f(t1 / 2))}$ donc la hauteur maximale est de $${Math.round(f(t1 / 2))}$ m.`
+        )
+
+        break
+
       case 'velo':
         v1 = randint(1, 4)
         v2 = randint(1, 3, v1)
@@ -303,10 +370,120 @@ export default function ExploiterRepresentationGraphique () {
           }
           break
         case 'projectile':
-
+          this.autoCorrection[0] = {
+            enonce: enonceAMC,
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: this.listeCorrections[0],
+                  statut: '',
+                  reponse: {
+                    texte: '1)',
+                    valeur: calcul(t1),
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: this.listeCorrections[1],
+                  statut: '',
+                  reponse: {
+                    texte: '1)',
+                    valeur: f(t1 / 2),
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
           break
         case 'temperature':
-
+          this.autoCorrection[0] = {
+            enonce: enonceAMC,
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: this.listeCorrections[0],
+                  statut: '',
+                  reponse: {
+                    texte: '1)',
+                    valeur: tmin,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: this.listeCorrections[1],
+                  statut: '',
+                  reponse: {
+                    texte: '1)',
+                    valeur: tmax,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: this.listeCorrections[2],
+                  statut: '',
+                  reponse: {
+                    texte: '1)',
+                    valeur: hmax,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: this.listeCorrections[3],
+                  statut: '',
+                  reponse: {
+                    texte: '1)',
+                    valeur: hmin,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
           break
       }
     }
