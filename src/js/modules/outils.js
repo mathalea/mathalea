@@ -7166,7 +7166,7 @@ export function exportQcmAmc (exercice, idExo) {
 
       default : // Si on arrive ici, c'est que le type est AMCHybride
         if (type !== 'AMCHybride') {
-          console.log('Il doit y avoir une erreur de type AMC')
+          console.log('Il doit y avoir une erreur de type AMC, je ne connais pas le type : ', type)
         }
         if (autoCorrection[j].enonce === undefined) { // Si l'énoncé n'a pas été défini, on va le chercher dans la question
           autoCorrection[j].enonce = exercice.listeQuestions[j]
@@ -7294,15 +7294,6 @@ export function exportQcmAmc (exercice, idExo) {
               texQr += `\t\t\\notation{${propositions[0].statut}}\n` // le statut contiendra le nombre de lignes pour ce type
               texQr += '\t\\end{question}\n'
               id++
-              break
-            case 'AMCOpenNum':
-
-              break
-            case 'AMCOpenNum✖︎2':
-
-              break
-            case 'AMCOpenNum✖︎3':
-
               break
           }
         }

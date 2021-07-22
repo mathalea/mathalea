@@ -54,7 +54,7 @@ export default function ExploiterRepresentationGraphique () {
         t1 = Math.round(Math.sqrt(2) * V0 / 10)
         xscale = 9 / t1
         f = (x) => Math.max(-5 * x ** 2 + V0 * Math.sqrt(2) * x / 2, 0)
-        repeRe = repere2({ xUnite: 1 * xscale, yUnite: 0.1 * xscale, xMin: 0, yMin: 0, xMax: t1 + 1, yMax: f(t1 / 2) + 5, xThickDistance: 1, yThickDistance: 5, grilleSecondaireY: true, grilleSecondaireYDistance: 1, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 5 }) // ()
+        repeRe = repere2({ xUnite: 1 * xscale, yUnite: 0.1 * xscale, xMin: 0, yMin: 0, xMax: t1 + 1, yMax: f(t1 / 2) + 11, xThickDistance: 1, yThickDistance: 10, grilleSecondaireY: true, grilleSecondaireYDistance: 2, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 5 }) // ()
         texte1 = texteParPosition('hauteur (en mètre)', 0.2, (f(t1 / 2) / 10 + 0.5) * xscale, 'droite')
         graphique = courbe2(f, { repere: repeRe, xMax: (t1 + 1) * xscale, step: 0.2 })
         texte2 = texteParPosition('temps (en s)', (t1 + 0.5) * xscale, 0.4, 'droite')
@@ -337,7 +337,7 @@ export default function ExploiterRepresentationGraphique () {
               {
                 type: 'AMCOpen',
                 propositions: [{
-                  texte: this.listeCorrections[2],
+                  texte: this.listeCorrections[3],
                   statut: 2
                 }]
               }
@@ -374,7 +374,7 @@ export default function ExploiterRepresentationGraphique () {
                     texte: '1)',
                     valeur: Math.round(f(t1 / 2)),
                     param: {
-                      digits: 2,
+                      digits: 3,
                       decimals: 0,
                       signe: false,
                       approx: 0
@@ -415,7 +415,7 @@ export default function ExploiterRepresentationGraphique () {
                     texte: '1)',
                     valeur: Math.round(f(t1 / 2)),
                     param: {
-                      digits: 2,
+                      digits: 3,
                       decimals: 0,
                       signe: false,
                       approx: 0
