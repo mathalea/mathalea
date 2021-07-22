@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, prenomF, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, prenomF } from '../../modules/outils.js'
 import { point, polyline, axes, labelX, labelY, grille, repere, courbeInterpolee, texteParPosition, mathalea2d, repere2, courbe2 } from '../../modules/2d.js'
 export const titre = 'Problème s’appuyant sur la lecture d’une représentation graphique'
 export const amcReady = true
@@ -25,10 +25,10 @@ export default function ExploiterRepresentationGraphique () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     // Vitesses initiales donnant une hauteur entière et une portée entière
-    const vitessesInitiales = [10.95, 12.65, 14.15, 15.5, 16.7, 17.9, 19, 20, 21, 21.9, 22.8, 23.7, 24.5, 25.3, 26.1, 26.8, 27.6, 28.2, 29]
     // Vitesses initiales donnant une hauteur entière et une durée de vol entière.
-    const vitessesInitialesBis = [20.87, 28.27, 35.2, 49.6, 63.55]
-    let V0
+    const vitessesInitiales = [20.87, 28.27, 35.2, 49.6, 63.55, 70.85, 77.45, 84.85, 91.65]
+    const vitessesInitialesBis = [10.95, 12.65, 14.15, 15.5, 16.7, 17.9, 19, 20, 21, 21.9, 22.8, 23.7, 24.5, 25.3, 26.1, 26.8, 27.6, 28.2, 29]
+    let V0, xscale
     let typeDeProbleme
     let enonceAMC
     let v1, v2, v3, situation
@@ -45,18 +45,19 @@ export default function ExploiterRepresentationGraphique () {
       typeDeProbleme = 'temperature'
     }
     if (this.sup === 4) {
-      typeDeProbleme = choice(['temperature', 'projectile', 'projectile2' 'velo'])
+      typeDeProbleme = choice(['temperature', 'projectile', 'projectile2', 'velo'])
     }
     let f, t1, l, l1, l2, g1, g2, g3, r, graphique, texte1, texte2, fille, hmin, hmax, tmin, tmax
     switch (typeDeProbleme) {
       case 'projectile': // Courbe de l'altitude de vol en fonction du temps
-        V0 = choice(vitessesInitialesBis)
+        V0 = choice(vitessesInitiales)
         t1 = Math.round(Math.sqrt(2) * V0 / 10)
+        xscale = 9 / t1
         f = (x) => Math.max(-5 * x ** 2 + V0 * Math.sqrt(2) * x / 2, 0)
-        repeRe = repere2({ xUnite: 1, yUnite: 0.1, xMin: 0, yMin: 0, xMax: t1 + 1, yMax: f(t1 / 2) + 10, xThickDistance: 1, yThickDistance: 5, grilleSecondaireY: true, grilleSecondaireYDistance: 1, grilleSecondaireYMin: 0 }) // ()
-        texte1 = texteParPosition('hauteur (en mètre)', 0.2, f(t1 / 2) / 10 + 1, 'droite')
-        graphique = courbe2(f, { repere: repeRe, xMax: t1 + 1, step: 0.2 })
-        texte2 = texteParPosition('temps (en s)', t1 + 1, 0.4, 'droite')
+        repeRe = repere2({ xUnite: 1 * xscale, yUnite: 0.1 * xscale, xMin: 0, yMin: 0, xMax: t1 + 1, yMax: f(t1 / 2) + 5, xThickDistance: 1, yThickDistance: 5, grilleSecondaireY: true, grilleSecondaireYDistance: 1, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 5 }) // ()
+        texte1 = texteParPosition('hauteur (en mètre)', 0.2, (f(t1 / 2) / 10 + 0.5) * xscale, 'droite')
+        graphique = courbe2(f, { repere: repeRe, xMax: (t1 + 1) * xscale, step: 0.2 })
+        texte2 = texteParPosition('temps (en s)', (t1 + 0.5) * xscale, 0.4, 'droite')
 
         this.introduction =
           'On a représenté ci-dessous l’évolution de la hauteur d’un projectile lancé depuis le sol (en mètre) en fonction du temps (en seconde).'
@@ -65,10 +66,10 @@ export default function ExploiterRepresentationGraphique () {
           '<br><br>' +
           mathalea2d(
             {
-              xmin: -1,
-              ymin: -3,
-              xmax: t1 + 3,
-              ymax: f(t1 / 2) / 10 + 2,
+              xmin: -xscale,
+              ymin: -xscale,
+              xmax: (t1 + 4) * xscale,
+              ymax: (f(t1 / 2) / 10 + 2) * xscale,
               pixelsParCm: 30,
               scale: 0.6
             },
@@ -104,14 +105,14 @@ export default function ExploiterRepresentationGraphique () {
 
         break
       case 'projectile2':
-        V0 = choice(vitessesInitiales)
+        V0 = choice(vitessesInitialesBis)
         t1 = Math.round(V0 ** 2 / 10)
-        f = (x) => -10 * x ** 2 / (V0 ** 2) + x
-
-        repeRe = repere2({ xUnite: 0.25, yUnite: 0.5, xMin: 0, yMin: 0, xMax: t1 + 4, yMax: f(t1 / 2) + 3, xThickDistance: 4, yThickDistance: 1, grilleSecondaireY: true, grilleSecondaireYDistance: 0.25, grilleSecondaireYMin: 0 }) // ()
-        texte1 = texteParPosition('hauteur (en mètre)', 0.2, f(t1 / 2) / 2 + 1.5, 'droite')
-        graphique = courbe2(f, { repere: repeRe, xMax: t1 + 4, step: 2 })
-        texte2 = texteParPosition('distance (en m)', (t1 + 0.5) / 4, 0.4, 'droite')
+        xscale = 52 / t1
+        f = (x) => Math.max(-10 * x ** 2 / (V0 ** 2) + x, 0)
+        repeRe = repere2({ xUnite: 0.25 * xscale, yUnite: 0.5 * xscale, xMin: 0, yMin: 0, xMax: t1 + 4, yMax: f(t1 / 2) + 2.1, xThickDistance: 4, yThickDistance: 1, grilleSecondaireY: true, grilleSecondaireYDistance: 0.25, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 1 }) // ()
+        texte1 = texteParPosition('hauteur (en mètre)', 0.2, xscale * (f(t1 / 2) / 2 + 1), 'droite')
+        graphique = courbe2(f, { repere: repeRe, step: 0.5 })
+        texte2 = texteParPosition('distance (en m)', xscale * ((t1 + 2) / 4), 0.4, 'droite')
 
         this.introduction =
             'On a représenté ci-dessous la trajectoire d’un projectile lancé depuis le sol.'
@@ -120,16 +121,16 @@ export default function ExploiterRepresentationGraphique () {
             '<br><br>' +
             mathalea2d(
               {
-                xmin: -1,
-                ymin: -1,
-                xmax: t1 + 4,
-                ymax: f(t1 / 2) / 2 + 2,
+                xmin: -xscale,
+                ymin: -xscale,
+                xmax: (t1 + 4) * xscale,
+                ymax: (f(t1 / 2) / 2 + 2) * xscale,
                 pixelsParCm: 30,
                 scale: 0.6
               },
               repeRe,
-              graphique,
               texte1,
+              graphique,
               texte2
             )
 
