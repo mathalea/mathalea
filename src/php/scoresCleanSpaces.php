@@ -1,11 +1,16 @@
 <?php
-// =============================================================================================================================
-// Nettoyage des esapces de scores
-// Sébastien LOZANO
-//
-// Je fais le choix de supprimer tous les répertoires et de recréer les répertoires VIPs, c'est plus simple que de tester si le répertoire existe
-// dans un tableau de codes VIPs, la key md5 des VIPs sera constante !
-// =============================================================================================================================
+/**
+ * =============================================================================================================================
+ * Nettoyage des espaces de scores
+ * @author Sébastien LOZANO
+ * 
+ * Je fais le choix de supprimer tous les répertoires et de recréer les répertoires VIPs, c'est plus simple que de tester si le répertoire existe
+ * dans un tableau de codes VIPs, la key md5 des VIPs sera constante !
+ * =============================================================================================================================
+ */
+
+ // On inclut le scripts avec les outils
+ require_once "scoresTools.php";
 
 // ========================
 // VARIABLES 
@@ -55,28 +60,7 @@ function createVipScoresSpaces($pathToJson) {
         // On crée la page d'index pour l'espace
         // Une fois tout ça créer,
         // On va créer un fichier index.php qui va bien pour afficher tout ce qu'on veut
-        $indexProfSpace = $path.'/index.php';
-        // On ouvre le fichier
-        $fp = fopen($indexProfSpace, 'a+');
-        // On écrit dedans un template de base à modifier plus tard
-        fputs($fp,"
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <title>Espace ".$vip->codeProf[0].$vip->codeProf[1].$vip->codeProf[2]."</title>
-                <meta charset=\"utf-8\">              
-            </head>
-            
-            <body>
-                <h1>Espace des scores <b>".$vip->codeProf[0].$vip->codeProf[1].$vip->codeProf[2]."</b></h1>
-                <h2>Liste des fichiers par classe et par semaine</h2>                
-                <?php
-                    echo 'Hello World !';
-                ?>              
-            </body>
-        </html>
-        ");
-        fclose($fp); 
+        createIndexScores($path,$vip->codeProf[0].$vip->codeProf[1].$vip->codeProf[2]);
     };      
   };
  
@@ -87,7 +71,7 @@ function createVipScoresSpaces($pathToJson) {
   $GLOBALS["deleteNextDate"] = date('d / m / Y à H:i:s ',filectime($GLOBALS["scoresDir"])+$GLOBALS["intervalBeforeDelete"]);
   $GLOBALS["timeSinceCreation"] = (time() - filectime($GLOBALS["scoresDir"]));
   $GLOBALS["currentInterval"] = date_diff(date_create($GLOBALS["deleteYear"]."/".$GLOBALS["deleteMonth"]."/".$GLOBALS["deleteDay"]),date_create($GLOBALS["currentYear"]."/".$GLOBALS["currentMonth"]."/".$GLOBALS["currentDay"]))->format('%a');
- };
+};
 
 /**
 * Procédure de suppression recursive d'un repertoire et de ses enfants
@@ -106,7 +90,7 @@ function recursiveRmdir($dir) {
     reset($objects); 
     rmdir($dir); 
   }  
-} 
+}; 
 
 // Condition de suppression
 // Si on est le bon jour et que le répertoire a plus d'un an, on supprime et on recrée les vips
@@ -117,7 +101,7 @@ if ($deleteBool) {
   $msg = "Suppression OK !"; 
   createVipScoresSpaces('./json/scoresCodesVip.json');
   $msgCron = "CRON OK !";
-}  
+};  
 
 echo json_encode(array(
     "msg" => $msg . "\r\n" . $msgVip. "\r\n" . $msgCron,

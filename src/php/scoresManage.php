@@ -1,7 +1,17 @@
 <?php
+/**
+ * =============================================================================================================================
+ * Traitement des scores
+ * @author Sébastien LOZANO
+ * 
+ * =============================================================================================================================
+ */
+
+// On inclut le scripts avec les outils
+require_once "scoresTools.php";
+
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 
-// $thisdir = "./resultats";
 $scoresDir = "./resultats";
 
 if ($contentType === "application/json") {
@@ -137,30 +147,9 @@ if ($contentType === "application/json") {
       // Il faut créer le dossier de stockage s'il n'existe pas à partir de la clef  
       $pathToFile = $path.'/'.$keypass;
       $url = $pathToFile;
-            // Une fois tout ça créer,
+      // Une fois tout ça créé,
       // On va créer un fichier index.php qui va bien pour afficher tout ce qu'on veut
-      $indexProfSpace = $url.'/index.php';
-      // On ouvre le fichier
-      $fp = fopen($indexProfSpace, 'a+');
-      // On écrit dedans un template de base à modifier plus tard
-      fputs($fp,"
-      <!DOCTYPE html>
-      <html>
-          <head>
-              <title>Espace $prof1$prof2$prof3</title>
-              <meta charset=\"utf-8\">              
-          </head>
-          
-          <body>
-              <h1>Espace des scores <b>$prof1$prof2$prof3</b></h1>
-              <h2>Liste des fichiers par classe et par semaine</h2>
-              <?php
-                  echo 'Hello World !';
-              ?>              
-          </body>
-      </html>
-      ");
-      fclose($fp); 
+      createIndexScores($url,$prof1.$prof2.$prof3);
     } else {
       if (sizeof(scandir($path))>2) {// S'il y a déjà un sous-dossier son nom est le keypass à recuperer pour les enregistrements      
         $keypass = scandir($path)[2];
