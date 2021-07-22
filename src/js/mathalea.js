@@ -569,7 +569,7 @@ function miseAJourDuCode () {
     const bntCorrection = document.getElementById('btnCorrection')
     if (bntCorrection) {
       // Cache la correction et les paramètres au clic sur "Nouvelles données"
-      $('.ui.accordion').accordion('close', 0)
+      $('#affichage_exercices > .ui.accordion').accordion('close', 0)
       bntCorrection.addEventListener('click', () => {
         // Le bouton "Vérifier les réponses" devient inactif
         const boutonsCheck = document.querySelectorAll('.checkReponses')
