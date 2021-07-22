@@ -48,19 +48,13 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             `scas2:=solve(cas2=b)`,
             `xcas2:=piecewise(len(scas2)>0, scas2(1), i)`
           ].forEach(e => `${xcas(e)}`)
-          /*
-          etape = `${xcas(`cas1:=simplify(${signe[0]}a)`)}` 
-          etape = `${xcas(`cas2:=simplify(${signe[1]}a)`)}` 
-          etape = `${xcas(`scas1:=solve(cas1=b)`)}`
-          etape = `${xcas(`xcas1:=piecewise(len(scas1)>0, scas1(1), i)`)}` 
-          etape = `${xcas(`scas2:=solve(cas2=b)`)}`
-          etape = `${xcas(`xcas2:=piecewise(len(scas2)>0, scas2(1), i)`)}`    */   
           
           // Enoncé                     
           texte = `$${xcas(`abs(a)`)}=${xcas(`b`)}$`
           // Corrigé
           texteCorr = `Pour supprimer la valeur absolue, on cherche la valeur remarquable qui annule l'expression entre les $\\mid.\\mid$`
-          texteCorr += `<br>On aura $${xcas(`a`)}=0$ lorsque $x=${xcas(`x1`)}\\simeq${xcas(`approx(x1,4)`)}$`
+          entier = (1e3 * +`${xcas(`approx(x1,4)`)}`)% 1 == 0 ? '' : `\\simeq${xcas(`approx(x1,4)`)}`
+          texteCorr += `<br>On aura $${xcas(`a`)}=0$ lorsque $x=${xcas(`x1`)}${entier}$`
           texteCorr += `<br>De plus la droite $y=${xcas(`a`)}$ est ${pente}, ce qui permet d'obtenir le tableau des signes suivant :`         
           
           texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
@@ -108,7 +102,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           texteCorr += `une impossibilité.`
         } else {
           texteCorr += `$x=${xcas(`xcas2`)}$`
-          entier = (1e4 * +`${xcas(`xcas2`)}`)% 1 == 0 ? '' : `\\simeq${xcas(`approx(xcas2,4)`)}`
+          entier = (1e3 * +`${xcas(`approx(xcas2,4)`)}`)% 1 == 0 ? '' : `\\simeq${xcas(`approx(xcas2,4)`)}`
           if (`${xcas(`xcas2>=x1`)}`.includes("true")) {
               etape = `$x=${xcas(`xcas2`)}\\simeq${xcas(`approx(xcas2,4)`)}$`
               texteCorr += `<br>Cette solution <b>convient</b> car $x=${xcas(`xcas2`)}${entier}\\in [${xcas(`x1`)},+\\infty[$`
