@@ -442,7 +442,7 @@ function miseAJourDuCode () {
         finUrl += `&f=${format}&e=${typeEntete}`
       }
       window.history.pushState('', '', finUrl)
-      const url = window.location.href.split('&serie')[0] // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
+      const url = window.location.href.split('&serie')[0] + '&v=l' // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série et en ajoutant le paramètre pour le mettre en plein écran
       const clipboardURL = new Clipboard('#btnCopieURL', { text: () => url })
       clipboardURL.on('success', function (e) {
         console.info(e.text + ' copié dans le presse-papier.')
