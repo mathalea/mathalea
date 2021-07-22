@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, arrondiVirgule, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre, texFraction, personne } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, arrondiVirgule, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre, texFraction, personne, prenomF } from '../../modules/outils.js'
 
 export const titre = 'Calculer des moyennes'
 
@@ -23,8 +23,8 @@ export default function CalculerDesMoyennes () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    for (let i = 0, nombreNotes, eleve, notes, somme, nombreTemperatures, temperatures, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      if (this.sup.toString() === 1) { // ici on trie des notes
+    for (let i = 0, nombreNotes, eleve, notes, effectifs, somme, effectifTotal, nombreTemperatures, temperatures, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      if (this.sup.toString() === '1') { // ici on trie des notes
         nombreNotes = choice([8, 10, 12])
         notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une série de notes (série brute)
         somme = 0
@@ -50,7 +50,8 @@ export default function CalculerDesMoyennes () {
         } else { // moyenne arrondie
           texteCorr += `$\\approx${arrondiVirgule(somme / nombreNotes, 2)}$`
         }
-      } else { // ici on relève des températures
+      }
+      if (this.sup.toString() === '2') { // ici on relève des températures
         const mois = randint(1, 12)
         const annee = randint(1980, 2019)
         const temperaturesDeBase = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5]
@@ -89,6 +90,38 @@ export default function CalculerDesMoyennes () {
           texteCorr += `$=${arrondiVirgule(somme / nombreTemperatures, 2)}^\\circ\\text{C}$` // moyenne exacte
         } else { texteCorr += `$\\approx${arrondiVirgule(somme / nombreTemperatures, 2)}^\\circ\\text{C}$` } // moyenne arrondie
       }
+      if (this.sup.toString() === '3') { // pointures des membres du club de foot (moyenne pondérée)
+        nombreNotes = 5 // 5 colonnes
+        notes = listeDeNotes(nombreNotes, randint(33, 35), randint(39, 42), true).sort() // on récupère une série de notes (pointures) distinctes et ordonnées
+        effectifs = listeDeNotes(nombreNotes, randint(2, 4), randint(8, 12)) // on récupère une liste d'effectifs
+        somme = 0
+        effectifTotal = 0
+        eleve = prenomF()
+        for (let j = 0; j < nombreNotes; j++) { // Calcul de la somme des valeurs et de l'effectif total
+          somme += notes[j] * effectifs[j]
+          effectifTotal += effectifs[j]
+        }
+        texte = `Pour passer une commande de chaussures de foot, ${eleve} a noté les pointures des membres de son club et les a regroupées dans un tableau :<br><br>`
+        texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c|c|c|c|c|c|} \\hline '
+        texte += `\\text{Pointure} & ${notes[0]} & ${notes[1]} & ${notes[2]} & ${notes[3]} & ${notes[4]} \\\\ \\hline `
+        texte += `\\text{Effectif} & ${effectifs[0]} & ${effectifs[1]} & ${effectifs[2]} & ${effectifs[3]} & ${effectifs[4]} \\\\\\hline \\end{array}$<br><br>`
+        texte += 'Calculer la pointure moyenne des membres de ce club'
+        texteCorr = '$\\text{Moyenne} = \\dfrac{\\text{Somme des valeurs}}{\\text{Effectif total}} ='
+        texteCorr += `\\dfrac{${notes[0]} \\times ${effectifs[0]}`
+        for (let j = 1; j < nombreNotes; j++) {
+          texteCorr += `+ ${notes[j]} \\times ${effectifs[j]}`
+        }
+        texteCorr += `}{${effectifs[0]}`
+        for (let j = 1; j < nombreNotes; j++) {
+          texteCorr += `+ ${effectifs[j]}`
+        }
+        texteCorr += `} = \\dfrac{${somme}}{${effectifTotal}} `
+        if (arrondi(somme / effectifTotal, 2) === somme / effectifTotal) { // moyenne exacte
+          texteCorr += `=${arrondiVirgule(somme / effectifTotal, 2)}$<br>`
+        } else { // moyenne arrondie
+          texteCorr += `\\approx${arrondiVirgule(somme / effectifTotal, 2)}$<br>`
+        }
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -99,5 +132,5 @@ export default function CalculerDesMoyennes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de séries', 2, '1 : Série de notes\n 2 : Série de températures']
+  this.besoinFormulaireNumerique = ['Type de séries', 3, '1 : Série de notes\n2 : Série de températures\n3 : Série de pointures (moyenne pondérée)']
 }
