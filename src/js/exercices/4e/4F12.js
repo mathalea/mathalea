@@ -27,7 +27,7 @@ export default function ExploiterRepresentationGraphique () {
     // Vitesses initiales donnant une hauteur entière et une portée entière
     const VitessesInitiales = [10.95, 12.65, 14.15, 15.5, 16.7, 17.9, 19, 20, 21, 21.9, 22.8, 23.7, 24.5, 25.3, 26.1, 26.8, 27.6, 28.2, 29]
     // Vitesses initiales donnant une hauteur entière et une durée de vol entière.
-    const vitessesInitialesBis = [14.15, 20.87, 28.27, 35.2, 49.6, 63.55]
+    const vitessesInitialesBis = [20.87, 28.27, 35.2, 49.6, 63.55]
     let V0
     let typeDeProbleme
     let enonceAMC
@@ -55,7 +55,7 @@ export default function ExploiterRepresentationGraphique () {
         f = (x) => Math.max(-5 * x ** 2 + V0 * Math.sqrt(2) * x / 2, 0)
         repeRe = repere2({ xUnite: 1, yUnite: 0.1, xMin: 0, yMin: 0, xMax: t1 + 1, yMax: f(t1 / 2) + 10, xThickDistance: 1, yThickDistance: 5, grilleSecondaireY: true, grilleSecondaireYDistance: 1, grilleSecondaireYMin: 0 }) // ()
         texte1 = texteParPosition('hauteur (en mètre)', 0.2, f(t1 / 2) / 10 + 1, 'droite')
-        graphique = courbe2(f, { repere: repeRe, xMax: t1 + 1 })
+        graphique = courbe2(f, { repere: repeRe, xMax: t1 + 1, step: 0.2 })
         texte2 = texteParPosition('temps (en s)', t1 + 1, 0.4, 'droite')
 
         this.introduction =
@@ -105,22 +105,12 @@ export default function ExploiterRepresentationGraphique () {
         break
       case 'projectile2':
         V0 = choice(VitessesInitiales)
-        /* const solutions = [] // bout de code pour déterminer les vitesses initiales qui donnent des valeurs presque entières de h et d
-        for (let x = 10; x < 100; x += 0.05) {
-          if ((Math.abs(Math.sqrt(2) * x / 10 - Math.round(Math.sqrt(2) * x / 10)) < 0.05) && (Math.abs(x * x / 40 - Math.round(x * x / 40)) < 0.05)) {
-            solutions.push(arrondi(x, 2))
-          }
-        }
-        console.log(solutions)
-*/
-        // Parabole qui a pour zéro, 0 et 6,8 ou 10
-        // Et qui a pour maximum un multiple de 5
         t1 = Math.round(V0 ** 2 / 10)
-        f = (x) => calcul(-10 * x ** 2 / (V0 ** 2) + x)
+        f = (x) => -10 * x ** 2 / (V0 ** 2) + x
 
-        repeRe = repere2({ xUnite: 0.25, yUnite: 0.5, xMin: 0, yMin: 0, xMax: t1 + 4, yMax: f(t1 / 2) + 3, xThickDistance: 4, yThickDistance: 1 }) // ()
+        repeRe = repere2({ xUnite: 0.25, yUnite: 0.5, xMin: 0, yMin: 0, xMax: t1 + 4, yMax: f(t1 / 2) + 3, xThickDistance: 4, yThickDistance: 1, grilleSecondaireY: true, grilleSecondaireYDistance: 0.25, grilleSecondaireYMin: 0 }) // ()
         texte1 = texteParPosition('hauteur (en mètre)', 0.2, f(t1 / 2) / 2 + 1.5, 'droite')
-        graphique = courbe2(f, { repere: repeRe, xMax: t1 + 4 })
+        graphique = courbe2(f, { repere: repeRe, xMax: t1 + 4, step: 2 })
         texte2 = texteParPosition('distance (en m)', (t1 + 0.5) / 4, 0.4, 'droite')
 
         this.introduction =
@@ -132,7 +122,7 @@ export default function ExploiterRepresentationGraphique () {
               {
                 xmin: -1,
                 ymin: -1,
-                xmax: t1 + 3,
+                xmax: t1 + 4,
                 ymax: f(t1 / 2) / 2 + 2,
                 pixelsParCm: 30,
                 scale: 0.6
@@ -140,9 +130,7 @@ export default function ExploiterRepresentationGraphique () {
               repeRe,
               graphique,
               texte1,
-              texte2,
-              l1,
-              l2
+              texte2
             )
 
         this.introduction +=
