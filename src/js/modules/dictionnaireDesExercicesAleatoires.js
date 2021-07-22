@@ -2014,7 +2014,8 @@ export default {
     "titre": "Tables de multiplication",
     "url": "/exercices/6e/6C10-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "numerique",
     "name": "6C10-1"
   },
   "6C10-2": {
@@ -3663,6 +3664,27 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExempleXcas"
+  },
+  "betaExempleXcas2eDegParam": {
+    "titre": "Equation du second degré avec paramètre",
+    "url": "/exercices/beta/betaExempleXcas2eDegParam.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcas2eDegParam"
+  },
+  "betaExempleXcasAsymptotes": {
+    "titre": "Recherche d'une asymptote oblique",
+    "url": "/exercices/beta/betaExempleXcasAsymptotes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcasAsymptotes"
+  },
+  "betaExempleXcasPolynomes": {
+    "titre": "Division de polynômes",
+    "url": "/exercices/beta/betaExempleXcasPolynomes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcasPolynomes"
   },
   "betaExercice_constructions_basiques": {
     "titre": "Programmes de constructions (en chantier)",
