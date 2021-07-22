@@ -1307,6 +1307,13 @@ export default {
     "interactifReady": false,
     "name": "4P10"
   },
+  "4S10": {
+    "titre": "Construire un diagramme",
+    "url": "/exercices/4e/4S10.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4S10"
+  },
   "4S11": {
     "titre": "Déterminer des médianes",
     "url": "/exercices/4e/4S11.js",
