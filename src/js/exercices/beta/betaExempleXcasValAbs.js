@@ -32,18 +32,29 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         case 'type1':
           a = randint(-5,5,0) + "*x+" + randint(-20,20)
           b = randint(-5,5,0) + "*x+" + randint(-20,20)
-          etape = `${xcas(`a:=simplify(${a})`)}` 
-          etape = `${xcas(`pente:=lcoeff(a)`)}` 
+          etape = [
+            `a:=simplify(${a})`,
+            `pente:=lcoeff(a)`,
+            `b:=simplify(${b})`,
+            `x1:=solve(a)(1)`,
+          ].forEach(e => `${xcas(e)}`) 
           pente =  +`${xcas(`pente`)}` > 0 ? 'croissante' : 'décroissante'   
           signe =  +`${xcas(`pente`)}` > 0 ? '-+' : '+-' 
-          etape = `${xcas(`b:=simplify(${b})`)}` 
-          etape = `${xcas(`x1:=solve(a)(1)`)}` 
+          etape = [
+            `cas1:=simplify(${signe[0]}a)`,
+            `cas2:=simplify(${signe[1]}a)`,
+            `scas1:=solve(cas1=b)`,
+            `xcas1:=piecewise(len(scas1)>0, scas1(1), i)`,
+            `scas2:=solve(cas2=b)`,
+            `xcas2:=piecewise(len(scas2)>0, scas2(1), i)`
+          ].forEach(e => `${xcas(e)}`)
+          /*
           etape = `${xcas(`cas1:=simplify(${signe[0]}a)`)}` 
           etape = `${xcas(`cas2:=simplify(${signe[1]}a)`)}` 
           etape = `${xcas(`scas1:=solve(cas1=b)`)}`
           etape = `${xcas(`xcas1:=piecewise(len(scas1)>0, scas1(1), i)`)}` 
           etape = `${xcas(`scas2:=solve(cas2=b)`)}`
-          etape = `${xcas(`xcas2:=piecewise(len(scas2)>0, scas2(1), i)`)}`       
+          etape = `${xcas(`xcas2:=piecewise(len(scas2)>0, scas2(1), i)`)}`    */   
           
           // Enoncé                     
           texte = `$${xcas(`abs(a)`)}=${xcas(`b`)}$`

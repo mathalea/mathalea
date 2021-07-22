@@ -11,11 +11,8 @@ export const titre = 'Division de polynômes'
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Calculer le quotient Q(x) de la division de P(x) par D(x)'
-<<<<<<< Updated upstream
-  this.nbQuestions = 10
-=======
+
   this.nbQuestions = 2
->>>>>>> Stashed changes
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
@@ -29,38 +26,22 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     const typesDeQuestionsDisponibles = ['type1'] 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-<<<<<<< Updated upstream
-    for (let i = 0, texte, polyn,texteCorr, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-=======
-    for (let i = 0, texte, etape,texteCorr, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
->>>>>>> Stashed changes
+
+    for (let i = 0, texte, etape, texteCorr, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeDeQuestions[i]) { 
         case 'type1':
           a = randint(-5,5,0)
-<<<<<<< Updated upstream
-          polyn = `${xcas(`D:=x+${a}`)}` // Diviseur D(x)
-          // P(x) = D(x) * 2 polynômes "ax+b" avec a=1 ou 2 et b entre -3 et 3 mais non nul
-          polyn = `${xcas(`P:=simplify(D*product(randint(2)*x+(2*randint(1)-1)*randint(1,3),k,1,2)))`)}` 
-          // Etapes de la division         
-          polyn = `${xcas(`E1:=simplify(lcoeff(P)*x^2*D)`)}`
-          polyn = `${xcas(`E2:=simplify(P-E1)`)}`
-          polyn = `${xcas(`E3:=simplify(lcoeff(E2)*x^(degree(E2)-1)*D)`)}`   
-          polyn = `${xcas(`E4:=simplify(E2-E3)`)}` 
-          polyn = `${xcas(`E5:=simplify(lcoeff(E4)*D)`)}`   
-          polyn = `${xcas(`E6:=simplify(E4-E5)`)}`    
-=======
-          etape = `${xcas(`D:=x+${a}`)}` // Diviseur D(x)
-          // P(x) = D(x) * 2 etapeômes "ax+b" avec a=1 ou 2 et b entre -3 et 3 mais non nul
-          etape = `${xcas(`P:=simplify(D*product(randint(2)*x+(2*randint(1)-1)*randint(1,3),k,1,2)))`)}` 
-          // Etapes de la division         
-          etape = `${xcas(`E1:=simplify(lcoeff(P)*x^2*D)`)}`
-          etape = `${xcas(`E2:=simplify(P-E1)`)}`
-          etape = `${xcas(`E3:=simplify(lcoeff(E2)*x^(degree(E2)-1)*D)`)}`   
-          etape = `${xcas(`E4:=simplify(E2-E3)`)}` 
-          etape = `${xcas(`E5:=simplify(lcoeff(E4)*D)`)}`   
-          etape = `${xcas(`E6:=simplify(E4-E5)`)}`    
->>>>>>> Stashed changes
+          etape = [
+            `D:=x+${a}`, // Diviseur D(x)
+            `P:=simplify(D*product(randint(2)*x+(2*randint(1)-1)*randint(1,3),k,1,2)))`,
+            `E1:=simplify(lcoeff(P)*x^2*D)`, // Etapes de la division
+            `E2:=simplify(P-E1)`,
+            `E3:=simplify(lcoeff(E2)*x^(degree(E2)-1)*D)`,
+            `E4:=simplify(E2-E3)`,
+            `E5:=simplify(lcoeff(E4)*D)`,
+            `E6:=simplify(E4-E5)`
+          ].forEach(e => `${xcas(e)}`) 
           // Enoncé                    
           texte = `$P(x)=${xcas(`P`)} \\text{ par } D(x)=${xcas(`D`)}$`
           // Corrigé

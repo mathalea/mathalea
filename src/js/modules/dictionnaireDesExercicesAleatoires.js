@@ -3650,13 +3650,6 @@ export default {
     "interactifReady": false,
     "name": "betaExempleTableau"
   },
-  "betaExempleXcas": {
-    "titre": "Test de XCas",
-    "url": "/exercices/beta/betaExempleXcas.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleXcas"
-  },
   "betaExempleXcas2eDegParam": {
     "titre": "Equation du second degré avec paramètre",
     "url": "/exercices/beta/betaExempleXcas2eDegParam.js",
@@ -3665,7 +3658,7 @@ export default {
     "name": "betaExempleXcas2eDegParam"
   },
   "betaExempleXcasAsymptotes": {
-    "titre": "Recherche d'une asymptote oblique",
+    "titre": "Asymptote oblique",
     "url": "/exercices/beta/betaExempleXcasAsymptotes.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3678,8 +3671,6 @@ export default {
     "interactifReady": false,
     "name": "betaExempleXcasPolynomes"
   },
-<<<<<<< Updated upstream
-=======
   "betaExempleXcasValAbs": {
     "titre": "Equation avec une valeur absolue",
     "url": "/exercices/beta/betaExempleXcasValAbs.js",
@@ -3687,7 +3678,6 @@ export default {
     "interactifReady": false,
     "name": "betaExempleXcasValAbs"
   },
->>>>>>> Stashed changes
   "betaExercice_constructions_basiques": {
     "titre": "Programmes de constructions (en chantier)",
     "url": "/exercices/beta/betaExercice_constructions_basiques.js",
