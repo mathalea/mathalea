@@ -11,7 +11,11 @@ export const titre = 'Equation du second degré avec paramètre'
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Discutez, suivant la valeur du paramètre $m$, le <u>nombre de solutions</u> de l\'équation du second degré'
+<<<<<<< Updated upstream
   this.nbQuestions = 10
+=======
+  this.nbQuestions = 2
+>>>>>>> Stashed changes
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
@@ -26,11 +30,16 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     const typesDeQuestionsDisponibles = ['type1'] // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+<<<<<<< Updated upstream
     for (let i = 0, texte, polyn,texteCorr, a,a2,b2,c2,f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+=======
+    for (let i = 0, texte, etape,texteCorr, a,a2,b2,c2,f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+>>>>>>> Stashed changes
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeDeQuestions[i]) { 
         case 'type1':
           a = randint(-5,5,0)
+<<<<<<< Updated upstream
           polyn = `${xcas(`a:=${a}`)}`       
           polyn = `${xcas(`b:=randint(-2,2)*m+randint(-3,3)`)}` 
           polyn = `${xcas(`c:=randint(-2,2)*m+randint(-3,3)`)}` 
@@ -40,6 +49,17 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           polyn = `${xcas(`b2:=coeff(D,m,1)`)}` 
           polyn = `${xcas(`c2:=coeff(D,m,0)`)}` 
           polyn = `${xcas(`d2:=simplify(b2^2-4*a2*c2)`)}` 
+=======
+          etape = `${xcas(`a:=${a}`)}`       
+          etape = `${xcas(`b:=randint(-2,2)*m+randint(-3,3)`)}` 
+          etape = `${xcas(`c:=randint(-2,2)*m+randint(-3,3)`)}` 
+          etape = `${xcas(`P:= a*x^2+b*x+c`)}` 
+          etape = `${xcas(`D:=b^2-4*a*c`)}`
+          etape = `${xcas(`a2:=coeff(D,m,2)`)}` 
+          etape = `${xcas(`b2:=coeff(D,m,1)`)}` 
+          etape = `${xcas(`c2:=coeff(D,m,0)`)}` 
+          etape = `${xcas(`d2:=simplify(b2^2-4*a2*c2)`)}` 
+>>>>>>> Stashed changes
           
           // Enoncé                    
           texte = `$${xcas(`expand(P)`)}=0$`
@@ -52,7 +72,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           a2 = +`${xcas(`a2`)}` // coefficient "a" dans l'écriture de Delta
           b2 = +`${xcas(`b2`)}` // coefficient "b" dans l'écriture de Delta        
           if (a2 == 0) { // Eq du 1er degré
+<<<<<<< Updated upstream
             polyn = `${xcas(`m1:=simplify(-c2/b2)`)}` 
+=======
+            etape = `${xcas(`m1:=simplify(-c2/b2)`)}` 
+>>>>>>> Stashed changes
             
             if (b2 > 0) { // Delta est une droite croissante
                 texteCorr += `<br>Cherchons la valeur de $m$ qui annule cette expression du premier degré : $m=${xcas(`m1`)}$` 
@@ -98,7 +122,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
                 }         
 
             } else if (a == 0) {
+<<<<<<< Updated upstream
                 polyn = `${xcas(`m1:=simplify(-b2/(2*a2))`)}`   
+=======
+                etape = `${xcas(`m1:=simplify(-b2/(2*a2))`)}`   
+>>>>>>> Stashed changes
                 texteCorr += `<br>Celui-ci étant nul, l'équation $\\Delta = 0$ a une unique solution $m=\\dfrac{-b}{2a}=${xcas(`m1`)}$.`
                 if (a2 > 0) {
                     texteCorr += `<br>De plus le coefficient $${xcas(`a2`)}$ devant $m^2$ étant positif, $\\Delta > 0$ si $m\\neq${xcas(`m1`)}$.` 
@@ -108,8 +136,13 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
                     texteCorr += `<br><u>Conclusion</u> : Si $m=${xcas(`m1`)}$ l'équation admet une unique solution, sinon l'équation n'admet pas de solution.`  
                 }              
             } else {
+<<<<<<< Updated upstream
                 polyn = `${xcas(`m1:=min((-b2-sqrt(d2))/(2*a2),(-b2+sqrt(d2))/(2*a2))`)}`   
                 polyn = `${xcas(`m2:=max((-b2-sqrt(d2))/(2*a2),(-b2+sqrt(d2))/(2*a2))`)}`   
+=======
+                etape = `${xcas(`m1:=min((-b2-sqrt(d2))/(2*a2),(-b2+sqrt(d2))/(2*a2))`)}`   
+                etape = `${xcas(`m2:=max((-b2-sqrt(d2))/(2*a2),(-b2+sqrt(d2))/(2*a2))`)}`   
+>>>>>>> Stashed changes
                 texteCorr += `<br>Celui-ci étant strictement positif, l'équation $\\Delta = 0$ a 2 solutions :`
                 texteCorr += `<br>$m_1=${xcas(`m1`)}\\simeq${xcas(`approx(m1,4)`)}$ et $m_2=${xcas(`m2`)}\\simeq${xcas(`approx(m2,4)`)}$`
                 if (a2 > 0) {

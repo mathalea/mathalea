@@ -3678,6 +3678,16 @@ export default {
     "interactifReady": false,
     "name": "betaExempleXcasPolynomes"
   },
+<<<<<<< Updated upstream
+=======
+  "betaExempleXcasValAbs": {
+    "titre": "Equation avec une valeur absolue",
+    "url": "/exercices/beta/betaExempleXcasValAbs.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcasValAbs"
+  },
+>>>>>>> Stashed changes
   "betaExercice_constructions_basiques": {
     "titre": "Programmes de constructions (en chantier)",
     "url": "/exercices/beta/betaExercice_constructions_basiques.js",
