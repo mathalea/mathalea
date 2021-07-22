@@ -71,7 +71,7 @@ export default function ExploiterRepresentationGraphique () {
               xmax: (t1 + 4) * xscale,
               ymax: (f(t1 / 2) / 10 + 2) * xscale,
               pixelsParCm: 30,
-              scale: 0.6
+              scale: 1
             },
             repeRe,
             graphique,
@@ -126,7 +126,7 @@ export default function ExploiterRepresentationGraphique () {
                 xmax: (t1 + 4) * xscale,
                 ymax: (f(t1 / 2) / 2 + 2) * xscale,
                 pixelsParCm: 30,
-                scale: 0.6
+                scale: 1
               },
               repeRe,
               texte1,
@@ -197,7 +197,8 @@ export default function ExploiterRepresentationGraphique () {
           ymin: -1,
           xmax: 9,
           ymax: 8,
-          pixelsParCm: 40
+          pixelsParCm: 40,
+          scale: 1
         }, g1, g2, g3, l, texte1, texte2, l1, l2)
 
         this.introduction += '<br><br>' + 'À l’aide de ce graphique, répondre aux questions suivantes :'
@@ -253,7 +254,8 @@ export default function ExploiterRepresentationGraphique () {
               ymin: tmin - 2.5,
               xmax: 16,
               ymax: tmax + 3,
-              pixelsParCm: 40
+              pixelsParCm: 40,
+              scale: 1
             },
             r,
             graphique
