@@ -1921,11 +1921,33 @@ export function tirerLesDes (nombreTirages, nombreFaces, nombreDes) {
 * @param nombreNotes
 * @param noteMin
 * @param noteMax
-* @author Jean-Claude Lhote
+* @param distincts Si distincts === true, les notes de la liste seront toutes distinctes
+* @author Jean-Claude Lhote et Guillaume Valmont
 */
-export function listeDeNotes (nombreNotes, noteMin, noteMax) {
+export function listeDeNotes (nombreNotes, noteMin, noteMax, distincts) {
   const notes = []
-  for (let i = 0; i < nombreNotes; i++) notes.push(randint(noteMin, noteMax))
+  let candidat, present, limite // nombre candidat, est-ce qu'il est déjà présent, une limite d'itérations pour éviter les boucles infinies
+  limite = 0
+  for (let i = 0; i < nombreNotes;) {
+    limite += 1
+    if (distincts && limite < 100) { // Si les nombres doivent être tous distincts et que la limite d'itérations n'est pas encore atteinte,
+      candidat = randint(noteMin, noteMax) // on tire au sort un nombre candidat,
+      present = false
+      for (let j = 0; j < notes.length; j++) { // on vérifie s'il est présent,
+        if (candidat === notes[j]) {
+          present = true
+          break
+        }
+      }
+      if (!present) { // s'il n'est pas présent, on le push.
+        notes.push(candidat)
+        i++
+      }
+    } else { // Si les nombres n'ont pas tous à être distincts, on push directement.
+      notes.push(randint(noteMin, noteMax))
+      i++
+    }
+  }
   return notes
 }
 
