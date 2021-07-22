@@ -25,7 +25,7 @@ export default function ExploiterRepresentationGraphique () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     // Vitesses initiales donnant une hauteur entière et une portée entière
-    const VitessesInitiales = [10.95, 12.65, 14.15, 15.5, 16.7, 17.9, 19, 20, 21, 21.9, 22.8, 23.7, 24.5, 25.3, 26.1, 26.8, 27.6, 28.2, 29]
+    const vitessesInitiales = [10.95, 12.65, 14.15, 15.5, 16.7, 17.9, 19, 20, 21, 21.9, 22.8, 23.7, 24.5, 25.3, 26.1, 26.8, 27.6, 28.2, 29]
     // Vitesses initiales donnant une hauteur entière et une durée de vol entière.
     const vitessesInitialesBis = [20.87, 28.27, 35.2, 49.6, 63.55]
     let V0
@@ -45,7 +45,7 @@ export default function ExploiterRepresentationGraphique () {
       typeDeProbleme = 'temperature'
     }
     if (this.sup === 4) {
-      typeDeProbleme = choice(['temperature', 'projectile', 'velo'])
+      typeDeProbleme = choice(['temperature', 'projectile', 'projectile2' 'velo'])
     }
     let f, t1, l, l1, l2, g1, g2, g3, r, graphique, texte1, texte2, fille, hmin, hmax, tmin, tmax
     switch (typeDeProbleme) {
@@ -104,7 +104,7 @@ export default function ExploiterRepresentationGraphique () {
 
         break
       case 'projectile2':
-        V0 = choice(VitessesInitiales)
+        V0 = choice(vitessesInitiales)
         t1 = Math.round(V0 ** 2 / 10)
         f = (x) => -10 * x ** 2 / (V0 ** 2) + x
 
