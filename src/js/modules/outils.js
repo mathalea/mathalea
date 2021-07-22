@@ -1924,7 +1924,7 @@ export function tirerLesDes (nombreTirages, nombreFaces, nombreDes) {
 * @param distincts Si distincts === true, les notes de la liste seront toutes distinctes
 * @author Jean-Claude Lhote et Guillaume Valmont
 */
-export function listeDeNotes (nombreNotes, noteMin, noteMax, distincts) {
+export function listeDeNotes (nombreNotes, noteMin = 0, noteMax = 20, distincts = false) {
   const notes = []
   let candidat, present, limite // nombre candidat, est-ce qu'il est déjà présent, une limite d'itérations pour éviter les boucles infinies
   limite = 0
