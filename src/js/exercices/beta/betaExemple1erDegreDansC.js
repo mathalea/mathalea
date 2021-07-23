@@ -1,7 +1,8 @@
-import { listeQuestionsToContenu, randint, combinaisonListes, fractionSimplifiee,abs } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, fractionSimplifiee,abs, texFraction, miseEnEvidence } from '../../modules/outils.js'
 
 import Exercice from '../Exercice.js'
 import { complex, multiply } from 'mathjs'
+import Fraction from '../../modules/Fraction.js'
 export const titre = 'Equation du premier degré dans C'
 
 /**
@@ -39,6 +40,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           z2m =  multiply(z1c, z2n)
           fr = fractionSimplifiee(z2m.re, z1m.re) // partie réelle de la solution sous forme de fraction simplifiée
           fi = fractionSimplifiee(z2m.im, z1m.re) // partie imaginaire
+
           // Enoncé                     
           texte = `$(${z1})z${"+".repeat(z2.re > 0)}${z2}=0$`   // ajout d'un signe + si partie réelle positive
           // Corrigé
@@ -46,11 +48,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           texteCorr += `<br>$(${z1})z=${z2n}$`
           texteCorr += `<br>Ce qui donne : $z = \\dfrac{${z2n}}{${z1}}$`
           texteCorr += `<br>Pour faire disparaitre le $i$ du dénominateur, utilisons le conjugué $\\overline{${z1}}=${z1c}$ du dénominateur :`
-          texteCorr += `<br>$z = \\dfrac{${z2n}}{${z1}}\\times \\dfrac{${z1c}}{${z1c}}$`
+          texteCorr += `<br>$z = ${texFraction(z2n, z1)}\\times ${miseEnEvidence(texFraction(z1c, z1c))}$`
           texteCorr += `<br>Or $(${z1})(${z1c})=${z1m}$ `
           texteCorr += `et $(${z2n})(${z1c})=${z2m}$`
           texteCorr += `<br>On en déduit que :`
-          texteCorr += `<br>$z = \\dfrac{${z2m}}{${z1m}} = \\dfrac{${fr[0]}}{${fr[1]}}${"-+"[+(fi[0] > 0)]}\\dfrac{${abs(fi[0])}}{${fi[1]}}\\times i$`
+          texteCorr += `<br>$z = ${texFraction(z2m, z1m)} = ${texFraction(fr[0], fr[1])}${"-+"[+(fi[0] > 0)]}${texFraction(abs(fi[0]), fi[1])}\\times i$`
           break
         case 'type2':
           break
