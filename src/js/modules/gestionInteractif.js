@@ -208,7 +208,10 @@ export function exerciceNumerique (exercice) {
           let nbBonnesReponses = 0
           let nbMauvaisesReponses = 0
           for (const i in exercice.autoCorrection) {
-            const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+            let spanReponseLigne
+            if (i < exercice.nbQuestions) {
+              spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+            }
             // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
             const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
             if (champTexte.value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '').replaceAll('.', ',')) {
@@ -418,7 +421,10 @@ export function exerciceMathLive (exercice) {
           let nbMauvaisesReponses = 0
           let besoinDe2eEssai = false
           for (const i in exercice.autoCorrection) {
-            const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+            let spanReponseLigne
+            if (i < exercice.nbQuestions) {
+              spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+            }
             // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
             const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
             let reponses = []
