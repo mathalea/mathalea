@@ -78,7 +78,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
+  //this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
 
 

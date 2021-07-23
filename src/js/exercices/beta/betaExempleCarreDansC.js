@@ -36,7 +36,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           zr = z.toPolar().r          // module du carré
           s = z.re + zr             // Somme de E1 et E3
           zx = Math.sqrt(s / 2) 
-          zsol = complex(Math.sqrt(s / 2), z.im / 2 / zx)   // Solution du système
+          zsol = complex(zx, z.im / 2 / zx)   // Solution du système
           // Enoncé                     
           texte = `$z^2=${z}$`
           // Corrigé
@@ -81,7 +81,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
+  //this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
 
 // python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
