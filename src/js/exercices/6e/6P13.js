@@ -7,8 +7,15 @@ export const interactifType = 'mathLive'
 
 /**
  * Description didactique de l'exercice
+ * augmenter ou diminuer un prix d'un pourcentage,
+ * le calcul intermédiaire du montant de l'augmentation ou de la baisse est demandé
+ * Trois niveaux :
+ * - 1 valeurs entières et 10%, 20%...;
+ * - 2 valeurs entières et 13%, 28%...;
+ * - 3 valeurs décimale comme 13,5%...;
  * @author Laurence CANDILLE
- * Référence
+ * Référence 6P13
+ * Date de Publication : 23/07/2021
 */
 export default function AugmenterEtReduireDunPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -20,7 +27,7 @@ export default function AugmenterEtReduireDunPourcentage () {
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.interactif = true
-  this.interactifType = 'numerique'
+  this.interactifType = 'mathLive'
 
   this.nouvelleVersion = function () {
     const n = parseInt(this.sup) - 1
