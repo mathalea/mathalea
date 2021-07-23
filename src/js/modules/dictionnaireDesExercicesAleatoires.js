@@ -3251,6 +3251,21 @@ export default {
     "interactifReady": false,
     "name": "beta6C33-1"
   },
+  "beta6C38": {
+    "titre": "Augmenter ou diminuer d’un pourcentage",
+    "url": "/exercices/beta/beta6C38.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta6C38"
+  },
+  "beta6G21": {
+    "titre": "Construire un triangle aux instruments",
+    "url": "/exercices/beta/beta6G21.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta6G21"
+  },
   "beta6test2": {
     "titre": "Mon test",
     "url": "/exercices/beta/beta6test2.js",
@@ -3386,6 +3401,12 @@ export default {
     "interactifReady": false,
     "name": "betaExoSimpleMatthieu"
   },
+  "betaGilles_test": {
+    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
+    "url": "/exercices/beta/betaGilles_test.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaGilles_test"
   "betaGilles_CAN_seconde": {
     "titre": "Course aux nombres seconde",
     "url": "/exercices/beta/betaGilles_CAN_seconde.js",

@@ -119,6 +119,7 @@
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|qcm|
 |6N43|Critères de divisibilité|OK|qcmMono|OK|qcm|
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
+|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
