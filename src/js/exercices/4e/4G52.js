@@ -7,11 +7,12 @@ import Exercice from '../Exercice.js'
 export const titre = 'Exercice de repérage dans un pavé droit'
 
 /**
- * Description didactique de l'exercice
- * @author
- * Référence
+ * Un point est situé dans un pavé découpé suivant les trois axes, on doit donner ses coordonnées
+ * @author Arnaud Durand et Jean-Claude Lhote
+ * Référence 4G52
+ * publié 9/06/2021
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function ReperagePaveDroit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Placer les points sur le pavé ci-dessous dans le repère $\\bm{(A;I;J;K)}$ : '
@@ -56,7 +57,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     let nbgraduationz = randint(2, 4)
     while ((nbgraduationx >= 3) && (nbgraduationy >= 3)) {
       nbgraduationx = randint(2, 5)
-      nbgraduationy = randint(2, 3,nbgraduationx)
+      nbgraduationy = randint(2, 3, nbgraduationx)
       nbgraduationz = randint(2, 5, [nbgraduationx, nbgraduationy])
     }
     const deltax = largeur / nbgraduationx
@@ -145,7 +146,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       objetsAtracerCorr = [s1.p2d, s2.p2d, s3.p2d, t, labelPoint(pointAplacer)].concat(objetsAtracer)
       texteCorr = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * sin(context.anglePerspective), style: 'display: block; margin-top:20px;' }, objetsAtracerCorr)
       texteCorr += `<br>$${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], 'orange')};${miseEnEvidence(pointCoord[2], 'red')})$.`
-  
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

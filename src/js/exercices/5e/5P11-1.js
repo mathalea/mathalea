@@ -6,13 +6,12 @@ export const titre = 'Problème de vitesse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-
 /**
  * Recherche de la vitesse, du temps ou de la distance en utilisant un tableau de proportionnalité et le produit en croix
  * @author Rémi Angot
  * Référence 5P11-1
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function VitesseDistanceTemps () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady

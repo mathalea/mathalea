@@ -7,7 +7,7 @@ export const titre = 'Déterminer une équation réduite de droite'
  * @author Stéphane Guyon
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function EquationReduiteDeDroites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal. '

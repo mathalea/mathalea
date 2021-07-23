@@ -21,7 +21,7 @@ export default {
     "name": "1E12"
   },
   "1F10": {
-    "titre": "Calculs de dérivés",
+    "titre": "Calculs de dérivées",
     "url": "/exercices/1e/1F10.js",
     "amcReady": false,
     "interactifReady": false,
@@ -70,7 +70,7 @@ export default {
     "name": "2G11"
   },
   "2G12": {
-    "titre": "Déterminer la nature d’un polygone.",
+    "titre": "Déterminer la nature d’un polygone",
     "url": "/exercices/2e/2G12.js",
     "amcReady": false,
     "interactifReady": false,
@@ -84,7 +84,7 @@ export default {
     "name": "2G50-1"
   },
   "2G50-2": {
-    "titre": "Lecture graphique des coefficients d'une équation réduite ",
+    "titre": "Lecture graphique des coefficients d'une équation réduite",
     "url": "/exercices/2e/2G50-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -170,6 +170,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "2L13"
+  },
+  "2L14": {
+    "titre": "Résoudre une inéquation produit ou quotient",
+    "url": "/exercices/2e/2L14.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2L14"
   },
   "2N10-1": {
     "titre": "Connaître les propriétés calculatoires des racines carrées",
@@ -277,7 +284,7 @@ export default {
     "name": "3A11-2"
   },
   "3A11-3": {
-    "titre": "Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers.",
+    "titre": "Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers",
     "url": "/exercices/3e/3A11-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1011,7 +1018,10 @@ export default {
   "4F12": {
     "titre": "Problème s’appuyant sur la lecture d’une représentation graphique",
     "url": "/exercices/4e/4F12.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": false,
     "name": "4F12"
   },
@@ -1299,6 +1309,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "4P10"
+  },
+  "4S10": {
+    "titre": "Construire un diagramme",
+    "url": "/exercices/4e/4S10.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4S10"
   },
   "4S11": {
     "titre": "Déterminer des médianes",
@@ -2007,7 +2024,8 @@ export default {
     "titre": "Tables de multiplication",
     "url": "/exercices/6e/6C10-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "numerique",
     "name": "6C10-1"
   },
   "6C10-2": {
@@ -2129,8 +2147,12 @@ export default {
   "6C22": {
     "titre": "Problème - de plus de moins",
     "url": "/exercices/6e/6C22.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
     "name": "6C22"
   },
   "6C23": {
@@ -2263,6 +2285,17 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "6C35"
+  },
+  "6C3CaN": {
+    "titre": "Course aux nombres 6e",
+    "url": "/exercices/6e/6C3CaN.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6C3CaN"
   },
   "6D10": {
     "titre": "Convertir des durées",
@@ -3092,7 +3125,10 @@ export default {
   "6S10": {
     "titre": "Lire un diagramme en barre",
     "url": "/exercices/6e/6S10.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": false,
     "name": "6S10"
   },
@@ -3102,27 +3138,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "6S11"
-  },
-  "beta1F10": {
-    "titre": "Calculs de dérivés",
-    "url": "/exercices/beta/beta1F10.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta1F10"
-  },
-  "beta2F20": {
-    "titre": "Reconnaître une fonction affine.",
-    "url": "/exercices/beta/beta2F20.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F20"
-  },
-  "beta2F21": {
-    "titre": "Déterminer une fonction affine à partir de deux images.",
-    "url": "/exercices/beta/beta2F21.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F21"
   },
   "beta2F22": {
     "titre": "Représentation graphique d’une fonction affine",
@@ -3165,6 +3180,20 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2L12-2"
+  },
+  "beta2N60-X1": {
+    "titre": "Modéliser une situation  à l'aide d'une équation",
+    "url": "/exercices/beta/beta2N60-X1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2N60-X1"
+  },
+  "beta2N60-X2": {
+    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
+    "url": "/exercices/beta/beta2N60-X2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2N60-X2"
   },
   "beta3F23": {
     "titre": "Déterminer un antécédent",
@@ -3251,13 +3280,6 @@ export default {
     "interactifReady": false,
     "name": "beta6test2021"
   },
-  "beta999": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/beta999.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta999"
-  },
   "betaCaN5": {
     "titre": "Course aux nombres 5e",
     "url": "/exercices/beta/betaCaN5.js",
@@ -3269,16 +3291,23 @@ export default {
     "interactifType": "mathLive",
     "name": "betaCaN5"
   },
-  "betaCaN6": {
-    "titre": "Course aux nombres 6e",
-    "url": "/exercices/beta/betaCaN6.js",
+  "betaCaNCM2": {
+    "titre": "Course aux nombres CM2",
+    "url": "/exercices/beta/betaCaNCM2.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCaN6"
+    "name": "betaCaNCM2"
+  },
+  "betaComplexes": {
+    "titre": "Exercice exemple Nombres complexes",
+    "url": "/exercices/beta/betaComplexes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaComplexes"
   },
   "betaExemple": {
     "titre": "Exercice exemple",
@@ -3330,19 +3359,40 @@ export default {
     "interactifReady": false,
     "name": "betaExempleTableau"
   },
+  "betaExempleXcas": {
+    "titre": "Test de XCas",
+    "url": "/exercices/beta/betaExempleXcas.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcas"
+  },
+  "betaExempleXcas2eDegParam": {
+    "titre": "Equation du second degré avec paramètre",
+    "url": "/exercices/beta/betaExempleXcas2eDegParam.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcas2eDegParam"
+  },
+  "betaExempleXcasAsymptotes": {
+    "titre": "Recherche d'une asymptote oblique",
+    "url": "/exercices/beta/betaExempleXcasAsymptotes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcasAsymptotes"
+  },
+  "betaExempleXcasPolynomes": {
+    "titre": "Division de polynômes",
+    "url": "/exercices/beta/betaExempleXcasPolynomes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcasPolynomes"
+  },
   "betaExercice_constructions_basiques": {
     "titre": "Programmes de constructions (en chantier)",
     "url": "/exercices/beta/betaExercice_constructions_basiques.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExercice_constructions_basiques"
-  },
-  "betaExoLiouba": {
-    "titre": "Tranformations de triangle",
-    "url": "/exercices/beta/betaExoLiouba.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExoLiouba"
   },
   "betaExoSimpleMatthieu": {
     "titre": "Ceci est le titre de l’exercice BetaExosimpleMatthieu",
@@ -3357,6 +3407,16 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaGilles_test"
+  "betaGilles_CAN_seconde": {
+    "titre": "Course aux nombres seconde",
+    "url": "/exercices/beta/betaGilles_CAN_seconde.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaGilles_CAN_seconde"
   },
   "betaLicence": {
     "titre": "QCM de positionnement",
@@ -3386,13 +3446,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betarotation3d"
-  },
-  "betaXcas": {
-    "titre": "Test de XCas",
-    "url": "/exercices/beta/betaXcas.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaXcas"
   },
   "moule_a_exo_mathalea": {
     "titre": "Exo zéro Mathalea",
@@ -3442,6 +3495,17 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "c3C11"
+  },
+  "c3C3CaN": {
+    "titre": "Course aux nombres CM1",
+    "url": "/exercices/c3/c3C3CaN.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "c3C3CaN"
   },
   "c3N10": {
     "titre": "Écrire un nombre en chiffres ou en lettres",

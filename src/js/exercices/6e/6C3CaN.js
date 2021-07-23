@@ -18,6 +18,7 @@ export const amcType = 'AMCNum'
 export default function CourseAuxNombres6e (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.interactif = true
+  this.nbQuestions = 30
   if (this.interactif) {
     this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
   } else {
@@ -334,24 +335,6 @@ export default function CourseAuxNombres6e (numeroExercice) {
           texte = `$${texNombrec(a * 100 + b * 10 + c)}\\times ${d}$<br> Choisis la bonne réponse sans effectuer précisément le calcul<br>`
           propositions = shuffle([`$${texNombre(resultat)}$`, `$${texNombrec(d * 1000 + a * 100 + b * 10 + c)}$`, `$${texNombrec((a * 1000 + b * 100 + c) * d)}$`])
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
-          /*   this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [{
-              texte: `$${texNombre(resultat)}$`,
-              statut: true
-            },
-            {
-              texte: `$${texNombrec(d * 1000 + a * 100 + b * 10 + c)}$`,
-              statut: false
-            },
-            {
-              texte: `$${texNombrec((a * 1000 + b * 100 + c) * d)}$`,
-              statut: false
-            }],
-            options: {}
-          }
-          */
-
           texteCorr = `$${texNombrec(a * 100 + b * 10 + c)} \\times ${d} = ${texNombre(resultat)}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break

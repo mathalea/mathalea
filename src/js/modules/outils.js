@@ -1,3 +1,4 @@
+/* globals UI */
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
@@ -21,7 +22,7 @@ export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing)
     if (exercice.interactif) {
-      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}">Vérifier les réponses</button>`
+      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr)
   } else {
@@ -1503,13 +1504,21 @@ export function texRacineCarree (n) {
 }
 
 /**
-* Utilise giac/xcas
-*
-* @author Rémi Angot
-*/
+ *
+ * @param {'string | array'} expression ou tableau d'expressions à évaluer avec XCas
+ * @returns string
+ * @author Rémi Angot
+ */
 export function xcas (expression) {
-  // eslint-disable-next-line no-undef
-  return UI.eval(`latex(${expression})`).replaceAll('\\cdot ', '~').replaceAll('\\frac', '\\dfrac').replaceAll('"', '')
+  const sortie = (txt) => UI.eval(`latex(${txt})`).replaceAll('\\cdot ', '~').replaceAll('\\frac', '\\dfrac').replaceAll('"', '')
+  if (typeof expression === 'string') return sortie(expression)
+  else {
+    const result = []
+    for (const txt of expression) {
+      result.push(sortie(txt))
+    }
+    return result
+  }
 }
 
 /**
@@ -6915,7 +6924,6 @@ export function exportQcmAmc (exercice, idExo) {
 
       case 'AMCOpenNum': // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
-        // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
         // On pourra rajouter des options : les paramètres sont nommés.
         // {digits=0,decimals=0,signe=false,exposantNbChiffres=0,exposantSigne=false,approx=0}
         // si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
@@ -7154,6 +7162,142 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].reponse3.textePosition === 'right') texQr += `${autoCorrection[j].reponse3.texte}\n`
         texQr += '\\end{questionmultx}\n\\end{minipage}\n}\n'
         id++
+        break
+
+      default : // Si on arrive ici, c'est que le type est AMCHybride
+        if (type !== 'AMCHybride') {
+          console.log('Il doit y avoir une erreur de type AMC, je ne connais pas le type : ', type)
+        }
+        if (autoCorrection[j].enonce === undefined) { // Si l'énoncé n'a pas été défini, on va le chercher dans la question
+          autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
+        if (autoCorrection[j].propositions === undefined) {
+          console.log(`Il ne peut pas y avoir de type AMCHybride si exercice.autoCorrection[${j}].propositions n'est pas défini !`)
+          break
+        }
+        texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
+        texQr += `${autoCorrection[j].enonce} \n `
+        for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les question-reponse de l'élément j
+          prop = autoCorrection[j].propositions[qr] // proposition est un objet avec cette structure : {type,propositions,reponse}
+          qrType = prop.type
+
+          propositions = prop.propositions
+          switch (qrType) {
+            case 'QcmMono':
+              if (prop.options !== undefined) {
+                if (prop.options.vertical === undefined) {
+                  horizontalite = 'reponseshoriz'
+                } else {
+                  horizontalite = 'reponses'
+                }
+                if (prop.options.ordered) {
+                  ordered = true
+                }
+                if (prop.options.lastChoice !== undefined) {
+                  lastchoice = prop.options.lastChoice
+                }
+              }
+              texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+              texQr += `\t\\begin{${horizontalite}}`
+              if (ordered) {
+                texQr += '[o]'
+              }
+              texQr += '\n '
+              for (let i = 0; i < propositions.length; i++) {
+                if (lastchoice > 0 && i === lastchoice) {
+                  texQr += '\t\t\\lastchoices\n'
+                }
+                if (prop.propositions[i].statut) {
+                  texQr += `\t\t\\bonne{${propositions[i].texte}}\n `
+                } else {
+                  texQr += `\t\t\\mauvaise{${propositions[i].texte}}\n `
+                }
+              }
+              texQr += `\t\\end{${horizontalite}}\n `
+              texQr += '\\end{question}\n'
+              id++
+              break
+            case 'QcmMult':
+              if (prop.options !== undefined) {
+                if (prop.options.vertical === undefined) {
+                  horizontalite = 'reponseshoriz'
+                } else {
+                  horizontalite = 'reponses'
+                }
+                if (prop.options.ordered) {
+                  ordered = true
+                }
+                if (prop.options.lastChoice !== undefined) {
+                  lastchoice = prop.options.lastChoice
+                }
+              }
+              texQr += `\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+              texQr += `\t\\begin{${horizontalite}}`
+              if (ordered) {
+                texQr += '[o]'
+              }
+              texQr += '\n '
+              for (let i = 0; i < propositions.length; i++) {
+                if (lastchoice > 0 && i === lastchoice) {
+                  texQr += '\t\t\\lastchoices\n'
+                }
+                if (propositions[i].statut) {
+                  texQr += `\t\t\\bonne{${propositions[i].texte}}\n `
+                } else {
+                  texQr += `\t\t\\mauvaise{${propositions[i].texte}}\n `
+                }
+              }
+              texQr += `\t\\end{${horizontalite}}\n `
+              texQr += ' \\end{questionmult}\n'
+              id++
+              break
+            case 'AMCNum':
+              rep = prop.propositions[0].reponse
+              if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres === 0) {
+                reponse = rep.valeur
+                if (rep.param.digits === 0) {
+                  nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+                  rep.param.decimals = nbChiffresPd
+                  nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
+                  rep.param.digits = nbChiffresPd + nbChiffresPe
+                } else if (rep.param.decimals === undefined) {
+                  rep.param.decimals = 0
+                }
+              }
+              texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+              if (propositions !== undefined) {
+                texQr += `\\explain{${propositions[0].texte}}\n`
+              }
+              texQr += `\\AMCnumericChoices{${rep.valeur}}{digits=${rep.param.digits},decimals=${rep.param.decimals},sign=${rep.param.signe},`
+              if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+                texQr += `exponent=${rep.param.exposantNbChiffres},exposign=${rep.param.exposantSigne},`
+              }
+              if (rep.param.approx !== undefined && rep.param.approx !== 0) {
+                texQr += `approx=${rep.param.approx},`
+              }
+              if (rep.param.vertical !== undefined && rep.param.vertical) {
+                texQr += `vertical=${rep.param.vertical},`
+              }
+              if (rep.param.strict !== undefined && rep.param.strict) {
+                texQr += `strict=${rep.param.strict},`
+              }
+              if (rep.param.vhead !== undefined && rep.param.vhead) {
+                texQr += `vhead=${rep.param.vhead},`
+              }
+              texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+              texQr += '\\end{questionmultx}\n'
+              id++
+              break
+            case 'AMCOpen':
+              texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+              texQr += `\t\t\\explain{${propositions[0].texte}}\n`
+              texQr += `\t\t\\notation{${propositions[0].statut}}\n` // le statut contiendra le nombre de lignes pour ce type
+              texQr += '\t\\end{question}\n'
+              id++
+              break
+          }
+        }
+        texQr += '}\n'
         break
     }
   }

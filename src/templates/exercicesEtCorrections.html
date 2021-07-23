@@ -1,0 +1,60 @@
+<div style="display: none">
+  <h3 class="ui block header">Choix des exercices</h3>
+  <div class="ui fluid left icon input" data-tooltip="Nombres séparés par des virgules" data-inverted="">
+    <i class="edit icon"></i>
+    <input id="choix_des_exercices" type="text" />
+  </div>
+</div>
+
+<div class="ui floating message" id="messageIntro">
+  <p>Faire les questions suivantes au brouillon puis cliquer en dessous sur <em>Corrections</em> pour vérifier.</p>
+</div>
+
+<div class="ui hidden divider"></div>
+<div class="ui hidden divider"></div>
+
+<div id="boutonsAuDessusDesExercices">
+  <button class="btn ui labeled icon button" id="btn_mise_a_jour_code" style="margin: 10px"><i class="redo icon"></i>Nouvelles données</button>
+  <div class="ui buttons" style="margin: 10px">
+    <button class="btn ui right labeled icon button" id="btn_zoom_plus">Zoom<i class="plus icon"></i></button>
+    <button class="btn ui icon button" id="btn_zoom_moins"><i class="minus icon"></i></button>
+  </div>
+  <!-- <button id="btnCopieURL" style="margin:10px" class="btn ui toggle button labeled icon url" data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le lien vers les exercices sélectionnés</button> 
+  <button id="btnLaTeX"  style="margin:10px" class="btn ui button labeled icon" ><i class="edit icon"></i>Version LaTeX</button> 
+  <button id="btnQRcode"  style="margin:10px" class="btn ui button icon" ><i class="qrcode icon"></i></button>  -->
+  <button
+    style="margin: 10px"
+    id="btn_edit"
+    class="btn ui button icon"
+    onclick="window.location.href=window.location.href.replace('/exercice.html','/mathalea.html')"
+  >
+    <i class="edit icon"></i>
+  </button>
+</div>
+
+<div id="ModalQRcode" class="ui basic modal"></div>
+
+<div class="ui hidden divider"></div>
+
+<div id="affichage_exercices">
+  <div id="exercices"></div>
+
+  <div id="parametres">
+    <div class="ui fluid accordion">
+      <div class="title" id="btnCorrection">
+        <i class="dropdown icon"></i>
+        Corrections
+      </div>
+      <div class="content">
+        <div id="corrections"></div>
+      </div>
+    </div>
+    <div class="ui fluid accordion" id="accordeon_parametres">
+      <div class="title">
+        <i class="dropdown icon"></i>
+        Paramètres
+      </div>
+      <div class="content" id="parametres_generaux"></div>
+    </div>
+  </div>
+</div>

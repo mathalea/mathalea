@@ -1,10 +1,10 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 98 
-- nombre d'exos interactifReady 121 
+- nombre d'exos amcReady 104 
+- nombre d'exos interactifReady 125 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|2G50-2|Lecture graphique des coefficients d'une équation réduite |KO|KO|OK|mathLive|
+|2G50-2|Lecture graphique des coefficients d'une équation réduite|KO|KO|OK|mathLive|
 |2G50|Déterminer le coefficient directeur d'une droite.|KO|KO|OK|mathLive|
 |2L12-2|Développer (a+b)²|KO|KO|OK|mathLive|
 |2L12-3|Développer (a-b)²|KO|KO|OK|mathLive|
@@ -42,6 +42,7 @@
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|numerique|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
+|4F12|Problème s’appuyant sur la lecture d’une représentation graphique|OK|AMCHybride|KO|KO|
 |4G20-2|Racine carré d’un carré parfait (calcul mental)|OK|AMCNum|OK|numerique|
 |4G20-4|Arrondir une racine carrée|KO|KO|OK|mathLive|
 |4G20|Calculer une longueur avec le théorème de Pythagore|OK|AMCOpenNum|OK|mathLive|
@@ -67,6 +68,7 @@
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|numerique|
 |5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|numerique|
+|6C10-1|Tables de multiplication|KO|KO|OK|numerique|
 |6C10-2|Tables de multiplications et multiples de 10|OK|qcmMono|OK|qcm,mathLive|
 |6C10-3|Tables de multiplications et nombres décimaux|OK|qcmMono|OK|qcm|
 |6C10-4|Addition de deux entiers|OK|AMCNum|OK|numerique|
@@ -77,6 +79,7 @@
 |6C11|Divisions euclidiennes|OK|AMCOpen|OK|mathLive|
 |6C20|Additions et soustractions de nombres décimaux|OK|AMCNum|OK|numerique|
 |6C21|Divisions euclidiennes - Niveau 2|OK|AMCOpen|KO|KO|
+|6C22|Problème - de plus de moins|OK|AMCNum|OK|numerique|
 |6C23|Additionner ou soustraire des fractions de même dénominateur|OK|qcmMono|OK|qcm|
 |6C30-1|Multiplications d’un nombre décimal par 10, 100 ou 1 000.|OK|AMCNum|OK|numerique|
 |6C30-2|Calculer le produit de deux décimaux connaissant le produit de deux entiers|OK|AMCNum|OK|numerique|
@@ -87,6 +90,7 @@
 |6C31|Divisions décimales|OK|AMCNum|OK|numerique|
 |6C33|Calculer en utilisant les priorités opératoires|OK|AMCNum|OK|numerique|
 |6C34|Dernier chiffre d’un calcul|OK|AMCNum|OK|numerique|
+|6C3CaN|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
 |6G10-3|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |6G23-1|Mesurer un angle|OK|qcmMono|OK|qcm|
 |6G25-1|Symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
@@ -116,10 +120,13 @@
 |6N43|Critères de divisibilité|OK|qcmMono|OK|qcm|
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
+|6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
-|betaCaN6|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
+|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|betaGilles_CAN_seconde|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
+|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|

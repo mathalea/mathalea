@@ -1,18 +1,18 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-export const titre = 'Exercice exemple'
+import { complex, add, multiply } from 'mathjs'
+export const titre = 'Exercice exemple Nombres complexes'
 
 /**
  * Description didactique de l'exercice
  * @author
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function TrucAvecDesComplexes () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = ''
   this.nbQuestionsModifiable = false
-  // this.nbQuestions = 10;
+  // this.nbQuestions = 10
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   // this.sup = 1; // Niveau de difficulté
@@ -24,13 +24,14 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     this.listeCorrections = [] // Liste de questions corrigées
     let question1, question2
 
-    question1 = 'texte de la question 1.'
-    question1 += '<br>'
-    question2 = 'texte de la question 2.'
-    question2 += '<br>'
+    const z1 = complex(2, 1)
+    const z2 = complex('2i')
+    this.introduction = `on donne $a = ${z1.toString()}$ et $b = ${z2.toString()}$`
+    question1 = 'Calcule $a + b$'
+    question2 = 'Calcule $a \\times b$'
 
-    const correction1 = 'texte de la correction 1'
-    const correction2 = 'texte de la correction2'
+    const correction1 = `$${z1.toString()} + ${z2.toString()} = ${add(z1, z2).toString()}$`
+    const correction2 = `$(${z1.toString()}) \\times ${z2.toString()} = ${multiply(z1, z2).toString()}$`
     this.listeQuestions.push(question1, question2)
     this.listeCorrections.push(correction1, correction2)
 

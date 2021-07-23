@@ -1,11 +1,15 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, premiereLettreEnMajuscule, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, premiereLettreEnMajuscule, numAlpha, calcul } from '../../modules/outils.js'
 import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Lire un diagramme en barre'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * Lire un diagramme en barre
  * @author Erwan Duplessy
+ * Conversion AmcReady par Jean-Claude Lhote
  * Référence 6S10
  */
 
@@ -32,6 +36,9 @@ export default function LectureDiagrammeBarre () {
       case 3: nbAnimaux = 6; break
       default: nbAnimaux = 4
     }
+    const propa = []
+    const propb = []
+    const propc = []
     const lstAnimauxExo = [] // liste des animaux uniquement cités dans l'exercice
     const lstNombresAnimaux = [] // liste des effectifs de chaque animal
     let lstVal = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100] // liste des valeurs à éviter pour les effectifs
@@ -66,14 +73,28 @@ export default function LectureDiagrammeBarre () {
       'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane']
 
     texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>'
-    texte += numAlpha(0) + ' Quels sont les animaux les plus nombreux ?<br>'
-    texte += numAlpha(1) + ' Quels sont les animaux les moins nombreux ?<br>'
-
+    if (!context.isAmc) {
+      texte += numAlpha(0) + ' Quels sont les animaux les plus nombreux ?<br>'
+      texte += numAlpha(1) + ' Quels sont les animaux les moins nombreux ?<br>'
+    } else {
+      texte += '1) Quels sont les animaux les plus nombreux ?<br>'
+      texte += '2) Quels sont les animaux les moins nombreux ?<br>'
+    }
     const numAnimal = randint(0, nbAnimaux - 1)
     switch (parseInt(this.sup2)) {
-      case 1: texte += numAlpha(2) + ' Donner un encadrement à la dizaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
+      case 1:
+        if (!context.isAmc) {
+          texte += numAlpha(2) + ' Donner un encadrement à la dizaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
+        } else {
+          texte += '3) Donner un encadrement à la dizaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
+        }
         break
-      case 2: texte += numAlpha(2) + ' Donner un encadrement à la centaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
+      case 2:
+        if (!context.isAmc) {
+          texte += numAlpha(2) + ' Donner un encadrement à la centaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
+        } else {
+          texte += '3)  Donner un encadrement à la centaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
+        }
         break
     }
     texte += '<br>'
@@ -107,23 +128,75 @@ export default function LectureDiagrammeBarre () {
     const lstElementGraph = []
     for (let i = 0; i < nbAnimaux; i++) {
       lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: 0.1 / coef }))
+      if (context.isAmc) {
+        if (i === lstNombresAnimaux.indexOf(nMax)) {
+          propa.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: true })
+        } else {
+          propa.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: false })
+        }
+        if (i === lstNombresAnimaux.indexOf(nMin)) {
+          propb.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: true })
+        } else {
+          propb.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: false })
+        }
+        if (i === numAnimal) {
+          propc.push({ texte: `entre ${calcul(10 * coef * Math.floor(lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[i])] / (10 * coef)))} et ${calcul(10 * coef * (1 + Math.floor(lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[i])] / (10 * coef))))}`, statut: true })
+        } else {
+          propc.push({ texte: `entre ${calcul(10 * coef * Math.floor(lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[i])] / (10 * coef)))} et ${calcul(10 * coef * (1 + Math.floor(lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[i])] / (10 * coef))))}`, statut: false })
+        }
+      }
     }
-
     texte += mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 11, pixelsParCm: 30, scale: 0.5 }, r, lstElementGraph)
     // debut de la correction
     // question 1
-    texteCorr = numAlpha(0) + ' Les animaux les plus nombreux sont les ' + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] + '.<br>'
+    if (!context.isAmc) {
+      texteCorr = numAlpha(0) + ' Les animaux les plus nombreux sont les ' + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] + '.<br>'
+    } else {
+      texte += '<br>'
+      texteCorr = '1) Les animaux les plus nombreux sont les ' + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] + '.<br>'
+    }
     // question 2
-    texteCorr += numAlpha(1) + ' Les animaux les moins nombreux sont les ' + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] + '.<br>'
+    if (!context.isAmc) {
+      texteCorr += numAlpha(1) + ' Les animaux les moins nombreux sont les ' + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] + '.<br>'
+    } else {
+      texteCorr += '2) Les animaux les moins nombreux sont les ' + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] + '.<br>'
+    }
+
     // question 3
     const reponse = lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[numAnimal])]
     const reponseinf = 10 * coef * Math.floor(reponse / (10 * coef))
     const reponsesup = reponseinf + 10 * coef
-    texteCorr += numAlpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[numAnimal] + '.<br>'
+    if (!context.isAmc) {
+      texteCorr += numAlpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[numAnimal] + '.<br>'
+    } else {
+      texteCorr += '3) Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[numAnimal] + '.<br>'
+    }
 
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
+    if (context.isAmc) {
+      this.autoCorrection[0] = {
+        enonce: texte,
+        propositions: [
+          {
+            type: 'QcmMono',
+            propositions: propa,
+            options: { ordered: false }
+          },
+          {
+            type: 'QcmMono',
+            propositions: propb,
+            options: { ordered: false }
+          },
+          {
+            type: 'QcmMono',
+            propositions: propc,
+            options: { ordered: false }
+          }
+        ]
+      }
+    }
   }
   this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, ' choix 1 : 4 espèces\n choix 2 : 5 espèces\n choix 3 : 6 espèces']
   this.besoinFormulaire2Numerique = ['Valeurs numériques', 2, ' choix 1 : entre 1 et 100\n choix 2 : entre 100 et 1 000']
