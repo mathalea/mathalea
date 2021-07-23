@@ -21,10 +21,9 @@ export default function MultiplierEntierPar101001000 () {
   this.sup = 2
   this.introduction = lampeMessage({
     titre: 'Calculatrice interdite.',
-    texte: 'Aide : utiliser le glisse nombre',
+    texte: 'Aide : utiliser le glisse nombre si besoin',
     couleur: 'nombres'
   })
-
 
   this.nouvelleVersion = function (numeroExercice) {
     this.boutonAide = modalUrl(numeroExercice, 'https://mathix.org/glisse-nombre/index.html',
