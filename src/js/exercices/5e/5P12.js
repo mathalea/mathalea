@@ -1,9 +1,14 @@
-// On importe les fonctions définies dans des fichiers externes
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, prenom, prenomF, prenomM, miseEnEvidence } from '../../modules/outils.js'
 
 export const titre = 'Partager une quantité en deux ou trois parts selon un ratio donné.'
 
+/**
+ * Partager une quantité en deux ou trois parts selon un ratio donné.
+ * @author Guillaume Valmont
+ * Référence 5P12
+ * Date de publication : 24/07/2021
+*/
 export default function PartagerSelonUnRatio () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
