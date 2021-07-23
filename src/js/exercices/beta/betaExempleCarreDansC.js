@@ -1,7 +1,7 @@
 import { listeQuestionsToContenu, randint, combinaisonListes, ecritureParentheseSiNegatif,signe,abs,calcule } from '../../modules/outils.js'
 
 import Exercice from '../Exercice.js'
-import { complex, multiply } from 'mathjs'
+import { complex, neg } from 'mathjs'
 export const titre = 'Racine carrée nombre complexe'
 
 /**
@@ -63,7 +63,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           texteCorr += `<br>De même, en remplaçant $a=${zsol.re}$ dans $(E_2)$ : `
           texteCorr += `$2\\times ${zsol.re} \\times b = ${z.im}$`
           texteCorr += `<br>On trouve $b=${zsol.im}$`
-          texteCorr += `<br><u>Conclusion</u> : L'équation admet 2 solutions $z=${zsol}$ et $z=${multiply(zsol,-1)}$`
+          texteCorr += `<br><u>Conclusion</u> : L'équation admet 2 solutions $z=${zsol}$ et $z=${zsol.neg()}$`
           break
         case 'type2':
           break
