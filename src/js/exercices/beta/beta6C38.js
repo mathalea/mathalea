@@ -1,8 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, prenomF, prenomM, calcul, texPrix, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Calculer une valeur manquante avec l’égalité de Pythagore'
-// export const titre = 'Augmenter ou diminuer d’un pourcentage '
+export const titre = 'Augmenter ou diminuer d’un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -73,9 +72,9 @@ export default function AugmenterEtReduireDunPourcentage () {
           setReponse(this, i, [mr, mr * 10], { formatInteractif: 'calcul' })
           texte += `b) Finalement, ${prenom1} paiera son billet :`
           texte += ajouteChampTexteMathLive(this, i + this.nbQuestions + 1)
-          texteCorr = `<br>a) Le montant de la réduction est :     $${billet}\\times ${pr} \\div 100 =  $`
+          texteCorr = `<br>a) Le montant de la réduction est :     $${billet}\\times ${pr} \\div 100 = ~ $`
           texteCorr += texteEnCouleurEtGras(`$${texPrix(mr)}€.$<br>`)
-          texteCorr += `b) Finalement, ${prenom1} paiera son billet : $${billet} - ${texPrix(mr)} =  $`
+          texteCorr += `b) Finalement, ${prenom1} paiera son billet : $${billet} - ${texPrix(mr)} = ~ $`
           texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)}€.$`)
           setReponse(this, i + this.nbQuestions + 1, final1)
           break
@@ -91,9 +90,9 @@ export default function AugmenterEtReduireDunPourcentage () {
           setReponse(this, i, ma)
           texte += ajouteChampTexteMathLive(this, i + this.nbQuestions + 1)
           setReponse(this, i + this.nbQuestions + 1, final2)
-          texteCorr = `<br>a) Le montant de l'augmentation est :     $${loyer}\\times ${pa} \\div 100 =  $`
+          texteCorr = `<br>a) Le montant de l'augmentation est :     $${loyer}\\times ${pa} \\div 100 = ~ $`
           texteCorr += texteEnCouleurEtGras(`$${texPrix(ma)}€.$<br>`)
-          texteCorr += `b) Finalement, ${prenom2} paiera son loyer : $${loyer} + ${texPrix(ma)} =  $`
+          texteCorr += `b) Finalement, ${prenom2} paiera son loyer : $${loyer} + ${texPrix(ma)} = ~ $`
           texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)}€.$`)
           break
       }
