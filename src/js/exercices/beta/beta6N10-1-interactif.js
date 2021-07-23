@@ -1,9 +1,9 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...'
 export const interactifReady = true
-export const interactifType = 'mathlive'
+export const interactifType = 'numerique'
 
 /**
  * Le nombre de dizaines, centaines et milliers étant donné, il faut écrire le nombre.
@@ -62,7 +62,7 @@ export default function ExerciceNumerationEntier () {
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         setReponse(this, i, b * Math.pow(10, rangB) + a * Math.pow(10, rangA))
-        texte += ajouteChampTexteMathLive(this, i)
+        texte += ajouteChampTexte(this, i)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
