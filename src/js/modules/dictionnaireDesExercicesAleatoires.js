@@ -3667,6 +3667,33 @@ export default {
     "interactifType": "numerique",
     "name": "CM011"
   },
+  "betaExempleXcas2eDegParam": {
+    "titre": "Equation du second degré avec paramètre",
+    "url": "/exercices/beta/betaExempleXcas2eDegParam.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcas2eDegParam"
+  },
+  "betaExempleXcasAsymptotes": {
+    "titre": "Asymptote oblique",
+    "url": "/exercices/beta/betaExempleXcasAsymptotes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcasAsymptotes"
+  },
+  "betaExempleXcasPolynomes": {
+    "titre": "Division de polynômes",
+    "url": "/exercices/beta/betaExempleXcasPolynomes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcasPolynomes"
+  },
+  "betaExempleXcasValAbs": {
+    "titre": "Equation avec une valeur absolue",
+    "url": "/exercices/beta/betaExempleXcasValAbs.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcasValAbs"
   "CM012": {
     "titre": "Complément à 100",
     "url": "/exercices/CM/CM012.js",
