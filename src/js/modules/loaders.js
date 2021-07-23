@@ -161,7 +161,6 @@ export async function loadMathLive () {
           virtualKeyboardMode: 'onfocus'
         })
       }
-      mf.style = 'font-size: 20px; margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);}'
       if (mf.classList.contains('longueur')) {
         mf.setOptions({
           customVirtualKeyboardLayers: longueursKeyboardLayer,
@@ -178,6 +177,17 @@ export async function loadMathLive () {
           }
         })
       }
+      let style = 'font-size: 20px; margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);'
+      if (mf.classList.contains('largeur50')) {
+        style += ' width: 50%;'
+      }
+      if (mf.classList.contains('largeur25')) {
+        style += ' width: 25%;'
+      }
+      if (mf.classList.contains('inline')) {
+        style += ' display: inline-block; margin-left: 25px; '
+      }
+      mf.style = style
     }
   }
 }
