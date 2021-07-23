@@ -3251,6 +3251,13 @@ export default {
     "interactifReady": false,
     "name": "beta6C33-1"
   },
+  "beta6N12-interactif": {
+    "titre": "Multiplier un entier par 10, 100, 1 000...",
+    "url": "/exercices/beta/beta6N12-interactif.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta6N12-interactif"
+  },
   "beta6test2": {
     "titre": "Mon test",
     "url": "/exercices/beta/beta6test2.js",
