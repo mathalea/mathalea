@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, modalUrl } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, modalUrl, lampeMessage } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Multiplier un entier par 10, 100, 1 000...'
 export const interactifType = 'numerique'
@@ -19,6 +19,12 @@ export default function MultiplierEntierPar101001000 () {
   this.nbCols = 2
   this.nbColsCorr = 2
   this.sup = 2
+  this.introduction = lampeMessage({
+    titre: 'Calculatrice interdite.',
+    texte: 'Aide : utiliser le glisse nombre',
+    couleur: 'nombres'
+  })
+
 
   this.nouvelleVersion = function (numeroExercice) {
     this.boutonAide = modalUrl(numeroExercice, 'https://mathix.org/glisse-nombre/index.html',
