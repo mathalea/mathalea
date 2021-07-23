@@ -4,9 +4,10 @@ import { listeQuestionsToContenu, randint, choice, arrondi, arrondiVirgule, list
 export const titre = 'Calculer des moyennes'
 
 /**
- * Calcul de moyennes de série statistiques
-* @author Jean-Claude Lhote
+* Calcul de moyennes de série statistiques
+* @author Jean-Claude Lhote et Guillaume Valmont
 * Référence 5S14
+* Modifié le 23/07/2021
 */
 export default function CalculerDesMoyennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
