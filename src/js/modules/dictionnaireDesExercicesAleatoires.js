@@ -1310,6 +1310,13 @@ export default {
     "interactifReady": false,
     "name": "4P10"
   },
+  "4S10": {
+    "titre": "Construire un diagramme",
+    "url": "/exercices/4e/4S10.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4S10"
+  },
   "4S11": {
     "titre": "Déterminer des médianes",
     "url": "/exercices/4e/4S11.js",
@@ -2017,7 +2024,8 @@ export default {
     "titre": "Tables de multiplication",
     "url": "/exercices/6e/6C10-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "numerique",
     "name": "6C10-1"
   },
   "6C10-2": {
@@ -3664,16 +3672,33 @@ export default {
     "interactifType": "numerique",
     "name": "CM014"
   },
-  "CM015": {
-    "titre": "Somme de deux nombres mariés",
-    "url": "/exercices/CM/CM015.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "numerique",
-    "name": "CM015"
+  "betaExempleXcas2eDegParam": {
+    "titre": "Equation du second degré avec paramètre",
+    "url": "/exercices/beta/betaExempleXcas2eDegParam.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcas2eDegParam"
+  },
+  "betaExempleXcasAsymptotes": {
+    "titre": "Recherche d'une asymptote oblique",
+    "url": "/exercices/beta/betaExempleXcasAsymptotes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcasAsymptotes"
+  },
+  "betaExempleXcasPolynomes": {
+    "titre": "Division de polynômes",
+    "url": "/exercices/beta/betaExempleXcasPolynomes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcasPolynomes"
+  },
+  "betaExercice_constructions_basiques": {
+    "titre": "Programmes de constructions (en chantier)",
+    "url": "/exercices/beta/betaExercice_constructions_basiques.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExercice_constructions_basiques"
   },
   "CM016": {
     "titre": "Diviser un entier par 10, 100 ou 1000",

@@ -23,38 +23,38 @@ export default function gestionScores () {
     document.getElementById('scoresLogOut').style.display = 'initial'
     // On cache le bouton de connexion
     document.getElementById('scoresLogIn').style.display = 'none'
-    // On vérfie s'il faut remettre à zéro le répertoire de stockage des espaces de scores
-    fetch('scoresCleanSpaces.php', {
-      mode: 'same-origin',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
-      .then(response => {
-        if (document.getElementById('scoresInfosTimeLeft')) {
-          // console.log(response.timeLeft)
-          document.getElementById('scoresInfosTimeLeft').innerHTML = `
-          Ce service ne garantit en rien la pérennité des données. Bien au contraire, les données sont effacées une fois par an.
-          <ul>
-            <li>    
-              <b>Charge aux utilisateurs du service de les récupérer avant</b>.
-              <ul>
-                <li>Nous sommes le ${response.currentDate}, <b>le prochain effacement complet est prévu à partir du ${response.deleteNextDate}.</b></li>
-                <li>Il reste donc <b>${response.timeLeft} jour(s) avant la prochaine remise à zéro</b> des espaces de scores.</li>          
-                <li>Le répertoire père est créé depuis ${response.timeSinceCreation} seconde(s).</li>
-              </ul>
-            </li>
-            <li>Si vous découvrez l'enregistrement des scores, c'est mieux de <b>consulter la documentation</b> ! </li>
-            <li>Ce module ne fonctionne qu'avec les exercices interactifs, ce qui est loin d'être la majorité des ressources... pour l'instant.</li>
-            <li><b>Ce module est encore en cours de développement donc il risque d'y avoir des comportements inattendus.</b></li>
-          </ul>
-          `
-        }
-      })
   }
 
+  // On vérfie s'il faut remettre à zéro le répertoire de stockage des espaces de scores
+  fetch('scoresCleanSpaces.php', {
+    mode: 'same-origin',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
+    .then(response => {
+      if (document.getElementById('scoresInfosTimeLeft')) {
+        // console.log(response.timeLeft)
+        document.getElementById('scoresInfosTimeLeft').innerHTML = `
+        Ce service ne garantit en rien la pérennité des données. Bien au contraire, les données sont effacées une fois par an.
+        <ul>
+          <li>    
+            <b>Charge aux utilisateurs du service de les récupérer avant</b>.
+            <ul>
+              <li>Nous sommes le ${response.currentDate}, <b>le prochain effacement complet est prévu à partir du ${response.deleteNextDate}.</b></li>
+              <li>Il reste donc <b>${response.timeLeft} jour(s) avant la prochaine remise à zéro</b> des espaces de scores.</li>          
+              <li>Le répertoire père est créé depuis ${response.timeSinceCreation} seconde(s).</li>
+            </ul>
+          </li>
+          <li>Si vous découvrez l'enregistrement des scores, c'est mieux de <b>consulter la documentation</b> ! </li>
+          <li>Ce module ne fonctionne qu'avec les exercices interactifs, ce qui est loin d'être la majorité des ressources... pour l'instant.</li>
+          <li><b>Ce module est encore en cours de développement donc il risque d'y avoir des comportements inattendus.</b></li>
+        </ul>
+        `
+      }
+    })
 
   // Deconnexion scores
   if (document.getElementById('scoresLogOut')) {

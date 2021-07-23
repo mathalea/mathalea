@@ -1,11 +1,16 @@
 <?php
-// =============================================================================================================================
-// Nettoyage des esapces de scores
-// Sébastien LOZANO
-//
-// Je fais le choix de supprimer tous les répertoires et de recréer les répertoires VIPs, c'est plus simple que de tester si le répertoire existe
-// dans un tableau de codes VIPs, la key md5 des VIPs sera constante !
-// =============================================================================================================================
+/**
+ * =============================================================================================================================
+ * Nettoyage des espaces de scores
+ * @author Sébastien LOZANO
+ * 
+ * Je fais le choix de supprimer tous les répertoires et de recréer les répertoires VIPs, c'est plus simple que de tester si le répertoire existe
+ * dans un tableau de codes VIPs, la key md5 des VIPs sera constante !
+ * =============================================================================================================================
+ */
+
+ // On inclut le scripts avec les outils
+ require_once "scoresTools.php";
 
 // ========================
 // VARIABLES 
@@ -15,10 +20,6 @@ $msgVip = "Création des espaces de scores VIPs KO !"; // Pour le retour console
 $msgCron = "CRON KO !"; // Pour le retour console
 $scoresDir = "./resultats"; // Pour le repertoire de stockage des espaces de scores
 // On met tout à zéro dès lors que 365,25 jours ( 31 557 600 secondes ) se sont écoulés après la création du répertoire resultats
-// if (!is_dir($scoresDir)) {
-//   mkdir($scoresDir, 0775, true);  
-//   createVipScoresSpaces('./json/scoresCodesVip.json');
-// }; 
 $intervalBeforeDelete = 31557600; // 60; // Temps avant remise à zero des espaces de scores
 $deleteDay = intval(date('d',filectime($scoresDir)));
 $deleteMonth = intval(date('m',filectime($scoresDir)));
@@ -51,12 +52,15 @@ function createVipScoresSpaces($pathToJson) {
   // on décode le flux JSON et on accède à ce qu'on veut, ici les VIPs !
   $vips = json_decode($data)->vips;
   // on crée les repertoires ad hoc, le repertoire resultats a été crée au debut s'il n'existait pas
-  if (!is_dir($GLOBALS["scoresDir"])) {
- // if (is_dir($GLOBALS["scoresDir"])) {
+  if (!is_dir($GLOBALS["scoresDir"])) { 
     mkdir($GLOBALS["scoresDir"],0775, true);
     foreach ($vips as $vip) {
         $path = $GLOBALS["scoresDir"].'/'.$vip->codeProf[0].'/'.$vip->codeProf[1].'/'.$vip->codeProf[2].'/'.$vip->md5Key;
         mkdir($path, 0775, true);
+        // On crée la page d'index pour l'espace
+        // Une fois tout ça créer,
+        // On va créer un fichier index.php qui va bien pour afficher tout ce qu'on veut
+        createIndexScores($path,$vip->codeProf[0].$vip->codeProf[1].$vip->codeProf[2]);
     };      
   };
  
@@ -67,7 +71,7 @@ function createVipScoresSpaces($pathToJson) {
   $GLOBALS["deleteNextDate"] = date('d / m / Y à H:i:s ',filectime($GLOBALS["scoresDir"])+$GLOBALS["intervalBeforeDelete"]);
   $GLOBALS["timeSinceCreation"] = (time() - filectime($GLOBALS["scoresDir"]));
   $GLOBALS["currentInterval"] = date_diff(date_create($GLOBALS["deleteYear"]."/".$GLOBALS["deleteMonth"]."/".$GLOBALS["deleteDay"]),date_create($GLOBALS["currentYear"]."/".$GLOBALS["currentMonth"]."/".$GLOBALS["currentDay"]))->format('%a');
- };
+};
 
 /**
 * Procédure de suppression recursive d'un repertoire et de ses enfants
@@ -86,7 +90,7 @@ function recursiveRmdir($dir) {
     reset($objects); 
     rmdir($dir); 
   }  
-} 
+}; 
 
 // Condition de suppression
 // Si on est le bon jour et que le répertoire a plus d'un an, on supprime et on recrée les vips
@@ -97,7 +101,7 @@ if ($deleteBool) {
   $msg = "Suppression OK !"; 
   createVipScoresSpaces('./json/scoresCodesVip.json');
   $msgCron = "CRON OK !";
-}  
+};  
 
 echo json_encode(array(
     "msg" => $msg . "\r\n" . $msgVip. "\r\n" . $msgCron,
@@ -105,6 +109,5 @@ echo json_encode(array(
     "timeSinceCreation" => $timeSinceCreation,
     "deleteNextDate" => $deleteNextDate,
     "currentDate" => "$currentDay / $currentMonth / $currentYear",
-  ));  
-  
+  ));    
 ?>
