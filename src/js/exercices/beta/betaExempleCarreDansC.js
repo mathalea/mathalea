@@ -44,11 +44,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           texteCorr += `<br>$z^2=(a+ib)^2=${z}$`
           texteCorr += `<br>Or $(a+ib)^2=a^2+2abi+(ib)^2=a^2+2abi-b^2$`
           texteCorr += `<br>De plus, si 2 nombres complexes sont égaux, c'est qu'ils ont la même partie réelle et la même partie imaginaire.`
-          texteCorr += `<br>En <u>identifiant les parties réelles</u> à gauche et à droite de l'égalité $a^2+2abi-b^2=${z}$ on obtient :`
+          texteCorr += `<br>En <b>identifiant les parties réelles</b> à gauche et à droite de l'égalité $a^2+2abi-b^2=${z}$ on obtient :`
           texteCorr += `<br>$\\begin{matrix}(E_1) & a^2-b^2=${z.re} \\end{matrix}$`  
-          texteCorr += `<br>De même, en <u>identifiant les parties imaginaires</u> :`
+          texteCorr += `<br>De même, en <b>identifiant les parties imaginaires</b> :`
           texteCorr += `<br>$\\begin{matrix}(E_2) & 2ab=${z.im} \\end{matrix}$`  
-          texteCorr += `<br>Afin de résoudre plus facilement ce système, ajoutons une <u>troisième équation</u> en utilisant les modules :`
+          texteCorr += `<br>Afin de résoudre plus facilement ce système, ajoutons une <b>troisième équation</b> en utilisant les modules :`
           texteCorr += `<br>$\\mid z^2\\mid=\\mid${z}\\mid$`
           texteCorr += `<br>avec $\\mid z^2\\mid=\\mid z\\mid^2=a^2+b^2$`
           texteCorr += ` et $\\mid${z}\\mid=`
@@ -63,7 +63,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           texteCorr += `<br>De même, en remplaçant $a=${zsol.re}$ dans $(E_2)$ : `
           texteCorr += `$2\\times ${zsol.re} \\times b = ${z.im}$`
           texteCorr += `<br>On trouve $b=${zsol.im}$`
-          texteCorr += `<br><u>Conclusion</u> : L'équation admet 2 solutions $z=${zsol}$ et $z=${zsol.neg()}$`
+          texteCorr += `<br><b>Conclusion</b> : L'équation admet 2 solutions $z=${zsol}$ et $z=${zsol.neg()}$`
           break
         case 'type2':
           break

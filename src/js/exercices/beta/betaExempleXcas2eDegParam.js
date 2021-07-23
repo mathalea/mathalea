@@ -32,15 +32,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       switch (listeTypeDeQuestions[i]) { 
         case 'type1':
           a = randint(-5,5,0)
-          /*etape = `${xcas(`a:=${a}`)}`       
-          etape = `${xcas(`b:=randint(-2,2)*m+randint(-3,3)`)}` 
-          etape = `${xcas(`c:=randint(-2,2)*m+randint(-3,3)`)}` 
-          etape = `${xcas(`P:= a*x^2+b*x+c`)}` 
-          etape = `${xcas(`D:=b^2-4*a*c`)}`
-          etape = `${xcas(`a2:=coeff(D,m,2)`)}` 
-          etape = `${xcas(`b2:=coeff(D,m,1)`)}` 
-          etape = `${xcas(`c2:=coeff(D,m,0)`)}` 
-          etape = `${xcas(`d2:=simplify(b2^2-4*a2*c2)`)}` */
           etape = [
             `a:=${a}`,
             `b:=randint(-2,2)*m+randint(-3,3)`,
