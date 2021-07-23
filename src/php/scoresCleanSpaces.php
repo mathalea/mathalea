@@ -20,7 +20,8 @@ $msgVip = "Création des espaces de scores VIPs KO !"; // Pour le retour console
 $msgCron = "CRON KO !"; // Pour le retour console
 $scoresDir = "./resultats"; // Pour le repertoire de stockage des espaces de scores
 // On met tout à zéro dès lors que 365,25 jours ( 31 557 600 secondes ) se sont écoulés après la création du répertoire resultats
-$intervalBeforeDelete = 31557600; // 60; // Temps avant remise à zero des espaces de scores
+// Temporairement mis à 1 jour (86 400 secondes)
+$intervalBeforeDelete = 86400;//31557600; // 60; // Temps avant remise à zero des espaces de scores
 $deleteDay = intval(date('d',filectime($scoresDir)));
 $deleteMonth = intval(date('m',filectime($scoresDir)));
 $deleteYear = intval(date('Y',filectime($scoresDir)+$intervalBeforeDelete));
@@ -106,7 +107,7 @@ if ($deleteBool) {
 echo json_encode(array(
     "msg" => $msg . "\r\n" . $msgVip. "\r\n" . $msgCron,
     "timeLeft" => $currentInterval,
-    "timeSinceCreation" => $timeSinceCreation,
+    "timeSinceCreation" => number_format($timeSinceCreation, 0, ',', ' '),
     "deleteNextDate" => $deleteNextDate,
     "currentDate" => "$currentDay / $currentMonth / $currentYear",
   ));    
