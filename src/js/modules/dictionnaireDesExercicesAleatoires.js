@@ -3223,11 +3223,11 @@ export default {
     "name": "beta6C33-1"
   },
   "beta6C38": {
-    "titre": "Augmenter ou diminuer d un pourcentage",
+    "titre": "Augmenter ou diminuer d’un pourcentage",
     "url": "/exercices/beta/beta6C38.js",
     "amcReady": false,
     "interactifReady": true,
-    "interactifType": "mathlive",
+    "interactifType": "mathLive",
     "name": "beta6C38"
   },
   "beta6G21": {
