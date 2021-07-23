@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, prenomF, prenomM, calcul, texPrix, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Augmenter ou diminuer d un pourcentage'
+export const titre = 'Calculer une valeur manquante avec l’égalité de Pythagore'
+// export const titre = 'Augmenter ou diminuer d’un pourcentage '
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -66,16 +67,16 @@ export default function AugmenterEtReduireDunPourcentage () {
           nombreDecimales(n)
           mr = calcul(pr * billet / 100)
           final1 = calcul(billet - mr)
-          texte = `<br> Un billet d'avion coûte ${billet}€. ${prenom1} bénéficie d'une réduction de ${pr} %."<br>`
+          texte = `<br> Un billet d'avion coûte ${billet}€. ${prenom1} bénéficie d'une réduction de ${pr} %.<br>`
           texte += 'a) Le montant de la réduction est :'
-          texte += ajouteChampTexteMathLive(this, i) + '  €<br><br>'
+          texte += ajouteChampTexteMathLive(this, i)
           setReponse(this, i, [mr, mr * 10], { formatInteractif: 'calcul' })
           texte += `b) Finalement, ${prenom1} paiera son billet :`
-          texte += ajouteChampTexteMathLive(this, i + this.nbQuestions + 1) + '  €<br>'
-          texteCorr = `<br>a) Le montant de la réduction est :     $${billet}\\times ${pr} : 100 = $`
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(mr)}€$<br>`)
-          texteCorr += `b) Finalement, ${prenom1} paiera son billet : $${billet} - ${mr} = $`
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)}€$`)
+          texte += ajouteChampTexteMathLive(this, i + this.nbQuestions + 1)
+          texteCorr = `<br>a) Le montant de la réduction est :     $${billet}\\times ${pr} \\div 100 =  $`
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(mr)}€.$<br>`)
+          texteCorr += `b) Finalement, ${prenom1} paiera son billet : $${billet} - ${texPrix(mr)} =  $`
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)}€.$`)
           setReponse(this, i + this.nbQuestions + 1, final1)
           break
         case 'augmentation':
@@ -83,17 +84,17 @@ export default function AugmenterEtReduireDunPourcentage () {
           calcul(ma = pa * loyer / 100)
           calcul(final2 = loyer + ma)
 
-          texte = `<br> Le loyer de l'appartement de ${prenom2} coûte ${loyer}€. Au 1er janvier, il augmente de ${pa} %."<br>`
+          texte = `<br> Le loyer de l'appartement de ${prenom2} coûte ${loyer}€. Au 1er janvier, il augmente de ${pa} %.<br>`
           texte += 'a) Le montant de l\'augmentation est :'
-          texte += ajouteChampTexteMathLive(this, i) + '  €<br><br>'
+          texte += ajouteChampTexteMathLive(this, i)
           texte += `b) Finalement, ${prenom2} paiera son loyer :`
           setReponse(this, i, ma)
-          texte += ajouteChampTexteMathLive(this, i + this.nbQuestions + 1) + '  €'
+          texte += ajouteChampTexteMathLive(this, i + this.nbQuestions + 1)
           setReponse(this, i + this.nbQuestions + 1, final2)
-          texteCorr = `<br>a) Le montant de l'augmentation est :     $${loyer}\\times ${pa} : 100 = $`
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(ma)}€$<br>`)
-          texteCorr += `b) Finalement, ${prenom2} paiera son loyer : $${loyer} + ${ma} = $`
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)}€$`)
+          texteCorr = `<br>a) Le montant de l'augmentation est :     $${loyer}\\times ${pa} \\div 100 =  $`
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(ma)}€.$<br>`)
+          texteCorr += `b) Finalement, ${prenom2} paiera son loyer : $${loyer} + ${texPrix(ma)} =  $`
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)}€.$`)
           break
       }
 
@@ -107,5 +108,5 @@ export default function AugmenterEtReduireDunPourcentage () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Valeurs entières et 10%, 20% ..\n2 : Valeurs entières et 4%, 23% ..\n3 : Une décimales']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Valeurs entières et 10%, 20% ..\n2 : Valeurs entières et 4%, 23% ..\n3 : Une décimale comme 34,5%']
 }
