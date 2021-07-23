@@ -93,7 +93,7 @@ for (const file of exercicesList) {
       // On verifie s'il y a un amcType
       if (!module.amcType) {
         amcType.text = 'export const amcType non présent'
-      } else {        
+      } else {
         amcType.text = module.amcType
       }
       nbAmcReady += 1 // On incrémente pour la compet !
@@ -181,7 +181,7 @@ for (const file of exercicesList) {
     // On ajoute amcType que si amcReady est à true
     if (amcReady) {
       // On ajuste la propriété text de amcType différemment si c'est un tableau ou non
-      const typeText = ['qcmMono', 'qcmMult', 'AMCOpen', 'AMCNum', 'AMCOpenNum', 'AMCOpenNum✖︎2', 'AMCOpenNum✖︎3']      
+      const typeText = ['qcmMono', 'qcmMult', 'AMCOpen', 'AMCNum', 'AMCOpenNum', 'AMCOpenNum✖︎2', 'AMCOpenNum✖︎3', 'AMCHybride']
       if (typeof amcType.text === 'string') {
         if (!typeText.includes(amcType.text)) {
           beginWarnText()

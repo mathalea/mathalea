@@ -1,0 +1,138 @@
+<section class="ui  container " >    
+   <h3 class="ui block header">Profs - Espace de gestion des scores</h3>
+   <div class="ui icon warning message">
+    <i class="sun loading icon"></i>
+    <div class="content">
+      <div class="header">
+        /!\ ATTENTION /!\
+      </div>
+      <p id="scoresInfosTimeLeft"></p>
+    </div>
+   </div>
+   <div class="actions">
+    <div id="scoresDocumentation" class="ui positive right labeled icon button">
+      Documentation
+      <i class="book icon"></i>        
+    </div>
+    <div id="scoresCreateSpace" class="ui positive right labeled icon button">
+      Créer un espace
+      <i class="key icon"></i>
+    </div>
+    <div id="scoresSaveToUserId" class="ui positive right labeled icon button">
+      Enregistrer des scores 
+      <i class="save icon"></i>
+    </div>
+  </div>
+  <br>
+   <div class="image content">
+      <div class="description">
+        <!-- Feedback pour la documentation -->
+        <div id="scoresDocumentationFeedback" class="ui message" hidden>          
+            <div id="scoresDocumentationFeedbackHeader" class="ui header"></div>          
+            <div id="scoresDocumentationFeedbackBody">
+               <!-- <div class="header">Vous pouvez au choix :</div>
+               <ul>
+                 <li>Créer un espace de sauvegarde pour vos classes, vous obtenez :
+                    <ul>
+                       <li>Un code prof public de trois lettres majuscules, par exemple <b>STI</b></li>
+                       <li>Un lien vers l'espace web où seront stocker les résultats de vos élèves :
+                          <ul>
+                             <li>Un fichier csv par semaine et par classe avec un nom générique, par exemple <b>semaine27.csv</b> si on est la 27e semaine de l'année.</li>
+                             <li>Par exemple, pour la classe de 6A, le fichier contiendra tous les résultats de la semaine 27 pour tous les élèves de la classe de 6A.</li>
+                          </ul>
+                       </li>
+                    </ul>
+                    <img src="./assets/images/scores-espaceProfResultats_1.png"/>
+                    <img src="./assets/images/scores-espaceProfResultats_2.png"/>
+                    <img src="./assets/images/scores-espaceProfResultats_3.png"/>
+                 </li>
+       
+                 <li>Pour pouvoir <b>enregistrer des scores</b> dans un espace existant l'élève doit se connecter avec un userId au format suivant :
+                   <ul>
+                     <li>Le code prof => 3 lettres majuscules, par exemple <b>STI</b>.</li>
+                     <li>Le code classe => 2 caractères alphanumériques, les lettres sont des majuscules, par exemple <b>6A</b>.</li>
+                     <li>Le code eleve => 2 caractères alphanumériques, les lettres sont des majuscules, par exemple <b>1E</b>.</li>
+                   </ul>
+                   Le code élève est alors <b>STI6A1E</b>, une fois connecter ce code apparait dans la banière de titre des exercices.
+                   <img src="./assets/images/scores-userIdConnecte.png"/>
+                 </li>
+               </ul> -->
+               Sur <a href="https://coopmaths.fr/mathalea.html" target="_blank">coopmaths.fr/mathalea</a>, vous avez la possibilité d’enregistrer les scores de vos élèves. Pour être en conformité avec la RGPD, nous avons fait le choix de ne conserver aucune données personnelles sur notre site. Nous ne stockerons aucun nom, aucun prénom, aucune adresse électronique, aucune adresse IP …
+               <br>
+               Le principe est le suivant : 
+               <ul>
+                <li>Un professeur, un formateur ou un éducateur se rend sur <a href="./mathalea.html?v=scores" target="_blank">coopmaths.fr/mathalea.html?v=scores</a>.</li>
+                <li> Il clique sur le bouton « Créer un espace ».</li>
+                <li> Il obtient un identifiant avec 3 lettres majuscules au hasard (par exemple DNY) et une adresse qui lui permettra d’accéder aux scores qu’il faudra conserver précieusement.
+                  <img class="ui image" src="./assets/images/scores-espaceProfResultats_1.png"/>
+                </li>
+                <li> À ces 3 lettres, le professeur devra en ajouter 2 de son choix pour décrire un classe (par exemple DNY6A, DNYI21...).</li>
+                <li> Ensuite, pour chaque élève, il devra ajouter 2 autres caractères (par exemple DNY6A01, DNY6A02, DNY6AGN...).</li>
+                <li> Seul le professeur saura à quel élève correspond chaque code. Et si un élève de la 6A oublie son code, le professeur peut en inventer un nouveau (DNY6AZZ) et lui attribuer immédiatement sans avoir besoin de faire quoi que ce soit sur l’ordinateur.</li>
+                <div class="ui icon message">
+                  <i class="lightbulb icon"></i>
+                  <div class="content">
+                    <div class="header">
+                      Pour enregistrer des scores dans un espace professeur existant, un élève doit donc :
+                    </div>
+                    <p>
+                      <ul>
+                        <li>Se rendre sur <a href="https://coopmaths.fr/mathalea.html" target="_blank">coopmaths.fr/mathalea</a></li>
+                        <li>Cliquer sur connexion<br>
+                          <img class="ui image" src="./assets/images/scores-userIdConnexion.png"/>    
+                        </li>  
+                        <li>Il a alors besoin : 
+                          <ul>
+                            <li>Du code prof => 3 lettres majuscules, par exemple <b>STI</b>.</li>
+                            <li>Du code classe => 2 caractères alphanumériques, les lettres sont des majuscules, par exemple <b>6A</b>.</li>
+                            <li>Le code eleve => 2 caractères alphanumériques, les lettres sont des majuscules, par exemple <b>1E</b>.</li>
+                          </ul>
+                        </li>
+                      </ul>
+                      Il renseigne ce code dans la zone de saisie :
+                      <br>
+                      <img class="ui image" src="./assets/images/scores-userIdZoneDeSaisie.png"/>
+                      <br>
+                      Il peut ensuite fermer la fenêtre et choisir des exercices. Son userId est affiché tant qu'il est connecté :
+                      <br>
+                      <img class="ui image" src="./assets/images/scores-userIdConnecte.png"/>                        
+                    </p>
+                  </div>
+                </div>
+                <li> Enfin, le professeur pourra se rendre sur l’adresse qu’il a obtenue au moment de l’inscription pour télécharger un fichier tableur par classe et par semaine contenant tous les résultats associés aux différents codes à 7 caractères. Il restera à la charge du professeur d’associer les résultats d’un code avec le nom et le prénom de l’élève que seul lui connait.</li>
+                <img class="ui image" src="./assets/images/scores-espaceProfResultats_4.png"/>
+                <img class="ui image" src="./assets/images/scores-espaceProfResultats_5.png"/>
+                <img class="ui image" src="./assets/images/scores-espaceProfResultats_6.png"/>
+               </ul>
+                      
+
+            </div>          
+        </div>
+        <br>
+        <!-- Feedback pour les scores -->
+        <div id="scoresFeedback" class="ui positive message" hidden>          
+            <div id="scoresFeedbackHeader" class="header"></div>          
+            <div id="scoresFeedbackBody"></div>          
+        </div>
+        <!-- Formulaire pour saisir un userId -->
+        <!-- https://semantic-ui.com/collections/message.html -->
+        <!-- https://semantic-ui.com/elements/input.html -->
+        <div id="scoresPromptUserId" hidden>
+          <div class="ui right labeled left icon input">
+            <i class="user icon"></i>
+            <input id="scoresInputUserId" type="text" placeholder="PPPCCEE" onkeyup="this.value=this.value.toUpperCase()">
+            <span class="ui tag label">
+              userId ici
+            </span>
+            <button id="scoresSubmitUserId" class="ui positive button">Submit</button>
+          </div>
+          <div id ="scoresInputUserIdError" class="ui negative message" hidden>
+            <div id="scoresInputUserIdErrorHeader" class="header"></div>          
+            <div id="scoresInputUserIdErrorBody"></div>          
+          </div> 
+        </div>
+      </div>             
+    </div>
+    <br>          
+
+</section>
