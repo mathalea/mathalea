@@ -61,7 +61,7 @@ function spanExercice (id, titre) {
     ? 'data-tooltip="' + coupeChaine(titre, maxLength + 20) + '"'
     : ''
   const titreTronque = titre.length > maxLength ? titre.substr(0, maxLength) + '...' : titre
-  const amcPrecisionType = context.isAmc ? `<span style="color:#f15929;"> ${listeDesExercicesDisponibles[id].amcType} </span>` : ''
+  const amcPrecisionType = context.isAmc ? `<span style="color:#f15929;"> ${listeDesExercicesDisponibles[id].amcType.text} </span>` : ''
   return `<span class="id_exercice">${id}</span> - <a class="ui bouton lien_id_exercice" ${tooltip} data-id_exercice="${id}">${titreTronque} ${amcPrecisionType ? '-' + amcPrecisionType : ''}</a></a><span data-content="Prévisualiser l'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
 }
 
