@@ -1,4 +1,4 @@
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique,calcul,ecritureParentheseSiNegatif,fractionSimplifiee,texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique,calcul,texRacineCarree,ecritureParentheseSiNegatif,fractionSimplifiee,texFraction } from '../../modules/outils.js'
 
 import Exercice from '../Exercice.js'
 export const titre = 'Equations avec logarithmes'
@@ -27,6 +27,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     const typesDeQuestionsDisponibles =  ['lnu=lnv', '2lnu=lnv', 'lnu+lnv=lnw']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     const Txtsimplifier = `<br>L'équation étant du type $\\ln(a)=\\ln(b)$, nous pouvons enlever les logarithmes des 2 côtés de l'égalité :`
+    const TxtConclusion = `<br><u>Conclusion</u> :`
     for (let i = 0, texte, texteCorr, droites,c,a,b,nbelt,formule,u,v,x1,x2,etape,faux, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
         droites = []
@@ -80,13 +81,14 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         texteCorr += `<br>$${drteParab(a)}=0$`
         b = a[1] ** 2 - 4 * a[0] * a[2]
         texteCorr += `<br>Son discriminant vaut $\\Delta = ${b}$`
-        if (b > 0) {
+        if (b > 0) {    // On a a priori 2 solutions
             texteCorr += `$> 0$`
             x1 = (-a[1] - Math.sqrt(b)) / 2 / a[0]
             x2 = (-a[1] + Math.sqrt(b)) / 2 / a[0]
             texteCorr += `<br>Ce qui donne 2 solutions `
-            texteCorr += `$x_1=\\dfrac{${ecritureAlgebrique(-a[1])}-\\sqrt{\\Delta}}{2\\times ${ecritureParentheseSiNegatif(a[0])}}\\simeq ${calcul(x1,3)}$`        
-            texteCorr += ` et $x_2=\\dfrac{${ecritureAlgebrique(-a[1])}+\\sqrt{\\Delta}}{2\\times ${ecritureParentheseSiNegatif(a[0])}}\\simeq ${calcul(x2,3)}$`
+            texteCorr += `$x_1=\\dfrac{${ecritureAlgebrique(-a[1])}-${texRacineCarree(b)}}{2\\times ${ecritureParentheseSiNegatif(a[0])}}\\simeq ${calcul(x1,3)}$`        
+            texteCorr += ` et $x_2=\\dfrac{${ecritureAlgebrique(-a[1])}+${texRacineCarree(b)}}{2\\times ${ecritureParentheseSiNegatif(a[0])}}\\simeq ${calcul(x2,3)}$`
+            // On va vérifier si les solutions conviennent
             etape = [x1,x2].forEach((v,i) => {
                 texteCorr += `<br>Vérifions si $x_${i+1}$ est bien dans le domaine de définition de l'équation : `
                 faux = false
@@ -101,15 +103,16 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
                         break    
                     }
                 }
-                texteCorr += `<br>La valeur $x_${i+1}$ ` + (faux ? `ne convient pas` : `<b>convient</b>`)
+                texteCorr += `${TxtConclusion} La valeur $x_${i+1}$ ` + (faux ? `ne convient pas` : `<b>convient</b>`)
             })
         
-        } else if (b == 0) {
+        } else if (b == 0) {    // a priori 1 seule solution
             x1 = -a[1] / 2 / a[0]
             texteCorr += `<br>Ce qui donne 1 solution `
             texteCorr += `$x_1=\\dfrac{${ecritureAlgebrique(-a[1])}}{2\\times ${ecritureParentheseSiNegatif(a[0])}}\\simeq ${calcul(x1,3)}$`        
             texteCorr += `<br>Vérifions si cette solution est bien dans le domaine de définition de l'équation : `
             faux = false
+            // On va vérifier si la solution convient
             for (let j = 0; j < 3; j++) {
                 texteCorr += `<br>$${c[2*j]}x_${i+1}${ecritureAlgebrique(c[2*j+1])}\\simeq ${calcul(c[2*j]*v + c[2*j+1],3)}`
                 if (c[2*j]*v + c[2*j+1] > 0) { 
@@ -120,25 +123,26 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
                     break    
                 }
             }
-            texteCorr += `<br>La valeur $x_1$ ` + (faux ? `ne convient pas` : `<b>convient</b>`)
-        } else {
+            texteCorr += `${TxtConclusion} La valeur $x_1$ ` + (faux ? `ne convient pas` : `<b>convient</b>`)
+        } else { // pas de solution
             texteCorr += `$< 0$`
-            texteCorr += `<br>L'équation n'a donc pas de solution réelle.`
+            texteCorr += `${TxtConclusion} L'équation n'a donc pas de solution réelle.`
         }
       }  else { // Equation 1er degré
         a = [u[0]-v[0], v[1]-u[1]]
         texteCorr += `<br>Ce qui donne : $${a[0]}x=${a[1]}$`
-        if (a[0] == 0) {
-            if (a[1] == 0) {
-                texteCorr += `<br>Tous les réels du domaine de définition sont solutions de l'équation.`
-            } else {
-                texteCorr += `<br>L'équation n'a pas de solution.`
+        if (a[0] == 0) {    // 0.x = b
+            if (a[1] == 0) {    // 0.x = 0
+                texteCorr += `${TxtConclusion} Tous les réels du domaine de définition sont solutions de l'équation.`
+            } else { 
+                texteCorr += `${TxtConclusion} L'équation n'a pas de solution.`
             }
-        } else {
+        } else {    // a.x = b avec a non nul
             x1 = fractionSimplifiee(a[1], a[0])
             x2 = a[1] / a[0]    // valeur approchée
             texteCorr += `<br>Vérifions si la solution $x=${texFraction(x1[0],x1[1])}$ est bien dans le domaine de définition de l'équation : `
             faux = false
+            // On va vérifier si la solution convient
             for (let j = 0; j < 2; j++) {
                 let resultat = c[2*j]*x2 + c[2*j+1]
                 texteCorr += `<br>$${c[2*j]}\\times${texFraction(x1[0],x1[1])}${ecritureAlgebrique(c[2*j+1])}${EgalEnviron(resultat)}${calcul(resultat,3)}`
@@ -150,7 +154,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
                     break    
                 }
             }
-            texteCorr += `<br>La valeur ` + (faux ? `ne convient pas` : `<b>convient</b>`)
+            texteCorr += `${TxtConclusion} La valeur ` + (faux ? `ne convient pas` : `<b>convient</b>`)
         }
       }
 
