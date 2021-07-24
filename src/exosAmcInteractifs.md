@@ -1,10 +1,10 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 85 
+- nombre d'exos amcReady 86 
 - nombre d'exos interactifReady 105 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|2G50-2|Lecture graphique des coefficients d'une équation réduite |KO|KO|OK|mathLive|
+|2G50-2|Lecture graphique des coefficients d'une équation réduite |OK|bug amcType.num|OK|mathLive|
 |2G50|Déterminer le coefficient directeur d'une droite.|KO|KO|OK|mathLive|
 |2G53|Alignement de 3 points.|KO|KO|OK|mathLive|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
@@ -103,6 +103,7 @@
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|export const interactifType non présent|
 |6N43|Critères de divisibilité|OK|qcmMono|OK|export const interactifType non présent|
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
+|betaExempleFigureClic|Sommets du triangle|KO|KO|OK|custom|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
@@ -123,4 +124,3 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
-|betaExempleFigureClic|Sommets du triangle|KO|KO|OK|custom|

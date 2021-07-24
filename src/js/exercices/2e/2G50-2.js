@@ -2,18 +2,19 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
 import { repere2, droite, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = "Lecture graphique des coefficients d'une équation réduite "
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 /**
  totoche
 
 */
 export default function lecturegraphiquedeaetb (numeroExercice) {
   Exercice.call(this)
-  this.titre = titre
-  // this.interactifReady = interactifReady
-  // this.interactifType = interactifType
+
   this.consigne = 'Equation réduite de droite et représentation graphique '
   this.nbQuestions = 3// On complète le nb de questions
   this.nbCols = 2
@@ -24,8 +25,6 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
   this.spacingCorr = 1
   this.spacingCorr = 3
   this.sup = 1
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
@@ -45,7 +44,6 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           a = 1
         }// On évite la situation de double nullité
         r = repere2()// On définit le repère
-        f = x => a * x + b// On définit la fonction affine
         c = droite(a, -1, b) // On définit l'objet qui tracera la courbe dans le repère
         c.color = 'red'
         c.epaisseur = 2
@@ -90,7 +88,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
               xmax: 8,
               ymax: 8
 
-            }, r, f, s1, s2, t, l, c)
+            }, r, s1, s2, t, l, c)
           }
         } else {
           s1 = segment(0, b, 1, b, 'blue')
@@ -109,22 +107,62 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
               xmax: 8,
               ymax: 8
 
-            }, r, f, s1, s2, t, l, c)
+            }, r, s1, s2, t, l, c)
           }
         }
         // On trace le graphique
         setReponse(this, i, 'y=' + reduireAxPlusB(a, b))
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: "Donner l'équation réduite de la droite tracée dans le repère ci-dessus.<br>",
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: texteCorr,
+                  statut: '',
+                  reponse: {
+                    texte: 'coefficient directeur',
+                    valeur: a,
+                    param: {
+                      digits: 1,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: "ordonnée à l'origine",
+                    valeur: b,
+                    param: {
+                      digits: 1,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
+        }
       }
       if (this.sup === 2) { // cas du coeff directeur fractionnaire
         a = randint(-5, 5) // numérateut coefficient directeur
         b = randint(-5, 5) // ordonnée à l'origine
-        d = randint(2, 5) // dénominateur coefficient directeur
+        d = randint(2, 5, 3) // dénominateur coefficient directeur
         if (a === 0 && b === 0) {
           a = 1
           d = 3
         }// On évite la situation de double nullité
         r = repere2()// On définit le repère
-        f = x => (a / d) * x + b // On définit la fonction affine
         c = droite(a / d, -1, b) // On définit l'objet qui tracera la courbe dans le repère
         c.color = 'red'
         c.epaisseur = 2// On définit l'objet qui tracera la courbe dans le repère
@@ -135,7 +173,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           ymin: -6,
           xmax: 6,
           ymax: 6
-        }, r, f, c)// On trace le graphique
+        }, r, c)// On trace le graphique
         if (a === 0) {
           texteCorr = 'On observe que la droite est horizontale. '
           texteCorr += `<br>La droite est l'ensemble des points ayant comme ordonnée : $${b}$ `
@@ -189,9 +227,67 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
               xmax: 6,
               ymax: 10
 
-            }, r, f, s1, s2, t, l, c)
+            }, r, s1, s2, t, l, c)
           }// On trace le graphique
           setReponse(this, i, 'y=' + reduireAxPlusB(a / d, b))
+          if (context.isAmc) {
+            this.autoCorrection[i] = {
+              enonce: "Donner l'équation réduite de la droite tracée dans le repère ci-dessus.<br>",
+              propositions: [
+                {
+                  type: 'AMCNum',
+                  propositions: [{
+                    texte: texteCorr,
+                    statut: '',
+                    reponse: {
+                      texte: 'numérateur coefficient directeur',
+                      valeur: a,
+                      param: {
+                        digits: 1,
+                        decimals: 0,
+                        signe: true,
+                        approx: 0
+                      }
+                    }
+                  }]
+                },
+                {
+                  type: 'AMCNum',
+                  propositions: [{
+                    texte: '',
+                    statut: '',
+                    reponse: {
+                      texte: 'dénominateur coefficient directeur',
+                      valeur: d,
+                      param: {
+                        digits: 1,
+                        decimals: 0,
+                        signe: false,
+                        approx: 0
+                      }
+                    }
+                  }]
+                },
+                {
+                  type: 'AMCNum',
+                  propositions: [{
+                    texte: '',
+                    statut: '',
+                    reponse: {
+                      texte: "ordonnée à l'origine",
+                      valeur: b,
+                      param: {
+                        digits: 1,
+                        decimals: 0,
+                        signe: true,
+                        approx: 0
+                      }
+                    }
+                  }]
+                }
+              ]
+            }
+          }
         }
       }
       texte += ajouteChampTexteMathLive(this, i)
