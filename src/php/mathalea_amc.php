@@ -98,7 +98,7 @@
     </script>
 
     <!-- Le loader central déclaré comme pouvant charger des modules -->
-    <script type="module" src="mathalea_amc.js"></script>
+    <script type="module" src="mathalea.js"></script>
 
     <title>MathALÉA</title>
   </head>

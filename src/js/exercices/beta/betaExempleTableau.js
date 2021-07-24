@@ -10,7 +10,6 @@ export const titre = 'Exercice exemple'
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = ''
   this.nbQuestionsModifiable = false
   // this.nbQuestions = 10
@@ -31,17 +30,14 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       flecheDroite: '\\times 50',
       flecheDroiteSens: 'haut'
     })
-    let question1, question2, correction1, correction2
 
     this.introduction = mathalea2d({ xmin: -1, xmax: 22, ymin: -5, ymax: 10 }, monTableau)
 
-    question1 = 'texte de la question 1.'
-    question1 += '<br>'
-    question2 = 'texte de la question 2.'
-    question2 += '<br>'
+    const question1 = 'texte de la question 1.<br>'
+    const question2 = 'texte de la question 2.<br>'
 
-    correction1 = 'texte de la correction 1'
-    correction2 = 'texte de la correction2'
+    const correction1 = 'texte de la correction 1'
+    const correction2 = 'texte de la correction2'
     this.listeQuestions.push(question1, question2)
     this.listeCorrections.push(correction1, correction2)
 

@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, choice, arrondi, calcul, texNombre, t
 import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Conversions de volume'
 export const amcReady = true
-export const amcType = 1 // type de question AMC
+export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 

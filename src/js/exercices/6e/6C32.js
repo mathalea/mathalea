@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenuSansNumero,randint,arrondi,calcul,choice,arrondiVirgule,texNombre,texNombre2,texPrix} from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, calcul, choice, arrondiVirgule, texNombre, texPrix } from '../../modules/outils.js'
 
 export const titre = 'Problème - Les courses'
 
@@ -9,130 +9,124 @@ export const titre = 'Problème - Les courses'
  * @author Rémi Angot
  * Référence 6C32
  */
-export default function Probleme_course() {
-  Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = titre;
-  this.consigne = "";
-  this.spacing = 2;
-  this.spacingCorr = 2;
-  this.nbQuestions = 1;
-  this.nbQuestionsModifiable = false;
-  this.nbCols = 1;
-  this.nbColsCorr = 1;
-  this.sup=false
+export default function ProblemeCourse () {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.titre = titre
+  this.consigne = ''
+  this.spacing = 2
+  this.spacingCorr = 2
+  this.nbQuestions = 1
+  this.nbQuestionsModifiable = false
+  this.nbCols = 1
+  this.nbColsCorr = 1
+  this.sup = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []; // Liste de questions
-    this.listeCorrections = []; // Liste de questions corrigées
-    let prenom = choice([
-      "Benjamin",
-      "Léa",
-      "Aude",
-      "Julie",
-      "Corinne",
-      "Mehdi",
-      "Joaquim",
-    ]);
-    let masse_en_kg_de_aliment1
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    const prenom = choice([
+      'Benjamin',
+      'Léa',
+      'Aude',
+      'Julie',
+      'Corinne',
+      'Mehdi',
+      'Joaquim'
+    ])
+    let masseEnKgDeAliment1
     if (this.sup) {
-      masse_en_kg_de_aliment1=randint(2,5)
+      masseEnKgDeAliment1 = randint(2, 5)
+    } else {
+      masseEnKgDeAliment1 = calcul(
+        randint(2, 5) + randint(1, 9) / 10
+      )
     }
-    else { masse_en_kg_de_aliment1= calcul(
-      randint(2, 5) + randint(1, 9) / 10
-    );}
-    let prix_aliment1 = calcul(randint(2, 4) + randint(1, 9) / 10);
-    let aliment1 = choice(["courgettes", "carottes", "pommes"]);
-    let masse_en_g_de_aliment2 
-      
-    let prix_aliment2
-    if (this.sup){
-      prix_aliment2=randint(15,25)
-      masse_en_g_de_aliment2  = randint(2,7) * 500;
-    } 
-    else {
-      prix_aliment2= calcul(randint(12, 23) + randint(1, 9) / 10);
-      masse_en_g_de_aliment2  = randint(21, 97) * 10;
+    const prixAliment1 = calcul(randint(2, 4) + randint(1, 9) / 10)
+    const aliment1 = choice(['courgettes', 'carottes', 'pommes'])
+    let masseEnGdeAliment2
+
+    let prixAliment2
+    if (this.sup) {
+      prixAliment2 = randint(15, 25)
+      masseEnGdeAliment2 = randint(2, 7) * 500
+    } else {
+      prixAliment2 = calcul(randint(12, 23) + randint(1, 9) / 10)
+      masseEnGdeAliment2 = randint(21, 97) * 10
     }
-    let aliment2 = choice(["boeuf", "veau", "poulet"]);
+    const aliment2 = choice(['boeuf', 'veau', 'poulet'])
 
     let texte = `${prenom} achète ${texNombre(
-      masse_en_kg_de_aliment1
-    )} kg de ${aliment1} à ${texPrix(prix_aliment1)} €/kg `;
-    texte += `et ${masse_en_g_de_aliment2} g de ${aliment2} à ${texPrix(
-      prix_aliment2
-    )} €/kg. Quel est le prix total à payer ?`;
+      masseEnKgDeAliment1
+    )} kg de ${aliment1} à ${texPrix(prixAliment1)} €/kg `
+    texte += `et ${masseEnGdeAliment2} g de ${aliment2} à ${texPrix(
+      prixAliment2
+    )} €/kg. Quel est le prix total à payer ?`
     let texteCorr =
       `Prix des ${aliment1} : ${texNombre(
-        masse_en_kg_de_aliment1
-      )} kg × ${texPrix(prix_aliment1)} €/kg = ${texPrix(
-        calcul(masse_en_kg_de_aliment1 * prix_aliment1)
-      )} €` + "<br>";
+        masseEnKgDeAliment1
+      )} kg × ${texPrix(prixAliment1)} €/kg = ${texPrix(
+        calcul(masseEnKgDeAliment1 * prixAliment1)
+      )} €` + '<br>'
     texteCorr +=
-      `Prix du ${aliment2} : ${texNombre(calcul(masse_en_g_de_aliment2 / 1000))} kg × ${texPrix(prix_aliment2)} €/kg = ${texNombre(calcul((masse_en_g_de_aliment2 * prix_aliment2) / 1000))} € ` + "<br>";
-    texteCorr += `Prix total à payer : ${texNombre(calcul(masse_en_kg_de_aliment1 * prix_aliment1))} € + ${texNombre(calcul(masse_en_g_de_aliment2 * prix_aliment2 / 1000))} €`
-    if (Number.isInteger(calcul((masse_en_kg_de_aliment1 * prix_aliment1 +(masse_en_g_de_aliment2 * prix_aliment2) / 1000))*100)) {
-          texteCorr+=` = `
-        }
-        else {
-          texteCorr+=` ≈ `
-        }
-    texteCorr+=`${arrondiVirgule(calcul(masse_en_kg_de_aliment1 * prix_aliment1 +(masse_en_g_de_aliment2 * prix_aliment2) / 1000))} €<br>`;
-    texteCorr += `<br><i>Le prix total aurait aussi pu être trouvé en un seul calcul</i> : ${texNombre(masse_en_kg_de_aliment1)} kg × ${texPrix(prix_aliment1)} €/kg + ${texNombre(calcul(masse_en_g_de_aliment2 / 1000))} kg × ${texPrix(prix_aliment2)} €/kg `
-    if (Number.isInteger(calcul((masse_en_kg_de_aliment1 * prix_aliment1 +(masse_en_g_de_aliment2 * prix_aliment2) / 1000))*100)) {
-          texteCorr+=` = `
-        }
-        else {
-          texteCorr+=` ≈ `
-        }
-    texteCorr+=`${arrondiVirgule(calcul(
-        masse_en_kg_de_aliment1 * prix_aliment1 +
-        (masse_en_g_de_aliment2 * prix_aliment2) / 1000
+      `Prix du ${aliment2} : ${texNombre(calcul(masseEnGdeAliment2 / 1000))} kg × ${texPrix(prixAliment2)} €/kg = ${texNombre(calcul((masseEnGdeAliment2 * prixAliment2) / 1000))} € ` + '<br>'
+    texteCorr += `Prix total à payer : ${texNombre(calcul(masseEnKgDeAliment1 * prixAliment1))} € + ${texNombre(calcul(masseEnGdeAliment2 * prixAliment2 / 1000))} €`
+    if (Number.isInteger(calcul((masseEnKgDeAliment1 * prixAliment1 + (masseEnGdeAliment2 * prixAliment2) / 1000)) * 100)) {
+      texteCorr += ' = '
+    } else {
+      texteCorr += ' ≈ '
+    }
+    texteCorr += `${arrondiVirgule(calcul(masseEnKgDeAliment1 * prixAliment1 + (masseEnGdeAliment2 * prixAliment2) / 1000))} €<br>`
+    texteCorr += `<br><i>Le prix total aurait aussi pu être trouvé en un seul calcul</i> : ${texNombre(masseEnKgDeAliment1)} kg × ${texPrix(prixAliment1)} €/kg + ${texNombre(calcul(masseEnGdeAliment2 / 1000))} kg × ${texPrix(prixAliment2)} €/kg `
+    if (Number.isInteger(calcul((masseEnKgDeAliment1 * prixAliment1 + (masseEnGdeAliment2 * prixAliment2) / 1000)) * 100)) {
+      texteCorr += ' = '
+    } else {
+      texteCorr += ' ≈ '
+    }
+    texteCorr += `${arrondiVirgule(calcul(
+        masseEnKgDeAliment1 * prixAliment1 +
+        (masseEnGdeAliment2 * prixAliment2) / 1000
       )
-    )} €<br>`;
+    )} €<br>`
 
     if (!context.isHtml) {
       texteCorr =
         `Prix des ${aliment1} : $${texNombre(
-          masse_en_kg_de_aliment1
+          masseEnKgDeAliment1
         )}~\\text{kg}\\times${texPrix(
-          prix_aliment1
+          prixAliment1
         )}~\\text{\\euro{}/kg} = ${texPrix(
-          calcul(masse_en_kg_de_aliment1 * prix_aliment1)
-        )}~\\text{\\euro}$` + "<br>";
+          calcul(masseEnKgDeAliment1 * prixAliment1)
+        )}~\\text{\\euro}$` + '<br>'
       texteCorr +=
         `Prix du ${aliment2} : $${texNombre(
-          calcul(masse_en_g_de_aliment2 / 1000)
+          calcul(masseEnGdeAliment2 / 1000)
         )}~\\text{kg}\\times${texPrix(
-          prix_aliment2
+          prixAliment2
         )}~\\text{\\euro{}/kg} = ${texNombre(
-          calcul((masse_en_g_de_aliment2 * prix_aliment2) / 1000)
-        )}~\\text{\\euro}$` + "<br>";
+          calcul((masseEnGdeAliment2 * prixAliment2) / 1000)
+        )}~\\text{\\euro}$` + '<br>'
       texteCorr += `Prix total à payer : $${texNombre(
-        calcul(masse_en_kg_de_aliment1 * prix_aliment1)
+        calcul(masseEnKgDeAliment1 * prixAliment1)
       )}~\\text{\\euro} + ${texNombre(
-        calcul((masse_en_g_de_aliment2 * prix_aliment2) / 1000)
+        calcul((masseEnGdeAliment2 * prixAliment2) / 1000)
       )}~\\text{\\euro}`
-      if (Number.isInteger(calcul((masse_en_kg_de_aliment1 * prix_aliment1 +(masse_en_g_de_aliment2 * prix_aliment2) / 1000))*100)) {
-            texteCorr+=`=`
-          }
-          else {
-            texteCorr+=`\\approx`
-          }
-      texteCorr+=` ${arrondiVirgule(
+      if (Number.isInteger(calcul((masseEnKgDeAliment1 * prixAliment1 + (masseEnGdeAliment2 * prixAliment2) / 1000)) * 100)) {
+        texteCorr += '='
+      } else {
+        texteCorr += '\\approx'
+      }
+      texteCorr += ` ${arrondiVirgule(
         calcul(
-          masse_en_kg_de_aliment1 * prix_aliment1 +
-          (masse_en_g_de_aliment2 * prix_aliment2) / 1000
+          masseEnKgDeAliment1 * prixAliment1 +
+          (masseEnGdeAliment2 * prixAliment2) / 1000
         )
-      )}~\\text{\\euro}$<br>`;
+      )}~\\text{\\euro}$<br>`
     }
 
-    this.listeQuestions.push(texte);
-    this.listeCorrections.push(texteCorr);
+    this.listeQuestions.push(texte)
+    this.listeCorrections.push(texteCorr)
 
-    listeQuestionsToContenuSansNumero(this);
-  };
-  this.besoinFormulaireCaseACocher=["Calculs faciles"]
+    listeQuestionsToContenuSansNumero(this)
+  }
+  this.besoinFormulaireCaseACocher = ['Calculs faciles']
 }
-
-
-

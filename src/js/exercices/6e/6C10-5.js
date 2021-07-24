@@ -1,9 +1,8 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import {exportQcmAmc,listeQuestionsToContenu,randint,combinaisonListes,texteEnCouleurEtGras} from '../../modules/outils.js'
-import {mathalea2d,labyrinthe} from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { mathalea2d, labyrinthe } from '../../modules/2d.js'
 export const amcReady = true
-export const amcType = 3 //type de question AMC 
+export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = false
 export const titre = 'Labyrinthe de multiples'
 
@@ -14,12 +13,9 @@ export const titre = 'Labyrinthe de multiples'
  * Parcourir un labyrinthe de nombres en passant par les multiples du nombre choisi.
  */
 
-export default function Exercice_labyrinthe_multiples () {
+export default function ExerciceLabyrintheMultiples () {
   'use strict'
   Exercice.call(this)
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.amcType = amcType
   this.titre = titre
   this.consigne = ''
   this.niveau = '6e'
@@ -32,7 +28,7 @@ export default function Exercice_labyrinthe_multiples () {
   this.tailleDiaporama = 100
   this.sup3 = 3
   this.sup = 9
-  if (this.niveau = 'CM') {
+  if (this.niveau === 'CM') {
     this.sup2 = 10
     this.sup3 = 3
   } else {
@@ -90,12 +86,6 @@ export default function Exercice_labyrinthe_multiples () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
-    /*********************************************************/
-    // On ajoute cette ligne pour AMC
-    if (context.isAmc){
-    
-    }
-    /**********************************************************/
   }
   this.besoinFormulaireNumerique = ['Table ']
   this.besoinFormulaire2Numerique = ['Facteur maximum ']

@@ -1,4 +1,4 @@
-import Exercice_labyrinthe_multiples from '../6e/6C10-5.js'
+import ExerciceLabyrintheMultiples from '../6e/6C10-5.js'
 export const titre = 'Labyrinthe de multiples'
 
 /**
@@ -8,11 +8,10 @@ export const titre = 'Labyrinthe de multiples'
  *
  * @author Jean-Claude Lhote
  */
-export default function Labyrinthe_de_multiplesCM() {
-    Exercice_labyrinthe_multiples.call(this);
-  this.niveau = 'CM';
-  this.titre = titre;
-  this.sup = 5;
-    this.sup2=10
-    this.sup3=3
+export default function LabyrintheDeMultiplesCM () {
+  ExerciceLabyrintheMultiples.call(this)
+  this.niveau = 'CM'
+  this.sup = 5
+  this.sup2 = 10
+  this.sup3 = 3
 }

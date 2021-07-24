@@ -104,9 +104,7 @@ const config = {
   // les js à compiler, cf https://webpack.js.org/configuration/entry-context/#entry
   entry: {
     mathalea: './src/js/mathalea.js',
-    mathalea_amc: './src/js/mathalea_amc.js',
     mathalea2d: './src/js/modules/mathalea2d-gui.js',
-    mathaleaDiaporama: ['./src/js/modules/mathalea_diaporama.js', './src/js/mathalea.js'],
     mathalea2iep: './src/js/modules/mathalea2iep-gui.js',
     alacarte: './src/js/alacarte.js'
   },
@@ -153,11 +151,15 @@ const config = {
       // Cf https://webpack.js.org/plugins/copy-webpack-plugin/#info
       patterns: [
         { from: 'src/assets', to: 'assets', info: { minimized: true } },
+        { from: 'src/templates', to: 'templates', info: { minimized: true } },
+        { from: 'src/json', to: 'json', info: { minimized: true } },
         { from: 'src/php', to: './', info: { minimized: true } },
         { from: 'src/assets/favicon.ico', to: './', info: { minimized: true } },
         { from: 'src/.htaccess', to: './', info: { minimized: true } },
         { from: 'node_modules/mathlive/dist/fonts', to: 'js/fonts', info: { minimized: true } },
-        { from: 'node_modules/mathlive/dist/sounds', to: 'js/sounds', info: { minimized: true } }
+        { from: 'node_modules/mathlive/dist/sounds', to: 'js/sounds', info: { minimized: true } },
+        { from: 'src/html/exercice.html', to: './', info: { minimized: true } },
+        { from: 'src/html/exo.html', to: './', info: { minimized: true } }
       ]
     }),
     new MiniCssExtractPlugin({
@@ -169,26 +171,6 @@ const config = {
       template: 'src/html/mathalea.html',
       filename: 'mathalea.html',
       chunks: ['mathalea']
-    }),
-    new HtmlWebpackPlugin({
-      template: 'src/html/exercice.html',
-      filename: 'exercice.html',
-      chunks: ['mathalea']
-    }),
-    new HtmlWebpackPlugin({
-      template: 'src/html/mathalealatex.html',
-      filename: 'mathalealatex.html',
-      chunks: ['mathalea']
-    }),
-    new HtmlWebpackPlugin({
-      template: 'src/html/exo.html',
-      filename: 'exo.html',
-      chunks: ['mathalea']
-    }),
-    new HtmlWebpackPlugin({
-      template: 'src/html/cm.html',
-      filename: 'cm.html',
-      chunks: ['mathaleaDiaporama']
     }),
     new HtmlWebpackPlugin({
       template: 'src/html/mathalea2d.html',
@@ -209,11 +191,6 @@ const config = {
       template: 'src/html/2d.html',
       filename: '2d.html',
       chunks: ['mathalea2d']
-    }),
-    new HtmlWebpackPlugin({
-      template: 'src/html/mathalea_amc.html',
-      filename: 'mathalea_amc.html',
-      chunks: ['mathalea_amc']
     }),
     new HtmlWebpackPlugin({
       template: 'src/html/mathalea2iep.html',

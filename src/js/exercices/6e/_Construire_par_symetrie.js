@@ -35,7 +35,7 @@ export default function ConstruireParSymetrie () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, sc
-    if (this.sup2 === 2) sc = 0.8
+    if (parseInt(this.sup2) === 2) sc = 0.8
     else sc = 0.5
 
     let A; let AA; let cA; let sA
@@ -319,7 +319,7 @@ export default function ConstruireParSymetrie () {
       }
       if (this.sup2 < 3) g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
       else g = ''
-      if (this.sup2 === 2) {
+      if (parseInt(this.sup2) === 2) {
         k = 0.8
         carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
       } else {

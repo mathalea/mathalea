@@ -1,15 +1,15 @@
 import { point, polygone, segment, milieu, nommePolygone, codeSegment, codeAngle, mathalea2d, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { creerNomDePolygone, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Reconnaitre un parallélogramme à partir du codage d’une figure'
 
 /**
- * Description didactique de l'exercice
- * @author
- * Référence
+ * On doit justifier qu'un quadrilatère est un parallélogramme en citant la bonne propriété
+ * @author Rémi Angot
+ * Référence 5G40-2
+ * Publié le 5/4/2021
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function ParallelogrammeAPartirDUneFigure () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = "Pour chacune des figures suivantes, tracées à main levée, préciser s'il s'agit d'un parallélogramme."
@@ -162,5 +162,3 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
 }
-
-

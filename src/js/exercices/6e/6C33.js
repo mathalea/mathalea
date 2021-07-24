@@ -1,12 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, miseEnEvidence, listeDesDiviseurs, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, miseEnEvidence, listeDesDiviseurs, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Calculer en utilisant les priorités opératoires'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4 // Question numérique
+export const amcType = 'AMCNum' // Question numérique
 
 /**
  * Plusieurs type de calcul avec des entiers.
@@ -44,10 +44,6 @@ export const amcType = 4 // Question numérique
 export default function Priorites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
   this.consigne = 'Calculer'
   this.nbQuestions = 5
   this.nbCols = 2
@@ -55,14 +51,13 @@ export default function Priorites () {
   this.sup = 3
 
   this.nouvelleVersion = function () {
-    let reponse
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let questionsDisponibles = [] //
-    if (this.sup === 1) {
+    if (parseInt(this.sup) === 1) {
       questionsDisponibles = range1(12)
-    } else if (this.sup === 2) {
+    } else if (parseInt(this.sup) === 2) {
       questionsDisponibles = range1(22, range1(12))
     } else {
       questionsDisponibles = range1(22)

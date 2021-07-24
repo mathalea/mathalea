@@ -4,10 +4,9 @@ import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes, randi
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Tables de multiplications et de divisions'
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
 
 /**
  * Tables de multiplications et de divisions classiques, à trou ou un mélange des deux.
@@ -23,11 +22,6 @@ export default function TablesMultiplicationsDivisions (
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = 'Calculer'
   this.spacing = 2
   this.tailleDiaporama = 100
@@ -60,9 +54,9 @@ export default function TablesMultiplicationsDivisions (
     for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
       a = couples[i][0]
       b = couples[i][1]
-      if (this.sup2 === 1) {
+      if (parseInt(this.sup2) === 1) {
         typesDeQuestions = 'classique'
-      } else if (this.sup2 === 2) {
+      } else if (parseInt(this.sup2) === 2) {
         typesDeQuestions = 'a_trous'
       } else {
         typesDeQuestions = listeTypeDeQuestions[i]

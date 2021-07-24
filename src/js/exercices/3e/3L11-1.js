@@ -6,7 +6,7 @@ export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 7
+export const amcType = 'AMCOpenNum✖︎3'
 
 /**
  * Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
