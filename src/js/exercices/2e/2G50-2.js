@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, pgcd } from '../../modules/outils.js'
-import { repere2, courbe2, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
+import { repere2, droite, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 export const titre = "Lecture graphique des coefficients d'une équation réduite "
 export const interactifReady = true
@@ -28,6 +28,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
   this.interactifType = interactifType
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []
     // let typesDeQuestionsDisponibles = []
@@ -45,7 +46,9 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
         }// On évite la situation de double nullité
         r = repere2()// On définit le repère
         f = x => a * x + b// On définit la fonction affine
-        c = courbe2(f, { repere: r, color: 'red' })// On définit l'objet qui tracera la courbe dans le repère
+        c = droite(a, -1, b) // On définit l'objet qui tracera la courbe dans le repère
+        c.color = 'red'
+        c.epaisseur = 2
         texte = 'A partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite'
         texte += mathalea2d({
           xmin: -8,
@@ -71,15 +74,15 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           texteCorr += `$y=${reduireAxPlusB(a, b)}$`
         }
         if (b + a < -5 || b + a > 5) {
-          s1 = segment(-2, b - 2 * a, -1, b - 2 * a, 'red')
-          s2 = segment(-1, b - 2 * a, -1, b - a, 'red')
+          s1 = segment(-2, b - 2 * a, -1, b - 2 * a, 'blue')
+          s2 = segment(-1, b - 2 * a, -1, b - a, 'blue')
 
           s1.epaisseur = 4
           s2.epaisseur = 4
           const A = point(0, b, 'A')
-          t = tracePoint(A, 'red') // Variable qui trace les points avec une croix
+          t = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
           l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = 'red'
+          l.color = 'blue'
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -8,
@@ -90,15 +93,15 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
             }, r, f, s1, s2, t, l, c)
           }
         } else {
-          s1 = segment(0, b, 1, b, 'red')
-          s2 = segment(1, b, 1, b + a, 'red')
+          s1 = segment(0, b, 1, b, 'blue')
+          s2 = segment(1, b, 1, b + a, 'blue')
 
           s1.epaisseur = 4
           s2.epaisseur = 4
           const A = point(0, b, 'A')
-          t = tracePoint(A, 'red') // Variable qui trace les points avec une croix
+          t = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
           l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = 'red'
+          l.color = 'blue'
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -8,
@@ -122,7 +125,9 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
         }// On évite la situation de double nullité
         r = repere2()// On définit le repère
         f = x => (a / d) * x + b // On définit la fonction affine
-        c = courbe2(f, { repere: r, color: 'red' })// On définit l'objet qui tracera la courbe dans le repère
+        c = droite(a / d, -1, b) // On définit l'objet qui tracera la courbe dans le repère
+        c.color = 'red'
+        c.epaisseur = 2// On définit l'objet qui tracera la courbe dans le repère
 
         texte = 'A partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite'
         texte += mathalea2d({
@@ -160,7 +165,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           if (a === d) { texteCorr += 'x' }
           if (a !== d) { texteCorr += `${texFractionReduite(a, d)}x` }
 
-          if (b !== 0) { texteCorr += `+ ${b}` }
+          if (b !== 0) { texteCorr += `${ecritureAlgebrique(b)}` }
           texteCorr += '$.'
           if (a > 0) {
             s1 = segment(0, b - a, -d, b - a, 'blue')
@@ -180,13 +185,13 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -6,
-              ymin: -6,
+              ymin: -10,
               xmax: 6,
-              ymax: 6
+              ymax: 10
 
             }, r, f, s1, s2, t, l, c)
           }// On trace le graphique
-        setReponse(this, i, 'y=' + reduireAxPlusB(a / d, b))
+          setReponse(this, i, 'y=' + reduireAxPlusB(a / d, b))
         }
       }
       texte += ajouteChampTexteMathLive(this, i)
