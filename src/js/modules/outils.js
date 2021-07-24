@@ -7213,7 +7213,7 @@ export function exportQcmAmc (exercice, idExo) {
 
           propositions = prop.propositions
           switch (qrType) {
-            case 'QcmMono':
+            case 'qcmMono':
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'
@@ -7247,7 +7247,7 @@ export function exportQcmAmc (exercice, idExo) {
               texQr += '\\end{question}\n'
               id++
               break
-            case 'QcmMult':
+            case 'qcmMult':
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'
@@ -7298,6 +7298,7 @@ export function exportQcmAmc (exercice, idExo) {
               if (propositions !== undefined) {
                 texQr += `\\explain{${propositions[0].texte}}\n`
               }
+              texQr += `${rep.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
               texQr += `\\AMCnumericChoices{${rep.valeur}}{digits=${rep.param.digits},decimals=${rep.param.decimals},sign=${rep.param.signe},`
               if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
                 texQr += `exponent=${rep.param.exposantNbChiffres},exposign=${rep.param.exposantSigne},`
