@@ -3407,6 +3407,7 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaGilles_test"
+  },
   "betaGilles_CAN_seconde": {
     "titre": "Course aux nombres seconde",
     "url": "/exercices/beta/betaGilles_CAN_seconde.js",
@@ -3694,6 +3695,7 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExempleXcasValAbs"
+  },
   "CM012": {
     "titre": "Complément à 100",
     "url": "/exercices/CM/CM012.js",
