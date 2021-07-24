@@ -115,7 +115,7 @@ this.autoCorrection[i] = {
         enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
         propositions: [
           {
-            type: type1, // on donne le type de la première question-réponse QcmMono, QcmMult, Num...
+            type: type1, // on donne le type de la première question-réponse qcmMono, qcmMult, Num...
             propositions : [ // une ou plusieures(Qcms) 'propositions'
               {
                   texte: // la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm
@@ -139,7 +139,7 @@ this.autoCorrection[i] = {
           },
 
           {
-            type: type2, // on donne le type de la deuxième question-réponse QcmMono, QcmMult, Num...
+            type: type2, // on donne le type de la deuxième question-réponse qcmMono, qcmMult, Num...
             proposition : [ // une ou plusieures(Qcms) 'propositions'
               {
                   texte: // la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm

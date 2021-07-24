@@ -97,7 +97,10 @@ export default {
   "2G50": {
     "titre": "Déterminer le coefficient directeur d'une droite.",
     "url": "/exercices/2e/2G50.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "2G50"
@@ -1860,6 +1863,13 @@ export default {
     "interactifType": "mathLive",
     "name": "5P11-1"
   },
+  "5P12": {
+    "titre": "Partager une quantité en deux ou trois parts selon un ratio donné.",
+    "url": "/exercices/5e/5P12.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5P12"
+  },
   "5R10-0": {
     "titre": "Trouver l’opposé d’un nombre relatif",
     "url": "/exercices/5e/5R10-0.js",
@@ -2707,7 +2717,10 @@ export default {
   "6N10-1": {
     "titre": "Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...",
     "url": "/exercices/6e/6N10-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "6N10-1"
