@@ -6,7 +6,6 @@
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |2G50-2|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
 |2G50|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
-|2G53|Alignement de 3 points.|KO|KO|OK|mathLive|
 |2L12-2|Développer (a+b)²|KO|KO|OK|mathLive|
 |2L12-3|Développer (a-b)²|KO|KO|OK|mathLive|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
@@ -123,6 +122,7 @@
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|
+|beta2G53|Alignement de 3 points.|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
