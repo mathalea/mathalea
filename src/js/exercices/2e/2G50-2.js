@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd, calcul } from '../../modules/outils.js'
 import { repere2, droite, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
@@ -47,12 +47,13 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
         c = droite(a, -1, b) // On définit l'objet qui tracera la courbe dans le repère
         c.color = 'red'
         c.epaisseur = 2
-        texte = 'A partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite'
+        texte = 'A partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br>'
         texte += mathalea2d({
           xmin: -8,
           ymin: -8,
           xmax: 8,
-          ymax: 8
+          ymax: 8,
+          scale: 0.5
         }, r, f, c)// On trace le graphique
         if (a === 0) {
           texteCorr = 'On observe que la droite est horizontale. '
@@ -86,8 +87,8 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
               xmin: -8,
               ymin: -8,
               xmax: 8,
-              ymax: 8
-
+              ymax: 8,
+              scale: 0.5
             }, r, s1, s2, t, l, c)
           }
         } else {
@@ -105,8 +106,8 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
               xmin: -8,
               ymin: -8,
               xmax: 8,
-              ymax: 8
-
+              ymax: 8,
+              scale: 0.5
             }, r, s1, s2, t, l, c)
           }
         }
@@ -114,7 +115,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
         setReponse(this, i, 'y=' + reduireAxPlusB(a, b))
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            enonce: "Donner l'équation réduite de la droite tracée dans le repère ci-dessus.<br>",
+            enonce: texte + '<br>',
             propositions: [
               {
                 type: 'AMCNum',
@@ -136,7 +137,6 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: '',
                   statut: '',
                   reponse: {
                     texte: "ordonnée à l'origine",
@@ -173,7 +173,8 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           xmin: -6,
           ymin: -6,
           xmax: 6,
-          ymax: 6
+          ymax: 6,
+          scale: 0.5
         }, r, c)// On trace le graphique
         if (a === 0) {
           texteCorr = 'On observe que la droite est horizontale. '
@@ -227,14 +228,14 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
               xmin: -6,
               ymin: -10,
               xmax: 6,
-              ymax: 10
-
+              ymax: 10,
+              scale: 0.5
             }, r, s1, s2, t, l, c)
           }// On trace le graphique
-          setReponse(this, i, 'y=' + reduireAxPlusB(a / d, b))
+          setReponse(this, i, 'y=' + reduireAxPlusB(calcul(a / d), b))
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: "Donner l'équation réduite de la droite tracée dans le repère ci-dessus.<br>",
+              enonce: texte + '<br>',
               propositions: [
                 {
                   type: 'AMCNum',
@@ -242,11 +243,11 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
                     texte: texteCorr,
                     statut: '',
                     reponse: {
-                      texte: 'numérateur coefficient directeur',
-                      valeur: a,
+                      texte: 'coefficient directeur',
+                      valeur: calcul(a / d),
                       param: {
-                        digits: 1,
-                        decimals: 0,
+                        digits: 3,
+                        decimals: 2,
                         signe: true,
                         approx: 0
                       }
@@ -256,24 +257,6 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
                 {
                   type: 'AMCNum',
                   propositions: [{
-                    texte: '',
-                    statut: '',
-                    reponse: {
-                      texte: 'dénominateur coefficient directeur',
-                      valeur: d,
-                      param: {
-                        digits: 1,
-                        decimals: 0,
-                        signe: false,
-                        approx: 0
-                      }
-                    }
-                  }]
-                },
-                {
-                  type: 'AMCNum',
-                  propositions: [{
-                    texte: '',
                     statut: '',
                     reponse: {
                       texte: "ordonnée à l'origine",
