@@ -3251,6 +3251,12 @@ export default {
     "interactifReady": false,
     "name": "beta6C33-1"
   },
+  "beta6N10-1-interactif": {
+    "titre": "Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...",
+    "url": "/exercices/beta/beta6N10-1-interactif.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta6N10-1-interactif"
   "beta6C38": {
     "titre": "Augmenter ou diminuer d’un pourcentage",
     "url": "/exercices/beta/beta6C38.js",
