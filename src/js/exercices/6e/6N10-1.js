@@ -4,6 +4,8 @@ import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInter
 export const titre = 'Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 /**
  * Le nombre de dizaines, centaines et milliers étant donné, il faut écrire le nombre.
@@ -58,7 +60,7 @@ export default function ExerciceNumerationEntier () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        setReponse(this, i, b * Math.pow(10, rangB) + a * Math.pow(10, rangA))
+        setReponse(this, i, b * Math.pow(10, rangB) + a * Math.pow(10, rangA), { digits: 0 })
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

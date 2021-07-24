@@ -180,17 +180,17 @@ export default function LectureDiagrammeBarre () {
         enonce: texte,
         propositions: [
           {
-            type: 'QcmMono',
+            type: 'qcmMono',
             propositions: propa,
             options: { ordered: false }
           },
           {
-            type: 'QcmMono',
+            type: 'qcmMono',
             propositions: propb,
             options: { ordered: false }
           },
           {
-            type: 'QcmMono',
+            type: 'qcmMono',
             propositions: propc,
             options: { ordered: false }
           }
