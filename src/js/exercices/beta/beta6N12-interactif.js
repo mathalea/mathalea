@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, modalUrl, lampeMessage } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Multiplier un entier par 10, 100, 1 000...'
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const interactifReady = true
 
 /**
@@ -79,15 +79,15 @@ export default function MultiplierEntierPar101001000 () {
 
       b = listeDeB[i]
       if (choice([true, false])) {
-        texte = `$${texNombre(a)}\\times${texNombre(b)}$`
+        texte = `$${texNombre(a)}\\times${texNombre(b)}=$`
         texteCorr = `$${texNombre(a)}\\times${texNombre(b)}=${texNombre(a * b)}$`
       } else {
-        texte = `$${texNombre(b)}\\times${texNombre(a)}$`
+        texte = `$${texNombre(b)}\\times${texNombre(a)}=$`
         texteCorr = `$${texNombre(b)}\\times${texNombre(a)}=${texNombre(a * b)}$`
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        texte += ajouteChampTexte(this, i)
+        texte += ajouteChampTexteMathLive(this, i)
         setReponse(this, i, a * b)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
