@@ -60,7 +60,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             formule += `<br>Comme $(${droites[0]})^2=${drteParab(u)}$, l'équation s'écrit :`
           break
         case 'lnu+lnv=lnw': // Equation du type ln(u) + ln(v) = ln(w)
-            nbelt = 3     // 2 éléments u, v et w
+            nbelt = 3     // 3 éléments u, v et w
             texte = `$\\ln(${droites[0]})+\\ln(${droites[1]})=\\ln(${droites[2]})$`
             formule = `<br>Ecrivons le côté gauche sous la forme $\\ln(a)$ en utilisant la propriété $\\ln(u)+\\ln(v)=\\ln(uv)$ :`
             formule += `<br>$\\ln\[(${droites[0]})(${droites[1]})\]=\\ln(${droites[2]})$`
