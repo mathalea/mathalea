@@ -1857,6 +1857,13 @@ export default {
     "interactifType": "mathLive",
     "name": "5P11-1"
   },
+  "5P12": {
+    "titre": "Partager une quantité en deux ou trois parts selon un ratio donné.",
+    "url": "/exercices/5e/5P12.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5P12"
+  },
   "5R10-0": {
     "titre": "Trouver l’opposé d’un nombre relatif",
     "url": "/exercices/5e/5R10-0.js",
