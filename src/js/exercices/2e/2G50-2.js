@@ -155,13 +155,14 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
         }
       }
       if (this.sup === 2) { // cas du coeff directeur fractionnaire
-        a = randint(-5, 5) // numérateut coefficient directeur
+        a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
         b = randint(-5, 5) // ordonnée à l'origine
         d = randint(2, 5, 3) // dénominateur coefficient directeur
         if (a === 0 && b === 0) {
           a = 1
           d = 3
         }// On évite la situation de double nullité
+
         r = repere2()// On définit le repère
         c = droite(a / d, -1, b) // On définit l'objet qui tracera la courbe dans le repère
         c.color = 'red'
@@ -198,13 +199,14 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           }
           texteCorr += '$'
 
-          texteCorr += '<br>On peut en déduire que l\'équation réduite de la droite $(d)$ est : $y='
-
+          texteCorr += '<br>On peut en déduire que l\'équation réduite de la droite $(d)$ est : $y= '
           if (a === d) { texteCorr += 'x' }
-          if (a !== d) { texteCorr += `${texFractionReduite(a, d)}x` }
+          if (a === -d) { texteCorr += '-x' }
+          if (a !== d & a !== -d) { texteCorr += `${texFractionReduite(a, d)}x` }
 
           if (b !== 0) { texteCorr += `${ecritureAlgebrique(b)}` }
           texteCorr += '$.'
+
           if (a > 0) {
             s1 = segment(0, b - a, -d, b - a, 'blue')
             s1.epaisseur = 4
@@ -302,5 +304,5 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de question :', 2, '1 : Valeurs entières.\n2 : Valeurs fractionnaires.']
+  this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières.\n2 : Valeurs fractionnaires.']
 }

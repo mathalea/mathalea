@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 4 // Question numérique
+export const amcType = 'AMCNum' // Question numérique
 export const interactifType = 'numerique'
 export const interactifReady = true
 
@@ -26,10 +26,6 @@ export const titre = 'Additions et soustractions de nombres décimaux'
 export default function AdditionnerSoustrairesDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies

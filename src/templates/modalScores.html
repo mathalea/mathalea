@@ -1,0 +1,85 @@
+<div id="modalScores" class="ui modal fullscreen">
+    <i class="close icon"></i>    
+    <div class="header">
+      Enregistrement des scores
+    </div>
+    <div class="image content">
+      <div class="ui medium image">
+        <i class="key icon"></i><i class="save icon"></i>
+      </div>
+      <div class="description" hidden>
+        <div class="ui header">En cliquant sur l'un des boutons, tu peux au choix :</div>
+        <ul>
+          <li>Voir la documentation. <b>C'est mieux si tu découvres l'enregistrement des scores !</b></li>
+          <li>Enregistrer des scores dans un espace existant en renseignant un userId.</li>
+        </ul>         
+        <br>
+        <!-- Feedback pour la documentation -->
+        <div id="scoresDocumentationFeedback" class="ui message" hidden>          
+            <div id="scoresDocumentationFeedbackHeader" class="header"></div>          
+            <div id="scoresDocumentationFeedbackBody">
+              Pour enregistrer des scores dans un espace professeur existant, tu as besoin :
+                <ul>
+                  <li>Du code prof => 3 lettres majuscules, par exmeple <b>STI</b>.</li>
+                  <li>Du code classe => 2 caractères alphanumériques, les lettres sont des majuscules, par exemple <b>6A</b>.</li>
+                  <li>Le code eleve => 2 caractères alphanumériques, les lettres sont des majuscules, par exemple <b>1E</b>.</li>
+                </ul>
+                Tu renseignes ce code dans la zone de saisie :
+                <br>
+                <img class="ui image" src="./assets/images/scores-userIdZoneDeSaisie.png"/>
+                <br>
+                Tu peux ensuite fermer la fenêtre et choisir tes exercices. Ton userId est affiché tant que tu es connecté :
+                <br>
+                <img class="ui image" src="./assets/images/scores-userIdConnecte.png"/>              
+            </div>          
+        </div>
+        <br>
+        <!-- Feedback pour les scores -->
+        <div id="scoresFeedback" class="ui positive message" hidden>          
+            <div id="scoresFeedbackHeader" class="header"></div>          
+            <div id="scoresFeedbackBody"></div>          
+        </div>
+        <!-- Formulaire pour saisir un userId -->
+        <!-- https://semantic-ui.com/collections/message.html -->
+        <!-- https://semantic-ui.com/elements/input.html -->
+        <div id="scoresPromptUserId" hidden>
+          <div class="ui right labeled left icon input">
+            <i class="user icon"></i>
+            <input id="scoresInputUserId" type="text" placeholder="PPPCCEE" onkeyup="this.value=this.value.toUpperCase()">
+            <span class="ui tag label">
+              userId ici
+            </span>
+            <button id="scoresSubmitUserId" class="ui positive button">Submit</button>
+          </div>
+          <div id ="scoresInputUserIdError" class="ui negative message" hidden>
+            <div id="scoresInputUserIdErrorHeader" class="header"></div>          
+            <div id="scoresInputUserIdErrorBody"></div>          
+          </div> 
+        </div>
+      </div>             
+    </div>          
+    <div class="actions">
+
+      <div id="scoresDocumentation" class="ui positive right labeled icon button">
+        Documentation
+        <i class="book icon"></i>        
+      </div>
+      <!-- <div id="scoresCreateSpace" class="ui positive right labeled icon button">
+        Créer un espace
+        <i class="key icon"></i>
+      </div> -->
+      <div id="scoresSaveToUserId" class="ui positive right labeled icon button">
+        Enregistrer des scores 
+        <i class="save icon"></i>
+      </div>
+      <a href="?v=scores">
+      <div id="scoresToProfSpace" class="ui positive right labeled icon button">
+        Espace professeur
+        <i class="cog icon"></i>
+      </div>
+      </a>
+      <div class="ui black deny button">
+        Fermer
+      </div>
+    </div>
+  </div>

@@ -7,10 +7,10 @@ export const interactifType = 'mathLive'
 
 /**
  * Description didactique de l'exercice
- * @author
+ * @author Stéphane Guyon
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function CoefficientDirecteurDeDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady

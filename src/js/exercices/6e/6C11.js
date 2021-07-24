@@ -5,7 +5,7 @@ import Operation from '../../modules/operations.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 3 // type de question AMC
+export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -30,10 +30,6 @@ export default function DivisionsEuclidiennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = parseInt(this.sup)
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.amcType = amcType
-  this.interactifType = interactifType
   this.consigne =
     "Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante."
   this.spacing = 2

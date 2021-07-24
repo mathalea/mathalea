@@ -7,7 +7,7 @@ export const titre = 'Soustraction de deux entiers relatifs'
 export const interactifReady = true
 export const interactifType = 'numerique'
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
 * Effectuer la soustraction de  2 nombres relatifs.

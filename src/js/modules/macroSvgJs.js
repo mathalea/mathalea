@@ -308,7 +308,7 @@ export function SVG_tracer_droite_flecheH (mon_svg, x1, y1, x2, y2, couleur, poi
   * @param fraction booléen : true pour fractions, false pour décimaux
   * @author Jean-Claude Lhote
   */
-export function SVG_reperage_sur_un_axe (id_du_div, origine, longueur, pas1, pas2, points_inconnus, points_connus, fraction) {
+export function SvgReperageSurUnAxe (id_du_div, origine, longueur, pas1, pas2, points_inconnus, points_connus, fraction) {
   let arrondir = 1 + Math.round(Math.log10(pas1))
   if (arrondir < 1) arrondir = 1
   const longueur_pas1 = 600 / longueur
@@ -368,7 +368,7 @@ export function SVG_reperage_sur_un_axe (id_du_div, origine, longueur, pas1, pas
   * @param fraction booléen : true pour fraction, false pour décimaux
   * @author Jean-Claude Lhote
   */
-export function Latex_reperage_sur_un_axe (zoom, origine, pas1, pas2, points_inconnus, points_connus, fraction) {
+export function LatexReperageSurUnAxe (zoom, origine, pas1, pas2, points_inconnus, points_connus, fraction) {
   'use strict'
   let result = `\\begin{tikzpicture}[scale=${zoom}]`
   let valeur

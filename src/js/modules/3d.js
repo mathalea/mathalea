@@ -45,9 +45,9 @@ function ObjetMathalea2D () {
 */
 class Point3d {
   constructor (x, y, z, visible, label, positionLabel) {
-    const alpha = context.anglePerspective * Math.PI / 180
-    const rapport = context.coeffPerspective
-    const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]])
+    const alpha = context.anglePerspective * Math.PI / 180 // context.anglePerspective peut être changé globalement pour modifier la perspective
+    const rapport = context.coeffPerspective // idem pour context.coefficientPerspective qui est la réduction sur l'axe y.
+    const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]]) // La matrice de projection 3d -> 2d
     this.x = x
     this.y = y
     this.z = z
@@ -59,7 +59,7 @@ class Point3d {
     this.p2d = point(W._data[0], W._data[1], this.label, positionLabel)
   }
 }
-export function point3d (x, y, z = 0, visible = true, label = '', positionLabel) {
+export function point3d (x, y, z = 0, visible = true, label = '', positionLabel = 'above left') {
   return new Point3d(x, y, z, visible, label, positionLabel)
 }
 
@@ -68,10 +68,7 @@ export function point3d (x, y, z = 0, visible = true, label = '', positionLabel)
    *
    * @author Jean-Claude Lhote
    * le vecteur3d est sans doute l'objet le plus important de cette base d'objets
-   * On les utilise dans tous les objets complexeimport Additionner_soustraires_decimaux from '../exercices/6e/6C20';
-s et dans toutes les transformations.import Nature_polygone from './../exercices/2e/2G12';
-import Exercice_fractions_decomposer from './../exercices/6e/6N20';
-
+   * On les utilise dans tous les objets complexes et dans toutes les transformations
    * Ils servent notament à définir la direction des plans.
    *
    * 3 usages : vecteur3d(A,B) ou vecteur3d(x,y,z) ou vecteur3d(math.matrix([x,y,z]))
@@ -82,12 +79,16 @@ import Exercice_fractions_decomposer from './../exercices/6e/6N20';
    * L'objet créé est de type Vecteur3d
    * sa propriété p2d est un objet Vecteur (2 dimensions : c'est la projection du vecteur)
    * sa propriété this.representant(A) est le dessin du représentant d'origine A.
+   * exemples :
+   * let v = vecteur3d(3,5,1) -> définit un vecteur de composantes (3;5;1)
+   * let w = vecteur(point3d(0,0,0),point3d(1,1,1)) -> définit un vecteur d'origine O et d'extrémité M(1;1;1)
+   * let fleche = w.representant(point3d(5,0,0)) -> fleche est un objet 2d qui représente le vecteur w au point (5;0;0)
    */
 class Vecteur3d {
   constructor (...args) {
     const alpha = context.anglePerspective * Math.PI / 180
     const rapport = context.coeffPerspective
-    const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]])
+    const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]]) // ceci est la matrice de projection 3d -> 2d
     if (args.length === 2) {
       this.x = args[1].x - args[0].x
       this.y = args[1].y - args[0].y
@@ -103,13 +104,13 @@ class Vecteur3d {
         this.z = args[0]._data[2]
       }
     }
-    this.matrice = math.matrix([this.x, this.y, this.z])
-    this.norme = Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2)
-    const W = math.multiply(MT, this.matrice)
-    this.p2d = vecteur(W._data[0], W._data[1])
-    this.representant = function (A) {
+    this.matrice = math.matrix([this.x, this.y, this.z]) // On exporte cette matrice colonne utile pour les calculs vectoriels qui seront effectués par math.js
+    this.norme = Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2) // la norme du vecteur
+    const W = math.multiply(MT, this.matrice) // voilà comment on obtient les composantes du projeté 2d du vecteur
+    this.p2d = vecteur(W._data[0], W._data[1]) // this.p2d est l'objet 2d qui représente l'objet 3d this
+    this.representant = function (A) { // méthode pour construire un représentant d'origine A (un point 3d)
       const B = translation3d(A, this)
-      return vecteur(A.p2d, B.p2d).representant(A.p2d)
+      return vecteur(A.p2d, B.p2d).representant(A.p2d) // qui retourne un représentant de vecteur 2d (objet dessiné)
     }
   }
 }
@@ -121,9 +122,9 @@ export function vecteur3d (...args) { // A,B deux Point3d ou x,y,z les composant
 /**
    * L'ARETE
    * @author Jean-Claude lhote
-   *
-   *
-   *
+   * Une telle arête est définie par deux points 
+   * Si l'un des deux points n'est pas visible (propriété visible à false) alors l'arête aura aussi visible à false
+   * sa propriété p2d est un segment en pointillé ou en trait plein suivant sa visibilité.
    */
 class Arete3d {
   constructor (point1, point2, color, visible) {
@@ -143,6 +144,7 @@ class Arete3d {
     }
   }
 }
+// l'arête est visible par défaut sauf si p1 ou p2 sont invisibles
 export function arete3d (p1, p2, color = 'black', visible = true) {
   return new Arete3d(p1, p2, color, visible)
 }
@@ -593,6 +595,14 @@ export function cube3d (x, y, z, c) {
   return new Cube3d(x, y, z, c)
 }
 
+/**
+ * @author Erwan Duplessis et Jean-Claude Lhote
+ * Attention !
+ * Cette Classe définit un objet cube dans une représentation en perspective axonométrique paramétrée par alpha et beta
+ * et non pas context.anglePerspective (contrairement à l'objet cube3d ci-dessus ou l'objet pave3d ci-dessous)
+ * Il ne s'agit pas à proprement parler d'un objet 3d, c'est un objet 2d avec sa méthode svg() et sa méthode tikz()
+ * Utilisée par exemple dans 6G43
+ */
 class Cube {
   constructor (x, y, z, alpha, beta, colorD, colorT, colorG) {
     ObjetMathalea2D.call(this)
@@ -782,6 +792,14 @@ export function rotation3d (point3D, droite3D, angle, color) {
   }
 }
 
+/**
+ * @author Jean-Claude Lhote
+ * Crée une flèche en arc de cercle pour montrer un sens de rotation autour d'un axe 3d
+ * cette flèche est dessinée dans le plan orthogonal à l'axe qui passe par l'origine de l'axe
+ * le rayon est ici un vecteur 3d qui permet de fixer le point de départ de la flèche par translation de l'origine de l'axe
+ * l'angle définit l'arc formé par la flèche
+ * son sens est définit par le vecteur directeur de l'axe (changer le signe de chaque composante de ce vecteur pour changer le sens de rotation)
+ */
 function SensDeRotation3d (axe, rayon, angle, epaisseur, color) {
   ObjetMathalea2D.call(this)
   this.epaisseur = epaisseur
@@ -852,6 +870,13 @@ export function translation3d (point3D, vecteur3D) {
     return polygone3d(p, point3D.color)
   }
 }
+
+/**
+ * L'homothetie
+ * @author Jean-Claude Lhote
+ * La même chose qu'ne 2d, mais en 3d...
+ * Pour les points3d les polygones ou les vecteurs (multiplication scalaire par rapport)
+ */
 export function homothetie3d (point3D, centre, rapport, color) {
   let V
   const p = []

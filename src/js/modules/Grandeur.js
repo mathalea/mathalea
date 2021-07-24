@@ -42,7 +42,7 @@ export default Grandeur
 
 function parseUnite (unite) {
   let puissanceUnite, avantPuissanceUnite
-  if (unite.indexOf(unite, '^') > 0) {
+  if (unite.indexOf('^') > 0) {
     puissanceUnite = unite.split('^')[1]
     avantPuissanceUnite = unite.split('^')[0]
   } else {

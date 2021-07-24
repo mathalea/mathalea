@@ -5,7 +5,7 @@ export const titre = 'Diviser un nombre décimal par 10, 100 ou 1000'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4
+export const amcType = 'AMCNum'
 /**
  * Un entier à un 1 ou 2 chiffres, un nombre décimal avec une partie décimale à un ou 2 chiffres à diviser par 10, 100 ou 1000
  * @author Rémi Angot
@@ -13,11 +13,6 @@ export const amcType = 4
 */
 export default function DiviserDecimalPar101001000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = 'Calculer'
   this.nbQuestions = 10
   this.nbCols = 2

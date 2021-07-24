@@ -1,20 +1,21 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, lettreDepuisChiffre, htmlConsigne, stringNombre } from '../../modules/outils.js'
-import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, lettreDepuisChiffre, htmlConsigne, texNombre, egal, shuffle } from '../../modules/outils.js'
+import { pointCliquable } from '../../modules/2dinteractif.js'
+import { afficheScore } from '../../modules/gestionInteractif.js'
+import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
 
 export const titre = 'Placer un point d’abscisse entière (grands nombres)'
-
+export const interactifReady = true
+export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 /**
  * Placer un point d'abscisse entière
  * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N11-2
  */
-export default function Placer_un_point_abscisse_entiere () {
-  'use strict'
+export default function PlacerUnPointAbscisseEntiere2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ' Placer trois points sur un axe gradué.'
   this.nbQuestions = 5
   this.nbQuestionsModifiable = true
   this.nbCols = 1
@@ -22,167 +23,159 @@ export default function Placer_un_point_abscisse_entiere () {
   this.spacing = 1
   this.spacingCorr = 1
   this.sup = 1
-  this.typeExercice = 'SVGJS'
-  this.listePackages = 'tkz-euclide'
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
+    if (this.interactif) {
+      this.consigne = 'Placer un point sur un axe gradué.'
+    } else {
+      this.consigne = 'Placer trois points sur un axe gradué.'
+    }
     // numeroExercice est 0 pour l'exercice 1
     let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup == 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+    if (parseInt(this.sup) === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
       typesDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions
       )
     }
-
+    const pointsSolutions = []
+    const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
+    const tailleUnite = 4
+    const d = []
+    let abscisse = []
     this.contenu = htmlConsigne(this.consigne)
-    for (let i = 0,
-      abs0,
-      abs1,
-      abs2,
-      abs3,
-      l1,
-      l2,
-      l3,
-      x1,
-      x2,
-      x3,
-      x11,
-      x22,
-      x33,
-      pas1,
-      pas2,
-      id_unique,
-      texte,
-      texteCorr; i < this.nbQuestions; i++) {
+    for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, A, B, C, traceA, traceB, traceC, labels, pas1, texte = '', texteCorr = ''; i < this.nbQuestions; i++) {
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
-
+      this.autoCorrection[3 * i] = { propositions: [{ statut: 4, feedback: '' }] }
+      this.autoCorrection[3 * i + 1] = { propositions: [{ statut: 4, feedback: '' }] }
+      this.autoCorrection[3 * i + 2] = { propositions: [{ statut: 4, feedback: '' }] }
       switch (typesDeQuestions[i]) {
         case 1: // Placer des entiers sur un axe (milliers)
           abs0 = randint(1, 9) * 1000
-          pas1 = 0.001
-          pas2 = 10
+          pas1 = 1000
           break
 
         case 2: // Placer des entiers sur un axe (dizaines de mille)
           abs0 = randint(5, 15) * 10000
-          pas1 = 0.0001
-          pas2 = 10
+          pas1 = 10000
           break
 
         case 3: // Placer des entiers sur un axe (centaines de mille)
           abs0 = randint(35, 85) * 100000
-          pas1 = 0.00001
-          pas2 = 10
+          pas1 = 100000
           break
       }
-      x1 = randint(0, 2)
-      x2 = randint(3, 4)
-      x3 = randint(5, 6)
-      x11 = randint(1, 9)
-      x22 = randint(1, 9)
-      x33 = randint(1, 3)
-      abs1 = arrondi(
-        abs0 + x1 / pas1 + x11 / pas1 / pas2,
-        typesDeQuestions[i]
-      ) // le type de questions est égal au nombre de décimales.
-      abs2 = arrondi(
-        abs0 + x2 / pas1 + x22 / pas1 / pas2,
-        typesDeQuestions[i]
-      )
-      abs3 = arrondi(
-        abs0 + x3 / pas1 + x33 / pas1 / pas2,
-        typesDeQuestions[i]
-      )
-      if (context.isHtml) {
-        texteCorr = ''
-        this.contenu += `<h3> Placer les points : ${l1}(${stringNombre(
-          abs1
-        )}), ${l2}(${stringNombre(abs2)}), ${l3}(${stringNombre(abs3)})</h3>`
-        id_unique = `${i}_${Date.now()}`
-        this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-        SVG_reperage_sur_un_axe(
-          `div_svg${numeroExercice}${id_unique}`,
-          abs0,
-          6,
-          pas1,
-          pas2,
-          [],
-          [
-            [calcul(abs0, 0), 0, 0],
-            [calcul(abs0 + 1 / pas1, 0), 1, 0]
-          ],
-          false
-        )
-        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-        SVG_reperage_sur_un_axe(
-          `div_svg_corr${numeroExercice}${id_unique}`,
-          abs0,
-          6,
-          pas1,
-          pas2,
-          [
-            [l1, x1, x11, true],
-            [l2, x2, x22, true],
-            [l3, x3, x33, true]
-          ],
-          [
-            [calcul(abs0, 0), 0, 0],
-            [calcul(abs0 + 1 / pas1, 0), 1, 0]
-          ],
-          false
-        )
+      x1 = randint(0, 2) + randint(1, 9) / 10
+      x2 = randint(3, 4) + randint(1, 9) / 10
+      x3 = randint(5, 6) + randint(1, 9) / 10
+      x11 = abs0 + x1 * pas1
+      x22 = abs0 + x2 * pas1
+      x33 = abs0 + x3 * pas1
+      abscisse = shuffle([[x1, x11], [x2, x22], [x3, x33]])
+      d[2 * i] = droiteGraduee2({
+        Unite: 4,
+        Min: 0,
+        Max: 7.1,
+        axeStyle: '->',
+        pointTaille: 5,
+        pointStyle: 'x',
+        labelsPrincipaux: false,
+        thickSec: true,
+        step1: 10,
+        labelListe: [[0, `${texNombre(abs0)}`], [1, `${texNombre(calcul(abs0 + pas1))}`]]
+      })
+      d[2 * i + 1] = droiteGraduee2({
+        Unite: 4,
+        Min: 0,
+        Max: 7.1,
+        axeStyle: '->',
+        pointTaille: 5,
+        pointStyle: 'x',
+        labelsPrincipaux: false,
+        labelListe: [[0, `${texNombre(abs0)}`], [1, `${texNombre(calcul(abs0 + pas1))}`]],
+        thickSec: true,
+        step1: 10
+      })
+      const mesObjets = [d[2 * i]]
+      if (this.interactif) {
+        texte = `Place le point $${l1}\\left(${abscisse[0][1]}\\right).$`
       } else {
-        // sortie Latex
-        texte = `{\\small Placer les points : $${l1}$(${stringNombre(
-          abs1
-        )}), $${l2}$(${stringNombre(abs2)}), $${l3}$(${stringNombre(
-          abs3
-        )})}<br>`
-        texte += Latex_reperage_sur_un_axe(
-          2,
-          abs0,
-          pas1,
-          pas2,
-          [],
-          [
-            [calcul(abs0, 0), 0, 0],
-            [calcul(abs0 + 1 / pas1, 0), 1, 0]
-          ],
-          false
-        )
-        texteCorr = `{\\small Les points $${l1}$(${stringNombre(
-          abs1
-        )}), $${l2}$(${stringNombre(abs2)}), $${l3}$(${stringNombre(
-          abs3
-        )}) sont placés ci dessous}<br>`
-        texteCorr += Latex_reperage_sur_un_axe(
-          2,
-          abs0,
-          pas1,
-          pas2,
-          [
-            [l1, x1, x11, true],
-            [l2, x2, x22, true],
-            [l3, x3, x33, true]
-          ],
-          [
-            [calcul(abs0, 0), 0, 0],
-            [calcul(abs0 + 1 / pas1, 0), 1, 0]
-          ],
-          false
-        )
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        texte = `Place les points $${l1}\\left(${abscisse[0][1]}\\right)$, $~${l2}\\left(${abscisse[1][1]}\\right)$ et $~${l3}\\left(${abscisse[2][1]}\\right)$.`
       }
+      pointsNonSolutions[i] = []
+      if (this.interactif) {
+        for (let indicePoint = 0, monPoint; indicePoint < 70; indicePoint++) {
+          monPoint = pointCliquable(indicePoint / 10 * tailleUnite, 0, { size: 5, width: 3, color: 'blue', radius: tailleUnite / 25 })
+          mesObjets.push(monPoint)
+          if (egal(indicePoint * pas1 / 10 + abs0, abscisse[0][1])) {
+            pointsSolutions[i] = monPoint
+          } else {
+            pointsNonSolutions[i].push(monPoint)
+          }
+        }
+      }
+      texte += mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i], mesObjets)
+      texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
+
+      A = point(abscisse[0][0] * tailleUnite, 0, l1)
+      traceA = tracePoint(A)
+      traceA.color = 'blue'
+      traceA.epaisseur = 3
+      traceA.taille = 5
+      labels = labelPoint(A)
+      if (!this.interactif) {
+        A.nom = lettreDepuisChiffre(i * 3 + 1)
+        B = point(abscisse[1][0] * tailleUnite, 0, l2)
+        traceB = tracePoint(B)
+        traceB.color = 'blue'
+        traceB.epaisseur = 3
+        traceB.taille = 5
+        C = point(abscisse[2][0] * tailleUnite, 0, l3)
+        traceC = tracePoint(C)
+        traceC.color = 'blue'
+        traceC.epaisseur = 3
+        traceC.taille = 5
+        labels = labelPoint(A, B, C)
+      }
+      if (this.interactif) {
+        texteCorr = `$${l1}\\left(${abscisse[0][1]}\\right).$`
+        texteCorr += '<br>' + mathalea2d({ xmin: -2, xmax: 30, ymin: -1, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1], traceA, labels)
+      } else {
+        texteCorr = `$${l1}\\left(${abscisse[0][1]}\\right)$, $~${l2}\\left(${abscisse[1][1]}\\right)$ et $~${l3}\\left(${abscisse[2][1]}\\right)$`
+        texteCorr += '<br>' + mathalea2d({ xmin: -2, xmax: 30, ymin: -1, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1], traceA, traceB, traceC, labels)
+      }
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
     }
-    if (!context.isHtml) { listeQuestionsToContenu(this) }
+    this.correctionInteractive = () => {
+      let nbBonnesReponses = 0
+      let nbMauvaisesReponses = 0
+      for (let i = 0, aucunMauvaisPointsCliques; i < this.nbQuestions; i++) {
+        aucunMauvaisPointsCliques = true
+        const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+        pointsSolutions[i].stopCliquable()
+        for (const monPoint of pointsNonSolutions[i]) {
+          if (monPoint.etat) aucunMauvaisPointsCliques = false
+          monPoint.stopCliquable()
+        }
+        if (aucunMauvaisPointsCliques && pointsSolutions[i].etat) {
+          divFeedback.innerHTML = '😎'
+          nbBonnesReponses++
+        } else {
+          divFeedback.innerHTML = '☹️'
+          nbMauvaisesReponses++
+        }
+      }
+      afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
+    }
+    listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',

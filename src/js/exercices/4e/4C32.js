@@ -8,7 +8,7 @@ export const titre = 'Notation scientifique'
 export const interactifReady = true
 export const interactifType = 'numerique'
 export const amcReady = true
-export const amcType = 4 // type de question AMC
+export const amcType = 'AMCNum' // type de question AMC
 
 /**
  * Ecrire un nombre décimal en notation scientifique et inversement

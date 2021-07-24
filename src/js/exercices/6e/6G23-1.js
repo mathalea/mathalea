@@ -5,9 +5,9 @@ import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType =1 // QCM 
+export const amcType = 'qcmMono' // QCM
 export const interactifReady = true
-
+export const interactifType = 'qcm'
 
 export const titre = 'Mesurer un angle'
 
@@ -19,9 +19,6 @@ export const titre = 'Mesurer un angle'
 export default function MesurerUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
   this.consigne = ''
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
@@ -30,7 +27,7 @@ export default function MesurerUnAngle () {
   this.sup = 1
   this.video = 'TEzu9uky56M'
 
-  this.nouvelleVersion = function () {
+  this.nouvelleVersion = function (numeroExercice) {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -59,7 +56,7 @@ export default function MesurerUnAngle () {
       B = point(6, 0)
       B = rotation(B, A, anglerot)
 
-      // texte, A, orientation = "milieu", color = 'black', scale = 1, ancrageDeRotation = "middle", math_on = false
+      // texte, A, orientation = "milieu", color = 'black', scale = 1, ancrageDeRotation = "middle", mathOn = false
       Bpos = texteParPoint(p[0], similitude(A, homothetie(B, A, 0.95), signes[i] * 90, 0.1), 'milieu', 'black', 1, 'middle', true)
       s1 = demiDroite(A, B)
       C = rotation(B, A, angle)

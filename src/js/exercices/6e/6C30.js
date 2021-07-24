@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre 
 import Operation from '../../modules/operations.js'
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 4 // Question numérique
+export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
 export const interactifType = 'numerique'
 
@@ -24,10 +24,6 @@ export const titre = 'Multiplications posées de nombres décimaux'
 export default function MultiplierDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
   this.spacingCorr = 1 // Important sinon le calcul posé ne fonctionne pas avec opmul et spacing

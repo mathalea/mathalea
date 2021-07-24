@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,combinaisonListes,creerNomDePolygone} from '../../modules/outils.js'
-import {point,barycentre,vecteur,polygone,carre,nommePolygone,translation,rotation,homothetie,similitude,codageAngleDroit,codeSegments,codeAngle,grille,seyes,mathalea2d} from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
+import { point, barycentre, vecteur, polygone, carre, nommePolygone, translation, rotation, homothetie, similitude, codageAngleDroit, codeSegments, codeAngle, grille, seyes, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Nommer et coder des polygones'
 
 /**
@@ -9,20 +9,20 @@ export const titre = 'Nommer et coder des polygones'
  * Placer les sommets et les égalités de longueur...
  * Référence 6G20
  */
-export default function Nommer_et_coder_des_polygones() {
-  Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = titre;
-  this.consigne = "Nommer les figures en fonction de l'énoncé puis ajouter le codage.";
-  this.nbQuestions = 4;
-  this.nbCols = 2;
-  this.nbColsCorr = 2;
-  this.sup = 3;
+export default function NommerEtCoderDesPolygones () {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.titre = titre
+  this.consigne = "Nommer les figures en fonction de l'énoncé puis ajouter le codage."
+  this.nbQuestions = 4
+  this.nbCols = 2
+  this.nbColsCorr = 2
+  this.sup = 3
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []; // Liste de questions
-    this.listeCorrections = []; // Liste de questions corrigées
-    let Xmin, Xmax, Ymin, Ymax, ppc, sc, g, carreaux
-    ppc = 40
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    let Xmin, Xmax, Ymin, Ymax, sc, g, carreaux
+    const ppc = 40
     if (context.isHtml) {
       sc = 0.5
     } else {
@@ -31,18 +31,18 @@ export default function Nommer_et_coder_des_polygones() {
 
     let params
 
-    let liste = combinaisonListes([1, 2, 3, 4, 5, 6, 7, 8], this.nbQuestions);
+    const liste = combinaisonListes([1, 2, 3, 4, 5, 6, 7, 8], this.nbQuestions)
 
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      context.pixelsParCm = 40;
+      context.pixelsParCm = 40
       let pol, polcode, polsom, polnom
-      function choisir_polygone(n) { // n compris entre 1 et 8 (1 à 4 pour un triangle, 5 à 8 pour une quadrilatère)
+      function choisirPolygone (n) { // n compris entre 1 et 8 (1 à 4 pour un triangle, 5 à 8 pour une quadrilatère)
         let A, B, C, D
-        let nom = creerNomDePolygone(4, "PQ"), pnom, q, p, pcode, enonce
+        const nom = creerNomDePolygone(4, 'PQ'); let pnom; let q; let p; let pcode; let enonce
         switch (n) {
           case 1: // triangle isocèle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -96,7 +96,7 @@ export default function Nommer_et_coder_des_polygones() {
             pcode = [codeSegments('||', 'blue', A, B, A, C), codageAngleDroit(B, A, C), codeAngle(B, C, A, 0.8, '|', 'blue', 2, 0.8, 'blue', 0.2), codeAngle(C, B, A, 0.8, '|', 'blue', 2, 0.8, 'blue', 0.2)]
             enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est rectangle et isocèle en $${nom[0]}$.`
             break
-          //on choisit un quadrilatère 
+          // on choisit un quadrilatère
           case 5: // carré
             A = point(3, randint(0, 20) / 10, nom[0])
             B = point(randint(7, 8), randint(10, 30) / 10, nom[1])
@@ -158,19 +158,17 @@ export default function Nommer_et_coder_des_polygones() {
         }
         return [p, nom, pcode, pnom, enonce]
       }
-      [pol, polnom, polcode, polsom, texte] = choisir_polygone(liste[i]);
-      if (pol.listePoints.length == 4) {
+      [pol, polnom, polcode, polsom, texte] = choisirPolygone(liste[i])
+      if (pol.listePoints.length === 4) {
         Xmin = Math.floor(Math.min(pol.listePoints[0].x, pol.listePoints[1].x, pol.listePoints[2].x, pol.listePoints[3].x) - 1)
         Ymin = Math.floor(Math.min(pol.listePoints[0].y, pol.listePoints[1].y, pol.listePoints[2].y, pol.listePoints[3].y) - 1)
         Xmax = Math.ceil(Math.max(pol.listePoints[0].x, pol.listePoints[1].x, pol.listePoints[2].x, pol.listePoints[3].x) + 1)
         Ymax = Math.ceil(Math.max(pol.listePoints[0].y, pol.listePoints[1].y, pol.listePoints[2].y, pol.listePoints[3].y) + 1)
-      }
-      else {
+      } else {
         Xmin = Math.floor(Math.min(pol.listePoints[0].x, pol.listePoints[1].x, pol.listePoints[2].x) - 1)
         Ymin = Math.floor(Math.min(pol.listePoints[0].y, pol.listePoints[1].y, pol.listePoints[2].y) - 1)
         Xmax = Math.ceil(Math.max(pol.listePoints[0].x, pol.listePoints[1].x, pol.listePoints[2].x) + 1)
         Ymax = Math.ceil(Math.max(pol.listePoints[0].y, pol.listePoints[1].y, pol.listePoints[2].y) + 1)
-
       }
       params = {
         xmin: Xmin,
@@ -178,34 +176,33 @@ export default function Nommer_et_coder_des_polygones() {
         xmax: Xmax,
         ymax: Ymax,
         pixelsParCm: ppc,
-        scale: sc,
+        scale: sc
       }
-      if (this.sup < 3) g = grille(Xmin, Ymin, Xmax, Ymax, "gray", 0.7);
+      if (this.sup < 3) g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
       else g = ''
-      if (this.sup == 2) {
-        carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
+      if (parseInt(this.sup === 2)) {
+        carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
       } else {
-        carreaux = "";
+        carreaux = ''
       }
 
       pol.epaisseur = 2
-      texte += `<br>` + mathalea2d(params, pol, polnom, g, carreaux)
+      texte += '<br>' + mathalea2d(params, pol, polnom, g, carreaux)
       texteCorr = mathalea2d(params, pol, polnom, polcode, polsom, g, carreaux)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte);
-        this.listeCorrections.push(texteCorr);
-        i++;
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
       }
-      cpt++;
+      cpt++
     }
-    listeQuestionsToContenu(this);
+    listeQuestionsToContenu(this)
     context.pixelsParCm = 20
-  };
+  }
   this.besoinFormulaireNumerique = [
-    "Type de cahier",
+    'Type de cahier',
     3,
-    `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
-  ];
+    '1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+  ]
 }
-

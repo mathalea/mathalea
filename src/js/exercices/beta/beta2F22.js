@@ -95,6 +95,8 @@ export default function representer_fonction_affine() {
           t = tracePoint(A, B,'red') // Variable qui trace les points avec une croix
           l = labelPoint(A,B)// Variable qui trace les nom s A et B
           l.color='red'
+          t.taille=5
+          t.epaisseur=2
           texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`;
           texteCorr = `On sait que la représentation graphique d'une fonction affine est une droite.<br>`
           texteCorr += `Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>`                
