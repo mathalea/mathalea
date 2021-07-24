@@ -177,15 +177,23 @@ export async function loadMathLive () {
           }
         })
       }
-      let style = 'font-size: 20px; margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);'
-      if (mf.classList.contains('largeur50')) {
-        style += ' width: 50%;'
+      let style = 'font-size: 20px;'
+      if (mf.classList.contains('inline')) {
+        style += ' display: inline-block; margin-left: 25px; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
+        if (!mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50')) {
+          style += ' width: 25%;'
+        }
+      } else {
+        style += ' margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);'
+      }
+      if (mf.classList.contains('largeur10')) {
+        style += ' width: 10%;'
       }
       if (mf.classList.contains('largeur25')) {
         style += ' width: 25%;'
       }
-      if (mf.classList.contains('inline')) {
-        style += ' display: inline-block; margin-left: 25px; '
+      if (mf.classList.contains('largeur50')) {
+        style += ' width: 50%;'
       }
       mf.style = style
     }
