@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, modalUrl, lampeMessage } from '../../modules/outils.js'
-import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Multiplier un entier par 10, 100, 1 000...'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export default function MultiplierEntierPar101001000 () {
   this.sup = 2
   this.introduction = lampeMessage({
     titre: 'Calculatrice interdite.',
-    texte: 'Aide : utiliser le glisse nombre si besoin',
+    texte: 'Aide : utiliser le glisse nombre si besoin.',
     couleur: 'nombres'
   })
 
