@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif, signe, unSiPositifMoinsUnSinon } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif, unSiPositifMoinsUnSinon } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = "Déterminer le coefficient directeur d'une droite."
