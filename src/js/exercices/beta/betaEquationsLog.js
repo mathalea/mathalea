@@ -1,10 +1,10 @@
-import { xcas,listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique,calcul,ecritureParentheseSiNegatif,fractionSimplifiee,texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique,calcul,ecritureParentheseSiNegatif,fractionSimplifiee,texFraction } from '../../modules/outils.js'
 
 import Exercice from '../Exercice.js'
-import {simplify, parse } from 'mathjs'
-import { A } from '@svgdotjs/svg.js'
 export const titre = 'Equations avec logarithmes'
 const drteParab = l => l.length == 2 ? `${l[0]}x${ecritureAlgebrique(l[1])}` : `${l[0]}x^2${ecritureAlgebrique(l[1])}x${ecritureAlgebrique(l[2])}`
+const EgalEnviron = (v, d = 3) => (Math.abs(v) * 10 ** d) % 1 > 0 ? `\\simeq` : `=`
+
 /**
  * Description didactique de l'exercice
  * @author Eric Schrafstetter
@@ -91,7 +91,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
                 texteCorr += `<br>Vérifions si $x_${i+1}$ est bien dans le domaine de définition de l'équation : `
                 faux = false
                 for (let j = 0; j < 3; j++) {
-                    texteCorr += `<br>$${c[2*j]}x_${i+1}${ecritureAlgebrique(c[2*j+1])}\\simeq ${calcul(c[2*j]*v + c[2*j+1],3)}`
+                    let resultat = c[2*j]*v + c[2*j+1]
+                    texteCorr += `<br>$${c[2*j]}x_${i+1}${ecritureAlgebrique(c[2*j+1])}${EgalEnviron(resultat)}${calcul(resultat,3)}`
                     if (c[2*j]*v + c[2*j+1] > 0) { 
                         texteCorr += `> 0$`
                     } else {
@@ -139,7 +140,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texteCorr += `<br>Vérifions si la solution $x=${texFraction(x1[0],x1[1])}$ est bien dans le domaine de définition de l'équation : `
             faux = false
             for (let j = 0; j < 2; j++) {
-                texteCorr += `<br>$${c[2*j]}\\times${texFraction(x1[0],x1[1])}${ecritureAlgebrique(c[2*j+1])}\\simeq ${calcul(c[2*j]*x2 + c[2*j+1],3)}`
+                let resultat = c[2*j]*x2 + c[2*j+1]
+                texteCorr += `<br>$${c[2*j]}\\times${texFraction(x1[0],x1[1])}${ecritureAlgebrique(c[2*j+1])}${EgalEnviron(resultat)}${calcul(resultat,3)}`
                 if (c[2*j]*x2 + c[2*j+1] > 0) { 
                     texteCorr += `> 0$`
                 } else {
