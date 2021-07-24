@@ -2,7 +2,7 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate } from 'mathjs'
+import { format, evaluate, isPrime } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 
@@ -1431,17 +1431,21 @@ export function reduirePolynomeDegre3 (a, b, c, d) {
 export function obtenirListeFacteursPremiers (n) {
   // Algorithme de base où l'on divise par chacun des nombres premiers
   const liste = []
-  const listeNombresPremiers = obtenirListeNombresPremiers()
-  let i = 0
-  while (n > 1 && listeNombresPremiers[i] <= n) {
-    if (n % listeNombresPremiers[i] === 0) {
-      liste.push(listeNombresPremiers[i])
-      n /= listeNombresPremiers[i]
+  let i = 2
+  while (n > 1 && i <= n) {
+    if (n % i === 0) {
+      liste.push(i)
+      n /= i
     } else {
       i++
+      while (!isPrime(i)) {
+        i++
+      }
     }
   }
-  if (liste.length === 0) { liste.push(n) }
+  if (liste.length === 0) {
+    liste.push(n)
+  }
   return liste
 }
 /**
@@ -1921,11 +1925,33 @@ export function tirerLesDes (nombreTirages, nombreFaces, nombreDes) {
 * @param nombreNotes
 * @param noteMin
 * @param noteMax
-* @author Jean-Claude Lhote
+* @param distincts Si distincts === true, les notes de la liste seront toutes distinctes
+* @author Jean-Claude Lhote et Guillaume Valmont
 */
-export function listeDeNotes (nombreNotes, noteMin, noteMax) {
+export function listeDeNotes (nombreNotes, noteMin = 0, noteMax = 20, distincts = false) {
   const notes = []
-  for (let i = 0; i < nombreNotes; i++) notes.push(randint(noteMin, noteMax))
+  let candidat, present, limite // nombre candidat, est-ce qu'il est déjà présent, une limite d'itérations pour éviter les boucles infinies
+  limite = 0
+  for (let i = 0; i < nombreNotes;) {
+    limite += 1
+    if (distincts && limite < 100) { // Si les nombres doivent être tous distincts et que la limite d'itérations n'est pas encore atteinte,
+      candidat = randint(noteMin, noteMax) // on tire au sort un nombre candidat,
+      present = false
+      for (let j = 0; j < notes.length; j++) { // on vérifie s'il est présent,
+        if (candidat === notes[j]) {
+          present = true
+          break
+        }
+      }
+      if (!present) { // s'il n'est pas présent, on le push.
+        notes.push(candidat)
+        i++
+      }
+    } else { // Si les nombres n'ont pas tous à être distincts, on push directement.
+      notes.push(randint(noteMin, noteMax))
+      i++
+    }
+  }
   return notes
 }
 
@@ -2541,8 +2567,12 @@ export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de 
 * Retourne la liste des nombres premiers inférieurs à 300
 * @author Rémi Angot
 */
-export function obtenirListeNombresPremiers () {
-  return [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
+export function obtenirListeNombresPremiers (n = 300) {
+  const prems = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
+  for (let i = 307; i <= n; i++) {
+    if (isPrime(i)) prems.push(i)
+  }
+  return prems
 }
 
 /**
