@@ -126,14 +126,6 @@ export default {
     "interactifReady": false,
     "name": "2G52"
   },
-  "2G53": {
-    "titre": "Alignement de 3 points.",
-    "url": "/exercices/2e/2G53.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "2G53"
-  },
   "2L10": {
     "titre": "Développer avec les identités remarquables",
     "url": "/exercices/2e/2L10.js",
@@ -3179,6 +3171,111 @@ export default {
     "interactifReady": false,
     "name": "6S11"
   },
+  "beta2F22": {
+    "titre": "Représentation graphique d’une fonction affine",
+    "url": "/exercices/beta/beta2F22.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F22"
+  },
+  "beta2F30": {
+    "titre": "Reconnaître une fonction affine.",
+    "url": "/exercices/beta/beta2F30.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F30"
+  },
+  "beta2G13": {
+    "titre": "Déterminer les coordonnées d’un vecteur.",
+    "url": "/exercices/beta/beta2G13.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2G13"
+  },
+  "beta2G14": {
+    "titre": "Déterminer les coordonnées d’un vecteur.",
+    "url": "/exercices/beta/beta2G14.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2G14"
+  },
+  "beta2G53": {
+    "titre": "Alignement de 3 points.",
+    "url": "/exercices/beta/beta2G53.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta2G53"
+  },
+  "beta2L11-1": {
+    "titre": "Factoriser avec les identités remarquables (niveau II)",
+    "url": "/exercices/beta/beta2L11-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2L11-1"
+  },
+  "beta2L12-2": {
+    "titre": "Résoudre des équations se ramenant au produit-nul.",
+    "url": "/exercices/beta/beta2L12-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2L12-2"
+  },
+  "beta2N60-X1": {
+    "titre": "Modéliser une situation  à l'aide d'une équation",
+    "url": "/exercices/beta/beta2N60-X1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2N60-X1"
+  },
+  "beta2N60-X2": {
+    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
+    "url": "/exercices/beta/beta2N60-X2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2N60-X2"
+  },
+  "beta3F23": {
+    "titre": "Déterminer un antécédent",
+    "url": "/exercices/beta/beta3F23.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3F23"
+  },
+  "beta3G15": {
+    "titre": "Utiliser toutes les transformations",
+    "url": "/exercices/beta/beta3G15.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3G15"
+  },
+  "beta3G41": {
+    "titre": "Représentation de solides",
+    "url": "/exercices/beta/beta3G41.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3G41"
+  },
+  "beta3s21": {
+    "titre": "Stabilisation des fréquences",
+    "url": "/exercices/beta/beta3s21.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3s21"
+  },
+  "beta4C31": {
+    "titre": "Puissances de 10",
+    "url": "/exercices/beta/beta4C31.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta4C31"
+  },
+  "beta4G20-3": {
+    "titre": "Calculer une valeur manquante avec l’égalité de Pythagore",
+    "url": "/exercices/beta/beta4G20-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta4G20-3"
   "CM000": {
     "titre": "Additions et de soustractions",
     "url": "/exercices/CM/CM000.js",
