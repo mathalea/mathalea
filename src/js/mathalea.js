@@ -1907,7 +1907,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   // gestion de la vue
   // si dans l'url il y a un paramètre &v=... on modifie le DOM et/ou le CSS
   gestionVue()
-  gestionScores()
+  console.log(context.vue)
+  if (context.vue !== 'recto' && context.vue !== 'verso') {
+    gestionScores()
+  } else {
+    console.log('Gestion des scores non gérée')
+  }
   if (context.isAmc) {
     if (urlParams.get('e')) {
       typeEntete = urlParams.get('e')
