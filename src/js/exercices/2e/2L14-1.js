@@ -545,11 +545,11 @@ export default function ExerciceInequationProduit () {
         if (this.correctionDetaillee) {
           // Utilise la fonction décrite plus haut pour écrire la résolution détaillée de ax + b = 0 cx + d > 0
           ecrireCorrectionDetaillee(a, b, true)
-          texteCorr += `<br>Un carré étant toujours positif, $(${a}x${ecritureAlgebrique(b)})^2 > 0$ pour tout $x$ réel différent de $${texFractionReduite(-b, a)}$.`
+          texteCorr += `<br>Un carré étant toujours positif, $(${a}x${ecritureAlgebrique(b)})^2 > 0$ pour tout $x$ différent de $${texFractionReduite(-b, a)}$.`
           ecrireCorrectionDetaillee(c, d)
         } else { // Si pas de correction détaillée, écrit simplement les conclusions, en changeant le sens des inégalités si a < 0 ou si c < 0
           texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}=0$ lorsque $x=${texFractionReduite(-b, a)}$`
-          texteCorr += `<br>Un carré étant toujours positif, $(${a}x${ecritureAlgebrique(b)})^2 > 0$ pour tout $x$ réel différent de $${texFractionReduite(-b, a)}$.`
+          texteCorr += `<br>Un carré étant toujours positif, $(${a}x${ecritureAlgebrique(b)})^2 > 0$ pour tout $x$ différent de $${texFractionReduite(-b, a)}$.`
           if (c < 0) {
             texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ lorsque $x${texSymbole('<')} ${texFractionReduite(-d, c)}$`
           } else {
