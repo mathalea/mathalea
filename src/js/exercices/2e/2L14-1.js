@@ -69,7 +69,7 @@ export default function ExerciceInequationProduit () {
     // Crée une liste d'autant de signes que de questions
     const signes = combinaisonListes(['<', '>', '≤', '≥'], this.nbQuestions)
     // Boucle principale qui servira à créer toutes les questions // On limite le nombre d'essais à 50 pour chercher des valeurs nouvelles
-    for (let i = 0, a, b, c, d, e, f, pGauche, pDroite, texte, ligne1, ligne2, ligne3, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, b, c, d, e, f, pGauche, pDroite, texte, ligne1, ligne2, ligne3, ligne4, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Génère 4 nombres relatifs a, b, c et d tous différents avec a et c qui ne peuvent pas être 1 car ce sont ceux qui peuvent multiplier x pour éviter à la fois d'avoir '1x' et de diviser par 1
       a = randint(-13, 13, [0, 1, -1])
       b = randint(-13, 13, [0, a])
@@ -132,6 +132,13 @@ export default function ExerciceInequationProduit () {
       const lignePMM = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 5, '-', 20]
       const ligneMPP = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 5, '+', 20]
       const ligneMMP = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20, 'z', 20, '+', 20]
+      // Prépare les six types de lignes possibles pour les tableaux avec 3 antécédents : +++-, ++--, +---, ---+, --++, -+++
+      const lignePPPM = ['Line', 30, '', 0, '+', 20, 't', 5, '+', 20, 't', 5, '+', 20, 'z', 20, '-', 20]
+      const lignePPMM = ['Line', 30, '', 0, '+', 20, 't', 5, '+', 20, 'z', 20, '-', 20, 't', 5, '-', 20]
+      const lignePMMM = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 5, '-', 20, 't', 5, '-', 20]
+      const ligneMPPP = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 5, '+', 20, 't', 5, '+', 20]
+      const ligneMMPP = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20, 'z', 20, '+', 20, 't', 5, '+', 20]
+      const ligneMMMP = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20, 't', 5, '-', 20, 'z', 20, '+', 20]
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)(x+b)<0'                                      Type 1        //
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -259,7 +266,7 @@ export default function ExerciceInequationProduit () {
         texteCorr = texte
         // Si une correction détaillée est demandée, détaille comment résoudre les équations
         if (this.correctionDetaillee) {
-          // Utilise la fonction décrite juste après pour éviter d'écrire deux fois la même chose pour les deux inéquations ax + b > 0 et cx + d > 0
+          // Utilise la fonction décrite plus haut pour éviter d'écrire deux fois la même chose pour les deux inéquations ax + b > 0 et cx + d > 0
           ecrireCorrectionDetaillee(a, b)
           ecrireCorrectionDetaillee(c, d)
         } else { // Si pas de correction détaillée, écrit simplement les conclusions, en changeant le sens des inégalités si a < 0 ou si c < 0
@@ -325,10 +332,254 @@ export default function ExerciceInequationProduit () {
           hauteurLignes: [15, 15, 15, 15]
         }))
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
+        const interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} , ${valGrand} \\right${pDroite} $.`
+        const exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
         if ((signes[i] === '<' || signes[i] === '≤')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} , ${valGrand} \\right${pDroite} $.`
+          if (a * c > 0) {
+            texteCorr += interieur
+          } else {
+            texteCorr += exterieur
+          }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          if (a * c > 0) {
+            texteCorr += exterieur
+          } else {
+            texteCorr += interieur
+          }
+        }
+      }
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)(cx+d)(ex+f)<0'                                    Type 4  //
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      if (listeTypeDeQuestions[i] === '(ax+b)(cx+d)(ex+f)<0') {
+        let valPetit, valMoyen, valGrand
+        texte = `$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)})${texSymbole(signes[i])}0$`
+        // Correction
+        texteCorr = texte
+        // Si une correction détaillée est demandée, détaille comment résoudre les équations
+        if (this.correctionDetaillee) {
+          // Utilise la fonction décrite plus haut pour éviter d'écrire deux fois la même chose pour les deux inéquations ax + b > 0 et cx + d > 0
+          ecrireCorrectionDetaillee(a, b)
+          ecrireCorrectionDetaillee(c, d)
+          ecrireCorrectionDetaillee(e, f)
+        } else { // Si pas de correction détaillée, écrit simplement les conclusions, en changeant le sens des inégalités si a < 0 ou si c < 0
+          if (a < 0) {
+            texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}${texSymbole('>')}0$ lorsque $x${texSymbole('<')} ${texFractionReduite(-b, a)}$`
+          } else {
+            texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')} ${texFractionReduite(-b, a)}$`
+          }
+          if (c < 0) {
+            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ lorsque $x${texSymbole('<')} ${texFractionReduite(-d, c)}$`
+          } else {
+            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')} ${texFractionReduite(-d, c)}$`
+          }
+          if (e < 0) {
+            texteCorr += `<br>$${e}x${ecritureAlgebrique(f)}${texSymbole('>')}0$ lorsque $x${texSymbole('<')} ${texFractionReduite(-f, e)}$`
+          } else {
+            texteCorr += `<br>$${e}x${ecritureAlgebrique(f)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')} ${texFractionReduite(-f, e)}$`
+          }
+        }
+        // Prépare l'affichage du tableau de signes
+        texteCorr += '<br>On peut donc en déduire le tableau de signes suivant : <br>'
+        if (-b / a < -d / c && -b / a < -f / e) { // Si la plus petite solution est celle de la première équation
+          if (a > 0) { // La ligne1 change de signe en premier donc ligne1 = PMMM ou MPPP selon le signe de a
+            ligne1 = ligneMPPP
+          } else {
+            ligne1 = lignePMMM
+          }
+          valPetit = texFractionReduite(-b, a) // la plus petite valeur est la solution de la première équation
+          if (-d / c < -f / e) { // Si la deuxième plus petite solution est celle de la deuxième équation
+            if (c > 0) { // La ligne 2 change de signe en deuxième donc ligne2 = PPMM ou MMPP selon le signe de c
+              ligne2 = ligneMMPP
+            } else {
+              ligne2 = lignePPMM
+            }
+            if (e > 0) { // La ligne 3 change de signe en troisième donc ligne3 = PPPM ou MMMP selon le signe de e
+              ligne3 = ligneMMMP
+            } else {
+              ligne3 = lignePPPM
+            }
+            valMoyen = texFractionReduite(-d, c) // la moyenne valeur est la solution de la deuxième équation
+            valGrand = texFractionReduite(-f, e) // la plus grande valeur est la solution de la troisième équation
+          } else { // Si la deuxième plus petite solution est celle de la troisième équation
+            if (c > 0) { // La ligne 2 change de signe en troisième donc ligne2 = PPPM ou MMMP selon le signe de c
+              ligne2 = ligneMMMP
+            } else {
+              ligne2 = lignePPPM
+            }
+            if (e > 0) { // La ligne 3 change de signe en deuxième donc ligne3 = PPMM ou MMPP selon le signe de e
+              ligne3 = ligneMMPP
+            } else {
+              ligne3 = lignePPMM
+            }
+            valMoyen = texFractionReduite(-f, e) // la moyenne valeur est la solution de la troisième équation
+            valGrand = texFractionReduite(-d, c) // la plus grande valeur est la solution de la deuxième équation
+          }
+        } else if (-d / c < -b / a && -d / c < -f / e) { // Si la plus petite solution est celle de la deuxième équation
+          if (c > 0) { // La ligne2 change de signe en premier donc ligne2 = PMMM ou MPPP selon le signe de c
+            ligne2 = ligneMPPP
+          } else {
+            ligne2 = lignePMMM
+          }
+          valPetit = texFractionReduite(-d, c) // la plus petite valeur est la solution de la deuxième équation
+          if (-b / a < -f / e) { // Si la deuxième plus petite solution est celle de la première équation
+            if (a > 0) { // La ligne 1 change de signe en deuxième donc ligne1 = PPMM ou MMPP selon le signe de a
+              ligne1 = ligneMMPP
+            } else {
+              ligne1 = lignePPMM
+            }
+            if (e > 0) { // La ligne 3 change de signe en troisième donc ligne3 = PPPM ou MMMP selon le signe de e
+              ligne3 = ligneMMMP
+            } else {
+              ligne3 = lignePPPM
+            }
+            valMoyen = texFractionReduite(-b, a) // la moyenne valeur est la solution de la première équation
+            valGrand = texFractionReduite(-f, e) // la plus grande valeur est la solution de la troisième équation
+          } else { // Si la deuxième plus petite solution est celle de la troisième équation
+            if (a > 0) { // La ligne 1 change de signe en troisième donc ligne1 = PPPM ou MMMP selon le signe de a
+              ligne1 = ligneMMMP
+            } else {
+              ligne1 = lignePPPM
+            }
+            if (e > 0) { // La ligne 3 change de signe en deuxième donc ligne3 = PPMM ou MMPP selon le signe de e
+              ligne3 = ligneMMPP
+            } else {
+              ligne3 = lignePPMM
+            }
+            valMoyen = texFractionReduite(-f, e) // la moyenne valeur est la solution de la troisième équation
+            valGrand = texFractionReduite(-b, a) // la plus grande valeur est la solution de la première équation
+          }
+        } else { // Si la plus petite solution est celle de la troisième équation
+          if (e > 0) { // La ligne 3 change de signe en premier donc ligne3 = PMMM ou MPPP selon le signe de e
+            ligne3 = ligneMPPP
+          } else {
+            ligne3 = lignePMMM
+          }
+          valPetit = texFractionReduite(-f, e) // la plus petite valeur est la solution de la troisième équation
+          if (-b / a < -d / c) { // Si la deuxième plus petite solution est celle de la première équation
+            if (a > 0) { // La ligne 1 change de signe en deuxième donc ligne1 = PPMM ou MMPP selon le signe de a
+              ligne1 = ligneMMPP
+            } else {
+              ligne1 = lignePPMM
+            }
+            if (c > 0) { // La ligne 2 change de signe en troisième donc ligne2 = PPPM ou MMMP selon le signe de c
+              ligne2 = ligneMMMP
+            } else {
+              ligne2 = lignePPPM
+            }
+            valMoyen = texFractionReduite(-b, a) // la moyenne valeur est la solution de la première équation
+            valGrand = texFractionReduite(-d, c) // la plus grande valeur est la solution de la deuxième équation
+          } else { // Si la deuxième plus petite solution est celle de la première équation
+            if (a > 0) { // La ligne 1 change de signe en troisième donc ligne1 = PPPM ou MMMP selon le signe de a
+              ligne1 = ligneMMMP
+            } else {
+              ligne1 = lignePPPM
+            }
+            if (c > 0) { // La ligne 2 change de signe en deuxième donc ligne2 = PPMM ou MMPP selon le signe de c
+              ligne2 = ligneMMPP
+            } else {
+              ligne2 = lignePPMM
+            }
+            valMoyen = texFractionReduite(-d, c) // la moyenne valeur est la solution de la deuxième équation
+            valGrand = texFractionReduite(-b, a) // la plus grande valeur est la solution de la première équation
+          }
+        }
+        // Détermine la dernière ligne selon le signe du coefficient dominant
+        if (a * c * e > 0) {
+          ligne4 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
+        } else {
+          ligne4 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+        }
+        // Affiche enfin le tableau
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.6, xmax: 40, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          tabInit: [
+            [
+              ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$${e}x${ecritureAlgebrique(f)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)})$`, 2, 200]
+            ],
+            ['$-\\infty$', 30, `$${valPetit}$`, 20, `$${valMoyen}$`, 20, `$${valGrand}$`, 20, '$+\\infty$', 30]
+          ],
+          tabLines: [ligne1, ligne2, ligne3, ligne4],
+          colorBackground: '',
+          espcl: 3.5,
+          deltacl: 0.8,
+          lgt: 10,
+          hauteurLignes: [15, 15, 15, 15, 15]
+        }))
+        // Affiche l'ensemble de solutions selon le sens de l'inégalité
+        const solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valMoyen}, ${valGrand} \\bigg${pDroite} $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        const solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg${pGauche} ${valPetit} , ${valMoyen} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        if ((signes[i] === '<' || signes[i] === '≤')) {
+          if (a * c * e > 0) {
+            texteCorr += solutions1et3
+          } else {
+            texteCorr += solutions2et4
+          }
+        } else if ((signes[i] === '>' || signes[i] === '≥')) {
+          if (a * c * e > 0) {
+            texteCorr += solutions2et4
+          } else {
+            texteCorr += solutions1et3
+          }
+        }
+      }
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)²(cx+d)<0'                                   Type 5        //
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      if (listeTypeDeQuestions[i] === '(ax+b)²(cx+d)<0') {
+        texte = `$(${a}x${ecritureAlgebrique(b)})^2(${c}x${ecritureAlgebrique(d)})${texSymbole(signes[i])}0$`
+        // Correction
+        texteCorr = texte
+        texteCorr += `<br>Un carré étant toujours positif, $(${a}x${ecritureAlgebrique(b)})^2 > 0$ pour tout $x$ réel.`
+        // Si une correction détaillée est demandée, détaille comment résoudre les équations
+        if (this.correctionDetaillee) {
+          // Utilise la fonction décrite plus haut pour écrire la résolution détaillée de cx + d > 0
+          ecrireCorrectionDetaillee(c, d)
+        } else { // Si pas de correction détaillée, écrit simplement les conclusions, en changeant le sens des inégalités si a < 0 ou si c < 0
+          if (c < 0) {
+            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ lorsque $x${texSymbole('<')} ${texFractionReduite(-d, c)}$`
+          } else {
+            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')} ${texFractionReduite(-d, c)}$`
+          }
+        }
+        // Prépare l'affichage du tableau de signes
+        texteCorr += '<br>On peut donc en déduire le tableau de signes suivant : <br>'
+        ligne1 = ['Line', 30, '', 0, '+', 20, 't', 5, '+', 20]
+        if (c > 0) {
+          ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20]
+        } else {
+          ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20]
+        }
+        ligne3 = ligne2
+        // Affiche le tableau
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          tabInit: [
+            [
+              ['$x$', 2.5, 30], [`$(${a}x${ecritureAlgebrique(b)})^2$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})^2(${c}x${ecritureAlgebrique(d)})$`, 2, 200]
+            ],
+            ['$-\\infty$', 30, `$${texFractionReduite(-d, c)}$`, 20, '$+\\infty$', 30]
+          ],
+          tabLines: [ligne1, ligne2, ligne3],
+          colorBackground: '',
+          espcl: 3.5,
+          deltacl: 0.8,
+          lgt: 10,
+          hauteurLignes: [15, 15, 15, 15]
+        }))
+        // Affiche l'ensemble de solutions selon le sens de l'inégalité
+        const gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty, ${texFractionReduite(-d, c)} \\right${pDroite} $.`
+        const droite = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${texFractionReduite(-d, c)}, +\\infty \\right[ $.`
+        if ((signes[i] === '<' || signes[i] === '≤')) {
+          if (c > 0) {
+            texteCorr += gauche
+          } else {
+            texteCorr += droite
+          }
+        } else if ((signes[i] === '>' || signes[i] === '≥')) {
+          if (a * c > 0) {
+            texteCorr += droite
+          } else {
+            texteCorr += gauche
+          }
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
