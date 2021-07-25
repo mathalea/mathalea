@@ -151,3 +151,11 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
+|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
+|beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
+|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
+|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
+|betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|betaGilles_CAN_seconde|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
+|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
+|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
