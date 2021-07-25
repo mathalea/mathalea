@@ -2234,8 +2234,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     for (let i = 0; i < urlVars.length; i++) {
       listeDesExercices.push(urlVars[i].id)
     }
-    formChoixDesExercices.value = listeDesExercices.join(',')
-    copierExercicesFormVersAffichage(listeDesExercices)
+    if (formChoixDesExercices !== null) {
+      formChoixDesExercices.value = listeDesExercices.join(',')
+      copierExercicesFormVersAffichage(listeDesExercices)
+    }
     try {
       miseAJourDeLaListeDesExercices()
     } catch (err) {

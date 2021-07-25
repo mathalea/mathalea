@@ -235,38 +235,41 @@ function addExercice (e) {
 export function apparenceExerciceActif () {
   // Fonction permettant la mise en gras des exercices sélectionnés, d'ajouter l'icone moins et le nombre de fois ou on l'a sélectionné
   // appelée dans miseajourducode et afficheniveau (dès lors que les listes sont susceptibles d'être changées)
-  $('.exerciceactif').removeClass('exerciceactif')
-  $('.delexercice').remove()
-  const listeExercicesSelectionnes = document.getElementById('choix_des_exercices').value.split(',')
-  for (let i = 0; i < listeExercicesSelectionnes.length; i++) {
-    const elemListe = $(`a.lien_id_exercice[data-id_exercice='${listeExercicesSelectionnes[i]}']`)
-    // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
-    if (compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i]) > 1) {
+  let listeExercicesSelectionnes = document.getElementById('choix_des_exercices')
+  if (listeExercicesSelectionnes !== null) {
+    $('.exerciceactif').removeClass('exerciceactif')
+    $('.delexercice').remove()
+    listeExercicesSelectionnes = listeExercicesSelectionnes.value.split(',')
+    for (let i = 0; i < listeExercicesSelectionnes.length; i++) {
+      const elemListe = $(`a.lien_id_exercice[data-id_exercice='${listeExercicesSelectionnes[i]}']`)
+      // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
+      if (compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i]) > 1) {
       // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
-      if (document.getElementById(`count¤${listeExercicesSelectionnes[i]}`)) {
-        document.getElementById(`count¤${listeExercicesSelectionnes[i]}`).innerText = ` ✖︎ ${compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i])}`
+        if (document.getElementById(`count¤${listeExercicesSelectionnes[i]}`)) {
+          document.getElementById(`count¤${listeExercicesSelectionnes[i]}`).innerText = ` ✖︎ ${compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i])}`
+        } else {
+          elemListe.after(`<span id="count¤${listeExercicesSelectionnes[i]}"> ✖︎ ${compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i])} </span>`)
+        }
       } else {
-        elemListe.after(`<span id="count¤${listeExercicesSelectionnes[i]}"> ✖︎ ${compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i])} </span>`)
+        if (document.getElementById(`count¤${listeExercicesSelectionnes[i]}`)) {
+          document.getElementById(`count¤${listeExercicesSelectionnes[i]}`).remove()
+        }
       }
-    } else {
-      if (document.getElementById(`count¤${listeExercicesSelectionnes[i]}`)) {
-        document.getElementById(`count¤${listeExercicesSelectionnes[i]}`).remove()
+      if (!elemListe.hasClass('exerciceactif')) {
+        elemListe.after(`<span data-tooltip="Supprimer le dernière occurence de l'exercice." class="delexercice"><i class="minus square icon delexercice" id="del¤${listeExercicesSelectionnes[i]}" ></i></span>`)
       }
+      elemListe.addClass('exerciceactif')
     }
-    if (!elemListe.hasClass('exerciceactif')) {
-      elemListe.after(`<span data-tooltip="Supprimer le dernière occurence de l'exercice." class="delexercice"><i class="minus square icon delexercice" id="del¤${listeExercicesSelectionnes[i]}" ></i></span>`)
-    }
-    elemListe.addClass('exerciceactif')
+    $('.delexercice').off('click').on('click', function (e) {
+      supprimerExo(e.target.id, true)
+      e.stopPropagation()
+    })
+    $('.icone_preview').off('click').on('click', function (e) {
+      e.stopPropagation()
+      $('.popup').attr('data-exoId', e.target.id)
+      $('.popup').trigger(e)
+    })
   }
-  $('.delexercice').off('click').on('click', function (e) {
-    supprimerExo(e.target.id, true)
-    e.stopPropagation()
-  })
-  $('.icone_preview').off('click').on('click', function (e) {
-    e.stopPropagation()
-    $('.popup').attr('data-exoId', e.target.id)
-    $('.popup').trigger(e)
-  })
 }
 
 export function supprimerExo (num, last) {
