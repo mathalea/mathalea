@@ -185,12 +185,19 @@ export default {
     "interactifReady": false,
     "name": "2L13"
   },
-  "2L14": {
-    "titre": "Résoudre une inéquation produit ou quotient",
-    "url": "/exercices/2e/2L14.js",
+  "2L14-1": {
+    "titre": "Résoudre une inéquation produit",
+    "url": "/exercices/2e/2L14-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2L14"
+    "name": "2L14-1"
+  },
+  "2L14-2": {
+    "titre": "Résoudre une inéquation quotient",
+    "url": "/exercices/2e/2L14-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2L14-2"
   },
   "2N10-1": {
     "titre": "Connaître les propriétés calculatoires des racines carrées",
