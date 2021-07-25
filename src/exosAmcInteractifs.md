@@ -1,11 +1,12 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 107 
-- nombre d'exos interactifReady 128 
+- nombre d'exos interactifReady 130 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|2G50-2|Lecture graphique des coefficients d'une équation réduite|OK|AMCNum|OK|mathLive|
+|2G50-2|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
 |2G50|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
+|2G53|Alignement de 3 points.|KO|KO|OK|mathLive|
 |2L12-2|Développer (a+b)²|KO|KO|OK|mathLive|
 |2L12-3|Développer (a-b)²|KO|KO|OK|mathLive|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
@@ -122,13 +123,6 @@
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|
-|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
-|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
-|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
-|betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
-|betaGilles_CAN_seconde|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
-|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
@@ -149,3 +143,11 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
+|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
+|beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
+|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
+|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
+|betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|betaGilles_CAN_seconde|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
+|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
+|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
