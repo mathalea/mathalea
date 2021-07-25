@@ -74,9 +74,9 @@ export default function ExerciceInequationProduit () {
       a = randint(-13, 13, [0, 1, -1])
       b = randint(-13, 13, [0, a])
       c = randint(-13, 13, [0, 1, -1, a, b])
-      d = randint(-13, 13, [0, a, b, c])
+      d = randint(-13, 13, [0, a, b, c, (b * c) / a]) // Pour éviter que ax + b et cx + d n'aient la même racine
       e = randint(-13, 13, [0, 1, -1, a, b, c, d])
-      f = randint(-13, 13, [0, a, b, c, d, e])
+      f = randint(-13, 13, [0, a, b, c, d, e, (b * e) / a, (d * e) / c]) // Pour éviter que (ax + b et ex + f) ou (cx + d et ex + f) n'aient la même racine
       // Pioche un signe d'inégalité parmi <, ≤, ≥, > et définit en fonction si les crochets seront ouverts ou fermés dans l'ensemble de solutions
       switch (signes[i]) {
         case '<':
@@ -104,23 +104,34 @@ export default function ExerciceInequationProduit () {
         texteCorr += `$x${texSymbole('>')}${-val}$<br>`
       }
       // Fonction écrivant la correction détaillée d'une inéquation du type var1*x + var2 > 0
-      function ecrireCorrectionDetaillee (var1, var2) {
+      function ecrireCorrectionDetaillee (var1, var2, egal) {
+        let symbolePlusGrand = texSymbole('>')
+        let symbolePlusPetit = texSymbole('<')
+        if (egal) {
+          symbolePlusGrand = '='
+          symbolePlusPetit = '='
+        }
         // Détaille les étapes de la résolution en mettant en évidence les calculs réalisés.
-        texteCorr += `<br>$${var1}x${ecritureAlgebrique(var2)}${texSymbole('>')}0$ <br>`
+        texteCorr += `<br>$${var1}x${ecritureAlgebrique(var2)}${symbolePlusGrand}0$ <br>`
         texteCorr += `$${var1}x${ecritureAlgebrique(var2)}${miseEnEvidence(ecritureAlgebrique(-1 * var2))}
-        ${texSymbole('>')}${miseEnEvidence(ecritureAlgebrique(-1 * var2))}$<br>`
-        texteCorr += `$${var1}x${texSymbole('>')}${-var2}$<br>`
+        ${symbolePlusGrand}${miseEnEvidence(ecritureAlgebrique(-1 * var2))}$<br>`
+        texteCorr += `$${var1}x${symbolePlusGrand}${-var2}$<br>`
         // Si var1 < 0, l'inégalité change de sens
         if (var1 < 0) {
-          texteCorr += `$${var1}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1) +
-            texSymbole('<'))}${-var2 + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}$<br>`
-          texteCorr += `$x${texSymbole('<')}${texFraction(-var2, var1)}$`
-          texteCorr += `<br>Donc $${var1}x${ecritureAlgebrique(var2)}${texSymbole('>')}0$ lorsque $x${texSymbole('<')} ${texFractionReduite(-var2, var1)}$`
+          texteCorr += `$${var1}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}`
+          if (egal) { // On met en évidence un > qui se change en <, pas un = qui ne change pas
+            texteCorr += symbolePlusPetit
+          } else {
+            texteCorr += miseEnEvidence(symbolePlusPetit)
+          }
+          texteCorr += `${-var2 + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}$<br>`
+          texteCorr += `$x${symbolePlusPetit}${texFraction(-var2, var1)}$`
+          texteCorr += `<br>Donc $${var1}x${ecritureAlgebrique(var2)}${symbolePlusGrand}0$ lorsque $x${symbolePlusPetit} ${texFractionReduite(-var2, var1)}$`
         } else { // sinon elle ne change pas de sens
           texteCorr += `$${var1}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}
-            ${texSymbole('>')}${-var2 + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}$<br>`
-          texteCorr += `$x${texSymbole('>')} ${texFraction(-var2, var1)}$`
-          texteCorr += `<br>Donc $${var1}x${ecritureAlgebrique(var2)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')}${texFractionReduite(-var2, var1)}$`
+            ${symbolePlusGrand}${-var2 + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}$<br>`
+          texteCorr += `$x${symbolePlusGrand} ${texFraction(-var2, var1)}$`
+          texteCorr += `<br>Donc $${var1}x${ecritureAlgebrique(var2)}${symbolePlusGrand}0$ lorsque $x${symbolePlusGrand}${texFractionReduite(-var2, var1)}$`
         }
       }
       // Prépare les quatre types de lignes possibles pour les tableaux avec 2 antécédents : + + - , + - -, - + + et - - +
@@ -526,15 +537,19 @@ export default function ExerciceInequationProduit () {
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)²(cx+d)<0'                                   Type 5        //
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       if (listeTypeDeQuestions[i] === '(ax+b)²(cx+d)<0') {
+        let valPetit, valGrand
         texte = `$(${a}x${ecritureAlgebrique(b)})^2(${c}x${ecritureAlgebrique(d)})${texSymbole(signes[i])}0$`
         // Correction
         texteCorr = texte
-        texteCorr += `<br>Un carré étant toujours positif, $(${a}x${ecritureAlgebrique(b)})^2 > 0$ pour tout $x$ réel.`
         // Si une correction détaillée est demandée, détaille comment résoudre les équations
         if (this.correctionDetaillee) {
-          // Utilise la fonction décrite plus haut pour écrire la résolution détaillée de cx + d > 0
+          // Utilise la fonction décrite plus haut pour écrire la résolution détaillée de ax + b = 0 cx + d > 0
+          ecrireCorrectionDetaillee(a, b, true)
+          texteCorr += `<br>Un carré étant toujours positif, $(${a}x${ecritureAlgebrique(b)})^2 > 0$ pour tout $x$ réel différent de $${texFractionReduite(-b, a)}$.`
           ecrireCorrectionDetaillee(c, d)
         } else { // Si pas de correction détaillée, écrit simplement les conclusions, en changeant le sens des inégalités si a < 0 ou si c < 0
+          texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}=0$ lorsque $x=${texFractionReduite(-b, a)}$`
+          texteCorr += `<br>Un carré étant toujours positif, $(${a}x${ecritureAlgebrique(b)})^2 > 0$ pour tout $x$ réel différent de $${texFractionReduite(-b, a)}$.`
           if (c < 0) {
             texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ lorsque $x${texSymbole('<')} ${texFractionReduite(-d, c)}$`
           } else {
@@ -543,11 +558,24 @@ export default function ExerciceInequationProduit () {
         }
         // Prépare l'affichage du tableau de signes
         texteCorr += '<br>On peut donc en déduire le tableau de signes suivant : <br>'
-        ligne1 = ['Line', 30, '', 0, '+', 20, 't', 5, '+', 20]
-        if (c > 0) {
-          ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20]
-        } else {
-          ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20]
+        if (-b / a < -d / c) { // Si la première racine est la racine double
+          ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+          valPetit = texFractionReduite(-b, a) // la plus petite valeur est la solution de la première équation
+          valGrand = texFractionReduite(-d, c) // la plus grande valeur est la solution de la deuxième équation
+          if (c > 0) {
+            ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
+          } else {
+            ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
+          }
+        } else { // Si la racine double est la deuxième
+          ligne1 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '+', 20]
+          valPetit = texFractionReduite(-d, c) // la plus petite valeur est la solution de la deuxième équation
+          valGrand = texFractionReduite(-b, a) // la plus grande valeur est la solution de la première équation
+          if (c > 0) {
+            ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+          } else {
+            ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
+          }
         }
         ligne3 = ligne2
         // Affiche le tableau
@@ -556,7 +584,7 @@ export default function ExerciceInequationProduit () {
             [
               ['$x$', 2.5, 30], [`$(${a}x${ecritureAlgebrique(b)})^2$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})^2(${c}x${ecritureAlgebrique(d)})$`, 2, 200]
             ],
-            ['$-\\infty$', 30, `$${texFractionReduite(-d, c)}$`, 20, '$+\\infty$', 30]
+            ['$-\\infty$', 30, `$${valPetit}$`, 20, `$${valGrand}$`, 20, '$+\\infty$', 30]
           ],
           tabLines: [ligne1, ligne2, ligne3],
           colorBackground: '',
