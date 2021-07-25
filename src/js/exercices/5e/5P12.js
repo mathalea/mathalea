@@ -36,7 +36,7 @@ export default function PartagerSelonUnRatio () {
         texte += 'Combien chacun recevra-t-il de bonbons ?'
         texteCorr = ''
         if (this.correctionDetaillee) {
-          texteCorr += `À chaque fois que ${prenom1} en reçoit ${quantite1}, ${prenom2} en reçoit ${quantite2}. Ce qui fait : <br>`
+          texteCorr += `À chaque fois que ${prenom1} en reçoit ${quantite1}, ${prenom2} en reçoit ${quantite2}. Ce qui fait $${quantite1} + ${quantite2} = ${quantite1 + quantite2}$. <br>`
         }
         texteCorr += `$${quantite1} + ${quantite2} = ${quantite1 + quantite2}$ <br>`
         if (this.correctionDetaillee) {
@@ -58,7 +58,7 @@ export default function PartagerSelonUnRatio () {
         texte += 'Combien chacun recevra-t-il de bonbons ?'
         texteCorr = ''
         if (this.correctionDetaillee) {
-          texteCorr += `À chaque fois que ${prenom1} en reçoit ${quantite1}, ${prenom2} en reçoit ${quantite2} et ${prenom3} en reçoit ${quantite3}. Ce qui fait : <br>`
+          texteCorr += `À chaque fois que ${prenom1} en reçoit ${quantite1}, ${prenom2} en reçoit ${quantite2} et ${prenom3} en reçoit ${quantite3}. Ce qui fait $${quantite1} + ${quantite2} + ${quantite3} = ${quantite1 + quantite2 + quantite3}$. <br>`
         }
         texteCorr += `$${quantite1} + ${quantite2} + ${quantite3} = ${quantite1 + quantite2 + quantite3}$ <br>`
         if (this.correctionDetaillee) {
