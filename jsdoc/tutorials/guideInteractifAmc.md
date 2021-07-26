@@ -109,6 +109,62 @@ type 'AMCOpenNum' : idem type 'AMCOpen' avec présence comme pour le type 'AMCNu
 
 type 'AMCOpenNum✖︎2' : idem type 'AMCNum' avec présence d'un autre attribut reponse2 qui fonctionne comme le reponse du type 'AMCOpenNum.
 
+type 'AMCHybride' : Dans ce type, chaque question-réponse peut avoir un type différent. Il y a un énoncé, une correction et plusieurs question-réponse.
+```js
+this.autoCorrection[i] = {
+        enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
+        propositions: [
+          {
+            type: type1, // on donne le type de la première question-réponse qcmMono, qcmMult, Num...
+            propositions : [ // une ou plusieures(Qcms) 'propositions'
+              {
+                  texte: // la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm
+                  statut: // true au false(Qcms) ,
+                  feedback: ''
+              }
+            ],
+            reponse: { // utilisé si type = 'Num'
+                texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
+                valeur: nombre // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
+                param: {
+                    digits: 3 // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé),
+                    decimals: 0 // facultatif si il n'est pas mis, il sera mis à 0 (le nombre de chiffres après la virgule pour AMC voir ci-dessus pour digit),
+                    signe: false // (présence d'une case + ou - pour AMC),
+                    exposantNbChiffres: 0 // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant),
+                    exposantSigne: false // (présence d'une case + ou - pour l'exposant précédent),
+                    approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance... voire AMC)
+                  }
+            },
+            options: {ordered: false, lastChoice: false} // options pour Qcms
+          },
+
+          {
+            type: type2, // on donne le type de la deuxième question-réponse qcmMono, qcmMult, Num...
+            proposition : [ // une ou plusieures(Qcms) 'propositions'
+              {
+                  texte: // la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm
+                  statut: // true au false(Qcms) ,
+                  feedback: ''
+              }
+            ],
+            reponse: { // utilisé si type = 'num'
+                texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
+                valeur: nombre // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
+                param: {
+                    digits: 3 // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé),
+                    decimals: 0 // facultatif si il n'est pas mis, il sera mis à 0 (le nombre de chiffres après la virgule pour AMC voir ci-dessus pour digit),
+                    signe: false // (présence d'une case + ou - pour AMC),
+                    exposantNbChiffres: 0 // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant),
+                    exposantSigne: false // (présence d'une case + ou - pour l'exposant précédent),
+                    approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance... voire AMC)
+                  }
+            },
+            options: {ordered: false, lastChoice: false} // options pour Qcms
+          } // et ainsi de suite pour toutes les question-reponse
+        ]
+}
+       
+```
 # Les fonctions
 Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont l'appel permet de générer le code nécessaire facilement :
 

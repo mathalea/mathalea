@@ -103,7 +103,7 @@ export default function Solide6e () {
 
         case 3: // citer les arêtes perpendiculaires à une arête donnée
           [k, l, s] = [randint(0, 11), 0, randint(0, 1)]
-          enonce += `Quelles sont les arêtes peprendiculaires à l'arête [$${nom[aretesPerp[k][l][s]] + nom[aretesPerp[k][l][(s + 1) % 2]]}$] ?<br>`
+          enonce += `Quelles sont les arêtes perpendiculaires à l'arête [$${nom[aretesPerp[k][l][s]] + nom[aretesPerp[k][l][(s + 1) % 2]]}$] ?<br>`
           correction = `Les arêtes perpendiculaires à l'arête [$${nom[aretesPerp[k][l][s]] + nom[aretesPerp[k][l][(s + 1) % 2]]}$] sont [$${nom[aretesPerp[k][1][s]] + nom[aretesPerp[k][1][(s + 1) % 2]]}$], [$${nom[aretesPerp[k][2][s]] + nom[aretesPerp[k][2][(s + 1) % 2]]}$], [$${nom[aretesPerp[k][3][s]] + nom[aretesPerp[k][3][(s + 1) % 2]]}$] et [$${nom[aretesPerp[k][4][s]] + nom[aretesPerp[k][4][(s + 1) % 2]]}$].`
           break
 

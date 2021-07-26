@@ -1,13 +1,32 @@
+import { context } from './context'
 
+/**
+ *
+ * @returns {string} Filtre depuis l'URL
+ */
 export function getFilterFromUrl () {
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
   return urlParams.get('filtre')
 }
+
+/**
+ *
+ * @returns {string} Vue depuis l'URL
+ */
 export function getVueFromUrl () {
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
   return urlParams.get('v')
+}
+/**
+ *
+ * @returns {string} userId depuis l'URL
+ */
+export function getUserIdFromUrl () {
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  return urlParams.get('userId')
 }
 
 export function getUrlVars () { // Récupère les variables de l'URL
@@ -54,4 +73,57 @@ export function getUrlVars () { // Récupère les variables de l'URL
     tableauObjetsExercices.push(ObjetParametres)
   }
   return tableauObjetsExercices
+}
+
+/**
+ * Récupère l'URL et s'assure que la vue et le userId sont notés
+ * @returns
+ */
+export function getUrlSearchOld () {
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  if (context.userId) urlParams.set('userId', context.userId)
+  if (context.vue) urlParams.set('v', context.vue)
+  let url = ''
+  let text
+  for (const p of urlParams) {
+    text = p.join()
+    text = text.replace(',', '=')
+    url += text + '&' // Le dernier & est à supprimer avec le slice
+  }
+  if (urlParams) url = window.location + '?' + url.slice(0, -1)
+  return url
+}
+
+/**
+ * Récupère l'URL et s'assure que la vue et le userId sont notés
+ * Essai de debug
+ * @returns
+ */
+export function getUrlSearch () {
+  const urlRacine = window.location.href.split('?')[0]
+  // console.log(urlRacine)
+  const queryString = window.location.search
+  // console.log(queryString)
+  const urlParams = new URLSearchParams(queryString)
+  // console.log(urlParams)
+  if (context.userId) urlParams.set('userId', context.userId)
+  if (context.vue) urlParams.set('v', context.vue)
+  // On finit la réécriture de l'url
+  const entries = urlParams.entries()
+  let urlRewrite = urlRacine + '?'
+  for (const entry of entries) {
+    urlRewrite += entry[0] + '=' + entry[1] + '&'
+  }
+  urlRewrite = urlRewrite.slice(0, -1)
+  // console.log(urlRewrite)
+  urlRewrite = new URL(urlRewrite)
+  return urlRewrite
+}
+
+/**
+ * Met à jour l'URL avec la vue et le userId s'ils sont connus
+ */
+export function setUrl () {
+  window.history.pushState('', '', getUrlSearch())
 }

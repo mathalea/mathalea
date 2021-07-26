@@ -1,4 +1,5 @@
 import loadjs from 'loadjs'
+import slick from '../../assets/externalJs/slick/slick'
 
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
@@ -8,7 +9,8 @@ const apps = {
   giac: '/assets/externalJs/giacsimple.js',
   mathgraph: 'https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js',
   prism: ['/assets/externalJs/prism.js', '/assets/externalJs/prism.css'],
-  scratchblocks: 'assets/externalJs/scratchblocks-v3.5-min.js'
+  scratchblocks: 'assets/externalJs/scratchblocks-v3.5-min.js',
+  slick: ['/assets/externalJs/semantic-ui/semantic.min.css', '/assets/externalJs/semantic-ui/semantic.min.js', '/assets/externalJs/semantic-ui/components/state.min.js']
 }
 
 /**
@@ -116,6 +118,20 @@ export async function loadScratchblocks () {
 }
 
 /**
+ * Charge Slick pour les diaporama
+ * @return {Promise} qui peut échouer…
+ */
+export async function loadSlick () {
+  try {
+    await load('slick')
+    slick()
+  } catch (error) {
+    console.error(error)
+    return Error('Erreur de chargement de slick')
+  }
+}
+
+/**
  * Charge MathLive et personnalise les réglages
  * MathLive est chargé dès qu'un tag math-field est créé
  */
@@ -145,7 +161,6 @@ export async function loadMathLive () {
           virtualKeyboardMode: 'onfocus'
         })
       }
-      mf.style = 'font-size: 20px; margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);}'
       if (mf.classList.contains('longueur')) {
         mf.setOptions({
           customVirtualKeyboardLayers: longueursKeyboardLayer,
@@ -162,6 +177,25 @@ export async function loadMathLive () {
           }
         })
       }
+      let style = 'font-size: 20px;'
+      if (mf.classList.contains('inline')) {
+        style += ' display: inline-block; margin-left: 25px; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
+        if (!mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50')) {
+          style += ' width: 25%;'
+        }
+      } else {
+        style += ' margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);'
+      }
+      if (mf.classList.contains('largeur10')) {
+        style += ' width: 10%;'
+      }
+      if (mf.classList.contains('largeur25')) {
+        style += ' width: 25%;'
+      }
+      if (mf.classList.contains('largeur50')) {
+        style += ' width: 50%;'
+      }
+      mf.style = style
     }
   }
 }
