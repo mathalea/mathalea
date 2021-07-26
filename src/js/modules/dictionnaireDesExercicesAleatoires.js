@@ -126,14 +126,6 @@ export default {
     "interactifReady": false,
     "name": "2G52"
   },
-  "2G53": {
-    "titre": "Alignement de 3 points.",
-    "url": "/exercices/2e/2G53.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "2G53"
-  },
   "2L10": {
     "titre": "Développer avec les identités remarquables",
     "url": "/exercices/2e/2L10.js",
@@ -185,12 +177,19 @@ export default {
     "interactifReady": false,
     "name": "2L13"
   },
-  "2L14": {
-    "titre": "Résoudre une inéquation produit ou quotient",
-    "url": "/exercices/2e/2L14.js",
+  "2L14-1": {
+    "titre": "Résoudre une inéquation produit",
+    "url": "/exercices/2e/2L14-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2L14"
+    "name": "2L14-1"
+  },
+  "2L14-2": {
+    "titre": "Résoudre une inéquation quotient",
+    "url": "/exercices/2e/2L14-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2L14-2"
   },
   "2N10-1": {
     "titre": "Connaître les propriétés calculatoires des racines carrées",
@@ -3523,6 +3522,14 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2G14"
+  },
+  "beta2G53": {
+    "titre": "Alignement de 3 points.",
+    "url": "/exercices/beta/beta2G53.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta2G53"
   },
   "beta2L11-1": {
     "titre": "Factoriser avec les identités remarquables (niveau II)",
