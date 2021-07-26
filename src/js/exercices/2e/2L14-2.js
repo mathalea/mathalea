@@ -20,13 +20,17 @@ export const titre = 'Résoudre une inéquation quotient'
 export default function ExerciceInequationQuotient () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre les inéquations suivantes'
   this.spacing = 2 // Espace entre deux lignes
   this.spacingCorr = 2 // Espace entre deux lignes pour la correction
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false // Désactive la correction détaillée par défaut
   this.sup = 1 // Choix du type d'inéquation
   this.nbQuestions = 1 // Choix du nombre de questions
+  if (this.nbQuestions.toString() === '1') {
+    this.consigne = 'Résoudre l\'inéquation suivante :'
+  } else {
+    this.consigne = 'Résoudre les inéquations suivantes :'
+  }
   this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
   this.nbCols = 1 // Fixe le nombre de colonnes pour les énoncés de la sortie LateX
   this.nbColsCorr = 1 // Fixe le nombre de colonnes pour les réponses de la sortie LateX
