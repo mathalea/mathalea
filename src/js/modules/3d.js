@@ -122,7 +122,7 @@ export function vecteur3d (...args) { // A,B deux Point3d ou x,y,z les composant
 /**
    * L'ARETE
    * @author Jean-Claude lhote
-   * Une telle arête est définie par deux points 
+   * Une telle arête est définie par deux points
    * Si l'un des deux points n'est pas visible (propriété visible à false) alors l'arête aura aussi visible à false
    * sa propriété p2d est un segment en pointillé ou en trait plein suivant sa visibilité.
    */
@@ -593,6 +593,55 @@ class Cube3d {
 }
 export function cube3d (x, y, z, c) {
   return new Cube3d(x, y, z, c)
+}
+
+class Barre3d {
+  constructor (x, y, z, c, l, color = 'black') {
+    let B, C, D, E, F, G, H, faceAv, faceTop
+    const objets = []
+    const vx = vecteur3d(c, 0, 0)
+    const vy = vecteur3d(0, c, 0)
+    const vz = vecteur3d(0, 0, c)
+    let A = point3d(x, y, z)
+
+    for (let i = 0; i < l; i++) {
+      B = translation3d(A, vx)
+      C = translation3d(B, vz)
+      D = translation3d(A, vz)
+      E = translation3d(A, vy)
+      F = translation3d(E, vx)
+      G = translation3d(F, vz)
+      H = translation3d(D, vy)
+      faceAv = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
+      faceTop = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
+      faceAv.couleurDeRemplissage = '#A9A9A9'
+      faceTop.couleurDeRemplissage = 'white'
+      objets.push(faceAv, faceTop)
+      A = translation3d(A, vx)
+    }
+    const faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
+    faceD.couleurDeRemplissage = '#A5C400'
+    objets.push(faceD)
+
+    this.svg = function (coeff) {
+      let code = ''
+      for (const objet of objets) {
+        code += objet.svg() + '\n'
+      }
+      return code
+    }
+    this.tikz = function () {
+      let code = ''
+      for (const objet of objets) {
+        code += objet.tikz() + '\n'
+      }
+      return code
+    }
+  }
+}
+
+export function barre3d (x, y, z, c, l, color = 'black') {
+  return new Barre3d(x, y, z, c, l, color)
 }
 
 /**
