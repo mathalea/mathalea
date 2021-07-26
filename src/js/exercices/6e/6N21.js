@@ -3,6 +3,7 @@ import { listeQuestionsToContenu, combinaisonListes, lettreDepuisChiffre, randin
 import { mathalea2d, droiteGraduee2, point, tracePoint, labelPoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les abscisses fractionnaires'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -19,8 +20,8 @@ export default function PlacerPointsAbscissesFractionnaires () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 5
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
@@ -83,36 +84,44 @@ export default function PlacerPointsAbscissesFractionnaires () {
           }
         }
       }
-      texte += '<br>' + mathalea2d({ xmin: -2, xmax: 4 * tailleUnite + 1, ymin: -1, ymax: 2, style: 'display:block, top-margin:20px' }, mesObjets)
-      texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
+      texte += '<br>' + mathalea2d({ xmin: -0.2, xmax: 4 * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ' }, mesObjets)
+      if (this.interactif) {
+        texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
+      }
 
       A = point(((num / den) - origine) * tailleUnite, 0, lettreDepuisChiffre(i + 1))
       traceA = tracePoint(A)
       traceA.color = 'blue'
-      traceA.epaisseur = 3
-      traceA.taille = 5
+      traceA.epaisseur = this.interactif ? 3 : 2
+      traceA.taille = this.interactif ? 5 : 3
       labels = labelPoint(A)
       if (!this.interactif) {
         A.nom = lettreDepuisChiffre(i * 3 + 1)
         B = point(((num2 / den) - origine) * tailleUnite, 0, lettreDepuisChiffre(i * 3 + 2))
         traceB = tracePoint(B)
         traceB.color = 'blue'
-        traceB.epaisseur = 3
-        traceB.taille = 5
+        traceB.epaisseur = 2
+        traceB.taille = 3
         C = point(((num3 / den) - origine) * tailleUnite, 0, lettreDepuisChiffre(i * 3 + 3))
         traceC = tracePoint(C)
         traceC.color = 'blue'
-        traceC.epaisseur = 3
-        traceC.taille = 5
+        traceC.epaisseur = 2
+        traceC.taille = 3
         labels = labelPoint(A, B, C)
+      }
+
+      if (!context.isHtml) {
+        A.positionLabel = 'above = 0.2'
+        B.positionLabel = 'above = 0.2'
+        C.positionLabel = 'above = 0.2'
       }
 
       if (this.interactif) {
         texteCorr = `$${lettreDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
-        texteCorr += '<br>' + mathalea2d({ xmin: -1, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2 }, d, traceA, labels)
+        texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ' }, d, traceA, labels)
       } else {
         texteCorr = `$${lettreDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$`
-        texteCorr += '<br>' + mathalea2d({ xmin: -1, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2 }, d, traceA, traceB, traceC, labels)
+        texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ' }, d, traceA, traceB, traceC, labels)
       }
 
       if (!isArrayInArray(fractionsUtilisees, [num, den])) {

@@ -1907,7 +1907,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   // gestion de la vue
   // si dans l'url il y a un paramètre &v=... on modifie le DOM et/ou le CSS
   gestionVue()
-  console.log(context.vue)
   if (context.vue !== 'recto' && context.vue !== 'verso') {
     gestionScores()
   } else {
