@@ -594,7 +594,11 @@ class Cube3d {
 export function cube3d (x, y, z, c) {
   return new Cube3d(x, y, z, c)
 }
-
+/**
+ * @author Jean-Claude Lhote
+ * Créer une barre de l cubes de c de côté à partir du point (x,y,z)
+ * La barre est positionnée suivant l'axe x
+ */
 class Barre3d {
   constructor (x, y, z, c, l, color = 'black') {
     let B, C, D, E, F, G, H, faceAv, faceTop
@@ -644,6 +648,68 @@ export function barre3d (x, y, z, c, l, color = 'black') {
   return new Barre3d(x, y, z, c, l, color)
 }
 
+class Plaque3d {
+  constructor (x, y, z, c, l, p, color = 'black') {
+    let B, C, D, E, F, G, H, faceAv, faceTop, faceD
+    const objets = []
+    const vx = vecteur3d(c, 0, 0)
+    const vy = vecteur3d(0, c, 0)
+    const vz = vecteur3d(0, 0, c)
+    let A = point3d(x, y, z)
+
+    for (let i = 0; i < l; i++) {
+      E = A
+      B = translation3d(E, vx)
+      C = translation3d(B, vz)
+      D = translation3d(E, vz)
+      F = translation3d(B, vy)
+      G = translation3d(F, vz)
+      H = translation3d(D, vy)
+      faceAv = polygone([E.p2d, B.p2d, C.p2d, D.p2d], color)
+      faceAv.couleurDeRemplissage = '#A9A9A9'
+
+      for (let j = 0; j < p; j++) {
+        if (j === 0) {
+          objets.push(faceAv)
+        }
+        faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
+        faceD.couleurDeRemplissage = '#A5C400'
+        if (i === l - 1) {
+          objets.push(faceD)
+        }
+        faceTop = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
+        faceTop.couleurDeRemplissage = 'white'
+        objets.push(faceTop)
+        B = translation3d(B, vy)
+        D = translation3d(D, vy)
+        F = translation3d(F, vy)
+        C = translation3d(C, vy)
+        G = translation3d(G, vy)
+        H = translation3d(H, vy)
+      }
+      A = translation3d(A, vx)
+    }
+
+    this.svg = function (coeff) {
+      let code = ''
+      for (const objet of objets) {
+        code += objet.svg() + '\n'
+      }
+      return code
+    }
+    this.tikz = function () {
+      let code = ''
+      for (const objet of objets) {
+        code += objet.tikz() + '\n'
+      }
+      return code
+    }
+  }
+}
+
+export function plaque3d (x, y, z, c, l, p, color = 'black') {
+  return new Plaque3d(x, y, z, c, l, p, color)
+}
 /**
  * @author Erwan Duplessis et Jean-Claude Lhote
  * Attention !
