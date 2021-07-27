@@ -108,11 +108,15 @@ export default function ExerciceInequationQuotient () {
           break
       }
       // Fonction détaillant la résolution d'une équation de type x + val
-      function resolutionDetailleeEquation (val) {
-        texteCorr += `$x${ecritureAlgebrique(val)}${texSymbole('>')}0$ <br>`
+      function resolutionDetailleeEquation (val, egal) {
+        let symbole = texSymbole('>')
+        if (egal) {
+          symbole = '='
+        }
+        texteCorr += `$x${ecritureAlgebrique(val)}${symbole}0$ <br>`
         texteCorr += `$x${ecritureAlgebrique(val)}${miseEnEvidence(ecritureAlgebrique(-1 * val))}
-        ${texSymbole('>')}${miseEnEvidence(ecritureAlgebrique(-1 * val))}$<br>`
-        texteCorr += `$x${texSymbole('>')}${-val}$<br>`
+        ${symbole}${miseEnEvidence(ecritureAlgebrique(-1 * val))}$<br>`
+        texteCorr += `$x${symbole}${-val}$<br>`
       }
       // Fonction écrivant la correction détaillée d'une inéquation du type var1*x + var2 > 0
       function ecrireCorrectionDetaillee (var1, var2, egal) {
@@ -167,8 +171,13 @@ export default function ExerciceInequationQuotient () {
       if (listeTypeDeQuestions[i] === '(x+a)/(x+b)<0') {
         // Consigne
         texte = `$\\cfrac{x${ecritureAlgebrique(a)}}{x${ecritureAlgebrique(b)}}${texSymbole(signes[i])}0$`
-        // Correction // Si une correction détaillée est demandée, détaille comment résoudre les équations
+        // Correction
         texteCorr = texte + '<br>'
+        texteCorr += '$\\bullet$ On commence par chercher les éventuelles valeurs interdites : <br>'
+        resolutionDetailleeEquation(b, true)
+        texteCorr += `Le quotient est défini sur $\\R ${texSymbole('\\')} \\{${-b}\\}$<br>`
+        texteCorr += `$\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${-b}\\}$<br>`
+        // Si une correction détaillée est demandée, détaille comment résoudre les équations
         // Première équation
         if (this.correctionDetaillee) {
           resolutionDetailleeEquation(a)
@@ -227,7 +236,11 @@ export default function ExerciceInequationQuotient () {
         let valPetit, valGrand
         texte = `$\\cfrac{${a}x${ecritureAlgebrique(b)}}{${c}x${ecritureAlgebrique(d)}}${texSymbole(signes[i])}0$`
         // Correction
-        texteCorr = texte
+        texteCorr = texte + '<br>'
+        texteCorr += '$\\bullet$ On commence par chercher les éventuelles valeurs interdites :'
+        ecrireCorrectionDetaillee(c, d, true)
+        texteCorr += `<br>Le quotient est défini sur $\\R ${texSymbole('\\')} \\{${texFractionReduite(-d, c)}\\}$`
+        texteCorr += `<br>$\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${texFractionReduite(-d, c)}\\}$`
         // Si une correction détaillée est demandée, détaille comment résoudre les équations
         if (this.correctionDetaillee) {
           // Utilise la fonction décrite plus haut pour éviter d'écrire deux fois la même chose pour les deux inéquations ax + b > 0 et cx + d > 0
@@ -333,8 +346,14 @@ export default function ExerciceInequationQuotient () {
         let valPetit, valMoyen, valGrand
         texte = `$\\cfrac{${a}x${ecritureAlgebrique(b)}}{(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)})}${texSymbole(signes[i])}0$`
         // Correction
-        texteCorr = texte
-        // Si une correction détaillée est demandée, détaille comment résoudre les équations
+        texteCorr = texte + '<br>'
+        texteCorr += '$\\bullet$ On commence par chercher les éventuelles valeurs interdites :'
+        texteCorr += `<br>$(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)})=0$ lorsque $${c}x${ecritureAlgebrique(d)} = 0$ ou $${e}x${ecritureAlgebrique(f)} = 0$`
+        ecrireCorrectionDetaillee(c, d, true)
+        ecrireCorrectionDetaillee(e, f, true)
+        texteCorr += `<br>Le quotient est défini sur $\\R ${texSymbole('\\')} \\{${texFractionReduite(-d, c)}; ${texFractionReduite(-f, e)}\\}$`
+        texteCorr += `<br>$\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${texFractionReduite(-d, c)}; ${texFractionReduite(-f, e)}\\}$`
+        // Si une correction détaillée est demandée, détaille comment résoudre les inéquations
         if (this.correctionDetaillee) {
           // Utilise la fonction décrite plus haut pour éviter d'écrire deux fois la même chose pour les deux inéquations ax + b > 0 et cx + d > 0
           ecrireCorrectionDetaillee(a, b)
@@ -529,12 +548,16 @@ export default function ExerciceInequationQuotient () {
         let valPetit, valGrand
         texte = `$\\cfrac{${a}x${ecritureAlgebrique(b)}}{(${c}x${ecritureAlgebrique(d)})^2}${texSymbole(signes[i])}0$`
         // Correction
-        texteCorr = texte
+        texteCorr = texte + '<br>'
+        texteCorr += '$\\bullet$ On commence par chercher les éventuelles valeurs interdites :'
+        texteCorr += `<br>$(${c}x${ecritureAlgebrique(d)})^2 = 0$ lorsque $${c}x${ecritureAlgebrique(d)} = 0$`
+        ecrireCorrectionDetaillee(c, d, true)
+        texteCorr += `<br>Le quotient est défini sur $\\R ${texSymbole('\\')} \\{${texFractionReduite(-d, c)}\\}$`
+        texteCorr += `<br>$\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${texFractionReduite(-d, c)}\\}$`
         // Si une correction détaillée est demandée, détaille comment résoudre les équations
         if (this.correctionDetaillee) {
           // Utilise la fonction décrite plus haut pour écrire la résolution détaillée de ax + b = 0 cx + d > 0
           ecrireCorrectionDetaillee(a, b)
-          ecrireCorrectionDetaillee(c, d, true)
           texteCorr += `<br>Un carré étant toujours positif, $(${c}x${ecritureAlgebrique(d)})^2 > 0$ pour tout $x$ différent de $${texFractionReduite(-d, c)}$.`
         } else { // Si pas de correction détaillée, écrit simplement les conclusions, en changeant le sens des inégalités si a < 0 ou si c < 0
           if (c < 0) {
@@ -542,7 +565,6 @@ export default function ExerciceInequationQuotient () {
           } else {
             texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')} ${texFractionReduite(-b, a)}$`
           }
-          texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}=0$ lorsque $x=${texFractionReduite(-d, c)}$`
           texteCorr += `<br>Un carré étant toujours positif, $(${c}x${ecritureAlgebrique(d)})^2 > 0$ pour tout $x$ différent de $${texFractionReduite(-d, c)}$.`
         }
         // Prépare l'affichage du tableau de signes
@@ -616,7 +638,11 @@ export default function ExerciceInequationQuotient () {
         let valPetit, valGrand
         texte = `$\\cfrac{${a}x${ecritureAlgebrique(b)}}{${c}x${ecritureAlgebrique(d)}}${ecritureAlgebrique(e)} ${texSymbole(signes[i])}0$`
         // Correction
-        texteCorr = texte
+        texteCorr = texte + '<br>'
+        texteCorr += '$\\bullet$ On commence par chercher les éventuelles valeurs interdites :'
+        ecrireCorrectionDetaillee(c, d, true)
+        texteCorr += `<br>Le quotient est défini sur $\\R ${texSymbole('\\')} \\{${texFractionReduite(-d, c)}\\}$`
+        texteCorr += `<br>$\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${texFractionReduite(-d, c)}\\}$`
         // Si une correction détaillée est demandée, détaille comment résoudre les équations
         if (this.correctionDetaillee) {
           texteCorr += `<br> $\\begin{aligned}
