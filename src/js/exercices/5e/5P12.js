@@ -43,16 +43,16 @@ export default function PartagerSelonUnRatio () {
         }
         if (this.correctionDetaillee) {
           texteCorr += `En fait, à chaque passage, ils en reçoivent $${miseEnEvidence(quantite1 + quantite2)}$ au total.<br>`
-          texteCorr += `<br>Calculons le nombre de passages nécessaires pour se partager les $${total}$ ${objet1}<br>`
+          texteCorr += `<br>Calculons le nombre de passages nécessaires pour se partager les $${total}$ ${objet1} :<br>`
         }
-        texteCorr += `$${total} ${miseEnEvidence('\\div')} ${miseEnEvidence(quantite1 + quantite2)} = ${miseEnEvidence(facteur)}$ <br>`
+        texteCorr += `$${total} ${miseEnEvidence('\\div')} ${miseEnEvidence(quantite1 + quantite2)} = ${miseEnEvidence(facteur)}$`
         if (this.correctionDetaillee) {
-          texteCorr += `<br>Ils devront faire $${miseEnEvidence(facteur)}$ passages et à chaque passage, ${prenom1} recevra $${quantite1}$ ${objet1}. <br>`
+          texteCorr += `.<br><br>Ils devront faire $${miseEnEvidence(facteur)}$ passages et à chaque passage, ${prenom1} recevra $${quantite1}$ ${objet1}. <br>`
           texteCorr += `Au total, elle recevra $${quantite1} ${miseEnEvidence('\\times ' + facteur)} = ${quantite1 * facteur}$ ${objet1}. <br>`
-          texteCorr += `De la même façon, ${prenom2} recevra $${quantite2} ${miseEnEvidence('\\times ' + facteur)} = ${quantite2 * facteur}$ ${objet1}. <br>`
+          texteCorr += `De la même façon, ${prenom2} recevra $${quantite2} ${miseEnEvidence('\\times ' + facteur)} = ${quantite2 * facteur}$ ${objet1}.`
           texteCorr += '<br>On peut aussi faire ces calculs en une seule ligne : <br>'
         }
-        texteCorr += `$\\text{${prenom1}} : \\text{${prenom2}} = ${quantite1} : ${quantite2} = ${quantite1} ${miseEnEvidence('\\times ' + facteur)} : ${quantite2} ${miseEnEvidence('\\times ' + facteur)} = ${quantite1 * facteur} : ${quantite2 * facteur} $<br>`
+        texteCorr += `<br>$\\text{${prenom1}} : \\text{${prenom2}} = ${quantite1} : ${quantite2} = ${quantite1} ${miseEnEvidence('\\times ' + facteur)} : ${quantite2} ${miseEnEvidence('\\times ' + facteur)} = ${quantite1 * facteur} : ${quantite2 * facteur} $<br>`
         texteCorr += `<br>${prenom1} recevra $${quantite1 * facteur}$ ${objet1} et ${prenom2} en recevra $${quantite2 * facteur}$.`
       } else { // Partage en trois parts
         total = (quantite1 + quantite2 + quantite3) * facteur
@@ -66,16 +66,16 @@ export default function PartagerSelonUnRatio () {
         }
         if (this.correctionDetaillee) {
           texteCorr += `En fait, à chaque passage, ils en reçoivent $${miseEnEvidence(quantite1 + quantite2 + quantite3)}$ au total.<br>`
-          texteCorr += `<br>Calculons le nombre de passages nécessaires pour se partager les $${total}$ ${objet1}<br>`
+          texteCorr += `<br>Calculons le nombre de passages nécessaires pour se partager les $${total}$ ${objet1} :<br>`
         }
-        texteCorr += `$${total} ${miseEnEvidence('\\div')} ${miseEnEvidence(quantite1 + quantite2 + quantite3)} = ${miseEnEvidence(facteur)}$ <br>`
+        texteCorr += `$${total} ${miseEnEvidence('\\div')} ${miseEnEvidence(quantite1 + quantite2 + quantite3)} = ${miseEnEvidence(facteur)}$`
         if (this.correctionDetaillee) {
-          texteCorr += `<br>Ils devront faire $${miseEnEvidence(facteur)}$ passages et à chaque passage, ${prenom1} recevra $${quantite1}$ ${objet1}. <br>`
+          texteCorr += `.<br><br>Ils devront faire $${miseEnEvidence(facteur)}$ passages et à chaque passage, ${prenom1} recevra $${quantite1}$ ${objet1}. <br>`
           texteCorr += `Au total, elle recevra $${quantite1} ${miseEnEvidence('\\times ' + facteur)} = ${quantite1 * facteur}$ ${objet1}. <br>`
           texteCorr += `De la même façon, ${prenom2} recevra $${quantite2} ${miseEnEvidence('\\times ' + facteur)} = ${quantite2 * facteur}$ ${objet1} et ${prenom3} recevra $${quantite3} ${miseEnEvidence('\\times ' + facteur)} = ${quantite3 * facteur}$ ${objet1}. <br>`
-          texteCorr += '<br>On peut aussi faire ces calculs en une seule ligne : <br>'
+          texteCorr += '<br>On peut aussi faire ces calculs en une seule ligne :'
         }
-        texteCorr += `$\\text{${prenom1}} : \\text{${prenom2}} : \\text{${prenom3}} = ${quantite1} : ${quantite2} : ${quantite3} = ${quantite1} ${miseEnEvidence('\\times ' + facteur)} : ${quantite2} ${miseEnEvidence('\\times ' + facteur)} : ${quantite3} ${miseEnEvidence('\\times ' + facteur)} = ${quantite1 * facteur} : ${quantite2 * facteur} : ${quantite3 * facteur} $<br>`
+        texteCorr += `<br>$\\text{${prenom1}} : \\text{${prenom2}} : \\text{${prenom3}} = ${quantite1} : ${quantite2} : ${quantite3} = ${quantite1} ${miseEnEvidence('\\times ' + facteur)} : ${quantite2} ${miseEnEvidence('\\times ' + facteur)} : ${quantite3} ${miseEnEvidence('\\times ' + facteur)} = ${quantite1 * facteur} : ${quantite2 * facteur} : ${quantite3 * facteur} $<br>`
         texteCorr += `<br>${prenom1} recevra $${quantite1 * facteur}$ ${objet1}, ${prenom2} en recevra $${quantite2 * facteur}$ et ${prenom3} en recevra $${quantite3 * facteur}$.`
       }
 
