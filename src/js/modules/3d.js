@@ -648,46 +648,41 @@ export function barre3d (x, y, z, c, l, color = 'black') {
   return new Barre3d(x, y, z, c, l, color)
 }
 
+/**
+ * @author Jean-Claude Lhote
+ * Crée une plaque de cubes de côtés c de dimensions l suivant x et p suivant y
+ */
 class Plaque3d {
   constructor (x, y, z, c, l, p, color = 'black') {
-    let B, C, D, E, F, G, H, faceAv, faceTop, faceD
+    let A, B, C, D, F, G, H, faceAv, faceTop, faceD
     const objets = []
     const vx = vecteur3d(c, 0, 0)
     const vy = vecteur3d(0, c, 0)
     const vz = vecteur3d(0, 0, c)
-    let A = point3d(x, y, z)
 
     for (let i = 0; i < l; i++) {
-      E = A
-      B = translation3d(E, vx)
-      C = translation3d(B, vz)
-      D = translation3d(E, vz)
-      F = translation3d(B, vy)
-      G = translation3d(F, vz)
-      H = translation3d(D, vy)
-      faceAv = polygone([E.p2d, B.p2d, C.p2d, D.p2d], color)
-      faceAv.couleurDeRemplissage = '#A9A9A9'
-
       for (let j = 0; j < p; j++) {
+        A = point3d(x + i * c, y + j * c, z)
+        B = translation3d(A, vx)
+        C = translation3d(B, vz)
+        D = translation3d(A, vz)
+        F = translation3d(B, vy)
+        G = translation3d(F, vz)
+        H = translation3d(D, vy)
         if (j === 0) {
+          faceAv = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
+          faceAv.couleurDeRemplissage = '#A9A9A9'
           objets.push(faceAv)
         }
-        faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
-        faceD.couleurDeRemplissage = '#A5C400'
         if (i === l - 1) {
+          faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
+          faceD.couleurDeRemplissage = '#A5C400'
           objets.push(faceD)
         }
         faceTop = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
         faceTop.couleurDeRemplissage = 'white'
         objets.push(faceTop)
-        B = translation3d(B, vy)
-        D = translation3d(D, vy)
-        F = translation3d(F, vy)
-        C = translation3d(C, vy)
-        G = translation3d(G, vy)
-        H = translation3d(H, vy)
       }
-      A = translation3d(A, vx)
     }
 
     this.svg = function (coeff) {
@@ -710,6 +705,65 @@ class Plaque3d {
 export function plaque3d (x, y, z, c, l, p, color = 'black') {
   return new Plaque3d(x, y, z, c, l, p, color)
 }
+
+class PaveLPH3d {
+  constructor (x, y, z, c, l, p, h, color = 'black') {
+    let A, B, C, D, F, G, H, faceAv, faceTop, faceD
+    const objets = []
+    const vx = vecteur3d(c, 0, 0)
+    const vy = vecteur3d(0, c, 0)
+    const vz = vecteur3d(0, 0, c)
+
+    for (let i = 0; i < l; i++) {
+      for (let j = 0; j < p; j++) {
+        for (let k = 0; k < h; k++) {
+          A = point3d(x + i * c, y + j * c, z + k * c)
+          B = translation3d(A, vx)
+          C = translation3d(B, vz)
+          D = translation3d(A, vz)
+          F = translation3d(B, vy)
+          G = translation3d(F, vz)
+          H = translation3d(D, vy)
+          if (j === 0) {
+            faceAv = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
+            faceAv.couleurDeRemplissage = '#A9A9A9'
+            objets.push(faceAv)
+          }
+          if (i === l - 1) {
+            faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
+            faceD.couleurDeRemplissage = '#A5C400'
+            objets.push(faceD)
+          }
+          if (k === h - 1) {
+            faceTop = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
+            faceTop.couleurDeRemplissage = 'white'
+            objets.push(faceTop)
+          }
+        }
+      }
+    }
+
+    this.svg = function (coeff) {
+      let code = ''
+      for (const objet of objets) {
+        code += objet.svg() + '\n'
+      }
+      return code
+    }
+    this.tikz = function () {
+      let code = ''
+      for (const objet of objets) {
+        code += objet.tikz() + '\n'
+      }
+      return code
+    }
+  }
+}
+
+export function paveLPH3d (x, y, z, c, l, p, color = 'black') {
+  return new PaveLPH3d(x, y, z, c, l, p, color)
+}
+
 /**
  * @author Erwan Duplessis et Jean-Claude Lhote
  * Attention !
