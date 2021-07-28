@@ -10,6 +10,7 @@ export const interactifType = 'mathLive'
  * Description didactique de l'exercice
  * @author
  * Référence
+ * A DEPLACER EN 2G34-1 !!!!!!!!!!!!!!!!!!!
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
