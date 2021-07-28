@@ -26,7 +26,7 @@ const choixFnct = [
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Pour chaque expérience, calculer $P(A)$, $P(B)$ et $P(A\\cup B)$'
+  this.consigne = 'Pour chaque expérience, calculer $P(A)$, $P(B)$, $P(A\\cap B)$ et $P(A\\cup B)$'
   this.nbQuestions = 2
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -62,8 +62,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           // Enoncé                     
           texte = `On lance un dé équilibré à $${n}$ faces. On considère les 2 événements :<br>` 
           texte += `$A$ = "Obtenir un résultat ${a[0][1]} ${a[0][2] == 2 ? a[1] : ''}"<br>` 
-          texte += `$B$ = "Obtenir un résultat ${b[0][1]} ${b[0][2] == 2 ? b[1] : ''}"<br>`
-          texte += `Calculez $P(A)$, $P(B)$, $P(A\\cap B)$ et $P(A\\cup B)$`
+          texte += `$B$ = "Obtenir un résultat ${b[0][1]} ${b[0][2] == 2 ? b[1] : ''}"`
           
          break
         
