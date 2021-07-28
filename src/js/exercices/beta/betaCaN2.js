@@ -45,7 +45,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
 
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(10), this.nbQuestions)
+      questions = combinaisonListesSansChangerOrdre(range1(20), this.nbQuestions)
     } else {
       if (typeof this.sup === 'number') {
         // Si c'est un nombre c'est qu'il y a qu'une seule question
@@ -87,7 +87,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
     const plat = [
       ['nems'], ['samossas'], ['parts de quiches'], ['parts de pizzas'], ['beignets']
     ]
-    const typeQuestionsDisponibles = ['q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20']//
+    const typeQuestionsDisponibles = ['q1','q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10','q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20']//
     // 'q1','q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10']
     // 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20']//
     // 'q1',  produit d'entiers
@@ -1246,7 +1246,7 @@ $\\begin{array}{|l|c|c|}\n`
           break
 
         case 'q16':
-          switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) {
+          switch (choice([1,2,3,4,5,6,7,8,9])) {
             case 1:// nombre de nombres entiers entre deux valeurs
               a = randint(10, 80)
 
@@ -1389,6 +1389,45 @@ $\\begin{array}{|l|c|c|}\n`
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               }
 
+              break
+              case 9:// calculs +99 +999 -99 -999
+
+              N = choice(['a', 'b','c','d', 'e'])
+              if (N === 'a') {
+                a = randint(1, 9)*100+randint(1, 9)*10+randint(1, 9)
+                resultat = calcul(a+99)
+                texte = `Calculer $${a}+99$.`
+                texteCorr = `$${a}+99=${resultat}$.`
+                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              }
+              if (N === 'b') {
+                a = randint(1, 9)*1000+randint(1, 9)*100+randint(1, 9)*10+randint(1, 9)
+                resultat = calcul(a+999)
+                texte = `Calculer $${a}+999$.`
+                texteCorr = `$${a}+999=${resultat}$.`
+                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              }
+              if (N === 'c') {
+                a = randint(1, 9)*1000+randint(1, 9)*100+randint(1, 9)*10+randint(1, 9)
+                resultat = calcul(a-999)
+                texte = `Calculer $${a}-999$.`
+                texteCorr = `$${a}-999=${resultat}$.`
+                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              }
+              if (N === 'd') {
+                a = randint(1, 9)*100+randint(1, 9)*10+randint(1, 9)
+                resultat = calcul(a-99)
+                texte = `Calculer $${a}-99$.`
+                texteCorr = `$${a}-99=${resultat}$.`
+                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              }
+              if (N === 'e') {
+                a = randint(1, 9)*1000+randint(1, 9)*100+randint(1, 9)*10+randint(1, 9)
+                resultat = calcul(a+99)
+                texte = `Calculer $${a}+99$.`
+                texteCorr = `$${a}+99=${resultat}$.`
+                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              }
               break
           }
 
