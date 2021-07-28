@@ -279,8 +279,8 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               Combien de temps (en minutes) à duré son trajet ?`
               texteCorr = `${b}h${d}-${a}h${c}=${resultat} min`
               setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-
-            case 5:// cpnversion unités
+              break
+            case 5:// conversion unités
               N = choice(['a', 'b', 'c', 'd'])
               if (N === 'a') {
                 if (choice([true, false])) {
@@ -1218,7 +1218,7 @@ $\\begin{array}{|l|c|c|}\n`
 
                 setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fraction' })
               }
-
+              break
             case 6:// longueur à trouver à partir d'une aire triangle rectangle
               a = randint(2, 10)//
               b = randint(1, 5) * a
@@ -1426,7 +1426,7 @@ $\\begin{array}{|l|c|c|}\n`
               if (a === 5) {
                 b = randint(4, 7) * 5
                 resultat = calcul(4 * b / 5)
-                texte = `$\\dfrac{1}{${a}}$ d'une classe de $${b}$ élèves ont des lunettes.<br>
+                texte = `$\\dfrac{1}{${a}}$ des élèves d'une classe de $${b}$ élèves a des lunettes.<br>
                 Quel est le nombre d'élèves n'en ayant pas ?`
                 texteCorr = `Si $\\dfrac{1}{${a}}$ en a, $\\dfrac{4}{${a}}$ n'en a pas, soit : $4\\times \\dfrac{${b}}{5}=${resultat}$.`
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
@@ -1434,7 +1434,7 @@ $\\begin{array}{|l|c|c|}\n`
               if (a === 6) {
                 b = randint(3, 6) * 6
                 resultat = calcul(5 * b / 6)
-                texte = `$\\dfrac{1}{${a}}$ d'une classe de $${b}$ élèves ont des lunettes.<br>
+                texte = `$\\dfrac{1}{${a}}$ des élèves d'une classe de $${b}$ élèves a des lunettes.<br>
                 Quel est le nombre d'élèves n'en ayant pas ?`
                 texteCorr = `Si $\\dfrac{1}{${a}}$ en a, $\\dfrac{5}{${a}}$ n'en a pas, soit : $5\\times \\dfrac{${b}}{6}=${resultat}$.`
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
