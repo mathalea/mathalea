@@ -1,11 +1,10 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 
 export const titre = 'Connaître les propriétés calculatoires des racines carrées'
 
 /**
- * 2N10-1
+ * 2N32-2, ex 2N10-1
  * @author Stéphane Guyon
  */
 export default function proprietesracinecarree () {

@@ -1,22 +1,23 @@
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole } from '../../modules/outils.js'
 
-export const titre = 'Résoudre une inéquation produit'
+export const titre = 'Résoudre une inéquation quotient'
 
 /**
- * Résoudre une inéquation produit
- * * Type 1 : (x+a)(x+b)<0
- * * Type 2 : (x+a)(x+b)(x+c)<0
- * * Type 3 : (ax+b)(cx+d)<0
- * * Type 4 : (ax+b)(cx+d)(ex+f)<0
- * * Type 5 : (ax+b)²(cx+d)<0
+ * Résoudre une inéquation quotient
+ * * Type 1 : (x+a)/(x+b)<0
+ * * Type 2 : (ax+b)/(cx+d)<0
+ * * Type 3 : (ax+b)/[(cx+d)(ex+f)]<0
+ * * Type 4 : (ax+b)/(cx+d)²<0
+ * * Type 5 : (ax+b)/(cx+d)+e<0
  * * Tous les types
  * @author Guillaume Valmont
- * 2L14-1
+ * 2N61-4, ex 2L14-2
  * 17/07/2021
  */
-export default function ExerciceInequationProduit () {
+export default function ExerciceInequationQuotient () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Résoudre les inéquations suivantes'
@@ -37,27 +38,27 @@ export default function ExerciceInequationProduit () {
     // Convertit le paramètre this.sup en type de question
     switch (this.sup.toString()) {
       case '1':
-        listeTypeDeQuestions = ['(x+a)(x+b)<0']
+        listeTypeDeQuestions = ['(x+a)/(x+b)<0']
         break
       case '2':
-        listeTypeDeQuestions = ['(x+a)(x+b)(x+c)<0']
+        listeTypeDeQuestions = ['(ax+b)/(cx+d)<0']
         break
       case '3':
-        listeTypeDeQuestions = ['(ax+b)(cx+d)<0']
+        listeTypeDeQuestions = ['(ax+b)/[(cx+d)(ex+f)]<0']
         break
       case '4':
-        listeTypeDeQuestions = ['(ax+b)(cx+d)(ex+f)<0']
+        listeTypeDeQuestions = ['(ax+b)/(cx+d)²<0']
         break
       case '5':
-        listeTypeDeQuestions = ['(ax+b)²(cx+d)<0']
+        listeTypeDeQuestions = ['(ax+b)/(cx+d)+e<0']
         break
       default:
         listeTypeDeQuestions = [
-          '(x+a)(x+b)<0',
-          '(x+a)(x+b)(x+c)<0',
-          '(ax+b)(cx+d)<0',
-          '(ax+b)(cx+d)(ex+f)<0',
-          '(ax+b)²(cx+d)<0'
+          '(x+a)/(x+b)<0',
+          '(ax+b)/(cx+d)<0',
+          '(ax+b)/[(cx+d)(ex+f)]<0',
+          '(ax+b)/(cx+d)²<0',
+          '(ax+b)/(cx+d)+e<0'
         ]
         break
     }
@@ -69,7 +70,7 @@ export default function ExerciceInequationProduit () {
     // Crée une liste d'autant de signes que de questions
     const signes = combinaisonListes(['<', '>', '≤', '≥'], this.nbQuestions)
     // Boucle principale qui servira à créer toutes les questions // On limite le nombre d'essais à 50 pour chercher des valeurs nouvelles
-    for (let i = 0, a, b, c, d, e, f, pGauche, pDroite, texte, ligne1, ligne2, ligne3, ligne4, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, b, c, d, e, f, pGauche, pDroite, texte, ligne1, ligne2, ligne3, ligne4, ecart, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Génère 4 nombres relatifs a, b, c et d tous différents avec a et c qui ne peuvent pas être 1 car ce sont ceux qui peuvent multiplier x pour éviter à la fois d'avoir '1x' et de diviser par 1
       a = randint(-13, 13, [0, 1, -1])
       b = randint(-13, 13, [0, a])
@@ -77,6 +78,12 @@ export default function ExerciceInequationProduit () {
       d = randint(-13, 13, [0, a, b, c, (b * c) / a]) // Pour éviter que ax + b et cx + d n'aient la même racine
       e = randint(-13, 13, [0, 1, -1, a, b, c, d])
       f = randint(-13, 13, [0, a, b, c, d, e, (b * e) / a, (d * e) / c]) // Pour éviter que (ax + b et ex + f) ou (cx + d et ex + f) n'aient la même racine
+      // Augmente la hauteur des lignes sur la sortie pdf
+      if (context.isHtml) {
+        ecart = 2
+      } else {
+        ecart = 4
+      }
       // Pioche un signe d'inégalité parmi <, ≤, ≥, > et définit en fonction si les crochets seront ouverts ou fermés dans l'ensemble de solutions
       switch (signes[i]) {
         case '<':
@@ -151,11 +158,11 @@ export default function ExerciceInequationProduit () {
       const ligneMMPP = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20, 'z', 20, '+', 20, 't', 5, '+', 20]
       const ligneMMMP = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20, 't', 5, '-', 20, 'z', 20, '+', 20]
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)(x+b)<0'                                      Type 1        //
+      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)/(x+b)<0'                                     Type 1        //
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      if (listeTypeDeQuestions[i] === '(x+a)(x+b)<0') {
+      if (listeTypeDeQuestions[i] === '(x+a)/(x+b)<0') {
         // Consigne
-        texte = `$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})${texSymbole(signes[i])}0$`
+        texte = `$\\cfrac{x${ecritureAlgebrique(a)}}{x${ecritureAlgebrique(b)}}${texSymbole(signes[i])}0$`
         // Correction // Si une correction détaillée est demandée, détaille comment résoudre les équations
         texteCorr = texte + '<br>'
         // Première équation
@@ -168,111 +175,53 @@ export default function ExerciceInequationProduit () {
           resolutionDetailleeEquation(b)
         }
         texteCorr += `$x${ecritureAlgebrique(b)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')}${-b}$ <br>`
-        // Prépare l'affichage du tableau de signes : la ligne1 correspond à (x + a) et la ligne2 correspond à (x + b)
+        // Prépare l'affichage du tableau
         texteCorr += 'On peut donc en déduire le tableau de signes suivant : <br>'
-        // Si la racine de x + a est inférieure à la racine de x + b, la ligne1 (celle de x + a) aura d'abord un 0, puis un | et ce sera l'inverse pour la ligne2
-        if (Math.min(-a, -b) === -a) {
+        if (Math.min(-a, -b) === -a) { // Si la plus petite solution est celle de la première équation (au numérateur), la première ligne change de signe en premier
           ligne1 = ligneMPP
           ligne2 = ligneMMP
-        } else { // Si la racine de x + a est supérieure à la racine de x + b, ligne2 et ligne1 sont inversées (pas d'égalité possible car a ≠ b)
+          ligne3 = ['Line', 50, '', 0, '+', 20, 'z', 20, '-', 20, 'd', 20, '+', 20] // Le dénominateur change de signe en deuxième donc la double barre (, 'd', 20) intervient en deuxième
+        } else { // Sinon, la deuxième ligne change de signe en premier
           ligne1 = ligneMMP
           ligne2 = ligneMPP
+          ligne3 = ['Line', 50, '', 0, '+', 20, 'd', 20, '-', 20, 'z', 20, '+', 20] // Le dénominateur change de signe en premier donc la double barre (, 'd', 20) intervient en premier
         }
-        // Affiche le tableau de signes : xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
-          tabInit: [
-            [
-              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-              ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})$`, 2, 100]
-            ],
-            // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-            ['$-\\infty$', 30, `$${Math.min(-a, -b)}$`, 20, `$${Math.max(-a, -b)}$`, 20, '$+\\infty$', 30]
-          ],
-          // Les autres lignes du tableau dont le fonctionnement est expliqué plus haut
-          tabLines: [ligne1, ligne2, ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
-          colorBackground: '',
-          espcl: 3.5, // taille en cm entre deux antécédents
-          deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-          lgt: 8, // taille de la première colonne en cm
-          hauteurLignes: [15, 15, 15, 15]
-
-        }))
-        // Affiche l'ensemble de solutions
-        if ((signes[i] === '<' || signes[i] === '≤')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${Math.min(-a, -b)} , ${Math.max(-a, -b)} \\right${pDroite} $.`
-        } else if ((signes[i] === '>' || signes[i] === '≥')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${Math.min(-a, -b)} \\right${pDroite} \\bigcup \\left${pGauche} ${Math.max(-a, -b)}, +\\infty \\right[ $.`
-        }
-      }
-      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(x+a)(x+b)(x+c)<0'                                 Type 2        //
-      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      if (listeTypeDeQuestions[i] === '(x+a)(x+b)(x+c)<0') {
-        // Consigne
-        texte = `$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})${texSymbole(signes[i])}0$`
-        // Correction // Si une correction détaillée est demandée, détaille comment résoudre les équations
-        texteCorr = texte + '<br>'
-        // Première équation
-        if (this.correctionDetaillee) {
-          resolutionDetailleeEquation(a)
-        }
-        texteCorr += `$x${ecritureAlgebrique(a)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')}${-a}$ <br>`
-        // Deuxième équation
-        if (this.correctionDetaillee) {
-          resolutionDetailleeEquation(b)
-        }
-        texteCorr += `$x${ecritureAlgebrique(b)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')}${-b}$ <br>`
-        // Troisième équation
-        if (this.correctionDetaillee) {
-          resolutionDetailleeEquation(c)
-        }
-        texteCorr += `$x${ecritureAlgebrique(c)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')}${-c}$ <br>`
-        // On range les racines dans l'ordre croissant pour pouvoir les mettre dans l'ordre dans le tableau
-        const racines = [-a, -b, -c].sort(function (a, b) { return a - b })
-        const lignes = [-a, -b, -c]
-        // Pour chaque ligne, on cherche la racine correspondante
-        for (let j = 0; j < 3; j++) {
-          for (let n = 0; n < 3; n++) {
-            if (racines[n] === lignes[j]) {
-              if (n === 0) { // La racine d'indice 0 est la plus petite des trois, et donc celle la plus à gauche dans le tableau donc le 0 (, 'z', 20) est en première position et les autres sont des | (, 't', 5)
-                lignes[j] = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 5, '+', 20, 't', 5, '+', 20]
-              } else if (n === 1) { // La racine d'indice 1 est la deuxième racine, donc le 0 (, 'z', 20) en deuxième position et les autres sont des | (, 't', 5)
-                lignes[j] = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20, 'z', 20, '+', 20, 't', 5, '+', 20]
-              } else if (n === 2) { // La racine d'indice 2 est la plus grande des racines, donc le 0 (, 'z', 20) est en troisième position et les autres sont des | (, 't', 5)
-                lignes[j] = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20, 't', 5, '-', 20, 'z', 20, '+', 20]
-              }
-            }
-          }
-        }
-        // Affiche le tableau de signes (voir les commentaires du premier type d'exercice)
-        texteCorr += 'On peut donc en déduire le tableau de signes suivant : <br>'
+        // Affichage du tableau de signes
         texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
-              ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$x${ecritureAlgebrique(c)}$`, 2, 50], [`$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})$`, 2, 150]
+              ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$\\cfrac{x${ecritureAlgebrique(a)}}{x${ecritureAlgebrique(b)}}$`, ecart, 50]
             ],
-            ['$-\\infty$', 30, `$${racines[0]}$`, 20, `$${racines[1]}$`, 20, `$${racines[2]}$`, 20, '$+\\infty$', 30]
+            ['$-\\infty$', 30, `$${Math.min(-a, -b)}$`, 20, `$${Math.max(-a, -b)}$`, 20, '$+\\infty$', 30]
           ],
-          tabLines: [lignes[0], lignes[1], lignes[2], ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
+          tabLines: [ligne1, ligne2, ligne3],
           colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
-          lgt: 10,
-          hauteurLignes: [15, 15, 15, 15, 15]
+          lgt: 8,
+          hauteurLignes: [15, 15, 15, 25]
         }))
-        // Affiche l'ensemble de solutions
-        if ((signes[i] === '<' || signes[i] === '≤')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${racines[0]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[1]} , ${racines[2]} \\right${pDroite} $.`
-        } else if ((signes[i] === '>' || signes[i] === '≥')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${racines[0]} , ${racines[1]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[2]}, +\\infty \\right[ $.`
+        // Affiche l'ensemble de solutions selon le sens de l'inégalité et selon l'ordre des racines (l'intervalle sera toujours ouvert pour la racine du dénominateur)
+        if (Math.min(-a, -b) === -a) {
+          if ((signes[i] === '<' || signes[i] === '≤')) {
+            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${-a} , ${-b} \\right[ $.`
+          } else if ((signes[i] === '>' || signes[i] === '≥')) {
+            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${-a} \\right${pDroite} \\bigcup \\left] ${-b}, +\\infty \\right[ $.`
+          }
+        } else {
+          if ((signes[i] === '<' || signes[i] === '≤')) {
+            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] ${-b} , ${-a} \\right${pDroite} $.`
+          } else if ((signes[i] === '>' || signes[i] === '≥')) {
+            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${-b} \\right[ \\bigcup \\left${pGauche} ${-a}, +\\infty \\right[ $.`
+          }
         }
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)(cx+d)<0'                                    Type 3        //
+      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)/(cx+d)<0'                                   Type 2        //
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      if (listeTypeDeQuestions[i] === '(ax+b)(cx+d)<0') {
+      if (listeTypeDeQuestions[i] === '(ax+b)/(cx+d)<0') {
         let valPetit, valGrand
-        texte = `$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})${texSymbole(signes[i])}0$`
+        texte = `$\\cfrac{${a}x${ecritureAlgebrique(b)}}{${c}x${ecritureAlgebrique(d)}}${texSymbole(signes[i])}0$`
         // Correction
         texteCorr = texte
         // Si une correction détaillée est demandée, détaille comment résoudre les équations
@@ -322,16 +271,24 @@ export default function ExerciceInequationProduit () {
           valGrand = texFractionReduite(-b, a) // la plus grande valeur est la solution de la première équation
         }
         // Détermine la dernière ligne selon le signe du coefficient dominant
-        if (a * c > 0) {
-          ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-        } else {
-          ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+        if (-b / a < -d / c) { // Si la valeur interdite est la deuxième (z au lieu de d)
+          if (a * c > 0) {
+            ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'd', 20, '+', 20]
+          } else {
+            ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'd', 20, '-', 20]
+          }
+        } else { // Sinon, la valeur interdite est la première
+          if (a * c > 0) {
+            ligne3 = ['Line', 30, '', 0, '+', 20, 'd', 20, '-', 20, 'z', 20, '+', 20]
+          } else {
+            ligne3 = ['Line', 30, '', 0, '-', 20, 'd', 20, '+', 20, 'z', 20, '-', 20]
+          }
         }
         // Affiche enfin le tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
-              ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})$`, 2, 200]
+              ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})$`, ecart, 200]
             ],
             ['$-\\infty$', 30, `$${valPetit}$`, 20, `$${valGrand}$`, 20, '$+\\infty$', 30]
           ],
@@ -340,11 +297,17 @@ export default function ExerciceInequationProduit () {
           espcl: 3.5,
           deltacl: 0.8,
           lgt: 10,
-          hauteurLignes: [15, 15, 15, 15]
+          hauteurLignes: [15, 15, 15, 25]
         }))
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
-        const interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} , ${valGrand} \\right${pDroite} $.`
-        const exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        let interieur, exterieur
+        if (-b / a < -d / c) { // Si la valeur interdite est la deuxième (intervale forcément ouvert avec valGrand)
+          interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} , ${valGrand} \\right[ $.`
+          exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg] ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        } else { // Si la valeur interdite est la première (invervalle forcément ouvert avec valPetit)
+          interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] ${valPetit} , ${valGrand} \\right${pDroite} $.`
+          exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg[ \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        }
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (a * c > 0) {
             texteCorr += interieur
@@ -360,11 +323,11 @@ export default function ExerciceInequationProduit () {
         }
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)(cx+d)(ex+f)<0'                                    Type 4  //
+      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)/[(cx+d)(ex+f)]<0'                                 Type 3  //
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      if (listeTypeDeQuestions[i] === '(ax+b)(cx+d)(ex+f)<0') {
+      if (listeTypeDeQuestions[i] === '(ax+b)/[(cx+d)(ex+f)]<0') {
         let valPetit, valMoyen, valGrand
-        texte = `$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)})${texSymbole(signes[i])}0$`
+        texte = `$\\cfrac{${a}x${ecritureAlgebrique(b)}}{(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)})}${texSymbole(signes[i])}0$`
         // Correction
         texteCorr = texte
         // Si une correction détaillée est demandée, détaille comment résoudre les équations
@@ -392,6 +355,10 @@ export default function ExerciceInequationProduit () {
         }
         // Prépare l'affichage du tableau de signes
         texteCorr += '<br>On peut donc en déduire le tableau de signes suivant : <br>'
+        // zero1 correspond au 0 (z) ou à la double barres (d) correspondant au premier antécédent de la dernière ligne
+        let zero1 = 'z'
+        let zero2 = 'z'
+        let zero3 = 'z'
         if (-b / a < -d / c && -b / a < -f / e) { // Si la plus petite solution est celle de la première équation
           if (a > 0) { // La ligne1 change de signe en premier donc ligne1 = PMMM ou MPPP selon le signe de a
             ligne1 = ligneMPPP
@@ -399,6 +366,8 @@ export default function ExerciceInequationProduit () {
             ligne1 = lignePMMM
           }
           valPetit = texFractionReduite(-b, a) // la plus petite valeur est la solution de la première équation
+          zero2 = 'd' // les valeurs interdites sont donc les antécédents 2 et 3
+          zero3 = 'd'
           if (-d / c < -f / e) { // Si la deuxième plus petite solution est celle de la deuxième équation
             if (c > 0) { // La ligne 2 change de signe en deuxième donc ligne2 = PPMM ou MMPP selon le signe de c
               ligne2 = ligneMMPP
@@ -433,6 +402,7 @@ export default function ExerciceInequationProduit () {
             ligne2 = lignePMMM
           }
           valPetit = texFractionReduite(-d, c) // la plus petite valeur est la solution de la deuxième équation
+          zero1 = 'd' // le premier antécédent est une valeur interdite
           if (-b / a < -f / e) { // Si la deuxième plus petite solution est celle de la première équation
             if (a > 0) { // La ligne 1 change de signe en deuxième donc ligne1 = PPMM ou MMPP selon le signe de a
               ligne1 = ligneMMPP
@@ -446,6 +416,7 @@ export default function ExerciceInequationProduit () {
             }
             valMoyen = texFractionReduite(-b, a) // la moyenne valeur est la solution de la première équation
             valGrand = texFractionReduite(-f, e) // la plus grande valeur est la solution de la troisième équation
+            zero3 = 'd' // le troisième antécédent est une valeur interdite
           } else { // Si la deuxième plus petite solution est celle de la troisième équation
             if (a > 0) { // La ligne 1 change de signe en troisième donc ligne1 = PPPM ou MMMP selon le signe de a
               ligne1 = ligneMMMP
@@ -458,6 +429,7 @@ export default function ExerciceInequationProduit () {
               ligne3 = lignePPMM
             }
             valMoyen = texFractionReduite(-f, e) // la moyenne valeur est la solution de la troisième équation
+            zero2 = 'd' // le deuxième antécédent est une valeur interdite
             valGrand = texFractionReduite(-b, a) // la plus grande valeur est la solution de la première équation
           }
         } else { // Si la plus petite solution est celle de la troisième équation
@@ -467,6 +439,7 @@ export default function ExerciceInequationProduit () {
             ligne3 = lignePMMM
           }
           valPetit = texFractionReduite(-f, e) // la plus petite valeur est la solution de la troisième équation
+          zero1 = 'd' // le premier antécédent est une valeur interdite
           if (-b / a < -d / c) { // Si la deuxième plus petite solution est celle de la première équation
             if (a > 0) { // La ligne 1 change de signe en deuxième donc ligne1 = PPMM ou MMPP selon le signe de a
               ligne1 = ligneMMPP
@@ -480,6 +453,7 @@ export default function ExerciceInequationProduit () {
             }
             valMoyen = texFractionReduite(-b, a) // la moyenne valeur est la solution de la première équation
             valGrand = texFractionReduite(-d, c) // la plus grande valeur est la solution de la deuxième équation
+            zero3 = 'd' // le troisième antécédent est une valeur interdite
           } else { // Si la deuxième plus petite solution est celle de la première équation
             if (a > 0) { // La ligne 1 change de signe en troisième donc ligne1 = PPPM ou MMMP selon le signe de a
               ligne1 = ligneMMMP
@@ -492,20 +466,21 @@ export default function ExerciceInequationProduit () {
               ligne2 = lignePPMM
             }
             valMoyen = texFractionReduite(-d, c) // la moyenne valeur est la solution de la deuxième équation
+            zero2 = 'd' // le deuxième antécédent est une valeur interdite
             valGrand = texFractionReduite(-b, a) // la plus grande valeur est la solution de la première équation
           }
         }
         // Détermine la dernière ligne selon le signe du coefficient dominant
         if (a * c * e > 0) {
-          ligne4 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
+          ligne4 = ['Line', 30, '', 0, '-', 20, zero1, 20, '+', 20, zero2, 20, '-', 20, zero3, 20, '+', 20]
         } else {
-          ligne4 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+          ligne4 = ['Line', 30, '', 0, '+', 20, zero1, 20, '-', 20, zero2, 20, '+', 20, zero3, 20, '-', 20]
         }
         // Affiche enfin le tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.6, xmax: 40, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -12.6, xmax: 40, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
-              ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$${e}x${ecritureAlgebrique(f)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)})$`, 2, 200]
+              ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$${e}x${ecritureAlgebrique(f)}$`, 2, 75], [`$\\cfrac{${a}x${ecritureAlgebrique(b)}}{(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)}}$`, ecart, 200]
             ],
             ['$-\\infty$', 30, `$${valPetit}$`, 20, `$${valMoyen}$`, 20, `$${valGrand}$`, 20, '$+\\infty$', 30]
           ],
@@ -514,11 +489,21 @@ export default function ExerciceInequationProduit () {
           espcl: 3.5,
           deltacl: 0.8,
           lgt: 10,
-          hauteurLignes: [15, 15, 15, 15, 15]
+          hauteurLignes: [15, 15, 15, 15, 25]
         }))
+        let solutions1et3
+        let solutions2et4
+        if (zero1 === 'z') { // Si le "vrai zéro" est en première position (les double barres en position 2 et 3), les crochets seront ouverts en valMoyen et valGrand
+          solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg] ${valMoyen}, ${valGrand} \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg${pGauche} ${valPetit} , ${valMoyen} \\bigg[ \\bigcup \\bigg] ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        } else if (zero2 === 'z') { // Si le "vrai zéro" est en deuxième position, les crochets seront ouverts en valPetit et valGrand
+          solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg[ \\bigcup \\bigg${pGauche} ${valMoyen}, ${valGrand} \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] ${valPetit} , ${valMoyen} \\bigg${pDroite} \\bigcup \\bigg] ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        } else if (zero3 === 'z') { // Si le "vrai zéro" est en troisième position, les crochets seront ouverts en valPetit et valMoyen
+          solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg[ \\bigcup \\bigg] ${valMoyen}, ${valGrand} \\bigg${pDroite} $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] ${valPetit} , ${valMoyen} \\bigg[ \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        }
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
-        const solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valMoyen}, ${valGrand} \\bigg${pDroite} $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
-        const solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg${pGauche} ${valPetit} , ${valMoyen} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (a * c * e > 0) {
             texteCorr += solutions1et3
@@ -534,58 +519,58 @@ export default function ExerciceInequationProduit () {
         }
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)²(cx+d)<0'                                   Type 5        //
+      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)/(cx+d)²<0'                                  Type 4        //
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      if (listeTypeDeQuestions[i] === '(ax+b)²(cx+d)<0') {
+      if (listeTypeDeQuestions[i] === '(ax+b)/(cx+d)²<0') {
         let valPetit, valGrand
-        texte = `$(${a}x${ecritureAlgebrique(b)})^2(${c}x${ecritureAlgebrique(d)})${texSymbole(signes[i])}0$`
+        texte = `$\\cfrac{${a}x${ecritureAlgebrique(b)}}{(${c}x${ecritureAlgebrique(d)})^2}${texSymbole(signes[i])}0$`
         // Correction
         texteCorr = texte
         // Si une correction détaillée est demandée, détaille comment résoudre les équations
         if (this.correctionDetaillee) {
           // Utilise la fonction décrite plus haut pour écrire la résolution détaillée de ax + b = 0 cx + d > 0
-          ecrireCorrectionDetaillee(a, b, true)
-          texteCorr += `<br>Un carré étant toujours positif, $(${a}x${ecritureAlgebrique(b)})^2 > 0$ pour tout $x$ différent de $${texFractionReduite(-b, a)}$.`
-          ecrireCorrectionDetaillee(c, d)
+          ecrireCorrectionDetaillee(a, b)
+          ecrireCorrectionDetaillee(c, d, true)
+          texteCorr += `<br>Un carré étant toujours positif, $(${c}x${ecritureAlgebrique(d)})^2 > 0$ pour tout $x$ différent de $${texFractionReduite(-d, c)}$.`
         } else { // Si pas de correction détaillée, écrit simplement les conclusions, en changeant le sens des inégalités si a < 0 ou si c < 0
-          texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}=0$ lorsque $x=${texFractionReduite(-b, a)}$`
-          texteCorr += `<br>Un carré étant toujours positif, $(${a}x${ecritureAlgebrique(b)})^2 > 0$ pour tout $x$ différent de $${texFractionReduite(-b, a)}$.`
           if (c < 0) {
-            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ lorsque $x${texSymbole('<')} ${texFractionReduite(-d, c)}$`
+            texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}${texSymbole('>')}0$ lorsque $x${texSymbole('<')} ${texFractionReduite(-b, a)}$`
           } else {
-            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')} ${texFractionReduite(-d, c)}$`
+            texteCorr += `<br>$${a}x${ecritureAlgebrique(b)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')} ${texFractionReduite(-b, a)}$`
           }
+          texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}=0$ lorsque $x=${texFractionReduite(-d, c)}$`
+          texteCorr += `<br>Un carré étant toujours positif, $(${c}x${ecritureAlgebrique(d)})^2 > 0$ pour tout $x$ différent de $${texFractionReduite(-d, c)}$.`
         }
         // Prépare l'affichage du tableau de signes
         texteCorr += '<br>On peut donc en déduire le tableau de signes suivant : <br>'
-        if (-b / a < -d / c) { // Si la première racine est la racine double
-          ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-          valPetit = texFractionReduite(-b, a) // la plus petite valeur est la solution de la première équation
-          valGrand = texFractionReduite(-d, c) // la plus grande valeur est la solution de la deuxième équation
-          if (c > 0) {
-            ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
+        if (-d / c < -b / a) { // Si la première racine est la racine double
+          ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+          valPetit = texFractionReduite(-d, c) // la plus petite valeur est la solution de la première équation
+          valGrand = texFractionReduite(-b, a) // la plus grande valeur est la solution de la deuxième équation
+          if (a > 0) {
+            ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
             ligne3 = ['Line', 30, '', 0, '-', 20, 'd', 20, '-', 20, 'z', 20, '+', 20]
           } else {
-            ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
+            ligne1 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
             ligne3 = ['Line', 30, '', 0, '+', 20, 'd', 20, '+', 20, 'z', 20, '-', 20]
           }
         } else { // Si la racine double est la deuxième
-          ligne1 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '+', 20]
-          valPetit = texFractionReduite(-d, c) // la plus petite valeur est la solution de la deuxième équation
-          valGrand = texFractionReduite(-b, a) // la plus grande valeur est la solution de la première équation
-          if (c > 0) {
-            ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+          ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '+', 20]
+          valPetit = texFractionReduite(-b, a) // la plus petite valeur est la solution de la deuxième équation
+          valGrand = texFractionReduite(-d, c) // la plus grande valeur est la solution de la première équation
+          if (a > 0) {
+            ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
             ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'd', 20, '+', 20]
           } else {
-            ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
+            ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
             ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'd', 20, '-', 20]
           }
         }
         // Affiche le tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
-              ['$x$', 2.5, 30], [`$(${a}x${ecritureAlgebrique(b)})^2$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})^2(${c}x${ecritureAlgebrique(d)})$`, 2, 200]
+              ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$(${c}x${ecritureAlgebrique(d)})^2$`, 2, 75], [`$\\cfrac{${a}x${ecritureAlgebrique(b)}}{(${c}x${ecritureAlgebrique(d)})^2}$`, ecart, 200]
             ],
             ['$-\\infty$', 30, `$${valPetit}$`, 20, `$${valGrand}$`, 20, '$+\\infty$', 30]
           ],
@@ -594,11 +579,18 @@ export default function ExerciceInequationProduit () {
           espcl: 3.5,
           deltacl: 0.8,
           lgt: 10,
-          hauteurLignes: [15, 15, 15, 15]
+          hauteurLignes: [15, 15, 15, 25]
         }))
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
-        const gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty, ${texFractionReduite(-d, c)} \\right${pDroite} $.`
-        const droite = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${texFractionReduite(-d, c)}, +\\infty \\right[ $.`
+        let gauche
+        let droite
+        if (-d / c < -b / a) { // Si la première racine est la valeur interdite, on la prive à gauche
+          gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty, ${texFractionReduite(-b, a)} \\right${pDroite} \\backslash \\{${texFractionReduite(-d, c)}\\} $.`
+          droite = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${texFractionReduite(-b, a)}, +\\infty \\right[ $.`
+        } else { // Sinon, on la prive à droite
+          gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty, ${texFractionReduite(-b, a)} \\right${pDroite} $.`
+          droite = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${texFractionReduite(-b, a)}, +\\infty \\right[ \\backslash \\{${texFractionReduite(-d, c)}\\} $.`
+        }
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (c > 0) {
             texteCorr += gauche
@@ -610,6 +602,119 @@ export default function ExerciceInequationProduit () {
             texteCorr += droite
           } else {
             texteCorr += gauche
+          }
+        }
+      }
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)/(cx+d)+e<0'                                 Type 5        //
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      if (listeTypeDeQuestions[i] === '(ax+b)/(cx+d)+e<0') {
+        let valPetit, valGrand
+        texte = `$\\cfrac{${a}x${ecritureAlgebrique(b)}}{${c}x${ecritureAlgebrique(d)}}${ecritureAlgebrique(e)} ${texSymbole(signes[i])}0$`
+        // Correction
+        texteCorr = texte
+        // Si une correction détaillée est demandée, détaille comment résoudre les équations
+        if (this.correctionDetaillee) {
+          texteCorr += `<br> $\\begin{aligned}
+          \\cfrac{${a}x${ecritureAlgebrique(b)}}{${c}x${ecritureAlgebrique(d)}} ${ecritureAlgebrique(e)} &= \\cfrac{${a}x${ecritureAlgebrique(b)}}{${c}x${ecritureAlgebrique(d)}} ${ecritureAlgebrique(e)} \\times \\cfrac{${c}x${ecritureAlgebrique(d)}}{${c}x${ecritureAlgebrique(d)}} \\\\
+          &= \\cfrac{${a}x${ecritureAlgebrique(b)}}{${c}x${ecritureAlgebrique(d)}} + \\cfrac{${e * c}x${ecritureAlgebrique(e * d)}}{${c}x${ecritureAlgebrique(d)}} \\\\
+          &= \\cfrac{${a}x${ecritureAlgebrique(b)} ${ecritureAlgebrique(e * c)}x${ecritureAlgebrique(e * d)}}{${c}x${ecritureAlgebrique(d)}} \\\\
+          &= \\cfrac{${a + e * c}x${ecritureAlgebrique(b + e * d)}}{${c}x${ecritureAlgebrique(d)}}
+          \\end{aligned}$`
+          // Utilise la fonction décrite plus haut pour éviter d'écrire deux fois la même chose pour les deux inéquations ax + b > 0 et cx + d > 0
+          ecrireCorrectionDetaillee(a + e * c, b + e * d)
+          ecrireCorrectionDetaillee(c, d)
+        } else { // Si pas de correction détaillée, écrit simplement les conclusions, en changeant le sens des inégalités si a < 0 ou si c < 0
+          texteCorr += `<br> $\\cfrac{${a}x${ecritureAlgebrique(b)}}{${c}x${ecritureAlgebrique(d)}} ${ecritureAlgebrique(e)} = \\cfrac{${a + e * c}x${ecritureAlgebrique(b + e * d)}}{${c}x${ecritureAlgebrique(d)}}$`
+          if (a + e * c < 0) {
+            texteCorr += `<br>$${a + e * c}x${ecritureAlgebrique(b + e * d)}${texSymbole('>')}0$ lorsque $x${texSymbole('<')} ${texFractionReduite(-(b + e * d), a + e * c)}$`
+          } else {
+            texteCorr += `<br>$${a + e * c}x${ecritureAlgebrique(b + e * d)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')} ${texFractionReduite(-(b + e * d), a + e * c)}$`
+          }
+          if (c < 0) {
+            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ lorsque $x${texSymbole('<')} ${texFractionReduite(-d, c)}$`
+          } else {
+            texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ lorsque $x${texSymbole('>')} ${texFractionReduite(-d, c)}$`
+          }
+        }
+        // Prépare l'affichage du tableau de signes
+        texteCorr += '<br>On peut donc en déduire le tableau de signes suivant : <br>'
+        if (-(b + e * d) / (a + e * c) < -d / c) { // Si la plus petite solution est celle de la première équation
+          if (a + e * c > 0) { // La ligne1 change de signe en premier donc ligne1 = PMM ou MPP selon le signe de a
+            ligne1 = ligneMPP
+          } else {
+            ligne1 = lignePMM
+          }
+          if (c > 0) { // La ligne 2 change de signe en deuxième donc ligne2 = PPM ou MMP selon le signe de c
+            ligne2 = ligneMMP
+          } else {
+            ligne2 = lignePPM
+          }
+          valPetit = texFractionReduite(-(b + e * d), a + e * c) // la plus petite valeur est la solution de la première équation
+          valGrand = texFractionReduite(-d, c) // la plus grande valeur est la solution de la deuxième équation
+        } else { // Si la plus petite solution est celle de la deuxième équation
+          if (a + e * c > 0) { // La ligne1 change de signe en deuxième donc ligne1 = PPM ou MMP selon le signe de a
+            ligne1 = ligneMMP
+          } else {
+            ligne1 = lignePPM
+          }
+          if (c > 0) { // La ligne 2 change de signe en premier donc ligne2 = PMM ou MPP selon le signe de c
+            ligne2 = ligneMPP
+          } else {
+            ligne2 = lignePMM
+          }
+          valPetit = texFractionReduite(-d, c) // la plus petite valeur est la solution de la deuxième équation
+          valGrand = texFractionReduite(-(b + e * d), a + e * c) // la plus grande valeur est la solution de la première équation
+        }
+        // Détermine la dernière ligne selon le signe du coefficient dominant
+        if (-(b + e * d) / (a + e * c) < -d / c) { // Si la valeur interdite est la deuxième (z au lieu de d)
+          if ((a + e * c) * c > 0) {
+            ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'd', 20, '+', 20]
+          } else {
+            ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'd', 20, '-', 20]
+          }
+        } else { // Sinon, la valeur interdite est la première
+          if ((a + e * c) * c > 0) {
+            ligne3 = ['Line', 30, '', 0, '+', 20, 'd', 20, '-', 20, 'z', 20, '+', 20]
+          } else {
+            ligne3 = ['Line', 30, '', 0, '-', 20, 'd', 20, '+', 20, 'z', 20, '-', 20]
+          }
+        }
+        // Affiche enfin le tableau
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          tabInit: [
+            [
+              ['$x$', 2.5, 30], [`$${a + e * c}x${ecritureAlgebrique(b + e * d)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a + e * c}x${ecritureAlgebrique(b + e * d)})(${c}x${ecritureAlgebrique(d)})$`, ecart, 200]
+            ],
+            ['$-\\infty$', 30, `$${valPetit}$`, 20, `$${valGrand}$`, 20, '$+\\infty$', 30]
+          ],
+          tabLines: [ligne1, ligne2, ligne3],
+          colorBackground: '',
+          espcl: 3.5,
+          deltacl: 0.8,
+          lgt: 10,
+          hauteurLignes: [15, 15, 15, 25]
+        }))
+        // Affiche l'ensemble de solutions selon le sens de l'inégalité
+        let interieur, exterieur
+        if (-(b + e * d) / (a + e * c) < -d / c) { // Si la valeur interdite est la deuxième (intervale forcément ouvert avec valGrand)
+          interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} , ${valGrand} \\right[ $.`
+          exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg] ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        } else { // Si la valeur interdite est la première (invervalle forcément ouvert avec valPetit)
+          interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] ${valPetit} , ${valGrand} \\right${pDroite} $.`
+          exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg[ \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        }
+        if ((signes[i] === '<' || signes[i] === '≤')) {
+          if ((a + e * c) * c > 0) {
+            texteCorr += interieur
+          } else {
+            texteCorr += exterieur
+          }
+        } else if ((signes[i] === '>' || signes[i] === '≥')) {
+          if ((a + e * c) * c > 0) {
+            texteCorr += exterieur
+          } else {
+            texteCorr += interieur
           }
         }
       }
@@ -626,7 +731,7 @@ export default function ExerciceInequationProduit () {
   // Choisit le type de question à l'aide d'un formulaire numérique (la réponse sera stockée dans this.sup)
   this.besoinFormulaireNumerique = [
     "Type d'inéquation",
-    6,
-    '1: (x+a)(x+b)<0\n2: (x+a)(x+b)(x+c)<0\n3: (ax+b)(cx+d)<0\n4: (ax+b)(cx+d)(ex+f)<0\n5: (ax+b)²(cx+d)<0\n6: Tous les types précédents'
+    5,
+    '1: (x+a)/(x+b)<0\n2: (ax+b)/(cx+d)<0\n3: (ax+b)/[(cx+d)(ex+f)]<0\n4: (ax+b)/(cx+d)²<0\n5: (ax+b)/(cx+d)+e<0\n6: Tous les types précédents'
   ]
 }

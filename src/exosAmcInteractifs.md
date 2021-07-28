@@ -4,10 +4,10 @@
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|2G50-2|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
-|2G50|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
-|2L12-2|Développer (a+b)²|KO|KO|OK|mathLive|
-|2L12-3|Développer (a-b)²|KO|KO|OK|mathLive|
+|2G31-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
+|2G36-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
+|2N43-4|Développer (a+b)²|KO|KO|OK|mathLive|
+|2N43-5|Développer (a-b)²|KO|KO|OK|mathLive|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
 |3F13-1|Lecture graphique d’images et d’antécédents|KO|KO|OK|mathLive|

@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAl
 export const titre = 'Appliquer la double distributivité avec les racines carrées'
 
 /**
- * 2N12
+ * 2N32-5, ex 2N12
  * @author Stéphane Guyon
  */
 export default function DoubleDistributiviteAvecRacineCarree () {
