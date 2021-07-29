@@ -5,7 +5,8 @@ import { repere2, droite, mathalea2d, point, tracePoint, labelPoint, segment } f
 export const titre = 'Lecture graphique d’une fonction affine'
 
 /**
-
+* @author Stephane Guyon
+* 2F10-2
 */
 export default function lecturefonctionaffine () {
   Exercice.call(this)
