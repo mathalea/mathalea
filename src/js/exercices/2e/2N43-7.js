@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texFraction } from '../../modules/outils.js'
 
 export const titre = 'Factoriser avec les identités remarquables'
@@ -7,10 +6,9 @@ export const titre = 'Factoriser avec les identités remarquables'
 /**
  * Factoriser en utilisant les 3 identités remarquables
 * @author Jean-Claude Lhote
-* 2L11
+* 2N43-7, ex 2L11
 */
-export default function Factoriser_Identites_remarquables2 () {
-  'use strict'
+export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Factoriser les expressions suivantes.'
@@ -22,15 +20,16 @@ export default function Factoriser_Identites_remarquables2 () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const liste_fractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
+    const listeFractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
       [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
       [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
     let typesDeQuestionsDisponibles = []
-    if (this.sup == 1) {
+    if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3] // coef de x = 1
-    } else if (this.sup == 2) {
+    } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [4, 5, 6] // coef de x > 1
     } else { typesDeQuestionsDisponibles = [7, 8, 9] } // coef de x rationnel
 
@@ -39,7 +38,7 @@ export default function Factoriser_Identites_remarquables2 () {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(1, 9)
       b = randint(2, 9)
-      fraction = choice(liste_fractions)
+      fraction = choice(listeFractions)
       ns = fraction[0]
       ds = fraction[1]
       switch (typesDeQuestions) {

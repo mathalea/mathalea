@@ -1,13 +1,13 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 107 
-- nombre d'exos interactifReady 130 
+- nombre d'exos interactifReady 131 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|2G50-2|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
-|2G50|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
-|2L12-2|Développer (a+b)²|KO|KO|OK|mathLive|
-|2L12-3|Développer (a-b)²|KO|KO|OK|mathLive|
+|2G31-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
+|2G36-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
+|2N43-4|Développer (a+b)²|KO|KO|OK|mathLive|
+|2N43-5|Développer (a-b)²|KO|KO|OK|mathLive|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
 |3F13-1|Lecture graphique d’images et d’antécédents|KO|KO|OK|mathLive|
@@ -142,6 +142,7 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
+|beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta2G53|Alignement de 3 points.|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
