@@ -2636,9 +2636,11 @@ export function texSymbole (symbole) {
     case '>':
       return '>'
     case '≤':
-      return '\\leq'
+      return '\\leqslant'
     case '≥':
-      return '\\geq'
+      return '\\geqslant'
+    case '\\':
+      return '\\smallsetminus'
     default:
       return 'symbole non connu par texSymbole()'
   }
