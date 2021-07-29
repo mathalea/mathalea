@@ -114,12 +114,12 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
     // 'q22', // pourcentage
     // 'q23', // arithmétique, calculs astucieux, calculs avec parenthèses, puissances (2)
     // 'q24', // statistiques
-    // 'q25', // fonction
+    // 'q25', // inéquation, signes
     // 'q26', // fonction (calcul, VI)
     // 'q27', // Calcul littéral2, équation
     // 'q28', //  Problèmes avec vitesse, heures....
     //  'q29', // vecteurs
-    // 'q30' // inéquation, signes
+        // 'q30' // Questions diverses sans aléatoire ou peu d'aléatoire
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objets = []
