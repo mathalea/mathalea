@@ -7,6 +7,7 @@ export const titre = 'Modéliser une situation  à l\'aide d\'une équation'
  * Description didactique de l'exercice
  * @author GillesM
  * Référence
+ * A DEPLACER EN 2N50-3 !!!!!!!!!!!!!!!!!
 */
 export default function modeliserEquations () {
   Exercice.call(this) // Héritage de la classe Exercice()

@@ -11,7 +11,7 @@ export const titre = 'Inéquation du premier degré'
  * * Type 3 : ax+b≤cx+d
  * * Tous les types
  * @author Remi Angot et Guillaume Valmont
- * 2L13
+ * 2N60-4, ex 2L13
  */
 export default function ExerciceInequation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()

@@ -1,13 +1,13 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 104 
-- nombre d'exos interactifReady 129 
+- nombre d'exos amcReady 107 
+- nombre d'exos interactifReady 131 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|2G50-2|Lecture graphique des coefficients d'une équation réduite|KO|KO|OK|mathLive|
-|2G50|Déterminer le coefficient directeur d'une droite.|KO|KO|OK|mathLive|
-|2L12-2|Développer (a+b)²|KO|KO|OK|mathLive|
-|2L12-3|Développer (a-b)²|KO|KO|OK|mathLive|
+|2G31-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
+|2G36-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
+|2N43-4|Développer (a+b)²|KO|KO|OK|mathLive|
+|2N43-5|Développer (a-b)²|KO|KO|OK|mathLive|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
 |3F13-1|Lecture graphique d’images et d’antécédents|KO|KO|OK|mathLive|
@@ -103,7 +103,7 @@
 |6M23|Conversions d’aires|OK|qcmMono|OK|qcm,mathLive|
 |6M30|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |6M31|Conversions de volume|OK|qcmMono|OK|qcm,mathLive|
-|6N10-1|Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...|KO|KO|OK|mathLive|
+|6N10-1|Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...|OK|AMCNum|OK|mathLive|
 |6N11-2|Placer un point d’abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
 |6N11|Lire l’abscisse entière d’un point (grands nombres)|OK|AMCOpen|OK|mathLive|
 |6N20-2|Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.|KO|KO|OK|mathLive|
@@ -142,8 +142,10 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
+|beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
+|beta2G53|Alignement de 3 points.|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
-|beta6N10-1-interactif|Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...|KO|KO|OK|mathLive|
+|beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|

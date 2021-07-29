@@ -6,9 +6,9 @@ export const titre = 'Développer (a-b)²'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
- * Développer (ax+b)²
+ * Développer (a-b)²
 * @author Matthieu Devillers très très largement inspiré par Jean-Claude Lhote
-* 2L12-3
+* 2N43-5, ex 2L12-3
 */
 export default function DevelopperIdentitesRemarquables4 () {
   'use strict'

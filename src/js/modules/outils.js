@@ -2,7 +2,7 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate } from 'mathjs'
+import { format, evaluate, isPrime } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 
@@ -1431,17 +1431,21 @@ export function reduirePolynomeDegre3 (a, b, c, d) {
 export function obtenirListeFacteursPremiers (n) {
   // Algorithme de base où l'on divise par chacun des nombres premiers
   const liste = []
-  const listeNombresPremiers = obtenirListeNombresPremiers()
-  let i = 0
-  while (n > 1 && listeNombresPremiers[i] <= n) {
-    if (n % listeNombresPremiers[i] === 0) {
-      liste.push(listeNombresPremiers[i])
-      n /= listeNombresPremiers[i]
+  let i = 2
+  while (n > 1 && i <= n) {
+    if (n % i === 0) {
+      liste.push(i)
+      n /= i
     } else {
       i++
+      while (!isPrime(i)) {
+        i++
+      }
     }
   }
-  if (liste.length === 0) { liste.push(n) }
+  if (liste.length === 0) {
+    liste.push(n)
+  }
   return liste
 }
 /**
@@ -2563,8 +2567,12 @@ export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de 
 * Retourne la liste des nombres premiers inférieurs à 300
 * @author Rémi Angot
 */
-export function obtenirListeNombresPremiers () {
-  return [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
+export function obtenirListeNombresPremiers (n = 300) {
+  const prems = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
+  for (let i = 307; i <= n; i++) {
+    if (isPrime(i)) prems.push(i)
+  }
+  return prems
 }
 
 /**
@@ -2628,9 +2636,11 @@ export function texSymbole (symbole) {
     case '>':
       return '>'
     case '≤':
-      return '\\leq'
+      return '\\leqslant'
     case '≥':
-      return '\\geq'
+      return '\\geqslant'
+    case '\\':
+      return '\\smallsetminus'
     default:
       return 'symbole non connu par texSymbole()'
   }
@@ -7205,7 +7215,7 @@ export function exportQcmAmc (exercice, idExo) {
 
           propositions = prop.propositions
           switch (qrType) {
-            case 'QcmMono':
+            case 'qcmMono':
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'
@@ -7239,7 +7249,7 @@ export function exportQcmAmc (exercice, idExo) {
               texQr += '\\end{question}\n'
               id++
               break
-            case 'QcmMult':
+            case 'qcmMult':
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'
@@ -7290,6 +7300,7 @@ export function exportQcmAmc (exercice, idExo) {
               if (propositions !== undefined) {
                 texQr += `\\explain{${propositions[0].texte}}\n`
               }
+              texQr += `${rep.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
               texQr += `\\AMCnumericChoices{${rep.valeur}}{digits=${rep.param.digits},decimals=${rep.param.decimals},sign=${rep.param.signe},`
               if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
                 texQr += `exponent=${rep.param.exposantNbChiffres},exposign=${rep.param.exposantSigne},`

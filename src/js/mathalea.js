@@ -1,6 +1,6 @@
 /* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl, setUrl } from './modules/gestionUrl.js'
+import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -1907,7 +1907,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   // gestion de la vue
   // si dans l'url il y a un paramètre &v=... on modifie le DOM et/ou le CSS
   gestionVue()
-  gestionScores()
+  if (context.vue !== 'recto' && context.vue !== 'verso') {
+    gestionScores()
+  } else {
+    console.log('Gestion des scores non gérée')
+  }
   if (context.isAmc) {
     if (urlParams.get('e')) {
       typeEntete = urlParams.get('e')
@@ -2044,7 +2048,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Gestion de la redirection vers MathaleaLaTeX
   $('#btnLaTeX').click(function () {
-    window.location.href += '&v=latex'
+    if (window.location.href.includes('v=')) {
+      context.vue = 'latex'
+      window.location.href = getUrlSearch()
+    } else {
+      window.location.href += '&v=latex'
+    }
   })
 
   if (context.isAmc) {
@@ -2234,8 +2243,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     for (let i = 0; i < urlVars.length; i++) {
       listeDesExercices.push(urlVars[i].id)
     }
-    formChoixDesExercices.value = listeDesExercices.join(',')
-    copierExercicesFormVersAffichage(listeDesExercices)
+    if (formChoixDesExercices !== null) {
+      formChoixDesExercices.value = listeDesExercices.join(',')
+      copierExercicesFormVersAffichage(listeDesExercices)
+    }
     try {
       miseAJourDeLaListeDesExercices()
     } catch (err) {
