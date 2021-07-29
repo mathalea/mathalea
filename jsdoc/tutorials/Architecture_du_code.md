@@ -1,5 +1,3 @@
-# Documentation pour développeurs
-
 Ce fichier donne quelques infos sur les choix d'architecture de code et les outils de développement utilisés
 
 ## Arborescence

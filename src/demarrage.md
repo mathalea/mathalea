@@ -3,41 +3,54 @@ Cette documentation est une base pour la plupart des développeurs et développe
 Il y en a d'autres plus spécifiques :
 * [mathalea2D](2d/)
 * [mathaleaInstrumenpoche](instrumenpoche/)
-* [tout](tout/) La doc complète. À priori pour les développeurs du moteur, mais si vous ne trouvez pas la doc de la fonction dont vous auriez besoin allez voir par là-bas si elle n'y est pas
+* [tout](tout/) La doc complète. À priori pour les développeurs du moteur, mais si vous avez besoin d'une fonction particulière lorsque vous créez un exercice, vous pouvez y jeter un oeil pour voir si quelqu'un d'autre ne l'a pas déjà créé.
 
-# Logiciels à installer pour pouvoir participer
+# Guide de première installation
+Le but de ce guide n'est pas de vous guider pas à pas mais de vous faire éviter tous les écueils. Il vous aiguillera à chaque "intersection" mais supposera que vous serez capables de vous en sortir à chaque "ligne droite" comme par exemple que vous serez capables de cliquer sur "suivant" lors des installations (même si c'est écrit en anglais !).
+## Installation des logiciels
+- Commencer par se créer un compte sur Github.com puis le communiquer à Rémi Angot pour obtenir des droits d'écriture (sauf sur la branche master qui est protégée pour tout le monde). Vous n'avez pas à attendre qu'il le fasse pour faire la suite, alors c'est parti !
+- Installer [Visual Studio Code](https://code.visualstudio.com/Download) (conseillé si vous voulez avoir moins de soucis lors de l'installation) ou [VSCodium](https://vscodium.com) (si vous êtes plus débrouillard et voulez une installation sans aucune trace de Microsoft), appelés **VSC** par la suite.
+- Installer NodeJS :
+    - Pour [Windows et MacOS](https://nodejs.org/fr/) (la version LTS)
+    - Pour les distributions **Linux** basées sur Debian (comme Ubuntu), ouvrir un terminal et saisir :
+        - `sudo apt-get install curl apt-transport-https lsb-release`
+        - `sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
+        - `sudo apt-get install -y nodejs`
+    - Pour savoir à quoi correspondent les lignes précédentes et savoir comment installer sur les autres distributions [c'est par ici](/tutorial-Installer_NodeJS_sur_Linux.html)
+    
+- Installer Git :
+    - [Pour Windows](https://git-scm.com/download/)
+    - Pour **MacOS** :
+        - Commencer par ouvrir un terminal (cliquer sur le LaunchPad et rechercher `Terminal`)
+        - Commencer par installer Homebrew si ce n'est pas déjà fait en copiant-collant cette commande :
+            - `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+            - (ça peut prendre un moment)
+        - Puis installer Git en copiant-collant cette commande : `brew install git`
+    - Pour **Linux**, saisir `sudo apt-get install git` dans un terminal (pour les distributions basées sur Debian comme Ubuntu)
+- Installer [GitKraken](https://www.gitkraken.com/download) (qui semble être le plus populaire parmi nous) ou [GitHub Desktop](https://desktop.github.com/) et vous vous connecter avec votre compte GitHub créé précédemment.
 
-- Installer [VSCodium](https://vscodium.com) ou Visual Studio Code 
-- Installer [Github Desktop](https://desktop.github.com) (ou équivalent)
-- Installer [NodeJS](https://nodejs.org/fr/)
-- Installer pnpm avec `npm install -g pnpm` dans un terminal (il faut être admin, préfixer éventuellement la commande par sudo sous linux|mac)
-- Installer l’extension [EsLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) dans Visual Studio Code
-- Se créer un compte sur Github.com puis le communiquer à Rémi Angot pour obtenir des droits d'écriture (sauf sur la branche master qui est protégée pour tout le monde)
-- Cloner le dépôt [github.com/mathalea/mathalea](https://github.com/mathalea/mathalea)
+## Paramétrage de VSC (Visual Studio Code)
+- Ouvrir VSC
+- Il vous proposera très rapidement d'installer le module linguistique pour le traduire en français. Sachez que dans la suite de ce tuto, ce seront les noms anglais qui seront utilisés donc si vous voulez faire le choix de le traduire en français, mieux vaut attendre la fin du tuto ;).
+- Cliquer sur "Source Control" dans le panneau de gauche, puis "Clone Repository" et ensuite sur "Clone from GitHub" [image](img/Config_VSC-1.png)
+- Vous devrez alors vous connecter sur GitHub et autoriser VSC à accéder à votre compte.
+- Rechercher "mathalea" dans la barre du haut et cliquer sur "mathalea/mathalea" qui est le dépôt original (s'il n'y a pas de barre de recherche en haut, cliquer à nouveau sur "Clone Repository") [image](img/Config_VSC-2.png)
+- Il faut ensuite choisir dans quel dossier local sera copié le code source de mathalea et ensuite laisser la copie se faire tranquillement.
+- Une fois la copie terminé, vous pourrez ouvrir directement le dossier grâce à la notification en bas à droite (si vous n'étiez pas devant l'ordinateur à ce moment là et que vous l'avez loupée, vous pouvez la faire réapparaître avec la toute petite cloche en bas à droite) [image](img/Config_VSC-3.png)
+- Vous avez maintenant accès au code source de MathALEA soigneusement copié sur votre ordinateur ! [image](img/Config_VSC-4.png)
+- Vous pouvez le parcourir rapidement si vous êtes curieux ou continuer le paramétrage :)
+- Installer l’extension [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- Ouvrir le terminal (CTRL+J ou CMD+`)
+    - Sur **Windows**, le terminal par défaut est **powershell** mais il rend plus compliqué les étapes suivantes, nous allons donc le remplacer par **cmd**. Pour cela :
+        - Cliquer sur la petite flèche qui pointe vers le bas à droite du terminal puis sur "Select Default Profile" [image](img/Config_VSC-5.png)
+        - Cliquer sur Command Prompt dans le menu qui s'affiche puis fermer le terminal actuel grâce à la petite poubelle en bas à droite [image](img/Config_VSC-6.png)
+        - Vous pouvez réouvrir un nouveau terminal avec (CTRL+J) et vérifier que ce n'est plus **powershell** mais **cmd** (s'il y a un souci fermez et relancez VSC) [image](img/Config_VSC-7.png)
+- Installer pnpm
+    - Sur **Windows** il faut être administrateur et saisir `npm install -g pnpm` dans le terminal
+    - Sur **Mac** et **Linux** il faut le préfixer de `sudo`, ce qui donne `sudo npm install -g pnpm`
+- De la même façon, saisir `pnpm i` pour installer les dépendances nécessaires (ça prendra un moment, faites autre chose en attendant mais ne fermez pas le logiciel pour éviter les problèmes). Il faudra le refaire lorsqu'on intègrera de nouveaux outils externes, ce qui n'arrivera pas tous les jours (on préviendra sur Slack)
+- Enfin, vous pouvez vérifier que tout fonctionne en lançant `pnpm start` qui va ouvrir votre navigateur par défaut pour afficher (au bout de quelques dizaines de secondes) la dernière version de MathAlea en développement !
 
-# Premiers pas
+Si le site s'affiche bien, Félicitations ! vous êtes fin prêt(e) à participer à ce projet ! et vous pouvez cliquer sur [Architecture du code](/tutorial-Architecture_du_code.html) pour comprendre comment est structuré le code de MathALEA ou directement sur [Créer un exercice](/tutorial-Créer_un_exercice.html) si vous voulez apprendre à créer votre premier exercice sans plus attendre !
 
-Une fois le projet cloné localement, il faut installer les dépendances avec `pnpm i` dans un terminal à la racine du projet (à refaire après chaque modification de package.json lorsqu'on intègre de nouveaux outils externes)
-
-Ensuite vous pouvez lancer `pnpm start`, cela va ouvrir votre navigateur par défaut sur http://localhost:8080/ qui va afficher ce qui serait compilé dans /build/ (les js sont générés dynamiquement, ils sont servis directement sans que le fichier ne soit créé dans le dossier build, ça reste en mémoire, c'est webpack qui gère ça).
-
-Rendez-vous sur [http://localhost:8080/mathalea.html](http://localhost:8080/mathalea.html) ou sur [http://localhost:8080/mathalea.html?filtre=beta](http://localhost:8080/mathalea.html?filtre=beta) si le nom de fichier de votre exercice commence par beta.
-
-Si vous créez un nouvel exercice, lancez `pnpm build:dicos` pour mettre à jour la liste des exercices.
-
-Pour générer la documentation, lancer `pnpm run build:doc`
-
-Et ensuite, pour visualiser cette documentation, lancer `pnpm run doc:show`
-
-
-Vous avez des modèles pour commencer votre exercice : 
-
-- src/js/beta/betaExemple1Type.js // Un même type de question répété 
-- src/js/beta/betaExemple.js // Les questions peuvent être très différentes et leur nombre est fixé
-- src/js/beta/betaExemple1TypeCalculLettre.js // Un même type de question répété  mais présenté A=..., B=...
-- src/js/beta/betaExemple3Types.js // On créé 3 types de questions  qui seront alternés (et que l'on peut pondérer)
-
-Avec VSCodium ou VSCode, l'extension ESLint permet de repérer les erreurs et améliorer la mise en forme de votre document (avec les règles de [StandardJS](https://standardjs.com)). Voir Affichages > Problèmes pour une description des erreurs et `CTRL+MAJ+P` ou `CMD+MAJ+P`  puis `ESLint: Fix all auto-fixable Problems` pour améliorer la typographie et le style de votre code.
-
-
-
+Sinon, c'est que cette documentation est encore à améliorer ! et vous êtes invité(e) à faire part de vos soucis sur Slack pour qu'on vous aide et qu'on améliore cette documentation :)

@@ -4,6 +4,17 @@ Le nom d'un exercice commence par la référence correspondante du [référentie
 
 Les réglages appliqués par défaut sont dans `src/js/exercices/Exercice.js`.
 
+Si vous créez un nouvel exercice, lancez `pnpm build:dicos` pour mettre à jour la liste des exercices.
+
+Vous avez des modèles pour commencer votre exercice : 
+
+- src/js/beta/betaExemple1Type.js // Un même type de question répété 
+- src/js/beta/betaExemple.js // Les questions peuvent être très différentes et leur nombre est fixé
+- src/js/beta/betaExemple1TypeCalculLettre.js // Un même type de question répété  mais présenté A=..., B=...
+- src/js/beta/betaExemple3Types.js // On créé 3 types de questions  qui seront alternés (et que l'on peut pondérer)
+
+Avec VSCodium ou VSCode, l'extension ESLint permet de repérer les erreurs et améliorer la mise en forme de votre document (avec les règles de [StandardJS](https://standardjs.com)). Voir Affichages > Problèmes pour une description des erreurs et `CTRL+MAJ+P` ou `CMD+MAJ+P`  puis `ESLint: Fix all auto-fixable Problems` pour améliorer la typographie et le style de votre code.
+
 
 # Attributs des exercices
 
@@ -111,7 +122,6 @@ Le résultat est visible sur <http://coopmaths.fr/exCM005>
 Les exercices peuvent être affichés dans le navigateur (sous forme classique <https://coopmaths.fr/mathalea.html> ou en diaporama chronométré <https://coopmaths.fr/cm.html>) ou compilés en pdf à partir des sources en LaTeX (<https://coopmaths.fr/mathalealatex.html>).
 
 Un booléen `context.isHtml` est défini sur chaque page qui utilise MathALEA car tous les codes LaTeX ne peuvent pas être affichés dans les navigateurs par KaTeX (voir les [limitations](https://katex.org/docs/supported.html)). Suivant la valeur de ce booléen le code LaTeX pourra être différent.
-étrie dynamique) et d'autres que en mode LaTeX (ceux qui nécessitent des macros comme pour le calcul posé ou les droites graduées).
 
 
 ### Variante des exercices
