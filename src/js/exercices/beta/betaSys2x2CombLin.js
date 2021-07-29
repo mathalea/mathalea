@@ -1,5 +1,5 @@
 import { not } from 'mathjs'
-import { listeQuestionsToContenu, randint, combinaisonListes, MatriceCarree, abs,ppcm,ecritureParentheseSiNegatif,rienSi1,ecritureAlgebriqueSauf1,ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, matriceCarree, abs,ppcm,ecritureParentheseSiNegatif,rienSi1,ecritureAlgebriqueSauf1,ecritureAlgebrique } from '../../modules/outils.js'
 import { simplify } from 'mathjs'
 import Exercice from '../Exercice.js'
 export const titre = '2G35-3' // Résoudre un système 2x2 par combinaisons linéaire
@@ -43,7 +43,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         varCoeff = ['a11','a12','a21','a22']      // Noms des coefficients de la matrice
         do {
             varSol.concat(varCoeff).forEach(v => sys[v] = randint(-10,10,0))          // Affectation des 6 valeurs
-            coeff = new MatriceCarree([[sys.a11, sys.a12], [sys.a21, sys.a22]])       // Création de la matrice
+            coeff = matriceCarree([[sys.a11, sys.a12], [sys.a21, sys.a22]])       // Création de la matrice
         } while (coeff.determinant == 0)                                              // On veut une unique solution
         droit = coeff.multiplieVecteur([sys.xS, sys.yS])                              // Vecteur à droite du système
         mat = dessSysteme(sys,droit,niveau)          // Représentation du système
@@ -58,22 +58,22 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         let c1 = m / sys.a11                      // coeff multiplicateur
         let c2 = m / sys.a21
         if (c1 != 1 || c2 != 1) {
-        texteCorr += `Faisons apparaître le même coefficient devant $x$ pour les 2 lignes :<br>`
-        texteCorr += `Le plus petit multiple commun entre les coefficients ${sys.a11} et ${sys.a21} est ${m}, pour cela :<br>`
-        if (c1 !=1) {texteCorr += `- Multiplions la ligne $L_1$ par ${c1}<br>`}
-        if (c2 !=1) {texteCorr += `- Multiplions la ligne $L_2$ par ${c2}<br>`}
-        sys.a11 *= c1       // Màj des coeff de la matrice
-        sys.a12 *= c1
-        sys.a21 *= c2
-        sys.a22 *= c2   
-        coeff = new MatriceCarree([[sys.a11, sys.a12], [sys.a21, sys.a22]])     // Nouveau système
-        droit = coeff.multiplieVecteur([sys.xS, sys.yS])  // Terme à droite de l'égalité
-        mat = dessSysteme(sys,droit,niveau)  
-        texteCorr += `On obtient alors le système :<br>$\\begin{array}{r}`
-        if (c1 !=1) {texteCorr += `${ecritureParentheseSiNegatif(c1)}\\times `} // on n'affiche pas les "1 *
-        texteCorr += `L_1 \\\\`
-        if (c2 !=1) {texteCorr += `${ecritureParentheseSiNegatif(c2)}\\times `}
-        texteCorr += `L_2 \\end{array}${mat}$<br>`
+            texteCorr += `Faisons apparaître le même coefficient devant $x$ pour les 2 lignes :<br>`
+            texteCorr += `Le plus petit multiple commun entre les coefficients ${sys.a11} et ${sys.a21} est ${m}, pour cela :<br>`
+            if (c1 !=1) {texteCorr += `- Multiplions la ligne $L_1$ par ${c1}<br>`}
+            if (c2 !=1) {texteCorr += `- Multiplions la ligne $L_2$ par ${c2}<br>`}
+            sys.a11 *= c1       // Màj des coeff de la matrice
+            sys.a12 *= c1
+            sys.a21 *= c2
+            sys.a22 *= c2   
+            coeff = matriceCarree([[sys.a11, sys.a12], [sys.a21, sys.a22]])     // Nouveau système
+            droit = coeff.multiplieVecteur([sys.xS, sys.yS])  // Terme à droite de l'égalité
+            mat = dessSysteme(sys,droit,niveau)  
+            texteCorr += `On obtient alors le système :<br>$\\begin{array}{r}`
+            if (c1 !=1) {texteCorr += `${ecritureParentheseSiNegatif(c1)}\\times `} // on n'affiche pas les "1 *
+            texteCorr += `L_1 \\\\`
+            if (c2 !=1) {texteCorr += `${ecritureParentheseSiNegatif(c2)}\\times `}
+            texteCorr += `L_2 \\end{array}${mat}$<br>`
         } 
         texteCorr += `Soustrayons les lignes pour éliminer les $x$ : <br>`
         // Elimination des x et résolution de l'équation en y
