@@ -14,12 +14,11 @@ export const titre = 'Résoudre une inéquation quotient'
  * * Type 5 : (ax+b)/(cx+d)+e<0
  * * Tous les types
  * @author Guillaume Valmont
- * 2N61-4
+ * 2N61-4, ex 2L14-2
  * 17/07/2021
  */
 export default function ExerciceInequationQuotient () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.spacing = 2 // Espace entre deux lignes
   this.spacingCorr = 2 // Espace entre deux lignes pour la correction
   this.correctionDetailleeDisponible = true

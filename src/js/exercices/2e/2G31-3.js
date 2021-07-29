@@ -5,7 +5,7 @@ export const titre = 'Déterminer une équation cartésienne de droite à partir
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
- * Référence
+ * Référence 2G31-3, ex 2G51
 */
 export default function equationcartesienne () {
   Exercice.call(this) // Héritage de la classe Exercice()

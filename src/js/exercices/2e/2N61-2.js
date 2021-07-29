@@ -13,12 +13,11 @@ export const titre = 'Résoudre une inéquation produit'
  * * Type 5 : (ax+b)²(cx+d)<0
  * * Tous les types
  * @author Guillaume Valmont
- * 2N61-2
+ * 2N61-2, ex 2L14-1
  * 17/07/2021
  */
 export default function ExerciceInequationProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.spacing = 2 // Espace entre deux lignes
   this.spacingCorr = 2 // Espace entre deux lignes pour la correction
   this.correctionDetailleeDisponible = true
