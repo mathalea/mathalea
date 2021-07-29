@@ -1,16 +1,19 @@
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu, prenomF, prenomM, combinaisonListes, randint, ecritureParentheseSiNegatif,
-  ecritureAlgebrique, miseEnEvidence, fractionSimplifiee,
+  ecritureAlgebrique, miseEnEvidence, fractionSimplifiee, lettreDepuisChiffre,
   calcul, texteEnCouleur, texteEnCouleurEtGras, pgcd, texNombrec, texFraction, signe, abs,
   texFractionReduite, choice, texNombre, sp, shuffle,
-  texPrix, combinaisonListesSansChangerOrdre, range1, reduireAxPlusB
+  texPrix, combinaisonListesSansChangerOrdre, range1, reduireAxPlusB, rienSi1
 } from '../../modules/outils.js'
 import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
-import { droiteGraduee2, mathalea2d, repere2, courbe2, tracePoint, point, droite, segmentAvecExtremites, texteSurSegment, codeSegments, codageAngleDroit, afficheMesureAngle, milieu, labelPoint, segment, latexParCoordonnees } from '../../modules/2d.js'
+import {
+  droiteGraduee2, mathalea2d, repere2, courbe2, tracePoint, point, droite, segmentAvecExtremites, texteSurSegment,
+  codeSegments, codageAngleDroit, afficheMesureAngle, milieu, labelPoint, segment, latexParCoordonnees
+} from '../../modules/2d.js'
 
 export const titre = 'Course aux nombres seconde'
 export const interactifReady = true
@@ -40,12 +43,14 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let a, b, c, d, N, xA, xB, yA, yB, x1, x2, y1, y2, A, B, C, D, E, G, H, k, u, resultat, inconnue, objets, repere, fraction, den, r, e, f, m, n, somme, tA, tB, prenom1, prenom2
+    let a, b, c, d, N, xA, xB, yA, yB, x1, x2, y1, y2, A, B, C, D, E, G, H, k, u,
+      resultat, inconnue, objets, repere, fraction, racine, den, r, e, f, m, n, somme, tA, tB,
+      prenom1, prenom2, expression, x
     let questions = []
 
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(20), this.nbQuestions)
+      questions = combinaisonListesSansChangerOrdre(range1(1), this.nbQuestions)
     } else {
       if (typeof this.sup === 'number') {
         // Si c'est un nombre c'est qu'il y a qu'une seule question
@@ -71,6 +76,10 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
       [10, 3], [5, 4], [7, 4], [10, 7], [11, 7], [12, 7]
     ] // Couples de nombres premiers entre eux >1
 
+    const liste_racines1 = [
+      [2, 8], [32, 2], [2, 50], [3, 27], [5, 20], [2, 18]
+    ] // couples pour simplifier des produits de racines carrées
+
     const fruits = [
       ['pêches', 3.5, 10, 30], ['Noix', 4.5, 4, 13], ['cerises', 5.5, 11, 20], ['pommes', 2.5, 20, 40],
       ['framboises', 6.5, 1, 5], ['fraises', 4.5, 5, 10], ['citrons', 1.5, 15, 30], ['bananes', 2.5, 15, 25]
@@ -87,9 +96,12 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
     const plat = [
       ['nems'], ['samossas'], ['parts de quiches'], ['parts de pizzas'], ['beignets']
     ]
-    const typeQuestionsDisponibles = ['q1','q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10','q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20']//
+
+    const signesDeX = combinaisonListes([true, false], this.nbQuestions)
+    const typeQuestionsDisponibles = ['q23']//
     // 'q1','q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10']
-    // 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20']//
+    // 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20'
+    // 'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']//
     // 'q1',  produit d'entiers
     // 'q2', // somme ou différence d'entiers
     // 'q3', // Tiers, moitié, proportions d'une quantité
@@ -112,14 +124,14 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
     // 'q20', // triangle (pythagore, thalès, angles, trigo ...)
     // 'q21', // image/antécédents par une fonction
     // 'q22', // pourcentage
-    // 'q23', // arithmétique, calculs astucieux, calculs avec parenthèses, puissances (2)
+    // 'q23', // arithmétique, calculs astucieux (avec racines carrées aussi), programme de calcul, puissances (2)
     // 'q24', // statistiques
     // 'q25', // inéquation, signes
     // 'q26', // fonction (calcul, VI)
-    // 'q27', // Calcul littéral2, équation
+    // 'q27', // Calcul littéral2 (avec id) , équations
     // 'q28', //  Problèmes avec vitesse, heures....
     //  'q29', // vecteurs
-        // 'q30' // Questions diverses sans aléatoire ou peu d'aléatoire
+    // 'q30' // Questions diverses sans aléatoire ou peu d'aléatoire
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objets = []
@@ -1246,7 +1258,7 @@ $\\begin{array}{|l|c|c|}\n`
           break
 
         case 'q16':
-          switch (choice([1,2,3,4,5,6,7,8,9])) {
+          switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9])) {
             case 1:// nombre de nombres entiers entre deux valeurs
               a = randint(10, 80)
 
@@ -1390,40 +1402,40 @@ $\\begin{array}{|l|c|c|}\n`
               }
 
               break
-              case 9:// calculs +99 +999 -99 -999
+            case 9:// calculs +99 +999 -99 -999
 
-              N = choice(['a', 'b','c','d', 'e'])
+              N = choice(['a', 'b', 'c', 'd', 'e'])
               if (N === 'a') {
-                a = randint(1, 9)*100+randint(1, 9)*10+randint(1, 9)
-                resultat = calcul(a+99)
+                a = randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9)
+                resultat = calcul(a + 99)
                 texte = `Calculer $${a}+99$.`
                 texteCorr = `$${a}+99=${resultat}$.`
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               }
               if (N === 'b') {
-                a = randint(1, 9)*1000+randint(1, 9)*100+randint(1, 9)*10+randint(1, 9)
-                resultat = calcul(a+999)
+                a = randint(1, 9) * 1000 + randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9)
+                resultat = calcul(a + 999)
                 texte = `Calculer $${a}+999$.`
                 texteCorr = `$${a}+999=${resultat}$.`
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               }
               if (N === 'c') {
-                a = randint(1, 9)*1000+randint(1, 9)*100+randint(1, 9)*10+randint(1, 9)
-                resultat = calcul(a-999)
+                a = randint(1, 9) * 1000 + randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9)
+                resultat = calcul(a - 999)
                 texte = `Calculer $${a}-999$.`
                 texteCorr = `$${a}-999=${resultat}$.`
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               }
               if (N === 'd') {
-                a = randint(1, 9)*100+randint(1, 9)*10+randint(1, 9)
-                resultat = calcul(a-99)
+                a = randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9)
+                resultat = calcul(a - 99)
                 texte = `Calculer $${a}-99$.`
                 texteCorr = `$${a}-99=${resultat}$.`
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               }
               if (N === 'e') {
-                a = randint(1, 9)*1000+randint(1, 9)*100+randint(1, 9)*10+randint(1, 9)
-                resultat = calcul(a+99)
+                a = randint(1, 9) * 1000 + randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9)
+                resultat = calcul(a + 99)
                 texte = `Calculer $${a}+99$.`
                 texteCorr = `$${a}+99=${resultat}$.`
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
@@ -1454,7 +1466,7 @@ $\\begin{array}{|l|c|c|}\n`
                 resultat = calcul(a - (b * a) / 100)
                 texte = `Le prix d'un ${n} est ${a} €. Il baisse de ${b} %. <br>
                   Quel est son nouveau prix ? `
-                texteCorr = `Il coûte : $${a}-${calcul(b / 100)}\\times ${a}= ${a - (b * a) / 100} €.$`
+                texteCorr = `Il coûte : $${a}-${texNombrec(calcul(b / 100))}\\times ${a}= ${a - (b * a) / 100} €.$`
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               }
 
@@ -1867,6 +1879,164 @@ Ainsi, $DC=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
               break
           }
 
+          break
+
+        case 'q21':// calculs d'images
+        switch (choice([1,2,3,4])) { 
+          case 1:// avec un poly du second degré
+x = randint(1, 3)
+          if (signesDeX[i]) {
+            x = -1 * x
+          }
+          a = randint(1, 2)
+          b = randint(1, 2)
+          c = randint(2, 5)
+          expression = `${rienSi1(a)}x^2+${rienSi1(b)}x+${c}`
+          texte = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
+          Calculer $f(${x})$.`
+          texteCorr = `$f(${x})=
+          ${a}\\times ${ecritureParentheseSiNegatif(x)}^2+${rienSi1(b)}\\times ${ecritureParentheseSiNegatif(x)}+${c}=
+          ${a}\\times${x * x}${ecritureAlgebrique(b * x)}=
+          ${a * x * x}${ecritureAlgebrique(b * x)}+${c}=
+          ${a * x * x + b * x + c}$`
+          setReponse(this, i, a * x * x + b * x + c)
+
+          break
+       
+          case 2:// calculs image d'un produit
+          a = randint(-3, 3, [0, 1, -1])
+          b = randint(-3, 3, [0])
+          c = randint(-3, 3, [0, 1, -1])
+          d = randint(-3, 3, [0])
+          x = randint(-2, 2, [0])
+
+          expression = `(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})`
+          texte = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
+          Calculer $f(${x})$.`
+          texteCorr = `$f(${x})=\\left(${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)\\left(${c}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}\\right)=(${a * x}${ecritureAlgebrique(b)})(${c * x}${ecritureAlgebrique(d)})=${a * x + b}\\times${ecritureParentheseSiNegatif(c * x + d)}=${(a * x + b) * (c * x + d)}$`
+          setReponse(this, i, (a * x + b) * (c * x + d))
+          break
+case 3:// avec (x+a)^2
+  a = randint(-4, 4, [0, -1, 1])
+  b = randint(-4, 4, [0])
+  c = randint(-4, 4, [0, -1, 1])
+  d = randint(-4, 4, [0])
+  x = randint(-2, 2, [0])
+
+  expression = `(${a}x${ecritureAlgebrique(b)})^2`
+  texte = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
+  Calculer $f(${x})$.`
+  texteCorr = `$f(${x})=\\left(${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)^2=(${a * x}${ecritureAlgebrique(b)})^2=${ecritureParentheseSiNegatif(a * x + b)}^2=${(a * x + b) * (a * x + b)}$`
+  setReponse(this, i, (a * x + b) * (a * x + b))
+  break
+
+  case 4: //avec un quotient
+  a = randint(2, 4)
+  b = randint(1, 4)
+  c = randint(2, 4)
+  d = randint(1, 5,b)
+  x = randint(-3, 3,0)
+  while (c * x + d === 0) {
+    c = randint(2, 4)
+  }
+  while (a * x + b === 0) {
+    a = randint(2, 4)
+  }
+  expression = `\\dfrac{${a}x+${b}}{${c}x+${d}}`
+  texte = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
+  Calculer $f(${x})$ sous la forme d'une fraction irréductible ou d'un entier le cas échéant.`
+  texteCorr = `$f(${x})=\\dfrac{${a}\\times${ecritureParentheseSiNegatif(x)}+${b}}{${c}\\times${ecritureParentheseSiNegatif(x)}+${d}}=\\dfrac{${a * x}+${b}}{${c * x}+${d}}=\\dfrac{${a * x + b}}{${c * x + d}}=${texFractionReduite(a * x + b, c * x + d)}$`
+  setReponse(this, i, texFractionReduite(a * x + b, c * x + d))
+    break
+
+        }
+          break
+
+
+
+
+
+        case 'q23':// arithmétique, calculs astucieux (avec racines carrées aussi), calculs avec parenthèses, puissances (2)
+          switch (choice([1,2,3])) { //
+            case 1:// calcul d'un carré avec racine carré
+              racine = choice(liste_racines1)
+              a = racine[0]
+              b = racine[1]
+
+              N = choice(['a', 'b'])
+              if (N === 'a') {
+                texte = `Le carré de $\\sqrt{${a}}+\\sqrt{${b}}$ est égal à : `
+                texteCorr = `On utilise l'égalité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $a=\\sqrt{${a}}$ et $b=\\sqrt{${b}}$.<br>
+                $\\begin{aligned}(\\sqrt{${a}}+\\sqrt{${b}})^2&
+                =(\\sqrt{${a}})^2+2\\times \\sqrt{${a}}\\times \\sqrt{${b}}+(\\sqrt{${b}})^2
+                \\\\&=${a}+2\\sqrt{${texNombrec(a * b)}}+${b}
+                \\\\&=${a + b}+2\\times${Math.sqrt(a * b)}
+                \\\\ &=${a + b + 2 * Math.sqrt(a * b)}\\end{aligned}$
+              `
+                setReponse(this, i, a + b + 2 * Math.sqrt(a * b), { formatInteractif: 'calcul' })
+              }
+              if (N === 'b') {
+                texte = `Le carré de $\\sqrt{${a}}-\\sqrt{${b}}$ est égal à : `
+                texteCorr = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=\\sqrt{${a}}$ et $b=\\sqrt{${b}}$.<br>
+                $\\begin{aligned}(\\sqrt{${a}}-\\sqrt{${b}})^2&
+                =(\\sqrt{${a}})^2-2\\times \\sqrt{${a}}\\times \\sqrt{${b}}+(\\sqrt{${b}})^2
+                \\\\&=${a}-2\\sqrt{${texNombrec(a * b)}}+${b}
+                \\\\&=${a + b}-2\\times${Math.sqrt(a * b)}
+                \\\\ &=${a + b - 2 * Math.sqrt(a * b)}\\end{aligned}$`
+                setReponse(this, i, a + b - 2 * Math.sqrt(a * b), { formatInteractif: 'calcul' })
+              }
+
+              break
+            case 2:// programme de calcul écrit
+              a = choice([45, 55, 60, 65])
+              b = choice([44, 56, 52, 56])
+              c = choice([36, 39, 42, 45, 48])
+              d = choice([54, 60, 72, 78])
+              e = randint(3, 7)
+              N = choice(['quart', 'tiers', 'cinquième', 'sixième'])
+
+              if (N === 'cinquième') {
+                texte = `Prendre le ${N} de $${a}$, puis soustraire $${e}$ et élever le résultat au carré. <br>
+               Quel nombre obtient-on ?`
+                texteCorr = `$\\dfrac{1}{5}\\times ${a}=${texNombrec(a / 5)}$.<br>
+                On soustrait $${e}$, on obtient : $${texNombrec(a / 5)}-${texNombrec(e)}=${texNombrec(a / 5 - e)}$<br>
+                On élève au carré : $${texNombrec(a / 5 - e)}^2=${texNombrec((a / 5 - e) * (a / 5 - e))}$`
+                setReponse(this, i, (a / 5 - e) * (a / 5 - e), { formatInteractif: 'calcul' })
+              }
+              if (N === 'quart') {
+                texte = `Prendre le ${N} de $${b}$, puis soustraire $${e}$ et élever le résultat au carré. <br>
+                Quel nombre obtient-on ?`
+                texteCorr = `$\\dfrac{1}{4}\\times ${b}=${texNombrec(b / 4)}$.<br>
+                 On soustrait $${e}$, on obtient : $${texNombrec(b / 4)}-${texNombrec(e)}=${texNombrec(b / 4 - e)}$<br>
+                 On élève au carré : $${texNombrec(b / 4 - e)}^2=${texNombrec((b / 4 - e) * (b / 4 - e))}$`
+                setReponse(this, i, (b / 4 - e) * (b / 4 - e), { formatInteractif: 'calcul' })
+              }
+              if (N === 'tiers') {
+                texte = `Prendre le ${N} de $${c}$, puis soustraire $${e}$ et élever le résultat au carré. <br>
+               Quel nombre obtient-on ?`
+                texteCorr = `$\\dfrac{1}{3}\\times ${c}=${texNombrec(c / 3)}$.<br>
+                On soustrait $${e}$, on obtient : $${texNombrec(c / 3)}-${texNombrec(e)}=${texNombrec(c / 3 - e)}$<br>
+                On élève au carré : $${texNombrec(c / 3 - e)}^2=${texNombrec((c / 3 - e) * (c / 3 - e))}$`
+                setReponse(this, i, (c / 3 - e) * (c / 3 - e), { formatInteractif: 'calcul' })
+              }
+              if (N === 'sixième') {
+                texte = `Prendre le ${N} de $${d}$, puis soustraire $${e}$ et élever le résultat au carré. <br>
+                Quel nombre obtient-on ?`
+                texteCorr = `$\\dfrac{1}{6}\\times ${d}=${texNombrec(d / 6)}$.<br>
+                 On soustrait $${e}$, on obtient : $${texNombrec(d / 6)}-${texNombrec(e)}=${texNombrec(d / 6 - e)}$<br>
+                 On élève au carré : $${texNombrec(d / 6 - e)}^2=${texNombrec((a / 5 - e) * (d / 6 - e))}$`
+                setReponse(this, i, (d / 6 - e) * (d / 6 - e), { formatInteractif: 'calcul' })
+              }
+              break
+              
+  case 3: //calculer (-a)^2+a^2
+  a=randint(1,10)
+  texte = `Calculer $A=(-${a})^2+(${a})^2$. <br>
+  `
+  texteCorr = `$A=(-${a})^2+(${a})^2=${a*a}+${a*a}=${2*a*a}$.`
+  setReponse(this, i, 2*a*a, { formatInteractif: 'calcul' })
+    break
+          }
           break
       }
 
