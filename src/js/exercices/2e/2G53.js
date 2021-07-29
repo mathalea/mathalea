@@ -21,7 +21,7 @@ export default function alignementdetroispoints () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typeQuestionsDisponibles = ['oui', 'oui'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['non', 'non'] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, xA, yA, xB, yB, xC, yC, k, n1, d1, n2, d2, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
@@ -46,7 +46,18 @@ export default function alignementdetroispoints () {
           texteCorr += '<br>On peut donc calculer leur coefficient directeur respectif.'
           texteCorr += '<br>On sait d\'après le cours, que le coefficient directeur de la droite $(AB)$, si $x_A\\neq x_B$ est  : $m=\\dfrac{y_B-y_A}{x_B-x_A}$.'
           texteCorr += '<br>On applique avec les données de l\'énoncé pour chacune des deux droites : '
-          texteCorr += `<br>$(AB)$ : $m_1=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${texFraction(n1, d1)}`
+          texteCorr += `<br>$\\bullet  (AB)$ : $m_1=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${texFraction(n1, d1)}`
+          if ((pgcd(n1, d1) !== 1 || d1 === 1 || d1 < 0) && n1 !== 0) {
+            texteCorr += `=${texFractionReduite(n1, d1)}`
+          }
+          texteCorr += '$'
+
+          texteCorr += `<br>$\\bullet  (AC)$ : $m_2=\\dfrac{${yC}-${ecritureParentheseSiNegatif(yA)}}{${xC}-${ecritureParentheseSiNegatif(xA)}}=${texFraction(n2, d2)}`
+          if ((pgcd(n2, d2) !== 1 || d2 === 1 || d2 < 0) && n2 !== 0) {
+            texteCorr += `=${texFractionReduite(n2, d2)}`
+          }
+          texteCorr += '$'
+
           texteCorr = +'<br>On onserve que $m_1 \\neq m_2$. '
           texteCorr = +'<br>Les droites $(AB)$ et $(AC)$ ne sont donc pas parallèles. '
           texteCorr = +'<br>Les points $A$, $B$ et $C$ ne sont pas alignés. '
@@ -86,7 +97,8 @@ export default function alignementdetroispoints () {
 
           texteCorr += '<br>On onserve que $m_1 = m_2$. '
           texteCorr += '<br>Les droites $(AB)$ et $(AC)$ ont le même coefficient directeur, elles sont donc parallèles. '
-          texteCorr += '<br>Le point $A$ appartenant aux deux droites parallèles $(AB)$ et $(AC)$, on en déduit que les points $A$, $B$ et $C$ sont alignés. '
+          texteCorr += '<br>Le point $A$ appartenant aux deux droites parallèles, $(AB)$ et $(AC)$ sont des droites confondues.'
+          texteCorr += '<br>On en déduit que les points $A$, $B$ et $C$ sont alignés. '
           break
       }
 
