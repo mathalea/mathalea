@@ -1,5 +1,5 @@
 import { not } from 'mathjs'
-import { listeQuestionsToContenu, randint, combinaisonListes, MatriceCarree, abs,ppcm,ecritureParentheseSiNegatif,rienSi1,ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, MatriceCarree, abs,ppcm,ecritureParentheseSiNegatif,rienSi1,ecritureAlgebriqueSauf1,ecritureAlgebrique } from '../../modules/outils.js'
 import { simplify } from 'mathjs'
 import Exercice from '../Exercice.js'
 export const titre = '2G35-3' // Résoudre un système 2x2 par combinaisons linéaire
@@ -47,7 +47,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         } while (coeff.determinant == 0)                                              // On veut une unique solution
         droit = coeff.multiplieVecteur([sys.xS, sys.yS])                              // Vecteur à droite du système
         mat = dessSysteme(sys,droit,niveau)          // Représentation du système
-        equationX = rienSi1(sys.a11) + "x" + ecritureAlgebriqueSauf1(sys.a12 * sys.yS) + '=' + droit[0]    // Equation finale en x
+        equationX = rienSi1(sys.a11) + "x" + ecritureAlgebrique(sys.a12 * sys.yS) + '=' + droit[0]    // Equation finale en x
                     
         texte = `$${mat}$`     
 
