@@ -3467,6 +3467,14 @@ export default {
     "interactifReady": false,
     "name": "P012"
   },
+  "beta240-1": {
+    "titre": "Utiliser la distributivité (simple ou double) et réduire",
+    "url": "/exercices/beta/beta240-1.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta240-1"
+  },
   "beta2F22": {
     "titre": "Représentation graphique d’une fonction affine",
     "url": "/exercices/beta/beta2F22.js",
@@ -3785,6 +3793,13 @@ export default {
     "interactifType": "qcm",
     "name": "betaLicence"
   },
+  "betaProbaAouB": {
+    "titre": "2S30-6",
+    "url": "/exercices/beta/betaProbaAouB.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaProbaAouB"
+  },
   "betaProbabilites": {
     "titre": "Probabilités simples",
     "url": "/exercices/beta/betaProbabilites.js",
@@ -3798,6 +3813,20 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaPuissances"
+  },
+  "betaSys2x2CombLin": {
+    "titre": "2G25-3",
+    "url": "/exercices/beta/betaSys2x2CombLin.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaSys2x2CombLin"
+  },
+  "betaTracerParabole": {
+    "titre": "Etude d’une parabole",
+    "url": "/exercices/beta/betaTracerParabole.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaTracerParabole"
   },
   "betarotation3d": {
     "titre": "Rotation 3d de polygones",
