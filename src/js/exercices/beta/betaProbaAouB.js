@@ -11,8 +11,8 @@ const inf = (n, d) => n < d
 const sup = (n, d) => n > d
 const egal = (n, d) => n == d
 const choixFnct = [
-    [multiple,'multiple de',2], 
-    [impair,'impair',1], 
+    [multiple,'multiple de',2],     // besoin de 2 paramètres pour "est multiple de..."
+    [impair,'impair',1],            // 1 seul paramètre
     [pair,'pair',1],
     [inf,'strictement inférieur à',2], 
     [sup,'strictement supérieur à',2], 
@@ -45,22 +45,22 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       // Boucle principale où i+1 correspond au numéro de la question
        n = choice([4,6,8,10,12,20]) // nb de faces du dé
        faces = Array(n).fill(0).map((_,i) => 1 + i)   // [1, 2,..., n]
-       a = [choice(choixFnct),randint(2,n)]
+       a = [choice(choixFnct),randint(2,n)]     // choix de la fonction à utiliser (multiple, impair...) et du paramètre éventuel
        b = [choice(choixFnct),randint(2,n)]
-       res_a = faces.filter(v => a[0][0](v, a[1]))
-       nb_a = res_a.length
-       res_b = faces.filter(v => b[0][0](v, b[1]))
+       res_a = faces.filter(v => a[0][0](v, a[1]))    // Eléments vérifiant A
+       nb_a = res_a.length                            // Cardinal de A
+       res_b = faces.filter(v => b[0][0](v, b[1]))    // Eléments vérifiant B
        nb_b = res_b.length
-       res_aEtb = res_a.filter(v => b[0][0](v, b[1]))
+       res_aEtb = res_a.filter(v => b[0][0](v, b[1])) // Eléments vérifiant A et B
        nb_aEtb = res_aEtb.length
-       res_aOub = faces.filter(v => a[0][0](v, a[1]) || b[0][0](v, b[1]))
+       res_aOub = faces.filter(v => a[0][0](v, a[1]) || b[0][0](v, b[1])) // Eléments vérifiant A ou B
        nb_aOub = res_aOub.length
 
       switch (listeTypeDeQuestions[i]) { 
         case 'type1': 
 
           // Enoncé                     
-          texte = `On lance un dé équilibré à $${n}$ faces. On considère les 2 événements :<br>` 
+          texte = `On lance un dé équilibré à $${n}$ faces numéroté de 1 à $${n}$. On considère les 2 événements :<br>` 
           texte += `$A$ = "Obtenir un résultat ${a[0][1]} ${a[0][2] == 2 ? a[1] : ''}"<br>` 
           texte += `$B$ = "Obtenir un résultat ${b[0][1]} ${b[0][2] == 2 ? b[1] : ''}"`
           
