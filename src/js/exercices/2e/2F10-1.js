@@ -6,13 +6,14 @@ import { min, max } from 'mathjs'
 export const titre = 'Représentation graphique d’une fonction affine'
 
 /**
-
+* @author Stéphane Guyon
+* 2F10-1, ex beta2F22
 */
 export default function representerfonctionaffine () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = ''
-  this.nbQuestions = 3// On complète le nb de questions
+  this.nbQuestions = 3 // On complète le nb de questions
   this.nbCols = 2
   this.nbColsCorr = 2
   this.tailleDiaporama = 100
