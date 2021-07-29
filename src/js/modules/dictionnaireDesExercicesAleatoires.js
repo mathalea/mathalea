@@ -41,6 +41,20 @@ export default {
     "interactifReady": false,
     "name": "1N11"
   },
+  "2F10-1": {
+    "titre": "Représentation graphique d’une fonction affine",
+    "url": "/exercices/2e/2F10-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F10-1"
+  },
+  "2F10-2": {
+    "titre": "Lecture graphique d’une fonction affine",
+    "url": "/exercices/2e/2F10-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F10-2"
+  },
   "2G31-1": {
     "titre": "Déterminer le coefficient directeur d'une droite.",
     "url": "/exercices/2e/2G31-1.js",
