@@ -18,6 +18,10 @@ GitKraken permet d'ailleurs de très efficacement visualiser ces différentes é
 ```shell
 # Affiche l'ensemble des branches locales avec une étoile et de la couleur sur la branche actuelle
 git branch
+
+# Remarque, s'il y a trop de branches distantes pour être affichées d'un coup, le terminal ne sera pas "disponible" tant que vous ne les aurez pas toutes vues
+# Appuyer sur "Entrée" fait avancer d'une ligne
+# Si on veut "quitter", il faut alors appuyer sur la touche "Q"
 ```
 #### Je m'appelle John et je veux m'atteler à la création de l'exercice 5P12 qui portera sur les ratios.
 ```shell
