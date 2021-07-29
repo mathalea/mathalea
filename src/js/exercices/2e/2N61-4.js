@@ -14,7 +14,7 @@ export const titre = 'Résoudre une inéquation quotient'
  * * Type 5 : (ax+b)/(cx+d)+e<0
  * * Tous les types
  * @author Guillaume Valmont
- * 2L14-2
+ * 2N61-4
  * 17/07/2021
  */
 export default function ExerciceInequationQuotient () {

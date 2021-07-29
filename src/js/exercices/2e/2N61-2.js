@@ -13,7 +13,7 @@ export const titre = 'Résoudre une inéquation produit'
  * * Type 5 : (ax+b)²(cx+d)<0
  * * Tous les types
  * @author Guillaume Valmont
- * 2L14-1
+ * 2N61-2
  * 17/07/2021
  */
 export default function ExerciceInequationProduit () {
