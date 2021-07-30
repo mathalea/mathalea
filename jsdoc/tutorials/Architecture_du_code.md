@@ -9,7 +9,7 @@ Ce fichier décrit les choix d'architecture de code et les outils de développem
 - Les sources des tutoriels sont dans `/jsdoc/tutorials` et les fichiers statiques destinés aux tutoriels sont dans `/jsdoc/static/`.
 
 #### Les autres
-- Le dossier `/build/` contient la version en développement du site [coopmaths.fr](https://coopmaths.fr/) consultable en faisant `pnpm start`.
+- Le dossier `/build/` contient la version en développement du site [coopmaths.fr](https://coopmaths.fr/), est construit avec `pnpm run build` et est consultable en faisant `pnpm start`.
 - Le dossier `/documentation/` contient toute la documentation générée à l'aide de jsdoc et consultable en ligne [ici](https://coopmaths.fr/documentation/) et en local en faisant `pnpm run doc:show`.
 - Le dossier `/node_modules/` contient toutes les dépendances installées grâce à `pnpm i`.
 - Le dossier `/src/assets/externalJs/` contient des bibliothèques JavaScript utilisées par le projet.
@@ -24,18 +24,18 @@ Cf la [doc officielle](https://docs.npmjs.com/cli/v7/configuring-npm/package-jso
 ## Dépendances (si vous voulez faire un super truc, l'outil nécessaire se trouve ci-dessous, probablement :) )
 **Dans l'entrée `dependencies` du `package.json` on indique les dépendances utilisées au runtime (par notre code quand il est exécuté)**
 * [Bugsnag](https://www.bugsnag.com) v. 7.10.1 : Outil de suivi des bugs.
-* [cortex-js/math-json](https://cortexjs.io/math-json/) v. 0.1.1 : Permet de coder des expressions mathématiques dans un texte facilement échangeable (par exemple le quotient 1/(n+1) s'écrit `["Divide", "n", ["Add", 1, "n"]]`).
+* [cortex-js/math-json](https://cortexjs.io/math-json/) v. 0.1.1 : Utilisé pour son clavier et la saisie des mathématiques dans les champs de réponses.
 * [SVG.js](https://svgjs.dev/docs/3.0/) v. 3.1.1 : Bibliothèque JavaScript pour manipuler et animer des SVG utilisée pour afficher des figures.
 * [Algebrite](http://algebrite.org/) v. 1.4.0 : Bibliothèque Javascript pour le calcul exact avec les nombres décimaux et le calcul formel.
 * [Clipboard.js](https://clipboardjs.com/) v. 2.0.8 : Permet de copier du texte vers le presse-papier utilisé pour le bouton "Copier le code LaTeX".
 * [CodeMirror](https://codemirror.net) v. 5.62.0 : Editeur de code dans le navigateur utilisé pour l'éditeur de MathALEA2D.
 * [core-js](https://www.npmjs.com/package/core-js) v. 3.15.1 : Utilisé par babel pour charger dynamiquement ce qui sera utilisé dans le code qui va être chargé et que le navigateur courant ne connaitrait pas (pas dans les devDependencies car c'est bien utilisé au runtime).
 * [InstrumEnPoche](https://instrumenpoche.sesamath.net) : Permet de faire des animations avec les instruments de géométrie.
-* [jQuery](https://jquery.com/) v. 3.6.0 : Pour alléger la programmation.
+* [jQuery](https://jquery.com/) v. 3.6.0 : Dépendance de datatables et de Semantic UI.
 * [jquery-ui](https://jqueryui.com/about/) v. 1.12.1 : Interface utilisateur pour jQuery.
 * [KaTeX](https://katex.org/) v. 0.13.11 : Pour le rendu LaTeX des exercices en ligne.
 * [loadjs](https://github.com/muicss/loadjs) v. 4.2.0 : Loader qui récupère le JavaScript, le CSS et les images en parallèle et exécute ensuite le code.
-* [maths.js](https://mathjs.org) v. 9.4.3 : Bibliothèque Javascript qui fait beaucoup de choses.
+* [maths.js](https://mathjs.org) v. 9.4.3 : Utilisé pour le calcul exact et le calcul formel en mathématiques.
 * [MathLive](https://mathlive.io) v. 0.67.0 : Permet de faire des exercices interactifs.
 * [QRCode.js](https://davidshimjs.github.io/qrcodejs/) v. 1.4.4 : Générateur de QRCode.
 * [regenerator-runtime](https://www.npmjs.com/package/regenerator-runtime) v. 0.13.7 : Utilisé par babel pour les générateurs (s'il y en a) et la syntaxe [async](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Statements/async_function) / [await](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Operators/await) => ne sera pas chargé si cette syntaxe n'est pas utilisée dans les fichiers chargés.
@@ -84,21 +84,16 @@ Cf la [doc officielle](https://docs.npmjs.com/cli/v7/configuring-npm/package-jso
 * [prismjs](http://prismjs.com/) v. 1.11 : Permet la coloration syntaxique du code LaTeX entre autres.
 * [Scratchblocks](https://scratchblocks.github.io/) v. 3.5 : Permet de créer des SVG de blocs Scratch à partir de lignes de code.
 
-**Données présentes dans le doc des devDependencies mais pas l'entrée correspondante du `package.json`. Elles ne sont plus utilisés ?**
-* [sass](https://sass-lang.com/) : pour compiler les fichiers scss en css
-* sass-plugin : plugin webpack pour les scss
-
 **Données présentes dans le README.MD mais présentes ni dans les `devDependencies`, ni les `dependencies` du `package.json`, ni dans le dossier `/src/assets/externalJs/`. Où sont-elles ?**
-* [Dowload.js](http://danml.com/download.html) CCBY2 (pour le téléchargement du fichier LaTeX généré).
-* [TextFill](https://jquery-textfill.github.io) MIT license (pour adapter la taille de la police dans les diaporamas).
+* [Download.js](http://danml.com/download.html) CCBY2 (pour le téléchargement du fichier LaTeX généré).
 
 ## navigateurs ciblés
 Avant le passage à webpack, mathalea exigeait des navigateurs récents (qui gèrent les [imports dynamiques](https://caniuse.com/?search=es6-module-dynamic-import)), on garde pour ce moment ce critère avec `"browserslist ["supports es6-module-dynamic-import"]`. Attention, il ne faut pas mettre de targets dans la conf babel (sinon browserlist est ignoré et c'est targets qui impose ses choix).
 
 ## configuration babel
-On se limite à une configuration minimaliste
+On se limite à une configuration minimaliste :
 * https://babeljs.io/docs/en/babel-preset-env
 * [useBuiltIns: "usage"](https://babeljs.io/docs/en/babel-preset-env#usebuiltins) avec core-js 3, pour ne charger que les polyfill nécessaires pour le navigateur courant (donc souvent aucun), et alléger les js produits.
 
 ## configuration eslint
-On suit la norme de style de code de [standardJs](https://standardjs.com/)
+On suit la norme de style de code de [standardJs](https://standardjs.com/).
