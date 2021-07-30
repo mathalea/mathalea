@@ -22,16 +22,11 @@ export default function ExerciceZeroMathalea2d3d () {
     const l = randint(5, 10)
     const p = randint(2, 5)
     const h = randint(3, 6)
-    const monPave = paveLPH3d(0, 0, 0, 1, l, p, h, 'black')
+    const monPave = paveLPH3d(0, 0, 0, 1, l, p, h, 'black') // Objet 3d possédant une méthode svg et une méthode tikz pour mathalea2d
     const pavesCorr = []
-    const A = point(0, 0)
-    const t = tracePoint(A)
-    const B = point3d(0, 0, 0)
-    const tB = tracePoint(B.p2d)
-    const texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 10 }, monPave, tB)
-    let texteCorr = `Il y a ${h} plaques de ${p} barres de ${l} cubes. Il y a donc $${h} \\times ${p} \\times ${l} = ${h * l * p}$ cubes.<br>`
+    const texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 10 }, monPave)
     for (let i = 0; i < h - 1; i++) {
-      pavesCorr.push(plaque3d(0, 0, i * 1.5, 1, l, p, 'black'))
+      pavesCorr.push(plaque3d(0, 0, i * 1.5, 1, l, p, 'black')) // autres objets 3d possédant des méthode svg et tikz.
     }
     for (let i = p - 1; i > 0; i--) {
       pavesCorr.push(barre3d(0, i * 1.5, h * 1.5 - 1.5, 1, l, 'black'))
@@ -39,9 +34,9 @@ export default function ExerciceZeroMathalea2d3d () {
     for (let i = 0; i < l; i++) {
       pavesCorr.push(cube3d(i * 1.2, 0, h * 1.5 - 1.5, 1, 'black'))
     }
-    texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 11.5 }, pavesCorr)
-    context.anglePerspective = 30
-    context.coeffPerspective = 0.5
+    const texteCorr = `Il y a ${h} plaques de ${p} barres de ${l} cubes. Il y a donc $${h} \\times ${p} \\times ${l} = ${h * l * p}$ cubes.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 11.5 }, pavesCorr)
+    context.anglePerspective = 30 // paramètre à modifier pour changer la vue en perspective
+    context.coeffPerspective = 0.5 // autre paramètre : coefficient de réduction suivant l'axe de fuite y.
 
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
