@@ -1,14 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
-import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d.js'
+import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
+import { mathalea2d, point, tracePoint } from '../../modules/2d.js'
+import { barre3d, cube3d, paveLPH3d, plaque3d, point3d } from '../../modules/3d.js'
 
-export const titre = 'Volumes de pavés droit par dénombrement'
-export const interactifReady = false
-export const amcReady = false
+export const titre = 'Exo zéroMathalea2d3d'
 
-export default function VolumesPavesParDenombrement () {
+export default function ExerciceZeroMathalea2d3d () {
   Exercice.call(this)
   this.nbQuestions = 1 // Ici le nombre de questions
   this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
@@ -26,7 +24,11 @@ export default function VolumesPavesParDenombrement () {
     const h = randint(3, 6)
     const monPave = paveLPH3d(0, 0, 0, 1, l, p, h, 'black')
     const pavesCorr = []
-    const texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 10 }, monPave)
+    const A = point(0, 0)
+    const t = tracePoint(A)
+    const B = point3d(0, 0, 0)
+    const tB = tracePoint(B.p2d)
+    const texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 10 }, monPave, tB)
     let texteCorr = `Il y a ${h} plaques de ${p} barres de ${l} cubes. Il y a donc $${h} \\times ${p} \\times ${l} = ${h * l * p}$ cubes.<br>`
     for (let i = 0; i < h - 1; i++) {
       pavesCorr.push(plaque3d(0, 0, i * 1.5, 1, l, p, 'black'))
@@ -45,4 +47,4 @@ export default function VolumesPavesParDenombrement () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-}
+} // Fin de l'exercice.

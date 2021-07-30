@@ -3450,6 +3450,13 @@ export default {
     "interactifReady": false,
     "name": "betaExercice_constructions_basiques"
   },
+  "betaExo3d": {
+    "titre": "Exo zéroMathalea2d3d",
+    "url": "/exercices/beta/betaExo3d.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExo3d"
+  },
   "betaExoSimpleMatthieu": {
     "titre": "Ceci est le titre de l’exercice BetaExosimpleMatthieu",
     "url": "/exercices/beta/betaExoSimpleMatthieu.js",
@@ -3524,13 +3531,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "moule_a_exo_mathalea"
-  },
-  "moule_a_exo_mathalea2d&3d": {
-    "titre": "Volumes de pavés droit par dénombrement",
-    "url": "/exercices/beta/moule_a_exo_mathalea2d&3d.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "moule_a_exo_mathalea2d&3d"
   },
   "moule_a_exo_mathalea2d": {
     "titre": "Exo zéro Mathalea2d",
