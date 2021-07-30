@@ -1425,8 +1425,8 @@ function NomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color = 'black
   let V, M2
   const t = texteParPosition(this.nom, this.x, this.y, -this.angle, this.color, this.taille, 'middle', true)
   const M = point(this.x, this.y)
-  const P = point(M.x + 1.1 * this.nom.length, M.y)
-  const M0 = similitude(P, M, 90 + this.angle, 0.5 / this.nom.length)
+  const P = point(M.x + 0.25 * this.nom.length, M.y)
+  const M0 = similitude(P, M, 90 + this.angle, 2 / this.nom.length)
   const M1 = translation(M0, vecteur(P, M))
   M2 = translation(M0, vecteur(M, P))
   V = vecteur(M1, M2)
