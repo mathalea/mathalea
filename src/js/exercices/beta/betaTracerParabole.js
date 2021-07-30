@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
 import { courbe, repere, mathalea2d } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,texFractionReduite,ecritureAlgebrique,texRacineCarree,ecritureParentheseSiNegatif,calcul,texNombrec,lettreMinusculeDepuisChiffre,texNombre,miseEnEvidence} from '../../modules/outils.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 import { simplify } from 'mathjs'
@@ -18,7 +19,7 @@ export const titre = 'Etude d’une parabole'
     this.nbQuestions = 2;
     this.nbCols = 1;
     this.nbColsCorr = 1;
-    this.spacingCorr = 3;
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1)
     this.sup = 1;
     this.correctionDetailleeDisponible=true
   
@@ -75,14 +76,14 @@ export const titre = 'Etude d’une parabole'
                 texteCorr += `<br>Calculons le discriminant : $\\Delta=b^2-4ac=${d} < 0$` 
                 texteCorr += `<br>Il n'y a pas de solution et donc la parabole $P$ ne coupe pas l'axe des abscisses`
             }
-            texteCorr += `<br><u>Coordonnées $S(x_S,y_S)$ du sommet de la parabole $P$</u> :`
+            texteCorr += `<br>$\\underline{\\text{Coordonnées } S(x_S,y_S) \\text{ du sommet de la parabole } P}$ :`
             texteCorr += `<br>L'abscisse du sommet $S$ est donné par la formule $x_S=\\dfrac{-b}{2a}=${xs}$`
             texteCorr += `<br>Et son ordonnée peut être calculé en utilisant la formule $y_S=\\dfrac{-\\Delta}{4a}$ (ou en remplaçant $x$ par $x_S$ dans l'équation de la parabole)`
             texteCorr += `<br>$y_S=\\dfrac{-\\Delta}{4a}=\\dfrac{${-d}}{${ecritureParentheseSiNegatif(4*a)}}=${ys}$`
             texteCorr += `<br>Le sommet $S$ a donc pour coordonnées $\\left(${xs}, ${ys}\\right)$`
 
         }
-        texteCorr += `<br><u>Recherche de points supplémentaires</u>`
+        texteCorr += `<br>$\\underline{\\text{Recherche de points supplémentaires}}$ :`
         let tableau = `<br>$\\begin{array}{c|c|c|c|c|c|c|c}`
         let points = []
         let g = x => a * x**2 + b * x + c

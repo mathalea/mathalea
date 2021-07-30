@@ -1,6 +1,7 @@
 import { not } from 'mathjs'
 import { listeQuestionsToContenu, randint, combinaisonListes, matriceCarree, abs,ppcm,ecritureParentheseSiNegatif,rienSi1,ecritureAlgebriqueSauf1,ecritureAlgebrique } from '../../modules/outils.js'
 import { simplify } from 'mathjs'
+import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
 export const titre = '2G35-3' // Résoudre un système 2x2 par combinaisons linéaire
 
@@ -11,23 +12,23 @@ const axby = (a,b, niveau) => niveau == 1 ?
             simplify(a + "*x+" + b + "*y").toString().replaceAll('*', '')     // Ecriture avec factorisation ou parenthèse (niveau 2)
 
 const dessSysteme = (s,d, niveau) => 
-    `\\begin{cases} ${axby(s.a11,s.a12, niveau)} & = & ${d[0]} \\\\ 
-                    ${axby(s.a21,s.a22, niveau)} & = & ${d[1]} \\end{cases}`
+    `\\begin{cases} ${axby(s.a11,s.a12, niveau)} & =  ${d[0]} \\\\ 
+                    ${axby(s.a21,s.a22, niveau)} & =  ${d[1]} \\end{cases}`
 
 /**
  * Description didactique de l'exercice
  * @author Eric Schrafstetter
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function Systeme2x2parCombinaisonLineaire () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Résoudre chacun des systèmes suivants <i>par combinaisons</i>'
+  this.consigne = 'Résoudre chacun des systèmes suivants $\\emph{par combinaisons}$'
   this.nbQuestions = 2
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.spacingCorr = 2
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.sup = 1 // Ecriture simple du système
   this.nouvelleVersion = function () {
     let niveau = +this.sup  // Niveau 1 = écriture ax+by = c ; Niveau 2 = parenthèses ou factorisation
@@ -83,7 +84,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         // Calcul du x
         texteCorr += `Remplaçons $y$ par $${sys.yS}$ dans $L_1$ (on aurait pu aussi utiliser $L_2$):<br>`
         texteCorr += `$L_1$ : $${equationX}$ et donc $x=${sys.xS}$<br>`
-        texteCorr += `<u>Conclusion</u> : $S=\\{(${sys.xS},${sys.yS})\\}$<br>`
+        texteCorr += `$\\underline{Conclusion}$ : $S=\\{(${sys.xS},${sys.yS})\\}$<br>`
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
