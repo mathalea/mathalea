@@ -17,6 +17,7 @@ export default function VolumesPavesParDenombrement () {
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.correctionDetailleeDisponible = true
+  this.correctionDetaillee = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
