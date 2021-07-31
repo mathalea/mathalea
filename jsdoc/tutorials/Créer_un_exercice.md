@@ -232,7 +232,6 @@ export default function ConstruireUnDiagramme4e () {
   this.contenuCorrection = '' // Idem avec la correction
   this.autoCorrection = [] // Liste des objets par question pour correction interactive || export AMC.
   this.tableauSolutionsDuQcm = [] // Pour sauvegarder les solutions des QCM.
-  // this.qcm=["Quels sont les nombres pairs ?",[7,12,34,25,18],[0,1,1,0,1]] =>["La question",[les réponses],[bonne=1 et mauvaise=0]]
 ```
 #### Mise en forme de l'exercice
 ``` javascript
@@ -267,10 +266,6 @@ export default function ConstruireUnDiagramme4e () {
   // Interactivité
   this.interactif = false // Exercice sans saisie utilisateur par défaut.
   this.interactifObligatoire = false // Certains exercices sont uniquement des QCM et n'ont pas de version non interactive.
-  // QCM
-  this.qcm = false // Pour les exercices de type QCM : contient un tableau.
-  this.qcmDisponible = false // Pour ajouter une case à cocher Mode QCM qui permet de changer le statut de this.modeQcm.
-  this.modeQcm = false // Pour choisir la version QCM ou la version classique (false = version classique).
   // Ajoute un formulaire de paramétrage par l'utilisateur récupéré via this.sup ou dans le paramètre d'url ',s='
   this.besoinFormulaireNumerique = false // Sinon this.besoinFormulaireNumerique = [texte, max, tooltip facultatif]
   this.besoinFormulaireTexte = false // Sinon this.besoinFormulaireTexte = [texte, tooltip]
