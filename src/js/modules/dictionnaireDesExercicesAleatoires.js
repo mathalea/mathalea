@@ -124,8 +124,7 @@ export default {
     "titre": "Alignement de 3 points.",
     "url": "/exercices/2e/2G53.js",
     "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifReady": false,
     "name": "2G53"
   },
   "2L10": {
@@ -3459,6 +3458,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2G14"
+  },
+  "beta2G23-2": {
+    "titre": "Coordonnées de vecteurs et translations.",
+    "url": "/exercices/beta/beta2G23-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2G23-2"
   },
   "beta2L11-1": {
     "titre": "Factoriser avec les identités remarquables (niveau II)",
