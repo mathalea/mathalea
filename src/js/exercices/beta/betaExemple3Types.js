@@ -35,8 +35,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           texteCorr = `Correction ${i + 1} de type 2`
           break
         case 'type3': // Table de 200
-          texte = `Question ${i + 1} de type 2`
-          texteCorr = `Correction ${i + 1} de type 2`
+          texte = `Question ${i + 1} de type 3`
+          texteCorr = `Correction ${i + 1} de type 3`
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

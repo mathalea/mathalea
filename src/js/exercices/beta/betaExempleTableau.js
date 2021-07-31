@@ -5,7 +5,7 @@ export const titre = 'Exercice exemple'
 
 /**
  * Description didactique de l'exercice
- * @author
+ * @author Rémi Angot
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
