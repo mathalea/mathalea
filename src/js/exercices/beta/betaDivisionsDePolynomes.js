@@ -1,5 +1,6 @@
 import { xcas, listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Division de polynômes'
 
@@ -8,13 +9,14 @@ export const titre = 'Division de polynômes'
  * @author Eric Schrafstetter
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function divisionDePolynomes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Calculer le quotient Q(x) de la division de P(x) par D(x)'
 
   this.nbQuestions = 2
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
@@ -29,36 +31,28 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     for (let i = 0, texte, etape, texteCorr, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      switch (listeTypeDeQuestions[i]) { 
-        case 'type1':
-          a = randint(-5,5,0)
-          etape = [
-            `D:=x+${a}`, // Diviseur D(x)
-            `P:=simplify(D*product(randint(2)*x+(2*randint(1)-1)*randint(1,3),k,1,2)))`,
-            `E1:=simplify(lcoeff(P)*x^2*D)`, // Etapes de la division
-            `E2:=simplify(P-E1)`,
-            `E3:=simplify(lcoeff(E2)*x^(degree(E2)-1)*D)`,
-            `E4:=simplify(E2-E3)`,
-            `E5:=simplify(lcoeff(E4)*D)`,
-            `E6:=simplify(E4-E5)`
-          ].forEach(e => `${xcas(e)}`) 
-          // Enoncé                    
-          texte = `$P(x)=${xcas(`P`)} \\text{ par } D(x)=${xcas(`D`)}$`
-          // Corrigé
-          texteCorr = `$\\begin{array}{r|l} ${xcas(`P`)} & ${xcas(`D`)}\\\\`
-          texteCorr += `\\underline{-(${xcas(`E1`)})} & \\overline{${xcas(`quo(P,D)`)}}\\\\`
-          texteCorr += `${xcas(`E2`)} & \\\\`   
-          texteCorr += `\\underline{-(${xcas(`E3`)})} & \\\\`  
-          texteCorr += `${xcas(`E4`)} & \\\\`   
-          texteCorr += `\\underline{-(${xcas(`E5`)})} & \\\\`  
-          texteCorr += `${xcas(`E6`)} & \\end{array}$`                                 
-          texteCorr += `<br>D'où $Q(x)=${xcas(`quo(P,D)`)}$` 
-          break
-        case 'type2':
-          break
-        case 'type3':
-          break
-      }
+      a = randint(-5,5,0)
+      etape = [
+        `D:=x+${a}`, // Diviseur D(x)
+        `P:=simplify(D*product(randint(2)*x+(2*randint(1)-1)*randint(1,3),k,1,2)))`,
+        `E1:=simplify(lcoeff(P)*x^2*D)`, // Etapes de la division
+        `E2:=simplify(P-E1)`,
+        `E3:=simplify(lcoeff(E2)*x^(degree(E2)-1)*D)`,
+        `E4:=simplify(E2-E3)`,
+        `E5:=simplify(lcoeff(E4)*D)`,
+        `E6:=simplify(E4-E5)`
+      ].forEach(e => `${xcas(e)}`) 
+      // Enoncé                    
+      texte = `$P(x)=${xcas(`P`)} \\text{ par } D(x)=${xcas(`D`)}$`
+      // Corrigé
+      texteCorr = `$\\begin{array}{r|l} ${xcas(`P`)} & ${xcas(`D`)}\\\\`
+      texteCorr += `\\underline{-(${xcas(`E1`)})} & \\overline{${xcas(`quo(P,D)`)}}\\\\`
+      texteCorr += `${xcas(`E2`)} & \\\\`   
+      texteCorr += `\\underline{-(${xcas(`E3`)})} & \\\\`  
+      texteCorr += `${xcas(`E4`)} & \\\\`   
+      texteCorr += `\\underline{-(${xcas(`E5`)})} & \\\\`  
+      texteCorr += `${xcas(`E6`)} & \\end{array}$`                                 
+      texteCorr += `<br>D'où $Q(x)=${xcas(`quo(P,D)`)}$` 
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
