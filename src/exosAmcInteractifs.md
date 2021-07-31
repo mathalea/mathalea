@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 107 
-- nombre d'exos interactifReady 131 
+- nombre d'exos amcReady 109 
+- nombre d'exos interactifReady 133 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -101,6 +101,7 @@
 |6M11|Aires de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M20|Aires de triangles|OK|AMCNum|OK|mathLive|
 |6M23|Conversions d’aires|OK|qcmMono|OK|qcm,mathLive|
+|6M30-0|Volumes de pavés droit par dénombrement|OK|AMCNum|OK|mathLive|
 |6M30|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |6M31|Conversions de volume|OK|qcmMono|OK|qcm,mathLive|
 |6N10-1|Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...|OK|AMCNum|OK|mathLive|
@@ -109,6 +110,7 @@
 |6N20-2|Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.|KO|KO|OK|mathLive|
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1).|KO|KO|OK|mathLive|
 |6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
+|6N22|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
 |6N30-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCOpen|OK|mathLive|
 |6N30|Lire l’abscisse décimale d’un point|OK|AMCOpen|OK|mathLive|

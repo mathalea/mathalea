@@ -581,9 +581,9 @@ class Cube3d {
     const faceAV = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
     const faceDr = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
     const faceTOP = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
-    faceAV.couleurDeRemplissage = '#A9A9A9'
+    faceAV.couleurDeRemplissage = 'lightgray'
     faceTOP.couleurDeRemplissage = 'white'
-    faceDr.couleurDeRemplissage = '#A5C400'
+    faceDr.couleurDeRemplissage = 'darkgray'
     this.svg = function (coeff) {
       return faceAV.svg(coeff) + '\n' + faceTOP.svg(coeff) + '\n' + faceDr.svg(coeff)
     }
@@ -620,13 +620,13 @@ class Barre3d {
       H = translation3d(D, vy)
       faceAv = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
       faceTop = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
-      faceAv.couleurDeRemplissage = '#A9A9A9'
+      faceAv.couleurDeRemplissage = 'lightgray'
       faceTop.couleurDeRemplissage = 'white'
       objets.push(faceAv, faceTop)
       A = translation3d(A, vx)
     }
     const faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
-    faceD.couleurDeRemplissage = '#A5C400'
+    faceD.couleurDeRemplissage = 'darkgray'
     objets.push(faceD)
 
     this.svg = function (coeff) {
@@ -675,12 +675,12 @@ class Plaque3d {
         H = translation3d(D, vy)
         if (j === 0) {
           faceAv = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
-          faceAv.couleurDeRemplissage = '#A9A9A9'
+          faceAv.couleurDeRemplissage = 'lightgray'
           objets.push(faceAv)
         }
         if (i === l - 1) {
           faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
-          faceD.couleurDeRemplissage = '#A5C400'
+          faceD.couleurDeRemplissage = 'darkgray'
           objets.push(faceD)
         }
         faceTop = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
@@ -732,12 +732,12 @@ class PaveLPH3d {
           H = translation3d(D, vy)
           if (j === 0) {
             faceAv = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
-            faceAv.couleurDeRemplissage = '#A9A9A9'
+            faceAv.couleurDeRemplissage = 'lightgray'
             objets.push(faceAv)
           }
           if (i === l - 1) {
             faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
-            faceD.couleurDeRemplissage = '#A5C400'
+            faceD.couleurDeRemplissage = 'darkgray'
             objets.push(faceD)
           }
           if (k === h - 1) {

@@ -2653,8 +2653,12 @@ export default {
   "6M30-0": {
     "titre": "Volumes de pavés droit par dénombrement",
     "url": "/exercices/6e/6M30-0.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6M30-0"
   },
   "6M30": {
@@ -2839,6 +2843,17 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "6N22-2"
+  },
+  "6N22": {
+    "titre": "Recomposer un nombre décimal représenté par des fractions du cube unité",
+    "url": "/exercices/6e/6N22.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6N22"
   },
   "6N23-0": {
     "titre": "Écrire un nombre décimal en chiffres ou en lettres",
@@ -3457,13 +3472,6 @@ export default {
     "interactifReady": false,
     "name": "betaExempleXcasValAbs"
   },
-  "betaExercice_constructions_basiques": {
-    "titre": "Programmes de constructions (en chantier)",
-    "url": "/exercices/beta/betaExercice_constructions_basiques.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExercice_constructions_basiques"
-  },
   "betaExo3d": {
     "titre": "Exo zéroMathalea2d3d",
     "url": "/exercices/beta/betaExo3d.js",
@@ -3538,6 +3546,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaTracerParabole"
+  },
+  "betatrinome": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/betatrinome.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betatrinome"
   },
   "moule_a_exo_mathalea": {
     "titre": "Exo zéro Mathalea",
