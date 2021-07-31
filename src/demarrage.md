@@ -5,6 +5,8 @@ Il y en a d'autres plus spécifiques :
 * [mathaleaInstrumenpoche](instrumenpoche/)
 * [tout](tout/) La doc complète. À priori pour les développeurs du moteur, mais si vous avez besoin d'une fonction particulière lorsque vous créez un exercice, vous pouvez y jeter un oeil pour voir si quelqu'un d'autre ne l'a pas déjà créé.
 
+Différents tutoriels sont accessibles via le panneau de gauche, n'hésitez pas à y jeter un oeil !
+
 # Guide de première installation
 Le but de ce guide n'est pas de vous guider pas à pas mais de vous faire éviter tous les écueils. Il vous aiguillera à chaque "intersection" mais supposera que vous serez capables de vous en sortir à chaque "ligne droite" comme par exemple que vous serez capables de cliquer sur "suivant" lors des installations (même si c'est écrit en anglais !).
 ## Installation des logiciels

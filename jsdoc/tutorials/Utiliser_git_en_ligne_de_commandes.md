@@ -86,11 +86,11 @@ git stash list
 # dans maBranche, on vérifie que tout est clean
 git status
 
-# on en crée une autre
+# on crée une autre branche temporaire à partir de maBranche
 git checkout -b tmp
 
-# on tente un merge, par exemple de la branche main
-git merge main
+# on tente un merge, par exemple de la branche master
+git merge master
 
 # on sait si ça passe (ou pas), on revient où on en était
 git checkout maBranche
