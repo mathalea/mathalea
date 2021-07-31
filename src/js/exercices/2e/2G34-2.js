@@ -6,7 +6,7 @@ export const titre = 'Déterminer si des droites $(d)$ et $(d\')$ sont parallèl
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
- * Référence
+ * Référence 2G34-2, ex 2G50-2
 */
 export default function PositionsDeDroites () {
   Exercice.call(this) // Héritage de la classe Exercice()

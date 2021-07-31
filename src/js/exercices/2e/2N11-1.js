@@ -1,64 +1,294 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,ecritureAlgebrique} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { point, segment, crochetD, crochetG, intervalle, mathalea2d } from '../../modules/2d.js'
 
-
-export const titre = 'Simplifier une somme de racines carrées'
+export const titre = 'Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée'
 
 /**
- * 2N11-1
- * @author Stéphane Guyon
+ * 2N11-1, ex 2N24
+ * @Stéphane Guyon
  */
-export default function Simplifier_une_somme_de_racines_carrees() {
-    Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = titre;
-    this.consigne = " Simplifier une somme de racines carrées";
-    this.nbQuestions = 4;
-    this.nbCols = 2;
-    this.nbColsCorr = 2;
-    this.sup = 1; //
-    this.nouvelleVersion = function () {
-        this.listeQuestions = []; // Liste de questions
-        this.listeCorrections = []; // Liste de questions corrigées
+export default function IntervallesDeR () {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.titre = titre
+  this.consigne = 'Répondre aux questions suivantes: :'
+  this.nbQuestions = 4
+  this.nbCols = 2
+  this.nbColsCorr = 2
 
-        for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  this.nouvelleVersion = function () {
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; let typesDeQuestions
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    for (let i = 0, a, b, c, s, X1, X2, A, B, c1, c2, int, int1, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      typesDeQuestions = listeTypeDeQuestions[i]
 
-            let e1 = randint(2, 8) * choice([-1, 1]);
-            let e2 = randint(2, 8) * choice([-1, 1]);
-            let e3 = randint(2, 8) * choice([-1, 1]);
-            let a1 = randint(2, 11);
-            let a2 = randint(2, 11, [a1]);
-            let a3 = randint(2, 11, [a1, a2]);
-            let b1 = a1 * a1;
-            let b2 = a2 * a2;
-            let b3 = a3 * a3;
-            let c = randint(2, 11, [4, 8, 9]);
-            let d1 = c * b1;
-            let d2 = c * b2;
-            let d3 = c * b3;
-            let f1 = e1 * a1;
-            let f2 = e2 * a2;
-            let f3 = e3 * a3;
-            let f = f1 + f2 + f3;
+      s = segment(0, 0, 12, 0)
+      s.styleExtremites = '->'
+      X1 = point(0, 0)
+      X2 = point(12, 0)
 
-            texte = `Écrire $A=${e1}\\sqrt{${d1}} ${ecritureAlgebrique(e2)}\\sqrt{${d2}} ${ecritureAlgebrique(e3)}\\sqrt{${d3}}$ sous la forme $a\\sqrt{${c}}$ où $a$ est un entier:`;
-            texteCorr = `On cherche le plus grand carré parfait diviseur de ${d1}, ${d2} et ${d3}. <br>
-                On trouve $${d1}=${b1} \\times ${c}~~$, $~~${d2}=${b2} \\times ${c}~~$	et $${d3}=${b3} \\times ${c}$<br>
-                On a donc  : $\\sqrt{${d1}}=\\sqrt{${a1}^{2} \\times ${c} }=${a1}\\times \\sqrt{${c}}$,
-                $~~\\sqrt{${d2}}=\\sqrt{${a2}^{2} \\times ${c} }=${a2}\\times \\sqrt{${c}}~$ et
-                $~\\sqrt{${d3}}=\\sqrt{${a3}^{2} \\times ${c} }=${a3}\\times \\sqrt{${c}}$<br>
-                On en déduit que : $A=${e1}\\times${a1}\\times \\sqrt{${c}} ${ecritureAlgebrique(e2)}\\times ${a2}\\times \\sqrt{${c}}${ecritureAlgebrique(e3)}\\times ${a3}\\times \\sqrt{${c}}$<br>
-                $A=${f1}\\times \\sqrt{${c}} ${ecritureAlgebrique(f2)}\\times \\sqrt{${c}}${ecritureAlgebrique(f3)}\\times \\sqrt{${c}}$		<br>
-                $A=	(${f1}${ecritureAlgebrique(f2)}${ecritureAlgebrique(f3)})\\times \\sqrt{${c}} = ${f}\\sqrt{${c}}$`;
+      int = intervalle(X1, X2, 'black', 0)
 
-            if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-                this.listeQuestions.push(texte);
-                this.listeCorrections.push(texteCorr);
-                i++;
-            }
-            cpt++;
-        }
-        listeQuestionsToContenu(this);
-    };
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : En donnat la racine carrée unité\n2 : Sans indication"];
+      switch (typesDeQuestions) {
+        // Cas par cas, on définit le type de nombres que l'on souhaite
+        // Combien de chiffres ? Quelles valeurs ?
+        case 1:
+          a = randint(1, 15)
+          b = randint(a, 25)
+          A = point(2, 0, a)
+          B = point(6, 0, b)
+          c1 = crochetG(A, 'red')
+          int1 = intervalle(A, X2, 'red', -0.1)
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x>${a}$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2
+          }, s, int, int1, c1)
+          texteCorr += `$I=]${a};+\\infty[$`
+          break
+
+        case 2:
+          a = randint(1, 15)
+          b = randint(a, 25)
+          A = point(2, 0, a)
+          B = point(6, 0, b)
+          X2 = point(12, 0)
+          c1 = crochetD(A, 'red')
+          int1 = intervalle(A, X2, 'red', -0.1)
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\geqslant ${a}$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2
+          }, s, int, int1, c1)
+          texteCorr += `$I=[${a};+\\infty[$`
+          break
+
+        case 3:
+          a = randint(1, 15)
+          b = randint(a, 25)
+          A = point(2, 0, a)
+          B = point(6, 0, b)
+          c1 = crochetD(A, 'red')
+          int1 = intervalle(X1, A, 'red', -0.1)
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x<${a}$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d(-2, -2, 15, 2, s, int, int1, c1)
+          texteCorr += `$I=]-\\infty;${a}[$`
+          break
+
+        case 4:
+          a = randint(1, 15)
+          b = randint(a, 25)
+          A = point(2, 0, a)
+          B = point(6, 0, b)
+          c1 = crochetG(A, 'red')
+          int1 = intervalle(X1, A, 'red', -0.1)
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\leqslant ${a}$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2
+          }, s, int, int1, c1)
+          texteCorr += `$I=]-\\infty;${a}]$`
+          break
+
+        case 5:
+          a = randint(1, 15)
+          c = a + 1
+          b = randint(c, 25)
+          A = point(2, 0, a)
+          B = point(6, 0, b)
+          c1 = crochetG(A, 'red')
+          c2 = crochetD(B, 'red')
+          int1 = intervalle(A, B, 'red', -0.1)
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a} < x < ${b}$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2
+          }, s, int, int1, c1, c2)
+          texteCorr += `$I=]${a};${b}[$`
+          break
+
+        case 6:
+          a = randint(1, 15)
+          c = a + 1
+          b = randint(c, 25)
+          A = point(2, 0, a)
+          B = point(6, 0, b)
+          c1 = crochetD(A, 'red')
+          c2 = crochetD(B, 'red')
+          int1 = intervalle(A, B, 'red', -0.1)
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x<${b}$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2
+          }, s, int, int1, c1, c2)
+          texteCorr += `$I=[${a};${b}[$`
+          break
+
+        case 7:
+          a = randint(1, 15)
+          c = a + 1
+          b = randint(c, 25)
+          A = point(2, 0, a)
+          B = point(6, 0, b)
+          c1 = crochetD(A, 'red')
+          c2 = crochetG(B, 'red')
+          int1 = intervalle(A, B, 'red', -0.1)
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x\\leqslant ${b}$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2
+          }, s, int, int1, c1, c2)
+          texteCorr += `$I=[${a};${b}]$`
+          break
+
+        case 8:
+          a = randint(1, 15)
+          c = a + 1
+          b = randint(c, 25)
+          A = point(2, 0, a)
+          B = point(6, 0, b)
+          c1 = crochetG(A, 'red')
+          c2 = crochetG(B, 'red')
+          int1 = intervalle(A, B, 'red', -0.1)
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}< x\\leqslant ${b}$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2
+          }, s, int, int1, c1, c2)
+          texteCorr += `$I=]${a};${b}]$`
+          break
+
+        case 9:
+          a = randint(1, 15)
+          c = a + 1
+          b = randint(c, 25)
+          A = point(2, 0, a)
+          B = point(6, 0, b)
+          c1 = crochetG(A, 'red')
+          c2 = crochetG(B, 'red')
+          int1 = intervalle(A, B, 'red', -0.1)
+          texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};${b}]$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2
+          }, s, int, int1, c1, c2)
+          texteCorr += `$${a}< x\\leqslant ${b}$`
+          break
+        case 10:
+          a = randint(1, 15)
+          c = a + 1
+          b = randint(c, 25)
+          A = point(2, 0, a)
+          B = point(6, 0, b)
+          c1 = crochetD(A, 'red')
+          c2 = crochetG(B, 'red')
+          int1 = intervalle(A, B, 'red', -0.1)
+          texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}]$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2
+          }, s, int, int1, c1, c2)
+          texteCorr += `$${a}\\leqslant x\\leqslant ${b}$`
+          break
+        case 11:
+          a = randint(1, 15)
+          c = a + 1
+          b = randint(c, 25)
+          A = point(2, 0, a)
+          B = point(6, 0, b)
+          c1 = crochetD(A, 'red')
+          c2 = crochetD(B, 'red')
+          int1 = intervalle(A, B, 'red', -0.1)
+          texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}[$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2
+          }, s, int, int1, c1, c2)
+          texteCorr += `$${a}\\leqslant x< ${b}$`
+          break
+        case 12:
+          a = randint(1, 15)
+          c = a + 1
+          b = randint(c, 25)
+          A = point(2, 0, a)
+          B = point(12, 0, b)
+          c1 = crochetG(A, 'red')
+
+          int1 = intervalle(A, B, 'red', -0.1); texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};+\\infty[$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2
+          }, s, int, int1, c1)
+          texteCorr += `$x > ${a}$`
+          break
+        case 13:
+          a = randint(1, 15)
+          c = a + 1
+          b = randint(c, 25)
+          A = point(7, 0, a)
+          B = point(12, 0, b)
+          c1 = crochetD(A, 'red')
+
+          int1 = intervalle(X1, A, 'red', -0.1)
+          texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}[$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2
+          }, s, int, int1, c1)
+          texteCorr += `$x < ${a}$`
+          break
+        case 14:
+          a = randint(1, 15)
+          c = a + 1
+          b = randint(c, 25)
+          A = point(7, 0, a)
+          B = point(12, 0, b)
+          c1 = crochetG(A, 'red')
+
+          int1 = intervalle(X1, A, 'red', -0.1)
+          texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}]$ et représenter l'intervalle sur une droite graduée.`
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2
+          }, s, int, int1, c1)
+          texteCorr += `$x \\leqslant ${a}$`
+          break
+      }
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
+    }
+    listeQuestionsToContenu(this)
+  }
 }

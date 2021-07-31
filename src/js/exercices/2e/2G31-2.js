@@ -5,7 +5,7 @@ export const titre = 'Déterminer une équation réduite de droite'
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
- * Référence
+ * Référence 2G31-2, ex 2G50-1
 */
 export default function EquationReduiteDeDroites () {
   Exercice.call(this) // Héritage de la classe Exercice()
