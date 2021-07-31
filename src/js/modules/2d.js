@@ -1394,11 +1394,17 @@ function Vecteur (arg1, arg2, nom = '') {
     return s
   }
   this.representantNomme = function (A, nom, taille = 1, color = 'black') {
+    let s, angle, v
     const B = point(A.x + this.x, A.y + this.y)
-    const s = segment(A, B)
-    const angle = s.angleAvecHorizontale
     const M = milieu(A, B)
-    const v = similitude(this, A, 90, 1 / this.norme())
+    s = segment(A, B)
+    angle = s.angleAvecHorizontale
+    v = similitude(this, A, 90, 0.5 / this.norme())
+    if (angle < 0) {
+      s = segment(B, A)
+      angle = s.angleAvecHorizontale
+      v = similitude(this, A, -90, 0.5 / this.norme())
+    }
     const N = translation(M, v)
     return nomVecteurParPosition(nom, N.x, N.y, taille, angle, color)
   }
@@ -1422,16 +1428,12 @@ function NomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color = 'black
   this.angle = angle
   this.taille = taille
   const objets = []
-  let V, M2
   const t = texteParPosition(this.nom, this.x, this.y, -this.angle, this.color, this.taille, 'middle', true)
   const M = point(this.x, this.y)
   const P = point(M.x + 0.25 * this.nom.length, M.y)
   const M0 = similitude(P, M, 90 + this.angle, 2 / this.nom.length)
-  const M1 = translation(M0, vecteur(P, M))
-  M2 = translation(M0, vecteur(M, P))
-  V = vecteur(M1, M2)
-  V = rotation(V, M, this.angle)
-  M2 = translation(M1, V)
+  const M1 = rotation(translation(M0, vecteur(P, M)), M0, this.angle)
+  const M2 = rotation(M1, M0, 180)
   const s = segment(M1, M2)
   s.styleExtremites = '->'
   s.tailleExtremites = 3
