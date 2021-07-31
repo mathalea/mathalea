@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../modules/outils.js'
-import { repere2, mathalea2d, point, tracePoint, labelPoint, segment, nomVecteurParPosition } from '../../modules/2d.js'
+import { repere2, mathalea2d, point, vecteur, tracePoint, labelPoint, segment, nomVecteurParPosition } from '../../modules/2d.js'
 
 export const titre = 'Coordonnées de vecteurs et translations.'
 
@@ -18,7 +18,7 @@ export default function translationetcoordonnes () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    for (let i = 0, r, A, B, O, I, J, j, t, k, l, s, o, ux, uy, xA, yA, xB, yB, nomi, nomj, nomAB, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, r, A, B, O, I, J, j, t, k, l, s, o, ux, uy, vi, vj, xA, yA, xB, yB, nomi, nomj, nomAB, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (this.sup === 1) {
         xA = randint(1, 4) * choice([-1, 1])
         yA = randint(1, 4) * choice([-1, 1])
@@ -66,10 +66,10 @@ export default function translationetcoordonnes () {
         s.epaisseur = 3// Variable qui grossit le tracé du vecteur AB
         k.epaisseur = 3// Variable qui grossit le tracé du vecteur OI
         j.epaisseur = 3// Variable qui grossit le tracé du vecteur OJ
-        // vi = vecteur(O, I) // Variable qui définit vecteur OI
-        // vj = vecteur(O, J)// Variable qui définit vecteur OJ
-        // nomi = vi.representantNomme(O, 'i', 2, 'red') // Variable qui trace le nom du représentant du vecteur OI en origine O
-        // nomj = vj.representantNomme(O, 'j', 2, 'red')// Variable qui trace le nom du représentant du vecteur OI en origine O
+        vi = vecteur(O, I) // Variable qui définit vecteur OI
+        vj = vecteur(O, J)// Variable qui définit vecteur OJ
+        nomi = vi.representantNomme(O, 'i', 2, 'red') // Variable qui trace le nom du représentant du vecteur OI en origine O
+        nomj = vj.representantNomme(O, 'j', 2, 'red')// Variable qui trace le nom du représentant du vecteur OI en origine O
         nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0)
         nomj = nomVecteurParPosition('j', -0.7, 0.5, 1.5, 0)
         nomAB = nomVecteurParPosition('AB', (xA + xB) / 2 + 1, (yA + yB) / 2 + 1, 1, 0)
@@ -102,7 +102,7 @@ export default function translationetcoordonnes () {
         texteCorr += ' <br>On applique ici aux données de l\'énoncé :'
         texteCorr += ` $\\overrightarrow{AA'}\\begin{pmatrix} ${xB}-x  \\\\${yB}-y\\end{pmatrix}$<br>`
         texteCorr += 'On sait d\'après l\'énoncé que : $\\vec{u}=\\overrightarrow{AB}~$, '
-        texteCorr += `cela équivaut à résoudre : $\\begin{cases}${ecritureAlgebrique(xB)}-x =${ux}\\\\ ${ecritureAlgebrique(yB)}-y=${uy}\\end{cases}$`
+        texteCorr += `cela équivaut à résoudre : $\\begin{cases}${xB}-x =${ux}\\\\ ${yB}-y=${uy}\\end{cases}$`
         texteCorr += `<br>ou encore : $\\begin{cases}x  =${xB}${ecritureAlgebrique(-ux)}\\\\ y=${yB}${ecritureAlgebrique(-uy)}\\end{cases}$`
         texteCorr += `<br>Ce qui donne au final : $\\begin{cases}x  =${xA}\\\\ y=${yA}\\end{cases}$`
         texteCorr += `<br>On a donc: $A(${xA};${yA})$.`
@@ -124,10 +124,10 @@ export default function translationetcoordonnes () {
         s.epaisseur = 3// Variable qui grossit le tracé du vecteur AB
         k.epaisseur = 3// Variable qui grossit le tracé du vecteur OI
         j.epaisseur = 3// Variable qui grossit le tracé du vecteur OJ
-        // vi = vecteur(O, I) // Variable qui définit vecteur OI
-        // vj = vecteur(O, J)// Variable qui définit vecteur OJ
-        // nomi = vi.representantNomme(O, 'i', 2, 'red') // Variable qui trace le nom du représentant du vecteur OI en origine O
-        // nomj = vj.representantNomme(O, 'j', 2, 'red')// Variable qui trace le nom du représentant du vecteur OI en origine O
+        vi = vecteur(O, I) // Variable qui définit vecteur OI
+        vj = vecteur(O, J)// Variable qui définit vecteur OJ
+        nomi = vi.representantNomme(O, 'i', 2, 'red') // Variable qui trace le nom du représentant du vecteur OI en origine O
+        nomj = vj.representantNomme(O, 'j', 2, 'red')// Variable qui trace le nom du représentant du vecteur OI en origine O
         nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0)
         nomj = nomVecteurParPosition('j', -0.7, 0.5, 1.5, 0)
         nomAB = nomVecteurParPosition('AB', (xA + xB) / 2 + 1, (yA + yB) / 2 + 1, 1, 0)
