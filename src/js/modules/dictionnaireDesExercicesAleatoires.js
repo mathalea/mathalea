@@ -3186,6 +3186,13 @@ export default {
     "interactifReady": false,
     "name": "beta2G14"
   },
+  "beta2G22-1": {
+    "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
+    "url": "/exercices/beta/beta2G22-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2G22-1"
+  },
   "beta2G53": {
     "titre": "Alignement de 3 points.",
     "url": "/exercices/beta/beta2G53.js",
@@ -3385,6 +3392,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExempleCarreDansC"
+  },
+  "betaExempleConstructionsBasiques": {
+    "titre": "Programmes de constructions (en chantier)",
+    "url": "/exercices/beta/betaExempleConstructionsBasiques.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleConstructionsBasiques"
   },
   "betaExempleFigureClic": {
     "titre": "Choisir la bonne figure",
