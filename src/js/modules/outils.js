@@ -2627,7 +2627,7 @@ export function texFraction (a, b) {
  * @param {string} symbole
  * @returns {string} string
  * @author Guillaume Valmont
- * @example texSymbole("≤") retourne "\\leq"
+ * @example texSymbole('≤') retourne '\\leqslant'
  */
 export function texSymbole (symbole) {
   switch (symbole) {
@@ -2636,9 +2636,11 @@ export function texSymbole (symbole) {
     case '>':
       return '>'
     case '≤':
-      return '\\leq'
+      return '\\leqslant'
     case '≥':
-      return '\\geq'
+      return '\\geqslant'
+    case '\\':
+      return '\\smallsetminus'
     default:
       return 'symbole non connu par texSymbole()'
   }
