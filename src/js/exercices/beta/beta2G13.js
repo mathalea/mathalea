@@ -69,7 +69,7 @@ export default function calculercoordonneesvecteurs () {
           ymax: 9
         }, r, t, l, k, j, s, o, nomi, nomj, nomAB)// On trace le graphique
       }
-      if (this.sup === 2) {
+      if (this.sup === 3) {
         xA = randint(1, 4) * choice([-1, 1])
         yA = randint(1, 4) * choice([-1, 1])
         ux = randint(1, 4) * choice([-1, 1])
@@ -127,7 +127,7 @@ export default function calculercoordonneesvecteurs () {
           ymax: 9
         }, r, t, l, k, j, s, o, nomi, nomj, nomAB)// On trace le graphique
       }
-      if (this.sup === 3) {
+      if (this.sup === 2) {
         xA = randint(1, 4) * choice([-1, 1])
         yA = randint(1, 4) * choice([-1, 1])
         ux = randint(1, 4) * choice([-1, 1])
@@ -191,5 +191,5 @@ export default function calculercoordonneesvecteurs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Situations différentes :', 2, '1 :Avec deux points\n 2 : Avec un point origine et un vecteur\n 3 :Avec un point extrémité et un vecteur']
+  this.besoinFormulaireNumerique = ['Situations différentes ', 3, '1 :Avec deux points\n 2 : Avec un point origine et un vecteur\n 3 :Avec un point extrémité et un vecteur']
 }
