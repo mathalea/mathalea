@@ -2650,6 +2650,13 @@ export default {
     "interactifReady": false,
     "name": "6M25"
   },
+  "6M30-0": {
+    "titre": "Volumes de pavés droit par dénombrement",
+    "url": "/exercices/6e/6M30-0.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6M30-0"
+  },
   "6M30": {
     "titre": "Calculs de volumes",
     "url": "/exercices/6e/6M30.js",
@@ -3450,6 +3457,20 @@ export default {
     "interactifReady": false,
     "name": "betaExempleXcasValAbs"
   },
+  "betaExercice_constructions_basiques": {
+    "titre": "Programmes de constructions (en chantier)",
+    "url": "/exercices/beta/betaExercice_constructions_basiques.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExercice_constructions_basiques"
+  },
+  "betaExo3d": {
+    "titre": "Exo zéroMathalea2d3d",
+    "url": "/exercices/beta/betaExo3d.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExo3d"
+  },
   "betaExoSimpleMatthieu": {
     "titre": "Ceci est le titre de l’exercice BetaExosimpleMatthieu",
     "url": "/exercices/beta/betaExoSimpleMatthieu.js",
@@ -3518,26 +3539,12 @@ export default {
     "interactifReady": false,
     "name": "betaTracerParabole"
   },
-  "betatrinome": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betatrinome.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betatrinome"
-  },
   "moule_a_exo_mathalea": {
     "titre": "Exo zéro Mathalea",
     "url": "/exercices/beta/moule_a_exo_mathalea.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "moule_a_exo_mathalea"
-  },
-  "moule_a_exo_mathalea2d&3d": {
-    "titre": "Exo zéroMathalea2d3d",
-    "url": "/exercices/beta/moule_a_exo_mathalea2d&3d.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "moule_a_exo_mathalea2d&3d"
   },
   "moule_a_exo_mathalea2d": {
     "titre": "Exo zéro Mathalea2d",
