@@ -1550,7 +1550,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
         code += `<line x1="${B1.xSVG(coeff)}" y1="${B1.ySVG(
           coeff
         )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
       }
       if (this.styleExtremites.substr(-1) === '>') {
         // si ça termine par > on rajoute une flèche en B
@@ -1560,10 +1560,10 @@ function Segment (arg1, arg2, arg3, arg4, color) {
         code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff
         )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff
-        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color}" />`
+        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color}" stroke-width="${this.epaisseur}" />`
       }
       if (this.styleExtremites.substr(-1) === '<') {
         // si ça termine par < on rajoute une flèche inversée en B
@@ -1573,11 +1573,11 @@ function Segment (arg1, arg2, arg3, arg4, color) {
         code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff
         )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff
         )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
       }
       if (this.styleExtremites[0] === '<') {
         // si ça commence par < on rajoute une flèche en A
@@ -1587,11 +1587,11 @@ function Segment (arg1, arg2, arg3, arg4, color) {
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff
         )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
       }
       if (this.styleExtremites[0] === '>') {
         // si ça commence par > on rajoute une flèche inversée en A
@@ -1601,11 +1601,11 @@ function Segment (arg1, arg2, arg3, arg4, color) {
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff
         )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
       }
       if (this.styleExtremites[0] === '|') {
         // si ça commence par | on le rajoute en A
@@ -1615,7 +1615,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
         code += `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(
           coeff
         )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
       }
     }
     code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(coeff)}" x2="${B.xSVG(
