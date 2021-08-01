@@ -29,8 +29,7 @@ export async function initDom () {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     addElement(section, 'div', { id: 'containerErreur' })
-    await fetchHtmlToElement('templates/mathaleaExercices.html', section)
-    // masqueMenuDesExercices()
+    await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
     const accordions = document.getElementsByClassName('ui fluid accordion')
     for (const accordion of accordions) {
       accordion.style.visibility = 'hidden'
@@ -49,6 +48,44 @@ export async function initDom () {
       // Envoi des informations à Anki
       const hauteur = window.document.body.scrollHeight
       window.parent.postMessage({ hauteur: hauteur, reponse: 'A_COMPLETER' }, '*')
+    })
+  } else if (vue === 'eval') {
+    setOutputHtml()
+    section = addElement(document.body, 'section', { class: 'ui container' })
+    const menuEval = addElement(section, 'div', { id: 'menuEval' })
+    addElement(section, 'div', { id: 'containerErreur' })
+    await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
+    const accordions = document.getElementsByClassName('ui fluid accordion')
+    for (const accordion of accordions) {
+      accordion.style.visibility = 'hidden'
+    }
+    // Attend l'affichage de tous les exercices pour les cacher
+    document.addEventListener('exercicesAffiches', () => {
+      const listeDivExercices = document.querySelectorAll('[id ^= "exercice"].titreExercice')
+      const affichageUniquementExercice = (i) => {
+        for (const element of listeDivExercices) {
+          element.style.display = 'none'
+        }
+        if (i !== undefined) {
+          listeDivExercices[i].style.display = 'block'
+        }
+      }
+      affichageUniquementExercice(0)
+      menuEval.innerHTML = ''
+      for (let i = 0, element; i < listeDivExercices.length; i++) {
+        element = addElement(menuEval, 'div', { id: `btnEx${i + 1}` })
+        element.innerHTML = `${i + 1}`
+        element.style.background = 'gray'
+        element.style.width = '50 px'
+        element.style.margin = '20 px'
+        element.style.padding = '2 em'
+        element.style.cursor = 'pointer'
+        element.style.display = 'inline-block'
+        if (!element.hasListenner) {
+          element.addEventListener('click', () => affichageUniquementExercice(i), false)
+          element.hasListenner = true
+        }
+      }
     })
   } else if (vue === 'latex') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
