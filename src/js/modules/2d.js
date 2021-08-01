@@ -7673,7 +7673,7 @@ function Courbe2 (f, {
   }
   for (let x = xmin; x <= xmax; x += pas
   ) {
-    if (f(x) < ymax + 0.2 && f(x) > ymin - 0.2) {
+    if (!isNaN(f(x)) && f(x) < ymax + 100 && f(x) > ymin - 100) {
       points.push(point(calcul(x * xunite), calcul(f(x) * yunite)))
     } else {
       const p = polyline([...points], this.color)

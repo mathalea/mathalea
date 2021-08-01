@@ -55,6 +55,13 @@ export default {
     "interactifReady": false,
     "name": "2F10-2"
   },
+  "2F31": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/2e/2F31.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F31"
+  },
   "2G22-1": {
     "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
     "url": "/exercices/2e/2G22-1.js",
