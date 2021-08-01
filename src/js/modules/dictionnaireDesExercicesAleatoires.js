@@ -55,6 +55,20 @@ export default {
     "interactifReady": false,
     "name": "2F10-2"
   },
+  "2G22-1": {
+    "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
+    "url": "/exercices/2e/2G22-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G22-1"
+  },
+  "2G23-2": {
+    "titre": "Coordonnées de vecteurs et translations.",
+    "url": "/exercices/2e/2G23-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G23-2"
+  },
   "2G23": {
     "titre": "Somme de vecteurs",
     "url": "/exercices/2e/2G23.js",
@@ -3214,20 +3228,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2G14"
-  },
-  "beta2G22-1": {
-    "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
-    "url": "/exercices/beta/beta2G22-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2G22-1"
-  },
-  "beta2G23-2": {
-    "titre": "Coordonnées de vecteurs et translations.",
-    "url": "/exercices/beta/beta2G23-2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2G23-2"
   },
   "beta2G53": {
     "titre": "Alignement de 3 points.",
