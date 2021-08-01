@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
+import { mathalea2d, mediatrice, point, segment } from '../../modules/2d.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 
@@ -43,9 +43,13 @@ export default function SuperExoMathalea2d () {
     /***************************************/
     /** ******Ici on définit les objets 2d */
     /*************************************/
+    const A = point(0, 0)
+    const B = point(5, 0)
+    const s = segment(A, B)
+    const d = mediatrice(A, B)
 
-    objetsEnonce.push() // On rempli les tableaux d'objets Mathalea2d
-    objetsCorrection.push()
+    objetsEnonce.push(s) // On rempli les tableaux d'objets Mathalea2d
+    objetsCorrection.push(s, d)
 
     // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
     const paramsEnonce = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false }

@@ -1,11 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { mathalea2d, tableau } from '../../modules/2d.js'
+import { lettreDepuisChiffre, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { expTrinome } from '../../modules/fonctionsMaths.js'
 export const titre = 'Exercice exemple'
 
 /**
  * Description didactique de l'exercice
- * @author Rémi Angot
+ * @author
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
@@ -22,19 +22,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const monTableau = tableau({
-      ligne1: ['\\text{Masse (en g)}', 150, 450, 600, '4~500'],
-      ligne2: ['\\text{Prix (en euros)}', 3],
-      flecheHaut: [[1, 2, '\\times3'], [2, 4, '\\times10']],
-      flecheBas: [[1, 2, '\\times3'], [2, 3, '\\times \\dfrac{4}{3}', 3]],
-      flecheDroite: '\\times 50',
-      flecheDroiteSens: 'haut'
-    })
+    let question1, question2
 
-    this.introduction = mathalea2d({ xmin: -1, xmax: 22, ymin: -5, ymax: 10 }, monTableau)
-
-    const question1 = 'texte de la question 1.<br>'
-    const question2 = 'texte de la question 2.<br>'
+    question1 = `$${expTrinome(randint(-2, 2), lettreMinusculeDepuisChiffre(randint(1, 5)), randint(-2, 2))}$`
+    question1 += '<br>'
+    question2 = `$${expTrinome(randint(-2, 2), lettreMinusculeDepuisChiffre(randint(1, 5)), randint(-2, 2))}$`
+    question2 += '<br>'
 
     const correction1 = 'texte de la correction 1'
     const correction2 = 'texte de la correction2'

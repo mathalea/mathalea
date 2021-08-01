@@ -32,6 +32,11 @@
     "commonNav": true
   },
   "templates": {
-    "cleverLinks": true
+    "cleverLinks": true,
+    "default": {
+      "staticFiles": {
+        "include": ["./jsdoc/static"]
+      }
+    }
   }
 }
