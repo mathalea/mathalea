@@ -122,7 +122,7 @@ export function vecteur3d (...args) { // A,B deux Point3d ou x,y,z les composant
 /**
    * L'ARETE
    * @author Jean-Claude lhote
-   * Une telle arête est définie par deux points 
+   * Une telle arête est définie par deux points
    * Si l'un des deux points n'est pas visible (propriété visible à false) alors l'arête aura aussi visible à false
    * sa propriété p2d est un segment en pointillé ou en trait plein suivant sa visibilité.
    */
@@ -566,6 +566,7 @@ export function prisme3d (base, vecteur, color = 'black') {
 */
 class Cube3d {
   constructor (x, y, z, c, color = 'black') {
+    ObjetMathalea2D.call(this)
     const A = point3d(x, y, z)
     const vx = vecteur3d(c, 0, 0)
     const vy = vecteur3d(0, c, 0)
@@ -580,9 +581,9 @@ class Cube3d {
     const faceAV = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
     const faceDr = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
     const faceTOP = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
-    faceAV.couleurDeRemplissage = '#A9A9A9'
+    faceAV.couleurDeRemplissage = 'lightgray'
     faceTOP.couleurDeRemplissage = 'white'
-    faceDr.couleurDeRemplissage = '#A5C400'
+    faceDr.couleurDeRemplissage = 'darkgray'
     this.svg = function (coeff) {
       return faceAV.svg(coeff) + '\n' + faceTOP.svg(coeff) + '\n' + faceDr.svg(coeff)
     }
@@ -593,6 +594,181 @@ class Cube3d {
 }
 export function cube3d (x, y, z, c) {
   return new Cube3d(x, y, z, c)
+}
+/**
+ * @author Jean-Claude Lhote
+ * Créer une barre de l cubes de c de côté à partir du point (x,y,z)
+ * La barre est positionnée suivant l'axe x
+ */
+class Barre3d {
+  constructor (x, y, z, c, l, color = 'black') {
+    ObjetMathalea2D.call(this)
+    let B, C, D, E, F, G, H, faceAv, faceTop
+    const objets = []
+    const vx = vecteur3d(c, 0, 0)
+    const vy = vecteur3d(0, c, 0)
+    const vz = vecteur3d(0, 0, c)
+    let A = point3d(x, y, z)
+
+    for (let i = 0; i < l; i++) {
+      B = translation3d(A, vx)
+      C = translation3d(B, vz)
+      D = translation3d(A, vz)
+      E = translation3d(A, vy)
+      F = translation3d(E, vx)
+      G = translation3d(F, vz)
+      H = translation3d(D, vy)
+      faceAv = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
+      faceTop = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
+      faceAv.couleurDeRemplissage = 'lightgray'
+      faceTop.couleurDeRemplissage = 'white'
+      objets.push(faceAv, faceTop)
+      A = translation3d(A, vx)
+    }
+    const faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
+    faceD.couleurDeRemplissage = 'darkgray'
+    objets.push(faceD)
+
+    this.svg = function (coeff) {
+      let code = ''
+      for (const objet of objets) {
+        code += objet.svg(coeff) + '\n'
+      }
+      code = `<g id="${this.id}">${code}</g>`
+      return code
+    }
+    this.tikz = function () {
+      let code = ''
+      for (const objet of objets) {
+        code += objet.tikz() + '\n'
+      }
+      return code
+    }
+  }
+}
+
+export function barre3d (x, y, z, c, l, color = 'black') {
+  return new Barre3d(x, y, z, c, l, color)
+}
+
+/**
+ * @author Jean-Claude Lhote
+ * Crée une plaque de cubes de côtés c de dimensions l suivant x et p suivant y
+ */
+class Plaque3d {
+  constructor (x, y, z, c, l, p, color = 'black') {
+    ObjetMathalea2D.call(this)
+    let A, B, C, D, F, G, H, faceAv, faceTop, faceD
+    const objets = []
+    const vx = vecteur3d(c, 0, 0)
+    const vy = vecteur3d(0, c, 0)
+    const vz = vecteur3d(0, 0, c)
+
+    for (let i = 0; i < l; i++) {
+      for (let j = 0; j < p; j++) {
+        A = point3d(x + i * c, y + j * c, z)
+        B = translation3d(A, vx)
+        C = translation3d(B, vz)
+        D = translation3d(A, vz)
+        F = translation3d(B, vy)
+        G = translation3d(F, vz)
+        H = translation3d(D, vy)
+        if (j === 0) {
+          faceAv = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
+          faceAv.couleurDeRemplissage = 'lightgray'
+          objets.push(faceAv)
+        }
+        if (i === l - 1) {
+          faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
+          faceD.couleurDeRemplissage = 'darkgray'
+          objets.push(faceD)
+        }
+        faceTop = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
+        faceTop.couleurDeRemplissage = 'white'
+        objets.push(faceTop)
+      }
+    }
+
+    this.svg = function (coeff) {
+      let code = ''
+      for (const objet of objets) {
+        code += objet.svg(coeff) + '\n'
+      }
+      code = `<g id="${this.id}">${code}</g>`
+      return code
+    }
+    this.tikz = function () {
+      let code = ''
+      for (const objet of objets) {
+        code += objet.tikz() + '\n'
+      }
+      return code
+    }
+  }
+}
+
+export function plaque3d (x, y, z, c, l, p, color = 'black') {
+  return new Plaque3d(x, y, z, c, l, p, color)
+}
+
+class PaveLPH3d {
+  constructor (x, y, z, c, l, p, h, color = 'black') {
+    ObjetMathalea2D.call(this)
+    let A, B, C, D, F, G, H, faceAv, faceTop, faceD
+    const objets = []
+    const vx = vecteur3d(c, 0, 0)
+    const vy = vecteur3d(0, c, 0)
+    const vz = vecteur3d(0, 0, c)
+
+    for (let i = 0; i < l; i++) {
+      for (let j = 0; j < p; j++) {
+        for (let k = 0; k < h; k++) {
+          A = point3d(x + i * c, y + j * c, z + k * c)
+          B = translation3d(A, vx)
+          C = translation3d(B, vz)
+          D = translation3d(A, vz)
+          F = translation3d(B, vy)
+          G = translation3d(F, vz)
+          H = translation3d(D, vy)
+          if (j === 0) {
+            faceAv = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
+            faceAv.couleurDeRemplissage = 'lightgray'
+            objets.push(faceAv)
+          }
+          if (i === l - 1) {
+            faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
+            faceD.couleurDeRemplissage = 'darkgray'
+            objets.push(faceD)
+          }
+          if (k === h - 1) {
+            faceTop = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
+            faceTop.couleurDeRemplissage = 'white'
+            objets.push(faceTop)
+          }
+        }
+      }
+    }
+
+    this.svg = function (coeff) {
+      let code = ''
+      for (const objet of objets) {
+        code += objet.svg(coeff) + '\n'
+      }
+      code = `<g id="${this.id}">${code}</g>`
+      return code
+    }
+    this.tikz = function () {
+      let code = ''
+      for (const objet of objets) {
+        code += objet.tikz() + '\n'
+      }
+      return code
+    }
+  }
+}
+
+export function paveLPH3d (x, y, z, c, l, p, color = 'black') {
+  return new PaveLPH3d(x, y, z, c, l, p, color)
 }
 
 /**

@@ -62,7 +62,8 @@ Le code est libre, AGPL, vous pouvez donc télécharger les sources sur [GitHub]
 - [Clipboard.js](https://clipboardjs.com/) MIT license (pour le bouton copier le code LaTeX).
 - [prismjs](http://prismjs.com/) MIT license (pour la coloration syntaxique du code LaTeX).
 - [Slick](https://kenwheeler.github.io/slick/) MIT license (pour le diaporama).
-- [SVG.js](https://svgjs.com/) MIT license (pour afficher des figures).
+- [TextFill](https://jquery-textfill.github.io) MIT license (pour adapter la taille de la police dans les diaporamas).
+- [SVG.js](https://svgjs.dev/) MIT license (pour afficher des figures).
 - [CodeMirror](https://codemirror.net) MIT license (pour l'éditeur de MathALEA2D).
 - [Scratchblocks](https://scratchblocks.github.io/) MIT license (pour le rendu des blocs Scratch).
 - [QRCode.js](https://davidshimjs.github.io/qrcodejs/) MIT license (pour l'affichage d'un QRCode dynamique).

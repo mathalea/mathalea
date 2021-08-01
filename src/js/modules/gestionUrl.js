@@ -77,7 +77,7 @@ export function getUrlVars () { // Récupère les variables de l'URL
 
 /**
  * Récupère l'URL et s'assure que la vue et le userId sont notés
- * @returns
+ * @returns {string} l'url vérifiée
  */
 export function getUrlSearchOld () {
   const queryString = window.location.search
@@ -98,7 +98,7 @@ export function getUrlSearchOld () {
 /**
  * Récupère l'URL et s'assure que la vue et le userId sont notés
  * Essai de debug
- * @returns
+ * @returns {string} l'url vérifiée réécrite
  */
 export function getUrlSearch () {
   const urlRacine = window.location.href.split('?')[0]
