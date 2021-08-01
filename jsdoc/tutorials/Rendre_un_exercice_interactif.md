@@ -1,6 +1,6 @@
 MathAlea permet de rendre un exercice interactif de deux façons :
 - en ligne : l'utilisateur saisit une réponse (dans un champ ou coche une case), celle-ci est vérifiée automatiquement et son score peut éventuellement être récupéré par son professeur.
-- sur papier : principalement sous forme de QCM ou de réponses numériques à coder mais pas que, les copies des élèves peuvent être scannées et corrigées automatiquement via ce qu'on appele communément AMC pour [Auto Multiple Choice](https://www.auto-multiple-choice.net/exemples.fr).
+- sur papier : principalement sous forme de QCM ou de réponses numériques à coder mais pas que, les copies des élèves peuvent être scannées et corrigées automatiquement via ce qu'on appele communément AMC pour [Auto Multiple Choice](https://www.auto-multiple-choice.net/exemples.fr) et dont vous pouvez trouver un guide dans le [panneau de gauche](tutorial-Utiliser_AMC.html).
 
 Dans les deux cas, pour rendre un exercice interactif, il faut deux chose :
 1. Faire charger le nécessaire.
