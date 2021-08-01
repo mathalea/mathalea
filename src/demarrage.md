@@ -47,6 +47,10 @@ Le but de ce guide n'est pas de vous guider pas à pas mais de vous faire évite
         - Cliquer sur la petite flèche qui pointe vers le bas à droite du terminal puis sur "Select Default Profile". [image](img/Config_VSC-5.png)
         - Cliquer sur Command Prompt dans le menu qui s'affiche puis fermer le terminal actuel grâce à la petite poubelle en bas à droite. [image](img/Config_VSC-6.png)
         - Vous pouvez réouvrir un nouveau terminal avec (CTRL+J) et vérifier que ce n'est plus **powershell** mais **cmd** (s'il y a un souci fermez et relancez VSC). [image](img/Config_VSC-7.png)
+    - Remarque : Si vous voulez conserver **powershell**, à chaque fois que vous voudrez lancer un script qui commence par `npm` ou `pnpm`, il faudra faire :
+        - `Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser` pour enlever la sécurité.
+        - `pnpm votreCommande` pour exécuter votre commande.
+        - `Set-ExecutionPolicy -ExecutionPolicy Restricted -Scope CurrentUser` pour remettre la sécurité.
 - Installer pnpm.
     - Sur **Windows** il faut être administrateur et saisir `npm install -g pnpm` dans le terminal.
     - Sur **Mac** et **Linux** il faut le préfixer de `sudo`, ce qui donne `sudo npm install -g pnpm`.

@@ -112,7 +112,7 @@ this.autoCorrection[i] = {
       }
     }
 ```
-* **type `'AMCHybride'`** (AMC) **:** Dans ce type, chaque question-réponse peut avoir un type différent. Il y a un énoncé, une correction et plusieurs question-réponse.
+* **type `'AMCHybride'`** (AMC) **:** Dans ce type, chaque question-réponse peut avoir un type différent. Il y a seul énoncé, une seule correction et plusieurs champs question-réponse (il faudra donc numéroter les questions dans l'énoncé).
 ```js
 this.autoCorrection[i] = {
   enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
@@ -202,6 +202,14 @@ Par défaut, on compare des expressions littérales ou des nombres.
 - Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionEgale' })` et la réponse doit être un objet fraction égale à la réponse.
 - Pour comparer des longueurs (ou des aires), on peut faire `setReponse(this, i, new Grandeur(4, 'cm'), { formatInteractif: 'longueur' })` et personnaliser le champ texte avec `ajouteChampTexteMathLive(this, i, 'longueur')`
 
+## Avoir deux champs de réponse sur une question, c'est possible !
+Il suffit d'avoir un compteur indépendant du compteur `i` de la boucle qui augmente de `1` pour les questions à un champ de réponse et qui augmente de `2` pour les questions à deux champs de réponse.
+
+Supposons qu'on nomme cet autre compteur `j`.
+
+Au lieu de faire `setReponse(this, i, maRéponse)` et `texte += ajouteChampTexteMathLive(this, i)`, il suffit de faire `setReponse(this, j, maRéponse)` et `texte += ajouteChampTexteMathLive(this, j)`
+
+Le soucis, c'est que pour l'instant chaque formulaire rapporte un point au niveau du score. Il y aura donc des questions à 2 points et d'autres à 1 point.
 ## Remarque  :
 Pour une compatibilité entre les exercices interactifs en ligne et AMC,
 
