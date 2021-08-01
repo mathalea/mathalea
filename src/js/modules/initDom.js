@@ -54,20 +54,28 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     const menuEval = addElement(section, 'div', { id: 'menuEval' })
     addElement(section, 'div', { id: 'containerErreur' })
-    await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
+    await addFetchHtmlToParent('templates/eval.html', section)
     const accordions = document.getElementsByClassName('ui fluid accordion')
     for (const accordion of accordions) {
       accordion.style.visibility = 'hidden'
     }
+    addElement(section, 'div', { id: 'corrections' })
     // Attend l'affichage de tous les exercices pour les cacher
     document.addEventListener('exercicesAffiches', () => {
       const listeDivExercices = document.querySelectorAll('[id ^= "exercice"].titreExercice')
+      const listeDivExercicesCorr = document.querySelectorAll('[id ^= "divexcorr"].titreExercice')
       const affichageUniquementExercice = (i) => {
         for (const element of listeDivExercices) {
           element.style.display = 'none'
         }
+        for (const element of listeDivExercicesCorr) {
+          element.style.display = 'none'
+        }
         if (i !== undefined) {
           listeDivExercices[i].style.display = 'block'
+          if (document.getElementById(`score${i}`)) {
+            listeDivExercicesCorr[i].style.display = 'block'
+          }
         }
       }
       affichageUniquementExercice(0)

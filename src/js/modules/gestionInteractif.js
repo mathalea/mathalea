@@ -598,4 +598,8 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   divScore.style.fontWeight = 'bold'
   divScore.style.fontSize = 'x-large'
   divScore.style.display = 'inline'
+  if (context.vue === 'eval') {
+    const divCorr = get(`divexcorr${exercice.numeroExercice}`, false)
+    divCorr.style.display = 'block'
+  }
 }
