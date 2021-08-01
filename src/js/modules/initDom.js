@@ -73,14 +73,8 @@ export async function initDom () {
       affichageUniquementExercice(0)
       menuEval.innerHTML = ''
       for (let i = 0, element; i < listeDivExercices.length; i++) {
-        element = addElement(menuEval, 'div', { id: `btnEx${i + 1}` })
-        element.innerHTML = `${i + 1}`
-        element.style.background = 'gray'
-        element.style.width = '50 px'
-        element.style.margin = '20 px'
-        element.style.padding = '2 em'
-        element.style.cursor = 'pointer'
-        element.style.display = 'inline-block'
+        element = addElement(menuEval, 'button', { id: `btnEx${i + 1}`, style: 'margin: 5px', class: 'circular ui button' })
+        element.textContent = `Ex. ${i + 1}`
         if (!element.hasListenner) {
           element.addEventListener('click', () => affichageUniquementExercice(i), false)
           element.hasListenner = true
