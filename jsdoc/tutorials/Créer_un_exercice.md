@@ -1,3 +1,6 @@
+Ce tutoriel vous donnera les clés pour créer la grande majorité des exercices.
+
+Si vous ne voulez pas d'un truc trop lourd et voulez apporter votre contribution avec un moindre effort, vous pouvez aussi regarder comment ajouter des questions à une [Course aux Nombres](tutorial-Course_aux_nombres.html) !
 # Comment créer un exercice en 10 étapes
 Toutes les commandes qui commencent par `git` peuvent aussi être faites par une interface graphique (VSC, GitKraken ou GitHub Desktop).
 Il n'y a pas d'interférence entre eux donc vous pouvez sans problème faire certaines étapes en lignes de commande et d'autres avec une interface graphique c'est comme vous préférez.
