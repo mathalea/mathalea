@@ -1400,13 +1400,13 @@ function Vecteur (arg1, arg2, nom = '') {
     s = segment(A, B)
     angle = s.angleAvecHorizontale
     v = similitude(this, A, 90, 0.5 / this.norme())
-    if (angle < 0) {
+    if (Math.abs(angle) > 90) {
       s = segment(B, A)
       angle = s.angleAvecHorizontale
       v = similitude(this, A, -90, 0.5 / this.norme())
     }
     const N = translation(M, v)
-    return nomVecteurParPosition(nom, N.x, N.y, taille, angle, color)
+    return nomVecteurParPosition(nom, N.x, N.y, taille, 0, color)
   }
 }
 export function vecteur (...args) {
