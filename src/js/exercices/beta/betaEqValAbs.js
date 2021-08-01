@@ -1,7 +1,7 @@
 import { xcas, listeQuestionsToContenu, randint, combinaisonListes, texMasse } from '../../modules/outils.js'
 import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
-
+import { context } from '../../modules/context.js'
 export const titre = 'Equation avec une valeur absolue'
 
 /**
@@ -9,17 +9,19 @@ export const titre = 'Equation avec une valeur absolue'
  * @author Eric Schrafstetter
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function EquationAvecUneValeurAbsolue () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations :'
-  this.nbQuestions = 5
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  this.nbQuestions = 2
+  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.typeExercice = 'XCas'
-  this.spacingCorr = 2
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
+  this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -28,8 +30,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, etape,texteCorr, a,b,pente,signe,entier, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      switch (listeTypeDeQuestions[i]) { 
-        case 'type1':
           a = randint(-5,5,0) + "*x+" + randint(-20,20)
           b = randint(-5,5,0) + "*x+" + randint(-20,20)
           etape = [
@@ -80,7 +80,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   
           }))
 
-          texteCorr += `<u>Cas 1</u> : On cherche $x\\in ]-\\infty,${xcas(`x1`)}]$ tels que : $${xcas(`cas1`)}=${xcas(`b`)}$`
+          texteCorr += `<br>$\\underline{\\text{Cas 1}}$ : On cherche $x\\in ]-\\infty,${xcas(`x1`)}]$ tels que : $${xcas(`cas1`)}=${xcas(`b`)}$`
           texteCorr += `<br>Ce qui donne $${xcas(`simplify(cas1-b)`)}=0$ d'où `
 
           if (`${xcas(`xcas1`)}`=="i") {
@@ -90,12 +90,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             // On teste si on doit afficher la valeur approchée du résultat
             entier = (1e3 * +`${xcas(`approx(xcas1,4)`)}`)% 1 == 0 ? '' : `\\simeq${texMasse(`${xcas(`approx(xcas1,4)`)}`)}`
             if (`${xcas(`xcas1<=x1`)}`.includes("true")) {
-                texteCorr += `<br>Cette solution <b>convient</b> car $x=${xcas(`xcas1`)}${entier}\\in ]-\\infty,${xcas(`x1`)}]$`
+                texteCorr += `<br>Cette solution $\\textbf{convient}$ car $x=${xcas(`xcas1`)}${entier}\\in ]-\\infty,${xcas(`x1`)}]$`
             } else {
-                texteCorr += `<br>Cette solution <u>ne convient pas</u> car $x=${xcas(`xcas1`)}${entier}\\notin ]-\\infty,${xcas(`x1`)}]$`
+                texteCorr += `<br>Cette solution $\\underline{\\text{ne convient pas}}$ car $x=${xcas(`xcas1`)}${entier}\\notin ]-\\infty,${xcas(`x1`)}]$`
             }
         }
-        texteCorr += `<br><u>Cas 2</u> : On cherche $x\\in [${xcas(`x1`)},+\\infty[$ tels que : $${xcas(`cas2`)}=${xcas(`b`)}$`
+        texteCorr += `<br>$\\underline{\\text{Cas 2}}$ : On cherche $x\\in [${xcas(`x1`)},+\\infty[$ tels que : $${xcas(`cas2`)}=${xcas(`b`)}$`
         texteCorr += `<br>Ce qui donne $${xcas(`simplify(cas2-b)`)}=0$ d'où `
 
         if (`${xcas(`xcas2`)}`=="i") {
@@ -105,17 +105,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           entier = (1e3 * +`${xcas(`approx(xcas2,4)`)}`)% 1 == 0 ? '' : `\\simeq${xcas(`approx(xcas2,4)`)}`
           if (`${xcas(`xcas2>=x1`)}`.includes("true")) {
               etape = `$x=${xcas(`xcas2`)}\\simeq${xcas(`approx(xcas2,4)`)}$`
-              texteCorr += `<br>Cette solution <b>convient</b> car $x=${xcas(`xcas2`)}${entier}\\in [${xcas(`x1`)},+\\infty[$`
+              texteCorr += `<br>Cette solution $\\textbf{convient}$ car $x=${xcas(`xcas2`)}${entier}\\in [${xcas(`x1`)},+\\infty[$`
           } else {
-              texteCorr += `<br>Cette solution <u>ne convient pas</u> car $x=${xcas(`xcas2`)}${entier}\\notin [${xcas(`x1`)},+\\infty[$`
+              texteCorr += `<br>Cette solution $\\underline{\\text{ne convient pas}}$ car $x=${xcas(`xcas2`)}${entier}\\notin [${xcas(`x1`)},+\\infty[$`
           }
       }       
-          break
-        case 'type2':
-          break
-        case 'type3':
-          break
-      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

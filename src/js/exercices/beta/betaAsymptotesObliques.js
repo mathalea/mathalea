@@ -1,6 +1,6 @@
 import { xcas, listeQuestionsToContenu, randint, combinaisonListes, texFraction } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-
+import { context } from '../../modules/context.js'
 export const titre = 'Asymptote oblique'
 
 /**
@@ -11,14 +11,14 @@ export const titre = 'Asymptote oblique'
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Montrez que la fonction $f$ admet une asymptote oblique en $+\\infty$ dont on donnera l\'équation et la position relative'
-  this.nbQuestions = 10
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  this.nbQuestions = 2
+  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.typeExercice = 'XCas'
-  this.spacingCorr = 2
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
