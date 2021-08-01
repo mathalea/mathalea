@@ -1,64 +1,103 @@
 /**
  *
- *  Classe parente de tous les exercices
+ *  Classe parente de tous les exercices.
  *
  * @author Rémi Angot
  */
 export default function Exercice () {
-  // Classe parente de tous les exercices qui seront créés
-  this.titre = ''
-  this.consigne = ''
-  this.consigneCorrection = ''
-  this.listeQuestions = []
-  this.listeCorrections = []
-  this.introduction = ''
-  this.contenu = ''
-  this.contenuCorrection = ''
-  this.nbQuestions = 10
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.beamer = false
+  // ///////////////////////////////////////////////
+  // Autour de l'exercice
+  // ///////////////////////////////////////////////
+  this.titre = '' // Chaîne de caractère sans point à la fin. C'est le titre de l'exercice qui sera affiché avec la référence dans le générateur d'exercices.
+  this.boutonAide = false // Bouton en haut à droite des questions permettant d'afficher un pdf, texte, image, vidéo, contenu d'un autre site en "pop-up" via les fonctions modalXXXXXXX de outils.js.
+  // Ci-dessous des exemples d'utilisation du this.boutonAide.
+  // Noter que pour récupérer le numeroExercice dont il est question, au lieu d'écrire "this.nouvelleVersion = function () {" comme d'habitude, on écrit "this.nouvelleVersion = function (numeroExercice) {".
+  // this.boutonAide = modalImage(numeroExercice, urlImage, titre, labelBouton = 'Illustration', icone = 'image')
+  // this.boutonAide = modalPdf(numeroExercice, urlPdf, titre='Aide', labelBouton = 'Aide - PDF', icone = 'file pdf')
+  // this.boutonAide = modalTexteCourt(numeroExercice, texte, labelBouton = 'Aide', icone = 'info circle')
+  // this.boutonAide = modalTexteLong(numeroExercice, titre, texte, labelBouton = 'Aide', icone = 'info circle')
+  // this.boutonAide = modalUrl(numeroExercice, url, labelBouton = 'Aide', icone) pour afficher le contenu de url dans un iframe
+  // this.boutonAide = modalVideo(numeroExercice, urlVideo, titre, labelBouton, icone)
+  // this.boutonAide = modalYoutube(numeroExercice, idYoutube, titre, labelBouton = 'Aide - Vidéo', icone = 'youtube')
 
-  this.besoinFormulaireNumerique = false // Sinon this.besoinFormulaireNumerique = [texte,max,tooltip facultatif];
-  this.besoinFormulaireTexte = false // Sinon this.besoinFormulaireTexte = [texte,tooltip];
-  this.besoinFormulaireCaseACocher = false // Sinon this.besoinFormulaireCaseACocher = [texte];
-  this.besoinFormulaire2Numerique = false // Sinon this.besoinFormulaire2Numerique = [texte,max,tooltip facultatif];
-  this.besoinFormulaire2Texte = false // Sinon this.besoinFormulaire2Texte = [texte,tooltip];
-  this.besoinFormulaire2CaseACocher = false // Sinon this.besoinFormulaire2CaseACocher = [texte];
-  this.besoinFormulair2eNumerique = false // Sinon this.besoinFormulair2eNumerique = [texte,max,tooltip facultatif];
-  this.besoinFormulair2eTexte = false // Sinon this.besoinFormulair2eTexte = [texte,tooltip];
-  this.besoinFormulair2eCaseACocher = false // Sinon this.besoinFormulair2eCaseACocher = [texte];
-  this.consigneModifiable = true
-  this.nbQuestionsModifiable = true
-  this.nbColsModifiable = true
-  this.nbColsCorrModifiable = true
-  this.spacingModifiable = true
-  this.spacingCorrModifiable = true
-  this.correctionDetailleeDisponible = false
-  this.correctionDetaillee = true
-  this.video = ''
-  this.boutonAide = false
-  this.tailleDiaporama = 50 // Taille en pixels pour le calcul chronométré
-  // this.boutonAide = modalTexteCourt(numeroExercice,texte,labelBouton="Aide",icone="info circle")
-  // this.boutonAide = modalTexteLong(numeroExercice,titre,texte,labelBouton="Aide",icone="info circle")
-  // this.boutonAide = modalYoutube(numeroExercice,idYoutube,texte,labelBouton="Aide - Vidéo",icone="youtube")
-  // this.boutonAide = modalPdf(numeroExercice,urlPdf,texte="Aide",labelBouton="Aide - PDF",icone="file pdf")
-  // this.vspace = -1 //Ajoute un \vspace{-1cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
-  this.pasDeVersionLatex = false
-  this.interactif = false // Exercice sans saisie utilisateur par défaut
-  this.interactifObligatoire = false // Certains exercices sont uniquement des QCM et n'ont pas de version non interactiveout
-  this.qcm = false // Pour les exercices de type QCM : contient un tableau.
-  this.qcmDisponible = false // Pour ajouter une case à cocher Mode QCM qui permet de changer le statut de this.modeQcm
-  this.modeQcm = false // Pour choisir la version QCM ou la version classique (false = version classique)
-  this.autoCorrection = [] // Liste des objets par question pour correction interactive || export AMC
-  this.tableauSolutionsDuQcm = [] // Pour sauvegarder les solutions des QCM
-  this.mg32Editable = false // pas d'interface par défaut pour les figures MG32
-  this.nouvelleVersion = function (numeroExercice) {}
-  this.listePackages = [] // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule
-  // this.typeExercice = "MG32";
-  // this.dimensionsDivMg32 = [500, 450];
-  // this.typeExercice = "Scratch"
+  // ///////////////////////////////////////////////
+  // Construction de l'exercice
+  // ///////////////////////////////////////////////
+  this.consigne = '' // Chaîne de caractère qui apparaît en gras au-dessus des questions de préférence à l'infinitif et sans point à la fin.
+  this.consigneCorrection = '' // Chaîne de caractère en général vide qui apparaît au-dessus des corrections.
+  this.introduction = '' // Texte qui n'est pas forcément en gras et qui apparaît entre la consigne et les questions.
+  this.listeQuestions = [] // Liste de chaînes de caractères avec chacune correspondant à une question. Chaque question est définie par la méthode this.nouvelleVersion puis `listeDeQuestionToContenu(this)` mettra en forme `this.contenu` et `this.contenuCorrection` suivant `context` (sortie HTML ? diaporama ?...)
+  this.listeCorrections = [] // Idem avec la correction.
+  this.contenu = '' // Chaîne de caractères avec tout l'énoncé de l'exercice construit à partir de `this.listeQuestions` suivant le `context`
+  this.contenuCorrection = '' // Idem avec la correction
+  this.autoCorrection = [] // Liste des objets par question pour correction interactive || export AMC.
+  this.tableauSolutionsDuQcm = [] // Pour sauvegarder les solutions des QCM.
   // this.qcm=["Quels sont les nombres pairs ?",[7,12,34,25,18],[0,1,1,0,1]] =>["La question",[les réponses],[bonne=1 et mauvaise=0]]
+
+  // ///////////////////////////////////////////////
+  // Mise en forme de l'exercice
+  // ///////////////////////////////////////////////
+  this.spacing = 1 // Interligne des questions
+  this.spacingCorr = 1 // Interligne des réponses
+
+  // ////////////////////////////////////////////
+  // Gestion de la sortie LateX
+  // ////////////////////////////////////////////
+  this.pasDeVersionLatex = false // booléen qui indique qu'une sortie LateX est impossible.
+  this.listePackages = [] // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule.
+  this.consigneModifiable = true // booléen pour déterminer si la consigne est modifiable en ligne dans la sortie LaTeX.
+  this.nbQuestionsModifiable = true // booléen pour déterminer si le nombre de questions est modifiable en ligne.
+  this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX des questions (environnement multicols).
+  this.nbColsCorr = 2 // Nombre de colonnes pour la sortie LaTeX des réponses (environnement multicols).
+  this.nbColsModifiable = true // booléen pour déterminer si le nombre de colonnes est modifiable en ligne dans la sortie LaTeX.
+  this.nbColsCorrModifiable = true // booléen pour déterminer si le nombre de colonnes de la correction est modifiable en ligne dans la sortie LaTeX.
+  this.spacingModifiable = true // booléen pour déterminer si l'espacement est modifiable en ligne dans la sortie LaTeX.
+  this.spacingCorrModifiable = true // booléen pour déterminer si l'espacement est modifiable en ligne dans la sortie LaTeX.
+  // this.vspace = -1 //Ajoute un \vspace{-1cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
+
+  // ////////////////////////////////////////////
+  // Gestion de la sortie autre que LateX
+  // ////////////////////////////////////////////
+  this.beamer = false // booléen pour savoir si la sortie devra être un diaporama beamer
+  this.tailleDiaporama = 50 // Taille en pixels pour le calcul chronométré.
+
+  // ////////////////////////////////////////////
+  // Paramètres
+  // ////////////////////////////////////////////
+  this.nbQuestions = 10 // Nombre de questions par défaut (récupéré dans l'url avec le paramètre `,n=`)
+  this.correctionDetailleeDisponible = false // booléen qui indique si une correction détaillée est disponible.
+  this.correctionDetaillee = true // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
+  this.video = '' // Chaine de caractère pour un complément numérique (id Youtube, url, code iframe...).
+  // Interactivité
+  this.interactif = false // Exercice sans saisie utilisateur par défaut.
+  this.interactifObligatoire = false // Certains exercices sont uniquement des QCM et n'ont pas de version non interactive.
+  // QCM
+  this.qcm = false // Pour les exercices de type QCM : contient un tableau.
+  this.qcmDisponible = false // Pour ajouter une case à cocher Mode QCM qui permet de changer le statut de this.modeQcm.
+  this.modeQcm = false // Pour choisir la version QCM ou la version classique (false = version classique).
+  // Ajoute un formulaire de paramétrage par l'utilisateur récupéré via this.sup ou dans le paramètre d'url ',s='
+  this.besoinFormulaireNumerique = false // Sinon this.besoinFormulaireNumerique = [texte, max, tooltip facultatif]
+  this.besoinFormulaireTexte = false // Sinon this.besoinFormulaireTexte = [texte, tooltip]
+  this.besoinFormulaireCaseACocher = false // Sinon this.besoinFormulaireCaseACocher = [texte]
+  // Ajoute un formulaire de paramétrage par l'utilisateur récupéré via this.sup2 ou dans le paramètre d'url ',s2='
+  this.besoinFormulaire2Numerique = false // Sinon this.besoinFormulaire2Numerique = [texte, max, tooltip facultatif]
+  this.besoinFormulaire2Texte = false // Sinon this.besoinFormulaire2Texte = [texte, tooltip]
+  this.besoinFormulaire2CaseACocher = false // Sinon this.besoinFormulaire2CaseACocher = [texte]
+  // Ajoute un formulaire de paramétrage par l'utilisateur récupéré via this.sup3 ou dans le paramètre d'url ',s3='
+  this.besoinFormulaire3Numerique = false // Sinon this.besoinFormulaire3Numerique = [texte, max, tooltip facultatif]
+  this.besoinFormulaire3Texte = false // Sinon this.besoinFormulaire3Texte = [texte, tooltip]
+  this.besoinFormulaire3CaseACocher = false // Sinon this.besoinFormulaire3CaseACocher = [texte]
+
+  // ///////////////////////////////////////////////
+  // Exercice avec des dépendances particulières
+  // ///////////////////////////////////////////////
+  // this.typeExercice = 'MG32' // Pour charger MathGraph32.
+  this.mg32Editable = false // Les figures MG32 ne sont pas interactives par défaut.
+  // this.dimensionsDivMg32 = [500, 450] // Dimensions du SVG créé par MathGraph32.
+  // this.typeExercice = 'Scratch' // Pour charger Scratchblocks.
+  // this.typeExercice = 'IEP' // Pour charger InstrumEnPoche.
+  // this.typeExercice = 'dnb' // Ce n’est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
+  // this.typeExercice = 'XCas' // Pour charger le JavaScript de XCas.
+
+  this.nouvelleVersion = function (numeroExercice) {}
 }

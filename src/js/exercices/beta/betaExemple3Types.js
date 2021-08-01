@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'// eslint-disable-next-line camelcase
 import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Exercice exemple'
 
@@ -10,7 +9,6 @@ export const titre = 'Exercice exemple'
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = ''
   this.nbQuestions = 10
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -37,8 +35,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           texteCorr = `Correction ${i + 1} de type 2`
           break
         case 'type3': // Table de 200
-          texte = `Question ${i + 1} de type 2`
-          texteCorr = `Correction ${i + 1} de type 2`
+          texte = `Question ${i + 1} de type 3`
+          texteCorr = `Correction ${i + 1} de type 3`
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

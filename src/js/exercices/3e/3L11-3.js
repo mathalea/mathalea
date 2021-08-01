@@ -76,6 +76,7 @@ export default function DistributiviteSimpleDoubleReduction () {
           reponse = printlatex(`${a * b * c}*x^2+(${a * b * d})*x`)
           break
         case 'e(ax+b)-(d+cx)':
+          e = randint(-11, 11, [-1, 1, 0])
           texte = `$${lettreDepuisChiffre(i + 1)}=${e}(${printlatex(`${a}*x+(${b})`)})-(${printlatex(`${d}+(${c})*x`)})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`(${e * a})*x+(${e * b})`)}-(${printlatex(`${d}+(${c})*x`)})$`

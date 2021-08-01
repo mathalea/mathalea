@@ -5,7 +5,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif'
 import { context } from '../../modules/context.js'
 export const titre = 'Addition de deux entiers'
 export const amcReady = true
-export const amcType = 4 // Question numérique
+export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
 export const interactifType = 'numerique'
 
@@ -14,13 +14,9 @@ export const interactifType = 'numerique'
  * @author Rémi Angot
  * Référence 6C10-4
  */
-export default function Exercice_tables_d_additions (max = 20) {
+export default function ExerciceTablesAdditions (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
   this.consigne = 'Calculer'
   this.sup = max // Le paramètre accessible à l'utilisateur sera la valeur maximale
   this.spacing = 2
@@ -35,8 +31,8 @@ export default function Exercice_tables_d_additions (max = 20) {
 
     ) {
       this.autoCorrection[i] = {}
-      a = randint(2, this.sup)
-      b = randint(2, this.sup)
+      a = randint(2, parseInt(this.sup))
+      b = randint(2, parseInt(this.sup))
       texte = `$ ${texNombre(a)} + ${texNombre(b)} = \\dotfill $`
       texteCorr = `$ ${texNombre(a)} + ${texNombre(b)} = ${texNombre(a + b)} $`
       setReponse(this, i, a + b)

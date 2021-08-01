@@ -5,7 +5,7 @@ import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../mod
 import Fraction from '../../modules/Fraction.js'
 
 export const amcReady = true
-export const amcType = 1 // QCM
+export const amcType = 'qcmMono' // QCM
 export const interactifReady = true
 export const interactifType = 'mathLive' // Le QCM est prêt mais pas géré
 
@@ -49,13 +49,13 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions
-    if (this.sup2 === 1) {
+    if (parseInt(this.sup2) === 1) {
       listeTypeDeQuestions = combinaisonListes(['+'], this.nbQuestions)
     }
-    if (this.sup2 === 2) {
+    if (parseInt(this.sup2) === 2) {
       listeTypeDeQuestions = combinaisonListes(['-'], this.nbQuestions)
     }
-    if (this.sup2 === 3) {
+    if (parseInt(this.sup2) === 3) {
       listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions)
     }
     for (let i = 0, a, b, c, d, k, texte, texteCorr; i < this.nbQuestions; i++) {

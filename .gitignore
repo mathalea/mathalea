@@ -9,13 +9,15 @@ dnb/
 #ignorer le fichier de config de jshintrc
 .jshintrc
 
-#ignorer les zip du dossier fichierszip/
+# ignorer les zip du dossier fichierszip/
+# plus utile puisque ça se passe à partir du build
+# à confirmer, une fois confirmé à supprimer
 fichierszip/*.zip
 !/fichierszip/Projet.zip
 !/fichierszip/ProjetCrashed.zip
 
-#ignorer le fichier index.php utile que pour le sous domaine de test de Seb
-index.php
+#ignorer le fichier src/json/scoresCodesVip.json utile pour générer les espaces de scores pour les V.I.P.
+src/json/scoresCodesVip.json
 
 
 # les dépendances
@@ -37,3 +39,4 @@ package-lock.json
 
 # traces MacOS
 .DS_Store
+src/json/scoresCodesVip.json

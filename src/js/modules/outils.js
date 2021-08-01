@@ -1,7 +1,8 @@
+/* globals UI */
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate } from 'mathjs'
+import { format, evaluate, isPrime } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 
@@ -21,7 +22,7 @@ export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing)
     if (exercice.interactif) {
-      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}">Vérifier les réponses</button>`
+      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr)
   } else {
@@ -567,7 +568,7 @@ export function numTrie (arr) {
   })
 }
 
-/*
+/**
 * Mélange les items d'un tableau, sans modifier le tableau passé en argument
 *
 * @Example
@@ -603,7 +604,7 @@ export function shuffleJusqua (array, indice) {
   }
 }
 
-/*
+/**
 * Mélange les lettres d'un string
 *
 * @Example
@@ -615,7 +616,7 @@ export function shuffleLettres (txt) {
   return shuffle(array).join('')
 }
 
-/*
+/**
 * Mélange les items de deux tableaux de la même manière
 *
 *
@@ -637,7 +638,7 @@ export function shuffle2tableaux (obj1, obj2) {
   }
 }
 
-/*
+/**
 * Trie un dictionnaire suivant ses clés
 *
 * @Example
@@ -659,7 +660,7 @@ export function tridictionnaire (dict) {
   return tempDict
 }
 
-/*
+/**
 * Filtre un dictionnaire suivant les premiers caractères de ses clés
 *
 * @Example
@@ -671,10 +672,10 @@ export function filtreDictionnaire (dict, sub) {
   )
 }
 
-/*
+/**
 * Polyfill Object.fromEntries
 *
-* Source : https://gitlab.com/moongoal/js-polyfill-object.fromentries/
+* @Source : https://gitlab.com/moongoal/js-polyfill-object.fromentries/
 */
 if (!Object.fromEntries) {
   Object.defineProperty(Object, 'fromEntries', {
@@ -694,7 +695,7 @@ if (!Object.fromEntries) {
   })
 }
 
-/*
+/**
 * Filtre un dictionnaire suivant la valeur d'une clé
 *
 * @Example
@@ -705,7 +706,7 @@ export function filtreDictionnaireValeurCle (dict, key, val) {
   return Object.fromEntries(Object.entries(dict).filter(([k, v]) => v[key] === val))
 }
 
-/*
+/**
 * Filtre un dictionnaire si une valeur appartient à une clé de type tableau
 *
 * @Example
@@ -724,7 +725,7 @@ function cleExisteEtContient (v, val) {
   }
 }
 
-/*
+/**
 * Concatène liste à elle même en changeant l'ordre à chaque cycle
 *
 *
@@ -1430,17 +1431,21 @@ export function reduirePolynomeDegre3 (a, b, c, d) {
 export function obtenirListeFacteursPremiers (n) {
   // Algorithme de base où l'on divise par chacun des nombres premiers
   const liste = []
-  const listeNombresPremiers = obtenirListeNombresPremiers()
-  let i = 0
-  while (n > 1 && listeNombresPremiers[i] <= n) {
-    if (n % listeNombresPremiers[i] === 0) {
-      liste.push(listeNombresPremiers[i])
-      n /= listeNombresPremiers[i]
+  let i = 2
+  while (n > 1 && i <= n) {
+    if (n % i === 0) {
+      liste.push(i)
+      n /= i
     } else {
       i++
+      while (!isPrime(i)) {
+        i++
+      }
     }
   }
-  if (liste.length === 0) { liste.push(n) }
+  if (liste.length === 0) {
+    liste.push(n)
+  }
   return liste
 }
 /**
@@ -1503,13 +1508,21 @@ export function texRacineCarree (n) {
 }
 
 /**
-* Utilise giac/xcas
-*
-* @author Rémi Angot
-*/
+ *
+ * @param {'string | array'} expression ou tableau d'expressions à évaluer avec XCas
+ * @returns string
+ * @author Rémi Angot
+ */
 export function xcas (expression) {
-  // eslint-disable-next-line no-undef
-  return UI.eval(`latex(${expression})`).replaceAll('\\cdot ', '~').replaceAll('\\frac', '\\dfrac').replaceAll('"', '')
+  const sortie = (txt) => UI.eval(`latex(${txt})`).replaceAll('\\cdot ', '~').replaceAll('\\frac', '\\dfrac').replaceAll('"', '')
+  if (typeof expression === 'string') return sortie(expression)
+  else {
+    const result = []
+    for (const txt of expression) {
+      result.push(sortie(txt))
+    }
+    return result
+  }
 }
 
 /**
@@ -1912,11 +1925,33 @@ export function tirerLesDes (nombreTirages, nombreFaces, nombreDes) {
 * @param nombreNotes
 * @param noteMin
 * @param noteMax
-* @author Jean-Claude Lhote
+* @param distincts Si distincts === true, les notes de la liste seront toutes distinctes
+* @author Jean-Claude Lhote et Guillaume Valmont
 */
-export function listeDeNotes (nombreNotes, noteMin, noteMax) {
+export function listeDeNotes (nombreNotes, noteMin = 0, noteMax = 20, distincts = false) {
   const notes = []
-  for (let i = 0; i < nombreNotes; i++) notes.push(randint(noteMin, noteMax))
+  let candidat, present, limite // nombre candidat, est-ce qu'il est déjà présent, une limite d'itérations pour éviter les boucles infinies
+  limite = 0
+  for (let i = 0; i < nombreNotes;) {
+    limite += 1
+    if (distincts && limite < 100) { // Si les nombres doivent être tous distincts et que la limite d'itérations n'est pas encore atteinte,
+      candidat = randint(noteMin, noteMax) // on tire au sort un nombre candidat,
+      present = false
+      for (let j = 0; j < notes.length; j++) { // on vérifie s'il est présent,
+        if (candidat === notes[j]) {
+          present = true
+          break
+        }
+      }
+      if (!present) { // s'il n'est pas présent, on le push.
+        notes.push(candidat)
+        i++
+      }
+    } else { // Si les nombres n'ont pas tous à être distincts, on push directement.
+      notes.push(randint(noteMin, noteMax))
+      i++
+    }
+  }
   return notes
 }
 
@@ -2532,8 +2567,12 @@ export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de 
 * Retourne la liste des nombres premiers inférieurs à 300
 * @author Rémi Angot
 */
-export function obtenirListeNombresPremiers () {
-  return [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
+export function obtenirListeNombresPremiers (n = 300) {
+  const prems = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
+  for (let i = 307; i <= n; i++) {
+    if (isPrime(i)) prems.push(i)
+  }
+  return prems
 }
 
 /**
@@ -2580,6 +2619,30 @@ export function texFraction (a, b) {
     }
   } else {
     return a
+  }
+}
+
+/**
+ * Retourne le code LateX correspondant à un symbole
+ * @param {string} symbole
+ * @returns {string} string
+ * @author Guillaume Valmont
+ * @example texSymbole('≤') retourne '\\leqslant'
+ */
+export function texSymbole (symbole) {
+  switch (symbole) {
+    case '<':
+      return '<'
+    case '>':
+      return '>'
+    case '≤':
+      return '\\leqslant'
+    case '≥':
+      return '\\geqslant'
+    case '\\':
+      return '\\smallsetminus'
+    default:
+      return 'symbole non connu par texSymbole()'
   }
 }
 
@@ -2672,145 +2735,147 @@ export function texGraphique (f, xmin = -5, xmax = 5, ymin = -5, ymax = 5) {
  * Sinon, c'est le tableau qui sert à remplir la Matrice
  *  @author Jean-Claude Lhote
  */
-export function MatriceCarree (table) {
-  let ligne
-  this.table = []
-  if (typeof (table) === 'number') {
-    this.dim = table // si c'est un nombre qui est passé en argument, c'est le rang, et on rempli la table de 0
-    for (let i = 0; i < this.dim; i++) {
-      ligne = []
-      for (let j = 0; j < this.dim; j++) { ligne.push(0) }
-      this.table.push(ligne)
+export class MatriceCarree {
+  constructor (table) {
+    let ligne
+    this.table = []
+    if (typeof (table) === 'number') {
+      this.dim = table // si c'est un nombre qui est passé en argument, c'est le rang, et on rempli la table de 0
+      for (let i = 0; i < this.dim; i++) {
+        ligne = []
+        for (let j = 0; j < this.dim; j++) { ligne.push(0) }
+        this.table.push(ligne)
+      }
+    } else { // si l'argument est une table, on la copie dans this.table et sa longueur donne la dimension de la matrice
+      this.dim = table.length
+      this.table = table.slice()
     }
-  } else { // si l'argument est une table, on la copie dans this.table et sa longueur donne la dimension de la matrice
-    this.dim = table.length
-    this.table = table.slice()
-  }
-  /**
+    /**
    * Méthode : Calcule le déterminant de la matrice carrée
    * @author Jean-Claude Lhote
    */
-  this.determinant = function () {
-    const n = this.dim // taille de la matrice = nxn
-    let determinant = 0; let M
-    for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
+    this.determinant = function () {
+      const n = this.dim // taille de la matrice = nxn
+      let determinant = 0; let M
+      for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
       // if (n==1) determinant=this.table[0][0]
-      if (n === 2) { determinant = calcul(this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1]) } else {
-        M = this.matriceReduite(0, i)
-        determinant += calcul(((-1) ** i) * this.table[0][i] * M.determinant())
+        if (n === 2) { determinant = calcul(this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1]) } else {
+          M = this.matriceReduite(0, i)
+          determinant += calcul(((-1) ** i) * this.table[0][i] * M.determinant())
+        }
       }
+      return determinant
     }
-    return determinant
-  }
-  /**
+    /**
    * Méthode : m=M.matriceReduite(l,c) retourne une nouvelle matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
    * (Utilisée dans le calcul du déterminant d'une matrice carrée.)
    * @author Jean-Claude Lhote
    */
-  this.matriceReduite = function (l, c) {
-    const resultat = []; let ligne
-    for (let i = 0; i < this.table.length; i++) {
-      if (i !== l) {
-        ligne = []
-        for (let j = 0; j < this.table.length; j++) {
-          if (j !== c) ligne.push(this.table[i][j])
+    this.matriceReduite = function (l, c) {
+      const resultat = []; let ligne
+      for (let i = 0; i < this.table.length; i++) {
+        if (i !== l) {
+          ligne = []
+          for (let j = 0; j < this.table.length; j++) {
+            if (j !== c) ligne.push(this.table[i][j])
+          }
+          if (ligne.length > 0) resultat.push(ligne)
         }
-        if (ligne.length > 0) resultat.push(ligne)
       }
+      return matriceCarree(resultat)
     }
-    return matriceCarree(resultat)
-  }
-  /**
+    /**
    * Méthode : m=M.cofacteurs() retourne la matrice des cofacteurs de M utilisée dans l'inversion de M.
    */
-  this.cofacteurs = function () { // renvoie la matrice des cofacteurs.
-    const n = this.dim; let resultat = []; let ligne; let M
-    if (n > 2) {
+    this.cofacteurs = function () { // renvoie la matrice des cofacteurs.
+      const n = this.dim; let resultat = []; let ligne; let M
+      if (n > 2) {
+        for (let i = 0; i < n; i++) {
+          ligne = []
+          for (let j = 0; j < n; j++) {
+            M = this.matriceReduite(i, j)
+            ligne.push(calcul((-1) ** (i + j) * M.determinant()))
+          }
+          resultat.push(ligne)
+        }
+      } else if (n === 2) {
+        resultat = [[this.table[1][1], -this.table[1][0]], [-this.table[0][1], this.table[0][0]]]
+      } else return false
+      return matriceCarree(resultat)
+    }
+    /**
+   * Méthode : m=M.transposee() retourne la matrice transposée de M utilisée pour l'inversion de M
+   */
+    this.transposee = function () { // retourne la matrice transposée
+      const n = this.dim; const resultat = []; let ligne
       for (let i = 0; i < n; i++) {
         ligne = []
         for (let j = 0; j < n; j++) {
-          M = this.matriceReduite(i, j)
-          ligne.push(calcul((-1) ** (i + j) * M.determinant()))
+          ligne.push(this.table[j][i])
         }
         resultat.push(ligne)
       }
-    } else if (n === 2) {
-      resultat = [[this.table[1][1], -this.table[1][0]], [-this.table[0][1], this.table[0][0]]]
-    } else return false
-    return matriceCarree(resultat)
-  }
-  /**
-   * Méthode : m=M.transposee() retourne la matrice transposée de M utilisée pour l'inversion de M
-   */
-  this.transposee = function () { // retourne la matrice transposée
-    const n = this.dim; const resultat = []; let ligne
-    for (let i = 0; i < n; i++) {
-      ligne = []
-      for (let j = 0; j < n; j++) {
-        ligne.push(this.table[j][i])
-      }
-      resultat.push(ligne)
+      return matriceCarree(resultat)
     }
-    return matriceCarree(resultat)
-  }
-  /**
+    /**
    * m=M.multiplieParReel(k) Multiplie tous les éléments de la matrice par k. Utilisée pour l'inversion de M
    * @param {*} k
    */
-  this.multiplieParReel = function (k) { // retourne k * la matrice
-    const n = this.dim; const resultat = []; let ligne
-    for (let i = 0; i < n; i++) {
-      ligne = []
-      for (let j = 0; j < n; j++) {
-        ligne.push(calcul(k * this.table[i][j]))
+    this.multiplieParReel = function (k) { // retourne k * la matrice
+      const n = this.dim; const resultat = []; let ligne
+      for (let i = 0; i < n; i++) {
+        ligne = []
+        for (let j = 0; j < n; j++) {
+          ligne.push(calcul(k * this.table[i][j]))
+        }
+        resultat.push(ligne)
       }
-      resultat.push(ligne)
+      return matriceCarree(resultat)
     }
-    return matriceCarree(resultat)
-  }
 
-  /**
+    /**
    * Méthode : Calcule le produit d'une matrice nxn par un vecteur 1xn (matrice colonne): retourne un vecteur 1xn.
    *
    */
-  this.multiplieVecteur = function (V) { // Vecteur est un simple array pour l'instant
-    const n = this.dim; const resultat = []; let somme
-    if (n === V.length) {
-      for (let i = 0; i < n; i++) {
-        somme = 0
-        for (let j = 0; j < n; j++) {
-          somme += calcul(this.table[i][j] * V[j])
+    this.multiplieVecteur = function (V) { // Vecteur est un simple array pour l'instant
+      const n = this.dim; const resultat = []; let somme
+      if (n === V.length) {
+        for (let i = 0; i < n; i++) {
+          somme = 0
+          for (let j = 0; j < n; j++) {
+            somme += calcul(this.table[i][j] * V[j])
+          }
+          resultat.push(somme)
         }
-        resultat.push(somme)
-      }
-      return resultat
-    } else return false
-  }
-  /**
+        return resultat
+      } else return false
+    }
+    /**
    * Méthode : m=M.inverse() Retourne la matrice inverse de M. Utilisation : résolution de systèmes linéaires
    */
-  this.inverse = function () { // retourne la matrice inverse (si elle existe)
-    const d = this.determinant()
-    if (!egal(d, 0)) {
-      return this.cofacteurs().transposee().multiplieParReel(calcul(1 / d))
-    } else return false
-  }
-  /**
+    this.inverse = function () { // retourne la matrice inverse (si elle existe)
+      const d = this.determinant()
+      if (!egal(d, 0)) {
+        return this.cofacteurs().transposee().multiplieParReel(calcul(1 / d))
+      } else return false
+    }
+    /**
    * Méthode : m=M.multiplieMatriceCarree(P) : retourne m = M.P
    *
    */
-  this.multiplieMatriceCarree = function (M) {
-    const n = this.dim; const resultat = []; let ligne; let somme
-    for (let i = 0; i < n; i++) {
-      ligne = []
-      for (let j = 0; j < n; j++) {
-        somme = 0
-        for (let k = 0; k < n; k++) somme += calcul(this.table[i][k] * M.table[k][j])
-        ligne.push(somme)
+    this.multiplieMatriceCarree = function (M) {
+      const n = this.dim; const resultat = []; let ligne; let somme
+      for (let i = 0; i < n; i++) {
+        ligne = []
+        for (let j = 0; j < n; j++) {
+          somme = 0
+          for (let k = 0; k < n; k++) somme += calcul(this.table[i][k] * M.table[k][j])
+          ligne.push(somme)
+        }
+        resultat.push(ligne)
       }
-      resultat.push(ligne)
+      return matriceCarree(resultat)
     }
-    return matriceCarree(resultat)
   }
 }
 
@@ -3150,26 +3215,26 @@ export function modalTexteCourt (numeroExercice, texte, labelBouton = 'Aide', ic
 * Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
 * @param numeroExercice
 * @param idYoutube
-* @param texte Texte court qui sera affiché comme un titre
+* @param titre Texte court qui sera affiché comme un titre
 * @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est youtube icon), liste complète sur https://semantic-ui.com/elements/icon.html
 * @author Rémi Angot
 */
-export function modalYoutube (numeroExercice, idYoutube, texte, labelBouton = 'Aide - Vidéo', icone = 'youtube') {
+export function modalYoutube (numeroExercice, idYoutube, titre, labelBouton = 'Aide - Vidéo', icone = 'youtube') {
   let contenu
   if (idYoutube.substr(0, 4) === 'http') {
     if (idYoutube.slice(-4) === '.pdf') {
-      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><object type="application/pdf" data="${idYoutube}" width="560" height="315"> </object></p></div>`
+      contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><object type="application/pdf" data="${idYoutube}" width="560" height="315"> </object></p></div>`
     }
     if (idYoutube.substr(0, 17) === 'https://youtu.be/') {
-      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube.substring(17)}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+      contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube.substring(17)}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
     } else {
-      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${idYoutube}" frameborder="0" allowfullscreen></iframe></p></div>`
+      contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${idYoutube}" frameborder="0" allowfullscreen></iframe></p></div>`
     }
   } else if (idYoutube.substr(0, 4) === '<ifr') {
-    contenu = `<div class="header">${texte}</div><div class="content"><p align="center">${idYoutube}</p></div>`
+    contenu = `<div class="header">${titre}</div><div class="content"><p align="center">${idYoutube}</p></div>`
   } else {
-    contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+    contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
   }
   return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
@@ -3192,8 +3257,7 @@ export function modalTexteLong (numeroExercice, titre, texte, labelBouton = 'Aid
 /**
 * Créé un bouton pour une aide modale avec un titre et un texte
 * @param numeroExercice
-* @param titre
-* @param texte
+* @param url
 * @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
 * @author Rémi Angot
@@ -3207,29 +3271,29 @@ export function modalUrl (numeroExercice, url, labelBouton = 'Aide', icone = 'in
 * Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
 * @param numeroExercice
 * @param urlPdf
-* @param texte Texte court qui sera affiché comme un titre
+* @param titre Texte court qui sera affiché comme un titre
 * @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est file pdf icon), liste complète sur https://semantic-ui.com/elements/icon.html
 * @author Rémi Angot
 */
-export function modalPdf (numeroExercice, urlPdf, texte = 'Aide', labelBouton = 'Aide - PDF', icone = 'file pdf') {
-  const contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><embed src=${urlPdf} width=90% height=500 type='application/pdf'/></p></div>`
+export function modalPdf (numeroExercice, urlPdf, titre = 'Aide', labelBouton = 'Aide - PDF', icone = 'file pdf') {
+  const contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><embed src=${urlPdf} width=90% height=500 type='application/pdf'/></p></div>`
   return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
  * Créé un bouton pour une aide modale avec une vidéo
- * @param idDuModal désigne l'id du modal qui doit être unique
+ * @param numeroExercice désigne l'id du modal qui doit être unique
  * @param urlVideo
- * @param texte Texte court qui sera affiché comme un titre
+ * @param titre Texte court qui sera affiché comme un titre
  * @param labelBouton Titre du bouton (par défaut Vidéo)
  * @param icone Nom de l'icone (par défaut c'est file video outline icon), liste complète sur https://semantic-ui.com/elements/icon.html
  * @author Sébastien Lozano
  */
-export function modalVideo (idDuModal, urlVideo, texte, labelBouton = 'Vidéo', icone = 'file video outline') {
-  // let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${urlVideo}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+export function modalVideo (numeroExercice, urlVideo, titre, labelBouton = 'Vidéo', icone = 'file video outline') {
+  // let contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${urlVideo}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
   const contenu = `
-  <div class="header">${texte}</div>
+  <div class="header">${titre}</div>
   <div class="content">
     <div class="embed-responsive embed-responsive-16by9" align="center">
       <video width="560" height="315" controls  preload="none" style="max-width: 100%">
@@ -3238,18 +3302,18 @@ export function modalVideo (idDuModal, urlVideo, texte, labelBouton = 'Vidéo', 
       </video>
       </div>
   </div>`
-  return creerModal(idDuModal, contenu, labelBouton, icone)
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 /**
  *
  * @param {number} numeroExercice
  * @param {string} urlImage
- * @param {string} texte = ce qui est écrit sur le bouton à côté de l'icône d'image.
- * @param {string} labelBouton = ce qui est écrit en titre de l'image
+ * @param {string} titre = ce qui est écrit en titre de l'image
+ * @param {string} labelBouton = ce qui est écrit sur le bouton à côté de l'icône d'image.
  * @param {string} icone
  */
-export function modalImage (numeroExercice, urlImage, texte, labelBouton = 'Illustration', icone = 'image') {
-  const contenu = `<div class="header">${texte}</div><div class="image content"><img class="ui centered medium image" src="${urlImage}"></div>`
+export function modalImage (numeroExercice, urlImage, titre, labelBouton = 'Illustration', icone = 'image') {
+  const contenu = `<div class="header">${titre}</div><div class="image content"><img class="ui centered medium image" src="${urlImage}"></div>`
   return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
@@ -3493,7 +3557,7 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
  * Ecrit un string sans accents
  * @param {string} str
  * @author Sébastien Lozano
- * source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent
+ * @source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent
  */
 /* export function sansAccent(str) {
   var accent = [
@@ -6751,7 +6815,6 @@ export async function scratchTraductionFr () {
 export function exportQcmAmc (exercice, idExo) {
   const ref = exercice.id
   const autoCorrection = exercice.autoCorrection
-  console.log(exercice.autoCorrection, exercice.amcType)
   const titre = exercice.titre
   const type = exercice.amcType
   let texQr = ''
@@ -6761,7 +6824,11 @@ export function exportQcmAmc (exercice, idExo) {
   let lastchoice = false
   let ordered = false
   let nbChiffresPd, nbChiffresPe
+
   for (let j = 0; j < autoCorrection.length; j++) {
+    if (autoCorrection[j] === undefined) { // normalement, cela ne devrait jamais arriver !
+      autoCorrection[j] = {}
+    }
     if (autoCorrection[j].options !== undefined) {
       if (autoCorrection[j].options.vertical === undefined) {
         horizontalite = 'reponseshoriz'
@@ -6775,13 +6842,12 @@ export function exportQcmAmc (exercice, idExo) {
         lastchoice = autoCorrection[j].options.lastChoice
       }
     }
-    // tabQCM = tabQCMs[1][j].propositions.slice(0)
     switch (type) {
-      case 1: // question QCM 1 bonne réponse
+      case 'qcmMono': // question QCM 1 bonne réponse
+        if (exercice.autoCorrection[j].enonce === undefined) {
+          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
         texQr += `\\element{${ref}}{\n `
-        //  if (j === 0 && exercice.introduction !== '' && exercice.introduction !== undefined) {
-        //  texQr += `${exercice.introduction}\\\\ \n`
-        // }
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
         texQr += `\t\\begin{${horizontalite}}`
@@ -6804,7 +6870,11 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
 
-      case 2: // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
+      case 'qcmMult': // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
+        if (exercice.autoCorrection[j].enonce === undefined) {
+          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
+
         texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
@@ -6827,7 +6897,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += ' \\end{questionmult}\n }\n '
         id++
         break
-      case 3: // AMCOpen question ouverte corrigée par l'enseignant
+      case 'AMCOpen': // AMCOpen question ouverte corrigée par l'enseignant
         texQr += `\\element{${ref}}{\n `
         texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `\t\t${autoCorrection[j].enonce} \n `
@@ -6836,16 +6906,17 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\t\\end{question}\n }\n'
         id++
         break
-      case 4: // AMCOpen question ouverte avec encodage numérique de la réponse
+      case 'AMCNum': // AMCOpen question ouverte avec encodage numérique de la réponse
         /********************************************************************/
-        // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericChoices
         // On pourra rajouter des options : les paramètres sont nommés.
         // {digits=0,decimals=0,vertical=false,signe=false,exposantNbChiffres=0,exposantSigne=false,approx=0}
         // si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
         // signe et exposantSigne sont des booléens
         // approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
-        // La correction est dans tabQCM[1][0] et la réponse numérique est dans tabQCM[1][1]
         /********************************************************************/
+        if (exercice.autoCorrection[j].enonce === undefined) {
+          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
           reponse = autoCorrection[j].reponse.valeur
           if (autoCorrection[j].reponse.param.digits === 0) {
@@ -6857,16 +6928,12 @@ export function exportQcmAmc (exercice, idExo) {
             autoCorrection[j].reponse.param.decimals = 0
           }
         }
-        if (exercice.autoCorrection[j].enonce === undefined) {
-          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
-        }
-        if (exercice.autoCorrection[j].propositions === undefined) {
-          exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '', feedback: '' }]
-        }
         texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
@@ -6888,9 +6955,8 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
 
-      case 5: // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum': // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
-        // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
         // On pourra rajouter des options : les paramètres sont nommés.
         // {digits=0,decimals=0,signe=false,exposantNbChiffres=0,exposantSigne=false,approx=0}
         // si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
@@ -6908,7 +6974,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         // texQr += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
@@ -6952,7 +7020,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
         id++
         break
-      case 6: // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum✖︎2': // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // /!\/!\/!\/!\ ATTENTION /!\/!\/!\/!\
         // Pour ce type :
@@ -6970,7 +7038,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
         reponse = autoCorrection[j].reponse.valeur
@@ -7024,7 +7094,7 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
 
-      case 7: // Un amcOpen et trois  AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum✖︎3': // Un amcOpen et trois  AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // /!\/!\/!\/!\ ATTENTION /!\/!\/!\/!\
         // Pour ce type :
@@ -7042,7 +7112,9 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.4 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        if (autoCorrection[j].propositions !== undefined) {
+          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
         reponse = autoCorrection[j].reponse.valeur
@@ -7124,6 +7196,143 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\end{questionmultx}\n\\end{minipage}\n}\n'
         id++
         break
+
+      default : // Si on arrive ici, c'est que le type est AMCHybride
+        if (type !== 'AMCHybride') {
+          console.log('Il doit y avoir une erreur de type AMC, je ne connais pas le type : ', type)
+        }
+        if (autoCorrection[j].enonce === undefined) { // Si l'énoncé n'a pas été défini, on va le chercher dans la question
+          autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
+        if (autoCorrection[j].propositions === undefined) {
+          console.log(`Il ne peut pas y avoir de type AMCHybride si exercice.autoCorrection[${j}].propositions n'est pas défini !`)
+          break
+        }
+        texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
+        texQr += `${autoCorrection[j].enonce} \n `
+        for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les question-reponse de l'élément j
+          prop = autoCorrection[j].propositions[qr] // proposition est un objet avec cette structure : {type,propositions,reponse}
+          qrType = prop.type
+
+          propositions = prop.propositions
+          switch (qrType) {
+            case 'qcmMono':
+              if (prop.options !== undefined) {
+                if (prop.options.vertical === undefined) {
+                  horizontalite = 'reponseshoriz'
+                } else {
+                  horizontalite = 'reponses'
+                }
+                if (prop.options.ordered) {
+                  ordered = true
+                }
+                if (prop.options.lastChoice !== undefined) {
+                  lastchoice = prop.options.lastChoice
+                }
+              }
+              texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+              texQr += `\t\\begin{${horizontalite}}`
+              if (ordered) {
+                texQr += '[o]'
+              }
+              texQr += '\n '
+              for (let i = 0; i < propositions.length; i++) {
+                if (lastchoice > 0 && i === lastchoice) {
+                  texQr += '\t\t\\lastchoices\n'
+                }
+                if (prop.propositions[i].statut) {
+                  texQr += `\t\t\\bonne{${propositions[i].texte}}\n `
+                } else {
+                  texQr += `\t\t\\mauvaise{${propositions[i].texte}}\n `
+                }
+              }
+              texQr += `\t\\end{${horizontalite}}\n `
+              texQr += '\\end{question}\n'
+              id++
+              break
+            case 'qcmMult':
+              if (prop.options !== undefined) {
+                if (prop.options.vertical === undefined) {
+                  horizontalite = 'reponseshoriz'
+                } else {
+                  horizontalite = 'reponses'
+                }
+                if (prop.options.ordered) {
+                  ordered = true
+                }
+                if (prop.options.lastChoice !== undefined) {
+                  lastchoice = prop.options.lastChoice
+                }
+              }
+              texQr += `\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+              texQr += `\t\\begin{${horizontalite}}`
+              if (ordered) {
+                texQr += '[o]'
+              }
+              texQr += '\n '
+              for (let i = 0; i < propositions.length; i++) {
+                if (lastchoice > 0 && i === lastchoice) {
+                  texQr += '\t\t\\lastchoices\n'
+                }
+                if (propositions[i].statut) {
+                  texQr += `\t\t\\bonne{${propositions[i].texte}}\n `
+                } else {
+                  texQr += `\t\t\\mauvaise{${propositions[i].texte}}\n `
+                }
+              }
+              texQr += `\t\\end{${horizontalite}}\n `
+              texQr += ' \\end{questionmult}\n'
+              id++
+              break
+            case 'AMCNum':
+              rep = prop.propositions[0].reponse
+              if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres === 0) {
+                reponse = rep.valeur
+                if (rep.param.digits === 0) {
+                  nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+                  rep.param.decimals = nbChiffresPd
+                  nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
+                  rep.param.digits = nbChiffresPd + nbChiffresPe
+                } else if (rep.param.decimals === undefined) {
+                  rep.param.decimals = 0
+                }
+              }
+              texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+              if (propositions !== undefined) {
+                texQr += `\\explain{${propositions[0].texte}}\n`
+              }
+              texQr += `${rep.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+              texQr += `\\AMCnumericChoices{${rep.valeur}}{digits=${rep.param.digits},decimals=${rep.param.decimals},sign=${rep.param.signe},`
+              if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+                texQr += `exponent=${rep.param.exposantNbChiffres},exposign=${rep.param.exposantSigne},`
+              }
+              if (rep.param.approx !== undefined && rep.param.approx !== 0) {
+                texQr += `approx=${rep.param.approx},`
+              }
+              if (rep.param.vertical !== undefined && rep.param.vertical) {
+                texQr += `vertical=${rep.param.vertical},`
+              }
+              if (rep.param.strict !== undefined && rep.param.strict) {
+                texQr += `strict=${rep.param.strict},`
+              }
+              if (rep.param.vhead !== undefined && rep.param.vhead) {
+                texQr += `vhead=${rep.param.vhead},`
+              }
+              texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+              texQr += '\\end{questionmultx}\n'
+              id++
+              break
+            case 'AMCOpen':
+              texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+              texQr += `\t\t\\explain{${propositions[0].texte}}\n`
+              texQr += `\t\t\\notation{${propositions[0].statut}}\n` // le statut contiendra le nombre de lignes pour ce type
+              texQr += '\t\\end{question}\n'
+              id++
+              break
+          }
+        }
+        texQr += '}\n'
+        break
     }
   }
   return [texQr, ref, autoCorrection.length, titre]
@@ -7165,6 +7374,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
       groupeDeQuestions.push(code[1])
       indexOfCode = groupeDeQuestions.indexOf(code[1])
       texQuestions[indexOfCode] = code[0]
+
       // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
       if (typeof nbQuestions[indexOfCode] === 'undefined') {
         nombreDeQuestionsIndefinie[indexOfCode] = true
@@ -7283,6 +7493,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %\\usepackage{pdflscape}
    \\usepackage[framemethod=tikz]{mdframed} % Pour les cadres
    \\usepackage{tikzsymbols}
+   \\usepackage{scratch3}
   %\\usepackage{tasks}\t% Pour les listes horizontales
 \\usepackage{csvsimple}
   

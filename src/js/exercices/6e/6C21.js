@@ -1,6 +1,6 @@
-import Divisions_euclidiennes from './6C11.js'
+import DivisionsEuclidiennes from './6C11.js'
 export const amcReady = true
-export const amcType = 3 // type de question AMC
+export const amcType = 'AMCOpen' // type de question AMC
 
 export const titre = 'Divisions euclidiennes - Niveau 2'
 
@@ -10,7 +10,7 @@ export const titre = 'Divisions euclidiennes - Niveau 2'
 */
 
 export default function DivisionsEuclidiennesNiv2 () {
-  Divisions_euclidiennes.call(this)
+  DivisionsEuclidiennes.call(this)
   this.sup = 2
   this.titre = titre
   this.tailleDiaporama = 100

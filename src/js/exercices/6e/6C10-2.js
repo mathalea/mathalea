@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 1 // type de question AMC
+export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 
@@ -21,9 +21,6 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = tablesParDefaut
   this.sup2 = 1
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
   this.titre = titre
   this.consigne = 'Calculer'
   this.spacing = 2

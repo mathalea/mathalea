@@ -7,7 +7,7 @@ export const titre = 'Symétries axiales en pavage triangulaire'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
-export const amcType = 1
+export const amcType = 'qcmMono'
 
 export default function betaExoPavage6e () {
   'use strict'
@@ -309,7 +309,7 @@ export default function betaExoPavage6e () {
     let texte = ''
     let texteCorr = ''
     let typesDeQuestionsDisponibles
-    const scaleFigure = arrondi(parseFloat(this.sup2),1)
+    const scaleFigure = arrondi(parseFloat(this.sup2), 1)
     // construction du pavage triangulaire
     const triAngles = [{}] // tableau des triangles { tri: polygone (le triangle), gra: point(son centre de gravité), num: texteParPoint(son numéro)} l'indice du triangle est son numéro
     const images = []

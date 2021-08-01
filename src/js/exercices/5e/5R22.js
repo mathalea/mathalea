@@ -7,7 +7,7 @@ export const titre = 'Additions et soustractions de nombres relatifs'
 export const interactifReady = true
 export const interactifType = 'numerique'
 export const amcReady = true
-export const amcType = 5
+export const amcType = 'AMCOpenNum'
 
 /**
 * Effectuer la somme ou la différence de deux nombres relatifs
