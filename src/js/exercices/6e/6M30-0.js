@@ -39,8 +39,8 @@ export default function VolumesPavesParDenombrement () {
       barres = []
       plaques = []
 
-      texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 10 }, monPave)
-      if (!context.isAmc) texte += ajouteChampTexteMathLive(this, q)
+      texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: l + 0.9 * p, ymax: h + 0.6 * p }, monPave)
+      if (!context.isAmc) texte += ajouteChampTexteMathLive(this, q, 'largeur25')
       for (let i = 0; i < h - 1; i++) {
         pavesCorr.push(plaque3d(0, 0, i * 1.5, 1, l, p, 'black'))
         plaques.push(plaque3d(0, 0, i * 1.5, 1, l, p))
@@ -52,8 +52,8 @@ export default function VolumesPavesParDenombrement () {
       }
       barres.push(barre3d(0, 0, 0, 1, l))
       for (let i = 0; i < l; i++) {
-        pavesCorr.push(cube3d(i * 1.2, 0, h * 1.5 - 1.5, 1, 'black'))
-        cubes.push(cube3d(1.5 * i, 0, 0, 1))
+        pavesCorr.push(cube3d(i * 1.2 - 0.06 * l, 0, h * 1.5 - 1.5, 1, 'black'))
+        cubes.push(cube3d(1.5 * i - 0.06 * l, 0, 0, 1))
       }
       if (this.correctionDetaillee) {
         texteCorr = `Il y a ${l} cubes par barre :<br>`
@@ -65,7 +65,7 @@ export default function VolumesPavesParDenombrement () {
         texteCorr += `<br>Il y a donc $${l} \\times ${p} \\times ${h} = ${h * l * p}$ cubes.<br>`
       } else {
         texteCorr = `Il y a  ${l} cubes par barre, ${p} barres par plaque et ${h} plaques. Il y a donc $${l} \\times ${p} \\times ${h} = ${h * l * p}$ cubes.<br>`
-        texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 11.5 }, pavesCorr)
+        texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: Math.max(l * 1.2 + 1, l + p * 0.8), ymax: h * 1.5 + p * 0.8 }, pavesCorr)
       }
       if (dimensions.indexOf([l, p, h]) === -1) {
         setReponse(this, q, l * p * h)

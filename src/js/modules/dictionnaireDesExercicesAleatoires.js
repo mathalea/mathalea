@@ -55,6 +55,13 @@ export default {
     "interactifReady": false,
     "name": "2F10-2"
   },
+  "2G23": {
+    "titre": "Somme de vecteurs",
+    "url": "/exercices/2e/2G23.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G23"
+  },
   "2G31-1": {
     "titre": "Déterminer le coefficient directeur d'une droite.",
     "url": "/exercices/2e/2G31-1.js",
