@@ -22,7 +22,7 @@ export default function alignementdetroispoints () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typeQuestionsDisponibles = ['non', 'non'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['oui', 'non'] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, xA, yA, xB, yB, xC, yC, k, n1, d1, n2, d2, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
@@ -52,16 +52,15 @@ export default function alignementdetroispoints () {
             texteCorr += `=${texFractionReduite(n1, d1)}`
           }
           texteCorr += '$'
-
           texteCorr += `<br>$\\bullet  (AC)$ : $m_2=\\dfrac{${yC}-${ecritureParentheseSiNegatif(yA)}}{${xC}-${ecritureParentheseSiNegatif(xA)}}=${texFraction(n2, d2)}`
           if ((pgcd(n2, d2) !== 1 || d2 === 1 || d2 < 0) && n2 !== 0) {
             texteCorr += `=${texFractionReduite(n2, d2)}`
           }
           texteCorr += '$'
+          texteCorr += '<br>On onserve que $m_1 \\neq m_2$. '
+          texteCorr += '<br>Les droites $(AB)$ et $(AC)$ ne sont donc pas parallèles. '
+          texteCorr += '<br>Les points $A$, $B$ et $C$ ne sont pas alignés. '
 
-          texteCorr = +'<br>On onserve que $m_1 \\neq m_2$. '
-          texteCorr = +'<br>Les droites $(AB)$ et $(AC)$ ne sont donc pas parallèles. '
-          texteCorr = +'<br>Les points $A$, $B$ et $C$ ne sont pas alignés. '
           break
         case 'oui':
           xA = randint(-4, 4)

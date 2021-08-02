@@ -55,6 +55,27 @@ export default {
     "interactifReady": false,
     "name": "2F10-2"
   },
+  "2F31": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/2e/2F31.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F31"
+  },
+  "2G22-1": {
+    "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
+    "url": "/exercices/2e/2G22-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G22-1"
+  },
+  "2G23-2": {
+    "titre": "Coordonnées de vecteurs et translations.",
+    "url": "/exercices/2e/2G23-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G23-2"
+  },
   "2G23": {
     "titre": "Somme de vecteurs",
     "url": "/exercices/2e/2G23.js",
@@ -3180,6 +3201,13 @@ export default {
     "interactifType": "mathLive",
     "name": "beta240-1"
   },
+  "beta2F22-1": {
+    "titre": "Lecture graphique d’une fonction affine",
+    "url": "/exercices/beta/beta2F22-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F22-1"
+  },
   "beta2F22": {
     "titre": "Représentation graphique d’une fonction affine",
     "url": "/exercices/beta/beta2F22.js",
@@ -3208,19 +3236,11 @@ export default {
     "interactifReady": false,
     "name": "beta2G14"
   },
-  "beta2G22-1": {
-    "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
-    "url": "/exercices/beta/beta2G22-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2G22-1"
-  },
   "beta2G53": {
     "titre": "Alignement de 3 points.",
     "url": "/exercices/beta/beta2G53.js",
     "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifReady": false,
     "name": "beta2G53"
   },
   "beta2L11-1": {
@@ -3337,6 +3357,24 @@ export default {
     "interactifReady": false,
     "name": "beta6test2021"
   },
+  "betaAsymptotesObliques": {
+    "titre": "Asymptote oblique",
+    "url": "/exercices/beta/betaAsymptotesObliques.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaAsymptotesObliques"
+  },
+  "betaCaN2": {
+    "titre": "Course aux nombres seconde",
+    "url": "/exercices/beta/betaCaN2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCaN2"
+  },
   "betaCaN5": {
     "titre": "Course aux nombres 5e",
     "url": "/exercices/beta/betaCaN5.js",
@@ -3366,6 +3404,34 @@ export default {
     "interactifReady": false,
     "name": "betaComplexes"
   },
+  "betaDivisionsDePolynomes": {
+    "titre": "Division de polynômes",
+    "url": "/exercices/beta/betaDivisionsDePolynomes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaDivisionsDePolynomes"
+  },
+  "betaEq1erDegreDansC": {
+    "titre": "Equation du premier degré dans C",
+    "url": "/exercices/beta/betaEq1erDegreDansC.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaEq1erDegreDansC"
+  },
+  "betaEq2eDegAvecParam": {
+    "titre": "Equation du second degré avec paramètre",
+    "url": "/exercices/beta/betaEq2eDegAvecParam.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaEq2eDegAvecParam"
+  },
+  "betaEqCarreDansC": {
+    "titre": "Racine carrée nombre complexe",
+    "url": "/exercices/beta/betaEqCarreDansC.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaEqCarreDansC"
+  },
   "betaEquationsLog": {
     "titre": "Equations avec logarithmes",
     "url": "/exercices/beta/betaEquationsLog.js",
@@ -3373,19 +3439,19 @@ export default {
     "interactifReady": false,
     "name": "betaEquationsLog"
   },
+  "betaEqValAbs": {
+    "titre": "Equation avec une valeur absolue",
+    "url": "/exercices/beta/betaEqValAbs.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaEqValAbs"
+  },
   "betaExemple": {
     "titre": "Exercice exemple",
     "url": "/exercices/beta/betaExemple.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExemple"
-  },
-  "betaExemple1erDegreDansC": {
-    "titre": "Equation du premier degré dans C",
-    "url": "/exercices/beta/betaExemple1erDegreDansC.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple1erDegreDansC"
   },
   "betaExemple1Type": {
     "titre": "Exercice exemple",
@@ -3407,13 +3473,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExemple3Types"
-  },
-  "betaExempleCarreDansC": {
-    "titre": "Racine carrée nombre complexe",
-    "url": "/exercices/beta/betaExempleCarreDansC.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleCarreDansC"
   },
   "betaExempleConstructionsBasiques": {
     "titre": "Programmes de constructions (en chantier)",
@@ -3451,34 +3510,6 @@ export default {
     "interactifReady": false,
     "name": "betaExempleXcas"
   },
-  "betaExempleXcas2eDegParam": {
-    "titre": "Equation du second degré avec paramètre",
-    "url": "/exercices/beta/betaExempleXcas2eDegParam.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleXcas2eDegParam"
-  },
-  "betaExempleXcasAsymptotes": {
-    "titre": "Asymptote oblique",
-    "url": "/exercices/beta/betaExempleXcasAsymptotes.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleXcasAsymptotes"
-  },
-  "betaExempleXcasPolynomes": {
-    "titre": "Division de polynômes",
-    "url": "/exercices/beta/betaExempleXcasPolynomes.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleXcasPolynomes"
-  },
-  "betaExempleXcasValAbs": {
-    "titre": "Equation avec une valeur absolue",
-    "url": "/exercices/beta/betaExempleXcasValAbs.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleXcasValAbs"
-  },
   "betaExo3d": {
     "titre": "Exo zéroMathalea2d3d",
     "url": "/exercices/beta/betaExo3d.js",
@@ -3492,17 +3523,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExoSimpleMatthieu"
-  },
-  "betaGilles_CAN_seconde": {
-    "titre": "Course aux nombres seconde",
-    "url": "/exercices/beta/betaGilles_CAN_seconde.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaGilles_CAN_seconde"
   },
   "betaLicence": {
     "titre": "QCM de positionnement",
@@ -3541,7 +3561,7 @@ export default {
     "name": "betarotation3d"
   },
   "betaSys2x2CombLin": {
-    "titre": "2G25-3",
+    "titre": "2G35-3",
     "url": "/exercices/beta/betaSys2x2CombLin.js",
     "amcReady": false,
     "interactifReady": false,

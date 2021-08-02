@@ -3,6 +3,23 @@ import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement } fro
 import { getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 
+export const affichageUniquementExercice = (i) => {
+  const listeDivExercices = document.querySelectorAll('[id ^= "exercice"].titreExercice')
+  const listeDivExercicesCorr = document.querySelectorAll('[id ^= "divexcorr"].titreExercice')
+  for (const element of listeDivExercices) {
+    element.style.display = 'none'
+  }
+  for (const element of listeDivExercicesCorr) {
+    element.style.display = 'none'
+  }
+  if (i !== undefined) {
+    listeDivExercices[i].style.display = 'block'
+    if (document.getElementById(`score${i}`)) {
+      listeDivExercicesCorr[i].style.display = 'block'
+    }
+  }
+}
+
 const masqueEspaces = () => {
   const espaces = document.getElementsByClassName('ui hidden divider')
   for (const espace of espaces) {
@@ -29,8 +46,7 @@ export async function initDom () {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     addElement(section, 'div', { id: 'containerErreur' })
-    await fetchHtmlToElement('templates/mathaleaExercices.html', section)
-    // masqueMenuDesExercices()
+    await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
     const accordions = document.getElementsByClassName('ui fluid accordion')
     for (const accordion of accordions) {
       accordion.style.visibility = 'hidden'
@@ -49,6 +65,31 @@ export async function initDom () {
       // Envoi des informations à Anki
       const hauteur = window.document.body.scrollHeight
       window.parent.postMessage({ hauteur: hauteur, reponse: 'A_COMPLETER' }, '*')
+    })
+  } else if (vue === 'eval') {
+    setOutputHtml()
+    section = addElement(document.body, 'section', { class: 'ui container' })
+    const menuEval = addElement(section, 'div', { id: 'menuEval' })
+    addElement(section, 'div', { id: 'containerErreur' })
+    await addFetchHtmlToParent('templates/eval.html', section)
+    const accordions = document.getElementsByClassName('ui fluid accordion')
+    for (const accordion of accordions) {
+      accordion.style.visibility = 'hidden'
+    }
+    addElement(section, 'div', { id: 'corrections' })
+    // Attend l'affichage de tous les exercices pour les cacher
+    document.addEventListener('exercicesAffiches', () => {
+      affichageUniquementExercice(0)
+      menuEval.innerHTML = ''
+      const listeDivExercices = document.querySelectorAll('[id ^= "exercice"].titreExercice')
+      for (let i = 0, element; i < listeDivExercices.length; i++) {
+        element = addElement(menuEval, 'button', { id: `btnEx${i + 1}`, style: 'margin: 5px', class: 'circular ui button' })
+        element.textContent = `Ex. ${i + 1}`
+        if (!element.hasListenner) {
+          element.addEventListener('click', () => affichageUniquementExercice(i), false)
+          element.hasListenner = true
+        }
+      }
     })
   } else if (vue === 'latex') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
