@@ -1,17 +1,16 @@
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu, prenomF, prenomM, combinaisonListes, randint, ecritureParentheseSiNegatif,
-  ecritureAlgebrique, miseEnEvidence, fractionSimplifiee, lettreDepuisChiffre,
-  calcul, texteEnCouleur, texteEnCouleurEtGras, pgcd, texNombrec, texFraction, signe, abs,
-  texFractionReduite, choice, texNombre, sp, shuffle,
-  texPrix, combinaisonListesSansChangerOrdre, range1, reduireAxPlusB, rienSi1
+  ecritureAlgebrique,
+  calcul, texteEnCouleur, texteEnCouleurEtGras, pgcd, texNombrec, texFraction, signe, abs, listeDeNotes, prenom,
+  texFractionReduite, choice, texNombre, printlatex,
+  texPrix, combinaisonListesSansChangerOrdre, range1, reduireAxPlusB, rienSi1, texRacineCarree
 } from '../../modules/outils.js'
-import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
-import Grandeur from '../../modules/Grandeur.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 import {
-  droiteGraduee2, mathalea2d, repere2, courbe2, tracePoint, point, droite, segmentAvecExtremites, texteSurSegment,
+  droiteGraduee2, mathalea2d, repere2, courbe2, tracePoint, point, droite, segmentAvecExtremites,
   codeSegments, codageAngleDroit, afficheMesureAngle, milieu, labelPoint, segment, latexParCoordonnees
 } from '../../modules/2d.js'
 
@@ -23,7 +22,7 @@ export const amcType = 'AMCNum'
 
 /**
  * Ensemble de questions pour course aux nombres
- * @author Jean-Claude Lhote
+ * @author Gilles Mora
  * Référence
 */
 export default function CourseAuxNombresSeconde (numeroExercice) {
@@ -43,14 +42,14 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let a, b, c, d, N, xA, xB, yA, yB, x1, x2, y1, y2, A, B, C, D, E, G, H, k, u,
-      resultat, inconnue, objets, repere, fraction, racine, den, r, e, f, m, n, somme, tA, tB,
-      prenom1, prenom2, expression, x
+    let a, b, c, d, N, xA, xB, yA, yB, x1, x2, y1, y2, A, B, C, D, E, G, H, k, u, p, q, ux, uy, vx, vy,
+      resultat, inconnue, objets, repere, fraction, racine, den, r, e, f, m, n, somme, tA, tB, triplet,
+      prenom1, prenom2, expression, x, max, min, notes, nombreNotes, couplenm
     let questions = []
 
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(1), this.nbQuestions)
+      questions = combinaisonListesSansChangerOrdre(range1(30), this.nbQuestions)
     } else {
       if (typeof this.sup === 'number') {
         // Si c'est un nombre c'est qu'il y a qu'une seule question
@@ -85,27 +84,24 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
       ['framboises', 6.5, 1, 5], ['fraises', 4.5, 5, 10], ['citrons', 1.5, 15, 30], ['bananes', 2.5, 15, 25]
     ]
 
-    const hauteurs = [
-      ['chaise', 75, 115, 'cm'],
-      ['grue', 120, 250, 'dm'],
-      ['tour', 50, 180, 'm'],
-      ['girafe', 40, 50, 'dm'],
-      ['coline', 75, 150, 'm']
-    ]
-
+    const liste_triplet = [
+      [3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29], [12, 35, 37], [9, 40, 41], [11, 60, 61]
+    ] // triplets Pythagore
     const plat = [
       ['nems'], ['samossas'], ['parts de quiches'], ['parts de pizzas'], ['beignets']
     ]
 
     const signesDeX = combinaisonListes([true, false], this.nbQuestions)
-    const typeQuestionsDisponibles = ['q23']//
+    const typeQuestionsDisponibles = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10',
+      'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20',
+      'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']
     // 'q1','q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10']
     // 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20'
     // 'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']//
     // 'q1',  produit d'entiers
     // 'q2', // somme ou différence d'entiers
     // 'q3', // Tiers, moitié, proportions d'une quantité
-    // 'q4', // Conversion heures, minutes .... ou changments d'unités (simples)
+    // 'q4', // Conversion heures, minutes .... ou changments d'unités
     // 'q5', // Calculs avec des fractions simples <-> écriture décimale
     // 'q6', // pourcentage simple
     //  'q7', // *10, 100 0,1...ou division
@@ -118,20 +114,20 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
     // 'q14', // calcul littéral1, équation (pas id remarquables)
     // 'q15', // Périmètre/aires, agrandissement/réduction
     // 'q16', //  calculs astucieux, calculs avec parenthèses, puissances (1)
-    //  'q17', // pourcentage (évolution, proportion,....)
+    //  'q17', // pourcentage 1 (évolution, proportion,....)
     //  'q18', // probabilité, denombrement
     // 'q19', // Milieu/distance
     // 'q20', // triangle (pythagore, thalès, angles, trigo ...)
     // 'q21', // image/antécédents par une fonction
-    // 'q22', // pourcentage
-    // 'q23', // arithmétique, calculs astucieux (avec racines carrées aussi), programme de calcul, puissances (2)
+    // 'q22', // Droites
+    // 'q23', // arithmétique, calculs (y compris astucieux) ,  racines carrées, programme de calcul, puissances (2)
     // 'q24', // statistiques
-    // 'q25', // inéquation, signes
+    // 'q25', // inéquation, inégalités, intervalles, signes
     // 'q26', // fonction (calcul, VI)
     // 'q27', // Calcul littéral2 (avec id) , équations
-    // 'q28', //  Problèmes avec vitesse, heures....
+    // 'q28', //  Problèmes avec vitesse, heures, conversions....
     //  'q29', // vecteurs
-    // 'q30' // Questions diverses sans aléatoire ou peu d'aléatoire
+    // 'q30' // "question surprise", Questions diverses
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objets = []
@@ -254,7 +250,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
           }
           break
         case 'q4':
-          switch (choice([1, 2, 3, 4, 5])) {
+          switch (choice([1, 2, 3, 4, 5, 6])) { //
             case 1:// conversion minutes en heures
               a = randint(1, 2)
               b = randint(10, 59)
@@ -356,10 +352,23 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
                 }
               }
               break
+            case 6:// conversion
+              a = randint(1, 12) + randint(1, 9) / 10
+              N = choice(['a', 'b'])
+
+              texte = ` $${texNombrec(a)}$ m$^3=$.... L 
+ 
+                                    `
+
+              texteCorr = `$1$ m$^3$= $1000$ L, donc $${texNombrec(a)}$ m$^3$=$${texNombrec(a)}\\times 1000$ L $=${a * 1000}$ L. 
+               `
+              setReponse(this, i, a * 1000, { formatInteractif: 'calcul' })
+
+              break
           }
           break
         case 'q5':
-          switch (choice([1, 2, 3])) {
+          switch (choice([1, 2, 3, 4])) {
             case 1:// conversion fraction <->décimale cinquième et quart
               a = randint(1, 9, 5)
               b = randint(1, 11, [2, 4, 6, 8, 10])
@@ -397,11 +406,21 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               texteCorr = `$${a}+${texFraction(c, b)} = ${texNombrec(a + c / b)}$`
               setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               break
+            case 4:// addition entier et fraction avec den =100 et 1000
+              a = randint(1, 15)
+              b = randint(11, 19)
+              c = randint(1, 9)
+              resultat = texNombrec(calcul(a + b / 100 + c / 1000))
+
+              texte = `Ecrire le résultat sous forme décimale  :  $${a}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}$.`
+              texteCorr = `$${a}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}=${a}+${texNombrec(b / 100)}+${texNombrec(c / 1000)}=${texNombrec(a + b / 100 + c / 1000)}$.`
+              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              break
           }
 
           break
         case 'q6':
-          switch (choice([1, 2])) {
+          switch (choice([1, 2, 3])) {
             case 1:// pourcentage d'un multiple de 10
               a = randint(2, 9) * 10
               b = randint(2, 9, a) * 10
@@ -415,6 +434,15 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               resultat = calcul(a * 10 / 100)
               texte = `$10\\%$ de $${a}=$`
               texteCorr = `$10\\%$ de $${a} = 0,1\\times ${a}=${texNombrec(resultat)}$`
+              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              break
+
+            case 3:// prendre  20%, 30%, 40%......
+              a = randint(1, 9) * 10
+              p = randint(2, 9, 5) * 10
+              resultat = calcul(a * p / 100)
+              texte = `$${p}\\%$ de $${a}=$`
+              texteCorr = `$${p}\\%$ de $${a} = ${texNombrec(p / 100)}\\times ${a}=${texNombrec(resultat)}$`
               setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               break
           }
@@ -455,7 +483,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
           break
 
         case 'q8':
-          switch (choice([1, 2, 3, 4, 5, 6])) {
+          switch (choice([1, 2, 3, 4, 5, 6, 7])) { //
             case 1:// droite graduée     /3
               a = choice([1, 2, 4, 5, 7, 8]) // numérateur
               c = new Fraction(a, 3)
@@ -589,11 +617,24 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               }
 
               break
+            case 7:// suite logique
+              a = randint(1, 9) * 10 + randint(1, 9)
+              N = choice(['a', 'b'])
+
+              texte = ` Compléter la suite logique : <br>
+ $${texNombrec(a + 0.6)}$ &nbsp ; &nbsp$${texNombrec(a + 0.7)}$ &nbsp ; &nbsp$${texNombrec(a + 0.8)}$ &nbsp ; &nbsp$${texNombrec(a + 0.9)}$ &nbsp ; &nbsp .....
+                                    `
+
+              texteCorr = `$${a + 1}$
+               `
+              setReponse(this, i, a + 1, { formatInteractif: 'calcul' })
+
+              break
           }
           break
 
         case 'q9':// petits problèmes avec division euclidienne, partage, de plus, de moins, rendu de monnaie......
-          switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) {
+          switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9])) {
             case 1:// de plus
               r = randint(4, 7) * 10
               e = randint(1, 3) * 10
@@ -711,6 +752,16 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
   `
               texteCorr = `Chaque enfant aura  $${a}\\div ${b}=${texNombrec(a / b)}$ billes.`
               setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              break
+            case 9:// division euclidienne
+              q = randint(11, 15)
+              b = randint(8, 11)
+              r = randint(1, b - 1)
+              a = b * q + r
+              texte = `   En utilisant l'égalité $${a}=${b}\\times ${q}+${r}$, donner le reste de la division euclidienne de $${a}$ par $${b}$.
+  `
+              texteCorr = `Puisque $${r}$ est strictement inférieur à $${b}$, le reste est $${r}$.`
+              setReponse(this, i, r, { formatInteractif: 'calcul' })
               break
           }
 
@@ -929,7 +980,7 @@ $\\begin{array}{|l|c|c|}\n`
           break
 
         case 'q13':
-          switch (choice([1, 2, 3])) {
+          switch (choice([1, 2, 3, 4])) { //
             case 1:// coefficient directeur droite
               xA = randint(0, 7)
               yA = randint(0, 7)
@@ -1000,6 +1051,17 @@ $\\begin{array}{|l|c|c|}\n`
               }
 
               break
+            case 4:// coefficient directeur fct linéaire
+              xA = randint(1, 10)
+              yA = randint(-10, 10, 0)
+
+              texte = `Le coefficient directeur d'une fonction linéaire passant par le point $A(${xA};${yA})$ est :<br>
+              On donnera le résultat sous la fomre d'une fraction irréductible ou d'un entier le cas échéant.`
+
+              texteCorr = `Le coefficient directeur de la droite est donné par : $m=\\dfrac{y_A}{x_A}=\\dfrac{${yA}}{${xA}}=${texFractionReduite(yA, xA)}$.`
+              setReponse(this, i, texFractionReduite(yA, xA), { formatInteractif: 'calcul' })
+
+              break
           }
 
           break
@@ -1047,7 +1109,7 @@ $\\begin{array}{|l|c|c|}\n`
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               }
               break
-            case 2:// resolution de ax+b=0
+            case 2:// resolution de ax+b=c
               a = randint(2, 9)
               b = randint(1, 9)
               c = randint(1, 9, b)
@@ -1131,11 +1193,11 @@ $\\begin{array}{|l|c|c|}\n`
           break
 
         case 'q15':
-          switch (choice([1, 2, 3, 4, 5, 6])) {
+          switch (choice([1, 2, 3, 4, 5, 6, 7])) { // 1, 2, 3, 4, 5, 6, 7
             case 1:// conversion fraction <->décimale cinquième et quart
               a = randint(3, 9)
               b = randint(0, 1)
-              texte = `Est-il vrai qu'un carré de côté ${a} cm a le même périmètre qu'un rectangle de largeur ${a - b} cm et de longueur ${a + 1} cm ? (V ou F)`
+              texte = `Un carré de côté ${a} cm a le même périmètre qu'un rectangle de largeur ${a - b} cm et de longueur ${a + 1} cm ? (V ou F)`
               if (b === 0) {
                 texteCorr = `Faux car $4\\times ${a}$ cm$\\neq 2\\times ${a}$ cm$ + 2\\times ${a + 1}$ cm.`
                 setReponse(this, i, 'F')
@@ -1152,7 +1214,16 @@ $\\begin{array}{|l|c|c|}\n`
               setReponse(this, i, resultat, { formatInteractif: 'calcul' })
 
               break
-            case 3:// aire d'un carré connaissant son perimètre
+            case 3:// perimètre d'un carré connaissant son aire
+              a = randint(1, 10)
+              c = a * a
+              resultat = calcul(4 * a)
+              texte = `Déterminer le périmètre (en cm) d'un carré d'aire $${c}$ cm$^2$. `
+              texteCorr = `Le côté du carré est $\\sqrt{${c}}=${a}$. Son périmètre est donc $4\\times ${a}=${4 * a}$ cm.`
+              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              break
+
+            case 4:// côté d'un carré connaissant son perimètre
               a = randint(5, 20) * 4
               resultat = calcul(a / 4)
               texte = `Le périmètre d'un carré est $${a}$ cm. Quelle est la longueur (en cm) du côté du carré ? `
@@ -1160,7 +1231,7 @@ $\\begin{array}{|l|c|c|}\n`
               setReponse(this, i, resultat, { formatInteractif: 'calcul' })
 
               break
-            case 4:// périmètre d'une figure
+            case 5:// périmètre d'une figure
               a = randint(1, 3)//
               b = randint(4, 7)//
               n = randint(7, 12)
@@ -1186,7 +1257,7 @@ $\\begin{array}{|l|c|c|}\n`
               setReponse(this, i, a + b + c + d, { formatInteractif: 'calcul' })
 
               break
-            case 5:// agrandissement/réduction
+            case 6:// agrandissement/réduction
               N = choice(['a', 'b', 'c'])
               if (N === 'a') {
                 a = randint(2, 7)// aire
@@ -1231,7 +1302,7 @@ $\\begin{array}{|l|c|c|}\n`
                 setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fraction' })
               }
               break
-            case 6:// longueur à trouver à partir d'une aire triangle rectangle
+            case 7:// longueur à trouver à partir d'une aire triangle rectangle
               a = randint(2, 10)//
               b = randint(1, 5) * a
               A = point(0, 0, 'A', 'below')
@@ -1258,7 +1329,7 @@ $\\begin{array}{|l|c|c|}\n`
           break
 
         case 'q16':
-          switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9])) {
+          switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])) { //
             case 1:// nombre de nombres entiers entre deux valeurs
               a = randint(10, 80)
 
@@ -1441,12 +1512,24 @@ $\\begin{array}{|l|c|c|}\n`
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               }
               break
+
+            case 10:// division avec décimaux
+              a = randint(3, 9) / 10
+              b = randint(2, 9)
+
+              resultat = calcul((a * b) / a)
+              texte = `Calculer $\\dfrac{${texNombrec(a * b)}}{${texNombrec(a)}}$.<br>
+              On donnera le résultat sous forme décimale.`
+              texteCorr = `$\\dfrac{${texNombrec(a * b)}}{${texNombrec(a)}}=\\dfrac{${texNombrec(a * b)}\\times 10}{${texNombrec(a)}\\times 10}=\\dfrac{${texNombrec(a * b * 10)}}{${texNombrec(a * 10)}}=${texNombrec((a * b) / a)}$. `
+              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+
+              break
           }
 
           break
 
         case 'q17':
-          switch (choice([1, 2])) {
+          switch (choice([1, 2, 3, 4])) { // 1, 2, 3
             case 1:// pourcentage prix après  diminution de  10 ou 20%
               N = choice(['a', 'b'])
               if (N === 'a') {
@@ -1471,7 +1554,7 @@ $\\begin{array}{|l|c|c|}\n`
               }
 
               break
-            case 2:// situation proportion
+            case 2:// situation proportion1
 
               a = choice([5, 6, 7])
               if (a === 5) {
@@ -1500,11 +1583,40 @@ $\\begin{array}{|l|c|c|}\n`
               }
 
               break
+            case 3:// situation proportion2
+              a = choice([20, 40])
+              b = choice([4, 8, 16])
+              texte = ` Dans une classe de $${a}$ élèves, $${b}$  sont des filles.<br>
+             Elles représentent ..... % de l'effectif de la classe.`
+              texteCorr = `La proportion de filles est donnée par $\\dfrac{${b}}{${a}}=${texNombrec(b / a)}$, soit $${texNombrec((b / a) * 100)}$%.`
+
+              setReponse(this, i, (b / a) * 100)
+
+              break
+
+            case 4:// situation proportion3
+              a = choice([20, 40, 60, 80])
+              b = choice([50, 10, 20])
+              c = choice([50, 10, 20])
+              texte = ` Dans un sachet, il y a $${a}$ bonbons.<br>
+$${b}$ % des bonbons sont verts et $${c}$ % de ceux-ci sont à la pomme.<br>
+Quel est le nombre de bonbons verts à la pomme ?`
+              texteCorr = `Les bonbons verts à la pomme représentent $${b}$ % de $${c}$ % des bonbons.<br>
+$${b}$ % de $${a}=${texNombrec(b / 100)}\\times ${a}=${texNombrec(b * a / 100)}$.<br>
+Il y a $${texNombrec(b * a / 100)}$ bonbons verts.<br>
+$${c}$ % de $${texNombrec(b * a / 100)}=${texNombrec(c / 100)}\\times ${b * a / 100}=${texNombrec(c * b * a / 10000)}$.<br>
+Il y a donc $${texNombrec(c * b * a / 10000)}$ bonbons verts à la pomme.
+`
+
+              setReponse(this, i, c * b * a / 10000)
+
+              break
           }
 
           break
+
         case 'q18':
-          switch (choice([1, 2, 3])) {
+          switch (choice([1, 2, 3, 4])) { //
             case 1:// proba urne boulesB et boulesN
               a = randint(2, 9)
               b = randint(5, 15)
@@ -1538,6 +1650,20 @@ $\\begin{array}{|l|c|c|}\n`
               Quelle est la probabilité de son événement contraire ? `
               texteCorr = `On a $P(\\overline{A})=1-P(A)=1-\\dfrac{${n}}{${d}}=${texFraction(d - n, d)}$.`
               setReponse(this, i, new Fraction(d - n, d), { formatInteractif: 'fraction' })
+
+              break
+            case 4:// calcul proba val décimale
+              a = randint(1, 9)
+              b = 10 - a
+
+              resultat = calcul(a / 10)
+              texte = `Une urne contient $${a}$ boules bleues et $${b}$ boules rouges. <br>
+              On tire une boule au hasard.<br>
+              Quelle est la probabilité de tirer une boule bleue ?<br>
+              On donnera le résultat sous forme décimale.`
+              texteCorr = `La probabilité est donnée par : $\\dfrac{${a}}{${a}+${b}}= ${texNombrec(a / 10)}$.`
+
+              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
 
               break
           }
@@ -1639,7 +1765,7 @@ $\\begin{array}{|l|c|c|}\n`
           break
 
         case 'q20':
-          switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9])) { //
+          switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])) { // 1, 2, 3, 4, 5, 6, 7, 8, 9
             case 1:// pythagore hypoténuse
               a = randint(1, 6)//
 
@@ -1877,87 +2003,220 @@ Ainsi, $DC=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
               }
 
               break
+
+            case 10:// trigo
+              triplet = choice(liste_triplet)
+              a = triplet[0]
+              b = triplet[1]
+              c = triplet[2]
+              A = point(0, 0, 'A', 'below')
+              B = point(-2, 3, 'B')
+              C = point(2, 5.7, 'C')
+              N = choice(['a', 'b', 'c', 'd', 'e', 'f'])
+
+              objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C), codageAngleDroit(A, B, C))
+              objets.push(latexParCoordonnees(`${texNombrec(b)}`, milieu(B, C).x, milieu(B, C).y + 0.25, 'black', 20, 10, ''),
+                latexParCoordonnees(`${texNombrec(c)}`, milieu(A, C).x + 0.5, milieu(A, C).y, 'black', 20, 10, ''),
+                latexParCoordonnees(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'black', 20, 10, ''))
+              if (N === 'a') {
+                texte = `$\\cos\\widehat{C}=$<br>
+              (Sous forme d'une fraction irréductible)
+                              `
+                texte += mathalea2d({ xmin: -3, ymin: -1, xmax: 3, ymax: 7, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+
+                texteCorr = ` Dans le triangle $ABC$ rectangle en $C$, on a : 
+              $\\cos\\widehat{C}=\\dfrac{\\text{Côté adjacent à } \\widehat{C}}{\\text{Hypoténuse}}=\\dfrac{${b}}{${c}}.$
+            <br>`
+
+                setReponse(this, i, [`\\dfrac{${b}}{${c}}`])
+              }
+              if (N === 'b') {
+                texte = `$\\sin\\widehat{C}=$<br>
+                (Sous forme d'une fraction irréductible)
+                                `
+                texte += mathalea2d({ xmin: -3, ymin: -1, xmax: 3, ymax: 7, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+
+                texteCorr = ` Dans le triangle $ABC$ rectangle en $C$, on a : 
+                $\\sin\\widehat{C}=\\dfrac{\\text{Côté opposé à } \\widehat{C}}{\\text{Hypoténuse}}=\\dfrac{${a}}{${c}}.$
+              <br>`
+
+                setReponse(this, i, [`\\dfrac{${a}}{${c}}`])
+              }
+              if (N === 'c') {
+                texte = `$\\tan\\widehat{C}=$<br>
+                  (Sous forme d'une fraction irréductible)
+                                  `
+                texte += mathalea2d({ xmin: -3, ymin: -1, xmax: 3, ymax: 7, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+
+                texteCorr = ` Dans le triangle $ABC$ rectangle en $C$, on a : 
+                  $\\tan\\widehat{C}=\\dfrac{\\text{Côté opposé à } \\widehat{C}}{\\text{Côté opposé à } \\widehat{C}}=\\dfrac{${a}}{${b}}.$
+                <br>`
+
+                setReponse(this, i, [`\\dfrac{${a}}{${b}}`])
+              }
+              if (N === 'd') {
+                texte = `$\\cos\\widehat{A}=$<br>
+                    (Sous forme d'une fraction irréductible)
+                                    `
+                texte += mathalea2d({ xmin: -3, ymin: -1, xmax: 3, ymax: 7, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+
+                texteCorr = ` Dans le triangle $ABC$ rectangle en $C$, on a : 
+                    $\\cos\\widehat{A}=\\dfrac{\\text{Côté adjacent à } \\widehat{A}}{\\text{Hypoténuse}}=\\dfrac{${a}}{${b}}.$
+                  <br>`
+
+                setReponse(this, i, [`\\dfrac{${a}}{${c}}`])
+              }
+              if (N === 'e') {
+                texte = `$\\sin\\widehat{A}=$<br>
+                      (Sous forme d'une fraction irréductible)
+                                      `
+                texte += mathalea2d({ xmin: -3, ymin: -1, xmax: 3, ymax: 7, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+
+                texteCorr = ` Dans le triangle $ABC$ rectangle en $C$, on a : 
+                      $\\sin\\widehat{A}=\\dfrac{\\text{Côté opposé à } \\widehat{A}}{\\text{Hypoténuse}}=\\dfrac{${b}}{${c}}.$
+                    <br>`
+
+                setReponse(this, i, [`\\dfrac{${b}}{${c}}`])
+              }
+              if (N === 'f') {
+                texte = `$\\tan\\widehat{A}=$<br>
+                        (Sous forme d'une fraction irréductible)
+                                        `
+                texte += mathalea2d({ xmin: -3, ymin: -1, xmax: 3, ymax: 7, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+
+                texteCorr = ` Dans le triangle $ABC$ rectangle en $C$, on a : 
+                        $\\tan\\widehat{A}=\\dfrac{\\text{Côté opposé à } \\widehat{A}}{\\text{Côté adjacent à } \\widehat{A}}=\\dfrac{${b}}{${a}}.$
+                      <br>`
+
+                setReponse(this, i, [`\\dfrac{${b}}{${a}}`])
+              }
+              break
           }
 
           break
 
         case 'q21':// calculs d'images
-        switch (choice([1,2,3,4])) { 
-          case 1:// avec un poly du second degré
-x = randint(1, 3)
-          if (signesDeX[i]) {
-            x = -1 * x
-          }
-          a = randint(1, 2)
-          b = randint(1, 2)
-          c = randint(2, 5)
-          expression = `${rienSi1(a)}x^2+${rienSi1(b)}x+${c}`
-          texte = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
+          switch (choice([1, 2, 3, 4])) {
+            case 1:// avec un poly du second degré
+              x = randint(1, 3)
+              if (signesDeX[i]) {
+                x = -1 * x
+              }
+              a = randint(1, 2)
+              b = randint(1, 2)
+              c = randint(2, 5)
+              expression = `${rienSi1(a)}x^2+${rienSi1(b)}x+${c}`
+              texte = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
           Calculer $f(${x})$.`
-          texteCorr = `$f(${x})=
+              texteCorr = `$f(${x})=
           ${a}\\times ${ecritureParentheseSiNegatif(x)}^2+${rienSi1(b)}\\times ${ecritureParentheseSiNegatif(x)}+${c}=
           ${a}\\times${x * x}${ecritureAlgebrique(b * x)}=
           ${a * x * x}${ecritureAlgebrique(b * x)}+${c}=
           ${a * x * x + b * x + c}$`
-          setReponse(this, i, a * x * x + b * x + c)
+              setReponse(this, i, a * x * x + b * x + c)
 
-          break
-       
-          case 2:// calculs image d'un produit
-          a = randint(-3, 3, [0, 1, -1])
-          b = randint(-3, 3, [0])
-          c = randint(-3, 3, [0, 1, -1])
-          d = randint(-3, 3, [0])
-          x = randint(-2, 2, [0])
+              break
 
-          expression = `(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})`
-          texte = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
+            case 2:// calculs image  avec un produit
+              a = randint(-3, 3, [0, 1, -1])
+              b = randint(-3, 3, [0])
+              c = randint(-3, 3, [0, 1, -1])
+              d = randint(-3, 3, [0])
+              x = randint(-2, 2, [0])
+
+              expression = `(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})`
+              texte = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
           Calculer $f(${x})$.`
-          texteCorr = `$f(${x})=\\left(${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)\\left(${c}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}\\right)=(${a * x}${ecritureAlgebrique(b)})(${c * x}${ecritureAlgebrique(d)})=${a * x + b}\\times${ecritureParentheseSiNegatif(c * x + d)}=${(a * x + b) * (c * x + d)}$`
-          setReponse(this, i, (a * x + b) * (c * x + d))
-          break
-case 3:// avec (x+a)^2
-  a = randint(-4, 4, [0, -1, 1])
-  b = randint(-4, 4, [0])
-  c = randint(-4, 4, [0, -1, 1])
-  d = randint(-4, 4, [0])
-  x = randint(-2, 2, [0])
+              texteCorr = `$f(${x})=\\left(${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)\\left(${c}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}\\right)=(${a * x}${ecritureAlgebrique(b)})(${c * x}${ecritureAlgebrique(d)})=${a * x + b}\\times${ecritureParentheseSiNegatif(c * x + d)}=${(a * x + b) * (c * x + d)}$`
+              setReponse(this, i, (a * x + b) * (c * x + d))
+              break
+            case 3:// image avec (x+a)^2
+              a = randint(-4, 4, [0, -1, 1])
+              b = randint(-4, 4, [0])
+              c = randint(-4, 4, [0, -1, 1])
+              d = randint(-4, 4, [0])
+              x = randint(-2, 2, [0])
 
-  expression = `(${a}x${ecritureAlgebrique(b)})^2`
-  texte = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
+              expression = `(${a}x${ecritureAlgebrique(b)})^2`
+              texte = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
   Calculer $f(${x})$.`
-  texteCorr = `$f(${x})=\\left(${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)^2=(${a * x}${ecritureAlgebrique(b)})^2=${ecritureParentheseSiNegatif(a * x + b)}^2=${(a * x + b) * (a * x + b)}$`
-  setReponse(this, i, (a * x + b) * (a * x + b))
-  break
+              texteCorr = `$f(${x})=\\left(${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)^2=(${a * x}${ecritureAlgebrique(b)})^2=${ecritureParentheseSiNegatif(a * x + b)}^2=${(a * x + b) * (a * x + b)}$`
+              setReponse(this, i, (a * x + b) * (a * x + b))
+              break
 
-  case 4: //avec un quotient
-  a = randint(2, 4)
-  b = randint(1, 4)
-  c = randint(2, 4)
-  d = randint(1, 5,b)
-  x = randint(-3, 3,0)
-  while (c * x + d === 0) {
-    c = randint(2, 4)
-  }
-  while (a * x + b === 0) {
-    a = randint(2, 4)
-  }
-  expression = `\\dfrac{${a}x+${b}}{${c}x+${d}}`
-  texte = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
+            case 4: // image avec un quotient
+              a = randint(2, 4)
+              b = randint(1, 4)
+              c = randint(2, 4)
+              d = randint(1, 5, b)
+              x = randint(-3, 3, 0)
+              while (c * x + d === 0) {
+                c = randint(2, 4)
+              }
+              while (a * x + b === 0) {
+                a = randint(2, 4)
+              }
+              expression = `\\dfrac{${a}x+${b}}{${c}x+${d}}`
+              texte = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
   Calculer $f(${x})$ sous la forme d'une fraction irréductible ou d'un entier le cas échéant.`
-  texteCorr = `$f(${x})=\\dfrac{${a}\\times${ecritureParentheseSiNegatif(x)}+${b}}{${c}\\times${ecritureParentheseSiNegatif(x)}+${d}}=\\dfrac{${a * x}+${b}}{${c * x}+${d}}=\\dfrac{${a * x + b}}{${c * x + d}}=${texFractionReduite(a * x + b, c * x + d)}$`
-  setReponse(this, i, texFractionReduite(a * x + b, c * x + d))
-    break
-
-        }
+              texteCorr = `$f(${x})=\\dfrac{${a}\\times${ecritureParentheseSiNegatif(x)}+${b}}{${c}\\times${ecritureParentheseSiNegatif(x)}+${d}}=\\dfrac{${a * x}+${b}}{${c * x}+${d}}=\\dfrac{${a * x + b}}{${c * x + d}}=${texFractionReduite(a * x + b, c * x + d)}$`
+              setReponse(this, i, texFractionReduite(a * x + b, c * x + d))
+              break
+          }
           break
 
+        case 'q22':// autour des droites
+          switch (choice([1, 2, 3])) {
+            case 1:// coordonnées d'un point d'une droite
+              a = randint(-10, 10, 0)
+              b = randint(-10, 10, 0)
+              c = randint(-10, 10, 0)
 
+              texte = ` Donner les coordonnées du point de la droite d'équation $y=${reduireAxPlusB(a, b)}$ qui a pour abscisse $${c}$`
+              texteCorr = `Puisque $${c}$ est l'abscisse de ce point, son ordonnée est donnée par
+            $y=${a}\\times ${ecritureParentheseSiNegatif(c)}+${ecritureParentheseSiNegatif(b)}=${a * c + b}$.<br>
+            Les coordonnées du  point sont donc : $(${c};${texNombrec(a * c + b)})$.`
 
+              setReponse(this, i, [`(${texNombrec(c)};${texNombrec(a * c + b)})`])
+              break
+            case 2:// coordonnées point d'intersection droite et axe des abscisses
+              a = randint(-10, 10, 0)
+              n = randint(-5, 5, 0)
+              b = n * a
 
+              texte = ` Donner les coordonnées du point d'intersection entre la droite d'équation $y=${reduireAxPlusB(a, b)}$ et l'axe des abscisses.`
+              texteCorr = `L'ordonnée de ce point est $0$.<br>
+              Son abscisse est la solution de l'équation  $${reduireAxPlusB(a, b)}=$, c'est-à-dire $${texFractionReduite(-b, a)}$.
+            Les coordonnées de ce   point sont donc : $(${texFractionReduite(-b, a)};0)$.`
+
+              setReponse(this, i, [`(${texFractionReduite(-b, a)};0)`])
+              break
+            case 3:// coordonnées point d'intersection droite et axe des ordonnées
+              a = randint(-10, 10, 0)
+              b = randint(1, 10)
+              n = randint(-5, 5, 0)
+              c = n * b
+              if (c > 0) {
+                texte = ` Donner les coordonnées du point d'intersection entre la droite d'équation $${rienSi1(a)}x+${rienSi1(b)}y+${c}=0$ et l'axe des ordonnées.`
+                texteCorr = `L'abscisse de ce point est $0$.<br>
+              Son ordonnée est la solution de l'équation  $${b}y+${c}=0$, c'est-à-dire $${texFractionReduite(-c, b)}$.
+            Les coordonnées de ce   point sont donc : $(${texFractionReduite(-c, b)};0)$.`
+
+                setReponse(this, i, [`(0;${texFractionReduite(-c, b)})`])
+              } else {
+                texte = ` Donner les coordonnées du point d'intersection entre la droite d'équation $${rienSi1(a)}x+${rienSi1(b)}y${c}=0$ et l'axe des ordonnées.`
+                texteCorr = `L'abscisse de ce point est $0$.<br>
+              Son ordonnée est la solution de l'équation  $${b}y${c}=0$, c'est-à-dire $${texFractionReduite(-c, b)}$.
+            Les coordonnées de ce   point sont donc : $(0;${texFractionReduite(-c, b)})$.`
+
+                setReponse(this, i, [`(0;${texFractionReduite(-c, b)})`])
+              }
+              break
+          }
+          break
 
         case 'q23':// arithmétique, calculs astucieux (avec racines carrées aussi), calculs avec parenthèses, puissances (2)
-          switch (choice([1,2,3])) { //
+          switch (choice([1, 2, 3, 4, 5, 6, 7])) { // 1, 2, 3, 4, 5,6
             case 1:// calcul d'un carré avec racine carré
               racine = choice(liste_racines1)
               a = racine[0]
@@ -2028,15 +2287,909 @@ case 3:// avec (x+a)^2
                 setReponse(this, i, (d / 6 - e) * (d / 6 - e), { formatInteractif: 'calcul' })
               }
               break
-              
-  case 3: //calculer (-a)^2+a^2
-  a=randint(1,10)
-  texte = `Calculer $A=(-${a})^2+(${a})^2$. <br>
+
+            case 3: // calculer (-a)^2+a^2
+              a = randint(1, 10)
+              texte = `Calculer $A=(-${a})^2+(${a})^2$. <br>
   `
-  texteCorr = `$A=(-${a})^2+(${a})^2=${a*a}+${a*a}=${2*a*a}$.`
-  setReponse(this, i, 2*a*a, { formatInteractif: 'calcul' })
-    break
+              texteCorr = `$A=(-${a})^2+(${a})^2=${a * a}+${a * a}=${2 * a * a}$.`
+              setReponse(this, i, 2 * a * a, { formatInteractif: 'calcul' })
+              break
+
+            case 4: // reste division euclidienne
+              q = randint(8, 10)
+              b = randint(5, 9)
+              r = randint(1, b - 1)
+              a = b * q + r
+              texte = `Quel est le  reste de la division euclidienne de $ ${texNombre(a)} $ par $ ${b} $<br>`
+
+              texteCorr = `$ ${texNombre(a)} = ${b} \\times ${q} + ${r} $, donc le reste est :$${r}$.`
+              setReponse(this, i, r, { formatInteractif: 'calcul' })
+              break
+
+            case 5: // encadrement puissance de 10
+              N = choice(['a', 'b', 'c', 'd'])
+              if (N === 'a') {
+                a = randint(2, 9) * 10 ** 4 + randint(1, 9) * 10 ** 3 + randint(1, 9) * 10 ** 2 + randint(1, 9) * 10 + randint(1, 9)
+                texte = `L'encadrement de $${texNombrec(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombrec(a)}<10^b$.<br>
+            Quelle est la valeur de $b$ ?
+            `
+                texteCorr = `On a : $10^4<${texNombrec(a)}<10^5$, donc $b=5$.`
+                setReponse(this, i, '5', { formatInteractif: 'texte' })
+              }
+
+              if (N === 'b') {
+                a = randint(2, 9) * 10 ** 5 + randint(1, 9) * 10 ** 4 + randint(1, 9) * 10 ** 3 + randint(1, 9) * 10 ** 2 + randint(1, 9) * 10 + randint(1, 9)
+                texte = `L'encadrement de $${texNombrec(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombrec(a)}<10^b$.<br>
+                Quelle est la valeur de $b$ ?
+                `
+                texteCorr = `On a : $10^5<${texNombrec(a)}<10^6$, donc $b=6$.`
+                setReponse(this, i, '6', { formatInteractif: 'texte' })
+              }
+
+              if (N === 'c') {
+                a = randint(2, 9) * 0.001 + randint(1, 9) * 0.01
+                texte = `L'encadrement de $${texNombrec(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombrec(a)}<10^b$.<br>
+                      Quelle est la valeur de $b$ ?
+                      `
+                texteCorr = `On a : $10^{-2}<${texNombrec(a)}<10^{-1}$, donc $b=-1$.`
+                setReponse(this, i, '-1', { formatInteractif: 'texte' })
+              }
+              if (N === 'd') {
+                a = randint(2, 9) * 0.0001
+                texte = `L'encadrement de $${texNombrec(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombrec(a)}<10^b$.<br>
+                        Quelle est la valeur de $a$ ?
+                        `
+                texteCorr = `On a : $10^{-4}<${texNombrec(a)}<10^{-3}$, donc $a=-4$.`
+                setReponse(this, i, '-4', { formatInteractif: 'texte' })
+              }
+              break
+            case 6: // racine carrée et égalité remarquable
+              a = randint(1, 5)
+              b = randint(2, 20, [4, 9, 16])
+
+              texte = `Calculer $(${a}-\\sqrt{${b}})(${a}+\\sqrt{${b}})$.`
+
+              texteCorr = `$(${a}-\\sqrt{${b}})(${a}+\\sqrt{${b}})=(${a})^2-(\\sqrt{${b}})^2=${a * a - b}$.`
+              setReponse(this, i, a ** 2 - b, { formatInteractif: 'calcul' })
+              break
+
+            case 7: // calcul astucieux factorisation
+              N = choice(['a', 'b'])
+              if (N === 'a') {
+                a = randint(5, 99) / 10
+                b = randint(2, 8) * 10
+                c = 100 - b
+                texte = `$${texNombrec(a)}\\times ${b}+${texNombrec(a)}\\times ${c}=$ <br>
+  `
+                texteCorr = `$${texNombrec(a)}\\times ${b}+${texNombrec(a)}\\times ${c}=${texNombrec(a)}(${b}+${c})=${texNombrec(a)}\\times 100=${texNombrec(100 * a)}$.`
+                setReponse(this, i, 100 * a, { formatInteractif: 'calcul' })
+              }
+              if (N === 'b') {
+                a = randint(5, 99) / 100
+                b = randint(2, 8)
+                c = 10 - b
+                texte = `$${texNombrec(a)}\\times ${b}+ ${c}\\times${texNombrec(a)}=$ <br>
+    `
+                texteCorr = `$${texNombrec(a)}\\times ${b}+${texNombrec(a)}\\times ${c}=${texNombrec(a)}(${b}+${c})=${texNombrec(a)}\\times 10=${texNombrec(10 * a)}$.`
+                setReponse(this, i, 10 * a, { formatInteractif: 'calcul' })
+              }
+              break
           }
+          break
+
+        case 'q24':// statistiques
+          switch (choice([1, 2, 3, 4, 5])) { //
+            case 1: // étendue
+              nombreNotes = randint(4, 7)
+              notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une série de notes (série brute)
+              min = 20
+              max = 0
+              for (let j = 0; j < nombreNotes; j++) { // On cherche la note minimum et la note maximum
+                min = Math.min(notes[j], min)
+                max = Math.max(notes[j], max)
+              }
+              texte = `${prenom()} a obtenu ces notes ce trimestre-ci en mathématiques :<br>`
+              texte += `$${notes[0]}$`
+              for (let j = 1; j < nombreNotes - 1; j++) { texte += `; $${notes[j]}$ ` } // On liste les notes
+              texte += `et $${notes[nombreNotes - 1]}$.<br>`
+              texte += 'Calculer l\'étendue de cette série de notes.'
+              texteCorr = `La note la plus basse est : $${min}$.<br>La note la plus haute est : $${max}$<br>`
+              texteCorr += 'Donc l\'étendue de cette série est : ' + `$${texNombre(max)}-${texNombre(min)}=${texNombre(max - min)}$`
+              setReponse(this, i, max - min, { formatInteractif: 'calcul' })
+              break
+            case 2: // moyenne1
+              a = randint(2, 6)
+              b = randint(8, 15)
+              c = randint(7, 11)
+              e = choice([36, 40, 44, 48, 52])
+              d = e - a - b - c
+              texte = `$${a}$ ; $${b}$ ; $${c}$ ; $${d}$<br>
+        Quelle est la moyenne de cette série ?<br>`
+
+              texteCorr = `La somme des $4$ valeurs est $${e}$. La moyenne est donc $\\dfrac{${e}}{4}=${texFractionReduite(e, 4)}$.<br>`
+
+              setReponse(this, i, e / 4, { formatInteractif: 'calcul' })
+              break
+            case 3: // moyenne2
+              a = randint(1, 2) * 5
+              b = randint(9, 10)
+              c = randint(5, 7)
+              d = randint(1, 5)
+              e = choice([35, 40, 45, 50])
+              f = e - a - b - c - d
+              texte = `$${b}$ ; $${a}$ ; $${c}$ ; $${d}$ ; $${f}$<br>
+        Quelle est la moyenne de cette série ?<br>`
+
+              texteCorr = `La somme des $5$ valeurs est $${e}$. La moyenne est donc $\\dfrac{${e}}{5}=${texFractionReduite(e, 5)}$.<br>`
+
+              setReponse(this, i, e / 5, { formatInteractif: 'calcul' })
+              break
+            case 4: // moyenne3
+
+              N = choice(['a', 'b', 'c'])
+              if (N === 'a') {
+                a = randint(3, 10)
+                e = randint(2, 9) / 10
+                b = a - e
+                c = a + e
+                texte = `$${texNombrec(a)}$ &nbsp&nbsp ; &nbsp&nbsp $${texNombrec(b)}$ &nbsp&nbsp ; &nbsp&nbsp $${texNombrec(c)}$<br>
+            Quelle est la moyenne de cette série ?<br>`
+
+                texteCorr = `On a $${texNombrec(b)}=${texNombrec(a)}-${texNombrec(e)}$ et $${texNombrec(c)}=${texNombrec(a)}+${texNombrec(e)}$.<br>
+                  On en déduit que la moyenne est $${texNombrec(a)}$.`
+
+                setReponse(this, i, a, { formatInteractif: 'calcul' })
+              }
+              if (N === 'b') {
+                a = randint(10, 20)
+                e = randint(2, 9)
+                b = a - e
+                c = a + e
+                texte = `$${texNombrec(a)}$ &nbsp&nbsp ; &nbsp&nbsp$${texNombrec(c)}$&nbsp&nbsp ; &nbsp&nbsp$${texNombrec(b)}$<br>
+                    Quelle est la moyenne de cette série ?<br>`
+
+                texteCorr = `On a $${texNombrec(b)}=${texNombrec(a)}-${texNombrec(e)}$ et $${texNombrec(c)}=${texNombrec(a)}+${texNombrec(e)}$.<br>
+                          On en déduit que la moyenne est $${texNombrec(a)}$.`
+
+                setReponse(this, i, a, { formatInteractif: 'calcul' })
+              }
+              if (N === 'c') {
+                a = randint(100, 200)
+                e = randint(1, 5)
+                b = a - e
+                c = a + e
+                texte = `$${texNombrec(c)}$&nbsp&nbsp ; &nbsp&nbsp $${texNombrec(a)}$ &nbsp&nbsp ; &nbsp&nbsp$${texNombrec(b)}$<br>
+                            Quelle est la moyenne de cette série ?<br>`
+
+                texteCorr = `On a $${texNombrec(b)}=${texNombrec(a)}-${texNombrec(e)}$ et $${texNombrec(c)}=${texNombrec(a)}+${texNombrec(e)}$.<br>
+                                  On en déduit que la moyenne est $${texNombrec(a)}$.`
+
+                setReponse(this, i, a, { formatInteractif: 'calcul' })
+              }
+              break
+            case 5: // médiane
+              a = randint(10, 15)
+              n = randint(1, 4)
+              c = a * 2 * n + 1
+              texte = `Une série de $${c}$ données est rangée dans l’ordre croissant.
+              La médiane se situe au rang .....<br>`
+
+              texteCorr = `Puisque la série comporte un nombre impair de valeurs, la médiane se situe au rang $\\dfrac{${c}+1}{2}=${texFractionReduite(c + 1, 2)}$.`
+
+              setReponse(this, i, (c + 1) / 2, { formatInteractif: 'calcul' })
+              break
+          }
+          break
+        case 'q25':// inéquation, intervlles, inégalités
+          switch (choice([1, 2, 3, 4])) { //
+            case 1:// inégalités, intervalles ....
+              a = randint(1, 4) * (-1)
+              b = randint(1, 4)
+              N = choice(['a', 'b', 'c', 'd'])
+              if (N === 'a') {
+                texte = `Combien y a-t-il d'entiers dans l'intervalle $[${a}&nbsp; &nbsp${b}]$ ?`
+                texteCorr = `Il y en a $${b - a + 1}$.`
+                setReponse(this, i, b - a + 1, { formatInteractif: 'calcul' })
+              }
+              if (N === 'b') {
+                texte = `Combien y a-t-il d'entiers dans l'intervalle $]${a}&nbsp ; &nbsp${b}]$ ?`
+                texteCorr = `Il y en a $${b - a}$.`
+                setReponse(this, i, b - a, { formatInteractif: 'calcul' })
+              }
+              if (N === 'c') {
+                texte = `Combien y a-t-il d'entiers dans l'intervalle $]${a}&nbsp ; &nbsp${b}[$ ?`
+                texteCorr = `Il y en a $${b - a - 1}$.`
+                setReponse(this, i, b - a - 1, { formatInteractif: 'calcul' })
+              }
+              if (N === 'd') {
+                c = randint(-4, -1) + randint(-9, -1) / 10
+                texte = `Combien y a-t-il d'entiers dans l'intervalle $[${texNombrec(c)}&nbsp ;&nbsp ${b}[$ ?`
+                texteCorr = `Il y en a $${b - Math.trunc(c)}$.`
+                setReponse(this, i, b - Math.trunc(c), { formatInteractif: 'calcul' })
+              }
+              break
+
+            case 2:// Solution d'une inéquation
+              a = randint(1, 4)
+              b = randint(1, 4)
+              c = randint(2, 5)
+              d = randint(-3, 3)
+              N = choice(['a', 'b'])
+              if (N === 'a') {
+                texte = `$${d}$ est solution de l'inéquation &nbsp $${rienSi1(a)}x+${b}>${c}$.<br>
+          Vrai (V) ou Faux (F).`
+                if (a * d + b > c) {
+                  texteCorr = `$${d}$ est solution car : $${a}\\times ${ecritureParentheseSiNegatif(d)}+${b}>${c}$.`
+                  setReponse(this, i, 'V')
+                } else {
+                  texteCorr = `$${d}$ n'est pas  solution car : $${a}\\times ${ecritureParentheseSiNegatif(d)}+${b}<${c}$.`
+                  setReponse(this, i, 'F')
+                }
+              }
+              if (N === 'b') {
+                texte = `$${d}$ est solution de l'inéquation&nbsp  $${rienSi1(a)}x^2-${b}>${c}$.<br>
+            Vrai (V) ou Faux (F).`
+                if (a * d * d - b > c) {
+                  texteCorr = `$${d}$ est solution car : $${a}\\times ${ecritureParentheseSiNegatif(d)}^2-${b}>${c}$.`
+                  setReponse(this, i, 'V')
+                } else {
+                  texteCorr = `$${d}$ n'est pas  solution car : $${a}\\times ${ecritureParentheseSiNegatif(d)}^2-${b}<${c}$.`
+                  setReponse(this, i, 'F')
+                }
+              }
+              break
+
+            case 3: // nombres d'entiers par inégalité
+              a = randint(3, 5)
+              b = randint(15, 25)
+
+              texte = `Combien y a-t-il d'entiers $n$ tels que : $${a}\\leqslant n \\leqslant ${b}$ ?`
+
+              texteCorr = `Il y en $${b - a + 1}$.`
+
+              setReponse(this, i, b - a + 1, { formatInteractif: 'calcul' })
+              break
+
+            case 4: // signe d'une expression affine
+
+              a = randint(-5, 5, 0)
+              n = randint(2, 7) * choice([-1, 1])
+              b = n * a
+              N = choice(['a', 'b'])
+              if (N === 'a') {
+                texte = `Vrai (V) ou Faux (F) :<br>
+              $${reduireAxPlusB(a, b)}$ est strictement positif pour $x>${texFractionReduite(-b, a)}$.`
+                if (a > 0) {
+                  texteCorr = `$${reduireAxPlusB(a, b)}>0$.<br>
+              En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
+              $${rienSi1(a)}x>${-b}$<br>
+              En divisant par $${a}$ dans chaque membre, on obtient :<br>
+              $x>${texFractionReduite(-b, a)}$.`
+
+                  setReponse(this, i, 'V')
+                } else {
+                  texteCorr = `$${reduireAxPlusB(a, b)}>0$.<br>
+              En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
+              $${rienSi1(a)}x>${-b}$<br>
+              En divisant par $(${a})$ dans chaque membre, on obtient :<br>
+              $x<${texFractionReduite(-b, a)}$.`
+
+                  setReponse(this, i, 'F')
+                }
+              }
+              if (N === 'b') {
+                texte = `Vrai (V) ou Faux (F) :<br>
+                $${reduireAxPlusB(a, b)}$ est strictement positif pour $x<${texFractionReduite(-b, a)}$.`
+                if (a > 0) {
+                  texteCorr = `$${reduireAxPlusB(a, b)}>0$.<br>
+                En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
+                $${rienSi1(a)}x>${-b}$<br>
+                En divisant par $${a}$ dans chaque membre, on obtient :<br>
+                $x>${texFractionReduite(-b, a)}$.`
+
+                  setReponse(this, i, 'F')
+                } else {
+                  texteCorr = `$${reduireAxPlusB(a, b)}>0$.<br>
+                En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
+                $${rienSi1(a)}x>${-b}$<br>
+                En divisant par $(${a})$ dans chaque membre, on obtient :<br>
+                $x<${texFractionReduite(-b, a)}$.`
+
+                  setReponse(this, i, 'V')
+                }
+              }
+
+              break
+          }
+          break
+
+        case 'q26':
+          switch (choice([1, 2, 3])) { // fonctions calculs VI
+            case 1:// déterminer a pour fonction affine avec une valeur
+
+              b = randint(-3, 3, 0)
+              c = randint(1, 5)
+
+              n = choice([-3, -2, 2, 3])
+
+              d = b + n * c
+              if (b > 0) {
+                texte = `$f$ est une fonction affine telle que $f(x)=ax+${b}$ et $f(${c})=${d}$.<br>
+                Combien vaut $a$ ?
+                `
+                texteCorr = `Comme $f(${c})=${d}$, on a $a\\times ${c}+${ecritureParentheseSiNegatif(b)}=${d}$.<br>
+                On en déduit $a\\times ${ecritureParentheseSiNegatif(c)}=${d}-${ecritureParentheseSiNegatif(b)}$, d'où $a=\\dfrac{${d}-${ecritureParentheseSiNegatif(b)}}{${c}}=${texFractionReduite(d - b, c)}$.`
+                setReponse(this, i, (d - b) / c, { formatInteractif: 'calcul' })
+              } else {
+                texte = `$f$ est une fonction affine telle que $f(x)=ax-${abs(b)}$ et $f(${c})=${d}$.<br>
+               Combien vaut $a$ ?
+               `
+                texteCorr = `Comme $f(${c})=${d}$, on a $a\\times ${c}+${ecritureParentheseSiNegatif(b)}=${d}$.<br>
+               On en déduit $a\\times ${ecritureParentheseSiNegatif(c)}=${d}-${ecritureParentheseSiNegatif(b)}$, d'où $a=\\dfrac{${d}-${ecritureParentheseSiNegatif(b)}}{${c}}=${texFractionReduite(d - b, c)}$.`
+                setReponse(this, i, (d - b) / c, { formatInteractif: 'calcul' })
+              }
+              break
+
+            case 2:// si 2x+3=4, combien -4x-6 ?
+
+              a = randint(-3, 3, 0)
+              b = randint(-5, 5, 0)
+              c = randint(-5, 5, 0)
+              n = randint(-7, -1)
+
+              texte = `Si   $${reduireAxPlusB(a, b)}=${c}$,  alors   $${reduireAxPlusB(n * a, n * b)}=$<br>
+                
+                `
+              texteCorr = `Comme $${reduireAxPlusB(n * a, n * b)}=${n}\\times (${reduireAxPlusB(a, b)})$, alors 
+                $${reduireAxPlusB(n * a, n * b)}=${n}\\times ${ecritureParentheseSiNegatif(c)}=${n * c}$`
+              setReponse(this, i, n * c, { formatInteractif: 'calcul' })
+              break
+
+            case 3:// VI
+              if (choice([true, false])) {
+                a = randint(-10, 10, 0)
+                b = randint(-10, 10, 0)
+                c = randint(-10, 10, 0)
+
+                texte = `Donner la valeur interdite de $\\dfrac{${rienSi1(a)}x}{${reduireAxPlusB(b, c)}}$.<br>
+              (Résultat sous la forme d'une fraction réduite ou d'un entier le cas échéant).
+                
+                `
+                texteCorr = `La valeur interdite est la solution de l'équation $${reduireAxPlusB(b, c)}=0$.<br>
+              La valeur interdite est donc $${texFractionReduite(-c, b)}$.`
+                setReponse(this, i, [`${texFractionReduite(-c, b)}`])
+              } else {
+                a = randint(-10, 10, 0)
+
+                b = randint(1, 100)
+
+                texte = `Donner la plus petite valeur interdite de $\\dfrac{${rienSi1(a)}x}{x^2-${b}}$.<br>
+                (Résultat sous la forme $a\\sqrt{b}$ avec $b$ le plus petit possible ou d'un entier le cas échéant).
+                  
+                  `
+                texteCorr = `Les valeurs interdites sont les solutions de l'équation $x^2-${b}=0$.<br>
+               Cette équation a deux solutions : $${texRacineCarree(b)}$ et $-${texRacineCarree(b)}$.<br>
+               La plus petite valeur interdite est donc : $-${texRacineCarree(b)}$. `
+                setReponse(this, i, [`-${texRacineCarree(b)}`])
+              }
+              break
+          }
+          break
+
+        case 'q27':// Calcul littéral2 (avec id) , équations
+          switch (choice([1, 2, 3])) { //
+            case 1:// développement id remarquables
+              inconnue = choice(['x', 'y'])
+              a = randint(1, 9)
+              b = randint(2, 5)
+              N = choice(['a', 'b', 'c', 'd', 'e', 'f'])
+              if (N === 'a') {
+                texte = ` Développer $(${inconnue}+${a})^2$.` // (x+a)²
+                texteCorr = `$(${inconnue}+${a})^2=${inconnue}^2+2 \\times ${a} \\times ${inconnue}+${a}^2=${inconnue}^2+${2 * a}${inconnue}+${a * a}$`
+                setReponse(this, i, [`${inconnue}^2+${2 * a}${inconnue}+${a * a}`])
+              }
+              if (N === 'b') {
+                texte = ` Développer $(${inconnue}-${a})^2$.` // (x+a)²
+                texteCorr = `$(${inconnue}+${a})^2=${inconnue}^2-2 \\times ${a} \\times ${inconnue}+${a}^2=${inconnue}^2-${2 * a}${inconnue}+${a * a}$`
+                setReponse(this, i, [`${inconnue}^2-${2 * a}${inconnue}+${a * a}`])
+              }
+              if (N === 'c') {
+                texte = `Développer $(x-${a})(x+${a})$` // (x-a)(x+a)
+                texteCorr = `$(x-${a})(x+${a})=x^2-${a}^2=x^2-${a * a}$.`
+                setReponse(this, i, [`x^2-${a * a}`])
+              }
+              if (N === 'd') {
+                texte = `Développer $(${b}x+${a})^2$` // (bx+a)²  b>1
+                texteCorr = `$(${b}x+${a})^2=(${b}x)^2+2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2+${2 * b * a}x+${a * a}$`
+                setReponse(this, i, [`${b * b}x^2+${2 * b * a}x+${a * a}`])
+              }
+              if (N === 'e') {
+                texte = `Développer $(${b}x-${a})^2$` // (bx-a)² b>1
+                texteCorr = `$(${b}x-${a})^2=(${b}x)^2-2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2-${2 * b * a}x+${a * a}$`
+                setReponse(this, i, [`${b * b}x^2-${2 * b * a}x+${a * a}`])
+              }
+              if (N === 'f') {
+                texte = `Développer $(${b}x-${a})(${b}x+${a})$` // (bx-a)(bx+a) b>1
+                texteCorr = `$(${b}x-${a})(${b}x+${a})=(${b}x)^2-${a}^2=${b * b}x^2-${a * a}$`
+                setReponse(this, i, [`${b * b}x^2-${a * a}`])
+              }
+              break
+            case 2:// factoriser
+              r = choice([2, 3, 5])
+              couplenm = choice([[2, 3], [3, 4], [2, 5], [3, 5], [4, 5], [5, 6], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [3, 8], [5, 8], [7, 8], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [3, 10], [7, 10], [9, 10]]) // n et m sont premiers entre eux
+              n = couplenm[0]
+              m = couplenm[1]
+              N = choice(['a', 'b', 'c', 'd', 'e'])
+              a = randint(1, 9)
+              b = randint(2, 9)
+              if (N === 'a') {
+                texte = ` Factoriser au maximum  $${printlatex(`${n * r}*x+(${m * r})*x^2`)}$.` //
+                texteCorr = `$${printlatex(`${n * r}*x+(${m * r})*x^2`)}=${r}\\times ${n}x +${r}\\times ${m}x^2=${r}x(${n}+${m}x).$`
+                setReponse(this, i, [`${r}x(${n}+${m}x)`])
+              }
+              if (N === 'b') {
+                texte = ` Factoriser  $${r}a+${r}\\times${n}b$.` //
+                texteCorr = `$${r}a+${r}\\times${n}b=${r}(a+${n}b)$`
+                setReponse(this, i, [`${r}(${printlatex(`a+(${n})*b`)})`])
+              }
+              if (N === 'c') {
+                texte = ` Factoriser  $x\\times ${n}x+x\\times ${m}$.` //
+                texteCorr = `$x\\times ${n}x+x\\times ${m}=x(${n}x+${m})$`
+                setReponse(this, i, [`x(${n}x+${m})`])
+              }
+              if (N === 'd') {
+                texte = ` Factoriser  $x^2-${a * a}$.` //
+                texteCorr = `$x^2-${a * a}=x^2-${a}^2=(x-${a})(x+${a})$`
+                setReponse(this, i, [`(x-${a})(x+${a})`, `(x+${a})(x-${a})`])
+              }
+              if (N === 'e') {
+                texte = ` Factoriser  $${b * b}x^2-${a * a}$.` //
+                texteCorr = `$${b * b}x^2-${a * a}=(${b}x)^2-${a}^2=(${b}x-${a})(${b}x+${a})$`
+                setReponse(this, i, [`(${b}x-${a})(${b}x+${a})`, `(${b}x+${a})(${b}x-${a})`])
+              }
+              break
+
+            case 3:// équations
+
+              N = choice(['a', 'b'])
+              b = randint(1, 10) // (x+a)(x+b)=0 avec a et b entiers
+              d = randint(1, 10, [b])
+
+              if (N === 'a') {
+                texte = `Le produit des solutions de l'équation $(x+${b})(x+${d})=0$ vaut : ` //
+                texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
+                texteCorr += '<br>' + `$(x+${b})(x+${d})=0$`
+                texteCorr += '<br> Soit ' + `$x+${b}=0$` + ' ou ' + `$x+${d}=0$`
+                texteCorr += '<br> Donc ' + `$x=${0 - b}$` + ' ou ' + `$x=${0 - d}$`
+                texteCorr += '<br>Le produit vaut donc :' + `$(${-b})\\times (${-d})=${b * d}$.`
+                setReponse(this, i, b * d, { formatInteractif: 'calcul' })
+              }
+              if (N === 'b') {
+                texte = `Le produit des solutions de l'équation $(x-${b})(x+${d})=0$ vaut : ` //
+                texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
+                texteCorr += '<br>' + `$(x-${b})(x+${d})=0$`
+                texteCorr += '<br> Soit ' + `$x-${b}=0$` + ' ou  ' + `$x+${d}=0$`
+                texteCorr += '<br> Donc ' + `$x=${b}$` + ' ou ' + `$x=${0 - d}$`
+                texteCorr += '<br>Le produit vaut donc :' + `$${b}\\times (${-d})=${-b * d}$.`
+                setReponse(this, i, b * (-d), { formatInteractif: 'calcul' })
+              }
+              break
+          }
+
+          break
+
+        case 'q28':
+          switch (choice([1, 2, 3])) { // 1,2,3
+            case 1:// conversion m/s en km/h
+
+              a = choice([10, 100, 1000])
+
+              texte = `$${a}$m/s $=.....$ km/h.<br>`
+
+              texteCorr = `$${a}$ m/s $=${texNombrec(a / 1000)}$ km/s $=${3.6 * a}$ km/h `
+              setReponse(this, i, 3.6 * a, { formatInteractif: 'calcul' })
+
+              break
+            case 2:// distance à partir de vitesse et temps
+              b = choice([30, 90])
+              a = choice([20, 25, 30, 35, 40, 45, 50, 60])
+
+              texte = `Quelle est la distance (en km) parcourue en $${b}$ min  par un véhicule se déplaçant à $${a}$ km/h ?`
+              if (b === 30) {
+                texteCorr = `Le véhicule parcourt $${a}$ km en 1 h, donc en $${b}$ minutes, il parcourt $0,5\\times ${a}$ km, soit $${texNombrec(a / 2)}$ km.`
+                setReponse(this, i, a / 2, { formatInteractif: 'calcul' })
+              } else {
+                texteCorr = `Le véhicule parcourt $${a}$ km en 1 h, donc en $${b}$ minutes, il  parcourt $1,5\\times ${a}$ km, soit $${texNombrec(1.5 * a)}$ km.`
+                setReponse(this, i, 1.5 * a, { formatInteractif: 'calcul' })
+              }
+              break
+            case 3:// vtesse à partir de distance et temps
+              b = choice([10, 15, 30, 45])
+              a = randint(2, 5) * 3
+
+              texte = `Si l'on parcourt $${a}$ km en $${b}$ minutes, la vitesse moyenne (en km/h) est de :`
+              if (b === 15) {
+                texteCorr = `En 1 heure, on parcourt $4$ fois plus de km qu'en 15 min, soit $4\\times ${a}=${4 * a}$ km.<br>
+               La vitesse moyenne est donc :  $${4 * a}$ km/h`
+                setReponse(this, i, 4 * a, { formatInteractif: 'calcul' })
+              } if (b === 30) {
+                texteCorr = `En 1 heure, on parcourt $2$ fois plus de km qu'en 30 min, soit $2\\times ${a}=${2 * a}$ km.<br>
+               La vitesse moyenne est donc :  $${4 * a}$ km/h`
+                setReponse(this, i, 2 * a, { formatInteractif: 'calcul' })
+              }
+              if (b === 10) {
+                texteCorr = `En 1 heure, on parcourt $6$ fois plus de km qu'en 10 min, soit $6\\times ${a}=${6 * a}$ km.<br>
+                La vitesse moyenne est donc :  $${6 * a}$ km/h`
+                setReponse(this, i, 6 * a, { formatInteractif: 'calcul' })
+              }
+              if (b === 45) {
+                texteCorr = `En 15 min, on parcourt $3$ fois moins de km qu'en 45 min, soit $ ${a}\\div 3=${a / 3}$ km.<br>
+              En 1 heure, on parcourt $4$ fois plus de km qu'en $15$ min, soit  $ ${a / 3}\\times 4=${(4 * a) / 3}$ km.<br>
+              La vitesse moyenne est donc :  $${4 * a / 3}$ km/h`
+                setReponse(this, i, 4 * a / 3, { formatInteractif: 'calcul' })
+              }
+              break
+          }
+          break
+
+        case 'q29':// vecteurs
+          switch (choice([1, 2, 3, 4])) { //
+            case 1:// coordonnées
+
+              xA = randint(0, 5)
+              yA = randint(0, 5)
+              ux = randint(1, 5)
+              uy = randint(1, 5)
+              xB = xA + ux
+
+              yB = yA + uy
+              texte = 'Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on donne les points suivants :'
+              texte += ` $A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$`
+              texte += '<br>Déterminer les coordonnées du vecteur $\\overrightarrow{AB}$ '
+              texteCorr = '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère,'
+              texteCorr += ' <br>alors on a : $\\overrightarrow{AB}(x_B-x_A  ;y_B-y_A)$<br>'
+              texteCorr += ' <br>On applique ici aux données de l\'énoncé :'
+              texteCorr += ` $\\overrightarrow{AB}(${xB}-${ecritureParentheseSiNegatif(xA)}  ;${yB}-${ecritureParentheseSiNegatif(yA)})$<br>`
+              texteCorr += `Ce qui donne au final : $\\overrightarrow{AB}(${xB - xA}  ;${yB - yA})$<br>`
+              setReponse(this, i, [`(${ux};${uy})`])
+              break
+
+            case 2:// vecteurs colinéaires1
+
+              p = choice([-2, 2, 3, -3])
+              ux = randint(1, 5)
+              uy = randint(1, 5)
+              vx = p * ux
+              vy = p * uy
+              texte = 'Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on a :'
+              texte += ` $\\vec{u}\\left(${ux};${uy}\\right)$ et $\\vec{v}\\left(${vx};a\\right)$`
+              texte += '<br>Déterminer la valeur de $a$ afin que les vecteurs $\\vec{u}$ et $\\vec{v}$ soient colinéaires. '
+
+              texteCorr = `Les deux vecteurs sont colinéaires, donc il existe un réel $k$ tel que $\\vec{v}=k\\times \\vec{u}$.<br>
+              Comme $${vx}=${p}\\times ${ux}$, alors $y_{\\vec{v}}=${p}\\times${uy}$, donc $a=${p * uy}$.`
+
+              setReponse(this, i, vy, { formatInteractif: 'calcul' })
+              break
+
+            case 3:// vecteurs colinéaires2
+
+              p = choice([-1.5, -0.5, 1.5, 0.5])
+              ux = randint(1, 4) * 2
+              uy = randint(1, 4) * 2
+              vx = p * ux
+              vy = p * uy
+              texte = 'Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on a :'
+              texte += ` $\\vec{u}\\left(${ux};${uy}\\right)$ et $\\vec{v}\\left(${vx};a\\right)$`
+              texte += '<br>Déterminer la valeur de $a$ afin que les vecteurs $\\vec{u}$ et $\\vec{v}$ soient colinéaires. '
+
+              texteCorr = `Les deux vecteurs sont colinéaires, donc il existe un réel $k$ tel que $\\vec{v}=k\\times \\vec{u}$.<br>
+              Comme $${vx}=${texNombrec(p)}\\times ${ux}$, alors $y_{\\vec{v}}=${texNombrec(p)}\\times${uy}$, donc $a=${p * uy}$.`
+
+              setReponse(this, i, vy, { formatInteractif: 'calcul' })
+              break
+            case 4:// coordonnées 2
+              a = randint(-6, 6, [0, 1, -1])
+              b = randint(2, 10)
+
+              texte = 'Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on a :'
+              texte += ` $\\vec{u}=${a}(\\vec{i}+${b}\\vec{j})$.`
+              texte += '<br>Donner les coordonnées du vecteur $\\vec{u}$ dans le repère $(O,\\vec i,\\vec j)$. '
+
+              texteCorr = `$\\vec{u}=${a}(\\vec{i}+${b}\\vec{j})=${a}\\vec{i}+${ecritureParentheseSiNegatif(a * b)}\\vec{j}$.<br>
+              Les coordonnées du vecteur $\\vec{u}$ sont donc $(${a};${a * b})$.`
+
+              setReponse(this, i, [`(${a};${a * b})`])
+              break
+          }
+          break
+
+        case 'q30':
+          switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) { //
+            case 1:// géométrie Pythagore, trigo
+              N = choice(['a', 'b', 'c', 'd'])
+              if (N === 'a') {
+                A = point(0, 0, 'A', 'below')
+                B = point(2, 3, 'B')
+                C = point(6, 0.35, 'C', 'below')
+
+                objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C), codageAngleDroit(A, B, C))
+                objets.push(latexParCoordonnees('4\\text{cm} ', milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 'black', 20, 10, ''),
+                  latexParCoordonnees('3 \\text{cm}', milieu(A, B).x - 0.2, milieu(A, B).y + 0.5, 'black', 20, 10, ''))
+
+                texte = `Quel est le périmètre de ce triangle (en cm) ?
+                  `
+                texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 7, ymax: 4, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+                texteCorr = ` En utilisant le théorème de Pythagore, on a :<br>
+               $AB^2+BC^2=AC^2$ soit $AC^2=3^2+4^2$, d'où $AC=5$.
+              <br>
+              Le périmètre du triangle est donc : $5+4+3=12$ cm`
+
+                setReponse(this, i, '12')
+              }
+              if (N === 'b') {
+                A = point(0, 0, 'A', 'below')
+                B = point(2, 3, 'B')
+                C = point(6, 0.35, 'C', 'below')
+
+                objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C), codageAngleDroit(A, B, C))
+                objets.push(latexParCoordonnees('12\\text{cm} ', milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 'black', 20, 10, ''),
+                  latexParCoordonnees('15\\text{cm} ', milieu(A, C).x, milieu(A, C).y - 0.5, 'black', 20, 10, ''))
+
+                texte = `L'aire de ce triangle est $54$ cm$^2$.<br>
+                  Quel est son périmètre (en cm) ?
+                  `
+                texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 7, ymax: 4, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+                texteCorr = ` En utilisant le théorème de Pythagore, on a :<br>
+               $AB^2+BC^2=AC^2$ soit $AB^2=15^2-12^2$, d'où $AB=9$.
+              <br>
+              Le périmètre du triangle est donc : $15+12+9=36$ cm`
+
+                setReponse(this, i, '36')
+              }
+              if (N === 'c') {
+                A = point(0, 0, 'A', 'below')
+                B = point(2, 3, 'B')
+                C = point(6, 0.35, 'C', 'below')
+                a = randint(5, 8)
+                objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C), codageAngleDroit(A, B, C))
+                objets.push(latexParCoordonnees(`${a}`, milieu(A, B).x + 0, milieu(B, C).y + 0.25, 'black', 20, 10, ''),
+                  afficheMesureAngle(C, A, B, 'black', 1),
+                  latexParCoordonnees('50°', 1.2, 0.5, 'black', 20, 10, ''))
+
+                texte = ` On a $\\tan 50° \\simeq 1,2$.<br>
+                Donner une valeur approchée de la longueur $BC$.
+                  `
+                texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 7, ymax: 4, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+                texteCorr = ` $\\tan 50°=\\dfrac{BC}{AB}=\\dfrac{BC}{${a}}=1,2$.<br>
+                Ainsi, $BC=1,2\\times ${a}=${texNombrec(1, 2 * a)}$.
+              `
+
+                setReponse(this, i, 1.2 * a, { formatInteractif: 'calcul' })
+              }
+              if (N === 'd') {
+                A = point(0, 0, 'A', 'below')
+                B = point(2, 3, 'B')
+                C = point(6, 0.35, 'C', 'below')
+                a = randint(4, 11)
+                objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C), codageAngleDroit(A, B, C))
+                objets.push(latexParCoordonnees(`${a}`, milieu(A, C).x + 0, milieu(A, C).y - 0.4, 'black', 20, 10, ''),
+                  afficheMesureAngle(A, C, B, 'black', 1),
+                  latexParCoordonnees('43°', 4.6, 0.5, 'black', 20, 10, ''))
+
+                texte = ` On a $\\sin 43° \\simeq 0,7$.<br>
+                Donner une valeur approchée de la longueur $AB$.
+                  `
+                texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 7, ymax: 4, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+                texteCorr = ` $\\sin 43°=\\dfrac{AB}{AC}=\\dfrac{AB}{${a}}=0,7$.<br>
+                Ainsi, $AB=0,7\\times ${a}=${texNombrec(0.7 * a)}$.
+              `
+
+                setReponse(this, i, 0.7 * a, { formatInteractif: 'calcul' })
+              }
+              break
+
+            case 2:// calculs astucieux
+
+              N = choice(['a', 'b'])
+
+              if (N === 'a') {
+                a = randint(3, 9) * 10
+
+                texte = ` $${a - 2}\\times ${a + 2}=$<br>
+                  
+                  `
+                texteCorr = `$${a - 2}\\times ${a + 2}=(${a}-2)(${a}+2)=${a}^2-4=${a * a - 4}$.`
+                setReponse(this, i, a * a - 4, { formatInteractif: 'calcul' })
+              }
+              if (N === 'b') {
+                a = randint(12, 21)
+                c = randint(9, 16)
+                b = 2 * c + 1
+                texte = ` Donner l'écriture décimale de $\\dfrac{${b}\\times ${a}}{${a * 2}}$.
+                    
+                    `
+                texteCorr = `$\\dfrac{${b}\\times ${a}}{${a * 2}}=\\dfrac{${b}\\times ${a}\\times 5}{2\\times ${a}}=\\dfrac{${b}}{2}=${texNombrec(b / 2)}$`
+                setReponse(this, i, b / 2, { formatInteractif: 'calcul' })
+              }
+              break
+
+            case 3:// vitesse
+
+              texte = ` Si je cours 100 m en 30 s, quelle est ma vitesse en km/h ?
+                  
+                  `
+              texteCorr = `100 m en 30 s, correspond à 200 m en 1 minute, soit $60\\times 200$ m en 1h.<br>
+              $60\\times 200$ m $=12000$ m soit $12$ km en 1 h. `
+              setReponse(this, i, '12', { formatInteractif: 'calcul' })
+              break
+
+            case 4:// rayon cercle circonscrit d'un triangle rectangle
+              a = choice([3, 5, 8, 7, 9])
+
+              if (a === 3) {
+                texte = ` $ABC$ est un triangle rectangle tel que $AB=${a}$ cm, $AC=4$ cm et $BC=5$ cm.<br>
+                Donner le rayon (en cm) du cercle circonscrit de ce triangle (résultat sous forme décimale).
+                  
+                `
+                texteCorr = `Le cercle circonscrit d'un triangle rectangle a pour rayon la moitié de son hypoténuse (son centre se situe au milieu de l'hypoténuse).<br>
+                Donc son rayon vaut $5\\div 2=2,5$ cm`
+                setReponse(this, i, '2,5')
+              }
+              if (a === 5) {
+                texte = ` $ABC$ est un triangle rectangle tel que $AB=${a}$ cm, $AC=13$ cm et $BC=12$ cm.<br>
+                              Donner le rayon (en cm) du cercle circonscrit de ce triangle (résultat sous forme décimale).
+                                
+                              `
+                texteCorr = `Le cercle circonscrit d'un triangle rectangle a pour rayon la moitié de son hypoténuse (le plus grand côté).<br>
+                              Donc son rayon vaut $13\\div 2=6,5$ cm`
+                setReponse(this, i, '6,5')
+              }
+              if (a === 8) {
+                texte = ` $ABC$ est un triangle rectangle tel que $AB=17$ cm, $AC=15$ cm et $BC=${a}$ cm.<br>
+                                            Donner le rayon (en cm) du cercle circonscrit de ce triangle (résultat sous forme décimale).
+                                              
+                                            `
+                texteCorr = `Le cercle circonscrit d'un triangle rectangle a pour rayon la moitié de son hypoténuse (le plus grand côté).<br>
+                                            Donc son rayon vaut $17\\div 2=8,5$ cm`
+                setReponse(this, i, '8,5')
+              }
+              if (a === 7) {
+                texte = ` $ABC$ est un triangle rectangle tel que $AB=24$ cm, $AC=${a}$ cm et $BC=25$ cm.<br>
+                                                          Donner le rayon (en cm) du cercle circonscrit de ce triangle (résultat sous forme décimale).
+                                                            
+                                                          `
+                texteCorr = `Le cercle circonscrit d'un triangle rectangle a pour rayon la moitié de son hypoténuse (le plus grand côté).<br>
+                                                          Donc son rayon vaut $25\\div 2=12,5$ cm`
+                setReponse(this, i, '12,5')
+              }
+              if (a === 8) {
+                texte = ` $ABC$ est un triangle rectangle tel que $AB=17$ cm, $AC=15$ cm et $BC=${a}$ cm.<br>
+                                                                        Donner le rayon (en cm) du cercle circonscrit de ce triangle.
+                                                                          
+                                                                        `
+                texteCorr = `Le cercle circonscrit d'un triangle rectangle a pour rayon la moitié de son hypoténuse (le plus grand côté).<br>
+                                                                        Donc son rayon vaut $17\\div 2=8,5$ cm`
+                setReponse(this, i, '8,5')
+              }
+              if (a === 9) {
+                texte = ` $ABC$ est un triangle rectangle tel que $AB=40$ cm, $AC=41$ cm et $BC=25$ cm.<br>
+                                                                                      Donner le rayon (en cm) du cercle circonscrit de ce triangle.
+                                                                                        
+                                                                                      `
+                texteCorr = `Le cercle circonscrit d'un triangle rectangle a pour rayon la moitié de son hypoténuse (le plus grand côté).<br>
+                                                                                      Donc son rayon vaut $41\\div 2=20,5$ cm`
+                setReponse(this, i, '20,5')
+              }
+              break
+            case 5:// aire/périmètres
+              a = choice([2, 3, 5])
+              b = choice([4, 8, 16])
+              texte = ` Quelle est l'aire (en cm$^2$) d'un carré de périmètre $${b}\\sqrt{${a}}$.
+                  
+                  `
+              texteCorr = `Le côté du carré mesure $\\dfrac{${b}\\sqrt{${a}}}{4}$, 
+              soit $${texFractionReduite(b, 4)}\\sqrt{${a}}$.<br>
+              Son aire est donc : $(${texFractionReduite(b, 4)}\\sqrt{${a}})^2=${texFractionReduite(b * b * a, 16)}$ cm$^2$.
+
+               `
+              setReponse(this, i, (b * b * a) / 16, { formatInteractif: 'calcul' })
+              break
+
+            case 6:// inéquations
+              N = choice(['a', 'b'])
+              if (N === 'a') {
+                a = randint(1, 30) * 10
+
+                texte = ` Déterminer la plus petite valeur de $n$ vérifiant $2^n>${a}$.
+                                    `
+                let n = 0
+                while (2 ** n < a) { n++ }
+                texteCorr = `La plus valeur de $n$ est $${n}$ car $2^{${n}}=${2 ** n}>${a}$ et $2^{${n - 1}}=${2 ** (n - 1)}<${a}$.
+               `
+                setReponse(this, i, n, { formatInteractif: 'calcul' })
+              }
+              if (N === 'b') {
+                a = randint(1, 10) * 10
+
+                texte = ` Déterminer la plus petite valeur de $n$ vérifiant $3^n>${a}$.
+                                      `
+                let n = 0
+                while (3 ** n < a) { n++ }
+                texteCorr = `La plus valeur de $n$ est $${n}$ car $3^{${n}}=${3 ** n}>${a}$ et $3^{${n - 1}}=${3 ** (n - 1)}<${a}$.
+                 `
+                setReponse(this, i, n, { formatInteractif: 'calcul' })
+              }
+              break
+            case 7:// probabilités
+              N = choice(['a', 'b', 'c'])
+              if (N === 'a') {
+                texte = ` On lance deux fois de suite un dé                équilibré.<br>
+                                Quelle est la probabilité d’obtenir deux
+                fois le même nombre ?<br>
+                Donner le résultat sous la forme d'une fraction irréductible.
+                                    `
+
+                texteCorr = `Sur 36 cas possibles équiprobables, il y en a 6 qui sont des doubles. Donc la probabilité d'obtenir deux fois le même 
+                nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$.
+               `
+                setReponse(this, i, new Fraction(1, 6), { formatInteractif: 'fraction' })
+              }
+              if (N === 'b') {
+                a = randint(2, 4)
+
+                texte = ` Si on lance une pièce $${a}$ fois de suite, quelle est la probabilité d'obtenir PILE $${a}$ fois ?<br>
+                Donner le résultat sous la forme d'une fraction irréductible.
+                                      `
+
+                texteCorr = `A chaque lancer, la probabilité d'obtenir PILE est $\\dfrac{1}{2}$, donc si on lance $${a}$ fois la pièce, la probabilité 
+                d'obtenir $${a}$ PILE est $\\left(\\dfrac{1}{2}\\right)^${a}=\\dfrac{1}{${2 ** a}}$.
+                 `
+                setReponse(this, i, new Fraction(1, 2 ** a), { formatInteractif: 'fraction' })
+              }
+              if (N === 'c') {
+                a = randint(2, 4)
+
+                texte = ` On lance un dé cubique équilibré.<br>
+                Quelle est la probabilité d’obtenir un multiple de 3 ?<br>
+                Donner le résultat sous la forme d'une fraction irréductible.
+                                      `
+
+                texteCorr = `Comme il y a deux multiples de $3$, la probabilité d'ibtenir un multiple de $3$ est $\\dfrac{2}{6}=\\dfrac{1}{3}$.
+                 `
+                setReponse(this, i, new Fraction(1, 3), { formatInteractif: 'fraction' })
+              }
+              break
+
+            case 8:// nbre de solution d'une équation
+              a = randint(1, 9)
+              b = randint(1, 9)
+              texte = ` Combien de solutions réelles possède l'équation $-x^2+${a}=${b}$ ?<br>
+              Indiquer le nombre de solutions : $0$, $1$ ou $2$  :
+                                   `
+              if (a - b > 0) {
+                texteCorr = `L'équation est équivalente à $-x^2=${b}-${a}$, soit $x^2=${a - b}$.<br>
+              $${a - b}$ étant strictement positif, cette équation a deux solutions : $${texRacineCarree(a - b)}$ et  $-${texRacineCarree(a - b)}$.
+               `
+                setReponse(this, i, '2')
+              }
+
+              if (a - b === 0) {
+                texteCorr = `L'équation est équivalente à$-x^2=${b}-${a}$, soit $x^2=${a - b}$.<br>
+              cette équation a une seul solution réelle : 0.
+
+               `
+                setReponse(this, i, '1')
+              }
+              if (a - b < 0) {
+                texteCorr = `L'équation est équivalente à $-x^2=${b}-${a}$, soit $x^2=${a - b}$.<br>
+             Cette équation n'a pas de solution réelle car $${a - b}<0$.
+               `
+                setReponse(this, i, '0')
+              }
+              break
+          }
+
           break
       }
 
@@ -2052,34 +3205,34 @@ case 3:// avec (x+a)^2
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)',
-  `1 : Somme d'entiers\n
-  2 : Différence d'entiers\n
-  3 : Somme d'entiers avec retenue\n
-  4 : Différence d'entiers avec retenue\n
-  5 : Décomposition\n
-  6 : Division d'entiers\n
-  7 : Somme décimal et entier\n
-  8 : Somme de décimaux\n
-  9 : Différence de décimaux\n
-  10 : Différence décimaux\n
-  11 : Addition d'entiers\n
-  12 : Soustraction d'entiers\n
-  13 : Produit de trois entiers\n
-  14 : Produit entier et décimal\n
-  15 : division d'entiers\n
-  16 : soustraction entier et décimal coût\n
-  17 : soustraction entier et décimal coût\n
-  18 : triple de décimal\n
-  19 : quart de décimal\n
-  20 : Périmètre carré\n
-  21 : Division entier par 10\n
-  22 : Multiplication et addition d'entiers\n
-  23 : Soustraction de grands entiers\n
-  24 : Suite de nombres\n
-  25 : Augmentation décimaux\n
-  26 : Soustraction décimaux\n
-  27 : Multiplication entier par décimal\n
-  28 : Moitié de décimal\n
-  29 : Soustraction grands entiers\n
-  30 : Quotient d'entiers`]
+  `1 : produit d'entiers\n
+  2 : somme ou différence d'entiers\n
+  3 : Tiers, moitié, proportions d'une quantité\n
+  4 : Conversion heures, minutes .... ou changements d'unités\n
+  5 : Calculs avec des fractions simples <-> écriture décimale\n
+  6 : pourcentage simple\n
+  7 : *10, 100 0,1...ou division\n
+  8 : droite graduée,encadrement, arrondi, position des chiffres\n
+  9 : petits problèmes avec division euclidienne, partage, de plus, de moins, rendu de monnaie......\n
+  10 : fraction simplification ou calcul avec racines carrées\n
+  11 :  proportionnalité\n
+  12 : problème avec des fractions ou calcul numérique\n
+  13 : coefficient directeur calcul et lecture graphique\n
+  14 : calcul littéral1, équation (pas id remarquables)\n
+  15 : Périmètre/aires, agrandissement/réduction\n
+  16 : calculs astucieux, calculs avec parenthèses, puissances (1)\n
+  17 :pourcentage 1 (évolution, proportion,....)\n
+  18 : probabilité, denombrement\n
+  19 : Milieu/distance\n
+  20 : triangle (pythagore, thalès, angles, trigo ...)\n
+  21 :  image/antécédents par une fonction\n
+  22 :Droites\n
+  23 : arithmétique, calculs (y compris astucieux) ,  racines carrées, programme de calcul, puissances (\n
+  24 : statistiques\n
+  25 :  inéquation, inégalités, intervalles, signes\n
+  26 : fonction (calcul, VI)x\n
+  27 : Calcul littéral2 (avec id) , équations\n
+  28 : Problèmes avec vitesse, heures, conversions....\n
+  29 : vecteurs\n
+  30 : "question surprise", Questions diverses`]
 }
