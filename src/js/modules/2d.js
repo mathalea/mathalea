@@ -7670,6 +7670,7 @@ function Courbe2 (f, {
   const objets = []
   let points = []
   let pas
+  let p
   if (!step) {
     pas = calcul(0.2 / xUnite)
   } else {
@@ -7677,18 +7678,22 @@ function Courbe2 (f, {
   }
   for (let x = xmin; x <= xmax; x += pas
   ) {
-    if (!isNaN(f(x)) && f(x) < ymax + 10 && f(x) > ymin - 10) {
-      points.push(point(calcul(x * xunite), calcul(f(x) * yunite)))
+    if (!isNaN(f(x))) {
+      if (f(x) < ymax + 1 && f(x) > ymin - 1) {
+        points.push(point(calcul(x * xunite), calcul(f(x) * yunite)))
+      } else {
+        p = polyline([...points], this.color)
+        p.epaisseur = epaisseur
+        objets.push(p)
+        points = []
+      }
     } else {
-      const p = polyline([...points], this.color)
-      p.epaisseur = epaisseur
-      objets.push(p)
-      points = []
+      x += 0.05
     }
-    const p = polyline([...points], this.color)
-    p.epaisseur = epaisseur
-    objets.push(p)
   }
+  p = polyline([...points], this.color)
+  p.epaisseur = epaisseur
+  objets.push(p)
 
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
