@@ -35,7 +35,8 @@ On peut partager le code en 3 parties :
 1. l'en-tête (juqu'à la ligne `export default function ...`)
 2. le paramétrage des valeurs par défaut (jusqu'à la ligne `this.nouvelleVersion = function () {`)
 3. le code de l'exercice en lui-même (l'intérieur de la fonction `nouvelleVersion()`)
-**AJOUTER UNE CAPTURE D'ÉCRAN ANNOTÉE**
+
+![](img/Structure-exo.png)
 
 ### 1. L'en-tête
 ```javascript
@@ -92,7 +93,7 @@ export default function Ajouter9 () { // On clôture cette première partie par 
       }
       cpt++
     }
-    listeQuestionsToContenu(this) // Une fois l'exercice entièrement construit, on exporte les énoncés et les corrections.
+    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 }
 ```
