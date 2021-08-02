@@ -22,7 +22,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typeFonctionsDisponibles = ['affine', 'carré', 'inverse']//, 'cube', 'racine carrée'] // On créé 3 types de questions
+    const typeFonctionsDisponibles = ['affine', 'carré', 'inverse', 'cube', 'racine carrée'] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeFonctionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, a, b, c, d, e, f, r, graph, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
@@ -32,30 +32,35 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           a = randint(3, 12) / 4 * choice([-1, 1])
           b = randint(-9, 9, 0) / 4
           f = x => a * x + b
-          graph = droite(a, -1, -b)
+          graph = droite(a, -1, b)
 
           texteCorr = `Correction ${i + 1} de type 1`
           break
         case 'carré':
           a = randint(3, 12) / 4 * choice([-1, 1])
           b = randint(-9, 9, 0) / 4
-          f = x => a * (x + b) ** 2
-          graph = courbe2(f, { repere: r, step: 0.3, xMin: -11, xMax: 11, yMin: -11, yMax: 11 })
+          f = x => x ** 2
+          graph = courbe2(f, { repere: r, step: 0.2, xMin: -3.2, xMax: 3.3, yMin: -11, yMax: 11 })
           break
         case 'inverse':
           a = randint(3, 12) / 4 * choice([-1, 1])
           b = randint(-9, 9, 0) / 4
-          f = x => a / x / b
+          f = x => 1 / x
           graph = courbe2(f, { repere: r, step: 0.1, xMin: -11, xMax: 11, yMin: -11, yMax: 11 })
           break
 
         case 'cube':
-          texte = `Question ${i + 1} de type 3`
-          texteCorr = `Correction ${i + 1} de type 3`
+          a = randint(3, 12) / 8 * choice([-1, 1])
+          b = randint(-9, 9, 0) / 4
+          f = x => x ** 3
+          graph = courbe2(f, { repere: r, step: 0.2, xMin: -2.2, xMax: 2.2, yMin: -11, yMax: 11 })
+
           break
         case 'racine carrée':
-          texte = `Question ${i + 1} de type 3`
-          texteCorr = `Correction ${i + 1} de type 3`
+          a = randint(3, 12) / 8 * choice([-1, 1])
+          b = randint(1, 9) / 4
+          f = x => Math.sqrt(x)
+          graph = courbe2(f, { repere: r, step: 0.2, xMin: 0, xMax: 11, yMin: -11, yMax: 11 })
           break
       }
       graph.epaisseur = 2

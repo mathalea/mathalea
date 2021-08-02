@@ -7639,28 +7639,32 @@ function Courbe2 (f, {
   color = 'black',
   epaisseur = 2,
   step = false,
-  xMin = -10,
-  xMax = 10,
-  yMin = -10,
-  yMax = 10,
+  xMin,
+  xMax,
+  yMin,
+  yMax,
   xUnite = 1,
   yUnite = 1
 } = {}) {
   ObjetMathalea2D.call(this)
   this.color = color
   let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
-  xmin = repere.xMin
-  ymin = repere.yMin
-  xmax = repere.xMax
-  ymax = repere.yMax
+  if (typeof xMin === 'undefined') {
+    xmin = repere.xMin
+  } else xmin = xMin
+  if (typeof yMin === 'undefined') {
+    ymin = repere.yMin
+  } else ymin = yMin
+  if (typeof xMax === 'undefined') {
+    xmax = repere.xMax
+  } else xmax = xMax
+  if (typeof yMax === 'undefined') {
+    ymax = repere.yMax
+  } else ymax = yMax
+
   xunite = repere.xUnite
   yunite = repere.yUnite
 
-  // Si le repère n'est pas donné ou ne permet pas de récupérer des valeurs
-  if (isNaN(xmin)) { xmin = xMin };
-  if (isNaN(xmax)) { xmax = xMax };
-  if (isNaN(ymin)) { ymin = yMin };
-  if (isNaN(ymax)) { ymax = yMax };
   if (isNaN(xunite)) { xunite = xUnite };
   if (isNaN(yunite)) { yunite = yUnite };
   const objets = []
@@ -7673,7 +7677,7 @@ function Courbe2 (f, {
   }
   for (let x = xmin; x <= xmax; x += pas
   ) {
-    if (!isNaN(f(x)) && f(x) < ymax + 100 && f(x) > ymin - 100) {
+    if (!isNaN(f(x)) && f(x) < ymax + 10 && f(x) > ymin - 10) {
       points.push(point(calcul(x * xunite), calcul(f(x) * yunite)))
     } else {
       const p = polyline([...points], this.color)
