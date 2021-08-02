@@ -950,11 +950,13 @@ $\\begin{array}{|l|c|c|}\n`
               b = randint(2, 7, a)
               if (choice([true, false])) {
                 resultat = new Fraction(b + a, a * b)
+                resultat = resultat.simplifie()
                 texte = `Calculer sous la fomre d'une fraction irréductible : $\\dfrac{1}{${a}}+\\dfrac{1}{${b}}$`
                 texteCorr = `$\\dfrac{1}{${a}}+\\dfrac{1}{${b}}=\\dfrac{${b}+${a}}{${a}\\times ${b}}=${texFractionReduite(b + a, a * b)}$`
                 setReponse(this, i, resultat, { formatInteractif: 'fraction' })
               } else {
                 resultat = new Fraction(b - a, a * b)
+                resultat = resultat.simplifie()
                 texte = `Calculer sous la fomre d'une fraction irréductible : $\\dfrac{1}{${a}}-\\dfrac{1}{${b}}$`
                 texteCorr = `$\\dfrac{1}{${a}}-\\dfrac{1}{${b}}=\\dfrac{${b}-${a}}{${a}\\times ${b}}=${texFractionReduite(b - a, a * b)}$`
                 setReponse(this, i, resultat, { formatInteractif: 'fraction' })
