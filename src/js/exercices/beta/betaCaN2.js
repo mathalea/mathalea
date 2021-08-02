@@ -33,7 +33,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
   } else {
     this.consigne = ''
   }
-
+  this.nbQuestions = 30
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
@@ -92,9 +92,8 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
     ]
 
     const signesDeX = combinaisonListes([true, false], this.nbQuestions)
-    const typeQuestionsDisponibles = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10',
-      'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20',
-      'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']
+    const typeQuestionsDisponibles = ['q1','q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20',
+    'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']
     // 'q1','q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10']
     // 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20'
     // 'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']//
@@ -1616,7 +1615,7 @@ Il y a donc $${texNombrec(c * b * a / 10000)}$ bonbons verts à la pomme.
           break
 
         case 'q18':
-          switch (choice([1, 2, 3, 4])) { //
+          switch (choice([1,2,3])) { //
             case 1:// proba urne boulesB et boulesN
               a = randint(2, 9)
               b = randint(5, 15)
@@ -1647,9 +1646,10 @@ Il y a donc $${texNombrec(c * b * a / 10000)}$ bonbons verts à la pomme.
               d = fraction[1]
 
               texte = `La probabilité d'un événement $A$ est $${texFraction(n, d)}$. <br>
-              Quelle est la probabilité de son événement contraire ? `
+              Quelle est la probabilité de son événement contraire ?<br>
+              On donnera le résultat sous la forme d'une fraction irréductible. `
               texteCorr = `On a $P(\\overline{A})=1-P(A)=1-\\dfrac{${n}}{${d}}=${texFraction(d - n, d)}$.`
-              setReponse(this, i, new Fraction(d - n, d), { formatInteractif: 'fraction' })
+              setReponse(this, i, [`${texFractionReduite(d-n, d)}`])
 
               break
             case 4:// calcul proba val décimale
