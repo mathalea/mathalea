@@ -7,7 +7,6 @@ import { ComputeEngine, parse } from '@cortex-js/math-json'
 import Fraction from './Fraction.js'
 import Grandeur from './Grandeur.js'
 import { getUserIdFromUrl } from './gestionUrl.js'
-import { affichageUniquementExercice } from './initDom.js'
 
 export function exerciceInteractif (exercice) {
   // passage amsType num à string cf commit 385b5ea
@@ -607,6 +606,7 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
     const divExercice = get(`exercice${exercice.numeroExercice}`)
     if (exercicesEvalRestants()[0]) {
       const btnExerciceSuivant = addElement(divExercice, 'button', { id: 'btnSuivant', class: 'ui blue button', style: 'display: block' }, 'Exercice suivant')
+      btnExerciceSuivant.focus()
       if (!btnExerciceSuivant.hasMathaleaListener) {
         btnExerciceSuivant.addEventListener('click', () => {
           exercicesEvalRestants()[0].click()
