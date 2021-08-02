@@ -20,13 +20,17 @@ Les lignes de commande nécessitent des "anti-sèches" au début mais ont les av
 9. Le partager avec les autres : `git push origin nomDeLaBranche`
 10. Une fois l'exercice terminé, faire un **Pull Request** via [github](https://github.com/mathalea/mathalea/branches) ou son interface graphique préférée (GitKraken ou GitHub Desktop).
 
-## <a id="Modèles"></a> Modèles présents dans le dossier`src/js/exercices/_Modèles_d'exercices`
-**A MODIFIER**
-- src/js/beta/betaExemple1Type.js // Un même type de question répété 
-- src/js/beta/betaExemple.js // Les questions peuvent être très différentes et leur nombre est fixé
-- src/js/beta/betaExemple1TypeCalculLettre.js // Un même type de question répété  mais présenté A=..., B=...
-- src/js/beta/betaExemple3Types.js // On créé 3 types de questions  qui seront alternés (et que l'on peut pondérer)
-
+## <a id="Modèles"></a> Modèles présents dans le dossier`src/js/exercices/beta`
+- betaModèle10_simple_question-reponse
+- betaModèle11_paramétrable (simple question-reponse paramétrable)
+- betaModèle20_plusieurs_types_de_questions
+- betaModèle21_paramétrables (plusieurs questions paramétrables)
+- betaModèle30_constructions_géométriques
+- betaModèle31_paramétrables (constructions géométriques paramétrables)
+- betaModèle32_cliqueFigure
+- betaModèle40_tableau_proportionnalite
+- betaModèle41_tableau_signes_variations
+Pour rentre un des modèles interactif, consulter le guide [Rendre_un_exercice_interactif](tutorial-Rendre_un_exercice_interactif.html) dans le panneau de gauche
 ## <a id="Programmer"></a> Programmer un exercice
 Un exercice est un objet de la classe Exercice (d'où le `import Exercice` en début de fichier et le `Exercice.call` au début de la fonction exportée).
 Il a plusieurs [attributs](#Attributs) (son titre, son énoncé, sa correction...) et a une fonction `nouvelleVersion()` qui crée un énoncé aléatoire.
