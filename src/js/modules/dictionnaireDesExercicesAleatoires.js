@@ -124,8 +124,7 @@ export default {
     "titre": "Alignement de 3 points.",
     "url": "/exercices/2e/2G53.js",
     "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifReady": false,
     "name": "2G53"
   },
   "2L10": {
@@ -3459,6 +3458,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2G14"
+  },
+  "beta2G31-5": {
+    "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
+    "url": "/exercices/beta/beta2G31-5.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2G31-5"
   },
   "beta2L11-1": {
     "titre": "Factoriser avec les identités remarquables (niveau II)",
