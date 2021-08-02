@@ -8,7 +8,7 @@ import {
 } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
-import { calcule } from '../../modules/fonctionsMaths.js'
+import { calcule, tan } from '../../modules/fonctionsMaths.js'
 import {
   droiteGraduee2, mathalea2d, repere2, courbe2, tracePoint, point, droite, segmentAvecExtremites,
   codeSegments, codageAngleDroit, afficheMesureAngle, milieu, labelPoint, segment, latexParCoordonnees
@@ -92,8 +92,8 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
     ]
 
     const signesDeX = combinaisonListes([true, false], this.nbQuestions)
-    const typeQuestionsDisponibles = ['q1','q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20',
-    'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']
+    const typeQuestionsDisponibles = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20',
+      'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']
     // 'q1','q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10']
     // 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20'
     // 'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']//
@@ -1615,7 +1615,7 @@ Il y a donc $${texNombrec(c * b * a / 10000)}$ bonbons verts à la pomme.
           break
 
         case 'q18':
-          switch (choice([1,2,3])) { //
+          switch (choice([1, 2, 3])) { //
             case 1:// proba urne boulesB et boulesN
               a = randint(2, 9)
               b = randint(5, 15)
@@ -1649,7 +1649,7 @@ Il y a donc $${texNombrec(c * b * a / 10000)}$ bonbons verts à la pomme.
               Quelle est la probabilité de son événement contraire ?<br>
               On donnera le résultat sous la forme d'une fraction irréductible. `
               texteCorr = `On a $P(\\overline{A})=1-P(A)=1-\\dfrac{${n}}{${d}}=${texFraction(d - n, d)}$.`
-              setReponse(this, i, [`${texFractionReduite(d-n, d)}`])
+              setReponse(this, i, [`${texFractionReduite(d - n, d)}`])
 
               break
             case 4:// calcul proba val décimale
@@ -1814,15 +1814,12 @@ Il y a donc $${texNombrec(c * b * a / 10000)}$ bonbons verts à la pomme.
               break
             case 3:// angle  triangle isocèle
               if (choice([true, false])) {
-                a = randint(4, 8) * 10
+                a = randint(3, 7, 6) * 10
                 A = point(0, 0, 'A', 'below')
                 B = point(5, 0, 'B', 'below')
-                C = point(2.5, 7, 'C')
+                C = point(2.5, 2.5 * tan(a), 'C')
                 objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C),
-                  afficheMesureAngle(A, B, C, 'black', 1, `${a}`), codeSegments('||', 'blue', C, A, C, B))
-                objets.push(latexParCoordonnees(`${texNombrec(a)}°`,
-                  milieu(A, B).x + 1 + 0, milieu(A, B).y + 0.7, 'black', 20, 10, ''))
-
+                  afficheMesureAngle(B, A, C, 'black', 1), codeSegments('||', 'blue', C, A, C, B))
                 resultat = 180 - 2 * a
                 texte = `Sur cette figure, quelle est la mesure en degré de l'angle $\\widehat{C}$ ? 
               `
@@ -1833,16 +1830,14 @@ Il y a donc $${texNombrec(c * b * a / 10000)}$ bonbons verts à la pomme.
 
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               } else {
-                a = randint(1, 7, 6) * 10
+                a = randint(2, 7, 6) * 10
 
                 A = point(0, 0, 'A', 'below')
                 B = point(5, 0, 'B', 'below')
-                C = point(2.5, 7, 'C')
+                C = point(2.5, 2.5 / tan(a / 2), 'C')
 
                 objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C),
-                  afficheMesureAngle(A, C, B, 'black', 1, `${a}`), codeSegments('||', 'blue', C, A, C, B))
-                objets.push(latexParCoordonnees(`${texNombrec(a)}°`,
-                  milieu(A, B).x, milieu(A, B).y + 5, 'black', 20, 10, ''))
+                  afficheMesureAngle(A, C, B, 'black', 1), codeSegments('||', 'blue', C, A, C, B))
 
                 resultat = (180 - a) / 2
                 texte = `Sur cette figure, quelle est la mesure en degré de l'angle $\\widehat{A}$ ? 
