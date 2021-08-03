@@ -1,6 +1,7 @@
+/* global $ */
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement } from './dom'
-import { getVueFromUrl } from './gestionUrl'
+import { getLogFromUrl, getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 
 export const affichageUniquementExercice = (i) => {
@@ -134,6 +135,11 @@ export async function initDom () {
     await addFetchHtmlToParent('templates/footer1logo.html', document.body, 'footer')
   } else {
     await addFetchHtmlToParent('templates/footer.html', document.body, 'footer')
+  }
+  if (getLogFromUrl()) {
+    await addFetchHtmlToParent('templates/modalLog.html', document.body)
+    $('#modalLog').modal('show')
+    document.getElementById('scoresInputUserId').focus()
   }
 }
 
