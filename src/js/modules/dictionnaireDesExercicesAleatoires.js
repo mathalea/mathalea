@@ -3225,8 +3225,12 @@ export default {
   "beta2F32": {
     "titre": "Exercice exemple",
     "url": "/exercices/beta/beta2F32.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "beta2F32"
   },
   "beta2G13": {
