@@ -15,7 +15,9 @@ export default function ConservationSymetrie () {
   this.nbQuestions = 2
 
   this.besoinFormulaireNumerique = ['Transformation', 2, '1 : Symétrie Axiale\n2 : Symétrie centrale']
+  this.besoinFormulaire2Numerique = ['Propriétés conservées', 3, '1 : Parallélisme\n2 : Longueur et Angle\n3 : Parallélisme, Longueur et Angle']
   this.sup = 1
+  this.sup2 = 3
   this.nbCols = 1
   this.nbColsCorr = 1
 
@@ -23,7 +25,19 @@ export default function ConservationSymetrie () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.sup = parseInt(this.sup)
-    const typesDeQuestionsDisponibles = ['parallelisme', 'longueurEtAngle'] // tableau à compléter par valeurs possibles des types de questions
+    this.sup2 = parseInt(this.sup2)
+    let typesDeQuestionsDisponibles
+    switch (this.sup2) {
+      case 1:
+        typesDeQuestionsDisponibles = ['parallelisme']
+        break
+      case 2:
+        typesDeQuestionsDisponibles = ['longueurEtAngle']
+        break
+      case 3:
+        typesDeQuestionsDisponibles = ['parallelisme', 'longueurEtAngle']
+        break
+    }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection
     let listePoints, listeSegments, listeDroites, listeAngles, listeLabels
