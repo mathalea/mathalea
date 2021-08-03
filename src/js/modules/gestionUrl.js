@@ -21,6 +21,15 @@ export function getVueFromUrl () {
 }
 /**
  *
+ * @returns {string} Log nécessaire depuis l'URL
+ */
+export function getLogFromUrl () {
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  return urlParams.get('log')
+}
+/**
+ *
  * @returns {string} userId depuis l'URL
  */
 export function getUserIdFromUrl () {

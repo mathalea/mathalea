@@ -412,6 +412,7 @@ export function exerciceCustom (exercice) {
  */
 export function exerciceMathLive (exercice) {
   const engine = new ComputeEngine()
+  let saisieParsee, signeF
   document.addEventListener('exercicesAffiches', () => {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
@@ -450,8 +451,14 @@ export function exerciceMathLive (exercice) {
                 }
                 // Pour les exercices de simplifications de fraction
               } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionPlusSimple') {
-                const saisieParsee = parse(saisie)
+                saisieParsee = parse(saisie)
                 if (saisieParsee) {
+                  if (saisieParsee[0] === 'Negate') {
+                    signeF = -1
+                    saisieParsee = saisieParsee[1].slice()
+                  } else {
+                    signeF = 1
+                  }
                   if (saisieParsee[1].num && saisieParsee[2].num) {
                     const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
                     if (fSaisie.estUneSimplification(reponse)) resultat = 'OK'
@@ -459,8 +466,14 @@ export function exerciceMathLive (exercice) {
                 }
                 // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
               } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionEgale') {
-                const saisieParsee = parse(saisie)
+                saisieParsee = parse(saisie)
                 if (saisieParsee) {
+                  if (saisieParsee[0] === 'Negate') {
+                    signeF = -1
+                    saisieParsee = saisieParsee[1].slice()
+                  } else {
+                    signeF = 1
+                  }
                   if (saisieParsee[1].num && saisieParsee[2].num) {
                     const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
                     if (fSaisie.egal(reponse)) resultat = 'OK'
@@ -468,11 +481,17 @@ export function exerciceMathLive (exercice) {
                 }
                 // Pour les exercices où l'on attend un écriture donnée d'une fraction
               } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fraction') {
-                const saisieParsee = parse(saisie)
+                saisieParsee = parse(saisie)
                 if (saisieParsee) {
+                  if (saisieParsee[0] === 'Negate') {
+                    signeF = -1
+                    saisieParsee = saisieParsee[1].slice()
+                  } else {
+                    signeF = 1
+                  }
                   if (saisieParsee[1].num && saisieParsee[2].num) {
-                    const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-                    if (fSaisie.num === reponse.num && fSaisie.den === reponse.den) resultat = 'OK'
+                    const fSaisie = new Fraction(signeF * parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+                    if (fSaisie.texFraction === reponse.texFraction) resultat = 'OK'
                   }
                 }
                 // Pour les exercices où l'on attend une mesure avec une unité au choix
