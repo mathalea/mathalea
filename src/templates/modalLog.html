@@ -11,12 +11,11 @@
           if (this.value.length === 7) {
             document.getElementById('scoresSubmitUserId').classList.add('positive')
             document.getElementById('scoresSubmitUserId').classList.remove('disabled')
-
           } 
     "
       />
       <span class="ui tag label"> Identifiant </span>
-      <button id="scoresSubmitUserId" class="ui button right floated disabled">Valider</button>
+      <button id="scoresSubmitUserId" class="ui button right floated disabled" onclick="$('#modalLog').modal('hide')">Valider</button>
     </div>
     <div id="scoresInputUserIdError" class="ui negative message" hidden>
       <div id="scoresInputUserIdErrorHeader" class="header"></div>
