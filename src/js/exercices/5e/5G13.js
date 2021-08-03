@@ -15,9 +15,7 @@ export default function ConservationSymetrie () {
   this.nbQuestions = 2
 
   this.besoinFormulaireNumerique = ['Transformation', 2, '1 : Symétrie Axiale\n2 : Symétrie centrale']
-  this.besoinFormulaireNumerique2 = ['Nombre de propriétés', 3, '1\n2\n3']
   this.sup = 1
-  this.sup2 = 3
   this.nbCols = 1
   this.nbColsCorr = 1
 
