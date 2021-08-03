@@ -1,134 +1,139 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, quotientier, randint, reduireAxPlusB, choice, ecritureAlgebrique } from '../../modules/outils.js'
-import { repere2, courbe2, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
-
-
+import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
+import { repere2, droite, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
+import { min, max } from 'mathjs'
 
 export const titre = 'Représentation graphique d’une fonction affine'
 
 /**
 
 */
-export default function representer_fonction_affine() {
-  Exercice.call(this);
-  this.titre = titre;
-  this.consigne = "";
-  this.nbQuestions = 3;//On complète le nb de questions
-  this.nbCols = 2;
-  this.nbColsCorr = 2;
-  this.tailleDiaporama = 100;
-  this.video = "";
-  this.spacing = 1;
-  this.spacingCorr = 1;
+export default function representerfonctionaffine () {
+  Exercice.call(this)
+  this.titre = titre
+  this.consigne = ''
+  this.nbQuestions = 3// On complète le nb de questions
+  this.nbCols = 2
+  this.nbColsCorr = 2
+  this.tailleDiaporama = 100
+  this.video = ''
+  this.spacing = 1
+  this.spacingCorr = 1
   this.spacingCorr = 3
-
+  this.sup = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [];
-    this.listeCorrections = [];
-    let typesDeQuestionsDisponibles = [];
-    typesDeQuestionsDisponibles = [1, 2];// On complète selon le nb de cas dans l'exo (switch)
+    this.listeQuestions = []
+    this.listeCorrections = []
+    // let typesDeQuestionsDisponibles = []
+    // typesDeQuestionsDisponibles = [1, 2]// On complète selon le nb de cas dans l'exo (switch)
 
-    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
+    // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, A, B, a, b, r, f, c, t, l, xA, xB, yA, yB, texte, texteCorr, cpt = 0, typesDeQuestions;
-      i < this.nbQuestions && cpt < 50;) // on rajoute les variables dont on a besoin
-    {
-      typesDeQuestions = listeTypeDeQuestions[i];
+    for (let i = 0, a, b, r, c, d, tA, lA, tB, lB, xA, yA, lC, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
+      // typesDeQuestions = listeTypeDeQuestions[i]
+      if (this.sup === 1) {
+        a = randint(0, 3) * choice([-1, 1])// coefficient a de la fonction affine
+        b = randint(0, 3) * choice([-1, 1])// coefficient b de la fonction affine
 
+        if (a === 0 && b === 0) { // On évite la fonction nulle
+          a = 1
+        }
+        r = repere2()
+        c = droite(a, -1, b)
+        c.color = 'red'
+        c.epaisseur = 2
+        xA = randint(1, 3) * choice([-1, 1])// Abscisse de A
+        yA = a * xA + b// Ordonnée de A
 
-      switch (typesDeQuestions) {
+        const B = point(xA, yA, 'B')
+        const A = point(0, b, 'A')
 
-        case 1:
-          a = randint(0, 10)
-          a = a - 5;//coefficient directeur
-          b = randint(0, 10);
-          b = b - 5//ordonnée à l'origine
-          if (a == 0 && b == 0) {
-            a = 1
-          }// On évite la fonction nulle
-          r = repere2()//On définit le repère
-          f = x => a * x + b//On définit la fonction affine
-          c = courbe2(f, { repere: r })// On définit l'objet qui tracera la courbe dans le repère
-          texte = `Déterminer graphiquement l'expression algébrique de la fonction affine $f$ représentée ci-dessous :<br>`;
-          texte += mathalea2d({
-            xmin: -6,
-            ymin: -6,
-            xmax: 6,
-            ymax: 6
-          }, r, f, c);// On trace le graphique
-          texteCorr = `On sait que l'expression algébrique d'une fonction affine est de la forme :$f(x)=ax+b$, avec $a$ et $b$ deux réels.<br>`;
-          texteCorr +=`Le premier coefficient qu'on peut facilement lire graphiquement est $b$, l'ordonnée à l'origine de la droite.<br>`
-          texteCorr +=`On lit ici que le point $(0;${b}) \\in \\mathcal{C_f}$.<br>`
-          texteCorr += `On peut alors conclure que l'ordonnée à l'origine est : $${b}$. <br>`
-          texteCorr += `On peut lire le coefficient directeur de la droite, en lisant le déplacement vertical correspondant à un déplacement horizontal d'une unité .<br>`
-          texteCorr += `On lit alors que le coefficient directeur de la droite est : $${a}$.<br>`          
-          texteCorr += ` On peut en déduire que l'expression de la fonction $f$ est`
+        tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
+        tB = tracePoint(B, 'red') // Variable qui trace les points avec une croix
+        lA = labelPoint(A, 'red')// Variable qui trace les nom s A et B
+        lB = labelPoint(B, 'red')// Variable qui trace les nom s A et B
 
-          texteCorr += `$f(x)=${reduireAxPlusB(a, b)}$`
-          texteCorr += mathalea2d({
-            xmin: -6,
-            ymin: -6,
-            xmax: 6,
-            ymax: 6
-          }, r, f, c);// On trace le graphique
+        tA.taille = 5
+        tA.epaisseur = 2
 
-         
-          break;
-        case 2:
-          a = randint(0, 3)*choice([-1,1])// coefficient a de la fonction affine
-          b = randint(0, 3)*choice([-1,1])// coefficient b de la fonction affine
-   
-          if (a == 0 && b == 0) // On évite la fonction nulle
-              { a == 1}
-          r = repere2()
-          f = x => a * x + b
-          c = courbe2(f, { repere: r })
-          xA = randint(1, 3) * choice([-1, 1])// Abscisse de A
-          yA = a * xA + b// Ordonnée de A
-         
-          A = point(xA, yA)
-          B = point(0, b)
-  
-             
-          t = tracePoint(A, B,'red') // Variable qui trace les points avec une croix
-          l = labelPoint(A,B)// Variable qui trace les nom s A et B
-          l.color='red'
-          t.taille=5
-          t.epaisseur=2
-          texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`;
-          texteCorr = `On sait que la représentation graphique d'une fonction affine est une droite.<br>`
-          texteCorr += `Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>`                
-          texteCorr +=`On sait que si $f(x)=ax+b$, le coefficient $b$ est l'ordonnée à l'origine.<br>`
-          texteCorr +=`On lit donc ici que $b=${b}$, donc que le point $(0;${b}) \\in \\mathcal{C_f}$.<br>`
-          texteCorr += `On cherche un deuxième point, et on prend une abscisse au hasard :<br>` 
-          texteCorr += `Soit $x=${xA}$ :<br>` 
-          texteCorr += `On calcule : $y=${a} \\times ${xA}${ecritureAlgebrique(b)}$:<br>` 
-          texteCorr += `On obtient : $y=${yA}$<br>` 
-          texteCorr +=`Le point $(${xA};${yA}) \\in \\mathcal{C_f}$.<br>`
-          texteCorr += mathalea2d({
+        tB.taille = 5
+        tB.epaisseur = 2
+        texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`
+        if (a !== 0) {
+          texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
+          texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
+          texteCorr += `Comme $f(0)=${b}$, on a  $A(0;${b}) \\in \\mathcal{C_f}$.<br>`
+          texteCorr += 'On cherche un deuxième point, et on prend un antécédent au hasard :<br>'
+          texteCorr += `Soit $x=${xA}$ :<br>`
+          texteCorr += `On calcule : $f(${xA})=${a} \\times ${ecritureParentheseSiNegatif(xA)}${ecritureAlgebrique(b)}=${yA}$<br>`
+          texteCorr += `On en déduit que $B(${xA};${yA}) \\in \\mathcal{C_f}$.`
+        } else {
+          texteCorr = 'On oberve que $f$ est une fonction constante<br>'
+          texteCorr += `Sa représentation graphique est donc une droite parallèle à l'axe des abscisses, d'équation $y=${b}$.<br>`
+        }
+        texteCorr += mathalea2d({
           xmin: -6,
-          ymin: -10,
+          ymin: min(-8, yA - 2),
           xmax: 6,
-          ymax: 10
-          }, r,c,t, l);
-          break;
-                }
+          ymax: max(8, yA + 2)
+        }, lA, lB, r, c, tA, tB)
+      }
+      if (this.sup === 2) { // cas du coeff directeur fractionnaire
+        a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
+        b = randint(-5, 5) // ordonnée à l'origine
+        d = randint(2, 5, [a, 2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
+        if (a === 0 && b === 0) {
+          a = 1
+          d = 3
+        }// On évite la situation de double nullité
+        xA = d // Abscisse de A
+        yA = a / d * xA + b// Ordonnée de A
 
+        const B1 = point(xA, yA, 'B')
+        const A1 = point(0, b, 'A')
+        // const f = point(xA / 2, (b + yA) / 2)
+        r = repere2()// On définit le repère
+        c = droite(a / d, -1, b)
+        c.color = 'red'
+        c.epaisseur = 2
 
-                if (this.listeQuestions.indexOf(texte) === -1) {
-                  // Si la question n'a jamais été posée, on en créé une autre
-                  this.listeQuestions.push(texte);
-                  this.listeCorrections.push(texteCorr);
-                  i++;
-                }
-                cpt++;
-              }
-              
-              listeQuestionsToContenu(this);
+        texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
 
+        texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
+        texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
+        texteCorr += `Comme $f(0)=${b}$, on a : $A(0;${b}) \\in \\mathcal{C_f}$.<br>`
+        texteCorr += 'On cherche un deuxième point, et on prend un antécédent qui facilite les calculs :<br>'
+        texteCorr += `Par exemple $x=${xA}$ :<br>`
+        texteCorr += `On calcule : $f(${xA})=${texFractionReduite(a, d)} \\times ${ecritureParentheseSiNegatif(xA)}${ecritureAlgebrique(b)}=${yA}$<br>`
+        texteCorr += `On en déduit que $B(${xA};${yA}) \\in \\mathcal{C_f}$.`
 
+        tA = tracePoint(A1, 'red') // Variable qui trace les points avec une croix
+        lA = labelPoint(A1, 'red')// Variable qui trace les nom s A et B
+        tB = tracePoint(B1, 'red') // Variable qui trace les points avec une croix
+        lB = labelPoint(B1, 'red')// Variable qui trace les nom s A et B
+        // lC = labelPoint(f, 'C_f')// Variable qui trace les nom s A et B
+        texteCorr += mathalea2d({
+          xmin: -8,
+          ymin: -10,
+          xmax: 8,
+          ymax: 8
 
-            };
-          }
+        }, r, c, tA, lA, tB, lB, lC)
+        // On trace le graphique
+      }
+
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
+    }
+
+    listeQuestionsToContenu(this)
+  }
+  this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
+}

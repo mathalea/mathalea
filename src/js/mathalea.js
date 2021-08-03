@@ -1,6 +1,6 @@
 /* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl, setUrl } from './modules/gestionUrl.js'
+import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -442,7 +442,7 @@ function miseAJourDuCode () {
         finUrl += `&f=${format}&e=${typeEntete}`
       }
       window.history.pushState('', '', finUrl)
-      const url = window.location.href.split('&serie')[0] // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
+      const url = window.location.href.split('&serie')[0] + '&v=l' // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série et en ajoutant le paramètre pour le mettre en plein écran
       const clipboardURL = new Clipboard('#btnCopieURL', { text: () => url })
       clipboardURL.on('success', function (e) {
         console.info(e.text + ' copié dans le presse-papier.')
@@ -1907,7 +1907,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   // gestion de la vue
   // si dans l'url il y a un paramètre &v=... on modifie le DOM et/ou le CSS
   gestionVue()
-  gestionScores()
+  if (context.vue !== 'recto' && context.vue !== 'verso') {
+    gestionScores()
+  } else {
+    console.log('Gestion des scores non gérée')
+  }
   if (context.isAmc) {
     if (urlParams.get('e')) {
       typeEntete = urlParams.get('e')
@@ -2044,7 +2048,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Gestion de la redirection vers MathaleaLaTeX
   $('#btnLaTeX').click(function () {
-    window.location.href += '&v=latex'
+    if (window.location.href.includes('v=')) {
+      context.vue = 'latex'
+      window.location.href = getUrlSearch()
+    } else {
+      window.location.href += '&v=latex'
+    }
   })
 
   if (context.isAmc) {
@@ -2184,14 +2193,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('btnEmbed').addEventListener('click', function () {
       $('#ModalEmbed').html(`<div class="content"><p><pre><code>&lt;iframe width="660"
         height="315" 
-        src="${window.location.href + 'v=l'}"
+        src="${window.location.href + '&v=l'}"
         frameborder="0" >
 &lt;/iframe></code><pre></p>
         <button id="btnEmbedCode" style="margin:10px" class="btn ui toggle button labeled icon url"
         data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le code HTML</button></div>`)
       const clipboard = new Clipboard('#btnEmbedCode', {
         text: () =>
-          `<iframe\n\t width="660" height="315"\n\t src="${window.location.href + 'v=l'}"\n\tframeborder="0" >\n</iframe>`
+          `<iframe\n\t width="660" height="315"\n\t src="${window.location.href + '&v=l'}"\n\tframeborder="0" >\n</iframe>`
       })
       clipboard.on('success', function (e) {
         console.info(e.text + ' copié dans le presse-papier.')
@@ -2234,8 +2243,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     for (let i = 0; i < urlVars.length; i++) {
       listeDesExercices.push(urlVars[i].id)
     }
-    formChoixDesExercices.value = listeDesExercices.join(',')
-    copierExercicesFormVersAffichage(listeDesExercices)
+    if (formChoixDesExercices !== null) {
+      formChoixDesExercices.value = listeDesExercices.join(',')
+      copierExercicesFormVersAffichage(listeDesExercices)
+    }
     try {
       miseAJourDeLaListeDesExercices()
     } catch (err) {

@@ -235,38 +235,41 @@ function addExercice (e) {
 export function apparenceExerciceActif () {
   // Fonction permettant la mise en gras des exercices sélectionnés, d'ajouter l'icone moins et le nombre de fois ou on l'a sélectionné
   // appelée dans miseajourducode et afficheniveau (dès lors que les listes sont susceptibles d'être changées)
-  $('.exerciceactif').removeClass('exerciceactif')
-  $('.delexercice').remove()
-  const listeExercicesSelectionnes = document.getElementById('choix_des_exercices').value.split(',')
-  for (let i = 0; i < listeExercicesSelectionnes.length; i++) {
-    const elemListe = $(`a.lien_id_exercice[data-id_exercice='${listeExercicesSelectionnes[i]}']`)
-    // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
-    if (compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i]) > 1) {
+  let listeExercicesSelectionnes = document.getElementById('choix_des_exercices')
+  if (listeExercicesSelectionnes !== null) {
+    $('.exerciceactif').removeClass('exerciceactif')
+    $('.delexercice').remove()
+    listeExercicesSelectionnes = listeExercicesSelectionnes.value.split(',')
+    for (let i = 0; i < listeExercicesSelectionnes.length; i++) {
+      const elemListe = $(`a.lien_id_exercice[data-id_exercice='${listeExercicesSelectionnes[i]}']`)
+      // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
+      if (compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i]) > 1) {
       // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
-      if (document.getElementById(`count¤${listeExercicesSelectionnes[i]}`)) {
-        document.getElementById(`count¤${listeExercicesSelectionnes[i]}`).innerText = ` ✖︎ ${compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i])}`
+        if (document.getElementById(`count¤${listeExercicesSelectionnes[i]}`)) {
+          document.getElementById(`count¤${listeExercicesSelectionnes[i]}`).innerText = ` ✖︎ ${compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i])}`
+        } else {
+          elemListe.after(`<span id="count¤${listeExercicesSelectionnes[i]}"> ✖︎ ${compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i])} </span>`)
+        }
       } else {
-        elemListe.after(`<span id="count¤${listeExercicesSelectionnes[i]}"> ✖︎ ${compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i])} </span>`)
+        if (document.getElementById(`count¤${listeExercicesSelectionnes[i]}`)) {
+          document.getElementById(`count¤${listeExercicesSelectionnes[i]}`).remove()
+        }
       }
-    } else {
-      if (document.getElementById(`count¤${listeExercicesSelectionnes[i]}`)) {
-        document.getElementById(`count¤${listeExercicesSelectionnes[i]}`).remove()
+      if (!elemListe.hasClass('exerciceactif')) {
+        elemListe.after(`<span data-tooltip="Supprimer le dernière occurence de l'exercice." class="delexercice"><i class="minus square icon delexercice" id="del¤${listeExercicesSelectionnes[i]}" ></i></span>`)
       }
+      elemListe.addClass('exerciceactif')
     }
-    if (!elemListe.hasClass('exerciceactif')) {
-      elemListe.after(`<span data-tooltip="Supprimer le dernière occurence de l'exercice." class="delexercice"><i class="minus square icon delexercice" id="del¤${listeExercicesSelectionnes[i]}" ></i></span>`)
-    }
-    elemListe.addClass('exerciceactif')
+    $('.delexercice').off('click').on('click', function (e) {
+      supprimerExo(e.target.id, true)
+      e.stopPropagation()
+    })
+    $('.icone_preview').off('click').on('click', function (e) {
+      e.stopPropagation()
+      $('.popup').attr('data-exoId', e.target.id)
+      $('.popup').trigger(e)
+    })
   }
-  $('.delexercice').off('click').on('click', function (e) {
-    supprimerExo(e.target.id, true)
-    e.stopPropagation()
-  })
-  $('.icone_preview').off('click').on('click', function (e) {
-    e.stopPropagation()
-    $('.popup').attr('data-exoId', e.target.id)
-    $('.popup').trigger(e)
-  })
 }
 
 export function supprimerExo (num, last) {
@@ -370,6 +373,24 @@ export function menuDesExercicesDisponibles () {
     ['3G1', '3G1 - Homothétie et rotation'], ['3G2', '3G2 - Théorème de Thalès'], ['3G3', '3G3 - Trigonométrie'], ['3G4', '3G4 - Espace'],
     ['3I1', '3I1 - Algorithmique premier niveau'],
     ['3L1', '3L1 - Calcul littéral'], ['3P1', '3P1 - Proportionnalité'], ['3S1', '3S1 - Statistiques'], ['3S2', '3S2 - Probabilités']]
+  const listeThemes2 = [
+    ['2F1', '2F1 - Se constituer un répertoire de fonctions de référence'],
+    ['2F2', '2F2 - Représenter algébriquement et graphiquement les fonctions'],
+    ['2F3', '2F3 - Étudier les variations et les extremums d\'une fonction'],
+    ['2G1', '2G1 - Les bases en géométrie'],
+    ['2G2', '2G2 - Les vecteurs'],
+    ['2G3', '2G3 - Représenter et caractériser les droites du plan'],
+    ['2N1', '2N1 - Manipuler les nombres réels'],
+    ['2N2', '2N2 - Utiliser les notions de multiple, diviseur et de nombre premier'],
+    ['2N3', '2N3 - Utiliser les fractions, les puissances et les racines carrées'],
+    ['2N4', '2N4 - Utiliser le calcul littéral '],
+    ['2N5', '2N5 - Équations'],
+    ['2N6', '2N6 - Inéquations'],
+    ['2S1', '2S1 - Utiliser l\'information chiffrée '],
+    ['2S2', '2S2 - Statistique descriptive'],
+    ['2S3', '2S3 - Modéliser le hasard, calculer des probabiltés'],
+    ['2S4', '2S4 - Échantillonnage']
+  ]
   const objExercicesDisponibles = {
     c3: {
       label: 'CM1 /CM2',
@@ -422,7 +443,7 @@ export function menuDesExercicesDisponibles () {
     2: {
       label: 'Seconde',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: '',
+      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemes2),
       lignes_tableau: ''
     },
     1: {
@@ -486,7 +507,7 @@ export function menuDesExercicesDisponibles () {
         objExercicesDisponibles[id[0]].lignes_tableau += ligneTableau(id)
       }
     }
-    if (id[0] === '2' || id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
+    if (id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
       if (filtre === 'interactif') {
         // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {

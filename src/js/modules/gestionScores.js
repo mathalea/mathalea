@@ -12,18 +12,22 @@ import { setUrl, getVueFromUrl } from './gestionUrl.js'
 export default function gestionScores () {
   // Affichage de l'état de connexion au cas où l'on navigue sur d'autres pages
   // Sinon on perd l'affichage
-  if (window.sessionStorage.getItem('userId') && (getVueFromUrl() === null || getVueFromUrl() === 'l' || getVueFromUrl() === 'light')) {
-    // On affiche le champ prévu pour l'affichage du userId courant
-    document.getElementById('userIdDisplay').style.display = 'initial'
-    // On affiche le userId dans la fenetre principale
-    if (document.getElementById('userIdDisplayValue')) {
-      document.getElementById('userIdDisplayValue').innerHTML = window.sessionStorage.getItem('userId')
+  try {
+    if (typeof (window.sessionStorage) === 'object') {
+      if (window.sessionStorage.getItem('userId') && (getVueFromUrl() === null || getVueFromUrl() === 'l' || getVueFromUrl() === 'light')) {
+        // On affiche le champ prévu pour l'affichage du userId courant
+        document.getElementById('userIdDisplay').style.display = 'initial'
+        // On affiche le userId dans la fenetre principale
+        if (document.getElementById('userIdDisplayValue')) {
+          document.getElementById('userIdDisplayValue').innerHTML = window.sessionStorage.getItem('userId')
+        }
+        // On affiche le bouton de déconnexion
+        document.getElementById('scoresLogOut').style.display = 'initial'
+        // On cache le bouton de connexion
+        document.getElementById('scoresLogIn').style.display = 'none'
+      }
     }
-    // On affiche le bouton de déconnexion
-    document.getElementById('scoresLogOut').style.display = 'initial'
-    // On cache le bouton de connexion
-    document.getElementById('scoresLogIn').style.display = 'none'
-  }
+  } catch (err) {}
 
   // On vérfie s'il faut remettre à zéro le répertoire de stockage des espaces de scores
   fetch('scoresCleanSpaces.php', {
@@ -71,11 +75,15 @@ export default function gestionScores () {
         urlParams.delete('userId')
         console.log('Suppression du parametre userId de l\'url OK => ' + urlParams.has('userId'))
       }
-      if (window.sessionStorage.getItem('userId')) {
-        // On supprime le userId du stockage
-        window.sessionStorage.removeItem('userId')
-        console.log('Suppression du userId de session.stockage OK => ' + window.sessionStorage.getItem('userId'))
-      }
+      try {
+        if (typeof (window.sessionStorage) === 'object') {
+          if (window.sessionStorage.getItem('userId')) {
+            // On supprime le userId du stockage
+            window.sessionStorage.removeItem('userId')
+            console.log('Suppression du userId de session.stockage OK => ' + window.sessionStorage.getItem('userId'))
+          }
+        }
+      } catch (err) {}
       if (context.userId) {
         // On suprime le userId du context
         delete context.userId
@@ -130,21 +138,25 @@ export default function gestionScores () {
             document.getElementById('scoresDocumentationFeedback').hidden = true
           }
           // S'il n'y a pas de userId on n'affiche pas le champ du userId courant
-          if (!window.sessionStorage.getItem('userId')) {
-            // On cache le champ prévu pour l'affichage du userId courant
-            document.getElementById('userIdDisplay').style.display = 'none'
-            // On laisse le bouton de déconnexion caché
-            document.getElementById('scoresLogOut').style.display = 'none'
-            // On affiche le bouton de connexion
-            document.getElementById('scoresLogIn').style.display = 'initial'
-          } else {
-            // On affiche le champ prévu pour l'affichage du userId courant
-            document.getElementById('userIdDisplay').style.display = 'initial'
-            // On affiche le bouton de déconnexion
-            document.getElementById('scoresLogOut').style.display = 'initial'
-            // On cache le bouton de connexion
-            document.getElementById('scoresLogIn').style.display = 'none'
-          }
+          try {
+            if (typeof (window.sessionStorage) === 'object') {
+              if (!window.sessionStorage.getItem('userId')) {
+                // On cache le champ prévu pour l'affichage du userId courant
+                document.getElementById('userIdDisplay').style.display = 'none'
+                // On laisse le bouton de déconnexion caché
+                document.getElementById('scoresLogOut').style.display = 'none'
+                // On affiche le bouton de connexion
+                document.getElementById('scoresLogIn').style.display = 'initial'
+              } else {
+                // On affiche le champ prévu pour l'affichage du userId courant
+                document.getElementById('userIdDisplay').style.display = 'initial'
+                // On affiche le bouton de déconnexion
+                document.getElementById('scoresLogOut').style.display = 'initial'
+                // On cache le bouton de connexion
+                document.getElementById('scoresLogIn').style.display = 'none'
+              }
+            }
+          } catch (err) {}
         }
       }).modal('show')
     })
@@ -258,7 +270,11 @@ export default function gestionScores () {
             }
             // On met à jour/ajoute au stockage de session dans le navigateur
             context.userId = urlParams.get('userId')
-            window.sessionStorage.setItem('userId', context.userId)
+            try {
+              if (typeof (window.sessionStorage) === 'object') {
+                window.sessionStorage.setItem('userId', context.userId)
+              }
+            } catch (err) {}
             // On finit la réécriture de l'url
             const entries = urlParams.entries()
             // keys = urlParams.keys (),

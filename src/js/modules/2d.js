@@ -1394,13 +1394,19 @@ function Vecteur (arg1, arg2, nom = '') {
     return s
   }
   this.representantNomme = function (A, nom, taille = 1, color = 'black') {
+    let s, angle, v
     const B = point(A.x + this.x, A.y + this.y)
-    const s = segment(A, B)
-    const angle = s.angleAvecHorizontale
     const M = milieu(A, B)
-    const v = similitude(this, A, 90, 1 / this.norme())
+    s = segment(A, B)
+    angle = s.angleAvecHorizontale
+    v = similitude(this, A, 90, 0.5 / this.norme())
+    if (Math.abs(angle) > 90) {
+      s = segment(B, A)
+      angle = s.angleAvecHorizontale
+      v = similitude(this, A, -90, 0.5 / this.norme())
+    }
     const N = translation(M, v)
-    return nomVecteurParPosition(nom, N.x, N.y, taille, angle, color)
+    return nomVecteurParPosition(nom, N.x, N.y, taille, 0, color)
   }
 }
 export function vecteur (...args) {
@@ -1422,16 +1428,12 @@ function NomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color = 'black
   this.angle = angle
   this.taille = taille
   const objets = []
-  let V, M2
   const t = texteParPosition(this.nom, this.x, this.y, -this.angle, this.color, this.taille, 'middle', true)
   const M = point(this.x, this.y)
-  const P = point(M.x + 1.1 * this.nom.length, M.y)
-  const M0 = similitude(P, M, 90 + this.angle, 0.5 / this.nom.length)
-  const M1 = translation(M0, vecteur(P, M))
-  M2 = translation(M0, vecteur(M, P))
-  V = vecteur(M1, M2)
-  V = rotation(V, M, this.angle)
-  M2 = translation(M1, V)
+  const P = point(M.x + 0.25 * this.nom.length, M.y)
+  const M0 = similitude(P, M, 90 + this.angle, 2 / this.nom.length)
+  const M1 = rotation(translation(M0, vecteur(P, M)), M0, this.angle)
+  const M2 = rotation(M1, M0, 180)
   const s = segment(M1, M2)
   s.styleExtremites = '->'
   s.tailleExtremites = 3
@@ -1548,7 +1550,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
         code += `<line x1="${B1.xSVG(coeff)}" y1="${B1.ySVG(
           coeff
         )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
       }
       if (this.styleExtremites.substr(-1) === '>') {
         // si ça termine par > on rajoute une flèche en B
@@ -1558,10 +1560,10 @@ function Segment (arg1, arg2, arg3, arg4, color) {
         code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff
         )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff
-        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color}" />`
+        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color}" stroke-width="${this.epaisseur}" />`
       }
       if (this.styleExtremites.substr(-1) === '<') {
         // si ça termine par < on rajoute une flèche inversée en B
@@ -1571,11 +1573,11 @@ function Segment (arg1, arg2, arg3, arg4, color) {
         code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff
         )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff
         )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
       }
       if (this.styleExtremites[0] === '<') {
         // si ça commence par < on rajoute une flèche en A
@@ -1585,11 +1587,11 @@ function Segment (arg1, arg2, arg3, arg4, color) {
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff
         )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
       }
       if (this.styleExtremites[0] === '>') {
         // si ça commence par > on rajoute une flèche inversée en A
@@ -1599,11 +1601,11 @@ function Segment (arg1, arg2, arg3, arg4, color) {
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff
         )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
       }
       if (this.styleExtremites[0] === '|') {
         // si ça commence par | on le rajoute en A
@@ -1613,7 +1615,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
         code += `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(
           coeff
         )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color
-          }" />`
+          }" stroke-width="${this.epaisseur}" />`
       }
     }
     code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(coeff)}" x2="${B.xSVG(
@@ -4728,7 +4730,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
       mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
       sizelabel = 20
     }
-    return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, -5, '').svg(coeff) + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff)
+    return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, 12, '').svg(coeff) + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff)
   }
   this.tikz = function () {
     // let d = bissectrice(A, B, C);
@@ -6066,6 +6068,23 @@ function Repere ({
 export function repere (...args) {
   return new Repere(...args)
 }
+
+/**
+ * repere2({xUnite, yUnite, xMin, xMax, yMin, yMax, axesEpaisseur, axesCouleur, axeXStyle, axeYStyle, thickEpaisseur,
+ * thickHauteur, thickCouleur, xThickDistance, xThickListe, xThickMin, xThickMax, yThickDistance, yThickListe,
+ * yThickMin, yThickMax, xLabelDistance, xLabelListe, xLabelMin, xLabelMax, yLabelDistance, yLabelListe,
+ * yLabelMin, yLabelMax, xLegende,xLegendePosition, yLegende, yLegendePosition, grille, grilleDistance,
+ * grilleCouleur,grilleOpacite, grilleEpaisseur, grilleSecondaire, grilleSecondaireDistance, grilleSecondaireCouleur,
+ * grilleSecondaireOpacite, grilleSecondaireEpaisseur, grilleX, grilleXListe, grilleXDistance, grilleXMin, grilleXMax,
+ * grilleXCouleur, grilleXOpacite, grilleY, grilleYListe, grilleYDistance, grilleYMin, grilleYMax, grilleYCouleur,
+ * grilleYOpacite, grilleSecondaireX, grilleSecondaireXListe, grilleSecondaireXDistance, grilleSecondaireXMin, grilleSecondaireXMax,
+ * grilleSecondaireXCouleur, grilleSecondaireXOpacite, grilleSecondaireY, grilleSecondaireYListe, grilleSecondaireYDistance,
+ * grilleSecondaireYMin, grilleSecondaireYMax, grilleSecondaireYCouleur, grilleSecondaireYOpacite})
+ *
+ * repere2() trace un repère classique. De nombreux paramètres permettent d'en modifier l'aspect
+ *
+ * @author Rémi Angot
+ */
 
 function Repere2 ({
   xUnite = 1,
@@ -7610,7 +7629,7 @@ export function courbe (
 }
 
 /**
- * courbe2(f,{color,epaisseur,step,xMin,xMax,yMin,yMax,xUnite,yUnite}) // Trace la courbe de f
+ * courbe2(f,{repere,color,epaisseur,step,xMin,xMax,yMin,yMax,xUnite,yUnite}) // Trace la courbe de f
  *
  * @author Rémi Angot
  */
@@ -7620,33 +7639,38 @@ function Courbe2 (f, {
   color = 'black',
   epaisseur = 2,
   step = false,
-  xMin = -10,
-  xMax = 10,
-  yMin = -10,
-  yMax = 10,
+  xMin,
+  xMax,
+  yMin,
+  yMax,
   xUnite = 1,
   yUnite = 1
 } = {}) {
   ObjetMathalea2D.call(this)
   this.color = color
   let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
-  xmin = repere.xMin
-  ymin = repere.yMin
-  xmax = repere.xMax
-  ymax = repere.yMax
+  if (typeof xMin === 'undefined') {
+    xmin = repere.xMin
+  } else xmin = xMin
+  if (typeof yMin === 'undefined') {
+    ymin = repere.yMin
+  } else ymin = yMin
+  if (typeof xMax === 'undefined') {
+    xmax = repere.xMax
+  } else xmax = xMax
+  if (typeof yMax === 'undefined') {
+    ymax = repere.yMax
+  } else ymax = yMax
+
   xunite = repere.xUnite
   yunite = repere.yUnite
 
-  // Si le repère n'est pas donné ou ne permet pas de récupérer des valeurs
-  if (isNaN(xmin)) { xmin = xMin };
-  if (isNaN(xmax)) { xmax = xMax };
-  if (isNaN(ymin)) { ymin = yMin };
-  if (isNaN(ymax)) { ymax = yMax };
   if (isNaN(xunite)) { xunite = xUnite };
   if (isNaN(yunite)) { yunite = yUnite };
   const objets = []
   let points = []
   let pas
+  let p
   if (!step) {
     pas = calcul(0.2 / xUnite)
   } else {
@@ -7654,18 +7678,22 @@ function Courbe2 (f, {
   }
   for (let x = xmin; x <= xmax; x += pas
   ) {
-    if (f(x) < ymax + 0.2 && f(x) > ymin - 0.2) {
-      points.push(point(calcul(x * xunite), calcul(f(x) * yunite)))
+    if (!isNaN(f(x))) {
+      if (f(x) < ymax + 1 && f(x) > ymin - 1) {
+        points.push(point(calcul(x * xunite), calcul(f(x) * yunite)))
+      } else {
+        p = polyline([...points], this.color)
+        p.epaisseur = epaisseur
+        objets.push(p)
+        points = []
+      }
     } else {
-      const p = polyline([...points], this.color)
-      p.epaisseur = epaisseur
-      objets.push(p)
-      points = []
+      x += 0.05
     }
-    const p = polyline([...points], this.color)
-    p.epaisseur = epaisseur
-    objets.push(p)
   }
+  p = polyline([...points], this.color)
+  p.epaisseur = epaisseur
+  objets.push(p)
 
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
