@@ -34,6 +34,10 @@ git pull
 # Je copie la branche sur laquelle je suis (master) et crée ma nouvelle branche en respectant la syntaxe NomDeLaPersonne-ReferenceDeLExercice-PrecisionEventuelle
 git checkout -b John-5P12-Ratios
 
+# Après avoir créé un fichier (comme par exemple le modèle d'exercice que j'ai copié), je l'ajoute aux fichiers suivis par git 
+git add .
+# Attention, il y a un espace entre le add et le point
+
 # Après avoir fait quelques modifications (sans oublier d'enregistrer les fichiers), je peux les commit
 git commit -am "quelques modifications de faites"
 
@@ -150,6 +154,13 @@ git checkout maBranche
 git branch -D tmp
 ```
 ## J'ai tenté de merge, mais ça ne se passe pas bien :'( Comment faire ?
+Avant de passer aux choses sérieuses, si vous avez ce message :
+
+![](img/Conflit-0.png)
+
+Ce n'est pas un message d'erreur ! Il vous dit juste que ça c'est bien passé ! (et qu'il aimerait un petit commentaire). Il suffit de faire ctrl + x pour quitter, la fusion sera effective quand même :)
+
+Maintenant, les choses sérieuses.
 ![](img/Conflit-1.png)
 ![](img/Conflit-2.png)
 ![](img/Conflit-3.png)
