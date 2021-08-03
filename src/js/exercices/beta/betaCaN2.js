@@ -93,7 +93,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
 
     const signesDeX = combinaisonListes([true, false], this.nbQuestions)
     const typeQuestionsDisponibles = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20',
-      'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']
+    'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']
     // 'q1','q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10']
     // 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20'
     // 'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']//
@@ -906,7 +906,7 @@ $\\begin{array}{|l|c|c|}\n`
           break
 
         case 'q12':
-          switch (choice([1, 2, 3, 4])) { // 1
+          switch (choice([1,2,3,4])) { // 1
             case 1:// petits problèmes avec quart, cinquième, ...
               a = choice([12, 24, 36, 48])
               b = choice([15, 20, 25, 30, 35, 40, 45])
@@ -1068,7 +1068,7 @@ $\\begin{array}{|l|c|c|}\n`
           break
 
         case 'q14':
-          switch (choice([1, 2, 3, 4])) {
+          switch (choice([ 1, 2, 3, 4])) {//
             case 1:// calcul pour une valeur
               a = randint(-5, -1)
               b = randint(1, 9)
@@ -1128,20 +1128,20 @@ $\\begin{array}{|l|c|c|}\n`
               inconnue = choice(['x', 'y'])
               if (a === 1) {
                 // ne pas écrire 1x
-                texte = `$A=(${inconnue}${ecritureAlgebrique(
+                texte = `Développer : $A=(${inconnue}${ecritureAlgebrique(
         b
       )})\\times${ecritureParentheseSiNegatif(k)}$`
               } else {
-                texte = `$A=(${a}${inconnue}${ecritureAlgebrique(
+                texte = `Développer : $A=(${a}${inconnue}${ecritureAlgebrique(
         b
       )})\\times${ecritureParentheseSiNegatif(k)}$`
               }
 
               if (a === 1) {
                 // ne pas écrire 1x
-                texteCorr = `$A=(${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}=${k}\\times ${inconnue}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
+                texteCorr = `Développer : $A=(${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}=${k}\\times ${inconnue}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
               } else {
-                texteCorr = `$A=(${a}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}=${k}\\times ${a}${inconnue}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
+                texteCorr = `Développer : $A=(${a}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}=${k}\\times ${a}${inconnue}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
               }
               setReponse(this, i, [`${k * a}${inconnue}${ecritureAlgebrique(k * b)}`])
 
@@ -1154,9 +1154,9 @@ $\\begin{array}{|l|c|c|}\n`
               inconnue = choice(['x', 'y'])
               if (a === 1) {
                 // ne pas écrire 1x
-                texte = `$A=${k}${inconnue}(${inconnue}${ecritureAlgebrique(b)})$`
+                texte = `Développer : $A=${k}${inconnue}(${inconnue}${ecritureAlgebrique(b)})$`
               } else {
-                texte = `$A=${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})$`
+                texte = `Développer : $A=${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})$`
               }
 
               if (a === 1) {
@@ -1767,7 +1767,7 @@ Il y a donc $${texNombrec(c * b * a / 10000)}$ bonbons verts à la pomme.
           break
 
         case 'q20':
-          switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])) { // 1, 2, 3, 4, 5, 6, 7, 8, 9
+          switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9,10])) { // 
             case 1:// pythagore hypoténuse
               a = randint(1, 6)//
 
@@ -1825,7 +1825,7 @@ Il y a donc $${texNombrec(c * b * a / 10000)}$ bonbons verts à la pomme.
                 resultat = 180 - 2 * a
                 texte = `Sur cette figure, quelle est la mesure en degré de l'angle $\\widehat{C}$ ? 
               `
-                texte += mathalea2d({ xmin: -1, ymin: -3, xmax: 8, ymax: 8, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.7 }, objets)
+                texte += mathalea2d({ xmin: -1, ymin: -0.8, xmax: 6, ymax: 8, pixelsParCm: 30, mainlevee: true, amplitude: 0.5, scale: 0.7 }, objets)
                 texteCorr = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
               Ainsi $\\widehat{C}=180°-2\\times ${a}°=${resultat}°$
           <br>`
@@ -1844,7 +1844,7 @@ Il y a donc $${texNombrec(c * b * a / 10000)}$ bonbons verts à la pomme.
                 resultat = (180 - a) / 2
                 texte = `Sur cette figure, quelle est la mesure en degré de l'angle $\\widehat{A}$ ? 
                 `
-                texte += mathalea2d({ xmin: -1, ymin: -3, xmax: 8, ymax: 8, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.7 }, objets)
+                texte += mathalea2d({ xmin: -1, ymin: -0.8, xmax: 8, ymax: 14, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.7 }, objets)
                 texteCorr = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
                 Ainsi $\\widehat{A}=\\dfrac{180-${a}}{2}=${resultat}°$
             <br>`
@@ -2951,8 +2951,7 @@ Ainsi, $DC=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
                 a = randint(5, 8)
                 objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C), codageAngleDroit(A, B, C))
                 objets.push(latexParCoordonnees(`${a}`, milieu(A, B).x + 0, milieu(B, C).y + 0.25, 'black', 20, 10, ''),
-                  afficheMesureAngle(C, A, B, 'black', 1),
-                  latexParCoordonnees('50°', 1.2, 0.5, 'black', 20, 10, ''))
+                                    latexParCoordonnees('50°', 1.2, 0.5, 'black', 20, 10, ''))
 
                 texte = ` On a $\\tan 50° \\simeq 1,2$.<br>
                 Donner une valeur approchée de la longueur $BC$.
@@ -2971,8 +2970,7 @@ Ainsi, $DC=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
                 a = randint(4, 11)
                 objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C), codageAngleDroit(A, B, C))
                 objets.push(latexParCoordonnees(`${a}`, milieu(A, C).x + 0, milieu(A, C).y - 0.4, 'black', 20, 10, ''),
-                  afficheMesureAngle(A, C, B, 'black', 1),
-                  latexParCoordonnees('43°', 4.6, 0.5, 'black', 20, 10, ''))
+                                    latexParCoordonnees('43°', 4.6, 0.5, 'black', 20, 10, ''))
 
                 texte = ` On a $\\sin 43° \\simeq 0,7$.<br>
                 Donner une valeur approchée de la longueur $AB$.
@@ -3162,7 +3160,7 @@ Ainsi, $DC=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
               a = randint(1, 9)
               b = randint(1, 9)
               texte = ` Combien de solutions réelles possède l'équation $-x^2+${a}=${b}$ ?<br>
-              Indiquer le nombre de solutions : $0$, $1$ ou $2$  :
+              
                                    `
               if (a - b > 0) {
                 texteCorr = `L'équation est équivalente à $-x^2=${b}-${a}$, soit $x^2=${a - b}$.<br>
