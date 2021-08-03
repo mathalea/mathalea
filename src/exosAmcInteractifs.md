@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 107 
-- nombre d'exos interactifReady 130 
+- nombre d'exos amcReady 109 
+- nombre d'exos interactifReady 132 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -101,6 +101,7 @@
 |6M11|Aires de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M20|Aires de triangles|OK|AMCNum|OK|mathLive|
 |6M23|Conversions d’aires|OK|qcmMono|OK|qcm,mathLive|
+|6M30-0|Volumes de pavés droit par dénombrement|OK|AMCNum|OK|mathLive|
 |6M30|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |6M31|Conversions de volume|OK|qcmMono|OK|qcm,mathLive|
 |6N10-1|Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...|OK|AMCNum|OK|mathLive|
@@ -109,6 +110,7 @@
 |6N20-2|Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.|KO|KO|OK|mathLive|
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1).|KO|KO|OK|mathLive|
 |6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
+|6N22|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
 |6N30-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCOpen|OK|mathLive|
 |6N30|Lire l’abscisse décimale d’un point|OK|AMCOpen|OK|mathLive|
@@ -122,15 +124,6 @@
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|
-|beta2G53|Alignement de 3 points.|KO|KO|OK|mathLive|
-|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
-|beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
-|betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
-|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
-|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
-|betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
-|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
@@ -151,3 +144,12 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
+|beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
+|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
+|beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
+|betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
+|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
+|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
+|betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
+|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|

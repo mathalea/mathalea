@@ -566,6 +566,7 @@ export function prisme3d (base, vecteur, color = 'black') {
 */
 class Cube3d {
   constructor (x, y, z, c, color = 'black') {
+    ObjetMathalea2D.call(this)
     const A = point3d(x, y, z)
     const vx = vecteur3d(c, 0, 0)
     const vy = vecteur3d(0, c, 0)
@@ -580,9 +581,9 @@ class Cube3d {
     const faceAV = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
     const faceDr = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
     const faceTOP = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
-    faceAV.couleurDeRemplissage = '#A9A9A9'
+    faceAV.couleurDeRemplissage = 'lightgray'
     faceTOP.couleurDeRemplissage = 'white'
-    faceDr.couleurDeRemplissage = '#A5C400'
+    faceDr.couleurDeRemplissage = 'darkgray'
     this.svg = function (coeff) {
       return faceAV.svg(coeff) + '\n' + faceTOP.svg(coeff) + '\n' + faceDr.svg(coeff)
     }
@@ -601,6 +602,7 @@ export function cube3d (x, y, z, c) {
  */
 class Barre3d {
   constructor (x, y, z, c, l, color = 'black') {
+    ObjetMathalea2D.call(this)
     let B, C, D, E, F, G, H, faceAv, faceTop
     const objets = []
     const vx = vecteur3d(c, 0, 0)
@@ -618,20 +620,21 @@ class Barre3d {
       H = translation3d(D, vy)
       faceAv = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
       faceTop = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
-      faceAv.couleurDeRemplissage = '#A9A9A9'
+      faceAv.couleurDeRemplissage = 'lightgray'
       faceTop.couleurDeRemplissage = 'white'
       objets.push(faceAv, faceTop)
       A = translation3d(A, vx)
     }
     const faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
-    faceD.couleurDeRemplissage = '#A5C400'
+    faceD.couleurDeRemplissage = 'darkgray'
     objets.push(faceD)
 
     this.svg = function (coeff) {
       let code = ''
       for (const objet of objets) {
-        code += objet.svg() + '\n'
+        code += objet.svg(coeff) + '\n'
       }
+      code = `<g id="${this.id}">${code}</g>`
       return code
     }
     this.tikz = function () {
@@ -654,6 +657,7 @@ export function barre3d (x, y, z, c, l, color = 'black') {
  */
 class Plaque3d {
   constructor (x, y, z, c, l, p, color = 'black') {
+    ObjetMathalea2D.call(this)
     let A, B, C, D, F, G, H, faceAv, faceTop, faceD
     const objets = []
     const vx = vecteur3d(c, 0, 0)
@@ -671,12 +675,12 @@ class Plaque3d {
         H = translation3d(D, vy)
         if (j === 0) {
           faceAv = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
-          faceAv.couleurDeRemplissage = '#A9A9A9'
+          faceAv.couleurDeRemplissage = 'lightgray'
           objets.push(faceAv)
         }
         if (i === l - 1) {
           faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
-          faceD.couleurDeRemplissage = '#A5C400'
+          faceD.couleurDeRemplissage = 'darkgray'
           objets.push(faceD)
         }
         faceTop = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
@@ -688,8 +692,9 @@ class Plaque3d {
     this.svg = function (coeff) {
       let code = ''
       for (const objet of objets) {
-        code += objet.svg() + '\n'
+        code += objet.svg(coeff) + '\n'
       }
+      code = `<g id="${this.id}">${code}</g>`
       return code
     }
     this.tikz = function () {
@@ -708,6 +713,7 @@ export function plaque3d (x, y, z, c, l, p, color = 'black') {
 
 class PaveLPH3d {
   constructor (x, y, z, c, l, p, h, color = 'black') {
+    ObjetMathalea2D.call(this)
     let A, B, C, D, F, G, H, faceAv, faceTop, faceD
     const objets = []
     const vx = vecteur3d(c, 0, 0)
@@ -726,12 +732,12 @@ class PaveLPH3d {
           H = translation3d(D, vy)
           if (j === 0) {
             faceAv = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
-            faceAv.couleurDeRemplissage = '#A9A9A9'
+            faceAv.couleurDeRemplissage = 'lightgray'
             objets.push(faceAv)
           }
           if (i === l - 1) {
             faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
-            faceD.couleurDeRemplissage = '#A5C400'
+            faceD.couleurDeRemplissage = 'darkgray'
             objets.push(faceD)
           }
           if (k === h - 1) {
@@ -746,8 +752,9 @@ class PaveLPH3d {
     this.svg = function (coeff) {
       let code = ''
       for (const objet of objets) {
-        code += objet.svg() + '\n'
+        code += objet.svg(coeff) + '\n'
       }
+      code = `<g id="${this.id}">${code}</g>`
       return code
     }
     this.tikz = function () {

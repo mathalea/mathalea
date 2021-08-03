@@ -2627,7 +2627,7 @@ export function texFraction (a, b) {
  * @param {string} symbole
  * @returns {string} string
  * @author Guillaume Valmont
- * @example texSymbole("≤") retourne "\\leq"
+ * @example texSymbole('≤') retourne '\\leqslant'
  */
 export function texSymbole (symbole) {
   switch (symbole) {
@@ -2636,9 +2636,11 @@ export function texSymbole (symbole) {
     case '>':
       return '>'
     case '≤':
-      return '\\leq'
+      return '\\leqslant'
     case '≥':
-      return '\\geq'
+      return '\\geqslant'
+    case '\\':
+      return '\\smallsetminus'
     default:
       return 'symbole non connu par texSymbole()'
   }
@@ -2733,145 +2735,147 @@ export function texGraphique (f, xmin = -5, xmax = 5, ymin = -5, ymax = 5) {
  * Sinon, c'est le tableau qui sert à remplir la Matrice
  *  @author Jean-Claude Lhote
  */
-export function MatriceCarree (table) {
-  let ligne
-  this.table = []
-  if (typeof (table) === 'number') {
-    this.dim = table // si c'est un nombre qui est passé en argument, c'est le rang, et on rempli la table de 0
-    for (let i = 0; i < this.dim; i++) {
-      ligne = []
-      for (let j = 0; j < this.dim; j++) { ligne.push(0) }
-      this.table.push(ligne)
+export class MatriceCarree {
+  constructor (table) {
+    let ligne
+    this.table = []
+    if (typeof (table) === 'number') {
+      this.dim = table // si c'est un nombre qui est passé en argument, c'est le rang, et on rempli la table de 0
+      for (let i = 0; i < this.dim; i++) {
+        ligne = []
+        for (let j = 0; j < this.dim; j++) { ligne.push(0) }
+        this.table.push(ligne)
+      }
+    } else { // si l'argument est une table, on la copie dans this.table et sa longueur donne la dimension de la matrice
+      this.dim = table.length
+      this.table = table.slice()
     }
-  } else { // si l'argument est une table, on la copie dans this.table et sa longueur donne la dimension de la matrice
-    this.dim = table.length
-    this.table = table.slice()
-  }
-  /**
+    /**
    * Méthode : Calcule le déterminant de la matrice carrée
    * @author Jean-Claude Lhote
    */
-  this.determinant = function () {
-    const n = this.dim // taille de la matrice = nxn
-    let determinant = 0; let M
-    for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
+    this.determinant = function () {
+      const n = this.dim // taille de la matrice = nxn
+      let determinant = 0; let M
+      for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
       // if (n==1) determinant=this.table[0][0]
-      if (n === 2) { determinant = calcul(this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1]) } else {
-        M = this.matriceReduite(0, i)
-        determinant += calcul(((-1) ** i) * this.table[0][i] * M.determinant())
+        if (n === 2) { determinant = calcul(this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1]) } else {
+          M = this.matriceReduite(0, i)
+          determinant += calcul(((-1) ** i) * this.table[0][i] * M.determinant())
+        }
       }
+      return determinant
     }
-    return determinant
-  }
-  /**
+    /**
    * Méthode : m=M.matriceReduite(l,c) retourne une nouvelle matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
    * (Utilisée dans le calcul du déterminant d'une matrice carrée.)
    * @author Jean-Claude Lhote
    */
-  this.matriceReduite = function (l, c) {
-    const resultat = []; let ligne
-    for (let i = 0; i < this.table.length; i++) {
-      if (i !== l) {
-        ligne = []
-        for (let j = 0; j < this.table.length; j++) {
-          if (j !== c) ligne.push(this.table[i][j])
+    this.matriceReduite = function (l, c) {
+      const resultat = []; let ligne
+      for (let i = 0; i < this.table.length; i++) {
+        if (i !== l) {
+          ligne = []
+          for (let j = 0; j < this.table.length; j++) {
+            if (j !== c) ligne.push(this.table[i][j])
+          }
+          if (ligne.length > 0) resultat.push(ligne)
         }
-        if (ligne.length > 0) resultat.push(ligne)
       }
+      return matriceCarree(resultat)
     }
-    return matriceCarree(resultat)
-  }
-  /**
+    /**
    * Méthode : m=M.cofacteurs() retourne la matrice des cofacteurs de M utilisée dans l'inversion de M.
    */
-  this.cofacteurs = function () { // renvoie la matrice des cofacteurs.
-    const n = this.dim; let resultat = []; let ligne; let M
-    if (n > 2) {
+    this.cofacteurs = function () { // renvoie la matrice des cofacteurs.
+      const n = this.dim; let resultat = []; let ligne; let M
+      if (n > 2) {
+        for (let i = 0; i < n; i++) {
+          ligne = []
+          for (let j = 0; j < n; j++) {
+            M = this.matriceReduite(i, j)
+            ligne.push(calcul((-1) ** (i + j) * M.determinant()))
+          }
+          resultat.push(ligne)
+        }
+      } else if (n === 2) {
+        resultat = [[this.table[1][1], -this.table[1][0]], [-this.table[0][1], this.table[0][0]]]
+      } else return false
+      return matriceCarree(resultat)
+    }
+    /**
+   * Méthode : m=M.transposee() retourne la matrice transposée de M utilisée pour l'inversion de M
+   */
+    this.transposee = function () { // retourne la matrice transposée
+      const n = this.dim; const resultat = []; let ligne
       for (let i = 0; i < n; i++) {
         ligne = []
         for (let j = 0; j < n; j++) {
-          M = this.matriceReduite(i, j)
-          ligne.push(calcul((-1) ** (i + j) * M.determinant()))
+          ligne.push(this.table[j][i])
         }
         resultat.push(ligne)
       }
-    } else if (n === 2) {
-      resultat = [[this.table[1][1], -this.table[1][0]], [-this.table[0][1], this.table[0][0]]]
-    } else return false
-    return matriceCarree(resultat)
-  }
-  /**
-   * Méthode : m=M.transposee() retourne la matrice transposée de M utilisée pour l'inversion de M
-   */
-  this.transposee = function () { // retourne la matrice transposée
-    const n = this.dim; const resultat = []; let ligne
-    for (let i = 0; i < n; i++) {
-      ligne = []
-      for (let j = 0; j < n; j++) {
-        ligne.push(this.table[j][i])
-      }
-      resultat.push(ligne)
+      return matriceCarree(resultat)
     }
-    return matriceCarree(resultat)
-  }
-  /**
+    /**
    * m=M.multiplieParReel(k) Multiplie tous les éléments de la matrice par k. Utilisée pour l'inversion de M
    * @param {*} k
    */
-  this.multiplieParReel = function (k) { // retourne k * la matrice
-    const n = this.dim; const resultat = []; let ligne
-    for (let i = 0; i < n; i++) {
-      ligne = []
-      for (let j = 0; j < n; j++) {
-        ligne.push(calcul(k * this.table[i][j]))
+    this.multiplieParReel = function (k) { // retourne k * la matrice
+      const n = this.dim; const resultat = []; let ligne
+      for (let i = 0; i < n; i++) {
+        ligne = []
+        for (let j = 0; j < n; j++) {
+          ligne.push(calcul(k * this.table[i][j]))
+        }
+        resultat.push(ligne)
       }
-      resultat.push(ligne)
+      return matriceCarree(resultat)
     }
-    return matriceCarree(resultat)
-  }
 
-  /**
+    /**
    * Méthode : Calcule le produit d'une matrice nxn par un vecteur 1xn (matrice colonne): retourne un vecteur 1xn.
    *
    */
-  this.multiplieVecteur = function (V) { // Vecteur est un simple array pour l'instant
-    const n = this.dim; const resultat = []; let somme
-    if (n === V.length) {
-      for (let i = 0; i < n; i++) {
-        somme = 0
-        for (let j = 0; j < n; j++) {
-          somme += calcul(this.table[i][j] * V[j])
+    this.multiplieVecteur = function (V) { // Vecteur est un simple array pour l'instant
+      const n = this.dim; const resultat = []; let somme
+      if (n === V.length) {
+        for (let i = 0; i < n; i++) {
+          somme = 0
+          for (let j = 0; j < n; j++) {
+            somme += calcul(this.table[i][j] * V[j])
+          }
+          resultat.push(somme)
         }
-        resultat.push(somme)
-      }
-      return resultat
-    } else return false
-  }
-  /**
+        return resultat
+      } else return false
+    }
+    /**
    * Méthode : m=M.inverse() Retourne la matrice inverse de M. Utilisation : résolution de systèmes linéaires
    */
-  this.inverse = function () { // retourne la matrice inverse (si elle existe)
-    const d = this.determinant()
-    if (!egal(d, 0)) {
-      return this.cofacteurs().transposee().multiplieParReel(calcul(1 / d))
-    } else return false
-  }
-  /**
+    this.inverse = function () { // retourne la matrice inverse (si elle existe)
+      const d = this.determinant()
+      if (!egal(d, 0)) {
+        return this.cofacteurs().transposee().multiplieParReel(calcul(1 / d))
+      } else return false
+    }
+    /**
    * Méthode : m=M.multiplieMatriceCarree(P) : retourne m = M.P
    *
    */
-  this.multiplieMatriceCarree = function (M) {
-    const n = this.dim; const resultat = []; let ligne; let somme
-    for (let i = 0; i < n; i++) {
-      ligne = []
-      for (let j = 0; j < n; j++) {
-        somme = 0
-        for (let k = 0; k < n; k++) somme += calcul(this.table[i][k] * M.table[k][j])
-        ligne.push(somme)
+    this.multiplieMatriceCarree = function (M) {
+      const n = this.dim; const resultat = []; let ligne; let somme
+      for (let i = 0; i < n; i++) {
+        ligne = []
+        for (let j = 0; j < n; j++) {
+          somme = 0
+          for (let k = 0; k < n; k++) somme += calcul(this.table[i][k] * M.table[k][j])
+          ligne.push(somme)
+        }
+        resultat.push(ligne)
       }
-      resultat.push(ligne)
+      return matriceCarree(resultat)
     }
-    return matriceCarree(resultat)
   }
 }
 
@@ -3211,26 +3215,26 @@ export function modalTexteCourt (numeroExercice, texte, labelBouton = 'Aide', ic
 * Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
 * @param numeroExercice
 * @param idYoutube
-* @param texte Texte court qui sera affiché comme un titre
+* @param titre Texte court qui sera affiché comme un titre
 * @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est youtube icon), liste complète sur https://semantic-ui.com/elements/icon.html
 * @author Rémi Angot
 */
-export function modalYoutube (numeroExercice, idYoutube, texte, labelBouton = 'Aide - Vidéo', icone = 'youtube') {
+export function modalYoutube (numeroExercice, idYoutube, titre, labelBouton = 'Aide - Vidéo', icone = 'youtube') {
   let contenu
   if (idYoutube.substr(0, 4) === 'http') {
     if (idYoutube.slice(-4) === '.pdf') {
-      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><object type="application/pdf" data="${idYoutube}" width="560" height="315"> </object></p></div>`
+      contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><object type="application/pdf" data="${idYoutube}" width="560" height="315"> </object></p></div>`
     }
     if (idYoutube.substr(0, 17) === 'https://youtu.be/') {
-      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube.substring(17)}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+      contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube.substring(17)}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
     } else {
-      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${idYoutube}" frameborder="0" allowfullscreen></iframe></p></div>`
+      contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${idYoutube}" frameborder="0" allowfullscreen></iframe></p></div>`
     }
   } else if (idYoutube.substr(0, 4) === '<ifr') {
-    contenu = `<div class="header">${texte}</div><div class="content"><p align="center">${idYoutube}</p></div>`
+    contenu = `<div class="header">${titre}</div><div class="content"><p align="center">${idYoutube}</p></div>`
   } else {
-    contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+    contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
   }
   return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
@@ -3253,8 +3257,7 @@ export function modalTexteLong (numeroExercice, titre, texte, labelBouton = 'Aid
 /**
 * Créé un bouton pour une aide modale avec un titre et un texte
 * @param numeroExercice
-* @param titre
-* @param texte
+* @param url
 * @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
 * @author Rémi Angot
@@ -3268,29 +3271,29 @@ export function modalUrl (numeroExercice, url, labelBouton = 'Aide', icone = 'in
 * Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
 * @param numeroExercice
 * @param urlPdf
-* @param texte Texte court qui sera affiché comme un titre
+* @param titre Texte court qui sera affiché comme un titre
 * @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est file pdf icon), liste complète sur https://semantic-ui.com/elements/icon.html
 * @author Rémi Angot
 */
-export function modalPdf (numeroExercice, urlPdf, texte = 'Aide', labelBouton = 'Aide - PDF', icone = 'file pdf') {
-  const contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><embed src=${urlPdf} width=90% height=500 type='application/pdf'/></p></div>`
+export function modalPdf (numeroExercice, urlPdf, titre = 'Aide', labelBouton = 'Aide - PDF', icone = 'file pdf') {
+  const contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><embed src=${urlPdf} width=90% height=500 type='application/pdf'/></p></div>`
   return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
  * Créé un bouton pour une aide modale avec une vidéo
- * @param idDuModal désigne l'id du modal qui doit être unique
+ * @param numeroExercice désigne l'id du modal qui doit être unique
  * @param urlVideo
- * @param texte Texte court qui sera affiché comme un titre
+ * @param titre Texte court qui sera affiché comme un titre
  * @param labelBouton Titre du bouton (par défaut Vidéo)
  * @param icone Nom de l'icone (par défaut c'est file video outline icon), liste complète sur https://semantic-ui.com/elements/icon.html
  * @author Sébastien Lozano
  */
-export function modalVideo (idDuModal, urlVideo, texte, labelBouton = 'Vidéo', icone = 'file video outline') {
-  // let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${urlVideo}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+export function modalVideo (numeroExercice, urlVideo, titre, labelBouton = 'Vidéo', icone = 'file video outline') {
+  // let contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${urlVideo}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
   const contenu = `
-  <div class="header">${texte}</div>
+  <div class="header">${titre}</div>
   <div class="content">
     <div class="embed-responsive embed-responsive-16by9" align="center">
       <video width="560" height="315" controls  preload="none" style="max-width: 100%">
@@ -3299,18 +3302,18 @@ export function modalVideo (idDuModal, urlVideo, texte, labelBouton = 'Vidéo', 
       </video>
       </div>
   </div>`
-  return creerModal(idDuModal, contenu, labelBouton, icone)
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 /**
  *
  * @param {number} numeroExercice
  * @param {string} urlImage
- * @param {string} texte = ce qui est écrit sur le bouton à côté de l'icône d'image.
- * @param {string} labelBouton = ce qui est écrit en titre de l'image
+ * @param {string} titre = ce qui est écrit en titre de l'image
+ * @param {string} labelBouton = ce qui est écrit sur le bouton à côté de l'icône d'image.
  * @param {string} icone
  */
-export function modalImage (numeroExercice, urlImage, texte, labelBouton = 'Illustration', icone = 'image') {
-  const contenu = `<div class="header">${texte}</div><div class="image content"><img class="ui centered medium image" src="${urlImage}"></div>`
+export function modalImage (numeroExercice, urlImage, titre, labelBouton = 'Illustration', icone = 'image') {
+  const contenu = `<div class="header">${titre}</div><div class="image content"><img class="ui centered medium image" src="${urlImage}"></div>`
   return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 

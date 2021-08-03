@@ -6,13 +6,14 @@ import { min, max } from 'mathjs'
 export const titre = 'Représentation graphique d’une fonction affine'
 
 /**
-
+* @author Stéphane Guyon
+* 2F10-1, ex beta2F22
 */
 export default function representerfonctionaffine () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = ''
-  this.nbQuestions = 3// On complète le nb de questions
+  this.nbQuestions = 3 // On complète le nb de questions
   this.nbCols = 2
   this.nbColsCorr = 2
   this.tailleDiaporama = 100
@@ -23,6 +24,7 @@ export default function representerfonctionaffine () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []
     // let typesDeQuestionsDisponibles = []
@@ -40,12 +42,17 @@ export default function representerfonctionaffine () {
         if (a === 0 && b === 0) { // On évite la fonction nulle
           a = 1
         }
-        r = repere2()
         c = droite(a, -1, b)
         c.color = 'red'
         c.epaisseur = 2
         xA = randint(1, 3) * choice([-1, 1])// Abscisse de A
         yA = a * xA + b// Ordonnée de A
+        r = repere2({
+          xMin: -6,
+          yMin: min(-8, yA - 2),
+          xMax: 6,
+          yMax: max(8, yA + 2)
+        })
 
         const B = point(xA, yA, 'B')
         const A = point(0, b, 'A')
@@ -60,7 +67,7 @@ export default function representerfonctionaffine () {
 
         tB.taille = 5
         tB.epaisseur = 2
-        texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`
+        texte = `Représenter graphiquement la fonction affinne $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`
         if (a !== 0) {
           texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
           texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
@@ -83,7 +90,7 @@ export default function representerfonctionaffine () {
       if (this.sup === 2) { // cas du coeff directeur fractionnaire
         a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
         b = randint(-5, 5) // ordonnée à l'origine
-        d = randint(2, 5, [a, 2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
+        d = randint(2, 5, [a, 2 * a, -a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
         if (a === 0 && b === 0) {
           a = 1
           d = 3
@@ -94,12 +101,17 @@ export default function representerfonctionaffine () {
         const B1 = point(xA, yA, 'B')
         const A1 = point(0, b, 'A')
         // const f = point(xA / 2, (b + yA) / 2)
-        r = repere2()// On définit le repère
+        r = repere2({
+          xMin: -8,
+          yMin: -10,
+          xMax: 8,
+          yMax: 8
+        })// On définit le repère
         c = droite(a / d, -1, b)
         c.color = 'red'
         c.epaisseur = 2
 
-        texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
+        texte = `Représenter graphiquement la fonction affinne $f$ définie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
 
         texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
         texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
