@@ -2958,6 +2958,7 @@ export function criblePolynomeEntier () {
       coefs.push([x1, fx1])
       coefs.push([x2, fx2])
       coefs.push([x3, fx3])
+      coefs.push(d)
       break
     }
   }
