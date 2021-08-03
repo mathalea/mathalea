@@ -42,7 +42,7 @@ export default function gestionScores () {
       if (document.getElementById('scoresInfosTimeLeft')) {
         // console.log(response.timeLeft)
         document.getElementById('scoresInfosTimeLeft').innerHTML = `
-        Ce service ne garantit en rien la pérennité des données. Bien au contraire, les données sont effacées une fois par an.
+        Ce service ne garantit en rien la pérennité des données. Bien au contraire, <b>les données sont actuellement effacées tous les jours</b>. <!--une fois par an.-->
         <ul>
           <li>    
             <b>Charge aux utilisateurs du service de les récupérer avant</b>.

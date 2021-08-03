@@ -30,7 +30,7 @@ export function exerciceInteractif (exercice) {
  * @param {object} exercice
  */
 export function exerciceQcm (exercice) {
-  console.log('Dans ExerciceQcm : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
+  // console.log('Dans ExerciceQcm : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
   document.addEventListener('exercicesAffiches', () => {
     // On active les checkbox
     $('.ui.checkbox').checkbox()
@@ -199,7 +199,7 @@ export function elimineDoublons (propositions) { // fonction qui va éliminer le
  * @param {object} exercice
  */
 export function exerciceNumerique (exercice) {
-  console.log('Dans ExerciceNumerique : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
+  // console.log('Dans ExerciceNumerique : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
   document.addEventListener('exercicesAffiches', () => {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
@@ -412,6 +412,7 @@ export function exerciceCustom (exercice) {
  */
 export function exerciceMathLive (exercice) {
   const engine = new ComputeEngine()
+  let saisieParsee, signeF
   document.addEventListener('exercicesAffiches', () => {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
@@ -450,8 +451,14 @@ export function exerciceMathLive (exercice) {
                 }
                 // Pour les exercices de simplifications de fraction
               } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionPlusSimple') {
-                const saisieParsee = parse(saisie)
+                saisieParsee = parse(saisie)
                 if (saisieParsee) {
+                  if (saisieParsee[0] === 'Negate') {
+                    signeF = -1
+                    saisieParsee = saisieParsee[1].slice()
+                  } else {
+                    signeF = 1
+                  }
                   if (saisieParsee[1].num && saisieParsee[2].num) {
                     const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
                     if (fSaisie.estUneSimplification(reponse)) resultat = 'OK'
@@ -459,8 +466,14 @@ export function exerciceMathLive (exercice) {
                 }
                 // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
               } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionEgale') {
-                const saisieParsee = parse(saisie)
+                saisieParsee = parse(saisie)
                 if (saisieParsee) {
+                  if (saisieParsee[0] === 'Negate') {
+                    signeF = -1
+                    saisieParsee = saisieParsee[1].slice()
+                  } else {
+                    signeF = 1
+                  }
                   if (saisieParsee[1].num && saisieParsee[2].num) {
                     const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
                     if (fSaisie.egal(reponse)) resultat = 'OK'
@@ -468,11 +481,17 @@ export function exerciceMathLive (exercice) {
                 }
                 // Pour les exercices où l'on attend un écriture donnée d'une fraction
               } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fraction') {
-                const saisieParsee = parse(saisie)
+                saisieParsee = parse(saisie)
                 if (saisieParsee) {
+                  if (saisieParsee[0] === 'Negate') {
+                    signeF = -1
+                    saisieParsee = saisieParsee[1].slice()
+                  } else {
+                    signeF = 1
+                  }
                   if (saisieParsee[1].num && saisieParsee[2].num) {
-                    const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-                    if (fSaisie.num === reponse.num && fSaisie.den === reponse.den) resultat = 'OK'
+                    const fSaisie = new Fraction(signeF * parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+                    if (fSaisie.texFraction === reponse.texFraction) resultat = 'OK'
                   }
                 }
                 // Pour les exercices où l'on attend une mesure avec une unité au choix
@@ -598,4 +617,23 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   divScore.style.fontWeight = 'bold'
   divScore.style.fontSize = 'x-large'
   divScore.style.display = 'inline'
+  if (context.vue === 'eval') {
+    const divCorr = get(`divexcorr${exercice.numeroExercice}`)
+    divCorr.style.display = 'block'
+    const divBoutonExercice = get(`btnEx${exercice.numeroExercice + 1}`)
+    divBoutonExercice.classList.add('green')
+    const divExercice = get(`exercice${exercice.numeroExercice}`)
+    if (exercicesEvalRestants()[0]) {
+      const btnExerciceSuivant = addElement(divExercice, 'button', { id: 'btnSuivant', class: 'ui blue button', style: 'display: block' }, 'Exercice suivant')
+      btnExerciceSuivant.focus()
+      if (!btnExerciceSuivant.hasMathaleaListener) {
+        btnExerciceSuivant.addEventListener('click', () => {
+          exercicesEvalRestants()[0].click()
+        })
+        btnExerciceSuivant.hasMathaleaListener = true
+      }
+    }
+  }
 }
+
+const exercicesEvalRestants = () => document.querySelectorAll('[id ^= "btnEx"].circular.ui.button:not(.green)')

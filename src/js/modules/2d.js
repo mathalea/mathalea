@@ -1426,13 +1426,13 @@ function Vecteur (arg1, arg2, nom = '') {
     s = segment(A, B)
     angle = s.angleAvecHorizontale
     v = similitude(this, A, 90, 0.5 / this.norme())
-    if (angle < 0) {
+    if (Math.abs(angle) > 90) {
       s = segment(B, A)
       angle = s.angleAvecHorizontale
       v = similitude(this, A, -90, 0.5 / this.norme())
     }
     const N = translation(M, v)
-    return nomVecteurParPosition(nom, N.x, N.y, taille, angle, color)
+    return nomVecteurParPosition(nom, N.x, N.y, taille, 0, color)
   }
 }
 export function vecteur (...args) {
@@ -4776,7 +4776,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
       mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
       sizelabel = 20
     }
-    return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, -5, '').svg(coeff) + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff)
+    return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, 12, '').svg(coeff) + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff)
   }
   this.tikz = function () {
     // let d = bissectrice(A, B, C);
@@ -7685,33 +7685,38 @@ function Courbe2 (f, {
   color = 'black',
   epaisseur = 2,
   step = false,
-  xMin = -10,
-  xMax = 10,
-  yMin = -10,
-  yMax = 10,
+  xMin,
+  xMax,
+  yMin,
+  yMax,
   xUnite = 1,
   yUnite = 1
 } = {}) {
   ObjetMathalea2D.call(this)
   this.color = color
   let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
-  xmin = repere.xMin
-  ymin = repere.yMin
-  xmax = repere.xMax
-  ymax = repere.yMax
+  if (typeof xMin === 'undefined') {
+    xmin = repere.xMin
+  } else xmin = xMin
+  if (typeof yMin === 'undefined') {
+    ymin = repere.yMin
+  } else ymin = yMin
+  if (typeof xMax === 'undefined') {
+    xmax = repere.xMax
+  } else xmax = xMax
+  if (typeof yMax === 'undefined') {
+    ymax = repere.yMax
+  } else ymax = yMax
+
   xunite = repere.xUnite
   yunite = repere.yUnite
 
-  // Si le repère n'est pas donné ou ne permet pas de récupérer des valeurs
-  if (isNaN(xmin)) { xmin = xMin };
-  if (isNaN(xmax)) { xmax = xMax };
-  if (isNaN(ymin)) { ymin = yMin };
-  if (isNaN(ymax)) { ymax = yMax };
   if (isNaN(xunite)) { xunite = xUnite };
   if (isNaN(yunite)) { yunite = yUnite };
   const objets = []
   let points = []
   let pas
+  let p
   if (!step) {
     pas = calcul(0.2 / xUnite)
   } else {
@@ -7719,18 +7724,22 @@ function Courbe2 (f, {
   }
   for (let x = xmin; x <= xmax; x += pas
   ) {
-    if (f(x) < ymax + 0.2 && f(x) > ymin - 0.2) {
-      points.push(point(calcul(x * xunite), calcul(f(x) * yunite)))
+    if (!isNaN(f(x))) {
+      if (f(x) < ymax + 1 && f(x) > ymin - 1) {
+        points.push(point(calcul(x * xunite), calcul(f(x) * yunite)))
+      } else {
+        p = polyline([...points], this.color)
+        p.epaisseur = epaisseur
+        objets.push(p)
+        points = []
+      }
     } else {
-      const p = polyline([...points], this.color)
-      p.epaisseur = epaisseur
-      objets.push(p)
-      points = []
+      x += 0.05
     }
-    const p = polyline([...points], this.color)
-    p.epaisseur = epaisseur
-    objets.push(p)
   }
+  p = polyline([...points], this.color)
+  p.epaisseur = epaisseur
+  objets.push(p)
 
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
