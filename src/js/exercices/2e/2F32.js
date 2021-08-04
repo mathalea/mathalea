@@ -36,6 +36,7 @@ export default function LecturesGraphiques () {
     let maxi = -4
     let antecedentTrouve
     let enonceAMC = ''
+    const reponses = []
     let antecedents = []
     let s = []
     const r = repere2({
@@ -59,7 +60,7 @@ export default function LecturesGraphiques () {
       maxi = Math.max(y, maxi)
     }
     const graph = graphiqueInterpole(noeuds, { repere: r, step: 0.05 })
-    this.introduction = mathalea2d({ xmin: -15, ymin: -10, xmax: 15, ymax: 10 }, r, graph)
+    this.introduction = mathalea2d({ xmin: -15, ymin: -10, xmax: 15, ymax: 10, scale: 0.5 }, r, graph) + '<br>'
 
     for (let i = 0, x0, y0, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -71,7 +72,8 @@ export default function LecturesGraphiques () {
           }
           y0 = arrondi(imageInterpolee([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], x0), 1)
           texte = `Lire graphiquement l'image de ${texNombre(x0)} par la fonction $f$ représentée ci-dessus.<br>Donner la réponse à 0,1 près.<br>`
-          setReponse(this, i, y0)
+          if (!context.isAmc) setReponse(this, i, y0)
+          reponses[i] = y0
           texte += ajouteChampTexteMathLive(this, i)
           texteCorr = `$f(${texNombre(x0)})=${texNombre(y0)}$.`
           if (this.correctionDetaillee) {
@@ -82,7 +84,7 @@ export default function LecturesGraphiques () {
             s[1].color = 'red'
             s[1].pointilles = true
             s[2] = tracePoint(point(x0 * 3, y0 * 2), 'red')
-            texteCorr += mathalea2d({ xmin: -15, ymin: -Math.abs(y0) * 2 - 1, xmax: 15, ymax: Math.abs(y0) * 2 + 1 }, r, graph, s)
+            texteCorr += mathalea2d({ xmin: -15, ymin: -Math.abs(y0) * 2 - 1, xmax: 15, ymax: Math.abs(y0) * 2 + 1, scale: 0.5 }, r, graph, s)
           }
           break
         case 'plusPetitAntécédent':
@@ -97,7 +99,8 @@ export default function LecturesGraphiques () {
           }
           x0 = antecedentInterpole([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], y0)
           texte = `Lire graphiquement le plus petit antécédent de ${texNombre(y0)} par la fonction $f$ représentée ci-dessus.<br>Donner la réponse à 0,1 près.<br>`
-          setReponse(this, i, arrondi(x0, 1))
+          if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
+          reponses[i] = arrondi(x0, 1)
           texte += ajouteChampTexteMathLive(this, i)
           texteCorr = `Le plus petit antécédent à $0,1$ près de $${texNombre(y0)}$ est $${miseEnEvidence(texNombre(arrondi(x0, 1)))}$.`
           if (this.correctionDetaillee) {
@@ -107,7 +110,7 @@ export default function LecturesGraphiques () {
             s[1] = segment(x0 * 3, y0 * 2, x0 * 3, 0)
             s[1].color = 'red'
             s[1].pointilles = true
-            texteCorr += mathalea2d({ xmin: -15, ymin: -Math.abs(y0) * 2 - 1, xmax: 15, ymax: Math.abs(y0) * 2 + 1 }, r, graph, s)
+            texteCorr += mathalea2d({ xmin: -15, ymin: -Math.abs(y0) * 2 - 1, xmax: 15, ymax: Math.abs(y0) * 2 + 1, scale: 0.5 }, r, graph, s)
           }
           break
         case 'plusGrandAntécédent':
@@ -123,7 +126,8 @@ export default function LecturesGraphiques () {
           }
           x0 = antecedentInterpole([[noeuds[k - 1][0], noeuds[k - 1][1]], [noeuds[k][0], noeuds[k][1]]], y0)
           texte = `Lire graphiquement le plus grand antécédent de ${texNombre(y0)} par la fonction $f$ représentée ci-dessus.<br>Donner la réponse à 0,1 près.<br>`
-          setReponse(this, i, arrondi(x0, 1))
+          if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
+          reponses[i] = arrondi(x0, 1)
           texte += ajouteChampTexteMathLive(this, i)
           texteCorr = `Le plus grand antécédent de $${texNombre(y0)}$ à $0,1$ près est $${miseEnEvidence(texNombre(arrondi(x0, 1)))}$.`
           if (this.correctionDetaillee) {
@@ -133,7 +137,7 @@ export default function LecturesGraphiques () {
             s[1] = segment(x0 * 3, y0 * 2, x0 * 3, 0)
             s[1].color = 'red'
             s[1].pointilles = true
-            texteCorr += mathalea2d({ xmin: -15, ymin: -Math.abs(y0) * 2 - 1, xmax: 15, ymax: Math.abs(y0) * 2 + 1 }, r, graph, s)
+            texteCorr += mathalea2d({ xmin: -15, ymin: -Math.abs(y0) * 2 - 1, xmax: 15, ymax: Math.abs(y0) * 2 + 1, scale: 0.5 }, r, graph, s)
           }
           break
         case 'nombreAntécédents':
@@ -171,7 +175,8 @@ export default function LecturesGraphiques () {
               texteCorr += `$${texNombre(arrondi(antecedents[antecedentTrouve - 1], 1))}$.<br>`
               break
           }
-          setReponse(this, i, antecedentTrouve)
+          if (!context.isAmc) setReponse(this, i, antecedentTrouve)
+          reponses[i] = antecedentTrouve
           if (this.correctionDetaillee) {
             s[0] = segment(-15, y0 * 2, 15, y0 * 2)
             s[0].pointilles = true
@@ -183,18 +188,12 @@ export default function LecturesGraphiques () {
               s[l * 2 + 2].pointilles = true
               s[l * 2 + 2].color = 'red'
             }
-            texteCorr += mathalea2d({ xmin: -15, ymin: -Math.abs(y0) * 2 - 1, xmax: 15, ymax: Math.abs(y0) * 2 + 1 }, r, graph, s)
+            texteCorr += mathalea2d({ xmin: -15, ymin: -Math.abs(y0) * 2 - 1, xmax: 15, ymax: Math.abs(y0) * 2 + 1, scale: 0.5 }, r, graph, s)
           }
           break
       }
       graph.epaisseur = 2
       if (this.listeQuestions.indexOf(texte) === -1) {
-        if (context.isAmc) {
-          enonceAMC = texte
-          for (let i = 0; i < this.listeQuestions.length; i++) {
-            enonceAMC += `${i + 1}) ${this.listeQuestions[i]}<br>`
-          }
-        }
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -202,7 +201,58 @@ export default function LecturesGraphiques () {
       }
       cpt++
     }
-    listeQuestionsToContenu(this)
+
+    if (context.isAmc) {
+      enonceAMC = this.introduction
+      for (let i = 0; i < this.nbQuestions; i++) {
+        enonceAMC += `${i + 1}) ${this.listeQuestions[i]}<br>`
+      }
+      this.autoCorrection[0] = {
+        enonce: enonceAMC,
+        propositions: []
+      }
+      for (let i = 0; i < this.nbQuestions; i++) {
+        if (listeTypeQuestions[i] === 'nombreAntécédents') {
+          this.autoCorrection[0].propositions[i] =
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: this.listeCorrections[i],
+              statut: '',
+              reponse: {
+                texte: `${i + 1}`,
+                valeur: reponses[i],
+                param: {
+                  digits: 1,
+                  decimals: 0,
+                  signe: false,
+                  approx: 0
+                }
+              }
+            }]
+          }
+        } else {
+          this.autoCorrection[0].propositions[i] =
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: this.listeCorrections[i],
+              statut: '',
+              reponse: {
+                texte: `${i + 1}`,
+                valeur: reponses[i],
+                param: {
+                  digits: 2,
+                  decimals: 1,
+                  signe: true,
+                  approx: 0
+                }
+              }
+            }]
+          }
+        }
+      }
+    } else listeQuestionsToContenu(this)
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
 }
