@@ -37,6 +37,28 @@ export function getUserIdFromUrl () {
   const urlParams = new URLSearchParams(queryString)
   return urlParams.get('userId')
 }
+/**
+ *
+ * @returns {string} userId depuis l'URL, context ou sessionStorage, le stocke dans sessionStorage et le renvoie
+ */
+export function getUserId () {
+  let userId = getUserIdFromUrl() || context.userId
+  try {
+    if (typeof (window.sessionStorage) === 'object') {
+      if (window.sessionStorage.getItem('userId') === null && userId) {
+        // Si un userId est défini, on le stocke
+        window.sessionStorage.setItem('userId', userId)
+      } else {
+        if (!userId) {
+          userId = window.sessionStorage.getItem('userId')
+        }
+      }
+    }
+  } catch (err) {
+    console.log('Ce navigateur ne prend pas en charge sessionStorage (pour le stockage de l\'identifiant')
+  }
+  return userId
+}
 
 export function getUrlVars () { // Récupère les variables de l'URL
   const url = new URL(window.location.href)
@@ -135,4 +157,12 @@ export function getUrlSearch () {
  */
 export function setUrl () {
   window.history.pushState('', '', getUrlSearch())
+}
+
+/**
+ * Met à jour l'URL avec la vue et le userId s'ils sont connus et go
+ */
+export function setUrlAndGo () {
+  window.history.pushState('', '', getUrlSearch())
+  document.location.reload()
 }

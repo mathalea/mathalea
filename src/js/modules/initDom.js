@@ -1,8 +1,8 @@
-/* global $ */
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement } from './dom'
 import { getLogFromUrl, getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
+import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 
 export const affichageUniquementExercice = (i) => {
   const listeDivExercices = document.querySelectorAll('[id ^= "exercice"].titreExercice')
@@ -70,6 +70,7 @@ export async function initDom () {
   } else if (vue === 'eval') {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
+    await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
     const menuEval = addElement(section, 'div', { id: 'menuEval' })
     addElement(section, 'div', { id: 'containerErreur' })
     await addFetchHtmlToParent('templates/eval.html', section)
@@ -92,6 +93,12 @@ export async function initDom () {
         }
       }
     })
+  } else if (vue === 'light' || vue === 'l') {
+    setOutputHtml()
+    section = addElement(document.body, 'section', { class: 'ui container' })
+    await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
+    addElement(section, 'div', { id: 'containerErreur' })
+    await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
   } else if (vue === 'latex') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
     section = addElement(document.body, 'section', { class: 'ui container' })
@@ -129,17 +136,17 @@ export async function initDom () {
     await fetchHtmlToElement('templates/mathaleaDroite.html', colonneDroite)
     section.append(espaceVertical())
     section.append(espaceVertical())
-    addFetchHtmlToParent('templates/modalScores.html', document.body)
   }
   if (vue === 'recto' || vue === 'verso') {
     await addFetchHtmlToParent('templates/footer1logo.html', document.body, 'footer')
   } else {
     await addFetchHtmlToParent('templates/footer.html', document.body, 'footer')
   }
+
+  // Pour toutes les vues
+  initialiseBoutonsConnexion()
   if (getLogFromUrl()) {
-    await addFetchHtmlToParent('templates/modalLog.html', document.body)
-    $('#modalLog').modal('show')
-    document.getElementById('scoresInputUserId').focus()
+    modalLog()
   }
 }
 

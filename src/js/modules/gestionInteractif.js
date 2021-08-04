@@ -422,10 +422,7 @@ export function exerciceMathLive (exercice) {
           let nbMauvaisesReponses = 0
           let besoinDe2eEssai = false
           for (const i in exercice.autoCorrection) {
-            let spanReponseLigne
-            if (i < exercice.nbQuestions) {
-              spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-            }
+            const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
             // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
             const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
             let reponses = []
