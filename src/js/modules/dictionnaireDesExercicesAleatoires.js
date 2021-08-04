@@ -3770,77 +3770,6 @@ export default {
     "interactifReady": false,
     "name": "betaEquationsLog"
   },
-  "betaExemple": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExemple.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple"
-  },
-  "betaExemple1erDegreDansC": {
-    "titre": "Equation du premier degré dans C",
-    "url": "/exercices/beta/betaExemple1erDegreDansC.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple1erDegreDansC"
-  },
-  "betaExemple1Type": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExemple1Type.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple1Type"
-  },
-  "betaExemple1TypeCalculLettre": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExemple1TypeCalculLettre.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple1TypeCalculLettre"
-  },
-  "betaExemple3Types": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExemple3Types.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple3Types"
-  },
-  "betaExempleConstructionsBasiques": {
-    "titre": "Programmes de constructions (en chantier)",
-    "url": "/exercices/beta/betaExempleConstructionsBasiques.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleConstructionsBasiques"
-  },
-  "betaExempleFigureClic": {
-    "titre": "Choisir la bonne figure",
-    "url": "/exercices/beta/betaExempleFigureClic.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "cliqueFigure",
-    "name": "betaExempleFigureClic"
-  },
-  "betaExempleQuestionsDifferentes": {
-    "titre": "Exercice exemple avec un nombre fixe de questions différentes",
-    "url": "/exercices/beta/betaExempleQuestionsDifferentes.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleQuestionsDifferentes"
-  },
-  "betaExempleTableau": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExempleTableau.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleTableau"
-  },
-  "betaExempleXcas": {
-    "titre": "Test de XCas",
-    "url": "/exercices/beta/betaExempleXcas.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleXcas"
-  },
   "betaExo3d": {
     "titre": "Exo zéroMathalea2d3d",
     "url": "/exercices/beta/betaExo3d.js",
@@ -3862,6 +3791,70 @@ export default {
     "interactifReady": true,
     "interactifType": "qcm",
     "name": "betaLicence"
+  },
+  "betaModèle10_simple_question-reponse": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle10_simple_question-reponse.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle10_simple_question-reponse"
+  },
+  "betaModèle11_paramétrable": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle11_paramétrable.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle11_paramétrable"
+  },
+  "betaModèle20_plusieurs_types_de_questions": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle20_plusieurs_types_de_questions.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle20_plusieurs_types_de_questions"
+  },
+  "betaModèle21_paramétrables": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle21_paramétrables.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle21_paramétrables"
+  },
+  "betaModèle30_constructions_géométriques": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle30_constructions_géométriques.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle30_constructions_géométriques"
+  },
+  "betaModèle31_paramétrables": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle31_paramétrables.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle31_paramétrables"
+  },
+  "betaModèle32_cliqueFigure": {
+    "titre": "Choisir la bonne figure",
+    "url": "/exercices/beta/betaModèle32_cliqueFigure.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "cliqueFigure",
+    "name": "betaModèle32_cliqueFigure"
+  },
+  "betaModèle40_tableau_proportionnalite": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle40_tableau_proportionnalite.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle40_tableau_proportionnalite"
+  },
+  "betaModèle41_tableau_signes_variations": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle41_tableau_signes_variations.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle41_tableau_signes_variations"
   },
   "betaProbaAouB": {
     "titre": "2S30-6",
