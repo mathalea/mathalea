@@ -101,57 +101,6 @@ export default function gestionScores () {
     })
   }
 
-  // Si le bouton "Connexion" existe et que l'utilisateur clique de dessus on ouvre une modale et on propose :
-  // => Afficher une documentation
-  // => Renseigner/Utiliser un userId élève
-  // => Se rendre sur l'espace professeur
-
-  // "Connexion"
-  // if (document.getElementById('scoresLogIn')) {
-  //   document.getElementById('scoresLogIn').addEventListener('click', function () {
-  //     $('#modalScores').modal({
-  //       onApprove: function () {
-  //       // On ne veut pas que la modale se ferme au click sur un bouton vert
-  //         return false
-  //       },
-  //       onHide: function () {
-  //         // On cache les feedbacks lorsqu'on ferme la modale
-  //         if (document.getElementById('scoresFeedback')) {
-  //           document.getElementById('scoresFeedback').hidden = true
-  //         }
-  //         if (document.getElementById('scoresInputUserIdError')) {
-  //           document.getElementById('scoresInputUserIdError').hidden = true
-  //         }
-  //         if (document.getElementById('scoresDocumentationFeedback')) {
-  //           document.getElementById('scoresDocumentationFeedback').hidden = true
-  //         }
-  //         // S'il n'y a pas de userId on n'affiche pas le champ du userId courant
-  //         if (document.getElementById('userIdDisplay')) {
-  //           try {
-  //             if (typeof (window.sessionStorage) === 'object') {
-  //               if (!window.sessionStorage.getItem('userId')) {
-  //                 // On cache le champ prévu pour l'affichage du userId courant
-  //                 document.getElementById('userIdDisplay').style.display = 'none'
-  //                 // On laisse le bouton de déconnexion caché
-  //                 document.getElementById('scoresLogOut').style.display = 'none'
-  //                 // On affiche le bouton de connexion
-  //                 document.getElementById('scoresLogIn').style.display = 'initial'
-  //               } else {
-  //                 // On affiche le champ prévu pour l'affichage du userId courant
-  //                 document.getElementById('userIdDisplay').style.display = 'initial'
-  //                 // On affiche le bouton de déconnexion
-  //                 document.getElementById('scoresLogOut').style.display = 'initial'
-  //                 // On cache le bouton de connexion
-  //                 document.getElementById('scoresLogIn').style.display = 'none'
-  //               }
-  //             }
-  //           } catch (err) {}
-  //         }
-  //       }
-  //     }).modal('show')
-  //   })
-  // }
-
   // Clic sur documentation - page prof et modale connexion
   if (document.getElementById('scoresDocumentation')) {
     document.getElementById('scoresDocumentation').addEventListener('click', function () {
