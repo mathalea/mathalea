@@ -22,7 +22,7 @@ export const initialiseBoutonsConnexion = () => {
     document.getElementById('scoresLogIn').addEventListener('click', modalLog)
   }
   const userId = getUserId()
-  if (userId) {
+  if (userId && document.getElementById('userIdDisplay')) {
     // On affiche le champ prévu pour l'affichage du userId courant
     document.getElementById('userIdDisplay').style.display = 'initial'
     // On affiche le userId dans la fenetre principale

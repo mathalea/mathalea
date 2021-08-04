@@ -1,6 +1,6 @@
 /* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch } from './modules/gestionUrl.js'
+import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, setUrlAndGo } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -2166,7 +2166,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnPleinEcran = document.getElementById('buttonFullScreen')
   if (btnPleinEcran !== null) {
     btnPleinEcran.addEventListener('click', () => {
-      gestionVue('l')
+      context.vue = 'light'
+      setUrlAndGo()
     })
   }
 
@@ -2219,21 +2220,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const vue = params.get('v')
   if (vue) {
     context.vue = vue
-  }
-  if (params.get('userId')) {
-    context.userId = params.get('userId')
-    try {
-      if (typeof (window.sessionStorage) === 'object') {
-        window.sessionStorage.setItem('userId', context.userId)
-        // Pour afficher le userId sur la page courante et le conserver en cas de changement de page
-        // On montre le champ prévu pour l'affichage du userId courant
-        document.getElementById('userIdDisplay').hidden = false
-        if (document.getElementById('userIdDisplayValue')) {
-          // On complète le champ prévu pour l'affichage du userId courant
-          document.getElementById('userIdDisplayValue').value = context.userId
-        }
-      }
-    } catch (err) {}
   }
   if (params.get('duree')) {
     context.duree = params.get('duree')
