@@ -65,6 +65,7 @@ export default function LecturesGraphiques () {
     for (let i = 0, x0, y0, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'image':
+          s = []
           x0 = randint(-4, 4) / 2
           k = 0
           while (x0 > noeuds[k + 1][0]) {
@@ -88,6 +89,7 @@ export default function LecturesGraphiques () {
           }
           break
         case 'plusPetitAntécédent':
+          s = []
           antecedentTrouve = false
           while (!antecedentTrouve) {
             y0 = randint(mini * 10 + 2, maxi * 10 - 2) / 10
