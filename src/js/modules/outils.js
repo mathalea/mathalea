@@ -1623,8 +1623,10 @@ export function sommeDesTermesParSigne (liste) {
 
 /**
 * Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
+* @param {integer} nbsommets
+* @param {string[]} listeAEviter
 * @author Rémi Angot
-*/
+**/
 export function creerNomDePolygone (nbsommets, listeAEviter = []) {
   let premiersommet = randint(65, 90 - nbsommets)
   let polygone = ''
