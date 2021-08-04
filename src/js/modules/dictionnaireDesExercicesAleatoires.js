@@ -3777,13 +3777,6 @@ export default {
     "interactifReady": false,
     "name": "betaExemple"
   },
-  "betaExemple1erDegreDansC": {
-    "titre": "Equation du premier degré dans C",
-    "url": "/exercices/beta/betaExemple1erDegreDansC.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple1erDegreDansC"
-  },
   "betaExemple1Type": {
     "titre": "Exercice exemple",
     "url": "/exercices/beta/betaExemple1Type.js",
