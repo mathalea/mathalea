@@ -11,10 +11,12 @@ export const titre = 'Utiliser les propriétés de la médiatrice'
 */
 export default function ProprietesMediatrice () {
   Exercice.call(this)
-  this.nbQuestions = 1
+  this.nbQuestions = 4
 
   this.besoinFormulaireNumerique = ['Situation', 3, '1 : C appartenant (ou pas) à la médiatrice\n2 : C équidistant (ou pas) à A et B\n3 : L\'un ou l\'autre']
   this.sup = 1
+  this.besoinFormulaire2CaseACocher = ['Inclure des situations où le point C n\'appartient pas à la médiatrice']
+  this.sup2 = true
   this.nbCols = 1
   this.nbColsCorr = 1
 
@@ -22,7 +24,7 @@ export default function ProprietesMediatrice () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.sup = parseInt(this.sup)
-    let typesDeQuestionsDisponibles
+    let typesDeQuestionsDisponibles, listeSurLaMediatrice
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['appartient']
     } else if (this.sup === 2) {
@@ -31,7 +33,11 @@ export default function ProprietesMediatrice () {
       typesDeQuestionsDisponibles = ['appartient', 'equidistant']
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    const listeSurLaMediatrice = combinaisonListes([true, false], this.nbQuestions)
+    if (this.sup2 === true) {
+      listeSurLaMediatrice = combinaisonListes([true, false], this.nbQuestions)
+    } else {
+      listeSurLaMediatrice = combinaisonListes([true], this.nbQuestions)
+    }
     let A, B, C, D, segmentAB, segmentAC, segmentBC, mediatriceAB, affLongueurAC, affLongueurBC
     let objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
