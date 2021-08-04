@@ -1495,6 +1495,13 @@ export default {
     "interactifReady": false,
     "name": "5G21-1"
   },
+  "5G22-1": {
+    "titre": "Utiliser les propriétés de la médiatrice",
+    "url": "/exercices/5e/5G22-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5G22-1"
+  },
   "5G22": {
     "titre": "Déterminer la nature d’une droite remarquable",
     "url": "/exercices/5e/5G22.js",
@@ -3776,13 +3783,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExemple"
-  },
-  "betaExemple1erDegreDansC": {
-    "titre": "Equation du premier degré dans C",
-    "url": "/exercices/beta/betaExemple1erDegreDansC.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple1erDegreDansC"
   },
   "betaExemple1Type": {
     "titre": "Exercice exemple",
