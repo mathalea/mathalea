@@ -41,6 +41,7 @@ export default function gestionScores () {
     .then(response => {
       if (document.getElementById('scoresInfosTimeLeft')) {
         // console.log(response.timeLeft)
+        console.log(response.msg)
         document.getElementById('scoresInfosTimeLeft').innerHTML = `
         Ce service ne garantit en rien la pérennité des données. Bien au contraire, <b>les données sont actuellement effacées tous les jours</b>. <!--une fois par an.-->
         <ul>
