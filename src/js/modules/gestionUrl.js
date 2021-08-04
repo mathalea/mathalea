@@ -37,6 +37,13 @@ export function getUserIdFromUrl () {
   const urlParams = new URLSearchParams(queryString)
   return urlParams.get('userId')
 }
+/**
+ *
+ * @returns {string} userId depuis l'URL ou context
+ */
+export function getUserId () {
+  return getUserIdFromUrl() || context.userId
+}
 
 export function getUrlVars () { // Récupère les variables de l'URL
   const url = new URL(window.location.href)

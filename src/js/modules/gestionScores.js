@@ -14,7 +14,8 @@ export default function gestionScores () {
   // Sinon on perd l'affichage
   try {
     if (typeof (window.sessionStorage) === 'object') {
-      if (window.sessionStorage.getItem('userId') && (getVueFromUrl() === null || getVueFromUrl() === 'l' || getVueFromUrl() === 'light')) {
+      const vue = getVueFromUrl()
+      if (window.sessionStorage.getItem('userId') && (vue === null || vue === 'l' || vue === 'light' || vue === 'eval')) {
         // On affiche le champ prévu pour l'affichage du userId courant
         document.getElementById('userIdDisplay').style.display = 'initial'
         // On affiche le userId dans la fenetre principale

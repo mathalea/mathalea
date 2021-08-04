@@ -1,8 +1,8 @@
-/* global $ */
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement } from './dom'
 import { getLogFromUrl, getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
+import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 
 export const affichageUniquementExercice = (i) => {
   const listeDivExercices = document.querySelectorAll('[id ^= "exercice"].titreExercice')
@@ -70,6 +70,7 @@ export async function initDom () {
   } else if (vue === 'eval') {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
+    await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
     const menuEval = addElement(section, 'div', { id: 'menuEval' })
     addElement(section, 'div', { id: 'containerErreur' })
     await addFetchHtmlToParent('templates/eval.html', section)
@@ -136,10 +137,9 @@ export async function initDom () {
   } else {
     await addFetchHtmlToParent('templates/footer.html', document.body, 'footer')
   }
+  initialiseBoutonsConnexion()
   if (getLogFromUrl()) {
-    await addFetchHtmlToParent('templates/modalLog.html', document.body)
-    $('#modalLog').modal('show')
-    document.getElementById('scoresInputUserId').focus()
+    modalLog()
   }
 }
 
