@@ -40,17 +40,19 @@ export default function LecturesGraphiques () {
     let antecedents = []
     let s = []
     const r = repere2({
-      xMin: -5,
-      yMin: -5,
-      xMax: 5,
-      yMax: 5,
+      xMin: -4,
+      yMin: -4,
+      xMax: 4,
+      yMax: 4,
       yUnite: 2,
       xUnite: 3,
       grilleSecondaire: true,
       grilleSecondaireYDistance: 0.1,
       grilleSecondaireXDistance: 0.1,
-      grilleSecondaireXMin: -4.6,
-      grilleSecondaireXMax: 4.6
+      grilleSecondaireXMin: -4,
+      grilleSecondaireXMax: 4,
+      grilleSecondaireYMin: -4,
+      grilleSecondaireYMax: 4
     })
     const noeuds = []
     for (let x = -4, y = -5; x < 5; x += 1) {
@@ -59,8 +61,8 @@ export default function LecturesGraphiques () {
       mini = Math.min(y, mini)
       maxi = Math.max(y, maxi)
     }
-    const graph = graphiqueInterpole(noeuds, { repere: r, step: 0.05 })
-    this.introduction = mathalea2d({ xmin: -15, ymin: -10, xmax: 15, ymax: 10, scale: 0.5 }, r, graph) + '<br>'
+    const graph = graphiqueInterpole(noeuds, { repere: r, step: 0.1 })
+    this.introduction = mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph) + '<br>'
 
     for (let i = 0, x0, y0, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
