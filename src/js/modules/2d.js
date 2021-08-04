@@ -407,7 +407,12 @@ export function pointSurCercle (c, angle, nom, positionLabel = 'above') {
   return point(x, y, nom, positionLabel)
 }
 /**
- * P=pointSurDroite(d,x) retourne un point sur la droite d dont l'abscisse est x. Si c'est impossible (droite verticale) alors ce sera le point dont l'ordonnée vaut x.
+ * Retourne un point sur la droite d dont l'abscisse est x. Si c'est impossible (droite verticale) alors ce sera le point dont l'ordonnée vaut x.
+ * @param {Droite} d
+ * @param {number} x Abscisse du point
+ * @param {string} nom Nom du point
+ * @param {string} [positionLabel='above'] Facultatif, 'above' par défaut.
+ * @return {Point} Point de la droite d dont l'abscisse est x
  * @author Jean-Claude Lhote
  */
 export function pointSurDroite (d, x, nom, positionLabel = 'above') {
@@ -418,8 +423,12 @@ export function pointSurDroite (d, x, nom, positionLabel = 'above') {
 }
 
 /**
- * M = pointIntersectionDD(d1,d2,'M','below') //M est le point d'intersection des droites (d1) et (d2)
- *
+ * Renvoie 'M' le point d'intersection des droites d1 et d2
+ * @param {Droite} d1
+ * @param {Droite} d2
+ * @param {string} [M=''] Nom du point d'intersection. Facultatif, vide par défaut.
+ * @param {string} [positionLabel='above'] Facultatif, 'above' par défaut.
+ * @return {Point} Point 'M' d'intersection de d1 et de d2
  * @author Jean-Claude Lhote
  */
 export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
@@ -882,9 +891,12 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
 */
 
 /**
- * d = mediatrice(A,B) // Médiatrice de [AB]
- * d = mediatrice(A,B,'d', 'blue') // Médiatrice de [AB] nommée (d) en bleu
- *
+ * Renvoie la médiatrice de [AB] nommée nom de couleur color
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} [nom=''] Facultatif, vide par défaut
+ * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @return {Droite} Droite
  * @author Rémi Angot
  */
 export function mediatrice (A, B, nom = '', color = 'black') {
@@ -953,6 +965,16 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
     else return v.tikz()
   }
 }
+/**
+ * Marque les deux moitiés du segment [AB] avec mark en color en traçant éventuellement le milieu
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} [color='black'] Couleur du codage. Facultatif, 'black' par défaut
+ * @param {string} [mark='x'] Peut être '||' ou 'x'. Facultatif, 'x' par défaut
+ * @param {boolean} [mil=true] Trace ou nom le point du milieu. Facultatif, true par défaut
+ * @returns CodageMilieu
+ * @example codageMilieu(A,B,'red','||',false) marque les deux moitiés du segment [AB] avec || en rouge, le milieu n'est pas tracé car dernier argument à false.
+ */
 export function codageMilieu (...args) {
   return new CodageMilieu(...args)
 }
