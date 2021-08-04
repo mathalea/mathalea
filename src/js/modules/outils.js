@@ -390,8 +390,14 @@ export function strRandom (o) {
 export function enleveElement (array, item) {
   //
   for (let i = array.length - 1; i >= 0; i--) {
-    if (array[i] === item) {
-      array.splice(i, 1)
+    if (typeof item === 'number') {
+      if (egal(array[i], item)) {
+        array.splice(i, 1)
+      }
+    } else {
+      if (array[i] === item) {
+        array.splice(i, 1)
+      }
     }
   }
 }
@@ -567,7 +573,24 @@ export function numTrie (arr) {
     return a - b
   })
 }
-
+/**
+ * retourne un tableau dans lequel les doublons ont été supprimés si il y en a
+ * @param {array} arr Tableau duquel ont veut supprimer les doublons numériques
+ * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
+ * @author Jean-Claude Lhote
+ */
+export function enleveDoublonNum (arr, tolerance) {
+  arr = numTrie(arr)
+  let k = 0
+  while (k < arr.length - 1) {
+    if (egal(arr[k], arr[k + 1], tolerance)) {
+      arr[k] = calcul((arr[k] + arr[k + 1]) / 2) // On remplace la valeur dont on a trouvé un double par la moyenne des deux valeurs
+      arr.splice(k + 1, 1) // on supprime le doublon.
+    }
+    k++
+  }
+  return arr
+}
 /**
 * Mélange les items d'un tableau, sans modifier le tableau passé en argument
 *

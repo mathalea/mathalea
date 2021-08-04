@@ -1,4 +1,4 @@
-import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
+import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
 /*
@@ -6310,7 +6310,7 @@ function Repere2 ({
         grilleSecondaireYDistance = calcul(yThickDistance / 2)
       }
       // On créé la liste avec ces valeurs
-      grilleSecondaireYListe = rangeMinMax(grilleSecondaireYMin, grilleSecondaireYMax, [0], grilleSecondaireYDistance)
+      grilleSecondaireYListe = rangeMinMax(grilleSecondaireYMin, grilleSecondaireYMax, grilleYListe, grilleSecondaireYDistance)
     }
     for (const y of grilleSecondaireYListe) {
       const traitH = segment(calcul(xMin * xUnite), calcul(y * yUnite), calcul(xMax * xUnite), calcul(y * yUnite))
@@ -6329,7 +6329,7 @@ function Repere2 ({
     if (!grilleSecondaireXListe) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
       if (typeof (grilleSecondaireXMin) !== 'number') {
-        grilleSecondaireXMin = xThickMin / 2
+        grilleSecondaireXMin = xThickMin
       }
       if (typeof (grilleSecondaireXMax) !== 'number') {
         grilleSecondaireXMax = xThickMax
@@ -6338,7 +6338,7 @@ function Repere2 ({
         grilleSecondaireXDistance = calcul(xThickDistance / 2)
       }
       // On créé la liste avec ces valeurs
-      grilleSecondaireXListe = rangeMinMax(grilleSecondaireXMin, grilleSecondaireXMax, [0], grilleSecondaireXDistance)
+      grilleSecondaireXListe = rangeMinMax(grilleSecondaireXMin, grilleSecondaireXMax, grilleXListe, grilleSecondaireXDistance)
     }
     for (const x of grilleSecondaireXListe) {
       const traitV = segment(calcul(x * xUnite), calcul(yMin * yUnite), calcul(x * xUnite), calcul(yMax * yUnite))
@@ -7676,7 +7676,7 @@ function Courbe2 (f, {
   } else {
     pas = step
   }
-  for (let x = xmin; x <= xmax; x += pas
+  for (let x = xmin; inferieurouegal(x, xmax); x += pas
   ) {
     if (!isNaN(f(x))) {
       if (f(x) < ymax + 1 && f(x) > ymin - 1) {
@@ -7694,7 +7694,6 @@ function Courbe2 (f, {
   p = polyline([...points], this.color)
   p.epaisseur = epaisseur
   objets.push(p)
-
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
     let code = ''
@@ -7818,20 +7817,20 @@ function GraphiqueInterpole (
     repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1)
     const c = courbe2(f, { step: step, xMin: depart, xMax: fin, color: color, epaisseur: epaisseur, xUnite: repere.xUnite, yUnite: repere.yUnite, yMin: repere.yMin, yMax: repere.yMax })
     mesCourbes.push(c)
-    this.svg = function (coeff) {
-      let code = ''
-      for (const objet of mesCourbes) {
-        code += '\n\t' + objet.svg(coeff)
-      }
-      return code
+  }
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of mesCourbes) {
+      code += '\n\t' + objet.svg(coeff)
     }
-    this.tikz = function () {
-      let code = ''
-      for (const objet of mesCourbes) {
-        code += '\n\t' + objet.tikz()
-      }
-      return code
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of mesCourbes) {
+      code += '\n\t' + objet.tikz()
     }
+    return code
   }
 }
 /**

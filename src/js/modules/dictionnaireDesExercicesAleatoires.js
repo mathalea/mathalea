@@ -3223,11 +3223,11 @@ export default {
     "name": "beta2F31"
   },
   "beta2F32": {
-    "titre": "Exercice exemple",
+    "titre": "Lecture graphique",
     "url": "/exercices/beta/beta2F32.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
