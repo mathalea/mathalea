@@ -153,14 +153,14 @@ git checkout maBranche
 # et on efface le test
 git branch -D tmp
 ```
-## J'ai tenté de merge, mais ça ne se passe pas bien :'( Comment faire ?
+## <a id="Conflit_de_merge"></a>J'ai tenté de merge, mais ça ne se passe pas bien :'( Comment faire ?
 Avant de passer aux choses sérieuses, si vous avez ce message :
 
 ![](img/Conflit-0.png)
 
 Ce n'est pas un message d'erreur ! Il vous dit juste que ça c'est bien passé ! (et qu'il aimerait un petit commentaire). Il suffit de faire ctrl + x pour quitter, la fusion sera effective quand même :)
 
-Maintenant, les choses sérieuses.
+Maintenant, les choses sérieuses :
 ![](img/Conflit-1.png)
 ![](img/Conflit-2.png)
 ![](img/Conflit-3.png)
