@@ -133,21 +133,20 @@ export function getUrlSearchOld () {
  */
 export function getUrlSearch () {
   const urlRacine = window.location.href.split('?')[0]
-  // console.log(urlRacine)
   const queryString = window.location.search
-  // console.log(queryString)
   const urlParams = new URLSearchParams(queryString)
-  // console.log(urlParams)
   if (context.userId) urlParams.set('userId', context.userId)
   if (context.vue) urlParams.set('v', context.vue)
   // On finit la réécriture de l'url
   const entries = urlParams.entries()
   let urlRewrite = urlRacine + '?'
   for (const entry of entries) {
-    urlRewrite += entry[0] + '=' + entry[1] + '&'
+    // On n'écrit pas la série si on est connecté
+    if (!getUserId() || entry[0] !== 'serie') {
+      urlRewrite += entry[0] + '=' + entry[1] + '&'
+    }
   }
   urlRewrite = urlRewrite.slice(0, -1)
-  // console.log(urlRewrite)
   urlRewrite = new URL(urlRewrite)
   return urlRewrite
 }

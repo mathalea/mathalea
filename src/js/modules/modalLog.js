@@ -14,6 +14,14 @@ export const modalLog = async () => {
     context.userId = document.getElementById('scoresInputUserId').value
     setUrl()
     initialiseBoutonsConnexion()
+    // Cache le numéro de série
+    if (document.getElementById('form_serie')) {
+      document.getElementById('form_serie').style.display = 'none'
+    }
+    const label = document.querySelector('label[for=form_serie]')
+    if (label) {
+      label.style.display = 'none'
+    }
   })
 }
 

@@ -1,6 +1,6 @@
 /* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, setUrlAndGo } from './modules/gestionUrl.js'
+import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, setUrlAndGo, getUserId } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -424,7 +424,10 @@ function miseAJourDuCode () {
       if (typeof context.duree !== 'undefined' && context.isDiaporama) {
         finUrl += `&duree=${context.duree}`
       }
-      finUrl += `&serie=${context.graine}`
+      if (!getUserId()) {
+        // On affiche la série uniquement si l'utilisateur n'est pas connecté
+        finUrl += `&serie=${context.graine}`
+      }
       if (context.vue) {
         finUrl += `&v=${context.vue}`
       }
