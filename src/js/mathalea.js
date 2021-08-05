@@ -389,6 +389,9 @@ function miseAJourDuCode () {
       if (listeObjetsExercice[0].interactif && !context.isDiaporama) {
         finUrl += ',i=1'
       }
+      if (!listeObjetsExercice[0].interactif && listeObjetsExercice[0].interactifReady && !context.isDiaporama) {
+        finUrl += ',i=0'
+      }
       listeObjetsExercice[0].numeroExercice = 0
       for (let i = 1; i < listeDesExercices.length; i++) {
         finUrl += `&ex=${listeDesExercices[i]}`
@@ -418,6 +421,9 @@ function miseAJourDuCode () {
         }
         if (listeObjetsExercice[i].interactif && !context.isDiaporama) {
           finUrl += ',i=1'
+        }
+        if (!listeObjetsExercice[i].interactif && listeObjetsExercice[i].interactifReady && !context.isDiaporama) {
+          finUrl += ',i=0'
         }
         listeObjetsExercice[i].numeroExercice = i
       }
