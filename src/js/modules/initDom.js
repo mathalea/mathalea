@@ -1,3 +1,4 @@
+import { renderMathInElement } from 'mathlive'
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
 import { getLogFromUrl, getVueFromUrl } from './gestionUrl'
@@ -18,6 +19,34 @@ export const affichageUniquementExercice = (i) => {
     if (document.getElementById(`score${i}`)) {
       listeDivExercicesCorr[i].style.display = 'block'
     }
+  }
+}
+/**
+ * Transforme les li de classe question en div avec le même contenu
+ */
+const liToDiv = () => {
+  const questions = document.querySelectorAll('li.question')
+  for (const element of questions) {
+    element.style.display = 'none'
+    const div = create('div', { style: 'display: none', class: 'question' })
+    div.innerHTML = element.innerHTML
+    element.replaceWith(div)
+  }
+}
+
+/**
+ * Affiche uniquement le ieme div de classe question et masque 
+ * @param {int} i 
+ */
+const affichageUniquementQuestion = (i) => {
+  affichageUniquementExercice()
+  const questions = document.querySelectorAll('div.question')
+  for (const question of questions) {
+    question.style.display = 'none'
+  }
+  if (i !== undefined) {
+    questions[i].style.display = 'block'
+    questions[i].parentElement.parentElement.style.display = 'block'
   }
 }
 
@@ -149,6 +178,35 @@ export async function initDom () {
     })
     document.getElementById('btnCorrection').addEventListener('click', () => {
       parentCorrections.style.display = 'flex'
+    })
+  } else if (vue === 'can') {
+    setOutputHtml()
+    section = addElement(document.body, 'section', { class: 'ui container' })
+    await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
+    const menuEval = addElement(section, 'div', { id: 'menuEval' })
+    addElement(section, 'div', { id: 'containerErreur' })
+    await addFetchHtmlToParent('templates/mathaleaBasique.html', section)
+    document.addEventListener('exercicesAffiches', () => {
+      liToDiv()
+      document.querySelectorAll('h3').forEach(e => { e.style.display = 'none' })
+      affichageUniquementExercice()
+      affichageUniquementQuestion(0)
+      document.querySelectorAll('ol').forEach(ol => {
+        setStyles(ol, 'padding:0;')
+      })
+      menuEval.innerHTML = ''
+      const questions = document.querySelectorAll('div.question')
+      for (let i = 0, element; i < questions.length; i++) {
+        element = addElement(menuEval, 'button', { id: `btnEx${i + 1}`, style: 'margin: 5px', class: 'circular ui button' })
+        element.textContent = `${i + 1}`
+        if (!element.hasListenner) {
+          element.addEventListener('click', () => affichageUniquementQuestion(i), false)
+          element.hasListenner = true
+        }
+      }
+    })
+    document.getElementById('btnCorrection').addEventListener('click', () => {
+      document.getElementById('corrections').style.display = 'block'
     })
   } else if (vue === 'latex') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
