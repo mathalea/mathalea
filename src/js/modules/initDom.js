@@ -109,13 +109,17 @@ export async function initDom () {
     divExercice.style.fontSize = '1.5em'
     divCorrection.style.fontSize = '1.5em'
     document.addEventListener('exercicesAffiches', () => {
-      document.querySelector('#accordeon_parametres').style.display = 'none !important'
+      document.querySelector('#accordeon_parametres').style.display = 'none'
       const listeH3 = document.querySelectorAll('h3')
       if (listeH3.length === 2) { // Un seul exercice on cache son titre
         listeH3.forEach(e => { e.style.display = 'none' })
       }
       const btnCorrection = document.querySelector('#btnCorrection')
       setStyles(btnCorrection, 'display: inline-block; cursor: pointer; padding: 12px; borderRadius: 5px; border: solid 2px black;')
+      const ols = document.querySelectorAll('ol')
+      for (const ol of ols) {
+        setStyles(ol, 'padding:0;')
+      }
     })
   } else if (vue === 'latex') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
