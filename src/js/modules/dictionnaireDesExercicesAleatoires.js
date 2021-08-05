@@ -55,6 +55,17 @@ export default {
     "interactifReady": false,
     "name": "2F10-2"
   },
+  "2F32": {
+    "titre": "Lecture graphique",
+    "url": "/exercices/2e/2F32.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2F32"
+  },
   "2G22-1": {
     "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
     "url": "/exercices/2e/2G22-1.js",
