@@ -5,6 +5,8 @@ Il y en a d'autres plus spécifiques :
 * [mathaleaInstrumenpoche](instrumenpoche/)
 * [tout](tout/) La doc complète. À priori pour les développeurs du moteur, mais si vous avez besoin d'une fonction particulière lorsque vous créez un exercice, vous pouvez y jeter un oeil pour voir si quelqu'un d'autre ne l'a pas déjà créé.
 
+Différents tutoriels sont accessibles via le panneau de gauche, n'hésitez pas à y jeter un oeil !
+
 # Guide de première installation
 Le but de ce guide n'est pas de vous guider pas à pas mais de vous faire éviter tous les écueils. Il vous aiguillera à chaque "intersection" mais supposera que vous serez capables de vous en sortir à chaque "ligne droite" comme par exemple que vous serez capables de cliquer sur "suivant" lors des installations (même si c'est écrit en anglais !).
 ## Installation des logiciels
@@ -45,6 +47,10 @@ Le but de ce guide n'est pas de vous guider pas à pas mais de vous faire évite
         - Cliquer sur la petite flèche qui pointe vers le bas à droite du terminal puis sur "Select Default Profile". [image](img/Config_VSC-5.png)
         - Cliquer sur Command Prompt dans le menu qui s'affiche puis fermer le terminal actuel grâce à la petite poubelle en bas à droite. [image](img/Config_VSC-6.png)
         - Vous pouvez réouvrir un nouveau terminal avec (CTRL+J) et vérifier que ce n'est plus **powershell** mais **cmd** (s'il y a un souci fermez et relancez VSC). [image](img/Config_VSC-7.png)
+    - Remarque : Si vous voulez conserver **powershell**, à chaque fois que vous voudrez lancer un script qui commence par `npm` ou `pnpm`, il faudra faire :
+        - `Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser` pour enlever la sécurité.
+        - `pnpm votreCommande` pour exécuter votre commande.
+        - `Set-ExecutionPolicy -ExecutionPolicy Restricted -Scope CurrentUser` pour remettre la sécurité.
 - Installer pnpm.
     - Sur **Windows** il faut être administrateur et saisir `npm install -g pnpm` dans le terminal.
     - Sur **Mac** et **Linux** il faut le préfixer de `sudo`, ce qui donne `sudo npm install -g pnpm`.

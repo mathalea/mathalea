@@ -1,9 +1,10 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 109 
-- nombre d'exos interactifReady 132 
+- nombre d'exos amcReady 110 
+- nombre d'exos interactifReady 133 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
+|2F32|Lecture graphique|OK|AMCHybride|OK|mathLive|
 |2G31-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
 |2G36-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
 |2N43-4|Développer (a+b)²|KO|KO|OK|mathLive|
@@ -150,6 +151,6 @@
 |betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
-|betaExempleFigureClic|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
+|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
