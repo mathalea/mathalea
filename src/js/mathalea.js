@@ -505,7 +505,7 @@ function miseAJourDuCode () {
         contenu = contenuExerciceHtml(listeObjetsExercice[i], i + 1, true)
       }
       contenuDesExercices = contenu.contenu_un_exercice
-      contenuDesCorrections = `<ol>\n${contenu.contenu_une_correction}\n</ol>`
+      contenuDesCorrections = `${contenu.contenu_une_correction}`
       $('#message_liste_exercice_vide').hide()
       $('#cache').dimmer('hide')
     } else {
@@ -556,8 +556,8 @@ function miseAJourDuCode () {
         }
         contenuDesCorrections += `<div id="divexcorr${i}" class="titreExercice"> ${contenu.contenu_une_correction} </div>`
       }
-      contenuDesExercices = `<ol>\n${contenuDesExercices}\n</ol>`
-      contenuDesCorrections = `<ol>\n${contenuDesCorrections}\n</ol>`
+      contenuDesExercices = `${contenuDesExercices}`
+      contenuDesCorrections = `${contenuDesCorrections}`
       $('#message_liste_exercice_vide').hide()
       $('#cache').dimmer('hide')
     } else {
