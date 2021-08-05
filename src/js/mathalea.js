@@ -294,7 +294,7 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       }
       if (
         (!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.interactifReady) ||
-        context.vue === 'l'
+        context.vue === 'l' || context.vue === 'light' || context.vue === 'embed' || context.vue === 'e'
       ) {
         // Dans v=l on ne met pas les raccourcis vers interactif et paramètres.
         contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`

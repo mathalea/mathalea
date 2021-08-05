@@ -1,5 +1,5 @@
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
-import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement } from './dom'
+import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
 import { getLogFromUrl, getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
@@ -99,6 +99,24 @@ export async function initDom () {
     await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
     addElement(section, 'div', { id: 'containerErreur' })
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
+  } else if (vue === 'embed' || vue === 'e') {
+    setOutputHtml()
+    section = addElement(document.body, 'section', { class: 'ui container' })
+    addElement(section, 'div', { id: 'containerErreur' })
+    await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
+    const divExercice = get('exercices', false)
+    const divCorrection = get('corrections', false)
+    divExercice.style.fontSize = '1.5em'
+    divCorrection.style.fontSize = '1.5em'
+    document.addEventListener('exercicesAffiches', () => {
+      document.querySelector('#accordeon_parametres').style.display = 'none !important'
+      const listeH3 = document.querySelectorAll('h3')
+      if (listeH3.length === 2) { // Un seul exercice on cache son titre
+        listeH3.forEach(e => { e.style.display = 'none' })
+      }
+      const btnCorrection = document.querySelector('#btnCorrection')
+      setStyles(btnCorrection, 'display: inline-block; cursor: pointer; padding: 12px; borderRadius: 5px; border: solid 2px black;')
+    })
   } else if (vue === 'latex') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
     section = addElement(document.body, 'section', { class: 'ui container' })
@@ -137,7 +155,8 @@ export async function initDom () {
     section.append(espaceVertical())
     section.append(espaceVertical())
   }
-  if (vue === 'recto' || vue === 'verso') {
+  // Le footer
+  if (vue === 'recto' || vue === 'verso' || vue === 'embed' || vue === 'e') {
     await addFetchHtmlToParent('templates/footer1logo.html', document.body, 'footer')
   } else {
     await addFetchHtmlToParent('templates/footer.html', document.body, 'footer')
