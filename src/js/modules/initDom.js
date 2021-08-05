@@ -113,6 +113,10 @@ export async function initDom () {
       const listeH3 = document.querySelectorAll('h3')
       if (listeH3.length === 2) { // Un seul exercice on cache son titre
         listeH3.forEach(e => { e.style.display = 'none' })
+      } else {
+        for (const e of listeH3) {
+          setStyles(e, 'color: white; backgroundColor: #f15929;  borderRadius: 5px; padding: 5px 10px;')
+        }
       }
       const btnCorrection = document.querySelector('#btnCorrection')
       setStyles(btnCorrection, 'display: inline-block; cursor: pointer; padding: 12px; borderRadius: 5px; border: solid 2px black;')
