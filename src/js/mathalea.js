@@ -1,6 +1,6 @@
 /* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch } from './modules/gestionUrl.js'
+import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, setUrlAndGo, getUserId } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -294,7 +294,7 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       }
       if (
         (!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.interactifReady) ||
-        context.vue === 'l'
+        context.vue === 'l' || context.vue === 'light' || context.vue === 'embed' || context.vue === 'e' || context.vue === 'eval' || context.vue === 'multi'
       ) {
         // Dans v=l on ne met pas les raccourcis vers interactif et paramètres.
         contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
@@ -389,6 +389,9 @@ function miseAJourDuCode () {
       if (listeObjetsExercice[0].interactif && !context.isDiaporama) {
         finUrl += ',i=1'
       }
+      if (!listeObjetsExercice[0].interactif && listeObjetsExercice[0].interactifReady && !context.isDiaporama) {
+        finUrl += ',i=0'
+      }
       listeObjetsExercice[0].numeroExercice = 0
       for (let i = 1; i < listeDesExercices.length; i++) {
         finUrl += `&ex=${listeDesExercices[i]}`
@@ -419,12 +422,18 @@ function miseAJourDuCode () {
         if (listeObjetsExercice[i].interactif && !context.isDiaporama) {
           finUrl += ',i=1'
         }
+        if (!listeObjetsExercice[i].interactif && listeObjetsExercice[i].interactifReady && !context.isDiaporama) {
+          finUrl += ',i=0'
+        }
         listeObjetsExercice[i].numeroExercice = i
       }
       if (typeof context.duree !== 'undefined' && context.isDiaporama) {
         finUrl += `&duree=${context.duree}`
       }
-      finUrl += `&serie=${context.graine}`
+      if (!getUserId()) {
+        // On affiche la série uniquement si l'utilisateur n'est pas connecté
+        finUrl += `&serie=${context.graine}`
+      }
       if (context.vue) {
         finUrl += `&v=${context.vue}`
       }
@@ -496,7 +505,7 @@ function miseAJourDuCode () {
         contenu = contenuExerciceHtml(listeObjetsExercice[i], i + 1, true)
       }
       contenuDesExercices = contenu.contenu_un_exercice
-      contenuDesCorrections = `<ol>\n${contenu.contenu_une_correction}\n</ol>`
+      contenuDesCorrections = `${contenu.contenu_une_correction}`
       $('#message_liste_exercice_vide').hide()
       $('#cache').dimmer('hide')
     } else {
@@ -547,8 +556,8 @@ function miseAJourDuCode () {
         }
         contenuDesCorrections += `<div id="divexcorr${i}" class="titreExercice"> ${contenu.contenu_une_correction} </div>`
       }
-      contenuDesExercices = `<ol>\n${contenuDesExercices}\n</ol>`
-      contenuDesCorrections = `<ol>\n${contenuDesCorrections}\n</ol>`
+      contenuDesExercices = `${contenuDesExercices}`
+      contenuDesCorrections = `${contenuDesCorrections}`
       $('#message_liste_exercice_vide').hide()
       $('#cache').dimmer('hide')
     } else {
@@ -1907,7 +1916,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // gestion de la vue
   // si dans l'url il y a un paramètre &v=... on modifie le DOM et/ou le CSS
   gestionVue()
-  if (context.vue !== 'recto' && context.vue !== 'verso') {
+  if ((context.vue !== 'recto' && context.vue !== 'verso') || (!context.vue)) {
     gestionScores()
   } else {
     console.log('Gestion des scores non gérée')
@@ -2166,7 +2175,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnPleinEcran = document.getElementById('buttonFullScreen')
   if (btnPleinEcran !== null) {
     btnPleinEcran.addEventListener('click', () => {
-      gestionVue('l')
+      context.vue = 'light'
+      setUrlAndGo()
     })
   }
 
@@ -2219,21 +2229,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const vue = params.get('v')
   if (vue) {
     context.vue = vue
-  }
-  if (params.get('userId')) {
-    context.userId = params.get('userId')
-    try {
-      if (typeof (window.sessionStorage) === 'object') {
-        window.sessionStorage.setItem('userId', context.userId)
-        // Pour afficher le userId sur la page courante et le conserver en cas de changement de page
-        // On montre le champ prévu pour l'affichage du userId courant
-        document.getElementById('userIdDisplay').hidden = false
-        if (document.getElementById('userIdDisplayValue')) {
-          // On complète le champ prévu pour l'affichage du userId courant
-          document.getElementById('userIdDisplayValue').value = context.userId
-        }
-      }
-    } catch (err) {}
   }
   if (params.get('duree')) {
     context.duree = params.get('duree')

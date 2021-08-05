@@ -51,4 +51,17 @@ anim.compasMasquer()
 texteCorr += anim.htmlBouton()
 ```
 
+# Recadrer une animation
+
+La commande `anim.recadre(xMin, yMax)` doit apparaitre avant toutes les autres animations pour être prise en compte.
+
+```js
+const xMin = Math.min(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) - 1
+const yMax = Math.max(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) + 2
+anim.recadre(xMin, yMax)
+anim.crayonMontrer(M)
+anim.tracer(translation(M, u), { vecteur: true, couleur: 'blue' })
+...
+```
+
 Pour créer et tester ses animations, on peut utiliser [coopmaths.fr/mathalea2iep.html](https://coopmaths.fr/mathalea2iep.html).
