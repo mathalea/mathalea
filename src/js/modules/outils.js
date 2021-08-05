@@ -2200,15 +2200,14 @@ export function htmlLigne (liste, spacing) {
   let result = ''
   if (spacing > 1) {
     result = `<div style="line-height: ${spacing};">\n`
+  } else {
+    result = '<div>\n'
   }
   for (const i in liste) {
     result += '\t' + liste[i].replace(/\\dotfill/g, '...') + '<br>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     // .replace(/\\\\/g,'<br>') abandonné pour supporter les array
   }
-
-  if (spacing > 1) {
-    result += '</div>\n'
-  }
+  result += '</div>\n'
 
   return result
 }
