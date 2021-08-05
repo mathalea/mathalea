@@ -130,19 +130,25 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     // await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
     addElement(section, 'div', { id: 'containerErreur' })
-    await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
+    await addFetchHtmlToParent('templates/mathaleaBasique.html', section)
     const parentExercices = document.getElementById('exercices')
     const parentCorrections = document.getElementById('corrections')
     parentExercices.style.display = 'flex'
     parentExercices.style.flexWrap = 'wrap'
     parentExercices.style.justifyContent = 'center'
-    parentCorrections.style.display = 'flex'
+    parentCorrections.style.display = 'none'
     parentCorrections.style.flexWrap = 'wrap'
     parentCorrections.style.justifyContent = 'center'
     document.addEventListener('exercicesAffiches', () => {
       document.querySelectorAll('.titreExercice').forEach(ex => {
         setStyles(ex, 'margin: 30px')
       })
+      document.querySelectorAll('ol').forEach(ol => {
+        setStyles(ol, 'padding:0;')
+      })
+    })
+    document.getElementById('btnCorrection').addEventListener('click', () => {
+      parentCorrections.style.display = 'flex'
     })
   } else if (vue === 'latex') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
