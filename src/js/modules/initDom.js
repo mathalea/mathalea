@@ -4,7 +4,7 @@ import { getLogFromUrl, getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 
-export const affichageUniquementExercice = (i) => {
+const affichageUniquementExercice = (i) => {
   const listeDivExercices = document.querySelectorAll('[id ^= "exercice"].titreExercice')
   const listeDivExercicesCorr = document.querySelectorAll('[id ^= "divexcorr"].titreExercice')
   for (const element of listeDivExercices) {
@@ -61,6 +61,12 @@ const masqueTitreExerciceEtEspaces = () => {
     titre.style.display = 'none'
   }
   masqueEspaces()
+}
+
+const boutonMAJ = () => {
+  const btn = create('button', { class: 'btn mini ui labeled icon button', id: 'btn_mise_a_jour_code' })
+  btn.innerHTML = '<i class="redo icon"></i>Nouvelles données</button>'
+  return btn
 }
 
 export async function initDom () {
@@ -125,12 +131,14 @@ export async function initDom () {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
+    document.getElementById('boutonsConnexion').appendChild(boutonMAJ())
     addElement(section, 'div', { id: 'containerErreur' })
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
   } else if (vue === 'embed' || vue === 'e') {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     addElement(section, 'div', { id: 'containerErreur' })
+    section.appendChild(boutonMAJ())
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
     const divExercice = get('exercices', false)
     const divCorrection = get('corrections', false)
@@ -155,8 +163,8 @@ export async function initDom () {
     })
   } else if (vue === 'multi') {
     setOutputHtml()
-    section = addElement(document.body, 'section', { class: 'ui container' })
-    // await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
+    section = addElement(document.body, 'section', { style: 'width: 100%' })
+    section.appendChild(boutonMAJ())
     addElement(section, 'div', { id: 'containerErreur' })
     await addFetchHtmlToParent('templates/mathaleaBasique.html', section)
     const parentExercices = document.getElementById('exercices')
@@ -175,7 +183,8 @@ export async function initDom () {
         setStyles(ol, 'padding:0;')
       })
     })
-    document.getElementById('btnCorrection').addEventListener('click', () => {
+    const btnCorrection = document.getElementById('btnCorrection')
+    btnCorrection.addEventListener('click', () => {
       parentCorrections.style.display = 'flex'
     })
   } else if (vue === 'can') {
