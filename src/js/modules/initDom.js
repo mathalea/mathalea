@@ -4,6 +4,17 @@ import { getLogFromUrl, getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 
+const boutonMAJ = () => {
+  const btn = create('button', { class: 'btn mini ui labeled icon button', id: 'btn_mise_a_jour_code' })
+  btn.innerHTML = '<i class="redo icon"></i>Nouvelles données'
+  return btn
+}
+
+const boutonVerifQuestion = (id) => {
+  const btn = create('button', { class: 'btn ui icon button', id })
+  btn.innerHTML = 'Valider'
+  return btn
+}
 const affichageUniquementExercice = (i) => {
   const listeDivExercices = document.querySelectorAll('[id ^= "exercice"].titreExercice')
   const listeDivExercicesCorr = document.querySelectorAll('[id ^= "divexcorr"].titreExercice')
@@ -24,11 +35,18 @@ const affichageUniquementExercice = (i) => {
  * Transforme les li de classe question en div avec le même contenu
  */
 const liToDiv = () => {
-  const questions = document.querySelectorAll('li.question')
+  const questions = document.querySelectorAll('li.question, li.correction')
   for (const element of questions) {
     element.style.display = 'none'
-    const div = create('div', { style: 'display: none', class: 'question' })
+    let div
+    if (element.classList.contains('question')) {
+      div = create('div', { style: 'display: none' })
+    } else {
+      div = create('div')
+    }
     div.innerHTML = element.innerHTML
+    div.classList = element.classList
+    div.id = element.id
     element.replaceWith(div)
   }
 }
@@ -40,12 +58,29 @@ const liToDiv = () => {
 const affichageUniquementQuestion = (i) => {
   affichageUniquementExercice()
   const questions = document.querySelectorAll('div.question')
+  const corrections = document.querySelectorAll('div.correction')
   for (const question of questions) {
     question.style.display = 'none'
   }
+  for (const correction of corrections) {
+    correction.style.display = 'none'
+  }
   if (i !== undefined) {
     questions[i].style.display = 'block'
-    questions[i].parentElement.parentElement.style.display = 'block'
+    const exercice = questions[i].parentElement.parentElement
+    exercice.style.display = 'block'
+    if (document.getElementById('scoreTotal')) {
+      corrections[i].style.display = 'block'
+      const correction = corrections[i].parentElement.parentElement
+      correction.style.display = 'block'
+    }
+  }
+}
+
+const ajouteBoutonsVerifQuestions = () => {
+  const questions = document.querySelectorAll('div.question')
+  for (let i = 0; i < questions.length; i++) {
+    questions[i].appendChild(boutonVerifQuestion('boutonVerif' + questions[i].id))
   }
 }
 
@@ -61,12 +96,6 @@ const masqueTitreExerciceEtEspaces = () => {
     titre.style.display = 'none'
   }
   masqueEspaces()
-}
-
-const boutonMAJ = () => {
-  const btn = create('button', { class: 'btn mini ui labeled icon button', id: 'btn_mise_a_jour_code' })
-  btn.innerHTML = '<i class="redo icon"></i>Nouvelles données</button>'
-  return btn
 }
 
 export async function initDom () {
@@ -196,7 +225,10 @@ export async function initDom () {
     await addFetchHtmlToParent('templates/mathaleaBasique.html', section)
     document.addEventListener('exercicesAffiches', () => {
       liToDiv()
+      ajouteBoutonsVerifQuestions()
       document.querySelectorAll('h3').forEach(e => { e.style.display = 'none' })
+      document.querySelectorAll('[id^=btnValidationEx]').forEach(e => { e.style.display = 'none' })
+      document.getElementById('btnCorrection').style.display = 'none'
       affichageUniquementExercice()
       affichageUniquementQuestion(0)
       document.querySelectorAll('ol').forEach(ol => {
@@ -205,7 +237,7 @@ export async function initDom () {
       menuEval.innerHTML = ''
       const questions = document.querySelectorAll('div.question')
       for (let i = 0, element; i < questions.length; i++) {
-        element = addElement(menuEval, 'button', { id: `btnEx${i + 1}`, style: 'margin: 5px', class: 'circular ui button' })
+        element = addElement(menuEval, 'button', { id: 'btnMenu' + questions[i].id, style: 'margin: 5px', class: 'circular ui button' })
         element.textContent = `${i + 1}`
         if (!element.hasListenner) {
           element.addEventListener('click', () => affichageUniquementQuestion(i), false)
