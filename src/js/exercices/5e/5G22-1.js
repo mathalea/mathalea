@@ -7,7 +7,7 @@ export const titre = 'Utiliser les propriétés de la médiatrice'
  * Utiliser les propriétés de la médiatrice
  * @author Guillaume Valmont
  * Référence 5G22-1
- * Date de publication
+ * Date de publication 05/08/2021
 */
 export default function ProprietesMediatrice () {
   Exercice.call(this)
