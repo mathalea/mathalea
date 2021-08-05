@@ -873,7 +873,13 @@ export function droiteParPointEtVecteur (A, v, nom = '', color = 'black') {
   return droite(A, B, nom, color)
 }
 /**
- * d = droiteParPointEtParallele(A,d,'d1',red') // Trace en rouge la parallèle à la droite (d) passant par A
+ * Trace en color la droite nom parallèle à d passant par A
+ * @param {Point} A
+ * @param {Droite} d
+ * @param {string} [nom=''] Facultatif, vide par défaut
+ * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @return {Droite}
+ * @example droiteParPointEtParallele(A,d,'d1',red') // Trace en rouge la droite d1 parallèle à la droite d passant par A
  * @author Jean-Claude Lhote
  */
 export function droiteParPointEtParallele (A, d, nom = '', color = 'black') {
@@ -3912,9 +3918,12 @@ export function homothetie (A, O, k, nom = '', positionLabel = 'above') {
 }
 
 /**
- * M = pointParSymetrieAxiale(A,d)// M est l'image de A dans la symétrie axiale d'axe d.
- * d est un objet de type Droite (son équation ax+by+c=0 renseignée)
- * A est un objet de type Point (ses coordonnées x et y renseignées)
+ * Renvoie le point M symétrique du point A par la droite d.
+ * @param {Point} A Objet de type Point (ses coordonnées x et y renseignées)
+ * @param {droite} d Objet de type Droite (son équation ax+by+c=0 renseignée)
+ * @param {string} M Nom de l'image. Facultatif, vide par défaut.
+ * @param {string} positionLabel Facultatif, 'above' par défaut.
+ * @return {Point} M image de A par la symétrie axiale d'axe d.
  * @author Jean-Claude Lhote
  */
 export function symetrieAxiale (A, d, nom = '', positionLabel = 'above') {
@@ -4768,6 +4777,16 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
     return texteParPoint(this.texte, N, angle, this.color).tikz()
   }
 }
+/**
+ * Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * @param {string} texte
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @param {number} [d=0.5] Distance à la droite. Facultatif, 0.5 par défaut
+ * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
+ * @author Rémi Angot
+ */
 export function texteSurSegment (...args) {
   return new TexteSurSegment(...args)
 }
@@ -4817,6 +4836,16 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
     return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, 10, '').tikz() + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz()
   }
 }
+/**
+ * Affiche la mesure de l'angle ABC arrondie au degré près
+ * @param {Point} A
+ * @param {Point} B
+ * @param {Point} C
+ * @param {string} [color='black'] Facultatif, 'black' par défaut.
+ * @param {number} [distance=1.5] Taille de l'angle. Facultatif, 1.5 par défaut.
+ * @param {string} [label=''] Facultatif, vide par défaut.
+ * @returns {object} AfficheMesureAngle
+ */
 export function afficheMesureAngle (...args) {
   return new AfficheMesureAngle(...args)
 }
@@ -5119,7 +5148,22 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     return code
   }
 }
-
+/**
+ * @param {Point} debut
+ * @param {Point} centre
+ * @param {number} angle
+ * @param {number} [taille=0.8] Facultatif. 0.8 par défaut.
+ * @param {string} [mark=''] Facultatif. Vide par défaut.
+ * @param {string} [color='black'] Facultatif. 'black' par défaut.
+ * @param {number} [epaisseur=1] Facultatif. 1 par défaut.
+ * @param {number} [opacite=1] Facultatif. 1 par défaut.
+ * @param {string} [fill='none'] Facultatif. 'none' par défaut
+ * @param {number} [fillOpacite=0.2] Facultatif. 0.2 par défaut
+ * @param {boolean} [mesureOn=false] Facultatif. false par défaut
+ * @returns CodeAngle
+ * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
+ * @author Jean-Claude Lothe
+ */
 export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false) {
   if (typeof (angle) !== 'number') {
     angle = angleOriente(debut, centre, angle)
@@ -8393,8 +8437,10 @@ export function print2d (...args) {
 */
 
 /**
- * longueur(A,B) renvoie la distance de A à B
- *
+ * Renvoie la distance de A à B
+ * @param {Point} A
+ * @param {Point} B
+ * @param {integer} [arrondi=2] Nombre de chiffres après la virgule. Facultatif, 2 par défaut.
  * @author Rémi Angot
  */
 export function longueur (A, B, arrondi) {
