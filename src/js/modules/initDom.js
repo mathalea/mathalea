@@ -1,4 +1,3 @@
-import { renderMathInElement } from 'mathlive'
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
 import { getLogFromUrl, getVueFromUrl } from './gestionUrl'
@@ -35,8 +34,8 @@ const liToDiv = () => {
 }
 
 /**
- * Affiche uniquement le ieme div de classe question et masque 
- * @param {int} i 
+ * Affiche uniquement le ieme div de classe question et le div de l'exercice auquel il appartient
+ * @param {int} i
  */
 const affichageUniquementQuestion = (i) => {
   affichageUniquementExercice()
