@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, arrondi, texNombre, inferieurouegal, superieurouegal, texteEnCouleurEtGras, miseEnEvidence, enleveDoublonNum } from '../../modules/outils.js'
-import { antecedentInterpole, graphiqueInterpole, imageInterpolee, mathalea2d, point, repere2, segment, tracePoint } from '../../modules/2d.js'
+import { antecedentInterpole, graphiqueInterpole, imageInterpolee, latexParCoordonnees, mathalea2d, point, repere2, segment, tracePoint } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Lecture graphique'
@@ -37,6 +37,7 @@ export default function LecturesGraphiques () {
     let antecedentTrouve
     let enonceAMC = ''
     const reponses = []
+    const origine = latexParCoordonnees('O', -0.5, -0.5, 'black', 10, 10, '')
     let antecedents = []
     let s = []
     const r = repere2({
@@ -62,7 +63,7 @@ export default function LecturesGraphiques () {
       maxi = Math.max(y, maxi)
     }
     const graph = graphiqueInterpole(noeuds, { repere: r, step: 0.1 })
-    this.introduction = mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph) + '<br>'
+    this.introduction = 'Voici la représentation graphique de la fonction $f$ définie sur $[-4;4]$.<br>' + mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph, origine) + '<br>'
 
     for (let i = 0, x0, y0, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -74,7 +75,7 @@ export default function LecturesGraphiques () {
             k++
           }
           y0 = arrondi(imageInterpolee([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], x0), 1)
-          texte = `Lire graphiquement l'image de ${texNombre(x0)} par la fonction $f$ représentée ci-dessus.<br>Donner la réponse à 0,1 près.<br>`
+          texte = `Lire graphiquement l'image de ${texNombre(x0)} par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
           if (!context.isAmc) setReponse(this, i, y0)
           reponses[i] = y0
           texte += ajouteChampTexteMathLive(this, i)
@@ -87,7 +88,7 @@ export default function LecturesGraphiques () {
             s[1].color = 'red'
             s[1].pointilles = true
             s[2] = tracePoint(point(x0 * 3, y0 * 2), 'red')
-            texteCorr += mathalea2d({ xmin: -15, ymin: -Math.abs(y0) * 2 - 1, xmax: 15, ymax: Math.abs(y0) * 2 + 1, scale: 0.5 }, r, graph, s)
+            texteCorr += mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph, s, origine)
           }
           break
         case 'plusPetitAntécédent':
@@ -102,7 +103,7 @@ export default function LecturesGraphiques () {
             if (k < noeuds.length) antecedentTrouve = true
           }
           x0 = antecedentInterpole([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], y0)
-          texte = `Lire graphiquement le plus petit antécédent de ${texNombre(y0)} par la fonction $f$ représentée ci-dessus.<br>Donner la réponse à 0,1 près.<br>`
+          texte = `Lire graphiquement le plus petit antécédent de ${texNombre(y0)} par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
           if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
           reponses[i] = arrondi(x0, 1)
           texte += ajouteChampTexteMathLive(this, i)
@@ -114,7 +115,7 @@ export default function LecturesGraphiques () {
             s[1] = segment(x0 * 3, y0 * 2, x0 * 3, 0)
             s[1].color = 'red'
             s[1].pointilles = true
-            texteCorr += mathalea2d({ xmin: -15, ymin: -Math.abs(y0) * 2 - 1, xmax: 15, ymax: Math.abs(y0) * 2 + 1, scale: 0.5 }, r, graph, s)
+            texteCorr += mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph, s, origine)
           }
           break
         case 'plusGrandAntécédent':
@@ -129,7 +130,7 @@ export default function LecturesGraphiques () {
             if (k > 0) antecedentTrouve = true
           }
           x0 = antecedentInterpole([[noeuds[k - 1][0], noeuds[k - 1][1]], [noeuds[k][0], noeuds[k][1]]], y0)
-          texte = `Lire graphiquement le plus grand antécédent de ${texNombre(y0)} par la fonction $f$ représentée ci-dessus.<br>Donner la réponse à 0,1 près.<br>`
+          texte = `Lire graphiquement le plus grand antécédent de ${texNombre(y0)} par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
           if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
           reponses[i] = arrondi(x0, 1)
           texte += ajouteChampTexteMathLive(this, i)
@@ -141,7 +142,7 @@ export default function LecturesGraphiques () {
             s[1] = segment(x0 * 3, y0 * 2, x0 * 3, 0)
             s[1].color = 'red'
             s[1].pointilles = true
-            texteCorr += mathalea2d({ xmin: -15, ymin: -Math.abs(y0) * 2 - 1, xmax: 15, ymax: Math.abs(y0) * 2 + 1, scale: 0.5 }, r, graph, s)
+            texteCorr += mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph, s, origine)
           }
           break
         case 'nombreAntécédents':
@@ -160,11 +161,11 @@ export default function LecturesGraphiques () {
           }
           antecedents = enleveDoublonNum(antecedents, 0.1)
           antecedentTrouve = antecedents.length
-          texte = `Lire graphiquement le nombre d'antécédents de ${texNombre(y0)} par la fonction $f$ représentée ci-dessus.<br>`
+          texte = `Lire graphiquement le nombre d'antécédents de ${texNombre(y0)} par la fonction $f$.<br>`
           texte += ajouteChampTexteMathLive(this, i)
           switch (antecedentTrouve) {
             case 0:
-              texteCorr = `$${texNombre(y0)}$ ${texteEnCouleurEtGras("ne possède pas d'antécédents")} sur $[-4;4]$.<br>`
+              texteCorr = `$${texNombre(y0)}$ ${texteEnCouleurEtGras("ne possède pas d'antécédent")} sur $[-4;4]$.<br>`
               break
             case 1 :
               texteCorr = `$${texNombre(y0)}$ ${texteEnCouleurEtGras('possède un unique antécédent')} sur $[-4;4]$.<br>`
@@ -172,7 +173,7 @@ export default function LecturesGraphiques () {
               break
             default :
               texteCorr = `$${texNombre(y0)}$ possède $${miseEnEvidence(antecedentTrouve)}$ antécédents sur $[-4;4]$.<br>`
-              texteCorr += `Les antécédent de $${texNombre(y0)}$ sont à $0,1$ près: `
+              texteCorr += `Les antécédents de $${texNombre(y0)}$ sont à $0,1$ près: `
               for (let l = 0; l < antecedentTrouve - 1; l++) {
                 texteCorr += `$${texNombre(arrondi(antecedents[l], 1))}$ ; `
               }
@@ -192,7 +193,7 @@ export default function LecturesGraphiques () {
               s[l * 2 + 2].pointilles = true
               s[l * 2 + 2].color = 'red'
             }
-            texteCorr += mathalea2d({ xmin: -15, ymin: -Math.abs(y0) * 2 - 1, xmax: 15, ymax: Math.abs(y0) * 2 + 1, scale: 0.5 }, r, graph, s)
+            texteCorr += mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph, s, origine)
           }
           break
       }
