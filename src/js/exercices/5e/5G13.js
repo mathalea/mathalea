@@ -7,7 +7,7 @@ export const titre = 'Utiliser les propriétés de conservation du parallélisme
  * Compléter le symétrique d'une figure en utilisant les propriétés de conservation de la symétrie et en justifiant ses démarches
  * @author Guillaume Valmont
  * Référence 5G13
- * Date de publication
+ * Date de publication 05/08/2021
 */
 export default function ConservationSymetrie () {
   Exercice.call(this)
