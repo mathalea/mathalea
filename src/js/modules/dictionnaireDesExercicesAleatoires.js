@@ -1485,6 +1485,13 @@ export default {
     "interactifReady": false,
     "name": "5G12"
   },
+  "5G13": {
+    "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles.",
+    "url": "/exercices/5e/5G13.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5G13"
+  },
   "5G20-1": {
     "titre": "Vocabulaire des triangles",
     "url": "/exercices/5e/5G20-1.js",
@@ -1505,6 +1512,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "5G21-1"
+  },
+  "5G22-1": {
+    "titre": "Utiliser les propriétés de la médiatrice",
+    "url": "/exercices/5e/5G22-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5G22-1"
   },
   "5G22": {
     "titre": "Déterminer la nature d’une droite remarquable",
