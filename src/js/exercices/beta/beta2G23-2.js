@@ -29,9 +29,9 @@ export default function translationetcoordonnes () {
         yB = yA + uy
 
         texte = 'Dans un repère orthonormé $(O,\\vec i,\\vec j)$, déterminer les coordonnées du point $A\'$, \'image du point '
-        texte += ` $A\\left(${xA};${yA}\\right)$ par la translation de vecteur $\\vec{u}\\left(${ux};${uy}\\right)$`
+        texte += ` $A\\left(${xA};${yA}\\right)$ par la translation de vecteur $\\vec{u}\\left(${ux};${uy}\\right)$.`
 
-        texteCorr = '<br>On sait d\'après le cours, que si $A\'$ est l\'image de $A$ par la translation de vecteur $\\vec {u}$'
+        texteCorr = '<br>On sait d\'après le cours, que si $A\'$ est l\'image de $A$ par la translation de vecteur $\\vec {u}$.'
         texteCorr += '<br>alors on a l\'égalité : $\\overrightarrow{AA\'}=\\vec{u}$.'
         texteCorr += ' <br>On connaît les coordonnées de $\\vec {u}$ avec l\'énoncé.'
         texteCorr += ' <br>On calcule donc celles de $\\overrightarrow{AA\'}$.'
