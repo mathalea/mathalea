@@ -47,7 +47,7 @@ export default function RepresenterUnVecteur () {
       labelB = latexParPoint('B', posLabelB, 'red', 10, 12, '')
 
       H = point(xA + ux, yA)
-      s = vecteur(A, B).representant(A) // On trace en rouge [AB]
+      s = AB.representant(A) // On trace en rouge [AB]
       h1 = segment(A, H, 'blue')
       h2 = segment(B, H, 'green')
       O = point(0, 0)// On définit et on trace le point O
