@@ -126,10 +126,10 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
 }
 /**
  * Crée un objet Point ayant les propriétés suivantes :
- * @param {integer} x abscisse
- * @param {integer} y ordonnée
- * @param {integer} A son nom qui apparaîtra
- * @param {integer} labelPosition Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @param {number} x abscisse
+ * @param {number} y ordonnée
+ * @param {string} A son nom qui apparaîtra
+ * @param {string} labelPosition Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
  * @returns {Point}
  */
 export function point (x, y, A, labelPosition = 'above') {
