@@ -56,7 +56,7 @@ export default function LecturesGraphiques () {
       grilleSecondaireYMax: 4
     })
     const noeuds = []
-    for (let x = -4, y = -5; x < 5; x += 1) {
+    for (let x = -4, y = -5; x < 5; x += 2) {
       y = randint(-4, 4, y)
       noeuds.push([x, y])
       mini = Math.min(y, mini)
@@ -69,7 +69,7 @@ export default function LecturesGraphiques () {
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'image':
           s = []
-          x0 = randint(-4, 4) / 2
+          x0 = randint(-4, 4)
           k = 0
           while (x0 > noeuds[k + 1][0]) {
             k++
