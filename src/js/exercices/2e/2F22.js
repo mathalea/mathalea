@@ -43,6 +43,10 @@ export default function representerfonctionaffine () {
         }
         xB = randint(1, 3) * choice([-1, 1])// Abscisse de B
         yB = a * xB + b// Ordonnée de B
+        while (Math.abs(yB) > 9) {
+          xB = randint(1, 3) * choice([-1, 1])// Abscisse de B
+          yB = a * xB + b// Ordonnée de B
+        }
         c = droite(a, -1, b)
         texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`
         if (a !== 0) {
@@ -59,12 +63,15 @@ export default function representerfonctionaffine () {
         }
       }
       if (this.sup === 2) { // cas du coeff directeur fractionnaire
-        a = randint(1, 5) // numérateut coefficient directeur non nul
+        d = randint(2, 5) // dénominateur coefficient directeur non nul
         b = randint(-5, 5) // ordonnée à l'origine
-        d = randint(2, 5, [a, 2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
-        a *= choice([-1, 1]) // on choisir a négatif ou positif.
+        a = randint(1, 6, [d, 2 * d, 3 * d]) * choice([-1, 1]) // numérateur coefficient directeur non multiple du dénominateur pour éviter nombre entier
         xB = d // Abscisse de B
-        yB = a / d * xB + b// Ordonnée de B
+        yB = a + b// Ordonnée de B
+        while (Math.abs(yB) > 9 || Math.abs(xB) > 9) {
+          xB = randint(1, 3) * choice([-d, d])// Abscisse de B
+          yB = a / d * xB + b// Ordonnée de B
+        }
         c = droite(a / d, -1, b)
         texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
 
@@ -94,9 +101,9 @@ export default function representerfonctionaffine () {
       tB.epaisseur = 2
       texteCorr += mathalea2d({
         xmin: -8,
-        ymin: -10,
+        ymin: -9,
         xmax: 8,
-        ymax: 8
+        ymax: 9
       }, r, c, o, tA, lA, tB, lB, lC)
       // On trace le graphique
       if (this.listeQuestions.indexOf(texte) === -1) {
