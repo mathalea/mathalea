@@ -1,4 +1,4 @@
-import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
+import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
 /*
@@ -124,15 +124,22 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     // On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
   }
 }
-export function point (...args) {
-  return new Point(...args)
+/**
+ * Crée un objet Point ayant les propriétés suivantes :
+ * @param {integer} x abscisse
+ * @param {integer} y ordonnée
+ * @param {integer} A son nom qui apparaîtra
+ * @param {integer} labelPosition Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @returns {Point}
+ */
+export function point (x, y, A, labelPosition = 'above') {
+  return new Point(x, y, A, labelPosition)
 }
 
 /**
  * tracePoint(A) // Place une croix à l'emplacement du point A
  * tracePoint(A,B,C,D) // Place une croix pour les différents points
  * tracePoint(A,B,C,D,'blue') // Place une croix pour les différents points
- *
  * @author Rémi Angot & Jean-Claude Lhote
  */
 function TracePoint (...points) {
@@ -276,7 +283,10 @@ function TracePoint (...points) {
     return code
   }
 }
-
+/**
+ * @param  {Point} args Points précédemment créés. Si le dernier argument est une chaîne de caractère, définit la couleur des points tracés.
+ * @returns  {TracePoint} TracePoint
+ */
 export function tracePoint (...args) {
   return new TracePoint(...args)
 }
@@ -407,7 +417,12 @@ export function pointSurCercle (c, angle, nom, positionLabel = 'above') {
   return point(x, y, nom, positionLabel)
 }
 /**
- * P=pointSurDroite(d,x) retourne un point sur la droite d dont l'abscisse est x. Si c'est impossible (droite verticale) alors ce sera le point dont l'ordonnée vaut x.
+ * Retourne un point sur la droite d dont l'abscisse est x. Si c'est impossible (droite verticale) alors ce sera le point dont l'ordonnée vaut x.
+ * @param {Droite} d
+ * @param {number} x Abscisse du point
+ * @param {string} nom Nom du point
+ * @param {string} [positionLabel='above'] Facultatif, 'above' par défaut.
+ * @return {Point} Point de la droite d dont l'abscisse est x
  * @author Jean-Claude Lhote
  */
 export function pointSurDroite (d, x, nom, positionLabel = 'above') {
@@ -418,8 +433,12 @@ export function pointSurDroite (d, x, nom, positionLabel = 'above') {
 }
 
 /**
- * M = pointIntersectionDD(d1,d2,'M','below') //M est le point d'intersection des droites (d1) et (d2)
- *
+ * Renvoie 'M' le point d'intersection des droites d1 et d2
+ * @param {Droite} d1
+ * @param {Droite} d2
+ * @param {string} [M=''] Nom du point d'intersection. Facultatif, vide par défaut.
+ * @param {string} [positionLabel='above'] Facultatif, 'above' par défaut.
+ * @return {Point} Point 'M' d'intersection de d1 et de d2
  * @author Jean-Claude Lhote
  */
 export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
@@ -436,9 +455,8 @@ export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
   return point(x, y, nom, positionLabel)
 }
 /**
- * pointAdistance(A,d,angle,nom="",positionLabel="above")
- * Seuls le point A et la distance d sont obligatoires, angle peut être choisi : il s'agit de l'angle signé avec l'axe [OI) sinon, il est choisi aléatoirement.
- * p=pointAdistance(A,5,'M') Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
+ * @example pointAdistance(A,d,angle,nom="",positionLabel="above") // Seuls le point A et la distance d sont obligatoires, angle peut être choisi : il s'agit de l'angle signé avec l'axe [OI) sinon, il est choisi aléatoirement.
+ * @example p=pointAdistance(A,5,'M') // Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
  * @author Jean-Claude Lhote
  */
 export function pointAdistance (...args) {
@@ -535,6 +553,12 @@ function LabelPoint (...points) {
     return code
   }
 }
+/**
+ * Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
+ * @param  {...any} args Points
+ * @returns {LabelPoint} LabelPoint
+ * @author Rémi Angot
+ */
 export function labelPoint (...args) {
   return new LabelPoint(...args)
 }
@@ -825,6 +849,16 @@ function Droite (arg1, arg2, arg3, arg4) {
     return s.tikzml(amp) + leNom.tikz()
   }
 }
+/**
+ * @param  {...any} args Deux points ou les coefficients a, b, c de ax + by + c = 0 où (a,b) !== (0,0)
+ * @param {string} nom Facultatif
+ * @param {string} color Facultatif
+ * @returns {Droite} Droite
+ * @example droite(A,B,'(d)') // La droite passant par A et B se nommant (d)
+ * @example droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c = 0 (équation de la droite (a,b)!==(0,0))
+ * @example droite(A,B,'(d)','blue') // La droite passant par A et B se nommant (d) et de couleur bleue
+ * @author Jean-Claude Lhote
+ */
 export function droite (...args) {
   return new Droite(...args)
 }
@@ -838,7 +872,13 @@ export function droiteParPointEtVecteur (A, v, nom = '', color = 'black') {
   return droite(A, B, nom, color)
 }
 /**
- * d = droiteParPointEtParallele(A,d,'d1',red') // Trace en rouge la parallèle à la droite (d) passant par A
+ * Trace en color la droite nom parallèle à d passant par A
+ * @param {Point} A
+ * @param {Droite} d
+ * @param {string} [nom=''] Facultatif, vide par défaut
+ * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @return {Droite}
+ * @example droiteParPointEtParallele(A,d,'d1',red') // Trace en rouge la droite d1 parallèle à la droite d passant par A
  * @author Jean-Claude Lhote
  */
 export function droiteParPointEtParallele (A, d, nom = '', color = 'black') {
@@ -882,9 +922,12 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
 */
 
 /**
- * d = mediatrice(A,B) // Médiatrice de [AB]
- * d = mediatrice(A,B,'d', 'blue') // Médiatrice de [AB] nommée (d) en bleu
- *
+ * Renvoie la médiatrice de [AB] nommée nom de couleur color
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} [nom=''] Facultatif, vide par défaut
+ * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @return {Droite} Droite
  * @author Rémi Angot
  */
 export function mediatrice (A, B, nom = '', color = 'black') {
@@ -953,6 +996,16 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
     else return v.tikz()
   }
 }
+/**
+ * Marque les deux moitiés du segment [AB] avec mark en color en traçant éventuellement le milieu
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} [color='black'] Couleur du codage. Facultatif, 'black' par défaut
+ * @param {string} [mark='x'] Peut être '||' ou 'x'. Facultatif, 'x' par défaut
+ * @param {boolean} [mil=true] Trace ou nom le point du milieu. Facultatif, true par défaut
+ * @returns CodageMilieu
+ * @example codageMilieu(A,B,'red','||',false) marque les deux moitiés du segment [AB] avec || en rouge, le milieu n'est pas tracé car dernier argument à false.
+ */
 export function codageMilieu (...args) {
   return new CodageMilieu(...args)
 }
@@ -1357,7 +1410,6 @@ export function pave (...args) {
  * v = vecteur(x,y) // ses composantes
  * v = vecteur(A,B) // son origine et son extrémité (deux Points)
  * v = vecteur(x,y,'v') // son nom et ses composantes.
- *
  * @author Jean-Claude Lhote et Rémi Angot
  */
 function Vecteur (arg1, arg2, nom = '') {
@@ -1409,8 +1461,15 @@ function Vecteur (arg1, arg2, nom = '') {
     return nomVecteurParPosition(nom, N.x, N.y, taille, 0, color)
   }
 }
-export function vecteur (...args) {
-  return new Vecteur(...args)
+/**
+ * @example v = vecteur('V') // son nom
+ * @example v = vecteur(x,y) // ses composantes
+ * @example v = vecteur(A,B) // son origine et son extrémité (deux Points)
+ * @example v = vecteur(x,y,'v') // son nom et ses composantes.
+ * @author Jean-Claude Lhote et Rémi Angot
+ */
+export function vecteur (arg1, arg2, nom = '') {
+  return new Vecteur(arg1, arg2, nom)
 }
 /**
  * @author Jean-Claude Lhote le 31/01/2021
@@ -1721,11 +1780,10 @@ export function segment (...args) {
 }
 
 /**
- * s = segmentAvecExtremites(A,B) //Segment d'extrémités A et B
- * s = segmentAvecExtremites(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
- * s = segmentAvecExtremites(x1,y1,x2,y2) //Segment définit par les coordonnées des deux extrémités
- * s = segmentAvecExtremites(x1,y1,x2,y2,'blue') //Segment définit par les coordonnées des deux extrémités et de couleur bleue
- *
+ * @param {...args} args Points ou coordonnées
+ * @param {string} color Facultatif
+ * @example segmentAvecExtremites(A,B,'blue')
+ * @example segmentAvecExtremites(x1,y1,x2,y2,'blue')
  * @author Rémi Angot
  */
 export function segmentAvecExtremites (...args) {
@@ -1741,9 +1799,11 @@ export function segmentAvecExtremites (...args) {
 */
 
 /**
- * s = demiDroite(A,B) //Demi-droite d'origine A passant par B
- * s = demiDroite(A,B,'blue') //Demi-droite d'origine A passant par B et de couleur bleue
- *
+ * Trace la demi-droite d'origine A passant par B et de couleur color
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @example demiDroite(A,B,'blue') // Demi-droite d'origine A passant par B et de couleur bleue
  * @author Rémi Angot
  */
 export function demiDroite (A, B, color = 'black') {
@@ -1752,9 +1812,11 @@ export function demiDroite (A, B, color = 'black') {
 }
 
 /**
- * s = DemiDroiteAvecExtremite(A,B) //Demi-droite d'origine A passant par B avec l'origine marquée
- * s = DemiDroiteAvecExtremite(A,B,'blue') //Demi-droite d'origine A passant par B et de couleur bleue avec l'origine marquée
- *
+ * Trace la demi-droite d'origine A passant par B avec l'origine marquée
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @example demiDroite(A,B,'blue') // Demi-droite d'origine A passant par B et de couleur bleue
  * @author Rémi Angot
  */
 export function demiDroiteAvecExtremite (A, B, color = 'black') {
@@ -1948,6 +2010,12 @@ function Polygone (...points) {
     return code
   }
 }
+/**
+ * @returns {Polygone} objet Polygone
+ * @example polygone(A,B,C,D,E) //Trace ABCDE
+ * @example polygone([A,B,C,D],"blue") // Trace ABCD en bleu
+ * @author Rémi Angot
+ */
 export function polygone (...args) {
   return new Polygone(...args)
 }
@@ -1974,10 +2042,13 @@ export function renommePolygone (p, noms) {
 }
 
 /**
- * polygoneRegulier(A,B,n) //Trace le polygone régulier direct à n côtés qui a pour côté [AB]
- *
+ * Trace le polygone régulier direct à n côtés qui a pour côté [AB]
+ * @param {Point} A
+ * @param {Point} B
+ * @param {integer} n Nombre de côtés
+ * @param {string} [color='black'] Facultatif
  * @author Rémi Angot
- */
+ **/
 export function polygoneRegulier (A, B, n, color = 'black') {
   const listePoints = [A, B]
   for (let i = 1; i < n - 1; i++) {
@@ -2008,8 +2079,10 @@ export function polygoneRegulierIndirect (A, B, n, color = 'black') {
 }
 
 /**
- * carre(A,B) //Trace le carré direct qui a pour côté [AB] et code les 4 angles droits et 4 côtés de même longueur
- * carre(A,B,'blue') //Trace en bleu le carré direct qui a pour côté [AB] et code les 4 angles droits et 4 côtés de même longueur
+ * Trace en 'color' le carré direct qui a pour côté [AB].
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} color facultatif
  * @author Rémi Angot
  */
 export function carre (A, B, color) {
@@ -2116,9 +2189,14 @@ export function triangle2points1hauteur (A, B, h, d, n = 1) {
 }
 
 /**
- * t = triangle2points2longueurs(A,B,4,7) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (par défaut C a l'ordonnée la plus grande possible)
- * C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
- * t = triangle2points2longueurs(A,B,4,7,2) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (C aura l'ordonnée la plus petite possible)
+ * @param {Point} A
+ * @param {Point} B
+ * @param {number} l1
+ * @param {number} l2
+ * @param {number} [n=1] Si n = 1 (défaut), C a la plus grande ordonnée possible, si n = 2, C a la plus petite ordonnée possible
+ * @returns {Polygone} objet Polygone ABC
+ * @example t = triangle2points2longueurs(A,B,4,7,2) // Récupère t le triangle ABC tel que AC = 4 cm et BC = 7 cm avec C qui a l'ordonnée la plus petite possible
+ * @example C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
  * @author Rémi Angot
  */
 export function triangle2points2longueurs (A, B, l1, l2, n = 1) {
@@ -2484,8 +2562,15 @@ function Cercle (O, r, color) {
     return code
   }
 }
-export function cercle (...args) {
-  return new Cercle(...args)
+/**
+ * Construit le cercle de centre O, de rayon r et de couleur color
+ * @param {Point} O Centre du cercle
+ * @param {number} r Rayon du cercle
+ * @param {string} [color='black'] Facultatif, 'black' par défaut.
+ * @returns {Cercle} objet Cercle
+ */
+export function cercle (O, r, color = 'black') {
+  return new Cercle(O, r, color)
 }
 
 /**
@@ -2617,11 +2702,11 @@ export function ellipse (...args) {
 }
 
 /**
- * I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c)
  * @param {Droite} d la droite qui intecepte (ou pas le cercle)
  * @param {Cercle} C le cercle
  * @param {string} nom le nom du point d'intersection
  * @param {entier} n 1 pour le premier point, 2 sinon. Si il n'y a qu'un seul point d'intesection, l'un ou l'autre renvoie ce point.
+ * @example I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c)
  * @author Jean-Claude Lhote
  */
 export function pointIntersectionLC (d, C, nom = '', n = 1) {
@@ -3617,7 +3702,8 @@ export function cibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisio
  * M = tion(O,v) //M est l'image de O dans la translation de vecteur v
  * M = translation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
  * M = translation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
- *
+ * @param {Point} O
+ * @param {}
  * @author Rémi Angot
  */
 export function translation (O, v, nom = '', positionLabel = 'above') {
@@ -3707,10 +3793,12 @@ export function translation2Points (O, A, B, nom = '', positionLabel = 'above') 
 }
 
 /**
- * M = rotation(A,O,angle) //M est l'image de A dans la rotation de centre O et d'angle angle
- * M = rotation(A,O,angle,'M') //M est l'image de A dans la rotation de centre O et d'angle angle et se nomme M
- * M = rotation(A,O,angle,'M','below') //M est l'image de A dans la rotation de centre O et d'angle angle, se nomme M et le nom est en dessous
- *
+ * @param A Point, Polygone, Droite, Segment ou Vecteur
+ * @param {Point} O Centre de rotation
+ * @param {number} angle Angle de rotation
+ * @param {string} [nom=''] Nom de l'image. Facultatif, vide par défaut
+ * @param {string} [positionLabel='above'] Facultatif, 'above' par défaut
+ * @return L'image de A par la rotation de centre O et d'angle angle
  * @author Rémi Angot et Jean-Claude Lhote
  */
 export function rotation (A, O, angle, nom = '', positionLabel = 'above') {
@@ -3854,9 +3942,12 @@ export function homothetie (A, O, k, nom = '', positionLabel = 'above') {
 }
 
 /**
- * M = pointParSymetrieAxiale(A,d)// M est l'image de A dans la symétrie axiale d'axe d.
- * d est un objet de type Droite (son équation ax+by+c=0 renseignée)
- * A est un objet de type Point (ses coordonnées x et y renseignées)
+ * Renvoie le point M symétrique du point A par la droite d.
+ * @param {Point} A Objet de type Point (ses coordonnées x et y renseignées)
+ * @param {droite} d Objet de type Droite (son équation ax+by+c=0 renseignée)
+ * @param {string} M Nom de l'image. Facultatif, vide par défaut.
+ * @param {string} positionLabel Facultatif, 'above' par défaut.
+ * @return {Point} M image de A par la symétrie axiale d'axe d.
  * @author Jean-Claude Lhote
  */
 export function symetrieAxiale (A, d, nom = '', positionLabel = 'above') {
@@ -3926,8 +4017,9 @@ export function symetrieAxiale (A, d, nom = '', positionLabel = 'above') {
  * 1ere version utilisant la projection orthogonale
  * 2eme version utilisant la symétrie axiale (abandonnée)
  * @author Jean-Claude Lhote
- * @param {*} A
- * @param {*} d
+ * @param {Point} A
+ * @param {Droite} d
+ * @returns {number} longueur
  */
 export function distancePointDroite (A, d) {
   const M = projectionOrtho(A, d)
@@ -4591,6 +4683,16 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4) {
     return polyline([a, o, b], color).tikzml(amp)
   }
 }
+/**
+ * Fait un codage d'angle droit pour l'angle direct AOB.
+ * @param {Point} A
+ * @param {Point} O
+ * @param {Point} B
+ * @param {string} [color='black'] optionel, 'black' par défaut.
+ * @param {number} [d =0.4] Taille de l'angle droit en cm. Optionel, 0.4 par défaut.
+ * @returns {CodageAngleDroit} CodageAngleDroit
+ * @author Rémi Angot
+ */
 export function codageAngleDroit (A, O, B, color = 'black', d = 0.4) {
   return new CodageAngleDroit(A, O, B, color, d)
 }
@@ -4638,6 +4740,15 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5) {
     return texteParPoint(l + ' cm', N, angle, this.color).tikz()
   }
 }
+/**
+ * Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * @param  {Point} A
+ * @param  {Point} B
+ * @param  {string} [color='black'] Facultatif, 'black' par défaut
+ * @param  {number} [d=0.5] Distance entre l'étiquette et le segment. Facultatif, 0.5 par défaut
+ * @returns {AfficheLongueurSegment} objet AfficheLongueurSegment
+ * @author Rémi Angot
+ */
 export function afficheLongueurSegment (...args) {
   return new AfficheLongueurSegment(...args)
 }
@@ -4700,6 +4811,16 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
     return texteParPoint(this.texte, N, angle, this.color).tikz()
   }
 }
+/**
+ * Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * @param {string} texte
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @param {number} [d=0.5] Distance à la droite. Facultatif, 0.5 par défaut
+ * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
+ * @author Rémi Angot
+ */
 export function texteSurSegment (...args) {
   return new TexteSurSegment(...args)
 }
@@ -4730,7 +4851,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
       mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
       sizelabel = 20
     }
-    return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, -5, '').svg(coeff) + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff)
+    return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, 12, '').svg(coeff) + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff)
   }
   this.tikz = function () {
     // let d = bissectrice(A, B, C);
@@ -4749,6 +4870,16 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
     return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, 10, '').tikz() + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz()
   }
 }
+/**
+ * Affiche la mesure de l'angle ABC arrondie au degré près
+ * @param {Point} A
+ * @param {Point} B
+ * @param {Point} C
+ * @param {string} [color='black'] Facultatif, 'black' par défaut.
+ * @param {number} [distance=1.5] Taille de l'angle. Facultatif, 1.5 par défaut.
+ * @param {string} [label=''] Facultatif, vide par défaut.
+ * @returns {object} AfficheMesureAngle
+ */
 export function afficheMesureAngle (...args) {
   return new AfficheMesureAngle(...args)
 }
@@ -5051,7 +5182,22 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     return code
   }
 }
-
+/**
+ * @param {Point} debut
+ * @param {Point} centre
+ * @param {number} angle
+ * @param {number} [taille=0.8] Facultatif. 0.8 par défaut.
+ * @param {string} [mark=''] Facultatif. Vide par défaut.
+ * @param {string} [color='black'] Facultatif. 'black' par défaut.
+ * @param {number} [epaisseur=1] Facultatif. 1 par défaut.
+ * @param {number} [opacite=1] Facultatif. 1 par défaut.
+ * @param {string} [fill='none'] Facultatif. 'none' par défaut
+ * @param {number} [fillOpacite=0.2] Facultatif. 0.2 par défaut
+ * @param {boolean} [mesureOn=false] Facultatif. false par défaut
+ * @returns CodeAngle
+ * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
+ * @author Jean-Claude Lothe
+ */
 export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false) {
   if (typeof (angle) !== 'number') {
     angle = angleOriente(debut, centre, angle)
@@ -6310,7 +6456,7 @@ function Repere2 ({
         grilleSecondaireYDistance = calcul(yThickDistance / 2)
       }
       // On créé la liste avec ces valeurs
-      grilleSecondaireYListe = rangeMinMax(grilleSecondaireYMin, grilleSecondaireYMax, [0], grilleSecondaireYDistance)
+      grilleSecondaireYListe = rangeMinMax(grilleSecondaireYMin, grilleSecondaireYMax, grilleYListe, grilleSecondaireYDistance)
     }
     for (const y of grilleSecondaireYListe) {
       const traitH = segment(calcul(xMin * xUnite), calcul(y * yUnite), calcul(xMax * xUnite), calcul(y * yUnite))
@@ -6329,7 +6475,7 @@ function Repere2 ({
     if (!grilleSecondaireXListe) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
       if (typeof (grilleSecondaireXMin) !== 'number') {
-        grilleSecondaireXMin = xThickMin / 2
+        grilleSecondaireXMin = xThickMin
       }
       if (typeof (grilleSecondaireXMax) !== 'number') {
         grilleSecondaireXMax = xThickMax
@@ -6338,7 +6484,7 @@ function Repere2 ({
         grilleSecondaireXDistance = calcul(xThickDistance / 2)
       }
       // On créé la liste avec ces valeurs
-      grilleSecondaireXListe = rangeMinMax(grilleSecondaireXMin, grilleSecondaireXMax, [0], grilleSecondaireXDistance)
+      grilleSecondaireXListe = rangeMinMax(grilleSecondaireXMin, grilleSecondaireXMax, grilleXListe, grilleSecondaireXDistance)
     }
     for (const x of grilleSecondaireXListe) {
       const traitV = segment(calcul(x * xUnite), calcul(yMin * yUnite), calcul(x * xUnite), calcul(yMax * yUnite))
@@ -7639,53 +7785,61 @@ function Courbe2 (f, {
   color = 'black',
   epaisseur = 2,
   step = false,
-  xMin = -10,
-  xMax = 10,
-  yMin = -10,
-  yMax = 10,
+  xMin,
+  xMax,
+  yMin,
+  yMax,
   xUnite = 1,
   yUnite = 1
 } = {}) {
   ObjetMathalea2D.call(this)
   this.color = color
   let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
-  xmin = repere.xMin
-  ymin = repere.yMin
-  xmax = repere.xMax
-  ymax = repere.yMax
+  if (typeof xMin === 'undefined') {
+    xmin = repere.xMin
+  } else xmin = xMin
+  if (typeof yMin === 'undefined') {
+    ymin = repere.yMin
+  } else ymin = yMin
+  if (typeof xMax === 'undefined') {
+    xmax = repere.xMax
+  } else xmax = xMax
+  if (typeof yMax === 'undefined') {
+    ymax = repere.yMax
+  } else ymax = yMax
+
   xunite = repere.xUnite
   yunite = repere.yUnite
 
-  // Si le repère n'est pas donné ou ne permet pas de récupérer des valeurs
-  if (isNaN(xmin)) { xmin = xMin };
-  if (isNaN(xmax)) { xmax = xMax };
-  if (isNaN(ymin)) { ymin = yMin };
-  if (isNaN(ymax)) { ymax = yMax };
   if (isNaN(xunite)) { xunite = xUnite };
   if (isNaN(yunite)) { yunite = yUnite };
   const objets = []
   let points = []
   let pas
+  let p
   if (!step) {
     pas = calcul(0.2 / xUnite)
   } else {
     pas = step
   }
-  for (let x = xmin; x <= xmax; x += pas
+  for (let x = xmin; inferieurouegal(x, xmax); x += pas
   ) {
-    if (f(x) < ymax + 0.2 && f(x) > ymin - 0.2) {
-      points.push(point(calcul(x * xunite), calcul(f(x) * yunite)))
+    if (!isNaN(f(x))) {
+      if (f(x) < ymax + 1 && f(x) > ymin - 1) {
+        points.push(point(calcul(x * xunite), calcul(f(x) * yunite)))
+      } else {
+        p = polyline([...points], this.color)
+        p.epaisseur = epaisseur
+        objets.push(p)
+        points = []
+      }
     } else {
-      const p = polyline([...points], this.color)
-      p.epaisseur = epaisseur
-      objets.push(p)
-      points = []
+      x += 0.05
     }
-    const p = polyline([...points], this.color)
-    p.epaisseur = epaisseur
-    objets.push(p)
   }
-
+  p = polyline([...points], this.color)
+  p.epaisseur = epaisseur
+  objets.push(p)
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
     let code = ''
@@ -7809,20 +7963,20 @@ function GraphiqueInterpole (
     repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1)
     const c = courbe2(f, { step: step, xMin: depart, xMax: fin, color: color, epaisseur: epaisseur, xUnite: repere.xUnite, yUnite: repere.yUnite, yMin: repere.yMin, yMax: repere.yMax })
     mesCourbes.push(c)
-    this.svg = function (coeff) {
-      let code = ''
-      for (const objet of mesCourbes) {
-        code += '\n\t' + objet.svg(coeff)
-      }
-      return code
+  }
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of mesCourbes) {
+      code += '\n\t' + objet.svg(coeff)
     }
-    this.tikz = function () {
-      let code = ''
-      for (const objet of mesCourbes) {
-        code += '\n\t' + objet.tikz()
-      }
-      return code
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of mesCourbes) {
+      code += '\n\t' + objet.tikz()
     }
+    return code
   }
 }
 /**
@@ -8317,8 +8471,10 @@ export function print2d (...args) {
 */
 
 /**
- * longueur(A,B) renvoie la distance de A à B
- *
+ * Renvoie la distance de A à B
+ * @param {Point} A
+ * @param {Point} B
+ * @param {integer} [arrondi=2] Nombre de chiffres après la virgule. Facultatif, 2 par défaut.
  * @author Rémi Angot
  */
 export function longueur (A, B, arrondi) {

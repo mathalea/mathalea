@@ -1,4 +1,4 @@
-import Signe_produit_quotient_relatifs from './4C10-0.js'
+import SigneProduitQuotientRelatifs from './4C10-0.js'
 
 export const titre = 'Signe d’un quotient de nombres relatifs'
 
@@ -7,16 +7,16 @@ export const titre = 'Signe d’un quotient de nombres relatifs'
  * 4C10-2 fils de 4C10-0
  * @author Sébastien Lozano
  */
-export default function Signe_quotient_relatifs() {
-  Signe_produit_quotient_relatifs.call(this);
+export default function SigneQuotientRelatifs () {
+  SigneProduitQuotientRelatifs.call(this)
   this.titre = titre
-  this.beta = ``;// ici this.beta peut prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
-  this.exo = this.beta + `4C10-2`;
-  this.sup = 5;
+  this.beta = ''// ici this.beta peut prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
+  this.exo = this.beta + '4C10-2'
+  this.sup = 5
+  this.nbQuestions = 4
   this.besoinFormulaireNumerique = [
-    "Niveau de difficulté",
+    'Niveau de difficulté',
     5,
-    "1 : quotient de deux nombres\n2 : quotient d'un nombre sur un produit de deux facteurs\n3 : quotient d'un produit de deux factueurs sur un nombre\n4 : Quotient de deux produits de deux facteurs\n5 : Mélange",
-  ];
+    "1 : Quotient de deux nombres\n2 : Quotient d'un nombre sur un produit de deux facteurs\n3 : Quotient d'un produit de deux factueurs sur un nombre\n4 : Quotient de deux produits de deux facteurs\n5 : Mélange"
+  ]
 }
-

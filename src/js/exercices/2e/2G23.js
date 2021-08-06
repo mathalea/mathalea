@@ -55,6 +55,11 @@ export default function SommeDeVecteurs () {
       }, U, V, UU, VV, tracePoint(A, 'red'), latexParPoint('A', posLabelA, 'red', 12, 6, ''))
       texteCorr = 'Construisons le point $B$ tel que $\\overrightarrow{AB} = \\vec{u}$ puis le point $C$ tel que $\\overrightarrow{BC} = \\vec{v}$'
       anim.couleur = 'black'
+      anim.xMin = Math.min(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) - 1
+      anim.yMin = Math.min(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) - 1
+      anim.xMax = Math.max(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) + 2
+      anim.yMax = Math.max(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) + 2
+      anim.recadre(anim.xMin, anim.yMax)
       anim.crayonMontrer(M)
       anim.tracer(translation(M, u), { vecteur: true, couleur: 'blue' })
       anim.crayonDeplacer(N)
@@ -93,11 +98,6 @@ export default function SommeDeVecteurs () {
       anim.crayonMasquer()
       anim.compasMasquer()
       anim.pointCreer(C)
-      anim.xMin = Math.min(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) - 1
-      anim.yMin = Math.min(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) - 1
-      anim.xMax = Math.max(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) + 1
-      anim.yMax = Math.max(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) + 1
-
       texteCorr += mathalea2d({
         xmin: Math.min(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) - 1,
         ymin: Math.min(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) - 1,

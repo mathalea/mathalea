@@ -1,6 +1,14 @@
+Ce tutoriel vous donnera les clés pour créer la grande majorité des exercices.
+
+Si vous ne voulez pas d'un truc trop lourd et voulez apporter votre contribution avec un moindre effort, vous pouvez aussi regarder comment ajouter des questions à une [Course aux Nombres](tutorial-Course_aux_nombres.html) !
 # Comment créer un exercice en 10 étapes
 Toutes les commandes qui commencent par `git` peuvent aussi être faites par une interface graphique (VSC, GitKraken ou GitHub Desktop).
 Il n'y a pas d'interférence entre eux donc vous pouvez sans problème faire certaines étapes en lignes de commande et d'autres avec une interface graphique c'est comme vous préférez.
+
+Les interfaces graphiques peuvent être plus faciles à prendre en main et permettent de faire très facilement des tâches très compliquées.
+
+Les lignes de commande nécessitent des "anti-sèches" au début mais ont les avantages d'avoir la même "interface" pour tout le monde et d'être "bavardes" en cas de problème, ce qui facilite grandement les échanges et les dépannages entre nous. D'autant plus qu'en cliquant sur [Utiliser_git_en_ligne_de_commandes](/tutorial-Utiliser_git_en_ligne_de_commandes.html) dans menu de gauche, vous aurez accès à des anti-sèches et à des solutions à différents messages d'erreur que vous pouvez rencontrer !
+
 1. Commencer par se placer sur le master et le mettre à jour : saisir `git checkout master` puis `git pull` dans un terminal.
 2. Trouver à quelle [référence](https://coopmaths.fr/pdf/CoopMaths-Referentiel.pdf) l'exercice qu'on veut créer peut être rattaché.
 3. Créer une nouvelle branche en partant d'une copie du master et en respectant la syntaxe NomDeLaPersonne-ReferenceDeLExercice-PrecisionEventuelle : `git checkout -b Nom-Reference-Precision`
@@ -12,13 +20,17 @@ Il n'y a pas d'interférence entre eux donc vous pouvez sans problème faire cer
 9. Le partager avec les autres : `git push origin nomDeLaBranche`
 10. Une fois l'exercice terminé, faire un **Pull Request** via [github](https://github.com/mathalea/mathalea/branches) ou son interface graphique préférée (GitKraken ou GitHub Desktop).
 
-## <a id="Modèles"></a> Modèles présents dans le dossier`src/js/exercices/_Modèles_d'exercices`
-**A MODIFIER**
-- src/js/beta/betaExemple1Type.js // Un même type de question répété 
-- src/js/beta/betaExemple.js // Les questions peuvent être très différentes et leur nombre est fixé
-- src/js/beta/betaExemple1TypeCalculLettre.js // Un même type de question répété  mais présenté A=..., B=...
-- src/js/beta/betaExemple3Types.js // On créé 3 types de questions  qui seront alternés (et que l'on peut pondérer)
-
+## <a id="Modèles"></a> Modèles présents dans le dossier`src/js/exercices/beta`
+- betaModèle10_simple_question-reponse
+- betaModèle11_paramétrable (simple question-reponse paramétrable)
+- betaModèle20_plusieurs_types_de_questions
+- betaModèle21_paramétrables (plusieurs questions paramétrables)
+- betaModèle30_constructions_géométriques
+- betaModèle31_paramétrables (constructions géométriques paramétrables)
+- betaModèle32_cliqueFigure
+- betaModèle40_tableau_proportionnalite
+- betaModèle41_tableau_signes_variations
+Pour rentre un des modèles interactif, consulter le guide [Rendre_un_exercice_interactif](tutorial-Rendre_un_exercice_interactif.html) dans le panneau de gauche
 ## <a id="Programmer"></a> Programmer un exercice
 Un exercice est un objet de la classe Exercice (d'où le `import Exercice` en début de fichier et le `Exercice.call` au début de la fonction exportée).
 Il a plusieurs [attributs](#Attributs) (son titre, son énoncé, sa correction...) et a une fonction `nouvelleVersion()` qui crée un énoncé aléatoire.
@@ -27,7 +39,8 @@ On peut partager le code en 3 parties :
 1. l'en-tête (juqu'à la ligne `export default function ...`)
 2. le paramétrage des valeurs par défaut (jusqu'à la ligne `this.nouvelleVersion = function () {`)
 3. le code de l'exercice en lui-même (l'intérieur de la fonction `nouvelleVersion()`)
-**AJOUTER UNE CAPTURE D'ÉCRAN ANNOTÉE**
+
+![](img/Structure-exo.png)
 
 ### 1. L'en-tête
 ```javascript
@@ -84,7 +97,7 @@ export default function Ajouter9 () { // On clôture cette première partie par 
       }
       cpt++
     }
-    listeQuestionsToContenu(this) // Une fois l'exercice entièrement construit, on exporte les énoncés et les corrections.
+    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 }
 ```
@@ -232,7 +245,6 @@ export default function ConstruireUnDiagramme4e () {
   this.contenuCorrection = '' // Idem avec la correction
   this.autoCorrection = [] // Liste des objets par question pour correction interactive || export AMC.
   this.tableauSolutionsDuQcm = [] // Pour sauvegarder les solutions des QCM.
-  // this.qcm=["Quels sont les nombres pairs ?",[7,12,34,25,18],[0,1,1,0,1]] =>["La question",[les réponses],[bonne=1 et mauvaise=0]]
 ```
 #### Mise en forme de l'exercice
 ``` javascript
@@ -267,10 +279,6 @@ export default function ConstruireUnDiagramme4e () {
   // Interactivité
   this.interactif = false // Exercice sans saisie utilisateur par défaut.
   this.interactifObligatoire = false // Certains exercices sont uniquement des QCM et n'ont pas de version non interactive.
-  // QCM
-  this.qcm = false // Pour les exercices de type QCM : contient un tableau.
-  this.qcmDisponible = false // Pour ajouter une case à cocher Mode QCM qui permet de changer le statut de this.modeQcm.
-  this.modeQcm = false // Pour choisir la version QCM ou la version classique (false = version classique).
   // Ajoute un formulaire de paramétrage par l'utilisateur récupéré via this.sup ou dans le paramètre d'url ',s='
   this.besoinFormulaireNumerique = false // Sinon this.besoinFormulaireNumerique = [texte, max, tooltip facultatif]
   this.besoinFormulaireTexte = false // Sinon this.besoinFormulaireTexte = [texte, tooltip]

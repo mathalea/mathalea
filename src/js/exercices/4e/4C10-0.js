@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, ecritureNombreRelatif, texteEnCouleurEtGras, Relatif } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ecritureNombreRelatif, texteEnCouleurEtGras, Relatif, combinaisonListes } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -9,7 +9,7 @@ export const titre = 'Signe d’un produit ou d’un quotient de nombres relatif
 
 /**
  * Signe d'un produit ou d'on quotient de relatifs
- * Plusieurs niveaux 2, 3 ou 4 factieurs, un quotient de 2 nombres, 1  nombre sur un produit de deux nombres, un prooduit de 2 nombres sur un nombre, un quotient de produit de 2 nombres
+ * Plusieurs niveaux 2, 3 ou 4 factieurs, un quotient de 2 nombres, 1  nombre sur un produit de deux nombres, un produit de 2 nombres sur un nombre, un quotient de produit de 2 nombres
  * 4C10-0 exercice parent de 4C10-1 et 4C10-2
  * 4C10-0 contient tous les cas
  * Dans ces exercices je me servais de this.beta pour faire passer l'exo de beta.html à context.html
@@ -17,15 +17,15 @@ export const titre = 'Signe d’un produit ou d’un quotient de nombres relatif
 
  * @author Sébastien Lozano
  */
-export default function Signe_produit_quotient_relatifs () {
+export default function SigneProduitQuotientRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.consigne = 'Donner le signe des expressions numériques.'
+  this.nbQuestions = 7
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.nbQuestionsModifiable = false
   this.sup = 1
 
   let typesDeQuestionsDisponibles
@@ -36,62 +36,43 @@ export default function Signe_produit_quotient_relatifs () {
       // signe d'un produit
       switch (this.sup) {
         case 1: // 2 facteurs
-          typesDeQuestionsDisponibles = [1, 1, 1]
-          // this.nbQuestions = typesDeQuestionsDisponibles.length;
-          this.nbQuestions = 3
+          typesDeQuestionsDisponibles = [1]
           break
         case 2: // 3 facteurs
-          typesDeQuestionsDisponibles = [2, 2, 2]
-          // this.nbQuestions = typesDeQuestionsDisponibles.length;
-          this.nbQuestions = 3
+          typesDeQuestionsDisponibles = [2]
           break
         case 3: // 4 facteurs
-          typesDeQuestionsDisponibles = [3, 3, 3]
-          // this.nbQuestions = typesDeQuestionsDisponibles.length;
-          this.nbQuestions = 3
+          typesDeQuestionsDisponibles = [3]
           break
         case 4: // Mélange
           typesDeQuestionsDisponibles = [1, 2, 3]
-          this.nbQuestions = typesDeQuestionsDisponibles.length
           break
       }
     } else if (this.exo === this.beta + '4C10-2') {
       // signe d'un quotient
       switch (this.sup) {
         case 1: // quotient de 2 nombres
-          typesDeQuestionsDisponibles = [4, 4, 4]
-          // this.nbQuestions = typesDeQuestionsDisponibles.length;
-          this.nbQuestions = 3
+          typesDeQuestionsDisponibles = [4]
           break
         case 2: // quotient d'1 nombre sur un produit de 2 nombres
-          typesDeQuestionsDisponibles = [5, 5, 5]
-          // this.nbQuestions = typesDeQuestionsDisponibles.length;
-          this.nbQuestions = 3
+          typesDeQuestionsDisponibles = [5]
           break
         case 3: // quotient d'1 produit de 2 nombres sur 1 nombre
-          typesDeQuestionsDisponibles = [6, 6, 6]
-          // this.nbQuestions = typesDeQuestionsDisponibles.length;
-          this.nbQuestions = 3
+          typesDeQuestionsDisponibles = [6]
           break
         case 4: // quotient de 2 produits de 2 nombres
-          typesDeQuestionsDisponibles = [7, 7, 7]
-          // this.nbQuestions = typesDeQuestionsDisponibles.length;
-          this.nbQuestions = 3
+          typesDeQuestionsDisponibles = [7]
           break
         case 5: // Mélange
           typesDeQuestionsDisponibles = [4, 5, 6, 7]
-          this.nbQuestions = typesDeQuestionsDisponibles.length
           break
       }
     } else {
       // signe d'un produit et/ou d'un quotient
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
-      this.nbQuestions = typesDeQuestionsDisponibles.length
     }
 
-    // let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = typesDeQuestionsDisponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
-
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
