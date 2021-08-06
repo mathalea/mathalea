@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre } from '../../modules/outils.js'
 
 export const amcReady = true
-export const amcType = 3 // type de question AMC
+export const amcType = 'AMCOpen' // type de question AMC
 
 export const titre = 'Additions, soustractions, multiplications et divisions posées de nombres entiers'
 
@@ -22,8 +22,6 @@ export const titre = 'Additions, soustractions, multiplications et divisions pos
  */
 export default function AdditionsSoustractionsMultiplicationsDivisionsPosees () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.amcReady = amcReady
-  this.amcType = amcType
   this.titre = titre
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2

@@ -1,4 +1,4 @@
-import Ecrire_une_expression_numerique from './_Ecrire_une_expression_numerique.js'
+import EcrireUneExpressionNumerique from './_Ecrire_une_expression_numerique.js'
 
 export const titre = 'Traduire une phrase par une expression et la calculer'
 
@@ -6,8 +6,9 @@ export const titre = 'Traduire une phrase par une expression et la calculer'
  * @author Jean-Claude Lhote
  * Référence 5C12-1
  */
-export default function Traduire_une_phrase_par_une_expression_et_calculer() {
-	Ecrire_une_expression_numerique.call(this)
-	this.version = 3
-	this.titre = titre;
+export default function TraduireUnePhraseParUneExpressionEtCalculer () {
+  EcrireUneExpressionNumerique.call(this)
+  this.version = 3
+  this.titre = titre
+  this.besoinFormulaireTexte = ['Choix des expressions', 'Nombres séparés par des tirets\n2 : Expressions à deux opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions complexes'] // Texte, tooltip - il faut au moins deux opérations
 }

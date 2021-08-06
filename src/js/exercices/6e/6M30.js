@@ -2,10 +2,11 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, texNombrec, texNombre, texFraction } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
+import Grandeur from '../../modules/Grandeur.js'
 
 export const titre = 'Calculs de volumes'
 export const amcReady = true
-export const amcType = 1 // type de question AMC
+export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 /**
@@ -27,11 +28,12 @@ export default function CalculDeVolumes () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.sup3 = 2
 
   let typesDeQuestionsDisponibles
 
-  this.nouvelleVersion = function () {
+  this.nouvelleVersion = function (numeroExercice) {
     this.interactifType = parseInt(this.sup3) === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     if (this.classe === 6) { // sixième : cube et pavé droit
@@ -47,10 +49,10 @@ export default function CalculDeVolumes () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const listeUnites = [
-      ['~\\text{m}', '~\\text{m}^3'],
-      ['~\\text{dm}', '~\\text{dm}^3'],
-      ['~\\text{cm}', '~\\text{cm}^3'],
-      ['~\\text{mm}', '~\\text{mm}^3']
+      ['~\\text{m}', '~\\text{m}^3', 'm^3'],
+      ['~\\text{dm}', '~\\text{dm}^3', 'dm^3'],
+      ['~\\text{cm}', '~\\text{cm}^3', 'cm^3'],
+      ['~\\text{mm}', '~\\text{mm}^3', 'mm^3']
     ]
     let partieDecimale1, partieDecimale2, partieDecimale3
     if (this.sup2) {
@@ -128,6 +130,10 @@ export default function CalculDeVolumes () {
             r = randint(2, 10)
             h = randint(2, 15)
             volume = r * r * h * Math.PI
+            resultat = Math.round(volume)
+            resultat2 = Math.round(4 * volume)
+            resultat3 = Math.round(volume / 2)
+            resultat4 = Math.round(2 * volume)
             texte = `Un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur en $${listeUnites[j][1]}$.`
             texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^2\\times${h}${listeUnites[j][0]}=${texNombrec(
               r * r * h
@@ -198,6 +204,9 @@ export default function CalculDeVolumes () {
               3
             )}\\pi${listeUnites[j][1]}\\approx${texNombrec(Math.round(volume))}${listeUnites[j][1]}$`
             resultat = Math.round(volume)
+            resultat2 = Math.round(4 * volume)
+            resultat3 = Math.round(volume / 2)
+            resultat4 = Math.round(2 * volume)
           } else {
             j = randint(2, 3) // pour le choix de l'unité
             r = randint(2, 10)
@@ -230,8 +239,8 @@ export default function CalculDeVolumes () {
             }
             resultat = Math.round(volume)
             resultat2 = Math.round(3 * volume)
-            resultat3 = Math.round(4 * c * h / 3)
-            resultat4 = Math.round(2 * volume)
+            resultat3 = Math.round(3 * volume / 4)
+            resultat4 = Math.round(volume / 2)
           } else {
             j = randint(1, 2) // pour le choix de l'unité
             c = calcul(randint(2, 10) + partieDecimale2)
@@ -247,8 +256,8 @@ export default function CalculDeVolumes () {
             }
             resultat = Math.round(volume)
             resultat2 = Math.round(3 * volume)
-            resultat3 = Math.round(4 * c * h / 3)
-            resultat4 = Math.round(2 * volume)
+            resultat3 = Math.round(3 * volume / 4)
+            resultat4 = Math.round(volume / 2)
           }
           break
         case 7: // boule
@@ -259,8 +268,8 @@ export default function CalculDeVolumes () {
           texteCorr = `$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times R^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^3=${texFraction(calcul(4 * r * r * r), 3)}\\pi${listeUnites[j][1]}\\approx${texNombre(Math.round(volume))}${listeUnites[j][1]}$`
           resultat = Math.round(volume)
           resultat2 = Math.round(3 * volume)
-          resultat3 = Math.round(4 * r / 3)
-          resultat4 = Math.round(2 * volume)
+          resultat3 = Math.round(4 * r * r * r / 3)
+          resultat4 = Math.round(3 * volume / 4)
           break
       }
       this.autoCorrection[i].enonce = `${texte}\n`
@@ -281,11 +290,12 @@ export default function CalculDeVolumes () {
         statut: false
       }
       ]
+      this.autoCorrection[i].options = {}
       if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
       } else {
-        texte += ajouteChampTexteMathLive(this, i)
-        setReponse(this, i, Math.round(volume))
+        setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'longueur' })
+        texte += ajouteChampTexteMathLive(this, i, 'longueur')
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

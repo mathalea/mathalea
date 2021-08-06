@@ -47,6 +47,9 @@ export default function AntecedentEtImageGraphique () {
         { repere: r, color: 'blue', step: 0.15, epaisseur: 2 })
     }
     this.contenu = 'Ci-dessous, on a tracé la courbe représentative de la fonction $f$.'
+    if (context.isHtml && this.interactif) {
+      this.contenu += '<br><em>S\'il y a plusieurs réponses, les séparer les réponses avec un point-virgule.</em>'
+    }
     this.contenu += '<br><br>'
     let cont1 = `${numAlpha(0)} Quelle est l'image de $${x0}$ ?`
     cont1 += ajouteChampTexteMathLive(this, 1)
@@ -83,7 +86,7 @@ export default function AntecedentEtImageGraphique () {
       setReponse(this, 4, x0 + 4)
     }
     if (this.interactif && context.isHtml) {
-      this.contenu += `<br><button class="ui button checkReponses" type="submit" style="margin-bottom: 20px" id="btnValidationEx${this.numeroExercice}">Vérifier les réponses</button>`
+      this.contenu += `<br><button class="ui button checkReponses" type="submit" style="margin-bottom: 20px" id="btnValidationEx${this.numeroExercice}-${this.id}">Vérifier les réponses</button>`
     }
     if (!context.isHtml) {
       this.contenu = texConsigne('') + this.contenu.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')

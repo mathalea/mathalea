@@ -6,7 +6,7 @@ import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js
 export const amcReady = true // Jusqu'à l'adaptation à la version 2.6
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4 // Question numérique
+export const amcType = 'AMCNum' // Question numérique
 export const titre = 'Divisions décimales'
 
 /**
@@ -27,10 +27,6 @@ export const titre = 'Divisions décimales'
 export default function DivisionDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
   this.consigne = 'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
@@ -44,7 +40,7 @@ export default function DivisionDecimale () {
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
 
-    this.sup === 1
+    parseInt(this.sup) === 1
       ? (typesDeQuestionsDisponibles = [choice([1, 2, 3]), 4, 5, 6])
       : (typesDeQuestionsDisponibles = [7, 8, 9])
     const listeTypeDeQuestions = combinaisonListes(

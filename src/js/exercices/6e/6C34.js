@@ -7,7 +7,7 @@ export const titre = 'Dernier chiffre d’un calcul'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4 // Question numérique
+export const amcType = 'AMCNum' // Question numérique
 
 /**
 * Trouver le dernier chiffre d'un calcul (somme, produit, différence)
@@ -19,10 +19,6 @@ export default function dernierChiffre () {
   Exercice.call(this)
   this.sup = 3
   this.titre = titre
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
   this.consigne = 'Pour chaque calcul, déterminer le dernier chiffre du résultat.'
   this.nbQuestions = 4 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
@@ -107,7 +103,7 @@ export default function dernierChiffre () {
 
       if (context.isHtml && this.interactif) texte += '<br>Le chiffre des unités est : ' + ajouteChampTexte(this, i)
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = texte.substring(0,texte.length-1) + '~=$<br>Le chiffre des unités est : '
+        this.autoCorrection[i].enonce = texte.substring(0, texte.length - 1) + '~=$<br>Le chiffre des unités est : '
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
         this.autoCorrection[i].reponse.param.digits = 1
         this.autoCorrection[i].reponse.param.decimals = 0

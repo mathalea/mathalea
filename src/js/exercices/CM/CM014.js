@@ -5,7 +5,7 @@ export const titre = 'Double, moitié, tiers, triple'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * Calculer le double ou le triple d'un nombre, calculer la moitié d'un nombre pair ou le tiers d'un multiple de 3
@@ -14,11 +14,6 @@ export const amcType = 4
  */
 export default function DoubleMoitieTiersTriple () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifType = interactifType
-  this.interactifReady = interactifReady
   this.consigne = 'Calculer'
   this.nbQuestions = 10
   this.nbCols = 2

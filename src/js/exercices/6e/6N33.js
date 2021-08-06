@@ -7,7 +7,7 @@ export const titre = 'Calculer la fraction d’un nombre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 4
+export const amcType = 'AMCNum'
 
 /**
  * Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.
@@ -18,13 +18,8 @@ export const amcType = 4
  */
 export default function FractionDUnNombre () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.nbQuestions = 5
   this.consigne = 'Calculer'
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcReady = amcReady
-  this.amcType = amcType
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
   context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
   this.sup = true
@@ -79,7 +74,7 @@ export default function FractionDUnNombre () {
       b = fraction[1]
       k = randint(1, 11)
       j = false
-      if (this.sup) n = b * k
+      if (this.sup || context.isAMC) n = b * k
       else if (randint(0, 1) === 0) n = b * k
       else n = randint(10, b * 11)
       texte = `$${texFraction(a, b)}\\times${n}=$`
@@ -175,10 +170,16 @@ export default function FractionDUnNombre () {
       }
 
       setReponse(this, i, calcul(n * a / b))
-      if (n * a % b !== 0) {
+      if (n * a % b !== 0 && !context.isAmc) {
         setReponse(this, i, [calcul(n * a / b), texFraction(n * a, b)])
       }
       texte += ajouteChampTexteMathLive(this, i)
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
+        this.autoCorrection[i].reponse.param.digits = 2
+        this.autoCorrection[i].reponse.param.decimals = 0
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

@@ -35,33 +35,35 @@ Au printemps 2020, Sébastien Lozano a réalisé un [programme](https://github.c
 
 ### Pour participer
 
-Le code est libre, (AGPL), vous pouvez donc télécharger les sources sur [GitHub](https://github.com/remiangot/MathALEA) et lire la documentation sur le [wiki](https://github.com/remiangot/MathALEA/wiki). N'hésitez pas à nous contacter (contact@coopmaths.fr) pour proposer des exercices, proposer des relectures ou pour programmer. L'équipe s'engage à accompagner au mieux tout ceux qui souhaiteraient participer.
+Le code est libre, AGPL, vous pouvez donc télécharger les sources sur [GitHub](https://github.com/remiangot/MathALEA) et lire la documentation sur le [wiki](https://github.com/remiangot/MathALEA/wiki). N'hésitez pas à nous contacter (contact@coopmaths.fr) pour proposer des exercices, proposer des relectures ou pour programmer. L'équipe s'engage à accompagner au mieux tous ceux qui souhaiteraient participer.
 
 
 
 ### Crédits
 
 - Moteur développé par Rémi Angot sous licence **AGPL**.
-- Exercices programmés par Rémi Angot, Jean-Claude Lhote, Sébastien Lozano, Stéphane Guyon, Gaëlle Morvan, Mireille Gain, Erwan Duplessy, Cédric Grolleau, Matthieu Devillers puis relus par les contributeurs de CoopMaths sous licence **AGPL**.
+- Exercices programmés par Rémi Angot, Jean-Claude Lhote, Sébastien Lozano, Stéphane Guyon, Gaëlle Morvan, Mireille Gain, Erwan Duplessy, Cédric Grolleau, Matthieu Devillers, Liouba Leroux, Durand Arnaud, Guillaume Valmont puis relus par les contributeurs de CoopMaths sous licence **AGPL**.
 - MathALEA2D (pour la réalisation des illustrations) a été développé par Rémi Angot et Jean-Claude Lhote sous licence **AGPL**.
+- Le passage à NodeJS et Webpack a été coordonné par Daniel Caillibaud (Sésamath)
 
 ### Ressources libres utilisées
 
 
 - [Algebrite](http://algebrite.org/) MIT license (pour le calcul exact avec les nombres décimaux et le calcul formel).
 - [maths.js](https://mathsjs.org) Apache license 2.0 (pour le calcul formel et les matrices)
+- [MathLive](https://mathlive.io) MIT license (pour les champs de saisie d'expressions mathématiques)
 - [MathGraph32](https://www.mathgraph32.org) développé par Yves Biton - Licence GNU AGPLv3 (pour les constructions géométriques).
 - [InstrumEnPoche](https://instrumenpoche.sesamath.net) Lecteur Javascript développé par Yves Biton d'après une application Flash développée par Laurent Zamo - Licence GNU AGPLv3 (pour les animations avec les instruments de géométrie).
 - [Giac/XCas](https://www-fourier.ujf-grenoble.fr/~parisse/giac_fr.html) développé par Bernard Parisse et Renée De Graeve (pour le calcul formel dans les exercices de lycée)
 - [Semantic UI](https://semantic-ui.com/) MIT license (pour l'interface utilisateur).
 - [KaTeX](https://khan.github.io/KaTeX/) LPPL (pour le rendu LaTeX des exercices en ligne).
-- [Dowload.js](http://danml.com/download.html) CCBY2 (pour le téléchargement du fichier LaTeX généré).
+- [Download.js](http://danml.com/download.html) CCBY2 (pour le téléchargement du fichier LaTeX généré).
 - [jQuery](https://jquery.com/) MIT license (pour alléger la programmation).
 - [Clipboard.js](https://clipboardjs.com/) MIT license (pour le bouton copier le code LaTeX).
 - [prismjs](http://prismjs.com/) MIT license (pour la coloration syntaxique du code LaTeX).
 - [Slick](https://kenwheeler.github.io/slick/) MIT license (pour le diaporama).
 - [TextFill](https://jquery-textfill.github.io) MIT license (pour adapter la taille de la police dans les diaporamas).
-- [SVG.js](https://svgjs.com/) MIT license (pour afficher des figures).
+- [SVG.js](https://svgjs.dev/) MIT license (pour afficher des figures).
 - [CodeMirror](https://codemirror.net) MIT license (pour l'éditeur de MathALEA2D).
 - [Scratchblocks](https://scratchblocks.github.io/) MIT license (pour le rendu des blocs Scratch).
 - [QRCode.js](https://davidshimjs.github.io/qrcodejs/) MIT license (pour l'affichage d'un QRCode dynamique).
@@ -73,11 +75,14 @@ Le code est libre, (AGPL), vous pouvez donc télécharger les sources sur [GitHu
 - Icone "[Geometry](https://thenounproject.com/term/geometry/1172014/)" by Vectors Market from the Noun Project.
 - Icone "[Be different](https://thenounproject.com/search/?q=different&i=1295561)" by chiccabubble from the Noun Project.
 
+### Outil de suivi des bugs
+
+<a href="https://www.bugsnag.com" target="_blank"><img class="ui centered image" src="https://coopmaths.fr/images/bugsnag.png"></a>
 
 ### ToDo
 
 - Nouveaux exercices (notamment en cycle 4 et lycée).
-- ~~Meilleur rangement des exercices (moteur de recherche, mots-clés...)~~.
+- Meilleur rangement des exercices (moteur de recherche, mots-clés...).
 - Intégrer des exercices écrits en MarkDown ou dans un langager très simple.
 - ~~Possibilité d'ajouter et d'éditer des exercices statiques de CoopMaths (à l'image de l'excellent travail de Thomas Castanet sur Chingatome)~~.
 - ~~Faire le lien avec les demandes de re-évaluation dans SACoche (voir [article](http://revue.sesamath.net/spip.php?article535) sur MathémaTICE).~~
@@ -89,11 +94,17 @@ Le code est libre, (AGPL), vous pouvez donc télécharger les sources sur [GitHu
 
 ### Changelog
 
-### Changelog
+#### 06/21
+
+- Arrivée de Guillaume Valmont pour le lien avec Anki et la programmation d'exercices
+- Premiers travaux pour l'enregistrement des scores
 
 #### 05/21
 
+- Arrivée d'Arnaud Durand pour la programmation d'exercices
+- MathALEA est intégré dans le Plan Numérique ([www.mathix.org/plan-numerique/](www.mathix.org/plan-numerique/))
 - Ajout d'exercices interactifs (QCM - réponse numérique)
+- Ajout du clavier mathématiques de MathLive
 - Nouvel objet pour gérer la sortie AMC
 
 #### 04/21
@@ -110,7 +121,7 @@ Le code est libre, (AGPL), vous pouvez donc télécharger les sources sur [GitHu
 - Export au format AMC.
 - Exercices sur les ratios.
 - Arrivée de Cédric Grolleau pour la programmation d'exercices et le travail sur l'interface utilisateur.
-- Arrivée de Deviller Matthieu pour la programmation d'exercices.
+- Arrivée de Matthieu Devillers pour la programmation d'exercices.
 
 
 #### 01/21
@@ -277,4 +288,3 @@ Le code est libre, (AGPL), vous pouvez donc télécharger les sources sur [GitHu
 - Possibilité de régler un paramètre spécifique de l'exercice.
 - Réglage de l'espacement entre les questions .
 - Exercices sur les fractions.
-

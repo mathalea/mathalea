@@ -1,22 +1,22 @@
 /* eslint-disable camelcase */
 
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, texNombrec } from '../../modules/outils.js'
 export const titre = 'Probabilités simples'
 /**
  * Description didactique de l'exercice
  * @author Rémi Angot et Matthieu Devillers
- * Référence
+ * Référence 5S21-1
+ * Publié le 1/5/2021
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function ProbabilitesSimples () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = 'Probabilités simples'
   this.consigne = ''
   this.nbQuestionsModifiable = false
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  // this.sup = 1  // Niveau de difficulté 
+  // this.sup = 1  // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
@@ -49,5 +49,3 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
-
-

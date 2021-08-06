@@ -1,0 +1,158 @@
+<div class="ui hidden divider"></div>
+
+<div class="ui hidden divider"></div>
+
+<div class="ui two column centered grid" id="contenu">
+  <div id="gauche" class="column">
+    <div class="ui left aligned segment">
+      <h3 class="ui block header">Choix des exercices</h3>
+
+      <div class="ui red message" id="message_liste_exercice_vide">
+        <p><strong>Commencer par saisir les numéros des exercices souhaités ci-dessous.</strong></p>
+      </div>
+      <div class="ui fluid left icon input" data-tooltip="Nombres séparés par des virgules" data-inverted="">
+        <i class="edit icon"></i>
+        <input id="choix_des_exercices" type="text" />
+      </div>
+      <div id="choix_exercices_div" data-tooltip="Identifiants des exercices">
+        <div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"></span></div>
+      </div>
+      <div id="parametres_generaux"></div>
+    </div>
+  </div>
+
+  <div id="droite" class="ui left aligned segment">
+    <div id="exercices_disponibles">
+      <h3 class="ui block header">
+        Exercices disponibles
+        <span class="mode_choix" id="mode_choix_liste"> Mode "Liste par niveau" </span>
+        <span class="mode_choix" id="mode_choix_tableau"> Mode "Tableau et recherche" </span>
+        <span class="replier" id="replier"> - </span>
+      </h3>
+    </div>
+    <div class="popup"><span id="popup_preview" class="popuptext"></span></div>
+    <div id="liste_des_exercices">
+      <!-- Liste mise à jour en JS -->
+    </div>
+    <div id="liste_des_exercices_tableau">
+      <!-- Liste mise à jour en JS -->
+    </div>
+
+    <div class="ui hidden divider"></div>
+
+    <div class="segment" id="cache">
+      <h3 class="ui block header">Code LaTeX</h3>
+      <!-- Bouton de mise à jour du code -->
+      <button class="btn ui labeled icon button" id="btn_mise_a_jour_code"><i class="redo icon"></i>Nouvelles données</button>
+      <!-- Bouton de copie du code -->
+      <button class="btn ui labeled toggle icon button" id="btnCopieLatex" data-clipboard-action="copy" data-clipboard-target="#div_codeLatex">
+        <i class="copy icon"></i>Copier code LaTeX
+      </button>
+      <!-- Bouton de téléchargement -->
+      <button class="btn ui labeled icon button" id="btn_telechargement"><i class="download icon"></i>Télécharger</button>
+
+      <div class="ui hidden divider"></div>
+
+      <div class="ui hidden divider"></div>
+
+      <!-- Paramètres du fichier LaTeX -->
+      <div class="content">
+        <form class="ui form">
+          <div class="field">
+            <label>Nom du fichier et nombre d'exemplaires (1 si copies pré-remplies)</label>
+          </div>
+          <div class="two fields">
+            <div class="twelve wide field">
+              <input type="text" id="nom_du_fichier" placeholder="Nom du fichier (sans extension)" />
+            </div>
+            <div class="four wide field">
+              <input type="number" id="nombre_d_exemplaires" placeholder="1" min="1" max="1000" />
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui checkbox">
+              <input type="checkbox" tabindex="0" id="supprimer_correction" class="hidden" />
+              <label>Supprimer la correction &nbsp;&nbsp;&nbsp;</label>
+            </div>
+            <div class="ui checkbox">
+              <input type="checkbox" tabindex="0" id="supprimer_reference" class="hidden" />
+              <label>Cacher les identifiants des exercices&nbsp;&nbsp;&nbsp</label>
+            </div>
+            <div class="ui checkbox">
+              <input type="checkbox" tabindex="0" id="ModeNB" class="hidden" />
+              <label>Remplissage N&B</label>
+            </div>
+          </div>
+        </form>
+        <div id="options_type_entete">
+          <h4><label>Type d'entête :</label></h4>
+          <div class="inline fields">
+            <div class="ui radio checkbox">
+              <input type="radio" name="type" id="type_AMCcodeGrid" value="AMCcodeGrid" checked="" tabindex="0" class="hidden" />
+              <label>Grille de codage &nbsp;&nbsp;&nbsp </label>
+            </div>
+            <div class="ui radio checkbox">
+              <input type="radio" name="type" id="type_AMCassociation" value="AMCassociation" tabindex="0" class="hidden" />
+              <label>Copies pré-remplies &nbsp;&nbsp;&nbsp </label>
+            </div>
+            <div class="ui radio checkbox">
+              <input type="radio" name="type" id="type_champnom" value="champnom" tabindex="0" class="hidden" />
+              <label>Nom et prénom manuscrits</label>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div id="options_format">
+          <h4><label>Format :</label></h4>
+          <div class="inline fields">
+            <div class="ui radio checkbox">
+              <input type="radio" name="format" id="format_A4" value="A4" checked="" tabindex="0" class="hidden" />
+              <label>Format A4 portrait &nbsp;&nbsp;&nbsp </label>
+            </div>
+            <div class="ui radio checkbox">
+              <input type="radio" name="format" id="format_A3" value="A3" tabindex="0" class="hidden" />
+              <label>Format A3 paysage 2 colonnes</label>
+            </div>
+          </div>
+        </div>
+        <h4 class="ui block header">
+          Nombres de questions pour chaque groupe séparés par des virgules (un seul par groupe dans l'ordre des groupes)<br />Exemple : si la sélection est
+          3G30,3G30,3G30,5N20, on peut mettre 1,3 ce qui donnera une question 3G30 et trois questions 5N20
+        </h4>
+
+        <div class="ui fluid left icon input" data-tooltip="Nombres séparés par des virgules" data-inverted="">
+          <i class="edit icon"></i>
+          <!-- <span tooltip='Nombres séparés par des virgules'><input id='choix_des_exercices' type='text' size='50' ></span> -->
+          <input id="nbQuestions_par_groupe" type="text" />
+        </div>
+        <div class="ui hidden divider"></div>
+        <div id="overleaf">
+          <form method="POST" action="https://www.overleaf.com/docs" target="_blank">
+            <div class="form-group text-center">
+              <input type="hidden" name="encoded_snip" value="" autocomplete="off" />
+              <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off" />
+              <button class="btn-success btn btn-smclass ui labeled icon button" id="btn_overleaf" type="submit">
+                <i class="cogs icon"></i>Compiler sur Overleaf.com
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div>
+          <a href="/assets/fichiers/preambule.tex" class="lien_preambule">
+            <button class="ui compact basic icon button" tabindex="0"><i class="download icon"></i> Préambule</button>
+          </a>
+          <a href="/assets/fichiers/images.zip" class="lien_images">
+            <button class="ui compact basic icon button" tabindex="0"><i class="download icon"></i> Images</button>
+          </a>
+          <a href="/assets/fichiers/automultiplechoice.sty" class="lien_images">
+            <button class="ui compact basic icon button" tabindex="0"><i class="download icon"></i>paquet AMC</button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code LaTeX -->
+    <div id="div_codeLatex"></div>
+  </div>
+</div>

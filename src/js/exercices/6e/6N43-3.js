@@ -1,12 +1,10 @@
-/* global mathalea */
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, sommeDesChiffres, calcul, texNombre, randint, choice } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType =1 //type de question AMC 
+export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
-
+export const interactifType = 'qcm'
 export const titre = 'Diviseur, multiple, divisible - Vrai ou faux'
 
 /**
@@ -16,18 +14,13 @@ export const titre = 'Diviseur, multiple, divisible - Vrai ou faux'
 */
 export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
   this.consigne = 'Pour chaque affirmation, indiquer si elle est vraie ou fausse.'
   this.nbQuestions = 5
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté 
+  this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-
 
   function justification (N, a, booleen) {
     let result
@@ -174,7 +167,6 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Critères de divisibilité par 2 et 5\n2 : Critères de divisibilité par 2, 3, 5 et 9\n3 : Sans critères de divisibilité']
 }

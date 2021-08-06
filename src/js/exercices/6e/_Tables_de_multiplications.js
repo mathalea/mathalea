@@ -46,9 +46,9 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
       a = couples[i][0]
       b = couples[i][1]
-      if (this.sup2 === 1) {
+      if (parseInt(this.sup2) === 1) {
         typesDeQuestions = 'classique'
-      } else if (this.sup2 === 2) {
+      } else if (parseInt(this.sup2) === 2) {
         typesDeQuestions = 'a_trous'
       } else {
         typesDeQuestions = choice(['classique', 'a_trous'])
@@ -72,12 +72,17 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
           // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
           if (randint(1, 2) === 1) {
             texte = '$ ' + a + ' \\times \\ldots\\ldots = ' + a * b + ' $'
-            if (this.interactif) texte = `$ ${a} \\times $` + ajouteChampTexte(this, i) + `$ = ${a * b} $`
+            if (this.interactif) {
+              texte = `$ ${a} \\times $` + ajouteChampTexte(this, i) + `$ = ${a * b} $`
+              setReponse(this, i, b)
+            }
           } else {
             texte = '$ \\ldots\\ldots' + ' \\times ' + b + ' = ' + a * b + ' $'
-            if (this.interactif) texte = ajouteChampTexte(this, i) + `$ \\times ${b}  = ${a * b} $`
+            if (this.interactif) {
+              texte = ajouteChampTexte(this, i) + `$ \\times ${b}  = ${a * b} $`
+              setReponse(this, i, a)
+            }
           }
-          setReponse(this, i, a)
         } else {
           // Sinon on demande forcément le 2e facteur
           texte = '$ ' + a + ' \\times \\ldots\\ldots = ' + a * b + ' $'
