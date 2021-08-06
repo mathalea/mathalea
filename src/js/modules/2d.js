@@ -455,9 +455,8 @@ export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
   return point(x, y, nom, positionLabel)
 }
 /**
- * pointAdistance(A,d,angle,nom="",positionLabel="above")
- * Seuls le point A et la distance d sont obligatoires, angle peut être choisi : il s'agit de l'angle signé avec l'axe [OI) sinon, il est choisi aléatoirement.
- * p=pointAdistance(A,5,'M') Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
+ * @example pointAdistance(A,d,angle,nom="",positionLabel="above") // Seuls le point A et la distance d sont obligatoires, angle peut être choisi : il s'agit de l'angle signé avec l'axe [OI) sinon, il est choisi aléatoirement.
+ * @example p=pointAdistance(A,5,'M') // Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
  * @author Jean-Claude Lhote
  */
 export function pointAdistance (...args) {
@@ -1411,7 +1410,6 @@ export function pave (...args) {
  * v = vecteur(x,y) // ses composantes
  * v = vecteur(A,B) // son origine et son extrémité (deux Points)
  * v = vecteur(x,y,'v') // son nom et ses composantes.
- *
  * @author Jean-Claude Lhote et Rémi Angot
  */
 function Vecteur (arg1, arg2, nom = '') {
@@ -1463,8 +1461,15 @@ function Vecteur (arg1, arg2, nom = '') {
     return nomVecteurParPosition(nom, N.x, N.y, taille, 0, color)
   }
 }
-export function vecteur (...args) {
-  return new Vecteur(...args)
+/**
+ * @example v = vecteur('V') // son nom
+ * @example v = vecteur(x,y) // ses composantes
+ * @example v = vecteur(A,B) // son origine et son extrémité (deux Points)
+ * @example v = vecteur(x,y,'v') // son nom et ses composantes.
+ * @author Jean-Claude Lhote et Rémi Angot
+ */
+export function vecteur (arg1, arg2, nom = '') {
+  return new Vecteur(arg1, arg2, nom)
 }
 /**
  * @author Jean-Claude Lhote le 31/01/2021
@@ -2184,9 +2189,14 @@ export function triangle2points1hauteur (A, B, h, d, n = 1) {
 }
 
 /**
- * t = triangle2points2longueurs(A,B,4,7) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (par défaut C a l'ordonnée la plus grande possible)
- * C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
- * t = triangle2points2longueurs(A,B,4,7,2) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (C aura l'ordonnée la plus petite possible)
+ * @param {Point} A
+ * @param {Point} B
+ * @param {number} l1
+ * @param {number} l2
+ * @param {number} [n=1] Si n = 1 (défaut), C a la plus grande ordonnée possible, si n = 2, C a la plus petite ordonnée possible
+ * @returns {Polygone} objet Polygone ABC
+ * @example t = triangle2points2longueurs(A,B,4,7,2) // Récupère t le triangle ABC tel que AC = 4 cm et BC = 7 cm avec C qui a l'ordonnée la plus petite possible
+ * @example C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
  * @author Rémi Angot
  */
 export function triangle2points2longueurs (A, B, l1, l2, n = 1) {
@@ -2552,8 +2562,15 @@ function Cercle (O, r, color) {
     return code
   }
 }
-export function cercle (...args) {
-  return new Cercle(...args)
+/**
+ * Construit le cercle de centre O, de rayon r et de couleur color
+ * @param {Point} O Centre du cercle
+ * @param {number} r Rayon du cercle
+ * @param {string} [color='black'] Facultatif, 'black' par défaut.
+ * @returns {Cercle} objet Cercle
+ */
+export function cercle (O, r, color = 'black') {
+  return new Cercle(O, r, color)
 }
 
 /**
@@ -2685,11 +2702,11 @@ export function ellipse (...args) {
 }
 
 /**
- * I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c)
  * @param {Droite} d la droite qui intecepte (ou pas le cercle)
  * @param {Cercle} C le cercle
  * @param {string} nom le nom du point d'intersection
  * @param {entier} n 1 pour le premier point, 2 sinon. Si il n'y a qu'un seul point d'intesection, l'un ou l'autre renvoie ce point.
+ * @example I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c)
  * @author Jean-Claude Lhote
  */
 export function pointIntersectionLC (d, C, nom = '', n = 1) {
@@ -3685,7 +3702,8 @@ export function cibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisio
  * M = tion(O,v) //M est l'image de O dans la translation de vecteur v
  * M = translation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
  * M = translation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
- *
+ * @param {Point} O
+ * @param {}
  * @author Rémi Angot
  */
 export function translation (O, v, nom = '', positionLabel = 'above') {
@@ -3999,8 +4017,9 @@ export function symetrieAxiale (A, d, nom = '', positionLabel = 'above') {
  * 1ere version utilisant la projection orthogonale
  * 2eme version utilisant la symétrie axiale (abandonnée)
  * @author Jean-Claude Lhote
- * @param {*} A
- * @param {*} d
+ * @param {Point} A
+ * @param {Droite} d
+ * @returns {number} longueur
  */
 export function distancePointDroite (A, d) {
   const M = projectionOrtho(A, d)
