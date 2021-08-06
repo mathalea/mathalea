@@ -6,7 +6,7 @@ Suite à la mesure 12 du rapport VILLANI-TOROSSIAN qui incite à développer les
 
 MathALEA s'est aussi lancé dans la course ! (lol)
 
-Vous pouvez consulter l'exercice de course aux nombres de niveau 6e [ici](https://coopmaths.fr/mathalea.html?ex=6C3CaN,n=30,i=1&v=l)
+Vous pouvez consulter l'exercice de course aux nombres de niveau 6e [ici](https://coopmaths.fr/mathalea.html?ex=6C3CaN,n=30,i=1&v=can)
 
 ### Comment ajouter des questions à une course aux nombres existante en 5 étapes
 Nous prendrons ici pour exemple le fichier de course aux nombres de 6ème (`src/js/exercices/6e/6C3CaN.js`) mais c'est la même chose pour les autres :
