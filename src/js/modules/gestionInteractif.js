@@ -673,12 +673,12 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
 }
 export function afficheScoreCan (nbBonnesReponses, nbMauvaisesReponses) {
   const exercice = { id: 'can', sup: document.location.href + 'serie=' + context.graine }
-  const divScore = addElement(document.querySelector('#exercices'), 'div', { className: 'score', id: 'scoreTotal' })
-  divScore.innerHTML = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
+  const divScore = addElement(document.querySelector('#menuEval'), 'div', { className: 'score', id: 'scoreTotal' })
+  divScore.innerHTML = `Résultat : ${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
   divScore.style.color = '#f15929'
   divScore.style.fontWeight = 'bold'
-  divScore.style.fontSize = 'x-large'
-  divScore.style.display = 'inline'
+  divScore.style.fontSize = 'xx-large'
+  divScore.style.marginTop = '20px'
   document.querySelectorAll('[id^=divexcorr]').forEach(e => {
     e.style.display = 'block'
   })
