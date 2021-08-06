@@ -1,4 +1,4 @@
-/* global $ fetch */
+/* global fetch */
 
 // =============================================================================================================================
 // Gestion des scores
@@ -7,28 +7,9 @@
 // =============================================================================================================================
 
 import { context } from './context.js'
-import { setUrl, getVueFromUrl } from './gestionUrl.js'
+import { setUrl, setUrlAndGo } from './gestionUrl.js'
 
 export default function gestionScores () {
-  // Affichage de l'état de connexion au cas où l'on navigue sur d'autres pages
-  // Sinon on perd l'affichage
-  try {
-    if (typeof (window.sessionStorage) === 'object') {
-      if (window.sessionStorage.getItem('userId') && (getVueFromUrl() === null || getVueFromUrl() === 'l' || getVueFromUrl() === 'light')) {
-        // On affiche le champ prévu pour l'affichage du userId courant
-        document.getElementById('userIdDisplay').style.display = 'initial'
-        // On affiche le userId dans la fenetre principale
-        if (document.getElementById('userIdDisplayValue')) {
-          document.getElementById('userIdDisplayValue').innerHTML = window.sessionStorage.getItem('userId')
-        }
-        // On affiche le bouton de déconnexion
-        document.getElementById('scoresLogOut').style.display = 'initial'
-        // On cache le bouton de connexion
-        document.getElementById('scoresLogIn').style.display = 'none'
-      }
-    }
-  } catch (err) {}
-
   // On vérfie s'il faut remettre à zéro le répertoire de stockage des espaces de scores
   fetch('scoresCleanSpaces.php', {
     mode: 'same-origin',
@@ -40,9 +21,8 @@ export default function gestionScores () {
     .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
     .then(response => {
       if (document.getElementById('scoresInfosTimeLeft')) {
-        // console.log(response.timeLeft)
         document.getElementById('scoresInfosTimeLeft').innerHTML = `
-        Ce service ne garantit en rien la pérennité des données. Bien au contraire, les données sont effacées une fois par an.
+        Ce service ne garantit en rien la pérennité des données. Bien au contraire, <b>les données sont actuellement effacées tous les jours</b>. <!--une fois par an.-->
         <ul>
           <li>    
             <b>Charge aux utilisateurs du service de les récupérer avant</b>.
@@ -63,39 +43,39 @@ export default function gestionScores () {
   // Deconnexion scores
   if (document.getElementById('scoresLogOut')) {
     document.getElementById('scoresLogOut').addEventListener('click', function () {
+      // Effacer le champ de saisie de l'userId
+      if (document.getElementById('scoresInputUserId')) {
+        document.getElementById('scoresInputUserId').value = ''
+      }
       // Réécrire l'url sans le userId
       const urlRacine = window.location.href.split('?')[0]
-      // console.log(urlRacine)
       const queryString = window.location.search
-      // console.log(queryString)
       const urlParams = new URLSearchParams(queryString)
-      // console.log(urlParams)
       if (urlParams.has('userId')) {
         // On supprime le userId de l'url
         urlParams.delete('userId')
-        console.log('Suppression du parametre userId de l\'url OK => ' + urlParams.has('userId'))
       }
       try {
         if (typeof (window.sessionStorage) === 'object') {
           if (window.sessionStorage.getItem('userId')) {
             // On supprime le userId du stockage
             window.sessionStorage.removeItem('userId')
-            console.log('Suppression du userId de session.stockage OK => ' + window.sessionStorage.getItem('userId'))
           }
         }
       } catch (err) {}
       if (context.userId) {
         // On suprime le userId du context
         delete context.userId
-        console.log('Suppression de la propriété context.userId OK => ' + context.userId)
       }
       // Pour cacher le champ userId sur la page courante et le conserver en cas de changement de page
       // On cache le champ prévu pour l'affichage du userId courant
-      document.getElementById('userIdDisplay').style.display = 'none'
-      // On laisse le bouton de déconnexion caché
-      document.getElementById('scoresLogOut').style.display = 'none'
-      // On affiche le bouton de connexion
-      document.getElementById('scoresLogIn').style.display = 'initial'
+      if (document.getElementById('userIdDisplay')) {
+        document.getElementById('userIdDisplay').style.display = 'none'
+        // On laisse le bouton de déconnexion caché
+        document.getElementById('scoresLogOut').style.display = 'none'
+        // On affiche le bouton de connexion
+        document.getElementById('scoresLogIn').style.display = 'initial'
+      }
       // On finit la réécriture de l'url
       const entries = urlParams.entries()
 
@@ -104,61 +84,11 @@ export default function gestionScores () {
         urlRewrite += entry[0] + '=' + entry[1] + '&'
       }
       urlRewrite = urlRewrite.slice(0, -1)
-      // console.log(urlRewrite)
       urlRewrite = new URL(urlRewrite)
       // On remplace dans l'historique
       window.history.replaceState('', '', urlRewrite)
       // On met à jour l'url
-      setUrl()
-    })
-  }
-
-  // Si le bouton "Connexion" existe et que l'utilisateur clique de dessus on ouvre une modale et on propose :
-  // => Afficher une documentation
-  // => Renseigner/Utiliser un userId élève
-  // => Se rendre sur l'espace professeur
-
-  // "Connexion"
-  if (document.getElementById('scoresLogIn')) {
-    document.getElementById('scoresLogIn').addEventListener('click', function () {
-      $('#modalScores').modal({
-        onApprove: function () {
-        // On ne veut pas que la modale se ferme au click sur un bouton vert
-          return false
-        },
-        onHide: function () {
-          // On cache les feedbacks lorsqu'on ferme la modale
-          if (document.getElementById('scoresFeedback')) {
-            document.getElementById('scoresFeedback').hidden = true
-          }
-          if (document.getElementById('scoresInputUserIdError')) {
-            document.getElementById('scoresInputUserIdError').hidden = true
-          }
-          if (document.getElementById('scoresDocumentationFeedback')) {
-            document.getElementById('scoresDocumentationFeedback').hidden = true
-          }
-          // S'il n'y a pas de userId on n'affiche pas le champ du userId courant
-          try {
-            if (typeof (window.sessionStorage) === 'object') {
-              if (!window.sessionStorage.getItem('userId')) {
-                // On cache le champ prévu pour l'affichage du userId courant
-                document.getElementById('userIdDisplay').style.display = 'none'
-                // On laisse le bouton de déconnexion caché
-                document.getElementById('scoresLogOut').style.display = 'none'
-                // On affiche le bouton de connexion
-                document.getElementById('scoresLogIn').style.display = 'initial'
-              } else {
-                // On affiche le champ prévu pour l'affichage du userId courant
-                document.getElementById('userIdDisplay').style.display = 'initial'
-                // On affiche le bouton de déconnexion
-                document.getElementById('scoresLogOut').style.display = 'initial'
-                // On cache le bouton de connexion
-                document.getElementById('scoresLogIn').style.display = 'none'
-              }
-            }
-          } catch (err) {}
-        }
-      }).modal('show')
+      setUrlAndGo()
     })
   }
 
@@ -256,17 +186,12 @@ export default function gestionScores () {
           // On ajoute/met à jourle parametre userId dans l'url
           // On récrit d'abord l'url pour éviter les transformations de caractères intempestives
             const urlRacine = window.location.href.split('?')[0]
-            // console.log(urlRacine)
             const queryString = window.location.search
-            // console.log(queryString)
             const urlParams = new URLSearchParams(queryString)
-            // console.log(urlParams)
             if (urlParams.has('userId')) {
               urlParams.set('userId', response.userId)
-              console.log(`Modification du parametre userId OK => ${response.userId}`)
             } else {
               urlParams.append('userId', response.userId)
-              console.log(`Ajout du parametre userId OK => ${response.userId}`)
             }
             // On met à jour/ajoute au stockage de session dans le navigateur
             context.userId = urlParams.get('userId')
@@ -285,7 +210,6 @@ export default function gestionScores () {
               urlRewrite += entry[0] + '=' + entry[1] + '&'
             }
             urlRewrite = urlRewrite.slice(0, -1)
-            // console.log(urlRewrite)
             urlRewrite = new URL(urlRewrite)
             // On remplace dans l'historique
             window.history.replaceState('', '', urlRewrite)
@@ -303,7 +227,6 @@ export default function gestionScores () {
               document.getElementById('scoresPromptUserId').hidden = true
               document.getElementById('scoresDocumentationFeedback').hidden = true
             }
-            console.log('Enregistrement vers un espace scores OK => ' + response.userId)
             // On affiche le userId dans la fenetre principale
             if (document.getElementById('userIdDisplayValue')) {
               // document.getElementById('userIdDisplayValue').value = response.userId
@@ -353,7 +276,6 @@ export default function gestionScores () {
               `
             document.getElementById('scoresFeedback').hidden = false
           }
-          console.log('Création d\'un espace scores OK => ' + response.userId)
         })
     })
   }
@@ -361,7 +283,6 @@ export default function gestionScores () {
   // Clic sur "Espace professeur" - uniquement dans la modale connexion
   if (document.getElementById('scoresToProfSpace')) {
     document.getElementById('scoresToProfSpace').addEventListener('click', function () {
-      console.log('Vers l\'espace prof de gestion des scores')
     })
   }
 }

@@ -1,7 +1,91 @@
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
-import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement } from './dom'
-import { getVueFromUrl } from './gestionUrl'
+import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
+import { getLogFromUrl, getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
+import { initialiseBoutonsConnexion, modalLog } from './modalLog'
+
+const boutonMAJ = () => {
+  const btn = create('button', { class: 'btn mini ui labeled icon button', id: 'btn_mise_a_jour_code' })
+  btn.innerHTML = '<i class="redo icon"></i>Nouvelles données'
+  return btn
+}
+
+const boutonVerifQuestion = (id) => {
+  const btn = create('button', { class: 'btn ui icon button', id })
+  btn.innerHTML = 'Valider'
+  return btn
+}
+const affichageUniquementExercice = (i) => {
+  const listeDivExercices = document.querySelectorAll('[id ^= "exercice"].titreExercice')
+  const listeDivExercicesCorr = document.querySelectorAll('[id ^= "divexcorr"].titreExercice')
+  for (const element of listeDivExercices) {
+    element.style.display = 'none'
+  }
+  for (const element of listeDivExercicesCorr) {
+    element.style.display = 'none'
+  }
+  if (i !== undefined) {
+    listeDivExercices[i].style.display = 'block'
+    if (document.getElementById(`score${i}`)) {
+      listeDivExercicesCorr[i].style.display = 'block'
+    }
+  }
+}
+/**
+ * Transforme les li de classe question en div avec le même contenu
+ */
+const liToDiv = () => {
+  const questions = document.querySelectorAll('li.question, li.correction')
+  for (const element of questions) {
+    element.style.display = 'none'
+    let div
+    if (element.classList.contains('question')) {
+      div = create('div', { style: 'display: none' })
+    } else {
+      div = create('div')
+    }
+    div.innerHTML = element.innerHTML
+    div.classList = element.classList
+    div.id = element.id
+    element.replaceWith(div)
+  }
+}
+
+/**
+ * Affiche uniquement le ieme div de classe question et le div de l'exercice auquel il appartient
+ * @param {int} i
+ */
+const affichageUniquementQuestion = (i) => {
+  affichageUniquementExercice()
+  const inputs = document.querySelectorAll('input')
+  inputs[i].focus()
+  inputs[i].select()
+  const questions = document.querySelectorAll('div.question')
+  const corrections = document.querySelectorAll('div.correction')
+  for (const question of questions) {
+    question.style.display = 'none'
+  }
+  for (const correction of corrections) {
+    correction.style.display = 'none'
+  }
+  if (i !== undefined) {
+    questions[i].style.display = 'block'
+    const exercice = questions[i].parentElement.parentElement
+    exercice.style.display = 'block'
+    if (document.getElementById('scoreTotal')) {
+      corrections[i].style.display = 'block'
+      const correction = corrections[i].parentElement.parentElement
+      correction.style.display = 'block'
+    }
+  }
+}
+
+const ajouteBoutonsVerifQuestions = () => {
+  const questions = document.querySelectorAll('div.question')
+  for (let i = 0; i < questions.length; i++) {
+    questions[i].appendChild(boutonVerifQuestion('boutonVerif' + questions[i].id))
+  }
+}
 
 const masqueEspaces = () => {
   const espaces = document.getElementsByClassName('ui hidden divider')
@@ -52,6 +136,7 @@ export async function initDom () {
   } else if (vue === 'eval') {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
+    await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
     const menuEval = addElement(section, 'div', { id: 'menuEval' })
     addElement(section, 'div', { id: 'containerErreur' })
     await addFetchHtmlToParent('templates/eval.html', section)
@@ -62,24 +147,9 @@ export async function initDom () {
     addElement(section, 'div', { id: 'corrections' })
     // Attend l'affichage de tous les exercices pour les cacher
     document.addEventListener('exercicesAffiches', () => {
-      const listeDivExercices = document.querySelectorAll('[id ^= "exercice"].titreExercice')
-      const listeDivExercicesCorr = document.querySelectorAll('[id ^= "divexcorr"].titreExercice')
-      const affichageUniquementExercice = (i) => {
-        for (const element of listeDivExercices) {
-          element.style.display = 'none'
-        }
-        for (const element of listeDivExercicesCorr) {
-          element.style.display = 'none'
-        }
-        if (i !== undefined) {
-          listeDivExercices[i].style.display = 'block'
-          if (document.getElementById(`score${i}`)) {
-            listeDivExercicesCorr[i].style.display = 'block'
-          }
-        }
-      }
       affichageUniquementExercice(0)
       menuEval.innerHTML = ''
+      const listeDivExercices = document.querySelectorAll('[id ^= "exercice"].titreExercice')
       for (let i = 0, element; i < listeDivExercices.length; i++) {
         element = addElement(menuEval, 'button', { id: `btnEx${i + 1}`, style: 'margin: 5px', class: 'circular ui button' })
         element.textContent = `Ex. ${i + 1}`
@@ -88,6 +158,98 @@ export async function initDom () {
           element.hasListenner = true
         }
       }
+    })
+  } else if (vue === 'light' || vue === 'l') {
+    setOutputHtml()
+    section = addElement(document.body, 'section', { class: 'ui container' })
+    await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
+    document.getElementById('boutonsConnexion').appendChild(boutonMAJ())
+    addElement(section, 'div', { id: 'containerErreur' })
+    await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
+  } else if (vue === 'embed' || vue === 'e') {
+    setOutputHtml()
+    section = addElement(document.body, 'section', { class: 'ui container' })
+    addElement(section, 'div', { id: 'containerErreur' })
+    section.appendChild(boutonMAJ())
+    await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
+    const divExercice = get('exercices', false)
+    const divCorrection = get('corrections', false)
+    divExercice.style.fontSize = '1.5em'
+    divCorrection.style.fontSize = '1.5em'
+    document.addEventListener('exercicesAffiches', () => {
+      document.querySelector('#accordeon_parametres').style.display = 'none'
+      const listeH3 = document.querySelectorAll('h3')
+      if (listeH3.length === 2) { // Un seul exercice on cache son titre
+        listeH3.forEach(e => { e.style.display = 'none' })
+      } else {
+        for (const e of listeH3) {
+          setStyles(e, 'color: white; backgroundColor: #f15929;  borderRadius: 5px; padding: 5px 10px;')
+        }
+      }
+      const btnCorrection = document.querySelector('#btnCorrection')
+      setStyles(btnCorrection, 'display: inline-block; cursor: pointer; padding: 12px; borderRadius: 5px; border: solid 2px black;')
+      const ols = document.querySelectorAll('ol')
+      for (const ol of ols) {
+        setStyles(ol, 'padding:0;')
+      }
+    })
+  } else if (vue === 'multi') {
+    setOutputHtml()
+    section = addElement(document.body, 'section', { style: 'width: 100%' })
+    section.appendChild(boutonMAJ())
+    addElement(section, 'div', { id: 'containerErreur' })
+    await addFetchHtmlToParent('templates/mathaleaBasique.html', section)
+    const parentExercices = document.getElementById('exercices')
+    const parentCorrections = document.getElementById('corrections')
+    parentExercices.style.display = 'flex'
+    parentExercices.style.flexWrap = 'wrap'
+    parentExercices.style.justifyContent = 'center'
+    parentCorrections.style.display = 'none'
+    parentCorrections.style.flexWrap = 'wrap'
+    parentCorrections.style.justifyContent = 'center'
+    document.addEventListener('exercicesAffiches', () => {
+      document.querySelectorAll('.titreExercice').forEach(ex => {
+        setStyles(ex, 'margin: 30px')
+      })
+      document.querySelectorAll('ol').forEach(ol => {
+        setStyles(ol, 'padding:0;')
+      })
+    })
+    const btnCorrection = document.getElementById('btnCorrection')
+    btnCorrection.addEventListener('click', () => {
+      parentCorrections.style.display = 'flex'
+    })
+  } else if (vue === 'can') {
+    setOutputHtml()
+    section = addElement(document.body, 'section', { class: 'ui container' })
+    await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
+    const menuEval = addElement(section, 'div', { id: 'menuEval' })
+    addElement(section, 'div', { id: 'containerErreur' })
+    await addFetchHtmlToParent('templates/mathaleaBasique.html', section)
+    document.addEventListener('exercicesAffiches', () => {
+      liToDiv()
+      ajouteBoutonsVerifQuestions()
+      document.querySelectorAll('h3').forEach(e => { e.style.display = 'none' })
+      document.querySelectorAll('[id^=btnValidationEx]').forEach(e => { e.style.display = 'none' })
+      document.getElementById('btnCorrection').style.display = 'none'
+      affichageUniquementExercice()
+      affichageUniquementQuestion(0)
+      document.querySelectorAll('ol').forEach(ol => {
+        setStyles(ol, 'padding:0;')
+      })
+      menuEval.innerHTML = ''
+      const questions = document.querySelectorAll('div.question')
+      for (let i = 0, element; i < questions.length; i++) {
+        element = addElement(menuEval, 'button', { id: 'btnMenu' + questions[i].id, style: 'margin: 5px', class: 'circular ui button' })
+        element.textContent = `${i + 1}`
+        if (!element.hasListenner) {
+          element.addEventListener('click', () => affichageUniquementQuestion(i), false)
+          element.hasListenner = true
+        }
+      }
+    })
+    document.getElementById('btnCorrection').addEventListener('click', () => {
+      document.getElementById('corrections').style.display = 'block'
     })
   } else if (vue === 'latex') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
@@ -126,12 +288,18 @@ export async function initDom () {
     await fetchHtmlToElement('templates/mathaleaDroite.html', colonneDroite)
     section.append(espaceVertical())
     section.append(espaceVertical())
-    addFetchHtmlToParent('templates/modalScores.html', document.body)
   }
-  if (vue === 'recto' || vue === 'verso') {
+  // Le footer
+  if (vue === 'recto' || vue === 'verso' || vue === 'embed' || vue === 'e' || vue === 'can') {
     await addFetchHtmlToParent('templates/footer1logo.html', document.body, 'footer')
   } else {
     await addFetchHtmlToParent('templates/footer.html', document.body, 'footer')
+  }
+
+  // Pour toutes les vues
+  initialiseBoutonsConnexion()
+  if (getLogFromUrl()) {
+    modalLog()
   }
 }
 
