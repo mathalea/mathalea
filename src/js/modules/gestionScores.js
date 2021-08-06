@@ -1,4 +1,4 @@
-/* global $ fetch */
+/* global fetch */
 
 // =============================================================================================================================
 // Gestion des scores
@@ -7,28 +7,9 @@
 // =============================================================================================================================
 
 import { context } from './context.js'
-import { setUrl, getVueFromUrl } from './gestionUrl.js'
+import { setUrl } from './gestionUrl.js'
 
 export default function gestionScores () {
-  // Affichage de l'état de connexion au cas où l'on navigue sur d'autres pages
-  // Sinon on perd l'affichage
-  try {
-    if (typeof (window.sessionStorage) === 'object') {
-      if (window.sessionStorage.getItem('userId') && (getVueFromUrl() === null || getVueFromUrl() === 'l' || getVueFromUrl() === 'light')) {
-        // On affiche le champ prévu pour l'affichage du userId courant
-        document.getElementById('userIdDisplay').style.display = 'initial'
-        // On affiche le userId dans la fenetre principale
-        if (document.getElementById('userIdDisplayValue')) {
-          document.getElementById('userIdDisplayValue').innerHTML = window.sessionStorage.getItem('userId')
-        }
-        // On affiche le bouton de déconnexion
-        document.getElementById('scoresLogOut').style.display = 'initial'
-        // On cache le bouton de connexion
-        document.getElementById('scoresLogIn').style.display = 'none'
-      }
-    }
-  } catch (err) {}
-
   // On vérfie s'il faut remettre à zéro le répertoire de stockage des espaces de scores
   fetch('scoresCleanSpaces.php', {
     mode: 'same-origin',
@@ -64,6 +45,10 @@ export default function gestionScores () {
   // Deconnexion scores
   if (document.getElementById('scoresLogOut')) {
     document.getElementById('scoresLogOut').addEventListener('click', function () {
+      // Effacer le champ de saisie de l'userId
+      if (document.getElementById('scoresInputUserId')) {
+        document.getElementById('scoresInputUserId').value = ''
+      }
       // Réécrire l'url sans le userId
       const urlRacine = window.location.href.split('?')[0]
       // console.log(urlRacine)
@@ -92,11 +77,13 @@ export default function gestionScores () {
       }
       // Pour cacher le champ userId sur la page courante et le conserver en cas de changement de page
       // On cache le champ prévu pour l'affichage du userId courant
-      document.getElementById('userIdDisplay').style.display = 'none'
-      // On laisse le bouton de déconnexion caché
-      document.getElementById('scoresLogOut').style.display = 'none'
-      // On affiche le bouton de connexion
-      document.getElementById('scoresLogIn').style.display = 'initial'
+      if (document.getElementById('userIdDisplay')) {
+        document.getElementById('userIdDisplay').style.display = 'none'
+        // On laisse le bouton de déconnexion caché
+        document.getElementById('scoresLogOut').style.display = 'none'
+        // On affiche le bouton de connexion
+        document.getElementById('scoresLogIn').style.display = 'initial'
+      }
       // On finit la réécriture de l'url
       const entries = urlParams.entries()
 
@@ -111,55 +98,6 @@ export default function gestionScores () {
       window.history.replaceState('', '', urlRewrite)
       // On met à jour l'url
       setUrl()
-    })
-  }
-
-  // Si le bouton "Connexion" existe et que l'utilisateur clique de dessus on ouvre une modale et on propose :
-  // => Afficher une documentation
-  // => Renseigner/Utiliser un userId élève
-  // => Se rendre sur l'espace professeur
-
-  // "Connexion"
-  if (document.getElementById('scoresLogIn')) {
-    document.getElementById('scoresLogIn').addEventListener('click', function () {
-      $('#modalScores').modal({
-        onApprove: function () {
-        // On ne veut pas que la modale se ferme au click sur un bouton vert
-          return false
-        },
-        onHide: function () {
-          // On cache les feedbacks lorsqu'on ferme la modale
-          if (document.getElementById('scoresFeedback')) {
-            document.getElementById('scoresFeedback').hidden = true
-          }
-          if (document.getElementById('scoresInputUserIdError')) {
-            document.getElementById('scoresInputUserIdError').hidden = true
-          }
-          if (document.getElementById('scoresDocumentationFeedback')) {
-            document.getElementById('scoresDocumentationFeedback').hidden = true
-          }
-          // S'il n'y a pas de userId on n'affiche pas le champ du userId courant
-          try {
-            if (typeof (window.sessionStorage) === 'object') {
-              if (!window.sessionStorage.getItem('userId')) {
-                // On cache le champ prévu pour l'affichage du userId courant
-                document.getElementById('userIdDisplay').style.display = 'none'
-                // On laisse le bouton de déconnexion caché
-                document.getElementById('scoresLogOut').style.display = 'none'
-                // On affiche le bouton de connexion
-                document.getElementById('scoresLogIn').style.display = 'initial'
-              } else {
-                // On affiche le champ prévu pour l'affichage du userId courant
-                document.getElementById('userIdDisplay').style.display = 'initial'
-                // On affiche le bouton de déconnexion
-                document.getElementById('scoresLogOut').style.display = 'initial'
-                // On cache le bouton de connexion
-                document.getElementById('scoresLogIn').style.display = 'none'
-              }
-            }
-          } catch (err) {}
-        }
-      }).modal('show')
     })
   }
 

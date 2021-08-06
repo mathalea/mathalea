@@ -1,4 +1,4 @@
-import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
+import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
 /*
@@ -417,7 +417,12 @@ export function pointSurCercle (c, angle, nom, positionLabel = 'above') {
   return point(x, y, nom, positionLabel)
 }
 /**
- * P=pointSurDroite(d,x) retourne un point sur la droite d dont l'abscisse est x. Si c'est impossible (droite verticale) alors ce sera le point dont l'ordonnée vaut x.
+ * Retourne un point sur la droite d dont l'abscisse est x. Si c'est impossible (droite verticale) alors ce sera le point dont l'ordonnée vaut x.
+ * @param {Droite} d
+ * @param {number} x Abscisse du point
+ * @param {string} nom Nom du point
+ * @param {string} [positionLabel='above'] Facultatif, 'above' par défaut.
+ * @return {Point} Point de la droite d dont l'abscisse est x
  * @author Jean-Claude Lhote
  */
 export function pointSurDroite (d, x, nom, positionLabel = 'above') {
@@ -428,8 +433,12 @@ export function pointSurDroite (d, x, nom, positionLabel = 'above') {
 }
 
 /**
- * M = pointIntersectionDD(d1,d2,'M','below') //M est le point d'intersection des droites (d1) et (d2)
- *
+ * Renvoie 'M' le point d'intersection des droites d1 et d2
+ * @param {Droite} d1
+ * @param {Droite} d2
+ * @param {string} [M=''] Nom du point d'intersection. Facultatif, vide par défaut.
+ * @param {string} [positionLabel='above'] Facultatif, 'above' par défaut.
+ * @return {Point} Point 'M' d'intersection de d1 et de d2
  * @author Jean-Claude Lhote
  */
 export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
@@ -864,7 +873,13 @@ export function droiteParPointEtVecteur (A, v, nom = '', color = 'black') {
   return droite(A, B, nom, color)
 }
 /**
- * d = droiteParPointEtParallele(A,d,'d1',red') // Trace en rouge la parallèle à la droite (d) passant par A
+ * Trace en color la droite nom parallèle à d passant par A
+ * @param {Point} A
+ * @param {Droite} d
+ * @param {string} [nom=''] Facultatif, vide par défaut
+ * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @return {Droite}
+ * @example droiteParPointEtParallele(A,d,'d1',red') // Trace en rouge la droite d1 parallèle à la droite d passant par A
  * @author Jean-Claude Lhote
  */
 export function droiteParPointEtParallele (A, d, nom = '', color = 'black') {
@@ -908,9 +923,12 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
 */
 
 /**
- * d = mediatrice(A,B) // Médiatrice de [AB]
- * d = mediatrice(A,B,'d', 'blue') // Médiatrice de [AB] nommée (d) en bleu
- *
+ * Renvoie la médiatrice de [AB] nommée nom de couleur color
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} [nom=''] Facultatif, vide par défaut
+ * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @return {Droite} Droite
  * @author Rémi Angot
  */
 export function mediatrice (A, B, nom = '', color = 'black') {
@@ -979,6 +997,16 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
     else return v.tikz()
   }
 }
+/**
+ * Marque les deux moitiés du segment [AB] avec mark en color en traçant éventuellement le milieu
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} [color='black'] Couleur du codage. Facultatif, 'black' par défaut
+ * @param {string} [mark='x'] Peut être '||' ou 'x'. Facultatif, 'x' par défaut
+ * @param {boolean} [mil=true] Trace ou nom le point du milieu. Facultatif, true par défaut
+ * @returns CodageMilieu
+ * @example codageMilieu(A,B,'red','||',false) marque les deux moitiés du segment [AB] avec || en rouge, le milieu n'est pas tracé car dernier argument à false.
+ */
 export function codageMilieu (...args) {
   return new CodageMilieu(...args)
 }
@@ -3890,9 +3918,12 @@ export function homothetie (A, O, k, nom = '', positionLabel = 'above') {
 }
 
 /**
- * M = pointParSymetrieAxiale(A,d)// M est l'image de A dans la symétrie axiale d'axe d.
- * d est un objet de type Droite (son équation ax+by+c=0 renseignée)
- * A est un objet de type Point (ses coordonnées x et y renseignées)
+ * Renvoie le point M symétrique du point A par la droite d.
+ * @param {Point} A Objet de type Point (ses coordonnées x et y renseignées)
+ * @param {droite} d Objet de type Droite (son équation ax+by+c=0 renseignée)
+ * @param {string} M Nom de l'image. Facultatif, vide par défaut.
+ * @param {string} positionLabel Facultatif, 'above' par défaut.
+ * @return {Point} M image de A par la symétrie axiale d'axe d.
  * @author Jean-Claude Lhote
  */
 export function symetrieAxiale (A, d, nom = '', positionLabel = 'above') {
@@ -4746,6 +4777,16 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
     return texteParPoint(this.texte, N, angle, this.color).tikz()
   }
 }
+/**
+ * Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * @param {string} texte
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @param {number} [d=0.5] Distance à la droite. Facultatif, 0.5 par défaut
+ * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
+ * @author Rémi Angot
+ */
 export function texteSurSegment (...args) {
   return new TexteSurSegment(...args)
 }
@@ -4795,6 +4836,16 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
     return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, 10, '').tikz() + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz()
   }
 }
+/**
+ * Affiche la mesure de l'angle ABC arrondie au degré près
+ * @param {Point} A
+ * @param {Point} B
+ * @param {Point} C
+ * @param {string} [color='black'] Facultatif, 'black' par défaut.
+ * @param {number} [distance=1.5] Taille de l'angle. Facultatif, 1.5 par défaut.
+ * @param {string} [label=''] Facultatif, vide par défaut.
+ * @returns {object} AfficheMesureAngle
+ */
 export function afficheMesureAngle (...args) {
   return new AfficheMesureAngle(...args)
 }
@@ -5097,7 +5148,22 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     return code
   }
 }
-
+/**
+ * @param {Point} debut
+ * @param {Point} centre
+ * @param {number} angle
+ * @param {number} [taille=0.8] Facultatif. 0.8 par défaut.
+ * @param {string} [mark=''] Facultatif. Vide par défaut.
+ * @param {string} [color='black'] Facultatif. 'black' par défaut.
+ * @param {number} [epaisseur=1] Facultatif. 1 par défaut.
+ * @param {number} [opacite=1] Facultatif. 1 par défaut.
+ * @param {string} [fill='none'] Facultatif. 'none' par défaut
+ * @param {number} [fillOpacite=0.2] Facultatif. 0.2 par défaut
+ * @param {boolean} [mesureOn=false] Facultatif. false par défaut
+ * @returns CodeAngle
+ * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
+ * @author Jean-Claude Lothe
+ */
 export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false) {
   if (typeof (angle) !== 'number') {
     angle = angleOriente(debut, centre, angle)
@@ -6356,7 +6422,7 @@ function Repere2 ({
         grilleSecondaireYDistance = calcul(yThickDistance / 2)
       }
       // On créé la liste avec ces valeurs
-      grilleSecondaireYListe = rangeMinMax(grilleSecondaireYMin, grilleSecondaireYMax, [0], grilleSecondaireYDistance)
+      grilleSecondaireYListe = rangeMinMax(grilleSecondaireYMin, grilleSecondaireYMax, grilleYListe, grilleSecondaireYDistance)
     }
     for (const y of grilleSecondaireYListe) {
       const traitH = segment(calcul(xMin * xUnite), calcul(y * yUnite), calcul(xMax * xUnite), calcul(y * yUnite))
@@ -6375,7 +6441,7 @@ function Repere2 ({
     if (!grilleSecondaireXListe) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
       if (typeof (grilleSecondaireXMin) !== 'number') {
-        grilleSecondaireXMin = xThickMin / 2
+        grilleSecondaireXMin = xThickMin
       }
       if (typeof (grilleSecondaireXMax) !== 'number') {
         grilleSecondaireXMax = xThickMax
@@ -6384,7 +6450,7 @@ function Repere2 ({
         grilleSecondaireXDistance = calcul(xThickDistance / 2)
       }
       // On créé la liste avec ces valeurs
-      grilleSecondaireXListe = rangeMinMax(grilleSecondaireXMin, grilleSecondaireXMax, [0], grilleSecondaireXDistance)
+      grilleSecondaireXListe = rangeMinMax(grilleSecondaireXMin, grilleSecondaireXMax, grilleXListe, grilleSecondaireXDistance)
     }
     for (const x of grilleSecondaireXListe) {
       const traitV = segment(calcul(x * xUnite), calcul(yMin * yUnite), calcul(x * xUnite), calcul(yMax * yUnite))
@@ -7722,7 +7788,7 @@ function Courbe2 (f, {
   } else {
     pas = step
   }
-  for (let x = xmin; x <= xmax; x += pas
+  for (let x = xmin; inferieurouegal(x, xmax); x += pas
   ) {
     if (!isNaN(f(x))) {
       if (f(x) < ymax + 1 && f(x) > ymin - 1) {
@@ -7740,7 +7806,6 @@ function Courbe2 (f, {
   p = polyline([...points], this.color)
   p.epaisseur = epaisseur
   objets.push(p)
-
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
     let code = ''
@@ -7864,20 +7929,20 @@ function GraphiqueInterpole (
     repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1)
     const c = courbe2(f, { step: step, xMin: depart, xMax: fin, color: color, epaisseur: epaisseur, xUnite: repere.xUnite, yUnite: repere.yUnite, yMin: repere.yMin, yMax: repere.yMax })
     mesCourbes.push(c)
-    this.svg = function (coeff) {
-      let code = ''
-      for (const objet of mesCourbes) {
-        code += '\n\t' + objet.svg(coeff)
-      }
-      return code
+  }
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of mesCourbes) {
+      code += '\n\t' + objet.svg(coeff)
     }
-    this.tikz = function () {
-      let code = ''
-      for (const objet of mesCourbes) {
-        code += '\n\t' + objet.tikz()
-      }
-      return code
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of mesCourbes) {
+      code += '\n\t' + objet.tikz()
     }
+    return code
   }
 }
 /**
@@ -8372,8 +8437,10 @@ export function print2d (...args) {
 */
 
 /**
- * longueur(A,B) renvoie la distance de A à B
- *
+ * Renvoie la distance de A à B
+ * @param {Point} A
+ * @param {Point} B
+ * @param {integer} [arrondi=2] Nombre de chiffres après la virgule. Facultatif, 2 par défaut.
  * @author Rémi Angot
  */
 export function longueur (A, B, arrondi) {
