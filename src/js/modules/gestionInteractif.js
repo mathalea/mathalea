@@ -6,9 +6,24 @@ import { addElement, get, setStyles } from './dom.js'
 import { ComputeEngine, parse } from '@cortex-js/math-json'
 import Fraction from './Fraction.js'
 import Grandeur from './Grandeur.js'
-import { getUserIdFromUrl } from './gestionUrl.js'
+import { getUserIdFromUrl, getVueFromUrl } from './gestionUrl.js'
 
-function verifQuestion (exercice, i) {
+export function exerciceInteractif (exercice) {
+  // passage amsType num à string cf commit 385b5ea
+  if (context.isAmc) {
+    if (exercice.amcType === 'AMCNum' || exercice.amcType === 'AMCOpenNum') exerciceNumerique(exercice)
+    if (exercice.amcType === 'qcmMono' || exercice.amcType === 'qcmMult') exerciceQcm(exercice)
+  } else if (context.isHtml && !context.isDiaporama) {
+    if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
+    if (exercice.interactifType === 'numerique')exerciceNumerique(exercice)
+    if (exercice.interactifType === 'cliqueFigure')exerciceCliqueFigure(exercice)
+    if (exercice.interactifType === 'custom') exerciceCustom(exercice)
+    // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
+    if (exercice.interactifType === 'mathLive') exerciceMathLive(exercice)
+  }
+}
+
+function verifQuestionMathLive (exercice, i) {
   const engine = new ComputeEngine()
   let saisieParsee, signeF
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
@@ -98,33 +113,74 @@ function verifQuestion (exercice, i) {
   if (resultat === 'OK') {
     spanReponseLigne.innerHTML = '😎'
     spanReponseLigne.style.fontSize = 'large'
-    // nbBonnesReponses++
   } else if (resultat === 'essaieEncore') {
     spanReponseLigne.innerHTML = '<em>Il faut saisir une longueur et une unité (cm par exemple).</em>'
     spanReponseLigne.style.color = '#f15929'
     spanReponseLigne.style.fontWeight = 'bold'
-    // besoinDe2eEssai = true
   } else {
     spanReponseLigne.innerHTML = '☹️'
     spanReponseLigne.style.fontSize = 'large'
-    // nbMauvaisesReponses++
   }
   if (resultat !== 'essaieEncore') champTexte.readOnly = true
   return resultat
 }
 
-export function exerciceInteractif (exercice) {
-  // passage amsType num à string cf commit 385b5ea
-  if (context.isAmc) {
-    if (exercice.amcType === 'AMCNum' || exercice.amcType === 'AMCOpenNum') exerciceNumerique(exercice)
-    if (exercice.amcType === 'qcmMono' || exercice.amcType === 'qcmMult') exerciceQcm(exercice)
-  } else if (context.isHtml && !context.isDiaporama) {
-    if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
-    if (exercice.interactifType === 'numerique')exerciceNumerique(exercice)
-    if (exercice.interactifType === 'cliqueFigure')exerciceCliqueFigure(exercice)
-    if (exercice.interactifType === 'custom') exerciceCustom(exercice)
-    // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
-    if (exercice.interactifType === 'mathLive') exerciceMathLive(exercice)
+function verifQuestionNumerique (exercice, i) {
+  let spanReponseLigne, resultat
+  if (i < exercice.nbQuestions) {
+    spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+  }
+  // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
+  const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+  if (champTexte.value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '').replaceAll('.', ',')) {
+    spanReponseLigne.innerHTML = '😎'
+    resultat = 'OK'
+  } else {
+    spanReponseLigne.innerHTML = '☹️'
+    resultat = 'KO'
+  }
+  champTexte.readOnly = true
+  spanReponseLigne.style.fontSize = 'large'
+  return resultat
+}
+
+function gestionCan (exercice) {
+  window.addEventListener('keyup', (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault()
+      document.querySelector('[id^=boutonVerifex]:not(.disabled)').click()
+    }
+  })
+  for (const i in exercice.autoCorrection) {
+    const button1question = document.querySelector(`#boutonVerifexercice${exercice.numeroExercice}Q${i}`)
+    if (button1question) {
+      button1question.addEventListener('click', () => {
+        let resultat
+        if (exercice.interactifType === 'mathLive') {
+          resultat = verifQuestionMathLive(exercice, i)
+        }
+        if (exercice.interactifType === 'numerique') {
+          resultat = verifQuestionNumerique(exercice, i)
+        }
+        // Mise en couleur du numéro de la question dans le menu du haut
+        if (resultat === 'OK') {
+          document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
+          context.nbBonnesReponses++
+        }
+        if (resultat === 'KO') {
+          document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('red')
+          context.nbMauvaisesReponses++
+        }
+        if (resultat === 'OK' || resultat === 'KO') {
+          button1question.classList.add('disabled')
+          if (exercicesCanRestants().length) {
+            exercicesCanRestants()[0].click()
+          } else {
+            afficheScoreCan(context.nbBonnesReponses, context.nbMauvaisesReponses)
+          }
+        }
+      })
+    }
   }
 }
 
@@ -306,6 +362,9 @@ export function elimineDoublons (propositions) { // fonction qui va éliminer le
 export function exerciceNumerique (exercice) {
   // console.log('Dans ExerciceNumerique : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
   document.addEventListener('exercicesAffiches', () => {
+    if (getVueFromUrl() === 'can') {
+      gestionCan(exercice)
+    }
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       if (!button.hasMathaleaListener) {
@@ -313,21 +372,7 @@ export function exerciceNumerique (exercice) {
           let nbBonnesReponses = 0
           let nbMauvaisesReponses = 0
           for (const i in exercice.autoCorrection) {
-            let spanReponseLigne
-            if (i < exercice.nbQuestions) {
-              spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-            }
-            // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
-            const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-            if (champTexte.value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '').replaceAll('.', ',')) {
-              spanReponseLigne.innerHTML = '😎'
-              nbBonnesReponses++
-            } else {
-              spanReponseLigne.innerHTML = '☹️'
-              nbMauvaisesReponses++
-            }
-            champTexte.readOnly = true
-            spanReponseLigne.style.fontSize = 'large'
+            verifQuestionNumerique(exercice, i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
           }
           button.classList.add('disabled')
           afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
@@ -516,36 +561,11 @@ export function exerciceCustom (exercice) {
  * @param {object} exercice
  */
 export function exerciceMathLive (exercice) {
-  context.nbBonnesReponses = 0
-  context.nbMauvaisesReponses = 0
   document.addEventListener('exercicesAffiches', () => {
-    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
-    for (const i in exercice.autoCorrection) {
-      // Gestion de la course aux nombres avec un bouton par question
-      const button1question = document.querySelector(`#boutonVerifexercice${exercice.numeroExercice}Q${i}`)
-      if (button1question) {
-        button1question.addEventListener('click', () => {
-          const resultat = verifQuestion(exercice, i)
-          // Mise en couleur du numéro de la question dans le menu du haut
-          if (resultat === 'OK') {
-            document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
-            context.nbBonnesReponses++
-          }
-          if (resultat === 'KO') {
-            document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('red')
-            context.nbMauvaisesReponses++
-          }
-          if (resultat === 'OK' || resultat === 'KO') {
-            button1question.classList.add('disabled')
-            if (exercicesCanRestants().length) {
-              exercicesCanRestants()[0].click()
-            } else {
-              afficheScoreCan(context.nbBonnesReponses, context.nbMauvaisesReponses)
-            }
-          }
-        })
-      }
+    if (getVueFromUrl() === 'can') {
+      gestionCan(exercice)
     }
+    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       if (!button.hasMathaleaListener) {
         button.addEventListener('click', event => {
@@ -554,7 +574,7 @@ export function exerciceMathLive (exercice) {
           const besoinDe2eEssai = false
           let resultat
           for (const i in exercice.autoCorrection) {
-            resultat = verifQuestion(exercice, i)
+            resultat = verifQuestionMathLive(exercice, i)
             if (resultat === 'OK') {
               nbBonnesReponses++
             } else {
