@@ -2005,6 +2005,12 @@ function Polygone (...points) {
     return code
   }
 }
+/**
+ * @returns {Polygone} objet Polygone
+ * @example polygone(A,B,C,D,E) //Trace ABCDE
+ * @example polygone([A,B,C,D],"blue") // Trace ABCD en bleu
+ * @author Rémi Angot
+ */
 export function polygone (...args) {
   return new Polygone(...args)
 }
@@ -4715,6 +4721,15 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5) {
     return texteParPoint(l + ' cm', N, angle, this.color).tikz()
   }
 }
+/**
+ * Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * @param  {Point} A
+ * @param  {Point} B
+ * @param  {string} [color='black'] Facultatif, 'black' par défaut
+ * @param  {number} [d=0.5] Distance entre l'étiquette et le segment. Facultatif, 0.5 par défaut
+ * @returns {AfficheLongueurSegment} objet AfficheLongueurSegment
+ * @author Rémi Angot
+ */
 export function afficheLongueurSegment (...args) {
   return new AfficheLongueurSegment(...args)
 }
