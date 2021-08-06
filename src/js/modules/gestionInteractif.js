@@ -145,12 +145,15 @@ function verifQuestionNumerique (exercice, i) {
 }
 
 function gestionCan (exercice) {
-  window.addEventListener('keyup', (e) => {
-    if (e.keyCode === 13) {
-      e.preventDefault()
-      document.querySelector('[id^=boutonVerifex]:not(.disabled)').click()
-    }
-  })
+  if (!context.enterHasListenner) {
+    window.addEventListener('keyup', (e) => {
+      if (e.keyCode === 13) {
+        e.preventDefault()
+        document.querySelector('[id^=boutonVerifex]:not(.disabled)').click()
+      }
+    })
+    context.enterHasListenner = true
+  }
   for (const i in exercice.autoCorrection) {
     const button1question = document.querySelector(`#boutonVerifexercice${exercice.numeroExercice}Q${i}`)
     if (button1question) {

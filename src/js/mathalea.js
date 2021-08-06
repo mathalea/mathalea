@@ -1125,16 +1125,21 @@ function miseAJourDeLaListeDesExercices (preview) {
               formCorrectionDetaillee[i].checked = false
             }
           }
-          if (urlVars[i].i !== undefined) {
-            if (urlVars[i].i) {
-              listeObjetsExercice[i].interactif = true
-              if (formInteractif[i]) {
-                formInteractif[i].checked = true
-              }
-            } else {
-              listeObjetsExercice[i].interactif = false
-              if (formInteractif[i]) {
-                formInteractif[i].checked = false
+          // En vue CAN ou eval on met toujours les exercices en interactif
+          if (context.vue === 'can' || context.vue === 'eval') {
+            listeObjetsExercice[i].interactif = true
+          } else {
+            if (urlVars[i].i !== undefined) {
+              if (urlVars[i].i) {
+                listeObjetsExercice[i].interactif = true
+                if (formInteractif[i]) {
+                  formInteractif[i].checked = true
+                }
+              } else {
+                listeObjetsExercice[i].interactif = false
+                if (formInteractif[i]) {
+                  formInteractif[i].checked = false
+                }
               }
             }
           }
