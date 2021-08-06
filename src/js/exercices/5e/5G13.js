@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondiVirgule, texNombre } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, mathalea2d, symetrieAxiale, droite, rotation, afficheLongueurSegment, segment, afficheMesureAngle, longueur, droiteParPointEtParallele, angle, polygoneAvecNom } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, mathalea2d, symetrieAxiale, translation, vecteur, triangle2points2longueurs, droite, pointAdistance, rotation, afficheLongueurSegment, segment, afficheMesureAngle, longueur, droiteParPointEtParallele, angle, polygoneAvecNom } from '../../modules/2d.js'
 export const titre = 'Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles.'
 
 /**
@@ -40,14 +40,15 @@ export default function ConservationSymetrie () {
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let objetsEnonceEtCorr, objetsEnonceOnly, objetsCorrectionOnly, paramsEnonce, paramsCorrection
-    for (let i = 0, texte, texteCorr, d, d1, A, B, C, imageA, imageB, imageC, figureRetournee, O, poly, imPoly, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, d, d1, A, B, C, imageA, imageB, imageC, xmin, xmax, ymin, ymax, figureRetournee, O, poly, imPoly, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objetsEnonceOnly = []
       objetsCorrectionOnly = []
       objetsEnonceEtCorr = []
       d1 = ''
-      A = point(5, 2, 'A', 'below')
-      B = point(8, randint(-5, 40) / 10, 'B', 'below')
-      C = point(7, randint(50, 70) / 10, 'C', 'left')
+      A = point(0, 0, 'A', 'below')
+      B = pointAdistance(A, randint(30, 60) / 10, randint(0, 45), 'B')
+      C = triangle2points2longueurs(A, B, randint(40, 60) / 10, randint(30, 50) / 10).listePoints[2]
+      C.nom = 'C'
       poly = polygoneAvecNom(A, B, C) // pour bien placer les labels
       objetsEnonceEtCorr.push(segment(A, B), afficheLongueurSegment(B, A), poly[1])
       switch (listeTypeDeQuestions[i]) {
@@ -60,7 +61,6 @@ export default function ConservationSymetrie () {
           texteCorr += 'Or, la symétrie conserve le parallélisme.<br>'
           texteCorr += 'Donc la droite $(d_1\')$ est parallèle au segment [$A\'B\'$] et passe par le point $C\'$.<br>'
           break
-
         case 'longueurEtAngle':
           objetsEnonceEtCorr.push(segment(A, C), segment(B, C))
           objetsEnonceEtCorr.push(afficheLongueurSegment(C, B))
@@ -77,7 +77,8 @@ export default function ConservationSymetrie () {
       texte += 'Compléter le symétrique de la figure en utilisant les propriétés de conservation de la symétrie et en justifiant ses démarches.<br>'
       // On applique prépare la transformation
       if (this.sup === 1) { // Symétrie axiale
-        d = droite(randint(10, 30) / 10, -1, randint(-20, 0) / 10, '(d)')
+        d = droite(translation(A, vecteur(-randint(30, 40) / 10, 0)), translation(C, vecteur(-randint(30, 40) / 10, 0)), '(d)')
+        d.angleAvecHorizontale = d.angleAvecHorizontale + randint(-10, 10)
         objetsEnonceEtCorr.push(d)
         imageA = symetrieAxiale(A, d, 'A\'')
         imageB = symetrieAxiale(B, d, 'B\'')
@@ -116,10 +117,14 @@ export default function ConservationSymetrie () {
       } else if (listeTypeDeQuestions[i] === 'parallelisme') {
         objetsCorrectionOnly.push(tracePoint(imageA, imageB, imageC))
       }
+      xmin = Math.min(A.x, B.x, C.x, imageA.x, imageB.x, imageC.x) - 2
+      xmax = Math.max(A.x, B.x, C.x, imageA.x, imageB.x, imageC.x) + 2
+      ymin = Math.min(A.y, B.y, C.y, imageA.y, imageB.y, imageC.y) - 2
+      ymax = Math.max(A.y, B.y, C.y, imageA.y, imageB.y, imageC.y) + 2
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-      paramsEnonce = { xmin: -8, ymin: -1, xmax: 15, ymax: 12, pixelsParCm: 20, scale: 1 }
+      paramsEnonce = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1 }
       // paramètres de la fenêtre Mathalea2d pour la correction
-      paramsCorrection = { xmin: -10, ymin: -7, xmax: 15, ymax: 12, pixelsParCm: 20, scale: 1 }
+      paramsCorrection = paramsEnonce
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
       texte += mathalea2d(paramsEnonce, objetsEnonceOnly, objetsEnonceEtCorr)
       // On ajoute au texte de la correction, la figure de la correction
