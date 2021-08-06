@@ -3585,6 +3585,13 @@ export default {
     "interactifReady": false,
     "name": "beta2G14"
   },
+  "beta2G31-5": {
+    "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
+    "url": "/exercices/beta/beta2G31-5.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2G31-5"
+  },
   "beta2G53": {
     "titre": "Alignement de 3 points.",
     "url": "/exercices/beta/beta2G53.js",
@@ -3817,49 +3824,6 @@ export default {
     "interactifType": "qcm",
     "name": "betaLicence"
   },
-  "betaModèle21_paramétrables": {
-    "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle21_paramétrables.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaModèle21_paramétrables"
-  },
-  "betaModèle30_constructions_géométriques": {
-    "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle30_constructions_géométriques.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaModèle30_constructions_géométriques"
-  },
-  "betaModèle31_paramétrables": {
-    "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle31_paramétrables.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaModèle31_paramétrables"
-  },
-  "betaModèle32_cliqueFigure": {
-    "titre": "Choisir la bonne figure",
-    "url": "/exercices/beta/betaModèle32_cliqueFigure.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "cliqueFigure",
-    "name": "betaModèle32_cliqueFigure"
-  },
-  "betaModèle40_tableau_proportionnalite": {
-    "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle40_tableau_proportionnalite.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaModèle40_tableau_proportionnalite"
-  },
-  "betaModèle41_tableau_signes_variations": {
-    "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle41_tableau_signes_variations.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaModèle41_tableau_signes_variations"
-  },
   "betaModèle10_simple_question-reponse": {
     "titre": "Nom de l'exercice",
     "url": "/exercices/beta/betaModèle10_simple_question-reponse.js",
@@ -3880,6 +3844,49 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaModèle20_plusieurs_types_de_questions"
+  },
+  "betaModèle21_paramétrables": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle21_paramétrables.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle21_paramétrables"
+  },
+  "betaModèle30_constructions_géométriques": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle30_constructions_géométriques.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle30_constructions_géométriques"
+  },
+  "betaModèle31_paramétrables": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle31_paramétrables.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle31_paramétrables"
+  },
+  "betaModèle32_cliqueFigure": {
+    "titre": "Choisir la bonne figure",
+    "url": "/exercices/beta/betaModèle32_cliqueFigure.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "cliqueFigure",
+    "name": "betaModèle32_cliqueFigure"
+  },
+  "betaModèle40_tableau_proportionnalite": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle40_tableau_proportionnalite.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle40_tableau_proportionnalite"
+  },
+  "betaModèle41_tableau_signes_variations": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle41_tableau_signes_variations.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle41_tableau_signes_variations"
   },
   "betaProbaAouB": {
     "titre": "2S30-6",
