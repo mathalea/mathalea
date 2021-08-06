@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, mathalea2d, segment, mediatrice, pointSurDroite, longueur, afficheLongueurSegment, pointIntersectionDD, droite, codageAngleDroit, codageMilieu } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, mathalea2d, segment, mediatrice, pointAdistance, pointIntersectionLC, cercle, longueur, afficheLongueurSegment, pointIntersectionDD, droite, codageAngleDroit, codageMilieu } from '../../modules/2d.js'
 export const titre = 'Utiliser les propriétés de la médiatrice'
 
 /**
@@ -14,7 +14,7 @@ export default function ProprietesMediatrice () {
   this.nbQuestions = 4
 
   this.besoinFormulaireNumerique = ['Situation', 3, '1 : C appartenant (ou pas) à la médiatrice\n2 : C équidistant (ou pas) à A et B\n3 : L\'un ou l\'autre']
-  this.sup = 1
+  this.sup = 3
   this.besoinFormulaire2CaseACocher = ['Inclure des situations où le point C n\'appartient pas à la médiatrice']
   this.sup2 = true
   this.nbCols = 1
@@ -40,18 +40,20 @@ export default function ProprietesMediatrice () {
     }
     let A, B, C, D, segmentAB, segmentAC, segmentBC, mediatriceAB, affLongueurAC, affLongueurBC
     let objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, xmin, xmax, ymin, ymax, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Construction des objets
       objetsEnonce = []
       objetsCorrection = []
-      A = point(randint(-20, 20) / 10, randint(-20, 20) / 10, 'A', 'left')
-      B = point(randint(25, 45) / 10, randint(25, 45) / 10, 'B', 'right')
+      A = point(0, 0, 'A', 'below')
+      B = pointAdistance(A, randint(30, 60) / 10, randint(0, 45), 'B')
       mediatriceAB = mediatrice(A, B, '', 'red')
-      C = point(-50, 50)
-      while (C.y < -3.5 || C.y > 5.5 || C.x < -4.5 || C.x > 8.5) { // On fait en sorte que le point C soit dans le cadre avec une marge
-        C = pointSurDroite(mediatriceAB, randint(-30, 55) / 10, 'C', 'above')
+      // Le point C est au dessus ou en dessous une fois sur deux
+      if (randint(0, 99) > 50) {
+        C = pointIntersectionLC(mediatriceAB, cercle(A, randint(30, 60) / 10), 'C', 1)
+      } else {
+        C = pointIntersectionLC(mediatriceAB, cercle(A, randint(30, 60) / 10), 'C', 2)
       }
-      if (!listeSurLaMediatrice[i]) C = point(C.x + randint(-10, 10, 0) / 10, C.y + randint(-10, 10, 0) / 10, 'C', 'above') // s'il ne doit pas être sur la médiatrice, on l'en éloigne
+      if (!listeSurLaMediatrice[i]) C = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, 'C', 'above') // s'il ne doit pas être sur la médiatrice, on l'en éloigne
       segmentAB = segment(A, B)
       segmentAC = segment(A, C)
       segmentBC = segment(B, C)
@@ -112,10 +114,14 @@ export default function ProprietesMediatrice () {
       objetsEnonce.forEach(obj => {
         objetsCorrection.push(obj)
       })
+      xmin = Math.min(A.x, B.x, C.x) - 2
+      xmax = Math.max(A.x, B.x, C.x) + 2
+      ymin = Math.min(A.y, B.y, C.y) - 2
+      ymax = Math.max(A.y, B.y, C.y) + 2
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-      paramsEnonce = { xmin: -5, ymin: -4, xmax: 9, ymax: 6, pixelsParCm: 20, scale: 1, mainlevee: false }
+      paramsEnonce = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1 }
       // paramètres de la fenêtre Mathalea2d pour la correction
-      paramsCorrection = { xmin: -5, ymin: -4, xmax: 9, ymax: 6, pixelsParCm: 20, scale: 1 }
+      paramsCorrection = paramsEnonce
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
       texte += mathalea2d(paramsEnonce, objetsEnonce)
       // On ajoute au texte de la correction, la figure de la correction

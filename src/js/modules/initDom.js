@@ -57,6 +57,9 @@ const liToDiv = () => {
  */
 const affichageUniquementQuestion = (i) => {
   affichageUniquementExercice()
+  const inputs = document.querySelectorAll('input')
+  inputs[i].focus()
+  inputs[i].select()
   const questions = document.querySelectorAll('div.question')
   const corrections = document.querySelectorAll('div.correction')
   for (const question of questions) {
@@ -287,7 +290,7 @@ export async function initDom () {
     section.append(espaceVertical())
   }
   // Le footer
-  if (vue === 'recto' || vue === 'verso' || vue === 'embed' || vue === 'e') {
+  if (vue === 'recto' || vue === 'verso' || vue === 'embed' || vue === 'e' || vue === 'can') {
     await addFetchHtmlToParent('templates/footer1logo.html', document.body, 'footer')
   } else {
     await addFetchHtmlToParent('templates/footer.html', document.body, 'footer')

@@ -3585,6 +3585,13 @@ export default {
     "interactifReady": false,
     "name": "beta2G14"
   },
+  "beta2G31-5": {
+    "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
+    "url": "/exercices/beta/beta2G31-5.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2G31-5"
+  },
   "beta2G53": {
     "titre": "Alignement de 3 points.",
     "url": "/exercices/beta/beta2G53.js",

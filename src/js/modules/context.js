@@ -14,7 +14,9 @@ export const context = {
   fenetreMathalea2d: [-1, -10, 29, 10],
   objets2D: [],
   graine: '',
-  duree: 10
+  duree: 10,
+  nbBonnesReponses: 0,
+  nbMauvaisesReponses: 0
 }
 
 export function setOutputHtml () {
