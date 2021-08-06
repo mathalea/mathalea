@@ -533,13 +533,15 @@ export function exerciceMathLive (exercice) {
           }
           if (resultat === 'KO') {
             document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('red')
+            context.nbMauvaisesReponses++
           }
-          context.nbMauvaisesReponses++
-          button1question.classList.add('disabled')
-          if (exercicesCanRestants().length) {
-            exercicesCanRestants()[0].click()
-          } else {
-            afficheScoreCan(context.nbBonnesReponses, context.nbMauvaisesReponses)
+          if (resultat === 'OK' || resultat === 'KO') {
+            button1question.classList.add('disabled')
+            if (exercicesCanRestants().length) {
+              exercicesCanRestants()[0].click()
+            } else {
+              afficheScoreCan(context.nbBonnesReponses, context.nbMauvaisesReponses)
+            }
           }
         })
       }

@@ -3817,27 +3817,6 @@ export default {
     "interactifType": "qcm",
     "name": "betaLicence"
   },
-  "betaModèle10_simple_question-reponse": {
-    "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle10_simple_question-reponse.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaModèle10_simple_question-reponse"
-  },
-  "betaModèle11_paramétrable": {
-    "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle11_paramétrable.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaModèle11_paramétrable"
-  },
-  "betaModèle20_plusieurs_types_de_questions": {
-    "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle20_plusieurs_types_de_questions.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaModèle20_plusieurs_types_de_questions"
-  },
   "betaModèle21_paramétrables": {
     "titre": "Nom de l'exercice",
     "url": "/exercices/beta/betaModèle21_paramétrables.js",
@@ -3880,6 +3859,27 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaModèle41_tableau_signes_variations"
+  },
+  "betaModèle10_simple_question-reponse": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle10_simple_question-reponse.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle10_simple_question-reponse"
+  },
+  "betaModèle11_paramétrable": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle11_paramétrable.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle11_paramétrable"
+  },
+  "betaModèle20_plusieurs_types_de_questions": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle20_plusieurs_types_de_questions.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle20_plusieurs_types_de_questions"
   },
   "betaProbaAouB": {
     "titre": "2S30-6",
