@@ -55,6 +55,20 @@ export default {
     "interactifReady": false,
     "name": "2F10-2"
   },
+  "2F22-1": {
+    "titre": "Lecture graphique d’une fonction affine",
+    "url": "/exercices/2e/2F22-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F22-1"
+  },
+  "2F22": {
+    "titre": "Représentation graphique d’une fonction affine",
+    "url": "/exercices/2e/2F22.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F22"
+  },
   "2F32": {
     "titre": "Lecture graphique",
     "url": "/exercices/2e/2F32.js",
@@ -3549,20 +3563,6 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "beta240-1"
-  },
-  "beta2F22-1": {
-    "titre": "Lecture graphique d’une fonction affine",
-    "url": "/exercices/beta/beta2F22-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F22-1"
-  },
-  "beta2F22": {
-    "titre": "Représentation graphique d’une fonction affine",
-    "url": "/exercices/beta/beta2F22.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F22"
   },
   "beta2F30": {
     "titre": "Reconnaître une fonction affine.",

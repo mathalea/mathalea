@@ -19,7 +19,7 @@ export default function RepresenterUnVecteur () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
+  
     for (let i = 0, r, posLabelA, posLabelB, labelA, labelB, A, B, H, h1, h2, O, I, J, j, t, k, l, s, o, ux, uy, xA, yA, xB, yB, AB, nomi, nomj, nomAB, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       xA = randint(2, 8) * choice([-1, 1])
       yA = randint(2, 8) * choice([-1, 1])

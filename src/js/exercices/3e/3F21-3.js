@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { ecritureAlgebrique, listeQuestionsToContenu, calcul, randint, rienSi1, texNombre } from '../../modules/outils.js'
-import { mathalea2d, repere2, courbe2, cercle, point, segment, milieu, texteParPoint } from '../../modules/2d.js'
+import { mathalea2d, repere2, courbe2, cercle, point, segment, milieu, texteParPoint, droite } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = "Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine"
@@ -42,7 +42,9 @@ export default function PenteEtOrdonneeOrigineDroite () {
     const r = repere2({ xMin, yMin, xMax, yMax })
     const f = x => a * x + b
 
-    const d = courbe2(f, { color: 'blue', repere: r })
+    const d = droite(a, -1, b)
+    d.color = 'blue'
+    d.epaisseur = 2
     const c = cercle(point(0, b), 0.8)
     c.color = '#f15929'
     c.epaisseur = 2
@@ -69,7 +71,7 @@ export default function PenteEtOrdonneeOrigineDroite () {
     s2.pointilles = true
     s2.color = '#f15929'
 
-    this.introduction = mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d)
+    this.introduction = 'On a représenté ci-dessous une fonction affine $f$.<br><br>' + mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d)
     this.consigneCorrection = mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d, c, s1, s2, t1, t2)
     let question1 = "Quelle est l'ordonnée à l'origine de la fonction $f$ ?"
     question1 += ajouteChampTexteMathLive(this, 0)
