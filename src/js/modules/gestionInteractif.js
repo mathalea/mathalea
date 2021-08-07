@@ -180,7 +180,7 @@ function gestionCan (exercice) {
           if (exercicesCanRestants().length) {
             exercicesCanRestants()[0].click()
           } else {
-            afficheScoreCan(context.nbBonnesReponses, context.nbMauvaisesReponses)
+            afficheScoreCan(exercice, context.nbBonnesReponses, context.nbMauvaisesReponses)
           }
         }
       })
@@ -653,6 +653,9 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
             classe2: userId[4],
             eleve1: userId[5],
             eleve2: userId[6],
+            // eslint-disable-next-line no-unneeded-ternary
+            isCan: getVueFromUrl() === 'can' ? 'oui' : 'non',
+            urlExos: document.location.href + 'serie=' + context.graine,
             exId: exercice.id,
             sup: exercice.sup,
             sup2: exercice.sup2,
@@ -695,8 +698,8 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
     }
   }
 }
-export function afficheScoreCan (nbBonnesReponses, nbMauvaisesReponses) {
-  const exercice = { id: 'can', sup: document.location.href + 'serie=' + context.graine }
+export function afficheScoreCan (exercice, nbBonnesReponses, nbMauvaisesReponses) {
+  // const exercice = { id: 'can', sup: document.location.href + 'serie=' + context.graine }
   const divScore = addElement(document.querySelector('#menuEval'), 'div', { className: 'score', id: 'scoreTotal' })
   divScore.innerHTML = `Résultat : ${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
   divScore.style.color = '#f15929'
