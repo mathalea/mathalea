@@ -57,9 +57,6 @@ const liToDiv = () => {
  */
 const affichageUniquementQuestion = (i) => {
   affichageUniquementExercice()
-  const inputs = document.querySelectorAll('input')
-  inputs[i].focus()
-  inputs[i].select()
   const questions = document.querySelectorAll('div.question')
   const corrections = document.querySelectorAll('div.correction')
   for (const question of questions) {
@@ -77,6 +74,13 @@ const affichageUniquementQuestion = (i) => {
       const correction = corrections[i].parentElement.parentElement
       correction.style.display = 'block'
     }
+  }
+  const inputs = document.querySelectorAll('input')
+  inputs[i].focus()
+  inputs[i].select()
+  const mathfields = document.querySelectorAll('math-field')
+  if (i !== 0) {
+    mathfields[i].focus()
   }
 }
 

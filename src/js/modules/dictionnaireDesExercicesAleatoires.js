@@ -66,6 +66,13 @@ export default {
     "interactifType": "mathLive",
     "name": "2F32"
   },
+  "2G13": {
+    "titre": "Déterminer les coordonnées d’un vecteur.",
+    "url": "/exercices/2e/2G13.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G13"
+  },
   "2G22-1": {
     "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
     "url": "/exercices/2e/2G22-1.js",
@@ -3570,20 +3577,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2F31"
-  },
-  "beta2G13": {
-    "titre": "Déterminer les coordonnées d’un vecteur.",
-    "url": "/exercices/beta/beta2G13.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2G13"
-  },
-  "beta2G14": {
-    "titre": "Déterminer les coordonnées d’un vecteur.",
-    "url": "/exercices/beta/beta2G14.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2G14"
   },
   "beta2G31-5": {
     "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
