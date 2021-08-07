@@ -618,6 +618,13 @@ function saisieToGrandeur (saisie) {
   }
 }
 
+/**
+ * @author Sébastien LOZANO
+ * @param {object} exercice
+ * @param {number} nbBonnesReponses
+ * @param {number} nbMauvaisesReponses
+ */
+
 function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   // TODO
   // => OK => vérifier si le paramètre existe dans l'url
