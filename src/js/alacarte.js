@@ -95,8 +95,7 @@ function textarea_to_array (textarea_id_textarea) {
 * {id: "6C10", sup: false, nbQuestions: 5}
 * @author Rémi Angot
 */
-function txt_to_objet_parametres_exercice (txt) { //
-  'use strict'
+function txt_to_objet_parametres_exercice (txt) {
   const CleValeur = txt.split(',')
   const ObjetParametres = {}
   ObjetParametres.id = CleValeur[0] // Récupère le premier élément qui est forcément l'id
@@ -135,14 +134,30 @@ function item_to_contenu (txt) {
   // Pour faire la correspondance entre SACoche et MathALEA, on supprime 'MATHS' et tous les points dans les noms des id
   if (idExerciceMathALEA in listeObjetsExercice) {
     const exercice_aleatoire = listeObjetsExercice[idExerciceMathALEA]
+    // Les paramètres peuvent être saisies de manière longue (nb_questions, sup, sup2, sup3) ou de manière courte (n, s, s2, s3)
     if (dictionnaire.sup) {
       exercice_aleatoire.sup = dictionnaire.sup
+    }
+    if (dictionnaire.s) {
+      exercice_aleatoire.sup = dictionnaire.s
     }
     if (dictionnaire.sup2) {
       exercice_aleatoire.sup2 = dictionnaire.sup2
     }
-    if (dictionnaire.nbQuestions) {
-      exercice_aleatoire.nbQuestions = dictionnaire.nbQuestions
+    if (dictionnaire.s2) {
+      exercice_aleatoire.sup2 = dictionnaire.s2
+    }
+    if (dictionnaire.sup3) {
+      exercice_aleatoire.sup3 = dictionnaire.sup3
+    }
+    if (dictionnaire.s3) {
+      exercice_aleatoire.sup3 = dictionnaire.s3
+    }
+    if (dictionnaire.nb_questions) {
+      exercice_aleatoire.nbQuestions = dictionnaire.nb_questions
+    }
+    if (dictionnaire.n) {
+      exercice_aleatoire.nbQuestions = dictionnaire.n
     }
     exercice_aleatoire.id = idExerciceMathALEA
     exercice_aleatoire.nouvelleVersion()

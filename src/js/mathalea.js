@@ -1125,16 +1125,21 @@ function miseAJourDeLaListeDesExercices (preview) {
               formCorrectionDetaillee[i].checked = false
             }
           }
-          if (urlVars[i].i !== undefined) {
-            if (urlVars[i].i) {
-              listeObjetsExercice[i].interactif = true
-              if (formInteractif[i]) {
-                formInteractif[i].checked = true
-              }
-            } else {
-              listeObjetsExercice[i].interactif = false
-              if (formInteractif[i]) {
-                formInteractif[i].checked = false
+          // En vue CAN ou eval on met toujours les exercices en interactif
+          if (context.vue === 'can' || context.vue === 'eval') {
+            listeObjetsExercice[i].interactif = true
+          } else {
+            if (urlVars[i].i !== undefined) {
+              if (urlVars[i].i) {
+                listeObjetsExercice[i].interactif = true
+                if (formInteractif[i]) {
+                  formInteractif[i].checked = true
+                }
+              } else {
+                listeObjetsExercice[i].interactif = false
+                if (formInteractif[i]) {
+                  formInteractif[i].checked = false
+                }
               }
             }
           }
@@ -2203,14 +2208,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('btnEmbed').addEventListener('click', function () {
       $('#ModalEmbed').html(`<div class="content"><p><pre><code>&lt;iframe width="660"
         height="315" 
-        src="${window.location.href + '&v=l'}"
+        src="${window.location.href + '&v=e'}"
         frameborder="0" >
 &lt;/iframe></code><pre></p>
         <button id="btnEmbedCode" style="margin:10px" class="btn ui toggle button labeled icon url"
         data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le code HTML</button></div>`)
       const clipboard = new Clipboard('#btnEmbedCode', {
         text: () =>
-          `<iframe\n\t width="660" height="315"\n\t src="${window.location.href + '&v=l'}"\n\tframeborder="0" >\n</iframe>`
+          `<iframe\n\t width="660" height="315"\n\t src="${window.location.href + '&v=e'}"\n\tframeborder="0" >\n</iframe>`
       })
       clipboard.on('success', function (e) {
         console.info(e.text + ' copié dans le presse-papier.')

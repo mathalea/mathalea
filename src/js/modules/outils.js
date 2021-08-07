@@ -20,11 +20,11 @@ const epsilon = 0.000001
  */
 export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
-    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing)
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`)
     if (exercice.interactif) {
       exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
-    exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr)
+    exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr, 'correction')
   } else {
     let vspace = ''
     if (exercice.vspace) {
@@ -2123,13 +2123,13 @@ export function texIntroduction (texte) {
 * @param spacing interligne (line-height en css)
 * @author Rémi Angot
 */
-export function htmlEnumerate (liste, spacing) {
+export function htmlEnumerate (liste, spacing, classe = 'question', id = '') {
   let result = ''
 
   if (liste.length > 1) {
     (spacing > 1) ? result = `<ol style="line-height: ${spacing};">` : result = '<ol>'
     for (const i in liste) {
-      result += '<li>' + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+      result += `<li class="${classe}" ${id ? 'id="' + id + i + '"' : ''}>` + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     }
     result += '</ol>'
   } else if (liste.length === 1) {
@@ -2200,15 +2200,14 @@ export function htmlLigne (liste, spacing) {
   let result = ''
   if (spacing > 1) {
     result = `<div style="line-height: ${spacing};">\n`
+  } else {
+    result = '<div>\n'
   }
   for (const i in liste) {
     result += '\t' + liste[i].replace(/\\dotfill/g, '...') + '<br>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     // .replace(/\\\\/g,'<br>') abandonné pour supporter les array
   }
-
-  if (spacing > 1) {
-    result += '</div>\n'
-  }
+  result += '</div>\n'
 
   return result
 }

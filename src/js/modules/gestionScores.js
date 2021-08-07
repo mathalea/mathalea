@@ -7,7 +7,7 @@
 // =============================================================================================================================
 
 import { context } from './context.js'
-import { setUrl } from './gestionUrl.js'
+import { setUrl, setUrlAndGo } from './gestionUrl.js'
 
 export default function gestionScores () {
   // On vérfie s'il faut remettre à zéro le répertoire de stockage des espaces de scores
@@ -21,8 +21,6 @@ export default function gestionScores () {
     .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
     .then(response => {
       if (document.getElementById('scoresInfosTimeLeft')) {
-        // console.log(response.timeLeft)
-        console.log(response.msg)
         document.getElementById('scoresInfosTimeLeft').innerHTML = `
         Ce service ne garantit en rien la pérennité des données. Bien au contraire, <b>les données sont actuellement effacées tous les jours</b>. <!--une fois par an.-->
         <ul>
@@ -51,29 +49,23 @@ export default function gestionScores () {
       }
       // Réécrire l'url sans le userId
       const urlRacine = window.location.href.split('?')[0]
-      // console.log(urlRacine)
       const queryString = window.location.search
-      // console.log(queryString)
       const urlParams = new URLSearchParams(queryString)
-      // console.log(urlParams)
       if (urlParams.has('userId')) {
         // On supprime le userId de l'url
         urlParams.delete('userId')
-        console.log('Suppression du parametre userId de l\'url OK => ' + urlParams.has('userId'))
       }
       try {
         if (typeof (window.sessionStorage) === 'object') {
           if (window.sessionStorage.getItem('userId')) {
             // On supprime le userId du stockage
             window.sessionStorage.removeItem('userId')
-            console.log('Suppression du userId de session.stockage OK => ' + window.sessionStorage.getItem('userId'))
           }
         }
       } catch (err) {}
       if (context.userId) {
         // On suprime le userId du context
         delete context.userId
-        console.log('Suppression de la propriété context.userId OK => ' + context.userId)
       }
       // Pour cacher le champ userId sur la page courante et le conserver en cas de changement de page
       // On cache le champ prévu pour l'affichage du userId courant
@@ -92,12 +84,11 @@ export default function gestionScores () {
         urlRewrite += entry[0] + '=' + entry[1] + '&'
       }
       urlRewrite = urlRewrite.slice(0, -1)
-      // console.log(urlRewrite)
       urlRewrite = new URL(urlRewrite)
       // On remplace dans l'historique
       window.history.replaceState('', '', urlRewrite)
       // On met à jour l'url
-      setUrl()
+      setUrlAndGo()
     })
   }
 
@@ -195,17 +186,12 @@ export default function gestionScores () {
           // On ajoute/met à jourle parametre userId dans l'url
           // On récrit d'abord l'url pour éviter les transformations de caractères intempestives
             const urlRacine = window.location.href.split('?')[0]
-            // console.log(urlRacine)
             const queryString = window.location.search
-            // console.log(queryString)
             const urlParams = new URLSearchParams(queryString)
-            // console.log(urlParams)
             if (urlParams.has('userId')) {
               urlParams.set('userId', response.userId)
-              console.log(`Modification du parametre userId OK => ${response.userId}`)
             } else {
               urlParams.append('userId', response.userId)
-              console.log(`Ajout du parametre userId OK => ${response.userId}`)
             }
             // On met à jour/ajoute au stockage de session dans le navigateur
             context.userId = urlParams.get('userId')
@@ -224,7 +210,6 @@ export default function gestionScores () {
               urlRewrite += entry[0] + '=' + entry[1] + '&'
             }
             urlRewrite = urlRewrite.slice(0, -1)
-            // console.log(urlRewrite)
             urlRewrite = new URL(urlRewrite)
             // On remplace dans l'historique
             window.history.replaceState('', '', urlRewrite)
@@ -242,7 +227,6 @@ export default function gestionScores () {
               document.getElementById('scoresPromptUserId').hidden = true
               document.getElementById('scoresDocumentationFeedback').hidden = true
             }
-            console.log('Enregistrement vers un espace scores OK => ' + response.userId)
             // On affiche le userId dans la fenetre principale
             if (document.getElementById('userIdDisplayValue')) {
               // document.getElementById('userIdDisplayValue').value = response.userId
@@ -292,7 +276,6 @@ export default function gestionScores () {
               `
             document.getElementById('scoresFeedback').hidden = false
           }
-          console.log('Création d\'un espace scores OK => ' + response.userId)
         })
     })
   }
@@ -300,7 +283,6 @@ export default function gestionScores () {
   // Clic sur "Espace professeur" - uniquement dans la modale connexion
   if (document.getElementById('scoresToProfSpace')) {
     document.getElementById('scoresToProfSpace').addEventListener('click', function () {
-      console.log('Vers l\'espace prof de gestion des scores')
     })
   }
 }
