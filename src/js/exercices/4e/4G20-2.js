@@ -64,8 +64,13 @@ export default function RacineCareeDeCarresParfaits () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         if (context.isAmc) {
-          this.autoCorrection[i].enonce = `$\\sqrt{${c}}=\\dotfill$`
-          this.autoCorrection[i].propositions = [{ texte: `$\\sqrt{${c}}=${a}$`, statut: '' }]
+          if (listeQuestions[i] === 1) {
+            this.autoCorrection[i].enonce = `$\\sqrt{${c}}=\\dots$`
+            this.autoCorrection[i].propositions = [{ texte: `$\\sqrt{${c}}=${a}$`, statut: '' }]
+          } else {
+            this.autoCorrection[i].enonce = `$${c} = \\dots^2$`
+            this.autoCorrection[i].propositions = [{ texte: `$${c}=${a}^2$`, statut: '' }]
+          }
           this.autoCorrection[i].reponse = { valeur: a, param: { digits: 2, decimals: 0, exposantNbChiffres: 0, exposantSigne: false, signe: false } }
         }
         this.listeQuestions.push(texte)
