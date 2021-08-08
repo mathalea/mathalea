@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, arrondiVirgule, randint } from '../../modules/outils.js'
-export const titre = 'Encadrer une racine carrée et en donner une valeur approchée'
+export const titre = 'Encadrer une racine carrée et en donner un arrondi'
 
 /**
  * Encadrer une racine carrée et en donner une valeur approchée
@@ -37,9 +37,7 @@ export default function CalculValeurApprocheeRacineCarree () {
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, type, a, reponse, pasReponse, reponseG, reponseD, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (listeAvecOuSansCalculatrice[i] === 'avec') {
-        do {
-          a = randint(1, 300)
-        } while (Math.sqrt(a) === Math.floor(Math.sqrt(a))) // On fait en sorte que a ne soit pas un carré parfait
+        a = randint(2, 300, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289])
         switch (listeTypeQuestions[i]) {
           case 'unite':
             type = 'à l\'unité'
@@ -62,15 +60,13 @@ export default function CalculValeurApprocheeRacineCarree () {
         }
         if (reponse === reponseG) pasReponse = reponseD
         else pasReponse = reponseG
-        texte = `Encadrer $\\sqrt{${a}}$ ${type} près et en donner une valeur approchée ${type} près.`
+        texte = `Encadrer $\\sqrt{${a}}$ ${type} près et en donner un arrondi ${type} près.`
         texteCorr = `$\\sqrt{${a}} \\simeq ${arrondiVirgule(Math.sqrt(a), 6)}$.<br>`
         texteCorr += `Or $${reponseG} < ${arrondiVirgule(Math.sqrt(a), 6)} < ${reponseD}$,<br>`
         texteCorr += `et $${arrondiVirgule(Math.sqrt(a), 6)}$ est plus proche de $${reponse}$ que de $${pasReponse}$.<br>`
-        texteCorr += `Donc la valeur approchée ${type} près de $\\sqrt{${a}}$ est $${reponse}$.`
+        texteCorr += `Donc l'arrondi ${type} près de $\\sqrt{${a}}$ est $${reponse}$.`
       } else if (listeAvecOuSansCalculatrice[i] === 'sans') {
-        do {
-          a = randint(1, 144)
-        } while (Math.sqrt(a) === Math.floor(Math.sqrt(a))) // On fait en sorte que a ne soit pas un carré parfait
+        a = randint(2, 300, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289])
         texte = `Sans utiliser de calculatrice, encadrer $\\sqrt{${a}}$ entre deux nombres entiers.`
         reponseG = Math.floor(Math.sqrt(a))
         reponseD = Math.ceil(Math.sqrt(a))
