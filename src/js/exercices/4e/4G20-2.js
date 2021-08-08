@@ -9,9 +9,10 @@ export const interactifType = 'numerique'
 export const interactifReady = true
 
 /**
- * Déterminer la racine carrée d'un carré parfait compris entre 4 et 256
+ * Déterminer la racine carrée d'un carré parfait compris entre 1 et 256
  * @author Stéphane Guyon et Guillaume Valmont
- * 4G20-2
+ * Référence 4G20-2
+ * Mis à jour le 08/08/2021
  */
 export default function RacineCareeDeCarresParfaits () {
   Exercice.call(this) // Héritage de la classe Exercice()
