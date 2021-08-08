@@ -310,8 +310,12 @@ export default {
   "3A11-1": {
     "titre": "Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11",
     "url": "/exercices/3e/3A11-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "3A11-1"
   },
   "3A11-2": {
@@ -379,8 +383,12 @@ export default {
   "3F12-3": {
     "titre": "Compléter un tableau de valeurs",
     "url": "/exercices/3e/3F12-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F12-3"
   },
   "3F12-4": {
