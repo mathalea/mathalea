@@ -186,13 +186,23 @@ Cette fonction va retourner un objet `{ texte, texteCorr }` qui contient les pro
 
 Si le `texte` est toujours utilisé, on préférera souvent la correction classique au `texteCorr` retourné par cette fonction (à réfléchir : pourquoi ne pas activer la correction classique avec le bouton 'correction détaillée' ?)
 
+Ce sont toutes les deux des fonctions de gestionInteractif.js, si vous voulez faire appel à elles, il faut alors faire en début de fichier :
+```js
+import { setReponse, propositionsQcm } from '../../modules/gestionInteractif.js'
+```
+
 ## MathLive
 
 Nous n'avons pas encore parlé du type d'interactivité `'mathLive'` qui est pourtant très pratique ! et pas très compliqué à mettre en place comme nous allons le voir :
 
 Pour rendre un exercice interactif en utilisant MathLive, il suffit de :
-1. `export const interactifType = 'mathLive'`
-2. mettre dans la boucle `setReponse(this, i, maRéponse)` avec maRéponse un string LaTeX ou une valeur numérique (donc sans `texNombre` ou des équivalents)
+1. Placer en en-tête :
+```js
+import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+```
+2. mettre dans la boucle principale `setReponse(this, i, maRéponse)` avec maRéponse un string LaTeX ou une valeur numérique (donc sans `texNombre` ou des équivalents)
 3. faire `texte += ajouteChampTexteMathLive(this, i)` pour ajouter le champ de réponse.
 
 Par défaut, on compare des expressions littérales ou des nombres. 
