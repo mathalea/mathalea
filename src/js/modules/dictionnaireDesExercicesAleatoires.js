@@ -1125,7 +1125,7 @@ export default {
     "name": "4G20-5"
   },
   "4G20-6": {
-    "titre": "Calculer une valeur approchée d'une racine carrée",
+    "titre": "Encadrer une racine carrée et en donner une valeur approchée",
     "url": "/exercices/4e/4G20-6.js",
     "amcReady": false,
     "interactifReady": false,
