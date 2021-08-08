@@ -3136,8 +3136,19 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) ;`
   }
 }
-export function arc (...args) {
-  return new Arc(...args)
+/**
+ * @param {Point} M Point de départ de l'arc
+ * @param {Point} Omega Centre de l'arc
+ * @param {number} angle Compris entre -360 et 360. Valeur négative = sens indirect
+ * @param {boolean} rayon Si true, les rayons délimitant l'arc sont ajoutés. Facultatif, false par défaut
+ * @param {string} fill Facultatif, 'none' par défaut
+ * @param {string} color Facultatif, 'black' par défaut
+ * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @author Jean-Claude Lhote
+ * @return {Arc} Objet Arc
+ */
+export function arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
+  return new Arc(M, Omega, angle, rayon, fill, color, fillOpacite)
 }
 /**
  *
