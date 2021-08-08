@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Racine carré d’un carré parfait (calcul mental)'
+export const titre = 'Racine carrée d’un carré parfait (calcul mental)'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifType = 'numerique'
