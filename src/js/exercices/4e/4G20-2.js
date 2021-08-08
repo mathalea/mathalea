@@ -25,7 +25,7 @@ export default function RacineCareeDeCarresParfaits () {
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.besoinFormulaireNumerique = ['Racine ou "nombre dont le carré est ..."', 3, '1 : Calculer la racine\n2 : Trouver le nombre dont le carré est...\n3 : Les deux']
+  this.besoinFormulaireNumerique = ['racine ou "nombre positif dont le carré est ..."', 3, '1 : Calculer la racine\n2 : Trouver le nombre positif dont le carré est...\n3 : Les deux']
   this.besoinFormulaire2Numerique = ['Maximum', 2, '1 : 144\n2 : 256']
   this.sup = 1
   this.sup2 = 2
@@ -57,7 +57,7 @@ export default function RacineCareeDeCarresParfaits () {
       if (listeQuestions[i] === 1) {
         texte = `Calcule de tête $\\sqrt{${c}}=$` + ajouteChampTexte(this, i)
       } else if (listeQuestions[i] === 2) {
-        texte = `Quel est le nombre dont le carré est $${c}$ ?` + ajouteChampTexte(this, i)
+        texte = `Quel est le nombre positif dont le carré est $${c}$ ?` + ajouteChampTexte(this, i)
       }
       texteCorr = `$\\sqrt{${c}}=${a}$`
       setReponse(this, i, a)
