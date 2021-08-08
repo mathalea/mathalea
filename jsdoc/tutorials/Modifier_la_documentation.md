@@ -20,6 +20,10 @@ Pour créer un lien interne à la documentation, on distingue deux cas :
 * Si on veut créer un lien vers un tutoriel, le lien est `tutorial-Nom_du_fichier_MarkDown.html`. Notez bien que le .md présent dans les sources est remplacé par un .html
 * Le dossier `jsdoc/static/` correspond au dossier racine de la doc générée et l'intérieur de ce dossier est recopié tel quel donc pour créer un lien vers `jsdoc/static/img/image.png`, le lien à utiliser est tout simplement `img/image.png`.
 
+**Remarque :**
+
+Pour une raison inconnue, certains liens vers les tutoriels ne fonctionnent pas dans la version en ligne, il faut alors les préfixer de `documentation/`, ce qui donne `documentation/tutorial-Nom_du_fichier_MarkDown.html`. (pour les tester en local, il ne faut pas les préfixer de `documentation/`)
+
 ## Bonus : comment est générée le reste de la documentation ?
 
 Lorsqu'on lance `pnpm run buid:doc`, les fichiers `base.json`, `mathalea2d.json`, `mathaleaInstrumEnPoche.json` et `tout.json` du dossier `jsdoc/` sont lus.
