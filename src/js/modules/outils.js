@@ -7369,7 +7369,7 @@ export function exportQcmAmc (exercice, idExo) {
         break
     }
   }
-  return [texQr, ref, autoCorrection.length, titre]
+  return [texQr, ref, exercice.nbQuestions, titre]
 }
 
 /**

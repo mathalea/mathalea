@@ -104,7 +104,7 @@ export default function CalculValeurApprocheeRacineCarree () {
         if (context.isAmc) {
           if (listeAvecOuSansCalculatrice[i] === 'avec') {
             this.autoCorrection[i] = {
-              enonce: texte,
+              enonce: `A l'aide de la calculatrice, donner un encadrement de $\\sqrt{${a}}$ ${type} près puis la valeur arrondie ${type} près: \\\\`,
               propositions: [
                 {
                   type: 'AMCOpen',
@@ -119,10 +119,10 @@ export default function CalculValeurApprocheeRacineCarree () {
                     texte: '',
                     statut: '',
                     reponse: {
-                      texte: `arrondi de $\\sqrt (${a})$ ${type} près : ${reponse}.`,
+                      texte: `arrondi de $\\sqrt{${a}}$ ${type} près :`,
                       valeur: parseFloat(reponse.replaceAll(',', '.')),
                       param: {
-                        digits: nombreDeChiffresDansLaPartieEntiere(parseFloat(reponse.replaceAll(',', '.'))),
+                        digits: nombreDeChiffresDansLaPartieEntiere(parseFloat(reponse.replaceAll(',', '.'))) + nbDec,
                         decimals: nbDec,
                         signe: false,
                         approx: 0
@@ -134,7 +134,7 @@ export default function CalculValeurApprocheeRacineCarree () {
             }
           } else {
             this.autoCorrection[i] = {
-              enonce: texte,
+              enonce: `Sans utiliser de calculatrice, encadrer $\\sqrt{${a}}$ entre deux nombres entiers.\\\\`,
               propositions: [
                 {
                   type: 'AMCOpen',
@@ -149,7 +149,7 @@ export default function CalculValeurApprocheeRacineCarree () {
                     texte: '',
                     statut: '',
                     reponse: {
-                      texte: '',
+                      texte: 'Entier inférieur',
                       valeur: reponseG,
                       param: {
                         digits: nombreDeChiffresDansLaPartieEntiere(reponseG),
@@ -166,7 +166,7 @@ export default function CalculValeurApprocheeRacineCarree () {
                     texte: '',
                     statut: '',
                     reponse: {
-                      texte: '',
+                      texte: 'Entier supérieur',
                       valeur: reponseD,
                       param: {
                         digits: nombreDeChiffresDansLaPartieEntiere(reponseD),
