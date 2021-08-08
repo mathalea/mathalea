@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Racine carré d’un carré parfait (calcul mental)'
@@ -10,7 +10,7 @@ export const interactifReady = true
 
 /**
  * Déterminer la racine carrée d'un carré parfait compris entre 4 et 256
- * @author Stéphane Guyon
+ * @author Stéphane Guyon et Guillaume Valmont
  * 4G20-2
  */
 export default function RacineCareeDeCarresParfaits () {
@@ -21,23 +21,43 @@ export default function RacineCareeDeCarresParfaits () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.interactif = true
-  this.consigne = 'Calculer de tête les racines suivantes.'
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
+  this.besoinFormulaireNumerique = ['Racine ou "nombre dont le carré est ..."', 3, '1 : Calculer la racine\n2 : Trouver le nombre dont le carré est...\n3 : Les deux']
+  this.besoinFormulaire2Numerique = ['Maximum', 2, '1 : 144\n2 : 256']
+  this.sup = 1
+  this.sup2 = 2
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
-    for (
-      let i = 0, texte, texteCorr, a, c, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-
-    ) {
-      a = randint(2, 16)
+    let listeRacines = []
+    let listeQuestions = []
+    this.sup = parseInt(this.sup)
+    this.sup2 = parseInt(this.sup2)
+    if (this.sup === 1) {
+      listeQuestions = [1]
+    } else if (this.sup === 2) {
+      listeQuestions = [2]
+    } else if (this.sup === 3) {
+      listeQuestions = [1, 2]
+    }
+    listeQuestions = combinaisonListes(listeQuestions, this.nbQuestions) // pour varier les questions
+    if (this.sup2 === 1) {
+      listeRacines = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    } else {
+      listeRacines = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    }
+    listeRacines = combinaisonListes(listeRacines, this.nbQuestions) // pour avoir une meilleure randomisation que randint
+    for (let i = 0, texte, texteCorr, a, c, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      a = listeRacines[i]
       c = a * a
-      texte = `$\\sqrt{${c}}=$` + ajouteChampTexte(this, i)
+      if (listeQuestions[i] === 1) {
+        texte = `Calcule de tête $\\sqrt{${c}}=$` + ajouteChampTexte(this, i)
+      } else if (listeQuestions[i] === 2) {
+        texte = `Quel est le nombre dont le carré est $${c}$ ?` + ajouteChampTexte(this, i)
+      }
       texteCorr = `$\\sqrt{${c}}=${a}$`
       setReponse(this, i, a)
 
@@ -47,7 +67,6 @@ export default function RacineCareeDeCarresParfaits () {
           this.autoCorrection[i].propositions = [{ texte: `$\\sqrt{${c}}=${a}$`, statut: '' }]
           this.autoCorrection[i].reponse = { valeur: a, param: { digits: 2, decimals: 0, exposantNbChiffres: 0, exposantSigne: false, signe: false } }
         }
-        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -56,5 +75,4 @@ export default function RacineCareeDeCarresParfaits () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }
