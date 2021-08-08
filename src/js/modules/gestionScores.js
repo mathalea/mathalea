@@ -4,6 +4,7 @@
 // Gestion des scores
 // Sébastien LOZANO
 // https://docs.google.com/document/d/17ajVHWDkrSYj2VA_OulWgl9iz8zxBLAkfgeEK6m0OXU/edit?usp=sharing
+// https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Async_await
 // =============================================================================================================================
 
 import { context } from './context.js'
@@ -11,25 +12,58 @@ import { setUrl, setUrlAndGo } from './gestionUrl.js'
 
 export default function gestionScores () {
   // On vérfie s'il faut remettre à zéro le répertoire de stockage des espaces de scores
-  fetch('scoresCleanSpaces.php', {
-    mode: 'same-origin',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
+  // fetch('scoresCleanSpaces.php', {
+  //   mode: 'same-origin',
+  //   credentials: 'same-origin',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   }
+  // })
+  //   .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
+  //   .then(response => {
+  //     if (document.getElementById('scoresInfosTimeLeft')) {
+  //       document.getElementById('scoresInfosTimeLeft').innerHTML = `
+  //       Ce service ne garantit en rien la pérennité des données. Bien au contraire, <b>les données sont actuellement effacées tous les jours</b>. <!--une fois par an.-->
+  //       <ul>
+  //         <li>
+  //           <b>Charge aux utilisateurs du service de les récupérer avant</b>.
+  //           <ul>
+  //             <li>Nous sommes le ${response.currentDate}, <b>le prochain effacement complet est prévu à partir du ${response.deleteNextDate}.</b></li>
+  //             <li>Il reste donc <b>${response.timeLeft} jour(s) avant la prochaine remise à zéro</b> des espaces de scores.</li>
+  //             <li>Le répertoire père est créé depuis ${response.timeSinceCreation} seconde(s).</li>
+  //           </ul>
+  //         </li>
+  //         <li>Si vous découvrez l'enregistrement des scores, c'est mieux de <b>consulter la documentation</b> ! </li>
+  //         <li>Ce module ne fonctionne qu'avec les exercices interactifs, ce qui est loin d'être la majorité des ressources... pour l'instant.</li>
+  //         <li><b>Ce module est encore en cours de développement donc il risque d'y avoir des comportements inattendus.</b></li>
+  //       </ul>
+  //       `
+  //     }
+  //   })
+
+  // On vérfie s'il faut remettre à zéro le répertoire de stockage des espaces de scores
+  async function myCleanSpacesFetch () {
+    const response = await fetch('scoresCleanSpaces.php', {
+      mode: 'same-origin',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP ! statut : ${response.status}`)
     }
-  })
-    .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
-    .then(response => {
-      if (document.getElementById('scoresInfosTimeLeft')) {
-        document.getElementById('scoresInfosTimeLeft').innerHTML = `
+    const myResponseJson = await response.json()
+    if (document.getElementById('scoresInfosTimeLeft')) {
+      document.getElementById('scoresInfosTimeLeft').innerHTML = `
         Ce service ne garantit en rien la pérennité des données. Bien au contraire, <b>les données sont actuellement effacées tous les jours</b>. <!--une fois par an.-->
         <ul>
           <li>    
             <b>Charge aux utilisateurs du service de les récupérer avant</b>.
             <ul>
-              <li>Nous sommes le ${response.currentDate}, <b>le prochain effacement complet est prévu à partir du ${response.deleteNextDate}.</b></li>
-              <li>Il reste donc <b>${response.timeLeft} jour(s) avant la prochaine remise à zéro</b> des espaces de scores.</li>          
-              <li>Le répertoire père est créé depuis ${response.timeSinceCreation} seconde(s).</li>
+              <li>Nous sommes le ${myResponseJson.currentDate}, <b>le prochain effacement complet est prévu à partir du ${myResponseJson.deleteNextDate}.</b></li>
+              <li>Il reste donc <b>${myResponseJson.timeLeft} jour(s) avant la prochaine remise à zéro</b> des espaces de scores.</li>          
+              <li>Le répertoire père est créé depuis ${myResponseJson.timeSinceCreation} seconde(s).</li>
             </ul>
           </li>
           <li>Si vous découvrez l'enregistrement des scores, c'est mieux de <b>consulter la documentation</b> ! </li>
@@ -37,7 +71,12 @@ export default function gestionScores () {
           <li><b>Ce module est encore en cours de développement donc il risque d'y avoir des comportements inattendus.</b></li>
         </ul>
         `
-      }
+    }
+  }
+
+  myCleanSpacesFetch()
+    .catch(e => {
+      console.log('/!\\ scoresCleanScpaces.php /!\\ Pb avec l\'opération de récupération sûrement en dev local sans serveur PHP, message d\'erreur => ' + e.message)
     })
 
   // Deconnexion scores
