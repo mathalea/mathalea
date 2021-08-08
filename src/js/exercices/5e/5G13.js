@@ -40,7 +40,7 @@ export default function ConservationSymetrie () {
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let objetsEnonceEtCorr, objetsEnonceOnly, objetsCorrectionOnly, paramsEnonce, paramsCorrection
-    for (let i = 0, texte, texteCorr, d, d1, A, B, C, imageA, imageB, imageC, xmin, xmax, ymin, ymax, figureRetournee, O, poly, imPoly, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, d, d1, A, B, C, imageA, imageB, imageC, figureRetournee, O, poly, imPoly, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objetsEnonceOnly = []
       objetsCorrectionOnly = []
       objetsEnonceEtCorr = []
@@ -117,10 +117,10 @@ export default function ConservationSymetrie () {
       } else if (listeTypeDeQuestions[i] === 'parallelisme') {
         objetsCorrectionOnly.push(tracePoint(imageA, imageB, imageC))
       }
-      xmin = Math.min(A.x, B.x, C.x, imageA.x, imageB.x, imageC.x) - 2
-      xmax = Math.max(A.x, B.x, C.x, imageA.x, imageB.x, imageC.x) + 2
-      ymin = Math.min(A.y, B.y, C.y, imageA.y, imageB.y, imageC.y) - 2
-      ymax = Math.max(A.y, B.y, C.y, imageA.y, imageB.y, imageC.y) + 2
+      const xmin = Math.min(A.x, B.x, C.x, imageA.x, imageB.x, imageC.x) - 2
+      const xmax = Math.max(A.x, B.x, C.x, imageA.x, imageB.x, imageC.x) + 2
+      const ymin = Math.min(A.y, B.y, C.y, imageA.y, imageB.y, imageC.y) - 2
+      const ymax = Math.max(A.y, B.y, C.y, imageA.y, imageB.y, imageC.y) + 2
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
       paramsEnonce = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1 }
       // paramètres de la fenêtre Mathalea2d pour la correction

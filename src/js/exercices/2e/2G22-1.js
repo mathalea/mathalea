@@ -19,7 +19,7 @@ export default function RepresenterUnVecteur () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
+  
     for (let i = 0, r, posLabelA, posLabelB, labelA, labelB, A, B, H, h1, h2, O, I, J, j, t, k, l, s, o, ux, uy, xA, yA, xB, yB, AB, nomi, nomj, nomAB, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       xA = randint(2, 8) * choice([-1, 1])
       yA = randint(2, 8) * choice([-1, 1])
@@ -47,7 +47,7 @@ export default function RepresenterUnVecteur () {
       labelB = latexParPoint('B', posLabelB, 'red', 10, 12, '')
 
       H = point(xA + ux, yA)
-      s = vecteur(A, B).representant(A) // On trace en rouge [AB]
+      s = AB.representant(A) // On trace en rouge [AB]
       h1 = segment(A, H, 'blue')
       h2 = segment(B, H, 'green')
       O = point(0, 0)// On définit et on trace le point O

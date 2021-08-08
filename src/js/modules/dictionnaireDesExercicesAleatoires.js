@@ -55,6 +55,20 @@ export default {
     "interactifReady": false,
     "name": "2F10-2"
   },
+  "2F22-1": {
+    "titre": "Lecture graphique d’une fonction affine",
+    "url": "/exercices/2e/2F22-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F22-1"
+  },
+  "2F22": {
+    "titre": "Représentation graphique d’une fonction affine",
+    "url": "/exercices/2e/2F22.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F22"
+  },
   "2F32": {
     "titre": "Lecture graphique",
     "url": "/exercices/2e/2F32.js",
@@ -65,6 +79,13 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "2F32"
+  },
+  "2G13": {
+    "titre": "Déterminer les coordonnées d’un vecteur.",
+    "url": "/exercices/2e/2G13.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G13"
   },
   "2G22-1": {
     "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
@@ -3543,20 +3564,6 @@ export default {
     "interactifType": "mathLive",
     "name": "beta240-1"
   },
-  "beta2F22-1": {
-    "titre": "Lecture graphique d’une fonction affine",
-    "url": "/exercices/beta/beta2F22-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F22-1"
-  },
-  "beta2F22": {
-    "titre": "Représentation graphique d’une fonction affine",
-    "url": "/exercices/beta/beta2F22.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F22"
-  },
   "beta2F30": {
     "titre": "Reconnaître une fonction affine.",
     "url": "/exercices/beta/beta2F30.js",
@@ -3570,20 +3577,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2F31"
-  },
-  "beta2G13": {
-    "titre": "Déterminer les coordonnées d’un vecteur.",
-    "url": "/exercices/beta/beta2G13.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2G13"
-  },
-  "beta2G14": {
-    "titre": "Déterminer les coordonnées d’un vecteur.",
-    "url": "/exercices/beta/beta2G14.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2G14"
   },
   "beta2G31-5": {
     "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",

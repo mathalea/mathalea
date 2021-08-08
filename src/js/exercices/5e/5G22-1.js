@@ -40,7 +40,7 @@ export default function ProprietesMediatrice () {
     }
     let A, B, C, D, segmentAB, segmentAC, segmentBC, mediatriceAB, affLongueurAC, affLongueurBC
     let objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection
-    for (let i = 0, texte, texteCorr, xmin, xmax, ymin, ymax, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Construction des objets
       objetsEnonce = []
       objetsCorrection = []
@@ -114,10 +114,10 @@ export default function ProprietesMediatrice () {
       objetsEnonce.forEach(obj => {
         objetsCorrection.push(obj)
       })
-      xmin = Math.min(A.x, B.x, C.x) - 2
-      xmax = Math.max(A.x, B.x, C.x) + 2
-      ymin = Math.min(A.y, B.y, C.y) - 2
-      ymax = Math.max(A.y, B.y, C.y) + 2
+      const xmin = Math.min(A.x, B.x, C.x) - 2
+      const xmax = Math.max(A.x, B.x, C.x) + 2
+      const ymin = Math.min(A.y, B.y, C.y) - 2
+      const ymax = Math.max(A.y, B.y, C.y) + 2
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
       paramsEnonce = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1 }
       // paramètres de la fenêtre Mathalea2d pour la correction

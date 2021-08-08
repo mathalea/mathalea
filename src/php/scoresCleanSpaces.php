@@ -54,7 +54,7 @@ function mailUrlToVips($pathToJson) {
   $vips = json_decode($data)->vips;
   // On envoie un mail à chaque vip
   $email_objet = "MATHALEA - Lien vip vers espace scores"; // email object line
-  $email_from = "EmailDuSebLOZ@loz.fr";
+  $email_from = "sebastien.lozano@ac-nancy-metz.fr";
   foreach ($vips as $vip) {
     if ($vip->isEmailOk) {
       //Création du boundary (frontière dans l'email genere
