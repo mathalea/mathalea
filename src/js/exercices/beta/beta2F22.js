@@ -99,9 +99,10 @@ export default function representerfonctionaffine () {
         c = droite(a / d, -1, b)
         c.color = 'red'
         c.epaisseur = 2
-
-        texte = `${a} et ${d}Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
-
+        texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x`
+        if (b !== 0) {
+          texte += ` ${ecritureAlgebrique(b)}$ <br>`
+        }
         texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
         texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
         texteCorr += `Comme $f(0)=${b}$, on a : $A(0;${b}) \\in \\mathcal{C_f}$.<br>`
