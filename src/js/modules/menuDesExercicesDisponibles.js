@@ -31,7 +31,6 @@ if (getVueFromUrl() === 'amc') {
     if (props.amcReady) dictionnaireDesExercicesAMC[id] = props
   })
   listeDesExercicesDisponibles = tridictionnaire(dictionnaireDesExercicesAMC)
-  console.log(dictionnaireDesExercicesAMC)
 } else {
   listeDesExercicesDisponibles = tridictionnaire(dictionnaireDesExercices)
 }

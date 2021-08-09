@@ -2527,7 +2527,10 @@ export function nombreDeChiffresDansLaPartieDecimale (nb) {
     return 0
   }
 }
-
+/**
+ * Renvoie le nombre de chiffres dans la partie entière
+ * @author ?
+ */
 export function nombreDeChiffresDansLaPartieEntiere (nb) {
   let nombre
   if (nb < 0) {
@@ -2541,7 +2544,13 @@ export function nombreDeChiffresDansLaPartieEntiere (nb) {
     return String(nombre).length
   }
 }
-
+/**
+ * Renvoie le nombre de chiffres d'un nombre décimal
+ * @author Jean-Claude Lhote
+ */
+export function nombreDeChiffresDe (nb) {
+  return nombreDeChiffresDansLaPartieDecimale(nb) + nombreDeChiffresDansLaPartieEntiere(nb)
+}
 /**
  * Retourne la string LaTeX de la fraction
  * @param num
@@ -7360,7 +7369,7 @@ export function exportQcmAmc (exercice, idExo) {
         break
     }
   }
-  return [texQr, ref, autoCorrection.length, titre]
+  return [texQr, ref, exercice.nbQuestions, titre]
 }
 
 /**
