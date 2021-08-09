@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
 import { repere2, droite, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 
@@ -25,6 +25,7 @@ export default function representerfonctionaffine () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.sup = parseInt(this.sup)
     // let typesDeQuestionsDisponibles = []
     // typesDeQuestionsDisponibles = [1, 2]// On complète selon le nb de cas dans l'exo (switch)
 
@@ -83,7 +84,7 @@ export default function representerfonctionaffine () {
       if (this.sup === 2) { // cas du coeff directeur fractionnaire
         a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
         b = randint(-5, 5) // ordonnée à l'origine
-        d = randint(2, 5, [a, 2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
+        d = randint(2, 5, [abs(a), 1 / 2 * abs(a), 1 / 3 * abs(a), 1 / 4 * abs(a)]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
         if (a === 0 && b === 0) {
           a = 1
           d = 3
@@ -99,7 +100,7 @@ export default function representerfonctionaffine () {
         c.color = 'red'
         c.epaisseur = 2
 
-        texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
+        texte = `${a} et ${d}Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
 
         texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
         texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
