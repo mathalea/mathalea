@@ -310,8 +310,12 @@ export default {
   "3A11-1": {
     "titre": "Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11",
     "url": "/exercices/3e/3A11-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "3A11-1"
   },
   "3A11-2": {
@@ -331,8 +335,12 @@ export default {
   "3A11": {
     "titre": "Primalité ou pas",
     "url": "/exercices/3e/3A11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "3A11"
   },
   "3A12": {
@@ -375,8 +383,12 @@ export default {
   "3F12-3": {
     "titre": "Compléter un tableau de valeurs",
     "url": "/exercices/3e/3F12-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F12-3"
   },
   "3F12-4": {
@@ -1099,7 +1111,7 @@ export default {
     "name": "4G20-1"
   },
   "4G20-2": {
-    "titre": "Racine carré d’un carré parfait (calcul mental)",
+    "titre": "Racine carrée d’un carré parfait (calcul mental)",
     "url": "/exercices/4e/4G20-2.js",
     "amcReady": true,
     "amcType": {
@@ -1123,6 +1135,17 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "4G20-5"
+  },
+  "4G20-6": {
+    "titre": "Encadrer une racine carrée et en donner un arrondi",
+    "url": "/exercices/4e/4G20-6.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4G20-6"
   },
   "4G20": {
     "titre": "Calculer une longueur avec le théorème de Pythagore",
@@ -2037,12 +2060,33 @@ export default {
     "interactifType": "numerique",
     "name": "5R22"
   },
+  "5S10": {
+    "titre": "Organiser des données dans un tableau",
+    "url": "/exercices/5e/5S10.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5S10"
+  },
+  "5S11": {
+    "titre": "Lire un diagramme en barre",
+    "url": "/exercices/5e/5S11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5S11"
+  },
   "5S12": {
     "titre": "Représenter des données par un diagramme",
     "url": "/exercices/5e/5S12.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "5S12"
+  },
+  "5S13-1": {
+    "titre": "Calculer des effectifs et des fréquences",
+    "url": "/exercices/5e/5S13-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5S13-1"
   },
   "5S13": {
     "titre": "Calculer des fréquences",
