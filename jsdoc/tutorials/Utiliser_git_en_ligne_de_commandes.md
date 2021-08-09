@@ -1,5 +1,5 @@
 
-## Un peu de vocabulaire
+## <a id="1" href="#1">#</a> Un peu de vocabulaire
 * Le dépôt principal sur lequel on se base tous se nomme **master**
 * Si on veut participer au développement, on copie le **master** et on se crée sa propre **branche** que nous avons décidé de nommer par convention NomDeLaPersonne-ReferenceDeLExercice-PrecisionEventuelle
 * Une fois nos fichiers sauvegardés localement, on peut faire une photo de tout notre dossier mathalea par le biais de ce qu'on appelle un **commit** (ce n'est pas aussi gros que ça en a l'air, en fait le **commit** ne liste que les différences par rapport à une version précédente et est par conséquent très léger !)
@@ -12,9 +12,9 @@ GitKraken permet d'ailleurs de très efficacement visualiser ces différentes é
 
 ![](img/Git-1.png)
 
-## Quelques situations usuelles
+## <a id="2" href="#2">#</a> Quelques situations usuelles
 
-#### Je suis où là ?
+#### <a id="3" href="#3">#</a> Je suis où là ?
 ```shell
 # Affiche l'ensemble des branches locales avec une étoile et de la couleur sur la branche actuelle
 git branch
@@ -23,7 +23,7 @@ git branch
 # Appuyer sur "Entrée" fait avancer d'une ligne
 # Si on veut "quitter", il faut alors appuyer sur la touche "Q"
 ```
-#### Je m'appelle John et je veux m'atteler à la création de l'exercice 5P12 qui portera sur les ratios.
+#### <a id="4" href="#4">#</a> Je m'appelle John et je veux m'atteler à la création de l'exercice 5P12 qui portera sur les ratios.
 ```shell
 # Je commence par me placer sur le master
 git checkout master
@@ -50,7 +50,7 @@ git branch -d John-5P12-Ratios
 # Ou sinon il était tellement nul que je décide de le bazarder sans l'intégrer à quoi que ce soit
 git branch -D John-5P12-Ratios
 ```
-#### J'ai créé ma branche il y a un moment, j'aimerais la mettre à jour avec les dernières nouveautés du master, comment faire ?
+#### <a id="5" href="#5">#</a> J'ai créé ma branche il y a un moment, j'aimerais la mettre à jour avec les dernières nouveautés du master, comment faire ?
 ```shell
 # Je commence par me placer sur le master
 git checkout master
@@ -73,11 +73,11 @@ git merge master
 # Avec un peu de chance, il n'y a pas de conflit.
 # Si j'ai moins de chance, il y aura un conflit. Mais j'ai quand même de la chance ! En bas de cette page est expliqué comment régler un conflit ! :D
 ```
-#### Quelqu'un m'a filé un coup de main et a fait des modifications sur ma branche, comment la mettre à jour ?
+#### <a id="6" href="#6">#</a> Quelqu'un m'a filé un coup de main et a fait des modifications sur ma branche, comment la mettre à jour ?
 ```shell
 git pull origin nomDeLaBranche
 ```
-#### OUPS j'ai commit sur master au lieu de le faire sur ma branche !
+#### <a id="7" href="#7">#</a> OUPS j'ai commit sur master au lieu de le faire sur ma branche !
 ```shell
 # Pas de panique, je copie ce que j'ai fait dans une nouvelle branche
 git checkout -b nouvelleBranche
@@ -88,7 +88,7 @@ git checkout master
 # Je le reset en récupérant la version présente sur GitHub
  git reset origin/master
 ```
-#### Je veux aller sur une autre branche mais je ne suis pas encore prêt à **commit** mon travail sur maBrancheEnCoursDeTravaux
+#### <a id="8" href="#8">#</a> Je veux aller sur une autre branche mais je ne suis pas encore prêt à **commit** mon travail sur maBrancheEnCoursDeTravaux
 ```shell
 # Je peux mettre mon travail de côté grâce à
 git stash
@@ -109,7 +109,7 @@ git stash pop
 # Pour voir la liste des choses en remise, je peux faire
 git stash list
 ```
-#### HELP ! J'ai supprimé ma branche et je n'arrive plus à retrouver mes fichiers !
+#### <a id="9" href="#9">#</a> HELP ! J'ai supprimé ma branche et je n'arrive plus à retrouver mes fichiers !
 ```shell
 # Pas de panique, la commande suivante va ressortir tout l'historique de ce que tu as pu faire avec git
 git reflog --no-abbrev
@@ -120,7 +120,7 @@ git checkout [sha]
 # Par contre, pour éviter les problèmes, ne travailles pas à partir de cette ancienne branche,
 # copie plutôt les fichiers qui t'intéressent à l'aide de l'explorateur de ton système d'exploitation et crée une nouvelle branche à partir du master
 ```
-#### HELP ! J'ai fait n'importe quoi avec ma branche et plus rien ne marche !
+#### <a id="10" href="#10">#</a> HELP ! J'ai fait n'importe quoi avec ma branche et plus rien ne marche !
 ```shell
 # On va te refaire une belle branche toute propre :
 
@@ -136,7 +136,7 @@ git checkout -b nouvelleBranche
 # Supprime la branche toute cassée
 git branch -D brancheTouteCassee
 ```
-#### Anticiper un conflit de merge en local
+#### <a id="11" href="#11">#</a> Anticiper un conflit de merge en local
 ```shell
 # dans maBranche, on vérifie que tout est clean
 git status
@@ -153,7 +153,7 @@ git checkout maBranche
 # et on efface le test
 git branch -D tmp
 ```
-## <a id="Conflit_de_merge"></a>J'ai tenté de merge, mais ça ne se passe pas bien :'( Comment faire ?
+##  <a id="12" href="#12">#</a>J'ai tenté de merge, mais ça ne se passe pas bien :'( Comment faire ?
 Avant de passer aux choses sérieuses, si vous avez ce message :
 
 ![](img/Conflit-0.png)
@@ -166,7 +166,7 @@ Maintenant, les choses sérieuses :
 ![](img/Conflit-3.png)
 ![](img/Conflit-4.png)
 ![](img/Conflit-5.png)
-#### Pour aller plus loin
+#### <a id="13" href="#13">#</a> Pour aller plus loin
 * un [cours interactif en français](https://learngitbranching.js.org/?locale=fr_FR)
 * de [bon tutoriaux en français](https://fr.atlassian.com/git/tutorials)
 * Des articles de Christophe Porteneuve [généralités](https://delicious-insights.com/fr/articles/git-workflows-generality/), [git-log](https://delicious-insights.com/fr/articles/git-log/), [hooks](https://delicious-insights.com/fr/articles/git-hooks-commit/)

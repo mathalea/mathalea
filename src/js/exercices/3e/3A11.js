@@ -1,14 +1,19 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, nombreAvecEspace, texteEnCouleurEtGras, modalPdf, modalVideo, cribleEratostheneN, warnMessage } from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Primalité ou pas'
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMono'
 
 /**
  * 3A11 justifier la non primalité réinvestissement des critères de divisibilité
  * Nombres à 3 ou 4 chiffres, un multiple de 2, de 3, de 5, de 7, de 11, sous forme d'un produit de deux nombres premiers inférieurs à 100
  * et un nombre premier inferieur à 529
  * dans cet exo on n'utilise pas les critères par 7 et 11
- * @author Sébastien Lozano
+ * @author Sébastien Lozano + Jean-Claude Lhote pour l'interactivité.
  */
 export default function PremierOuPas () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -30,6 +35,7 @@ export default function PremierOuPas () {
   // this.nbQuestions = 5;
   // }
   this.listePackages = 'bclogo'
+  const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
 
   this.nouvelleVersion = function () {
     let typesDeQuestions
@@ -58,15 +64,15 @@ export default function PremierOuPas () {
     // let typesDeQuestionsDisponibles = [1];
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    let stringRappel = 'Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>' + cribleEratostheneN(100)[0]
-    for (let k = 1; k < cribleEratostheneN(100).length; k++) {
-      stringRappel += ', ' + cribleEratostheneN(100)[k]
+    let stringRappel = 'Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>' + prems[0]
+    for (let k = 1; k < 25; k++) {
+      stringRappel += ', ' + prems[k]
     };
     stringRappel += '.'
 
     this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, r1, r2, prime1, prime2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
       let N // le nombre de la question
@@ -81,13 +87,14 @@ export default function PremierOuPas () {
 
       let evenSum // pour la somme des chiffres de rang impair
       let oddSum // pour la somme des chiffres de rang pair
-
+      let bonneReponse
       switch (typesDeQuestions) {
         case 1: // nombre pair
           N = 2 * randint(51, 4999)
           texte = nombreAvecEspace(N)
           texteCorr = `Comme ${nombreAvecEspace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, `
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          bonneReponse = 'non'
           break
         case 2: // Multiple de 3
           sum = 0 // pour la valeur de la somme;
@@ -104,6 +111,7 @@ export default function PremierOuPas () {
           };
           texteCorr += ` = ${sum} est un multiple de 3 donc ${nombreAvecEspace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même, `
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          bonneReponse = 'non'
           break
         case 3: // Multiple de 5
           N = 5 * randint(20, 1999)
@@ -111,6 +119,7 @@ export default function PremierOuPas () {
           texteCorr = `Comme le dernier chiffre de ${nombreAvecEspace(N)} est un ${N.toString().charAt(N.toString().length - 1)} alors ${nombreAvecEspace(N)} est divisible par 5, `
           texteCorr += 'il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même, '
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          bonneReponse = 'non'
           break
         case 4: // Multiple de 7
           N = 7 * randint(15, 1428)
@@ -132,6 +141,7 @@ export default function PremierOuPas () {
           texteCorr += `Comme ${N1.toString().substring(0, N1longueur - 1)} + 5$\\times$${N1.toString().charAt(N1longueur - 1)} = ${sum1} est un multiple de 7 alors 7 divise ${N} aussi `
           texteCorr += 'qui admet donc au moins trois diviseurs : 1, 7 et lui-même, '
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          bonneReponse = 'non'
           break
         case 5: // multiple de 11
           N = 11 * randint(10, 909)
@@ -189,14 +199,15 @@ export default function PremierOuPas () {
           texteCorr += '<br>'
           texteCorr += ` cela signifie que ${nombreAvecEspace(N)} est divisible par 11, il admet donc au moins trois diviseurs qui sont 1, 11 et lui-même,`
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          bonneReponse = 'non'
           break
         case 6: // produit de deux nombres premiers inférieurs à 100
           // rang du premier facteur premier
-          const r1 = randint(0, cribleEratostheneN(100).length - 1)
+          r1 = randint(0, 24)
           // rang du second facteur premier
-          const r2 = randint(0, cribleEratostheneN(100).length - 1)
-          const prime1 = cribleEratostheneN(100)[r1] // on tire un nombre premier inférieur à 100, il n'y en a que 25!
-          const prime2 = cribleEratostheneN(100)[r2] // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
+          r2 = randint(0, 24)
+          prime1 = prems[r1] // on tire un nombre premier inférieur à 100, il n'y en a que 25!
+          prime2 = prems[r2] // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
           N = prime1 + '$\\times$' + prime2
           texte = N
           texteCorr = `${N} est le produit de ${prime1} et de ${prime2}, il admet donc au moins `
@@ -206,13 +217,19 @@ export default function PremierOuPas () {
             texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)}, `
           };
           texteCorr += texteEnCouleurEtGras(`${N} = ` + nombreAvecEspace(prime1 * prime2) + ' n\'est donc pas premier.')
+          bonneReponse = 'non'
           break
         case 7: // nombre premier inférieur à 529
           // rang du nombre premier choisi
-          r = randint(0, cribleEratostheneN(529).length - 1)
-          N = cribleEratostheneN(529)[r] // on choisit un nombre premier inférieur à 529
+          r = randint(0, prems.length - 1)
+          N = prems[r] // on choisit un nombre premier inférieur à 529
           texte = N + ''
-          tabPremiersATester = cribleEratostheneN(Math.trunc(Math.sqrt(N)))
+          r = 0
+          tabPremiersATester = []
+          while (prems[r] ** 2 < N) {
+            tabPremiersATester.push(prems[r])
+            r++
+          }
           // texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
           texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `
           texteCorr += tabPremiersATester[0]
@@ -224,13 +241,19 @@ export default function PremierOuPas () {
           texteCorr += ', le reste n\'est jamais nul.'
           // texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` est donc un nombre premier.`);
           texteCorr += '<br>' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
+          bonneReponse = 'oui'
           break
         case 8: // nombre premier inférieur à 100 pour permettre les tests de divisibilité sans calculatrice
           // rang du nombre premier choisi
-          r = randint(0, cribleEratostheneN(100).length - 1)
-          N = cribleEratostheneN(100)[r] // on choisit un nombre premier inférieur à 529
+          r = randint(0, 24)
+          N = prems[r] // on choisit un nombre premier inférieur à 100
           texte = N + ''
-          tabPremiersATester = cribleEratostheneN(Math.trunc(Math.sqrt(N)))
+          r = 0
+          tabPremiersATester = []
+          while (prems[r] ** 2 < N) {
+            tabPremiersATester.push(prems[r])
+            r++
+          }
           // texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
           texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `
           texteCorr += tabPremiersATester[0]
@@ -242,9 +265,27 @@ export default function PremierOuPas () {
           texteCorr += ', le reste n\'est jamais nul.'
           // texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` est donc un nombre premier.`);
           texteCorr += '<br>' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
+          bonneReponse = 'oui'
           break
       };
-
+      if (this.interactif || context.isAmc) {
+        this.autoCorrection[i] = {}
+        this.autoCorrection[i].options = { ordered: true }
+        this.autoCorrection[i].enonce = `${texte}\n`
+        this.autoCorrection[i].propositions = [
+          {
+            texte: 'est premier',
+            statut: bonneReponse !== 'non'
+          },
+          {
+            texte: 'n\'est pas premier',
+            statut: bonneReponse !== 'oui'
+          }
+        ]
+        if (this.interactif) {
+          texte += propositionsQcm(this, i).texte
+        }
+      }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
