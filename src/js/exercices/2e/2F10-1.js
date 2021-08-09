@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
 import { repere2, droite, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 
@@ -27,6 +27,7 @@ export default function representerfonctionaffine () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []
+    this.sup = parseInt(this.sup)
     // let typesDeQuestionsDisponibles = []
     // typesDeQuestionsDisponibles = [1, 2]// On complète selon le nb de cas dans l'exo (switch)
 
@@ -90,7 +91,11 @@ export default function representerfonctionaffine () {
       if (this.sup === 2) { // cas du coeff directeur fractionnaire
         a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
         b = randint(-5, 5) // ordonnée à l'origine
+<<<<<<< HEAD:src/js/exercices/2e/2F10-1.js
         d = randint(2, 5, [a, 2 * a, -a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
+=======
+        d = randint(2, 5, [abs(a), 1 / 2 * abs(a), 1 / 3 * abs(a), 1 / 4 * abs(a)]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
+>>>>>>> 2F22-terminé:src/js/exercices/beta/beta2F22.js
         if (a === 0 && b === 0) {
           a = 1
           d = 3
@@ -110,9 +115,16 @@ export default function representerfonctionaffine () {
         c = droite(a / d, -1, b)
         c.color = 'red'
         c.epaisseur = 2
+<<<<<<< HEAD:src/js/exercices/2e/2F10-1.js
 
         texte = `Représenter graphiquement la fonction affinne $f$ définie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
 
+=======
+        texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x`
+        if (b !== 0) {
+          texte += ` ${ecritureAlgebrique(b)}$ <br>`
+        }
+>>>>>>> 2F22-terminé:src/js/exercices/beta/beta2F22.js
         texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
         texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
         texteCorr += `Comme $f(0)=${b}$, on a : $A(0;${b}) \\in \\mathcal{C_f}$.<br>`
@@ -147,5 +159,5 @@ export default function representerfonctionaffine () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
+  this.besoinFormulaireNumerique = ['Valeurs de a :', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
 }
