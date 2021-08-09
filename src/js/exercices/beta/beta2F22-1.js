@@ -9,6 +9,7 @@ export const titre = 'Lecture graphique d’une fonction affine'
 */
 export default function lecturefonctionaffine () {
   Exercice.call(this)
+  this.sup = parseInt(this.sup)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 3// On complète le nb de questions
@@ -60,12 +61,27 @@ export default function lecturefonctionaffine () {
         texteCorr += ' On peut en déduire que l\'expression de la fonction $f$ est'
 
         texteCorr += `$f(x)=${reduireAxPlusB(a, b)}$`
+        if (a > 0) {
+          s1 = segment(0, b - a, -d, b - a, 'blue')
+          s1.epaisseur = 4
+          s2 = segment(0, b - a, 0, b, 'blue')
+        }
+        if (a < 0) {
+          s1 = segment(0, b, d, b, 'blue')
+          s1.epaisseur = 4
+          s2 = segment(d, b - abs(a), d, b, 'blue')
+        }
+        s2.epaisseur = 4
+        const A = point(0, b, 'A')
+        t = tracePoint(A, 'red') // Variable qui trace les points avec une croix
+        l = labelPoint(A)// Variable qui trace les nom s A et B
+        l.color = 'red'
         texteCorr += mathalea2d({
           xmin: -6,
           ymin: -6,
           xmax: 6,
           ymax: 6
-        }, r, f, c)// On trace le graphique
+        }, r, f, c, s1, s2, t, l)// On trace le graphique
       }
       if (this.sup === 2) { // cas du coeff directeur fractionnaire
         a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
