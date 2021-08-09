@@ -332,18 +332,18 @@ function questionEchelle () { // X cm sur une carte correspond à x km dans la r
   const distanceReelQ2 = texNombrec(calcul(rapport[alea2] * distanceReel))
   const prenoms = [prenomF(), prenomM()]
   texte = `${numAlpha(0)} Sur une carte sur laquelle ${distanceCarte} cm représente ${distanceReel} km dans la réalité, <br>
-${prenoms[0]} mesure sont trajet, elle trouve une distance de ${distanceCarte2} cm. <br>` +
+${prenoms[0]} mesure son trajet, elle trouve une distance de ${distanceCarte2} cm. <br>` +
 'A quelle distance cela correspond dans la réalité ? <br><br>'
   texteCorr = `${numAlpha(0)} ${distanceCarte2} cm c'est ${texteEnCouleur(texNombrec(rapport[alea1]))} fois ${distanceCarte} cm <br>
 Dans la réalité, ${distanceCarte} cm correspond à ${texteEnCouleur(distanceReel, 'blue')} km donc <br>` +
 `  ${distanceCarte2} cm va correspondre à ${texteEnCouleur(texNombrec(rapport[alea1]))} fois ${texteEnCouleur(distanceReel, 'blue')} km  <br>` +
 `${texteEnCouleur(texNombrec(rapport[alea1]))} $\\times$ ${texteEnCouleur(distanceReel, 'blue')} km = ${texNombrec(calcul(rapport[alea1] * distanceReel))} km <br>` +
 texteEnCouleurEtGras(`Conclusion : le trajet de ${prenoms[0]} est de ${texNombrec(calcul(rapport[alea1] * distanceReel))} km.`, 'black') + '<br><br>'
-  texte += `${numAlpha(1)} Deux villes sont distantes de ${texNombrec(distanceReelQ2)} km. <br>` +
+  texte += `${numAlpha(1)} Deux villes sont distantes de ${distanceReelQ2} km. <br>` +
 'Quelle distance va-t-on mesurer sur la carte entre ces deux villes ?'
-  texteCorr += `${numAlpha(1)} ${texNombrec(distanceReelQ2)} km c'est ${texteEnCouleur(texNombrec(rapport[alea2]))} fois ${distanceReel} km.
+  texteCorr += `${numAlpha(1)} ${distanceReelQ2} km c'est ${texteEnCouleur(texNombrec(rapport[alea2]))} fois ${distanceReel} km.
 Or ${distanceReel} km est représenté par ${texteEnCouleur(distanceCarte, 'blue')} cm sur la carte. <br>` +
-`Donc ${texNombrec(distanceReelQ2)} km est représenté par ${texteEnCouleur(texNombrec(rapport[alea2]))} fois ${texteEnCouleur(distanceCarte, 'blue')} cm sur la carte <br>` +
+`Donc ${distanceReelQ2} km est représenté par ${texteEnCouleur(texNombrec(rapport[alea2]))} fois ${texteEnCouleur(distanceCarte, 'blue')} cm sur la carte <br>` +
 `${texteEnCouleur(texNombrec(rapport[alea2]))} $\\times$ ${texteEnCouleur(distanceCarte, 'blue')} cm = ${texNombrec(calcul(rapport[alea2] * distanceCarte))} cm <br>` +
 texteEnCouleurEtGras(`Conclusion : Les deux villes sont séparées de ${texNombrec(calcul(rapport[alea2] * distanceCarte))} cm sur la carte.`, 'black') + '<br><br>'
   return {
