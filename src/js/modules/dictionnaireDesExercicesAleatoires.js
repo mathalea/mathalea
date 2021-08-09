@@ -3286,6 +3286,7 @@ export default {
     "interactifReady": true,
     "interactifType": "numerique",
     "name": "CM000"
+<<<<<<< HEAD
   },
   "CM001": {
     "titre": "Tables de multiplication",
@@ -3312,6 +3313,39 @@ export default {
   "CM003": {
     "titre": "Tables de multiplications et de divisions",
     "url": "/exercices/CM/CM003.js",
+=======
+  },
+  "CM001": {
+    "titre": "Tables de multiplication",
+    "url": "/exercices/CM/CM001.js",
+>>>>>>> 2F22-1-nouvel-exo
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+<<<<<<< HEAD
+    "interactifType": "mathLive",
+    "name": "CM003"
+  },
+=======
+    "interactifType": "numerique",
+    "name": "CM001"
+  },
+  "CM002": {
+    "titre": "Tables de divisions",
+    "url": "/exercices/CM/CM002.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM002"
+  },
+  "CM003": {
+    "titre": "Tables de multiplications et de divisions",
+    "url": "/exercices/CM/CM003.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
@@ -3320,6 +3354,7 @@ export default {
     "interactifType": "mathLive",
     "name": "CM003"
   },
+>>>>>>> 2F22-1-nouvel-exo
   "CM004": {
     "titre": "Les quatre opérations",
     "url": "/exercices/CM/CM004.js",
@@ -3492,6 +3527,7 @@ export default {
     "amcType": {
       "text": "AMCOpen"
     },
+<<<<<<< HEAD
     "interactifReady": false,
     "name": "CM019"
   },
@@ -4025,6 +4061,450 @@ export default {
     "url": "/exercices/c3/c3N10.js",
     "amcReady": false,
     "interactifReady": false,
+=======
+    "interactifReady": false,
+    "name": "CM019"
+  },
+  "CM020": {
+    "titre": "Générateur de compte est bon version semi-aléatoire",
+    "url": "/exercices/CM/CM020.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "CM020"
+  },
+  "CM021": {
+    "titre": "Le compte est bon original",
+    "url": "/exercices/CM/CM021.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "CM021"
+  },
+  "c3C10-1": {
+    "titre": "Tables de multiplications",
+    "url": "/exercices/c3/c3C10-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "c3C10-1"
+  },
+  "PEA11-1": {
+    "titre": "Passer de la base 12 ou 16 à la base 10 et inversement",
+    "url": "/exercices/PE/PEA11-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "PEA11-1"
+  },
+  "PEA11": {
+    "titre": "Passer de la base 10 à une autre base et inversement",
+    "url": "/exercices/PE/PEA11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "PEA11"
+  },
+  "P003": {
+    "titre": "Tracer des droites graduées",
+    "url": "/exercices/Profs/P003.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P003"
+  },
+  "P004": {
+    "titre": "Droites graduées avec zoom",
+    "url": "/exercices/Profs/P004.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P004"
+  },
+  "P005": {
+    "titre": "Grilles décimales",
+    "url": "/exercices/Profs/P005.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P005"
+  },
+  "P006": {
+    "titre": "Placer un nombre décimal avec des zooms successifs",
+    "url": "/exercices/Profs/P006.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P006"
+  },
+  "P007": {
+    "titre": "Fabriquer des pavages pour travailler les transformations",
+    "url": "/exercices/Profs/P007.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P007"
+  },
+  "P008": {
+    "titre": "Opérations posées",
+    "url": "/exercices/Profs/P008.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P008"
+  },
+  "P009": {
+    "titre": "Simulation d’expériences aléatoires",
+    "url": "/exercices/Profs/P009.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P009"
+  },
+  "P010": {
+    "titre": "étude de fonction de degré 3",
+    "url": "/exercices/Profs/P010.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P010"
+  },
+  "P011": {
+    "titre": "Construis mon triangle",
+    "url": "/exercices/Profs/P011.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P011"
+  },
+  "P012": {
+    "titre": "Faire des camemberts pour travailler les fractions",
+    "url": "/exercices/Profs/P012.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P012"
+  },
+  "beta2F22-1": {
+    "titre": "Représentation graphique d’une fonction affine",
+    "url": "/exercices/beta/beta2F22-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F22-1"
+  },
+  "beta2F22": {
+    "titre": "Représentation graphique d’une fonction affine",
+    "url": "/exercices/beta/beta2F22.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F22"
+  },
+  "beta2F30": {
+    "titre": "Reconnaître une fonction affine.",
+    "url": "/exercices/beta/beta2F30.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F30"
+  },
+  "beta2G13": {
+    "titre": "Déterminer les coordonnées d’un vecteur.",
+    "url": "/exercices/beta/beta2G13.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2G13"
+  },
+  "beta2G14": {
+    "titre": "Déterminer les coordonnées d’un vecteur.",
+    "url": "/exercices/beta/beta2G14.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2G14"
+  },
+  "beta2L11-1": {
+    "titre": "Factoriser avec les identités remarquables (niveau II)",
+    "url": "/exercices/beta/beta2L11-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2L11-1"
+  },
+  "beta2L12-2": {
+    "titre": "Résoudre des équations se ramenant au produit-nul.",
+    "url": "/exercices/beta/beta2L12-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2L12-2"
+  },
+  "beta2N60-X1": {
+    "titre": "Modéliser une situation  à l'aide d'une équation",
+    "url": "/exercices/beta/beta2N60-X1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2N60-X1"
+  },
+  "beta2N60-X2": {
+    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
+    "url": "/exercices/beta/beta2N60-X2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2N60-X2"
+  },
+  "beta3F23": {
+    "titre": "Déterminer un antécédent",
+    "url": "/exercices/beta/beta3F23.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3F23"
+  },
+  "beta3G15": {
+    "titre": "Utiliser toutes les transformations",
+    "url": "/exercices/beta/beta3G15.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3G15"
+  },
+  "beta3G41": {
+    "titre": "Représentation de solides",
+    "url": "/exercices/beta/beta3G41.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3G41"
+  },
+  "beta3s21": {
+    "titre": "Stabilisation des fréquences",
+    "url": "/exercices/beta/beta3s21.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3s21"
+  },
+  "beta4C31": {
+    "titre": "Puissances de 10",
+    "url": "/exercices/beta/beta4C31.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta4C31"
+  },
+  "beta4G20-3": {
+    "titre": "Calculer une valeur manquante avec l’égalité de Pythagore",
+    "url": "/exercices/beta/beta4G20-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta4G20-3"
+  },
+  "beta4G20-4": {
+    "titre": "Calculer la racine carrée de (x² +/- y²)",
+    "url": "/exercices/beta/beta4G20-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta4G20-4"
+  },
+  "beta6C33-1": {
+    "titre": "Parenthèses manquantes",
+    "url": "/exercices/beta/beta6C33-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta6C33-1"
+  },
+  "beta6S10I": {
+    "titre": "Lire un diagramme en barre",
+    "url": "/exercices/beta/beta6S10I.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "type de question AMC non prévu"
+    },
+    "interactifReady": false,
+    "name": "beta6S10I"
+  },
+  "beta6test2": {
+    "titre": "Mon test",
+    "url": "/exercices/beta/beta6test2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta6test2"
+  },
+  "beta6test2021": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/beta6test2021.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta6test2021"
+  },
+  "betaCaN2": {
+    "titre": "Course aux nombres seconde",
+    "url": "/exercices/beta/betaCaN2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCaN2"
+  },
+  "betaCaN5": {
+    "titre": "Course aux nombres 5e",
+    "url": "/exercices/beta/betaCaN5.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCaN5"
+  },
+  "betaCaNCM2": {
+    "titre": "Course aux nombres CM2",
+    "url": "/exercices/beta/betaCaNCM2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCaNCM2"
+  },
+  "betaExemple": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/betaExemple.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExemple"
+  },
+  "betaExemple1Type": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/betaExemple1Type.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExemple1Type"
+  },
+  "betaExemple1TypeCalculLettre": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/betaExemple1TypeCalculLettre.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExemple1TypeCalculLettre"
+  },
+  "betaExemple3Types": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/betaExemple3Types.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExemple3Types"
+  },
+  "betaExempleFigureClic": {
+    "titre": "Choisir la bonne figure",
+    "url": "/exercices/beta/betaExempleFigureClic.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "cliqueFigure",
+    "name": "betaExempleFigureClic"
+  },
+  "betaExempleQuestionsDifferentes": {
+    "titre": "Exercice exemple avec un nombre fixe de questions différentes",
+    "url": "/exercices/beta/betaExempleQuestionsDifferentes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleQuestionsDifferentes"
+  },
+  "betaExempleTableau": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/betaExempleTableau.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleTableau"
+  },
+  "betaExempleXcas": {
+    "titre": "Test de XCas",
+    "url": "/exercices/beta/betaExempleXcas.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleXcas"
+  },
+  "betaExercice_constructions_basiques": {
+    "titre": "Programmes de constructions (en chantier)",
+    "url": "/exercices/beta/betaExercice_constructions_basiques.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExercice_constructions_basiques"
+  },
+  "betaExoSimpleMatthieu": {
+    "titre": "Ceci est le titre de l’exercice BetaExosimpleMatthieu",
+    "url": "/exercices/beta/betaExoSimpleMatthieu.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExoSimpleMatthieu"
+  },
+  "betaLicence": {
+    "titre": "QCM de positionnement",
+    "url": "/exercices/beta/betaLicence.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "betaLicence"
+  },
+  "betaProbabilites": {
+    "titre": "Probabilités simples",
+    "url": "/exercices/beta/betaProbabilites.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaProbabilites"
+  },
+  "betaPuissances": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/betaPuissances.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaPuissances"
+  },
+  "betarotation3d": {
+    "titre": "Rotation 3d de polygones",
+    "url": "/exercices/beta/betarotation3d.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betarotation3d"
+  },
+  "moule_a_exo_mathalea": {
+    "titre": "Exo zéro Mathalea",
+    "url": "/exercices/beta/moule_a_exo_mathalea.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "moule_a_exo_mathalea"
+  },
+  "moule_a_exo_mathalea2d&3d": {
+    "titre": "Exo zéroMathalea2d3d",
+    "url": "/exercices/beta/moule_a_exo_mathalea2d&3d.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "moule_a_exo_mathalea2d&3d"
+  },
+  "moule_a_exo_mathalea2d": {
+    "titre": "Exo zéro Mathalea2d",
+    "url": "/exercices/beta/moule_a_exo_mathalea2d.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "moule_a_exo_mathalea2d"
+  },
+  "c3C10-2": {
+    "titre": "Labyrinthe de multiples",
+    "url": "/exercices/c3/c3C10-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "c3C10-2"
+  },
+  "c3C10-4": {
+    "titre": "Tables d’addition",
+    "url": "/exercices/c3/c3C10-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "c3C10-4"
+  },
+  "c3C11": {
+    "titre": "Divisions euclidiennes",
+    "url": "/exercices/c3/c3C11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "c3C11"
+  },
+  "c3C3CaN": {
+    "titre": "Course aux nombres CM1",
+    "url": "/exercices/c3/c3C3CaN.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "c3C3CaN"
+  },
+  "c3N10": {
+    "titre": "Écrire un nombre en chiffres ou en lettres",
+    "url": "/exercices/c3/c3N10.js",
+    "amcReady": false,
+    "interactifReady": false,
+>>>>>>> 2F22-1-nouvel-exo
     "name": "c3N10"
   },
   "c3N20": {
@@ -4047,6 +4527,7 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "c3N23"
+<<<<<<< HEAD
   },
   "2F20": {
     "titre": "Reconnaître une fonction affine.",
@@ -4089,5 +4570,7 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "2N21"
+=======
+>>>>>>> 2F22-1-nouvel-exo
   }
 }
