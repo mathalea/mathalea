@@ -1,14 +1,14 @@
 Ce fichier décrit les choix d'architecture de code et les outils de développement utilisés.
 
-## Arborescence
-#### Les dossiers principaux
+## <a id="1" href="#1">#</a> Arborescence
+#### <a id="2" href="#2">#</a> Les dossiers principaux
 - Les exercices sont rangés par niveau dans `/src/js/exercices/`.
 - Les fonctions que l'on souhaite utiliser dans plusieurs exercices sont à ranger dans `/src/js/modules/`.
 - Les fichiers statiques légers sont à déposer dans `/assets/`.
 - Les fichiers statiques lourds (vidéos...) sont à déposer dans le dépôt du site coopmaths.
 - Les sources des tutoriels sont dans `/jsdoc/tutorials` et les fichiers statiques destinés aux tutoriels sont dans `/jsdoc/static/`.
 
-#### Les autres
+#### <a id="3" href="#3">#</a> Les autres
 - Le dossier `/build/` contient la version en développement du site [coopmaths.fr](https://coopmaths.fr/), est construit avec `pnpm run build` et est consultable en faisant `pnpm start`.
 - Le dossier `/documentation/` contient toute la documentation générée à l'aide de jsdoc et consultable en ligne [ici](https://coopmaths.fr/documentation/) et en local en faisant `pnpm run doc:show`.
 - Le dossier `/node_modules/` contient toutes les dépendances installées grâce à `pnpm i`.
@@ -16,12 +16,12 @@ Ce fichier décrit les choix d'architecture de code et les outils de développem
 - Le dossier `/tasks/` contient des fichiers permettant la création de la liste des exercices `pnpm build:dicos` et de la doc `pnpm run build:doc` ainsi que l'affichage de cette dernière `pnpm run doc:show`.
 - Le dossier `/testsBrowser/` contient le nécessaire pour lancer des tests automatisés (par exemple lancer tous les exercices pour voir s'il n'y a pas d'erreur dans la console).
 
-## package.json
+## <a id="4" href="#4">#</a> package.json
 le format json du `package.json` ne permettant pas d'y ajouter des commentaires, voici quelques explications sur son contenu
 
 Cf la [doc officielle](https://docs.npmjs.com/cli/v7/configuring-npm/package-json)
 
-## Dépendances (si vous voulez faire un super truc, l'outil nécessaire se trouve ci-dessous, probablement :) )
+## <a id="5" href="#5">#</a> Dépendances (si vous voulez faire un super truc, l'outil nécessaire se trouve ci-dessous, probablement :) )
 **Dans l'entrée `dependencies` du `package.json` on indique les dépendances utilisées au runtime (par notre code quand il est exécuté)**
 * [Bugsnag](https://www.bugsnag.com) v. 7.10.1 : Outil de suivi des bugs.
 * [cortex-js/math-json](https://cortexjs.io/math-json/) v. 0.1.1 : Utilisé pour son clavier et la saisie des mathématiques dans les champs de réponses.
@@ -87,13 +87,13 @@ Cf la [doc officielle](https://docs.npmjs.com/cli/v7/configuring-npm/package-jso
 **Données présentes dans le README.MD mais présentes ni dans les `devDependencies`, ni les `dependencies` du `package.json`, ni dans le dossier `/src/assets/externalJs/`. Où sont-elles ?**
 * [Download.js](http://danml.com/download.html) CCBY2 (pour le téléchargement du fichier LaTeX généré).
 
-## navigateurs ciblés
+## <a id="6" href="#6">#</a> navigateurs ciblés
 Avant le passage à webpack, mathalea exigeait des navigateurs récents (qui gèrent les [imports dynamiques](https://caniuse.com/?search=es6-module-dynamic-import)), on garde pour ce moment ce critère avec `"browserslist ["supports es6-module-dynamic-import"]`. Attention, il ne faut pas mettre de targets dans la conf babel (sinon browserlist est ignoré et c'est targets qui impose ses choix).
 
-## configuration babel
+## <a id="7" href="#7">#</a> configuration babel
 On se limite à une configuration minimaliste :
 * https://babeljs.io/docs/en/babel-preset-env
 * [useBuiltIns: "usage"](https://babeljs.io/docs/en/babel-preset-env#usebuiltins) avec core-js 3, pour ne charger que les polyfill nécessaires pour le navigateur courant (donc souvent aucun), et alléger les js produits.
 
-## configuration eslint
+## <a id="8" href="#8">#</a> configuration eslint
 On suit la norme de style de code de [standardJs](https://standardjs.com/).

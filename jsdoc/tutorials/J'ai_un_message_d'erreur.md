@@ -1,11 +1,11 @@
-**Message d'erreur :**
+**<a id="1" href="#1">#</a> Message d'erreur :**
 
 ![](img/Conflit-0.png)
 
 Ce n'est pas un message d'erreur ! Il vous dit juste que ça c'est bien passé ! (et qu'il aimerait un petit commentaire). Il suffit de faire ctrl + x pour quitter, la fusion sera effective quand même :)
 
 ---
-**Message d'erreur :**
+**<a id="2" href="#2">#</a> Message d'erreur :**
 
 ![](img/Erreur-1.png)
 
@@ -24,7 +24,7 @@ Ce n'est pas un message d'erreur ! Il vous dit juste que ça c'est bien passé !
     * une fois que vous avez terminé, revenez sur votre branche avec `git checkout laBrancheOuJaiEuLeMessageDErreur`
     * puis ressortez tous vos fichiers avec `git stash pop`
 ---
-**Message d'erreur :**
+**<a id="3" href="#3">#</a> Message d'erreur :**
 
 ![](img/Erreur-2.png)
 
@@ -39,10 +39,10 @@ Ce n'est pas un message d'erreur ! Il vous dit juste que ça c'est bien passé !
     * `git pull` pour le mettre à jour
     * `git checkout laBranqueQueJeVeuxPullRequest` pour se repositionner sur la branche avec qu'on veut **Pull Request**
     * `git merge master` pour la fusionner (merge) avec le master
-    * Suivre ensuite les [instructions pour gérer un conflit de merge](tutorial-Utiliser_git_en_ligne_de_commandes.html#Conflit_de_merge)
+    * Suivre ensuite les [instructions pour gérer un conflit de merge](tutorial-Utiliser_git_en_ligne_de_commandes.html#12)
 
 ---
-**Message d'erreur :**
+**<a id="4" href="#4">#</a> Message d'erreur :**
 
 ![](img/Erreur-3.png)
 
@@ -56,3 +56,16 @@ Ce n'est pas un message d'erreur ! Il vous dit juste que ça c'est bien passé !
     * `pnpm run build:dicos` dans un terminal pour le faire
     * On enregistre le(s) fichier(s)
     * Et voilà !
+
+---
+**<a id="5" href="#5">#</a> Message d'erreur :**
+
+![](img/Erreur-4.png)
+
+**Description de l'erreur :**
+* Vous avez voulu mettre à jour une branche autre que master
+* Vous avez oublié de préciser qu'il fallait la mettre à jour à partir du dépôt distant "origin"
+
+**Solution :**
+* Lancer
+    * `git pull origin nomDeLaBranche` dans un terminal
