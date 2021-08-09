@@ -168,34 +168,27 @@ function questionRecette () { // questions avec des masses pour un nombre de per
     }
   ]
   const nbPersonneInit = randint(2, 6) // nombre de personne indiqué dans la recette.
-  const nbPersonneFinal = randint(2, 12, [nbPersonneInit]) // nombre de personne pour lequel on veut cuisiner
+  const nbPersonneFinal = nbPersonneInit * randint(2, 5) // nombre de personne pour lequel on veut cuisiner
   const alea1 = randint(0, 3) // pour le choix de l'ingredient
   const alea2 = randint(0, liste[alea1].recettes.length - 1) // pour le choix de la recette
   const alea3 = randint(0, liste[alea1].quantites_par_pers.length - 1) // pour le choix de la quantité par personne.
   const quantite = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneInit) // Calcul de la quantité dans la recette à partir de la qtt/personne et du nb de personne
+  const quantite2 = quantite * randint(2, 5)
   const quantiteReponse = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneFinal) // Pour la correction
-  const alea4 = randint(2, 12, [nbPersonneInit, nbPersonneFinal]) // Pour la deuxième question (on évite une réponse identique à la 1ere et à la recette.)
-  const quantiteQ2 = calcul(liste[alea1].quantites_par_pers[alea3] * alea4)
   const prenoms = [prenomF(), prenomM()] // Choix de prénoms pour l'énoncé
   texte = `${numAlpha(0)} ${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour ${nbPersonneInit} personnes qu'il faut ${quantite} g de ${liste[alea1].ingredient}. <br>` +
-`Elle veut adapter sa recette pour ${nbPersonneFinal} personnes.` +
-`<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ? <br><br>`
-  texteCorr = `${numAlpha(0)} Commençons par trouver la masse de ${liste[alea1].ingredient} pour une personne : <br>` +
-` ${nbPersonneInit} personnes, c'est ${texteEnCouleur(nbPersonneInit)} fois 1 personne. ` +
-`il faut donc ${texteEnCouleur(nbPersonneInit)} fois moins que ${quantite} g pour 1 personne.<br>` +
-`${quantite} $\\div $ ${texteEnCouleur(nbPersonneInit)} = ${liste[alea1].quantites_par_pers[alea3]}. <br>` +
-texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
-` il faut ${liste[alea1].quantites_par_pers[alea3]} g de ${liste[alea1].ingredient} pour 1 personne. <br>` +
-        ` Cherchons maintenant la quantité nécessaire pour ${nbPersonneFinal} personnes : <br>` +
-` ${nbPersonneFinal} personnes c'est ${texteEnCouleur(nbPersonneFinal)} fois 1 personne. <br>` +
-`Donc il faut ${texteEnCouleur(nbPersonneFinal)} fois plus que ${liste[alea1].quantites_par_pers[alea3]} g de ${liste[alea1].ingredient} que pour 1 personne pour faire sa recette :` +
-`<br> ${liste[alea1].quantites_par_pers[alea3]} $\\times$ ${texteEnCouleur(nbPersonneFinal)} = ${quantiteReponse} <br>` +
-texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit utiliser ${quantiteReponse} g de ${liste[alea1].ingredient} pour ${nbPersonneFinal} personnes. `, 'black') +
-' <br><br>'
-  texte += `${numAlpha(1)} ${prenoms[1]} utilise la même recette de ${liste[alea1].recettes[alea2]}. Il dispose de ${quantiteQ2} g de ${liste[alea1].ingredient}. <br>` +
-' Pour combien de personnes au maximum peut-il cuisiner ? <br>'
-  texteCorr += `${numAlpha(1)} ${prenoms[1]} utilise ${quantiteQ2} g de ${liste[alea1].ingredient} cela représente ${texteEnCouleur(alea4, 'blue')} fois plus que ${liste[alea1].quantites_par_pers[alea3]} g (quantité pour 1 personne).<br>` +
-texteEnCouleurEtGras(`  Conclusion :  Il peut donc préparer sa recette pour ${texteEnCouleur(alea4, 'blue')} personnes.`, 'black')
+  `Elle veut adapter sa recette pour ${nbPersonneFinal} personnes.` +
+  `<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ? <br><br>`
+  texteCorr = `${numAlpha(0)} ${nbPersonneFinal} personnes, c'est ${texteEnCouleur(nbPersonneFinal / nbPersonneInit)} fois ${nbPersonneInit} personnes. ` +
+  `Il faut donc ${texteEnCouleur(nbPersonneFinal / nbPersonneInit)} fois plus de ${liste[alea1].ingredient}.<br>` +
+  `${quantite} g $\\times $ ${texteEnCouleur(nbPersonneFinal / nbPersonneInit)} = ${quantiteReponse} g. <br>` +
+  `Conclusion : ${prenoms[0]} doit utiliser ${quantiteReponse} g de ${liste[alea1].ingredient} pour ${nbPersonneFinal} personnes.<br><br>`
+  texte += `${numAlpha(1)} ${prenoms[1]} utilise la même recette de ${liste[alea1].recettes[alea2]}. Il dispose de ${quantite2} g de ${liste[alea1].ingredient}.<br>
+  Pour combien de personnes au maximum peut-il cuisiner ?`
+  texteCorr += `${numAlpha(1)} ${quantite2} g, c'est ${texteEnCouleur(quantite2 / quantite)} fois ${quantite} g. ` +
+  `Il peut donc cuisiner pour ${texteEnCouleur(quantite2 / quantite)} fois plus de personnes.<br>` +
+  `${nbPersonneInit} g $\\times $ ${texteEnCouleur(quantite2 / quantite)} = ${nbPersonneInit * quantite2 / quantite} . <br>` +
+  `Conclusion : ${prenoms[1]} peut donc préparer sa recette pour ${nbPersonneInit * quantite2 / quantite} personnes.`
   return {
     qtexte: texte,
     qtexteCorr: texteCorr
