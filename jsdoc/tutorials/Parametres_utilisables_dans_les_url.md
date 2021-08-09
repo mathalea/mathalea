@@ -1,8 +1,8 @@
-## Redirection
+## <a id="1" href="#1">#</a> Redirection
 
 `https://coopmaths.fr/exXXXXX` est redirigé vers `https://coopmaths.fr/exercice.html?ex=XXXXXX`. On peut donc utiliser des URL raccourcies comme `coopmaths.fr/ex6C10` ou `coopmaths.fr/ex6C10&ex=6C11` (seul le premier exercice n'a pas besoin du =).
 
-## Paramétrage d'une série d'exercices
+## <a id="2" href="#2">#</a> Paramétrage d'une série d'exercices
 
 - `,i=1` ou `,i=0` pour avoir un exercice interactif ou pas (précédemment interactif=).
 - `,n=5` pour avoir 5 questions (précédemment nbQuestions=).
@@ -25,6 +25,6 @@
     - `&v=cm` dirige vers l'écran de paramétrage en vue d'un affichage sous forme de diaporama.
         - `&duree=10` est utilisé pour la durée des diaporamas.
 
-Quelques exemples de vues :
+ <a id="3" href="#3">#</a> Quelques exemples de vues :
 
 ![](img/Url-1.jpg)

@@ -111,7 +111,7 @@ export default function ConstruireUnDiagramme () {
         a0 = cercleCentrePoint(A, B, 'black')
         objetsEnonce.push(a0)
         objetsCorrection.push(a0)
-        alpha = 0
+        alpha = 90
 
         t = tracePoint(A)
         t.style = '+'

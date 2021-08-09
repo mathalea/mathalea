@@ -6,7 +6,10 @@ Dans les deux cas, pour rendre un exercice interactif, il faut deux chose :
 1. Faire charger le nécessaire.
 2. Définir la correction et le feedback éventuel.
 
-## 1.a Faire charger le nécessaire pour rendre un exercice en ligne interactif
+**Remarque :**
+Le moyen le plus simple de rendre un exercice interactif est d'utiliser MathLive, vous pouvez parcourir cette page pour voir les autres types d'interactivité ou y aller [directement](#9).
+
+## <a id="1" href="#1">#</a> 1.a Faire charger le nécessaire pour rendre un exercice en ligne interactif
 Pour faire charger le nécessaire, il faut ajouter ces lignes juste après les `import` de début d'exercice :
 ```js
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
@@ -22,7 +25,7 @@ export const interactifType = 'typeInteractivite'
 **Remarque :**
 On peut utiliser `this.interactif = false` pour définir le mode dans lequel l'exercice va s'afficher par défaut (on le place avec les autres réglages par défaut de l'exercice entre `Exercice.call(this)` et `this.nouvelleVersion = function`)
 
-## 1.b Faire charger le nécessaire pour rendre un exercice utilisable avec AMC
+## <a id="2" href="#2">#</a> 1.b Faire charger le nécessaire pour rendre un exercice utilisable avec AMC
 Pour faire charger le nécessaire, il faut ajouter ces lignes juste après les `import` de début d'exercice :
 ```js
 export const amcReady = true // pour définir que l'exercice peut servir à AMC
@@ -38,7 +41,7 @@ export const amcType = 'typeAMC'
 * `'AMCOpenNum✖︎3'` : identique à `'AMCOpenNum'` avec trois réponses numériques (`reponse`, `reponse2` et `reponse3`). Modèle : 3L11-1
 * `'custom'` : Ces exercices ne sont pas prédéfinis, ils partagent le bouton de validation puis appellent la méthode `correctionInteractive()` définie dans l'exercice. Ils ne sont pas compatibles avec AMC
 
-## 2. Définir la correction et le feedback éventuel
+## <a id="3" href="#3">#</a> 2. Définir la correction et le feedback éventuel
 La définition de la correction ainsi que celle du feedback éventuel se font via la variable `this.autoCorrection`
 ```js
 this.autoCorrection // doit contenir un tableau d'objets avec autant d'éléments qu'il y a de répétitions de l'énoncé (this.nbQuestions).
@@ -47,6 +50,8 @@ this.autoCorrection[1] // definit la deuxième question et ainsi de suite.
 ```
 
 Selon les types, `this.autoCorrection` s'adapte :
+
+<a id="4" href="#4">#</a>
 
 * **types `'qcm'`** (Interactif)**, `'qcmMono'` et `'qcmMult'`** (AMC) **:** (à la différence des deux autres, `'qcmMono'` ne peut avoir qu'un seul `statut` à `true`)
 ```js
@@ -73,6 +78,8 @@ this.autoCorrection[i] = {
   }
 }
 ```
+<a id="5" href="#5">#</a>
+
 * **type `'AMCOpen'`** (AMC) **:** ici un exemple pour une exercice ne produisant qu'une question (il y aura autant d'objets que `this.nbQuestion` > 1)
 ```js
 this.autoCorrection = [
@@ -88,6 +95,8 @@ this.autoCorrection = [
   }
 ]
 ```
+<a id="6" href="#6">#</a>
+
 * **types `'numerique'`** (Interactif) **, `'AMCNum'`, `'AMCOpenNum'` et `'AMCOpenNum✖︎2'`** (AMC) **:** (`'AMCOpenNum✖︎2'` contient aussi un attribut `reponse2` au fonctionnement identique à celui de l'attribut `reponse` ci-dessous)
 ```js
 this.autoCorrection[i] = {
@@ -112,6 +121,8 @@ this.autoCorrection[i] = {
       }
     }
 ```
+<a id="7" href="#7">#</a>
+
 * **type `'AMCHybride'`** (AMC) **:** Dans ce type, chaque question-réponse peut avoir un type différent. Il y a seul énoncé, une seule correction et plusieurs champs question-réponse (il faudra donc numéroter les questions dans l'énoncé).
 ```js
 this.autoCorrection[i] = {
@@ -166,7 +177,7 @@ this.autoCorrection[i] = {
   ]
 }
 ```
-## Les fonctions
+## <a id="8" href="#8">#</a> Les fonctions
 Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont l'appel permet de générer le code nécessaire facilement :
 
 ```js
@@ -186,13 +197,23 @@ Cette fonction va retourner un objet `{ texte, texteCorr }` qui contient les pro
 
 Si le `texte` est toujours utilisé, on préférera souvent la correction classique au `texteCorr` retourné par cette fonction (à réfléchir : pourquoi ne pas activer la correction classique avec le bouton 'correction détaillée' ?)
 
-## MathLive
+Ce sont toutes les deux des fonctions de gestionInteractif.js, si vous voulez faire appel à elles, il faut alors faire en début de fichier :
+```js
+import { setReponse, propositionsQcm } from '../../modules/gestionInteractif.js'
+```
+
+## <a id="9" href="#9">#</a> MathLive
 
 Nous n'avons pas encore parlé du type d'interactivité `'mathLive'` qui est pourtant très pratique ! et pas très compliqué à mettre en place comme nous allons le voir :
 
 Pour rendre un exercice interactif en utilisant MathLive, il suffit de :
-1. `export const interactifType = 'mathLive'`
-2. mettre dans la boucle `setReponse(this, i, maRéponse)` avec maRéponse un string LaTeX ou une valeur numérique (donc sans `texNombre` ou des équivalents)
+1. Placer en en-tête :
+```js
+import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+```
+2. mettre dans la boucle principale `setReponse(this, i, maRéponse)` avec maRéponse un string LaTeX ou une valeur numérique (donc sans `texNombre` ou des équivalents)
 3. faire `texte += ajouteChampTexteMathLive(this, i)` pour ajouter le champ de réponse.
 
 Par défaut, on compare des expressions littérales ou des nombres. 
@@ -202,7 +223,7 @@ Par défaut, on compare des expressions littérales ou des nombres.
 - Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionEgale' })` et la réponse doit être un objet fraction égale à la réponse.
 - Pour comparer des longueurs (ou des aires), on peut faire `setReponse(this, i, new Grandeur(4, 'cm'), { formatInteractif: 'longueur' })` et personnaliser le champ texte avec `ajouteChampTexteMathLive(this, i, 'longueur')`
 
-## Avoir deux champs de réponse sur une question, c'est possible !
+## <a id="10" href="#10">#</a> Avoir deux champs de réponse sur une question, c'est possible !
 Il suffit d'avoir un compteur indépendant du compteur `i` de la boucle qui augmente de `1` pour les questions à un champ de réponse et qui augmente de `2` pour les questions à deux champs de réponse.
 
 Supposons qu'on nomme cet autre compteur `j`.
@@ -210,7 +231,7 @@ Supposons qu'on nomme cet autre compteur `j`.
 Au lieu de faire `setReponse(this, i, maRéponse)` et `texte += ajouteChampTexteMathLive(this, i)`, il suffit de faire `setReponse(this, j, maRéponse)` et `texte += ajouteChampTexteMathLive(this, j)`
 
 Le soucis, c'est que pour l'instant chaque formulaire rapporte un point au niveau du score. Il y aura donc des questions à 2 points et d'autres à 1 point.
-## Remarque  :
+## <a id="11" href="#11">#</a> Remarque  :
 Pour une compatibilité entre les exercices interactifs en ligne et AMC,
 
 **il ne faut pas faire :**
