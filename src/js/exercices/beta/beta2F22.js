@@ -137,5 +137,5 @@ export default function representerfonctionaffine () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
+  this.besoinFormulaireNumerique = ['Valeurs de a :', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
 }
