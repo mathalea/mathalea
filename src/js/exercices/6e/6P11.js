@@ -223,10 +223,11 @@ function questionDillution () { // questions de mélange de volumes
       unite_solvant: ['dizaine de mètres cubes', 'dizaines de mètres cubes']
     }
   ]
-  const volumeFinal = randint(1, 5) + (randint(1, 5)) * 0.1 * randint(-1, 1, [0]) // volume d'eau pour la préparation
+  const volumeInitial = randint(1, 5) + (randint(1, 5)) * 0.1 * randint(-1, 1, [0]) // volume d'eau pour la préparation
+  const volumeFinal = volumeInitial * randint(2, 5)
   const alea1 = randint(0, 3) // pour le choix du soluté
   const alea2 = randint(0, liste[alea1].volumeUnitaire.length - 1) // pour le choix du volume pour une unité de solvant
-  const quantite = liste[alea1].volumeUnitaire[alea2]
+  const quantite = liste[alea1].volumeUnitaire[alea2] * volumeInitial
   const quantiteReponse = calcul(volumeFinal * quantite) // Calcul du volume de soluté final (pour la correction.)
   if (volumeFinal < 2) {
     uniteSolvantVolumeFinal = liste[alea1].unite_solvant[0]
@@ -234,15 +235,16 @@ function questionDillution () { // questions de mélange de volumes
     uniteSolvantVolumeFinal = liste[alea1].unite_solvant[1]
   }
   const volumeFinalAff = texNombrec(volumeFinal) // pour affichage avec bon séparateur.
+  const volumeInitialAff = texNombrec(volumeInitial) // pour affichage avec bon séparateur.
   const texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} qu'il faut  ` +
-` ${texNombrec(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour 1 ${liste[alea1].unite_solvant[0]} d'eau.<br> ` +
+` ${texNombrec(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour ${volumeInitialAff} ${liste[alea1].unite_solvant[0]} d'eau.<br> ` +
 `On veut utiliser ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau.` +
 `<br> Quel volume de ${liste[alea1].solute} doit-on prévoir ? <br>`
   const texteCorr = `Le volume de ${liste[alea1].solute} est proportionnel au volume d'eau <br> ` +
-` ${texteEnCouleur(volumeFinalAff)} ${uniteSolvantVolumeFinal} d'eau, c'est ${texteEnCouleur(volumeFinalAff)} fois 1 ${liste[alea1].unite_solvant[0]} d'eau. <br> ` +
-`il faut donc ${texteEnCouleur(volumeFinalAff)} fois plus que ${texteEnCouleur(texNombrec(quantite), 'blue')} ${liste[alea1].unite_solute} de ${liste[alea1].solute}. <br>` +
-`${texteEnCouleur(texNombrec(quantite), 'blue')} ${liste[alea1].unite_solute} $\\times $ ${texteEnCouleur(volumeFinalAff)} = ${texNombrec(quantiteReponse)}  ${liste[alea1].unite_solute}  <br>  ` +
-        texteEnCouleurEtGras(` Conclusion : Il faut donc prévoir ${texNombrec(quantiteReponse)} ${liste[alea1].unite_solute} de ${liste[alea1].solute}.`, 'black') + ' <br>'
+` ${texteEnCouleur(volumeFinalAff)} ${uniteSolvantVolumeFinal} d'eau, c'est ${texteEnCouleur(volumeFinal / volumeInitial)} fois ${volumeInitialAff} ${liste[alea1].unite_solvant[0]} d'eau. <br> ` +
+`il faut donc ${texteEnCouleur(volumeFinal / volumeInitial)} fois plus que ${texteEnCouleur(texNombrec(quantite), 'blue')} ${liste[alea1].unite_solute} de ${liste[alea1].solute}. <br>` +
+`${texteEnCouleur(texNombrec(quantite), 'blue')} ${liste[alea1].unite_solute} $\\times $ ${texteEnCouleur(volumeFinal / volumeInitial)} = $${texNombrec(quantiteReponse)}$ ${liste[alea1].unite_solute}  <br>
+        ${texteEnCouleurEtGras('Conclusion :', 'black')} Il faut donc prévoir $${texNombrec(quantiteReponse)}$ ${liste[alea1].unite_solute} de ${liste[alea1].solute}.` + ' <br>'
   return {
     qtexte: texte,
     qtexteCorr: texteCorr
