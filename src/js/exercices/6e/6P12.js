@@ -161,7 +161,12 @@ function questionAchat () { // questions d'origine du 6P11 : achat.
   const pu = listeDePrixUnit[index1][index2] * (1 + randint(1, 2) * 0.2 * randint(-1, 1))
   const n = couplePremiersEntreEux[indexN][0]
   const y = couplePremiersEntreEux[indexN][1]
-  const x = calcul(n * pu * facteur, 2)
+  let x
+  if (facteur === 1) {
+    x = calcul(n * randint(2, 5))
+  } else {
+    x = calcul(n * pu, 2)
+  }
   let met = false
   let p
   while (met === false) {
@@ -272,7 +277,12 @@ function questionDillution () { // questions de mélange de volumes
   const volumeFinal = couplePremiersEntreEux[indexN][1]
   const alea1 = randint(0, 3) // pour le choix du soluté
   const alea2 = randint(0, liste[alea1].volumeUnitaire.length - 1) // pour le choix du volume pour une unité de solvant
-  const quantite = liste[alea1].volumeUnitaire[alea2] * volumeInitial * facteur
+  let quantite
+  if (facteur === 1) {
+    quantite = volumeInitial * randint(2, 5)
+  } else {
+    quantite = liste[alea1].volumeUnitaire[alea2] * volumeInitial
+  }
   if (volumeFinal < 2) {
     uniteSolvantVolumeFinal = liste[alea1].unite_solvant[0]
   } else {
@@ -337,8 +347,8 @@ function questionDistance () { // questions de distance parcourue à une vitesse
       ` Cherchons maintenant la distance parcourue en ${dureeR} h : <br>` +
   ` ${dureeR} h, c'est ${texteEnCouleur(dureeR)} fois 1 h.` +
   ` Il parcourt donc ${texteEnCouleur(dureeR)} fois plus de distance qu'en 1 h :` +
-  `<br> ${texteEnCouleur(texNombrec(liste[alea1].vitesse[alea2] * facteur), 'blue')} $\\times$ ${texteEnCouleur(dureeR)} = ${texNombrec(liste[alea1].vitesse[alea2] * dureeR * facteur)}.<br>` +
-  `${texteEnCouleurEtGras('Conclusion :', 'black')} Le ${liste[alea1].locomotion} parcourra donc en moyenne ${texNombrec(liste[alea1].vitesse[alea2] * dureeR * facteur)} km en ${dureeR} h.`
+  `<br> ${texteEnCouleur(texNombrec(liste[alea1].vitesse[alea2] * facteur), 'blue')} $\\times$ ${texteEnCouleur(dureeR)} = $${texNombrec(liste[alea1].vitesse[alea2] * dureeR * facteur)}$.<br>` +
+  `${texteEnCouleurEtGras('Conclusion :', 'black')} Le ${liste[alea1].locomotion} parcourra donc en moyenne $${texNombrec(liste[alea1].vitesse[alea2] * dureeR * facteur)}$ km en ${dureeR} h.`
   return {
     qtexte: texte,
     qtexteCorr: texteCorr
@@ -391,9 +401,20 @@ function questionRecouvrirSurface () { // peinture, gazon, carrelage pour une su
     }
   ]
   const alea1 = randint(0, liste.length - 1)
-  const surfaceInitiale = couplePremiersEntreEux[indexN][0]
-  const quantite = surfaceInitiale * randint(2, 5) * facteur
-  const surfaceFinale = calcul(couplePremiersEntreEux[indexN][1])
+  const alea2 = randint(0, liste[alea1].qtt_matiere_unitaire.length - 1)
+  const alea3 = randint(0, liste[alea1].qtt_surface.length - 1)
+  const rapport = [0.25, 0.5, 0.75, 1.25, 1.5, 2, 3, 4, 5] // choix parmi des rapports simples (en 6eme cela parrait suffisant)
+  const alea4 = randint(0, rapport.length - 1)
+  let quantite, surfaceFinale, surfaceInitiale
+  if (facteur === 1) {
+    surfaceInitiale = couplePremiersEntreEux[indexN][0]
+    quantite = surfaceInitiale * randint(2, 5)
+    surfaceFinale = calcul(couplePremiersEntreEux[indexN][1])
+  } else {
+    surfaceInitiale = liste[alea1].qtt_surface[alea3]
+    quantite = liste[alea1].qtt_matiere_unitaire[alea2]
+    surfaceFinale = calcul(rapport[alea4] * liste[alea1].qtt_surface[alea3])
+  }
   const prenoms = [prenomF(), prenomM()]
   const qttaffichage = texNombrec(quantite) // Pour affichage avec virgule en séparateur.
   const texte = `${prenoms[0]} doit acheter ${liste[alea1].matiere}. <br>` +
