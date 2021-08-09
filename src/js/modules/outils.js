@@ -7244,6 +7244,11 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
         texQr += `${autoCorrection[j].enonce} \n `
+        if (autoCorrection[j].options !== 'undefined') {
+          if (autoCorrection[j].options.multicols) {
+            texQr += '\\begin{multicols}{2}\n'
+          }
+        }
         for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les question-reponse de l'élément j
           prop = autoCorrection[j].propositions[qr] // proposition est un objet avec cette structure : {type,propositions,reponse}
           qrType = prop.type
@@ -7363,6 +7368,11 @@ export function exportQcmAmc (exercice, idExo) {
               texQr += '\t\\end{question}\n'
               id++
               break
+          }
+        }
+        if (autoCorrection[j].options !== 'undefined') {
+          if (autoCorrection[j].options.multicols) {
+            texQr += '\\end{multicols}\n'
           }
         }
         texQr += '}\n'
