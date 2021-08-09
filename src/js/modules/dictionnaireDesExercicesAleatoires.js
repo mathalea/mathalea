@@ -385,7 +385,7 @@ export default {
     "url": "/exercices/3e/3F12-3.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -394,8 +394,12 @@ export default {
   "3F12-4": {
     "titre": "Lire l’image d’un nombre à partir d’un graphique",
     "url": "/exercices/3e/3F12-4.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F12-4"
   },
   "3F12": {

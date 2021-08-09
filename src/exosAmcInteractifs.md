@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 113 
-- nombre d'exos interactifReady 136 
+- nombre d'exos amcReady 114 
+- nombre d'exos interactifReady 137 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -13,7 +13,8 @@
 |3A11|Primalité ou pas|OK|qcmMono|OK|qcm|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
-|3F12-3|Compléter un tableau de valeurs|OK|AMCNum|OK|mathLive|
+|3F12-3|Compléter un tableau de valeurs|OK|AMCHybride|OK|mathLive|
+|3F12-4|Lire l’image d’un nombre à partir d’un graphique|OK|AMCHybride|OK|mathLive|
 |3F13-1|Lecture graphique d’images et d’antécédents|KO|KO|OK|mathLive|
 |3F21-1|Déterminer une fonction affine|OK|AMCOpenNum✖︎2|OK|mathLive|
 |3F21-2|Déterminer une fonction affine par la donnée des images de deux nombres|KO|KO|OK|mathLive|
