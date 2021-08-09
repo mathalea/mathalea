@@ -20,11 +20,6 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max
   this.sup2 = false // écriture simplifiée
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = 'Calculer'
   this.spacing = 2
   this.qcmDisponible = true
