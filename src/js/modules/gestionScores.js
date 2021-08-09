@@ -258,7 +258,7 @@ export default function gestionScores () {
       //         document.getElementById('scoresFeedbackHeader').innerHTML = `Espace scores - Enregistrement pour le userId ${response.userId} validé`
       //         document.getElementById('scoresFeedbackBody').innerHTML = `
       //                         Un bilan de vos scores sera accessible en fin de session en cliquant sur ...<br>
-      //                         ${response.url}<br>                          
+      //                         ${response.url}<br>
       //                         Vous pourrez ajouter des scores pour votre prof en utilisant le code suivant : <b>${response.userId}</b>
       //                       `
       //         document.getElementById('scoresFeedback').hidden = false
@@ -382,31 +382,67 @@ export default function gestionScores () {
         document.getElementById('scoresDocumentationFeedback').hidden = true
       }
       // On génère le userId côté serveur
-      fetch('scoresManage.php', {
-        method: 'POST',
-        mode: 'same-origin',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-        // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
-          isSubmitUserId: false,
-          isVerifResult: false
+
+      // fetch('scoresManage.php', {
+      //   method: 'POST',
+      //   mode: 'same-origin',
+      //   credentials: 'same-origin',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify({
+      //   // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
+      //     isSubmitUserId: false,
+      //     isVerifResult: false
+      //   })
+      // })
+      //   .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
+      //   .then(response => {
+      //     if (document.getElementById('scoresFeedback')) {
+      //       document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
+      //       document.getElementById('scoresFeedbackBody').innerHTML = `
+      //           Vos fichiers seront enregistrés à cette adresse : <br>
+      //           <a href="${response.url}" target="_blank">${window.location.href.split('?')[0] + response.url.substr(1)}</a><br>
+      //           <b>Conservez la précieusement.</b><br>
+      //           Vous pourrez y ajouter des éléments en utilisant le code prof suivant : <b>${response.userId}</b>
+      //         `
+      //       document.getElementById('scoresFeedback').hidden = false
+      //     }
+      //   })
+
+      async function mySecondScoresManageFetch () {
+        const response = await fetch('scoresManage.php', {
+          method: 'POST',
+          mode: 'same-origin',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+          // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
+            isSubmitUserId: false,
+            isVerifResult: false
+          })
         })
-      })
-        .then(response => response.json())// on a besoin de récupérer la réponse du serveur avant de l'utiliser
-        .then(response => {
-          if (document.getElementById('scoresFeedback')) {
-            document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
-            document.getElementById('scoresFeedbackBody').innerHTML = `
-                Vos fichiers seront enregistrés à cette adresse : <br>
-                <a href="${response.url}" target="_blank">${window.location.href.split('?')[0] + response.url.substr(1)}</a><br>
-                <b>Conservez la précieusement.</b><br>
-                Vous pourrez y ajouter des éléments en utilisant le code prof suivant : <b>${response.userId}</b>
-              `
-            document.getElementById('scoresFeedback').hidden = false
-          }
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP ! statut : ${response.status}`)
+        }
+        const myResponseJson = await response.json()
+        if (document.getElementById('scoresFeedback')) {
+          document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
+          document.getElementById('scoresFeedbackBody').innerHTML = `
+              Vos fichiers seront enregistrés à cette adresse : <br>
+              <a href="${myResponseJson.url}" target="_blank">${window.location.href.split('?')[0] + myResponseJson.url.substr(1)}</a><br>
+              <b>Conservez la précieusement.</b><br>
+              Vous pourrez y ajouter des éléments en utilisant le code prof suivant : <b>${myResponseJson.userId}</b>
+            `
+          document.getElementById('scoresFeedback').hidden = false
+        }
+      }
+
+      mySecondScoresManageFetch()
+        .catch(e => {
+          console.log('/!\\ secondScoresManage.php /!\\ Pb avec l\'opération de récupération sûrement en dev local sans serveur PHP, message d\'erreur => ' + e.message)
         })
     })
   }
