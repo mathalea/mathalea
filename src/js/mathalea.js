@@ -338,6 +338,20 @@ function miseAJourDuCode () {
   //    suppression d'un exercice, nouvelle donnée, changement de paramètre...)
   // C'est dans cette fonction que l'on va executer les this.nouvelleVersion des exercices.
   setUrl()
+
+  // Active ou désactive l'icone de la course aux nombres
+  let tousLesExercicesSontInteractifs = true
+  for (const exercice of listeObjetsExercice) {
+    if (!exercice.interactifReady) {
+      tousLesExercicesSontInteractifs = false
+      document.getElementById('btnCan').classList.add('disabled')
+    }
+  }
+  console.log(tousLesExercicesSontInteractifs)
+  if (document.getElementById('btnCan') !== null) {
+    tousLesExercicesSontInteractifs ? document.getElementById('btnCan').classList.remove('disabled') : document.getElementById('btnCan').classList.add('disabled')
+  }
+
   window.MG32_tableau_de_figures = []
   window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
   window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
@@ -2181,6 +2195,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (btnPleinEcran !== null) {
     btnPleinEcran.addEventListener('click', () => {
       context.vue = 'light'
+      setUrlAndGo()
+    })
+  }
+
+  const btnCan = document.getElementById('btnCan')
+  if (btnCan !== null) {
+    btnCan.addEventListener('click', () => {
+      context.vue = 'can'
       setUrlAndGo()
     })
   }
