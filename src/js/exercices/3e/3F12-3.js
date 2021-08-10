@@ -1,12 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, pgcd, texFractionReduite, lettreMinusculeDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, pgcd, texFractionReduite, lettreMinusculeDepuisChiffre, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Compléter un tableau de valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCNum'
+export const amcType = 'AMCHybride'
 
 /**
 * Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique
@@ -34,7 +34,7 @@ export default function TableauDeValeurs () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-	this.autoCorrection = []
+    this.autoCorrection = []
     this.sup = parseInt(this.sup)
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
@@ -218,7 +218,74 @@ export default function TableauDeValeurs () {
       } else {
         texteCorr = '$\\begin{array}{|l|c|c|c|}\n'
       }
-      if (this.interactif) {
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$.\\\\ \n
+          Calculer :\\\\ \n1) $f(${listeDeX[i][0]})$\n2) $f(${listeDeX[i][1]})$\n3) $f(${listeDeX[i][2]})$\\\\ \n
+          Utiliser le cadre pour les calculs si besoin puis coder les réponses.\\\\`,
+          propositions: [
+            {
+              type: 'AMCOpen',
+              propositions: [{
+                texte: '',
+                statut: 4
+              }
+              ]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: this.listeCorrections[0],
+                statut: '',
+                reponse: {
+                  texte: `$f(${listeDeX[i][0]})$`,
+                  valeur: f(listeDeX[i][0]),
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(f(listeDeX[i][0])),
+                    decimals: 0,
+                    signe: true,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: this.listeCorrections[1],
+                statut: '',
+                reponse: {
+                  texte: `$f(${listeDeX[i][1]})$`,
+                  valeur: f(listeDeX[i][1]),
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(f(listeDeX[i][1])),
+                    decimals: 0,
+                    signe: true,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: this.listeCorrections[2],
+                statut: '',
+                reponse: {
+                  texte: `$f(${listeDeX[i][2]})$`,
+                  valeur: f(listeDeX[i][2]),
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(f(listeDeX[i][2])),
+                    decimals: 0,
+                    signe: true,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          ]
+        }
+      } else if (this.interactif) {
         texte += `<br>$f(${listeDeX[i][0]}) = $` + ajouteChampTexteMathLive(this, i * 3, 'largeur10 inline')
         texte += `<br>$f(${listeDeX[i][1]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 1, 'largeur10 inline')
         texte += `<br>$f(${listeDeX[i][2]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 2, 'largeur10 inline')
@@ -226,6 +293,7 @@ export default function TableauDeValeurs () {
         setReponse(this, i * 3 + 1, f(listeDeX[i][1]), { formatInteractif: 'calcul' })
         setReponse(this, i * 3 + 2, f(listeDeX[i][2]), { formatInteractif: 'calcul' })
       }
+
       texteCorr += '\\hline\n'
       texteCorr += `x & ${listeDeX[i][0]} & ${listeDeX[i][1]} & ${listeDeX[i][2]} \\\\\n`
       texteCorr += '\\hline\n'

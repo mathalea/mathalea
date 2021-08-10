@@ -427,7 +427,7 @@ export default {
     "url": "/exercices/3e/3F12-3.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -436,8 +436,12 @@ export default {
   "3F12-4": {
     "titre": "Lire l’image d’un nombre à partir d’un graphique",
     "url": "/exercices/3e/3F12-4.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F12-4"
   },
   "3F12": {
@@ -459,7 +463,8 @@ export default {
     "titre": "Spécial escape game",
     "url": "/exercices/3e/3F13-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F13-2"
   },
   "3F13": {
@@ -506,8 +511,12 @@ export default {
   "3G10-1": {
     "titre": "Trouver les coordonnées de l’image d’un point par une transformation du plan",
     "url": "/exercices/3e/3G10-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G10-1"
   },
   "3G10-2": {
@@ -4005,6 +4014,48 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "CM021"
+  },
+  "2F20": {
+    "titre": "Reconnaître une fonction affine.",
+    "url": "/exercices/ex2e/2F20.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "CM020"
+  },
+  "CM021": {
+    "titre": "Le compte est bon original",
+    "url": "/exercices/CM/CM021.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "CM021"
+  },
+  "PEA11-1": {
+    "titre": "Passer de la base 12 ou 16 à la base 10 et inversement",
+    "url": "/exercices/PE/PEA11-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "PEA11-1"
+  },
+  "PEA11": {
+    "titre": "Passer de la base 10 à une autre base et inversement",
+    "url": "/exercices/PE/PEA11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "PEA11"
+  },
+  "P003": {
+    "titre": "Tracer des droites graduées",
+    "url": "/exercices/Profs/P003.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P003"
+  },
+  "P004": {
+    "titre": "Droites graduées avec zoom",
+    "url": "/exercices/Profs/P004.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N21"
   },
   "PEA11-1": {
     "titre": "Passer de la base 12 ou 16 à la base 10 et inversement",
