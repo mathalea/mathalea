@@ -2944,8 +2944,12 @@ export default {
   "6N13": {
     "titre": "Conversions de longueurs, masses, contenance, prix ou unités informatiques",
     "url": "/exercices/6e/6N13.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N13"
   },
   "6N14": {
@@ -3074,8 +3078,12 @@ export default {
   "6N24": {
     "titre": "Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)",
     "url": "/exercices/6e/6N24.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N24"
   },
   "6N30-1": {
@@ -3199,8 +3207,12 @@ export default {
   "6N34": {
     "titre": "Conversions avec tous les préfixes de milli à tera.",
     "url": "/exercices/6e/6N34.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N34"
   },
   "6N41-1": {
