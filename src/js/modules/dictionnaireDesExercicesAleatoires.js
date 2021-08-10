@@ -480,8 +480,12 @@ export default {
   "3G10-2": {
     "titre": "Trouver l’image d’un point par une transformation choisie aléatoirement",
     "url": "/exercices/3e/3G10-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G10-2"
   },
   "3G10-3": {
@@ -1087,8 +1091,12 @@ export default {
   "4G10": {
     "titre": "Trouver l’image d’un point par une symétrie axiale ou centrale ou par une translation",
     "url": "/exercices/4e/4G10.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4G10"
   },
   "4G11-1": {
@@ -1492,8 +1500,12 @@ export default {
   "5G10": {
     "titre": "Trouver l’image d’un point par une symétrie axiale",
     "url": "/exercices/5e/5G10.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5G10"
   },
   "5G11-1": {
@@ -1520,8 +1532,12 @@ export default {
   "5G11": {
     "titre": "Trouver l’image d’un point par une symétrie axiale ou centrale",
     "url": "/exercices/5e/5G11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5G11"
   },
   "5G12-1": {
@@ -2571,8 +2587,12 @@ export default {
   "6G24": {
     "titre": "Trouver l’image d’un point par une symétrie axiale",
     "url": "/exercices/6e/6G24.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6G24"
   },
   "6G25-1": {
