@@ -24,9 +24,29 @@ export default function Transformations () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.interactif = true
+  this.sup = 1
+  const listeTypeDeQuestions = [
+    [1, 2, 3, 4],
+    [1, 2, 7, 7, 7, 7],
+    [1, 2, 7, 7, 8, 8, 8, 8, 8],
+    [1, 2, 5, 5, 5, 6, 6, 6, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10]
+  ]
+
   // this.sup = 1; // 1 pour les 6ème, 2 pour les 5èmes, 3 pour les 4èmes, et 4 pour les 3èmes.
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   this.nouvelleVersion = function (numeroExercice) {
+    let choixTransformation
+    if (typeof this.sup === 'number') {
+      // Si c'est un nombre c'est pour le niveau 1=6e, 4=3e
+      choixTransformation = combinaisonListes(listeTypeDeQuestions[this.sup - 1], 3)
+    } else {
+      choixTransformation = combinaisonListes(this.sup.split('-'), 3) // Sinon on créé un tableau à partir des valeurs séparées par des -
+      for (let i = 0; i < 3; i++) {
+        choixTransformation[i] = parseInt(choixTransformation[i])
+      }
+    }
+
+    console.log(choixTransformation)
     const M = []; const N = []; let pointM; let pointN
     const O = point(0, 0, 'O', 'below')
     const d1 = droiteParPointEtPente(O, 1)
@@ -74,17 +94,7 @@ export default function Transformations () {
     let texte = ''
     let texteCorr = ''
     const punto = [[]]
-    const transformation = parseInt(this.sup) - 1
-    const listeTypeDeQuestions = [
-      [1, 2, 3, 4],
-      [1, 2, 7, 7, 7, 7],
-      [1, 2, 7, 7, 8, 8, 8, 8, 8],
-      [1, 2, 5, 5, 5, 6, 6, 6, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10]
-    ]
-    const choixTransformation = combinaisonListes(
-      listeTypeDeQuestions[transformation],
-      3
-    )
+
     const xu = randint(-3, 3)
     if (xu === 0) {
       yu = randint(-3, 3, [0])
@@ -400,5 +410,8 @@ export default function Transformations () {
       }
     }
   }
-  // this.besoinFormulaireNumerique = ['Transformations',5, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Rotations\n 4 : Translations\n 5 : Homothéties\n'];
+  this.besoinFormulaireTexte = [
+    'Choix des transformations',
+    '3 nombres séparés par des tirets\n 1&2 : symétries obliques\n 3&4 : symétries horizontales ou verticales\n 5&6 : rotations de 90°\n 7 : symétrie centrale\n 8 : translation\n 9 : homothétie k>1\n 10 : homothétie k<1'
+  ] // Texte, tooltip
 }
