@@ -185,7 +185,7 @@ function questionRecette () { // questions avec des masses pour un nombre de per
   const liste = [ // liste des ingrédients avec différentes recettes associées et masses
     {
       ingredient: 'farine',
-      recettes: ['gateau au citron', 'gauffres', 'crepes', 'cake'],
+      recettes: ['gateau au citron', 'gauffres', 'crêpes', 'cake'],
       quantites_par_pers: [20, 25, 30, 35, 40, 50] // A voir pour l'instant quantités "simples".
     },
     {
