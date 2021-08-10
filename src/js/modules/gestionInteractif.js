@@ -634,6 +634,42 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   // const str = window.location.href
   // const url = new URL(str)
   // const userId = url.searchParams.get('userId')
+  async function myThirdScoresManageFetch () {
+    const response = await fetch('scoresManage.php', {
+      method: 'POST',
+      mode: 'same-origin',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
+        isSubmitUserId: false,
+        isVerifResult: true,
+        userId: userId,
+        prof1: userId[0],
+        prof2: userId[1],
+        prof3: userId[2],
+        classe1: userId[3],
+        classe2: userId[4],
+        eleve1: userId[5],
+        eleve2: userId[6],
+        // eslint-disable-next-line no-unneeded-ternary
+        isCan: getVueFromUrl() === 'can' ? 'oui' : 'non',
+        urlExos: document.location.href + 'serie=' + context.graine,
+        exId: exercice.id,
+        sup: exercice.sup,
+        sup2: exercice.sup2,
+        sup3: exercice.sup3,
+        nbBonnesReponses: nbBonnesReponses,
+        nbQuestions: nbBonnesReponses + nbMauvaisesReponses,
+        score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100
+      })
+    })
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP ! statut : ${response.status}`)
+    }
+  }
   // eslint-disable-next-line no-unused-expressions
   userId === null
     ? (
@@ -641,37 +677,10 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
       )
     : (
         console.log('userId OK : ' + userId),
-        fetch('scoresManage.php', {
-          method: 'POST',
-          mode: 'same-origin',
-          credentials: 'same-origin',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
-            isSubmitUserId: false,
-            isVerifResult: true,
-            userId: userId,
-            prof1: userId[0],
-            prof2: userId[1],
-            prof3: userId[2],
-            classe1: userId[3],
-            classe2: userId[4],
-            eleve1: userId[5],
-            eleve2: userId[6],
-            // eslint-disable-next-line no-unneeded-ternary
-            isCan: getVueFromUrl() === 'can' ? 'oui' : 'non',
-            urlExos: document.location.href + 'serie=' + context.graine,
-            exId: exercice.id,
-            sup: exercice.sup,
-            sup2: exercice.sup2,
-            sup3: exercice.sup3,
-            nbBonnesReponses: nbBonnesReponses,
-            nbQuestions: nbBonnesReponses + nbMauvaisesReponses,
-            score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100
+        myThirdScoresManageFetch()
+          .catch(e => {
+            console.log('/!\\ thirdScoresManage.php /!\\ Pb avec l\'opération de récupération sûrement en dev local sans serveur PHP, message d\'erreur => ' + e.message)
           })
-        })
       )
 }
 
