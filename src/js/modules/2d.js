@@ -8402,7 +8402,7 @@ function LatexParCoordonnees (texte, x, y, color = 'black', size = 200, hauteurL
     // let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
     let code
     if (colorBackground !== '') {
-      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{${colorBackground}}{\\color{${color}}{${texte}}}};`
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}};`
     } else {
       code = `\\draw (${x},${y}) node[anchor = center] {$\\color{${color}}{${texte}}$};`
     };

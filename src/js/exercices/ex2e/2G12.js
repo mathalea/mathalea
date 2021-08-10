@@ -1,6 +1,5 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { axes } from '../../modules/2d.js'
+import { axes, mathalea2d, point, polygoneAvecNom, repere2 } from '../../modules/2d.js'
 import { extraireRacineCarree, listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
 export const titre = 'Déterminer la nature d’un polygone'
 
@@ -8,7 +7,7 @@ export const titre = 'Déterminer la nature d’un polygone'
  * 2G12
  * @author Stéphane Guyon
  */
-export default function Nature_polygone () {
+export default function NaturePolygone () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.nbQuestions = 2
@@ -19,9 +18,12 @@ export default function Nature_polygone () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]; let typesDeQuestions
+    let objets
+    let A, B, C, D, P, XMIN, XMAX, YMIN, YMAX
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, facteur, radical, ux, uy, xA, yA, xB, yB, xC, yC, xD, yD, AB, XAB, YAB, XAC, YAC, XBC, YBC, AC, BC, XAD, YAD, AD, xI0, xI1, yI0, yI1, xJ0, xJ1, yJ0, yJ1, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      objets = []
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
@@ -39,6 +41,8 @@ export default function Nature_polygone () {
 
           xC = xA - uy
           yC = yA + ux
+          xD = 0 // pour ne pas bloquer le recadrage du repère
+          yD = 0
           XAB = (xB - xA) * (xB - xA)
           YAB = (yB - yA) * (yB - yA)
           AB = XAB + YAB
@@ -60,8 +64,8 @@ export default function Nature_polygone () {
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${texNombre(XAB + YAB)}}$<br>`
           facteur = extraireRacineCarree(AB)[0]
           radical = extraireRacineCarree(AB)[1]
-          if (radical != 1) {
-            if (facteur != 1) {
+          if (radical !== 1) {
+            if (facteur !== 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}\\sqrt{${radical}}$<br>`
             }
           } else {
@@ -73,8 +77,8 @@ export default function Nature_polygone () {
           texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${texNombre(XAC + YAC)}}$<br>`
           facteur = extraireRacineCarree(AC)[0]
           radical = extraireRacineCarree(AC)[1]
-          if (radical != 1) {
-            if (facteur != 1) {
+          if (radical !== 1) {
+            if (facteur !== 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}\\sqrt{${radical}}$<br>`
             }
           } else {
@@ -83,9 +87,14 @@ export default function Nature_polygone () {
           texteCorr += 'On observe que $AC=AB$ donc le triangle $ABC$ est isocèle.'
           texteCorr += '<br>On calcule $BC$ pour vérifier s\'il est ou non  équilatéral.'
           texteCorr += `<br>On obtient : $BC=\\sqrt{${XBC}+${YBC}}=\\sqrt{${texNombre(XBC + YBC)}}$<br>`
-          if (XBC + YBC == XAB + YAB) { texteCorr += 'Le triangle $ABC$ est équilatéral.' } else { texteCorr += 'Le triangle $ABC$ est simplement isocèle, il n\'est pas équilatéral.' }
+          if (XBC + YBC === XAB + YAB) { texteCorr += 'Le triangle $ABC$ est équilatéral.' } else { texteCorr += 'Le triangle $ABC$ est simplement isocèle, il n\'est pas équilatéral.' }
 
           ;
+          A = point(xA, yA, 'A')
+          B = point(xB, yB, 'B')
+          C = point(xC, yC, 'C')
+          P = polygoneAvecNom(A, B, C)
+          objets.push(P[0], P[1])
           break
         case 2:
 
@@ -128,18 +137,24 @@ export default function Nature_polygone () {
           texteCorr += `On observe que $AC^{2}+AB^{2}=${texNombre(XAC + YAC + XAB + YAB)} ~~et~~ BC^{2}={${texNombre(XBC + YBC)}}$.`
           texteCorr += '<br>On en déduit que $BC^{2}=AC^{2}+AB^{2}$.'
           texteCorr += '<br>D\'après la réciproque du théorème de Pythagore,  le triangle ABC est rectangle en A.'
+          A = point(xA, yA, 'A')
+          B = point(xB, yB, 'B')
+          C = point(xC, yC, 'C')
+          P = polygoneAvecNom(A, B, C)
+          objets.push(P[0], P[1])
           break
         case 3:
           xA = randint(0, 9) * choice([-1, 1])
           yA = randint(0, 9) * choice([-1, 1])
-          ux = randint(1, 5) * choice([-1, 1])
-          uy = randint(1, 5) * choice([-1, 1])
+          ux = randint(1, 5)
+          uy = randint(1, 5, ux) * choice([-1, 1])
+          ux *= choice([-1, 1])
           xB = xA + ux
           yB = yA + uy
-          xC = xA - ux
-          yC = yA - uy
-          xD = xC + ux
-          yD = yC + uy
+          xC = xB - uy
+          yC = yB - ux
+          xD = xC - ux
+          yD = yC - uy
           xI0 = fractionSimplifiee(xA + xD, 2)[0]
           xI1 = fractionSimplifiee(xA + xD, 2)[1]
           yI0 = fractionSimplifiee(yA + yD, 2)[0]
@@ -180,19 +195,19 @@ export default function Nature_polygone () {
           texteCorr += 'On applique la relation à l\'énoncé : '
           texteCorr += `$\\begin{cases}x_I=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}\\end{cases}$`
           texteCorr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${texNombre(xA + xD)}}{2}\\\\y_I=\\dfrac{${texNombre(yA + yD)}}{2}\\end{cases}$`
-          if (xI1 != 1 && yI1 != 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
-          if (xI1 == 1 && yI1 != 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
-          if (xI1 != 1 && yI1 == 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
-          if (xI1 == 1 && yI1 == 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$` }
+          if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
+          if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
+          if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
+          if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$` }
           texteCorr += '<br> Les coordonnées du point $J$ milieu de $[BC]$ sont '
           texteCorr += '$J\\left(\\dfrac{x_B+x_C}{2};\\dfrac{y_B+y_C}{2}\\right)$ <br>'
           texteCorr += 'On applique la relation à l\'énoncé : '
           texteCorr += `$\\begin{cases}x_J=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2} \\\\ y_J=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}\\end{cases}$`
           texteCorr += `<br>On en déduit :  $\\begin{cases}x_J=\\dfrac{${texNombre(xB + xC)}}{2}\\\\y_J=\\dfrac{${texNombre(yB + yC)}}{2}\\end{cases}$`
-          if (xJ1 != 1 && yJ1 != 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$` }
-          if (xJ1 == 1 && yJ1 != 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
-          if (xJ1 != 1 && yJ1 == 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
-          if (xJ1 == 1 && yJ1 == 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$` }
+          if (xJ1 !== 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$` }
+          if (xJ1 === 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
+          if (xJ1 !== 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
+          if (xJ1 === 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$` }
           texteCorr += '<br>On observe que $I$ et $J$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
           texteCorr += '<br>$ABDC$ est donc un parallélogramme.'
           texteCorr += '<br>On calcule maintenant deux cotés consécutifs : $AB$ et $AC$ par exemple.'
@@ -205,8 +220,8 @@ export default function Nature_polygone () {
           facteur = extraireRacineCarree(AB)[0]
           radical = extraireRacineCarree(AB)[1]
 
-          if (radical != 1) {
-            if (facteur != 1) {
+          if (radical !== 1) {
+            if (facteur !== 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}\\sqrt{${radical}}$<br>`
             }
           } else {
@@ -218,14 +233,20 @@ export default function Nature_polygone () {
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AC=\\sqrt{${texNombre(XAC + YAC)}}$<br>`
           facteur = extraireRacineCarree(AC)[0]
           radical = extraireRacineCarree(AC)[1]
-          if (radical != 1) {
-            if (facteur != 1) {
+          if (radical !== 1) {
+            if (facteur !== 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AC=${facteur}\\sqrt{${radical}}$<br>`
             }
           } else {
             texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AC=\\sqrt{${radical}}$<br>`
           }
           texteCorr += '<br>On observe que $AB=AC$, $ABDC$ est donc bien un losange.'
+          A = point(xA, yA, 'A')
+          B = point(xB, yB, 'B')
+          C = point(xC, yC, 'C')
+          D = point(xD, yD, 'D')
+          P = polygoneAvecNom(A, B, C, D)
+          objets.push(P[0], P[1])
 
           break
         case 4:
@@ -284,19 +305,19 @@ export default function Nature_polygone () {
           texteCorr += 'On applique la relation a l\'enonce : '
           texteCorr += `$\\begin{cases}x_I=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}\\end{cases}$`
           texteCorr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${texNombre(xA + xD)}}{2}\\\\y_I=\\dfrac{${texNombre(yA + yD)}}{2}\\end{cases}$`
-          if (xI1 != 1 && yI1 != 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
-          if (xI1 == 1 && yI1 != 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
-          if (xI1 != 1 && yI1 == 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
-          if (xI1 == 1 && yI1 == 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$` }
+          if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
+          if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
+          if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
+          if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$` }
           texteCorr += '<br> Les coordonnées du point $J$ milieu de $[BC]$ sont '
           texteCorr += '$J\\left(\\dfrac{x_B+x_C}{2};\\dfrac{y_B+y_C}{2}\\right)$ <br>'
           texteCorr += 'On applique la relation à l\'énoncé : '
           texteCorr += `$\\begin{cases}x_J=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2} \\\\ y_J=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}\\end{cases}$`
           texteCorr += `<br>On en déduit :  $\\begin{cases}x_J=\\dfrac{${texNombre(xB + xC)}}{2}\\\\y_J=\\dfrac{${texNombre(yB + yC)}}{2}\\end{cases}$`
-          if (xJ1 != 1 && yJ1 != 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$` }
-          if (xJ1 == 1 && yJ1 != 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
-          if (xJ1 != 1 && yJ1 == 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
-          if (xJ1 == 1 && yJ1 == 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$` }
+          if (xJ1 !== 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$` }
+          if (xJ1 === 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
+          if (xJ1 !== 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
+          if (xJ1 === 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$` }
           texteCorr += '<br>On observe que $I$ et $J$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
           texteCorr += '<br>$ABDC$ est donc un parallélogramme.'
           texteCorr += '<br>On calcule maintenant les diagonales de $ABDC$ : $AD$ et $BC$ par exemple.'
@@ -307,8 +328,8 @@ export default function Nature_polygone () {
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${texNombre(XAD + YAD)}}$<br>`
           facteur = extraireRacineCarree(AD)[0]
           radical = extraireRacineCarree(AD)[1]
-          if (radical != 1) {
-            if (facteur != 1) {
+          if (radical !== 1) {
+            if (facteur !== 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AD=${facteur}\\sqrt{${radical}}$<br>`
             }
           } else {
@@ -320,14 +341,20 @@ export default function Nature_polygone () {
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${texNombre(XBC + YBC)}}$<br>`
           facteur = extraireRacineCarree(BC)[0]
           radical = extraireRacineCarree(BC)[1]
-          if (radical != 1) {
-            if (facteur != 1) {
+          if (radical !== 1) {
+            if (facteur !== 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } BC=${facteur}\\sqrt{${radical}}$<br>`
             }
           } else {
             texteCorr += `$\\phantom{On applique la relation a l'enonce :   } BC=${facteur}$<br>`
           }
           texteCorr += '<br>On observe que $BC=AD$, $ABDC$ est donc bien un rectangle.'
+          A = point(xA, yA, 'A')
+          B = point(xB, yB, 'B')
+          C = point(xC, yC, 'C')
+          D = point(xD, yD, 'D')
+          P = polygoneAvecNom(A, B, C, D)
+          objets.push(P[0], P[1])
 
           break
         case 5:
@@ -385,19 +412,19 @@ export default function Nature_polygone () {
           texteCorr += 'On applique la relation à l\'énoncé : '
           texteCorr += `$\\begin{cases}x_I=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}\\end{cases}$`
           texteCorr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${texNombre(xA + xD)}}{2}\\\\y_I=\\dfrac{${texNombre(yA + yD)}}{2}\\end{cases}$`
-          if (xI1 != 1 && yI1 != 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
-          if (xI1 == 1 && yI1 != 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
-          if (xI1 != 1 && yI1 == 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
-          if (xI1 == 1 && yI1 == 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$` }
+          if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
+          if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
+          if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
+          if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$` }
           texteCorr += '<br> Les coordonnées du point $J$ milieu de $[BC]$ sont '
           texteCorr += '$J\\left(\\dfrac{x_B+x_C}{2};\\dfrac{y_B+y_C}{2}\\right)$ <br>'
           texteCorr += 'On applique la relation à l\'énoncé : '
           texteCorr += `$\\begin{cases}x_J=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2} \\\\ y_J=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}\\end{cases}$`
           texteCorr += `<br>On en déduit :  $\\begin{cases}x_J=\\dfrac{${texNombre(xB + xC)}}{2}\\\\y_J=\\dfrac{${texNombre(yB + yC)}}{2}\\end{cases}$`
-          if (xJ1 != 1 && yJ1 != 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$` }
-          if (xJ1 == 1 && yJ1 != 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
-          if (xJ1 != 1 && yJ1 == 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
-          if (xJ1 == 1 && yJ1 == 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$` }
+          if (xJ1 !== 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$` }
+          if (xJ1 === 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
+          if (xJ1 !== 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
+          if (xJ1 === 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$` }
           texteCorr += '<br>On observe que $I$ et $J$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
           texteCorr += '<br>$ABDC$ est donc un parallélogramme.'
           texteCorr += '<br><B>2. On prouve que $ABDC$ est un rectangle :</B>'
@@ -409,8 +436,8 @@ export default function Nature_polygone () {
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${texNombre(XAD + YAD)}}$<br>`
           facteur = extraireRacineCarree(AD)[0]
           radical = extraireRacineCarree(AD)[1]
-          if (radical != 1) {
-            if (facteur != 1) {
+          if (radical !== 1) {
+            if (facteur !== 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AD=${facteur}\\sqrt{${radical}}$<br>`
             }
           } else {
@@ -420,8 +447,8 @@ export default function Nature_polygone () {
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${XBC}+${YBC}}$<br>`
           facteur = extraireRacineCarree(BC)[0]
           radical = extraireRacineCarree(BC)[1]
-          if (radical != 1) {
-            if (facteur != 1) {
+          if (radical !== 1) {
+            if (facteur !== 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } BC=${facteur}\\sqrt{${radical}}$<br>`
             } else {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } BC=\\sqrt{${radical}}$<br>`
@@ -437,8 +464,8 @@ export default function Nature_polygone () {
           texteCorr += `$AB =\\sqrt{${texNombre(XAB + YAB)}}$<br>`
           facteur = extraireRacineCarree(AB)[0]
           radical = extraireRacineCarree(AB)[1]
-          if (radical != 1) {
-            if (facteur != 1) {
+          if (radical !== 1) {
+            if (facteur !== 1) {
               texteCorr += `$AB=${facteur}\\sqrt{${radical}}$<br>`
             }
           } else {
@@ -449,17 +476,33 @@ export default function Nature_polygone () {
           texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${texNombre(XAC + YAC)}}$<br>`
           facteur = extraireRacineCarree(AC)[0]
           radical = extraireRacineCarree(AC)[1]
-          if (radical != 1) {
-            if (facteur != 1) {
+          if (radical !== 1) {
+            if (facteur !== 1) {
               texteCorr += `$\\phantom{De meme :       } AC=${facteur}\\sqrt{${radical}}$<br>`
             }
           } else {
             texteCorr += `$\\phantom{De meme :  } AC=${facteur}$<br>`
           }
           texteCorr += 'On observe que $AC=AB$ donc $ABDC$ est bien un carré.'
+          A = point(xA, yA, 'A')
+          B = point(xB, yB, 'B')
+          C = point(xC, yC, 'C')
+          D = point(xD, yD, 'D')
+          P = polygoneAvecNom(A, B, C, D)
+          objets.push(P[0], P[1])
 
           break
       }
+      if (xD === 'undefined') {
+        xD = 0
+        yD = 0
+      }
+      XMIN = Math.min(xA, xB, xC, xD, -1) - 1
+      YMIN = Math.min(yA, yB, yC, yD, -1) - 1
+      XMAX = Math.max(xA, xB, xC, xD, 1) + 1
+      YMAX = Math.max(yA, yB, yC, yD, 1) + 1
+      objets.push(repere2({ xMin: XMIN, yMin: YMIN, xMax: XMAX, yMax: YMAX }))
+      texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
