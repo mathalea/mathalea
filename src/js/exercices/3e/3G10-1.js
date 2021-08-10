@@ -35,6 +35,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
     this.sup = parseInt(this.sup)
     this.listeCorrections = [] // Liste de questions corrigées
     let xA; let yA; let xB; let yB; let xC; let yC; const k = []
+    let A, B, C, Aprime, Bprime, Cprime
     const xP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // ces nombres sont juste là pour compter combien il y en a... ils seront remplacés plus tard par les coordonnées utiles ou pas.
     const yP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // comme pour t, je n'utiliserai pas le premier élément pour coller aux index.
     const t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // il y a 14 transformations mais je n'utilise pas t[0] pour coller avec les index.
@@ -46,15 +47,9 @@ export default function TransformationsDuPlanEtCoordonnees () {
     for (let j = 0; j < 3; j++) {
       if (choixTransformation[j] === 10) {
         k[j] = choice([2, 2, 2, 2, 4, 4, 4, 4, 5, 10]) * randint(-1, 1, [0]) // rapport d'homothétie < 1 (plus ou moins  0.5, 0.25, 0.2 ou 0,1 ) avec une fréquence divisée par 4 pour 0.2 et 0.1
-      } else { k[j] = choice([1, 2, 2, 3, 3, 4, 4, 5, 5, 2.5]) * randint(-1, 1, [0]) }
-    } // rapport d'homothétie >=1 (plus ou - 1,2,2.5, 3, 4 ou 5 avec des fréquences divisées par 2 pour 1 et 2.5)
+      } else { k[j] = choice([1, 2, 2, 3, 3, 2.5]) * randint(-1, 1, [0]) }
+    } // rapport d'homothétie >=1 (plus ou - 1,2,2.5, 3 avec des fréquences divisées par 2 pour 1 et 2.5)
 
-    xA = randint(-6, 6, 0) // Point A
-    yA = randint(-6, 6, -1)
-    xB = randint(-6, 6, [xA, 0]) // Point B
-    yB = randint(-6, 6, -1)
-    xC = randint(-6, 6, 0) // Point C
-    yC = randint(-6, 6, [yA, yB, -1])
     const xO = randint(-3, 3, [0, -1]) // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et punto d'intersection des axes))
     const yO = randint(-3, 3, [0, -1])
     const pointO = point(0, 0, 'O', 'above right')
@@ -79,33 +74,60 @@ export default function TransformationsDuPlanEtCoordonnees () {
     droited2.opacite = 0.5
     droited.opacite = 0.5
     droitedprime.opacite = 0.5
+    let trouve = false
+    let compteur = 0
+    while (trouve === false) {
+      xA = randint(-7, 7, 0) // Point A
+      yA = randint(-7, 7, -1)
+      xB = randint(-7, 7, [xA, 0]) // Point B
+      yB = randint(-7, 7, -1)
+      xC = randint(-7, 7, 0) // Point C
+      yC = randint(-7, 7, [yA, yB, -1])
 
-    punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
-    while (punto[0][0] < -10 || punto[0][0] > 10 || punto[0][1] < -10 || punto[0][1] > 10) { // on teste si A est dans la fenêtre sinon on en choisit un autre
-      xA = randint(-6, 6) // Point A
-      yA = randint(-6, 6, -1)
       punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
-    }
-    const A = point(xA, yA, 'A')
-    const Aprime = point(punto[0][0], punto[0][1], "A'")
-    if (choixTransformation[1] > 4) { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1]) } else { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
-    while (punto[1][0] < -10 || punto[1][0] > 10 || punto[1][1] < -10 || punto[1][1] > 10) { // on teste si on est dans les clous, sinon on choisit un autre punto B
-      xB = randint(-6, 6, [xA]) // Point B
-      yB = randint(-6, 6, -1)
+      while ((punto[0][0] < -10 || punto[0][0] > 10 || punto[0][1] < -10 || punto[0][1] > 10) && compteur < 20) { // on teste si A est dans la fenêtre sinon on en choisit un autre
+        xA = randint(-7, 7) // Point A
+        yA = randint(-7, 7, -1)
+        punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
+        compteur++
+      }
+      if (compteur < 20) {
+        compteur = 0
+      } else {
+        compteur = 100
+      }
+      A = point(xA, yA, 'A')
+      Aprime = point(punto[0][0], punto[0][1], "A'")
       if (choixTransformation[1] > 4) { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1]) } else { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
-    }
-    const B = point(xB, yB, 'B')
-    const Bprime = point(punto[1][0], punto[1][1], "B'")
+      while ((punto[1][0] < -10 || punto[1][0] > 10 || punto[1][1] < -10 || punto[1][1] > 10) && compteur < 20) { // on teste si on est dans les clous, sinon on choisit un autre punto B
+        xB = randint(-7, 7, [xA]) // Point B
+        yB = randint(-7, 7, -1)
+        if (choixTransformation[1] > 4) { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1]) } else { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
+        compteur++
+      }
+      if (compteur < 20) {
+        compteur = 0
+      } else {
+        compteur = 100
+      }
 
-    if (choixTransformation[2] > 4) { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2]) } else { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
-    while (punto[2][0] < -10 || punto[2][0] > 10 || punto[2][1] < -10 || punto[2][1] > 10) { // on vérifie que C est dans le repère sinon on change le punto C.
-      xC = randint(-6, 6) // Point C
-      yC = randint(-6, 6, [yA, yB, -1])
+      B = point(xB, yB, 'B')
+      Bprime = point(punto[1][0], punto[1][1], "B'")
+
       if (choixTransformation[2] > 4) { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2]) } else { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
+      while ((punto[2][0] < -10 || punto[2][0] > 10 || punto[2][1] < -10 || punto[2][1] > 10) && compteur < 20) { // on vérifie que C est dans le repère sinon on change le punto C.
+        xC = randint(-7, 7) // Point C
+        yC = randint(-7, 7, [yA, yB, -1])
+        if (choixTransformation[2] > 4) { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2]) } else { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
+        compteur++
+      }
+      if (compteur < 20) {
+        trouve = true
+      }
+      C = point(xC, yC, 'C')
+      Cprime = point(punto[2][0], punto[2][1], "C'")
     }
-    const C = point(xC, yC, 'C')
-    const Cprime = point(punto[2][0], punto[2][1], "C'")
-
+    console.log(compteur)
     // les puntos sont choisis, on écrit l'énoncé
     for (let i = 0; i < 3; i++) {
       switch (choixTransformation[i]) {
