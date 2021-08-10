@@ -1,13 +1,13 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
-import { repere2, droite, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
+import { repere2, droite, mathalea2d, point, tracePoint, labelPoint, texteParPosition } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 
 export const titre = 'Représentation graphique d’une fonction affine'
 
 /**
 * @author Stéphane Guyon
-* 2F10-1, ex beta2F22
+* 2F10-3
 */
 export default function representerfonctionaffine () {
   Exercice.call(this)
@@ -30,6 +30,7 @@ export default function representerfonctionaffine () {
     // typesDeQuestionsDisponibles = [1, 2]// On complète selon le nb de cas dans l'exo (switch)
 
     // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)
 
     for (let i = 0, a, b, r, c, d, tA, lA, tB, lB, xA, yA, lC, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
@@ -84,7 +85,7 @@ export default function representerfonctionaffine () {
           ymin: min(-8, yA - 2),
           xmax: 6,
           ymax: max(8, yA + 2)
-        }, lA, lB, r, c, tA, tB)
+        }, lA, lB, r, c, tA, tB, o)
       }
       if (this.sup === 2) { // cas du coeff directeur fractionnaire
         a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
@@ -131,7 +132,7 @@ export default function representerfonctionaffine () {
           xmax: 8,
           ymax: 8
 
-        }, r, c, tA, lA, tB, lB, lC)
+        }, r, c, tA, lA, tB, lB, lC,o)
         // On trace le graphique
       }
 

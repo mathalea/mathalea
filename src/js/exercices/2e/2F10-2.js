@@ -52,7 +52,7 @@ export default function lecturefonctionaffine () {
           ymin: -6,
           xmax: 6,
           ymax: 6
-        }, r, c)// On trace le graphique
+        }, r, c, o)// On trace le graphique
 
         texteCorr = 'On sait que l\'expression algébrique d\'une fonction affine est de la forme :$f(x)=ax+b$, avec $a$ et $b$ deux réels.<br>'
         texteCorr += 'Le premier coefficient qu\'on peut facilement lire graphiquement est $b$, l\'ordonnée à l\'origine de la droite.<br>'
@@ -84,7 +84,7 @@ export default function lecturefonctionaffine () {
           ymin: -6,
           xmax: 6,
           ymax: 6
-        }, r, c)// On trace le graphique
+        }, r, c, o)// On trace le graphique
 
         texteCorr = 'On sait que l\'équation réduite d\'une droite non verticale est de la forme : $y= ax+b$ avec $a$ et $b$ deux réels non tous deux nuls.<br>'
         texteCorr += 'Le premier coefficient à lire graphiquement est $b$, l\'ordonnée à l\'origine de la droite.<br>'
