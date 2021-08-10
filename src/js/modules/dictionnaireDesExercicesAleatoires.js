@@ -505,8 +505,12 @@ export default {
   "3G12-1": {
     "titre": "Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage",
     "url": "/exercices/3e/3G12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G12-1"
   },
   "3G12": {
@@ -1102,8 +1106,12 @@ export default {
   "4G11-1": {
     "titre": "Trouver l’image d’une figure par une translation dans un pavage",
     "url": "/exercices/4e/4G11-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4G11-1"
   },
   "4G11": {
@@ -1543,8 +1551,12 @@ export default {
   "5G12-1": {
     "titre": "Symétrique d’une figure dans un pavage",
     "url": "/exercices/5e/5G12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5G12-1"
   },
   "5G12": {
@@ -2609,8 +2621,12 @@ export default {
   "6G25-2": {
     "titre": "Trouver l’image d’une figure par une symétrie axiale dans un pavage carré",
     "url": "/exercices/6e/6G25-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6G25-2"
   },
   "6G25-3": {
