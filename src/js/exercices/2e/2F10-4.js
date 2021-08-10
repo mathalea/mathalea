@@ -19,7 +19,6 @@ export default function Determinerfonctionaffine () {
   this.spacing = 1
   this.spacingCorr = 1
   this.nbQuestions = 3
-  this.spacingCorr = 3
   this.sup = 1
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
