@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, reduireAxPlusB, abs, pgcd, texFractionReduite, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, reduireAxPlusB, abs, pgcd, texFractionReduite, ecritureAlgebrique, choice } from '../../modules/outils.js'
 import { repere2, droite, mathalea2d, point, tracePoint, labelPoint, segment } from '../../modules/2d.js'
 
 export const titre = 'Lecture graphique d’une fonction affine'
@@ -95,9 +95,10 @@ export default function lecturefonctionaffine () {
         }
       }
       if (this.sup === 2) { // cas du coeff directeur fractionnaire
-        a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
+        d = randint(2, 5)
         b = randint(-5, 5) // ordonnée à l'origine
-        d = randint(2, 5, [a, 2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
+        a = randint(1, 5, [d, 2 * d]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
+        a *= choice([-1, 1])
         r = repere2()// On définit le repère
         c = droite(a / d, -1, b)
         c.color = 'red'
