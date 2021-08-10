@@ -14,7 +14,8 @@ export const titre = 'Résoudre des problèmes de proportionnalité en utilisant
 
 // _____ Les fonctions suivantes renvoient un objet : {texte = ; texteCorr = ;} ______
 // elles correspondent aux différentes situations problèmes
-let facteur, indexN
+let versionSimplifiee = false
+let indexN
 const couplePremiersEntreEux = [
   [3, 4],
   [3, 5],
@@ -162,7 +163,7 @@ function questionAchat () { // questions d'origine du 6P11 : achat.
   const n = couplePremiersEntreEux[indexN][0]
   const y = couplePremiersEntreEux[indexN][1]
   let x
-  if (facteur === 1) {
+  if (versionSimplifiee) {
     x = calcul(n * randint(2, 5))
   } else {
     x = calcul(n * pu, 2)
@@ -222,7 +223,7 @@ function questionRecette () { // questions avec des masses pour un nombre de per
   const alea1 = randint(0, 3) // pour le choix de l'ingredient
   const alea2 = randint(0, liste[alea1].recettes.length - 1) // pour le choix de la recette
   const alea3 = randint(0, liste[alea1].quantites_par_pers.length - 1) // pour le choix de la quantité par personne.
-  const quantite = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneInit * facteur) // Calcul de la quantité dans la recette à partir de la qtt/personne et du nb de personne
+  const quantite = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneInit) // Calcul de la quantité dans la recette à partir de la qtt/personne et du nb de personne
   const quantiteReponse = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneFinal) // Pour la correction
   const prenoms = [prenomF(), prenomM()] // Choix de prénoms pour l'énoncé
   const texte = `${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour ${nbPersonneInit} personnes qu'il faut ${texNombrec(quantite)} g de ${liste[alea1].ingredient}. <br>` +
@@ -278,7 +279,7 @@ function questionDillution () { // questions de mélange de volumes
   const alea1 = randint(0, 3) // pour le choix du soluté
   const alea2 = randint(0, liste[alea1].volumeUnitaire.length - 1) // pour le choix du volume pour une unité de solvant
   let quantite
-  if (facteur === 1) {
+  if (versionSimplifiee) {
     quantite = volumeInitial * randint(2, 5)
   } else {
     quantite = liste[alea1].volumeUnitaire[alea2] * volumeInitial
@@ -331,6 +332,12 @@ function questionDistance () { // questions de distance parcourue à une vitesse
       vitesse: [125, 150, 175, 185, 195]
     }
   ]
+  let facteur
+  if (versionSimplifiee) {
+    facteur = 1
+  } else {
+    facteur = randint(1, 19, [10]) / 10
+  }
   const alea1 = randint(0, 3) // pour le choix de locomotion
   const dureeQ = couplePremiersEntreEux[indexN][0]
   const dureeR = couplePremiersEntreEux[indexN][1]
@@ -357,7 +364,8 @@ function questionDistance () { // questions de distance parcourue à une vitesse
 
 function questionEchelle () { // X cm sur une carte correspond à x km dans la réalité...
   const distanceCarte = couplePremiersEntreEux[indexN][0] // Choix d'un nombre de cm sur la carte
-  const distanceReel = distanceCarte * randint(2, 5) * facteur // Choix d'un nombre de km dans la réalité (on évite d'avoir 1cm pour 1km)
+  let distanceReel = distanceCarte * randint(2, 5) // Choix d'un nombre de km dans la réalité (on évite d'avoir 1cm pour 1km)
+  if (!versionSimplifiee) distanceReel *= randint(1, 19, [10]) / 10
   const distanceCarte2 = couplePremiersEntreEux[indexN][1]
   const prenoms = [prenomF(), prenomM()]
   const texte = `Sur une carte sur laquelle ${distanceCarte} cm représente ${texNombrec(distanceReel)} km dans la réalité, <br>
@@ -401,14 +409,14 @@ function questionRecouvrirSurface () { // peinture, gazon, carrelage pour une su
     }
   ]
   let alea1
-  if (facteur === 1) alea1 = liste.length - 1 // Pour avoir un coef entier, la qtt_matiere_unitaire doit être plus grande que la surface, ce qui ne se trouve que dans le carrelage
+  if (versionSimplifiee) alea1 = liste.length - 1 // Pour avoir un coef entier, la qtt_matiere_unitaire doit être plus grande que la surface, ce qui ne se trouve que dans le carrelage
   else alea1 = randint(0, liste.length - 1)
   const alea2 = randint(0, liste[alea1].qtt_matiere_unitaire.length - 1)
   const alea3 = randint(0, liste[alea1].qtt_surface.length - 1)
   const rapport = [0.25, 0.5, 0.75, 1.25, 1.5, 2, 3, 4, 5] // choix parmi des rapports simples (en 6eme cela parrait suffisant)
   const alea4 = randint(0, rapport.length - 1)
   let quantite, surfaceFinale, surfaceInitiale
-  if (facteur === 1) {
+  if (versionSimplifiee) {
     surfaceInitiale = couplePremiersEntreEux[indexN][0]
     quantite = surfaceInitiale * randint(2, 5)
     surfaceFinale = couplePremiersEntreEux[indexN][1]
@@ -450,7 +458,7 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
   this.nbQuestions = 6
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.besoinFormulaireCaseACocher = ['Coefficient de proportionnalité entier']
+  this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
   this.sup = false
   this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Achat.\n2 : Recette.\n3 : Dilution.\n4 : Distance.\n5 : Echelle.\n6 : Surface.']
   this.nouvelleVersion = function () {
@@ -471,9 +479,9 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
     for (let i = 0; i < this.nbQuestions && cpt < 50;) {
       indexN = randint(0, couplePremiersEntreEux.length - 1)
       if (this.sup) {
-        facteur = 1
+        versionSimplifiee = true
       } else {
-        facteur = randint(1, 19, [10]) / 10
+        versionSimplifiee = false
       }
       switch (parseInt(listeIndexSituations[i])) {
         case 1:
