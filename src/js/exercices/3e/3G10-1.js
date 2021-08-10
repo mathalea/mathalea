@@ -1,4 +1,4 @@
-import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, mathalea2d, point, segment, milieu, pointSurDroite, tracePoint, codeSegments, repere2, labelPoint, droiteHorizontaleParPoint, latexParCoordonnees, afficheMesureAngle, vecteur } from '../../modules/2d.js'
+import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, mathalea2d, point, segment, milieu, pointSurDroite, tracePoint, codeSegments, repere2, labelPoint, droiteHorizontaleParPoint, afficheMesureAngle, vecteur } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, texNombrec, texNombre } from '../../modules/outils.js'
@@ -86,7 +86,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
       yC = randint(-7, 7, [yA, yB, -1])
 
       punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
-      while ((punto[0][0] < -10 || punto[0][0] > 10 || punto[0][1] < -10 || punto[0][1] > 10) && compteur < 20) { // on teste si A est dans la fenêtre sinon on en choisit un autre
+      while ((punto[0][0] < -9 || punto[0][0] > 9 || punto[0][1] < -9 || punto[0][1] > 9) && compteur < 20) { // on teste si A est dans la fenêtre sinon on en choisit un autre
         xA = randint(-7, 7) // Point A
         yA = randint(-7, 7, -1)
         punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
@@ -100,7 +100,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
       A = point(xA, yA, 'A')
       Aprime = point(punto[0][0], punto[0][1], "A'")
       if (choixTransformation[1] > 4) { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1]) } else { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
-      while ((punto[1][0] < -10 || punto[1][0] > 10 || punto[1][1] < -10 || punto[1][1] > 10) && compteur < 20) { // on teste si on est dans les clous, sinon on choisit un autre punto B
+      while ((punto[1][0] < -9 || punto[1][0] > 9 || punto[1][1] < -9 || punto[1][1] > 9) && compteur < 20) { // on teste si on est dans les clous, sinon on choisit un autre punto B
         xB = randint(-7, 7, [xA]) // Point B
         yB = randint(-7, 7, -1)
         if (choixTransformation[1] > 4) { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1]) } else { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
@@ -116,7 +116,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
       Bprime = point(punto[1][0], punto[1][1], "B'")
 
       if (choixTransformation[2] > 4) { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2]) } else { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
-      while ((punto[2][0] < -10 || punto[2][0] > 10 || punto[2][1] < -10 || punto[2][1] > 10) && compteur < 20) { // on vérifie que C est dans le repère sinon on change le punto C.
+      while ((punto[2][0] < -9 || punto[2][0] > 9 || punto[2][1] < -9 || punto[2][1] > 9) && compteur < 20) { // on vérifie que C est dans le repère sinon on change le punto C.
         xC = randint(-7, 7) // Point C
         yC = randint(-7, 7, [yA, yB, -1])
         if (choixTransformation[2] > 4) { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2]) } else { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
@@ -557,7 +557,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 texte: 'Abscisse de A',
                 valeur: punto[0][0],
                 param: {
-                  digits: 2,
+                  digits: 1,
                   decimals: 0,
                   signe: true,
                   approx: 0
@@ -574,7 +574,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 texte: 'Ordonnée de A',
                 valeur: punto[0][1],
                 param: {
-                  digits: 2,
+                  digits: 1,
                   decimals: 0,
                   signe: true,
                   approx: 0
@@ -591,7 +591,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 texte: 'Abscisse de B',
                 valeur: punto[1][0],
                 param: {
-                  digits: 2,
+                  digits: 1,
                   decimals: 0,
                   signe: true,
                   approx: 0
@@ -608,7 +608,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 texte: 'Ordonnée de B',
                 valeur: punto[1][1],
                 param: {
-                  digits: 2,
+                  digits: 1,
                   decimals: 0,
                   signe: true,
                   approx: 0
@@ -625,7 +625,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 texte: 'Abscisse de C',
                 valeur: punto[2][0],
                 param: {
-                  digits: 2,
+                  digits: 1,
                   decimals: 0,
                   signe: true,
                   approx: 0
@@ -642,7 +642,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 texte: 'Ordonnée de C',
                 valeur: punto[2][1],
                 param: {
-                  digits: 2,
+                  digits: 1,
                   decimals: 0,
                   signe: true,
                   approx: 0

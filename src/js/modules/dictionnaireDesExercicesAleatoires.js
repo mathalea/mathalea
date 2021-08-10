@@ -522,8 +522,12 @@ export default {
   "3G10-2": {
     "titre": "Trouver l’image d’un point par une transformation choisie aléatoirement",
     "url": "/exercices/3e/3G10-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G10-2"
   },
   "3G10-3": {
@@ -543,8 +547,12 @@ export default {
   "3G12-1": {
     "titre": "Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage",
     "url": "/exercices/3e/3G12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G12-1"
   },
   "3G12": {
@@ -1129,15 +1137,23 @@ export default {
   "4G10": {
     "titre": "Trouver l’image d’un point par une symétrie axiale ou centrale ou par une translation",
     "url": "/exercices/4e/4G10.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4G10"
   },
   "4G11-1": {
     "titre": "Trouver l’image d’une figure par une translation dans un pavage",
     "url": "/exercices/4e/4G11-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4G11-1"
   },
   "4G11": {
@@ -1534,8 +1550,12 @@ export default {
   "5G10": {
     "titre": "Trouver l’image d’un point par une symétrie axiale",
     "url": "/exercices/5e/5G10.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5G10"
   },
   "5G11-1": {
@@ -1562,15 +1582,23 @@ export default {
   "5G11": {
     "titre": "Trouver l’image d’un point par une symétrie axiale ou centrale",
     "url": "/exercices/5e/5G11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5G11"
   },
   "5G12-1": {
     "titre": "Symétrique d’une figure dans un pavage",
     "url": "/exercices/5e/5G12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5G12-1"
   },
   "5G12": {
@@ -2613,8 +2641,12 @@ export default {
   "6G24": {
     "titre": "Trouver l’image d’un point par une symétrie axiale",
     "url": "/exercices/6e/6G24.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6G24"
   },
   "6G25-1": {
@@ -2631,8 +2663,12 @@ export default {
   "6G25-2": {
     "titre": "Trouver l’image d’une figure par une symétrie axiale dans un pavage carré",
     "url": "/exercices/6e/6G25-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6G25-2"
   },
   "6G25-3": {
@@ -2950,8 +2986,12 @@ export default {
   "6N13": {
     "titre": "Conversions de longueurs, masses, contenance, prix ou unités informatiques",
     "url": "/exercices/6e/6N13.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N13"
   },
   "6N14": {
@@ -3080,8 +3120,12 @@ export default {
   "6N24": {
     "titre": "Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)",
     "url": "/exercices/6e/6N24.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N24"
   },
   "6N30-1": {
@@ -3205,8 +3249,12 @@ export default {
   "6N34": {
     "titre": "Conversions avec tous les préfixes de milli à tera.",
     "url": "/exercices/6e/6N34.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N34"
   },
   "6N41-1": {

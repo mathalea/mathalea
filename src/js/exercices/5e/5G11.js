@@ -1,5 +1,6 @@
 import Transformations from '../6e/_Transformations.js'
 export const titre = 'Trouver l’image d’un point par une symétrie axiale ou centrale'
+export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Transformations.js'
 
 /**
  * Transformations : trouvers un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
