@@ -24,7 +24,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  context.fenetreMathalea2d = [-9, -9, 9, 9]
   this.sup = 1 // 1 calcul de l'hypoténuse 2 calcul d'un côté de l'angle droit
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
   this.nouvelleVersion = function (numeroExercice) {
@@ -54,10 +54,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const yO = randint(-3, 3, [0, -1])
     const pointO = point(0, 0, 'O', 'above right')
     const O = point(xO, yO, "O'", 'above left') // on crée le point O'
-    const droited1 = droiteParPointEtPente(O, 1) // et les trois axes passant par O'
-    const droited = droiteHorizontaleParPoint(O)
-    const droited2 = droiteParPointEtPente(O, -1)
-    const droitedprime = droiteVerticaleParPoint(O)
+    const droited1 = droiteParPointEtPente(O, 1, '(d_1)') // et les trois axes passant par O'
+    const droited = droiteHorizontaleParPoint(O, '(d)')
+    const droited2 = droiteParPointEtPente(O, -1, '(d_2)')
+    const droitedprime = droiteVerticaleParPoint(O, "(d')")
     droited1.isVisible = true
     droited2.isVisible = true
     droited.isVisible = true
@@ -71,6 +71,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
     droited.color = 'green'
     droitedprime.color = 'green'
     droited1.opacite = 0.5
+    droited1.nom = '(d_1)'
     droited2.opacite = 0.5
     droited.opacite = 0.5
     droitedprime.opacite = 0.5
@@ -149,8 +150,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
             xP[1] = xC
             yP[1] = yC
           }
-          objetsEnonce.push(droited1, latexParCoordonnees('(d_1)', -8, -7 - xO + yO, 'green', 2))
-          objetsCorrection.push(droited1, latexParCoordonnees('(d_1)', -8, -7 - xO + yO, 'green', 2))
+          objetsEnonce.push(droited1)
+          objetsCorrection.push(droited1)
 
           texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_1)$.`
           if (context.isAmc) {
@@ -177,8 +178,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
             xP[2] = xC
             yP[2] = yC
           }
-          objetsEnonce.push(droited2, latexParCoordonnees('(d_2)', 8, -7 + xO + yO, 'green', 2))
-          objetsCorrection.push(droited2, latexParCoordonnees('(d_2)', 8, -7 + xO + yO, 'green', 2))
+          objetsEnonce.push(droited2)
+          objetsCorrection.push(droited2)
           texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_2)$.`
           if (context.isAmc) {
             enonceAmc += `${i + 1}) ` + `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_2)$.`
@@ -204,8 +205,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
             xP[3] = xC
             yP[3] = yC
           }
-          objetsEnonce.push(droited, latexParCoordonnees('(d)', -8, yO + 1, 'green', 2))
-          objetsCorrection.push(droited, latexParCoordonnees('(d)', -8, yO + 1, 'green', 2))
+          objetsEnonce.push(droited)
+          objetsCorrection.push(droited)
           texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d)$.`
           if (context.isAmc) {
             enonceAmc += `${i + 1}) ` + `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d)$.`
@@ -231,7 +232,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             xP[4] = xC
             yP[4] = yC
           }
-          objetsEnonce.push(droitedprime, latexParCoordonnees('(d\')', xO + 0.2, 9, 'green', 2))
+          objetsEnonce.push(droitedprime)
           objetsCorrection.push(droitedprime)
           texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d')$.`
           if (context.isAmc) {
