@@ -493,10 +493,7 @@ export default function NaturePolygone () {
 
           break
       }
-      if (xD === 'undefined') {
-        xD = 0
-        yD = 0
-      }
+
       XMIN = Math.min(xA, xB, xC, xD, -1) - 1
       YMIN = Math.min(yA, yB, yC, yD, -1) - 1
       XMAX = Math.max(xA, xB, xC, xD, 1) + 1
