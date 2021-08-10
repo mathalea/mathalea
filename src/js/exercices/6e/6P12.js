@@ -335,13 +335,13 @@ function questionDistance () { // questions de distance parcourue à une vitesse
   const dureeQ = couplePremiersEntreEux[indexN][0]
   const dureeR = couplePremiersEntreEux[indexN][1]
   const alea2 = randint(0, liste[alea1].vitesse.length - 1) // pour le facteur de distance parcourue
-  const texte = `Un ${liste[alea1].locomotion} parcourt en moyenne ${texNombrec(liste[alea1].vitesse[alea2] * dureeQ * facteur)} km en ${dureeQ} heures.
+  const texte = `Un ${liste[alea1].locomotion} parcourt en moyenne $${texNombrec(liste[alea1].vitesse[alea2] * dureeQ * facteur)}$ km en ${dureeQ} heures.
   <br> Quelle distance va-t-il parcourir, à la même vitesse en ${dureeR} heures ?`
 
   const texteCorr = `Commençons par trouver quelle est la distance parcourue en 1h : <br>
   1 h, c'est ${texteEnCouleur(dureeQ)} fois moins que ${dureeQ} h. 
    En 1 h, il parcourt donc une distance ${texteEnCouleur(dureeQ)} fois moins grande qu'en ${dureeQ} h.<br>` +
-  `${texNombrec(liste[alea1].vitesse[alea2] * facteur * dureeQ)} km $\\div $ ${texteEnCouleur(dureeQ)} = ${texNombrec(liste[alea1].vitesse[alea2] * facteur)} km. <br>` +
+  `$${texNombrec(liste[alea1].vitesse[alea2] * facteur * dureeQ)}$ km $\\div $ ${texteEnCouleur(dureeQ)} = ${texNombrec(liste[alea1].vitesse[alea2] * facteur)} km. <br>` +
   texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
   ` En 1h, le ${liste[alea1].locomotion} parcourt donc ${texteEnCouleur(texNombrec(liste[alea1].vitesse[alea2] * facteur), 'blue')} km. <br>` +
       ` Cherchons maintenant la distance parcourue en ${dureeR} h : <br>` +
@@ -362,7 +362,7 @@ function questionEchelle () { // X cm sur une carte correspond à x km dans la r
   const prenoms = [prenomF(), prenomM()]
   const texte = `Sur une carte sur laquelle ${distanceCarte} cm représente ${texNombrec(distanceReel)} km dans la réalité, <br>
   ${prenoms[0]} mesure sont trajet, elle trouve une distance de ${distanceCarte2} cm. <br>` +
-  'A quelle distance cela correspond dans la réalité ? <br><br>'
+  'A quelle distance cela correspond dans la réalité ?'
 
   const texteCorr = `Commençons par trouver 1 cm sur la carte correspond à combien de km dans la réalité : <br>
   1 cm, c'est ${texteEnCouleur(distanceCarte)} fois moins que ${distanceCarte} cm.<br>` +
@@ -400,7 +400,9 @@ function questionRecouvrirSurface () { // peinture, gazon, carrelage pour une su
       qtt_surface: [1, 2, 4]
     }
   ]
-  const alea1 = randint(0, liste.length - 1)
+  let alea1
+  if (facteur === 1) alea1 = liste.length - 1 // Pour avoir un coef entier, la qtt_matiere_unitaire doit être plus grande que la surface, ce qui ne se trouve que dans le carrelage
+  else alea1 = randint(0, liste.length - 1)
   const alea2 = randint(0, liste[alea1].qtt_matiere_unitaire.length - 1)
   const alea3 = randint(0, liste[alea1].qtt_surface.length - 1)
   const rapport = [0.25, 0.5, 0.75, 1.25, 1.5, 2, 3, 4, 5] // choix parmi des rapports simples (en 6eme cela parrait suffisant)
@@ -409,7 +411,7 @@ function questionRecouvrirSurface () { // peinture, gazon, carrelage pour une su
   if (facteur === 1) {
     surfaceInitiale = couplePremiersEntreEux[indexN][0]
     quantite = surfaceInitiale * randint(2, 5)
-    surfaceFinale = calcul(couplePremiersEntreEux[indexN][1])
+    surfaceFinale = couplePremiersEntreEux[indexN][1]
   } else {
     surfaceInitiale = liste[alea1].qtt_surface[alea3]
     quantite = liste[alea1].qtt_matiere_unitaire[alea2]
@@ -450,10 +452,20 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
   this.nbColsCorr = 1
   this.besoinFormulaireCaseACocher = ['Coefficient de proportionnalité entier']
   this.sup = false
+  this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Achat.\n2 : Recette.\n3 : Dilution.\n4 : Distance.\n5 : Echelle.\n6 : Surface.']
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const listeIndexSituationsDisponible = [0, 1, 2, 3, 4, 5]
+    let listeIndexSituationsDisponible = []
+    if (!this.sup2) { // Si aucune liste n'est saisie
+      listeIndexSituationsDisponible = [1, 2, 3, 4, 5, 6]
+    } else {
+      if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
+        listeIndexSituationsDisponible[0] = this.sup2
+      } else {
+        listeIndexSituationsDisponible = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+      }
+    }
     const listeIndexSituations = combinaisonListes(listeIndexSituationsDisponible, this.nbQuestions)
     let cpt = 0
     for (let i = 0; i < this.nbQuestions && cpt < 50;) {
@@ -463,23 +475,23 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
       } else {
         facteur = randint(1, 19, [10]) / 10
       }
-      switch (listeIndexSituations[i]) {
-        case 0:
+      switch (parseInt(listeIndexSituations[i])) {
+        case 1:
           question = questionAchat()
           break
-        case 1:
+        case 2:
           question = questionRecette()
           break
-        case 2:
+        case 3:
           question = questionDillution()
           break
-        case 3:
+        case 4:
           question = questionDistance()
           break
-        case 4:
+        case 5:
           question = questionEchelle()
           break
-        case 5:
+        case 6:
           question = questionRecouvrirSurface()
           break
       }
@@ -490,6 +502,6 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
       }
       cpt++
     }
-    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
+    listeQuestionsToContenu(this)
   }
 }
