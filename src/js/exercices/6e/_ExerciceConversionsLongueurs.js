@@ -1,6 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, arrondi, texNombre, texTexte, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, arrondi, texNombre, texTexte, calcul, arrondiVirgule } from '../../modules/outils.js'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = 'true'
+export const amcType = 'AMCNum'
 
 /**
  * Conversions de longueur en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -19,8 +24,10 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
   this.titre = 'Conversions de longueurs'
   this.consigne = 'Compléter'
   this.spacing = 2
+  this.interactif = true
 
   this.nouvelleVersion = function () {
+    const reponses = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const prefixeMulti = [
@@ -97,13 +104,8 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
         resultat = calcul(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-        texte =
-          '$ ' +
-          texNombre(a) +
-          texTexte(prefixeMulti[k][0] + unite) +
-          ' = \\dotfill ' +
-          texTexte(unite) +
-          '$'
+        texte = `$${texNombre(a)} ${texTexte(prefixeMulti[k][0] + unite)} = `
+        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexte(this, i, { numeric: true, texteApres: unite })}` : `\\dotfill  ${unite}$`
 
         texteCorr =
           '$ ' +
@@ -113,20 +115,15 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texNombre(a) +
           '\\times' +
           texNombre(prefixeMulti[k][1]) +
-          texTexte(unite) +
+          unite +
           ' = ' +
           texNombre(resultat) +
           texTexte(unite) +
           '$'
       } else if (div && typesDeQuestions < 4) {
         resultat = calcul(a / prefixeDiv[k][1]).toString() // Attention aux notations scientifiques pour 10e-8
-        texte =
-          '$ ' +
-          texNombre(a) +
-          texTexte(prefixeDiv[k][0] + unite) +
-          ' = \\dotfill ' +
-          texTexte(unite) +
-          '$'
+        texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
+        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexte(this, i, { numeric: true, texteApres: unite })}` : `\\dotfill  ${unite}$`
         texteCorr =
           '$ ' +
           texNombre(a) +
@@ -135,10 +132,10 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texNombre(a) +
           '\\div' +
           texNombre(prefixeDiv[k][1]) +
-          texTexte(unite) +
+          unite +
           ' = ' +
           texNombre(resultat) +
-          texTexte(unite) +
+          unite +
           '$'
       } else {
         // pour type de question = 4
@@ -150,13 +147,8 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         const ecart = unite2 - unite1 // nombre de multiplication par 10 pour passer de l'un à l'autre
         if (randint(0, 1) > 0) {
           resultat = calcul(a * Math.pow(10, ecart))
-          texte =
-            '$ ' +
-            texNombre(a) +
-            texTexte(listeUnite[unite2]) +
-            ' = \\dotfill ' +
-            texTexte(listeUnite[unite1]) +
-            '$'
+          texte = `$${texNombre(a)} ${texTexte(listeUnite[unite2])} = `
+          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexte(this, i, { numeric: true, texteApres: listeUnite[unite1] })}` : `\\dotfill  ${texTexte(listeUnite[unite1])}$`
           texteCorr =
             '$ ' +
             texNombre(a) +
@@ -172,13 +164,8 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
             '$'
         } else {
           resultat = calcul(a / Math.pow(10, ecart))
-          texte =
-            '$ ' +
-            texNombre(a) +
-            texTexte(listeUnite[unite1]) +
-            ' = \\dotfill ' +
-            texTexte(listeUnite[unite2]) +
-            '$'
+          texte = `$${texNombre(a)} ${texTexte(listeUnite[unite1])} = `
+          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexte(this, i, { numeric: true, texteApres: listeUnite[unite2] })}` : `\\dotfill  ${texTexte(listeUnite[unite2])}$`
           texteCorr =
             '$ ' +
             texNombre(a) +
@@ -195,7 +182,9 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (reponses.indexOf(resultat) === -1) {
+        reponses[i] = resultat
+        setReponse(this, i, arrondiVirgule(resultat))
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isDiaporama) {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
