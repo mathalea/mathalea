@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 130 
-- nombre d'exos interactifReady 154 
+- nombre d'exos amcReady 133 
+- nombre d'exos interactifReady 158 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -24,8 +24,8 @@
 |3G10-2|Trouver l’image d’un point par une transformation choisie aléatoirement|OK|AMCHybride|OK|mathLive|
 |3G12-1|Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage|OK|AMCHybride|OK|mathLive|
 |3G21|Contrôler si deux droites sont parallèles|OK|AMCOpen|KO|KO|
-|3G30|Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|KO|KO|
-|3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|KO|KO|
+|3G30|Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
+|3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
 |3G32-1|Calcul d’un parallèle terrestre|OK|AMCOpen|KO|KO|
 |3G42|Volume d’une boule|OK|AMCNum|OK|mathLive|
 |3G43|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
@@ -83,7 +83,7 @@
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|numerique|
 |5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|numerique|
-|6C10-1|Tables de multiplication|KO|KO|OK|numerique|
+|6C10-1|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |6C10-2|Tables de multiplications et multiples de 10|OK|qcmMono|OK|qcm,mathLive|
 |6C10-3|Tables de multiplications et nombres décimaux|OK|qcmMono|OK|qcm|
 |6C10-4|Addition de deux entiers|OK|AMCNum|OK|numerique|
@@ -117,6 +117,7 @@
 |6M10|Calculer des périmètres et des aires de figures usuelles|OK|AMCHybride|OK|mathLive|
 |6M11-1|Périmètres et aires de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M11|Aires de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
+|6M12|Conversions de longueurs|OK|AMCNum|OK|mathLive|
 |6M20|Aires de triangles|OK|AMCNum|OK|mathLive|
 |6M22|Périmètres et aires de disques (à partir d’un texte).|OK|AMCHybride|OK|mathLive|
 |6M23|Conversions d’aires|OK|qcmMono|OK|qcm,mathLive|
@@ -154,9 +155,10 @@
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|c3C10-1|Tables de multiplications|OK|AMCNum|OK|mathLive|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
-|CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
+|CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
 |CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
 |CM004|Les quatre opérations|OK|AMCNum|OK|numerique|

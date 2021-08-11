@@ -621,7 +621,8 @@ export default {
     "amcType": {
       "text": "AMCOpenNum"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G30"
   },
   "3G31-1": {
@@ -645,7 +646,8 @@ export default {
     "amcType": {
       "text": "AMCOpenNum"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G31"
   },
   "3G32-1": {
@@ -2198,9 +2200,12 @@ export default {
   "6C10-1": {
     "titre": "Tables de multiplication",
     "url": "/exercices/6e/6C10-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "6C10-1"
   },
   "6C10-2": {
@@ -2788,8 +2793,12 @@ export default {
   "6M12": {
     "titre": "Conversions de longueurs",
     "url": "/exercices/6e/6M12.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6M12"
   },
   "6M20": {
@@ -3773,9 +3782,13 @@ export default {
   },
   "c3C10-1": {
     "titre": "Tables de multiplications",
-    "url": "/exercices/CM/c3C10-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "url": "/exercices/c3/c3C10-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "c3C10-1"
   },
   "c3C10-2": {
@@ -3857,7 +3870,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "CM001"
   },
   "CM002": {

@@ -1,6 +1,6 @@
 import TablesDeMultiplications from '../6e/_Tables_de_multiplications.js'
 export const titre = 'Tables de multiplications'
-export { interactifReady, interactifType, amcReady, amcType } from './_Tables_de_multiplications.js'
+export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Tables_de_multiplications.js'
 
 /**
  * Lire des nombres déciamux sur une portion de droite graduée
