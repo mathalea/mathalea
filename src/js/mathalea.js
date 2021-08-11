@@ -344,7 +344,9 @@ function miseAJourDuCode () {
   for (const exercice of listeObjetsExercice) {
     if (!exercice.interactifReady) {
       tousLesExercicesSontInteractifs = false
-      document.getElementById('btnCan').classList.add('disabled')
+      if (document.getElementById('btnCan')) {
+        document.getElementById('btnCan').classList.add('disabled')
+      }
     }
   }
   if (document.getElementById('btnCan') !== null) {
@@ -1998,10 +2000,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     document.getElementById('filtre').addEventListener('change', function () {
       // gestion du changement du select.
-      const regex = /'([?;&])filtre[^&;]*[;&]?'/
-      const query = window.location.search.replace(regex, '$1').replace(/&$/, '')
-      const filtre = document.getElementById('filtre').value
-      const url = (query.length > 2 ? query + '&' : '?') + (filtre !== 'tous' ? 'filtre=' + filtre : '')
+      const searchParams = new URLSearchParams(window.location.search);
+      const newFiltre = document.getElementById('filtre').value
+      searchParams.set('filtre',newFiltre)
+      const newParams = searchParams.toString()
+      const url = window.location.href.split('?')[0] + '?' + decodeURIComponent(newParams)
       let modeTableauActif = false // Gestion pour le mode tableau particulière pour gérer l'activation de "datatable"
       window.history.pushState('', '', url)
       if ($('#mode_choix_liste').is(':visible')) {
