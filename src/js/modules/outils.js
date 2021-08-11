@@ -7244,7 +7244,7 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
         texQr += `${autoCorrection[j].enonce} \n `
-        if (autoCorrection[j].options !== 'undefined') {
+        if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicols) {
             texQr += '\\begin{multicols}{2}\n'
           }
@@ -7370,7 +7370,7 @@ export function exportQcmAmc (exercice, idExo) {
               break
           }
         }
-        if (autoCorrection[j].options !== 'undefined') {
+        if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicols) {
             texQr += '\\end{multicols}\n'
           }
