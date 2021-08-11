@@ -1,6 +1,6 @@
 /* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, setUrlAndGo, getUserId } from './modules/gestionUrl.js'
+import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGoTab } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -347,7 +347,6 @@ function miseAJourDuCode () {
       document.getElementById('btnCan').classList.add('disabled')
     }
   }
-  console.log(tousLesExercicesSontInteractifs)
   if (document.getElementById('btnCan') !== null) {
     tousLesExercicesSontInteractifs ? document.getElementById('btnCan').classList.remove('disabled') : document.getElementById('btnCan').classList.add('disabled')
   }
@@ -2195,15 +2194,36 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (btnPleinEcran !== null) {
     btnPleinEcran.addEventListener('click', () => {
       context.vue = 'light'
-      setUrlAndGo()
+      setUrlAndGoTab()
     })
   }
 
+  const btnMulti = document.getElementById('btnMulti')
+  if (btnMulti !== null) {
+    btnMulti.addEventListener('click', () => {
+      context.vue = 'multi'
+      setUrlAndGoTab()
+    })
+  }
+  const btnVueEmbed = document.getElementById('btnVueEmbed')
+  if (btnVueEmbed !== null) {
+    btnVueEmbed.addEventListener('click', () => {
+      context.vue = 'embed'
+      setUrlAndGoTab()
+    })
+  }
   const btnCan = document.getElementById('btnCan')
   if (btnCan !== null) {
     btnCan.addEventListener('click', () => {
       context.vue = 'can'
-      setUrlAndGo()
+      setUrlAndGoTab()
+    })
+  }
+  const btnEval = document.getElementById('btnEval')
+  if (btnEval !== null) {
+    btnEval.addEventListener('click', () => {
+      context.vue = 'eval'
+      setUrlAndGoTab()
     })
   }
 

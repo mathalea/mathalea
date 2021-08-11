@@ -47,7 +47,6 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour le calcul numérique, on transforme la saisie en nombre décimal
       if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
-      console.log(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
       }
@@ -150,7 +149,8 @@ function gestionCan (exercice) {
     window.addEventListener('keyup', (e) => {
       if (e.keyCode === 13) {
         e.preventDefault()
-        document.querySelector('[id^=boutonVerifex]:not(.disabled)').click()
+        const listeBoutonsValider = document.querySelectorAll('[id^=boutonVerifex]')
+        listeBoutonsValider[context.questionCanEnCours - 1].click()
       }
     })
     context.enterHasListenner = true
@@ -158,32 +158,35 @@ function gestionCan (exercice) {
   for (const i in exercice.autoCorrection) {
     const button1question = document.querySelector(`#boutonVerifexercice${exercice.numeroExercice}Q${i}`)
     if (button1question) {
-      button1question.addEventListener('click', () => {
-        let resultat
-        if (exercice.interactifType === 'mathLive') {
-          resultat = verifQuestionMathLive(exercice, i)
-        }
-        if (exercice.interactifType === 'numerique') {
-          resultat = verifQuestionNumerique(exercice, i)
-        }
-        // Mise en couleur du numéro de la question dans le menu du haut
-        if (resultat === 'OK') {
-          document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
-          context.nbBonnesReponses++
-        }
-        if (resultat === 'KO') {
-          document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('red')
-          context.nbMauvaisesReponses++
-        }
-        if (resultat === 'OK' || resultat === 'KO') {
-          button1question.classList.add('disabled')
-          if (exercicesCanRestants().length) {
-            exercicesCanRestants()[0].click()
-          } else {
-            afficheScoreCan(exercice, context.nbBonnesReponses, context.nbMauvaisesReponses)
+      if (!button1question.hasMathaleaListener) {
+        button1question.addEventListener('click', () => {
+          let resultat
+          if (exercice.interactifType === 'mathLive') {
+            resultat = verifQuestionMathLive(exercice, i)
           }
-        }
-      })
+          if (exercice.interactifType === 'numerique') {
+            resultat = verifQuestionNumerique(exercice, i)
+          }
+          // Mise en couleur du numéro de la question dans le menu du haut
+          if (resultat === 'OK') {
+            document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
+            context.nbBonnesReponses++
+          }
+          if (resultat === 'KO') {
+            document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('red')
+            context.nbMauvaisesReponses++
+          }
+          if (resultat === 'OK' || resultat === 'KO') {
+            button1question.classList.add('disabled')
+            if (exercicesCanRestants().length) {
+              exercicesCanDispoApres().click()
+            } else {
+              afficheScoreCan(exercice, context.nbBonnesReponses, context.nbMauvaisesReponses)
+            }
+          }
+        })
+        button1question.hasMathaleaListener = true
+      }
     }
   }
 }
@@ -733,3 +736,12 @@ export function afficheScoreCan (exercice, nbBonnesReponses, nbMauvaisesReponses
 
 const exercicesEvalRestants = () => document.querySelectorAll('[id ^= "btnEx"].circular.ui.button:not(.green):not(.red)')
 const exercicesCanRestants = () => document.querySelectorAll('[id ^= "btnMenuexercice"].circular.ui.button:not(.green):not(.red)')
+const exercicesCanDispoApres = () => {
+  const liste = Array.from(document.querySelectorAll('[id^=btnMenu]'))
+  for (let i = parseInt(context.questionCanEnCours); i < liste.length; i++) {
+    if (!liste[i].classList.contains('red') && !liste[i].classList.contains('green')) {
+      return liste[i]
+    }
+  }
+  return exercicesCanRestants()[0]
+}

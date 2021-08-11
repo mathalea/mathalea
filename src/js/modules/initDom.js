@@ -56,6 +56,10 @@ const liToDiv = () => {
  * @param {int} i
  */
 const affichageUniquementQuestion = (i) => {
+  const listeBoutonsDuMenu = document.querySelectorAll('[id^=btnMenu]')
+  for (const bouton of listeBoutonsDuMenu) {
+    bouton.classList.remove('blue')
+  }
   affichageUniquementExercice()
   const questions = document.querySelectorAll('div.question')
   const corrections = document.querySelectorAll('div.correction')
@@ -66,6 +70,7 @@ const affichageUniquementQuestion = (i) => {
     correction.style.display = 'none'
   }
   if (i !== undefined) {
+    context.questionCanEnCours = 1
     questions[i].style.display = 'block'
     const exercice = questions[i].parentElement.parentElement
     exercice.style.display = 'block'
@@ -75,12 +80,12 @@ const affichageUniquementQuestion = (i) => {
       correction.style.display = 'block'
     }
   }
-  const inputs = document.querySelectorAll('input')
-  inputs[i].focus()
-  inputs[i].select()
-  const mathfields = document.querySelectorAll('math-field')
-  if (i !== 0) {
-    mathfields[i].focus()
+  const inputs = document.querySelectorAll('input, math-field ')
+  if (inputs[i]) {
+    inputs[i].focus()
+    if (inputs[i].tagName !== 'MATH-FIELD') {
+      inputs[i].select()
+    }
   }
 }
 
@@ -158,7 +163,7 @@ export async function initDom () {
         element = addElement(menuEval, 'button', { id: `btnEx${i + 1}`, style: 'margin: 5px', class: 'circular ui button' })
         element.textContent = `Ex. ${i + 1}`
         if (!element.hasListenner) {
-          element.addEventListener('click', () => affichageUniquementExercice(i), false)
+          element.addEventListener('click', () => { affichageUniquementExercice(i) }, false)
           element.hasListenner = true
         }
       }
@@ -247,7 +252,11 @@ export async function initDom () {
         element = addElement(menuEval, 'button', { id: 'btnMenu' + questions[i].id, style: 'margin: 5px', class: 'circular ui button' })
         element.textContent = `${i + 1}`
         if (!element.hasListenner) {
-          element.addEventListener('click', () => affichageUniquementQuestion(i), false)
+          element.addEventListener('click', () => {
+            affichageUniquementQuestion(i)
+            element.classList.add('blue')
+            context.questionCanEnCours = element.textContent
+          }, false)
           element.hasListenner = true
         }
       }
