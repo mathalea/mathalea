@@ -125,6 +125,57 @@ function verifQuestionMathLive (exercice, i) {
   return resultat
 }
 
+function verifQuestionQcm (exercice, i) {
+  let resultat
+  const monRouge = 'rgba(217, 30, 24, 0.5)'
+  const monVert = 'rgba(123, 239, 178, 0.5)'
+  // i est l'indice de la question
+  let nbBonnesReponses = 0
+  let nbMauvaisesReponses = 0
+  let nbBonnesReponsesAttendues = 0
+  let indiceFeedback
+  // Compte le nombre de réponses justes attendues
+  for (let k = 0; k < exercice.autoCorrection[i].propositions.length; k++) {
+    if (exercice.autoCorrection[i].propositions[k].statut) nbBonnesReponsesAttendues++
+  }
+  const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+  exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
+    const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
+    const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
+    if (proposition.statut) {
+      label.style.backgroundColor = monVert
+      if (check.checked) {
+        nbBonnesReponses++
+        indiceFeedback = indice
+      }
+    } else if (check.checked === true) {
+      label.style.backgroundColor = monRouge
+      nbMauvaisesReponses++
+      indiceFeedback = indice
+    }
+  })
+  let typeFeedback = 'positive'
+  if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
+    spanReponseLigne.innerHTML = '😎'
+    resultat = 'OK'
+  } else {
+    spanReponseLigne.innerHTML = '☹️'
+    typeFeedback = 'error'
+    resultat = 'KO'
+  }
+  spanReponseLigne.style.fontSize = 'large'
+  if (indiceFeedback > -1 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback) {
+    const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
+    if (eltFeedback) eltFeedback.innerHTML = ''
+    messageFeedback({
+      id: `feedbackEx${exercice.numeroExercice}Q${i}`,
+      message: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
+      type: typeFeedback
+    })
+  }
+  return resultat
+}
+
 function verifQuestionNumerique (exercice, i) {
   let spanReponseLigne, resultat
   if (i < exercice.nbQuestions) {
@@ -167,6 +218,10 @@ function gestionCan (exercice) {
           if (exercice.interactifType === 'numerique') {
             resultat = verifQuestionNumerique(exercice, i)
           }
+          if (exercice.interactifType === 'qcm') {
+            console.log('qcm')
+            resultat = verifQuestionQcm(exercice, i)
+          }
           // Mise en couleur du numéro de la question dans le menu du haut
           if (resultat === 'OK') {
             document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
@@ -198,13 +253,13 @@ function gestionCan (exercice) {
  * @param {object} exercice
  */
 export function exerciceQcm (exercice) {
-  // console.log('Dans ExerciceQcm : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
   document.addEventListener('exercicesAffiches', () => {
     // On active les checkbox
     $('.ui.checkbox').checkbox()
     // Couleur pour surligner les label avec une opacité de 50%
-    const monRouge = 'rgba(217, 30, 24, 0.5)'
-    const monVert = 'rgba(123, 239, 178, 0.5)'
+    if (getVueFromUrl() === 'can') {
+      gestionCan(exercice)
+    }
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       if (!button.hasMathaleaListener) {
@@ -212,50 +267,8 @@ export function exerciceQcm (exercice) {
           let nbQuestionsValidees = 0
           let nbQuestionsNonValidees = 0
           for (let i = 0; i < exercice.nbQuestions; i++) {
-          // i est l'indice de la question
-            let nbBonnesReponses = 0
-            let nbMauvaisesReponses = 0
-            let nbBonnesReponsesAttendues = 0
-            let indiceFeedback
-            // Compte le nombre de réponses justes attendues
-            for (let k = 0; k < exercice.autoCorrection[i].propositions.length; k++) {
-              if (exercice.autoCorrection[i].propositions[k].statut) nbBonnesReponsesAttendues++
-            }
-            const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-            exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
-              const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
-              const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
-              if (proposition.statut) {
-                label.style.backgroundColor = monVert
-                if (check.checked) {
-                  nbBonnesReponses++
-                  indiceFeedback = indice
-                }
-              } else if (check.checked === true) {
-                label.style.backgroundColor = monRouge
-                nbMauvaisesReponses++
-                indiceFeedback = indice
-              }
-            })
-            let typeFeedback = 'positive'
-            if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
-              spanReponseLigne.innerHTML = '😎'
-              nbQuestionsValidees++
-            } else {
-              spanReponseLigne.innerHTML = '☹️'
-              typeFeedback = 'error'
-              nbQuestionsNonValidees++
-            }
-            spanReponseLigne.style.fontSize = 'large'
-            if (indiceFeedback > -1 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback) {
-              const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
-              if (eltFeedback) eltFeedback.innerHTML = ''
-              messageFeedback({
-                id: `feedbackEx${exercice.numeroExercice}Q${i}`,
-                message: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
-                type: typeFeedback
-              })
-            }
+            const resultat = verifQuestionQcm(exercice, i)
+            resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
           }
           const uichecks = document.querySelectorAll(`.ui.checkbox.ex${exercice.numeroExercice}`)
           uichecks.forEach(function (uicheck) {

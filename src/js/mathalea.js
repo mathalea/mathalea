@@ -2000,9 +2000,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     document.getElementById('filtre').addEventListener('change', function () {
       // gestion du changement du select.
-      const searchParams = new URLSearchParams(window.location.search);
+      const searchParams = new URLSearchParams(window.location.search)
       const newFiltre = document.getElementById('filtre').value
-      searchParams.set('filtre',newFiltre)
+      searchParams.set('filtre', newFiltre)
       const newParams = searchParams.toString()
       const url = window.location.href.split('?')[0] + '?' + decodeURIComponent(newParams)
       let modeTableauActif = false // Gestion pour le mode tableau particulière pour gérer l'activation de "datatable"
