@@ -3344,6 +3344,13 @@ export default {
     "interactifReady": false,
     "name": "6P11"
   },
+  "6P12": {
+    "titre": "Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple",
+    "url": "/exercices/6e/6P12.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6P12"
+  },
   "6P13-1": {
     "titre": "Facture",
     "url": "/exercices/6e/6P13-1.js",
