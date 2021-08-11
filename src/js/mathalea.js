@@ -592,8 +592,6 @@ function miseAJourDuCode () {
     // En cas de clic sur la correction, on désactive les exercices interactifs
     const bntCorrection = document.getElementById('btnCorrection')
     if (bntCorrection) {
-      // Cache la correction et les paramètres au clic sur "Nouvelles données"
-      $('#affichage_exercices > .ui.accordion').accordion('close', 0)
       bntCorrection.addEventListener('click', () => {
         // Le bouton "Vérifier les réponses" devient inactif
         const boutonsCheck = document.querySelectorAll('.checkReponses')
@@ -2029,7 +2027,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Gestion du bouton « Nouvelles données »
   const btnMiseAJourCode = document.getElementById('btn_mise_a_jour_code')
   if (btnMiseAJourCode) {
-    btnMiseAJourCode.addEventListener('click', nouvellesDonnees)
+    btnMiseAJourCode.addEventListener('click', () => {
+      nouvellesDonnees()
+      // Cache la correction et les paramètres au clic sur "Nouvelles données"
+      $('#affichage_exercices > .ui.accordion').accordion('close', 0)
+    })
   }
   function nouvellesDonnees () {
     context.graine = strRandom({
