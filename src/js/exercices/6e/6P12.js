@@ -8,8 +8,9 @@ export const titre = 'Résoudre des problèmes de proportionnalité en utilisant
  * et le nombre d'objets qu'on peut acheter avec z€.
  * @author Jean-Claude Lhote // pour l'exercice 6P11 original
  * @author CGrolleau // pour avoir ajouté des situations de proportionnalité en 03/2021
- * @author Guillaume Valmont // pour avoir fait la transition coefficient de linéarité -> coefficient de proportionnalité en 07/2021
+ * @author Guillaume Valmont // pour avoir fait la transition coefficient de linéarité -> coefficient de proportionnalité en 08/2021
  * référence 6P12
+ * Publié le 11/08/2021
 */
 
 // _____ Les fonctions suivantes renvoient un objet : {texte = ; texteCorr = ;} ______

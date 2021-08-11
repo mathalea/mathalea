@@ -9,6 +9,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité en utilisant
  * @author Jean-Claude Lhote
  * référence 6P11
  * 03/2021 : ajout de situations de proportionnalité : CGrolleau
+ * 08/2021 : Ajout de la version simplifiée et de la possibilité de choisir le type de question : Guillaume Valmont
 */
 
 // _____ Les fonctions suivantes renvoient un objet : {texte = ; texteCorr = ;} ______
