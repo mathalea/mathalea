@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 110 
-- nombre d'exos interactifReady 133 
+- nombre d'exos amcReady 130 
+- nombre d'exos interactifReady 154 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -9,12 +9,20 @@
 |2G36-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
 |2N43-4|Développer (a+b)²|KO|KO|OK|mathLive|
 |2N43-5|Développer (a-b)²|KO|KO|OK|mathLive|
+|3A11-1|Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
+|3A11|Primalité ou pas|OK|qcmMono|OK|qcm|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
+|3F12-3|Compléter un tableau de valeurs|OK|AMCHybride|OK|mathLive|
+|3F12-4|Lire l’image d’un nombre à partir d’un graphique|OK|AMCHybride|OK|mathLive|
 |3F13-1|Lecture graphique d’images et d’antécédents|KO|KO|OK|mathLive|
+|3F13-2|Spécial escape game|KO|KO|OK|mathLive|
 |3F21-1|Déterminer une fonction affine|OK|AMCOpenNum✖︎2|OK|mathLive|
 |3F21-2|Déterminer une fonction affine par la donnée des images de deux nombres|KO|KO|OK|mathLive|
 |3F21-3|Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine|KO|KO|OK|mathLive|
+|3G10-1|Trouver les coordonnées de l’image d’un point par une transformation du plan|OK|AMCHybride|OK|mathLive|
+|3G10-2|Trouver l’image d’un point par une transformation choisie aléatoirement|OK|AMCHybride|OK|mathLive|
+|3G12-1|Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage|OK|AMCHybride|OK|mathLive|
 |3G21|Contrôler si deux droites sont parallèles|OK|AMCOpen|KO|KO|
 |3G30|Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|KO|KO|
 |3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|KO|KO|
@@ -44,14 +52,20 @@
 |4C32|Notation scientifique|OK|AMCNum|OK|numerique|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
 |4F12|Problème s’appuyant sur la lecture d’une représentation graphique|OK|AMCHybride|KO|KO|
-|4G20-2|Racine carré d’un carré parfait (calcul mental)|OK|AMCNum|OK|numerique|
+|4G10|Trouver l’image d’un point par une symétrie axiale ou centrale ou par une translation|OK|AMCHybride|OK|mathLive|
+|4G11-1|Trouver l’image d’une figure par une translation dans un pavage|OK|AMCHybride|OK|mathLive|
+|4G20-2|Racine carrée d’un carré parfait (calcul mental)|OK|AMCNum|OK|numerique|
 |4G20-4|Arrondir une racine carrée|KO|KO|OK|mathLive|
+|4G20-6|Encadrer une racine carrée et en donner un arrondi|OK|AMCHybride|OK|mathLive|
 |4G20|Calculer une longueur avec le théorème de Pythagore|OK|AMCOpenNum|OK|mathLive|
 |4G21|Déterminer si un triangle est rectangle ou pas.|OK|qcmMono|OK|qcm|
 |4G30|Calculer des longueurs avec la propriété de Thalès|OK|AMCOpenNum|KO|KO|
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|KO|KO|
 |4G53|Calculs de volumes|OK|AMCNum|OK|qcm,mathLive|
 |AI1-1|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
+|5G10|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
+|5G11|Trouver l’image d’un point par une symétrie axiale ou centrale|OK|AMCHybride|OK|mathLive|
+|5G12-1|Symétrique d’une figure dans un pavage|OK|AMCHybride|OK|mathLive|
 |5L10-2|Traduire un programme de calcul par une expression littérale|OK|qcmMono|OK|qcm|
 |5L10|Écrire une expression littérale|OK|qcmMult|OK|qcm|
 |5L13|Réduire une expression de la forme $ax+bx$ |KO|KO|OK|mathLive|
@@ -94,13 +108,17 @@
 |6C3CaN|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
 |6G10-3|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |6G23-1|Mesurer un angle|OK|qcmMono|OK|qcm|
+|6G24|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
 |6G25-1|Symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
+|6G25-2|Trouver l’image d’une figure par une symétrie axiale dans un pavage carré|OK|AMCHybride|OK|mathLive|
 |6G33|Reconnaitre un quadrilatère particulier à partir de ses propriétés|OK|qcmMult|OK|qcm|
 |6G41|Compléter une représentation en perspective cavalière|OK|AMCOpen|KO|KO|
 |6I12|Trouver le bon tracé avec scratch|OK|qcmMono|OK|custom|
+|6M10|Calculer des périmètres et des aires de figures usuelles|OK|AMCHybride|OK|mathLive|
 |6M11-1|Périmètres et aires de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M11|Aires de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M20|Aires de triangles|OK|AMCNum|OK|mathLive|
+|6M22|Périmètres et aires de disques (à partir d’un texte).|OK|AMCHybride|OK|mathLive|
 |6M23|Conversions d’aires|OK|qcmMono|OK|qcm,mathLive|
 |6M30-0|Volumes de pavés droit par dénombrement|OK|AMCNum|OK|mathLive|
 |6M30|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
@@ -108,16 +126,19 @@
 |6N10-1|Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...|OK|AMCNum|OK|mathLive|
 |6N11-2|Placer un point d’abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
 |6N11|Lire l’abscisse entière d’un point (grands nombres)|OK|AMCOpen|OK|mathLive|
+|6N13|Conversions de longueurs, masses, contenance, prix ou unités informatiques|OK|AMCNum|OK|mathLive|
 |6N20-2|Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.|KO|KO|OK|mathLive|
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1).|KO|KO|OK|mathLive|
 |6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
 |6N22|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
+|6N24|Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)|OK|AMCNum|OK|mathLive|
 |6N30-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCOpen|OK|mathLive|
 |6N30|Lire l’abscisse décimale d’un point|OK|AMCOpen|OK|mathLive|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|OK|numerique|
 |6N33|Calculer la fraction d’un nombre|OK|AMCNum|OK|mathLive|
+|6N34|Conversions avec tous les préfixes de milli à tera.|OK|AMCNum|OK|mathLive|
 |6N41|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
 |6N43-2|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|KO|KO|
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|qcm|
@@ -125,6 +146,15 @@
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|
+|beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
+|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
+|beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
+|betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
+|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
+|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
+|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
+|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
@@ -145,12 +175,3 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
-|beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
-|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
-|beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
-|betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
-|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
-|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
-|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
-|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|

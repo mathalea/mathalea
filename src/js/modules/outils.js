@@ -73,7 +73,7 @@ export function listeQuestionsToContenuSansNumero (exercice) {
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing)
     if (exercice.interactif) {
-      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}">Vérifier les réponses</button>`
+      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr)
   } else {
@@ -2527,7 +2527,10 @@ export function nombreDeChiffresDansLaPartieDecimale (nb) {
     return 0
   }
 }
-
+/**
+ * Renvoie le nombre de chiffres dans la partie entière
+ * @author ?
+ */
 export function nombreDeChiffresDansLaPartieEntiere (nb) {
   let nombre
   if (nb < 0) {
@@ -2541,7 +2544,13 @@ export function nombreDeChiffresDansLaPartieEntiere (nb) {
     return String(nombre).length
   }
 }
-
+/**
+ * Renvoie le nombre de chiffres d'un nombre décimal
+ * @author Jean-Claude Lhote
+ */
+export function nombreDeChiffresDe (nb) {
+  return nombreDeChiffresDansLaPartieDecimale(nb) + nombreDeChiffresDansLaPartieEntiere(nb)
+}
 /**
  * Retourne la string LaTeX de la fraction
  * @param num
@@ -2995,7 +3004,7 @@ export function criblePolynomeEntier () {
  */
 export function chercheMinMaxFonction ([a, b, c, d]) {
   const delta = 4 * b * b - 12 * a * c
-  if (delta <= 0) return []
+  if (delta <= 0) return [[0, 10 ** 99], [0, 10 ** 99]]
   const x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
   const x2 = (-2 * b + Math.sqrt(delta)) / (6 * a)
   return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
@@ -7235,6 +7244,11 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
         texQr += `${autoCorrection[j].enonce} \n `
+        if (typeof autoCorrection[j].options !== 'undefined') {
+          if (autoCorrection[j].options.multicols) {
+            texQr += '\\begin{multicols}{2}\n'
+          }
+        }
         for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les question-reponse de l'élément j
           prop = autoCorrection[j].propositions[qr] // proposition est un objet avec cette structure : {type,propositions,reponse}
           qrType = prop.type
@@ -7356,11 +7370,16 @@ export function exportQcmAmc (exercice, idExo) {
               break
           }
         }
+        if (typeof autoCorrection[j].options !== 'undefined') {
+          if (autoCorrection[j].options.multicols) {
+            texQr += '\\end{multicols}\n'
+          }
+        }
         texQr += '}\n'
         break
     }
   }
-  return [texQr, ref, autoCorrection.length, titre]
+  return [texQr, ref, exercice.nbQuestions, titre]
 }
 
 /**

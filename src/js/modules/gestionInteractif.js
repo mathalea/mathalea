@@ -47,7 +47,6 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour le calcul numérique, on transforme la saisie en nombre décimal
       if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
-      console.log(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
       }
@@ -150,7 +149,8 @@ function gestionCan (exercice) {
     window.addEventListener('keyup', (e) => {
       if (e.keyCode === 13) {
         e.preventDefault()
-        document.querySelector('[id^=boutonVerifex]:not(.disabled)').click()
+        const listeBoutonsValider = document.querySelectorAll('[id^=boutonVerifex]')
+        listeBoutonsValider[context.questionCanEnCours - 1].click()
       }
     })
     context.enterHasListenner = true
@@ -158,32 +158,35 @@ function gestionCan (exercice) {
   for (const i in exercice.autoCorrection) {
     const button1question = document.querySelector(`#boutonVerifexercice${exercice.numeroExercice}Q${i}`)
     if (button1question) {
-      button1question.addEventListener('click', () => {
-        let resultat
-        if (exercice.interactifType === 'mathLive') {
-          resultat = verifQuestionMathLive(exercice, i)
-        }
-        if (exercice.interactifType === 'numerique') {
-          resultat = verifQuestionNumerique(exercice, i)
-        }
-        // Mise en couleur du numéro de la question dans le menu du haut
-        if (resultat === 'OK') {
-          document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
-          context.nbBonnesReponses++
-        }
-        if (resultat === 'KO') {
-          document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('red')
-          context.nbMauvaisesReponses++
-        }
-        if (resultat === 'OK' || resultat === 'KO') {
-          button1question.classList.add('disabled')
-          if (exercicesCanRestants().length) {
-            exercicesCanRestants()[0].click()
-          } else {
-            afficheScoreCan(exercice, context.nbBonnesReponses, context.nbMauvaisesReponses)
+      if (!button1question.hasMathaleaListener) {
+        button1question.addEventListener('click', () => {
+          let resultat
+          if (exercice.interactifType === 'mathLive') {
+            resultat = verifQuestionMathLive(exercice, i)
           }
-        }
-      })
+          if (exercice.interactifType === 'numerique') {
+            resultat = verifQuestionNumerique(exercice, i)
+          }
+          // Mise en couleur du numéro de la question dans le menu du haut
+          if (resultat === 'OK') {
+            document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
+            context.nbBonnesReponses++
+          }
+          if (resultat === 'KO') {
+            document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('red')
+            context.nbMauvaisesReponses++
+          }
+          if (resultat === 'OK' || resultat === 'KO') {
+            button1question.classList.add('disabled')
+            if (exercicesCanRestants().length) {
+              exercicesCanDispoApres().click()
+            } else {
+              afficheScoreCan(exercice, context.nbBonnesReponses, context.nbMauvaisesReponses)
+            }
+          }
+        })
+        button1question.hasMathaleaListener = true
+      }
     }
   }
 }
@@ -634,6 +637,42 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   // const str = window.location.href
   // const url = new URL(str)
   // const userId = url.searchParams.get('userId')
+  async function myThirdScoresManageFetch () {
+    const response = await fetch('scoresManage.php', {
+      method: 'POST',
+      mode: 'same-origin',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
+        isSubmitUserId: false,
+        isVerifResult: true,
+        userId: userId,
+        prof1: userId[0],
+        prof2: userId[1],
+        prof3: userId[2],
+        classe1: userId[3],
+        classe2: userId[4],
+        eleve1: userId[5],
+        eleve2: userId[6],
+        // eslint-disable-next-line no-unneeded-ternary
+        isCan: getVueFromUrl() === 'can' ? 'oui' : 'non',
+        urlExos: document.location.href + 'serie=' + context.graine,
+        exId: exercice.id,
+        sup: exercice.sup,
+        sup2: exercice.sup2,
+        sup3: exercice.sup3,
+        nbBonnesReponses: nbBonnesReponses,
+        nbQuestions: nbBonnesReponses + nbMauvaisesReponses,
+        score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100
+      })
+    })
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP ! statut : ${response.status}`)
+    }
+  }
   // eslint-disable-next-line no-unused-expressions
   userId === null
     ? (
@@ -641,37 +680,10 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
       )
     : (
         console.log('userId OK : ' + userId),
-        fetch('scoresManage.php', {
-          method: 'POST',
-          mode: 'same-origin',
-          credentials: 'same-origin',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
-            isSubmitUserId: false,
-            isVerifResult: true,
-            userId: userId,
-            prof1: userId[0],
-            prof2: userId[1],
-            prof3: userId[2],
-            classe1: userId[3],
-            classe2: userId[4],
-            eleve1: userId[5],
-            eleve2: userId[6],
-            // eslint-disable-next-line no-unneeded-ternary
-            isCan: getVueFromUrl() === 'can' ? 'oui' : 'non',
-            urlExos: document.location.href + 'serie=' + context.graine,
-            exId: exercice.id,
-            sup: exercice.sup,
-            sup2: exercice.sup2,
-            sup3: exercice.sup3,
-            nbBonnesReponses: nbBonnesReponses,
-            nbQuestions: nbBonnesReponses + nbMauvaisesReponses,
-            score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100
+        myThirdScoresManageFetch()
+          .catch(e => {
+            console.log('/!\\ thirdScoresManage.php /!\\ Pb avec l\'opération de récupération sûrement en dev local sans serveur PHP, message d\'erreur => ' + e.message)
           })
-        })
       )
 }
 
@@ -724,3 +736,12 @@ export function afficheScoreCan (exercice, nbBonnesReponses, nbMauvaisesReponses
 
 const exercicesEvalRestants = () => document.querySelectorAll('[id ^= "btnEx"].circular.ui.button:not(.green):not(.red)')
 const exercicesCanRestants = () => document.querySelectorAll('[id ^= "btnMenuexercice"].circular.ui.button:not(.green):not(.red)')
+const exercicesCanDispoApres = () => {
+  const liste = Array.from(document.querySelectorAll('[id^=btnMenu]'))
+  for (let i = parseInt(context.questionCanEnCours); i < liste.length; i++) {
+    if (!liste[i].classList.contains('red') && !liste[i].classList.contains('green')) {
+      return liste[i]
+    }
+  }
+  return exercicesCanRestants()[0]
+}

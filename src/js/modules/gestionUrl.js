@@ -162,6 +162,14 @@ export function setUrl () {
  * Met à jour l'URL avec la vue et le userId s'ils sont connus et go
  */
 export function setUrlAndGo () {
+  console.log(getUrlSearch())
   window.history.pushState('', '', getUrlSearch())
   document.location.reload()
+}
+/**
+ * Met à jour l'URL avec la vue et le userId s'ils sont connus et go
+ */
+export function setUrlAndGoTab () {
+  window.history.pushState('', '', getUrlSearch())
+  window.open(document.location)
 }

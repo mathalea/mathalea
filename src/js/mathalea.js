@@ -1,6 +1,6 @@
 /* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, setUrlAndGo, getUserId } from './modules/gestionUrl.js'
+import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGoTab } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -338,6 +338,21 @@ function miseAJourDuCode () {
   //    suppression d'un exercice, nouvelle donnée, changement de paramètre...)
   // C'est dans cette fonction que l'on va executer les this.nouvelleVersion des exercices.
   setUrl()
+
+  // Active ou désactive l'icone de la course aux nombres
+  let tousLesExercicesSontInteractifs = true
+  for (const exercice of listeObjetsExercice) {
+    if (!exercice.interactifReady) {
+      tousLesExercicesSontInteractifs = false
+      if (document.getElementById('btnCan')) {
+        document.getElementById('btnCan').classList.add('disabled')
+      }
+    }
+  }
+  if (document.getElementById('btnCan') !== null) {
+    tousLesExercicesSontInteractifs ? document.getElementById('btnCan').classList.remove('disabled') : document.getElementById('btnCan').classList.add('disabled')
+  }
+
   window.MG32_tableau_de_figures = []
   window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
   window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
@@ -1985,10 +2000,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     document.getElementById('filtre').addEventListener('change', function () {
       // gestion du changement du select.
-      const regex = /'([?;&])filtre[^&;]*[;&]?'/
-      const query = window.location.search.replace(regex, '$1').replace(/&$/, '')
-      const filtre = document.getElementById('filtre').value
-      const url = (query.length > 2 ? query + '&' : '?') + (filtre !== 'tous' ? 'filtre=' + filtre : '')
+      const searchParams = new URLSearchParams(window.location.search);
+      const newFiltre = document.getElementById('filtre').value
+      searchParams.set('filtre',newFiltre)
+      const newParams = searchParams.toString()
+      const url = window.location.href.split('?')[0] + '?' + decodeURIComponent(newParams)
       let modeTableauActif = false // Gestion pour le mode tableau particulière pour gérer l'activation de "datatable"
       window.history.pushState('', '', url)
       if ($('#mode_choix_liste').is(':visible')) {
@@ -2181,7 +2197,36 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (btnPleinEcran !== null) {
     btnPleinEcran.addEventListener('click', () => {
       context.vue = 'light'
-      setUrlAndGo()
+      setUrlAndGoTab()
+    })
+  }
+
+  const btnMulti = document.getElementById('btnMulti')
+  if (btnMulti !== null) {
+    btnMulti.addEventListener('click', () => {
+      context.vue = 'multi'
+      setUrlAndGoTab()
+    })
+  }
+  const btnVueEmbed = document.getElementById('btnVueEmbed')
+  if (btnVueEmbed !== null) {
+    btnVueEmbed.addEventListener('click', () => {
+      context.vue = 'embed'
+      setUrlAndGoTab()
+    })
+  }
+  const btnCan = document.getElementById('btnCan')
+  if (btnCan !== null) {
+    btnCan.addEventListener('click', () => {
+      context.vue = 'can'
+      setUrlAndGoTab()
+    })
+  }
+  const btnEval = document.getElementById('btnEval')
+  if (btnEval !== null) {
+    btnEval.addEventListener('click', () => {
+      context.vue = 'eval'
+      setUrlAndGoTab()
     })
   }
 
