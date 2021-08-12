@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, creerCouples, choice, texNombre, randint } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'numerique'
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
