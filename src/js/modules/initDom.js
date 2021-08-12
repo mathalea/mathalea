@@ -1,6 +1,6 @@
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
-import { getLogFromUrl, getVueFromUrl } from './gestionUrl'
+import { getDureeFromUrl, getLogFromUrl, getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 
@@ -110,6 +110,29 @@ const masqueTitreExerciceEtEspaces = () => {
   masqueEspaces()
 }
 
+const gestionTimer = () => {
+  const divTimer = document.getElementById('timer')
+  if (Number.isInteger(parseInt(context.duree))) {
+    context.tempsRestant = context.duree
+    divTimer.textContent = context.tempsRestant
+    if (!divTimer.hasMathaleaTimer) {
+      context.timer = setInterval(() => {
+        context.tempsRestant--
+        divTimer.textContent = context.tempsRestant
+        if (parseInt(context.tempsRestant) === 0) {
+          clearInterval(context.timer)
+          divTimer.textContent = ''
+          const listeBoutonsValider = document.querySelectorAll('[id^=boutonVerifex]:not(.disabled), [id^=btnValidationEx]:not(.disabled)')
+          for (const bouton of listeBoutonsValider) {
+            bouton.click()
+          }
+        }
+      }, 1000)
+      divTimer.hasMathaleaTimer = true
+    }
+  }
+}
+
 export async function initDom () {
   // Il FAUT TOUJOURS mettre await avant FetchHtmlToElement sinon la création des formulaires bug car les éléments n'existent pas encore
   const vue = getVueFromUrl()
@@ -148,6 +171,7 @@ export async function initDom () {
     await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
     const menuEval = addElement(section, 'div', { id: 'menuEval' })
     addElement(section, 'div', { id: 'containerErreur' })
+    addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/eval.html', section)
     const accordions = document.getElementsByClassName('ui fluid accordion')
     for (const accordion of accordions) {
@@ -157,6 +181,7 @@ export async function initDom () {
     // Attend l'affichage de tous les exercices pour les cacher
     document.addEventListener('exercicesAffiches', () => {
       affichageUniquementExercice(0)
+      gestionTimer()
       menuEval.innerHTML = ''
       const listeDivExercices = document.querySelectorAll('[id ^= "exercice"].titreExercice')
       for (let i = 0, element; i < listeDivExercices.length; i++) {
@@ -174,6 +199,7 @@ export async function initDom () {
     await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
     document.getElementById('boutonsConnexion').appendChild(boutonMAJ())
     addElement(section, 'div', { id: 'containerErreur' })
+    addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
   } else if (vue === 'embed' || vue === 'e') {
     setOutputHtml()
@@ -186,6 +212,7 @@ export async function initDom () {
     divExercice.style.fontSize = '1.5em'
     divCorrection.style.fontSize = '1.5em'
     document.addEventListener('exercicesAffiches', () => {
+      gestionTimer()
       document.querySelector('#accordeon_parametres').style.display = 'none'
       const listeH3 = document.querySelectorAll('h3')
       if (listeH3.length === 2) { // Un seul exercice on cache son titre
@@ -207,6 +234,7 @@ export async function initDom () {
     section = addElement(document.body, 'section', { style: 'width: 100%' })
     section.appendChild(boutonMAJ())
     addElement(section, 'div', { id: 'containerErreur' })
+    addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/mathaleaBasique.html', section)
     const parentExercices = document.getElementById('exercices')
     const parentCorrections = document.getElementById('corrections')
@@ -223,17 +251,20 @@ export async function initDom () {
       document.querySelectorAll('ol').forEach(ol => {
         setStyles(ol, 'padding:0;')
       })
+      gestionTimer()
     })
     const btnCorrection = document.getElementById('btnCorrection')
     btnCorrection.addEventListener('click', () => {
       parentCorrections.style.display = 'flex'
     })
   } else if (vue === 'can') {
+    context.duree = parseInt(getDureeFromUrl())
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
     const menuEval = addElement(section, 'div', { id: 'menuEval' })
     addElement(section, 'div', { id: 'containerErreur' })
+    const divTimer = addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/mathaleaBasique.html', section)
     document.addEventListener('exercicesAffiches', () => {
       liToDiv()
@@ -259,6 +290,7 @@ export async function initDom () {
           }, false)
           element.hasListenner = true
         }
+        gestionTimer(divTimer)
       }
     })
     document.getElementById('btnCorrection').addEventListener('click', () => {

@@ -19,6 +19,7 @@ import { context } from './modules/context.js'
 import { gestionVue } from './modules/gestionVue.js'
 import { initDom } from './modules/initDom.js'
 import gestionScores from './modules/gestionScores.js'
+import { modalTimer } from './modules/modalTimer.js'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
 function isNumeric (n) {
@@ -442,7 +443,7 @@ function miseAJourDuCode () {
         }
         listeObjetsExercice[i].numeroExercice = i
       }
-      if (typeof context.duree !== 'undefined' && context.isDiaporama) {
+      if (Number.isInteger(parseInt(context.duree))) {
         finUrl += `&duree=${context.duree}`
       }
       if (!getUserId()) {
@@ -2203,6 +2204,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     })
   }
 
+  const btnSetDuree = document.getElementById('btnSetDuree')
+  if (btnSetDuree !== null) {
+    btnSetDuree.addEventListener('click', () => {
+      modalTimer()
+    })
+  }
   const btnMulti = document.getElementById('btnMulti')
   if (btnMulti !== null) {
     btnMulti.addEventListener('click', () => {

@@ -196,6 +196,7 @@ function verifQuestionNumerique (exercice, i) {
 }
 
 function gestionCan (exercice) {
+  // Gestion du bouton 'Entrée' pour aller à l'exercice suivant
   if (!context.enterHasListenner) {
     window.addEventListener('keyup', (e) => {
       if (e.keyCode === 13) {
@@ -701,7 +702,11 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
 }
 
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
-  // console.log('appel afficheScore()')
+  if (context.timer) {
+    clearInterval(context.timer)
+    // ToDo à sauvegarder dans les résultats
+    // const tempsRestant = document.getElementById('timer').innerText
+  }
   const divExercice = get(`exercice${exercice.numeroExercice}`)
   let divScore = get(`score${exercice.numeroExercice}`, false)
   // Appel Fecth via une fonction est-ce que c'est ça qui multiplie les appels ?
@@ -734,6 +739,12 @@ export function afficheScoreCan (exercice, nbBonnesReponses, nbMauvaisesReponses
   // const exercice = { id: 'can', sup: document.location.href + 'serie=' + context.graine }
   const divScore = addElement(document.querySelector('#menuEval'), 'div', { className: 'score', id: 'scoreTotal' })
   divScore.innerHTML = `Résultat : ${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
+  // Arrête le timer
+  if (context.timer) {
+    clearInterval(context.timer)
+    // ToDo à sauvegarder dans les résultats
+    // const tempsRestant = document.getElementById('timer').innerText
+  }
   divScore.style.color = '#f15929'
   divScore.style.fontWeight = 'bold'
   divScore.style.fontSize = 'xx-large'
