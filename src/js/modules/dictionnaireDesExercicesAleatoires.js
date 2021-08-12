@@ -2205,7 +2205,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "numerique",
     "name": "6C10-1"
   },
   "6C10-2": {
@@ -3411,7 +3411,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "numerique",
     "name": "CM001"
   },
   "CM002": {
@@ -4105,7 +4105,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "numerique",
     "name": "c3C10-1"
   },
   "c3C10-2": {
