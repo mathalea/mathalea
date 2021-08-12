@@ -229,6 +229,8 @@ endWarnText()
 console.log(`${dictFile} généré ${sumWarnings()}`)
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 const mdDir = path.resolve(__dirname, '..', 'src', '.')
+
+// On crée un fichier pour décompter les exos AMC/ Interactifs
 const mdFile = path.resolve(mdDir, '.', 'exosAmcInteractifs.md')
 // On avait un fonctionnement avec description cf commit 832f123
 fs.writeFileSync(mdFile, '# Liste des exos AMC et INTERACTIFS\r\n')
@@ -237,6 +239,13 @@ fs.appendFileSync(mdFile, `- nombre d'exos interactifReady ${nbInteractifReady} 
 fs.appendFileSync(mdFile, '\r\n')
 fs.appendFileSync(mdFile, '|id|titre|amcReady|amcType|interactifReady|interactifType|\r\n')
 fs.appendFileSync(mdFile, '|:-:|:-:|:-:|:-:|:-:|:-:|\r\n')
+
+// On crée un fichier avec les exos ni AMC ni Interactifs
+const mdFileToConvert = path.resolve(mdDir, '.', 'exosNonAmcNonInteractifs.md')
+fs.writeFileSync(mdFileToConvert, '# Liste des exos ni AMC ni INTERACTIFS\r\n')
+fs.appendFileSync(mdFileToConvert, '\r\n')
+
+// On complète les fichiers
 Object.entries(dicoAlea).forEach(([id, props]) => {
   if (props.amcReady && props.interactifReady) {
     fs.appendFileSync(mdFile, `|${id}|${props.titre}|OK|${props.amcType.text}|OK|${props.interactifType}|\r\n`)
@@ -244,8 +253,11 @@ Object.entries(dicoAlea).forEach(([id, props]) => {
     fs.appendFileSync(mdFile, `|${id}|${props.titre}|OK|${props.amcType.text}|KO|KO|\r\n`)
   } else if (!props.amcReady && props.interactifReady) {
     fs.appendFileSync(mdFile, `|${id}|${props.titre}|KO|KO|OK|${props.interactifType}|\r\n`)
+  } else if (!props.amcReady && !props.interactifReady) {
+    fs.appendFileSync(mdFileToConvert, `- ${id}\r\n`)
   }
 })
 console.log(`${mdFile} généré`)
+console.log(`${mdFileToConvert} généré`)
 const fin = Date.now()
 console.log(`${path.resolve(__dirname, __filename)} terminé en ${fin - debut}ms`)
