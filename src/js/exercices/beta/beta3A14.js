@@ -6,6 +6,9 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
  * Description didactique de l'exercice
+ * Trouver le nombre maximal de bouquets contenant le même nombre d'iris et de roses
+ * en cherchant le plus grand diviseur commun de deux nombres.
+ * Donner ensuite la composition de chaque bouquets.
  * @author Laurence Candille
  * Référence 3A14
 */
@@ -38,25 +41,25 @@ export default function ProblèmeArithmétiqueLePlusGrandNombreDeBouquets () {
     texte += 'contenant tous le même nombre d’iris et le même nombre de roses. <br>'
     texte += 'Donner le nombre maximal de bouquets que le fleuriste peut réaliser '
     texte += 'et la composition du bouquet.<br>'
-    texte += 'a) Nombre maximal de bouquets : <br>'
-    texte += ajouteChampTexteMathLive(this, 0)
+    texte += 'a) Nombre maximal de bouquets :&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;'
+    texte += ajouteChampTexteMathLive(this, 0, 'inline largeur25')
     texteCorr = 'METHODE<br>'
     texteCorr += 'a) Pour trouver le nombre maximal de bouquets :<br>'
     texteCorr += `- Ecrire tous les diviseurs de ${iris * bouquet}<br>`
     texteCorr += `- Ecrire tous les diviseurs de ${rose * bouquet}<br>`
     texteCorr += 'Trouver le plus grand diviseur commun : '
-    texteCorr += ' ce nombre est le nombre maximal de bouquets<br>'
+    texteCorr += ' ce nombre est le nombre maximal de bouquets.<br>'
     texteCorr += texteEnCouleurEtGras(`Le nombre maximal de bouquets est : ${bouquet} <br><br>`)
     setReponse(this, 0, bouquet)
 
-    texte += 'b) Nombre d’iris dans chaque bouquet :<br>'
-    texte += ajouteChampTexteMathLive(this, 1)
+    texte += 'b) Nombre d’iris dans chaque bouquet :&ensp;&ensp;&ensp;'
+    texte += ajouteChampTexteMathLive(this, 1, 'inline largeur25')
     texteCorr += `b) Pour trouver le nombre d’iris : diviser ${iris * bouquet} par le nombre maximal de bouquets.<br>`
     texteCorr += texteEnCouleurEtGras(`Le nombre d’iris dans chaque bouquet est : ${iris} <br><br>`)
     setReponse(this, 1, iris)
 
     texte += 'c) Nombre de roses dans chaque bouquet :'
-    texte += ajouteChampTexteMathLive(this, 2)
+    texte += ajouteChampTexteMathLive(this, 2, 'inline largeur25')
     texteCorr += `c) Pour trouver le nombre de roses : diviser ${rose * bouquet} par le nombre maximal de bouquets.<br>`
     texteCorr += texteEnCouleurEtGras(`Le nombre de roses dans chaque bouquet est : ${rose} <br>`)
     setReponse(this, 2, rose)
