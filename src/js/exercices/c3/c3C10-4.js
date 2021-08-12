@@ -1,4 +1,4 @@
-import Exercice_tables_d_additions from '../6e/6C10-4.js'
+import ExerciceTablesAdditions from '../6e/6C10-4.js'
 export const titre = 'Tables d’addition'
 
 /**
@@ -8,7 +8,6 @@ export const titre = 'Tables d’addition'
  *
  * @author Jean-Claude Lhote
  */
-export default function Tables_additions_cycle3() {
-    Exercice_tables_d_additions.call(this,10);
-  this.titre = titre;
+export default function TablesAdditionsCycle3 () {
+  ExerciceTablesAdditions.call(this, 10)
 }

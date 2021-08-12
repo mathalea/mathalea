@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { calcul, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, randint, choice, range1, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, miseEnEvidence, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 
 export const amcReady = true
-export const amcType = 5 // type de question AMC
+export const amcType = 'AMCOpenNum' // type de question AMC
 
 export const titre = 'Calculs utilisant les priorités opératoires et les puissances'
 

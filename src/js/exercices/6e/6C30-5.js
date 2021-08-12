@@ -1,13 +1,11 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { shuffle2tableaux, calcul, listeQuestionsToContenu, combinaisonListes, randint, texNombre2, texFraction, choice, miseEnEvidence } from '../../modules/outils.js'
-import { propositionsQcm, elimineDoublons } from '../../modules/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, combinaisonListes, randint, texNombre2, texFraction, choice, miseEnEvidence } from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 1 // QCM 
+export const amcType = 'qcmMono' // QCM
 export const interactifReady = true
 export const interactifType = 'qcm'
-
 
 export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)'
 
@@ -47,7 +45,7 @@ export default function MultiplierPar001 () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     let typeDeQuestionsDisponibles
-    if (this.sup2 === 4) {
+    if (parseInt(this.sup2) === 4) {
       typeDeQuestionsDisponibles = [1, 2, 3]
     } else {
       typeDeQuestionsDisponibles = [parseInt(this.sup2)]
@@ -185,7 +183,6 @@ export default function MultiplierPar001 () {
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-  
   this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
   this.besoinFormulaire2Numerique = ['Type de question', 4, '1 : Résultat à calculer\n 2 : Nombre à retrouver\n 3 : Fraction décimale à retrouver\n 4 : Alternance des 3 types de question']
   // this.besoinFormulaire3CaseACocher =['Mode QCM',false]

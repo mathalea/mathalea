@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, texNombre
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 4 // type de question AMC
+export const amcType = 'AMCNum' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'numerique'
 
@@ -18,7 +18,6 @@ export const titre = 'Calculer le pourcentage d’un nombre de tête'
  */
 export default function PourcentageDunNombre () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.nbQuestions = 5
   this.consigne = 'Calculer'
   this.spacing = 2
@@ -26,11 +25,7 @@ export default function PourcentageDunNombre () {
   this.nbCols = 2
   this.nbColsCorr = 1
   this.sup = 1
-  this.amcReady = amcReady
-  this.amcType = amcType
   this.interactif = false
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
 
   this.nouvelleVersion = function () {
     let listePourcentages = []
@@ -81,7 +76,7 @@ $${p}~\\%~\\text{de }${n}= ${calcul(p / 10)} \\times ${n}\\div${10} =  ${texNomb
       if (context.isHtml && this.interactif) texte += ajouteChampTexte(this, i, { inline: true })
       setReponse(this, i, calcul(n * p / 100))
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = texte + '$~=$'
+        this.autoCorrection[i].enonce = texte + '='
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
         this.autoCorrection[i].reponse.param.digits = 3
         this.autoCorrection[i].reponse.param.decimals = 1

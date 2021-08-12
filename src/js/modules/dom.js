@@ -1,4 +1,4 @@
-/* global HTMLElement SVGElement Element */
+/* global HTMLElement SVGElement Element fetch */
 /**
  * Fonctions de gestion du dom
  * @module
@@ -133,4 +133,27 @@ export function enforceElt (elt, type) {
       if (elt instanceof Element) return elt
   }
   throw TypeError('Element indispensable manquant')
+}
+
+/**
+ *
+ * @param {string} url du fichier HTML
+ * @param {HTMLElement} element dont le innerHTML va être remplacé par le contenu du fichier
+ */
+export async function fetchHtmlToElement (url, element) {
+  const response = await fetch(url)
+  element.innerHTML = await response.text()
+}
+
+/**
+ *
+ * @param {string} url du fichier HTML
+ * @param {element} parent dans lequel l'élément va être ajouté en dernier enfant
+ * @param {string=} tag 'div' par défaut
+ * @param {Object=} attrs Les attributs
+ * @returns {HTMLElement} L'élément ajouté
+ */
+export async function addFetchHtmlToParent (url, parent, tag = 'div', attrs) {
+  const child = addElement(parent, tag, attrs)
+  return fetchHtmlToElement(url, child)
 }

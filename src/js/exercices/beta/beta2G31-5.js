@@ -30,14 +30,14 @@ export default function Determinerequationcartesienneavecpente () {
       m = randint(1, 5) * choice([-1, 1])
       texte = `Soit $A(${xA};${yA})$ un point d'un repère $(O ; \\vec{i} ;\\vec{j})$.`
       texte += `<br>Déterminer une équation cartésienne de la droite$(d)$ passant par le point $A$ et ayant pour coefficent directeur $${m}$.`
-      texteCorr = '<br>On sait que si une droite $(d)$ possède une pente égale à un réel $m$, alors elle admet $\\vec{u}(1;m)$ comme vecteur directeur. '
-
+      texteCorr = '<br>On sait que si une droite $(d)$ possède une pente égale à un réel $m$, alors elle admet $\\vec{u}(1;m)$ comme vecteur directeur.'
       texteCorr += `<br>Dans notre situation, cela signifie que la droite $(d)$ dont nous cherchons une équation cartésienne, admet comme vecteur directeur $ \\vec{u}(1;${m})$.`
-      texteCorr += '<br>On sait d\'autre part qu\'une droite portée par un vecteur directeur de coordonnées $\\vec {u}(-b;a)$, avec $(-b;a)\\neq (0;0)$, admet une équation cartesienne de la forme $ax+by+c=0$.'
+      texteCorr += '<br>On sait d\'autre part qu\'une droite portée par un vecteur directeur de coordonnées $\\vec {u}(-b;a)$, avec $(-b;a)\\neq (0;0)$, admet une équation cartesienne de la forme $ax+by+c=0$'
       texteCorr += `<br>Ce qui signifie que : $-b=1$ donc $b=-1$ et $a=${m}$.`
       texteCorr += `<br>On en déduit que la droite $(d)$ admet une équation cartésienne de la forme $${m} x-y+c=0.$`
-      texteCorr += '<br>Il reste à déterminer la valeur de $c$, et pour cela nous allons utiliser que $A\\in (d)$.'
-      texteCorr += `<br>Dans l'équation $${m} x-y+c=0$, on remplace $x$ et $y$ par les coordonnées du point $A$.`
+      texteCorr += '<br>Il reste à déterminer la valeur de $c$.'
+      texteCorr += `<br>Pour cela nous allons utiliser que les coordonnées du point $A(${xA};${yA})$, qui appartient à la droite $(d)$, vérifient l'équation : `
+      texteCorr += `$${m} x-y+c=0$`
       texteCorr += `<br>Ce qui implique que  $${m}\\times ${ecritureParentheseSiNegatif(xA)}-${ecritureParentheseSiNegatif(yA)}+c=0$`
       texteCorr += `<br>d'où $c=${-m * xA + yA}$.`
       texteCorr += `<br>Ce qui permet de conclure qu'une équation cartésienne de $(d)$ est $(d):~${m} x-y${ecritureAlgebrique(-m * xA + yA)}=0$.`

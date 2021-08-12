@@ -3,10 +3,9 @@ import { listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritu
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 1 // type de question AMC
+export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'qcm'
-
 
 export const titre = 'Addition de deux entiers relatifs'
 
@@ -21,11 +20,6 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max
   this.sup2 = false // écriture simplifiée
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = 'Calculer'
   this.spacing = 2
   this.qcmDisponible = true

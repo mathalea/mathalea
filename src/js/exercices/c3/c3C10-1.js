@@ -1,5 +1,6 @@
-import Tables_de_multiplications from '../6e/_Tables_de_multiplications.js'
+import TablesDeMultiplications from '../6e/_Tables_de_multiplications.js'
 export const titre = 'Tables de multiplications'
+export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Tables_de_multiplications.js'
 
 /**
  * Lire des nombres déciamux sur une portion de droite graduée
@@ -8,8 +9,7 @@ export const titre = 'Tables de multiplications'
  *
  * @author Jean-Claude Lhote
  */
-export default function Tables_de_multiplicationsCM() {
-    Tables_de_multiplications.call(this);
-    this.titre = titre;
-  this.sup2=1
+export default function TablesDeMultiplicationsCM () {
+  TablesDeMultiplications.call(this)
+  this.sup2 = 1
 }

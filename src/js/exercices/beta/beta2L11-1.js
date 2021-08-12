@@ -118,5 +118,5 @@ export default function Factoriser_Identites_remarquables2() {
         }
         listeQuestionsToContenu(this);
     };
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 :forme (ax+b)²-c²\n 2 : forme c²-(ax+b)²\n 3 : (ax+b)²-(cx+d)²\n 4 : méli-mélo'];
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 :forme (ax+b)²-c²\n 2 : forme c²-(ax+b)²\n 3 : (ax+b)²-(cx+d)²\n 4 : Méli-mélo'];
 }

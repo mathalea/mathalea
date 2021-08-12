@@ -1,4 +1,4 @@
-import Lire_abscisse_decimale_trois_formes from '../6e/6N23-2.js'
+import LireAbscisseDecimaleTroisFormes from '../6e/6N23-2.js'
 export const titre = 'Lire abscisse décimale sous trois formes'
 
 /**
@@ -7,9 +7,9 @@ export const titre = 'Lire abscisse décimale sous trois formes'
  * @author Jean-Claude Lhote
  * Référence 6N10
  */
-export default function Lire_abscisse_decimale_trois_formesCM() {
-  Lire_abscisse_decimale_trois_formes.call(this);
-  this.titre = titre;
-  this.niveau = 'CM';
-  this.sup = 1;
+export default function LireAbscisseDecimaleTroisFormesCM () {
+  LireAbscisseDecimaleTroisFormes.call(this)
+  this.titre = titre
+  this.niveau = 'CM'
+  this.sup = 1
 }

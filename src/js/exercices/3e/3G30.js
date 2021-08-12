@@ -1,10 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
-import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
-
+import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, choice, arrondiVirgule } from '../../modules/outils.js'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 5 // type de question AMC
+export const amcType = 'AMCOpenNum' // type de question AMC
 
 export const titre = 'Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie'
 
@@ -25,9 +27,7 @@ export default function CalculDeLongueur () {
   this.sup = false
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
-  this.amcReady = amcReady
-  this.amcType = amcType
-
+  this.interactif = false
   if (context.isHtml) {
     this.spacing = 0
     this.spacingCorr = 0
@@ -254,35 +254,37 @@ export default function CalculDeLongueur () {
     }
     /*****************************************************/
     // Pour AMC
-    this.autoCorrection[0] = {
-      enonce: texte,
-      propositions: [
-        {
-          texte: texteCorr,
-          statut: 4,
-          feedback: ''
-        }
-      ],
-      reponse: {
-        texte: 'résultat',
-        valeur: reponse,
-        param: {
-          digits: 3,
-          decimals: 1,
-          signe: false,
-          exposantNbChiffres: 0,
-          exposantSigne: false,
-          approx: 1
+    if (context.isAmc) {
+      this.autoCorrection[0] = {
+        enonce: texte,
+        propositions: [
+          {
+            texte: texteCorr,
+            statut: 4,
+            feedback: ''
+          }
+        ],
+        reponse: {
+          texte: 'résultat',
+          valeur: reponse,
+          param: {
+            digits: 3,
+            decimals: 1,
+            signe: false,
+            exposantNbChiffres: 0,
+            exposantSigne: false,
+            approx: 1
+          }
         }
       }
     }
-    /****************************************************/
-    this.listeQuestions.push(texte)
+    if (context.isHtml) {
+      texte += ajouteChampTexte(this, 0, { texteApres: 'cm', numeric: true })
+      this.listeQuestions.push(texte)
+      setReponse(this, 0, arrondiVirgule(reponse))
+    }
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
-    /*********************************************************/
-    // On ajoute cette ligne pour AMC
-    /**********************************************************/
   }
 
   this.besoinFormulaireCaseACocher = ['Figure à main levée', false]

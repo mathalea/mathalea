@@ -1,14 +1,11 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { mathalea2d, mediatrice, point, segment } from '../../modules/2d.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 
 export default function SuperExoMathalea2d () {
-  'use strict'
   Exercice.call(this)
-  this.titre = 'Le titre de mon super exo'
   this.nbQuestions = 1 // Ici le nombre de questions (une seule pour cet exercice non modifiable)
   this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
@@ -23,8 +20,7 @@ export default function SuperExoMathalea2d () {
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   this.nouvelleVersion = function () {
-
-    // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
+  // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
     this.listeQuestions = [] // tableau contenant la liste des questions
@@ -38,34 +34,34 @@ export default function SuperExoMathalea2d () {
     // boucle pour fabriquer les nbQuestions questions en s'assurant que si il n'y a pas nbQuestions différentes
     // La boucle s'arrête après 50 tentatives.
 
-    let objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection
+    const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
+    const objetsCorrection = [] // Idem pour la correction
 
-    objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-    objetsCorrection = [] // Idem pour la correction
-
-    texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
-    texteCorr = '' // Idem pour le texte de la correction.
+    let texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
+    let texteCorr = '' // Idem pour le texte de la correction.
 
     /***************************************/
     /** ******Ici on définit les objets 2d */
     /*************************************/
+    const A = point(0, 0)
+    const B = point(5, 0)
+    const s = segment(A, B)
+    const d = mediatrice(A, B)
 
-    // objetsEnonce.push() // On rempli les tableaux d'objets Mathalea2d
-    // objetsCorrection.push()
+    objetsEnonce.push(s) // On rempli les tableaux d'objets Mathalea2d
+    objetsCorrection.push(s, d)
 
-    // paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
-    //    paramsEnonceml = { xmin: Math.min(objetsEnonceml.x), ymin: Math.min(objetsEnonceml.y), xmax: Math.max(objetsEnonceml.x), ymax: Math.max(objetsEnonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
     // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-    //  paramsEnonce = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false }
+    const paramsEnonce = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false }
     // paramètres de la fenêtre Mathalea2d pour la correction
-    // paramsCorrection = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1 }
+    const paramsCorrection = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1 }
     // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
-    // texte += mathalea2d(paramsEnonce, objetsEnonce)
+    texte += mathalea2d(paramsEnonce, objetsEnonce)
     // On ajoute au texte de la correction, la figure de la correction
-    // texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
-    // this.listeQuestions.push(texte)
-    // this.listeCorrections.push(texteCorr)
-    // listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
+    this.listeQuestions.push(texte)
+    this.listeCorrections.push(texteCorr)
+    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
