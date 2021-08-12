@@ -150,6 +150,7 @@ const config = {
       // minimized: true sert à éviter de filer le fichier à terser pour minification
       // Cf https://webpack.js.org/plugins/copy-webpack-plugin/#info
       patterns: [
+        { from: 'src/js/modules', to: 'modules', info: { minimized: true } },
         { from: 'src/assets', to: 'assets', info: { minimized: true } },
         { from: 'src/templates', to: 'templates', info: { minimized: true } },
         { from: 'src/json', to: 'json', info: { minimized: true } },
