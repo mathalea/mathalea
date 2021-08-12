@@ -4,7 +4,7 @@ import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mat
 import { calcul, texFraction, arrondi, texNombre2, listeQuestionsToContenu, randint, creerNomDePolygone, choice, arrondiVirgule } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'numerique'
 export const amcReady = true
 export const amcType = 'AMCOpenNum'
 export const titre = 'Calculer un angle dans un triangle rectangle en utilisant la trigonométrie'
