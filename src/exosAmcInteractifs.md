@@ -83,7 +83,7 @@
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|numerique|
 |5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|numerique|
-|6C10-1|Tables de multiplication|OK|AMCNum|OK|mathLive|
+|6C10-1|Tables de multiplication|OK|AMCNum|OK|numerique|
 |6C10-2|Tables de multiplications et multiples de 10|OK|qcmMono|OK|qcm,mathLive|
 |6C10-3|Tables de multiplications et nombres décimaux|OK|qcmMono|OK|qcm|
 |6C10-4|Addition de deux entiers|OK|AMCNum|OK|numerique|
@@ -148,7 +148,7 @@
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
-|CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
+|CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
 |CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
 |CM004|Les quatre opérations|OK|AMCNum|OK|numerique|
@@ -174,6 +174,6 @@
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
-|c3C10-1|Tables de multiplications|OK|AMCNum|OK|mathLive|
+|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
