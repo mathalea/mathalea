@@ -19,7 +19,6 @@ export default function Determinerfonctionaffine () {
   this.spacing = 1
   this.spacingCorr = 1
   this.nbQuestions = 3
-  this.spacingCorr = 3
   this.sup = 1
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -377,5 +376,5 @@ export default function Determinerfonctionaffine () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 :Avec deux images\n 2 : Avec deux points et un repère\n 3 : 2 : Avec deux points sans repère\n 4 : méli-mélo']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 :Avec deux images\n 2 : Avec deux points et un repère\n 3 : Avec deux points sans repère\n 4 : Méli-mélo']
 }

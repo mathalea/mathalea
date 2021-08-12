@@ -3004,7 +3004,7 @@ export function criblePolynomeEntier () {
  */
 export function chercheMinMaxFonction ([a, b, c, d]) {
   const delta = 4 * b * b - 12 * a * c
-  if (delta <= 0) return []
+  if (delta <= 0) return [[0, 10 ** 99], [0, 10 ** 99]]
   const x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
   const x2 = (-2 * b + Math.sqrt(delta)) / (6 * a)
   return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
@@ -7244,6 +7244,11 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
         texQr += `${autoCorrection[j].enonce} \n `
+        if (typeof autoCorrection[j].options !== 'undefined') {
+          if (autoCorrection[j].options.multicols) {
+            texQr += '\\begin{multicols}{2}\n'
+          }
+        }
         for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les question-reponse de l'élément j
           prop = autoCorrection[j].propositions[qr] // proposition est un objet avec cette structure : {type,propositions,reponse}
           qrType = prop.type
@@ -7363,6 +7368,11 @@ export function exportQcmAmc (exercice, idExo) {
               texQr += '\t\\end{question}\n'
               id++
               break
+          }
+        }
+        if (typeof autoCorrection[j].options !== 'undefined') {
+          if (autoCorrection[j].options.multicols) {
+            texQr += '\\end{multicols}\n'
           }
         }
         texQr += '}\n'

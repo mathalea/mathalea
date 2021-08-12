@@ -1,8 +1,7 @@
 import TablesDeMultiplications from './_Tables_de_multiplications.js'
 
 export const titre = 'Tables de multiplication'
-export const interactifReady = true
-export const interactifType = 'numerique'
+export { interactifReady, interactifType, amcReady, amcType } from './_Tables_de_multiplications.js'
 
 /**
  * Tables de multiplications classiques, à trou ou un mélange des deux.

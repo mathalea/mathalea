@@ -52,7 +52,7 @@ export const dictionnaireLycee = {
     url: '/exercices/3e/3A13.js'
   },
   '2N30-1': {
-    titre: 'Décomposer une fraction (partie entieère +fraction inférieure à 1) puis donner l\'écriture décimale',
+    titre: 'Décomposer une fraction (partie entière +fraction inférieure à 1) puis donner l\'écriture décimale',
     url: '/exercices/6e/6N20-2.js'
   },
   '2N30-2': {

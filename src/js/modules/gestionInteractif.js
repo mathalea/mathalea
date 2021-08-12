@@ -47,7 +47,6 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour le calcul numérique, on transforme la saisie en nombre décimal
       if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
-      console.log(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
       }
@@ -126,6 +125,57 @@ function verifQuestionMathLive (exercice, i) {
   return resultat
 }
 
+function verifQuestionQcm (exercice, i) {
+  let resultat
+  const monRouge = 'rgba(217, 30, 24, 0.5)'
+  const monVert = 'rgba(123, 239, 178, 0.5)'
+  // i est l'indice de la question
+  let nbBonnesReponses = 0
+  let nbMauvaisesReponses = 0
+  let nbBonnesReponsesAttendues = 0
+  let indiceFeedback
+  // Compte le nombre de réponses justes attendues
+  for (let k = 0; k < exercice.autoCorrection[i].propositions.length; k++) {
+    if (exercice.autoCorrection[i].propositions[k].statut) nbBonnesReponsesAttendues++
+  }
+  const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+  exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
+    const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
+    const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
+    if (proposition.statut) {
+      label.style.backgroundColor = monVert
+      if (check.checked) {
+        nbBonnesReponses++
+        indiceFeedback = indice
+      }
+    } else if (check.checked === true) {
+      label.style.backgroundColor = monRouge
+      nbMauvaisesReponses++
+      indiceFeedback = indice
+    }
+  })
+  let typeFeedback = 'positive'
+  if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
+    spanReponseLigne.innerHTML = '😎'
+    resultat = 'OK'
+  } else {
+    spanReponseLigne.innerHTML = '☹️'
+    typeFeedback = 'error'
+    resultat = 'KO'
+  }
+  spanReponseLigne.style.fontSize = 'large'
+  if (indiceFeedback > -1 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback) {
+    const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
+    if (eltFeedback) eltFeedback.innerHTML = ''
+    messageFeedback({
+      id: `feedbackEx${exercice.numeroExercice}Q${i}`,
+      message: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
+      type: typeFeedback
+    })
+  }
+  return resultat
+}
+
 function verifQuestionNumerique (exercice, i) {
   let spanReponseLigne, resultat
   if (i < exercice.nbQuestions) {
@@ -146,11 +196,13 @@ function verifQuestionNumerique (exercice, i) {
 }
 
 function gestionCan (exercice) {
+  // Gestion du bouton 'Entrée' pour aller à l'exercice suivant
   if (!context.enterHasListenner) {
     window.addEventListener('keyup', (e) => {
       if (e.keyCode === 13) {
         e.preventDefault()
-        document.querySelector('[id^=boutonVerifex]:not(.disabled)').click()
+        const listeBoutonsValider = document.querySelectorAll('[id^=boutonVerifex]')
+        listeBoutonsValider[context.questionCanEnCours - 1].click()
       }
     })
     context.enterHasListenner = true
@@ -158,32 +210,39 @@ function gestionCan (exercice) {
   for (const i in exercice.autoCorrection) {
     const button1question = document.querySelector(`#boutonVerifexercice${exercice.numeroExercice}Q${i}`)
     if (button1question) {
-      button1question.addEventListener('click', () => {
-        let resultat
-        if (exercice.interactifType === 'mathLive') {
-          resultat = verifQuestionMathLive(exercice, i)
-        }
-        if (exercice.interactifType === 'numerique') {
-          resultat = verifQuestionNumerique(exercice, i)
-        }
-        // Mise en couleur du numéro de la question dans le menu du haut
-        if (resultat === 'OK') {
-          document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
-          context.nbBonnesReponses++
-        }
-        if (resultat === 'KO') {
-          document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('red')
-          context.nbMauvaisesReponses++
-        }
-        if (resultat === 'OK' || resultat === 'KO') {
-          button1question.classList.add('disabled')
-          if (exercicesCanRestants().length) {
-            exercicesCanRestants()[0].click()
-          } else {
-            afficheScoreCan(exercice, context.nbBonnesReponses, context.nbMauvaisesReponses)
+      if (!button1question.hasMathaleaListener) {
+        button1question.addEventListener('click', () => {
+          let resultat
+          if (exercice.interactifType === 'mathLive') {
+            resultat = verifQuestionMathLive(exercice, i)
           }
-        }
-      })
+          if (exercice.interactifType === 'numerique') {
+            resultat = verifQuestionNumerique(exercice, i)
+          }
+          if (exercice.interactifType === 'qcm') {
+            console.log('qcm')
+            resultat = verifQuestionQcm(exercice, i)
+          }
+          // Mise en couleur du numéro de la question dans le menu du haut
+          if (resultat === 'OK') {
+            document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
+            context.nbBonnesReponses++
+          }
+          if (resultat === 'KO') {
+            document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('red')
+            context.nbMauvaisesReponses++
+          }
+          if (resultat === 'OK' || resultat === 'KO') {
+            button1question.classList.add('disabled')
+            if (exercicesCanRestants().length) {
+              exercicesCanDispoApres().click()
+            } else {
+              afficheScoreCan(exercice, context.nbBonnesReponses, context.nbMauvaisesReponses)
+            }
+          }
+        })
+        button1question.hasMathaleaListener = true
+      }
     }
   }
 }
@@ -195,13 +254,13 @@ function gestionCan (exercice) {
  * @param {object} exercice
  */
 export function exerciceQcm (exercice) {
-  // console.log('Dans ExerciceQcm : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
   document.addEventListener('exercicesAffiches', () => {
     // On active les checkbox
     $('.ui.checkbox').checkbox()
     // Couleur pour surligner les label avec une opacité de 50%
-    const monRouge = 'rgba(217, 30, 24, 0.5)'
-    const monVert = 'rgba(123, 239, 178, 0.5)'
+    if (getVueFromUrl() === 'can') {
+      gestionCan(exercice)
+    }
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       if (!button.hasMathaleaListener) {
@@ -209,50 +268,8 @@ export function exerciceQcm (exercice) {
           let nbQuestionsValidees = 0
           let nbQuestionsNonValidees = 0
           for (let i = 0; i < exercice.nbQuestions; i++) {
-          // i est l'indice de la question
-            let nbBonnesReponses = 0
-            let nbMauvaisesReponses = 0
-            let nbBonnesReponsesAttendues = 0
-            let indiceFeedback
-            // Compte le nombre de réponses justes attendues
-            for (let k = 0; k < exercice.autoCorrection[i].propositions.length; k++) {
-              if (exercice.autoCorrection[i].propositions[k].statut) nbBonnesReponsesAttendues++
-            }
-            const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-            exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
-              const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
-              const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
-              if (proposition.statut) {
-                label.style.backgroundColor = monVert
-                if (check.checked) {
-                  nbBonnesReponses++
-                  indiceFeedback = indice
-                }
-              } else if (check.checked === true) {
-                label.style.backgroundColor = monRouge
-                nbMauvaisesReponses++
-                indiceFeedback = indice
-              }
-            })
-            let typeFeedback = 'positive'
-            if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
-              spanReponseLigne.innerHTML = '😎'
-              nbQuestionsValidees++
-            } else {
-              spanReponseLigne.innerHTML = '☹️'
-              typeFeedback = 'error'
-              nbQuestionsNonValidees++
-            }
-            spanReponseLigne.style.fontSize = 'large'
-            if (indiceFeedback > -1 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback) {
-              const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
-              if (eltFeedback) eltFeedback.innerHTML = ''
-              messageFeedback({
-                id: `feedbackEx${exercice.numeroExercice}Q${i}`,
-                message: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
-                type: typeFeedback
-              })
-            }
+            const resultat = verifQuestionQcm(exercice, i)
+            resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
           }
           const uichecks = document.querySelectorAll(`.ui.checkbox.ex${exercice.numeroExercice}`)
           uichecks.forEach(function (uicheck) {
@@ -685,7 +702,11 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
 }
 
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
-  // console.log('appel afficheScore()')
+  if (context.timer) {
+    clearInterval(context.timer)
+    // ToDo à sauvegarder dans les résultats
+    // const tempsRestant = document.getElementById('timer').innerText
+  }
   const divExercice = get(`exercice${exercice.numeroExercice}`)
   let divScore = get(`score${exercice.numeroExercice}`, false)
   // Appel Fecth via une fonction est-ce que c'est ça qui multiplie les appels ?
@@ -718,6 +739,12 @@ export function afficheScoreCan (exercice, nbBonnesReponses, nbMauvaisesReponses
   // const exercice = { id: 'can', sup: document.location.href + 'serie=' + context.graine }
   const divScore = addElement(document.querySelector('#menuEval'), 'div', { className: 'score', id: 'scoreTotal' })
   divScore.innerHTML = `Résultat : ${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
+  // Arrête le timer
+  if (context.timer) {
+    clearInterval(context.timer)
+    // ToDo à sauvegarder dans les résultats
+    // const tempsRestant = document.getElementById('timer').innerText
+  }
   divScore.style.color = '#f15929'
   divScore.style.fontWeight = 'bold'
   divScore.style.fontSize = 'xx-large'
@@ -733,3 +760,12 @@ export function afficheScoreCan (exercice, nbBonnesReponses, nbMauvaisesReponses
 
 const exercicesEvalRestants = () => document.querySelectorAll('[id ^= "btnEx"].circular.ui.button:not(.green):not(.red)')
 const exercicesCanRestants = () => document.querySelectorAll('[id ^= "btnMenuexercice"].circular.ui.button:not(.green):not(.red)')
+const exercicesCanDispoApres = () => {
+  const liste = Array.from(document.querySelectorAll('[id^=btnMenu]'))
+  for (let i = parseInt(context.questionCanEnCours); i < liste.length; i++) {
+    if (!liste[i].classList.contains('red') && !liste[i].classList.contains('green')) {
+      return liste[i]
+    }
+  }
+  return exercicesCanRestants()[0]
+}

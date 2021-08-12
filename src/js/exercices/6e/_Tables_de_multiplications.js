@@ -2,7 +2,10 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, creerCouples, choice, texNombre, randint } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
-
+export const interactifReady = true
+export const interactifType = 'numerique'
+export const amcReady = true
+export const amcType = 'AMCNum'
 /**
  * Tables de multiplications classiques, à trou ou un mélange des deux.
  *
@@ -19,8 +22,6 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
   this.consigne = 'Calculer'
   this.spacing = 2
   this.interactif = true
-  this.amcType = 4
-  this.interactifType = 'numerique'
 
   this.nouvelleVersion = function () {
     this.sup2 = parseInt(this.sup2)
@@ -56,40 +57,36 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
       if (typesDeQuestions === 'classique') {
         // classique
         if (choice([true, false])) {
-          texte = `$ ${texNombre(a)} \\times ${texNombre(b)} = \\dotfill$`
+          texte = `$ ${texNombre(a)} \\times ${texNombre(b)} = `
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true }) : '\\dotfill$'
           texteCorr = `$ ${texNombre(a)} \\times ${texNombre(b)} = ${texNombre(a * b)}$`
-          if (this.interactif) texte = `$ ${texNombre(a)} \\times ${texNombre(b)} = $` + ajouteChampTexte(this, i)
-          setReponse(this, i, a * b)
         } else {
-          texte = `$ ${texNombre(b)} \\times ${texNombre(a)} = \\dotfill$`
+          texte = `$ ${texNombre(b)} \\times ${texNombre(a)} = `
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true }) : '\\dotfill$'
           texteCorr = `$ ${texNombre(b)} \\times ${texNombre(a)} = ${texNombre(a * b)}$`
-          if (this.interactif) texte = `$ ${texNombre(b)} \\times ${texNombre(a)} = $` + ajouteChampTexte(this, i)
-          setReponse(this, i, a * b)
         }
+        setReponse(this, i, a * b)
       } else {
         // a trous
         if (tables.length > 2) {
           // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
           if (randint(1, 2) === 1) {
-            texte = '$ ' + a + ' \\times \\ldots\\ldots = ' + a * b + ' $'
-            if (this.interactif) {
-              texte = `$ ${a} \\times $` + ajouteChampTexte(this, i) + `$ = ${a * b} $`
-              setReponse(this, i, b)
-            }
+            texte = '$ ' + a + ' \\times '
+            texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true }) + `$ = ${a * b} $` : '   \\ldots\\ldots = ' + a * b + ' $'
+            setReponse(this, i, b)
           } else {
-            texte = '$ \\ldots\\ldots' + ' \\times ' + b + ' = ' + a * b + ' $'
-            if (this.interactif) {
-              texte = ajouteChampTexte(this, i) + `$ \\times ${b}  = ${a * b} $`
-              setReponse(this, i, a)
-            }
+            texte = (this.interactif && context.isHtml) ? ajouteChampTexte(this, i, { numeric: true }) + '$' : '$ \\ldots\\ldots'
+            texte += `\\times ${b} = ${a * b}$`
+            setReponse(this, i, a)
           }
         } else {
           // Sinon on demande forcément le 2e facteur
-          texte = '$ ' + a + ' \\times \\ldots\\ldots = ' + a * b + ' $'
-          if (this.interactif) texte = ajouteChampTexte(this, i) + `$ \\times ${b}  = ${a * b} $`
+          texte = `$${a} \\times `
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true }) + '$' : ' \\ldots\\ldots'
+          texte += ` = ${a * b}$`
           setReponse(this, i, b)
         }
-        texteCorr = '$ ' + a + ' \\times ' + b + ' = ' + a * b + ' $'
+        texteCorr = `$${a} \\times ${b} = ${a * b}$`
       }
       if (context.isDiaporama) {
         texte = texte.replace('= \\dotfill', '')

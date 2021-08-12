@@ -2,7 +2,11 @@ import { translation, mathalea2d, polygone, point, segment, rotation, similitude
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { egal, listeQuestionsToContenuSansNumero, randint, choice, imagePointParTransformation, texteEnCouleurEtGras, numAlpha } from '../../modules/outils.js'
-
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 /**
  * Trouver l'image d'une figure par une symétrie centrale dans un pavage (7 motifs différents)
  * @author Jean-Claude Lhote
@@ -10,17 +14,18 @@ import { egal, listeQuestionsToContenuSansNumero, randint, choice, imagePointPar
  * Pas de version Latex !
  * Références 5G12-1, 6G25-2, 4G11-1, 3G12-1
  */
-export default function Pavages_et_transformations () {
+export default function PavagesEtTransformations () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
 
-  //	this.titre = "Trouver l'image d'une figure par une symétrie centrale";
+  // this.titre = "Trouver l'image d'une figure par une symétrie centrale";
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
-  //	this.sup = 1; // 1 pour symétrie axiale, 2 pour symétrie centrale, 3 pour translations, et 4 pour rotations ; paramètre fixé par les variantes respectives.
+  this.interactif = true
+  // this.sup = 1; // 1 pour symétrie axiale, 2 pour symétrie centrale, 3 pour translations, et 4 pour rotations ; paramètre fixé par les variantes respectives.
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
@@ -30,10 +35,11 @@ export default function Pavages_et_transformations () {
 
     // listes de pavages [nx,ny,xB,yB,xC,yC,xD,yD,zoom,anngle]  : 0=carrés, 1=cerf-volant 2=quadri concave 3=quadri quelconque 4=parallélogrammes 5=triangles rectangles isocèles 6=triangles équilatéraux 7=losanges
     const paves = [[5, 5, 4, 0, 4, 4, 0, 4, 30, 0], [5, 5, 6, 0, 8, 8, 0, 6, 60, -9], [5, 5, 8, 0, 4, 4, 2, 8, 50, 0], [5, 5, 4, 0, 6, 4, 0, 6, 50, 5], [4, 6, 8, 0, 7, 4, -1, 4, 50, 10], [5, 5, 8, 0, 4, 4, 0, 8, 50, 0], [5, 5, 4, 0, 3, 2 * Math.sin(Math.PI / 3), 2, 4 * Math.sin(Math.PI / 3), 20, 0], [4, 4, 3, 1, 4, 4, 1, 3, 20, 0]]
-    const quad = []; let quadInitial; let quad1; let quad2; let quad3
+    const quad = []; let quad1; let quad2; let quad3
     let mediatrice1, mediatrice2, mediatrice3, centre1, centre2, centre3, arc1, arc2, arc3, rayon11, rayon12, rayon21, rayon22, rayon31, rayon32
-    let vecteur1, vecteur2, vecteur3, vector1, vector2, vector3, origine1, origine2, origine3
+    let vecteur1, vecteur2, vecteur3, vector1, vector2, vector3, origine1, origine2, origine3, indexsym2, indexsym1, indexsym3
     let B, C, D
+    let iB1, iB2, iB3, iC1, iA1, iD1
     let texte = ''; let texteCorr = ''
     const tabfigA = []; const tabfigB = []; const tabfigC = []; const tabfigD = []
     let pave = []
@@ -58,10 +64,10 @@ export default function Pavages_et_transformations () {
 
     const nx = pave[0]; const ny = pave[1]; let xB = pave[2]; let yB = pave[3]; let xC = pave[4]; let yC = pave[5]; let xD = pave[6]; let yD = pave[7]; const Zoom = pave[8]; const Angle = pave[9]
     const A = point(0, 0)
-    if (choixPave != 0 && choixPave != 6 && choixPave != 7) {
-        	B = similitude(point(xB, yB), A, Angle, 22 / Zoom)
-        	C = similitude(point(xC, yC), A, Angle, 22 / Zoom)
-        	D = similitude(point(xD, yD), A, Angle, 22 / Zoom)
+    if (choixPave !== 0 && choixPave !== 6 && choixPave !== 7) {
+      B = similitude(point(xB, yB), A, Angle, 22 / Zoom)
+      C = similitude(point(xC, yC), A, Angle, 22 / Zoom)
+      D = similitude(point(xD, yD), A, Angle, 22 / Zoom)
       xB = B.x
       yB = B.y
       xC = C.x
@@ -73,7 +79,6 @@ export default function Pavages_et_transformations () {
       C = point(xC, yC)
       D = point(xD, yD)
     }
-    quadInitial = polygone(A, B, C, D)
     const xAI = xB + xC - xD
     const yAI = yB + yC - yD
     const I = milieu(B, C)
@@ -118,12 +123,12 @@ export default function Pavages_et_transformations () {
         // Première question : une figure type A par symétrie d'axe // à [BD] est une figure type A. le symétrique du sommet A est le sommet C
         indexA = randint(0, nx * ny - 1)
         numA = tabfigA[indexA][2]
-        let indexsym1 = randint(0, nx * ny - 1, [indexA]) // sert à choisir un axe [BD].
+        indexsym1 = randint(0, nx * ny - 1, [indexA]) // sert à choisir un axe [BD].
         xmil1 = tabfigD[indexsym1][0] // sert pour faire passer l'axe de symétrie.
         ymil1 = tabfigD[indexsym1][1]
         punto = imagePointParTransformation(2, [tabfigA[indexA][0], tabfigA[indexA][1]], [xmil1, ymil1])
         trouver = false
-        while (trouver == false) {
+        while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
             if (egal(punto[0], tabfigC[j][0], 0.001) && egal(punto[1], tabfigC[j][1], 0.001)) {
               trouver = true
@@ -139,7 +144,7 @@ export default function Pavages_et_transformations () {
               break
             }
           }
-          if (trouver == false) {
+          if (trouver === false) {
             indexA = randint(0, nx * ny - 1)
             numA = tabfigA[indexA][2]
             indexsym1 = randint(0, nx * ny - 1, [indexA])
@@ -148,17 +153,17 @@ export default function Pavages_et_transformations () {
             punto = imagePointParTransformation(2, [tabfigA[indexA][0], tabfigA[indexA][1]], [xmil1, ymil1])
           }
         }
-        texte = numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport à $(d_1)$ ?<br>`, 'green')
+        texte = numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport à $(d_1)$ ?<br>`, 'green') + ajouteChampTexteMathLive(this, 0, 'largeur10')
         texteCorr = numAlpha(0) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numA} dans la symétrie par rapport à $(d_1)$ porte le numéro ${num1}.<br>`, 'green')
         // Deuxième question : une figure type D par symétrie d'axe // à [AC] est une figure type B. le symétrique du sommet B est le sommet D
         indexD = randint(0, nx * ny - 1)
         numD = tabfigD[indexD][2]
-        let indexsym2 = randint(0, nx * ny - 1, [indexD]) // sert à choisir un axe [AC].
+        indexsym2 = randint(0, nx * ny - 1, [indexD]) // sert à choisir un axe [AC].
         xmil2 = tabfigA[indexsym2][0] // sert pour faire passer l'axe de symétrie.
         ymil2 = tabfigA[indexsym2][1]
         punto = imagePointParTransformation(1, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2])
         trouver = false
-        while (trouver == false) {
+        while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
             if (egal(punto[0], tabfigB[j][0], 0.001) && egal(punto[1], tabfigB[j][1], 0.001)) {
               trouver = true
@@ -176,7 +181,7 @@ export default function Pavages_et_transformations () {
               break
             }
           }
-          if (trouver == false) {
+          if (trouver === false) {
             indexD = randint(0, nx * ny - 1)
             numD = tabfigD[indexD][2]
             indexsym2 = randint(0, nx * ny - 1, [indexD]) // sert à choisir un axe [AC].
@@ -185,17 +190,17 @@ export default function Pavages_et_transformations () {
             punto = imagePointParTransformation(1, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2])
           }
         }
-        texte += numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport à $(d_2)$ ?<br>`, 'red')
+        texte += numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport à $(d_2)$ ?<br>`, 'red') + ajouteChampTexteMathLive(this, 1, 'largeur10')
         texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numD} dans la symétrie par rapport à $(d_2)$ porte le numéro ${num2}.<br>`, 'red')
         // troisième question : une figure type D par symétrie d'axe // à [DC] est une figure type A. le symétrique du sommet D est le sommet A'
         indexC = randint(0, nx * ny - 1)
         numC = tabfigC[indexC][2]
-        const indexsym3 = randint(0, 4, Math.floor(indexC / 5)) * 5 // sert à choisir un axe [AC].
+        indexsym3 = randint(0, 4, Math.floor(indexC / 5)) * 5 // sert à choisir un axe [AC].
         xmil3 = tabfigC[indexsym3][0] // sert pour faire passer l'axe de symétrie.
         ymil3 = tabfigC[indexsym3][1]
         punto = imagePointParTransformation(3, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3])
         trouver = false
-        while (trouver == false) {
+        while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
             if (egal(punto[0], tabfigC[j][0], 0.001) && egal(punto[1], tabfigC[j][1], 0.001)) {
               trouver = true
@@ -211,7 +216,7 @@ export default function Pavages_et_transformations () {
               break
             }
           }
-          if (trouver == false) {
+          if (trouver === false) {
             indexC = randint(0, nx * ny - 1)
             numC = tabfigC[indexC][2]
             const indexsym3 = randint(0, 4, Math.floor(indexC / 5)) * 5 // sert à choisir un axe [AC].
@@ -220,7 +225,7 @@ export default function Pavages_et_transformations () {
             punto = imagePointParTransformation(3, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3])
           }
         }
-        texte += numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ ?<br>`, 'blue')
+        texte += numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ ?<br>`, 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur10')
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ porte le numéro ${num3}.<br>`, 'blue')
         objetsEnonce.push(mediatrice1, mediatrice2, mediatrice3)
         objetsCorrection.push(mediatrice1, mediatrice2, mediatrice3, symetrieAnimee(quad[numA], mediatrice1, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), symetrieAnimee(quad[numD], mediatrice2, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), symetrieAnimee(quad[numC], mediatrice3, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
@@ -270,7 +275,7 @@ export default function Pavages_et_transformations () {
         ymil1 = (yB + yC) / 2 + tabfigB[indexcentre1][1] - yB
         punto = imagePointParTransformation(7, [tabfigC[indexA][0], tabfigC[indexA][1]], [xmil1, ymil1])
         trouver = false
-        while (trouver == false) {
+        while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
             if (egal(punto[0], tabfigB[j][0], 0.001) && egal(punto[1], tabfigB[j][1], 0.001)) {
               trouver = true
@@ -292,7 +297,7 @@ export default function Pavages_et_transformations () {
             punto = imagePointParTransformation(7, [tabfigC[indexA][0], tabfigC[indexA][1]], [xmil1, ymil1])
           }
         }
-        texte += numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport à ${s0} ?<br>`, 'green')
+        texte += numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport à ${s0} ?<br>`, 'green') + ajouteChampTexteMathLive(this, 0, 'largeur10')
         texteCorr = numAlpha(0) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numA} dans la symétrie par rapport à ${s0} porte le numéro ${num1}.<br>`, 'green')
         // Deuxième question : une figure dans tabfigD, une symétrie par rapport au milieu d'un [C'D'], le résultat est une figure dans tabfigA et C' est l'image de D !
         indexD = randint(0, nx * ny - 1)
@@ -304,7 +309,7 @@ export default function Pavages_et_transformations () {
         ymil2 = (yD + yC) / 2 + tabfigD[indexcentre2][1] - yD
         punto = imagePointParTransformation(7, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2])
         trouver = false
-        while (trouver == false) {
+        while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
             if (egal(punto[0], tabfigC[j][0], 0.001) && egal(punto[1], tabfigC[j][1], 0.001)) {
               trouver = true
@@ -318,7 +323,7 @@ export default function Pavages_et_transformations () {
               break
             }
           }
-          if (trouver == false) {
+          if (trouver === false) {
             indexD = randint(0, nx * ny - 1)
             numD = tabfigD[indexD][2]
             indexcentre2 = randint(0, nx * ny - 1, [indexD])
@@ -328,7 +333,7 @@ export default function Pavages_et_transformations () {
           }
         }
 
-        texte += numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport à ${s1} ?<br>`, 'red')
+        texte += numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport à ${s1} ?<br>`, 'red') + ajouteChampTexteMathLive(this, 1, 'largeur10')
         texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numD} dans la symétrie par rapport à ${s1} porte le numéro ${num2}.<br>`, 'red')
         // troisième question : une figure dans tabfigC, une symétrie par rapport au symétrique du milieu de [A'D'] par rapport au milieu de [C'D']... pas très clair
         // le résultat est une figure dans tabfigD et le point (C'+ vecteur AC) a pour image D' !
@@ -341,7 +346,7 @@ export default function Pavages_et_transformations () {
         ymil3 = yD / 2 + tabfigC[indexcentre3][1]
         punto = imagePointParTransformation(7, [tabfigC[indexC][0] + xC, tabfigC[indexC][1] + yC], [xmil3, ymil3]) // c'est le sommet C + AC qui a pour image D.
         trouver = false
-        while (trouver == false) {
+        while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
             if (egal(punto[0], tabfigD[j][0], 0.001) && egal(punto[1], tabfigD[j][1], 0.001)) {
               trouver = true
@@ -354,7 +359,7 @@ export default function Pavages_et_transformations () {
               break
             }
           }
-          if (trouver == false) {
+          if (trouver === false) {
             indexC = randint(0, nx * ny - 1)
             numC = tabfigC[indexC][2]
             indexcentre3 = randint(0, nx * ny - 1, [indexC])
@@ -363,7 +368,7 @@ export default function Pavages_et_transformations () {
             punto = imagePointParTransformation(7, [tabfigC[indexC][0] + xC, tabfigC[indexC][1] + yC], [xmil3, ymil3])
           }
         }
-        texte += numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} ?<br>`, 'blue')
+        texte += numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} ?<br>`, 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur10')
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} porte le numéro ${num3}.<br>`, 'blue')
 
         objetsEnonce.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3))
@@ -424,7 +429,6 @@ export default function Pavages_et_transformations () {
         break
 
       case 3: // translations
-        let iB1, iB2, iB3, iC1, iA1, iD1
 
         // Première question : une figure dans tabfigA, l'image dans tabfigA...
         // On choisit deux figures de type B pour définir le vecteur de translation.
@@ -436,7 +440,7 @@ export default function Pavages_et_transformations () {
         yV1 = tabfigB[iB2][1] - tabfigB[iB1][1]
         punto = imagePointParTransformation(8, [tabfigA[indexA][0], tabfigA[indexA][1]], [0, 0], [xV1, yV1])
         trouver = false
-        while (trouver == false) {
+        while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
             if (egal(punto[0], tabfigA[j][0], 0.001) && egal(punto[1], tabfigA[j][1], 0.001)) {
               trouver = true
@@ -454,7 +458,7 @@ export default function Pavages_et_transformations () {
               break
             }
           }
-          if (trouver == false) {
+          if (trouver === false) {
             indexA = randint(0, nx * ny - 1)
             numA = tabfigA[indexA][2]
             iB1 = randint(0, nx * ny - 1)
@@ -464,7 +468,7 @@ export default function Pavages_et_transformations () {
             punto = imagePointParTransformation(8, [tabfigA[indexA][0], tabfigA[indexA][1]], [0, 0], [xV1, yV1])
           }
         }
-        texte += numAlpha(0) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]} quelle est le numéro de l'image de la figure ${numA} ?<br>`, 'green')
+        texte += numAlpha(0) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]} quelle est le numéro de l'image de la figure ${numA} ?<br>`, 'green') + ajouteChampTexteMathLive(this, 0, 'largeur10')
         texteCorr = numAlpha(0) + texteEnCouleurEtGras(` La figure image de la figure ${numA}  dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]} porte le numéro ${num1}.<br>`, 'green')
         // Deuxième question : une figure dans tabfigD, l'image dans tabfigB...
         // On choisit une figure C et une figure A pour définir le vecteur de translation.
@@ -476,7 +480,7 @@ export default function Pavages_et_transformations () {
         yV2 = tabfigA[iA1][1] - tabfigC[iC1][1]
         punto = imagePointParTransformation(8, [tabfigD[indexD][0], tabfigD[indexD][1]], [0, 0], [xV2, yV2])
         trouver = false
-        while (trouver == false) {
+        while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
             if (egal(punto[0], tabfigB[j][0], 0.001) && egal(punto[1], tabfigB[j][1], 0.001)) {
               trouver = true
@@ -494,7 +498,7 @@ export default function Pavages_et_transformations () {
               break
             }
           }
-          if (trouver == false) {
+          if (trouver === false) {
             indexD = randint(0, nx * ny - 1)
             numD = tabfigD[indexD][2]
             iC1 = randint(0, nx * ny - 1)
@@ -504,7 +508,7 @@ export default function Pavages_et_transformations () {
             punto = imagePointParTransformation(8, [tabfigD[indexD][0], tabfigD[indexD][1]], [0, 0], [xV2, yV2])
           }
         }
-        texte += numAlpha(1) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]} quelle est le numéro de l'image de la figure ${numD} ?<br>`, 'red')
+        texte += numAlpha(1) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]} quelle est le numéro de l'image de la figure ${numD} ?<br>`, 'red') + ajouteChampTexteMathLive(this, 1, 'largeur10')
         texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure image de la figure ${numD}  dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]} porte le numéro ${num2}.<br>`, 'red')
 
         // troisième question : une figure dans tabfigC, l'image dans tabfigA...
@@ -517,7 +521,7 @@ export default function Pavages_et_transformations () {
         yV3 = tabfigA[iB3][1] - tabfigC[iD1][1]
         punto = imagePointParTransformation(8, [tabfigC[indexC][0], tabfigC[indexC][1]], [0, 0], [xV3, yV3])
         trouver = false
-        while (trouver == false) {
+        while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
             if (egal(punto[0], tabfigA[j][0], 0.001) && egal(punto[1], tabfigA[j][1], 0.001)) {
               trouver = true
@@ -535,7 +539,7 @@ export default function Pavages_et_transformations () {
               break
             }
           }
-          if (trouver == false) {
+          if (trouver === false) {
             indexC = randint(0, nx * ny - 1)
             numC = tabfigC[indexC][2]
             iD1 = randint(0, nx * ny - 1)
@@ -545,7 +549,7 @@ export default function Pavages_et_transformations () {
             punto = imagePointParTransformation(8, [tabfigC[indexC][0], tabfigC[indexC][1]], [0, 0], [xV3, yV3])
           }
         }
-        texte += numAlpha(2) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} quelle est le numéro de l'image de la figure ${numC} ?<br>`, 'blue')
+        texte += numAlpha(2) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} quelle est le numéro de l'image de la figure ${numC} ?<br>`, 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur10')
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure image de la figure ${numC}  dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} porte le numéro ${num3}.<br>`, 'blue')
 
         objetsEnonce.push(vecteur1, vecteur2, vecteur3)
@@ -606,7 +610,7 @@ export default function Pavages_et_transformations () {
         ymil1 = tabfigA[indexcentre1][1]
         punto = imagePointParTransformation(6, [tabfigB[indexA][0], tabfigB[indexA][1]], [xmil1, ymil1]) // le repère est direct, donc le sens de rotation est inversé...
         trouver = false
-        while (trouver == false) {
+        while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
             if (egal(punto[0], tabfigD[j][0], 0.001) && egal(punto[1], tabfigD[j][1], 0.001)) {
               trouver = true
@@ -619,7 +623,7 @@ export default function Pavages_et_transformations () {
               break
             }
           }
-          if (trouver == false) {
+          if (trouver === false) {
             indexA = randint(0, nx * ny - 1)
             numA = tabfigA[indexA][2]
             indexcentre1 = randint(0, nx * ny - 1, [indexA])
@@ -628,7 +632,7 @@ export default function Pavages_et_transformations () {
             punto = imagePointParTransformation(6, [tabfigB[indexA][0], tabfigB[indexA][1]], [xmil1, ymil1]) // le repère est direct, donc le sens de rotation est inversé...
           }
         }
-        texte += numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure image de la figure ${numA} dans la rotation de centre ${s0} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, 'green')
+        texte += numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure image de la figure ${numA} dans la rotation de centre ${s0} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, 'green') + ajouteChampTexteMathLive(this, 0, 'largeur10')
         texteCorr = numAlpha(0) + texteEnCouleurEtGras(` La figure image de la figure ${numA} dans la rotation de centre ${s0} et d'angle 90° dans le sens des aiguilles d'une montre porte le numéro ${num1}.<br>`, 'green')
 
         // deuxième question : centre B, rotation 90° sens horaire, une figure de tabfigD donne une figure de tabfigC
@@ -639,7 +643,7 @@ export default function Pavages_et_transformations () {
         ymil2 = tabfigB[indexcentre2][1]
         punto = imagePointParTransformation(5, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2]) // le repère est direct, donc le sens de rotation est inversé...
         trouver = false
-        while (trouver == false) {
+        while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
             if (egal(punto[0], 4 + tabfigC[j][0], 0.001) && egal(punto[1], tabfigC[j][1], 0.001)) {
               trouver = true
@@ -652,7 +656,7 @@ export default function Pavages_et_transformations () {
               break
             }
           }
-          if (trouver == false) {
+          if (trouver === false) {
             indexD = randint(0, nx * ny - 1)
             numD = tabfigD[indexD][2]
             indexcentre2 = randint(0, nx * ny - 1, [indexD])
@@ -661,7 +665,7 @@ export default function Pavages_et_transformations () {
             punto = imagePointParTransformation(5, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2]) // le repère est direct, donc le sens de rotation est inversé...
           }
         }
-        texte += numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure image de la figure ${numD} dans la rotation de centre ${s1} et d'angle 90° dans le sens inverse des aiguilles d'une montre ?<br>`, 'red')
+        texte += numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure image de la figure ${numD} dans la rotation de centre ${s1} et d'angle 90° dans le sens inverse des aiguilles d'une montre ?<br>`, 'red') + ajouteChampTexteMathLive(this, 1, 'largeur10')
         texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure image de la figure ${numD} dans la rotation de centre ${s1} et d'angle 90° dans le sens inverse des aiguilles d'une montre porte le numéro ${num2}.<br>`, 'red')
 
         // troisième question : centre B, rotation 90° sens anti-horaire, une figure de tabfigC donne une figure de tabfigD
@@ -672,7 +676,7 @@ export default function Pavages_et_transformations () {
         ymil3 = tabfigB[indexcentre3][1]
         punto = imagePointParTransformation(6, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3]) // le repère est direct, donc le sens de rotation est inversé...
         trouver = false
-        while (trouver == false) {
+        while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
             if (egal(punto[0], tabfigD[j][0], 0.001) && egal(punto[1], 4 + tabfigD[j][1], 0.001)) {
               trouver = true
@@ -685,7 +689,7 @@ export default function Pavages_et_transformations () {
               break
             }
           }
-          if (trouver == false) {
+          if (trouver === false) {
             indexC = randint(0, nx * ny - 1)
             numC = tabfigC[indexC][2]
             indexcentre3 = randint(0, nx * ny - 1, [indexC])
@@ -694,7 +698,7 @@ export default function Pavages_et_transformations () {
             punto = imagePointParTransformation(6, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3]) // le repère est direct, donc le sens de rotation est inversé...
           }
         }
-        texte += numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, 'blue')
+        texte += numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur10')
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre porte le numéro ${num3}.<br>`, 'blue')
 
         objetsEnonce.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3))
@@ -760,14 +764,76 @@ export default function Pavages_et_transformations () {
 
         break
     }
-
-    texteCorr += '<br>'
-    texteCorr += `<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}A').beginElement()"><i class="redo circle icon"></i>Relancer l'animation verte</button>`
-    texteCorr += `<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}B').beginElement()"><i class="redo circle icon"></i>Relancer l'animation rouge</button>`
-    texteCorr += `<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}C').beginElement()"><i class="redo circle icon"></i>Relancer l'animation bleue</button>`
+    setReponse(this, 0, num1)
+    setReponse(this, 1, num2)
+    setReponse(this, 2, num3)
+    if (context.isHtml) {
+      texteCorr += '<br>'
+      texteCorr += `<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}A').beginElement()"><i class="redo circle icon"></i>Relancer l'animation verte</button>`
+      texteCorr += `<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}B').beginElement()"><i class="redo circle icon"></i>Relancer l'animation rouge</button>`
+      texteCorr += `<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}C').beginElement()"><i class="redo circle icon"></i>Relancer l'animation bleue</button>`
+    }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenuSansNumero(this)
+    if (context.isAmc) {
+      this.autoCorrection[0] = {
+        enonce: texte,
+        options: { multicols: true },
+        propositions: [
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: texteCorr,
+              statut: '',
+              reponse: {
+                texte: 'a)',
+                valeur: num1,
+                param: {
+                  digits: 2,
+                  decimals: 0,
+                  signe: false,
+                  approx: 0
+                }
+              }
+            }]
+          },
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: '',
+              statut: '',
+              reponse: {
+                texte: 'b)',
+                valeur: num2,
+                param: {
+                  digits: 2,
+                  decimals: 0,
+                  signe: false,
+                  approx: 0
+                }
+              }
+            }]
+          },
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: '',
+              statut: '',
+              reponse: {
+                texte: 'c)',
+                valeur: num3,
+                param: {
+                  digits: 2,
+                  decimals: 0,
+                  signe: false,
+                  approx: 0
+                }
+              }
+            }]
+          }]
+      }
+    }
   }
   this.besoinFormulaireNumerique = ['Transformations', 4, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Translations\n 4 : Rotations\n 5 : Homothéties\n']
 }
