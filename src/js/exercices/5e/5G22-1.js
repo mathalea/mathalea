@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, arrondi } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, mathalea2d, segment, mediatrice, pointAdistance, pointIntersectionLC, cercle, longueur, afficheLongueurSegment, pointIntersectionDD, droite, codageAngleDroit, codageMilieu } from '../../modules/2d.js'
 export const titre = 'Utiliser les propriétés de la médiatrice'
 
@@ -80,11 +80,11 @@ export default function ProprietesMediatrice () {
         }
         objetsCorrection.push(codageMilieu(A, B, 'red', '||', false), mediatriceAB)
         if (listeSurLaMediatrice[i]) { // S'il est sur la médiatrice
-          texteCorr = `$CA = CB = ${arrondi(longueur(C, A), 1)}$ donc le point $C$ est équidistant à $A$ et $B$.<br>`
+          texteCorr = `$CA = CB = ${texNombre(arrondi(longueur(C, A), 1))}$ donc le point $C$ est équidistant à $A$ et $B$.<br>`
           texteCorr += 'Comme un point équidistant à $A$ et $B$ appartient à la médiatrice du segment [$AB$],<br>'
           texteCorr += 'alors, le point $C$ appartient à la médiatrice du segment [$AB$]'
         } else { // Si le point C doit ne pas être sur la médiatrice,
-          texteCorr = `$CA = ${arrondi(longueur(C, A), 1)}$ alors que $CB = ${arrondi(longueur(C, B), 1)}$ donc le point C n'est pas équidistant à A et B.<br>`
+          texteCorr = `$CA = ${texNombre(arrondi(longueur(C, A), 1))}$ alors que $CB = ${texNombre(arrondi(longueur(C, B), 1))}$ donc le point C n'est pas équidistant à A et B.<br>`
           texteCorr += 'Comme un point qui n\'est pas équidistant à A et B n\'appartient pas à la médiatrice du segment [AB],<br>'
           texteCorr += 'alors, le point C n\'appartient pas à la médiatrice du segment [AB]'
         }
