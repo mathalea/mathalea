@@ -32,7 +32,7 @@ export default function Determinerequationcartesienneavecpente () {
       texteCorr += `<br>Ce qui signifie que : $-b=1$ donc $b=-1$ et $a=${m}$.`
       texteCorr += `<br>On en déduit que la droite $(d)$ admet une équation cartésienne de la forme $${m} x-y+c=0.$`
       texteCorr += '<br>Il reste à déterminer la valeur de $c$.'
-      texteCorr += `<br>Pour cela nous allons utiliser que les coordonnées du point $A(${xA};${yA})$, qui appartient à la droite $(d)$, vérifient l'équation : `
+      texteCorr += `<br>Pour cela nous allons utiliser les coordonnées du point $A(${xA};${yA})$, qui appartient à la droite $(d)$, vérifient l'équation : `
       texteCorr += `$${m} x-y+c=0$`
       texteCorr += `<br>Ce qui implique que  $${m}\\times ${ecritureParentheseSiNegatif(xA)}-${ecritureParentheseSiNegatif(yA)}+c=0$`
       texteCorr += `<br>d'où $c=${-m * xA + yA}$.`
