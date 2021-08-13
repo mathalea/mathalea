@@ -216,6 +216,7 @@ export default function ConstruireUnDiagramme4e () {
   this.sup = 3
   this.sup2 = 2
   this.sup3 = 1
+  
 }
 ```
 
