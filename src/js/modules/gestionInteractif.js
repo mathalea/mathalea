@@ -511,7 +511,7 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
     return ''
   }
 }
-export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres = '', texte = '', indice, inline = true } = {}) {
+export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres = '', texte = '' } = {}) {
   if (context.isHtml && exercice.interactif) {
     if (style === '') {
       return `<label>${texte}</label><math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`

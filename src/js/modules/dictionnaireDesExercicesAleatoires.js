@@ -161,6 +161,13 @@ export default {
     "interactifReady": false,
     "name": "2G31-4"
   },
+  "2G31-5": {
+    "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
+    "url": "/exercices/2e/2G31-5.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G31-5"
+  },
   "2G34-2": {
     "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
     "url": "/exercices/2e/2G34-2.js",
@@ -3727,13 +3734,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2F31"
-  },
-  "beta2G31-5": {
-    "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
-    "url": "/exercices/beta/beta2G31-5.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2G31-5"
   },
   "beta2G53": {
     "titre": "Alignement de 3 points.",

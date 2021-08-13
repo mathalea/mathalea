@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
 import { calcul, texFraction, arrondi, texNombre2, listeQuestionsToContenu, randint, creerNomDePolygone, choice, arrondiVirgule } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -240,7 +240,7 @@ export default function CalculDAngle () {
     } else if (this.interactif && context.isHtml) {
       setReponse(this, 0, arrondiVirgule(angleABC))
     }
-    texte += ajouteChampTexte(this, 0, { texteApres: '°', numeric: true })
+    texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline', { texteApres: ' °' })
     /****************************************************/
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
