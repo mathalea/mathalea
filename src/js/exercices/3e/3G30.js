@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
 import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, choice, arrondiVirgule } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -61,42 +61,42 @@ export default function CalculDeLongueur () {
         ab = calcul(bc * Math.cos(angleABCr))
         ac = calcul(bc * Math.sin(angleABCr))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-        texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.<br>`
+        texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.`
         break
       case 'sinus':
         bc = randint(10, 15)
         ab = calcul(bc * Math.cos(angleABCr))
         ac = calcul(bc * Math.sin(angleABCr))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-        texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.<br>`
+        texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.`
         break
       case 'tangente':
         ab = randint(7, 10)
         ac = calcul(ab * Math.tan(angleABCr))
         bc = calcul(ab / Math.cos(angleABCr))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-        texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.<br>`
+        texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.`
         break
       case 'invCosinus':
         ab = randint(7, 10)
         bc = calcul(ab / Math.cos(angleABCr))
         ac = calcul(bc * Math.sin(angleABCr))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-        texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.<br>`
+        texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.`
         break
       case 'invSinus':
         ac = randint(7, 10)
         bc = calcul(ac / Math.sin(angleABCr))
         ab = calcul(bc * Math.cos(angleABCr))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-        texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.<br>`
+        texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.`
         break
       case 'invTangente':
         ac = randint(7, 10)
         bc = calcul(ac / Math.sin(angleABCr))
         ab = calcul(bc * Math.cos(angleABCr))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-        texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.<br>`
+        texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.`
         break
     }
 
@@ -279,7 +279,7 @@ export default function CalculDeLongueur () {
       }
     }
     if (context.isHtml) {
-      texte += ajouteChampTexte(this, 0, { texteApres: 'cm', numeric: true })
+      texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline', { texteApres: ' cm' })
       this.listeQuestions.push(texte)
       setReponse(this, 0, arrondiVirgule(reponse))
     }

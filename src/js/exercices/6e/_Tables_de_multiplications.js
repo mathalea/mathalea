@@ -72,18 +72,16 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
           // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
           if (randint(1, 2) === 1) {
             texte = '$ ' + a + ' \\times '
-            texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true }) + `$ = ${a * b} $` : '   \\ldots\\ldots = ' + a * b + ' $'
+            texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true, texteApres: `$ = ${a * b} $` }) : `   \\ldots\\ldots = ${a * b}$`
             setReponse(this, i, b)
           } else {
-            texte = (this.interactif && context.isHtml) ? ajouteChampTexte(this, i, { numeric: true }) + '$' : '$ \\ldots\\ldots'
-            texte += `\\times ${b} = ${a * b}$`
+            texte = (this.interactif && context.isHtml) ? ajouteChampTexte(this, i, { numeric: true, texteApres: `$\\times ${b} = ${a * b}$` }) : `$ \\ldots\\ldots \\times ${b} = ${a * b}$`
             setReponse(this, i, a)
           }
         } else {
           // Sinon on demande forcément le 2e facteur
           texte = `$${a} \\times `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true }) + '$' : ' \\ldots\\ldots'
-          texte += ` = ${a * b}$`
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true, texteApres: ` = ${a * b}` }) + '$' : `\\ldots\\ldots = ${a * b}$`
           setReponse(this, i, b)
         }
         texteCorr = `$${a} \\times ${b} = ${a * b}$`
