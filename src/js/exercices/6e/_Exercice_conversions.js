@@ -107,7 +107,7 @@ export default function ExerciceConversions (niveau = 1) {
           unite = 'o'
         }
         resultat = calcul(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-        texte = '$ ' + texNombre(a) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : `prout \\dotfill ${texTexte(unite)}$`)
+        texte = '$ ' + texNombre(a) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : `\\dotfill ${texTexte(unite)}$`)
 
         texteCorr =
           '$ ' +
@@ -131,7 +131,7 @@ export default function ExerciceConversions (niveau = 1) {
           '$ ' +
           texNombre(a) +
           texTexte(prefixeDiv[k][0] + unite) +
-          ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
+          ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
         texteCorr =
           '$ ' +
           texNombre(a) +
@@ -150,7 +150,7 @@ export default function ExerciceConversions (niveau = 1) {
           '$ ' +
           texNombre(a) +
           texTexte(prefixeDiv[k][0] + unite) +
-          ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
+          ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
         texteCorr =
           '$ ' +
           texNombre(a) +
@@ -179,7 +179,7 @@ export default function ExerciceConversions (niveau = 1) {
             '$ ' +
             texNombre(a) +
             texTexte(listeUniteInfo[unite2]) +
-            ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
+            ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
           texteCorr =
             '$ ' +
             texNombre(a) +
@@ -200,7 +200,7 @@ export default function ExerciceConversions (niveau = 1) {
             '$ ' +
             texNombre(a) +
             texTexte(listeUniteInfo[unite1]) +
-            ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
+            ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
           texteCorr =
             '$ ' +
             texNombre(a) +
