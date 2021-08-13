@@ -11,6 +11,7 @@ export const interactifType = 'mathLive'
 *
 * @author Rémi Angot
 * 3L11-4
+* Ajout du paramétrage : Guillaume Valmont 13/08/2021
 */
 export default function FactoriserParNombreOux () {
   Exercice.call(this) // Héritage de la classe Exercice()
