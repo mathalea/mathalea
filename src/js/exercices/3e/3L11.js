@@ -62,6 +62,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
       const a = randint(1, 9)
       const b = randint(1, 9) * choice([-1, 1])
       const inconnue = choice(lettre)
+      const c = randint(2, 9)
       switch (typesDeQuestions) {
         case 'simple':
           if (a === 1) {
@@ -161,7 +162,6 @@ export default function ExerciceDevelopper (difficulte = 1) {
           reponse = `${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`
           break
         case 'developper_et_reduire':
-          const c = randint(2, 9)
           if (a === 1) {
             // ne pas écrire 1x
             texte = `$${lettreDepuisChiffre(
