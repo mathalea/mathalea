@@ -376,5 +376,5 @@ export default function Determinerfonctionaffine () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 :Avec deux images\n 2 : Avec deux points et un repère\n 3 : 2 : Avec deux points sans repère\n 4 : méli-mélo']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 :Avec deux images\n 2 : Avec deux points et un repère\n 3 : Avec deux points sans repère\n 4 : Méli-mélo']
 }

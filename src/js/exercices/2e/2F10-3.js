@@ -67,7 +67,7 @@ export default function representerfonctionaffine () {
 
         tB.taille = 5
         tB.epaisseur = 2
-        texte = `Représenter graphiquement la fonction affinne $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`
+        texte = `Représenter graphiquement la fonction affine $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`
         if (a !== 0) {
           texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
           texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
@@ -111,7 +111,7 @@ export default function representerfonctionaffine () {
         c.color = 'red'
         c.epaisseur = 2
 
-        texte = `Représenter graphiquement la fonction affinne $f$ définie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
+        texte = `Représenter graphiquement la fonction affine $f$ définie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
 
         texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
         texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
