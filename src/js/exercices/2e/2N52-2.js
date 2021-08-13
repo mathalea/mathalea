@@ -150,5 +150,5 @@ export default function FactoriserIdentitesRemarquables2 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 :équations x²-a²=0\n 2 : équations x²-b=0\n 3 :équations x²+a²=0;x²=+/-a²\n 4 : Méli-mélo']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 :équations x²-a²=0\n 2 : équations x²-b=0\n 3 :équations x²+a²=0;x²=+/-a²\n 4 : Mélange des cas précédents']
 }
