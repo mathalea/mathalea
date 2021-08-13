@@ -1,8 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple'
-
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = 'true'
+export const amcType = 'AMCNum'
 /**
  * On donne une relation de proportionnalité du type n objets coûtent x€ et on demande le prix de y objets
  * et le nombre d'objets qu'on peut acheter avec z€.
@@ -196,7 +200,7 @@ texteEnCouleurEtGras(' Conclusion intermédiaire : ', 'black') +
   }
 }
 
-function questionRecette () { // questions avec des masses pour un nombre de personne dans des recettes correction : passage à l'unité
+function questionRecette (exo, i) { // questions avec des masses pour un nombre de personne dans des recettes correction : passage à l'unité
   const liste = [ // liste des ingrédients avec différentes recettes associées et masses
     {
       ingredient: 'farine',
@@ -229,7 +233,7 @@ function questionRecette () { // questions avec des masses pour un nombre de per
   const prenoms = [prenomF(), prenomM()] // Choix de prénoms pour l'énoncé
   const texte = `${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour ${nbPersonneInit} personnes qu'il faut ${texNombrec(quantite)} g de ${liste[alea1].ingredient}. <br>` +
 `Elle veut adapter sa recette pour ${nbPersonneFinal} personnes.` +
-`<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ?`
+`<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ?` + ajouteChampTexteMathLive(exo, i, 'largeur10 inline', { texte: ' miam : ', texteApres: ' g', inline: true })
   const texteCorr = `Commençons par trouver la masse de ${liste[alea1].ingredient} pour une personne : <br>` +
 ` ${nbPersonneInit} personnes, c'est ${texteEnCouleur(nbPersonneInit)} fois 1 personne. ` +
 `il faut donc ${texteEnCouleur(nbPersonneInit)} fois moins que ${texNombrec(quantite)} g pour 1 personne.<br>` +
@@ -241,6 +245,7 @@ texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
 `Donc il faut ${texteEnCouleur(nbPersonneFinal)} fois plus que ${liste[alea1].quantites_par_pers[alea3]} g de ${liste[alea1].ingredient} que pour 1 personne pour faire sa recette :` +
 `<br> ${texteEnCouleur(liste[alea1].quantites_par_pers[alea3], 'blue')} $\\times$ ${texteEnCouleur(nbPersonneFinal)} = ${quantiteReponse} <br>
 ${texteEnCouleurEtGras('Conclusion : ', 'black')} ${prenoms[0]} doit utiliser ${quantiteReponse} g de ${liste[alea1].ingredient} pour ${nbPersonneFinal} personnes. `
+  setReponse(exo, i, quantiteReponse)
   return {
     qtexte: texte,
     qtexteCorr: texteCorr
@@ -461,6 +466,7 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
   this.nbColsCorr = 1
   this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
   this.sup = false
+  this.interactif = true
   this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Achat.\n2 : Recette.\n3 : Dilution.\n4 : Distance.\n5 : Echelle.\n6 : Surface.']
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -489,7 +495,7 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
           question = questionAchat()
           break
         case 2:
-          question = questionRecette()
+          question = questionRecette(this, i)
           break
         case 3:
           question = questionDillution()
