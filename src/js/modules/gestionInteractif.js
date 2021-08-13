@@ -511,11 +511,11 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
     return ''
   }
 }
-export function ajouteChampTexteMathLive (exercice, i, style = '') {
+export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres = '', texte = '', indice, inline = true } = {}) {
   if (context.isHtml && exercice.interactif) {
     if (style === '') {
-      return `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field><div style="margin-top:10px; margin-bottom:10px" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
-    } else return `<math-field virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field><div style="margin-top:10px; margin-bottom:10px" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
+      return `<label>${texte}</label><math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    } else return `<label>${texte}</label><math-field virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
   } else {
     return ''
   }
