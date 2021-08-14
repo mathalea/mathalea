@@ -5396,7 +5396,7 @@ function DroiteGraduee2 ({
   this.Max = Max
 
   const objets = []; let S; let T; let P; let i
-  let longueurTotale = (Max - Min) * Unite + 1.1 // la longueur totale de l'axe flèche comprise
+  let longueurTotale = (Max - Min) * Unite + 0.5 // la longueur totale de l'axe flèche comprise
   let absord = [1, 0] // Constantes pour gérer la verticalité ou l'horizontalité de l'axe
   if (axePosition !== 'H') absord = [0, 1]
   // dessin de l'axe

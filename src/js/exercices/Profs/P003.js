@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { SvgReperageSurUnAxe, LatexReperageSurUnAxe } from '../../modules/macroSvgJs.js'
+import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
+import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+
 export const titre = 'Tracer des droites graduées'
 
 /**
@@ -9,8 +10,9 @@ export const titre = 'Tracer des droites graduées'
  * @author Jean-Claude Lhote
  * référence : P003
  * publié le ?/2/2020
+ * Réécrit le 14/08/2021 avec mathalea2d
  */
-export default function feuille_d_axes_gradues () {
+export default function feuilleDAxesGradues () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -30,33 +32,27 @@ export default function feuille_d_axes_gradues () {
   this.listePackages = ['tkz-euclide']
 
   this.nouvelleVersion = function (numeroExercice) {
-    let pas
+    const pas = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    pas = parseInt(this.sup)
-    for (let i = 0, id_unique, texte; i < 14; i++) {
-      if (context.isHtml) {
-        id_unique = `${i}_${Date.now()}`
-        this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-        SvgReperageSurUnAxe(
-          `div_svg${numeroExercice}${id_unique}`,
-          '',
-          6,
-          1,
-          pas,
-          [],
-          [],
-          false
-        )
-      } else {
-        // sortie Latex
-        texte = LatexReperageSurUnAxe(2, 0, 1, pas, [], [], false)
-      }
+
+    for (let i = 0, texte; i < 14; i++) {
+      texte = mathalea2d({ xmin: -0.5, ymin: -1, xmax: 20, ymax: 1 }, droiteGraduee2({
+        Unite: 4,
+        Min: 0,
+        Max: 4.7,
+        x: 0,
+        y: 0,
+        thickSecDist: 1 / pas,
+        thickSec: true,
+        labelsPrincipaux: false,
+        thickDistance: 1
+      }))
       this.listeQuestions.push(texte)
     }
-    if (!context.isHtml) { listeQuestionsToContenu(this) }
+    listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireNumerique = ['Nombres de parts', 10, '']
 }
