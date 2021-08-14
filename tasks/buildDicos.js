@@ -299,8 +299,8 @@ Object.entries(dicoAlea).forEach(([id, props]) => {
         tab2.push(id)
         break
       case '1':
-        // On concatène avec ref : car sinon un logiciel de lecture de csv considère que c'est une puissance de 10 pour une ref du type 1E10
-        tab1.push('ref : ' + id) 
+        // On concatène avec 'ref :' car sinon un logiciel de lecture de csv considère que c'est une puissance de 10 pour une ref du type 1E10
+        tab1.push('ref : ' + id)
         break
       case 'term':
         tabt.push(id)
