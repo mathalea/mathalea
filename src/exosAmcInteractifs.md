@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 135 
-- nombre d'exos interactifReady 160 
+- nombre d'exos amcReady 137 
+- nombre d'exos interactifReady 162 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -145,7 +145,9 @@
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|qcm|
 |6N43|Critères de divisibilité|OK|qcmMono|OK|qcm|
 |6P10|Reconnaître une situation de proportionnalité|OK|qcmMono|OK|qcm|
+|6P11-1|Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.|OK|AMCHybride|OK|mathLive|
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
+|6P11|Résoudre des problèmes de proportionnalité en utilisant la linéarité simple|OK|AMCHybride|OK|mathLive|
 |6P12|Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple|OK|AMCNum|OK|mathLive|
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|

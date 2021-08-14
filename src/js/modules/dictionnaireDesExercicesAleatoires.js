@@ -3331,8 +3331,12 @@ export default {
   "6P11-1": {
     "titre": "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.",
     "url": "/exercices/6e/6P11-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6P11-1"
   },
   "6P11-2": {
@@ -3346,8 +3350,12 @@ export default {
   "6P11": {
     "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
     "url": "/exercices/6e/6P11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6P11"
   },
   "6P12": {
