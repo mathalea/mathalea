@@ -2259,7 +2259,7 @@ export default {
     "url": "/exercices/6e/6C10.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -2487,8 +2487,12 @@ export default {
   "6D101": {
     "titre": "Utiliser les heures décimales",
     "url": "/exercices/6e/6D101.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6D101"
   },
   "6D11": {

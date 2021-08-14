@@ -140,8 +140,8 @@ export default function ProportionnaliteParLineariteBis () {
           break
       }
 
-      if (tabHash.indexOf(checkSum(situation.prenom4,situation.n3, situation.n2, situation.nMax)) === -1) { // Si la question n'a jamais été posée, on en crée une autre
-        tabHash.push(checkSum(situation.prenom4,situation.n3, situation.n2, situation.nMax))
+      if (tabHash.indexOf(checkSum(situation.prenom4, situation.n3, situation.n2, situation.nMax)) === -1) { // Si la question n'a jamais été posée, on en crée une autre
+        tabHash.push(checkSum(situation.prenom4, situation.n3, situation.n2, situation.nMax))
         if (!context.isAmc) {
           setReponse(this, 3 * i, arrondi(situation.pu * situation.n3, 2))
           setReponse(this, 3 * i + 1, arrondi(situation.pu * situation.n4, 2))

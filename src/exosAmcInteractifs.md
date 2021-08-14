@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 137 
-- nombre d'exos interactifReady 162 
+- nombre d'exos amcReady 138 
+- nombre d'exos interactifReady 163 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -88,7 +88,7 @@
 |6C10-3|Tables de multiplications et nombres décimaux|OK|qcmMono|OK|qcm|
 |6C10-4|Addition de deux entiers|OK|AMCNum|OK|numerique|
 |6C10-5|Labyrinthe de multiples|OK|AMCOpen|KO|KO|
-|6C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCNum|OK|mathLive|
+|6C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCHybride|OK|mathLive|
 |6C10bis|Additions, soustractions, multiplications et divisions posées de nombres entiers|OK|AMCOpen|KO|KO|
 |6C11-1|Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité|OK|AMCOpen|KO|KO|
 |6C11|Divisions euclidiennes|OK|AMCOpen|OK|mathLive|
@@ -106,6 +106,7 @@
 |6C33|Calculer en utilisant les priorités opératoires|OK|AMCNum|OK|numerique|
 |6C34|Dernier chiffre d’un calcul|OK|AMCNum|OK|numerique|
 |6C3CaN|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
+|6D101|Utiliser les heures décimales|OK|AMCHybride|OK|mathLive|
 |6G10-3|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |6G23-1|Mesurer un angle|OK|qcmMono|OK|qcm|
 |6G24|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
