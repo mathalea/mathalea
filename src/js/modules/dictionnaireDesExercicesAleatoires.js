@@ -979,6 +979,20 @@ export default {
     "interactifType": "mathLive",
     "name": "4C11"
   },
+  "4C20-1": {
+    "titre": "Comparer quatre fractions (dénominateurs multiples) et un nombre entier",
+    "url": "/exercices/4e/4C20-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4C20-1"
+  },
+  "4C20": {
+    "titre": "Comparer deux fractions (dénominateurs multiples)",
+    "url": "/exercices/4e/4C20.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4C20"
+  },
   "4C21-1": {
     "titre": "Additionner deux fractions",
     "url": "/exercices/4e/4C21-1.js",
@@ -1357,7 +1371,7 @@ export default {
     "name": "4L10"
   },
   "4L11": {
-    "titre": "Construire un diagramme",
+    "titre": "Factoriser une expression littérale",
     "url": "/exercices/4e/4L11.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1959,7 +1973,7 @@ export default {
     "name": "5N14-3"
   },
   "5N14": {
-    "titre": "Comparer des fractions (dénominateurs multiples)",
+    "titre": "Comparer deux fractions (dénominateurs multiples)",
     "url": "/exercices/5e/5N14.js",
     "amcReady": false,
     "interactifReady": false,
