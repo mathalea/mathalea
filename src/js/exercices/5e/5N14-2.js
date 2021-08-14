@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, compareFractions, calcul, shuffle, miseEnEvidence, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, compareFractions, calcul, shuffle, miseEnEvidence, texFraction, combinaisonListes } from '../../modules/outils.js'
 
 export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
 
@@ -10,20 +10,35 @@ export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un
 * Pour la correction, les fractions sont toute écrites avec un dénominateur commun avant d'être classées
 * @author Rémi Angot
 * 5N14-2
+* Ajout du paramètre d'inclusion de nombres négatifs le 14/08/2021 : Guillaume Valmont
 */
 export default function ExerciceComparerQuatreFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = "Ranger les nombres suivants dans l'ordre croissant."
   this.spacing = 2
   context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2.5
   this.nbQuestions = 2
   this.nbColsCorr = 1
+  this.sup = false
+
+  this.besoinFormulaireCaseACocher = ['Inclure des nombres négatifs']
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    for (let i = 0, denominateurs, n1, d1, n2, d2, n3, d3, n4, d4, k, texte = '', texteCorr = ''; i < this.nbQuestions; i++) {
+    const listeSignes = combinaisonListes([-1, 1], this.nbQuestions * 4)
+    for (let i = 0, denominateurs, n1, d1, n2, d2, n3, d3, n4, d4, k, positifOuNegatif = [], texte = '', texteCorr = ''; i < this.nbQuestions; i++) {
+      if (this.sup === true) {
+        positifOuNegatif[0] = listeSignes[4 * i]
+        positifOuNegatif[1] = listeSignes[4 * i + 1]
+        positifOuNegatif[2] = listeSignes[4 * i + 2]
+        positifOuNegatif[3] = listeSignes[4 * i + 3]
+      } else {
+        positifOuNegatif[0] = 1
+        positifOuNegatif[1] = 1
+        positifOuNegatif[2] = 1
+        positifOuNegatif[3] = 1
+      }
       const listeDenominateurs = [[12, 2, 3, 4, 6], [16, 2, 4, 8], [18, 2, 3, 6, 9], [20, 2, 4, 5, 10], [24, 2, 3, 4, 8, 12], [30, 2, 3, 5, 6]]
       denominateurs = choice(listeDenominateurs)
       d1 = denominateurs[0]
@@ -44,11 +59,15 @@ export default function ExerciceComparerQuatreFractions () {
         n3 = randint(1, 11)
         n4 = randint(1, 11)
       }
+      n1 *= positifOuNegatif[0]
+      n2 *= positifOuNegatif[1]
+      n3 *= positifOuNegatif[2]
+      n4 *= positifOuNegatif[3]
       const tableauFractions = [[n1, d1, `$${texFraction(n1, d1)}$`, `$${texFraction(n1, d1)}$`]]
-      tableauFractions.push([n2, d2, `$${texFraction(n2, d2)}=${texFraction(n2 + miseEnEvidence('\\times ' + calcul(d1 / d2)), d2 + miseEnEvidence('\\times ' + calcul(d1 / d2)))}=${texFraction(calcul(n2 * d1 / d2), d1)}$`, `$${texFraction(calcul(n2 * d1 / d2), d1)}$`])
-      tableauFractions.push([n3, d3, `$${texFraction(n3, d3)}=${texFraction(n3 + miseEnEvidence('\\times ' + calcul(d1 / d3)), d3 + miseEnEvidence('\\times ' + calcul(d1 / d3)))}=${texFraction(calcul(n3 * d1 / d3), d1)}$`, `$${texFraction(calcul(n3 * d1 / d3), d1)}$`])
-      tableauFractions.push([n4, d4, `$${texFraction(n4, d4)}=${texFraction(n4 + miseEnEvidence('\\times ' + calcul(d1 / d4)), d4 + miseEnEvidence('\\times ' + calcul(d1 / d4)))}=${texFraction(calcul(n4 * d1 / d4), d1)}$`, `$${texFraction(calcul(n4 * d1 / d4), d1)}$`])
-      tableauFractions.push([k, 1, `$${k}=${texFraction(d1 * k, d1)}$`, `$${texFraction(k * d1, d1)}$`])
+      tableauFractions.push([n2, d2, `$${texFraction(n2, d2)} = ${texFraction(n2 + miseEnEvidence('\\times ' + calcul(d1 / d2)), d2 + miseEnEvidence('\\times ' + calcul(d1 / d2)))}=${texFraction(calcul(n2 * d1 / d2), d1)}$`, `$${texFraction(calcul(n2 * d1 / d2), d1)}$`])
+      tableauFractions.push([n3, d3, `$${texFraction(n3, d3)} = ${texFraction(n3 + miseEnEvidence('\\times ' + calcul(d1 / d3)), d3 + miseEnEvidence('\\times ' + calcul(d1 / d3)))}=${texFraction(calcul(n3 * d1 / d3), d1)}$`, `$${texFraction(calcul(n3 * d1 / d3), d1)}$`])
+      tableauFractions.push([n4, d4, `$${texFraction(n4, d4)} = ${texFraction(n4 + miseEnEvidence('\\times ' + calcul(d1 / d4)), d4 + miseEnEvidence('\\times ' + calcul(d1 / d4)))}=${texFraction(calcul(n4 * d1 / d4), d1)}$`, `$${texFraction(calcul(n4 * d1 / d4), d1)}$`])
+      tableauFractions.push([k, 1, `$${k} = ${texFraction(d1 * k, d1)}$`, `$${texFraction(k * d1, d1)}$`])
       tableauFractions.sort(compareFractions)
       const tableauFractionsEnonce = shuffle(tableauFractions)
       texte = ''
@@ -82,8 +101,6 @@ export default function ExerciceComparerQuatreFractions () {
         }
       }
       texteCorr += 'Finalement : $\\quad$ ' + texteConclusion.substring(0, texteConclusion.length - 12) + '$'
-      texte = texte.replaceAll('$$', ' ')
-      texteCorr = texte.replaceAll('$$', ' ')
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
