@@ -161,6 +161,13 @@ export default {
     "interactifReady": false,
     "name": "2G31-4"
   },
+  "2G31-5": {
+    "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
+    "url": "/exercices/2e/2G31-5.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G31-5"
+  },
   "2G34-2": {
     "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
     "url": "/exercices/2e/2G34-2.js",
@@ -1349,6 +1356,13 @@ export default {
     "interactifReady": false,
     "name": "4L10"
   },
+  "4L11": {
+    "titre": "Construire un diagramme",
+    "url": "/exercices/4e/4L11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4L11"
+  },
   "4L13-0": {
     "titre": "Mettre en équation un problème sans objectif de résolution",
     "url": "/exercices/4e/4L13-0.js",
@@ -2257,16 +2271,6 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "6C10"
-  },
-  "6C10bis": {
-    "titre": "Additions, soustractions, multiplications et divisions posées de nombres entiers",
-    "url": "/exercices/6e/6C10bis.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCOpen"
-    },
-    "interactifReady": false,
-    "name": "6C10bis"
   },
   "6C11-1": {
     "titre": "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité",
@@ -3727,13 +3731,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2F31"
-  },
-  "beta2G31-5": {
-    "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
-    "url": "/exercices/beta/beta2G31-5.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2G31-5"
   },
   "beta2G53": {
     "titre": "Alignement de 3 points.",

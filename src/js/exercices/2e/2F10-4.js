@@ -34,7 +34,7 @@ export default function Determinerfonctionaffine () {
       typesDeQuestionsDisponibles = [3] // On donne 2 points A(a;b) et B(c;d) sans le graphique
     }
     if (this.sup === 4) {
-      typesDeQuestionsDisponibles = [1, 2, 3] // méli-mélo
+      typesDeQuestionsDisponibles = [1, 2, 3] // Mélange des cas précédents
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -376,5 +376,5 @@ export default function Determinerfonctionaffine () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 :Avec deux images\n 2 : Avec deux points et un repère\n 3 : Avec deux points sans repère\n 4 : Méli-mélo']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 :Avec deux images\n 2 : Avec deux points et un repère\n 3 : Avec deux points sans repère\n 4 : Mélange des cas précédents']
 }
