@@ -69,13 +69,6 @@ export default {
     "interactifReady": false,
     "name": "2F10-4"
   },
-  "2F22": {
-    "titre": "Représentation graphique d’une fonction affine",
-    "url": "/exercices/2e/2F22.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2F22"
-  },
   "2F32": {
     "titre": "Lecture graphique",
     "url": "/exercices/2e/2F32.js",
@@ -3356,8 +3349,12 @@ export default {
   "6P12": {
     "titre": "Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple",
     "url": "/exercices/6e/6P12.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6P12"
   },
   "6P13-1": {

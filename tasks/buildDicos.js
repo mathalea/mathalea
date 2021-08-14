@@ -240,12 +240,21 @@ fs.appendFileSync(mdFile, '\r\n')
 fs.appendFileSync(mdFile, '|id|titre|amcReady|amcType|interactifReady|interactifType|\r\n')
 fs.appendFileSync(mdFile, '|:-:|:-:|:-:|:-:|:-:|:-:|\r\n')
 
-// On crée un fichier avec les exos ni AMC ni Interactifs
+// On crée un fichier pour décompter les exos ni AMC ni Interactifs
 const mdFileToConvert = path.resolve(mdDir, '.', 'exosNonAmcNonInteractifs.md')
 fs.writeFileSync(mdFileToConvert, '# Liste des exos ni AMC ni INTERACTIFS\r\n')
 fs.appendFileSync(mdFileToConvert, '\r\n')
-
+fs.appendFileSync(mdFileToConvert, '|6e|5e|4e|3e|2nde|1ere|Term|Reste|\r\n')
+fs.appendFileSync(mdFileToConvert, '|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|\r\n')
 // On complète les fichiers
+const tab6 = [] // pour les refs de 6e
+const tab5 = [] // pour les refs de 5e
+const tab4 = [] // pour les refs de 4e
+const tab3 = [] // pour les refs de 3e
+const tab2 = [] // pour les refs de 2e
+const tab1 = [] // pour les refs de 1e
+const tabt = [] // pour les refs de term
+const tabr = [] // pour les refs qui restent
 Object.entries(dicoAlea).forEach(([id, props]) => {
   if (props.amcReady && props.interactifReady) {
     fs.appendFileSync(mdFile, `|${id}|${props.titre}|OK|${props.amcType.text}|OK|${props.interactifType}|\r\n`)
@@ -254,9 +263,54 @@ Object.entries(dicoAlea).forEach(([id, props]) => {
   } else if (!props.amcReady && props.interactifReady) {
     fs.appendFileSync(mdFile, `|${id}|${props.titre}|KO|KO|OK|${props.interactifType}|\r\n`)
   } else if (!props.amcReady && !props.interactifReady) {
-    fs.appendFileSync(mdFileToConvert, `- ${id}\r\n`)
+    const firstCar = id[0]
+
+    switch (firstCar) {
+      case '6':
+        tab6.push(id)
+        // fs.appendFileSync(mdFileToConvert, `|${id}|x|x|x|x|x|x|x|\r\n`)
+        break
+      case '5':
+        tab5.push(id)
+        // fs.appendFileSync(mdFileToConvert, `|x|${id}|x|x|x|x|x|x|\r\n`)
+        break
+      case '4':
+        tab4.push(id)
+        // fs.appendFileSync(mdFileToConvert, `|x|x|${id}|x|x|x|x|x|\r\n`)
+        break
+      case '3':
+        tab3.push(id)
+        // fs.appendFileSync(mdFileToConvert, `|x|x|x|${id}|x|x|x|x|\r\n`)
+        break
+      case '2':
+        tab2.push(id)
+        // fs.appendFileSync(mdFileToConvert, `|x|x|x|x|${id}|x|x|x|\r\n`)
+        break
+      case '1':
+        tab1.push(id)
+        // fs.appendFileSync(mdFileToConvert, `|x|x|x|x|x|${id}|x|x|\r\n`)
+        break
+      case 'term':
+        tabt.push(id)
+        // fs.appendFileSync(mdFileToConvert, `|x|x|x|x|x|x|${id}|x|\r\n`)
+        break
+      default:
+        tabr.push(id)
+        // fs.appendFileSync(mdFileToConvert, `|x|x|x|x|x|x|x|${id}|\r\n`)
+    }
   }
 })
+for (let i = 0; i < Math.max(tab6.length, tab5.length); i++) {
+  if (tab6[i] === undefined) { tab6[i] = '' }
+  if (tab5[i] === undefined) { tab5[i] = '' }
+  if (tab4[i] === undefined) { tab4[i] = '' }
+  if (tab3[i] === undefined) { tab3[i] = '' }
+  if (tab2[i] === undefined) { tab2[i] = '' }
+  if (tab1[i] === undefined) { tab1[i] = '' }
+  if (tabt[i] === undefined) { tabt[i] = '' }
+  if (tabr[i] === undefined) { tabr[i] = '' }
+  fs.appendFileSync(mdFileToConvert, `|${tab6[i]}|${tab5[i]}|${tab4[i]}|${tab3[i]}|${tab2[i]}|${tab1[i]}|${tabt[i]}|${tabr[i]}|\r\n`)
+}
 console.log(`${mdFile} généré`)
 console.log(`${mdFileToConvert} généré`)
 const fin = Date.now()
