@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, prenom, texteEnCouleur, texPrix, numAlpha, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, prenom, texteEnCouleur, texPrix, numAlpha, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, arrondi, checkSum } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.'
 export const interactifReady = true
@@ -34,7 +34,7 @@ export default function ProportionnaliteParLineariteBis () {
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
-    const tabRep = []
+    const tabHash = []
     if (this.beta) {
       typesDeQuestionsDisponibles = [1]
     } else {
@@ -140,8 +140,8 @@ export default function ProportionnaliteParLineariteBis () {
           break
       }
 
-      if (tabRep.indexOf(situation.n3 * situation.n2 * situation.nMax) === -1) { // Si la question n'a jamais été posée, on en crée une autre
-        tabRep.push(situation.n3 * situation.n2 * situation.nMax)
+      if (tabHash.indexOf(checkSum(situation.prenom4,situation.n3, situation.n2, situation.nMax)) === -1) { // Si la question n'a jamais été posée, on en crée une autre
+        tabHash.push(checkSum(situation.prenom4,situation.n3, situation.n2, situation.nMax))
         if (!context.isAmc) {
           setReponse(this, 3 * i, arrondi(situation.pu * situation.n3, 2))
           setReponse(this, 3 * i + 1, arrondi(situation.pu * situation.n4, 2))

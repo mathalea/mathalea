@@ -592,6 +592,24 @@ export function enleveDoublonNum (arr, tolerance) {
   return arr
 }
 /**
+ * fonction qui retourne une chaine construite en concaténant les arguments
+ * Le rôle de cette fonction est de construire un identifiant unique de question
+ * afin de contrôler que l'aléatoire ne produit pas deux questions identiques.
+ * @author Jean-Claude Lhote
+ */
+export function checkSum (...args) {
+  let checkString = ''
+  for (let i = 0; i < args.length; i++) {
+    if (typeof args[i] === 'number') {
+      checkString += Number(args[i]).toString()
+    } else {
+      checkString += args[0]
+    }
+  }
+  console.log(checkString)
+  return checkString
+}
+/**
 * Mélange les items d'un tableau, sans modifier le tableau passé en argument
 *
 * @Example
