@@ -1,5 +1,4 @@
 const fs = require('fs')
-const { type } = require('os')
 const path = require('path')
 
 const isVerbose = /-(-verbode|v)/.test(process.argv)
