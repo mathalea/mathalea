@@ -1357,7 +1357,7 @@ export default {
     "name": "4L10"
   },
   "4L11": {
-    "titre": "Construire un diagramme",
+    "titre": "Factoriser une expression littérale",
     "url": "/exercices/4e/4L11.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3709,6 +3709,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "P012"
+  },
+  "2G23-1": {
+    "titre": "Déterminer les coordonnées d’un vecteur.",
+    "url": "/exercices/beta/2G23-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G23-1"
   },
   "beta240-1": {
     "titre": "Utiliser la distributivité (simple ou double) et réduire",
