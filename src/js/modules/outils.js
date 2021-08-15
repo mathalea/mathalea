@@ -404,7 +404,9 @@ export function enleveElement (array, item) {
 
 /**
  *
- * Compte les occurenes d'un item dans un tableau
+ * Compte les occurences d'un item dans un tableau
+ * @param {array} array
+ * @param item
  * @Author Rémi Angot
  */
 export function compteOccurences (array, value) {

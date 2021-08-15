@@ -23,7 +23,6 @@ export default function ProportionnalitePasProportionnalite () {
   this.nbCols = 1
   this.nbColsModifiable = false
   this.nbColsCorrModifiable = false
-  this.sup = false
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -34,12 +33,24 @@ export default function ProportionnalitePasProportionnalite () {
       listeIndexDisponibles,
       this.nbQuestions
     )
-    let listeChoixDisponibles
-    if (this.sup) listeChoixDisponibles = [1, 2, 3, 4, 5]
-    else listeChoixDisponibles = [1, 2, 3, 4, 5, 6]
+    let listeChoixDisponibles = []
+    if (!this.sup || this.sup === 'NaN') { // Si aucune liste n'est saisie
+      listeChoixDisponibles = [1, 2, 3, 4, 5]
+    } else {
+      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
+        listeChoixDisponibles[0] = this.sup
+      } else {
+        listeChoixDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+      }
+    }
     const listeChoix = combinaisonListes(
       listeChoixDisponibles,
       this.nbQuestions
+    )
+    const nombre = compteOccurences(listeChoix, '1') + compteOccurences(listeChoix, '5')
+    const listeProportionnelOuPas = combinaisonListes(
+      [true, false],
+      nombre
     )
     const listeDeLieux = [
       'dans un magasin de bricolage',
@@ -129,38 +140,40 @@ export default function ProportionnalitePasProportionnalite () {
         index2,
         objet,
         met,
+        compteurProportionnelsOuPas = 0,
         texte,
         texteCorr,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (listeChoix[i]) {
-        case 1:
-          index1 = listeIndex[i]
-          prenoms = [prenomF(), prenomM()]
-          index2 = randint(0, listeDeChoses[index1].length - 1)
-          objet = listeDeChoses[index1][index2]
-          pu =
+      switch (parseInt(listeChoix[i])) {
+        case 1: // Achat
+          if (listeProportionnelOuPas[compteurProportionnelsOuPas]) {
+            index1 = listeIndex[i]
+            prenoms = [prenomF(), prenomM()]
+            index2 = randint(0, listeDeChoses[index1].length - 1)
+            objet = listeDeChoses[index1][index2]
+            pu =
             listeDePrixUnit[index1][index2] *
             (1 + randint(1, 2) * 0.2 * randint(-1, 1))
-          y = randint(2, 5)
-          somme = calcul(y * pu, 2)
-          p = y * randint(2, 5)
-          z = calcul(p * pu, 2)
-          texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
-          texte += `Elle  repart avec ${y} ${objet} pour $${texPrix(
+            y = randint(2, 5)
+            somme = calcul(y * pu, 2)
+            p = y * randint(2, 5)
+            z = calcul(p * pu, 2)
+            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
+            texte += `Elle  repart avec ${y} ${objet} pour $${texPrix(
             somme
           )}$€. ${prenoms[1]
             } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
               z
             )}$€.<br>`
-          texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
-          texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
+            texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
+            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
             texPrix(somme),
             'blue'
           )}$€.<br>`
-          texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
+            texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
             texNombre(p / y)
           )}$ fois la quantité des ${objet} achetée par ${prenoms[0]
             } pour $${miseEnEvidence(
@@ -180,22 +193,22 @@ export default function ProportionnalitePasProportionnalite () {
           pu =
             listeDePrixUnit[index1][index2] *
             (1 + randint(1, 2) * 0.2 * randint(-1, 1))
-          y = randint(2, 5)
-          somme = calcul(y * pu, 2)
-          pu -= 0.1
-          p = y * randint(2, 5)
-          z = calcul(p * pu, 2)
-          texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
-          texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}$€. ${prenoms[1]
+            y = randint(2, 5)
+            somme = calcul(y * pu, 2)
+            pu -= 0.1
+            p = y * randint(2, 5)
+            z = calcul(p * pu, 2)
+            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
+            texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}$€. ${prenoms[1]
             } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
               z
             )}$€.<br>`
-          texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
-          texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
+            texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
+            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
             texPrix(somme),
             'blue'
           )}$€.<br>`
-          texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
+            texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
             texNombrec(p / y)
           )}$ fois la quantité des ${objet} achetée par ${prenoms[0]
             } pour $${miseEnEvidence(
@@ -209,7 +222,7 @@ export default function ProportionnalitePasProportionnalite () {
           texteCorr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`
           bonneReponse = 'non'
           break
-        case 3:
+        case 2: // Distance
           prenoms = [prenomF(), prenomM()]
           x = randint(5, 20)
           y = randint(5, 20, x) * 100
@@ -233,7 +246,7 @@ export default function ProportionnalitePasProportionnalite () {
             bonneReponse = 'non'
           }
           break
-        case 4:
+        case 3: // Âge
           prenoms = [prenomF(), prenomM()]
           x = randint(5, 20)
           y = x + randint(25, 35)
@@ -249,7 +262,7 @@ export default function ProportionnalitePasProportionnalite () {
             } et l'âge de son père ne sont pas propotionnels.<br>`
           bonneReponse = 'non'
           break
-        case 5:
+        case 4: // Épidémie
           index1 = randint(0, 5)
           index2 = randint(0, 4)
           texte = `Une épidémie se répand dans la ville de ${villes[index1]}.<br>`
@@ -265,7 +278,7 @@ export default function ProportionnalitePasProportionnalite () {
           texteCorr += 'Donc le nombre de malades n\'est pas proportionnel au nombre de jours passés.<br>'
           bonneReponse = 'non'
           break
-        case 6:
+        case 5: // Achat (tableau de proportionnalité)
           prenoms = [prenomF(), prenomM()]
           index1 = randint(0, 5)
           objet = listeDeChoses[4][index1]
@@ -279,7 +292,8 @@ export default function ProportionnalitePasProportionnalite () {
           tirages[1] = [n + 1, (n + 1) * pu]
           tirages[2] = [2 * n + 1, (2 * n + 1) * pu]
           tirages[3] = [3 * n + 3, (3 * n + 3) * pu]
-          met = choice([true, false])
+          met = listeProportionnelOuPas[compteurProportionnelsOuPas]
+          compteurProportionnelsOuPas += 1
           if (!met) tirages[p][1] -= 0.1
           texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par correspondance en fonction de la quantité saisie dans le panier<br>`
           texte += 'Il note les prix dans le tableau suivant :<br> <br>'
@@ -347,5 +361,5 @@ export default function ProportionnalitePasProportionnalite () {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireCaseACocher = ['Sans tableau', false]
+  this.besoinFormulaireTexte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Achat.\n2 : Distance.\n3 : Âge.\n4 : Épidémie.\n5 : Catalogue (tableau de proportionnalité).']
 }

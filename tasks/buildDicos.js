@@ -163,7 +163,7 @@ for (const file of exercicesList) {
         if (/export +const +interactifType */.test(srcContent)) {
           // regex à vérifier même si elle ne doit théoriquement pas servir puisque le module fonctionne
           // regex suivante ne fonctionnera pas quand interactifReady est un objet
-          interactifType = srcContent.match(/export +const +interactifType *= *(\"[a-zA-Z0-9].*\")/)[1]
+          interactifType = srcContent.match(/export +const +interactifType *= *("[a-zA-Z0-9].*")/)[1]
         } else {
           interactifType = 'export const interactifType non présent (à l\'ancienne)'
         }
@@ -228,7 +228,10 @@ fs.writeFileSync(dictFile, `export default ${JSON.stringify(dicoAlea, null, 2)}`
 endWarnText()
 console.log(`${dictFile} généré ${sumWarnings()}`)
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
+// Répertoire père pour les fichiers md
 const mdDir = path.resolve(__dirname, '..', 'src', '.')
+// Réperetoire père pour les csv
+const csvDir = path.resolve(__dirname, '..', 'src/csv', '.')
 
 // On crée un fichier pour décompter les exos AMC/ Interactifs
 const mdFile = path.resolve(mdDir, '.', 'exosAmcInteractifs.md')
@@ -240,12 +243,34 @@ fs.appendFileSync(mdFile, '\r\n')
 fs.appendFileSync(mdFile, '|id|titre|amcReady|amcType|interactifReady|interactifType|\r\n')
 fs.appendFileSync(mdFile, '|:-:|:-:|:-:|:-:|:-:|:-:|\r\n')
 
-// On crée un fichier avec les exos ni AMC ni Interactifs
+// On crée un fichier md pour décompter les exos ni AMC ni Interactifs
 const mdFileToConvert = path.resolve(mdDir, '.', 'exosNonAmcNonInteractifs.md')
+// On crée un fichier csv pour décompter les exos ni AMC ni Interactifs
+const csvFileToConvert = path.resolve(csvDir, '.', 'exosNonAmcNonInteractifs.csv')
+// On déclare le séparateur de colonnes pour le csv
+const csvSep = ','
+
+// Entêtes pour le fichier md
 fs.writeFileSync(mdFileToConvert, '# Liste des exos ni AMC ni INTERACTIFS\r\n')
 fs.appendFileSync(mdFileToConvert, '\r\n')
+fs.appendFileSync(mdFileToConvert, '|6e|5e|4e|3e|2nde|1ere|Term|Reste|\r\n')
+fs.appendFileSync(mdFileToConvert, '|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|\r\n')
+
+// Entêtes pour le fichier csv
+fs.writeFileSync(csvFileToConvert, '# Liste des exos ni AMC ni INTERACTIFS\r\n')
+fs.appendFileSync(csvFileToConvert, '\r\n')
+fs.appendFileSync(csvFileToConvert, `6e${csvSep}5e${csvSep}4e${csvSep}3e${csvSep}2nde${csvSep}1ere${csvSep}Term${csvSep}Reste \r\n`)
+fs.appendFileSync(csvFileToConvert, '\r\n')
 
 // On complète les fichiers
+const tab6 = [] // pour les refs de 6e
+const tab5 = [] // pour les refs de 5e
+const tab4 = [] // pour les refs de 4e
+const tab3 = [] // pour les refs de 3e
+const tab2 = [] // pour les refs de 2e
+const tab1 = [] // pour les refs de 1e
+const tabt = [] // pour les refs de term
+const tabr = [] // pour les refs qui restent
 Object.entries(dicoAlea).forEach(([id, props]) => {
   if (props.amcReady && props.interactifReady) {
     fs.appendFileSync(mdFile, `|${id}|${props.titre}|OK|${props.amcType.text}|OK|${props.interactifType}|\r\n`)
@@ -254,10 +279,52 @@ Object.entries(dicoAlea).forEach(([id, props]) => {
   } else if (!props.amcReady && props.interactifReady) {
     fs.appendFileSync(mdFile, `|${id}|${props.titre}|KO|KO|OK|${props.interactifType}|\r\n`)
   } else if (!props.amcReady && !props.interactifReady) {
-    fs.appendFileSync(mdFileToConvert, `- ${id}\r\n`)
+    const firstCar = id[0]
+
+    switch (firstCar) {
+      case '6':
+        tab6.push(id)
+        break
+      case '5':
+        tab5.push(id)
+        break
+      case '4':
+        tab4.push(id)
+        break
+      case '3':
+        tab3.push(id)
+        break
+      case '2':
+        tab2.push(id)
+        break
+      case '1':
+        // On concatène avec 'ref :' car sinon un logiciel de lecture de csv considère que c'est une puissance de 10 pour une ref du type 1E10
+        tab1.push('ref : ' + id)
+        break
+      case 'term':
+        tabt.push(id)
+        break
+      default:
+        tabr.push(id)
+    }
   }
 })
+for (let i = 0; i < Math.max(tab6.length, tab5.length); i++) {
+  if (tab6[i] === undefined) { tab6[i] = '' }
+  if (tab5[i] === undefined) { tab5[i] = '' }
+  if (tab4[i] === undefined) { tab4[i] = '' }
+  if (tab3[i] === undefined) { tab3[i] = '' }
+  if (tab2[i] === undefined) { tab2[i] = '' }
+  if (tab1[i] === undefined) { tab1[i] = '' }
+  if (tabt[i] === undefined) { tabt[i] = '' }
+  if (tabr[i] === undefined) { tabr[i] = '' }
+  // Le fichier md
+  fs.appendFileSync(mdFileToConvert, `|${tab6[i]}|${tab5[i]}|${tab4[i]}|${tab3[i]}|${tab2[i]}|${tab1[i]}|${tabt[i]}|${tabr[i]}|\r\n`)
+  // Le fichier csv
+  fs.appendFileSync(csvFileToConvert, `${tab6[i]}${csvSep}${tab5[i]}${csvSep}${tab4[i]}${csvSep}${tab3[i]}${csvSep}${tab2[i]}${csvSep}${tab1[i]}${csvSep}${tabt[i]}${csvSep}${tabr[i]}\r\n`)
+}
 console.log(`${mdFile} généré`)
 console.log(`${mdFileToConvert} généré`)
+console.log(`${csvFileToConvert} généré`)
 const fin = Date.now()
 console.log(`${path.resolve(__dirname, __filename)} terminé en ${fin - debut}ms`)

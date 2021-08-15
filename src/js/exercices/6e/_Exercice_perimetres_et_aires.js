@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonLis
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'numerique'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
