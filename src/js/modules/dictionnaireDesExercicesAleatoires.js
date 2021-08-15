@@ -1426,6 +1426,13 @@ export default {
     "interactifReady": false,
     "name": "4L15-1"
   },
+  "4L16": {
+    "titre": "Déterminer la structure de l'expression littérale",
+    "url": "/exercices/4e/4L16.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4L16"
+  },
   "4L20": {
     "titre": "Équation du premier degré",
     "url": "/exercices/4e/4L20.js",
