@@ -8167,7 +8167,7 @@ export function intervalle (A, B, color = 'blue', h = 0) {
  * texteParPoint('mon texte',A,'gauche') // Écrit 'mon texte' à gauche de A (qui sera la fin du texte)
  * texteParPoint('mon texte',A,'droite') // Écrit 'mon texte' à droite de A (qui sera le début du texte)
  * texteParPoint('mon texte',A,45) // Écrit 'mon texte' à centré sur A avec une rotation de 45°
- *
+ * Le mode Math (implémenté par Jean-Claude Lhote) n'est plus fonctionnel en html (il l'est toujours en latex) : un soucis de polices de substitution rendait les caractères 'dansant'
  * @author Rémi Angot
  */
 function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
@@ -8178,7 +8178,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   this.opacite = 1
   this.svg = function (coeff) {
     let code = ''; let style = ''
-    if (mathOn) style = ' font-family= "KaTeX_Math" '
+    // if (mathOn) style = ' font-family= "KaTeX_Math" ' désactivé par Jean-Claude Lhote
     if (this.contour) style += ` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
     else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite}" `
     if (typeof (orientation) === 'number') {
@@ -8215,7 +8215,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   }
   this.tikz = function () {
     let code = ''
-    if (mathOn) texte = '$' + texte + '$'
+    if (mathOn) texte = '$' + texte + '$' // on le laisse en Latex, parce que ça fonctionne !
     if (typeof orientation === 'number') {
       let anchor = 'center'
       if (ancrageDeRotation === 'gauche') {
