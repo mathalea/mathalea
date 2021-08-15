@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 135 
-- nombre d'exos interactifReady 161 
+- nombre d'exos amcReady 137 
+- nombre d'exos interactifReady 162 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -23,7 +23,7 @@
 |3G10-1|Trouver les coordonnées de l’image d’un point par une transformation du plan|OK|AMCHybride|OK|mathLive|
 |3G10-2|Trouver l’image d’un point par une transformation choisie aléatoirement|OK|AMCHybride|OK|mathLive|
 |3G12-1|Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage|OK|AMCHybride|OK|mathLive|
-|3G21|Contrôler si deux droites sont parallèles|OK|AMCOpen|KO|KO|
+|3G21|Contrôler si deux droites sont parallèles|OK|AMCHybride|KO|KO|
 |3G30|Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
 |3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
 |3G32-1|Calcul d’un parallèle terrestre|OK|AMCOpen|KO|KO|
@@ -78,7 +78,7 @@
 |5N20|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|mathLive|
 |5P11-1|Problème de vitesse|KO|KO|OK|mathLive|
 |5R10|Trouver le terme manquant d’une somme de nombres relatifs|OK|AMCNum|OK|numerique|
-|5R11-2|Placer un point d’abscisse un nombre relatif|KO|KO|OK|custom|
+|5R11-2|Placer un point d’abscisse un nombre relatif|OK|AMCOpen|OK|custom|
 |5R11|Lire l’abscisse relative d’un point|OK|AMCHybride|OK|mathLive|
 |5R20-2|Addition à trou de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R20-3|Additions de 5 nombres relatifs|OK|AMCNum|OK|mathLive|
@@ -137,6 +137,7 @@
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
 |6N24|Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)|OK|AMCNum|OK|mathLive|
 |6N30-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCOpen|OK|mathLive|
+|6N30-2|Placer un point d’abscisse décimale|OK|AMCOpen|OK|custom|
 |6N30|Lire l’abscisse décimale d’un point|OK|AMCOpen|OK|mathLive|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|OK|numerique|

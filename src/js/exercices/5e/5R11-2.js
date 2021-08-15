@@ -6,6 +6,8 @@ import { pointCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 export const titre = 'Placer un point d’abscisse un nombre relatif'
 
@@ -41,6 +43,7 @@ export default function PlacerPointsSurAxeRelatifs () {
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
     const pointsSolutions = []
+    let objets = []
     const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
     this.listeQuestions = []
     this.listeCorrections = []
@@ -49,7 +52,7 @@ export default function PlacerPointsSurAxeRelatifs () {
     if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }
 
     this.contenu = htmlConsigne(this.consigne)
-    for (let i = 0, abs0, abs1, abs2, abs3, l1, l2, l3, x1, x2, x3, x11, x22, x33, A, B, C, pas1, pas2, texte, texteCorr, objets; i < this.nbQuestions; i++) {
+    for (let i = 0, abs0, abs1, abs2, abs3, l1, l2, l3, x1, x2, x3, x11, x22, x33, A, B, C, pas1, pas2, texte, texteCorr; i < this.nbQuestions; i++) {
       pointsNonSolutions[i] = []
       pointsSolutions[i] = []
       l1 = lettreDepuisChiffre(i * 3 + 1)
@@ -84,7 +87,7 @@ export default function PlacerPointsSurAxeRelatifs () {
       A = point(changeCoord(abs1, abs0, pas1), 0, l1, 'above')
       B = point(changeCoord(abs2, abs0, pas1), 0, l2, 'above')
       C = point(changeCoord(abs3, abs0, pas1), 0, l3, 'above')
-      if (this.interactif) {
+      if (this.interactif && !context.isAmc) {
         for (let indicePoint = 0, monPoint, dist; indicePoint < 70; indicePoint++) {
           dist = abs0 + indicePoint / pas1 / pas2
           monPoint = pointCliquable(changeCoord(dist, abs0, pas1), 0, { size: 3, width: 2, color: 'blue', radius: 0.15 })
@@ -112,16 +115,22 @@ export default function PlacerPointsSurAxeRelatifs () {
       texte = `Placer les points : $${l1}(${texNombrec(abs1)}), ${l2}(${texNombrec(abs2)}), ${l3}(${texNombrec(abs3)})$<br>`
 
       texte += mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
-      if (this.interactif) {
+      if (this.interactif && !context.isAmc) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
 
       objets.push(labelPoint(A, B, C), tracePoint(A, B, C))
       texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
-
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          propositions: [{ texte: texteCorr, statut: 0, feedback: '' }]
+        }
+      }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
+
     this.correctionInteractive = (elt) => {
       let nbBonnesReponses = 0
       let nbMauvaisesReponses = 0

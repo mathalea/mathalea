@@ -99,59 +99,59 @@ export default function LireAbscisseRelative () {
         this.autoCorrection[i] = {
           enonce: texte,
           propositions: [
-			  {
+            {
               type: 'AMCNum',
               propositions: [{
-				  texte: texteCorr,
-				  statut: '',
-				  reponse: {
+                texte: texteCorr,
+                statut: '',
+                reponse: {
                   texte: `abscisse de ${l1}`,
                   valeur: abs1,
                   param: {
-					  digits: nombreDeChiffresDe(abs1),
-					  decimals: nombreDeChiffresDansLaPartieDecimale(abs1),
-					  signe: true,
-					  approx: 0
+                    digits: nombreDeChiffresDe(abs1),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(abs1),
+                    signe: true,
+                    approx: 0
                   }
-				  }
+                }
               }]
-			  },
-			  {
+            },
+            {
               type: 'AMCNum',
               propositions: [{
-				  texte: '',
-				  statut: '',
-				  reponse: {
+                texte: '',
+                statut: '',
+                reponse: {
                   texte: `abscisse de ${l2}`,
                   valeur: abs2,
                   param: {
-					  digits: nombreDeChiffresDe(abs2),
-					  decimals: nombreDeChiffresDansLaPartieDecimale(abs2),
-					  signe: true,
-					  approx: 0
+                    digits: nombreDeChiffresDe(abs2),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(abs2),
+                    signe: true,
+                    approx: 0
                   }
-				  }
+                }
               }]
-			  },
-			  {
+            },
+            {
               type: 'AMCNum',
               propositions: [{
-				  texte: '',
-				  statut: '',
-				  reponse: {
+                texte: '',
+                statut: '',
+                reponse: {
                   texte: `abscisse de ${l3}`,
                   valeur: abs3,
                   param: {
-					  digits: nombreDeChiffresDe(abs3),
-					  decimals: nombreDeChiffresDansLaPartieDecimale(abs3),
-					  signe: true,
-					  approx: 0
+                    digits: nombreDeChiffresDe(abs3),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(abs3),
+                    signe: true,
+                    approx: 0
                   }
-				  }
+                }
               }]
-			  }
+            }
           ]
-		  }
+        }
       }
       texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 },
         droiteGraduee2({
