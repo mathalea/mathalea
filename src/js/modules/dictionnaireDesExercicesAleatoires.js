@@ -1357,7 +1357,7 @@ export default {
     "name": "4L10"
   },
   "4L11": {
-    "titre": "Construire un diagramme",
+    "titre": "Factoriser une expression littérale",
     "url": "/exercices/4e/4L11.js",
     "amcReady": false,
     "interactifReady": false,
