@@ -8,6 +8,7 @@ import { estentier, randint, arrondi, simplificationDeFractionAvecEtapes, calcul
  * @returns [expf,expl,expc,nbval,lastOp]
  * @author Jean Claude Lhote forked by Sébastien LOZANO
  * Référence 5C11,5C11-1, 5C11-2, 5L13
+ * Ajout de la structure de l'expression le 14/08/2021 : Guillaume Valmont
  */
 export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 = 1, val2 = 2, timesOn = true) {
   let expf; let expl; let expc; const arrondir = Math.log10(decimal)
@@ -380,5 +381,20 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
   let pos2 = pos1 + 1
   for (; pos2 < expc.length; pos2++) { if (expc[pos2] === '=') break }
   const expn = '$' + expc.substring(pos1 + 1, pos2 - 1) + '$'
-  return [expf, expl, expc, nbval, lastOp, expn]
+  let structureExpression
+  switch (lastOp) {
+    case 'addition':
+      structureExpression = 'une somme'
+      break
+    case 'soustraction':
+      structureExpression = 'une différence'
+      break
+    case 'multiplication':
+      structureExpression = 'un produit'
+      break
+    case 'division':
+      structureExpression = 'un quotient'
+      break
+  }
+  return [expf, expl, expc, nbval, lastOp, expn, structureExpression]
 }
