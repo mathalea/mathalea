@@ -34,9 +34,9 @@ export default function PlacerPointsSurAxeRelatifs () {
     return (abs0 + (x - abs0) * 3 * pas1)
   }
   // fonction qui retourne l'abscisse décimal de l'exercice en fonction de celui du point mathalea2d pointé.
-  const changeCoordBack = function (xF, abs0, pas1) {
-    return ((xF - abs0) / 3 / pas1 + abs0)
-  }
+  // const changeCoordBack = function (xF, abs0, pas1) {
+  //   return ((xF - abs0) / 3 / pas1 + abs0)
+  // }
 
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
