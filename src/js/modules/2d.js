@@ -5450,9 +5450,10 @@ function DroiteGraduee2 ({
       }
     }
   }
+  console.log(Min2)
   if (labelsSecondaires) {
     for (let j = Min2; j <= Max2; j++) {
-      if (j % (step2 * pas2) === 0 && j % pas1 !== 0) {
+      if (j % (step2 * pas2) === 0 && j % (step1 * pas1) !== 0) {
         i = calcul((j - Min * factor) / factor)
         T = texteParPosition(`${nombreAvecEspace(arrondi(calcul(Min + i), 3))}`, x + i * Unite * absord[0] - labelDistance * absord[1], y + i * Unite * absord[1] - labelDistance * absord[0])
         objets.push(T)

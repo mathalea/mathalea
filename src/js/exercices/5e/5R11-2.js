@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, texNombrec, lettreDepuisChiffre, htmlConsigne } from '../../modules/outils.js'
-import { SvgReperageSurUnAxe, LatexReperageSurUnAxe } from '../../modules/macroSvgJs.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombrec, lettreDepuisChiffre, htmlConsigne } from '../../modules/outils.js'
+import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
 
 export const titre = 'Placer un point d’abscisse un nombre relatif'
 
@@ -10,7 +10,7 @@ export const titre = 'Placer un point d’abscisse un nombre relatif'
 * @author Jean-Claude Lhote et Rémi Angot
 * Référence 5R11-2
 */
-export default function Placer_points_sur_axe_relatifs () {
+export default function PlacerPointsSurAxeRelatifs () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -25,6 +25,14 @@ export default function Placer_points_sur_axe_relatifs () {
   this.typeExercice = 'SVGJS'
 
   this.listePackages = 'tkz-euclide'
+  // fonction qui retourne l'abscisse du point pour mathalea2d en fonction de l'abscisse de l'exercice
+  const changeCoord = function (x, abs0, pas1) {
+    return (abs0 + (x - abs0) * 3 * pas1)
+  }
+  // fonction qui retourne l'abscisse décimal de l'exercice en fonction de celui du point mathalea2d pointé.
+  const changeCoordBack = function (xF, abs0, pas1) {
+    return ((xF - abs0) / 3 / pas1 + abs0)
+  }
 
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
@@ -32,14 +40,14 @@ export default function Placer_points_sur_axe_relatifs () {
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup == 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }
+    if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }
 
     this.contenu = htmlConsigne(this.consigne)
-    for (let i = 0, abs0, abs1, abs2, abs3, l1, l2, l3, x1, x2, x3, x11, x22, x33, pas1, pas2, id_unique, texte, texteCorr; i < this.nbQuestions; i++) {
+    for (let i = 0, abs0, abs1, abs2, abs3, l1, l2, l3, x1, x2, x3, x11, x22, x33, A, B, C, pas1, pas2, texte, texteCorr, objets; i < this.nbQuestions; i++) {
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
-
+      objets = []
       switch (typesDeQuestions[i]) {
         case 1: // Placer des décimaux relatifs sur un axe (1 décimale)
           abs0 = randint(-7, -3)
@@ -65,24 +73,32 @@ export default function Placer_points_sur_axe_relatifs () {
       abs2 = arrondi(abs0 + x2 / pas1 + x22 / pas1 / pas2, typesDeQuestions[i])
       abs3 = arrondi(abs0 + x3 / pas1 + x33 / pas1 / pas2, typesDeQuestions[i])
 
-      texte = `Placer les points : {\\small $${l1}$(${texNombrec(abs1)}), $${l2}$(${texNombrec(abs2)}), $${l3}$(${texNombrec(abs3)})}<br>`
-      if (context.isHtml) {
-        texteCorr = ''
-        id_unique = `${i}_${Date.now()}`
-        this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 110px;  "></div>`
-        this.contenu += `Placer les points : ${l1}(${texNombrec(abs1)}), ${l2}(${texNombrec(abs2)}), ${l3}(${texNombrec(abs3)})`
-        SvgReperageSurUnAxe(`div_svg${numeroExercice}${id_unique}`, abs0, 6, pas1, pas2, [], [[calcul(abs0 + 1 / pas1, 0), 1, 0], [calcul(abs0 + 2 / pas1, 0), 2, 0], [calcul(abs0 + 3 / pas1, 0), 3, 0], [calcul(abs0 + 4 / pas1, 0), 4, 0], [calcul(abs0 + 5 / pas1, 0), 5, 0], [calcul(abs0 + 6 / pas1, 0), 6, 0]], false)
-        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-        SvgReperageSurUnAxe(`div_svg_corr${numeroExercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[calcul(abs0 + 1 / pas1, 0), 1, 0], [calcul(abs0 + 2 / pas1, 0), 2, 0], [calcul(abs0 + 3 / pas1, 0), 3, 0], [calcul(abs0 + 4 / pas1, 0), 4, 0], [calcul(abs0 + 5 / pas1, 0), 5, 0], [calcul(abs0 + 6 / pas1, 0), 6, 0]], false)
-      } else { // sortie Latex
-        texte += LatexReperageSurUnAxe(2, abs0, pas1, pas2, [], [[calcul(abs0 + 1 / pas1, 0), 1, 0], [calcul(abs0 + 2 / pas1, 0), 2, 0], [calcul(abs0 + 3 / pas1, 0), 3, 0], [calcul(abs0 + 4 / pas1, 0), 4, 0], [calcul(abs0 + 5 / pas1, 0), 5, 0], [calcul(abs0 + 6 / pas1, 0), 6, 0]], false)
-        texteCorr = `Les points {\\small $${l1}$(${texNombrec(abs1)}), $${l2}$(${texNombrec(abs2)}), $${l3}$(${texNombrec(abs3)})} sont placés ci dessous<br>`
-        texteCorr += LatexReperageSurUnAxe(2, abs0, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[calcul(abs0 + 1 / pas1, 0), 1, 0], [calcul(abs0 + 2 / pas1, 0), 2, 0], [calcul(abs0 + 3 / pas1, 0), 3, 0], [calcul(abs0 + 4 / pas1, 0), 4, 0], [calcul(abs0 + 5 / pas1, 0), 5, 0], [calcul(abs0 + 6 / pas1, 0), 6, 0]], false)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-      }
+      A = point(changeCoord(abs1, abs0, pas1), 0, l1, 'above')
+      B = point(changeCoord(abs2, abs0, pas1), 0, l2, 'above')
+      C = point(changeCoord(abs3, abs0, pas1), 0, l3, 'above')
+
+      objets.push(droiteGraduee2({
+        Unite: 3 * pas1,
+        Min: abs0,
+        Max: abs0 + 6.9 / pas1,
+        x: abs0,
+        y: 0,
+        thickSecDist: 1 / pas2 / pas1,
+        thickSec: true,
+        labelsPrincipaux: true,
+        thickDistance: 1 / pas1
+      }))
+
+      texte = `Placer les points : $${l1}(${texNombrec(abs1)}), ${l2}(${texNombrec(abs2)}), ${l3}(${texNombrec(abs3)})$<br>`
+
+      texte += mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
+      objets.push(labelPoint(A, B, C), tracePoint(A, B, C))
+      texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
+
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
     }
-    if (!context.isHtml) { listeQuestionsToContenu(this) }
+    listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange']
 }
