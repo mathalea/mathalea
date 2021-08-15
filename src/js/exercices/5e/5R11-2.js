@@ -1,7 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombrec, lettreDepuisChiffre, htmlConsigne } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombrec, lettreDepuisChiffre, htmlConsigne, egal } from '../../modules/outils.js'
 import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
+import { pointCliquable } from '../../modules/2dinteractif.js'
+import { afficheScore } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'custom'
 
 export const titre = 'Placer un point d’abscisse un nombre relatif'
 
@@ -36,6 +40,8 @@ export default function PlacerPointsSurAxeRelatifs () {
 
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
+    const pointsSolutions = []
+    const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
     this.listeQuestions = []
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
@@ -44,6 +50,8 @@ export default function PlacerPointsSurAxeRelatifs () {
 
     this.contenu = htmlConsigne(this.consigne)
     for (let i = 0, abs0, abs1, abs2, abs3, l1, l2, l3, x1, x2, x3, x11, x22, x33, A, B, C, pas1, pas2, texte, texteCorr, objets; i < this.nbQuestions; i++) {
+      pointsNonSolutions[i] = []
+      pointsSolutions[i] = []
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
@@ -76,6 +84,18 @@ export default function PlacerPointsSurAxeRelatifs () {
       A = point(changeCoord(abs1, abs0, pas1), 0, l1, 'above')
       B = point(changeCoord(abs2, abs0, pas1), 0, l2, 'above')
       C = point(changeCoord(abs3, abs0, pas1), 0, l3, 'above')
+      if (this.interactif) {
+        for (let indicePoint = 0, monPoint, dist; indicePoint < 70; indicePoint++) {
+          dist = abs0 + indicePoint / pas1 / pas2
+          monPoint = pointCliquable(changeCoord(dist, abs0, pas1), 0, { size: 3, width: 2, color: 'blue', radius: 0.15 })
+          objets.push(monPoint)
+          if (egal(dist, abs1) || egal(dist, abs2) || egal(dist, abs3)) {
+            pointsSolutions[i].push(monPoint)
+          } else {
+            pointsNonSolutions[i].push(monPoint)
+          }
+        }
+      }
 
       objets.push(droiteGraduee2({
         Unite: 3 * pas1,
@@ -92,11 +112,43 @@ export default function PlacerPointsSurAxeRelatifs () {
       texte = `Placer les points : $${l1}(${texNombrec(abs1)}), ${l2}(${texNombrec(abs2)}), ${l3}(${texNombrec(abs3)})$<br>`
 
       texte += mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
+      if (this.interactif) {
+        texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
+      }
+
       objets.push(labelPoint(A, B, C), tracePoint(A, B, C))
       texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
 
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
+    }
+    this.correctionInteractive = (elt) => {
+      let nbBonnesReponses = 0
+      let nbMauvaisesReponses = 0
+      for (let i = 0, aucunMauvaisPointsCliques; i < this.nbQuestions; i++) {
+        aucunMauvaisPointsCliques = true
+        for (const monPoint of pointsNonSolutions[i]) {
+          if (monPoint.etat) aucunMauvaisPointsCliques = false
+          monPoint.stopCliquable()
+        }
+        for (const monPoint of pointsSolutions[i]) {
+          if (!monPoint.etat) aucunMauvaisPointsCliques = false
+          monPoint.stopCliquable()
+        }
+        const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+        for (let j = 0; j < pointsSolutions[i].length; j++) {
+          pointsSolutions[i][j].stopCliquable()
+        }
+
+        if (aucunMauvaisPointsCliques && pointsSolutions[i][0].etat && pointsSolutions[i][1].etat && pointsSolutions[i][2].etat) {
+          divFeedback.innerHTML = '😎'
+          nbBonnesReponses++
+        } else {
+          divFeedback.innerHTML = '☹️'
+          nbMauvaisesReponses++
+        }
+      }
+      afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
     }
     listeQuestionsToContenu(this)
   }
