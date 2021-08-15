@@ -270,6 +270,13 @@ export default {
     "interactifReady": false,
     "name": "2N32-6"
   },
+  "2N41-7": {
+    "titre": "Factoriser avec les identités remarquables (niveau II)",
+    "url": "/exercices/2e/2N41-7.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N41-7"
+  },
   "2N43-4": {
     "titre": "Développer (a+b)²",
     "url": "/exercices/2e/2N43-4.js",
@@ -1357,7 +1364,7 @@ export default {
     "name": "4L10"
   },
   "4L11": {
-    "titre": "Construire un diagramme",
+    "titre": "Factoriser une expression littérale",
     "url": "/exercices/4e/4L11.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3738,13 +3745,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2G53"
-  },
-  "beta2L11-1": {
-    "titre": "Factoriser avec les identités remarquables (niveau II)",
-    "url": "/exercices/beta/beta2L11-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2L11-1"
   },
   "beta2L12-2": {
     "titre": "Résoudre des équations se ramenant au produit-nul.",
