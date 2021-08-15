@@ -148,80 +148,80 @@ export default function ProportionnalitePasProportionnalite () {
 
     ) {
       switch (parseInt(listeChoix[i])) {
-        case 1: // Achat
-          if (listeProportionnelOuPas[compteurProportionnelsOuPas]) {
-            index1 = listeIndex[i]
-            prenoms = [prenomF(), prenomM()]
-            index2 = randint(0, listeDeChoses[index1].length - 1)
-            objet = listeDeChoses[index1][index2]
-            pu =
-            listeDePrixUnit[index1][index2] *
-            (1 + randint(1, 2) * 0.2 * randint(-1, 1))
-            y = randint(2, 5)
-            somme = calcul(y * pu, 2)
-            p = y * randint(2, 5)
-            z = calcul(p * pu, 2)
-            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
-            texte += `Elle  repart avec ${y} ${objet} pour $${texPrix(
-            somme
-          )}$€. ${prenoms[1]
-            } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
-              z
-            )}$€.<br>`
-            texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
-            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
-            texPrix(somme),
-            'blue'
-          )}$€.<br>`
-            texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
-            texNombre(p / y)
-          )}$ fois la quantité des ${objet} achetée par ${prenoms[0]
-            } pour $${miseEnEvidence(
-              texPrix(somme),
-              'blue'
-            )}$€.<br>Il a payé $${texPrix(z)}$€ $=${miseEnEvidence(
-              texNombrec(p / y)
-            )}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
-          texteCorr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`
-          bonneReponse = 'oui'
-          break
-        case 2:
-          index1 = listeIndex[i]
-          prenoms = [prenomF(), prenomM()]
-          index2 = randint(0, listeDeChoses[index1].length - 1)
-          objet = listeDeChoses[index1][index2]
-          pu =
-            listeDePrixUnit[index1][index2] *
-            (1 + randint(1, 2) * 0.2 * randint(-1, 1))
-            y = randint(2, 5)
-            somme = calcul(y * pu, 2)
-            pu -= 0.1
-            p = y * randint(2, 5)
-            z = calcul(p * pu, 2)
-            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
-            texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}$€. ${prenoms[1]
-            } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
-              z
-            )}$€.<br>`
-            texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
-            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
-            texPrix(somme),
-            'blue'
-          )}$€.<br>`
-            texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
-            texNombrec(p / y)
-          )}$ fois la quantité des ${objet} achetée par ${prenoms[0]
-            } pour $${miseEnEvidence(
-              texPrix(somme),
-              'blue'
-            )}$€.<br>Il a payé $${texPrix(z)}$€.<br>Mais $${miseEnEvidence(
-              texNombrec(p / y)
-            )}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€ $=${texPrix(
-              calcul((p * somme) / y)
-            )}$€.<br>`
-          texteCorr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`
-          bonneReponse = 'non'
-          break
+        // case 1: // Achat
+        //   if (listeProportionnelOuPas[compteurProportionnelsOuPas]) {
+        //     index1 = listeIndex[i]
+        //     prenoms = [prenomF(), prenomM()]
+        //     index2 = randint(0, listeDeChoses[index1].length - 1)
+        //     objet = listeDeChoses[index1][index2]
+        //     pu =
+        //     listeDePrixUnit[index1][index2] *
+        //     (1 + randint(1, 2) * 0.2 * randint(-1, 1))
+        //     y = randint(2, 5)
+        //     somme = calcul(y * pu, 2)
+        //     p = y * randint(2, 5)
+        //     z = calcul(p * pu, 2)
+        //     texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
+        //     texte += `Elle  repart avec ${y} ${objet} pour $${texPrix(
+        //     somme
+        //   )}$€. ${prenoms[1]
+        //     } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
+        //       z
+        //     )}$€.<br>`
+        //     texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
+        //     texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
+        //     texPrix(somme),
+        //     'blue'
+        //   )}$€.<br>`
+        //     texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
+        //     texNombre(p / y)
+        //   )}$ fois la quantité des ${objet} achetée par ${prenoms[0]
+        //     } pour $${miseEnEvidence(
+        //       texPrix(somme),
+        //       'blue'
+        //     )}$€.<br>Il a payé $${texPrix(z)}$€ $=${miseEnEvidence(
+        //       texNombrec(p / y)
+        //     )}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
+        //   texteCorr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`
+        //   bonneReponse = 'oui'
+        //   break
+        // case 2:
+        //   index1 = listeIndex[i]
+        //   prenoms = [prenomF(), prenomM()]
+        //   index2 = randint(0, listeDeChoses[index1].length - 1)
+        //   objet = listeDeChoses[index1][index2]
+        //   pu =
+        //     listeDePrixUnit[index1][index2] *
+        //     (1 + randint(1, 2) * 0.2 * randint(-1, 1))
+        //     y = randint(2, 5)
+        //     somme = calcul(y * pu, 2)
+        //     pu -= 0.1
+        //     p = y * randint(2, 5)
+        //     z = calcul(p * pu, 2)
+        //     texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
+        //     texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}$€. ${prenoms[1]
+        //     } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
+        //       z
+        //     )}$€.<br>`
+        //     texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
+        //     texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
+        //     texPrix(somme),
+        //     'blue'
+        //   )}$€.<br>`
+        //     texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
+        //     texNombrec(p / y)
+        //   )}$ fois la quantité des ${objet} achetée par ${prenoms[0]
+        //     } pour $${miseEnEvidence(
+        //       texPrix(somme),
+        //       'blue'
+        //     )}$€.<br>Il a payé $${texPrix(z)}$€.<br>Mais $${miseEnEvidence(
+        //       texNombrec(p / y)
+        //     )}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€ $=${texPrix(
+        //       calcul((p * somme) / y)
+        //     )}$€.<br>`
+        //   texteCorr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`
+        //   bonneReponse = 'non'
+        //   break
         case 2: // Distance
           prenoms = [prenomF(), prenomM()]
           x = randint(5, 20)
