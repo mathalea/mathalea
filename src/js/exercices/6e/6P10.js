@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, range, compteOccurences, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix } from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMono'
 
 /**
  * Exercice sur la notion de proportionnalité (ou pas)
@@ -22,6 +27,7 @@ export default function ProportionnalitePasProportionnalite () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    let bonneReponse
     const listeIndexDisponibles = [0, 1, 2, 3, 4]
     const listeIndex = combinaisonListes(
       listeIndexDisponibles,
@@ -176,13 +182,15 @@ export default function ProportionnalitePasProportionnalite () {
             )}$€.<br>Il a payé $${texPrix(z)}$€ $=${miseEnEvidence(
               texNombrec(p / y)
             )}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
-            texteCorr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`
-          } else {
-            index1 = listeIndex[i]
-            prenoms = [prenomF(), prenomM()]
-            index2 = randint(0, listeDeChoses[index1].length - 1)
-            objet = listeDeChoses[index1][index2]
-            pu =
+          texteCorr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`
+          bonneReponse = 'oui'
+          break
+        case 2:
+          index1 = listeIndex[i]
+          prenoms = [prenomF(), prenomM()]
+          index2 = randint(0, listeDeChoses[index1].length - 1)
+          objet = listeDeChoses[index1][index2]
+          pu =
             listeDePrixUnit[index1][index2] *
             (1 + randint(1, 2) * 0.2 * randint(-1, 1))
             y = randint(2, 5)
@@ -211,9 +219,8 @@ export default function ProportionnalitePasProportionnalite () {
             )}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€ $=${texPrix(
               calcul((p * somme) / y)
             )}$€.<br>`
-            texteCorr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`
-          }
-          compteurProportionnelsOuPas += 1
+          texteCorr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`
+          bonneReponse = 'non'
           break
         case 2: // Distance
           prenoms = [prenomF(), prenomM()]
@@ -231,7 +238,13 @@ export default function ProportionnalitePasProportionnalite () {
           texteCorr = `${prenoms[0]} parcourt chaque minute environ $${texNombrec(arrondi(index1, 1))}$ m.<br>`
           texteCorr += `${prenoms[1]
             } parcourt chaque minute environ $${texNombrec(arrondi(index2, 1))}$ m.<br>`
-          if (index1 === index2) { texteCorr += 'Pour ces deux élèves le temps mis et la distance parcourue sont proportionnelles (si l\'on compare leur vitesse moyenne)' } else { texteCorr += 'Pour ces deux élèves le temps mis et la distance parcourue ne sont pas proportionnelles (si l\'on compare leur vitesse moyenne).<br>' }
+          if (index1 === index2) {
+            texteCorr += 'Pour ces deux élèves le temps mis et la distance parcourue sont proportionnelles (si l\'on compare leur vitesse moyenne)'
+            bonneReponse = 'oui'
+          } else {
+            texteCorr += 'Pour ces deux élèves le temps mis et la distance parcourue ne sont pas proportionnelles (si l\'on compare leur vitesse moyenne).<br>'
+            bonneReponse = 'non'
+          }
           break
         case 3: // Âge
           prenoms = [prenomF(), prenomM()]
@@ -247,6 +260,7 @@ export default function ProportionnalitePasProportionnalite () {
             } ans cette année-là.<br>Quand l'âge de ${prenoms[0]
             } double, l'âge de ${prenoms[1]} ne double pas, donc l'âge de ${prenoms[0]
             } et l'âge de son père ne sont pas propotionnels.<br>`
+          bonneReponse = 'non'
           break
         case 4: // Épidémie
           index1 = randint(0, 5)
@@ -262,6 +276,7 @@ export default function ProportionnalitePasProportionnalite () {
             }ème jour, le nombre de malades est multiplié par ${index2 + 2
             } mais le nombre de jours est multiplié par ${3 + index2}.<br>`
           texteCorr += 'Donc le nombre de malades n\'est pas proportionnel au nombre de jours passés.<br>'
+          bonneReponse = 'non'
           break
         case 5: // Achat (tableau de proportionnalité)
           prenoms = [prenomF(), prenomM()]
@@ -307,12 +322,36 @@ export default function ProportionnalitePasProportionnalite () {
               arrondi(calcul(tirages[p][1] / tirages[p][0]), 2)
             )}$€/${objet.substring(0, objet.length - 1)}<br>`
             texteCorr += `Le prix des ${objet} n'est pas proportionnel à leur nombre.<br>`
+            bonneReponse = 'non'
           } else {
             texteCorr += `Le prix des ${objet} est bien proportionnel à leur nombre.<br>`
+            bonneReponse = 'oui'
           }
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
+        if (this.interactif || context.isAmc) {
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].options = { ordered: true }
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: 'oui',
+              statut: bonneReponse !== 'non'
+            },
+            {
+              texte: 'non',
+              statut: bonneReponse !== 'oui'
+            },
+            {
+              texte: 'je ne sais pas',
+              statut: false
+            }
+          ]
+          if (this.interactif) {
+            texte += propositionsQcm(this, i).texte
+          }
+        }
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
