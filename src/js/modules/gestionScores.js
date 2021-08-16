@@ -155,7 +155,7 @@ export default function gestionScores () {
   // Clic sur le bouton "Submit" qui envoie un userId - page prof et modale connexion
   if (document.getElementById('scoresSubmitUserId')) {
     document.getElementById('scoresSubmitUserId').addEventListener('click', function () {
-    // On récupère la valeur saisie
+      // On récupère la valeur saisie
       const userId = document.getElementById('scoresInputUserId').value
       async function myFirstScoresManageFetch () {
         const response = await fetch('scoresManage.php', {
