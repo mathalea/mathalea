@@ -191,7 +191,7 @@ export default function CoefficientDirecteurDeDroite () {
         this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe et en l'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$, écrire 'non' si la droite n'a pas de coefficicient directeur,"
       }
       texte += ajouteChampTexteMathLive(this, i)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, xA, yA, xB, yB)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
