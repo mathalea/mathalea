@@ -41,19 +41,44 @@ export default {
     "interactifReady": false,
     "name": "1N11"
   },
-  "2F20": {
+  "2F10-1": {
     "titre": "Reconnaître une fonction affine.",
-    "url": "/exercices/2e/2F20.js",
+    "url": "/exercices/2e/2F10-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2F20"
+    "name": "2F10-1"
   },
-  "2F21": {
-    "titre": "Déterminer une fonction affine à partir de deux images.",
-    "url": "/exercices/2e/2F21.js",
+  "2F10-2": {
+    "titre": "Lecture graphique d’une fonction affine",
+    "url": "/exercices/2e/2F10-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2F21"
+    "name": "2F10-2"
+  },
+  "2F10-3": {
+    "titre": "Représentation graphique d’une fonction affine",
+    "url": "/exercices/2e/2F10-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F10-3"
+  },
+  "2F10-4": {
+    "titre": "Déterminer une fonction affine à partir de deux images.",
+    "url": "/exercices/2e/2F10-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F10-4"
+  },
+  "2F32": {
+    "titre": "Lecture graphique",
+    "url": "/exercices/2e/2F32.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2F32"
   },
   "2G10": {
     "titre": "Utiliser la distance entre deux points dans un repère orthonormé",
@@ -76,169 +101,125 @@ export default {
     "interactifReady": false,
     "name": "2G12"
   },
-  "2G50-1": {
-    "titre": "Déterminer une équation réduite de droite",
-    "url": "/exercices/2e/2G50-1.js",
+  "2G13": {
+    "titre": "Déterminer les coordonnées d’un vecteur.",
+    "url": "/exercices/2e/2G13.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G50-1"
+    "name": "2G13"
   },
-  "2G50-2": {
-    "titre": "Lecture graphique des coefficients d'une équation réduite ",
-    "url": "/exercices/2e/2G50-2.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "2G50-2"
+  "2G22-1": {
+    "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
+    "url": "/exercices/2e/2G22-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G22-1"
   },
-  "2G50": {
+  "2G23-2": {
+    "titre": "Coordonnées de vecteurs et translations.",
+    "url": "/exercices/2e/2G23-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G23-2"
+  },
+  "2G23": {
+    "titre": "Somme de vecteurs",
+    "url": "/exercices/2e/2G23.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G23"
+  },
+  "2G31-1": {
     "titre": "Déterminer le coefficient directeur d'une droite.",
-    "url": "/exercices/2e/2G50.js",
+    "url": "/exercices/2e/2G31-1.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2G50"
+    "name": "2G31-1"
   },
-  "2G51-1": {
-    "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur.",
-    "url": "/exercices/2e/2G51-1.js",
+  "2G31-2": {
+    "titre": "Déterminer une équation réduite de droite",
+    "url": "/exercices/2e/2G31-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G51-1"
+    "name": "2G31-2"
   },
-  "2G51": {
+  "2G31-3": {
     "titre": "Déterminer une équation cartésienne de droite à partir de deux points.",
-    "url": "/exercices/2e/2G51.js",
+    "url": "/exercices/2e/2G31-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G51"
+    "name": "2G31-3"
   },
-  "2G52": {
+  "2G31-4": {
+    "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur.",
+    "url": "/exercices/2e/2G31-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G31-4"
+  },
+  "2G31-5": {
+    "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
+    "url": "/exercices/2e/2G31-5.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G31-5"
+  },
+  "2G34-2": {
     "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
-    "url": "/exercices/2e/2G52.js",
+    "url": "/exercices/2e/2G34-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G52"
+    "name": "2G34-2"
   },
-  "2L10": {
-    "titre": "Développer avec les identités remarquables",
-    "url": "/exercices/2e/2L10.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2L10"
-  },
-  "2L11": {
-    "titre": "Factoriser avec les identités remarquables",
-    "url": "/exercices/2e/2L11.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2L11"
-  },
-  "2L12-1": {
-    "titre": "Résoudre des équations carrées.",
-    "url": "/exercices/2e/2L12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2L12-1"
-  },
-  "2L12-2": {
-    "titre": "Développer (a+b)²",
-    "url": "/exercices/2e/2L12-2.js",
-    "amcReady": false,
+  "2G36-7": {
+    "titre": "Lecture graphique des coefficients d'une équation réduite ",
+    "url": "/exercices/2e/2G36-7.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2L12-2"
-  },
-  "2L12-3": {
-    "titre": "Développer (a-b)²",
-    "url": "/exercices/2e/2L12-3.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "2L12-3"
-  },
-  "2L12": {
-    "titre": "Résoudre les équations produit-nul",
-    "url": "/exercices/2e/2L12.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2L12"
-  },
-  "2L13": {
-    "titre": "Inéquation du premier degré",
-    "url": "/exercices/2e/2L13.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2L13"
-  },
-  "2L14-1": {
-    "titre": "Résoudre une inéquation produit",
-    "url": "/exercices/2e/2L14-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2L14-1"
-  },
-  "2L14-2": {
-    "titre": "Résoudre une inéquation quotient",
-    "url": "/exercices/2e/2L14-2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2L14-2"
-  },
-  "2N10-1": {
-    "titre": "Connaître les propriétés calculatoires des racines carrées",
-    "url": "/exercices/2e/2N10-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2N10-1"
-  },
-  "2N10": {
-    "titre": "Existence d’une racine carrée",
-    "url": "/exercices/2e/2N10.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2N10"
+    "name": "2G36-7"
   },
   "2N11-1": {
-    "titre": "Simplifier une somme de racines carrées",
+    "titre": "Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée",
     "url": "/exercices/2e/2N11-1.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "2N11-1"
   },
-  "2N11": {
-    "titre": "Ecrire le nombre proposé sous la forme $a\\sqrt{b}$",
-    "url": "/exercices/2e/2N11.js",
+  "2N11-2": {
+    "titre": "Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$",
+    "url": "/exercices/2e/2N11-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N11"
+    "name": "2N11-2"
   },
-  "2N12-1": {
-    "titre": "Développer les identités remarquables avec des racines carrées",
-    "url": "/exercices/2e/2N12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2N12-1"
-  },
-  "2N12": {
-    "titre": "Appliquer la double distributivité avec les racines carrées",
-    "url": "/exercices/2e/2N12.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2N12"
-  },
-  "2N20": {
+  "2N14-1": {
     "titre": "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient",
-    "url": "/exercices/2e/2N20.js",
+    "url": "/exercices/2e/2N14-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N20"
+    "name": "2N14-1"
+  },
+  "2N15-1": {
+    "titre": "Utiliser la notion de valeur absolue d’une quantité",
+    "url": "/exercices/2e/2N15-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N15-1"
+  },
+  "2N15-2": {
+    "titre": "Résoudre une équation avec des valeurs absolues",
+    "url": "/exercices/2e/2N15-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N15-2"
   },
   "2N21": {
     "titre": "Déterminer la parité d’une expression",
@@ -247,33 +228,112 @@ export default {
     "interactifReady": false,
     "name": "2N21"
   },
-  "2N22": {
-    "titre": "Utiliser la notion de valeur absolue d’une quantité",
-    "url": "/exercices/2e/2N22.js",
+  "2N32-1": {
+    "titre": "Existence d’une racine carrée",
+    "url": "/exercices/2e/2N32-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N22"
+    "name": "2N32-1"
   },
-  "2N23": {
-    "titre": "Résoudre une équation avec des valeurs absolues",
-    "url": "/exercices/2e/2N23.js",
+  "2N32-2": {
+    "titre": "Connaître les propriétés calculatoires des racines carrées",
+    "url": "/exercices/2e/2N32-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N23"
+    "name": "2N32-2"
   },
-  "2N24": {
-    "titre": "Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée",
-    "url": "/exercices/2e/2N24.js",
+  "2N32-3": {
+    "titre": "Ecrire le nombre proposé sous la forme $a\\sqrt{b}$",
+    "url": "/exercices/2e/2N32-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N24"
+    "name": "2N32-3"
   },
-  "2N25": {
-    "titre": "Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$",
-    "url": "/exercices/2e/2N25.js",
+  "2N32-4": {
+    "titre": "Simplifier une somme de racines carrées",
+    "url": "/exercices/2e/2N32-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N25"
+    "name": "2N32-4"
+  },
+  "2N32-5": {
+    "titre": "Appliquer la double distributivité avec les racines carrées",
+    "url": "/exercices/2e/2N32-5.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N32-5"
+  },
+  "2N32-6": {
+    "titre": "Développer les identités remarquables avec des racines carrées",
+    "url": "/exercices/2e/2N32-6.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N32-6"
+  },
+  "2N43-4": {
+    "titre": "Développer (a+b)²",
+    "url": "/exercices/2e/2N43-4.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N43-4"
+  },
+  "2N43-5": {
+    "titre": "Développer (a-b)²",
+    "url": "/exercices/2e/2N43-5.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N43-5"
+  },
+  "2N43-6": {
+    "titre": "Développer avec les identités remarquables",
+    "url": "/exercices/2e/2N43-6.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N43-6"
+  },
+  "2N43-7": {
+    "titre": "Factoriser avec les identités remarquables",
+    "url": "/exercices/2e/2N43-7.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N43-7"
+  },
+  "2N52-1": {
+    "titre": "Résoudre les équations produit-nul",
+    "url": "/exercices/2e/2N52-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N52-1"
+  },
+  "2N52-2": {
+    "titre": "Résoudre des équations carrées.",
+    "url": "/exercices/2e/2N52-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N52-2"
+  },
+  "2N60-4": {
+    "titre": "Inéquation du premier degré",
+    "url": "/exercices/2e/2N60-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N60-4"
+  },
+  "2N61-2": {
+    "titre": "Résoudre une inéquation produit",
+    "url": "/exercices/2e/2N61-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N61-2"
+  },
+  "2N61-4": {
+    "titre": "Résoudre une inéquation quotient",
+    "url": "/exercices/2e/2N61-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N61-4"
   },
   "3A10": {
     "titre": "Division Euclidienne - Diviseurs - Multiples",
@@ -285,8 +345,12 @@ export default {
   "3A11-1": {
     "titre": "Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11",
     "url": "/exercices/3e/3A11-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "3A11-1"
   },
   "3A11-2": {
@@ -306,8 +370,12 @@ export default {
   "3A11": {
     "titre": "Primalité ou pas",
     "url": "/exercices/3e/3A11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "3A11"
   },
   "3A12": {
@@ -350,15 +418,23 @@ export default {
   "3F12-3": {
     "titre": "Compléter un tableau de valeurs",
     "url": "/exercices/3e/3F12-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F12-3"
   },
   "3F12-4": {
     "titre": "Lire l’image d’un nombre à partir d’un graphique",
     "url": "/exercices/3e/3F12-4.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F12-4"
   },
   "3F12": {
@@ -380,7 +456,8 @@ export default {
     "titre": "Spécial escape game",
     "url": "/exercices/3e/3F13-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3F13-2"
   },
   "3F13": {
@@ -427,15 +504,23 @@ export default {
   "3G10-1": {
     "titre": "Trouver les coordonnées de l’image d’un point par une transformation du plan",
     "url": "/exercices/3e/3G10-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G10-1"
   },
   "3G10-2": {
     "titre": "Trouver l’image d’un point par une transformation choisie aléatoirement",
     "url": "/exercices/3e/3G10-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G10-2"
   },
   "3G10-3": {
@@ -455,8 +540,12 @@ export default {
   "3G12-1": {
     "titre": "Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage",
     "url": "/exercices/3e/3G12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G12-1"
   },
   "3G12": {
@@ -492,7 +581,7 @@ export default {
     "url": "/exercices/3e/3G21.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpen"
+      "text": "AMCHybride"
     },
     "interactifReady": false,
     "name": "3G21"
@@ -532,7 +621,8 @@ export default {
     "amcType": {
       "text": "AMCOpenNum"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G30"
   },
   "3G31-1": {
@@ -556,7 +646,8 @@ export default {
     "amcType": {
       "text": "AMCOpenNum"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G31"
   },
   "3G32-1": {
@@ -888,6 +979,20 @@ export default {
     "interactifType": "mathLive",
     "name": "4C11"
   },
+  "4C20-1": {
+    "titre": "Comparer quatre fractions (dénominateurs multiples) et un nombre entier",
+    "url": "/exercices/4e/4C20-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4C20-1"
+  },
+  "4C20": {
+    "titre": "Comparer deux fractions (dénominateurs multiples)",
+    "url": "/exercices/4e/4C20.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4C20"
+  },
   "4C21-1": {
     "titre": "Additionner deux fractions",
     "url": "/exercices/4e/4C21-1.js",
@@ -1041,15 +1146,23 @@ export default {
   "4G10": {
     "titre": "Trouver l’image d’un point par une symétrie axiale ou centrale ou par une translation",
     "url": "/exercices/4e/4G10.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4G10"
   },
   "4G11-1": {
     "titre": "Trouver l’image d’une figure par une translation dans un pavage",
     "url": "/exercices/4e/4G11-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4G11-1"
   },
   "4G11": {
@@ -1074,7 +1187,7 @@ export default {
     "name": "4G20-1"
   },
   "4G20-2": {
-    "titre": "Racine carré d’un carré parfait (calcul mental)",
+    "titre": "Racine carrée d’un carré parfait (calcul mental)",
     "url": "/exercices/4e/4G20-2.js",
     "amcReady": true,
     "amcType": {
@@ -1098,6 +1211,17 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "4G20-5"
+  },
+  "4G20-6": {
+    "titre": "Encadrer une racine carrée et en donner un arrondi",
+    "url": "/exercices/4e/4G20-6.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4G20-6"
   },
   "4G20": {
     "titre": "Calculer une longueur avec le théorème de Pythagore",
@@ -1246,6 +1370,13 @@ export default {
     "interactifReady": false,
     "name": "4L10"
   },
+  "4L11": {
+    "titre": "Factoriser une expression littérale",
+    "url": "/exercices/4e/4L11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4L11"
+  },
   "4L13-0": {
     "titre": "Mettre en équation un problème sans objectif de résolution",
     "url": "/exercices/4e/4L13-0.js",
@@ -1294,6 +1425,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "4L15-1"
+  },
+  "4L16": {
+    "titre": "Déterminer la structure de l'expression littérale",
+    "url": "/exercices/4e/4L16.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4L16"
   },
   "4L20": {
     "titre": "Équation du premier degré",
@@ -1435,8 +1573,12 @@ export default {
   "5G10": {
     "titre": "Trouver l’image d’un point par une symétrie axiale",
     "url": "/exercices/5e/5G10.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5G10"
   },
   "5G11-1": {
@@ -1463,15 +1605,23 @@ export default {
   "5G11": {
     "titre": "Trouver l’image d’un point par une symétrie axiale ou centrale",
     "url": "/exercices/5e/5G11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5G11"
   },
   "5G12-1": {
     "titre": "Symétrique d’une figure dans un pavage",
     "url": "/exercices/5e/5G12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5G12-1"
   },
   "5G12": {
@@ -1480,6 +1630,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "5G12"
+  },
+  "5G13": {
+    "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles.",
+    "url": "/exercices/5e/5G13.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5G13"
   },
   "5G20-1": {
     "titre": "Vocabulaire des triangles",
@@ -1501,6 +1658,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "5G21-1"
+  },
+  "5G22-1": {
+    "titre": "Utiliser les propriétés de la médiatrice",
+    "url": "/exercices/5e/5G22-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5G22-1"
   },
   "5G22": {
     "titre": "Déterminer la nature d’une droite remarquable",
@@ -1816,7 +1980,7 @@ export default {
     "name": "5N14-3"
   },
   "5N14": {
-    "titre": "Comparer des fractions (dénominateurs multiples)",
+    "titre": "Comparer deux fractions (dénominateurs multiples)",
     "url": "/exercices/5e/5N14.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1897,15 +2061,23 @@ export default {
   "5R11-2": {
     "titre": "Placer un point d’abscisse un nombre relatif",
     "url": "/exercices/5e/5R11-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "5R11-2"
   },
   "5R11": {
     "titre": "Lire l’abscisse relative d’un point",
     "url": "/exercices/5e/5R11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5R11"
   },
   "5R12-2": {
@@ -1998,12 +2170,33 @@ export default {
     "interactifType": "numerique",
     "name": "5R22"
   },
+  "5S10": {
+    "titre": "Organiser des données dans un tableau",
+    "url": "/exercices/5e/5S10.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5S10"
+  },
+  "5S11": {
+    "titre": "Lire un diagramme en barre",
+    "url": "/exercices/5e/5S11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5S11"
+  },
   "5S12": {
     "titre": "Représenter des données par un diagramme",
     "url": "/exercices/5e/5S12.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "5S12"
+  },
+  "5S13-1": {
+    "titre": "Calculer des effectifs et des fréquences",
+    "url": "/exercices/5e/5S13-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5S13-1"
   },
   "5S13": {
     "titre": "Calculer des fréquences",
@@ -2043,7 +2236,10 @@ export default {
   "6C10-1": {
     "titre": "Tables de multiplication",
     "url": "/exercices/6e/6C10-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "numerique",
     "name": "6C10-1"
@@ -2099,21 +2295,11 @@ export default {
     "url": "/exercices/6e/6C10.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "6C10"
-  },
-  "6C10bis": {
-    "titre": "Additions, soustractions, multiplications et divisions posées de nombres entiers",
-    "url": "/exercices/6e/6C10bis.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCOpen"
-    },
-    "interactifReady": false,
-    "name": "6C10bis"
   },
   "6C11-1": {
     "titre": "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité",
@@ -2327,8 +2513,12 @@ export default {
   "6D101": {
     "titre": "Utiliser les heures décimales",
     "url": "/exercices/6e/6D101.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6D101"
   },
   "6D11": {
@@ -2479,8 +2669,12 @@ export default {
   "6G24": {
     "titre": "Trouver l’image d’un point par une symétrie axiale",
     "url": "/exercices/6e/6G24.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6G24"
   },
   "6G25-1": {
@@ -2497,8 +2691,12 @@ export default {
   "6G25-2": {
     "titre": "Trouver l’image d’une figure par une symétrie axiale dans un pavage carré",
     "url": "/exercices/6e/6G25-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6G25-2"
   },
   "6G25-3": {
@@ -2585,8 +2783,12 @@ export default {
   "6M10": {
     "titre": "Calculer des périmètres et des aires de figures usuelles",
     "url": "/exercices/6e/6M10.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6M10"
   },
   "6M11-1": {
@@ -2621,8 +2823,12 @@ export default {
   "6M12": {
     "titre": "Conversions de longueurs",
     "url": "/exercices/6e/6M12.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6M12"
   },
   "6M20": {
@@ -2653,8 +2859,12 @@ export default {
   "6M22": {
     "titre": "Périmètres et aires de disques (à partir d’un texte).",
     "url": "/exercices/6e/6M22.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6M22"
   },
   "6M23": {
@@ -2677,6 +2887,17 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "6M25"
+  },
+  "6M30-0": {
+    "titre": "Volumes de pavés droit par dénombrement",
+    "url": "/exercices/6e/6M30-0.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6M30-0"
   },
   "6M30": {
     "titre": "Calculs de volumes",
@@ -2805,8 +3026,12 @@ export default {
   "6N13": {
     "titre": "Conversions de longueurs, masses, contenance, prix ou unités informatiques",
     "url": "/exercices/6e/6N13.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N13"
   },
   "6N14": {
@@ -2860,6 +3085,17 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "6N22-2"
+  },
+  "6N22": {
+    "titre": "Recomposer un nombre décimal représenté par des fractions du cube unité",
+    "url": "/exercices/6e/6N22.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6N22"
   },
   "6N23-0": {
     "titre": "Écrire un nombre décimal en chiffres ou en lettres",
@@ -2924,8 +3160,12 @@ export default {
   "6N24": {
     "titre": "Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)",
     "url": "/exercices/6e/6N24.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N24"
   },
   "6N30-1": {
@@ -2942,8 +3182,12 @@ export default {
   "6N30-2": {
     "titre": "Placer un point d’abscisse décimale",
     "url": "/exercices/6e/6N30-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "6N30-2"
   },
   "6N30": {
@@ -3049,8 +3293,12 @@ export default {
   "6N34": {
     "titre": "Conversions avec tous les préfixes de milli à tera.",
     "url": "/exercices/6e/6N34.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N34"
   },
   "6N41-1": {
@@ -3113,15 +3361,23 @@ export default {
   "6P10": {
     "titre": "Reconnaître une situation de proportionnalité",
     "url": "/exercices/6e/6P10.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "6P10"
   },
   "6P11-1": {
     "titre": "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.",
     "url": "/exercices/6e/6P11-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6P11-1"
   },
   "6P11-2": {
@@ -3135,9 +3391,24 @@ export default {
   "6P11": {
     "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
     "url": "/exercices/6e/6P11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6P11"
+  },
+  "6P12": {
+    "titre": "Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple",
+    "url": "/exercices/6e/6P12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6P12"
   },
   "6P13-1": {
     "titre": "Facture",
@@ -3171,12 +3442,13 @@ export default {
     "interactifReady": false,
     "name": "6S11"
   },
-  "beta2F22": {
-    "titre": "Représentation graphique d’une fonction affine",
-    "url": "/exercices/beta/beta2F22.js",
+  "beta240-1": {
+    "titre": "Utiliser la distributivité (simple ou double) et réduire",
+    "url": "/exercices/beta/beta240-1.js",
     "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F22"
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta240-1"
   },
   "beta2F30": {
     "titre": "Reconnaître une fonction affine.",
@@ -3185,26 +3457,18 @@ export default {
     "interactifReady": false,
     "name": "beta2F30"
   },
-  "beta2G13": {
-    "titre": "Déterminer les coordonnées d’un vecteur.",
-    "url": "/exercices/beta/beta2G13.js",
+  "beta2F31": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/beta2F31.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta2G13"
-  },
-  "beta2G14": {
-    "titre": "Déterminer les coordonnées d’un vecteur.",
-    "url": "/exercices/beta/beta2G14.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2G14"
+    "name": "beta2F31"
   },
   "beta2G53": {
     "titre": "Alignement de 3 points.",
     "url": "/exercices/beta/beta2G53.js",
     "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifReady": false,
     "name": "beta2G53"
   },
   "beta2L11-1": {
@@ -3329,6 +3593,24 @@ export default {
     "interactifReady": false,
     "name": "beta6test2021"
   },
+  "betaAsymptotesObliques": {
+    "titre": "Asymptote oblique",
+    "url": "/exercices/beta/betaAsymptotesObliques.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaAsymptotesObliques"
+  },
+  "betaCaN2": {
+    "titre": "Course aux nombres seconde",
+    "url": "/exercices/beta/betaCaN2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCaN2"
+  },
   "betaCaN5": {
     "titre": "Course aux nombres 5e",
     "url": "/exercices/beta/betaCaN5.js",
@@ -3358,6 +3640,34 @@ export default {
     "interactifReady": false,
     "name": "betaComplexes"
   },
+  "betaDivisionsDePolynomes": {
+    "titre": "Division de polynômes",
+    "url": "/exercices/beta/betaDivisionsDePolynomes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaDivisionsDePolynomes"
+  },
+  "betaEq1erDegreDansC": {
+    "titre": "Equation du premier degré dans C",
+    "url": "/exercices/beta/betaEq1erDegreDansC.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaEq1erDegreDansC"
+  },
+  "betaEq2eDegAvecParam": {
+    "titre": "Equation du second degré avec paramètre",
+    "url": "/exercices/beta/betaEq2eDegAvecParam.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaEq2eDegAvecParam"
+  },
+  "betaEqCarreDansC": {
+    "titre": "Racine carrée nombre complexe",
+    "url": "/exercices/beta/betaEqCarreDansC.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaEqCarreDansC"
+  },
   "betaEquationsLog": {
     "titre": "Equations avec logarithmes",
     "url": "/exercices/beta/betaEquationsLog.js",
@@ -3365,111 +3675,19 @@ export default {
     "interactifReady": false,
     "name": "betaEquationsLog"
   },
-  "betaExemple": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExemple.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple"
-  },
-  "betaExemple1erDegreDansC": {
-    "titre": "Equation du premier degré dans C",
-    "url": "/exercices/beta/betaExemple1erDegreDansC.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple1erDegreDansC"
-  },
-  "betaExemple1Type": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExemple1Type.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple1Type"
-  },
-  "betaExemple1TypeCalculLettre": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExemple1TypeCalculLettre.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple1TypeCalculLettre"
-  },
-  "betaExemple3Types": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExemple3Types.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple3Types"
-  },
-  "betaExempleCarreDansC": {
-    "titre": "Racine carrée nombre complexe",
-    "url": "/exercices/beta/betaExempleCarreDansC.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleCarreDansC"
-  },
-  "betaExempleFigureClic": {
-    "titre": "Choisir la bonne figure",
-    "url": "/exercices/beta/betaExempleFigureClic.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "cliqueFigure",
-    "name": "betaExempleFigureClic"
-  },
-  "betaExempleQuestionsDifferentes": {
-    "titre": "Exercice exemple avec un nombre fixe de questions différentes",
-    "url": "/exercices/beta/betaExempleQuestionsDifferentes.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleQuestionsDifferentes"
-  },
-  "betaExempleTableau": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExempleTableau.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleTableau"
-  },
-  "betaExempleXcas": {
-    "titre": "Test de XCas",
-    "url": "/exercices/beta/betaExempleXcas.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleXcas"
-  },
-  "betaExempleXcas2eDegParam": {
-    "titre": "Equation du second degré avec paramètre",
-    "url": "/exercices/beta/betaExempleXcas2eDegParam.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleXcas2eDegParam"
-  },
-  "betaExempleXcasAsymptotes": {
-    "titre": "Asymptote oblique",
-    "url": "/exercices/beta/betaExempleXcasAsymptotes.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleXcasAsymptotes"
-  },
-  "betaExempleXcasPolynomes": {
-    "titre": "Division de polynômes",
-    "url": "/exercices/beta/betaExempleXcasPolynomes.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleXcasPolynomes"
-  },
-  "betaExempleXcasValAbs": {
+  "betaEqValAbs": {
     "titre": "Equation avec une valeur absolue",
-    "url": "/exercices/beta/betaExempleXcasValAbs.js",
+    "url": "/exercices/beta/betaEqValAbs.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaExempleXcasValAbs"
+    "name": "betaEqValAbs"
   },
-  "betaExercice_constructions_basiques": {
-    "titre": "Programmes de constructions (en chantier)",
-    "url": "/exercices/beta/betaExercice_constructions_basiques.js",
+  "betaExo3d": {
+    "titre": "Exo zéroMathalea2d3d",
+    "url": "/exercices/beta/betaExo3d.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaExercice_constructions_basiques"
+    "name": "betaExo3d"
   },
   "betaExoSimpleMatthieu": {
     "titre": "Ceci est le titre de l’exercice BetaExosimpleMatthieu",
@@ -3478,17 +3696,6 @@ export default {
     "interactifReady": false,
     "name": "betaExoSimpleMatthieu"
   },
-  "betaGilles_CAN_seconde": {
-    "titre": "Course aux nombres seconde",
-    "url": "/exercices/beta/betaGilles_CAN_seconde.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaGilles_CAN_seconde"
-  },
   "betaLicence": {
     "titre": "QCM de positionnement",
     "url": "/exercices/beta/betaLicence.js",
@@ -3496,6 +3703,77 @@ export default {
     "interactifReady": true,
     "interactifType": "qcm",
     "name": "betaLicence"
+  },
+  "betaModèle10_simple_question-reponse": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle10_simple_question-reponse.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle10_simple_question-reponse"
+  },
+  "betaModèle11_paramétrable": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle11_paramétrable.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle11_paramétrable"
+  },
+  "betaModèle20_plusieurs_types_de_questions": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle20_plusieurs_types_de_questions.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle20_plusieurs_types_de_questions"
+  },
+  "betaModèle21_paramétrables": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle21_paramétrables.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle21_paramétrables"
+  },
+  "betaModèle30_constructions_géométriques": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle30_constructions_géométriques.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle30_constructions_géométriques"
+  },
+  "betaModèle31_paramétrables": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle31_paramétrables.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle31_paramétrables"
+  },
+  "betaModèle32_cliqueFigure": {
+    "titre": "Choisir la bonne figure",
+    "url": "/exercices/beta/betaModèle32_cliqueFigure.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "cliqueFigure",
+    "name": "betaModèle32_cliqueFigure"
+  },
+  "betaModèle40_tableau_proportionnalite": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle40_tableau_proportionnalite.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle40_tableau_proportionnalite"
+  },
+  "betaModèle41_tableau_signes_variations": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModèle41_tableau_signes_variations.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModèle41_tableau_signes_variations"
+  },
+  "betaProbaAouB": {
+    "titre": "2S30-6",
+    "url": "/exercices/beta/betaProbaAouB.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaProbaAouB"
   },
   "betaProbabilites": {
     "titre": "Probabilités simples",
@@ -3518,19 +3796,33 @@ export default {
     "interactifReady": false,
     "name": "betarotation3d"
   },
+  "betaSys2x2CombLin": {
+    "titre": "2G35-3",
+    "url": "/exercices/beta/betaSys2x2CombLin.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaSys2x2CombLin"
+  },
+  "betaTracerParabole": {
+    "titre": "Etude d’une parabole",
+    "url": "/exercices/beta/betaTracerParabole.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaTracerParabole"
+  },
+  "betatrinome": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/betatrinome.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betatrinome"
+  },
   "moule_a_exo_mathalea": {
     "titre": "Exo zéro Mathalea",
     "url": "/exercices/beta/moule_a_exo_mathalea.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "moule_a_exo_mathalea"
-  },
-  "moule_a_exo_mathalea2d&3d": {
-    "titre": "Exo zéroMathalea2d3d",
-    "url": "/exercices/beta/moule_a_exo_mathalea2d&3d.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "moule_a_exo_mathalea2d&3d"
   },
   "moule_a_exo_mathalea2d": {
     "titre": "Exo zéro Mathalea2d",
@@ -3541,9 +3833,13 @@ export default {
   },
   "c3C10-1": {
     "titre": "Tables de multiplications",
-    "url": "/exercices/CM/c3C10-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "url": "/exercices/c3/c3C10-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
     "name": "c3C10-1"
   },
   "c3C10-2": {
