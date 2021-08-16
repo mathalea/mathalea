@@ -183,7 +183,7 @@ this.nouvelleVersion = function(){
     }
     texte = `$${texNombre(a)}\\times${texNombre(b)}$` // Les nombres étant définis, il ne reste plus qu'à écrire l'énoncé
     texteCorr = `$${texNombre(a)}\\times${texNombre(b)}=${texNombre(a*b)}$` // et la correction
-      if (this.questionJamaisPosee(i, a, b)) {
+    if (this.questionJamaisPosee(i, a, b)) {
       this.listeQuestions.push(texte);
       this.listeCorrections.push(texteCorr);
       i++;
