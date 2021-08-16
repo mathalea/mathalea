@@ -101,19 +101,19 @@ export default {
     "interactifReady": false,
     "name": "2G12"
   },
-  "2G13": {
-    "titre": "Déterminer les coordonnées d’un vecteur.",
-    "url": "/exercices/2e/2G13.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2G13"
-  },
   "2G22-1": {
     "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
     "url": "/exercices/2e/2G22-1.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "2G22-1"
+  },
+  "2G23-1": {
+    "titre": "Déterminer les coordonnées d’un vecteur.",
+    "url": "/exercices/2e/2G23-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G23-1"
   },
   "2G23-2": {
     "titre": "Coordonnées de vecteurs et translations.",
@@ -588,7 +588,7 @@ export default {
     "url": "/exercices/3e/3G21.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpen"
+      "text": "AMCHybride"
     },
     "interactifReady": false,
     "name": "3G21"
@@ -985,6 +985,20 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "4C11"
+  },
+  "4C20-1": {
+    "titre": "Comparer quatre fractions (dénominateurs multiples) et un nombre entier",
+    "url": "/exercices/4e/4C20-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4C20-1"
+  },
+  "4C20": {
+    "titre": "Comparer deux fractions (dénominateurs multiples)",
+    "url": "/exercices/4e/4C20.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4C20"
   },
   "4C21-1": {
     "titre": "Additionner deux fractions",
@@ -1418,6 +1432,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "4L15-1"
+  },
+  "4L16": {
+    "titre": "Déterminer la structure de l'expression littérale",
+    "url": "/exercices/4e/4L16.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4L16"
   },
   "4L20": {
     "titre": "Équation du premier degré",
@@ -1966,7 +1987,7 @@ export default {
     "name": "5N14-3"
   },
   "5N14": {
-    "titre": "Comparer des fractions (dénominateurs multiples)",
+    "titre": "Comparer deux fractions (dénominateurs multiples)",
     "url": "/exercices/5e/5N14.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2047,15 +2068,23 @@ export default {
   "5R11-2": {
     "titre": "Placer un point d’abscisse un nombre relatif",
     "url": "/exercices/5e/5R11-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "5R11-2"
   },
   "5R11": {
     "titre": "Lire l’abscisse relative d’un point",
     "url": "/exercices/5e/5R11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5R11"
   },
   "5R12-2": {
@@ -2273,7 +2302,7 @@ export default {
     "url": "/exercices/6e/6C10.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -2491,8 +2520,12 @@ export default {
   "6D101": {
     "titre": "Utiliser les heures décimales",
     "url": "/exercices/6e/6D101.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6D101"
   },
   "6D11": {
@@ -3156,8 +3189,12 @@ export default {
   "6N30-2": {
     "titre": "Placer un point d’abscisse décimale",
     "url": "/exercices/6e/6N30-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "6N30-2"
   },
   "6N30": {
@@ -3331,15 +3368,23 @@ export default {
   "6P10": {
     "titre": "Reconnaître une situation de proportionnalité",
     "url": "/exercices/6e/6P10.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "6P10"
   },
   "6P11-1": {
     "titre": "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.",
     "url": "/exercices/6e/6P11-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6P11-1"
   },
   "6P11-2": {
@@ -3353,8 +3398,12 @@ export default {
   "6P11": {
     "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
     "url": "/exercices/6e/6P11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6P11"
   },
   "6P12": {
@@ -3964,69 +4013,69 @@ export default {
     "interactifType": "qcm",
     "name": "betaLicence"
   },
-  "betaModèle10_simple_question-reponse": {
+  "betaModèle10_simple_question-reponse": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle10_simple_question-reponse.js",
+    "url": "/exercices/beta/betaModèle10_simple_question-reponse.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle10_simple_question-reponse"
+    "name": "betaModèle10_simple_question-reponse"
   },
-  "betaModèle11_paramétrable": {
+  "betaModèle11_paramétrable": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle11_paramétrable.js",
+    "url": "/exercices/beta/betaModèle11_paramétrable.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle11_paramétrable"
+    "name": "betaModèle11_paramétrable"
   },
-  "betaModèle20_plusieurs_types_de_questions": {
+  "betaModèle20_plusieurs_types_de_questions": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle20_plusieurs_types_de_questions.js",
+    "url": "/exercices/beta/betaModèle20_plusieurs_types_de_questions.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle20_plusieurs_types_de_questions"
+    "name": "betaModèle20_plusieurs_types_de_questions"
   },
-  "betaModèle21_paramétrables": {
+  "betaModèle21_paramétrables": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle21_paramétrables.js",
+    "url": "/exercices/beta/betaModèle21_paramétrables.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle21_paramétrables"
+    "name": "betaModèle21_paramétrables"
   },
-  "betaModèle30_constructions_géométriques": {
+  "betaModèle30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModèle30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle30_constructions_géométriques"
+    "name": "betaModèle30_constructions_géométriques"
   },
-  "betaModèle31_paramétrables": {
+  "betaModèle31_paramétrables": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle31_paramétrables.js",
+    "url": "/exercices/beta/betaModèle31_paramétrables.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle31_paramétrables"
+    "name": "betaModèle31_paramétrables"
   },
-  "betaModèle32_cliqueFigure": {
+  "betaModèle32_cliqueFigure": {
     "titre": "Choisir la bonne figure",
-    "url": "/exercices/beta/betaModèle32_cliqueFigure.js",
+    "url": "/exercices/beta/betaModèle32_cliqueFigure.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "cliqueFigure",
-    "name": "betaModèle32_cliqueFigure"
+    "name": "betaModèle32_cliqueFigure"
   },
-  "betaModèle40_tableau_proportionnalite": {
+  "betaModèle40_tableau_proportionnalite": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle40_tableau_proportionnalite.js",
+    "url": "/exercices/beta/betaModèle40_tableau_proportionnalite.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle40_tableau_proportionnalite"
+    "name": "betaModèle40_tableau_proportionnalite"
   },
-  "betaModèle41_tableau_signes_variations": {
+  "betaModèle41_tableau_signes_variations": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle41_tableau_signes_variations.js",
+    "url": "/exercices/beta/betaModèle41_tableau_signes_variations.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle41_tableau_signes_variations"
+    "name": "betaModèle41_tableau_signes_variations"
   },
   "betaProbaAouB": {
     "titre": "2S30-6",

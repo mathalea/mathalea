@@ -1,11 +1,11 @@
 import Operation from '../../modules/operations'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, calcul, nombreDeChiffresDe } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif'
 
 export const amcReady = true
-export const amcType = 'AMCNum' // type de question AMC
+export const amcType = 'AMCHybride' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -128,14 +128,46 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, a, b, c, d, e, f, g)) {
+        // Si la question n'a jamais été posée, on l'enregistre
         this.listeQuestions.push(texte)
         if (!context.isHtml && i === 0) {
           texteCorr = '\\setlength\\itemsep{2em}' + texteCorr
         } // espacement entre les questions
         this.listeCorrections.push(texteCorr)
-        setReponse(this, i, reponse, { digits: 0 }) // fonction qui va renseigner this.autocorrection[i]
+        if (!context.isAmc) {
+          setReponse(this, i, reponse, { digits: 0 }) // fonction qui va renseigner this.autocorrection[i]
+        } else {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [
+              {
+                type: 'AMCOpen',
+                propositions: [{
+                  texte: texteCorr,
+                  statut: 3
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: reponse,
+                  statut: '',
+                  reponse: {
+                    texte: 'Résultat',
+                    valeur: reponse,
+                    param: {
+                      digits: nombreDeChiffresDe(reponse),
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
+        }
         i++
       }
       cpt++

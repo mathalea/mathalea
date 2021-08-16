@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, prenom, texteEnCouleur, texPrix, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, prenom, texteEnCouleur, texPrix, numAlpha, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, arrondi, checkSum } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue
@@ -29,6 +34,7 @@ export default function ProportionnaliteParLineariteBis () {
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
+    const tabHash = []
     if (this.beta) {
       typesDeQuestionsDisponibles = [1]
     } else {
@@ -95,9 +101,9 @@ export default function ProportionnaliteParLineariteBis () {
           À ${situation.lieu}, ${situation.prenom1} achète $${situation.n1}$ ${pluriel(situation.n1, situation)} et paie $${texPrix(situation.pu * situation.n1)}$ €.
           <br>${situation.prenom2} achète $${situation.n2}$ ${pluriel(situation.n2, situation)} et paie $${texPrix(situation.pu * situation.n2)}$ €.
           <br>
-          <br>${numAlpha(k++)} Combien paiera ${situation.prenom3} pour $${situation.n3}$ ${pluriel(situation.n3, situation)} ?
-          <br>${numAlpha(k++)} Combien paiera ${situation.prenom4} pour $${situation.n4}$ ${pluriel(situation.n4, situation)} ?
-          <br>${numAlpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${situation.prenom_max} peut acheter avec $${texPrix(situation.pu * situation.nMax)}$ € ?
+          <br>${numAlpha(k++)} Combien paiera ${situation.prenom3} pour $${situation.n3}$ ${pluriel(situation.n3, situation)} ? ${ajouteChampTexteMathLive(this, 3 * i, 'largeur25 inline')}
+          <br>${numAlpha(k++)} Combien paiera ${situation.prenom4} pour $${situation.n4}$ ${pluriel(situation.n4, situation)} ? ${ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur25 inline')}
+          <br>${numAlpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${situation.prenom_max} peut acheter avec $${texPrix(situation.pu * situation.nMax)}$ € ? ${ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur25 inline')}
           `,
         question: '',
         correction: `
@@ -134,7 +140,70 @@ export default function ProportionnaliteParLineariteBis () {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
+      if (tabHash.indexOf(checkSum(situation.prenom4, situation.n3, situation.n2, situation.nMax)) === -1) { // Si la question n'a jamais été posée, on en crée une autre
+        tabHash.push(checkSum(situation.prenom4, situation.n3, situation.n2, situation.nMax))
+        if (!context.isAmc) {
+          setReponse(this, 3 * i, arrondi(situation.pu * situation.n3, 2))
+          setReponse(this, 3 * i + 1, arrondi(situation.pu * situation.n4, 2))
+          setReponse(this, 3 * i + 2, situation.nMax)
+        } else {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: texteCorr,
+                  statut: '',
+                  reponse: {
+                    texte: 'a) ',
+                    valeur: arrondi(situation.pu * situation.n3, 2),
+                    param: {
+                      digits: nombreDeChiffresDe(arrondi(situation.pu * situation.n3, 2)),
+                      decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(situation.pu * situation.n3, 2)),
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'b) ',
+                    valeur: arrondi(situation.pu * situation.n4, 2),
+                    param: {
+                      digits: nombreDeChiffresDe(arrondi(situation.pu * situation.n4, 2)),
+                      decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(situation.pu * situation.n4, 2)),
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'c) ',
+                    valeur: situation.nMax,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
