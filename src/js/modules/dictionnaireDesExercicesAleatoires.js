@@ -168,6 +168,13 @@ export default {
     "interactifReady": false,
     "name": "2G31-5"
   },
+  "2G34-1": {
+    "titre": "Alignement de 3 points.",
+    "url": "/exercices/2e/2G34-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G34-1"
+  },
   "2G34-2": {
     "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
     "url": "/exercices/2e/2G34-2.js",
@@ -3767,26 +3774,12 @@ export default {
     "interactifType": "mathLive",
     "name": "beta240-1"
   },
-  "beta2F30": {
-    "titre": "Reconnaître une fonction affine.",
-    "url": "/exercices/beta/beta2F30.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F30"
-  },
   "beta2F31": {
     "titre": "Exercice exemple",
     "url": "/exercices/beta/beta2F31.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2F31"
-  },
-  "beta2G53": {
-    "titre": "Alignement de 3 points.",
-    "url": "/exercices/beta/beta2G53.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2G53"
   },
   "beta2L11-1": {
     "titre": "Factoriser avec les identités remarquables (niveau II)",
