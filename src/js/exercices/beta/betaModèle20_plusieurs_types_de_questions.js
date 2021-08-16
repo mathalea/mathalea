@@ -39,7 +39,8 @@ export default function NomExercice () {
           texteCorr = `Correction ${i + 1} de type 3`
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
+      // Si la question n'a jamais été posée, on l'enregistre
+      if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
