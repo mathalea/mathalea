@@ -128,8 +128,8 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, a, b, c, d, e, f, g)) {
+        // Si la question n'a jamais été posée, on l'enregistre
         this.listeQuestions.push(texte)
         if (!context.isHtml && i === 0) {
           texteCorr = '\\setlength\\itemsep{2em}' + texteCorr

@@ -26,7 +26,7 @@ export default function NomExercice () {
       texte = `$${a} + 1 $` // Le LateX entre deux symboles $, les variables dans des ${ }
       texteCorr = `$${a} + 1 = ${a + 1}$`
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, a)) { // Si la question n'a jamais été posée, on l'enregistre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
