@@ -5,10 +5,10 @@ import { tracePoint, labelPoint, afficheMesureAngle, codageAngleDroit, mathalea2
 import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d } from '../../modules/3d.js'
 
 export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
-
-export const amcType = 'AMCOpen' // type de question AMC
-
+export const amcType = 'AMCOpenNum' // type de question AMC
 export const titre = 'Calcul d’un parallèle terrestre'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * propose de calculer la longueur d'un parallèle terrestre à partir de la latitde
@@ -17,7 +17,6 @@ export const titre = 'Calcul d’un parallèle terrestre'
 */
 export default function CalculsTrigonometriques1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
@@ -26,8 +25,6 @@ export default function CalculsTrigonometriques1 () {
   this.video = '' // Id YouTube ou url
   this.spacingCorr = 2
   this.spacing = 2
-  this.amcReady = amcReady
-  this.amcType = amcType
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
@@ -72,11 +69,11 @@ export default function CalculsTrigonometriques1 () {
       texteCorr += `$HP=6400\\times \\cos(${alpha})\\approx ${texNombrec(6400 * Math.cos(alpha * Math.PI / 180))}$ km.<br>`
       texteCorr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${texNombrec(6400 * Math.cos(alpha * Math.PI / 180))}\\approx ${texNombrec(2 * Math.PI * 6400 * Math.cos(alpha * Math.PI / 180))}$ km.<br>`
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, alpha)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        // Pour AMC question AmcOpen
+        // Pour AMC question AmcOpen+Num
         this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 3, feedback: '' }], reponse: { texte: 'Longueur arrondie au km près', valeur: Math.round(2 * Math.PI * 6400 * Math.cos(alpha * Math.PI / 180)), options: { digits: 0, decimals: 0 } } }
         i++
       }
