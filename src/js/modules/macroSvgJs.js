@@ -1,417 +1,8 @@
 /* global $ */
 /* eslint-disable camelcase */
-import { calcul, texNombrec, texFractionSigne, stringNombre } from './outils.js'
 import katex from 'katex'
 import { SVG } from '@svgdotjs/svg.js'
 import { context } from './context.js'
-
-/**
- * Trace un axe vertical gradué
- * @param {string} mon_svg l'id du svg
- * @param {number} start ordonnée du début de l'axe en pixels (end-start=longueur del'axe)
- * @param {number} end ordonnée de fin del'axe en pixels
- * @param {number} absO position en abscisse de l'axe en pixels
- * @param {number} DeltaY Nombre entier de graduations à faire sur la longueur de l'axe.
- * @author Jean-Claude Lhote
- */
-export function SVG_Axe_vertical (mon_svg, start, end, absO, DeltaY, subY) {
-  const droite = mon_svg.line(absO, start + 2, absO, end)
-  droite.stroke({ color: 'black', width: 2, linecap: 'round' })
-  for (let i = 0; i < DeltaY; i++) {
-    const line = mon_svg.line(absO - 2, (DeltaY - i) * ((end - start) / DeltaY), absO + 2, (DeltaY - i) * ((end - start) / DeltaY))
-    line.stroke({ color: 'black', width: 2, linecap: 'round' })
-    if (subY != 1) {
-      for (let k = 1; k < subY; k++) {
-        const line = mon_svg.line(absO - 2, ((end - start) / DeltaY) * (DeltaY - i - k / subY), absO + 2, ((end - start) / DeltaY) * (DeltaY - i - k / subY))
-        line.stroke({ color: 'black', width: 1, linecap: 'round' })
-      }
-    }
-  }
-}
-/**
-   * Trace un axe horizontal gradué
-   * @param {string} mon_svg l'id du svg
-   * @param {number} start abscisse du début de l'axe en pixels (end-start=longueur del'axe)
-   * @param {number} end abscisse de fin del'axe en pixels
-   * @param {number} absO position en ordonnée de l'axe en pixels
-   * @param {number} DeltaX Nombre entier de graduations à faire sur la longueur de l'axe.
-   * @author Jean-Claude Lhote
-   */
-export function SVG_Axe_horizontal (mon_svg, start, end, ordO, DeltaX, subX) {
-  const droite = mon_svg.line(start, ordO, end - 2, ordO)
-  droite.stroke({ color: 'black', width: 2, linecap: 'round' })
-  for (let i = 1; i <= DeltaX; i++) {
-    const line = mon_svg.line(start + (DeltaX - i) * ((end - start) / DeltaX), ordO - 2, start + (DeltaX - i) * ((end - start) / DeltaX), ordO + 2)
-    line.stroke({ color: 'black', width: 2, linecap: 'round' })
-    if (subX != 1) {
-      for (let k = 1; k < subX; k++) {
-        const line = mon_svg.line(start + (DeltaX - i + k / subX) * ((end - start) / DeltaX), ordO - 2, start + (DeltaX - i + k / subX) * ((end - start) / DeltaX), ordO + 2)
-        line.stroke({ color: 'black', width: 1, linecap: 'round' })
-      }
-    }
-  }
-}
-
-/**
-   * Place une grille de points dans un repère au sein d'un SVG
-   * @param {string} mon_svg  l'id du svg
-   * @param {number} absO abscisse du point de départ de la grille (normalement 0)
-   * @param {number} ordO ordonnée du point de départ de la grille (normalement 0)
-   * @param {number} tailleX largeur totale de la grille en pixels
-   * @param {number} tailleY hauteur totale de la grille en pixels
-   * @param {number} DeltaX nombre de graduations horizontales
-   * @param {number} DeltaY nombre de graduations verticales
-   * @param {number} subX coefficient de fractionnement de la grille en abscisse
-   * @param {number} subY coefficient de fractionnement de la grille en ordonéée
-   * @author Jean-Claude Lhote
-   */
-export function SVG_grille (mon_svg, absO, ordO, tailleX, tailleY, DeltaX, DeltaY, subX, subY) {
-  let line_grille
-  for (let i = 0; i <= DeltaX; i++) {
-    line_grille = mon_svg.line(absO + i * (tailleX / DeltaX), 0, absO + i * (tailleX / DeltaX), tailleY)
-    line_grille.stroke({ color: 'lightgray', width: 1 })
-  }
-  for (let i = 0; i < DeltaX; i++) {
-    if (subX != 1) {
-      for (let k = 0; k < subX; k++) {
-        line_grille = mon_svg.line(absO + i * (tailleX / DeltaX) + k * (tailleX / DeltaX / subX), 0, absO + i * (tailleX / DeltaX) + k * (tailleX / DeltaX / subX), tailleY)
-        line_grille.stroke({ color: 'lightgray', width: 0.5, linecap: 'round' })
-      }
-    }
-  }
-  for (let j = 0; j <= DeltaY; j++) {
-    line_grille = mon_svg.line(20, ordO + j * (tailleY / DeltaY), 20 + tailleX, ordO + j * (tailleY / DeltaY))
-    line_grille.stroke({ color: 'lightgray', width: 1 })
-  }
-  for (let j = 0; j < DeltaY; j++) {
-    if (subY != 1) {
-      for (let l = 0; l < subY; l++) {
-        line_grille = mon_svg.line(20, ordO + j * (tailleY / DeltaY) + l * (tailleY / DeltaY / subY), 20 + tailleX, ordO + j * (tailleY / DeltaY) + l * (tailleY / DeltaY / subY))
-        line_grille.stroke({ color: 'lightgray', width: 0.5, linecap: 'round' })
-      }
-    }
-  }
-}
-
-/** Trace une graduation sur le SVG
-  * @param mon_svg Objet SVG
-  * @param origine abscisse en pixel de la première graduation
-  * @param pas distance en pixels entre deux graduations
-  * @param derniere_graduation abscisse limite en pixel
-  * @param taille taille verticale
-  * @param y ordonnée de la droite
-  * @param couleur couleur de la graduation
-  * @param width largeur de la graduation
-  * @author Rémi Angot
-  */
-export function SVG_graduation (mon_svg, origine, pas, derniere_graduation, taille = 10, y = 50, couleur = 'black', width = 5) {
-  for (let i = origine; i < derniere_graduation; i += pas) {
-    const line = mon_svg.line(i, y - taille / 2, i, y + taille / 2)
-    line.stroke({ color: couleur, width: width, linecap: 'round' })
-  }
-}
-
-/**
-   * Ecris des nombres ou des textes à une position donnée dans un SVG
-   * @param {array} liste_d_abscisses [[nombre à écrire,abscisse,ordonnée]]
-   * @param {number} y leading pour position du texte sur la ligne
-   * @param {string} couleur couleur du nombre
-   * @param {number} opacite valeur d'opacité entre 0 et 1
-   * @author Rémi Angot
-   */
-export function SVG_label (mon_svg, liste_d_abscisses, y, couleur, opacite) {
-  'use strict'
-  for (let i = 0; i < liste_d_abscisses.length; i++) {
-    let text
-    if (typeof liste_d_abscisses[i][0] === 'number') text = mon_svg.text((liste_d_abscisses[i][0]).toString())
-    else text = mon_svg.text(liste_d_abscisses[i][0])
-    y = parseInt(y)
-    text.move(liste_d_abscisses[i][1], liste_d_abscisses[i][2]).font({
-      fill: couleur,
-      family: 'Helvetica',
-      size: 14,
-      anchor: 'middle',
-      leading: y,
-      opacity: opacite
-    })
-  }
-}
-/**
-   * Ecris une fraction dans un SVG
-   * @param {any} mon_svg l'Id du SVG
-   * @param {number} num le numérateur de la fraction
-   * @param {number} den le dénominateur de la fraction
-   * @param {number} x l'abscisse de sa position
-   * @param {number} y l'ordonnée de sa position
-   * @param {string} couleur la couleur de la fraction
-   * @author Rémi Angot
-   */
-export function SVG_fraction (mon_svg, num, den, x, y, couleur) {
-  'use strict'
-  const longueur = num.toString().length
-  const line = mon_svg.line(x - longueur * 5, y - 7, x + longueur * 5, y - 7)
-  line.stroke({ color: couleur, width: 2, linecap: 'round' })
-  const num_text = mon_svg.text(num.toString()).attr({ x: x, y: y - 10 })
-  num_text.font({
-    fill: couleur,
-    family: 'Helvetica',
-    size: 20,
-    anchor: 'middle',
-    leading: 0
-  })
-  const den_text = mon_svg.text(den.toString()).attr({ x: x, y: y + 10 })
-  den_text.font({
-    fill: couleur,
-    family: 'Helvetica',
-    size: 20,
-    anchor: 'middle',
-    leading: 0
-  })
-}
-
-/**
-   *
-   * @param {any} mon_svg L'id du SVG
-   * @param {number} x l'abscisse du point
-   * @param {number} y l'ordonnée du point
-   * @param {string} nom le nom du point
-   * @param {string} couleur la couleur du point
-   * @param {number} shiftxnom décallage en abscisse pour le nom du point
-   * @param {number} shiftynom décallage en ordonnée pour le nom du point
-   * @param {array} montrer_coord cas 1 : [false] rien n'est ajouté, cas 2 : [true, absAxeX, ordAxeY] trace des flèches jusqu'aux axes
-   * @author Rémi Angot et Jean-Claude Lhote
-   */
-export function SVG_tracer_point (mon_svg, x, y, nom, couleur, shiftxnom, shiftynom, montrer_coord) {
-  // creer un groupe pour la croix
-  const point = mon_svg.group()
-  const c1 = point.line(-3, 3, 3, -3)
-  c1.stroke({ color: couleur, width: 2, linecap: 'round', opacity: 1 })
-  const c2 = point.line(-3, -3, 3, 3)
-  c2.stroke({ color: couleur, width: 2, linecap: 'round', opacity: 1 })
-  // déplace la croix
-  point.move(x - 3, y - 3)
-  // point.dmove(-3,-3)
-  const text = mon_svg.text(nom).attr({ x: x + shiftxnom, y: y + shiftynom, fill: couleur, opacity: 0.7 })
-  // ecrit le nom
-  text.font({
-    color: couleur,
-    'font-weight': 'bolder',
-    family: 'Helvetica',
-    size: 14,
-    anchor: 'middle',
-    leading: -1
-  })
-  if (montrer_coord[0]) { // montrer_coord=[true,abs_axe,ord_axe] ou [false]
-    if ((y != montrer_coord[2]) && (x != montrer_coord[1])) SVG_tracer_droite_flecheV(mon_svg, x, y, x, montrer_coord[2], couleur, 3)
-    if ((x != montrer_coord[1]) && (y != montrer_coord[2])) SVG_tracer_droite_flecheH(mon_svg, x, y, montrer_coord[1], y, couleur, 3)
-  }
-}
-
-/**
-   * Trace une flèche dans le SVG pour une demi-droite graduée
-   * @param {any} mon_svg l'identifiant du SVG
-   * @param {number} x l'abscisse de la pointe
-   * @param {number} y l'ordonnée de la pointe
-   * @author Rémi Angot
-   */
-function SVG_tracer_flecheH (mon_svg, x, y) {
-  // creer un groupe pour la fleche
-  const fleche = mon_svg.group()
-  const c1 = fleche.line(x - 5, y - 5, x, y)
-  c1.stroke({ color: 'black', width: 3, linecap: 'round' })
-  const c2 = fleche.line(x - 5, y + 5, x, y)
-  c2.stroke({ color: 'black', width: 3, linecap: 'round' })
-}
-/**
-   *
-   * @param {string} mon_svg l'identifiant du SVG
-   * @param {number} x l'abscisse de la pointe de la flèche
-   * @param {number} y l'ordonnée de la pointe de la flèche
-   * @author Jean-Claude Lhote
-   */
-export function SVG_tracer_flecheV (mon_svg, x, y) {
-  // creer un groupe pour la fleche
-  const fleche = mon_svg.group()
-  const c1 = fleche.line(-5, 5, 0, 0)
-  c1.stroke({ color: 'black', width: 3, linecap: 'round' })
-  const c2 = fleche.line(5, 5, 0, 0)
-  c2.stroke({ color: 'black', width: 3, linecap: 'round' })
-  // déplace la croix
-  fleche.move(x, y)
-  fleche.dmove(-5, 5)
-}
-
-/**
-   *
-   * @param {string} mon_svg l'identifiant du SVG
-   * @param {number} x1 (x1,y1)=point de départ de la flèche verticale (x1=x2 en général)
-   * @param {number} y1
-   * @param {number} x2 (x2,y2)=point d'arrivée de la flèche
-   * @param {number} y2
-   * @param {string} couleur couleur de la flèche
-   * @param {number} pointilles longueur des pointillés et des espaces entre les pointillés
-   * @author Jean-Claude Lhote
-   */
-export function SVG_tracer_droite_flecheV (mon_svg, x1, y1, x2, y2, couleur, pointilles) {
-  const fleche = mon_svg.group()
-  const c1 = fleche.line(x1, y1, x2, y2)
-  c1.stroke({ color: couleur, width: 1, linecap: 'round', dasharray: pointilles, opacity: 0.5 })
-  if (y2 < y1) {
-    const c2 = fleche.line(x2 - 3, y2 + 5, x2, y2)
-    c2.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-    const c3 = fleche.line(x2 + 3, y2 + 5, x2, y2)
-    c3.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-  } else {
-    const c2 = fleche.line(x2 - 3, y2 - 5, x2, y2)
-    c2.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-    const c3 = fleche.line(x2 + 3, y2 - 5, x2, y2)
-    c3.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-  }
-}
-
-/**
-   *
-   * @param {string} mon_svg l'identifiant du SVG
-   * @param {number} x1 (x1,y1)=point de départ de la flèche horizontale (y1=y2 en général)
-   * @param {number} y1
-   * @param {number} x2 (x2,y2)=point d'arrivée de la flèche
-   * @param {number} y2
-   * @param {string} couleur couleur de la flèche
-   * @param {number} pointilles longueur des pointillés et des espaces entre les pointillés
-   * @author Jean-Claude Lhote
-   */
-export function SVG_tracer_droite_flecheH (mon_svg, x1, y1, x2, y2, couleur, pointilles) {
-  const fleche = mon_svg.group()
-  const c1 = fleche.line(x1, y1, x2, y2)
-  c1.stroke({ color: couleur, width: 1, linecap: 'round', dasharray: pointilles, opacity: 0.5 })
-  if (x2 < x1) {
-    const c2 = fleche.line(x2 + 5, y2 + 3, x2, y2)
-    c2.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-    const c3 = fleche.line(x2 + 5, y2 - 3, x2, y2)
-    c3.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-  } else {
-    const c2 = fleche.line(x2 - 5, y2 + 3, x2, y2)
-    c2.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-    const c3 = fleche.line(x2 - 5, y2 - 3, x2, y2)
-    c3.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-  }
-}
-
-/**
-  * Trace une graduation sur le SVG
-  * @param origine la première abscisse de la droite ou demi-droite
-  * @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
-  * @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
-  * @param pas2 Idem pas1 pour la petite graduation
-  * @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
-  * @param points_connus tableau [valeur,nb_pas1,nb_pas2]
-  * @param fraction booléen : true pour fractions, false pour décimaux
-  * @author Jean-Claude Lhote
-  */
-export function SvgReperageSurUnAxe (id_du_div, origine, longueur, pas1, pas2, points_inconnus, points_connus, fraction) {
-  let arrondir = 1 + Math.round(Math.log10(pas1))
-  if (arrondir < 1) arrondir = 1
-  const longueur_pas1 = 600 / longueur
-  const longueur_pas2 = 600 / longueur / pas2
-  let distance, valeur, nom
-  if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
-  // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-  window.SVGExist[id_du_div] = setInterval(function () {
-    if ($(`#${id_du_div}`).length) {
-      $(`#${id_du_div}`).html('')// Vide le div pour éviter les SVG en doublon
-      const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 800, 150).size('100%', '100%')
-      // Droite
-      const droite = mon_svg.line(100, 50, 750, 50)
-      droite.stroke({ color: 'black', width: 2, linecap: 'round' })
-      // Graduation secondaire
-      SVG_graduation(mon_svg, 100, longueur_pas2, 750, 5, 50, 'black', 2)
-      // Graduation principale
-      SVG_graduation(mon_svg, 100, longueur_pas1, 750, 10, 50, 'black', 5)
-      SVG_tracer_flecheH(mon_svg, 750, 50)
-      // Nombres visibles
-      SVG_label(mon_svg, [[stringNombre(origine), 100, 50]], 2, 'black', 1)
-      for (let i = 0; i < points_connus.length; i++) {
-        valeur = stringNombre(points_connus[i][0])
-        distance = calcul(longueur_pas1 * points_connus[i][1] + longueur_pas2 * points_connus[i][2])
-        SVG_label(mon_svg, [[valeur, 100 + distance, 50]], 2, 'black', 1)
-      }
-      // Points inconnus
-      let position = 1
-      for (let i = 0; i < points_inconnus.length; i++) {
-        distance = longueur_pas1 * points_inconnus[i][1] + longueur_pas2 * points_inconnus[i][2]
-        nom = points_inconnus[i][0]
-        SVG_tracer_point(mon_svg, 100 + distance, 50, nom, '#f15929', 0, 0, [false])
-        if (points_inconnus[i][3] == true) {
-          if (!fraction) { // affichage décimal
-            valeur = stringNombre(calcul(origine + points_inconnus[i][1] / pas1 + points_inconnus[i][2] / pas1 / pas2))
-            SVG_label(mon_svg, [[valeur, 100 + distance, 50]], 3 + position, '#f15929', 1)
-            SVG_tracer_droite_flecheV(mon_svg, 100 + distance, 75 + 15 * position, 100 + distance, 55, '#f15929', 3)
-          } else { // affichage fractionnaire
-            SVG_fraction(mon_svg, (origine + points_inconnus[i][1]) * pas2 + points_inconnus[i][2], pas2, 100 + distance, 115 + 15 * position, '#f15929')
-            SVG_tracer_droite_flecheV(mon_svg, 100 + distance, 80 + 15 * position, 100 + distance, 55, '#f15929', 3)
-          }
-          position = 1 - position
-        }
-      }
-      clearInterval(window.SVGExist[id_du_div])// Arrête le timer
-    }
-  }, 100) // Vérifie toutes les 100ms
-}
-
-/**
-  * Trace un axe gradué horizontal avec des points placés dessus en Latex
-  * @param origine la première abscisse de la droite ou demi-droite
-  * @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
-  * @param pas2 Idem pas1 pour la petite graduation
-  * @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
-  * @param points_connus tableau [valeur,nb_pas1,nb_pas2]
-  * @param fraction booléen : true pour fraction, false pour décimaux
-  * @author Jean-Claude Lhote
-  */
-export function LatexReperageSurUnAxe (zoom, origine, pas1, pas2, points_inconnus, points_connus, fraction) {
-  'use strict'
-  let result = `\\begin{tikzpicture}[scale=${zoom}]`
-  let valeur
-  let decalage
-
-  result += `\n\t \\tkzInit[xmin=${origine},xmax=${calcul(origine + 7 / pas1)},ymin=-0.5,ymax=0.5,xstep=${calcul(1 / pas1)}]`
-
-  if (origine == 0) result += '\n\t \\tkzDrawX[tickwd=2pt,label={}];'
-  else result += '\n\t \\tkzDrawX[left space=0.2,tickwd=2pt,label={}];'
-  result += '\n\t \\tikzset{arr/.style={postaction=decorate,	decoration={markings,mark=at position 1 with {\\arrow[thick]{#1}}}}}'
-
-  if (origine < 0) decalage = origine * pas1
-  else decalage = 0
-  result += `\n\t \\foreach \\x in {0,${calcul(1 / pas2)},...,7}`
-  result += `\n\t {\\draw (${decalage}+\\x,-0.05)--(${decalage}+\\x,0.05);}` // result+=`\n\t {\\draw (${origine*pas1}+\\x,-0.05)--(${origine*pas1}+\\x,0.05);}`
-
-  for (let i = 0; i < points_connus.length; i++) {
-    valeur = calcul(origine + points_connus[i][1] / pas1 + calcul(points_connus[i][2] / pas1 / pas2))
-    result += `\n\t \\tkzDefPoint(${valeur},0){A}`
-    result += `\n\t \\tkzLabelPoint[color = black,below,inner sep = 5pt,font=\\scriptsize](A){$${texNombrec(valeur)}$}`
-  }
-  // Points inconnus
-  let position = 6
-  for (let i = 0; i < points_inconnus.length; i++) {
-    valeur = calcul(origine + points_inconnus[i][1] / pas1 + calcul(points_inconnus[i][2] / pas1 / pas2))
-    result += `\n\t \\tkzDefPoint(${valeur},0){A}`
-    result += `\n\t \\tkzDefPoint(${valeur},-0.3-${position * 0.02}){B}`
-    result += '\n\t \\tkzDrawPoint[shape=cross out,color=blue,size=8](A)'
-    result += `\n\t \\tkzLabelPoint[above](A){$${points_inconnus[i][0]}$}`
-    if (points_inconnus[i][3]) {
-      if (!fraction) { // affichage décimal
-        result += `\n\t \\tkzLabelPoint[color = blue,below=${15 + position}pt,inner sep = 5pt,font=\\scriptsize](A){$${texNombrec(valeur)}$}`
-        result += '\n\t \\tkzDrawSegment[color=blue,arr=stealth](B,A)'
-      } else { // affichage fractionnaire
-        result += `\n\t \\tkzLabelPoint[color = blue,below=${15 + position}pt,inner sep = 5pt,font=\\scriptsize](A){$${texFractionSigne((origine + points_inconnus[i][1]) * pas2 + points_inconnus[i][2], pas2)}$}`
-        result += '\n\t \\tkzDrawSegment[color=blue,arr=stealth](B,A)'
-      }
-    }
-    position = 6 - position
-  }
-  result += '\n\t \\end{tikzpicture}'
-  return result
-}
 
 /**
  * Renvoie deux engrenages en HTML pour le moment
@@ -561,7 +152,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, xAnt, etapesExpress
                               </div>
                           </foreignObject>
                       </g>
-                  </svg>	
+                  </svg>
                   `
 
       clearInterval(window.SVGExist[id_du_div])// Arrête le timer
@@ -670,7 +261,7 @@ export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, xAnt, etape
                               </div>
                           </foreignObject>
                       </g>
-                  </svg>	
+                  </svg>
                   `
 
       clearInterval(window.SVGExist[id_du_div])// Arrête le timer
@@ -766,29 +357,29 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
       // ------------Dimension Machine-------------------------
       // on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
       // pour ajuster celle de la machine.
-      let W_machine_nom, machine_nom, machine_etape1, w_machine_etape1, machine_etape2, w_machine_etape2, machine_etape3, w_machine_etape3
-      if (nom != '') {
+      let w_machine_nom, machine_nom, machine_etape1, w_machine_etape1, machine_etape2, w_machine_etape2, machine_etape3, w_machine_etape3
+      if (nom !== '') {
         machine_nom = mon_svg.text(nom).font(prop_font_nom)
         w_machine_nom = machine_nom.length()
         machine_nom.clear()
       } else {
         w_machine_nom = 0
       }
-      if (etape1 != '') {
+      if (etape1 !== '') {
         machine_etape1 = mon_svg.text(etape1).font(prop_font_etape)
         w_machine_etape1 = machine_etape1.length()
         machine_etape1.clear()
       } else {
         w_machine_etape1 = 0
       }
-      if (etape2 != '') {
+      if (etape2 !== '') {
         machine_etape2 = mon_svg.text(etape2).font(prop_font_etape)
         w_machine_etape2 = machine_etape2.length()
         machine_etape2.clear()
       } else {
         w_machine_etape2 = 0
       }
-      if (etape3 != '') {
+      if (etape3 !== '') {
         machine_etape3 = mon_svg.text(etape3).font(prop_font_etape)
         w_machine_etape3 = machine_etape3.length()
         machine_etape3.clear()
