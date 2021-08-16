@@ -1,7 +1,13 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, reduireAxPlusB, texFractionSigne, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Reconnaître une fonction affine.'
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMono'
 
 /**
  * Reconnaître une fonction affine
@@ -24,7 +30,7 @@ export default function Reconnaitrefonctionaffine () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
-
+    let bonneReponse
     typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -46,6 +52,7 @@ export default function Reconnaitrefonctionaffine () {
           texteCorr += 'On observe que la fonction $f$ s\'écrit bien sous la forme $f(x)= a x+ b$  avec $a$ et $b$ des nombres réels.<br>'
           texteCorr += `Ici, on a : $a=${a}$ et $b=${b}$.<br>`
           texteCorr += '$f$ est donc bien une fonction affine.<br>'
+          bonneReponse = 'oui'
           break
         case 2:// Cas f(x)=b+a x
           if (a === 1) {
@@ -66,6 +73,8 @@ export default function Reconnaitrefonctionaffine () {
           texteCorr += 'On observe que la fonction $f$ s\'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>'
           texteCorr += `Ici, on a : $a=${a}$ et $b=${b}$.<br>`
           texteCorr += '$f$ est donc bien une fonction affine.'
+          bonneReponse = 'oui'
+
           break
         case 3:// Cas f(x)=ax²+bx+c
           texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${a}x^{2}${ecritureAlgebrique(b)} x${ecritureAlgebrique(c)} $.` // f(x)=ax²+bx+c
@@ -73,6 +82,8 @@ export default function Reconnaitrefonctionaffine () {
           texteCorr += 'On observe que la fonction $f$ est du second degré, puisqu\'il y a un terme en $x^{2}$.<br>'
           texteCorr += 'Elle s\'écrit sous la forme $f(x)= a x^{2}+ bx+c$ et non pas sous la forme $ax+b$.<br>'
           texteCorr += '$f$ n\'est donc pas une fonction affine.<br>'
+          bonneReponse = 'non'
+
           break
         case 4:
           texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=\\sqrt{${c}}x + \\sqrt{${d}}$.` // f(x)=\sqrt a x + \sqrt b
@@ -80,6 +91,8 @@ export default function Reconnaitrefonctionaffine () {
           texteCorr += 'On observe que la fonction $f$ s\'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>'
           texteCorr += `Ici, on a : $a=\\sqrt{${c}}$ et $b=\\sqrt{${d}}$.<br>`
           texteCorr += '$f$ est donc bien une fonction affine.<br>'
+          bonneReponse = 'oui'
+
           break
         case 5:
           texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${a}x^{2}${ecritureAlgebrique(c)} $.` // f(x)=ax²+c
@@ -87,6 +100,8 @@ export default function Reconnaitrefonctionaffine () {
           texteCorr += 'On observe que la fonction $f$ est du second degré, puisqu\'il y a un terme en $x^{2}$.<br>'
           texteCorr += 'Elle s\'écrit sous la forme $f(x)= a x^{2}+b$ avec $a$ et $b$ des nombres réels, et non pas sous la forme $ax+b$.<br>'
           texteCorr += '$f$ n\'est donc pas une fonction affine.<br>'
+          bonneReponse = 'non'
+
           break
         case 6:
           texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=\\dfrac{1}{${a}x${ecritureAlgebrique(b)} }$.` // f(x)=1/(ax+b)
@@ -94,6 +109,8 @@ export default function Reconnaitrefonctionaffine () {
           texteCorr += 'On observe que la fonction $f$ est une fonction rationnelle, puisqu\'il y une fraction avec des termes en $x$ au dénominateur.<br>'
           texteCorr += 'Elle ne s\'écrit  pas sous la forme $ax+b$.<br>'
           texteCorr += '$f$ n\'est donc pas une fonction affine.<br>'
+          bonneReponse = 'non'
+
           break
         case 7:// f(x)=1/a x+1/b
           texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${texFractionSigne(1, a)}x+${texFractionSigne(1, e)} $.`
@@ -101,6 +118,8 @@ export default function Reconnaitrefonctionaffine () {
           texteCorr += 'On observe que la fonction $f$ s\'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>'
           texteCorr += `Ici, on a : $a=${texFractionSigne(1, a)}$ et $b=${texFractionSigne(1, e)}$.<br>`
           texteCorr += '$f$ est donc bien une fonction affine.<br>'
+          bonneReponse = 'oui'
+
           break
         case 8:// f(x)=k(ax+b)
           texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${c}\\times (${reduireAxPlusB(a, b)}) $.`
@@ -110,6 +129,8 @@ export default function Reconnaitrefonctionaffine () {
           texteCorr += 'On observe que la fonction $f$ s\'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>'
           texteCorr += `Ici, on a : $a=${a * c}$ et $b=${b * c}$.<br>`
           texteCorr += '$f$ est donc bien une fonction affine.<br>'
+          bonneReponse = 'oui'
+
           break
         case 9:// f(x)= x/a+1/b
           texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=\\dfrac{x}{${a}}+${texFractionSigne(1, e)} $.`
@@ -118,9 +139,33 @@ export default function Reconnaitrefonctionaffine () {
           texteCorr += 'On observe que la fonction $f$ s\'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>'
           texteCorr += `Ici, on a : $a=${texFractionSigne(1, a)}$ et $b=${texFractionSigne(1, e)}$.<br>`
           texteCorr += '$f$ est donc bien une fonction affine.<br>'
+          bonneReponse = 'oui'
+
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.interactif || context.isAmc) {
+        this.autoCorrection[i] = {}
+        this.autoCorrection[i].options = { ordered: true }
+        this.autoCorrection[i].enonce = `${texte}\n`
+        this.autoCorrection[i].propositions = [
+          {
+            texte: 'oui',
+            statut: bonneReponse !== 'non'
+          },
+          {
+            texte: 'non',
+            statut: bonneReponse !== 'oui'
+          },
+          {
+            texte: 'je ne sais pas',
+            statut: false
+          }
+        ]
+        if (this.interactif) {
+          texte += propositionsQcm(this, i).texte
+        }
+      }
+      if (this.questionJamaisPosee(i, k, a, b, c, d, e)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

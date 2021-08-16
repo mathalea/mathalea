@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, texNombrec, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, calcul, texNombrec, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { afficheCoteSegment, codeSegments, homothetie, mathalea2d, point, polygoneRegulier, segment, texteSurSegment } from '../../modules/2d.js'
 export const titre = 'Course aux nombres CM1'
@@ -35,7 +35,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
     let questions = []
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
-      questions = combinaisonListes(range1(30), this.nbQuestions)
+      questions = combinaisonListesSansChangerOrdre(range1(30), this.nbQuestions)
     } else {
       if (typeof this.sup === 'number') {
         // Si c'est un nombre c'est qu'il y a qu'une seule question
@@ -49,7 +49,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
     for (let i = 0; i < questions.length; i++) {
       questions[i] = parseInt(questions[i]) - 1
     }
-    const listeIndex = combinaisonListes(questions, this.nbQuestions)
+    const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
     const fruits2 = [
       ['pêches', 4.5, 10, 30],
       ['Noix', 5.2, 4, 13],
@@ -60,7 +60,6 @@ export default function CourseAuxNombresCM (numeroExercice) {
       ['citrons', 1.8, 15, 30],
       ['bananes', 1.7, 15, 25]
     ]
-
     const typeQuestionsDisponibles = [ // Les dix premières sont identiques dans le fichier betaCaNCM2
       'q1', // Somme d'entiers
       'q2', // Différence d'entiers

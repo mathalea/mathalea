@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1 } from '../../modules/outils.js'
 import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
 import Grandeur from '../../modules/Grandeur.js'
@@ -37,7 +37,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
     let questions = []
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
-      questions = combinaisonListes(range1(30), this.nbQuestions)
+      questions = combinaisonListesSansChangerOrdre(range1(30), this.nbQuestions)
     } else {
       if (typeof this.sup === 'number') {
         // Si c'est un nombre c'est qu'il y a qu'une seule question
@@ -51,8 +51,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
     for (let i = 0; i < questions.length; i++) {
       questions[i] = parseInt(questions[i]) - 1
     }
-    const listeIndex = combinaisonListes(questions, this.nbQuestions)
-    console.log(listeIndex)
+    const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
     const fruits = [
       ['pêches', 4, 10, 30],
       ['Noix', 5, 4, 13],
@@ -449,7 +448,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
         texte += ajouteChampTexteMathLive(this, q)
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b, c, listeIndex[i])) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
