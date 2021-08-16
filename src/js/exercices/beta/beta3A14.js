@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, texteEnCouleurEtGras, listeDesDiviseurs } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, texteEnCouleurEtGras, listeDesDiviseurs, choice } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Problème Les iris et les roses'
 export const interactifReady = true
@@ -17,6 +17,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestionsModifiable = false
+  this.nbQuestions = 1
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
@@ -26,7 +27,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.interactifType = 'mathLive'
 
   this.nouvelleVersion = function () {
-    const n = parseInt(this.sup) - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -40,6 +40,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     const b = randint(0, 4, [a])
     const var2 = nombrePremier[b]
     let texte, texteCorr
+    let n = parseInt(this.sup) - 1
+    if (n === 3) { n = choice(typeQuestionsDisponibles) - 1}
 
     switch (listeTypeQuestions[n]) { // Suivant le type de question, le contenu sera différent
       case 1:
@@ -190,5 +192,5 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Problèmes', 3, '1 : Le fleuriste\n2 : Le professeur\n3 : Le boulanger']
+  this.besoinFormulaireNumerique = ['Problèmes', 4, '1 : Le fleuriste\n2 : Le professeur\n3 : Le boulanger\n4 : Hasard']
 }
