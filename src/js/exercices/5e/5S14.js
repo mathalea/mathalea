@@ -15,7 +15,7 @@ export default function CalculerDesMoyennes () {
   this.consigne = ''
   this.nbQuestions = 1
   this.spacing = 1
-  this.spacingCorr = 1.5
+  this.spacingCorr = 2.5
   this.nbColsCorr = 1
   this.nbCols = 1
   this.sup = 1

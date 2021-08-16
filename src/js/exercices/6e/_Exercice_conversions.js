@@ -1,6 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texNombrec, texFraction, texTexte, calcul } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
+
 /**
  * Conversions  mètres, litres, grammes, octets (et euros pour la version LaTeX) en utilisant le préfixe pour déterminer la multiplication ou division à faire.
  *
@@ -21,10 +27,12 @@ export default function ExerciceConversions (niveau = 1) {
   this.consigne = 'Compléter'
   this.spacing = 2
   this.correction_avec_des_fractions = false
+  this.interactif = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    const tabRep = []
     const prefixeMulti = [
       ['da', 10],
       ['h', 100],
@@ -99,13 +107,8 @@ export default function ExerciceConversions (niveau = 1) {
           unite = 'o'
         }
         resultat = calcul(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-        texte =
-          '$ ' +
-          texNombre(a) +
-          texTexte(prefixeMulti[k][0] + unite) +
-          ' = \\dotfill ' +
-          texTexte(unite) +
-          '$'
+        texte = '$ ' + texNombre(a) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : `\\dotfill ${texTexte(unite)}$`)
+
         texteCorr =
           '$ ' +
           texNombre(a) +
@@ -128,9 +131,7 @@ export default function ExerciceConversions (niveau = 1) {
           '$ ' +
           texNombre(a) +
           texTexte(prefixeDiv[k][0] + unite) +
-          ' = \\dotfill ' +
-          texTexte(unite) +
-          '$'
+          ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
         texteCorr =
           '$ ' +
           texNombre(a) +
@@ -149,9 +150,7 @@ export default function ExerciceConversions (niveau = 1) {
           '$ ' +
           texNombre(a) +
           texTexte(prefixeDiv[k][0] + unite) +
-          ' = \\dotfill ' +
-          texTexte(unite) +
-          '$'
+          ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
         texteCorr =
           '$ ' +
           texNombre(a) +
@@ -175,13 +174,12 @@ export default function ExerciceConversions (niveau = 1) {
         const unite2 = unite1 + ecart
         if (randint(0, 1) > 0) {
           resultat = calcul(a * Math.pow(10, 3 * ecart))
+          unite = listeUniteInfo[unite1]
           texte =
             '$ ' +
             texNombre(a) +
             texTexte(listeUniteInfo[unite2]) +
-            ' = \\dotfill ' +
-            texTexte(listeUniteInfo[unite1]) +
-            '$'
+            ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
           texteCorr =
             '$ ' +
             texNombre(a) +
@@ -190,20 +188,19 @@ export default function ExerciceConversions (niveau = 1) {
             texNombre(a) +
             '\\times' +
             texNombre(Math.pow(10, 3 * ecart)) +
-            texTexte(listeUniteInfo[unite1]) +
+            texTexte(unite) +
             ' = ' +
             texNombrec(resultat) +
-            texTexte(listeUniteInfo[unite1]) +
+            texTexte(unite) +
             '$'
         } else {
           resultat = calcul(a / Math.pow(10, 3 * ecart))
+          unite = listeUniteInfo[unite2]
           texte =
             '$ ' +
             texNombre(a) +
             texTexte(listeUniteInfo[unite1]) +
-            ' = \\dotfill ' +
-            texTexte(listeUniteInfo[unite2]) +
-            '$'
+            ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
           texteCorr =
             '$ ' +
             texNombre(a) +
@@ -212,15 +209,17 @@ export default function ExerciceConversions (niveau = 1) {
             texNombre(a) +
             '\\div' +
             texNombre(Math.pow(10, 3 * ecart)) +
-            texTexte(listeUniteInfo[unite2]) +
+            texTexte(unite) +
             ' = ' +
             texNombrec(resultat) +
-            texTexte(listeUniteInfo[unite2]) +
+            texTexte(unite) +
             '$'
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (tabRep.indexOf(resultat) === -1) {
+        setReponse(this, i, resultat)
+        tabRep[i] = resultat
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isDiaporama) {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
@@ -231,6 +230,7 @@ export default function ExerciceConversions (niveau = 1) {
             '................................................'
           )
         }
+        console.log(texte)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

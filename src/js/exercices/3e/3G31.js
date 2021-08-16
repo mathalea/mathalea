@@ -1,20 +1,22 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
-import { calcul, texFraction, arrondi, texNombre2, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
-
-export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
-export const amcType = 'AMCOpenNum' // type de question AMC
+import { calcul, texFraction, arrondi, texNombre2, listeQuestionsToContenu, randint, creerNomDePolygone, choice, arrondiVirgule } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCOpenNum'
 export const titre = 'Calculer un angle dans un triangle rectangle en utilisant la trigonométrie'
 
 /**
  * @author Jean-Claude Lhote à partir de 3G30-1 de Rémi Angot
  * 3G31 Exercice remplaçant l'exercice initial utilisant MG32
- * Calculer une longueur en utilisant l'un des trois rapport trigonométrique.
+ * Calculer un angle en utilisant l'un des trois rapport trigonométrique.
  * * Si this.level=4 alors seul le cosinus sera utilisé.
  * Mars 2021
  */
-export default function CalculDeLongueur () {
+export default function CalculDAngle () {
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1
@@ -24,8 +26,6 @@ export default function CalculDeLongueur () {
   this.sup = false
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
-  this.amcType = amcType
-  this.amcReady = amcReady
 
   if (context.isHtml) {
     this.spacing = 0
@@ -225,7 +225,6 @@ export default function CalculDeLongueur () {
         texteCorr += 'Avec les données numériques :<br>'
         texteCorr += `$\\tan\\left(\\widehat{${nom}}\\right)=${texFraction(texNombre2(ac), texNombre2(ab))}$<br>`
         texteCorr += `$\\widehat{${nom}}=\\arctan\\left(${texFraction(texNombre2(ac), texNombre2(ab))}\\right) \\approx ${angleABC} \\degree $ <br>`
-        console.log(texteCorr)
         break
     }
     if (this.correctionDetaillee && !context.isHtml) texteCorr += '\n\\end{minipage}\n'
@@ -238,8 +237,10 @@ export default function CalculDeLongueur () {
         propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
         reponse: { valeur: angleABC, param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0 } }
       }
+    } else if (this.interactif && context.isHtml) {
+      setReponse(this, 0, arrondiVirgule(angleABC))
     }
-
+    texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline', { texteApres: ' °' })
     /****************************************************/
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

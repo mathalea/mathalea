@@ -19,6 +19,25 @@ export function getVueFromUrl () {
   const urlParams = new URLSearchParams(queryString)
   return urlParams.get('v')
 }
+
+/**
+ *
+ * @returns {string} Vue depuis l'URL
+ */
+export function getDureeFromUrl () {
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  return urlParams.get('duree')
+}
+/**
+ *
+ * @returns {string} Log nécessaire depuis l'URL
+ */
+export function getLogFromUrl () {
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  return urlParams.get('log')
+}
 /**
  *
  * @returns {string} userId depuis l'URL
@@ -27,6 +46,28 @@ export function getUserIdFromUrl () {
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
   return urlParams.get('userId')
+}
+/**
+ *
+ * @returns {string} userId depuis l'URL, context ou sessionStorage, le stocke dans sessionStorage et le renvoie
+ */
+export function getUserId () {
+  let userId = getUserIdFromUrl() || context.userId
+  try {
+    if (typeof (window.sessionStorage) === 'object') {
+      if (window.sessionStorage.getItem('userId') === null && userId) {
+        // Si un userId est défini, on le stocke
+        window.sessionStorage.setItem('userId', userId)
+      } else {
+        if (!userId) {
+          userId = window.sessionStorage.getItem('userId')
+        }
+      }
+    }
+  } catch (err) {
+    console.log('Ce navigateur ne prend pas en charge sessionStorage (pour le stockage de l\'identifiant')
+  }
+  return userId
 }
 
 export function getUrlVars () { // Récupère les variables de l'URL
@@ -77,7 +118,7 @@ export function getUrlVars () { // Récupère les variables de l'URL
 
 /**
  * Récupère l'URL et s'assure que la vue et le userId sont notés
- * @returns
+ * @returns {string} l'url vérifiée
  */
 export function getUrlSearchOld () {
   const queryString = window.location.search
@@ -98,25 +139,25 @@ export function getUrlSearchOld () {
 /**
  * Récupère l'URL et s'assure que la vue et le userId sont notés
  * Essai de debug
- * @returns
+ * @returns {string} l'url vérifiée réécrite
  */
 export function getUrlSearch () {
   const urlRacine = window.location.href.split('?')[0]
-  // console.log(urlRacine)
   const queryString = window.location.search
-  // console.log(queryString)
   const urlParams = new URLSearchParams(queryString)
-  // console.log(urlParams)
   if (context.userId) urlParams.set('userId', context.userId)
   if (context.vue) urlParams.set('v', context.vue)
+  if (context.duree) urlParams.set('duree', context.duree)
   // On finit la réécriture de l'url
   const entries = urlParams.entries()
   let urlRewrite = urlRacine + '?'
   for (const entry of entries) {
-    urlRewrite += entry[0] + '=' + entry[1] + '&'
+    // On n'écrit pas la série si on est connecté
+    if (!getUserId() || entry[0] !== 'serie') {
+      urlRewrite += entry[0] + '=' + entry[1] + '&'
+    }
   }
   urlRewrite = urlRewrite.slice(0, -1)
-  // console.log(urlRewrite)
   urlRewrite = new URL(urlRewrite)
   return urlRewrite
 }
@@ -126,4 +167,19 @@ export function getUrlSearch () {
  */
 export function setUrl () {
   window.history.pushState('', '', getUrlSearch())
+}
+
+/**
+ * Met à jour l'URL avec la vue et le userId s'ils sont connus et go
+ */
+export function setUrlAndGo () {
+  window.history.pushState('', '', getUrlSearch())
+  document.location.reload()
+}
+/**
+ * Met à jour l'URL avec la vue et le userId s'ils sont connus et go
+ */
+export function setUrlAndGoTab () {
+  window.history.pushState('', '', getUrlSearch())
+  window.open(document.location)
 }

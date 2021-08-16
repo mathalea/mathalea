@@ -1,5 +1,6 @@
 import ExerciceConversions from './_Exercice_conversions.js'
 export const titre = 'Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)'
+export { interactifReady, interactifType, amcReady, amcType } from './_Exercice_conversions.js'
 
 /**
  * @author Rémi Angot
