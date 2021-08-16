@@ -1,8 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 138 
-- nombre d'exos interactifReady 163 
-- nombre d'exos amcReady 133 
-- nombre d'exos interactifReady 159 
+- nombre d'exos amcReady 140 
+- nombre d'exos interactifReady 166 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -25,7 +23,7 @@
 |3G10-1|Trouver les coordonnées de l’image d’un point par une transformation du plan|OK|AMCHybride|OK|mathLive|
 |3G10-2|Trouver l’image d’un point par une transformation choisie aléatoirement|OK|AMCHybride|OK|mathLive|
 |3G12-1|Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage|OK|AMCHybride|OK|mathLive|
-|3G21|Contrôler si deux droites sont parallèles|OK|AMCOpen|KO|KO|
+|3G21|Contrôler si deux droites sont parallèles|OK|AMCHybride|KO|KO|
 |3G30|Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
 |3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
 |3G32-1|Calcul d’un parallèle terrestre|OK|AMCOpen|KO|KO|
@@ -80,6 +78,8 @@
 |5N20|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|mathLive|
 |5P11-1|Problème de vitesse|KO|KO|OK|mathLive|
 |5R10|Trouver le terme manquant d’une somme de nombres relatifs|OK|AMCNum|OK|numerique|
+|5R11-2|Placer un point d’abscisse un nombre relatif|OK|AMCOpen|OK|custom|
+|5R11|Lire l’abscisse relative d’un point|OK|AMCHybride|OK|mathLive|
 |5R20-2|Addition à trou de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R20-3|Additions de 5 nombres relatifs|OK|AMCNum|OK|mathLive|
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm|
@@ -91,8 +91,6 @@
 |6C10-4|Addition de deux entiers|OK|AMCNum|OK|numerique|
 |6C10-5|Labyrinthe de multiples|OK|AMCOpen|KO|KO|
 |6C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCHybride|OK|mathLive|
-|6C10bis|Additions, soustractions, multiplications et divisions posées de nombres entiers|OK|AMCOpen|KO|KO|
-|6C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCNum|OK|mathLive|
 |6C11-1|Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité|OK|AMCOpen|KO|KO|
 |6C11|Divisions euclidiennes|OK|AMCOpen|OK|mathLive|
 |6C20|Additions et soustractions de nombres décimaux|OK|AMCNum|OK|numerique|
@@ -139,6 +137,7 @@
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
 |6N24|Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)|OK|AMCNum|OK|mathLive|
 |6N30-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCOpen|OK|mathLive|
+|6N30-2|Placer un point d’abscisse décimale|OK|AMCOpen|OK|custom|
 |6N30|Lire l’abscisse décimale d’un point|OK|AMCOpen|OK|mathLive|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|OK|numerique|
@@ -185,13 +184,3 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
-|beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
-|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
-|beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
-|betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
-|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
-|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
-|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
-|c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
-|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|

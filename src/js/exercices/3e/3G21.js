@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, arrondi, abs, texNombrec, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js'
 
 export const amcReady = true
-export const amcType = 'AMCOpen' // type de question AMC
+export const amcType = 'AMCHybride' // type de question AMC
 
 export const titre = 'Contrôler si deux droites sont parallèles'
 
@@ -242,11 +242,8 @@ export default function ReciproqueThales () {
             'et que ' +
             `$${s1 + s4}=${s2 + s4}-${s1 + s2}=${s24}-${s12}=${s14}$` +
             ' cm.<br>'
-        }
-      }
-
-      // énoncé sans figure
-      else if (randint(1, 2) === 1) {
+        } // énoncé sans figure
+      } else if (randint(1, 2) === 1) {
         // triangles imbriqués
         texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$ <br> $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
         texte += `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>`
@@ -340,15 +337,70 @@ export default function ReciproqueThales () {
         // droites pas parallèles
         texteCorr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`
         texteCorr += `Donc d'après le théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`
+        this.autoCorrection = [{
+          enonce: texte,
+          propositions:
+          [
+            {
+              type: 'AMCOpen',
+              propositions: [{ texte: texteCorr, statut: 6, feedback: '' }]
+            },
+            {
+              type: 'qcmMono',
+              options: { ordered: true },
+              propositions: [
+                {
+                  texte: 'Oui',
+                  statut: false
+                },
+                {
+                  texte: 'Non',
+                  statut: true
+                },
+                {
+                  texte: 'Je ne sais pas',
+                  statut: false
+                }
+
+              ]
+            }
+          ]
+        }]
       } else {
         // droites parallèles
         texteCorr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>` // car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${texNombre(arrondi(dist12*dist15,3))}$.<br>`;
         if (k > 0) { texteCorr += `$${s1}$,$${s4}$,$${s2}$ et $${s1}$,$${s5}$,$${s3}$ sont alignés dans le même ordre.<br>` } else { texteCorr += `$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>` }
         texteCorr += `Donc d'après la réciproque du théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`
-      }
-      // Pour AMC question AmcOpen
-      this.autoCorrection = [{ enonce: texte, propositions: [{ texte: texteCorr, statut: 6, feedback: '' }] }]
+        this.autoCorrection = [{
+          enonce: texte,
+          propositions:
+          [
+            {
+              type: 'AMCOpen',
+              propositions: [{ texte: texteCorr, statut: 6, feedback: '' }]
+            },
+            {
+              type: 'qcmMono',
+              options: { ordered: true },
+              propositions: [
+                {
+                  texte: 'Oui',
+                  statut: true
+                },
+                {
+                  texte: 'Non',
+                  statut: false
+                },
+                {
+                  texte: 'Je ne sais pas',
+                  statut: false
+                }
 
+              ]
+            }
+          ]
+        }]
+      }
       this.listeCorrections.push(texteCorr)
 
       listeQuestionsToContenuSansNumero(this)
