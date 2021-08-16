@@ -221,6 +221,7 @@ export default function ProportionnalitePasProportionnalite () {
             texteCorr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`
             bonneReponse = 'non'
           }
+          compteurProportionnelsOuPas += 1
           break
         case 2: // Distance
           prenoms = [prenomF(), prenomM()]
