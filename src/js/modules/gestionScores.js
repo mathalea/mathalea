@@ -5,7 +5,7 @@
 // Sébastien LOZANO
 // https://docs.google.com/document/d/17ajVHWDkrSYj2VA_OulWgl9iz8zxBLAkfgeEK6m0OXU/edit?usp=sharing
 // https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Async_await
-// commits de suppression d'anciens fonctionnements 
+// commits de suppression d'anciens fonctionnements
 //    => https://github.com/mathalea/mathalea/commit/77d7599a1d03f966fd6e16361c034f089d820bbd
 //    => https://github.com/mathalea/mathalea/commit/88d7df0817541cf52d3c6e83568c466a4045f0e0
 // =============================================================================================================================
