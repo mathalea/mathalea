@@ -1,9 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1, prenom, personne, miseEnEvidence, texteEnCouleur } from '../../modules/outils.js'
-import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-import Fraction from '../../modules/Fraction.js'
-import Grandeur from '../../modules/Grandeur.js'
-import { afficheCoteSegment, afficheLongueurSegment, codeSegments, droiteGraduee2, homothetie, mathalea2d, point, polygoneRegulier, segment, texteSurSegment } from '../../modules/2d.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, calcul, texNombrec, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { afficheCoteSegment, codeSegments, homothetie, mathalea2d, point, polygoneRegulier, segment, texteSurSegment } from '../../modules/2d.js'
 export const titre = 'Course aux nombres CM1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,7 +31,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let a, b, c, d, resultat, propositions, objets, A, B, C
+    let a, b, c, d, resultat, objets, A, B, C
     let questions = []
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
@@ -62,13 +60,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
       ['citrons', 1.8, 15, 30],
       ['bananes', 1.7, 15, 25]
     ]
-    const hauteurs = [
-      ['chaise', 75, 115, 'cm'],
-      ['grue', 120, 250, 'dm'],
-      ['tour', 50, 180, 'm'],
-      ['girafe', 40, 50, 'dm'],
-      ['coline', 75, 150, 'm']
-    ]
+
     const typeQuestionsDisponibles = [ // Les dix premières sont identiques dans le fichier betaCaNCM2
       'q1', // Somme d'entiers
       'q2', // Différence d'entiers
@@ -539,7 +531,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
       }
 
       texte += ajouteChampTexteMathLive(this, i)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, typeQuestionsDisponibles[listeIndex[i]], a, b, c)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
