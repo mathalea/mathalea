@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
 export const interactifReady = true
@@ -182,15 +182,14 @@ export default function ProportionnalitePasProportionnalite () {
             )}$€.<br>Il a payé $${texPrix(z)}$€ $=${miseEnEvidence(
               texNombrec(p / y)
             )}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
-          texteCorr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`
-          bonneReponse = 'oui'
-          break
-        case 2:
-          index1 = listeIndex[i]
-          prenoms = [prenomF(), prenomM()]
-          index2 = randint(0, listeDeChoses[index1].length - 1)
-          objet = listeDeChoses[index1][index2]
-          pu =
+            texteCorr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`
+            bonneReponse = 'oui'
+          } else {
+            index1 = listeIndex[i]
+            prenoms = [prenomF(), prenomM()]
+            index2 = randint(0, listeDeChoses[index1].length - 1)
+            objet = listeDeChoses[index1][index2]
+            pu =
             listeDePrixUnit[index1][index2] *
             (1 + randint(1, 2) * 0.2 * randint(-1, 1))
             y = randint(2, 5)
@@ -219,8 +218,9 @@ export default function ProportionnalitePasProportionnalite () {
             )}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€ $=${texPrix(
               calcul((p * somme) / y)
             )}$€.<br>`
-          texteCorr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`
-          bonneReponse = 'non'
+            texteCorr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`
+            bonneReponse = 'non'
+          }
           break
         case 2: // Distance
           prenoms = [prenomF(), prenomM()]

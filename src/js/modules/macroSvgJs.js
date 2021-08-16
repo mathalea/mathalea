@@ -1,6 +1,5 @@
 /* global $ */
 /* eslint-disable camelcase */
-import { calcul, texNombrec, texFractionSigne, stringNombre } from './outils.js'
 import katex from 'katex'
 import { SVG } from '@svgdotjs/svg.js'
 import { context } from './context.js'
@@ -153,7 +152,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, xAnt, etapesExpress
                               </div>
                           </foreignObject>
                       </g>
-                  </svg>	
+                  </svg>
                   `
 
       clearInterval(window.SVGExist[id_du_div])// Arrête le timer
@@ -262,7 +261,7 @@ export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, xAnt, etape
                               </div>
                           </foreignObject>
                       </g>
-                  </svg>	
+                  </svg>
                   `
 
       clearInterval(window.SVGExist[id_du_div])// Arrête le timer
@@ -358,29 +357,29 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
       // ------------Dimension Machine-------------------------
       // on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
       // pour ajuster celle de la machine.
-      let W_machine_nom, machine_nom, machine_etape1, w_machine_etape1, machine_etape2, w_machine_etape2, machine_etape3, w_machine_etape3
-      if (nom != '') {
+      let w_machine_nom, machine_nom, machine_etape1, w_machine_etape1, machine_etape2, w_machine_etape2, machine_etape3, w_machine_etape3
+      if (nom !== '') {
         machine_nom = mon_svg.text(nom).font(prop_font_nom)
         w_machine_nom = machine_nom.length()
         machine_nom.clear()
       } else {
         w_machine_nom = 0
       }
-      if (etape1 != '') {
+      if (etape1 !== '') {
         machine_etape1 = mon_svg.text(etape1).font(prop_font_etape)
         w_machine_etape1 = machine_etape1.length()
         machine_etape1.clear()
       } else {
         w_machine_etape1 = 0
       }
-      if (etape2 != '') {
+      if (etape2 !== '') {
         machine_etape2 = mon_svg.text(etape2).font(prop_font_etape)
         w_machine_etape2 = machine_etape2.length()
         machine_etape2.clear()
       } else {
         w_machine_etape2 = 0
       }
-      if (etape3 != '') {
+      if (etape3 !== '') {
         machine_etape3 = mon_svg.text(etape3).font(prop_font_etape)
         w_machine_etape3 = machine_etape3.length()
         machine_etape3.clear()
