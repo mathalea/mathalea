@@ -110,9 +110,9 @@ export default function ReductionSiPossible () {
           reponse = printlatex(`${a + 1}*x+(${b})`)
           break
       }
-      if (!oncontextmenu.isAmc) {
+      if (!context.isAmc) {
         setReponse(this, i, reponse)
-        texte += ajouteChampTexteMathLive(this, i)
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' $=$' })
       } else {
         this.autoCorrection[i] = {
           enonce: texte,

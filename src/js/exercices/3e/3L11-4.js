@@ -118,7 +118,7 @@ export default function FactoriserParNombreOux () {
           break
       }
       if (!context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i)
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' $=$' })
         setReponse(this, i, reponse)
       } else {
         this.autoCorrection[i] = {
