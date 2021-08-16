@@ -102,7 +102,7 @@ export default function gestionScores () {
     })
   }
 
-  // Clic sur documentation - page prof  // et modale connexion
+  // Clic sur documentation - page prof
   if (document.getElementById('scoresDocumentation')) {
     document.getElementById('scoresDocumentation').addEventListener('click', function () {
       // On cache les feedbacks inutiles
