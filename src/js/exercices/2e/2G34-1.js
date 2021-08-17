@@ -43,7 +43,7 @@ export default function alignementdetroispoints () {
           }
           texte = ` $A(${xA};${yA})$ ; $B(${xB};${yB})$ et $C(${xC};${yC})$.`
           texteCorr = 'Pour déterminer si les points $A$, $B$, et $C$ sont alignés, on va étudier les positions relatives des droites $(AB)$ et $(AC)$'
-          texteCorr += '<br>On observe déjà que les 3 abscisses sont distinctes. Ni la droite $(AB)$, ni la droite $(AC)$ n\'est verticale.'
+          texteCorr += '<br>On observe que les droites ne sont pas verticales car les abscisses des points $A$, $B$ et $C$ sont distinctes.'
           texteCorr += '<br>On peut donc calculer leur coefficient directeur respectif.'
           texteCorr += '<br>On sait d\'après le cours, que le coefficient directeur de la droite $(AB)$, si $x_A\\neq x_B$ est  : $m=\\dfrac{y_B-y_A}{x_B-x_A}$.'
           texteCorr += '<br>On applique avec les données de l\'énoncé pour chacune des deux droites : '
