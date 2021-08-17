@@ -5,6 +5,8 @@ import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInter
 export const titre = 'Variation en pourcentages'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 /**
 * Calculer +/- 20, 30, 40 ou 60 %
 * @author Rémi Angot
@@ -15,7 +17,7 @@ export const interactifType = 'mathLive'
 export default function VariationEnPourcentages () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Calculer le nouveau prix, écrire la valeur décimale.'
+  this.consigne = 'Calculer le nouveau prix. Pour chaque réponse, écrire la valeur décimale.'
   this.nbQuestions = 5
   this.spacing = 1
   this.spacingCorr = 2
@@ -32,40 +34,30 @@ export default function VariationEnPourcentages () {
       // X | X0 | X00 | X,X0
       taux = choice([20, 30, 40, 60])
       if (choice([true, false])) {
-        if (context.isHtml) {
-          texte = `Un article coûtait ${texPrix(prix)} € et son prix diminue de ${taux}\%.<br><br>`
+        if (context.isHtml) { // partie html
+          texte = `Un article coûtait ${texPrix(prix)} € et son prix diminue de ${taux}%.<br><br>`
           if (this.interactif) {
             texte += '&ensp;&ensp;&ensp;&ensp;Le nouveau prix est :'
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br>'
-            setReponse(this, i, calcul(prix - prix * taux / 100))
+            setReponse(this, i, calcul(prix - prix * taux / 100), { formatInteractif: 'fraction' })
           }
-        } else {
-          texte = `Un article coûtait ${texPrix(prix)} € et son prix diminue de ${taux}\%.<br><br>`
-          if (this.interactif) {
-            texte += '&ensp;&ensp;&ensp;&ensp;Le nouveau prix est :'
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br>'
-            setReponse(this, i, calcul(prix - prix * taux / 100))
-          }
+        } else { // partie latex
+          texte = `Un article coûtait ${texPrix(prix)} € et son prix diminue de ${taux}\\%.<br><br>`
         }
 
         texteCorr = `$\\text{Diminution : }${texFraction(taux, 100)}\\times  ${texPrix(prix)} = ${texPrix(calcul(prix * taux))}\\div 100=${texPrix(calcul(prix * taux / 100))}$ €`
         texteCorr += '<br>'
         texteCorr += `$\\text{Nouveau prix : }${texPrix(prix)}-${texPrix(calcul(prix * taux / 100))}=${texPrix(calcul(prix - prix * taux / 100))}$ €`
       } else {
-        if (context.isHtml) {
-          texte = `Un article coûtait ${texPrix(prix)} € et son prix augmente de ${taux}\%.<br><br>`
+        if (context.isHtml) { // partie html
+          texte = `Un article coûtait ${texPrix(prix)} € et son prix augmente de ${taux}%.<br><br>`
           if (this.interactif) {
             texte += '&ensp;&ensp;&ensp;&ensp;Le nouveau prix est :'
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br>'
-            setReponse(this, i, calcul(prix + prix * taux / 100))
+            setReponse(this, i, calcul(prix + prix * taux / 100), { formatInteractif: 'fraction' })
           }
-        } else {
-          texte = `Un article coûtait ${texPrix(prix)} € et son prix augmente de ${taux}\%.<br><br>`
-          if (this.interactif) {
-            texte += '&ensp;&ensp;&ensp;&ensp;Le nouveau prix est :'
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br>'
-            setReponse(this, i, calcul(prix + prix * taux / 100))
-          }
+        } else { // partie latex
+          texte = `Un article coûtait ${texPrix(prix)} € et son prix augmente de ${taux}\\%.<br><br>`
         }
         texteCorr = `$\\text{Augmentation : }${texFraction(taux, 100)}\\times  ${texPrix(prix)}= ${texPrix(calcul(prix * taux))}\\div 100=${texPrix(calcul(prix * taux / 100))}$ €`
         texteCorr += '<br>'

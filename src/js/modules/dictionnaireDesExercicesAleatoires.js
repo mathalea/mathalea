@@ -1971,8 +1971,12 @@ export default {
   "5N110-1": {
     "titre": "Variation en pourcentages",
     "url": "/exercices/5e/5N110-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5N110-1"
   },
   "5N110": {
