@@ -97,17 +97,6 @@ export const modalLog = async () => {
       .catch(e => {
         console.log('/!\\ firstScoresManage.php /!\\ Pb avec l\'opération de récupération sûrement en dev local sans serveur PHP, message d\'erreur => ' + e.message)
       })
-
-    // setUrl()
-    // initialiseBoutonsConnexion()
-    // // Cache le numéro de série
-    // if (document.getElementById('form_serie')) {
-    //   document.getElementById('form_serie').style.display = 'none'
-    // }
-    // const label = document.querySelector('label[for=form_serie]')
-    // if (label) {
-    //   label.style.display = 'none'
-    // }
   })
 }
 
