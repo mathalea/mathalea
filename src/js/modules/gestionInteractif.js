@@ -339,7 +339,7 @@ export function propositionsQcm (exercice, i) {
     }
     if (context.isHtml) {
       texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-      texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></span></form>`
+      texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
     }
   }
   return { texte: texte, texteCorr: texteCorr }

@@ -2153,9 +2153,12 @@ export function htmlEnumerate (liste, spacing, classe = 'question', id = '') {
     }
     result += '</ol>'
   } else if (liste.length === 1) {
-    (spacing > 1) ? result = `<div style="line-height: ${spacing};">` : result = '<div>'
+    // Pour garder la même hiérarchie avec une ou plusieurs questions
+    // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
+    // Utile pour la vue can
+    (spacing > 1) ? result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''} style="line-height: ${spacing};">` : result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''}>`
     result += liste[0].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
-    result += '</div>'
+    result += '</div></div>'
   }
   return result
 }
