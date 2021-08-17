@@ -5,6 +5,8 @@ import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInter
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 /**
 * Utiliser la simple ou la double distributivité et réduire l'expression
@@ -15,9 +17,6 @@ export const interactifType = 'mathLive'
 */
 export default function FactoriserParNombreOux () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = 'Factoriser les expressions suivantes.'
   this.nbQuestions = 8
   this.nbCols = 2
@@ -118,9 +117,16 @@ export default function FactoriserParNombreOux () {
           reponse = `x(${n}x+${m})`
           break
       }
-      texte += ajouteChampTexteMathLive(this, i)
-      setReponse(this, i, reponse)
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (!context.isAmc) {
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' $=$' })
+        setReponse(this, i, reponse)
+      } else {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          propositions: [{ texte: texteCorr, statut: 3, feedback: '' }]
+        }
+      }
+      if (this.questionJamaisPosee(i, k, n, m)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

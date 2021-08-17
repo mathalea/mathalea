@@ -1,10 +1,10 @@
 import Exercice from '../Exercice.js'
 import {
-  listeQuestionsToContenu, prenomF, prenomM, combinaisonListes, randint, ecritureParentheseSiNegatif,
+  listeQuestionsToContenu, prenomF, prenomM, randint, ecritureParentheseSiNegatif,
   ecritureAlgebrique,
   calcul, texteEnCouleur, texteEnCouleurEtGras, pgcd, texNombrec, texFraction, signe, abs, listeDeNotes, prenom,
   texFractionReduite, choice, texNombre, printlatex,
-  texPrix, combinaisonListesSansChangerOrdre, range1, reduireAxPlusB, rienSi1, texRacineCarree
+  texPrix, combinaisonListesSansChangerOrdre, range1, reduireAxPlusB, rienSi1, texRacineCarree, combinaisonListes
 } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
@@ -65,17 +65,17 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
     console.log(listeIndex)
-    const liste_fractions = [
+    const listeFractions = [
       [1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6], [1, 7],
       [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8], [1, 9], [2, 9],
       [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]
     ] // Couples de nombres premiers entre eux
 
-    const liste_fractions1 = [
+    const listeFractions1 = [
       [10, 3], [5, 4], [7, 4], [10, 7], [11, 7], [12, 7]
     ] // Couples de nombres premiers entre eux >1
 
-    const liste_racines1 = [
+    const listeRacines1 = [
       [2, 8], [32, 2], [2, 50], [3, 27], [5, 20], [2, 18]
     ] // couples pour simplifier des produits de racines carrées
 
@@ -84,7 +84,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
       ['framboises', 6.5, 1, 5], ['fraises', 4.5, 5, 10], ['citrons', 1.5, 15, 30], ['bananes', 2.5, 15, 25]
     ]
 
-    const liste_triplet = [
+    const listeTriplet = [
       [3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29], [12, 35, 37], [9, 40, 41], [11, 60, 61]
     ] // triplets Pythagore
     const plat = [
@@ -93,7 +93,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
 
     const signesDeX = combinaisonListes([true, false], this.nbQuestions)
     const typeQuestionsDisponibles = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20',
-    'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']
+      'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']
     // 'q1','q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10']
     // 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20'
     // 'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']//
@@ -385,9 +385,9 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               }
               break
             case 2:// fraction addition avec un entier
-              fraction = choice(liste_fractions)
+              fraction = choice(listeFractions)
               a = randint(1, 4)
-              fraction = choice(liste_fractions)
+              fraction = choice(listeFractions)
               b = fraction[0]
               c = fraction[1]
               texte = `Calculer sous la forme d'une fraction irréductible :  $${a}+${texFraction(b, c)}$`
@@ -769,7 +769,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
         case 'q10':
           switch (choice([1, 2, 3])) {
             case 1:// simplification
-              fraction = choice(liste_fractions)
+              fraction = choice(listeFractions)
               n = fraction[0]
               d = fraction[1]
               a = randint(6, 9)
@@ -906,7 +906,7 @@ $\\begin{array}{|l|c|c|}\n`
           break
 
         case 'q12':
-          switch (choice([1,2,3,4])) { // 1
+          switch (choice([1, 2, 3, 4])) { // 1
             case 1:// petits problèmes avec quart, cinquième, ...
               a = choice([12, 24, 36, 48])
               b = choice([15, 20, 25, 30, 35, 40, 45])
@@ -1068,7 +1068,7 @@ $\\begin{array}{|l|c|c|}\n`
           break
 
         case 'q14':
-          switch (choice([ 1, 2, 3, 4])) {//
+          switch (choice([1, 2, 3, 4])) { //
             case 1:// calcul pour une valeur
               a = randint(-5, -1)
               b = randint(1, 9)
@@ -1275,7 +1275,7 @@ $\\begin{array}{|l|c|c|}\n`
               }
 
               if (N === 'b') {
-                fraction = choice(liste_fractions)
+                fraction = choice(listeFractions)
                 n = fraction[0]
                 d = fraction[1]
                 texte = `Les longueurs d'un triangle sont multipliées par $\\dfrac{${n}}{${d}}$.<br>
@@ -1289,7 +1289,7 @@ $\\begin{array}{|l|c|c|}\n`
                 setReponse(this, i, new Fraction(n * n, d * d), { formatInteractif: 'fraction' })
               }
               if (N === 'c') {
-                fraction = choice(liste_fractions)
+                fraction = choice(listeFractions)
                 n = fraction[0]
                 d = fraction[1]
                 texte = `L'aire d'un parallélogramme a été multipliée par $\\dfrac{${n * n}}{${d * d}}$.<br>
@@ -1643,7 +1643,7 @@ Il y a donc $${texNombrec(c * b * a / 10000)}$ bonbons verts à la pomme.
 
               break
             case 3:// proba evenement contraire
-              fraction = choice(liste_fractions)
+              fraction = choice(listeFractions)
               n = fraction[0]
               d = fraction[1]
 
@@ -1743,7 +1743,7 @@ Il y a donc $${texNombrec(c * b * a / 10000)}$ bonbons verts à la pomme.
 
               break
             case 6:// milieu entre 1 et fraction avec graphique
-              fraction = choice(liste_fractions1)
+              fraction = choice(listeFractions1)
               n = fraction[0]
               d = fraction[1]
               a = randint(6, 9)
@@ -1767,7 +1767,7 @@ Il y a donc $${texNombrec(c * b * a / 10000)}$ bonbons verts à la pomme.
           break
 
         case 'q20':
-          switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9,10])) { // 
+          switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])) { //
             case 1:// pythagore hypoténuse
               a = randint(1, 6)//
 
@@ -2002,7 +2002,7 @@ Ainsi, $DC=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
               break
 
             case 10:// trigo
-              triplet = choice(liste_triplet)
+              triplet = choice(listeTriplet)
               a = triplet[0]
               b = triplet[1]
               c = triplet[2]
@@ -2215,7 +2215,7 @@ Ainsi, $DC=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
         case 'q23':// arithmétique, calculs astucieux (avec racines carrées aussi), calculs avec parenthèses, puissances (2)
           switch (choice([1, 2, 3, 4, 5, 6, 7])) { // 1, 2, 3, 4, 5,6
             case 1:// calcul d'un carré avec racine carré
-              racine = choice(liste_racines1)
+              racine = choice(listeRacines1)
               a = racine[0]
               b = racine[1]
 
@@ -2951,7 +2951,7 @@ Ainsi, $DC=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
                 a = randint(5, 8)
                 objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C), codageAngleDroit(A, B, C))
                 objets.push(latexParCoordonnees(`${a}`, milieu(A, B).x + 0, milieu(B, C).y + 0.25, 'black', 20, 10, ''),
-                                    latexParCoordonnees('50°', 1.2, 0.5, 'black', 20, 10, ''))
+                  latexParCoordonnees('50°', 1.2, 0.5, 'black', 20, 10, ''))
 
                 texte = ` On a $\\tan 50° \\simeq 1,2$.<br>
                 Donner une valeur approchée de la longueur $BC$.
@@ -2970,7 +2970,7 @@ Ainsi, $DC=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
                 a = randint(4, 11)
                 objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C), codageAngleDroit(A, B, C))
                 objets.push(latexParCoordonnees(`${a}`, milieu(A, C).x + 0, milieu(A, C).y - 0.4, 'black', 20, 10, ''),
-                                    latexParCoordonnees('43°', 4.6, 0.5, 'black', 20, 10, ''))
+                  latexParCoordonnees('43°', 4.6, 0.5, 'black', 20, 10, ''))
 
                 texte = ` On a $\\sin 43° \\simeq 0,7$.<br>
                 Donner une valeur approchée de la longueur $AB$.

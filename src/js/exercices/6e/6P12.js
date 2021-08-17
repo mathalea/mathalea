@@ -516,7 +516,7 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
           question = questionRecouvrirSurface(this, i)
           break
       }
-      if (this.listeQuestions.indexOf(question.qtexte) === -1) { // Si la question n'a jamais été posée, on la garde.
+      if (this.questionJamaisPosee(i, listeIndexSituations[i], this.autoCorrection[i].reponse.valeur, this.autoCorrection[i].enonce)) { // Si la question n'a jamais été posée, on la garde.
         this.listeQuestions.push(question.qtexte)
         this.listeCorrections.push(question.qtexteCorr)
         i++

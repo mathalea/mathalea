@@ -30,7 +30,7 @@ export default function DistributiviteSimpleDoubleReduction () {
 
     const typesDeQuestionsDisponibles = ['cx+e(ax+b)', 'ex+(ax+b)(cx+d)', 'e+(ax+b)(cx+d)', 'e-(ax+b)(cx+d)', '(ax*b)(cx+d)', 'e(ax+b)-(d+cx)']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, reponse, a, b, c, d, e, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, reponse, coeffa, coeffb, coeffc, a, b, c, d, e, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(-11, 11, 0)
       b = randint(-11, 11, 0)
       c = randint(-11, 11, 0)
@@ -43,6 +43,9 @@ export default function DistributiviteSimpleDoubleReduction () {
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${c}*x+(${e * a})*x+(${e * b})`)}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${c + e * a}*x+(${e * b})`)}$`
           reponse = printlatex(`${c + e * a}*x+(${e * b})`)
+          coeffa = 0
+          coeffb = c + e * a
+          coeffc = e * b
           break
         case 'ex+(ax+b)(cx+d)':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${e}*x+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`
@@ -50,6 +53,9 @@ export default function DistributiviteSimpleDoubleReduction () {
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${e}*x+(${a * c})*x^2+(${a * d})*x+(${b * c})*x+(${b * d})`)}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a * c}*x^2+(${e + b * c + a * d})*x+(${b * d})`)}$`
           reponse = printlatex(`${a * c}*x^2+(${e + b * c + a * d})*x+(${b * d})`)
+          coeffa = a * c
+          coeffb = e + b * c + a * d
+          coeffc = b * d
           break
         case 'e+(ax+b)(cx+d)':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${e}+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`
@@ -57,6 +63,9 @@ export default function DistributiviteSimpleDoubleReduction () {
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${e}+(${a * c})*x^2+(${a * d})*x+(${b * c})*x+(${b * d})`)}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a * c}*x^2+(${b * c + a * d})*x+(${e + b * d})`)}$`
           reponse = printlatex(`${a * c}*x^2+(${b * c + a * d})*x+(${e + b * d})`)
+          coeffa = a * c
+          coeffb = b * c + a * d
+          coeffc = e + b * d
           break
         case 'e-(ax+b)(cx+d)':
           texte = `$${lettreDepuisChiffre(i + 1)}=${e}-${printlatex(`(${a}*x+(${b}))*(${c}x+(${d}))`)}$`
@@ -65,6 +74,10 @@ export default function DistributiviteSimpleDoubleReduction () {
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${e}+(${-1 * a * c})*x^2+(${-1 * a * d})*x+(${-1 * b * c})*x+(${-1 * b * d})`)}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${-1 * a * c}*x^2+(${-1 * b * c - a * d})*x+(${e - b * d})`)}$`
           reponse = printlatex(`${-1 * a * c}*x^2+(${-1 * b * c - a * d})*x+(${e - b * d})`)
+          coeffa = -1 * a * c
+          coeffb = -1 * b * c - a * d
+          coeffc = e - b * d
+
           break
         case '(ax*b)(cx+d)':
           a = randint(-3, 3, [0])
@@ -74,6 +87,9 @@ export default function DistributiviteSimpleDoubleReduction () {
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a * b}*x`)}\\times(${printlatex(`${c}*x+(${d})`)})$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a * b * c}*x^2+(${a * b * d})*x`)}$`
           reponse = printlatex(`${a * b * c}*x^2+(${a * b * d})*x`)
+          coeffa = a * b * c
+          coeffb = a * b * d
+          coeffc = 0
           break
         case 'e(ax+b)-(d+cx)':
           e = randint(-11, 11, [-1, 1, 0])
@@ -83,11 +99,80 @@ export default function DistributiviteSimpleDoubleReduction () {
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`(${e * a})*x+(${e * b})+(${-d})+(${-c})*x`)}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`(${e * a - c})*x+(${e * b - d})`)}$`
           reponse = printlatex(`(${e * a - c})*x+(${e * b - d})`)
+          coeffa = 0
+          coeffb = e * a - c
+          coeffc = e * b - d
           break
       }
-      setReponse(this, i, reponse)
-      texte += ajouteChampTexteMathLive(this, i)
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (!context.isAmc) {
+        setReponse(this, i, reponse)
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' $=$' })
+      } else {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          propositions: [
+            {
+              type: 'AMCOpen',
+              propositions: [{
+                texte: texteCorr,
+                statut: 3
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'valeur de $a$ dans $ax^2+bx+c$',
+                  valeur: coeffa,
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: true,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'valeur de $b$ dans $ax^2+bx+c$',
+                  valeur: coeffb,
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: true,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'valeur de $c$ dans $ax^2+bx+c$',
+                  valeur: coeffc,
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: true,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          ]
+        }
+      }
+      if (this.questionJamaisPosee(i, a, b, c, d, e)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
