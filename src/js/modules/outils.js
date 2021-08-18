@@ -20,11 +20,11 @@ const epsilon = 0.000001
  */
 export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
-    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing)
-    if (exercice.interactif) {
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`)
+    if (exercice.interactif && exercice.interactifReady) {
       exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
-    exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr)
+    exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr, 'correction')
   } else {
     let vspace = ''
     if (exercice.vspace) {
@@ -73,7 +73,7 @@ export function listeQuestionsToContenuSansNumero (exercice) {
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing)
     if (exercice.interactif) {
-      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}">Vérifier les réponses</button>`
+      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr)
   } else {
@@ -404,7 +404,9 @@ export function enleveElement (array, item) {
 
 /**
  *
- * Compte les occurenes d'un item dans un tableau
+ * Compte les occurences d'un item dans un tableau
+ * @param {array} array
+ * @param item
  * @Author Rémi Angot
  */
 export function compteOccurences (array, value) {
@@ -590,6 +592,24 @@ export function enleveDoublonNum (arr, tolerance) {
     k++
   }
   return arr
+}
+/**
+ * fonction qui retourne une chaine construite en concaténant les arguments
+ * Le rôle de cette fonction est de construire un identifiant unique de question
+ * afin de contrôler que l'aléatoire ne produit pas deux questions identiques.
+ * @author Jean-Claude Lhote
+ */
+export function checkSum (...args) {
+  let checkString = ''
+  for (let i = 0; i < args.length; i++) {
+    if (typeof args[i] === 'number') {
+      checkString += Number(args[i]).toString()
+    } else {
+      checkString += args[0]
+    }
+  }
+  console.log(checkString)
+  return checkString
 }
 /**
 * Mélange les items d'un tableau, sans modifier le tableau passé en argument
@@ -2123,19 +2143,22 @@ export function texIntroduction (texte) {
 * @param spacing interligne (line-height en css)
 * @author Rémi Angot
 */
-export function htmlEnumerate (liste, spacing) {
+export function htmlEnumerate (liste, spacing, classe = 'question', id = '') {
   let result = ''
 
   if (liste.length > 1) {
     (spacing > 1) ? result = `<ol style="line-height: ${spacing};">` : result = '<ol>'
     for (const i in liste) {
-      result += '<li>' + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+      result += `<li class="${classe}" ${id ? 'id="' + id + i + '"' : ''}>` + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     }
     result += '</ol>'
   } else if (liste.length === 1) {
-    (spacing > 1) ? result = `<div style="line-height: ${spacing};">` : result = '<div>'
+    // Pour garder la même hiérarchie avec une ou plusieurs questions
+    // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
+    // Utile pour la vue can
+    (spacing > 1) ? result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''} style="line-height: ${spacing};">` : result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''}>`
     result += liste[0].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
-    result += '</div>'
+    result += '</div></div>'
   }
   return result
 }
@@ -2200,15 +2223,14 @@ export function htmlLigne (liste, spacing) {
   let result = ''
   if (spacing > 1) {
     result = `<div style="line-height: ${spacing};">\n`
+  } else {
+    result = '<div>\n'
   }
   for (const i in liste) {
     result += '\t' + liste[i].replace(/\\dotfill/g, '...') + '<br>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     // .replace(/\\\\/g,'<br>') abandonné pour supporter les array
   }
-
-  if (spacing > 1) {
-    result += '</div>\n'
-  }
+  result += '</div>\n'
 
   return result
 }
@@ -2528,7 +2550,10 @@ export function nombreDeChiffresDansLaPartieDecimale (nb) {
     return 0
   }
 }
-
+/**
+ * Renvoie le nombre de chiffres dans la partie entière
+ * @author ?
+ */
 export function nombreDeChiffresDansLaPartieEntiere (nb) {
   let nombre
   if (nb < 0) {
@@ -2542,7 +2567,13 @@ export function nombreDeChiffresDansLaPartieEntiere (nb) {
     return String(nombre).length
   }
 }
-
+/**
+ * Renvoie le nombre de chiffres d'un nombre décimal
+ * @author Jean-Claude Lhote
+ */
+export function nombreDeChiffresDe (nb) {
+  return nombreDeChiffresDansLaPartieDecimale(nb) + nombreDeChiffresDansLaPartieEntiere(nb)
+}
 /**
  * Retourne la string LaTeX de la fraction
  * @param num
@@ -2996,7 +3027,7 @@ export function criblePolynomeEntier () {
  */
 export function chercheMinMaxFonction ([a, b, c, d]) {
   const delta = 4 * b * b - 12 * a * c
-  if (delta <= 0) return []
+  if (delta <= 0) return [[0, 10 ** 99], [0, 10 ** 99]]
   const x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
   const x2 = (-2 * b + Math.sqrt(delta)) / (6 * a)
   return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
@@ -6943,6 +6974,9 @@ export function exportQcmAmc (exercice, idExo) {
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
         }
+        if (exercice.autoCorrection[j].propositions === undefined) {
+          exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '' }]
+        }
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
           reponse = autoCorrection[j].reponse.valeur
           if (autoCorrection[j].reponse.param.digits === 0) {
@@ -7236,6 +7270,11 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
         texQr += `${autoCorrection[j].enonce} \n `
+        if (typeof autoCorrection[j].options !== 'undefined') {
+          if (autoCorrection[j].options.multicols) {
+            texQr += '\\begin{multicols}{2}\n'
+          }
+        }
         for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les question-reponse de l'élément j
           prop = autoCorrection[j].propositions[qr] // proposition est un objet avec cette structure : {type,propositions,reponse}
           qrType = prop.type
@@ -7357,11 +7396,16 @@ export function exportQcmAmc (exercice, idExo) {
               break
           }
         }
+        if (typeof autoCorrection[j].options !== 'undefined') {
+          if (autoCorrection[j].options.multicols) {
+            texQr += '\\end{multicols}\n'
+          }
+        }
         texQr += '}\n'
         break
     }
   }
-  return [texQr, ref, autoCorrection.length, titre]
+  return [texQr, ref, exercice.nbQuestions, titre]
 }
 
 /**

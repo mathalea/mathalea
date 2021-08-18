@@ -1,11 +1,13 @@
-## Généralités
+## <a id="1" href="#1">#</a> Généralités
 La documentation est générée à l'aide de [jsdoc](https://jsdoc.app/index.html) en utilisant le thème [docdash](https://github.com/clenemt/docdash).
 
 Pour générer la documentation, il suffit de lancer `pnpm run build:doc` dans un terminal.
 
 Et pour la visualiser, il suffit de lancer `pnpm run doc:show` dans un terminal.
 
-## Arborescence : où sont les fichiers ?
+Vous pouvez faire les deux actions en une ligne en lançant `pnpm run doc show` (sans les deux points).
+
+## <a id="2" href="#2">#</a> Arborescence : où sont les fichiers ?
 La page d'accueil de la documentation est générée à partir du fichier `src/demarrage.md`.
 
 Les différents tutoriels sont dans le dossier `jsdoc/tutorials/`.
@@ -14,13 +16,13 @@ Pour créer un nouveau tutoriel, il suffit de créer un fichier MarkDown (.md) d
 
 Les fichiers et dossiers à l'intérieur de `jsdoc/static/` sont copiés tels quels à la racine du dossier de documentation lorsque celle-ci est générée. Cela permet d'avoir des fichiers et des adresses statiques qui ne passent pas à la moulinette comme le reste. L'intérêt principal étant de disposer d'un dossier d'images utilisables par la documentation.
 
-## Créer un lien interne à la documentation
+## <a id="3" href="#3">#</a> Créer un lien interne à la documentation
 
 Pour créer un lien interne à la documentation, on distingue deux cas :
-* Si on veut créer un lien vers un tutoriel, le lien est `tutorial-Nom_du_fichier_MarkDown.html`. Notez bien que le .md présent dans les sources est remplacé par un .html
+* Si on veut créer un lien vers un tutoriel présent dans le dossier `jsdoc/tutorials`, le lien est `https://coopmaths.fr/documentation/tutorial-Nom_du_fichier_MarkDown.html`. Notez bien que le `.md` présent dans les sources est remplacé par un `.html`
 * Le dossier `jsdoc/static/` correspond au dossier racine de la doc générée et l'intérieur de ce dossier est recopié tel quel donc pour créer un lien vers `jsdoc/static/img/image.png`, le lien à utiliser est tout simplement `img/image.png`.
 
-## Bonus : comment est générée le reste de la documentation ?
+## <a id="4" href="#4">#</a> Bonus : comment est générée le reste de la documentation ?
 
 Lorsqu'on lance `pnpm run buid:doc`, les fichiers `base.json`, `mathalea2d.json`, `mathaleaInstrumEnPoche.json` et `tout.json` du dossier `jsdoc/` sont lus.
 * `base.json` va générer une documentation dans le dossier `documentation/`

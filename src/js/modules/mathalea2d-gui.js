@@ -289,5 +289,4 @@ function executeCode (txt) {
   interpreter.run(code)
   context.fenetreMathalea2d = interpreter.exports.fenetreMathalea2d
   context.pixelsParCm = interpreter.exports.pixelsParCm
-
 }

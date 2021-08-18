@@ -18,10 +18,6 @@
       Créer un espace
       <i class="key icon"></i>
     </div>
-    <div id="scoresSaveToUserId" class="ui positive right labeled icon button">
-      Enregistrer des scores 
-      <i class="save icon"></i>
-    </div>
   </div>
   <br>
    <div class="image content">
@@ -85,33 +81,6 @@
         <div id="scoresFeedback" class="ui positive message" hidden>          
             <div id="scoresFeedbackHeader" class="header"></div>          
             <div id="scoresFeedbackBody"></div>          
-        </div>
-        <!-- Formulaire pour saisir un userId -->
-        <!-- https://semantic-ui.com/collections/message.html -->
-        <!-- https://semantic-ui.com/elements/input.html -->
-        <div id="scoresPromptUserId" hidden>
-          <div class="ui right labeled left icon input">
-            <i class="user icon"></i>
-            <input 
-            id="scoresInputUserId"
-            type="text"
-            placeholder="PPPCCEE"
-            onkeyup="
-              this.value=this.value.toUpperCase()
-              if (this.value.length === 7) {
-                document.getElementById('scoresSubmitUserId').classList.add('positive')
-                document.getElementById('scoresSubmitUserId').classList.remove('disabled')
-              }
-            ">
-            <span class="ui tag label">
-              Identifiant
-            </span>
-            <button id="scoresSubmitUserId" class="ui positive button disabled">Valider</button>
-          </div>
-          <div id ="scoresInputUserIdError" class="ui negative message" hidden>
-            <div id="scoresInputUserIdErrorHeader" class="header"></div>          
-            <div id="scoresInputUserIdErrorBody"></div>          
-          </div> 
         </div>
       </div>             
     </div>

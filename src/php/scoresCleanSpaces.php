@@ -54,7 +54,7 @@ function mailUrlToVips($pathToJson) {
   $vips = json_decode($data)->vips;
   // On envoie un mail à chaque vip
   $email_objet = "MATHALEA - Lien vip vers espace scores"; // email object line
-  $email_from = "EmailDuSebLOZ@loz.fr";
+  $email_from = "sebastien.lozano@ac-nancy-metz.fr";
   foreach ($vips as $vip) {
     if ($vip->isEmailOk) {
       //Création du boundary (frontière dans l'email genere
@@ -101,7 +101,7 @@ function mailUrlToVips($pathToJson) {
 
       $email_message .= "Namasté <b>".$vip->nom."</b>,<br>";
       $email_message .= "Tes fichiers seront enregistrés à cette adresse : <br>";
-      $email_message .= "Url de votre espace scores : 
+      $email_message .= "Url de ton espace scores : 
         <a href=\"https://coopmaths.fr/".$GLOBALS["scoresDir"].'/'.$vip->codeProf[0].'/'.$vip->codeProf[1].'/'.$vip->codeProf[2].'/'.$vip->md5Key."\" target=\"_blank\">
         https://coopmaths.fr/".$GLOBALS["scoresDir"].'/'.$vip->codeProf[0].'/'.$vip->codeProf[1].'/'.$vip->codeProf[2].'/'.$vip->md5Key."
         </a><br>";
@@ -122,24 +122,16 @@ function mailUrlToVips($pathToJson) {
       $CR_Mail = @mail ($vip->email, $email_objet, $email_message, $headers); 
 
       if ($CR_Mail === FALSE)
-        {
-          //echo " ### CR_Mail=$CR_Mail - Erreur envoi mail <br> \n";
+        {          
           $GLOBALS['mailingVip'] = "mailing VIPs KO";
         }
       else
         {
-          //echo " *** CR_Mail=$CR_Mail - Mail envoyé<br> \n";
-          // echo "OK";
           $GLOBALS['mailingVip'] = "mailing VIPs OK";
-          //mail($vip->email, $email_objet, $email_message, $headers); 
         }
 
     };
-    // if ($vip->isEmailOk) {
-    //   $GLOBALS['mailingVip'] .= $vip->nom;
-    // }    
-
-
+    
   };  
 };
 

@@ -15,9 +15,7 @@ export const interactifType = 'mathLive'
 */
 export default function FactoriserIdentitesRemarquables3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
+
   this.consigne = 'Factoriser les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1

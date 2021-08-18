@@ -93,6 +93,27 @@ export default function Exercice () {
   // this.typeExercice = 'IEP' // Pour charger InstrumEnPoche.
   // this.typeExercice = 'dnb' // Ce n’est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
   // this.typeExercice = 'XCas' // Pour charger le JavaScript de XCas.
+  this.listeArguments = []
 
   this.nouvelleVersion = function (numeroExercice) {}
+
+  /**
+   * 
+   * @param {int} i indice de la question
+   * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
+   * @returns {boolean} true si la question n'a jamais été posée
+   */
+  this.questionJamaisPosee = function (i, ...args) {
+    if (i === 0) this.listeArguments = []
+    let argsConcatenes = ''
+    for (const arg of args) {
+      if (arg !== undefined) argsConcatenes += arg.toString()
+    }
+    if (this.listeArguments.indexOf(argsConcatenes) > -1) {
+      return false
+    } else {
+      this.listeArguments.push(argsConcatenes)
+      return true
+    }
+  }
 }

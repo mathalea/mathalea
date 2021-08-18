@@ -6,7 +6,7 @@ import { addElement, get, setStyles } from './dom.js'
 import { ComputeEngine, parse } from '@cortex-js/math-json'
 import Fraction from './Fraction.js'
 import Grandeur from './Grandeur.js'
-import { getUserIdFromUrl } from './gestionUrl.js'
+import { getUserIdFromUrl, getVueFromUrl } from './gestionUrl.js'
 
 export function exerciceInteractif (exercice) {
   // passage amsType num à string cf commit 385b5ea
@@ -23,6 +23,230 @@ export function exerciceInteractif (exercice) {
   }
 }
 
+function verifQuestionMathLive (exercice, i) {
+  const engine = new ComputeEngine()
+  let saisieParsee, signeF
+  const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+  // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
+  const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+  let reponses = []
+  if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
+    reponses = [exercice.autoCorrection[i].reponse.valeur]
+  } else {
+    reponses = exercice.autoCorrection[i].reponse.valeur
+  }
+  let resultat = 'KO'
+  let saisie = champTexte.value
+  for (let reponse of reponses) {
+  // Pour le calcul littéral on remplace dfrac en frac
+    if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') { // Le format par défautt
+      if (typeof reponse === 'string') {
+        reponse = reponse.replaceAll('dfrac', 'frac')
+      // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
+      // saisie = neTientCompteQueDuDernierMembre(saisie)
+      }
+      // Pour le calcul numérique, on transforme la saisie en nombre décimal
+      if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
+      if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
+        resultat = 'OK'
+      }
+      // Pour les exercices de simplifications de fraction
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionPlusSimple') {
+      saisieParsee = parse(saisie)
+      if (saisieParsee) {
+        if (saisieParsee[0] === 'Negate') {
+          signeF = -1
+          saisieParsee = saisieParsee[1].slice()
+        } else {
+          signeF = 1
+        }
+        if (saisieParsee[1].num && saisieParsee[2].num) {
+          const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+          if (fSaisie.estUneSimplification(reponse)) resultat = 'OK'
+        }
+      }
+      // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionEgale') {
+      saisieParsee = parse(saisie)
+      if (saisieParsee) {
+        if (saisieParsee[0] === 'Negate') {
+          signeF = -1
+          saisieParsee = saisieParsee[1].slice()
+        } else {
+          signeF = 1
+        }
+        if (saisieParsee[1].num && saisieParsee[2].num) {
+          const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+          if (fSaisie.egal(reponse)) resultat = 'OK'
+        }
+      }
+      // Pour les exercices où l'on attend un écriture donnée d'une fraction
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fraction') {
+      saisieParsee = parse(saisie)
+      if (saisieParsee) {
+        if (saisieParsee[0] === 'Negate') {
+          signeF = -1
+          saisieParsee = saisieParsee[1].slice()
+        } else {
+          signeF = 1
+        }
+        if (saisieParsee[1].num && saisieParsee[2].num) {
+          const fSaisie = new Fraction(signeF * parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+          if (fSaisie.texFraction === reponse.texFraction) resultat = 'OK'
+        }
+      }
+      // Pour les exercices où l'on attend une mesure avec une unité au choix
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'longueur') {
+      const grandeurSaisie = saisieToGrandeur(saisie)
+      if (grandeurSaisie) {
+        if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
+      } else {
+        resultat = 'essaieEncore'
+      }
+      // Pour les exercice où la saisie doit correspondre exactement à la réponse
+    } else { // Format texte
+      if (saisie === reponse) {
+        resultat = 'OK'
+      }
+    }
+  }
+  if (resultat === 'OK') {
+    spanReponseLigne.innerHTML = '😎'
+    spanReponseLigne.style.fontSize = 'large'
+  } else if (resultat === 'essaieEncore') {
+    spanReponseLigne.innerHTML = '<em>Il faut saisir une longueur et une unité (cm par exemple).</em>'
+    spanReponseLigne.style.color = '#f15929'
+    spanReponseLigne.style.fontWeight = 'bold'
+  } else {
+    spanReponseLigne.innerHTML = '☹️'
+    spanReponseLigne.style.fontSize = 'large'
+  }
+  if (resultat !== 'essaieEncore') champTexte.readOnly = true
+  return resultat
+}
+
+function verifQuestionQcm (exercice, i) {
+  let resultat
+  const monRouge = 'rgba(217, 30, 24, 0.5)'
+  const monVert = 'rgba(123, 239, 178, 0.5)'
+  // i est l'indice de la question
+  let nbBonnesReponses = 0
+  let nbMauvaisesReponses = 0
+  let nbBonnesReponsesAttendues = 0
+  let indiceFeedback
+  // Compte le nombre de réponses justes attendues
+  for (let k = 0; k < exercice.autoCorrection[i].propositions.length; k++) {
+    if (exercice.autoCorrection[i].propositions[k].statut) nbBonnesReponsesAttendues++
+  }
+  const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+  exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
+    const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
+    const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
+    if (proposition.statut) {
+      label.style.backgroundColor = monVert
+      if (check.checked) {
+        nbBonnesReponses++
+        indiceFeedback = indice
+      }
+    } else if (check.checked === true) {
+      label.style.backgroundColor = monRouge
+      nbMauvaisesReponses++
+      indiceFeedback = indice
+    }
+  })
+  let typeFeedback = 'positive'
+  if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
+    spanReponseLigne.innerHTML = '😎'
+    resultat = 'OK'
+  } else {
+    spanReponseLigne.innerHTML = '☹️'
+    typeFeedback = 'error'
+    resultat = 'KO'
+  }
+  spanReponseLigne.style.fontSize = 'large'
+  if (indiceFeedback > -1 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback) {
+    const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
+    if (eltFeedback) eltFeedback.innerHTML = ''
+    messageFeedback({
+      id: `feedbackEx${exercice.numeroExercice}Q${i}`,
+      message: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
+      type: typeFeedback
+    })
+  }
+  return resultat
+}
+
+function verifQuestionNumerique (exercice, i) {
+  let spanReponseLigne, resultat
+  if (i < exercice.nbQuestions) {
+    spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+  }
+  // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
+  const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+  if (champTexte.value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '').replaceAll('.', ',')) {
+    spanReponseLigne.innerHTML = '😎'
+    resultat = 'OK'
+  } else {
+    spanReponseLigne.innerHTML = '☹️'
+    resultat = 'KO'
+  }
+  champTexte.readOnly = true
+  spanReponseLigne.style.fontSize = 'large'
+  return resultat
+}
+
+function gestionCan (exercice) {
+  // Gestion du bouton 'Entrée' pour aller à l'exercice suivant
+  if (!context.enterHasListenner) {
+    window.addEventListener('keyup', (e) => {
+      if (e.keyCode === 13) {
+        e.preventDefault()
+        const listeBoutonsValider = document.querySelectorAll('[id^=boutonVerifex]')
+        listeBoutonsValider[context.questionCanEnCours - 1].click()
+      }
+    })
+    context.enterHasListenner = true
+  }
+  for (const i in exercice.autoCorrection) {
+    const button1question = document.querySelector(`#boutonVerifexercice${exercice.numeroExercice}Q${i}`)
+    if (button1question) {
+      if (!button1question.hasMathaleaListener) {
+        button1question.addEventListener('click', () => {
+          let resultat
+          if (exercice.interactifType === 'mathLive') {
+            resultat = verifQuestionMathLive(exercice, i)
+          }
+          if (exercice.interactifType === 'numerique') {
+            resultat = verifQuestionNumerique(exercice, i)
+          }
+          if (exercice.interactifType === 'qcm') {
+            console.log('qcm')
+            resultat = verifQuestionQcm(exercice, i)
+          }
+          // Mise en couleur du numéro de la question dans le menu du haut
+          if (resultat === 'OK') {
+            document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
+            context.nbBonnesReponses++
+          }
+          if (resultat === 'KO') {
+            document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('red')
+            context.nbMauvaisesReponses++
+          }
+          if (resultat === 'OK' || resultat === 'KO') {
+            button1question.classList.add('disabled')
+            if (exercicesCanRestants().length) {
+              exercicesCanDispoApres().click()
+            } else {
+              afficheScoreCan(exercice, context.nbBonnesReponses, context.nbMauvaisesReponses)
+            }
+          }
+        })
+        button1question.hasMathaleaListener = true
+      }
+    }
+  }
+}
+
 /**
  * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
  * on vérifie la présence du bouton de validation d'id btnValidationEx{i} créé par listeQuestionsToContenu
@@ -30,13 +254,13 @@ export function exerciceInteractif (exercice) {
  * @param {object} exercice
  */
 export function exerciceQcm (exercice) {
-  // console.log('Dans ExerciceQcm : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
   document.addEventListener('exercicesAffiches', () => {
     // On active les checkbox
     $('.ui.checkbox').checkbox()
     // Couleur pour surligner les label avec une opacité de 50%
-    const monRouge = 'rgba(217, 30, 24, 0.5)'
-    const monVert = 'rgba(123, 239, 178, 0.5)'
+    if (getVueFromUrl() === 'can') {
+      gestionCan(exercice)
+    }
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       if (!button.hasMathaleaListener) {
@@ -44,50 +268,8 @@ export function exerciceQcm (exercice) {
           let nbQuestionsValidees = 0
           let nbQuestionsNonValidees = 0
           for (let i = 0; i < exercice.nbQuestions; i++) {
-          // i est l'indice de la question
-            let nbBonnesReponses = 0
-            let nbMauvaisesReponses = 0
-            let nbBonnesReponsesAttendues = 0
-            let indiceFeedback
-            // Compte le nombre de réponses justes attendues
-            for (let k = 0; k < exercice.autoCorrection[i].propositions.length; k++) {
-              if (exercice.autoCorrection[i].propositions[k].statut) nbBonnesReponsesAttendues++
-            }
-            const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-            exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
-              const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
-              const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
-              if (proposition.statut) {
-                label.style.backgroundColor = monVert
-                if (check.checked) {
-                  nbBonnesReponses++
-                  indiceFeedback = indice
-                }
-              } else if (check.checked === true) {
-                label.style.backgroundColor = monRouge
-                nbMauvaisesReponses++
-                indiceFeedback = indice
-              }
-            })
-            let typeFeedback = 'positive'
-            if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
-              spanReponseLigne.innerHTML = '😎'
-              nbQuestionsValidees++
-            } else {
-              spanReponseLigne.innerHTML = '☹️'
-              typeFeedback = 'error'
-              nbQuestionsNonValidees++
-            }
-            spanReponseLigne.style.fontSize = 'large'
-            if (indiceFeedback > -1 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback) {
-              const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
-              if (eltFeedback) eltFeedback.innerHTML = ''
-              messageFeedback({
-                id: `feedbackEx${exercice.numeroExercice}Q${i}`,
-                message: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
-                type: typeFeedback
-              })
-            }
+            const resultat = verifQuestionQcm(exercice, i)
+            resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
           }
           const uichecks = document.querySelectorAll(`.ui.checkbox.ex${exercice.numeroExercice}`)
           uichecks.forEach(function (uicheck) {
@@ -157,7 +339,7 @@ export function propositionsQcm (exercice, i) {
     }
     if (context.isHtml) {
       texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-      texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></span></form>`
+      texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
     }
   }
   return { texte: texte, texteCorr: texteCorr }
@@ -201,6 +383,9 @@ export function elimineDoublons (propositions) { // fonction qui va éliminer le
 export function exerciceNumerique (exercice) {
   // console.log('Dans ExerciceNumerique : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
   document.addEventListener('exercicesAffiches', () => {
+    if (getVueFromUrl() === 'can') {
+      gestionCan(exercice)
+    }
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       if (!button.hasMathaleaListener) {
@@ -208,21 +393,7 @@ export function exerciceNumerique (exercice) {
           let nbBonnesReponses = 0
           let nbMauvaisesReponses = 0
           for (const i in exercice.autoCorrection) {
-            let spanReponseLigne
-            if (i < exercice.nbQuestions) {
-              spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-            }
-            // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
-            const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-            if (champTexte.value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '').replaceAll('.', ',')) {
-              spanReponseLigne.innerHTML = '😎'
-              nbBonnesReponses++
-            } else {
-              spanReponseLigne.innerHTML = '☹️'
-              nbMauvaisesReponses++
-            }
-            champTexte.readOnly = true
-            spanReponseLigne.style.fontSize = 'large'
+            verifQuestionNumerique(exercice, i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
           }
           button.classList.add('disabled')
           afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
@@ -340,11 +511,11 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
     return ''
   }
 }
-export function ajouteChampTexteMathLive (exercice, i, style = '') {
+export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres = '', texte = '' } = {}) {
   if (context.isHtml && exercice.interactif) {
     if (style === '') {
-      return `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field><div style="margin-top:10px" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
-    } else return `<math-field virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field><div style="margin-top:10px" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
+      return `<label>${texte}</label><math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    } else return `<label>${texte}</label><math-field virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
   } else {
     return ''
   }
@@ -411,116 +582,25 @@ export function exerciceCustom (exercice) {
  * @param {object} exercice
  */
 export function exerciceMathLive (exercice) {
-  const engine = new ComputeEngine()
-  let saisieParsee, signeF
   document.addEventListener('exercicesAffiches', () => {
+    if (getVueFromUrl() === 'can') {
+      gestionCan(exercice)
+    }
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       if (!button.hasMathaleaListener) {
         button.addEventListener('click', event => {
           let nbBonnesReponses = 0
           let nbMauvaisesReponses = 0
-          let besoinDe2eEssai = false
+          const besoinDe2eEssai = false
+          let resultat
           for (const i in exercice.autoCorrection) {
-            const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-            // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
-            const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-            let reponses = []
-            if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
-              reponses = [exercice.autoCorrection[i].reponse.valeur]
-            } else {
-              reponses = exercice.autoCorrection[i].reponse.valeur
-            }
-            let resultat = 'KO'
-            let saisie = champTexte.value
-            for (let reponse of reponses) {
-            // Pour le calcul littéral on remplace dfrac en frac
-              if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') { // Le format par défautt
-                if (typeof reponse === 'string') {
-                  reponse = reponse.replaceAll('dfrac', 'frac')
-                // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
-                // saisie = neTientCompteQueDuDernierMembre(saisie)
-                }
-                // Pour le calcul numérique, on transforme la saisie en nombre décimal
-                if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
-                if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
-                  resultat = 'OK'
-                }
-                // Pour les exercices de simplifications de fraction
-              } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionPlusSimple') {
-                saisieParsee = parse(saisie)
-                if (saisieParsee) {
-                  if (saisieParsee[0] === 'Negate') {
-                    signeF = -1
-                    saisieParsee = saisieParsee[1].slice()
-                  } else {
-                    signeF = 1
-                  }
-                  if (saisieParsee[1].num && saisieParsee[2].num) {
-                    const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-                    if (fSaisie.estUneSimplification(reponse)) resultat = 'OK'
-                  }
-                }
-                // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
-              } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionEgale') {
-                saisieParsee = parse(saisie)
-                if (saisieParsee) {
-                  if (saisieParsee[0] === 'Negate') {
-                    signeF = -1
-                    saisieParsee = saisieParsee[1].slice()
-                  } else {
-                    signeF = 1
-                  }
-                  if (saisieParsee[1].num && saisieParsee[2].num) {
-                    const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-                    if (fSaisie.egal(reponse)) resultat = 'OK'
-                  }
-                }
-                // Pour les exercices où l'on attend un écriture donnée d'une fraction
-              } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fraction') {
-                saisieParsee = parse(saisie)
-                if (saisieParsee) {
-                  if (saisieParsee[0] === 'Negate') {
-                    signeF = -1
-                    saisieParsee = saisieParsee[1].slice()
-                  } else {
-                    signeF = 1
-                  }
-                  if (saisieParsee[1].num && saisieParsee[2].num) {
-                    const fSaisie = new Fraction(signeF * parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-                    if (fSaisie.texFraction === reponse.texFraction) resultat = 'OK'
-                  }
-                }
-                // Pour les exercices où l'on attend une mesure avec une unité au choix
-              } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'longueur') {
-                const grandeurSaisie = saisieToGrandeur(saisie)
-                if (grandeurSaisie) {
-                  if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
-                } else {
-                  resultat = 'essaieEncore'
-                }
-                // Pour les exercice où la saisie doit correspondre exactement à la réponse
-              } else { // Format texte
-                if (saisie === reponse) {
-                  resultat = 'OK'
-                }
-              }
-            }
+            resultat = verifQuestionMathLive(exercice, i)
             if (resultat === 'OK') {
-              spanReponseLigne.innerHTML = '😎'
-              spanReponseLigne.style.fontSize = 'large'
               nbBonnesReponses++
-            } else if (resultat === 'essaieEncore') {
-              spanReponseLigne.innerHTML = '<em>Il faut saisir une longueur et une unité (cm par exemple).</em>'
-              spanReponseLigne.style.color = '#f15929'
-              spanReponseLigne.style.fontWeight = 'bold'
-              besoinDe2eEssai = true
             } else {
-              spanReponseLigne.innerHTML = '☹️'
-              spanReponseLigne.style.fontSize = 'large'
-              nbMauvaisesReponses++
+              nbMauvaisesReponses++ // Il reste à gérer le 2e essai
             }
-            if (resultat !== 'essaieEncore') champTexte.readOnly = true
           }
           if (!besoinDe2eEssai) {
             button.classList.add('disabled')
@@ -555,6 +635,13 @@ function saisieToGrandeur (saisie) {
   }
 }
 
+/**
+ * @author Sébastien LOZANO
+ * @param {object} exercice
+ * @param {number} nbBonnesReponses
+ * @param {number} nbMauvaisesReponses
+ */
+
 function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   // TODO
   // => OK => vérifier si le paramètre existe dans l'url
@@ -564,6 +651,42 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   // const str = window.location.href
   // const url = new URL(str)
   // const userId = url.searchParams.get('userId')
+  async function myThirdScoresManageFetch () {
+    const response = await fetch('scoresManage.php', {
+      method: 'POST',
+      mode: 'same-origin',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
+        isSubmitUserId: false,
+        isVerifResult: true,
+        userId: userId,
+        prof1: userId[0],
+        prof2: userId[1],
+        prof3: userId[2],
+        classe1: userId[3],
+        classe2: userId[4],
+        eleve1: userId[5],
+        eleve2: userId[6],
+        // eslint-disable-next-line no-unneeded-ternary
+        isCan: getVueFromUrl() === 'can' ? 'oui' : 'non',
+        urlExos: document.location.href + '&serie=' + context.graine,
+        exId: exercice.id,
+        sup: exercice.sup,
+        sup2: exercice.sup2,
+        sup3: exercice.sup3,
+        nbBonnesReponses: nbBonnesReponses,
+        nbQuestions: nbBonnesReponses + nbMauvaisesReponses,
+        score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100
+      })
+    })
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP ! statut : ${response.status}`)
+    }
+  }
   // eslint-disable-next-line no-unused-expressions
   userId === null
     ? (
@@ -571,39 +694,19 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
       )
     : (
         console.log('userId OK : ' + userId),
-        fetch('scoresManage.php', {
-          method: 'POST',
-          mode: 'same-origin',
-          credentials: 'same-origin',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
-            isSubmitUserId: false,
-            isVerifResult: true,
-            userId: userId,
-            prof1: userId[0],
-            prof2: userId[1],
-            prof3: userId[2],
-            classe1: userId[3],
-            classe2: userId[4],
-            eleve1: userId[5],
-            eleve2: userId[6],
-            exId: exercice.id,
-            sup: exercice.sup,
-            sup2: exercice.sup2,
-            sup3: exercice.sup3,
-            nbBonnesReponses: nbBonnesReponses,
-            nbQuestions: nbBonnesReponses + nbMauvaisesReponses,
-            score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100
+        myThirdScoresManageFetch()
+          .catch(e => {
+            console.log('/!\\ thirdScoresManage.php /!\\ Pb avec l\'opération de récupération sûrement en dev local sans serveur PHP, message d\'erreur => ' + e.message)
           })
-        })
       )
 }
 
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
-  // console.log('appel afficheScore()')
+  if (context.timer) {
+    clearInterval(context.timer)
+    // ToDo à sauvegarder dans les résultats
+    // const tempsRestant = document.getElementById('timer').innerText
+  }
   const divExercice = get(`exercice${exercice.numeroExercice}`)
   let divScore = get(`score${exercice.numeroExercice}`, false)
   // Appel Fecth via une fonction est-ce que c'est ça qui multiplie les appels ?
@@ -632,5 +735,37 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
     }
   }
 }
+export function afficheScoreCan (exercice, nbBonnesReponses, nbMauvaisesReponses) {
+  // const exercice = { id: 'can', sup: document.location.href + 'serie=' + context.graine }
+  const divScore = addElement(document.querySelector('#menuEval'), 'div', { className: 'score', id: 'scoreTotal' })
+  divScore.innerHTML = `Résultat : ${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
+  // Arrête le timer
+  if (context.timer) {
+    clearInterval(context.timer)
+    // ToDo à sauvegarder dans les résultats
+    // const tempsRestant = document.getElementById('timer').innerText
+  }
+  divScore.style.color = '#f15929'
+  divScore.style.fontWeight = 'bold'
+  divScore.style.fontSize = 'xx-large'
+  divScore.style.marginTop = '20px'
+  document.querySelectorAll('[id^=divexcorr]').forEach(e => {
+    e.style.display = 'block'
+  })
+  const divCorr = get('corrections')
+  divCorr.style.display = 'block'
+  document.getElementById('btnMenuexercice0Q0').click()
+  isUserIdOk(exercice, nbBonnesReponses, nbMauvaisesReponses)
+}
 
-const exercicesEvalRestants = () => document.querySelectorAll('[id ^= "btnEx"].circular.ui.button:not(.green)')
+const exercicesEvalRestants = () => document.querySelectorAll('[id ^= "btnEx"].circular.ui.button:not(.green):not(.red)')
+const exercicesCanRestants = () => document.querySelectorAll('[id ^= "btnMenuexercice"].circular.ui.button:not(.green):not(.red)')
+const exercicesCanDispoApres = () => {
+  const liste = Array.from(document.querySelectorAll('[id^=btnMenu]'))
+  for (let i = parseInt(context.questionCanEnCours); i < liste.length; i++) {
+    if (!liste[i].classList.contains('red') && !liste[i].classList.contains('green')) {
+      return liste[i]
+    }
+  }
+  return exercicesCanRestants()[0]
+}

@@ -142,7 +142,7 @@ export default function CompteEstBon () {
       texte += `${tirage[5]}.<br>`
       texte += `Et le nombre à trouver est : ${cible}.`
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, choix[i], a, b, c)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

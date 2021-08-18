@@ -1,142 +1,171 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
-import { repere2, droite, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
-import { min, max } from 'mathjs'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, reduireAxPlusB, texFractionSigne, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
-export const titre = 'Représentation graphique d’une fonction affine'
+export const titre = 'Reconnaître une fonction affine.'
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMono'
 
 /**
+ * Reconnaître une fonction affine
 * @author Stéphane Guyon
-* 2F10-1, ex beta2F22
+* 2F20
 */
-export default function representerfonctionaffine () {
-  Exercice.call(this)
+export default function Reconnaitrefonctionaffine () {
+  'use strict'
+  Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 3 // On complète le nb de questions
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 100
   this.video = ''
+  this.consigne = 'Déterminer, en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines :'
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.spacing = 1
   this.spacingCorr = 1
-  this.spacingCorr = 3
-  this.sup = 1
+  this.nbQuestions = 5
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-    this.listeQuestions = []
-    this.listeCorrections = []
-    // let typesDeQuestionsDisponibles = []
-    // typesDeQuestionsDisponibles = [1, 2]// On complète selon le nb de cas dans l'exo (switch)
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    let typesDeQuestionsDisponibles = []
+    let bonneReponse
+    typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, k = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+      typesDeQuestions = listeTypeDeQuestions[i]
+      k = choice([-1, 1])
+      a = randint(2, 9)
+      a = a * k
+      b = randint(1, 9)
+      c = choice([2, 3, 5, 7, 10, 11, 13, 15, 17])
+      b = b * k
+      d = choice([2, 3, 5, 7, 10, 11, 13, 15, 17])
+      e = randint(2, 9)
 
-    for (let i = 0, a, b, r, c, d, tA, lA, tB, lB, xA, yA, lC, texte, texteCorr, cpt = 0;
-      i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
-      // typesDeQuestions = listeTypeDeQuestions[i]
-      if (this.sup === 1) {
-        a = randint(0, 3) * choice([-1, 1])// coefficient a de la fonction affine
-        b = randint(0, 3) * choice([-1, 1])// coefficient b de la fonction affine
+      switch (typesDeQuestions) {
+        case 1:// Cas f(x)=ax+b
+          texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${reduireAxPlusB(a, b)}$` // f(x)=ax + b
+          texteCorr = ` $f(x)=${reduireAxPlusB(a, b)}$.<br>`
+          texteCorr += 'On observe que la fonction $f$ s\'écrit bien sous la forme $f(x)= a x+ b$  avec $a$ et $b$ des nombres réels.<br>'
+          texteCorr += `Ici, on a : $a=${a}$ et $b=${b}$.<br>`
+          texteCorr += '$f$ est donc bien une fonction affine.<br>'
+          bonneReponse = 'oui'
+          break
+        case 2:// Cas f(x)=b+a x
+          if (a === 1) {
+            texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}+x$.<br>` // f(x)=b+x
+            texteCorr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}+x$.<br>`
+            texteCorr += ` On peut écrire $f$ sous cette forme : $f(x)=x ${ecritureAlgebrique(b)}$.<br>`
+          }
+          if (a === -1) {
+            texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}-x$.<br>` // f(x)=b-x}
+            texteCorr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}-x$.<br>`
+            texteCorr += ` On peut écrire $f$ sous cette forme : $f(x)=-x ${ecritureAlgebrique(b)}$.<br>`
+          }
+          if (a !== 0 & a !== 1) {
+            texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b} ${ecritureAlgebrique(a)}  x$.<br>` // f(x)=b-x}
+            texteCorr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b} ${ecritureAlgebrique(a)}  x$.<br>` // f(x)=b-x}
+            texteCorr += ` On peut écrire $f$ sous cette forme : $f(x)= ${reduireAxPlusB(a, b)}$.<br>`
+          }
+          texteCorr += 'On observe que la fonction $f$ s\'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>'
+          texteCorr += `Ici, on a : $a=${a}$ et $b=${b}$.<br>`
+          texteCorr += '$f$ est donc bien une fonction affine.'
+          bonneReponse = 'oui'
 
-        if (a === 0 && b === 0) { // On évite la fonction nulle
-          a = 1
-        }
-        c = droite(a, -1, b)
-        c.color = 'red'
-        c.epaisseur = 2
-        xA = randint(1, 3) * choice([-1, 1])// Abscisse de A
-        yA = a * xA + b// Ordonnée de A
-        r = repere2({
-          xMin: -6,
-          yMin: min(-8, yA - 2),
-          xMax: 6,
-          yMax: max(8, yA + 2)
-        })
+          break
+        case 3:// Cas f(x)=ax²+bx+c
+          texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${a}x^{2}${ecritureAlgebrique(b)} x${ecritureAlgebrique(c)} $.` // f(x)=ax²+bx+c
+          texteCorr = ` $f(x)=${a}x^{2}${ecritureAlgebriqueSauf1(b)} x${ecritureAlgebrique(c)} $.<br>`
+          texteCorr += 'On observe que la fonction $f$ est du second degré, puisqu\'il y a un terme en $x^{2}$.<br>'
+          texteCorr += 'Elle s\'écrit sous la forme $f(x)= a x^{2}+ bx+c$ et non pas sous la forme $ax+b$.<br>'
+          texteCorr += '$f$ n\'est donc pas une fonction affine.<br>'
+          bonneReponse = 'non'
 
-        const B = point(xA, yA, 'B')
-        const A = point(0, b, 'A')
+          break
+        case 4:
+          texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=\\sqrt{${c}}x + \\sqrt{${d}}$.` // f(x)=\sqrt a x + \sqrt b
+          texteCorr = ` $f(x)=\\sqrt{${c}}x + \\sqrt{${d}}$.<br>`
+          texteCorr += 'On observe que la fonction $f$ s\'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>'
+          texteCorr += `Ici, on a : $a=\\sqrt{${c}}$ et $b=\\sqrt{${d}}$.<br>`
+          texteCorr += '$f$ est donc bien une fonction affine.<br>'
+          bonneReponse = 'oui'
 
-        tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
-        tB = tracePoint(B, 'red') // Variable qui trace les points avec une croix
-        lA = labelPoint(A, 'red')// Variable qui trace les nom s A et B
-        lB = labelPoint(B, 'red')// Variable qui trace les nom s A et B
+          break
+        case 5:
+          texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${a}x^{2}${ecritureAlgebrique(c)} $.` // f(x)=ax²+c
+          texteCorr = ` $f(x)=${a}x^{2}${ecritureAlgebrique(c)} $.<br>`
+          texteCorr += 'On observe que la fonction $f$ est du second degré, puisqu\'il y a un terme en $x^{2}$.<br>'
+          texteCorr += 'Elle s\'écrit sous la forme $f(x)= a x^{2}+b$ avec $a$ et $b$ des nombres réels, et non pas sous la forme $ax+b$.<br>'
+          texteCorr += '$f$ n\'est donc pas une fonction affine.<br>'
+          bonneReponse = 'non'
 
-        tA.taille = 5
-        tA.epaisseur = 2
+          break
+        case 6:
+          texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=\\dfrac{1}{${a}x${ecritureAlgebrique(b)} }$.` // f(x)=1/(ax+b)
+          texteCorr = ` $f(x)=\\dfrac{1}{${a}x${ecritureAlgebrique(b)} }$.<br>`
+          texteCorr += 'On observe que la fonction $f$ est une fonction rationnelle, puisqu\'il y une fraction avec des termes en $x$ au dénominateur.<br>'
+          texteCorr += 'Elle ne s\'écrit  pas sous la forme $ax+b$.<br>'
+          texteCorr += '$f$ n\'est donc pas une fonction affine.<br>'
+          bonneReponse = 'non'
 
-        tB.taille = 5
-        tB.epaisseur = 2
-        texte = `Représenter graphiquement la fonction affinne $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`
-        if (a !== 0) {
-          texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
-          texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
-          texteCorr += `Comme $f(0)=${b}$, on a  $A(0;${b}) \\in \\mathcal{C_f}$.<br>`
-          texteCorr += 'On cherche un deuxième point, et on prend un antécédent au hasard :<br>'
-          texteCorr += `Soit $x=${xA}$ :<br>`
-          texteCorr += `On calcule : $f(${xA})=${a} \\times ${ecritureParentheseSiNegatif(xA)}${ecritureAlgebrique(b)}=${yA}$<br>`
-          texteCorr += `On en déduit que $B(${xA};${yA}) \\in \\mathcal{C_f}$.`
-        } else {
-          texteCorr = 'On oberve que $f$ est une fonction constante<br>'
-          texteCorr += `Sa représentation graphique est donc une droite parallèle à l'axe des abscisses, d'équation $y=${b}$.<br>`
-        }
-        texteCorr += mathalea2d({
-          xmin: -6,
-          ymin: min(-8, yA - 2),
-          xmax: 6,
-          ymax: max(8, yA + 2)
-        }, lA, lB, r, c, tA, tB)
+          break
+        case 7:// f(x)=1/a x+1/b
+          texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${texFractionSigne(1, a)}x+${texFractionSigne(1, e)} $.`
+          texteCorr = `$f(x)=${texFractionSigne(1, a)}x+${texFractionSigne(1, e)}$.<br>`
+          texteCorr += 'On observe que la fonction $f$ s\'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>'
+          texteCorr += `Ici, on a : $a=${texFractionSigne(1, a)}$ et $b=${texFractionSigne(1, e)}$.<br>`
+          texteCorr += '$f$ est donc bien une fonction affine.<br>'
+          bonneReponse = 'oui'
+
+          break
+        case 8:// f(x)=k(ax+b)
+          texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${c}\\times (${reduireAxPlusB(a, b)}) $.`
+          texteCorr = `$f(x)=${c}\\times (${reduireAxPlusB(a, b)}) $.<br>`
+          texteCorr += 'On peut développer l\'expression de $f$ et on obtient alors :<br>'
+          texteCorr += `$f(x)=${reduireAxPlusB(a * c, b * c)} $.<br>`
+          texteCorr += 'On observe que la fonction $f$ s\'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>'
+          texteCorr += `Ici, on a : $a=${a * c}$ et $b=${b * c}$.<br>`
+          texteCorr += '$f$ est donc bien une fonction affine.<br>'
+          bonneReponse = 'oui'
+
+          break
+        case 9:// f(x)= x/a+1/b
+          texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=\\dfrac{x}{${a}}+${texFractionSigne(1, e)} $.`
+          texteCorr = `On a : $f(x)=\\dfrac{x}{${a}}+${texFractionSigne(1, e)} $.`
+          texteCorr += `<br>Ce qui revient à écrire que : $f(x)=${texFractionSigne(1, a)}x+${texFractionSigne(1, e)}$.<br>`
+          texteCorr += 'On observe que la fonction $f$ s\'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>'
+          texteCorr += `Ici, on a : $a=${texFractionSigne(1, a)}$ et $b=${texFractionSigne(1, e)}$.<br>`
+          texteCorr += '$f$ est donc bien une fonction affine.<br>'
+          bonneReponse = 'oui'
+
+          break
       }
-      if (this.sup === 2) { // cas du coeff directeur fractionnaire
-        a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
-        b = randint(-5, 5) // ordonnée à l'origine
-        d = randint(2, 5, [a, 2 * a, -a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
-        if (a === 0 && b === 0) {
-          a = 1
-          d = 3
-        }// On évite la situation de double nullité
-        xA = d // Abscisse de A
-        yA = a / d * xA + b// Ordonnée de A
-
-        const B1 = point(xA, yA, 'B')
-        const A1 = point(0, b, 'A')
-        // const f = point(xA / 2, (b + yA) / 2)
-        r = repere2({
-          xMin: -8,
-          yMin: -10,
-          xMax: 8,
-          yMax: 8
-        })// On définit le repère
-        c = droite(a / d, -1, b)
-        c.color = 'red'
-        c.epaisseur = 2
-
-        texte = `Représenter graphiquement la fonction affinne $f$ définie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
-
-        texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
-        texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
-        texteCorr += `Comme $f(0)=${b}$, on a : $A(0;${b}) \\in \\mathcal{C_f}$.<br>`
-        texteCorr += 'On cherche un deuxième point, et on prend un antécédent qui facilite les calculs :<br>'
-        texteCorr += `Par exemple $x=${xA}$ :<br>`
-        texteCorr += `On calcule : $f(${xA})=${texFractionReduite(a, d)} \\times ${ecritureParentheseSiNegatif(xA)}${ecritureAlgebrique(b)}=${yA}$<br>`
-        texteCorr += `On en déduit que $B(${xA};${yA}) \\in \\mathcal{C_f}$.`
-
-        tA = tracePoint(A1, 'red') // Variable qui trace les points avec une croix
-        lA = labelPoint(A1, 'red')// Variable qui trace les nom s A et B
-        tB = tracePoint(B1, 'red') // Variable qui trace les points avec une croix
-        lB = labelPoint(B1, 'red')// Variable qui trace les nom s A et B
-        // lC = labelPoint(f, 'C_f')// Variable qui trace les nom s A et B
-        texteCorr += mathalea2d({
-          xmin: -8,
-          ymin: -10,
-          xmax: 8,
-          ymax: 8
-
-        }, r, c, tA, lA, tB, lB, lC)
-        // On trace le graphique
+      if (this.interactif || context.isAmc) {
+        this.autoCorrection[i] = {}
+        this.autoCorrection[i].options = { ordered: true }
+        this.autoCorrection[i].enonce = `${texte}\n`
+        this.autoCorrection[i].propositions = [
+          {
+            texte: 'oui',
+            statut: bonneReponse !== 'non'
+          },
+          {
+            texte: 'non',
+            statut: bonneReponse !== 'oui'
+          },
+          {
+            texte: 'je ne sais pas',
+            statut: false
+          }
+        ]
+        if (this.interactif) {
+          texte += propositionsQcm(this, i).texte
+        }
       }
-
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, k, a, b, c, d, e)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -144,8 +173,6 @@ export default function representerfonctionaffine () {
       }
       cpt++
     }
-
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
 }

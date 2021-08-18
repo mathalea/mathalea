@@ -1,12 +1,14 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
-import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
-
+import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, choice, arrondiVirgule } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpenNum' // type de question AMC
 
-export const titre = 'Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie'
+export const titre = 'Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie'
 
 /**
  * @author Jean-Claude Lhote à partir de 3G30-1 de Rémi Angot
@@ -25,9 +27,7 @@ export default function CalculDeLongueur () {
   this.sup = false
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
-  this.amcReady = amcReady
-  this.amcType = amcType
-
+  this.interactif = false
   if (context.isHtml) {
     this.spacing = 0
     this.spacingCorr = 0
@@ -61,42 +61,42 @@ export default function CalculDeLongueur () {
         ab = calcul(bc * Math.cos(angleABCr))
         ac = calcul(bc * Math.sin(angleABCr))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-        texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.<br>`
+        texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.`
         break
       case 'sinus':
         bc = randint(10, 15)
         ab = calcul(bc * Math.cos(angleABCr))
         ac = calcul(bc * Math.sin(angleABCr))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-        texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.<br>`
+        texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.`
         break
       case 'tangente':
         ab = randint(7, 10)
         ac = calcul(ab * Math.tan(angleABCr))
         bc = calcul(ab / Math.cos(angleABCr))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-        texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.<br>`
+        texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.`
         break
       case 'invCosinus':
         ab = randint(7, 10)
         bc = calcul(ab / Math.cos(angleABCr))
         ac = calcul(bc * Math.sin(angleABCr))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-        texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.<br>`
+        texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.`
         break
       case 'invSinus':
         ac = randint(7, 10)
         bc = calcul(ac / Math.sin(angleABCr))
         ab = calcul(bc * Math.cos(angleABCr))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-        texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.<br>`
+        texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.`
         break
       case 'invTangente':
         ac = randint(7, 10)
         bc = calcul(ac / Math.sin(angleABCr))
         ab = calcul(bc * Math.cos(angleABCr))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-        texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.<br>`
+        texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.`
         break
     }
 
@@ -254,35 +254,37 @@ export default function CalculDeLongueur () {
     }
     /*****************************************************/
     // Pour AMC
-    this.autoCorrection[0] = {
-      enonce: texte,
-      propositions: [
-        {
-          texte: texteCorr,
-          statut: 4,
-          feedback: ''
-        }
-      ],
-      reponse: {
-        texte: 'résultat',
-        valeur: reponse,
-        param: {
-          digits: 3,
-          decimals: 1,
-          signe: false,
-          exposantNbChiffres: 0,
-          exposantSigne: false,
-          approx: 1
+    if (context.isAmc) {
+      this.autoCorrection[0] = {
+        enonce: texte,
+        propositions: [
+          {
+            texte: texteCorr,
+            statut: 4,
+            feedback: ''
+          }
+        ],
+        reponse: {
+          texte: 'résultat',
+          valeur: reponse,
+          param: {
+            digits: 3,
+            decimals: 1,
+            signe: false,
+            exposantNbChiffres: 0,
+            exposantSigne: false,
+            approx: 1
+          }
         }
       }
     }
-    /****************************************************/
-    this.listeQuestions.push(texte)
+    if (context.isHtml) {
+      texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline', { texteApres: ' cm' })
+      this.listeQuestions.push(texte)
+      setReponse(this, 0, arrondiVirgule(reponse))
+    }
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
-    /*********************************************************/
-    // On ajoute cette ligne pour AMC
-    /**********************************************************/
   }
 
   this.besoinFormulaireCaseACocher = ['Figure à main levée', false]

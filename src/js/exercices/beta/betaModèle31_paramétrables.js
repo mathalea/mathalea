@@ -102,17 +102,24 @@ export default function NomExercice () {
 
           break
       }
-      // paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
-      paramsEnonceml = { xmin: -5, ymin: -5, xmax: 9, ymax: 9, pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
+      // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
+      const xmin = Math.min(A.x, B.x, C.x, D.x) - 2
+      const xmax = Math.max(A.x, B.x, C.x, D.x) + 2
+      const ymin = Math.min(A.y, B.y, C.y, D.y) - 2
+      const ymax = Math.max(A.y, B.y, C.y, D.y) + 2
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-      paramsEnonce = { xmin: -5, ymin: -5, xmax: 9, ymax: 9, pixelsParCm: 20, scale: 1, mainlevee: false }
+      paramsEnonce = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1 }
+      // paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
+      paramsEnonceml = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
       // paramètres de la fenêtre Mathalea2d pour la correction
-      paramsCorrection = { xmin: -5, ymin: -5, xmax: 9, ymax: 9, pixelsParCm: 20, scale: 1 }
+      paramsCorrection = paramsEnonce
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
-      texte += mathalea2d(paramsEnonceml, objetsEnonceml) + mathalea2d(paramsEnonce, objetsEnonce)
+      texte += mathalea2d(paramsEnonce, objetsEnonce) + mathalea2d(paramsEnonceml, objetsEnonceml)
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      // Si la question n'a jamais été posée, on l'enregistre
+      if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+        // Dans cet exercice, on n'utilise pas a, b, c et d mais A, B, C et D alors remplace-les !
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

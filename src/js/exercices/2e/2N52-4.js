@@ -1,6 +1,5 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, reduireAxPlusB, texteEnCouleur, texFractionSigne, texFractionReduite, ecritureAlgebrique, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texteEnCouleur, texFractionSigne, texFractionReduite, reduireAxPlusB, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Résoudre des équations se ramenant au produit-nul.'
 
@@ -10,7 +9,7 @@ export const titre = 'Résoudre des équations se ramenant au produit-nul.'
 * 2L12-2
 * A DEPLACER EN 2N52-4 !!!!!!!!!!!!!!!!!!!!!!!!!
 */
-export default function Equations_presque_produit_null2 () {
+export default function Equationspresqueproduitnulle () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -32,7 +31,7 @@ export default function Equations_presque_produit_null2 () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f, k, f1, f2, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f, f1, f2, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(-9, 9, [-1, 0, 1]) // on évite a=1, -1 ou 0
       b = randint(-9, 9, 0)
@@ -51,7 +50,7 @@ export default function Equations_presque_produit_null2 () {
             texteCorr += ` $\\iff (\\underline{${reduireAxPlusB(a, b)}})\\Big(( ${reduireAxPlusB(c, d)})+(${reduireAxPlusB(e, f)})\\Big)=0$<br>`
           }
           texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c + e, d + f)})=0$<br>`
-          if (c + e == 0) {
+          if (c + e === 0) {
             texteCorr += `$\\iff ${reduireAxPlusB(a, b)}=0$<br>`
             texteCorr += `$x=${texFractionSigne(-b, a)}$<br>`
             texteCorr += `L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b, a)}\\right\\}$.`
@@ -82,7 +81,7 @@ export default function Equations_presque_produit_null2 () {
           if (e > 0) texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c, d)}${reduireAxPlusB(-e, -f)})=0$<br>`
           else texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c, d)}+${reduireAxPlusB(-e, -f)})=0$<br>`
           texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c - e, d - f)})=0$<br>`
-          if (c - e == 0) {
+          if (c - e === 0) {
             texteCorr += `$\\iff ${reduireAxPlusB(a, b)}=0$<br>`
             texteCorr += `$x=${texFractionSigne(-b, a)}$<br>`
             texteCorr += `L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b, a)}\\right\\}$.`
@@ -112,7 +111,7 @@ export default function Equations_presque_produit_null2 () {
           if (e < 0) texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(a, b)})${reduireAxPlusB(e, f)})=0$<br>`
           else texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(a, b)})+${reduireAxPlusB(e, f)})=0$<br>`
           texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(a + e, b + f)})=0$<br>`
-          if (a + e == 0) {
+          if (a + e === 0) {
             texteCorr += `$\\iff ${reduireAxPlusB(a, b)}=0$<br>`
             texteCorr += `$x=${texFractionSigne(-b, a)}$<br>`
             texteCorr += `L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b, a)}\\right\\}$.`
@@ -142,7 +141,7 @@ export default function Equations_presque_produit_null2 () {
           if (a > 0) texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c, d)}${reduireAxPlusB(-a, -b)}))=0$<br>`
           else texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c, d)}+${reduireAxPlusB(-a, -b)}))=0$<br>`
           texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c - a, d - b)})=0$<br>`
-          if (c - a == 0) {
+          if (c - a === 0) {
             texteCorr += `$\\iff ${reduireAxPlusB(a, b)}=0$<br>`
             texteCorr += `$x=${texFractionSigne(-b, a)}$<br>`
             texteCorr += `L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b, a)}\\right\\}$.`

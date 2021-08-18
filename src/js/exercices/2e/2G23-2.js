@@ -108,7 +108,7 @@ export default function TranslationEtCoordonnes () {
         xmax: 9,
         ymax: 9
       }, r, k, j, s, o, nomi, nomj, nomAB, labelA, labelB)// On trace le graphique
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, xA, yA, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

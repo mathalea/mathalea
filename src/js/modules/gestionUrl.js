@@ -19,6 +19,16 @@ export function getVueFromUrl () {
   const urlParams = new URLSearchParams(queryString)
   return urlParams.get('v')
 }
+
+/**
+ *
+ * @returns {string} Vue depuis l'URL
+ */
+export function getDureeFromUrl () {
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  return urlParams.get('duree')
+}
 /**
  *
  * @returns {string} Log nécessaire depuis l'URL
@@ -137,6 +147,7 @@ export function getUrlSearch () {
   const urlParams = new URLSearchParams(queryString)
   if (context.userId) urlParams.set('userId', context.userId)
   if (context.vue) urlParams.set('v', context.vue)
+  if (context.duree) urlParams.set('duree', context.duree)
   // On finit la réécriture de l'url
   const entries = urlParams.entries()
   let urlRewrite = urlRacine + '?'
@@ -164,4 +175,11 @@ export function setUrl () {
 export function setUrlAndGo () {
   window.history.pushState('', '', getUrlSearch())
   document.location.reload()
+}
+/**
+ * Met à jour l'URL avec la vue et le userId s'ils sont connus et go
+ */
+export function setUrlAndGoTab () {
+  window.history.pushState('', '', getUrlSearch())
+  window.open(document.location)
 }

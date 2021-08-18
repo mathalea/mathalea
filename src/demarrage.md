@@ -18,7 +18,7 @@ Le but de ce guide n'est pas de vous guider pas à pas mais de vous faire évite
         - `sudo apt-get install curl apt-transport-https lsb-release`
         - `sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
         - `sudo apt-get install -y nodejs`
-    - Pour savoir à quoi correspondent les lignes précédentes et savoir comment installer sur les autres distributions [c'est par ici](/tutorial-Installer_NodeJS_sur_Linux.html).
+    - Pour savoir à quoi correspondent les lignes précédentes et savoir comment installer sur les autres distributions [c'est par ici](documentation/tutorial-Installer_NodeJS_sur_Linux.html).
     
 - Installer Git :
     - [Pour Windows](https://git-scm.com/download/).
@@ -57,6 +57,6 @@ Le but de ce guide n'est pas de vous guider pas à pas mais de vous faire évite
 - De la même façon, saisir `pnpm i` pour installer les dépendances nécessaires (ça prendra un moment, faites autre chose en attendant mais ne fermez pas le logiciel pour éviter les problèmes). Il faudra le refaire lorsqu'on intègrera de nouveaux outils externes, ce qui n'arrivera pas tous les jours (on préviendra sur Slack).
 - Enfin, vous pouvez vérifier que tout fonctionne en lançant `pnpm start` qui va ouvrir votre navigateur par défaut pour afficher (au bout de quelques dizaines de secondes) la dernière version de MathAlea en développement !
 
-Si le site s'affiche bien, Félicitations ! vous êtes fin prêt(e) à participer à ce projet ! et vous pouvez cliquer sur [Architecture du code](/tutorial-Architecture_du_code.html) pour comprendre comment est structuré le code de MathALEA ou directement sur [Créer un exercice](/tutorial-Créer_un_exercice.html) si vous voulez apprendre à créer votre premier exercice sans plus attendre !
+Si le site s'affiche bien, Félicitations ! vous êtes fin prêt(e) à participer à ce projet ! et vous pouvez cliquer sur [Architecture du code](documentation/tutorial-Architecture_du_code.html) pour comprendre comment est structuré le code de MathALEA ou directement sur [Créer un exercice](documentation/tutorial-Creer_un_exercice.html) si vous voulez apprendre à créer votre premier exercice sans plus attendre !
 
 Sinon, c'est que cette documentation est encore à améliorer ! et vous êtes invité(e) à faire part de vos soucis sur Slack pour qu'on vous aide et qu'on améliore cette documentation :)

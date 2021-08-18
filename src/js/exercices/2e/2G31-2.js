@@ -33,6 +33,8 @@ export default function EquationReduiteDeDroites () {
         yA = randint(-5, 5)
         xB = randint(-5, 5, xA)
         yB = randint(-5, 5)
+        xu = xB - xA
+        yu = yB - yA
         n = yB - yA
         d = xB - xA
 
@@ -145,7 +147,7 @@ export default function EquationReduiteDeDroites () {
         texteCorr += `$${texFractionReduite(d * yA - n * xA, d)} .$`
       }
       // }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, xA, yA, xu, yu)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

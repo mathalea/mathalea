@@ -47,7 +47,7 @@ export default function RepresenterUnVecteur () {
       labelB = latexParPoint('B', posLabelB, 'red', 10, 12, '')
 
       H = point(xA + ux, yA)
-      s = vecteur(A, B).representant(A) // On trace en rouge [AB]
+      s = AB.representant(A) // On trace en rouge [AB]
       h1 = segment(A, H, 'blue')
       h2 = segment(B, H, 'green')
       O = point(0, 0)// On définit et on trace le point O
@@ -93,7 +93,7 @@ export default function RepresenterUnVecteur () {
         ymax: 9
       }, r, t, l, k, j, s, o, nomi, nomj, nomAB, h1, h2, labelA, labelB)// On trace le graphique
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, xA, yA, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

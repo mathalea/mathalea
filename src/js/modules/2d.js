@@ -126,10 +126,10 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
 }
 /**
  * Crée un objet Point ayant les propriétés suivantes :
- * @param {integer} x abscisse
- * @param {integer} y ordonnée
- * @param {integer} A son nom qui apparaîtra
- * @param {integer} labelPosition Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @param {number} x abscisse
+ * @param {number} y ordonnée
+ * @param {string} A son nom qui apparaîtra
+ * @param {string} labelPosition Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
  * @returns {Point}
  */
 export function point (x, y, A, labelPosition = 'above') {
@@ -455,9 +455,8 @@ export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
   return point(x, y, nom, positionLabel)
 }
 /**
- * pointAdistance(A,d,angle,nom="",positionLabel="above")
- * Seuls le point A et la distance d sont obligatoires, angle peut être choisi : il s'agit de l'angle signé avec l'axe [OI) sinon, il est choisi aléatoirement.
- * p=pointAdistance(A,5,'M') Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
+ * @example pointAdistance(A,d,angle,nom="",positionLabel="above") // Seuls le point A et la distance d sont obligatoires, angle peut être choisi : il s'agit de l'angle signé avec l'axe [OI) sinon, il est choisi aléatoirement.
+ * @example p=pointAdistance(A,5,'M') // Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
  * @author Jean-Claude Lhote
  */
 export function pointAdistance (...args) {
@@ -484,7 +483,8 @@ export function pointAdistance (...args) {
  */
 function LabelPoint (...points) {
   ObjetMathalea2D.call(this)
-  this.taille = 1
+  if (!this.taille) this.taille = 10
+  if (!this.largeur) this.largeur = 10
   if (typeof points[points.length - 1] === 'string') {
     this.color = points[points.length - 1]
     points.length--
@@ -509,28 +509,28 @@ function LabelPoint (...points) {
       y = A.y
       switch (A.positionLabel) {
         case 'left':
-          code += latexParCoordonnees(A.nom, x - 10 / coeff, y, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x - 10 / coeff, y, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'right':
-          code += latexParCoordonnees(A.nom, x + 10 / coeff, y, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x + 10 / coeff, y, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'below':
-          code += latexParCoordonnees(A.nom, x, y - 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x, y - 10 / coeff, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'above':
-          code += latexParCoordonnees(A.nom, x, y + 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x, y + 10 / coeff, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'above right':
-          code += latexParCoordonnees(A.nom, x + 10 / coeff, y + 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x + 10 / coeff, y + 10 / coeff, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'below left':
-          code += latexParCoordonnees(A.nom, x - 10 / coeff, y - 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x - 10 / coeff, y - 10 / coeff, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'below right':
-          code += latexParCoordonnees(A.nom, x + 10 / coeff, y - 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x + 10 / coeff, y - 10 / coeff, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         default:
-          code += latexParCoordonnees(A.nom, x - 10 / coeff, y + 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x - 10 / coeff, y + 10 / coeff, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
       }
     }
@@ -1411,7 +1411,6 @@ export function pave (...args) {
  * v = vecteur(x,y) // ses composantes
  * v = vecteur(A,B) // son origine et son extrémité (deux Points)
  * v = vecteur(x,y,'v') // son nom et ses composantes.
- *
  * @author Jean-Claude Lhote et Rémi Angot
  */
 function Vecteur (arg1, arg2, nom = '') {
@@ -1463,8 +1462,15 @@ function Vecteur (arg1, arg2, nom = '') {
     return nomVecteurParPosition(nom, N.x, N.y, taille, 0, color)
   }
 }
-export function vecteur (...args) {
-  return new Vecteur(...args)
+/**
+ * @example v = vecteur('V') // son nom
+ * @example v = vecteur(x,y) // ses composantes
+ * @example v = vecteur(A,B) // son origine et son extrémité (deux Points)
+ * @example v = vecteur(x,y,'v') // son nom et ses composantes.
+ * @author Jean-Claude Lhote et Rémi Angot
+ */
+export function vecteur (arg1, arg2, nom = '') {
+  return new Vecteur(arg1, arg2, nom)
 }
 /**
  * @author Jean-Claude Lhote le 31/01/2021
@@ -2005,6 +2011,12 @@ function Polygone (...points) {
     return code
   }
 }
+/**
+ * @returns {Polygone} objet Polygone
+ * @example polygone(A,B,C,D,E) //Trace ABCDE
+ * @example polygone([A,B,C,D],"blue") // Trace ABCD en bleu
+ * @author Rémi Angot
+ */
 export function polygone (...args) {
   return new Polygone(...args)
 }
@@ -2178,9 +2190,14 @@ export function triangle2points1hauteur (A, B, h, d, n = 1) {
 }
 
 /**
- * t = triangle2points2longueurs(A,B,4,7) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (par défaut C a l'ordonnée la plus grande possible)
- * C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
- * t = triangle2points2longueurs(A,B,4,7,2) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (C aura l'ordonnée la plus petite possible)
+ * @param {Point} A
+ * @param {Point} B
+ * @param {number} l1
+ * @param {number} l2
+ * @param {number} [n=1] Si n = 1 (défaut), C a la plus grande ordonnée possible, si n = 2, C a la plus petite ordonnée possible
+ * @returns {Polygone} objet Polygone ABC
+ * @example t = triangle2points2longueurs(A,B,4,7,2) // Récupère t le triangle ABC tel que AC = 4 cm et BC = 7 cm avec C qui a l'ordonnée la plus petite possible
+ * @example C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
  * @author Rémi Angot
  */
 export function triangle2points2longueurs (A, B, l1, l2, n = 1) {
@@ -2546,8 +2563,15 @@ function Cercle (O, r, color) {
     return code
   }
 }
-export function cercle (...args) {
-  return new Cercle(...args)
+/**
+ * Construit le cercle de centre O, de rayon r et de couleur color
+ * @param {Point} O Centre du cercle
+ * @param {number} r Rayon du cercle
+ * @param {string} [color='black'] Facultatif, 'black' par défaut.
+ * @returns {Cercle} objet Cercle
+ */
+export function cercle (O, r, color = 'black') {
+  return new Cercle(O, r, color)
 }
 
 /**
@@ -2679,11 +2703,11 @@ export function ellipse (...args) {
 }
 
 /**
- * I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c)
  * @param {Droite} d la droite qui intecepte (ou pas le cercle)
  * @param {Cercle} C le cercle
  * @param {string} nom le nom du point d'intersection
  * @param {entier} n 1 pour le premier point, 2 sinon. Si il n'y a qu'un seul point d'intesection, l'un ou l'autre renvoie ce point.
+ * @example I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c)
  * @author Jean-Claude Lhote
  */
 export function pointIntersectionLC (d, C, nom = '', n = 1) {
@@ -3113,8 +3137,19 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) ;`
   }
 }
-export function arc (...args) {
-  return new Arc(...args)
+/**
+ * @param {Point} M Point de départ de l'arc
+ * @param {Point} Omega Centre de l'arc
+ * @param {number} angle Compris entre -360 et 360. Valeur négative = sens indirect
+ * @param {boolean} rayon Si true, les rayons délimitant l'arc sont ajoutés. Facultatif, false par défaut
+ * @param {string} fill Facultatif, 'none' par défaut
+ * @param {string} color Facultatif, 'black' par défaut
+ * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @author Jean-Claude Lhote
+ * @return {Arc} Objet Arc
+ */
+export function arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
+  return new Arc(M, Omega, angle, rayon, fill, color, fillOpacite)
 }
 /**
  *
@@ -3679,7 +3714,8 @@ export function cibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisio
  * M = tion(O,v) //M est l'image de O dans la translation de vecteur v
  * M = translation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
  * M = translation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
- *
+ * @param {Point} O
+ * @param {}
  * @author Rémi Angot
  */
 export function translation (O, v, nom = '', positionLabel = 'above') {
@@ -3993,8 +4029,9 @@ export function symetrieAxiale (A, d, nom = '', positionLabel = 'above') {
  * 1ere version utilisant la projection orthogonale
  * 2eme version utilisant la symétrie axiale (abandonnée)
  * @author Jean-Claude Lhote
- * @param {*} A
- * @param {*} d
+ * @param {Point} A
+ * @param {Droite} d
+ * @returns {number} longueur
  */
 export function distancePointDroite (A, d) {
   const M = projectionOrtho(A, d)
@@ -4715,6 +4752,15 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5) {
     return texteParPoint(l + ' cm', N, angle, this.color).tikz()
   }
 }
+/**
+ * Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * @param  {Point} A
+ * @param  {Point} B
+ * @param  {string} [color='black'] Facultatif, 'black' par défaut
+ * @param  {number} [d=0.5] Distance entre l'étiquette et le segment. Facultatif, 0.5 par défaut
+ * @returns {AfficheLongueurSegment} objet AfficheLongueurSegment
+ * @author Rémi Angot
+ */
 export function afficheLongueurSegment (...args) {
   return new AfficheLongueurSegment(...args)
 }
@@ -5336,7 +5382,7 @@ function DroiteGraduee2 ({
   thickEpaisseur = 2, thickCouleur = axeCouleur, thickDistance = 1, thickOffset = 0, // Les caractéristiques des graduations principales
   thickSecDist = 0.1, thickSec = false, // Les caractéristiques des graduations secondaires. Pas de couleur, on joue sur l'opacité
   thickTerDist = 0.01, thickTer = false, // Les caractéristiques des graduations tertiaires. Pas de couleur, on joue sur l'opacité
-  pointListe = false, pointCouleur = 'blue', pointTaille = 4, pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2, // Liste de points et caractéristiques des points de ces points
+  pointListe = false, labelPointTaille = 10, labelPointLargeur = 10, pointCouleur = 'blue', pointTaille = 4, pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2, // Liste de points et caractéristiques des points de ces points
   labelsPrincipaux = true, labelsSecondaires = false, step1 = 1, step2 = 1,
   labelDistance = (axeHauteur + 10) / context.pixelsParCm,
   labelListe = false,
@@ -5351,7 +5397,7 @@ function DroiteGraduee2 ({
   this.Max = Max
 
   const objets = []; let S; let T; let P; let i
-  let longueurTotale = (Max - Min) * Unite + 1.1 // la longueur totale de l'axe flèche comprise
+  let longueurTotale = (Max - Min) * Unite + 0.5 // la longueur totale de l'axe flèche comprise
   let absord = [1, 0] // Constantes pour gérer la verticalité ou l'horizontalité de l'axe
   if (axePosition !== 'H') absord = [0, 1]
   // dessin de l'axe
@@ -5407,7 +5453,7 @@ function DroiteGraduee2 ({
   }
   if (labelsSecondaires) {
     for (let j = Min2; j <= Max2; j++) {
-      if (j % (step2 * pas2) === 0 && j % pas1 !== 0) {
+      if (j % (step2 * pas2) === 0 && j % (step1 * pas1) !== 0) {
         i = calcul((j - Min * factor) / factor)
         T = texteParPosition(`${nombreAvecEspace(arrondi(calcul(Min + i), 3))}`, x + i * Unite * absord[0] - labelDistance * absord[1], y + i * Unite * absord[1] - labelDistance * absord[0])
         objets.push(T)
@@ -5426,14 +5472,18 @@ function DroiteGraduee2 ({
     objets.push(texteParPosition(Legende, x + LegendePosition * absord[0], y + LegendePosition * absord[1]))
   }
   if (pointListe) {
+    let lab
     for (const p of pointListe) {
-      P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1], 'above')
+      P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1], 'center')
       T = tracePoint(P, pointCouleur)
       T.taille = pointTaille
       T.opacite = pointOpacite
       T.style = pointStyle
       T.epaisseur = pointEpaisseur
-      objets.push(T, labelPoint(P))
+      lab = labelPoint(P)
+      lab.taille = labelPointTaille
+      lab.largeur = labelPointLargeur
+      objets.push(T, lab)
     }
   }
 
@@ -8248,7 +8298,7 @@ export function intervalle (A, B, color = 'blue', h = 0) {
  * texteParPoint('mon texte',A,'gauche') // Écrit 'mon texte' à gauche de A (qui sera la fin du texte)
  * texteParPoint('mon texte',A,'droite') // Écrit 'mon texte' à droite de A (qui sera le début du texte)
  * texteParPoint('mon texte',A,45) // Écrit 'mon texte' à centré sur A avec une rotation de 45°
- *
+ * Le mode Math (implémenté par Jean-Claude Lhote) n'est plus fonctionnel en html (il l'est toujours en latex) : un soucis de polices de substitution rendait les caractères 'dansant'
  * @author Rémi Angot
  */
 function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
@@ -8259,7 +8309,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   this.opacite = 1
   this.svg = function (coeff) {
     let code = ''; let style = ''
-    if (mathOn) style = ' font-family= "KaTeX_Math" '
+    // if (mathOn) style = ' font-family= "KaTeX_Math" ' désactivé par Jean-Claude Lhote
     if (this.contour) style += ` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
     else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite}" `
     if (typeof (orientation) === 'number') {
@@ -8296,7 +8346,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   }
   this.tikz = function () {
     let code = ''
-    if (mathOn) texte = '$' + texte + '$'
+    if (mathOn) texte = '$' + texte + '$' // on le laisse en Latex, parce que ça fonctionne !
     if (typeof orientation === 'number') {
       let anchor = 'center'
       if (ancrageDeRotation === 'gauche') {
@@ -8472,7 +8522,7 @@ function LatexParCoordonnees (texte, x, y, color = 'black', size = 200, hauteurL
     const demiSize = calcul(this.size / 2)
     const centrage = 0.25 * context.pixelsParCm
     if (colorBackground !== '') {
-      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff, 2) - this.hauteurLigne / 2 - centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${this.size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
+      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff, 2) - this.hauteurLigne / 2 - centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
     $\\colorbox{${this.colorBackground}}{$\\color{${color}}{${this.texte}}$}$</div></foreignObject>`
     } else {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff, 2) - this.hauteurLigne / 2 - centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
@@ -8483,7 +8533,7 @@ function LatexParCoordonnees (texte, x, y, color = 'black', size = 200, hauteurL
     // let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
     let code
     if (colorBackground !== '') {
-      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{${colorBackground}}{\\color{${color}}{${texte}}}};`
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}};`
     } else {
       code = `\\draw (${x},${y}) node[anchor = center] {$\\color{${color}}{${texte}}$};`
     };
