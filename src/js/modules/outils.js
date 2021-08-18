@@ -225,22 +225,7 @@ export function ecrireNombre2D (x, y, n) {
   }
   return nombre2D
 }
-/*
-Pour l'instant, je commente... Faut que je réfléchisse et que je prenne mon temps (que je n'ai pas actuellement)
-On verra ça plus tard. La nuit porte conseil.
-function ecrireAdditionPosee(x,y,...args){
-  let nString=[],n=[]
-  for (k=0;k<args.length;k++) {
-    nString.push(texNombre(args[k]))
-    n.push(args[k])
-  }
-  let nbChiffresPe=Math.log10(Math.floor(Math.max(n)))
 
-  for (let k=0;k<args.length;k++){
-
-  }
-}
-*/
 class NombreDecimal {
   constructor (nombre) {
     if (nombre < 0) {

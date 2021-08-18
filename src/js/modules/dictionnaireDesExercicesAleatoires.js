@@ -644,7 +644,7 @@ export default {
     "name": "3G30-MG32"
   },
   "3G30": {
-    "titre": "Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie",
+    "titre": "Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie",
     "url": "/exercices/3e/3G30.js",
     "amcReady": true,
     "amcType": {
@@ -3806,6 +3806,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betarotation3d"
+  },
+  "betaSpline": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaSpline.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaSpline"
   },
   "betaSys2x2CombLin": {
     "titre": "2G35-3",
