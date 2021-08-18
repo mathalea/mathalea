@@ -13,7 +13,7 @@ export const amcType = 'AMCHybride'
  * 3 problèmes : Trouver le nombre maximal de groupes, de bouquets ou de corbeilles
  * en cherchant le plus grand diviseur commun de deux nombres.
  * Donner ensuite la composition de chaque groupe, bouquet ou corbeille.
- * @author Laurence Candille
+ * @author Laurence Candille et Jean-Claude Lhote (pour l'export AMC)
  * Référence 3A14
  * Date août 2021
 */
