@@ -172,7 +172,7 @@ export const dictionnaireLycee = {
     url: '/exercices/3e/3G20-1.js'
   },
   '2G11-3': {
-    titre: 'Calculer toutes les mesures d\'angle d\'une figure complexe',
+    titre: 'Problèmes utilisant la trigonométrie',
     url: '/exercices/3e/3G31-1.js'
   },
   '2G11-5': {
