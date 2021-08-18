@@ -20,7 +20,7 @@ function createIndexScores($path,$codeProf) {
   $fp = fopen($indexProfSpace, 'a+');
   // On écrit dedans un template de base à modifier plus tard
   $string = '<?php 
-  $classes = array();
+  $classes = array();  
   $dir_iterator = new RecursiveDirectoryIterator(dirname(__FILE__));
   $iterator = new RecursiveIteratorIterator($dir_iterator);
   foreach ($iterator as $file){
@@ -39,7 +39,7 @@ function createIndexScores($path,$codeProf) {
   }
   echo "</ul>\r\n";    
   }
-
+  echo "Toutes les classes en même temps => <br>\r\n";
 ?>';
   fputs($fp,"
   <!DOCTYPE html>

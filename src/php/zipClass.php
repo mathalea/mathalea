@@ -119,7 +119,8 @@
          * Création du zip + téléchargement
          * 
          * @param boolean $download, on propose le téléchargement si $download est à true
-         * @param boolean $delete, on supprime après téléchargement si $delete est à true 
+         * @param boolean $delete, on supprime après téléchargement si $delete est à true
+         * @param boolean $classe, on ajoute le nom de la classe si $classe est à true 
         */
 
         public function createZip($download = false, $delete = false, $classe = false) {
@@ -129,7 +130,7 @@
             } else {
                 $this->addDir($this->folderToZip);
             }
-        
+
             // On ferme le zip
             $this->zip->close();
         
@@ -152,8 +153,9 @@
          * Ajoute tous les fichiers d'un répertoire à l'archive
          * 
          * @param string $path 
+         * @param boolean $classe, on ajoute le nom de la classe si $classe est à true
         */
-        private function addDir($path) {
+        private function addDir($path, $classe = false) {
     
             // On lit les fichiers et on exclut . et .. de la liste        
             $files = array_diff(scandir($path), array('..', '.'));
