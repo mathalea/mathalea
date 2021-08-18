@@ -28,22 +28,25 @@ function createIndexScores($path,$codeProf) {
           array_push($classes,substr($file->getPath(),-2));
       }
   }
-
+  echo "<ul>\r\n";
   foreach ($classes as $classe) {
-    echo "Classe de ".$classe." => <a href=\"../../../../../../zipDownload.php?folder='.$path.'/".$classe."/\">Télécharger une archive zip avec toutes les semaines</a> <br>\r\n";
+    echo "<li>Classe de ".$classe." => <a href=\"../../../../../../zipDownload.php?folder='.$path.'/".$classe."/\">Télécharger une archive zip avec toutes les semaines</a></li>\r\n";
   echo "<ul>\r\n";
   foreach ($iterator as $file) {
       if (substr($file->getPath(),-2) == $classe && !in_array($file->getFilename(), array(".","..")) ) {
          echo "<li><a href=\"".substr($file->getPath(),-2)."/".$file->getFilename()."\">Télécharger la ".$file->getFilename()."</a></li>\r\n";
       };
   }
-  echo "</ul>\r\n";    
+  echo "</ul>\r\n"; 
   }
-  echo "Toutes les classes en même temps => 
-  
-  <a href=\"../../../../../../zipDownload.php?folder='.$path.'/\">Télécharger une archive zip avec toutes les semaines</a>
-
-  <br>\r\n";
+  if (!empty($classes)) {
+    echo "<li>Toutes les classes =>   
+      <a href=\"../../../../../../zipDownload.php?folder='.$path.'/&allClasses=OK\">Télécharger une archive zip avec toutes les semaines</a>
+    </li>\r\n";
+  } else {
+    echo "<p> Pas encore de scores enregistrés ... </p>";
+  }
+  echo "</ul>\r\n";    
 ?>';
   fputs($fp,"
   <!DOCTYPE html>

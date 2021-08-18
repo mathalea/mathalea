@@ -3,12 +3,23 @@
 include_once 'zipClass.php';
 
 $myfolder = $_GET["folder"];
+if (isset($_GET["allClasses"])) {
+    $allClasses = true;
+} else {
+    $allClasses = false;
+}
+
  
 // 1er argument : le dossier que l'on va zip
 // 2e  argument : le nom du zip (optionnel) par défaut : archive
 // 3e  argument : le dossier qui va save le zip (optionnel) par défaut : zip
 
-$zip = new myZipClass($myfolder, 'scores-'.substr($myfolder,-3,-1), $myfolder.'/zip');
+if ($allClasses) {
+    $zip = new myZipClass($myfolder, 'scores-toutesLesCLasses', $myfolder.'/zip');
+} else {
+    $zip = new myZipClass($myfolder, 'scores-'.substr($myfolder,-3,-1), $myfolder.'/zip');
+};
+
  
 // On exclut certains fichiers
 $zip->excludeFiles(array('dossier/fichierExclu','dossier/sousDossier/fichierAussiExclu'));
