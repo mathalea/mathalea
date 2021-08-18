@@ -1,13 +1,13 @@
 Ce tutoriel vous donnera les clés pour créer la grande majorité des exercices.
 
-Si vous ne voulez pas d'un truc trop lourd et voulez apporter votre contribution avec un moindre effort, vous pouvez aussi regarder comment ajouter des questions à une [Course aux Nombres](tutorial-Course_aux_nombres.html) !
+Si vous ne voulez pas d'un truc trop lourd et voulez apporter votre contribution avec un moindre effort, vous pouvez aussi regarder comment ajouter des questions à une [Course aux Nombres](https://coopmaths.fr/documentation/tutorial-Course_aux_nombres.html) !
 # <a id="1" href="#1">#</a> Comment créer un exercice en 10 étapes
 Toutes les commandes qui commencent par `git` peuvent aussi être faites par une interface graphique (VSC, GitKraken ou GitHub Desktop).
 Il n'y a pas d'interférence entre eux donc vous pouvez sans problème faire certaines étapes en lignes de commande et d'autres avec une interface graphique c'est comme vous préférez.
 
 Les interfaces graphiques peuvent être plus faciles à prendre en main et permettent de faire très facilement des tâches très compliquées.
 
-Les lignes de commande nécessitent des "anti-sèches" au début mais ont les avantages d'avoir la même "interface" pour tout le monde et d'être "bavardes" en cas de problème, ce qui facilite grandement les échanges et les dépannages entre nous. D'autant plus qu'en cliquant sur [Utiliser_git_en_ligne_de_commandes](documentation/tutorial-Utiliser_git_en_ligne_de_commandes.html) dans menu de gauche, vous aurez accès à des anti-sèches et à des solutions à différents messages d'erreur que vous pouvez rencontrer !
+Les lignes de commande nécessitent des "anti-sèches" au début mais ont les avantages d'avoir la même "interface" pour tout le monde et d'être "bavardes" en cas de problème, ce qui facilite grandement les échanges et les dépannages entre nous. D'autant plus qu'en cliquant sur [Utiliser_git_en_ligne_de_commandes](https://coopmaths.fr/documentation/tutorial-Utiliser_git_en_ligne_de_commandes.html) dans menu de gauche, vous aurez accès à des anti-sèches et à des solutions à différents messages d'erreur que vous pouvez rencontrer !
 
 1. Commencer par se placer sur le master et le mettre à jour : saisir `git checkout master` puis `git pull` dans un terminal.
 2. Trouver à quelle [référence](https://coopmaths.fr/pdf/CoopMaths-Referentiel.pdf) l'exercice qu'on veut créer peut être rattaché.
@@ -30,7 +30,7 @@ Les lignes de commande nécessitent des "anti-sèches" au début mais ont les av
 - betaModèle32_cliqueFigure
 - betaModèle40_tableau_proportionnalite
 - betaModèle41_tableau_signes_variations
-Pour rentre un des modèles interactif, consulter le guide [Rendre_un_exercice_interactif](tutorial-Rendre_un_exercice_interactif.html) dans le panneau de gauche
+Pour rentre un des modèles interactif, consulter le guide [Rendre_un_exercice_interactif](https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif.html) dans le panneau de gauche
 ## <a id="3" href="#3">#</a> Programmer un exercice
 Un exercice est un objet de la classe Exercice (d'où le `import Exercice` en début de fichier et le `Exercice.call` au début de la fonction exportée).
 Il a plusieurs [attributs](#11) (son titre, son énoncé, sa correction...) et a une fonction `nouvelleVersion()` qui crée un énoncé aléatoire.

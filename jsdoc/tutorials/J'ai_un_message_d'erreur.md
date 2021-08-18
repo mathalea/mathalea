@@ -39,7 +39,7 @@ Ce n'est pas un message d'erreur ! Il vous dit juste que ça c'est bien passé !
     * `git pull` pour le mettre à jour
     * `git checkout laBranqueQueJeVeuxPullRequest` pour se repositionner sur la branche avec qu'on veut **Pull Request**
     * `git merge master` pour la fusionner (merge) avec le master
-    * Suivre ensuite les [instructions pour gérer un conflit de merge](tutorial-Utiliser_git_en_ligne_de_commandes.html#12)
+    * Suivre ensuite les [instructions pour gérer un conflit de merge](https://coopmaths.fr/documentation/tutorial-Utiliser_git_en_ligne_de_commandes.html#12)
 
 ---
 **<a id="4" href="#4">#</a> Message d'erreur :**

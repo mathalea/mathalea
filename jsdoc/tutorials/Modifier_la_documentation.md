@@ -19,12 +19,8 @@ Les fichiers et dossiers à l'intérieur de `jsdoc/static/` sont copiés tels qu
 ## <a id="3" href="#3">#</a> Créer un lien interne à la documentation
 
 Pour créer un lien interne à la documentation, on distingue deux cas :
-* Si on veut créer un lien vers un tutoriel, le lien est `tutorial-Nom_du_fichier_MarkDown.html`. Notez bien que le .md présent dans les sources est remplacé par un .html
+* Si on veut créer un lien vers un tutoriel présent dans le dossier `jsdoc/tutorials`, le lien est `https://coopmaths.fr/documentation/tutorial-Nom_du_fichier_MarkDown.html`. Notez bien que le `.md` présent dans les sources est remplacé par un `.html`
 * Le dossier `jsdoc/static/` correspond au dossier racine de la doc générée et l'intérieur de ce dossier est recopié tel quel donc pour créer un lien vers `jsdoc/static/img/image.png`, le lien à utiliser est tout simplement `img/image.png`.
-
-**Remarque :**
-
-Pour une raison inconnue, certains liens vers les tutoriels ne fonctionnent pas dans la version en ligne, il faut alors les préfixer de `documentation/`, ce qui donne `documentation/tutorial-Nom_du_fichier_MarkDown.html`. (pour les tester en local, il ne faut pas les préfixer de `documentation/`)
 
 ## <a id="4" href="#4">#</a> Bonus : comment est générée le reste de la documentation ?
 
