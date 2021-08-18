@@ -42,17 +42,14 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       } else {
         QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         this.nbQuestions = QuestionsDisponibles.length
-        for (let i = 0; i < QuestionsDisponibles.length; i++) {
-          QuestionsDisponibles[i] = parseInt(QuestionsDisponibles[i])
+        for (let i = 0; i < QuestionsDisponibles.length; i++) {  // on a un tableau avec des strings : ['1', '1', '2']
+          QuestionsDisponibles[i] = parseInt(QuestionsDisponibles[i])   // parseInt en fait un tableau d'entiers
         }
       }
     }
 
     listeQuestions = combinaisonListesSansChangerOrdre(QuestionsDisponibles, this.nbQuestions)
     const nombrePremier = [2, 3, 5, 7, 11]
-
-    // let n = parseInt(this.sup) - 1
-    // if (n === 3) { n = choice(QuestionsDisponibles) - 1 }
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objet = randint(30, 39) // objet représente : le nombre max de bouquets, de corbeilles ou de groupes
@@ -155,7 +152,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texteCorr += 'Le nombre de filles dans chaque groupe est :' + texteEnCouleurEtGras(` ${var2} <br>`)
           }
           break
-        default:
+        default:   // si un utilisateur saisit 4 ou une valeur erronnée renvoie par défaut vers le prbme 3
           if (this.interactif) {
             texte = `Un boulanger dispose de ${var1 * objet} croissants et de ${var2 * objet} brioches. <br>`
             texte += 'Il veut, en utilisant toutes ses viennoiseries, réaliser un maximum de corbeilles '
