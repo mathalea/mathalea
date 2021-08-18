@@ -353,6 +353,10 @@ export function menuDesExercicesDisponibles () {
     document.getElementById('liste_des_exercices_tableau').innerHTML = ''
     document.getElementById('liste_des_exercices').innerHTML = ''
   }
+  const listeThemesCan = [
+    ['can6', 'can6 - Course aux nombres niveau 6e'], ['can5', 'can5 - Course aux nombres niveau 5e'], ['can4', 'can4 - Course aux nombres niveau 4e'],
+    ['can3', 'can3 - Course aux nombres niveau 3e'], ['can2', 'can2 - Course aux nombres niveau 2e'], ['can1', 'can1 - Course aux nombres niveau 1e'],
+    ['canT', 'canT - Course aux nombres niveau Terminale']]
   const listeThemesC3 = [
     ['c3C1', 'c3C1 - Calculs niveau 1'], ['c3C2', 'c3C2 - Calculs niveau 2'], ['c3C3', 'c3C3 - Calculs niveau 3'],
     ['c3N1', 'c3N1 - Numération Niveau 1'], ['c3N2', 'c3N2 - Numération Niveau 2'], ['c3N3', 'c3N3 - Numération Niveau 3']]
@@ -397,7 +401,7 @@ export function menuDesExercicesDisponibles () {
     ['2F3', '2F3 - Étudier les variations et les extremums d\'une fonction', '2F30 - Relier représentation graphique et tableau de variations',
       '2F31 - Utiliser les variations d\'une fonction',
       '2F32 - Déterminer les extremums d\'une fonction'],
-    ['2G1', '2G1 - Les bases en géométrie', 
+    ['2G1', '2G1 - Les bases en géométrie',
       '2G10 - Connaître les définitions et propriétés de bases en géométrie plane',
       '2G11 - Calculer des longueurs, des angles, des aires et des volumes',
       '2G12 - Calculer la distance entre deux points. Calculer les coordonnées du milieu d’un segment',
@@ -443,6 +447,12 @@ export function menuDesExercicesDisponibles () {
     ['2S4', '2S4 - Échantillonnage']
   ]
   const objExercicesDisponibles = {
+    can: {
+      label: 'Course aux nombres',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemesCan),
+      lignes_tableau: ''
+    },
     c3: {
       label: 'CM1 /CM2',
       nombre_exercices_dispo: 0,
@@ -534,7 +544,7 @@ export function menuDesExercicesDisponibles () {
 
   // Calcul et comptage des lignes
   for (const id in listeDesExercicesDisponibles) {
-    if ((id[0] === 'c' && id[1] === '3') || (id[0] === 'P' && id[1] === '0') || (id[0] === 'P' && id[1] === 'E') || (id[0] === 'b' && id[1] === 'e')) {
+    if ((id[0] === 'c' && id[1] === 'a') || (id[0] === 'c' && id[1] === '3') || (id[0] === 'P' && id[1] === '0') || (id[0] === 'P' && id[1] === 'E') || (id[0] === 'b' && id[1] === 'e')) {
       if (filtre === 'interactif') {
         // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
@@ -633,7 +643,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else if (context.isAmc) {
     htmlAffichage = htmlListes({
-      liste_affichage: ['c3', 6, 5, 4, 3, 2, 1, 'T', 'PE', 'C'],
+      liste_affichage: ['can', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'PE', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
@@ -641,7 +651,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else {
     htmlAffichage = htmlListes({
-      liste_affichage: ['c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'PE', 'C'],
+      liste_affichage: ['can', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'PE', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })

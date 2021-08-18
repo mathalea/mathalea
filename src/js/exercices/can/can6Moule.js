@@ -1,5 +1,4 @@
-import { randint } from '../../modules/outils'
-import { texNombrec } from '../modules/outils'
+import { randint, texNombrec } from '../../modules/outils'
 
 const doubleEtMoitie = {}
 export default doubleEtMoitie
