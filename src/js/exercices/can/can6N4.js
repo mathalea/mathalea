@@ -1,7 +1,7 @@
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif'
-import { calcul, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import { calcul, listeQuestionsToContenuSansNumero, randint, texNombrec } from '../../modules/outils'
 import Exercice from '../Exercice'
-export const titre = 'Somme de quatre entiers qui se marient'
+export const titre = 'Somme de deux décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -14,13 +14,14 @@ export default function FSomme4EntiersQuiSeMarient () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
+
     const a = randint(1, 9)
     const b = randint(1, 9, a)
-    const c = randint(3, 7) * 10
-    const d = randint(10, 15) * 10 - c
-    const resultat = calcul(2 * (c + d))
-    let texte = `$${c - a} + ${d + b} + ${c + a} + ${d - b}$`
-    const texteCorr = `$${c - a} + ${c + a} + ${d + b}  + ${d - b} = ${2 * c} + ${2 * d}= ${2 * (c + d)}$`
+    const c = randint(1, 9, [a, b])
+    const d = randint(1, 9, [a, b, c])
+    const resultat = calcul(10 + (b + d) * 0.1 + c * 0.01)
+    let texte = `$${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}$`
+    const texteCorr = `$${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}=${texNombrec(10 + (b + d) * 0.1 + c * 0.01)}$`
     setReponse(this, 0, resultat, { formatInteractif: 'calcul' })
     texte += ajouteChampTexteMathLive(this, 0, 'largeur10 inline')
     this.listeQuestions.push(texte)

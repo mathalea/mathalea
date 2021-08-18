@@ -3923,12 +3923,28 @@ export default {
     "name": "can6N2"
   },
   "can6N3": {
-    "titre": "Somme de 4 entiers qui se marient",
+    "titre": "Somme de quatre entiers qui se marient",
     "url": "/exercices/can/can6N3.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N3"
+  },
+  "can6N4": {
+    "titre": "Somme de deux décimaux",
+    "url": "/exercices/can/can6N4.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N4"
+  },
+  "can6N5": {
+    "titre": "Double ou triple",
+    "url": "/exercices/can/can6N5.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N5"
   },
   "CM000": {
     "titre": "Additions et de soustractions",
