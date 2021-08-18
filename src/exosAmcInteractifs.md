@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 145 
-- nombre d'exos interactifReady 171 
+- nombre d'exos interactifReady 173 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -168,6 +168,8 @@
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |can6e|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
 |can6N1|Double et moitié|KO|KO|OK|mathLive|
+|can6N2|Fraction comme facteur manquant|KO|KO|OK|mathLive|
+|can6N3|Somme de 4 entiers qui se marient|KO|KO|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|

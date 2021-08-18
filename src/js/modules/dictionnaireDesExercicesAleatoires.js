@@ -3914,6 +3914,22 @@ export default {
     "interactifType": "mathLive",
     "name": "can6N1"
   },
+  "can6N2": {
+    "titre": "Fraction comme facteur manquant",
+    "url": "/exercices/can/can6N2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N2"
+  },
+  "can6N3": {
+    "titre": "Somme de 4 entiers qui se marient",
+    "url": "/exercices/can/can6N3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N3"
+  },
   "CM000": {
     "titre": "Additions et de soustractions",
     "url": "/exercices/CM/CM000.js",

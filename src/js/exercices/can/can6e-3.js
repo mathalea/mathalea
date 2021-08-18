@@ -4,7 +4,7 @@ import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../mo
 import Fraction from '../../modules/Fraction.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
-export const titre = 'Course aux nombres 6e'
+export const titre = 'Course aux nombres fin de 6e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
