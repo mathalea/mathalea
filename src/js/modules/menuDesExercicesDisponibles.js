@@ -447,7 +447,7 @@ export function menuDesExercicesDisponibles () {
     ['2S4', '2S4 - Échantillonnage']
   ]
   const objExercicesDisponibles = {
-    can: {
+    ca: {
       label: 'Course aux nombres',
       nombre_exercices_dispo: 0,
       liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemesCan),
@@ -598,7 +598,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += objExercicesDisponibles.be.lignes_tableau
   } else if (context.vue === 'cm') {
     htmlAffichage = htmlListes({
-      liste_affichage: ['C', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'PE'],
+      liste_affichage: ['ca', 'C', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'PE'],
       active: 'C',
       obj_ex: objExercicesDisponibles
     })
@@ -619,7 +619,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += objExercicesDisponibles.c3.lignes_tableau
   } else if (filtre === 'college') {
     htmlAffichage = htmlListes({
-      liste_affichage: [6, 5, 4, 3, 'DNB', 'DNBtheme', 'C'],
+      liste_affichage: ['ca', 6, 5, 4, 3, 'DNB', 'DNBtheme', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
@@ -627,7 +627,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else if (filtre === 'lycee') {
     htmlAffichage = htmlListes({
-      liste_affichage: [2, 1, 'T'],
+      liste_affichage: ['ca', 2, 1, 'T'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
@@ -643,7 +643,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else if (context.isAmc) {
     htmlAffichage = htmlListes({
-      liste_affichage: ['can', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'PE', 'C'],
+      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'PE', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
@@ -651,7 +651,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else {
     htmlAffichage = htmlListes({
-      liste_affichage: ['can', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'PE', 'C'],
+      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'PE', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
