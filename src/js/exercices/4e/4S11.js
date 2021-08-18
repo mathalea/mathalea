@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, prenom, tirerLesDes, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre, texteGras, lampeMessage } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, prenom, tirerLesDes, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre, texteGras, lampeMessage, combinaisonListes } from '../../modules/outils.js'
 
 export const titre = 'Déterminer des médianes'
 
@@ -8,7 +8,7 @@ export const titre = 'Déterminer des médianes'
 * @author Sébastien Lozano forked de Jean-Claude Lhote
 * Référence 4S11
 * Date initiale 2021-01-12
-* Mise à jour le ...
+* Ajout de l'alternance entre effectif total pair et impair le 18/08/2021 : Guilllaume Valmont
 */
 export default function DeterminerDesMedianes () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -25,6 +25,8 @@ export default function DeterminerDesMedianes () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     this.sup = parseInt(this.sup)
+
+    const listePairOuImpair = combinaisonListes(['pair', 'impair'], this.nbQuestions)
 
     for (let i = 0, temperatures, nombreTemperatures, nombreNotes, notes, nombreDes, nombreFaces, nombreTirages, indexValeur, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const underbraceMediane = (nbVal) => {
@@ -136,7 +138,11 @@ export default function DeterminerDesMedianes () {
         }
         nombreDes = randint(1, 2)
         nombreFaces = choice([4, 6, 8, 10])
-        nombreTirages = choice([50, 99, 100, 199, 200, 299, 500, 999, 1000, 1999, 2000])
+        if (listePairOuImpair[i] === 'pair') {
+          nombreTirages = choice([50, 100, 200, 500, 1000, 2000])
+        } else {
+          nombreTirages = choice([49, 99, 199, 299, 999, 1999])
+        }
         tirages = tirerLesDes(nombreTirages, nombreFaces, nombreDes) // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
         do { indexValeur = randint(0, tirages.length - 1) }
         while (tirages[indexValeur][1] === 0) // on choisi au hasard l'index d'une valeur dont l'effectif est différent de 0.
@@ -216,7 +222,11 @@ export default function DeterminerDesMedianes () {
           })
         }
       } else if (this.sup === 2) { // ici on trie des notes
-        nombreNotes = choice([7, 8, 9, 10, 11, 12])
+        if (listePairOuImpair[i] === 'pair') {
+          nombreNotes = choice([8, 10, 12])
+        } else {
+          nombreNotes = choice([7, 9, 11])
+        }
         notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une liste de notes (série brute)
         indexValeur = randint(0, notes.length - 1) // on choisi une des notes au hasard
         /*
@@ -275,8 +285,19 @@ export default function DeterminerDesMedianes () {
           })
         }
       } else { // ici on relève des températures
-        const mois = randint(1, 12)
         const annee = randint(1980, 2019)
+        let listeMois
+        if (listePairOuImpair[i] === 'pair') {
+          listeMois = [4, 6, 9, 11]
+        } else {
+          listeMois = [1, 3, 5, 7, 8, 10, 12]
+        }
+        if ((((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) && (listePairOuImpair[i] === 'impair')) { // Si l'année est bissextile et qu'on veut une liste impair
+          listeMois.push(2)
+        } else if (!(((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) && (listePairOuImpair[i] === 'pair')) { // Si l'année n'est pas bissextile et qu'on veut une liste paire
+          listeMois.push(2)
+        }
+        const mois = listeMois[randint(0, listeMois.length - 1)]
         const temperaturesDeBase = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5]
         nombreTemperatures = joursParMois(mois)
         temperatures = unMoisDeTemperature(temperaturesDeBase[mois - 1], mois, annee) // on récupère une série de température correspondant à 1 mois d'une année (série brute)
