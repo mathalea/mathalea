@@ -397,7 +397,7 @@ export function menuDesExercicesDisponibles () {
     ['2F3', '2F3 - Étudier les variations et les extremums d\'une fonction', '2F30 - Relier représentation graphique et tableau de variations',
       '2F31 - Utiliser les variations d\'une fonction',
       '2F32 - Déterminer les extremums d\'une fonction'],
-    ['2G1', '2G1 - Les bases en géométrie', 
+    ['2G1', '2G1 - Les bases en géométrie',
       '2G10 - Connaître les définitions et propriétés de bases en géométrie plane',
       '2G11 - Calculer des longueurs, des angles, des aires et des volumes',
       '2G12 - Calculer la distance entre deux points. Calculer les coordonnées du milieu d’un segment',
