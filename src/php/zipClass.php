@@ -131,9 +131,12 @@
         
             // Si $download est à true on propose le zip à télécharger
             if($download === true){
-                header('Content-Transfer-Encoding: binary');
+                header('Content-type: application/zip'); // on indique que c'est une archive
+                header('Content-Transfer-Encoding: fichier'); // transfert en binaire (fichier)
                 header('Content-Disposition: attachment; filename="'.$this->zipName);
                 header('Content-Length: '.filesize($this->zipFolder.'/'.$this->zipName));
+                header('Pragma: no-cache'); 
+                header('Expires: 0');
                 readfile($this->zipFolder.'/'.$this->zipName);
         
                 // Si $delete est à true, on supprime le fichier après l'avoir téléchargé
