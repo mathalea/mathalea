@@ -1,4 +1,4 @@
-import { multiply, resize, inv, matrix } from 'mathjs'
+import { multiply, inv, matrix } from 'mathjs'
 
 import { calcul, arrondi, ecritureAlgebrique, egal } from './outils.js'
 /**
@@ -186,9 +186,13 @@ class Spline {
       console.log('il y a un problème avec ce tableau des noeuds')
       return false
     }
+    for (let i = 0; i < n; i++) {
+      console.log('(', x[i], ';', y[i], ')')
+    }
     for (let i = 0; i < n - 1; i++) {
       h[i] = x[i + 1] - x[i] // on calcule les amplitudes des intervalles.
     }
+    console.log(' Les intervalles :\n ', h)
     F.resize([n])
     for (let i = 1; i <= n; i++) { // On construit la matrice des dérivées secondes
       if (i === 1 || i === n) {
@@ -197,8 +201,8 @@ class Spline {
         F._data[i - 1] = (y[i] - y[i - 1]) / h[i - 1] - (y[i - 1] - y[i - 2]) / h[i - 2]
       }
     }
+    console.log('La matrice des dérivéées secondes :\n', F)
     R.resize([n, n])
-    console.log(R)
     for (let i = 1; i <= n; i++) { // On construit la matrice carrée de calcul
       if (i === 1) {
         R._data[0][0] = 1 // seul le premier élément de la première ligne n'est pas nul
@@ -210,8 +214,11 @@ class Spline {
         R._data[i - 1][i - 2] = h[i - 2] / 6
       }
     }
+    console.log('LA matrice R :\n', R)
     const Rinv = inv(R)
+    console.log('La matrice inverse de R :\n', Rinv)
     const M = multiply(Rinv, F)
+    console.log('La matrice M = Rinv*F :\n', M)
     const C = matrix()
     const C2 = matrix()
     C.resize([n - 1])
@@ -220,6 +227,8 @@ class Spline {
       C._data[i - 1] = (y[i] - y[i - 1]) / h[i - 1] - h[i - 1] * (M._data[i] - M._data[i - 1]) / 6
       C2._data[i - 1] = y[i - 1] - M._data[i - 1] * h[i - 1] * h[i - 1] / 6
     }
+    console.log('La matrice C :\n', C)
+    console.log('La matrice C2 :\n', C2)
     this.F = F
     this.R = R
     this.M = M
@@ -233,9 +242,13 @@ class Spline {
       let trouveK = false
       let k = 0
       for (let i = 0; i < n - 1; i++) {
-        if (X >= x[i] && X < x[i + 1]) {
+        if (X > x[i] && X < x[i + 1]) {
           k = i
           trouveK = true
+        } else if (X === x[i]) {
+          return y[i]
+        } else if (X === x[i + 1]) {
+          return y[i + 1]
         }
       }
       if (!trouveK) {

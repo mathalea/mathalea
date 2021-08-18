@@ -7893,7 +7893,12 @@ export function courbe2 (...args) {
   return new Courbe2(...args)
 }
 
-function Courbe3 (f, {
+/**
+ * crée un objet correspondant au tracé de la fonction f de la classe Spline
+ * f devra être définie avant...
+ * @author Jean-Claude Lhote
+ */
+function CourbeSpline (f, {
   repere = {},
   color = 'black',
   epaisseur = 2,
@@ -7906,7 +7911,7 @@ function Courbe3 (f, {
   yUnite = 1
 } = {}) {
   ObjetMathalea2D.call(this)
-  let pointsGuide = []
+  let points = []
   this.color = color
   let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
   if (typeof xMin === 'undefined') {
@@ -7929,7 +7934,7 @@ function Courbe3 (f, {
   if (isNaN(yunite)) { yunite = yUnite };
   const objets = []
   let pas
-  let p
+  let p, y
   if (!step) {
     pas = calcul(0.2 / xUnite)
   } else {
@@ -7937,20 +7942,21 @@ function Courbe3 (f, {
   }
   for (let x = xmin; inferieurouegal(x, xmax); x += pas
   ) {
-    if (!isNaN(f(x))) {
-      if (f(x) < ymax + 1 && f(x) > ymin - 1) {
-        pointsGuide.push([calcul(x * xunite), calcul(f(x) * yunite)])
+    y = f.image(x)
+    if (!isNaN(y)) {
+      if (y < ymax + 1 && y > ymin - 1) {
+        points.push(point(calcul(x * xunite), calcul(y * yunite)))
       } else {
-        p = courbeInterpolee2([...pointsGuide], this.color)
+        p = polyline([...points], this.color)
         p.epaisseur = epaisseur
         objets.push(p)
-        pointsGuide = []
+        points = []
       }
     } else {
       x += 0.05
     }
   }
-  p = courbeInterpolee2([...pointsGuide], this.color)
+  p = polyline([...points], this.color)
   p.epaisseur = epaisseur
   objets.push(p)
   // LES SORTIES TiKZ et SVG
@@ -7970,8 +7976,8 @@ function Courbe3 (f, {
   }
 }
 
-export function courbe3 (...args) {
-  return new Courbe3(...args)
+export function courbeSpline (...args) {
+  return new CourbeSpline(...args)
 }
 
 function CourbeInterpolee2 (

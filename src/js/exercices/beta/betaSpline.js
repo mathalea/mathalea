@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import { spline } from '../../modules/fonctionsMaths.js'
+import { courbeSpline, mathalea2d, repere2 } from '../../modules/2d.js'
 export const titre = 'Nom de l\'exercice'
 
 /**
@@ -15,11 +15,15 @@ export default function NomExercice () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const listeNoeuds = [[0, 0], [0.5, 0.4794], [1, 0.8415], [1.5, 0.9975], [2, 0.9093]]
-
+    // const listeNoeuds = []
+    // for (let i = -5; i < 5; i += 0.5) {
+    //  listeNoeuds.push([i, Math.sin(i) / (6 + i)])
+    // }
+    //   const listeNoeuds = [[-5, 1], [0, 0], [5, 1]]
+    const listeNoeuds = [[-5, 1], [-4, 1], [0, 0], [5, 1]]
+    const r = repere2({ xMin: -4, xMax: 4, yMin: -2, yMax: 2, xUnite: 3, yUnite: 2 })
     const f = spline(listeNoeuds)
-    console.log('h : ', f.h, ' F : ', f.F, ' R : ', f.R, ' M : ', f.M, ' C: ', f.C, ' C2 : ', f.C2)
-    console.log('le sinus de Pi/6 est : ', f.image(Math.PI / 6))
-    // Si la question n'a jamais été posée, on l'enregistre
+    const c = courbeSpline(f, { repere: r, step: 0.2 })
+    this.contenu = mathalea2d({ xmin: -13, xmax: 13, ymin: -10, ymax: 10 }, r, c)
   }
 }
