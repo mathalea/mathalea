@@ -23,6 +23,6 @@ $zip->excludeExt(array('DS_Store'));
 $zip->excludeFolders(array('dossierExclu1/', 'dossierExclu2/sousDossierExclu2/', 'dossierExclu3/.sousDossierCacheExclu3/'));
 
 // On propose le téléchargement, On supprime l'archive après le téléchargement
-$zip->createZip(true,true);
+$zip->createZip(true,true,true);
 
 ?>

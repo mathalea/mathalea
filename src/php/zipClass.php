@@ -122,9 +122,13 @@
          * @param boolean $delete, on supprime après téléchargement si $delete est à true 
         */
 
-        public function createZip($download = false, $delete = false) {
+        public function createZip($download = false, $delete = false, $classe = false) {
         
-            $this->addDir($this->folderToZip);
+            if ($classe) {
+                $this->addDir($this->folderToZip,true);
+            } else {
+                $this->addDir($this->folderToZip);
+            }
         
             // On ferme le zip
             $this->zip->close();
@@ -167,7 +171,12 @@
                     // Si le fichier ne se trouve pas les fichiers exclus de tous les dossiers
                     // On l'ajoute à l'archive
                     if ( (!in_array($path.$file, $this->excludeFiles)) && (!in_array(pathinfo($file, PATHINFO_EXTENSION), $this->excludeExt)) && (!in_array($file, $this->excludeFilesAllFolders)) )
-                        $this->zip->addFile($path.$file);
+                        // Le second argument (optionnel) permet de ne pas garder l'arborescence d'origine
+                        if ($classe) {
+                            $this->zip->addFile($path.$file,substr($path,-3,-1).'-'.$file);
+                        } else {
+                            $this->zip->addFile($path.$file,$file);
+                        }
                 }
             }
         }
