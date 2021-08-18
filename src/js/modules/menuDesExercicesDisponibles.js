@@ -129,9 +129,9 @@ function listeHtmlDesExercicesDUnNiveauAvecSousTheme (listeDeThemes) { // liste_
   // Appelée par la fonction menuDesExercicesDisponibles
   let liste = ''
   for (const theme of listeDeThemes) {
-    liste += `<h3>${theme[1]}</h3>`
+    liste += `<h3 style="background-color:#f15929; color:white">${theme[1]}</h3>`
     for (let i = 2; i < theme.length; i++) {
-      liste += `<h4>${theme[i]}</h4>`
+      liste += `<h4 style="color:#f15929">${theme[i]}</h4>`
       liste += listeHtmlDesExercicesDUnTheme(theme[i].substr(0, 4))
     }
   }
