@@ -6974,6 +6974,9 @@ export function exportQcmAmc (exercice, idExo) {
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
         }
+        if (exercice.autoCorrection[j].propositions === undefined) {
+          exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '' }]
+        }
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
           reponse = autoCorrection[j].reponse.valeur
           if (autoCorrection[j].reponse.param.digits === 0) {
