@@ -21,7 +21,7 @@ const epsilon = 0.000001
 export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`)
-    if (exercice.interactif) {
+    if (exercice.interactif && exercice.interactifReady) {
       exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr, 'correction')
@@ -2153,9 +2153,12 @@ export function htmlEnumerate (liste, spacing, classe = 'question', id = '') {
     }
     result += '</ol>'
   } else if (liste.length === 1) {
-    (spacing > 1) ? result = `<div style="line-height: ${spacing};">` : result = '<div>'
+    // Pour garder la même hiérarchie avec une ou plusieurs questions
+    // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
+    // Utile pour la vue can
+    (spacing > 1) ? result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''} style="line-height: ${spacing};">` : result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''}>`
     result += liste[0].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
-    result += '</div>'
+    result += '</div></div>'
   }
   return result
 }
@@ -6970,6 +6973,9 @@ export function exportQcmAmc (exercice, idExo) {
         /********************************************************************/
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
+        if (exercice.autoCorrection[j].propositions === undefined) {
+          exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '' }]
         }
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
           reponse = autoCorrection[j].reponse.valeur

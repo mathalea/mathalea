@@ -122,24 +122,16 @@ function mailUrlToVips($pathToJson) {
       $CR_Mail = @mail ($vip->email, $email_objet, $email_message, $headers); 
 
       if ($CR_Mail === FALSE)
-        {
-          //echo " ### CR_Mail=$CR_Mail - Erreur envoi mail <br> \n";
+        {          
           $GLOBALS['mailingVip'] = "mailing VIPs KO";
         }
       else
         {
-          //echo " *** CR_Mail=$CR_Mail - Mail envoyé<br> \n";
-          // echo "OK";
           $GLOBALS['mailingVip'] = "mailing VIPs OK";
-          //mail($vip->email, $email_objet, $email_message, $headers); 
         }
 
     };
-    // if ($vip->isEmailOk) {
-    //   $GLOBALS['mailingVip'] .= $vip->nom;
-    // }    
-
-
+    
   };  
 };
 

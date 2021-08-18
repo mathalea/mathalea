@@ -500,7 +500,7 @@ export default function NaturePolygone () {
       YMAX = Math.max(yA, yB, yC, yD, 1) + 1
       objets.push(repere2({ xMin: XMIN, yMin: YMIN, xMax: XMAX, yMax: YMAX }))
       texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, xA, yA, xB, yB, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

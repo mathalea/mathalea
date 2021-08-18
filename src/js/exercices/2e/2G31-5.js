@@ -40,7 +40,7 @@ export default function Determinerequationcartesienneavecpente () {
       if (m < 0 & -m * xA + yA < 0) {
         texteCorr += `<br>ou encore plus simplement : $(d):~$  $${-m} x+y${ecritureAlgebrique(m * xA - yA)}=0$.`
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, xA, yA, m)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

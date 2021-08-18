@@ -30,11 +30,11 @@ function createIndexScores($path,$codeProf) {
   }
 
   foreach ($classes as $classe) {
-  echo "Classe de ".$classe." : <br>\r\n";
+    echo "Classe de ".$classe." => <a href=\"../../../../../../zipDownload.php?folder='.$path.'/".$classe."/\">Télécharger une archive zip avec toutes les semaines</a> <br>\r\n";
   echo "<ul>\r\n";
   foreach ($iterator as $file) {
       if (substr($file->getPath(),-2) == $classe && !in_array($file->getFilename(), array(".","..")) ) {
-         echo "<li><a href=\"".substr($file->getPath(),-2)."/".$file->getFilename()."\">".$file->getFilename()."</a></li>\r\n";
+         echo "<li><a href=\"".substr($file->getPath(),-2)."/".$file->getFilename()."\">Télécharger la ".$file->getFilename()."</a></li>\r\n";
       };
   }
   echo "</ul>\r\n";    

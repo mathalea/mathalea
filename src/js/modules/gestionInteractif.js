@@ -339,7 +339,7 @@ export function propositionsQcm (exercice, i) {
     }
     if (context.isHtml) {
       texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-      texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></span></form>`
+      texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
     }
   }
   return { texte: texte, texteCorr: texteCorr }
@@ -673,7 +673,7 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
         eleve2: userId[6],
         // eslint-disable-next-line no-unneeded-ternary
         isCan: getVueFromUrl() === 'can' ? 'oui' : 'non',
-        urlExos: document.location.href + 'serie=' + context.graine,
+        urlExos: document.location.href + '&serie=' + context.graine,
         exId: exercice.id,
         sup: exercice.sup,
         sup2: exercice.sup2,

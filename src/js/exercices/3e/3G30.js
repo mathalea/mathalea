@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpenNum' // type de question AMC
 
-export const titre = 'Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie'
+export const titre = 'Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie'
 
 /**
  * @author Jean-Claude Lhote à partir de 3G30-1 de Rémi Angot

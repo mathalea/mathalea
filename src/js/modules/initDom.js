@@ -70,7 +70,7 @@ const affichageUniquementQuestion = (i) => {
     correction.style.display = 'none'
   }
   if (i !== undefined) {
-    context.questionCanEnCours = 1
+    context.questionCanEnCours = i
     questions[i].style.display = 'block'
     const exercice = questions[i].parentElement.parentElement
     exercice.style.display = 'block'

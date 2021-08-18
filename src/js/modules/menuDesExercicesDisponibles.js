@@ -1,4 +1,4 @@
-/* global Event */
+/* global Event event */
 import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtreDictionnaireValeurTableauCle, enleveElement, compteOccurences } from './outils.js'
 import dictionnaireDesExercicesAleatoires from './dictionnaireDesExercicesAleatoires.js'
 import { dictionnaireC3 } from './dictionnaireC3.js'
@@ -122,6 +122,18 @@ function listeHtmlDesExercicesDUnNiveau (listeDeThemes) { // liste_de_themes = [
   for (const theme of listeDeThemes) {
     liste += `<h3>${theme[1]}</h3>`
     liste += listeHtmlDesExercicesDUnTheme(theme[0])
+  }
+  return liste
+}
+function listeHtmlDesExercicesDUnNiveauAvecSousTheme (listeDeThemes) { // liste_de_themes = [['6N1','6N1 - Numérations et fractions niveau 1'] , [' ',' '] ]
+  // Appelée par la fonction menuDesExercicesDisponibles
+  let liste = ''
+  for (const theme of listeDeThemes) {
+    liste += `<h3 style="background-color:#f15929; color:white">${theme[1]}</h3>`
+    for (let i = 2; i < theme.length; i++) {
+      liste += `<h4 style="color:#f15929">${theme[i]}</h4>`
+      liste += listeHtmlDesExercicesDUnTheme(theme[i].substr(0, 4))
+    }
   }
   return liste
 }
@@ -373,21 +385,61 @@ export function menuDesExercicesDisponibles () {
     ['3I1', '3I1 - Algorithmique premier niveau'],
     ['3L1', '3L1 - Calcul littéral'], ['3P1', '3P1 - Proportionnalité'], ['3S1', '3S1 - Statistiques'], ['3S2', '3S2 - Probabilités']]
   const listeThemes2 = [
-    ['2F1', '2F1 - Se constituer un répertoire de fonctions de référence'],
-    ['2F2', '2F2 - Représenter algébriquement et graphiquement les fonctions'],
-    ['2F3', '2F3 - Étudier les variations et les extremums d\'une fonction'],
-    ['2G1', '2G1 - Les bases en géométrie'],
-    ['2G2', '2G2 - Les vecteurs'],
-    ['2G3', '2G3 - Représenter et caractériser les droites du plan'],
-    ['2N1', '2N1 - Manipuler les nombres réels'],
-    ['2N2', '2N2 - Utiliser les notions de multiple, diviseur et de nombre premier'],
-    ['2N3', '2N3 - Utiliser les fractions, les puissances et les racines carrées'],
-    ['2N4', '2N4 - Utiliser le calcul littéral '],
-    ['2N5', '2N5 - Équations'],
-    ['2N6', '2N6 - Inéquations'],
-    ['2S1', '2S1 - Utiliser l\'information chiffrée '],
-    ['2S2', '2S2 - Statistique descriptive'],
-    ['2S3', '2S3 - Modéliser le hasard, calculer des probabiltés'],
+    ['2F1', '2F1 - Se constituer un répertoire de fonctions de référence', '2F10 - Connaître les  fonctions affines',
+      '2F11 - Comparer des images en utilisant les fonctions de référence',
+      '2F12 - Résoudre algébriquement ou graphiquement  f(x)=k ou f(x)&lt;k avec f fonction de référence'],
+    ['2F2', '2F2 - Représenter algébriquement et graphiquement les fonctions', '2F20 - Exploiter l\'équation y=f(x) d\'une courbe : appartenance, calcul de coordonnées',
+      '2F21 - Modéliser par des fonctions des situations issues des mathématiques, des autres disciplines',
+      '2F22 - Résoudre f(x)=k ou f(x)&lt;k en choisissant une méthode adaptée',
+      '2F23 - Résoudre une équation, une inéquation produit ou quotient, à l\'aide d\'un tableau de signes',
+      '2F24 - Résoudre graphiquement ou avec un outil numérique, f(x)=g(x) ou f(x)&lt;g(x)',
+      '2F25 - Étudier la parité d\'une fonction'],
+    ['2F3', '2F3 - Étudier les variations et les extremums d\'une fonction', '2F30 - Relier représentation graphique et tableau de variations',
+      '2F31 - Utiliser les variations d\'une fonction',
+      '2F32 - Déterminer les extremums d\'une fonction'],
+    ['2G1', '2G1 - Les bases en géométrie', 
+      '2G10 - Connaître les définitions et propriétés de bases en géométrie plane',
+      '2G11 - Calculer des longueurs, des angles, des aires et des volumes',
+      '2G12 - Calculer la distance entre deux points. Calculer les coordonnées du milieu d’un segment',
+      '2G13 - Traiter des problèmes d’optimisation'],
+    ['2G2', '2G2 - Les vecteurs', '2G20 - Représenter géométriquement des vecteurs',
+      '2G21 - Construire géométriquement la somme de deux vecteurs',
+      '2G22 - Représenter un vecteur dont on connaît les coordonnées. Lire les coordonnées d’un vecteur',
+      '2G23 - Utiliser et connaître les translations définies par des vecteurs',
+      '2G24 - Calculer les coordonnées d’une somme de vecteurs, d’un produit d’un vecteur par un nombre réel',
+      '2G25 - Caractériser alignement et parallélisme par la colinéarité de vecteurs',
+      '2G26 - Résoudre des problèmes en utilisant la représentation la plus adaptée des vecteurs'],
+    ['2G3', '2G3 - Représenter et caractériser les droites du plan', '2G31 - Déterminer une équation de droite à partir de deux points, un point et un vecteur directeur ou un point et la pente',
+      '2G32 - Déterminer la pente ou un vecteur directeur d’une droite donnée par une équation ou une représentation graphique',
+      '2G33 - Tracer une droite connaissant son équation cartésienne ou réduite',
+      '2G34 - Établir alignement et parallélisme',
+      '2G35 - Résoudre un système de deux équations linéaires à deux inconnues, déterminer le point d’intersection de deux droites sécantes'],
+    ['2N1', '2N1 - Manipuler les nombres réels', '2N10 - Associer à chaque point de la droite graduée un unique nombre réel et réciproquement',
+      '2N11 - Représenter un intervalle de la droite numérique. Déterminer si un nombre réel appartient à un intervalle donné',
+      '2N12 - Donner un encadrement, d’amplitude donnée, d’un nombre réel par des décimaux',
+      '2N13 - Dans le cadre de la résolution de problèmes, arrondir en donnant le nombre de chiffres significatifs adapté à la situation étudiée',
+      '2N14 - Connaître Les ensembles de nombres',
+      '2N15 - Connaître et utiliser la notation |a|'],
+    ['2N2', '2N2 - Utiliser les notions de multiple, diviseur et de nombre premier', '2N20 - Modéliser et résoudre des problèmes mobilisant les notions de multiple, de diviseur, de nombre pair, de nombre impair, de nombre premier'],
+    ['2N3', '2N3 - Utiliser les fractions, les puissances et les racines carrées', '2N30 - Éffectuer des calculs numériques mettant en jeu des écritures fractionnaires',
+      '2N31 - Effectuer des calculs numériques mettant en jeu des puissances',
+      '2N32 - Effectuer des calculs numériques mettant en jeu des racines carrées'],
+    ['2N4', '2N4 - Utiliser le calcul littéral', '2N40 - Les bases du calcul littéral',
+      '2N41 - Factoriser, développer avec, ou sans, les identités remarquables',
+      '2N42 - Utiliser le calcul littéral'],
+    ['2N5', '2N5 - Équations', '2N50 - Modéliser un problème par une équation',
+      '2N51 - Résoudre une équation du premier degré',
+      '2N52 - Résoudre une équation avec un produit nul'],
+    ['2N6', '2N6 - Inéquations', '2N60 - Résoudre une inéquation du premier degré',
+      '2N61 - Résoudre une inéquation produit'],
+    ['2S1', '2S1 - Utiliser l\'information chiffrée', '2S10 - Exploiter la relation entre effectifs, proportions et pourcentages. Pourcentage de pourcentage',
+      '2S11 - Exploiter la relation entre deux valeurs successives et leur taux d\'évolution',
+      '2S12 - Calculer le taux d\'évolution global à partir des taux d\'évolution successifs. Calculer un taux d\'évolution réciproque'],
+    ['2S2', '2S2 - Statistique descriptive', '2S20 - Les indicateurs statistiques',
+      '2S21 - Décrire les différences entre deux séries statistiques',
+      '2S22 - Lire et comprendre une fonction écrite en Python renvoyant la moyenne (m), l\'écart type (s) et la proportion d\'éléments dans [m-2s;m+2s]'],
+    ['2S3', '2S3 - Modéliser le hasard, calculer des probabiltés', '2S31 - Utiliser des modèles théoriques de référence',
+      '2S30 - Calculer des probabilités dans des cas simples'],
     ['2S4', '2S4 - Échantillonnage']
   ]
   const objExercicesDisponibles = {
@@ -442,7 +494,7 @@ export function menuDesExercicesDisponibles () {
     2: {
       label: 'Seconde',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemes2),
+      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveauAvecSousTheme(listeThemes2),
       lignes_tableau: ''
     },
     1: {

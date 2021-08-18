@@ -53,7 +53,7 @@ export default function LeCompteEstBonV3 () {
       for (let j = 0; j < 4; j++) {
         texteCorr += `$${solutionMathador[2][j]}$<br>`
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, ...solutionMathador)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

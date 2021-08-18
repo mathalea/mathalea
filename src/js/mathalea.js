@@ -354,6 +354,16 @@ function miseAJourDuCode () {
     tousLesExercicesSontInteractifs ? document.getElementById('btnCan').classList.remove('disabled') : document.getElementById('btnCan').classList.add('disabled')
   }
 
+  const btn1Question = document.getElementById('btn1Question')
+  if (btn1Question !== null) {
+    btn1Question.addEventListener('click', () => {
+      for (let i = 0; i < listeObjetsExercice.length; i++) {
+        listeObjetsExercice[i].nbQuestions = 1
+        miseAJourDuCode()
+      }
+    })
+  }
+
   window.MG32_tableau_de_figures = []
   window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
   window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
