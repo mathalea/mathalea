@@ -18,11 +18,15 @@ $zip->excludeFilesAllFolders(array('fichierExcluDeTousLesRepertoires.txt'));
  
 // On exclut l'extension mac
 $zip->excludeExt(array('DS_Store'));
+
+// On exclut l'extension php
+$zip->excludeExt(array('php'));
  
 // On exclut certains dossiers
 $zip->excludeFolders(array('dossierExclu1/', 'dossierExclu2/sousDossierExclu2/', 'dossierExclu3/.sousDossierCacheExclu3/'));
 
 // On propose le téléchargement, On supprime l'archive après le téléchargement
-$zip->createZip(true,true,true);
+// $zip->createZip(true,true,true);
+$zip->createZip(true,true);
 
 ?>

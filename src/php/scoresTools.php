@@ -39,7 +39,11 @@ function createIndexScores($path,$codeProf) {
   }
   echo "</ul>\r\n";    
   }
-  echo "Toutes les classes en même temps => <br>\r\n";
+  echo "Toutes les classes en même temps => 
+  
+  <a href=\"../../../../../../zipDownload.php?folder='.$path.'/\">Télécharger une archive zip avec toutes les semaines</a>
+
+  <br>\r\n";
 ?>';
   fputs($fp,"
   <!DOCTYPE html>

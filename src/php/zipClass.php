@@ -123,13 +123,14 @@
          * @param boolean $classe, on ajoute le nom de la classe si $classe est à true 
         */
 
-        public function createZip($download = false, $delete = false, $classe = false) {
+        //public function createZip($download = false, $delete = false, $classe = false) {
+        public function createZip($download = false, $delete = false) {
         
-            if ($classe) {
-                $this->addDir($this->folderToZip,true);
-            } else {
+            // if ($classe) {
+            //     $this->addDir($this->folderToZip,true);
+            // } else {
                 $this->addDir($this->folderToZip);
-            }
+            //}
 
             // On ferme le zip
             $this->zip->close();
@@ -155,7 +156,8 @@
          * @param string $path 
          * @param boolean $classe, on ajoute le nom de la classe si $classe est à true
         */
-        private function addDir($path, $classe = false) {
+        //private function addDir($path, $classe = false) {
+        private function addDir($path) {
     
             // On lit les fichiers et on exclut . et .. de la liste        
             $files = array_diff(scandir($path), array('..', '.'));
@@ -174,11 +176,11 @@
                     // On l'ajoute à l'archive
                     if ( (!in_array($path.$file, $this->excludeFiles)) && (!in_array(pathinfo($file, PATHINFO_EXTENSION), $this->excludeExt)) && (!in_array($file, $this->excludeFilesAllFolders)) )
                         // Le second argument (optionnel) permet de ne pas garder l'arborescence d'origine
-                        if ($classe) {
+                        // if ($classe) {
+                        //     $this->zip->addFile($path.$file,substr($path,-3,-1).'-'.$file);
+                        // } else {
                             $this->zip->addFile($path.$file,substr($path,-3,-1).'-'.$file);
-                        } else {
-                            $this->zip->addFile($path.$file,$file);
-                        }
+                        //}
                 }
             }
         }
