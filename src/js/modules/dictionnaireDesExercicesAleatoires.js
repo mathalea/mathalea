@@ -3895,16 +3895,16 @@ export default {
     "interactifReady": false,
     "name": "c3N23"
   },
-  "can6e": {
-    "titre": "Course aux nombres 6e",
-    "url": "/exercices/can/can6e.js",
+  "can6e-3": {
+    "titre": "Course aux nombres fin de 6e",
+    "url": "/exercices/can/can6e-3.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6e"
+    "name": "can6e-3"
   },
   "can6N1": {
     "titre": "Double et moitié",

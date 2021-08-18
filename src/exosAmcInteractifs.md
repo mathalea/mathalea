@@ -166,7 +166,7 @@
 |betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
-|can6e|Course aux nombres 6e|OK|AMCNum|OK|mathLive|
+|can6e-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
 |can6N1|Double et moitié|KO|KO|OK|mathLive|
 |can6N2|Fraction comme facteur manquant|KO|KO|OK|mathLive|
 |can6N3|Somme de 4 entiers qui se marient|KO|KO|OK|mathLive|
