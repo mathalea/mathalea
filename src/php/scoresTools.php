@@ -111,6 +111,11 @@ function createIndexScores($path,$codeProf) {
   <script src=\"../../../../../assets/externalJs/semantic-ui/components/state.min.js\"></script>
    
   <title>MathALÉA - Espace ".$codeProf[0].$codeProf[1].$codeProf[2]."</title>
+  <style type=\"text/css\">
+    body > .ui.container {
+      margin-top: 3em;
+    }
+  </style>
 </head>
 
 <body style=\"overflow:auto\">
