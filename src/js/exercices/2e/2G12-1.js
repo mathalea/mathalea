@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecriturePa
 export const titre = 'Utiliser la distance entre deux points dans un repère orthonormé'
 
 /**
- * 2G10
+ * 2G12-1
  * @author Stéphane Guyon
  */
 export default function Distance () {

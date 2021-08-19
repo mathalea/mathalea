@@ -5,7 +5,7 @@ import { point, tracePoint, labelPoint, segment, axes, grille, mathalea2d } from
 export const titre = 'Déterminer les coordonnées milieu d’un segment dans un repère'
 
 /**
- * 2G11
+ * 2G12-2
  * @author Stéphane Guyon
  */
 export default function Milieu () {
