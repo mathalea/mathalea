@@ -6,7 +6,7 @@ import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
 import { mg32DisplayAll } from './modules/mathgraph'
 import { messageUtilisateur } from './modules/messages.js'
-import { exerciceInteractif } from './modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, exerciceInteractif, setReponse } from './modules/gestionInteractif.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
@@ -275,6 +275,36 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       },'${numeroExercice - 1}')</h3>`
       contenuUneCorrection += `<img width="90%" src="${obj.pngcor}">`
       obj.video = false
+    } else if (obj.typeExercice === 'simple') {
+      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
+      contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
+      if (obj.consigne) {
+        contenuUnExercice += `<h4> ${obj.consigne} </h4>`
+      }
+      contenuUnExercice += '<ol>'
+      contenuUneCorrection += '<ol>'
+      for (let numQuestion = 0, cpt = 0; numQuestion < obj.nbQuestions && cpt < 50; cpt++) {
+        try {
+          obj.nouvelleVersion()
+        } catch (error) {
+          console.log(error)
+        }
+        if (obj.questionJamaisPosee(numQuestion, obj.question)) {
+          contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}`
+          if (obj.interactif && obj.interactifReady) {
+            contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion)
+          }
+          contenuUnExercice += '</li>'
+          setReponse(obj, numQuestion, obj.reponse)
+          contenuUneCorrection += `<li class="correction">${obj.correction}</li>`
+          numQuestion++
+        }
+      }
+      contenuUnExercice += '</ol>'
+      contenuUnExercice += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
+      if (obj.interactif || obj.interactifObligatoire) {
+        exerciceInteractif(obj)
+      }
     } else {
       try {
         obj.nouvelleVersion(numeroExercice - 1)
