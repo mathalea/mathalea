@@ -1,11 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-<<<<<<< HEAD
-- nombre d'exos amcReady 145 
-- nombre d'exos interactifReady 175 
-=======
 - nombre d'exos amcReady 147 
-- nombre d'exos interactifReady 173 
->>>>>>> master
+- nombre d'exos interactifReady 178 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -169,6 +164,7 @@
 |betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
+|betaExerciceCanSimple|Somme de deux entier|KO|KO|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
@@ -199,17 +195,3 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
-<<<<<<< HEAD
-=======
-|beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
-|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
-|beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
-|betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
-|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
-|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
-|betaExerciceCanSimple|Somme de deux entier|KO|KO|OK|mathLive|
-|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
-|c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
-|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
->>>>>>> master

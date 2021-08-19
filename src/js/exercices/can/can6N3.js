@@ -7,24 +7,18 @@ export const interactifType = 'mathLive'
 
 export default function FSomme4EntiersQuiSeMarient () {
   Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
   this.interactif = true
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(3, 7) * 10
     const d = randint(10, 15) * 10 - c
-    const resultat = calcul(2 * (c + d))
-    let texte = `$${c - a} + ${d + b} + ${c + a} + ${d - b}$`
-    const texteCorr = `$${c - a} + ${c + a} + ${d + b}  + ${d - b} = ${2 * c} + ${2 * d}= ${2 * (c + d)}$`
-    setReponse(this, 0, resultat, { formatInteractif: 'calcul' })
-    texte += ajouteChampTexteMathLive(this, 0, 'largeur10 inline')
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
-    listeQuestionsToContenuSansNumero(this)
+    this.consigne = 'Calculer.'
+    this.reponse = calcul(2 * (c + d))
+    this.question = `$${c - a} + ${d + b} + ${c + a} + ${d - b}$`
+    this.correction = `$${c - a} + ${c + a} + ${d + b}  + ${d - b} = ${2 * c} + ${2 * d}= ${2 * (c + d)}$`
   }
 }

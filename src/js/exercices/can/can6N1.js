@@ -7,20 +7,17 @@ export const interactifType = 'mathLive'
 
 export default function doubleEtMoitie () {
   Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
   this.interactif = true
 
   this.nouvelleVersion = function () {
+    this.consigne = ''
     this.listeQuestions = []
     this.listeCorrections = []
     const a = randint(1, 25) // variables aléatoires
-    let contenu = `Le double d'un nombre vaut ${2 * a}, combien vaut sa moitié ?<br>`
-    contenu += ajouteChampTexteMathLive(this, 0, 'largeur10 inline')
-    setReponse(this, 0, calcul(a / 2))
-    const contenuCorrection = `Le nombre est ${a}, sa moitié est ${texNombrec(a / 2)}.` // Correction détaillée
-    this.listeQuestions.push(contenu)
-    this.listeCorrections.push(contenuCorrection)
-    listeQuestionsToContenuSansNumero(this)
+    this.question= `Le double d'un nombre vaut ${2 * a}, combien vaut sa moitié ?<br>`
+    this.correction=`Le nombre est ${a}, sa moitié est ${texNombrec(a / 2)}.`
+    this.reponse = calcul(a/2)
   }
 }
