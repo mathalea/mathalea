@@ -164,6 +164,7 @@ export function expTrinome (a, b, c) {
 /**
  * inspiré de l'article 'Algorithme de calcul d'une courbe spline de lissage'
  * de cet article 'spline' de wikipedia : https://fr.wikipedia.org/wiki/Spline
+ * ça fonctionne quand les noeuds sont 'bien répartis'...
  * Adaptation pour Mathalea
  * @author Jean-Claude Lhote
  */
@@ -193,16 +194,12 @@ class Spline {
       h[i] = x[i + 1] - x[i] // on calcule les amplitudes des intervalles.
     }
     console.log(' Les intervalles :\n ', h)
-    F.resize([n])
-    for (let i = 1; i <= n; i++) { // On construit la matrice des dérivées secondes
-      if (i === 1 || i === n) {
-        F._data[i - 1] = 0
-      } else {
-        F._data[i - 1] = (y[i] - y[i - 1]) / h[i - 1] - (y[i - 1] - y[i - 2]) / h[i - 2]
-      }
+    F.resize([n], 0)
+    for (let i = 2; i < n; i++) { // On construit la matrice des dérivées secondes
+      F._data[i - 1] = (y[i] - y[i - 1]) / h[i - 1] - (y[i - 1] - y[i - 2]) / h[i - 2]
     }
     console.log('La matrice des dérivéées secondes :\n', F)
-    R.resize([n, n])
+    R.resize([n, n], 0)
     for (let i = 1; i <= n; i++) { // On construit la matrice carrée de calcul
       if (i === 1) {
         R._data[0][0] = 1 // seul le premier élément de la première ligne n'est pas nul
@@ -221,8 +218,8 @@ class Spline {
     console.log('La matrice M = Rinv*F :\n', M)
     const C = matrix()
     const C2 = matrix()
-    C.resize([n - 1])
-    C2.resize([n - 1])
+    C.resize([n - 1], 0)
+    C2.resize([n - 1], 0)
     for (let i = 1; i <= n - 1; i++) {
       C._data[i - 1] = (y[i] - y[i - 1]) / h[i - 1] - h[i - 1] * (M._data[i] - M._data[i - 1]) / 6
       C2._data[i - 1] = y[i - 1] - M._data[i - 1] * h[i - 1] * h[i - 1] / 6
@@ -240,51 +237,44 @@ class Spline {
 
     this.image = function (X) {
       let trouveK = false
+      let k = 0; let f
+      for (let i = 2; i <= n; i++) {
+        if (X >= x[i - 2] && X <= x[i - 1]) {
+          k = i
+          trouveK = true
+          break
+        }
+      }
+      if (!trouveK) {
+        return false
+      } else {
+        const i = k
+        f = a => (F._data[i - 1] * (a - x[i - 2]) ** 3 + F._data[i - 2] * (x[i - 1] - a) ** 3) / (6 * h[i - 1]) + (y[i - 1] / h[i - 1] - F._data[i - 1] * h[i - 1] / 6) * (a - x[i - 2]) + (y[i - 2] / h[i - 1] - F._data[i - 2] * h[i - 1] / 6) * (x[i - 1] - a)
+        return f(X)
+      }
+    }
+
+    // une autre façon de calculer l'image... laquelle est la plus rapide ?
+    /*  this.image = function (X) {
+      let trouveK = false
       let k = 0
       for (let i = 0; i < n - 1; i++) {
         if (X > x[i] && X < x[i + 1]) {
           k = i
           trouveK = true
-        } else if (X === x[i]) {
+          break
+        } else if (egal(X, x[i])) {
           return y[i]
-        } else if (X === x[i + 1]) {
+        } else if (egal(X, x[i + 1])) {
           return y[i + 1]
         }
       }
       if (!trouveK) {
         return false
       } else {
-        return (M._data[k - 1] * (x[k] - X) ** 3 + M._data[k] * (X - x[k - 1]) ** 3) / 6 / h[k - 1] + C._data[k - 1] * (X - x[k - 1]) + C2._data[k - 1]
+        return (M._data[k - 1] * (x[k] - X) ** 3 + M._data[k] * (X - x[k - 1]) ** 3) / (6 * h[k - 1]) + C._data[k - 1] * (X - x[k - 1]) + C2._data[k - 1]
       }
     }
-
-    /* code pour faire une spline de lissage ... ce n'est pas ce qu'on veut.
- const Q = matrix()
-  const R = matrix()
-  resize(Q, [n, n - 2])
-  resize(R, [n - 2, n - 2])
-  for (let i = 0; i < n; i++) { // On rempli la matrice Q
-    if (i > 0 && i < n - 1) { // on s'occupe de la diagonale centrale
-      Q[i][i - 1] = 1 / h[i - 1] + 1 / h[i]
-    }
-    if (i < n - 2) { // on s'occupe de la diagonale supérieure
-      Q[i][i] = -1 / h[i]
-    }
-    if (i > 1) { // on s'occupe de la diagonale inférieure
-      Q[i][i - 2] = -1 / h[i - 1]
-    }
-  }
-  for (let i = 0; i < n - 2; i++) { // on rempli la matrice R
-    R._data[i][i] = (h[i - 1] + h[i]) / 3
-    if (i < n - 3) { // on s'occupe de la diagonale supérieure
-      R._data[i][i + 1] = -h[i] / 6
-    }
-    if (i > 0) { // on s'occupe de la diagonale inférieure
-      R._data[i][i - 1] = -h[i - 1] / 6
-    }
-  }
-  const Qt = transpose(Q)
-  const Rinv = inv(R)
 */
   }
 }
@@ -292,7 +282,10 @@ class Spline {
 export function spline (tabNoeuds) {
   return new Spline(tabNoeuds)
 }
-
+/**
+ * Fonction qui trie des couples de coordonnées pour les remettre dans l'ordre des x croissant
+ * @author Jean-Claude Lhote
+ */
 export function trieCouples (x, y) {
   let xInter, yInter
   for (let i = 0; i < x.length - 1; i++) {
@@ -311,4 +304,71 @@ export function trieCouples (x, y) {
     }
   }
   return true
+}
+
+/**
+ * inspiré de https://yahiko.developpez.com/tutoriels/introduction-interpolation/?page=page_8#L8-3
+ * Adaptation pour Mathalea
+ * @author Jean-Claude Lhote
+ */
+class SplineCatmullRom {
+  constructor (tabY, x0, step) {
+    this.x = []
+    this.y = []
+
+    const n = tabY.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
+    for (let i = 0; i < n; i++) {
+      this.x[i] = x0 + step * i
+      this.y[i] = tabY[i]
+    }
+
+    this.image = function (x) {
+      let trouveK = false
+      let k = 0
+      let y0, y1, y2, y3, t
+      for (let i = 2; i <= n; i++) {
+        if (x >= this.x[i - 2] && x <= this.x[i - 1]) {
+          k = i
+          trouveK = true
+          break
+        }
+      }
+      if (!trouveK) {
+        return false
+      } else {
+        const i = k - 1
+        if (i === 1) { // on est dans l'intervalle [x0,x1] le premier intervalle. i est le numéro de l'intervalle.
+          y1 = this.y[i - 1]
+          y2 = this.y[i]
+          y0 = 2 * y1 - y2
+          y3 = this.y[i + 1]
+        } else if (i === n - 1) { // on est dans le dernier intervalle [xn-2,xn-1]
+          y0 = this.y[i - 2]
+          y1 = this.y[i - 1]
+          y2 = this.y[i]
+          y3 = 2 * y2 - y1
+        } else {
+          t = (x - this.x[i - 1]) / (this.x[i] - this.x[i - 1])
+          y0 = this.y[i - 2]
+          y1 = this.y[i - 1]
+          y2 = this.y[i]
+          y3 = this.y[i + 1]
+        }
+        const t2 = t * t
+        const t3 = t2 * t
+
+        // Calcul des fonctions de base d'une spline de Catmull-Rom
+        const b0 = -t + 2 * t2 - t3
+        const b1 = 2 - 5 * t2 + 3 * t3
+        const b2 = t + 4 * t2 - 3 * t3
+        const b3 = -t2 + t3
+
+        return (b0 * y0) + (b1 * y1) + (b2 * y2) + (b3 * y3)
+      }
+    }
+  }
+}
+
+export function splineCatmullRom (tabY, x0, step) {
+  return new SplineCatmullRom(tabY, x0, step)
 }
