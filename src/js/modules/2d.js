@@ -7894,6 +7894,137 @@ export function courbe2 (...args) {
 }
 
 /**
+ * crée un objet correspondant au tracé de la fonction f de la classe Spline
+ * f devra être définie avant...
+ * @author Jean-Claude Lhote
+ */
+function CourbeSpline (f, {
+  repere = {},
+  color = 'black',
+  epaisseur = 2,
+  step = false,
+  xMin,
+  xMax,
+  yMin,
+  yMax,
+  xUnite = 1,
+  yUnite = 1
+} = {}) {
+  ObjetMathalea2D.call(this)
+  let points = []
+  this.color = color
+  let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
+  if (typeof xMin === 'undefined') {
+    xmin = repere.xMin
+  } else xmin = xMin
+  if (typeof yMin === 'undefined') {
+    ymin = repere.yMin
+  } else ymin = yMin
+  if (typeof xMax === 'undefined') {
+    xmax = repere.xMax
+  } else xmax = xMax
+  if (typeof yMax === 'undefined') {
+    ymax = repere.yMax
+  } else ymax = yMax
+
+  xunite = repere.xUnite
+  yunite = repere.yUnite
+
+  if (isNaN(xunite)) { xunite = xUnite };
+  if (isNaN(yunite)) { yunite = yUnite };
+  const objets = []
+  let pas
+  let p, y
+  if (!step) {
+    pas = calcul(0.2 / xUnite)
+  } else {
+    pas = step
+  }
+  for (let x = xmin; inferieurouegal(x, xmax); x = calcul(x + pas)) {
+    y = f.image(x)
+    if (!isNaN(y)) {
+      if (y < ymax + 1 && y > ymin - 1) {
+        points.push(point(calcul(x * xunite), calcul(y * yunite)))
+      } else {
+        p = polyline([...points], this.color)
+        p.epaisseur = epaisseur
+        objets.push(p)
+        points = []
+      }
+    } else {
+      x += 0.05
+    }
+  }
+  p = polyline([...points], this.color)
+  p.epaisseur = epaisseur
+  objets.push(p)
+  // LES SORTIES TiKZ et SVG
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+}
+
+export function courbeSpline (...args) {
+  return new CourbeSpline(...args)
+}
+
+function CourbeInterpolee2 (
+  tableau,
+  color = 'black',
+  epaisseur = 2,
+  r = [1, 1],
+  xmin,
+  xmax
+) {
+  ObjetMathalea2D.call(this)
+  this.color = color
+  this.epaisseur = epaisseur
+
+  this.svg = function (coeff) {
+    let code = `<path d="M ${tableau[0][0] * coeff} ${-tableau[0][1] * coeff} L `
+    for (let i = 1; i < tableau.length; i++) {
+      code += `${arrondi(tableau[i][0] * coeff, 1)} ${-arrondi(tableau[i][1] * coeff, 1)} `
+    }
+    code += `" stroke="${this.color}" stroke-width="${this.epaisseur}" fill="transparent"  id="${this.id}" />`
+    return code
+  }
+  this.tikz = function () {
+    let code = '\\draw plot[smooth] coordinates{'
+    for (let i = 0; i < tableau.length; i++) {
+      code += `(${tableau[i][0]},${tableau[i][1]}) `
+    }
+    code += '};\n'
+    return code
+  }
+}
+
+/**
+ *
+ * @param {array} tableau de coordonnées [x,y]
+ * @param {string} couleur
+ * @param {number} epaisseur
+ * @param {objet} repere (ou tableau [xscale,yscale])
+ * @param {number} xmin
+ * @param {number} xmax
+ *
+ * @author Rémi Angot
+ */
+export function courbeInterpolee2 (...args) {
+  return new CourbeInterpolee2(...args)
+}
+
+/**
  * @SOURCE : https://gist.github.com/ericelliott/80905b159e1f3b28634ce0a690682957
  */
 // y1: start value
