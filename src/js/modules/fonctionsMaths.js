@@ -315,6 +315,7 @@ class SplineCatmullRom {
   constructor (tabY, x0, step) {
     this.x = []
     this.y = []
+    this.f = []
 
     const n = tabY.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
     for (let i = 0; i < n; i++) {
@@ -348,22 +349,22 @@ class SplineCatmullRom {
           y2 = this.y[i]
           y3 = 2 * y2 - y1
         } else {
-          t = (x - this.x[i - 1]) / (this.x[i] - this.x[i - 1])
           y0 = this.y[i - 2]
           y1 = this.y[i - 1]
           y2 = this.y[i]
           y3 = this.y[i + 1]
         }
+
+
+
+        t = calcul((x - this.x[i - 1]) / (this.x[i] - this.x[i - 1]))
         const t2 = t * t
         const t3 = t2 * t
-
-        // Calcul des fonctions de base d'une spline de Catmull-Rom
         const b0 = -t + 2 * t2 - t3
         const b1 = 2 - 5 * t2 + 3 * t3
         const b2 = t + 4 * t2 - 3 * t3
         const b3 = -t2 + t3
-
-        return (b0 * y0) + (b1 * y1) + (b2 * y2) + (b3 * y3)
+        return calcul((b0 * y0 + b1 * y1 + b2 * y2 + b3 * y3) / 2)
       }
     }
   }

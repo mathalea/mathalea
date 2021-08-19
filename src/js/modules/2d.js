@@ -7940,8 +7940,7 @@ function CourbeSpline (f, {
   } else {
     pas = step
   }
-  for (let x = xmin; inferieurouegal(x, xmax); x += pas
-  ) {
+  for (let x = xmin; inferieurouegal(x, xmax); x = calcul(x + pas)) {
     y = f.image(x)
     if (!isNaN(y)) {
       if (y < ymax + 1 && y > ymin - 1) {
