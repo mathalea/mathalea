@@ -1,4 +1,4 @@
-/* global Event */
+/* global Event event */
 import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtreDictionnaireValeurTableauCle, enleveElement, compteOccurences } from './outils.js'
 import dictionnaireDesExercicesAleatoires from './dictionnaireDesExercicesAleatoires.js'
 import { dictionnaireC3 } from './dictionnaireC3.js'
@@ -129,9 +129,9 @@ function listeHtmlDesExercicesDUnNiveauAvecSousTheme (listeDeThemes) { // liste_
   // Appelée par la fonction menuDesExercicesDisponibles
   let liste = ''
   for (const theme of listeDeThemes) {
-    liste += `<h3>${theme[1]}</h3>`
+    liste += `<h3 style="background-color:#f15929; color:white">${theme[1]}</h3>`
     for (let i = 2; i < theme.length; i++) {
-      liste += `<h4>${theme[i]}</h4>`
+      liste += `<h4 style="color:#f15929">${theme[i]}</h4>`
       liste += listeHtmlDesExercicesDUnTheme(theme[i].substr(0, 4))
     }
   }
@@ -397,10 +397,11 @@ export function menuDesExercicesDisponibles () {
     ['2F3', '2F3 - Étudier les variations et les extremums d\'une fonction', '2F30 - Relier représentation graphique et tableau de variations',
       '2F31 - Utiliser les variations d\'une fonction',
       '2F32 - Déterminer les extremums d\'une fonction'],
-    ['2G1', '2G1 - Les bases en géométrie', '2G11 - Calculer des longueurs, des angles, des aires et des volumes',
-      '2G12 - Connaître les définitions et propriétés de bases en géométrie plane',
-      '2G13 - Calculer la distance entre deux points. Calculer les coordonnées du milieu d’un segment',
-      '2G14 - Traiter des problèmes d’optimisation'],
+    ['2G1', '2G1 - Les bases en géométrie',
+      '2G10 - Connaître les définitions et propriétés de bases en géométrie plane',
+      '2G11 - Calculer des longueurs, des angles, des aires et des volumes',
+      '2G12 - Calculer la distance entre deux points. Calculer les coordonnées du milieu d’un segment',
+      '2G13 - Traiter des problèmes d’optimisation'],
     ['2G2', '2G2 - Les vecteurs', '2G20 - Représenter géométriquement des vecteurs',
       '2G21 - Construire géométriquement la somme de deux vecteurs',
       '2G22 - Représenter un vecteur dont on connaît les coordonnées. Lire les coordonnées d’un vecteur',

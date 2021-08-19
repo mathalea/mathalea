@@ -172,18 +172,18 @@ export const dictionnaireLycee = {
     url: '/exercices/3e/3G20-1.js'
   },
   '2G11-3': {
-    titre: 'Calculer toutes les mesures d\'angle d\'une figure complexe',
+    titre: 'Problèmes utilisant la trigonométrie',
     url: '/exercices/3e/3G31-1.js'
   },
   '2G11-5': {
     titre: 'Calculs de volumes',
     url: '/exercices/3e/3G43.js'
   },
-  '2G12-1': {
+  '2G10-1': {
     titre: 'Déterminer des angles en utilisant les cas d\'égalité',
     url: '/exercices/5e/5G30-1.js'
   },
-  '2G12-2': {
+  '2G10-2': {
     titre: 'Natures de parallélogrammes',
     url: '/exercices/5e/5G42.js'
   },
