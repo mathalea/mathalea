@@ -36,8 +36,12 @@ $zip->excludeExt(array('php'));
 // On exclut certains dossiers
 $zip->excludeFolders(array('dossierExclu1/', 'dossierExclu2/sousDossierExclu2/', 'dossierExclu3/.sousDossierCacheExclu3/'));
 
+// Note sur la methode createZip()
+// premier booléen   -> on télécharge si il est à true
+// deuxième booléen  -> on efface le fichier zip du serveur après téléchargment si il est à true
+// troisième booléen -> on change l'arborescence si c'est un zip pour les scores
+
 // On propose le téléchargement, On supprime l'archive après le téléchargement
-// $zip->createZip(true,true,true);
-$zip->createZip(true,true);
+$zip->createZip(true,true,true);
 
 ?>
