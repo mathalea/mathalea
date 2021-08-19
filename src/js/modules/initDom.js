@@ -11,7 +11,7 @@ const boutonMAJ = () => {
 }
 
 const boutonVerifQuestion = (id) => {
-  const btn = create('button', { class: 'btn ui icon button', id })
+  const btn = create('button', { class: 'btn ui icon button', id, style: 'display: block; marginTop:10px; marginBottom:10px' })
   btn.innerHTML = 'Valider'
   return btn
 }

@@ -421,6 +421,17 @@ export default {
     "interactifReady": false,
     "name": "3A13"
   },
+  "3A14": {
+    "titre": "Problème Les iris et les roses",
+    "url": "/exercices/3e/3A14.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3A14"
+  },
   "3F1-act": {
     "titre": "Fonctions : Notion et vocabulaire",
     "url": "/exercices/3e/3F1-act.js",
@@ -1962,11 +1973,22 @@ export default {
     "name": "5N11-3"
   },
   "5N11-4": {
-    "titre": "Exprimer une fractions sous la forme d’une valeur approchée d’un pourcentage",
+    "titre": "Exprimer une fraction sous la forme d’une valeur approchée d’un pourcentage",
     "url": "/exercices/5e/5N11-4.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "5N11-4"
+  },
+  "5N110-1": {
+    "titre": "Variation en pourcentages",
+    "url": "/exercices/5e/5N110-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "5N110-1"
   },
   "5N110": {
     "titre": "Variation en pourcentages",
@@ -4002,6 +4024,14 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaEquationsLog"
+  },
+  "betaExerciceCanSimple": {
+    "titre": "Somme de deux entier",
+    "url": "/exercices/beta/betaExerciceCanSimple.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaExerciceCanSimple"
   },
   "betaExo3d": {
     "titre": "Exo zéroMathalea2d3d",
