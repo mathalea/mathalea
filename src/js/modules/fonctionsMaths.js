@@ -164,7 +164,9 @@ export function expTrinome (a, b, c) {
 /**
  * inspiré de l'article 'Algorithme de calcul d'une courbe spline de lissage'
  * de cet article 'spline' de wikipedia : https://fr.wikipedia.org/wiki/Spline
- * ça fonctionne quand les noeuds sont 'bien répartis'...
+ * ça fonctionne quand les noeuds sont 'bien répartis'... ce qui n'est pas évident...
+ * Les noeuds sont des couples (x,y)
+ * On lui préférera la Spline de Catmull-Rom ci-dessous.
  * Adaptation pour Mathalea
  * @author Jean-Claude Lhote
  */
@@ -282,6 +284,7 @@ class Spline {
 export function spline (tabNoeuds) {
   return new Spline(tabNoeuds)
 }
+
 /**
  * Fonction qui trie des couples de coordonnées pour les remettre dans l'ordre des x croissant
  * @author Jean-Claude Lhote
@@ -308,11 +311,13 @@ export function trieCouples (x, y) {
 
 /**
  * inspiré de https://yahiko.developpez.com/tutoriels/introduction-interpolation/?page=page_8#L8-3
+ * La spline de Catmull-Rom utilise ici un tableau d'ordonnées successives pour des abscisses équiréparties.
+ * Donc on donne le tableau des valeurs de y, l'abscisse correspondant à la première valeur de y et le pas (step) permettant de passer d'une abscisse à la suivante.
  * Adaptation pour Mathalea
  * @author Jean-Claude Lhote
  */
 class SplineCatmullRom {
-  constructor (tabY, x0, step) {
+  constructor ({ tabY = [], x0 = -5, step = 1 }) {
     this.x = []
     this.y = []
     this.f = []
@@ -355,8 +360,6 @@ class SplineCatmullRom {
           y3 = this.y[i + 1]
         }
 
-
-
         t = calcul((x - this.x[i - 1]) / (this.x[i] - this.x[i - 1]))
         const t2 = t * t
         const t3 = t2 * t
@@ -370,6 +373,6 @@ class SplineCatmullRom {
   }
 }
 
-export function splineCatmullRom (tabY, x0, step) {
-  return new SplineCatmullRom(tabY, x0, step)
+export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }) {
+  return new SplineCatmullRom({ tabY: tabY, x0: x0, step: step })
 }

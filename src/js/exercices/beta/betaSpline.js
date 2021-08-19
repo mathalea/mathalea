@@ -19,9 +19,9 @@ export default function BetaModeleSpline () {
     const r = repere2({ xMin: -5, xMax: 5, yMin: -5, yMax: 5, xUnite: 2, yUnite: 2 })
 
     const tabY = [1, 0, -0, -2, 0, 1, 2, 1, 0, 1, -1] // Voici les ordonnées successives par lesquelles passera la courbe à partir de x0, puis x0 + step, ...
-    const f = splineCatmullRom(tabY, -5, 1) // le tableau des ordonnées successives = tabY, x0 = -5, step = 1.
+    const f = splineCatmullRom({ tabY: tabY, x0: -5, step: 1 }) // le tableau des ordonnées successives = tabY, x0 = -5, step = 1.
     const F = x => f.image(x) // On crée une fonction de x f.image(x) est une fonction polynomiale par morceaux utilisée dans courbeSpline()
-    const c = courbeSpline(f, { repere: r, step: 0.1 }) // Une première façon de tracer la courbe.
+    // const c = courbeSpline(f, { repere: r, step: 0.1 }) // Une première façon de tracer la courbe.
     const c2 = courbe2(F, { repere: r, step: 0.1, color: 'red' }) // F peut ainsi être utilisée dans courbe2.
 
     this.contenu = mathalea2d({ xmin: -15, xmax: 15, ymin: -10, ymax: 10 }, r, c2)
