@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, calcul, texNombre, texPrix, arrondi } from '../../modules/outils.js'
-export const titre = 'Exprimer une fractions sous la forme d’une valeur approchée d’un pourcentage'
+export const titre = 'Exprimer une fraction sous la forme d’une valeur approchée d’un pourcentage'
 
 /**
  * Déterminer une valeur approchée d'un pourcentage à l'aide de la calculatrice
