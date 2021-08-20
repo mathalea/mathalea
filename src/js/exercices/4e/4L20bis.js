@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, miseEnEvidence, texFraction } from '../../modules/outils.js'
 
 export const titre = 'Équation du premier degré'
 
@@ -60,144 +60,147 @@ export default function ExerciceEquationASolutionEntiere () {
     )
     for (let i = 0, a, b, c, d, reponse, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
-      if (listeTypeDeQuestions[i] === 'ax+b=0' ||
-        listeTypeDeQuestions[i] === 'ax+b=c') {
-        if (listeTypeDeQuestions[i] === 'ax+b=0') {
-          c = 0
-        }
-        reponse = randint(-5, 5)
-        a = randint(-5, 5, [-1, 0, 1])
-        if (!this.sup) {
-          reponse = Math.abs(reponse)
-          a = Math.abs(a)
-        }
-        b = randint(-9, 9, [0]) // b peut être négatif, ça sera une équation du type x-b=c
-        c = a * reponse + b
-        texte = `$${a}x${ecritureAlgebrique(b)}=${c}$`
-        texteCorr = texte + '<br>'
-        if (this.correctionDetaillee) {
-          if (b > 0) {
-            texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
+      switch (listeTypeDeQuestions[i]) {
+        case 'ax+b=0':
+        case 'ax+b=c':
+          if (listeTypeDeQuestions[i] === 'ax+b=0') {
+            c = 0
           } else {
-            texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
+            c = randint(-9, 9, [0])
           }
-        }
-        texteCorr += `$${a}x${ecritureAlgebrique(b)}${miseEnEvidence(
+          reponse = randint(-5, 5)
+          a = randint(-5, 5, [-1, 0, 1])
+          if (!this.sup) {
+            reponse = Math.abs(reponse)
+            a = Math.abs(a)
+          }
+          b = c - a * reponse // b peut être négatif, ça sera une équation du type x-b=c
+          texte = `$${a}x${ecritureAlgebrique(b)}=${c}$`
+          texteCorr = texte + '<br>'
+          if (this.correctionDetaillee) {
+            if (b > 0) {
+              texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
+            } else {
+              texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
+            }
+          }
+          texteCorr += `$${a}x${ecritureAlgebrique(b)}${miseEnEvidence(
           ecritureAlgebrique(-1 * b)
         )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
-        texteCorr += `$${a}x=${c - b}$<br>`
-        if (this.correctionDetaillee) {
-          texteCorr += `On divise les deux membres par $${a}$.<br>`
-        }
-        texteCorr += `$${a}x${miseEnEvidence(
+          texteCorr += `$${a}x=${c - b}$<br>`
+          if (this.correctionDetaillee) {
+            texteCorr += `On divise les deux membres par $${a}$.<br>`
+          }
+          texteCorr += `$${a}x${miseEnEvidence(
           '\\div' + ecritureParentheseSiNegatif(a)
         )}=${c - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-        texteCorr += `$x=${texFraction(c - b, a)}=${reponse}$`
-        texteCorr += `<br> La solution est $${reponse}$.`
-      }
-      if (listeTypeDeQuestions[i] === 'x+b=c') {
-        b = randint(-9, 9, [0]) // b peut être négatif, ça sera une équation du type x-b=c
-        c = randint(-16, 15, 0)
-        if (!this.sup) {
-          c = Math.abs(c)
-        }
-        reponse = c - b
-        texte = `$x${ecritureAlgebrique(b)}=${c}$`
-        texteCorr = texte + '<br>'
-        if (this.correctionDetaillee) {
-          if (b > 0) {
-            texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
-          } else {
-            texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
+          texteCorr += `$x=${texFraction(c - b, a)}=${reponse}$`
+          texteCorr += `<br> La solution est $${reponse}$.`
+          break
+        case 'x+b=c':
+          b = randint(-9, 9, [0]) // b peut être négatif, ça sera une équation du type x-b=c
+          c = randint(-16, 15, 0)
+          if (!this.sup) {
+            c = Math.abs(c)
           }
-        }
-        texteCorr += `$x${ecritureAlgebrique(b)}${miseEnEvidence(
+          reponse = c - b
+          texte = `$x${ecritureAlgebrique(b)}=${c}$`
+          texteCorr = texte + '<br>'
+          if (this.correctionDetaillee) {
+            if (b > 0) {
+              texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
+            } else {
+              texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
+            }
+          }
+          texteCorr += `$x${ecritureAlgebrique(b)}${miseEnEvidence(
           ecritureAlgebrique(-1 * b)
         )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
-        texteCorr += `$x=${reponse}$`
-        texteCorr += `<br> La solution est $${reponse}$.`
-      }
-      if (listeTypeDeQuestions[i] === 'ax=b') {
-        if (this.sup) {
-          a = randint(-9, 9, [0, -1, 1]) // b peut être négatif, ça sera une équation du type x-b=c
-          reponse = randint(-9, 9, [-1, 0, 1])
-        } else {
-          a = randint(2, 15)
-          reponse = randint(2, 9)
-        }
-        b = a * reponse
-        texte = `$${a}x=${b}$`
-        texteCorr = texte + '<br>'
-        if (this.correctionDetaillee) {
-          texteCorr += `On divise les deux membres par $${a}$.<br>`
-        }
-        texteCorr += `$${a}x${miseEnEvidence(
+          texteCorr += `$x=${reponse}$`
+          texteCorr += `<br> La solution est $${reponse}$.`
+          break
+        case 'ax=b':
+          if (this.sup) {
+            a = randint(-9, 9, [0, -1, 1]) // b peut être négatif, ça sera une équation du type x-b=c
+            reponse = randint(-9, 9, [-1, 0, 1])
+          } else {
+            a = randint(2, 15)
+            reponse = randint(2, 9)
+          }
+          b = a * reponse
+          texte = `$${a}x=${b}$`
+          texteCorr = texte + '<br>'
+          if (this.correctionDetaillee) {
+            texteCorr += `On divise les deux membres par $${a}$.<br>`
+          }
+          texteCorr += `$${a}x${miseEnEvidence(
           '\\div' + ecritureParentheseSiNegatif(a)
         )}=${b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-        texteCorr += `$x=${texFraction(b, a)}=${reponse}$`
-        texteCorr += `<br> La solution est $${reponse}$.`
-      }
-      if (listeTypeDeQuestions[i] === 'ax+b=cx+d') {
-        reponse = randint(-9, 9, [0, -1, 1])
-        d = randint(-15, 15)
-        c = randint(-5, 5, [-1, 0, 1])
-        if (!this.sup) {
-          reponse = Math.abs(reponse)
-          c = Math.abs(c)
-          a = randint(2, 5) + c
-        } else {
-          a = randint(-5, 5, [-c, -c + 1, -c - 1, 0]) + c
-        }
-        b = (c - a) * reponse + d
-        texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(
+          texteCorr += `$x=${texFraction(b, a)}=${reponse}$`
+          texteCorr += `<br> La solution est $${reponse}$.`
+          break
+        case 'ax+b=cx+d':
+          reponse = randint(-9, 9, [0, -1, 1])
+          d = randint(-15, 15)
+          c = randint(-5, 5, [-1, 0, 1])
+          if (!this.sup) {
+            reponse = Math.abs(reponse)
+            c = Math.abs(c)
+            a = randint(2, 5) + c
+          } else {
+            a = randint(-5, 5, [-c, -c + 1, -c - 1, 0]) + c
+          }
+          b = (c - a) * reponse + d
+          texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(
           c
         )}x${ecritureAlgebrique(d)}$`
-        texteCorr = texte + '<br>'
-        if (this.correctionDetaillee) {
-          if (c > 0) {
-            texteCorr += `On soustrait $${rienSi1(
+          texteCorr = texte + '<br>'
+          if (this.correctionDetaillee) {
+            if (c > 0) {
+              texteCorr += `On soustrait $${rienSi1(
               c
             )}x$ aux deux membres.<br>`
-          } else {
-            texteCorr += `On ajoute $${rienSi1(
+            } else {
+              texteCorr += `On ajoute $${rienSi1(
               -1 * c
             )}x$ aux deux membres.<br>`
+            }
           }
-        }
-        texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(
+          texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(
           b
         )}${miseEnEvidence(
           signe(-1 * c) + rienSi1(abs(c)) + 'x'
         )}=${c}x${ecritureAlgebrique(d)}${miseEnEvidence(
           signe(-1 * c) + rienSi1(abs(c)) + 'x'
         )}$<br>`
-        texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(
+          texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(
           b
         )}=${d}$<br>`
-        if (this.correctionDetaillee) {
-          if (b > 0) {
-            texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
-          } else {
-            texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
+          if (this.correctionDetaillee) {
+            if (b > 0) {
+              texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
+            } else {
+              texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
+            }
           }
-        }
-        texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(
+          texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(
           b
         )}${miseEnEvidence(
           ecritureAlgebrique(-1 * b)
         )}=${d}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
-        texteCorr += `$${rienSi1(a - c)}x=${d - b}$<br>`
+          texteCorr += `$${rienSi1(a - c)}x=${d - b}$<br>`
 
-        if (this.correctionDetaillee) {
-          texteCorr += `On divise les deux membres par $${a - c}$.<br>`
-        }
-        texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence(
+          if (this.correctionDetaillee) {
+            texteCorr += `On divise les deux membres par $${a - c}$.<br>`
+          }
+          texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence(
           '\\div' + ecritureParentheseSiNegatif(a - c)
         )}=${d -
         b +
         miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
-        texteCorr += `$x=${texFraction(d - b, a - c)}=${reponse}$`
-        texteCorr += `<br> La solution est $${reponse}$.`
+          texteCorr += `$x=${texFraction(d - b, a - c)}=${reponse}$`
+          texteCorr += `<br> La solution est $${reponse}$.`
+          break
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
