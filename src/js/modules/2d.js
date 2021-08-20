@@ -7908,9 +7908,11 @@ function CourbeSpline (f, {
   yMin,
   yMax,
   xUnite = 1,
-  yUnite = 1
+  yUnite = 1,
+  traceNoeuds = true
 } = {}) {
   ObjetMathalea2D.call(this)
+  const noeuds = []
   let points = []
   this.color = color
   let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
@@ -7933,6 +7935,17 @@ function CourbeSpline (f, {
   if (isNaN(xunite)) { xunite = xUnite };
   if (isNaN(yunite)) { yunite = yUnite };
   const objets = []
+  if (traceNoeuds) {
+    for (let i = 0; i < f.x.length; i++) {
+      noeuds[i] = tracePoint(point(f.x[i], f.y[i]))
+      noeuds[i].color = 'black'
+      noeuds[i].taille = 3
+      noeuds[i].style = '+'
+      noeuds[i].epaisseur = 2
+      noeuds.opacite = 0.5
+      objets.push(noeuds[i])
+    }
+  }
   let pas
   let p, y
   if (!step) {
@@ -7948,6 +7961,7 @@ function CourbeSpline (f, {
       } else {
         p = polyline([...points], this.color)
         p.epaisseur = epaisseur
+        p.opacite = 0.7
         objets.push(p)
         points = []
       }
@@ -7957,7 +7971,9 @@ function CourbeSpline (f, {
   }
   p = polyline([...points], this.color)
   p.epaisseur = epaisseur
+  p.opacite = 0.7
   objets.push(p)
+
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
     let code = ''
