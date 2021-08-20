@@ -3819,6 +3819,13 @@ export default {
     "interactifReady": false,
     "name": "betarotation3d"
   },
+  "betaSpline": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaSpline.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaSpline"
+  },
   "betaSys2x2CombLin": {
     "titre": "2G35-3",
     "url": "/exercices/beta/betaSys2x2CombLin.js",
@@ -3925,6 +3932,17 @@ export default {
     "interactifReady": false,
     "name": "c3N23"
   },
+  "can3F1": {
+    "titre": "antécédents",
+    "url": "/exercices/can/can3F1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F1"
+  },
   "can6e-3": {
     "titre": "Course aux nombres fin de 6e",
     "url": "/exercices/can/can6e-3.js",
@@ -3939,7 +3957,10 @@ export default {
   "can6N1": {
     "titre": "Double et moitié",
     "url": "/exercices/can/can6N1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N1"
@@ -3947,7 +3968,10 @@ export default {
   "can6N2": {
     "titre": "Fraction comme facteur manquant",
     "url": "/exercices/can/can6N2.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N2"
@@ -3955,7 +3979,10 @@ export default {
   "can6N3": {
     "titre": "Somme de quatre entiers qui se marient",
     "url": "/exercices/can/can6N3.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N3"
@@ -3963,7 +3990,10 @@ export default {
   "can6N4": {
     "titre": "Somme de deux décimaux",
     "url": "/exercices/can/can6N4.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N4"
@@ -3971,7 +4001,10 @@ export default {
   "can6N5": {
     "titre": "Double ou triple",
     "url": "/exercices/can/can6N5.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N5"

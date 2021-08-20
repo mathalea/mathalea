@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 147 
-- nombre d'exos interactifReady 178 
+- nombre d'exos amcReady 153 
+- nombre d'exos interactifReady 179 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -169,12 +169,13 @@
 |betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
+|can3F1|antécédents|OK|AMCNum|OK|mathLive|
 |can6e-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
-|can6N1|Double et moitié|KO|KO|OK|mathLive|
-|can6N2|Fraction comme facteur manquant|KO|KO|OK|mathLive|
-|can6N3|Somme de quatre entiers qui se marient|KO|KO|OK|mathLive|
-|can6N4|Somme de deux décimaux|KO|KO|OK|mathLive|
-|can6N5|Double ou triple|KO|KO|OK|mathLive|
+|can6N1|Double et moitié|OK|AMCNum|OK|mathLive|
+|can6N2|Fraction comme facteur manquant|OK|AMCNum|OK|mathLive|
+|can6N3|Somme de quatre entiers qui se marient|OK|AMCNum|OK|mathLive|
+|can6N4|Somme de deux décimaux|OK|AMCNum|OK|mathLive|
+|can6N5|Double ou triple|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
