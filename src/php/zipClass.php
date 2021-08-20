@@ -119,13 +119,19 @@
          * Création du zip + téléchargement
          * 
          * @param boolean $download, on propose le téléchargement si $download est à true
-         * @param boolean $delete, on supprime après téléchargement si $delete est à true 
+         * @param boolean $delete, on supprime après téléchargement si $delete est à true
+         * @param boolean $isScores, pour ajouter les fichiers au bon endroit + le master de Guillaume quand on zip des scores
         */
+       
+        public function createZip($download = false, $delete = false, $isScores = false) {
+        
+            if ($isScores) {
+                $this->zip->addFile('./assets/ods/Scores_MathAlea.ods','Scores_MathAlea.ods');
+                $this->addDir($this->folderToZip,true);
+            } else {
+                $this->addDir($this->folderToZip);
+            }            
 
-        public function createZip($download = false, $delete = false) {
-        
-            $this->addDir($this->folderToZip);
-        
             // On ferme le zip
             $this->zip->close();
         
@@ -148,8 +154,10 @@
          * Ajoute tous les fichiers d'un répertoire à l'archive
          * 
          * @param string $path 
+         * @param boolean $isScores, pour ajouter les fichiers au bon endroit + le master de Guillaume quand on zip des scores
         */
-        private function addDir($path) {
+        
+        private function addDir($path, $isScores = false) {
     
             // On lit les fichiers et on exclut . et .. de la liste        
             $files = array_diff(scandir($path), array('..', '.'));
@@ -160,14 +168,23 @@
                     // Si le dossier ne se trouve pas dans les dossiers exclus
                     // On appelle de nouveau la méthode addDir avec en paramètre le nouveau dossier
                     if ( !in_array($path.$file.'/', $this->excludeFolders) )
-                        $this->addDir($path.$file.'/');
+                        if ($isScores) {
+                            $this->addDir($path.$file.'/',true);
+                        } else {
+                            $this->addDir($path.$file.'/');
+                        }                        
                 } else {
                     // Si le fichier ne se trouve pas dans les fichiers exclus
                     // Si l'extension ne se trouve pas les extensions exclues
                     // Si le fichier ne se trouve pas les fichiers exclus de tous les dossiers
                     // On l'ajoute à l'archive
                     if ( (!in_array($path.$file, $this->excludeFiles)) && (!in_array(pathinfo($file, PATHINFO_EXTENSION), $this->excludeExt)) && (!in_array($file, $this->excludeFilesAllFolders)) )
-                        $this->zip->addFile($path.$file);
+                        // Le second argument (optionnel) permet de ne pas garder l'arborescence d'origine
+                        if ($isScores) {
+                            $this->zip->addFile($path.$file,'Fichiers semaines/'.substr($path,-3,-1).'-'.$file);
+                        } else {
+                            $this->zip->addFile($path.$file,substr($path,-3,-1).'-'.$file);
+                        }
                 }
             }
         }
