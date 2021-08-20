@@ -210,7 +210,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           texte += '<br>' + propositionsQcm(this, i).texte
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
-          setReponse(this, i, new Fraction(a * d - c * b, b * d), { formatInteractif: 'fractionEgale' })
+          setReponse(this, i, new Fraction(Math.abs(a * d - c * b), b * d), { formatInteractif: 'fractionEgale' })
         }
       }
       if (context.isHtml && this.interactifType === 'mathLive') texte += ajouteChampTexteMathLive(this, i)
