@@ -5987,6 +5987,82 @@ ${preambulePersonnalise(listePackages)}
 
 `
 }
+/**
+* Renvoie un texte avec le préambule d'un fichier LaTeX
+* @param {string} Le titre de l'entête
+* @author Rémi Angot
+*/
+export function introLatexCan (entete = 'Course aux nombres', listePackages = '') {
+  if (entete === '') { entete = 'Course aux nombres' }
+  return `\\documentclass[12pt, landscape]{article}
+\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+\\usepackage[utf8]{inputenc}        
+\\usepackage[T1]{fontenc}
+\\usepackage[french]{babel}
+\\usepackage{multicol} 
+\\usepackage{calc} 
+\\usepackage{enumerate}
+\\usepackage{enumitem}
+\\usepackage{graphicx}
+\\usepackage{tabularx}
+%\\usepackage[autolanguage]{numprint}
+\\usepackage[autolanguage,np]{numprint}
+\\usepackage{hyperref}
+\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+\\usepackage{cancel}
+\\usepackage{textcomp}
+\\usepackage{gensymb}
+\\usepackage{eurosym}
+%\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
+\\usepackage{fancyhdr,lastpage}          
+\\pagestyle{fancy}                      
+\\usepackage{fancybox}
+\\usepackage{setspace}
+\\usepackage{colortbl}
+\\usepackage{xcolor}
+  \\definecolor{nombres}{cmyk}{0,.8,.95,0}
+  \\definecolor{gestion}{cmyk}{.75,1,.11,.12}
+  \\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
+  \\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
+  \\definecolor{geo}{cmyk}{.62,.1,0,0}
+  \\definecolor{algo}{cmyk}{.69,.02,.36,0}
+\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
+\\usepackage{pgf,tikz}
+\\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
+
+
+\\setlength{\\parindent}{0mm}
+\\renewcommand{\\arraystretch}{1.5}
+\\newcounter{exo}          
+\\setcounter{exo}{0}   
+\\newcommand{\\exo}[1]{
+  \\stepcounter{exo}        
+  \\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
+}
+\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}
+\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}
+\\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
+\\setlength{\\fboxsep}{3mm}
+\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{}
+\\fancyhead[C]{}
+\\fancyfoot{}
+\\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
+\\setlength{\\headheight}{14.5pt}
+
+\\fancypagestyle{premierePage}
+{
+  \\fancyhead[C]{\\textbf{${entete}}}
+
+}
+${preambulePersonnalise(listePackages)}
+
+
+\\begin{document}
+\\thispagestyle{premierePage}
+
+`
+}
 
 /**
 * Renvoie un texte avec le préambule d'un fichier LaTeX avec le style CoopMaths

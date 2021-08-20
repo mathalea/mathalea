@@ -326,7 +326,7 @@ export default function TrianglesSemblables() {
 					texte += `<br>${texteGras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
 					texte += `<br><br>${texteGras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
 				} else {
-					texteCorr += `<br>${texteGras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
+					texteCorr += `${texteGras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
 					texteCorr += `<br><br>${texteGras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
 				}
 				this.listeQuestions[0] = texte;

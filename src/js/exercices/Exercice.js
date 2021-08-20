@@ -98,7 +98,7 @@ export default function Exercice () {
   this.nouvelleVersion = function (numeroExercice) {}
 
   /**
-   * 
+   *
    * @param {int} i indice de la question
    * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
    * @returns {boolean} true si la question n'a jamais été posée

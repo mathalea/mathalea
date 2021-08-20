@@ -1,5 +1,5 @@
 /* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
-import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu } from './modules/outils.js'
+import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGoTab } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
@@ -7,6 +7,7 @@ import { waitFor } from './modules/outilsDom'
 import { mg32DisplayAll } from './modules/mathgraph'
 import { messageUtilisateur } from './modules/messages.js'
 import { ajouteChampTexteMathLive, exerciceInteractif, setReponse } from './modules/gestionInteractif.js'
+import Exercice from './exercices/Exercice.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
@@ -815,6 +816,32 @@ function miseAJourDuCode () {
           }
         }
       }
+      function concatExercices (listeObjetsExercice) {
+        const monSuperExercice = new Exercice()
+        monSuperExercice.id = ''
+        monSuperExercice.nbCols = 2
+        monSuperExercice.nbColsCorr = 2
+        monSuperExercice.listeQuestions = []
+        monSuperExercice.listeCorrections = []
+        for (const exercice of listeObjetsExercice) {
+          exercice.nouvelleVersion()
+          if (exercice.typeExercice === 'simple') {
+            exerciceSimpleToContenu(exercice)
+          // Comment gérer les exercices où la consigne est importante dans la présentation CAN ?
+          // } else {
+          //   exercice.listeQuestions[0] = exercice.consigne + '\n\n' + exercice.listeQuestions[0]
+          // }
+          monSuperExercice.listeQuestions = [...monSuperExercice.listeQuestions, ...exercice.listeQuestions]
+          monSuperExercice.listeCorrections = [...monSuperExercice.listeCorrections, ...exercice.listeCorrections]
+        }
+        listeQuestionsToContenu(monSuperExercice)
+        return monSuperExercice
+      }
+      if ($('#style_can:checked').val()) {
+        const monSuperExercice = concatExercices(listeObjetsExercice)
+        codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', '\\begin{enumerate}[itemsep=1em]')
+        codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
+      }
       if ($('#supprimer_correction:checked').val()) {
         codeLatex = codeEnonces
       } else {
@@ -836,16 +863,27 @@ function miseAJourDuCode () {
         for (let v = 0; v < $('#nombre_de_versions').val(); v++) {
           codeExercices += '\\version{' + (v + 1) + '}\n\n'
           codeCorrection += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
-          for (let i = 0; i < listeDesExercices.length; i++) {
-            listeObjetsExercice[i].nouvelleVersion()
-            codeExercices += listeObjetsExercice[i].contenu
+          if ($('#style_can:checked').val()) {
+            const monSuperExercice = concatExercices(listeObjetsExercice)
+            codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', '\\begin{enumerate}[itemsep=1em]')
             codeExercices += '\n\n'
-            codeCorrection += listeObjetsExercice[i].contenuCorrection
+            codeCorrection += monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
             codeCorrection += '\n\n'
+          } else {
+            for (let i = 0; i < listeDesExercices.length; i++) {
+              listeObjetsExercice[i].nouvelleVersion()
+              codeExercices += listeObjetsExercice[i].contenu
+              codeExercices += '\n\n'
+              codeCorrection += listeObjetsExercice[i].contenuCorrection
+              codeCorrection += '\n\n'
+            }
           }
           if (v < $('#nombre_de_versions').val() - 1) {
             if ($('#style_classique:checked').val()) {
               codeExercices += '\n\\newpage\n\\setcounter{exo}{0}\n'
+            } else if ($('#style_can:checked').val()) {
+              codeExercices += '\n\\newpage\n\\setcounter{exo}{0}\n'
+              codeExercices += '\n\\thispagestyle{premierePage}\n'
             } else {
               codeExercices += '\n\\newpage\n\\setcounter{section}{0}\n'
             }
@@ -899,6 +937,11 @@ function miseAJourDuCode () {
           ).val()}}\n\\fancyhead[L]{}`
           contenuFichier += '\\fancyhead[R]{}\n\\renewcommand{\\footrulewidth}{1pt}\n\\fancyfoot[C]{}\n\\fancyfoot[L]{}\n\\fancyfoot[R]{}\n\n'
           contenuFichier += '\\begin{document}\n\n' + codeLatex + '\n\n\\end{document}'
+        } else if ($('#style_can:checked').val()) {
+          contenuFichier += '\\documentclass[a5paper,11pt,fleqn]{article}\n'
+          contenuFichier += `\\input{preambule}\n\\pagestyle{empty}
+          ${$('#entete_du_fichier').val()}}`
+          contenuFichier += '\\begin{document}\n\n' + codeLatex + '\n\n\\end{document}'
         } else {
           contenuFichier += '\\documentclass[a4paper,11pt,fleqn]{article}\n\\input{preambule_coop}\n'
           contenuFichier += '\\theme{' + $('input[name=theme]:checked').val() + '}{' + $('#entete_du_fichier').val() + '}'
@@ -932,6 +975,8 @@ function miseAJourDuCode () {
 
         if ($('#style_classique:checked').val()) {
           contenuFichier += introLatex($('#entete_du_fichier').val(), listePackages) + codeLatex + '\n\n\\end{document}'
+        } else if ($('#style_can:checked').val()) {
+          contenuFichier += introLatexCan($('#entete_du_fichier').val(), listePackages) + codeLatex + '\n\n\\end{document}'
         } else {
           contenuFichier += introLatexCoop(listePackages)
           contenuFichier += '\n\n\\theme{' + $('input[name=theme]:checked').val() + '}{' + $('#entete_du_fichier').val() + '}'
@@ -959,7 +1004,7 @@ function miseAJourDuCode () {
     $('a.lien_images').show()
     $(function () {
       $("input:radio[name='style']").change(function () {
-        if ($('#style_classique:checked').val()) {
+        if ($('#style_classique:checked').val() || $('#style_can:checked').val()) {
           $('#options_style_CoopMaths').hide()
           $('a.lien_preambule').attr('href', 'fichiers/preambule.tex')
           $('a.lien_images').hide()
@@ -1777,9 +1822,26 @@ function parametresExercice (exercice) {
 
       // Gestion du changement de style
       const btnRadioStyleClassique = document.getElementById('style_classique')
-      btnRadioStyleClassique.addEventListener('change', miseAJourDuCode)
+      btnRadioStyleClassique.addEventListener('change', () => {
+        if ($('#entete_du_fichier').val() === '' || $('#entete_du_fichier').val() === 'Course aux nombres') {
+          $('#entete_du_fichier').val('Exercices')
+        }
+        miseAJourDuCode()
+      })
+      const btnRadioStyleCan = document.getElementById('style_can')
+      btnRadioStyleCan.addEventListener('change', () => {
+        if ($('#entete_du_fichier').val() === '' || $('#entete_du_fichier').val() === 'Exercices') {
+          $('#entete_du_fichier').val('Course aux nombres')
+        }
+        miseAJourDuCode()
+      })
       const btnRadioStyleCoopMaths = document.getElementById('style_CoopMaths')
-      btnRadioStyleCoopMaths.addEventListener('change', miseAJourDuCode)
+      btnRadioStyleCoopMaths.addEventListener('change', () => {
+        if ($('#entete_du_fichier').val() === '' || $('#entete_du_fichier').val() === 'Course aux nombres') {
+          $('#entete_du_fichier').val('Exercices')
+        }
+        miseAJourDuCode()
+      })
     }
 
     // Gestion du nombre de questions
