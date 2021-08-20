@@ -46,8 +46,8 @@ export default function Exercice () {
   this.listePackages = [] // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule.
   this.consigneModifiable = true // booléen pour déterminer si la consigne est modifiable en ligne dans la sortie LaTeX.
   this.nbQuestionsModifiable = true // booléen pour déterminer si le nombre de questions est modifiable en ligne.
-  this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX des questions (environnement multicols).
-  this.nbColsCorr = 2 // Nombre de colonnes pour la sortie LaTeX des réponses (environnement multicols).
+  this.nbCols = 1 // Nombre de colonnes pour la sortie LaTeX des questions (environnement multicols).
+  this.nbColsCorr = 1 // Nombre de colonnes pour la sortie LaTeX des réponses (environnement multicols).
   this.nbColsModifiable = true // booléen pour déterminer si le nombre de colonnes est modifiable en ligne dans la sortie LaTeX.
   this.nbColsCorrModifiable = true // booléen pour déterminer si le nombre de colonnes de la correction est modifiable en ligne dans la sortie LaTeX.
   this.spacingModifiable = true // booléen pour déterminer si l'espacement est modifiable en ligne dans la sortie LaTeX.

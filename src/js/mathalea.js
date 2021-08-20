@@ -1,5 +1,5 @@
 /* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
-import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
+import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGoTab } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
@@ -657,6 +657,9 @@ function miseAJourDuCode () {
       for (let i = 0; i < listeDesExercices.length; i++) {
         listeObjetsExercice[i].id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
         listeObjetsExercice[i].nouvelleVersion(i)
+        if (listeObjetsExercice[i].typeExercice === 'simple') {
+          exerciceSimpleToContenu(listeObjetsExercice[i])
+        }
         questions.push(listeObjetsExercice[i])
         if (typeof listeObjetsExercice[i].listePackages === 'string') {
           listePackages.add(listeObjetsExercice[i].listePackages)
@@ -796,6 +799,9 @@ function miseAJourDuCode () {
           listeObjetsExercice[i].nouvelleVersion()
           if (listeObjetsExercice[i].pasDeVersionLatex) {
             messageUtilisateur({ code: 'noLatex', exercice: listeObjetsExercice[i].id })
+          }
+          if (listeObjetsExercice[i].typeExercice === 'simple') {
+            exerciceSimpleToContenu(listeObjetsExercice[i])
           }
           codeEnonces += listeObjetsExercice[i].contenu
           codeEnonces += '\n\n'

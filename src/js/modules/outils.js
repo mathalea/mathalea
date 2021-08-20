@@ -41,6 +41,19 @@ export function listeQuestionsToContenu (exercice) {
   }
 }
 
+export function exerciceSimpleToContenu (exercice) {
+  const listeQuestions = []
+  const listeCorrections = []
+  for (let i = 0; i < exercice.nbQuestions; i++) {
+    listeQuestions.push(exercice.question)
+    listeCorrections.push(exercice.correction)
+    exercice.nouvelleVersion()
+  }
+  exercice.listeQuestions = listeQuestions
+  exercice.listeCorrections = listeCorrections
+  listeQuestionsToContenu(exercice)
+}
+
 /**
  * À documenter
  * @param {Exercice} exercice
