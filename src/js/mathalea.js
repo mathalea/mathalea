@@ -828,9 +828,9 @@ function miseAJourDuCode () {
           if (exercice.typeExercice === 'simple') {
             exerciceSimpleToContenu(exercice)
           // Comment gérer les exercices où la consigne est importante dans la présentation CAN ?
-          // } else {
-          //   exercice.listeQuestions[0] = exercice.consigne + '\n\n' + exercice.listeQuestions[0]
-          // }
+          } else {
+            exercice.listeQuestions[0] = exercice.consigne + '\n\n' + exercice.listeQuestions[0]
+          }
           monSuperExercice.listeQuestions = [...monSuperExercice.listeQuestions, ...exercice.listeQuestions]
           monSuperExercice.listeCorrections = [...monSuperExercice.listeCorrections, ...exercice.listeCorrections]
         }
