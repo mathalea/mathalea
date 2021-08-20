@@ -5,9 +5,10 @@ import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longu
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Grandeur from '../../modules/Grandeur'
 export const amcReady = true
-export const amcType = 5
+export const amcType = 'AMCOpenNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const titre = 'Calculer des longueurs avec le théorème de Thalès'
 
 /**
  * Calcul de longueurs avec le théorème de Thalès
@@ -16,9 +17,7 @@ export const interactifType = 'mathLive'
 */
 export default function Thales2D () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = 'Calculer des longueurs avec le théorème de Thalès'
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
+
   this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 1
