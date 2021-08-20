@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, miseEnEvidence, texFraction } from '../../modules/outils.js'
 
-export const titre = 'Équation du premier degré'
+export const titre = 'Équation du premier degré à solutions entières'
 
 /**
  * Équation du premier degré
