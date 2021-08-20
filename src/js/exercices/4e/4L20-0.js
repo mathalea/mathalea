@@ -1,6 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, miseEnEvidence, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, miseEnEvidence, texFraction, sp } from '../../modules/outils.js'
+import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 export const titre = 'Équation du premier degré à solutions entières'
 
@@ -11,8 +16,8 @@ export const titre = 'Équation du premier degré à solutions entières'
  * * Type 3 : ax+b=cx+d
  * * Tous les types
  * @author Rémi Angot
- * Pour n'avoir que des solutions entières : Jean-Claude Lhote
- * 4L20 et 3L13
+ * Modifications de 4L20 pour n'avoir que des solutions entières : Jean-Claude Lhote
+ * 4L20-0
  */
 export default function ExerciceEquationASolutionEntiere () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -68,11 +73,12 @@ export default function ExerciceEquationASolutionEntiere () {
           } else {
             c = randint(-9, 9, [0])
           }
-          reponse = randint(-5, 5)
+          reponse = randint(-5, 5, [0, -1, 1])
           a = randint(-5, 5, [-1, 0, 1])
           if (!this.sup) {
             reponse = Math.abs(reponse)
             a = Math.abs(a)
+            c = Math.abs(c)
           }
           b = c - a * reponse // b peut être négatif, ça sera une équation du type x-b=c
           texte = `$${a}x${ecritureAlgebrique(b)}=${c}$`
@@ -202,8 +208,9 @@ export default function ExerciceEquationASolutionEntiere () {
           texteCorr += `<br> La solution est $${reponse}$.`
           break
       }
-
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(10) + 'La solution est : $x=$' })
+      this.sup ? setReponse(this, i, reponse, { signe: true }) : setReponse(this, i, reponse, { signe: false })
+      if (this.questionJamaisPosee(i, a, b, c)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte) // replace(/1x/g,'x')); //remplace 1x par x
         this.listeCorrections.push(texteCorr) // .replace(/1x/g,'x')); //remplace 1x par x
@@ -217,6 +224,6 @@ export default function ExerciceEquationASolutionEntiere () {
   this.besoinFormulaire2Numerique = [
     "Type d'équations",
     4,
-    '1 : ax=b ou x+a=b ou x-a=b\n2: ax+b=c\n3: ax+b=cx+d\n4: Les 2 types précédents'
+    "1 : ax=b ou x+a=b ou x-a=b\n2: ax+b=c\n3: ax+b=cx+d\n4: Tous les types d'équations"
   ]
 }

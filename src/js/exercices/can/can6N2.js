@@ -1,10 +1,11 @@
 import Fraction from '../../modules/Fraction'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif'
-import { calcul, listeQuestionsToContenuSansNumero, pgcd, randint } from '../../modules/outils'
+import { calcul, pgcd, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Fraction comme facteur manquant'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 export default function FractionCommeFacteurManquant () {
   Exercice.call(this)

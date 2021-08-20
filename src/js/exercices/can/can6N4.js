@@ -1,9 +1,10 @@
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif'
-import { calcul, listeQuestionsToContenuSansNumero, randint, texNombrec } from '../../modules/outils'
+import { calcul, randint, texNombrec } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Somme de deux décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 export default function FSomme4EntiersQuiSeMarient () {
   Exercice.call(this)

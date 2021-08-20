@@ -881,6 +881,17 @@ export default {
     "interactifType": "mathLive",
     "name": "3L12"
   },
+  "3L13-0": {
+    "titre": "Équation du premier degré à solutions entières",
+    "url": "/exercices/3e/3L13-0.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3L13-0"
+  },
   "3L13-1": {
     "titre": "Équation du premier degré (utilisant la distributivité)",
     "url": "/exercices/3e/3L13-1.js",
@@ -1485,19 +1496,23 @@ export default {
     "interactifReady": false,
     "name": "4L16"
   },
+  "4L20-0": {
+    "titre": "Équation du premier degré à solutions entières",
+    "url": "/exercices/4e/4L20-0.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4L20-0"
+  },
   "4L20": {
     "titre": "Équation du premier degré",
     "url": "/exercices/4e/4L20.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "4L20"
-  },
-  "4L20bis": {
-    "titre": "Équation du premier degré",
-    "url": "/exercices/4e/4L20bis.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "4L20bis"
   },
   "4P10-1": {
     "titre": "Résoudre un problème de proportionnalité à l’aide d’un graphique",
@@ -3831,6 +3846,13 @@ export default {
     "interactifReady": false,
     "name": "betarotation3d"
   },
+  "betaSpline": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaSpline.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaSpline"
+  },
   "betaSys2x2CombLin": {
     "titre": "2G35-3",
     "url": "/exercices/beta/betaSys2x2CombLin.js",
@@ -3948,6 +3970,39 @@ export default {
     "interactifType": "mathLive",
     "name": "can3F1"
   },
+  "can3L1": {
+    "titre": "Equation ax=b",
+    "url": "/exercices/can/can3L1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3L1"
+  },
+  "can3L2": {
+    "titre": "Equation ax+b=0",
+    "url": "/exercices/can/can3L2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3L2"
+  },
+  "can3L3": {
+    "titre": "Equation ax+b=c",
+    "url": "/exercices/can/can3L3.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3L3"
+  },
   "can6e-3": {
     "titre": "Course aux nombres fin de 6e",
     "url": "/exercices/can/can6e-3.js",
@@ -3962,7 +4017,10 @@ export default {
   "can6N1": {
     "titre": "Double et moitié",
     "url": "/exercices/can/can6N1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N1"
@@ -3970,7 +4028,10 @@ export default {
   "can6N2": {
     "titre": "Fraction comme facteur manquant",
     "url": "/exercices/can/can6N2.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N2"
@@ -3978,7 +4039,10 @@ export default {
   "can6N3": {
     "titre": "Somme de quatre entiers qui se marient",
     "url": "/exercices/can/can6N3.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N3"
@@ -3986,7 +4050,10 @@ export default {
   "can6N4": {
     "titre": "Somme de deux décimaux",
     "url": "/exercices/can/can6N4.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N4"
@@ -3994,7 +4061,10 @@ export default {
   "can6N5": {
     "titre": "Double ou triple",
     "url": "/exercices/can/can6N5.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N5"
