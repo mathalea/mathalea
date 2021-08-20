@@ -4,7 +4,7 @@ import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../mo
 import Fraction from '../../modules/Fraction.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
-export const titre = 'Course aux nombres 6e'
+export const titre = 'Course aux nombres fin de 6e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -147,20 +147,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
         case 'q5':
-          a = randint(1, 3)
-          b = randint(1, 9, a)
-          c = calcul(a * 10 + b)
-          if (choice([true, false])) {
-            resultat = calcul(3 * c)
-            texte = `Quel est le triple de $${c}$ ?`
-            texteCorr = `Le triple de $${c}$ est $3 \\times ${c}=${calcul(3 * c)}$.`
-            setReponse(this, q, resultat, { formatInteractif: 'calcul' })
-          } else {
-            resultat = calcul(2 * c)
-            texte = `Quel est le double de $${c}$ ?`
-            texteCorr = `Le double de $${c}$ est $2 \\times ${c}=${calcul(2 * c)}$.`
-            setReponse(this, q, resultat, { formatInteractif: 'calcul' })
-          }
+         
           break
         case 'q6':
           a = randint(1, 3)
