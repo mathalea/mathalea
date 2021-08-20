@@ -78,6 +78,7 @@ export default function ExerciceEquationASolutionEntiere () {
           if (!this.sup) {
             reponse = Math.abs(reponse)
             a = Math.abs(a)
+            c = Math.abs(c)
           }
           b = c - a * reponse // b peut être négatif, ça sera une équation du type x-b=c
           texte = `$${a}x${ecritureAlgebrique(b)}=${c}$`
