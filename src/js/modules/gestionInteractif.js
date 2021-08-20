@@ -196,17 +196,6 @@ function verifQuestionNumerique (exercice, i) {
 }
 
 function gestionCan (exercice) {
-  // Gestion du bouton 'Entrée' pour aller à l'exercice suivant
-  if (!context.enterHasListenner) {
-    window.addEventListener('keyup', (e) => {
-      if (e.keyCode === 13) {
-        e.preventDefault()
-        const listeBoutonsValider = document.querySelectorAll('[id^=boutonVerifex]')
-        listeBoutonsValider[context.questionCanEnCours - 1].click()
-      }
-    })
-    context.enterHasListenner = true
-  }
   for (const i in exercice.autoCorrection) {
     const button1question = document.querySelector(`#boutonVerifexercice${exercice.numeroExercice}Q${i}`)
     if (button1question) {
