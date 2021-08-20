@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 148 
-- nombre d'exos interactifReady 180 
+- nombre d'exos amcReady 154 
+- nombre d'exos interactifReady 181 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -159,6 +159,24 @@
 |6P12|Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple|OK|AMCNum|OK|mathLive|
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|
+|beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
+|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
+|beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
+|betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
+|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
+|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
+|betaExerciceCanSimple|Somme de deux entier|KO|KO|OK|mathLive|
+|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
+|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
+|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
+|can3F1|antécédents|OK|AMCNum|OK|mathLive|
+|can6e-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
+|can6N1|Double et moitié|OK|AMCNum|OK|mathLive|
+|can6N2|Fraction comme facteur manquant|OK|AMCNum|OK|mathLive|
+|can6N3|Somme de quatre entiers qui se marient|OK|AMCNum|OK|mathLive|
+|can6N4|Somme de deux décimaux|OK|AMCNum|OK|mathLive|
+|can6N5|Double ou triple|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
@@ -179,20 +197,3 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
-|beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
-|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
-|beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
-|betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
-|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
-|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
-|betaExerciceCanSimple|Somme de deux entier|KO|KO|OK|mathLive|
-|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
-|c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
-|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
-|can6N1|Double et moitié|KO|KO|OK|mathLive|
-|can6N2|Fraction comme facteur manquant|KO|KO|OK|mathLive|
-|can6N3|Somme de quatre entiers qui se marient|KO|KO|OK|mathLive|
-|can6N4|Somme de deux décimaux|KO|KO|OK|mathLive|
-|can6N5|Double ou triple|KO|KO|OK|mathLive|
-|can6e-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
