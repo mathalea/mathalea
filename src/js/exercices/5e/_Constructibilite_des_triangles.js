@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, calcul, texNombrec, texNombre, texteEnCouleur, Triangles } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, calcul, texNombrec, texNombre, texteEnCouleur, Triangles } from '../../modules/outils.js'
 
 export const titre = 'Constructibilité des triangles via les longueurs'
 
@@ -18,6 +18,7 @@ export default function ConstructibiliteDesTriangles () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
+  this.nbQuestions = 3
   if (this.exo === this.beta + '5G21-1') { // via longueurs
     this.titre = titre
     this.consigne = 'Justifier si les longueurs données permettent de construire le triangle.'
@@ -34,7 +35,6 @@ export default function ConstructibiliteDesTriangles () {
 
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.nbQuestionsModifiable = false
 
   this.listePackages = 'bclogo'
 
@@ -44,27 +44,29 @@ export default function ConstructibiliteDesTriangles () {
     this.sup = parseInt(this.sup)
     if (this.exo === this.beta + '5G21-1') { // via longueurs
       if (this.sup === 1) {
-        typesDeQuestionsDisponibles = shuffle([1, 2, 3])
-        this.nbQuestions = typesDeQuestionsDisponibles.length
+        typesDeQuestionsDisponibles = [1, 2, 3]
       } else if (this.sup === 2) {
-        typesDeQuestionsDisponibles = [choice([1, 2, 3]), 4]
-        this.nbQuestions = typesDeQuestionsDisponibles.length
+        const a = randint(1, 3)
+        if (this.nbQuestions === 1) typesDeQuestionsDisponibles = [4]
+        else if (this.nbQuestions === 2) typesDeQuestionsDisponibles = [4, a]
+        else if (this.nbQuestions === 3) typesDeQuestionsDisponibles = [4, a, a % 3 + 1]
+        else typesDeQuestionsDisponibles = [4, 1, 2, 3]
       };
     } else if (this.exo === this.beta + '5G31-1') { // via angles
       if (this.sup === 1) {
-        typesDeQuestionsDisponibles = shuffle([5, 6, 7])
-        this.nbQuestions = typesDeQuestionsDisponibles.length
+        typesDeQuestionsDisponibles = [5, 6, 7]
       } else if (this.sup === 2) {
-        typesDeQuestionsDisponibles = [choice([5, 6, 7]), 8]
-        this.nbQuestions = typesDeQuestionsDisponibles.length
+        const a = randint(5, 7)
+        if (this.nbQuestions === 1) typesDeQuestionsDisponibles = [8]
+        else if (this.nbQuestions === 2) typesDeQuestionsDisponibles = [8, a]
+        else if (this.nbQuestions === 3) typesDeQuestionsDisponibles = [8, a, (a - 4) % 3 + 5]
+        else typesDeQuestionsDisponibles = [8, 5, 6, 7]
       };
     } else {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
-      this.nbQuestions = typesDeQuestionsDisponibles.length
     };
 
-    // let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = typesDeQuestionsDisponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

@@ -4055,14 +4055,6 @@ export default {
     "interactifReady": false,
     "name": "betaEquationsLog"
   },
-  "betaExerciceCanSimple": {
-    "titre": "Somme de deux entier",
-    "url": "/exercices/beta/betaExerciceCanSimple.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaExerciceCanSimple"
-  },
   "betaExo3d": {
     "titre": "Exo zéroMathalea2d3d",
     "url": "/exercices/beta/betaExo3d.js",
@@ -4084,6 +4076,14 @@ export default {
     "interactifReady": true,
     "interactifType": "qcm",
     "name": "betaLicence"
+  },
+  "betaModèle00_simple_Course_au_Nombres": {
+    "titre": "Somme de deux entier",
+    "url": "/exercices/beta/betaModèle00_simple_Course_au_Nombres.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaModèle00_simple_Course_au_Nombres"
   },
   "betaModèle10_simple_question-reponse": {
     "titre": "Nom de l'exercice",
