@@ -1,4 +1,5 @@
 import { context } from './context'
+import { get, setStyles } from './dom'
 import { getVueFromUrl, setUrl } from './gestionUrl'
 
 export async function gestionVue (vue) {
@@ -18,7 +19,7 @@ export async function gestionVue (vue) {
     // const divCorrection = get('corrections', false)
     // const btnZoomPlus = get('btn_zoom_plus', false)
     // const btnZoomMoins = get('btn_zoom_moins', false)
-    // const btnEdit = get('btn_edit', false)
+    const btnEdit = document.getElementById('buttonEdit')
     // const btnMiseAJourCode = get('btn_mise_a_jour_code', false)
     // const btnCopieURL = get('btnCopieURL', false)
     // const btnLaTeX = get('btnLaTeX', false)
@@ -84,15 +85,18 @@ export async function gestionVue (vue) {
     if (context.vue === 'ex') { // Affichage des seuls exercices
       masqueMenuDesExercices()
       masqueBandeauTitre()
+      if (btnEdit) btnEdit.style.display = 'inline'
       for (const e of [divChoixExercices, titreExerciceAvecChevron]) {
         if (e !== null) e.style.display = 'none'
       }
     }
     if (context.vue === 'exEtChoix') { // Affichage des seuls exercices
       masqueMenuDesExercices()
+      if (btnEdit) btnEdit.style.display = 'inline'
     }
     if (context.vue === 'menu') { // Affichage des seuls exercices
       demasqueMenuDesExercices()
+      if (btnEdit) btnEdit.style.display = 'none'
     }
     // Met à jour l'URL avec notamment la nouvelle vue
     setUrl()
