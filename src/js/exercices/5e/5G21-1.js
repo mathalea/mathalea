@@ -9,8 +9,8 @@ export const titre = 'Constructibilité des triangles via les longueurs'
  * @author Sébastien Lozano
  */
 export default function ConstructibiliteDesTrianglesLongueurs () {
-  ConstructibiliteDesTriangles.call(this)
   this.beta = ''// ici this.beta peut prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
   this.exo = this.beta + '5G21-1'
   this.titre = titre
+  ConstructibiliteDesTriangles.call(this)
 };
