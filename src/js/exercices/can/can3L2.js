@@ -1,6 +1,6 @@
 import { ecritureAlgebrique, randint, texFraction } from '../../modules/outils'
 import Exercice from '../Exercice'
-export const titre = 'Equation ax+b=0'
+export const titre = 'Équation ax+b=0'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
