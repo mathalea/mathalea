@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 160 
-- nombre d'exos interactifReady 187 
+- nombre d'exos amcReady 161 
+- nombre d'exos interactifReady 188 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -43,6 +43,7 @@
 |3L12-1|Développer (a-b)(a+b)|KO|KO|OK|mathLive|
 |3L12|Factoriser a²-b²|KO|KO|OK|mathLive|
 |3L13-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
+|3L13|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |3L15-1|Résoudre une équation $x^2 = a$|KO|KO|OK|mathLive|
 |3P10-1|Coefficient multiplicateur d’une variation en pourcentage|KO|KO|OK|mathLive|
 |3P10|Variations en pourcentage|KO|KO|OK|mathLive|
@@ -68,7 +69,7 @@
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|KO|KO|
 |4G53|Calculs de volumes|OK|AMCNum|OK|qcm,mathLive|
 |4L20-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
-|4L20-i|Équation du premier degré|OK|AMCHybride|OK|mathLive|
+|4L20|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |AI1-1|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
 |5G10|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
 |5G11|Trouver l’image d’un point par une symétrie axiale ou centrale|OK|AMCHybride|OK|mathLive|

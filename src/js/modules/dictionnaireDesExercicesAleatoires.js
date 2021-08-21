@@ -909,8 +909,12 @@ export default {
   "3L13": {
     "titre": "Équation du premier degré",
     "url": "/exercices/3e/3L13.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L13"
   },
   "3L14-1": {
@@ -1507,22 +1511,15 @@ export default {
     "interactifType": "mathLive",
     "name": "4L20-0"
   },
-  "4L20-i": {
+  "4L20": {
     "titre": "Équation du premier degré",
-    "url": "/exercices/4e/4L20-i.js",
+    "url": "/exercices/4e/4L20.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4L20-i"
-  },
-  "4L20": {
-    "titre": "Équation du premier degré",
-    "url": "/exercices/4e/4L20.js",
-    "amcReady": false,
-    "interactifReady": false,
     "name": "4L20"
   },
   "4P10-1": {
