@@ -127,7 +127,7 @@ export default function ExerciceEquation1 () {
         texte = `$x${ecritureAlgebrique(b)}=${c}$<br>`
         texteCorr = texte
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        setReponse(this, i, c - b, { formatInteractif: 'calcul' })
+        setReponse(this, i, new Fraction(c - b, 1), { formatInteractif: 'fractionEgale' })
         if (this.correctionDetaillee) {
           if (b > 0) {
             texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
