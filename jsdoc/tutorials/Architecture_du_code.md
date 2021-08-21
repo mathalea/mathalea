@@ -1,3 +1,4 @@
+Toutes nos documents sont sous licence libre (AGPL pour le JavaScript CC-BY-SA pour le tex et les pdf).
 Ce fichier décrit les choix d'architecture de code et les outils de développement utilisés.
 
 ## <a id="1" href="#1">#</a> Arborescence

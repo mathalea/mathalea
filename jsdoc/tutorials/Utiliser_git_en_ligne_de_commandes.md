@@ -106,8 +106,20 @@ git checkout maBrancheEnCoursDeTravaux
 git stash pop
 
 # Remarque : la remise (stash) est une pile, donc elle peut contenir des éléments de différentes branches
+# À chaque fois que je veux mettre quelque chose dans la remise, je fais
+git stash
+
 # Pour voir la liste des choses en remise, je peux faire
 git stash list
+
+# Par défaut, on pop le contenu de l'entrée 0. Si je veux pop le contenu de l'entrée 1, je fais
+git stash pop 1
+
+# git stash pop fait 2 choses : il applique le contenu en réserve, puis le supprime. Si je veux juste appliquer le contenu de l'entrée 1
+git stash apply 1
+
+# Si je veux juste supprimer le contenu de l'entrée 1
+git stash drop 1
 ```
 #### <a id="9" href="#9">#</a> HELP ! J'ai supprimé ma branche et je n'arrive plus à retrouver mes fichiers !
 ```shell

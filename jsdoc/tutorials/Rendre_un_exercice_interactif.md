@@ -190,6 +190,13 @@ Cette fonction permet de fixer une réponse numérique à une exercice interacti
 Les trois premiers arguments sont obligatoires : l'exercice appelant (`this`), l'index de la question (`i`), une réponse numérique (`a`).
 
 Le quatrième est facultatif et ne sert que pour AMC (des valeurs par défaut seront mises garantissant un fonctionnement correct dans la plupart des cas : la fonction d'export AMC calculera le nombre de chiffres à coder à partir de la réponse).
+
+**Attention :**
+
+setReponse crée autant d'enregistrements dans autoCorrection qu'il y a de champs donc de questions.
+Or dans ce cas, la version AMC regroupe toutes les questions en une seule.
+Comme je récupérais le nombre d'enregistrements de autoCorrection pour ce paramètre, j'avais 4 à la place de 1.
+La solution est donc de n'effectuer le setReponse que si l'on n'est pas en contexte AMC
 ```js
 function propositionsQcm (this, i)
 ```
