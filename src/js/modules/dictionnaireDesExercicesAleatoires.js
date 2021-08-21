@@ -1726,6 +1726,13 @@ export default {
     "interactifReady": false,
     "name": "5G20-1"
   },
+  "5G20-2": {
+    "titre": "Tracer un triangle dont on connait une longueur et 2 angles",
+    "url": "/exercices/5e/5G20-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5G20-2"
+  },
   "5G20": {
     "titre": "Construire un triangle avec cible auto-corrective",
     "url": "/exercices/5e/5G20.js",
