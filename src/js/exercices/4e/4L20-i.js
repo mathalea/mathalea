@@ -85,8 +85,8 @@ export default function ExerciceEquation1 () {
           c = randint(b, 15) // c sera plus grand que b pour que c-b>0
         }
         texte = `$${a}x${ecritureAlgebrique(b)}=${c}$<br>`
+        texteCorr = texte
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        texteCorr = texte + '<br>'
         setReponse(this, i, new Fraction(c - b, a), { formatInteractif: 'fractionEgale' })
         if (this.correctionDetaillee) {
           if (b > 0) {
@@ -120,8 +120,8 @@ export default function ExerciceEquation1 () {
           c = abs(randint(b, 15)) // c sera plus grand que b pour que c-b>0
         }
         texte = `$x${ecritureAlgebrique(b)}=${c}$<br>`
+        texteCorr = texte
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        texteCorr = texte + '<br>'
         setReponse(this, i, c - b, { formatInteractif: 'calcul' })
         if (this.correctionDetaillee) {
           if (b > 0) {
@@ -138,8 +138,8 @@ export default function ExerciceEquation1 () {
       }
       if (listeTypeDeQuestions[i] === 'ax=b') {
         texte = `$${a}x=${b}$<br>`
+        texteCorr = texte
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        texteCorr = texte + '<br>'
         setReponse(this, i, new Fraction(b, a), { formatInteractif: 'fractionEgale' })
 
         if (this.correctionDetaillee) {
@@ -169,8 +169,8 @@ export default function ExerciceEquation1 () {
         texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(
           c
         )}x${ecritureAlgebrique(d)}$<br>`
+        texteCorr = texte
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        texteCorr = texte + '<br>'
         setReponse(this, i, new Fraction((d - b), (a - c)), { formatInteractif: 'fractionEgale' })
         if (this.correctionDetaillee) {
           if (c > 0) {

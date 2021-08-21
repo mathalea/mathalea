@@ -1507,6 +1507,17 @@ export default {
     "interactifType": "mathLive",
     "name": "4L20-0"
   },
+  "4L20-i": {
+    "titre": "Équation du premier degré",
+    "url": "/exercices/4e/4L20-i.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4L20-i"
+  },
   "4L20": {
     "titre": "Équation du premier degré",
     "url": "/exercices/4e/4L20.js",
@@ -4016,6 +4027,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3L3"
+  },
+  "can6e-3": {
+    "titre": "Course aux nombres fin de 6e",
+    "url": "/exercices/can/can6e-3.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6e-3"
   },
   "can6N1": {
     "titre": "Double et moitié",
