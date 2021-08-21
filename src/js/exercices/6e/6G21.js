@@ -19,7 +19,7 @@ export default function ConstruireUnTriangle () {
   this.nbColsCorr = 1
   this.classe = 6
   this.typeExercice = 'IEP'
-  this.besoinFormulaireNumerique = ['Types de constructions', '\n1 : Trois longueurs.\n2 : Angle droit et deux longueurs.\n3 : Les deux']
+  this.besoinFormulaireNumerique = ['Types de constructions', 3, '1 : Trois longueurs.\n2 : Angle droit et deux longueurs.\n3 : Les deux.']
   this.sup = 3
   this.besoinFormulaire2CaseACocher = ['Ne pas montrer de schéma']
   this.sup2 = false
