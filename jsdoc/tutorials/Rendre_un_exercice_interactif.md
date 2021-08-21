@@ -189,6 +189,8 @@ Cette fonction permet de fixer une réponse numérique à une exercice interacti
 
 Les trois premiers arguments sont obligatoires : l'exercice appelant (`this`), l'index de la question (`i`), une réponse numérique (`a`).
 
+**Si on attend une réponse négative, ne pas oublier de mettre le paramètre `signe: true` !** (qui est nécessaire pour la sortie AMC) Écrire par exemple `setReponse(this, i, reponse, { signe: true })`
+
 Le quatrième est facultatif et ne sert que pour AMC (des valeurs par défaut seront mises garantissant un fonctionnement correct dans la plupart des cas : la fonction d'export AMC calculera le nombre de chiffres à coder à partir de la réponse).
 
 **Attention :**
