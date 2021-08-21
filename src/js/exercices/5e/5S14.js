@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, arrondi, arrondiVirgule, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre, texFraction, personne, prenomF } from '../../modules/outils.js'
+import { getVueFromUrl } from '../../modules/gestionUrl.js'
 
 export const titre = 'Calculer des moyennes'
 
@@ -102,7 +103,7 @@ export default function CalculerDesMoyennes () {
           somme += notes[j] * effectifs[j]
           effectifTotal += effectifs[j]
         }
-        texte = `Pour passer une commande de chaussures de foot,<br>${eleve} a noté les pointures des membres de son club et les a regroupées dans un tableau :<br><br>`
+        texte = `Pour passer une commande de chaussures de foot,${getVueFromUrl() === 'multi' ? '<br>' : ' '}${eleve} a noté les pointures des membres de son club${getVueFromUrl() === 'multi' ? '<br>' : ' '}et les a regroupées dans un tableau :<br><br>`
         texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c|c|c|c|c|c|} \\hline '
         texte += `\\text{Pointure} & ${notes[0]} & ${notes[1]} & ${notes[2]} & ${notes[3]} & ${notes[4]} \\\\ \\hline `
         texte += `\\text{Effectif} & ${effectifs[0]} & ${effectifs[1]} & ${effectifs[2]} & ${effectifs[3]} & ${effectifs[4]} \\\\\\hline \\end{array}$<br><br>`
