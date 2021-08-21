@@ -63,7 +63,6 @@ export default function ExerciceEquation1 () {
       listeTypeDeQuestions,
       this.nbQuestions
     )
-    let fReponse
     for (let i = 0, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(2, 13)
@@ -85,12 +84,9 @@ export default function ExerciceEquation1 () {
           b = randint(1, 9)
           c = randint(b, 15) // c sera plus grand que b pour que c-b>0
         }
-        fReponse = new Fraction(c - b, a)
         texte = `$${a}x${ecritureAlgebrique(b)}=${c}$<br>`
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
         texteCorr = texte + '<br>'
-        // setReponse(this, i, fReponse, { formatInteractif: 'fractionEgale' })
-        // setReponse(this, i, [fReponse.texFraction, fReponse.texFractionSimplifiee, fReponse.valeurDecimale])
         setReponse(this, i, new Fraction(c - b, a), { formatInteractif: 'fractionEgale' })
         if (this.correctionDetaillee) {
           if (b > 0) {
@@ -123,12 +119,10 @@ export default function ExerciceEquation1 () {
           b = randint(-9, 9, [0]) // b peut être négatif, ça sera une équation du type x-b=c
           c = abs(randint(b, 15)) // c sera plus grand que b pour que c-b>0
         }
-        fReponse = new Fraction(c - b, 1)
         texte = `$x${ecritureAlgebrique(b)}=${c}$<br>`
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
         texteCorr = texte + '<br>'
-        // setReponse(this, i, [fReponse.texFraction, fReponse.texFractionSimplifiee, fReponse.valeurDecimale])
-        setReponse(this, i, new Fraction(c - b, 1), { formatInteractif: 'fractionEgale' })
+        setReponse(this, i, c - b, { formatInteractif: 'calcul' })
         if (this.correctionDetaillee) {
           if (b > 0) {
             texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
@@ -146,7 +140,6 @@ export default function ExerciceEquation1 () {
         texte = `$${a}x=${b}$<br>`
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
         texteCorr = texte + '<br>'
-        // setReponse(this, i, [fReponse.texFraction, fReponse.texFractionSimplifiee, fReponse.valeurDecimale])
         setReponse(this, i, new Fraction(b, a), { formatInteractif: 'fractionEgale' })
 
         if (this.correctionDetaillee) {
@@ -178,7 +171,6 @@ export default function ExerciceEquation1 () {
         )}x${ecritureAlgebrique(d)}$<br>`
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
         texteCorr = texte + '<br>'
-        // setReponse(this, i, [fReponse.texFraction, fReponse.texFractionSimplifiee, fReponse.valeurDecimale])
         setReponse(this, i, new Fraction((d - b), (a - c)), { formatInteractif: 'fractionEgale' })
         if (this.correctionDetaillee) {
           if (c > 0) {
