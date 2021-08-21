@@ -1,9 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction } from '../../modules/outils.js'
-
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import Fraction from '../../modules/Fraction.js'
 export const titre = 'Équation du premier degré'
-
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 /**
  * Équation du premier degré
  * * Type 1 : x+a=b ou ax=b
@@ -13,11 +17,13 @@ export const titre = 'Équation du premier degré'
  * @author Rémi Angot
  * 4L20 et 3L13
  */
-export default function Exercice_equation1 () {
+export default function ExerciceEquation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Résoudre les équations suivantes'
   this.spacing = 2
+  this.interactif = true
+  this.interactifType = 'mathLive'
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.correctionDetailleeDisponible = true
   if (!context.isHtml) {
@@ -69,17 +75,19 @@ export default function Exercice_equation1 () {
         c *= choice([-1, 1])
         d *= choice([-1, 1])
       }
-      if (listeTypeDeQuestions[i] == 'ax+b=0' ||
-        listeTypeDeQuestions[i] == 'ax+b=c') {
-        if (listeTypeDeQuestions[i] == 'ax+b=0') {
+      if (listeTypeDeQuestions[i] === 'ax+b=0' ||
+        listeTypeDeQuestions[i] === 'ax+b=c') {
+        if (listeTypeDeQuestions[i] === 'ax+b=0') {
           c = 0
         }
         if (!this.sup && c < b) {
           b = randint(1, 9)
           c = randint(b, 15) // c sera plus grand que b pour que c-b>0
         }
-        texte = `$${a}x${ecritureAlgebrique(b)}=${c}$`
-        texteCorr = texte + '<br>'
+        texte = `$${a}x${ecritureAlgebrique(b)}=${c}$<br>`
+        texteCorr = texte
+        texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
+        setReponse(this, i, new Fraction(c - b, a), { formatInteractif: 'fractionEgale' })
         if (this.correctionDetaillee) {
           if (b > 0) {
             texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
@@ -106,13 +114,15 @@ export default function Exercice_equation1 () {
           a
         )}$.`
       }
-      if (listeTypeDeQuestions[i] == 'x+b=c') {
+      if (listeTypeDeQuestions[i] === 'x+b=c') {
         if (!this.sup && c < b) {
           b = randint(-9, 9, [0]) // b peut être négatif, ça sera une équation du type x-b=c
           c = abs(randint(b, 15)) // c sera plus grand que b pour que c-b>0
         }
-        texte = `$x${ecritureAlgebrique(b)}=${c}$`
-        texteCorr = texte + '<br>'
+        texte = `$x${ecritureAlgebrique(b)}=${c}$<br>`
+        texteCorr = texte
+        texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
+        setReponse(this, i, c - b, { formatInteractif: 'fractionEgale' })
         if (this.correctionDetaillee) {
           if (b > 0) {
             texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
@@ -126,9 +136,12 @@ export default function Exercice_equation1 () {
         texteCorr += `$x=${c - b}$`
         texteCorr += `<br> La solution est $${c - b}$.`
       }
-      if (listeTypeDeQuestions[i] == 'ax=b') {
-        texte = `$${a}x=${b}$`
-        texteCorr = texte + '<br>'
+      if (listeTypeDeQuestions[i] === 'ax=b') {
+        texte = `$${a}x=${b}$<br>`
+        texteCorr = texte
+        texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
+        setReponse(this, i, new Fraction(b, a), { formatInteractif: 'fractionEgale' })
+
         if (this.correctionDetaillee) {
           texteCorr += `On divise les deux membres par $${a}$.<br>`
         }
@@ -141,8 +154,8 @@ export default function Exercice_equation1 () {
         }
         texteCorr += `<br> La solution est $${texFractionReduite(b, a)}$.`
       }
-      if (listeTypeDeQuestions[i] == 'ax+b=cx+d') {
-        if (c == a) {
+      if (listeTypeDeQuestions[i] === 'ax+b=cx+d') {
+        if (c === a) {
           c = randint(1, 13, [a])
         } // sinon on arrive à une division par 0
         if (!this.sup && a < c) {
@@ -155,8 +168,10 @@ export default function Exercice_equation1 () {
         }
         texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(
           c
-        )}x${ecritureAlgebrique(d)}$`
-        texteCorr = texte + '<br>'
+        )}x${ecritureAlgebrique(d)}$<br>`
+        texteCorr = texte
+        texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
+        setReponse(this, i, new Fraction((d - b), (a - c)), { formatInteractif: 'fractionEgale' })
         if (this.correctionDetaillee) {
           if (c > 0) {
             texteCorr += `On soustrait $${rienSi1(
