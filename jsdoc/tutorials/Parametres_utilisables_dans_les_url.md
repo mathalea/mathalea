@@ -18,7 +18,7 @@
     - `&v=l` ou `&v=light` dirige vers un affichage léger mais autorisant le reparamétrage contrairement à `&v=e`.
     - `&v=latex` dirige vers l'écran de paramétrage en vue d'une exportation vers un code LateX ou d'un fichier pdf.
     - `&v=eval` dirige vers la vue évaluation où l’élève peut aller d’un exercice à l’autre et n’a qu’une seule chance par exercice.
-    - `&v=can` dirige vers une vue similaire mais où chaque page correspond à une question, parfaite pour une course aux nombres !
+    - `&v=can` propose le même genre de vue mais forcément interactive où chaque page ne propose qu'une question. Parfaite pour une course aux nombres !
     - `&v=recto` et `&v=verso` dirigent vers des versions épurées contenant uniquement les énnoncés (recto) ou les correction (verso) ainsi que le logo COOPMaths, utilisés pour les intégrer à Anki.
     - `&v=e` ou `&v=embed` permet d'épurer la page, de grossir le texte, d'ajouter le logo COOPMaths et de rendre inaccessibles les paramètres, parfait pour l'intégration dans d'autres sites !
     - `&v=multi` permet d'afficher plusieurs énoncés sur toute la largeur de l'écran, notamment pour être utilisés comme questions flash.
