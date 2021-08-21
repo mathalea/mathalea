@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction, lampeMessage } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
 export const titre = 'Équation du premier degré'
@@ -38,11 +38,6 @@ export default function ExerciceEquation1 () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.introduction = lampeMessage({
-      titre: 'Calculatrice autorisée.',
-      texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> Pour une solution comme 0,333... seule une fraction (par ex : $${texFraction(1, 3)})$ est correcte`,
-      couleur: 'nombres'
-    })
     let listeTypeDeQuestions
     switch (this.sup2.toString()) {
       case '1':
@@ -90,8 +85,8 @@ export default function ExerciceEquation1 () {
           c = randint(b, 15) // c sera plus grand que b pour que c-b>0
         }
         texte = `$${a}x${ecritureAlgebrique(b)}=${c}$<br>`
-        texteCorr = texte
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
+        texteCorr = texte + '<br>'
         setReponse(this, i, new Fraction(c - b, a), { formatInteractif: 'fractionEgale' })
         if (this.correctionDetaillee) {
           if (b > 0) {
@@ -125,9 +120,9 @@ export default function ExerciceEquation1 () {
           c = abs(randint(b, 15)) // c sera plus grand que b pour que c-b>0
         }
         texte = `$x${ecritureAlgebrique(b)}=${c}$<br>`
-        texteCorr = texte
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        setReponse(this, i, new Fraction(c - b, 1), { formatInteractif: 'fractionEgale' })
+        texteCorr = texte + '<br>'
+        setReponse(this, i, c - b, { formatInteractif: 'calcul' })
         if (this.correctionDetaillee) {
           if (b > 0) {
             texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
@@ -143,8 +138,8 @@ export default function ExerciceEquation1 () {
       }
       if (listeTypeDeQuestions[i] === 'ax=b') {
         texte = `$${a}x=${b}$<br>`
-        texteCorr = texte
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
+        texteCorr = texte + '<br>'
         setReponse(this, i, new Fraction(b, a), { formatInteractif: 'fractionEgale' })
 
         if (this.correctionDetaillee) {
@@ -174,8 +169,8 @@ export default function ExerciceEquation1 () {
         texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(
           c
         )}x${ecritureAlgebrique(d)}$<br>`
-        texteCorr = texte
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
+        texteCorr = texte + '<br>'
         setReponse(this, i, new Fraction((d - b), (a - c)), { formatInteractif: 'fractionEgale' })
         if (this.correctionDetaillee) {
           if (c > 0) {
