@@ -1,9 +1,10 @@
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif'
-import { calcul, choice, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import { calcul, choice, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Double ou triple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 export default function doubleEtMoitie () {
   Exercice.call(this)

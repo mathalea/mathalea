@@ -1,9 +1,10 @@
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif'
-import { calcul, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import { calcul, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Somme de quatre entiers qui se marient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 export default function FSomme4EntiersQuiSeMarient () {
   Exercice.call(this)

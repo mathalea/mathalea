@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListes, calcul, creerNomDePolygone } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, combinaisonListes, calcul, creerNomDePolygone, texNombre } from '../../modules/outils.js'
 import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, codageAngleDroit, afficheLongueurSegment, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
@@ -8,7 +8,7 @@ export const titre = 'Construire un triangle aux instruments'
 /**
  * Publié le 30/08/202
  * @author Jean-Claude Lhote (exercice) et Rémi Angot (animation Instrumenpoche)
- * Réfrence 6G21 et ... (exercice en 5e ? pas encore fait)
+ * Référence 6G21 et 5G20-0
  * Modifié 2021/04/02
  */
 export default function ConstruireUnTriangle () {
@@ -19,21 +19,37 @@ export default function ConstruireUnTriangle () {
   this.nbColsCorr = 1
   this.classe = 6
   this.typeExercice = 'IEP'
+  this.besoinFormulaireNumerique = ['Types de constructions', 3, '1 : Trois longueurs.\n2 : Angle droit et deux longueurs.\n3 : Les deux.']
+  this.sup = 3
+  this.besoinFormulaire2CaseACocher = ['Ne pas montrer de schéma']
+  this.sup2 = false
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     let IEP
     let typesDeQuestionsDisponibles, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAB, objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection, nom, sommets
-    if (this.classe === 6) typesDeQuestionsDisponibles = [1, 2]
-    // else typesDeQuestionsDisponibles = [1, 2, 3]
-    else typesDeQuestionsDisponibles = [1]
+    if (this.classe === 6 || this.classe === 5) {
+      switch (parseInt(this.sup)) {
+        case 1 :
+          typesDeQuestionsDisponibles = [1]
+          break
+        case 2 :
+          typesDeQuestionsDisponibles = [2]
+          break
+        default :
+          typesDeQuestionsDisponibles = [1, 2]
+          break
+      }
+    } else typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       IEP = new Alea2iep()
       objetsEnonce = []
       objetsCorrection = []
-      texte = 'Le triangle ci-dessous a été réalisé à main levée.<br>Construire ce triangle avec les instruments de géométrie en respectant les mesures indiquées.<br>'
+      if (!this.sup2) {
+        texte = 'Le triangle ci-dessous a été réalisé à main levée.<br>Construire ce triangle avec les instruments de géométrie en respectant les mesures indiquées.<br>'
+      }
       texteCorr = 'Voici la construction que tu devais réaliser.<br>'
       nom = creerNomDePolygone(3, 'PQ')
       sommets = []
@@ -56,6 +72,9 @@ export default function ConstruireUnTriangle () {
 
           objetsEnonce.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
           objetsCorrection.push(traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
+          if (this.sup2) {
+            texte = `Construire un triangle ${sommets[0]}${sommets[1]}${sommets[2]} avec ${sommets[0]}${sommets[1]} = ${texNombre(lAB)} cm, ${sommets[1]}${sommets[2]} = ${texNombre(lBC)} cm et ${sommets[0]}${sommets[2]} = ${texNombre(lAC)} cm.<br>`
+          }
           texteCorr += 'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
 
           IEP.triangle3longueurs(sommets, lAB, lAC, lBC)
@@ -73,13 +92,12 @@ export default function ConstruireUnTriangle () {
 
           objetsEnonce.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, A), codageAngleDroit(A, B, C))
           objetsCorrection.push(traceCompas(A, C, 30, 'gray', 1, 2), codageAngleDroit(A, B, C), afficheLongueurSegment(B, A), afficheLongueurSegment(C, A))
+          if (this.sup2) {
+            texte = `Construire un triangle ${sommets[0]}${sommets[1]}${sommets[2]} rectangle en ${sommets[1]} avec ${sommets[0]}${sommets[1]} = ${texNombre(lAB)} cm et ${sommets[0]}${sommets[2]} = ${texNombre(lAC)} cm.<br>`
+          }
           texteCorr += 'Pour cette construction, nous avons utilisé la règle graduée, l\'équerre et le compas.<br>'
 
           IEP.triangleRectangleCoteHypotenuse(sommets, lAB, lAC)
-          break
-
-        case 3:
-
           break
       }
       T = polygoneAvecNom(A, B, C)
@@ -88,7 +106,10 @@ export default function ConstruireUnTriangle () {
       objetsCorrection.push(T[0], T[1])
       paramsEnonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 0.3 }
       paramsCorrection = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 2), ymin: Math.min(A.y - 1, B.y - 1, C.y - 2), xmax: Math.max(A.x + 1, B.x + 1, C.x + 2), ymax: Math.max(A.y + 1, B.y + 1, C.y + 2), pixelsParCm: 30, scale: 1 }
-      texte += mathalea2d(paramsEnonce, objetsEnonce)
+
+      if (!this.sup2) {
+        texte += mathalea2d(paramsEnonce, objetsEnonce)
+      }
       texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
 
       texteCorr += IEP.htmlBouton(this.numeroExercice, i)

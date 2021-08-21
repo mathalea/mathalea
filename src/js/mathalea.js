@@ -1,6 +1,6 @@
 /* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGoTab } from './modules/gestionUrl.js'
+import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGoTab, setUrlAndGo } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -2309,6 +2309,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     btnPleinEcran.addEventListener('click', () => {
       context.vue = 'light'
       setUrlAndGoTab()
+    })
+  }
+  const btnPleinEcran2 = document.getElementById('buttonFullScreen2')
+  if (btnPleinEcran2 !== null) {
+    btnPleinEcran2.addEventListener('click', () => {
+      context.vue = 'ex'
+      setUrlAndGo()
+    })
+  }
+  const btnEdit = document.getElementById('buttonEdit')
+  if (btnEdit !== null) {
+    btnEdit.addEventListener('click', () => {
+      context.vue = 'menu'
+      setUrlAndGo()
     })
   }
 
