@@ -15,12 +15,13 @@ export default function ConstruireUnTriangleAvecCible () {
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = false
   this.classe = 6
   this.typeExercice = 'IEP'
 
   this.nouvelleVersion = function () {
     let IEP
+    let xMin
+    let yMax
     this.listeQuestions = []
     this.listeCorrections = []
     const celluleAleaRonde = function (rang) {
@@ -65,6 +66,9 @@ export default function ConstruireUnTriangleAvecCible () {
           objetsCorrection.push(cible, traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
           texteCorr += 'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
           texteCorr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          xMin = Math.min(0, B.x, C.x, A.x) - 1
+          yMax = Math.max(0, B.y, C.y, A.y) + 3
+          IEP.recadre(xMin, yMax)
           IEP.triangle3longueurs(nom, lAB, lAC, lBC, true)
           break
         case 2: // triangle ABC rectangle en B dont on connait AB et BC
@@ -87,6 +91,9 @@ export default function ConstruireUnTriangleAvecCible () {
           texteCorr += 'Pour cette construction, nous avons utilisé la règle graduée, l\'équerre et le compas.<br>'
           texteCorr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
 
+          xMin = Math.min(0, B.x, C.x, A.x) - 1
+          yMax = Math.max(0, B.y, C.y, A.y) + 3
+          IEP.recadre(xMin, yMax)
           IEP.triangleRectangle2Cotes(nom, lAB, lBC, true)
           break
         case 3: // triangle ABC isocèle en A
@@ -108,6 +115,9 @@ export default function ConstruireUnTriangleAvecCible () {
           objetsCorrection.push(cible, traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), codeSegments('||', 'black', A, B, A, C), afficheLongueurSegment(A, C))
           texteCorr += 'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
           texteCorr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          xMin = Math.min(0, B.x, C.x, A.x) - 1
+          yMax = Math.max(0, B.y, C.y, A.y) + 3
+          IEP.recadre(xMin, yMax)
           montriangle = IEP.triangle3longueurs(nom, lAB, lAC, lBC, true)
           IEP.segmentCodage(montriangle[0], montriangle[1], { codage: '\\\\' })
           IEP.segmentCodage(montriangle[0], montriangle[2], { codage: '\\\\' })
@@ -131,6 +141,9 @@ export default function ConstruireUnTriangleAvecCible () {
           objetsCorrection.push(cible, traceCompas(B, C, 30, 'gray', 1, 2), codageAngleDroit(A, B, C), afficheLongueurSegment(B, A), codeSegments('||', 'black', A, B, B, C))
           texteCorr += 'Pour cette construction, nous avons utilisé l\'équerre et la règle graduée.<br>'
           texteCorr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          xMin = Math.min(0, B.x, C.x, A.x) - 1
+          yMax = Math.max(0, B.y, C.y, A.y) + 3
+          IEP.recadre(xMin, yMax)
           montriangle = IEP.triangleRectangle2Cotes(nom, lAB, lAB, true)
           IEP.segmentCodage(montriangle[0], montriangle[1], { codage: '\\\\' })
           IEP.segmentCodage(montriangle[1], montriangle[2], { codage: '\\\\' })
@@ -154,6 +167,9 @@ export default function ConstruireUnTriangleAvecCible () {
           objetsCorrection.push(cible, traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), codeSegments('||', 'black', A, B, B, C, A, C))
           texteCorr += 'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
           texteCorr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          xMin = Math.min(0, B.x, C.x, A.x) - 1
+          yMax = Math.max(0, B.y, C.y, A.y) + 3
+          IEP.recadre(xMin, yMax)
           IEP.triangleEquilateral(nom, lAB, true)
           break
         case 6: // triangle ABC dont on connait AB et AC et l'angle BAC
@@ -170,6 +186,9 @@ export default function ConstruireUnTriangleAvecCible () {
           objetsCorrection.push(cible, afficheLongueurSegment(B, A), afficheMesureAngle(B, A, C, 'black', 1), afficheLongueurSegment(A, C, 'black', 1))
           texteCorr += 'Pour cette construction, nous avons utilisé le rapporteur et la règle graduée.<br>'
           texteCorr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          xMin = Math.min(0, B.x, C.x, A.x) - 1
+          yMax = Math.max(0, B.y, C.y, A.y) + 3
+          IEP.recadre(xMin, yMax)
           IEP.triangle2longueurs1angle(nom, lAB, lAC, Math.round(angle(B, A, C)), true)
           break
         case 7: // triangle ABC dont ont connais AB et les deux angles adjacents
@@ -190,6 +209,9 @@ export default function ConstruireUnTriangleAvecCible () {
           objetsCorrection.push(cible, afficheLongueurSegment(B, A), afficheMesureAngle(B, A, C, 'black', 1), afficheMesureAngle(A, B, C, 'black', 1))
           texteCorr += 'Pour cette construction, nous avons utilisé le rapporteur.<br>'
           texteCorr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          xMin = Math.min(0, B.x, C.x, A.x) - 1
+          yMax = Math.max(0, B.y, C.y, A.y) + 3
+          IEP.recadre(xMin, yMax)
           IEP.triangle1longueur2angles(sommets, lAB, Math.round(angle(B, A, C)), Math.round(angle(A, B, C)))
           break
         case 8: // triangle ABC rectangle en B dont on connait AB et l'hypoténuse AC
@@ -211,6 +233,9 @@ export default function ConstruireUnTriangleAvecCible () {
           objetsCorrection.push(cible, traceCompas(A, C, 30, 'gray', 1, 2), codageAngleDroit(A, B, C), afficheLongueurSegment(B, A), afficheLongueurSegment(A, C))
           texteCorr += 'Pour cette construction, nous avons utilisé la règle graduée, l\'équerre et le compas.<br>'
           texteCorr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          xMin = Math.min(0, B.x, C.x, A.x) - 1
+          yMax = Math.max(0, B.y, C.y, A.y) + 3
+          IEP.recadre(xMin, yMax)
           IEP.triangleRectangleCoteHypotenuse(nom, lAB, lAC, true)
           break
         case 9: // triangle ABC dont ont connais AB un angle adjacent et l'angle opposé
@@ -232,6 +257,9 @@ export default function ConstruireUnTriangleAvecCible () {
           objetsCorrection.push(cible, afficheLongueurSegment(B, A), afficheMesureAngle(B, A, C, 'black', 1), afficheMesureAngle(A, B, C, 'black', 1), afficheMesureAngle(A, C, B, 'black', 1))
           texteCorr += `Pour cette construction, il a fallu calculer l'angle $\\widehat{${sommets[0] + sommets[1] + sommets[2]}}$.<br>$\\widehat{${sommets[0] + sommets[1] + sommets[2]}}=180-\\widehat{${sommets[1] + sommets[0] + sommets[2]}}-\\widehat{${sommets[0] + sommets[2] + sommets[1]}}=180-${Math.round(angle(B, A, C))}-${Math.round(angle(B, C, A))}=${Math.round(angle(A, B, C))}$.<br>Nous avons utilisé le rapporteur pour effectuer cette construction.<br>`
           texteCorr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          xMin = Math.min(0, B.x, C.x, A.x) - 1
+          yMax = Math.max(0, B.y, C.y, A.y) + 3
+          IEP.recadre(xMin, yMax)
           IEP.triangle1longueur2angles(nom, lAB, Math.round(angle(B, A, C)), Math.round(angle(C, B, A)), true)
       }
       T = polygoneAvecNom(A, B, C)
@@ -254,10 +282,4 @@ export default function ConstruireUnTriangleAvecCible () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
-  this.besoinFormulaire2Numerique = [
-    'Type de cahier',
-    3,
-    '1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
-  ]
 }

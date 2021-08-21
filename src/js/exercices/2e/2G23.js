@@ -107,7 +107,7 @@ export default function SommeDeVecteurs () {
       }, U, V, p[1], tracePoint(A, 'red'), UU, VV, u.representant(A), v.representant(B), translationAnimee(UU, vecteur(M, A)), translationAnimee(VV, vecteur(N, B)), latexParPoint('A', posLabelA, 'red', 12, 12, ''))
       texteCorr += "Remarque : comme $\\overrightarrow{AB} = \\vec{u}$ et $\\overrightarrow{BC} = \\vec{v}$, alors $\\vec{u}+\\vec{v}=\\overrightarrow{AB}+\\overrightarrow{BC}=\\overrightarrow{AC}$ d'après la relation de Chasles."
       texteCorr += anim.htmlBouton(numeroExercice, i)
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, xU, yU, xV, yV)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

@@ -46,8 +46,8 @@ export default function Exercice () {
   this.listePackages = [] // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule.
   this.consigneModifiable = true // booléen pour déterminer si la consigne est modifiable en ligne dans la sortie LaTeX.
   this.nbQuestionsModifiable = true // booléen pour déterminer si le nombre de questions est modifiable en ligne.
-  this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX des questions (environnement multicols).
-  this.nbColsCorr = 2 // Nombre de colonnes pour la sortie LaTeX des réponses (environnement multicols).
+  this.nbCols = 1 // Nombre de colonnes pour la sortie LaTeX des questions (environnement multicols).
+  this.nbColsCorr = 1 // Nombre de colonnes pour la sortie LaTeX des réponses (environnement multicols).
   this.nbColsModifiable = true // booléen pour déterminer si le nombre de colonnes est modifiable en ligne dans la sortie LaTeX.
   this.nbColsCorrModifiable = true // booléen pour déterminer si le nombre de colonnes de la correction est modifiable en ligne dans la sortie LaTeX.
   this.spacingModifiable = true // booléen pour déterminer si l'espacement est modifiable en ligne dans la sortie LaTeX.
@@ -93,6 +93,27 @@ export default function Exercice () {
   // this.typeExercice = 'IEP' // Pour charger InstrumEnPoche.
   // this.typeExercice = 'dnb' // Ce n’est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
   // this.typeExercice = 'XCas' // Pour charger le JavaScript de XCas qui provient de https://www-fourier.ujf-grenoble.fr/~parisse/giac_fr.html
+  this.listeArguments = []
 
   this.nouvelleVersion = function (numeroExercice) {}
+
+  /**
+   *
+   * @param {int} i indice de la question
+   * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
+   * @returns {boolean} true si la question n'a jamais été posée
+   */
+  this.questionJamaisPosee = function (i, ...args) {
+    if (i === 0) this.listeArguments = []
+    let argsConcatenes = ''
+    for (const arg of args) {
+      if (arg !== undefined) argsConcatenes += arg.toString()
+    }
+    if (this.listeArguments.indexOf(argsConcatenes) > -1) {
+      return false
+    } else {
+      this.listeArguments.push(argsConcatenes)
+      return true
+    }
+  }
 }

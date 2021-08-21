@@ -15,8 +15,8 @@ Les lignes de commande nécessitent des "anti-sèches" au début mais ont les av
 4. Copier l'un des [modèles](#2) présents dans le dossier `src/js/exercices/_Modèles_d'exercices`, le renommer avec la bonne [référence](https://coopmaths.fr/pdf/CoopMaths-Referentiel.pdf) et le placer dans le dossier du niveau correspondant. (Si un exercice avec cette référence existe déjà, ajouter un tiret et incrémenter. Par exemple, si je veux créer 5A11 et qu'un exercice 5A11 existe déjà, je le nomme 5A11-1 et si 5A11-1 existe déjà, je le nomme 5A11-2 etc.)
 5. Modifier les informations servant au référencement (dans les premières lignes du fichier, de l'export du titre à l'export de la fonction)
 6. Enregistrer puis lancer `pnpm build:dicos` dans un terminal pour ajouter son exercice à la liste des exercices (il faudra le refaire si vous changez le nom du fichier, le titre ou l'un de ces paramètres : amcReady, amcType, interactifReady, interactifType)
-7. Le [programmer](#3) et le tester en lançant dans un terminal `pnpm start`
-8. Enregistrer régulièrement son travail et faire un **commit** à chaque étape du projet : `git commit -am "Premier niveau de difficulté"`
+7. Le [programmer](#3) et le tester en lançant dans un terminal `pnpm start` (Attention à ne pas oublier de modifier la ligne `if (this.questionJamaisPosee(i, a, b, c, d)` à la fin du fichier en fonction des données de l'énoncé, sinon le `pnpm start` ne fonctionnera pas).
+8. Enregistrer régulièrement son travail et faire un **commit** à chaque étape du projet : faire `git add .` la première fois pour ajouter le nouveau fichier aux fichiers suivis puis **commit** à chaque étape avec `git commit -am "Premier niveau de difficulté"`
 9. Le partager avec les autres : `git push origin nomDeLaBranche`
 10. Une fois l'exercice terminé, faire un **Pull Request** via [github](https://github.com/mathalea/mathalea/branches) ou son interface graphique préférée (GitKraken ou GitHub Desktop).
 
@@ -90,7 +90,8 @@ export default function Ajouter9 () { // On clôture cette première partie par 
       texteCorr = `$ ${a} + 9 = ${a + 9} $` // Correction
       setReponse(this, i, a + 9) // Cette ligne sert à paramétrer la réponse attendue dans la version interactive ou la sortie AMC.
       if (this.interactif) texte += ajouteChampTexte(this, i) // Si c'est la version interactive, on ajoute un champ texte.
-      if (this.listeQuestions.indexOf(texte) === -1) { // On vérifie si la question n'a pas encore été posée,
+      // Si la question n'a jamais été posée, on l'enregistre
+      if (this.questionJamaisPosee(i, a)) { // <- ici, la seule variable qui diffère est a
         this.listeQuestions.push(texte)                // si c'est le cas, on ajoute l'énoncé,
         this.listeCorrections.push(texteCorr)          // et la correction.
         i++
@@ -138,7 +139,7 @@ export default function Ajouter9 () {
       texteCorr = `$ ${a} + 9 = ${a + 9} $`
       setReponse(this, i, a + 9)
       if (this.interactif) texte += ajouteChampTexte(this, i)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -159,7 +160,7 @@ this.nouvelleVersion = function(){
   let typeDeQuestionsDisponibles = [1,2,3,4] // À noter que l'on aurait pu faire [1,1,1,2] pour avoir 3 questions de type 1 et 1 question de type 2
   let listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-  for (let i = 0, texte, texteCorr, cpt=0, a, b, c, d,e ,f, g, x, y; i < this.nbQuestions && cpt<50; ) {
+  for (let i = 0, texte, texteCorr, cpt=0, a, b; i < this.nbQuestions && cpt<50; ) {
     typeDeQuestions = listeTypeDeQuestions[i];
     switch (typeDeQuestions){ // Cas par cas, on définit le type de nombres que l'on souhaite
                               // Combien de chiffres ? Quelles valeurs ?
@@ -182,7 +183,7 @@ this.nouvelleVersion = function(){
     }
     texte = `$${texNombre(a)}\\times${texNombre(b)}$` // Les nombres étant définis, il ne reste plus qu'à écrire l'énoncé
     texteCorr = `$${texNombre(a)}\\times${texNombre(b)}=${texNombre(a*b)}$` // et la correction
-    if (this.listeQuestions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+    if (this.questionJamaisPosee(i, a, b)) {
       this.listeQuestions.push(texte);
       this.listeCorrections.push(texteCorr);
       i++;
@@ -216,6 +217,7 @@ export default function ConstruireUnDiagramme4e () {
   this.sup = 3
   this.sup2 = 2
   this.sup3 = 1
+  
 }
 ```
 

@@ -1,7 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, numAlpha, exposant, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+
 export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la linéarité simple'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * On donne une relation de proportionnalité du type n objets coûtent x€ et on demande le prix de y objets
@@ -42,7 +48,7 @@ const couplePremiersEntreEux = [
   [12, 13]
 ] // Couples de nombres premiers entre eux
 
-function questionAchat () { // questions d'origine du 6P11 : achat.
+function questionAchat (exo, i) { // questions d'origine du 6P11 : achat.
   const listeDeLieux = [
     'dans un magasin de bricolage',
     'dans une animalerie',
@@ -136,7 +142,7 @@ function questionAchat () { // questions d'origine du 6P11 : achat.
   }
   let texte = `${numAlpha(0)} ${prenoms[0]} a repéré ${listeDeLieux[index1]} des ${objet} qui l'intéressent.<br> ` +
 `Elle lit que ${n} ${objet} coûtent ${texPrix(x)} €. ` +
-`Elle veut en acheter ${y}.<br> Combien va-t-elle dépenser ?<br>`
+`Elle veut en acheter ${y}.<br> Combien va-t-elle dépenser ?<br>` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' €' })
   let texteCorr = `${numAlpha(0)} ${y} ${objet}, c'est ${texteEnCouleur(
         texNombrec(y / n)
       )} fois ${texteEnCouleur(
@@ -156,11 +162,11 @@ function questionAchat () { // questions d'origine du 6P11 : achat.
 texteEnCouleurEtGras(`Donc ${prenoms[0]} dépensera ${texteEnCouleur(
         texNombrec(y / n)
       )} $\\times$ ${texPrix(x)} € = ${texPrix(y * x / n)} €.`, 'black') + '<br><br>'
-  texte += `${numAlpha(1)} ${prenoms[1]
+  texte += `<br> ${numAlpha(1)} ${prenoms[1]
         } veut lui aussi acheter ces ${objet}. Il dispose de ${texPrix(
           z
-        )} €.<br> Combien peut-il en acheter ?<br>`
-  texteCorr += `${numAlpha(1)} ${texPrix(z)} €, c'est ${texteEnCouleur(
+        )} €.<br> Combien peut-il en acheter ?<br>` + ajouteChampTexteMathLive(exo, i + 1, 'largeur25 inline', { texteApres: ' ' + objet })
+  texteCorr += `<br> ${numAlpha(1)} ${texPrix(z)} €, c'est ${texteEnCouleur(
         texNombrec(z / x)
       )} fois ${texPrix(x)} €.<br> Si avec ${texPrix(
         x
@@ -175,13 +181,57 @@ texteEnCouleurEtGras(`Donc ${prenoms[0]} dépensera ${texteEnCouleur(
   texteCorr += texteEnCouleurEtGras(`Donc ${prenoms[1]} pourra acheter ${texteEnCouleur(
         texNombrec(z / x)
       )} $\\times$ ${texteEnCouleur(n, 'blue')} = ${texNombrec(z * n / x)} ${objet}.`, 'black') + '<br>'
+  if (!context.isAmc) {
+    setReponse(exo, i, calcul(y * x / n))
+    setReponse(exo, i + 1, calcul(z * n / x))
+  } else {
+    exo.autoCorrection[i] = {
+      enonce: texte,
+      propositions: [
+        {
+          type: 'AMCNum',
+          propositions: [{
+            texte: texteCorr,
+            statut: '',
+            reponse: {
+              texte: 'a) ',
+              valeur: arrondi(y * x / n, 2),
+              param: {
+                digits: nombreDeChiffresDe(arrondi(y * x / n, 2)),
+                decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(y * x / n, 2)),
+                signe: false,
+                approx: 0
+              }
+            }
+          }]
+        },
+        {
+          type: 'AMCNum',
+          propositions: [{
+            texte: '',
+            statut: '',
+            reponse: {
+              texte: 'b) ',
+              valeur: arrondi(z * n / x, 0),
+              param: {
+                digits: nombreDeChiffresDansLaPartieEntiere(arrondi(z * n / x, 0)),
+                decimals: 0,
+                signe: false,
+                approx: 0
+              }
+            }
+          }]
+        }
+      ]
+    }
+  }
   return {
     qtexte: texte,
     qtexteCorr: texteCorr
   }
 }
 
-function questionRecette () { // questions avec des masses pour un nombre de personne dans des recettes correction : passage à l'unité
+function questionRecette (exo, i) { // questions avec des masses pour un nombre de personne dans des recettes correction : passage à l'unité
   let texte, texteCorr
   const liste = [ // liste des ingrédients avec différentes recettes associées et masses
     {
@@ -216,24 +266,68 @@ function questionRecette () { // questions avec des masses pour un nombre de per
   const prenoms = [prenomF(), prenomM()] // Choix de prénoms pour l'énoncé
   texte = `${numAlpha(0)} ${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour ${nbPersonneInit} personnes qu'il faut ${quantite} g de ${liste[alea1].ingredient}. <br>` +
   `Elle veut adapter sa recette pour ${nbPersonneFinal} personnes.` +
-  `<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ? <br><br>`
+  `<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ? ` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' g' })
   texteCorr = `${numAlpha(0)} ${nbPersonneFinal} personnes, c'est ${texteEnCouleur(nbPersonneFinal / nbPersonneInit)} fois ${nbPersonneInit} personnes. ` +
   `Il faut donc ${texteEnCouleur(nbPersonneFinal / nbPersonneInit)} fois plus de ${liste[alea1].ingredient}.<br>` +
   `${quantite} g $\\times $ ${texteEnCouleur(nbPersonneFinal / nbPersonneInit)} = ${quantiteReponse} g. <br>` +
   texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit utiliser ${quantiteReponse} g de ${liste[alea1].ingredient} pour ${nbPersonneFinal} personnes.<br><br>`, 'black')
-  texte += `${numAlpha(1)} ${prenoms[1]} utilise la même recette de ${liste[alea1].recettes[alea2]}. Il dispose de ${quantite2} g de ${liste[alea1].ingredient}.<br>
-  Pour combien de personnes au maximum peut-il cuisiner ?`
-  texteCorr += `${numAlpha(1)} ${quantite2} g, c'est ${texteEnCouleur(quantite2 / quantite)} fois ${quantite} g. ` +
+  texte += `<br> ${numAlpha(1)} ${prenoms[1]} utilise la même recette de ${liste[alea1].recettes[alea2]}. Il dispose de ${quantite2} g de ${liste[alea1].ingredient}.<br>
+  Pour combien de personnes au maximum peut-il cuisiner ?` + ajouteChampTexteMathLive(exo, i + 1, 'largeur25 inline', { texteApres: ' personnes' })
+  texteCorr += `<br> ${numAlpha(1)} ${quantite2} g, c'est ${texteEnCouleur(quantite2 / quantite)} fois ${quantite} g. ` +
   `Il peut donc cuisiner pour ${texteEnCouleur(quantite2 / quantite)} fois plus de personnes.<br>` +
   `${nbPersonneInit} g $\\times $ ${texteEnCouleur(quantite2 / quantite)} = ${nbPersonneInit * quantite2 / quantite} . <br>` +
   texteEnCouleurEtGras(`Conclusion : ${prenoms[1]} peut donc préparer sa recette pour ${nbPersonneInit * quantite2 / quantite} personnes.`, 'black')
+  if (!context.isAmc) {
+    setReponse(exo, i, quantiteReponse)
+    setReponse(exo, i + 1, calcul(nbPersonneInit * quantite2 / quantite))
+  } else {
+    exo.autoCorrection[i] = {
+      enonce: texte,
+      propositions: [
+        {
+          type: 'AMCNum',
+          propositions: [{
+            texte: texteCorr,
+            statut: '',
+            reponse: {
+              texte: 'a) ',
+              valeur: quantiteReponse,
+              param: {
+                digits: nombreDeChiffresDe(quantiteReponse),
+                decimals: nombreDeChiffresDansLaPartieDecimale(quantiteReponse),
+                signe: false,
+                approx: 0
+              }
+            }
+          }]
+        },
+        {
+          type: 'AMCNum',
+          propositions: [{
+            texte: '',
+            statut: '',
+            reponse: {
+              texte: 'b) ',
+              valeur: calcul(nbPersonneInit * quantite2 / quantite),
+              param: {
+                digits: nombreDeChiffresDansLaPartieEntiere(calcul(nbPersonneInit * quantite2 / quantite)),
+                decimals: 0,
+                signe: false,
+                approx: 0
+              }
+            }
+          }]
+        }
+      ]
+    }
+  }
   return {
     qtexte: texte,
     qtexteCorr: texteCorr
   }
 }
 
-function questionDillution () { // questions de mélange de volumes
+function questionDillution (exo, i) { // questions de mélange de volumes
   let uniteSolvantVolumeFinal
   const liste = [
     {
@@ -282,19 +376,45 @@ function questionDillution () { // questions de mélange de volumes
   const texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} qu'il faut  ` +
 ` ${texNombrec(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour ${volumeInitialAff} ${liste[alea1].unite_solvant[0]} d'eau.<br> ` +
 `On veut utiliser ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau.` +
-`<br> Quel volume de ${liste[alea1].solute} doit-on prévoir ? <br>`
+`<br> Quel volume de ${liste[alea1].solute} doit-on prévoir ? ` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' ' + liste[alea1].unite_solute })
   const texteCorr = `Le volume de ${liste[alea1].solute} est proportionnel au volume d'eau <br> ` +
 ` ${texteEnCouleur(volumeFinalAff)} ${uniteSolvantVolumeFinal} d'eau, c'est ${texteEnCouleur(texNombrec(volumeFinal / volumeInitial))} fois ${volumeInitialAff} ${liste[alea1].unite_solvant[0]} d'eau. <br> ` +
 `Il faut donc ${texteEnCouleur(texNombrec(volumeFinal / volumeInitial))} fois plus que ${texteEnCouleur(texNombrec(quantite), 'blue')} ${liste[alea1].unite_solute} de ${liste[alea1].solute}. <br>` +
 `${texteEnCouleur(texNombrec(quantite), 'blue')} ${liste[alea1].unite_solute} $\\times $ ${texteEnCouleur(texNombrec(volumeFinal / volumeInitial))} = $${texNombrec(quantite * volumeFinal / volumeInitial)}$ ${liste[alea1].unite_solute}  <br>
         ${texteEnCouleurEtGras(`Conclusion : Il faut donc prévoir $${texNombrec(quantite * volumeFinal / volumeInitial)}$ ${liste[alea1].unite_solute} de ${liste[alea1].solute}.`, 'black')}`
+  if (!context.isAmc) {
+    setReponse(exo, i, calcul(quantite * volumeFinal / volumeInitial))
+  } else {
+    exo.autoCorrection[i] = {
+      enonce: texte,
+      propositions: [
+        {
+          type: 'AMCNum',
+          propositions: [{
+            texte: texteCorr,
+            statut: '',
+            reponse: {
+              texte: 'a) ',
+              valeur: calcul(quantite * volumeFinal / volumeInitial),
+              param: {
+                digits: nombreDeChiffresDe(calcul(quantite * volumeFinal / volumeInitial)),
+                decimals: nombreDeChiffresDansLaPartieDecimale(calcul(quantite * volumeFinal / volumeInitial)),
+                signe: false,
+                approx: 0
+              }
+            }
+          }]
+        }
+      ]
+    }
+  }
   return {
     qtexte: texte,
     qtexteCorr: texteCorr
   }
 }
 
-function questionDistance () { // questions de distance parcourue à une vitesse moyenne donnée
+function questionDistance (exo, i) { // questions de distance parcourue à une vitesse moyenne donnée
   let texte, texteCorr
   const liste = [ // liste des "moyens de locomotion" et vitesses associées
     {
@@ -356,25 +476,95 @@ function questionDistance () { // questions de distance parcourue à une vitesse
     }
     const dureeR = dureeQ * randint(2, 5)
     texte = `Un ${liste[alea1].locomotion} parcourt en moyenne $${texNombrec(distance)}$ km en ${dureeQ} heures.
-    <br> Quelle distance va-t-il parcourir, à la même vitesse en ${dureeR} heures ?`
+    <br> Quelle distance va-t-il parcourir, à la même vitesse en ${dureeR} heures ?` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' km' })
 
     texteCorr = `${texteEnCouleur(dureeR)} heures, c'est ${texteEnCouleur(dureeR / dureeQ)} fois ${dureeQ} heures.<br> ` +
     `Le ${liste[alea1].locomotion} parcourra donc ${texteEnCouleur(dureeR / dureeQ)} fois plus de distance qu'en ${dureeQ} heures.<br>` +
     `$${texNombrec(distance)}$ km $\\times $ ${texteEnCouleur(dureeR / dureeQ)} = $${texNombrec(distance * dureeR / dureeQ)}$ km.<br>
     ${texteEnCouleurEtGras(`Conclusion : Le ${liste[alea1].locomotion} parcourra $${texNombrec(distance * dureeR / dureeQ)}$ km à la même vitesse en ${dureeR} heures.`, 'black')}`
+    if (!context.isAmc) {
+      setReponse(exo, i, calcul(distance * dureeR / dureeQ))
+    } else {
+      exo.autoCorrection[i] = {
+        enonce: texte,
+        propositions: [
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: texteCorr,
+              statut: '',
+              reponse: {
+                texte: 'a) ',
+                valeur: calcul(distance * dureeR / dureeQ),
+                param: {
+                  digits: nombreDeChiffresDe(calcul(distance * dureeR / dureeQ)),
+                  decimals: nombreDeChiffresDansLaPartieDecimale(calcul(distance * dureeR / dureeQ)),
+                  signe: false,
+                  approx: 0
+                }
+              }
+            }]
+          }
+        ]
+      }
+    }
   } else {
     const alea2 = randint(0, liste[alea1].vitesse.length - 1) // pour le choix du temps passé
     const rapportQuestion2 = [0.25, 0.5, 0.75, 1.25, 1.5, 2]
     const alea3 = randint(0, rapportQuestion2.length - 1, [alea2])
     const reponseQ1 = calcul(duree[alea2].rapport * liste[alea1].vitesse[alea2])
+    if (!context.isAmc) {
+      setReponse(exo, i, reponseQ1)
+      setReponse(exo, i + 1, calcul(rapportQuestion2[alea3] * 60))
+    } else {
+      exo.autoCorrection[i] = {
+        enonce: texte,
+        propositions: [
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: texteCorr,
+              statut: '',
+              reponse: {
+                texte: 'a) ',
+                valeur: reponseQ1,
+                param: {
+                  digits: nombreDeChiffresDe(reponseQ1),
+                  decimals: nombreDeChiffresDansLaPartieDecimale(reponseQ1),
+                  signe: false,
+                  approx: 0
+                }
+              }
+            }]
+          },
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: '',
+              statut: '',
+              reponse: {
+                texte: 'b) ',
+                valeur: calcul(rapportQuestion2[alea3] * 60),
+                param: {
+                  digits: nombreDeChiffresDe(calcul(rapportQuestion2[alea3] * 60)),
+                  decimals: nombreDeChiffresDansLaPartieDecimale(calcul(rapportQuestion2[alea3] * 60)),
+                  signe: false,
+                  approx: 0
+                }
+              }
+            }]
+          }
+        ]
+      }
+    }
     const distance = texNombrec(calcul(rapportQuestion2[alea3] * liste[alea1].vitesse[alea2])) // pour question 2
-    texte = `${numAlpha(0)} Un ${liste[alea1].locomotion} parcourt en moyenne ${texNombrec(liste[alea1].vitesse[alea2])} km en une heure.<br> Quelle distance va-t-il parcourir, à la même vitesse en ${duree[alea2].temps} ? <br><br> `
+    texte = `${numAlpha(0)} Un ${liste[alea1].locomotion} parcourt en moyenne ${texNombrec(liste[alea1].vitesse[alea2])} km en une heure.<br> Quelle distance va-t-il parcourir, à la même vitesse en ${duree[alea2].temps} ? ` + ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' km' })
     texteCorr = `${numAlpha(0)} ${duree[alea2].temps} c'est ${texteEnCouleur(texNombrec(duree[alea2].rapport))} fois une heure.<br> ` +
 `En une heure le ${liste[alea1].locomotion} parcourt ${texteEnCouleur(texNombrec(liste[alea1].vitesse[alea2], 'blue'))} km donc en ${duree[alea2].temps} il va parcourir ${texteEnCouleur(texNombrec(duree[alea2].rapport))} fois ${texteEnCouleur(texNombrec(liste[alea1].vitesse[alea2], 'blue'))} km. <br>` +
 `${texteEnCouleur(texNombrec(duree[alea2].rapport))} $\\times$ ${texteEnCouleur(texNombrec(liste[alea1].vitesse[alea2], 'blue'))} km = ${texNombrec(reponseQ1)} km <br>` +
 texteEnCouleurEtGras(` Conclusion : Le ${liste[alea1].locomotion} va donc parcourir ${texNombrec(reponseQ1)} km.`, 'black') + '<br><br>'
-    texte += `${numAlpha(1)} Combien de temps va-t-il mettre pour parcourir ${distance} km à cette même vitesse ? <br> `
-    texteCorr += `${numAlpha(1)} ${distance} c'est ${texteEnCouleur(texNombrec(rapportQuestion2[alea3]))} fois ${texNombrec(liste[alea1].vitesse[alea2])} km.
+    texte += `<br> ${numAlpha(1)} Combien de temps va-t-il mettre pour parcourir ${distance} km à cette même vitesse ? ` + ajouteChampTexteMathLive(exo, i + 1, 'largeur25  inline', { texteApres: ' minutes' })
+    texteCorr += `<br> ${numAlpha(1)} ${distance} c'est ${texteEnCouleur(texNombrec(rapportQuestion2[alea3]))} fois ${texNombrec(liste[alea1].vitesse[alea2])} km.
 Il parcourt ${texNombrec(liste[alea1].vitesse[alea2])} km en une heure. <br>` +
 `Il va mettre donc ${texteEnCouleur(texNombrec(rapportQuestion2[alea3]))} fois une heure à parcourir ${distance} km <br>` +
 texteEnCouleurEtGras(`Conclusion : Il va donc mettre  ${texNombrec(rapportQuestion2[alea3])} heure(s) ( ${texNombrec(rapportQuestion2[alea3])} $\\times$ 1 ) à parcourir ${distance} km  ce qui fait ${calcul(rapportQuestion2[alea3] * 60)} minutes.`, 'black')
@@ -385,7 +575,7 @@ texteEnCouleurEtGras(`Conclusion : Il va donc mettre  ${texNombrec(rapportQuesti
   }
 }
 
-function questionEchelle () { // X cm sur une carte correspond à x km dans la réalité...
+function questionEchelle (exo, i) { // X cm sur une carte correspond à x km dans la réalité...
   let texte, texteCorr
   const distanceCarte = couplePremiersEntreEux[indexN][0] // Choix d'un nombre de cm sur la carte
   const distanceReel = couplePremiersEntreEux[indexN][1] // Choix d'un nombre de km dans la réalité (on évite d'avoir 1cm pour 1km)
@@ -395,18 +585,62 @@ function questionEchelle () { // X cm sur une carte correspond à x km dans la r
   if (versionSimplifiee) { rapport[alea1] = randint(2, 5); rapport[alea2] = randint(2, 5, [rapport[alea1]]) }
   const distanceCarte2 = texNombrec(calcul(rapport[alea1] * distanceCarte))
   const distanceReelQ2 = texNombrec(calcul(rapport[alea2] * distanceReel))
+  if (!context.isAmc) {
+    setReponse(exo, i, calcul(rapport[alea1] * distanceReel))
+    setReponse(exo, i + 1, calcul(rapport[alea2] * distanceCarte))
+  } else {
+    exo.autoCorrection[i] = {
+      enonce: texte,
+      propositions: [
+        {
+          type: 'AMCNum',
+          propositions: [{
+            texte: texteCorr,
+            statut: '',
+            reponse: {
+              texte: 'a) ',
+              valeur: calcul(rapport[alea1] * distanceReel),
+              param: {
+                digits: nombreDeChiffresDe(calcul(rapport[alea1] * distanceReel)),
+                decimals: nombreDeChiffresDansLaPartieDecimale(calcul(rapport[alea1] * distanceReel)),
+                signe: false,
+                approx: 0
+              }
+            }
+          }]
+        },
+        {
+          type: 'AMCNum',
+          propositions: [{
+            texte: '',
+            statut: '',
+            reponse: {
+              texte: 'b) ',
+              valeur: calcul(rapport[alea2] * distanceCarte),
+              param: {
+                digits: nombreDeChiffresDe(calcul(rapport[alea2] * distanceCarte)),
+                decimals: nombreDeChiffresDansLaPartieDecimale(calcul(rapport[alea2] * distanceCarte)),
+                signe: false,
+                approx: 0
+              }
+            }
+          }]
+        }
+      ]
+    }
+  }
   const prenoms = [prenomF(), prenomM()]
   texte = `${numAlpha(0)} Sur une carte sur laquelle ${distanceCarte} cm représente ${distanceReel} km dans la réalité, <br>
 ${prenoms[0]} mesure son trajet, elle trouve une distance de ${distanceCarte2} cm. <br>` +
-'A quelle distance cela correspond dans la réalité ? <br><br>'
+'A quelle distance cela correspond dans la réalité ? ' + ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' km' })
   texteCorr = `${numAlpha(0)} ${distanceCarte2} cm c'est ${texteEnCouleur(texNombrec(rapport[alea1]))} fois ${distanceCarte} cm <br>
 Dans la réalité, ${distanceCarte} cm correspond à ${texteEnCouleur(distanceReel, 'blue')} km donc <br>` +
 `  ${distanceCarte2} cm va correspondre à ${texteEnCouleur(texNombrec(rapport[alea1]))} fois ${texteEnCouleur(distanceReel, 'blue')} km  <br>` +
 `${texteEnCouleur(texNombrec(rapport[alea1]))} $\\times$ ${texteEnCouleur(distanceReel, 'blue')} km = ${texNombrec(calcul(rapport[alea1] * distanceReel))} km <br>` +
 texteEnCouleurEtGras(`Conclusion : le trajet de ${prenoms[0]} est de ${texNombrec(calcul(rapport[alea1] * distanceReel))} km.`, 'black') + '<br><br>'
-  texte += `${numAlpha(1)} Deux villes sont distantes de ${distanceReelQ2} km. <br>` +
-'Quelle distance va-t-on mesurer sur la carte entre ces deux villes ?'
-  texteCorr += `${numAlpha(1)} ${distanceReelQ2} km c'est ${texteEnCouleur(texNombrec(rapport[alea2]))} fois ${distanceReel} km.
+  texte += `<br> ${numAlpha(1)} Deux villes sont distantes de ${distanceReelQ2} km. <br>` +
+  'Quelle distance va-t-on mesurer sur la carte entre ces deux villes ?' + ajouteChampTexteMathLive(exo, i + 1, 'largeur25  inline', { texteApres: ' cm' })
+  texteCorr += `<br> ${numAlpha(1)} ${distanceReelQ2} km c'est ${texteEnCouleur(texNombrec(rapport[alea2]))} fois ${distanceReel} km.
 Or ${distanceReel} km est représenté par ${texteEnCouleur(distanceCarte, 'blue')} cm sur la carte. <br>` +
 `Donc ${distanceReelQ2} km est représenté par ${texteEnCouleur(texNombrec(rapport[alea2]))} fois ${texteEnCouleur(distanceCarte, 'blue')} cm sur la carte <br>` +
 `${texteEnCouleur(texNombrec(rapport[alea2]))} $\\times$ ${texteEnCouleur(distanceCarte, 'blue')} cm = ${texNombrec(calcul(rapport[alea2] * distanceCarte))} cm <br>` +
@@ -417,7 +651,7 @@ texteEnCouleurEtGras(`Conclusion : Les deux villes sont séparées de ${texNombr
   }
 }
 
-function questionRecouvrirSurface () { // peinture, gazon, carrelage pour une surface donnée.
+function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour une surface donnée.
   let texte, texteCorr
   const liste = [
     {
@@ -449,12 +683,38 @@ function questionRecouvrirSurface () { // peinture, gazon, carrelage pour une su
     const surfaceF = calcul(surfaceD * coef)
     alea1 = 2 // Pour avoir un coef entier, qtt_matiere_unitaire doit être plus grand que qtt_surface, ce qui n'est possible qu'avec les carreaux
     texte = `${prenoms[0]} doit acheter ${liste[alea1].matiere}. <br>` +
-`Sur la notice il est indiqué de prévoir ${quantiteD} ${liste[alea1].unite} pour ${surfaceD} m$^2$ <br> ` +
-`Combien doit-elle en acheter pour une surface de ${surfaceF} m$^2$ ? <br>`
-    texteCorr = `${texNombrec(surfaceF)} $m^2$ c'est ${texteEnCouleur(coef)} fois ${surfaceD} $m^2$ <br>` +
-`Il va donc falloir ${texteEnCouleur(coef)} fois ${texteEnCouleur(quantiteD, 'blue')} ${liste[alea1].unite} pour ${texNombrec(surfaceF)} $m^2$ <br>` +
+`Sur la notice il est indiqué de prévoir ${quantiteD} ${liste[alea1].unite} pour ${surfaceD} m${exposant(2)} <br> ` +
+`Combien doit-elle en acheter pour une surface de ${surfaceF} m${exposant(2)} ? ` + ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' ' + liste[alea1].unite })
+    texteCorr = `${texNombrec(surfaceF)} m${exposant(2)} c'est ${texteEnCouleur(coef)} fois ${surfaceD} m${exposant(2)} <br>` +
+`Il va donc falloir ${texteEnCouleur(coef)} fois ${texteEnCouleur(quantiteD, 'blue')} ${liste[alea1].unite} pour ${texNombrec(surfaceF)} m${exposant(2)} <br>` +
 `${texteEnCouleur(coef)} $\\times$ ${texteEnCouleur(quantiteD, 'blue')} ${liste[alea1].unite} = ${texNombrec(quantiteF)} ${liste[alea1].unite}<br>` +
 texteEnCouleurEtGras(`Conclusion : elle doit en acheter ${quantiteF} ${liste[alea1].unite}.`, 'black') + '<br>  '
+    if (!context.isAmc) {
+      setReponse(exo, i, quantiteF)
+    } else {
+      exo.autoCorrection[i] = {
+        enonce: texte,
+        propositions: [
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: texteCorr,
+              statut: '',
+              reponse: {
+                texte: 'a) ',
+                valeur: quantiteF,
+                param: {
+                  digits: nombreDeChiffresDe(quantiteF),
+                  decimals: nombreDeChiffresDansLaPartieDecimale(quantiteF),
+                  signe: false,
+                  approx: 0
+                }
+              }
+            }]
+          }
+        ]
+      }
+    }
   } else {
     const alea2 = randint(0, liste[alea1].qtt_matiere_unitaire.length - 1)
     const alea3 = randint(0, liste[alea1].qtt_surface.length - 1)
@@ -468,22 +728,90 @@ texteEnCouleurEtGras(`Conclusion : elle doit en acheter ${quantiteF} ${liste[ale
     const surfaceFinale2 = calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3] + alea6)
     const qttaffichage = texNombrec(quantite) // Pour affichage avec virgule en séparateur.
     texte = `${numAlpha(0)} ${prenoms[0]} doit acheter ${liste[alea1].matiere}. <br>` +
-`Sur la notice il est indiqué de prévoir ${qttaffichage} ${liste[alea1].unite} pour ${liste[alea1].qtt_surface[alea3]} m$^2$ <br> ` +
-`Combien doit-elle en acheter pour une surface de $${texNombrec(surfaceFinale)}$ m$^2$ ? <br>`
-    texteCorr = `${numAlpha(0)} $${texNombrec(surfaceFinale)}$ $m^2$ c'est ${texteEnCouleur(texNombrec(rapport[alea4]))} fois ${liste[alea1].qtt_surface[alea3]} $m^2$ <br>` +
-`Il va donc falloir ${texteEnCouleur(texNombrec(rapport[alea4]))} fois ${texteEnCouleur(qttaffichage, 'blue')} ${liste[alea1].unite} pour $${texNombrec(surfaceFinale)}$ $m^2$ <br>` +
+`Sur la notice il est indiqué de prévoir ${qttaffichage} ${liste[alea1].unite} pour ${liste[alea1].qtt_surface[alea3]} m${exposant(2)} <br> ` +
+`Combien doit-elle en acheter pour une surface de $${texNombrec(surfaceFinale)}$ m${exposant(2)} ? ` + ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' ' + liste[alea1].unite })
+    texteCorr = `${numAlpha(0)} $${texNombrec(surfaceFinale)}$ m${exposant(2)} c'est ${texteEnCouleur(texNombrec(rapport[alea4]))} fois ${liste[alea1].qtt_surface[alea3]} m${exposant(2)} <br>` +
+`Il va donc falloir ${texteEnCouleur(texNombrec(rapport[alea4]))} fois ${texteEnCouleur(qttaffichage, 'blue')} ${liste[alea1].unite} pour $${texNombrec(surfaceFinale)}$ m${exposant(2)} <br>` +
 `${texteEnCouleur(texNombrec(rapport[alea4]))} $\\times$ ${texteEnCouleur(qttaffichage, 'blue')} ${liste[alea1].unite} = ${texNombrec(calcul(rapport[alea4] * quantite))} ${liste[alea1].unite}<br>` +
 texteEnCouleurEtGras(`Conclusion : elle doit en acheter ${texteEnCouleur(texNombrec(rapport[alea4]))} $\\times$ ${texteEnCouleur(qttaffichage, 'blue')} ${liste[alea1].unite} = ${texNombrec(calcul(rapport[alea4] * quantite))} ${liste[alea1].unite}.`, 'black') + '<br>  '
-    texte += `<br> ${numAlpha(1)} ${prenoms[1]} a acheté ${liste[alea1].matiere}. Il lui en reste ${texNombrec(quantite2)} ${liste[alea1].unite}. <br> Sur la notice il est indiqué de prévoir ${qttaffichage} ${liste[alea1].unite} pour ${texNombrec(liste[alea1].qtt_surface[alea3])} m$^2$ <br>` +
-`En a-t-il suffisament pour la surface de ${texNombrec(surfaceFinale2)} m$^2$ qu'il lui reste à faire ? <br>`
+    texte += `<br> ${numAlpha(1)} ${prenoms[1]} a acheté ${liste[alea1].matiere}. Il lui en reste ${texNombrec(quantite2)} ${liste[alea1].unite}. <br> Sur la notice il est indiqué de prévoir ${qttaffichage} ${liste[alea1].unite} pour ${texNombrec(liste[alea1].qtt_surface[alea3])} m${exposant(2)} <br>` +
+`En a-t-il suffisament pour la surface de ${texNombrec(surfaceFinale2)} m${exposant(2)} qu'il lui reste à faire ? ` + ajouteChampTexteMathLive(exo, i + 1, 'largeur25  inline', { texteApres: ' (oui ou non)' })
     texteCorr += `<br> ${numAlpha(1)} ${texNombrec(quantite2)} ${liste[alea1].unite} c'est ${texteEnCouleur(texNombrec(rapport[alea5]))} fois ${qttaffichage} ${liste[alea1].unite}. <br>` +
 `avec ${texNombrec(quantite2)} ${liste[alea1].unite} on peut donc traiter une surface de ${texteEnCouleur(texNombrec(rapport[alea5]))}
-fois ${texteEnCouleur(texNombrec(liste[alea1].qtt_surface[alea3]), 'blue')} m$^2$ <br>` +
-`${texteEnCouleur(texNombrec(rapport[alea5]))} $\\times$ ${texteEnCouleur(texNombrec(liste[alea1].qtt_surface[alea3]), 'blue')} m$^2$ = ${texNombrec(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3]))} m$^2$. <br>`
+fois ${texteEnCouleur(texNombrec(liste[alea1].qtt_surface[alea3]), 'blue')} m${exposant(2)} <br>` +
+`${texteEnCouleur(texNombrec(rapport[alea5]))} $\\times$ ${texteEnCouleur(texNombrec(liste[alea1].qtt_surface[alea3]), 'blue')} m${exposant(2)} = ${texNombrec(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3]))} m${exposant(2)}. <br>`
     if (calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3]) > surfaceFinale2) {
-      texteCorr += texteEnCouleurEtGras(`Conclusion : ${texNombrec(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3]))} m$^2$ > ${texNombrec(surfaceFinale2)} $m^2$ donc il a suffisament pour ${surfaceFinale2} m$^2$.`, 'black') + ' <br>'
+      texteCorr += texteEnCouleurEtGras(`Conclusion : ${texNombrec(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3]))} m${exposant(2)} > ${texNombrec(surfaceFinale2)} m${exposant(2)} donc il a suffisament pour ${surfaceFinale2} m${exposant(2)}.`, 'black') + ' <br>'
+      if (!context.isAmc) {
+        setReponse(exo, i, calcul(rapport[alea4] * quantite))
+        setReponse(exo, i + 1, 'oui')
+      } else {
+        exo.autoCorrection[i] = {
+          enonce: texte,
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: texteCorr,
+                statut: '',
+                reponse: {
+                  texte: 'a) ',
+                  valeur: calcul(rapport[alea4] * quantite),
+                  param: {
+                    digits: nombreDeChiffresDe(calcul(rapport[alea4] * quantite)),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(calcul(rapport[alea4] * quantite)),
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCOpen',
+              propositions: [{
+                texte: 'b)',
+                statut: 3
+              }]
+            }
+          ]
+        }
+      }
     } else {
-      texteCorr += texteEnCouleurEtGras(`Conclusion : ${texNombrec(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3]))} m$^2$ < ${texNombrec(surfaceFinale2)} $m^2$ donc il n'a pas assez pour ${surfaceFinale2} m$^2$.`, 'black') + ' <br>'
+      texteCorr += texteEnCouleurEtGras(`Conclusion : ${texNombrec(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3]))} m${exposant(2)} < ${texNombrec(surfaceFinale2)} m${exposant(2)} donc il n'a pas assez pour ${surfaceFinale2} m${exposant(2)}.`, 'black') + ' <br>'
+      if (!context.isAmc) {
+        setReponse(exo, i, calcul(rapport[alea4] * quantite))
+        setReponse(exo, i + 1, 'non')
+      } else {
+        exo.autoCorrection[i] = {
+          enonce: texte,
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: texteCorr,
+                statut: '',
+                reponse: {
+                  texte: 'a) ',
+                  valeur: calcul(rapport[alea4] * quantite),
+                  param: {
+                    digits: nombreDeChiffresDe(calcul(rapport[alea4] * quantite)),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(calcul(rapport[alea4] * quantite)),
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCOpen',
+              propositions: [{
+                texte: '',
+                statut: 3
+              }]
+            }
+          ]
+        }
+      }
     }
   }
   return {
@@ -508,6 +836,7 @@ export default function ProportionnaliteParLinearite () {
   this.sup = false
   this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Achat.\n2 : Recette.\n3 : Dilution.\n4 : Distance.\n5 : Echelle.\n6 : Surface.']
   this.nouvelleVersion = function () {
+    let indiceQuestion = 0
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeIndexSituationsDisponible = []
@@ -533,22 +862,56 @@ export default function ProportionnaliteParLinearite () {
       }
       switch (parseInt(listeIndexSituations[i])) {
         case 1:
-          question = questionAchat()
+          question = questionAchat(this, indiceQuestion)
+          if (!context.isAmc) {
+            indiceQuestion += 2
+          } else {
+            indiceQuestion++
+          }
           break
         case 2:
-          question = questionRecette()
+          question = questionRecette(this, indiceQuestion)
+          if (!context.isAmc) {
+            indiceQuestion += 2
+          } else {
+            indiceQuestion++
+          }
           break
         case 3:
-          question = questionDillution()
+          question = questionDillution(this, indiceQuestion)
+          indiceQuestion++
           break
         case 4:
-          question = questionDistance()
+          question = questionDistance(this, indiceQuestion)
+          if (versionSimplifiee) {
+            indiceQuestion++
+          } else {
+            if (!context.isAmc) {
+              indiceQuestion += 2
+            } else {
+              indiceQuestion++
+            }
+          }
           break
         case 5:
-          question = questionEchelle()
+          question = questionEchelle(this, indiceQuestion)
+          if (!context.isAmc) {
+            indiceQuestion += 2
+          } else {
+            indiceQuestion++
+          }
           break
         case 6:
-          question = questionRecouvrirSurface()
+          question = questionRecouvrirSurface(this, indiceQuestion)
+          if (versionSimplifiee) {
+            indiceQuestion++
+          } else {
+            if (!context.isAmc) {
+              indiceQuestion += 2
+            } else {
+              indiceQuestion++
+            }
+          }
           break
       }
       if (this.listeQuestions.indexOf(question.qtexte) === -1) { // Si la question n'a jamais été posée, on la garde.

@@ -26,7 +26,9 @@ export default function NomExercice () {
       texte = `$${a} + 1 $` // Le LateX entre deux symboles $, les variables dans des ${ }
       texteCorr = `$${a} + 1 = ${a + 1}$`
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
+      // Si la question n'a jamais été posée, on l'enregistre
+      if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+        // Ici, a est utilisée mais pas b, c et d, alors supprime ces trois derniers !
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

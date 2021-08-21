@@ -117,7 +117,9 @@ export default function NomExercice () {
       texte += mathalea2d(paramsEnonce, objetsEnonce) + mathalea2d(paramsEnonceml, objetsEnonceml)
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      // Si la question n'a jamais été posée, on l'enregistre
+      if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+        // Dans cet exercice, on n'utilise pas a, b, c et d mais A, B, C et D alors remplace-les !
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

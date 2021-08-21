@@ -11,7 +11,7 @@ const boutonMAJ = () => {
 }
 
 const boutonVerifQuestion = (id) => {
-  const btn = create('button', { class: 'btn ui icon button', id })
+  const btn = create('button', { class: 'btn ui icon button', id, style: 'display: block; marginTop:10px; marginBottom:10px' })
   btn.innerHTML = 'Valider'
   return btn
 }
@@ -70,7 +70,7 @@ const affichageUniquementQuestion = (i) => {
     correction.style.display = 'none'
   }
   if (i !== undefined) {
-    context.questionCanEnCours = 1
+    context.questionCanEnCours = i + 1
     questions[i].style.display = 'block'
     const exercice = questions[i].parentElement.parentElement
     exercice.style.display = 'block'
@@ -86,6 +86,17 @@ const affichageUniquementQuestion = (i) => {
     if (inputs[i].tagName !== 'MATH-FIELD') {
       inputs[i].select()
     }
+  }
+  // Gestion du bouton 'Entrée' pour aller à l'exercice suivant
+  if (!context.enterHasListenner) {
+    window.addEventListener('keyup', (e) => {
+      if (e.keyCode === 13) {
+        e.preventDefault()
+        const listeBoutonsValider = document.querySelectorAll('[id^=boutonVerifex]')
+        listeBoutonsValider[context.questionCanEnCours - 1].click()
+      }
+    })
+    context.enterHasListenner = true
   }
 }
 

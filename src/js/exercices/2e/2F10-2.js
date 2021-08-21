@@ -1,8 +1,14 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, abs, pgcd, texteEnCouleurEtGras, texFraction, miseEnEvidence, ecritureAlgebrique, texFractionReduite } from '../../modules/outils.js'
 import { repere2, droite, mathalea2d, point, tracePoint, segment, texteParPosition, latexParPoint, vecteur, translation, homothetie } from '../../modules/2d.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Lecture graphique d’une fonction affine'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
 
@@ -53,6 +59,50 @@ export default function lecturefonctionaffine () {
           xmax: 6,
           ymax: 6
         }, r, c, o)// On trace le graphique
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: `$f(x)=${reduireAxPlusB(a, b)}$`,
+                  statut: '',
+                  reponse: {
+                    texte: 'coefficient a de $y=ax+b$',
+                    valeur: a,
+                    param: {
+                      digits: 1,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur b de $y=ax+b$',
+                    valeur: b,
+                    param: {
+                      digits: 1,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
+        } else if (this.interactif) {
+          texte += '<br>$f(x) =$' + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+          setReponse(this, i, `${reduireAxPlusB(a, b)}`)
+        }
 
         texteCorr = 'On sait que l\'expression algébrique d\'une fonction affine est de la forme :$f(x)=ax+b$, avec $a$ et $b$ deux réels.<br>'
         texteCorr += 'Le premier coefficient qu\'on peut facilement lire graphiquement est $b$, l\'ordonnée à l\'origine de la droite.<br>'
@@ -118,6 +168,67 @@ export default function lecturefonctionaffine () {
 
         if (b !== 0) { texteCorr += `${ecritureAlgebrique(b)}` }
         texteCorr += '$.<br>'
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: `$${texFractionReduite(a, d)}x${ecritureAlgebrique(b)}$`,
+                  statut: '',
+                  reponse: {
+                    texte: 'numérateur (signé) n de $y=\\dfrac{n}{d}x+b$',
+                    valeur: a,
+                    param: {
+                      digits: 1,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'dénominateur d de $y=\\dfrac{n}{d}x+b$',
+                    valeur: d,
+                    param: {
+                      digits: 1,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur b de $y=ax+b$',
+                    valeur: b,
+                    param: {
+                      digits: 1,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
+        } else if (this.interactif && !context.isAmc) {
+          texte += '<br>$y =$' + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+          setReponse(this, i, `${texFractionReduite(a, d)}x${ecritureAlgebrique(b)}`)
+        }
         if (a > 0) {
           s1 = segment(0, b - a, -d, b - a, 'blue')
           s2 = segment(0, b - a, 0, b, 'green')
@@ -148,7 +259,7 @@ export default function lecturefonctionaffine () {
         }// On trace le graphique
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

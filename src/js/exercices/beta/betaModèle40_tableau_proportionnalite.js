@@ -33,7 +33,8 @@ export default function NomExercice () {
       texte = 'Question sur le tableau suivant <br>'
       texte += mathalea2d({ xmin: -1, xmax: 22, ymin: -7, ymax: 8 }, monTableau)
       texteCorr = 'Correction'
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      // Si la question n'a jamais été posée, on l'enregistre
+      if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

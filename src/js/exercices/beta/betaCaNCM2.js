@@ -1,9 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1 } from '../../modules/outils.js'
-import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-import Fraction from '../../modules/Fraction.js'
-import Grandeur from '../../modules/Grandeur.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, calcul, texNombrec, texNombre, combinaisonListesSansChangerOrdre, range1 } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Course aux nombres CM2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,7 +29,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let a, b, c, d, resultat, propositions
+    let a, b, c, resultat
     let questions = []
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
@@ -52,23 +49,6 @@ export default function CourseAuxNombresCM (numeroExercice) {
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
     console.log(listeIndex)
-    const fruits = [
-      ['pêches', 4, 10, 30],
-      ['Noix', 5, 4, 13],
-      ['cerises', 6, 11, 20],
-      ['pommes', 2, 20, 40],
-      ['framboises', 15, 1, 5],
-      ['fraises', 7, 5, 10],
-      ['citrons', 1.5, 15, 30],
-      ['bananes', 1.5, 15, 25]
-    ]
-    const hauteurs = [
-      ['chaise', 75, 115, 'cm'],
-      ['grue', 120, 250, 'dm'],
-      ['tour', 50, 180, 'm'],
-      ['girafe', 40, 50, 'dm'],
-      ['coline', 75, 150, 'm']
-    ]
     const typeQuestionsDisponibles = [ // les dix premières sont communes à betaCaNCM1
       'q1', // Somme d'entiers\n
       'q2', // Différence d'entiers\n

@@ -1,12 +1,13 @@
 /* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
-import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
+import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGoTab } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
 import { mg32DisplayAll } from './modules/mathgraph'
 import { messageUtilisateur } from './modules/messages.js'
-import { exerciceInteractif } from './modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, exerciceInteractif, setReponse } from './modules/gestionInteractif.js'
+import Exercice from './exercices/Exercice.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
@@ -275,6 +276,36 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       },'${numeroExercice - 1}')</h3>`
       contenuUneCorrection += `<img width="90%" src="${obj.pngcor}">`
       obj.video = false
+    } else if (obj.typeExercice === 'simple') {
+      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
+      contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
+      if (obj.consigne) {
+        contenuUnExercice += `<h4> ${obj.consigne} </h4>`
+      }
+      contenuUnExercice += '<ol>'
+      contenuUneCorrection += '<ol>'
+      for (let numQuestion = 0, cpt = 0; numQuestion < obj.nbQuestions && cpt < 50; cpt++) {
+        try {
+          obj.nouvelleVersion()
+        } catch (error) {
+          console.log(error)
+        }
+        if (obj.questionJamaisPosee(numQuestion, obj.question)) {
+          contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}`
+          if (obj.interactif && obj.interactifReady) {
+            contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion)
+          }
+          contenuUnExercice += '</li>'
+          setReponse(obj, numQuestion, obj.reponse)
+          contenuUneCorrection += `<li class="correction">${obj.correction}</li>`
+          numQuestion++
+        }
+      }
+      contenuUnExercice += '</ol>'
+      contenuUnExercice += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
+      if (obj.interactif || obj.interactifObligatoire) {
+        exerciceInteractif(obj)
+      }
     } else {
       try {
         obj.nouvelleVersion(numeroExercice - 1)
@@ -352,6 +383,16 @@ function miseAJourDuCode () {
   }
   if (document.getElementById('btnCan') !== null) {
     tousLesExercicesSontInteractifs ? document.getElementById('btnCan').classList.remove('disabled') : document.getElementById('btnCan').classList.add('disabled')
+  }
+
+  const btn1Question = document.getElementById('btn1Question')
+  if (btn1Question !== null) {
+    btn1Question.addEventListener('click', () => {
+      for (let i = 0; i < listeObjetsExercice.length; i++) {
+        listeObjetsExercice[i].nbQuestions = 1
+        miseAJourDuCode()
+      }
+    })
   }
 
   window.MG32_tableau_de_figures = []
@@ -617,6 +658,9 @@ function miseAJourDuCode () {
       for (let i = 0; i < listeDesExercices.length; i++) {
         listeObjetsExercice[i].id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
         listeObjetsExercice[i].nouvelleVersion(i)
+        if (listeObjetsExercice[i].typeExercice === 'simple') {
+          exerciceSimpleToContenu(listeObjetsExercice[i])
+        }
         questions.push(listeObjetsExercice[i])
         if (typeof listeObjetsExercice[i].listePackages === 'string') {
           listePackages.add(listeObjetsExercice[i].listePackages)
@@ -757,6 +801,9 @@ function miseAJourDuCode () {
           if (listeObjetsExercice[i].pasDeVersionLatex) {
             messageUtilisateur({ code: 'noLatex', exercice: listeObjetsExercice[i].id })
           }
+          if (listeObjetsExercice[i].typeExercice === 'simple') {
+            exerciceSimpleToContenu(listeObjetsExercice[i])
+          }
           codeEnonces += listeObjetsExercice[i].contenu
           codeEnonces += '\n\n'
           codeCorrections += listeObjetsExercice[i].contenuCorrection
@@ -768,6 +815,32 @@ function miseAJourDuCode () {
             listeObjetsExercice[i].listePackages.forEach(listePackages.add, listePackages)
           }
         }
+      }
+      function concatExercices (listeObjetsExercice) {
+        const monSuperExercice = new Exercice()
+        monSuperExercice.id = ''
+        monSuperExercice.nbCols = 2
+        monSuperExercice.nbColsCorr = 2
+        monSuperExercice.listeQuestions = []
+        monSuperExercice.listeCorrections = []
+        for (const exercice of listeObjetsExercice) {
+          exercice.nouvelleVersion()
+          if (exercice.typeExercice === 'simple') {
+            exerciceSimpleToContenu(exercice)
+          // Comment gérer les exercices où la consigne est importante dans la présentation CAN ?
+          } else {
+            exercice.listeQuestions[0] = exercice.consigne + '\n\n' + exercice.listeQuestions[0]
+          }
+          monSuperExercice.listeQuestions = [...monSuperExercice.listeQuestions, ...exercice.listeQuestions]
+          monSuperExercice.listeCorrections = [...monSuperExercice.listeCorrections, ...exercice.listeCorrections]
+        }
+        listeQuestionsToContenu(monSuperExercice)
+        return monSuperExercice
+      }
+      if ($('#style_can:checked').val()) {
+        const monSuperExercice = concatExercices(listeObjetsExercice)
+        codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', '\\begin{enumerate}[itemsep=1em]')
+        codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
       }
       if ($('#supprimer_correction:checked').val()) {
         codeLatex = codeEnonces
@@ -790,16 +863,27 @@ function miseAJourDuCode () {
         for (let v = 0; v < $('#nombre_de_versions').val(); v++) {
           codeExercices += '\\version{' + (v + 1) + '}\n\n'
           codeCorrection += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
-          for (let i = 0; i < listeDesExercices.length; i++) {
-            listeObjetsExercice[i].nouvelleVersion()
-            codeExercices += listeObjetsExercice[i].contenu
+          if ($('#style_can:checked').val()) {
+            const monSuperExercice = concatExercices(listeObjetsExercice)
+            codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', '\\begin{enumerate}[itemsep=1em]')
             codeExercices += '\n\n'
-            codeCorrection += listeObjetsExercice[i].contenuCorrection
+            codeCorrection += monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
             codeCorrection += '\n\n'
+          } else {
+            for (let i = 0; i < listeDesExercices.length; i++) {
+              listeObjetsExercice[i].nouvelleVersion()
+              codeExercices += listeObjetsExercice[i].contenu
+              codeExercices += '\n\n'
+              codeCorrection += listeObjetsExercice[i].contenuCorrection
+              codeCorrection += '\n\n'
+            }
           }
           if (v < $('#nombre_de_versions').val() - 1) {
             if ($('#style_classique:checked').val()) {
               codeExercices += '\n\\newpage\n\\setcounter{exo}{0}\n'
+            } else if ($('#style_can:checked').val()) {
+              codeExercices += '\n\\newpage\n\\setcounter{exo}{0}\n'
+              codeExercices += '\n\\thispagestyle{premierePage}\n'
             } else {
               codeExercices += '\n\\newpage\n\\setcounter{section}{0}\n'
             }
@@ -853,6 +937,11 @@ function miseAJourDuCode () {
           ).val()}}\n\\fancyhead[L]{}`
           contenuFichier += '\\fancyhead[R]{}\n\\renewcommand{\\footrulewidth}{1pt}\n\\fancyfoot[C]{}\n\\fancyfoot[L]{}\n\\fancyfoot[R]{}\n\n'
           contenuFichier += '\\begin{document}\n\n' + codeLatex + '\n\n\\end{document}'
+        } else if ($('#style_can:checked').val()) {
+          contenuFichier += '\\documentclass[a5paper,11pt,fleqn]{article}\n'
+          contenuFichier += `\\input{preambule}\n\\pagestyle{empty}
+          ${$('#entete_du_fichier').val()}}`
+          contenuFichier += '\\begin{document}\n\n' + codeLatex + '\n\n\\end{document}'
         } else {
           contenuFichier += '\\documentclass[a4paper,11pt,fleqn]{article}\n\\input{preambule_coop}\n'
           contenuFichier += '\\theme{' + $('input[name=theme]:checked').val() + '}{' + $('#entete_du_fichier').val() + '}'
@@ -886,6 +975,8 @@ function miseAJourDuCode () {
 
         if ($('#style_classique:checked').val()) {
           contenuFichier += introLatex($('#entete_du_fichier').val(), listePackages) + codeLatex + '\n\n\\end{document}'
+        } else if ($('#style_can:checked').val()) {
+          contenuFichier += introLatexCan($('#entete_du_fichier').val(), listePackages) + codeLatex + '\n\n\\end{document}'
         } else {
           contenuFichier += introLatexCoop(listePackages)
           contenuFichier += '\n\n\\theme{' + $('input[name=theme]:checked').val() + '}{' + $('#entete_du_fichier').val() + '}'
@@ -913,7 +1004,7 @@ function miseAJourDuCode () {
     $('a.lien_images').show()
     $(function () {
       $("input:radio[name='style']").change(function () {
-        if ($('#style_classique:checked').val()) {
+        if ($('#style_classique:checked').val() || $('#style_can:checked').val()) {
           $('#options_style_CoopMaths').hide()
           $('a.lien_preambule').attr('href', 'fichiers/preambule.tex')
           $('a.lien_images').hide()
@@ -1731,9 +1822,26 @@ function parametresExercice (exercice) {
 
       // Gestion du changement de style
       const btnRadioStyleClassique = document.getElementById('style_classique')
-      btnRadioStyleClassique.addEventListener('change', miseAJourDuCode)
+      btnRadioStyleClassique.addEventListener('change', () => {
+        if ($('#entete_du_fichier').val() === '' || $('#entete_du_fichier').val() === 'Course aux nombres') {
+          $('#entete_du_fichier').val('Exercices')
+        }
+        miseAJourDuCode()
+      })
+      const btnRadioStyleCan = document.getElementById('style_can')
+      btnRadioStyleCan.addEventListener('change', () => {
+        if ($('#entete_du_fichier').val() === '' || $('#entete_du_fichier').val() === 'Exercices') {
+          $('#entete_du_fichier').val('Course aux nombres')
+        }
+        miseAJourDuCode()
+      })
       const btnRadioStyleCoopMaths = document.getElementById('style_CoopMaths')
-      btnRadioStyleCoopMaths.addEventListener('change', miseAJourDuCode)
+      btnRadioStyleCoopMaths.addEventListener('change', () => {
+        if ($('#entete_du_fichier').val() === '' || $('#entete_du_fichier').val() === 'Course aux nombres') {
+          $('#entete_du_fichier').val('Exercices')
+        }
+        miseAJourDuCode()
+      })
     }
 
     // Gestion du nombre de questions

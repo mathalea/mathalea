@@ -21,7 +21,7 @@ const epsilon = 0.000001
 export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`)
-    if (exercice.interactif) {
+    if (exercice.interactif && exercice.interactifReady) {
       exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr, 'correction')
@@ -39,6 +39,19 @@ export function listeQuestionsToContenu (exercice) {
     }
     exercice.contenuCorrection = texConsigne('') + texIntroduction(exercice.consigneCorrection) + texMulticols(texEnumerate(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
   }
+}
+
+export function exerciceSimpleToContenu (exercice) {
+  const listeQuestions = []
+  const listeCorrections = []
+  for (let i = 0; i < exercice.nbQuestions; i++) {
+    listeQuestions.push(exercice.question)
+    listeCorrections.push(exercice.correction)
+    exercice.nouvelleVersion()
+  }
+  exercice.listeQuestions = listeQuestions
+  exercice.listeCorrections = listeCorrections
+  listeQuestionsToContenu(exercice)
 }
 
 /**
@@ -225,22 +238,7 @@ export function ecrireNombre2D (x, y, n) {
   }
   return nombre2D
 }
-/*
-Pour l'instant, je commente... Faut que je réfléchisse et que je prenne mon temps (que je n'ai pas actuellement)
-On verra ça plus tard. La nuit porte conseil.
-function ecrireAdditionPosee(x,y,...args){
-  let nString=[],n=[]
-  for (k=0;k<args.length;k++) {
-    nString.push(texNombre(args[k]))
-    n.push(args[k])
-  }
-  let nbChiffresPe=Math.log10(Math.floor(Math.max(n)))
 
-  for (let k=0;k<args.length;k++){
-
-  }
-}
-*/
 class NombreDecimal {
   constructor (nombre) {
     if (nombre < 0) {
@@ -404,7 +402,9 @@ export function enleveElement (array, item) {
 
 /**
  *
- * Compte les occurenes d'un item dans un tableau
+ * Compte les occurences d'un item dans un tableau
+ * @param {array} array
+ * @param item
  * @Author Rémi Angot
  */
 export function compteOccurences (array, value) {
@@ -590,6 +590,24 @@ export function enleveDoublonNum (arr, tolerance) {
     k++
   }
   return arr
+}
+/**
+ * fonction qui retourne une chaine construite en concaténant les arguments
+ * Le rôle de cette fonction est de construire un identifiant unique de question
+ * afin de contrôler que l'aléatoire ne produit pas deux questions identiques.
+ * @author Jean-Claude Lhote
+ */
+export function checkSum (...args) {
+  let checkString = ''
+  for (let i = 0; i < args.length; i++) {
+    if (typeof args[i] === 'number') {
+      checkString += Number(args[i]).toString()
+    } else {
+      checkString += args[0]
+    }
+  }
+  console.log(checkString)
+  return checkString
 }
 /**
 * Mélange les items d'un tableau, sans modifier le tableau passé en argument
@@ -2133,9 +2151,12 @@ export function htmlEnumerate (liste, spacing, classe = 'question', id = '') {
     }
     result += '</ol>'
   } else if (liste.length === 1) {
-    (spacing > 1) ? result = `<div style="line-height: ${spacing};">` : result = '<div>'
+    // Pour garder la même hiérarchie avec une ou plusieurs questions
+    // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
+    // Utile pour la vue can
+    (spacing > 1) ? result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''} style="line-height: ${spacing};">` : result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''}>`
     result += liste[0].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
-    result += '</div>'
+    result += '</div></div>'
   }
   return result
 }
@@ -5966,6 +5987,82 @@ ${preambulePersonnalise(listePackages)}
 
 `
 }
+/**
+* Renvoie un texte avec le préambule d'un fichier LaTeX
+* @param {string} Le titre de l'entête
+* @author Rémi Angot
+*/
+export function introLatexCan (entete = 'Course aux nombres', listePackages = '') {
+  if (entete === '') { entete = 'Course aux nombres' }
+  return `\\documentclass[12pt, landscape]{article}
+\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+\\usepackage[utf8]{inputenc}        
+\\usepackage[T1]{fontenc}
+\\usepackage[french]{babel}
+\\usepackage{multicol} 
+\\usepackage{calc} 
+\\usepackage{enumerate}
+\\usepackage{enumitem}
+\\usepackage{graphicx}
+\\usepackage{tabularx}
+%\\usepackage[autolanguage]{numprint}
+\\usepackage[autolanguage,np]{numprint}
+\\usepackage{hyperref}
+\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+\\usepackage{cancel}
+\\usepackage{textcomp}
+\\usepackage{gensymb}
+\\usepackage{eurosym}
+%\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
+\\usepackage{fancyhdr,lastpage}          
+\\pagestyle{fancy}                      
+\\usepackage{fancybox}
+\\usepackage{setspace}
+\\usepackage{colortbl}
+\\usepackage{xcolor}
+  \\definecolor{nombres}{cmyk}{0,.8,.95,0}
+  \\definecolor{gestion}{cmyk}{.75,1,.11,.12}
+  \\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
+  \\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
+  \\definecolor{geo}{cmyk}{.62,.1,0,0}
+  \\definecolor{algo}{cmyk}{.69,.02,.36,0}
+\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
+\\usepackage{pgf,tikz}
+\\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
+
+
+\\setlength{\\parindent}{0mm}
+\\renewcommand{\\arraystretch}{1.5}
+\\newcounter{exo}          
+\\setcounter{exo}{0}   
+\\newcommand{\\exo}[1]{
+  \\stepcounter{exo}        
+  \\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
+}
+\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}
+\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}
+\\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
+\\setlength{\\fboxsep}{3mm}
+\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{}
+\\fancyhead[C]{}
+\\fancyfoot{}
+\\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
+\\setlength{\\headheight}{14.5pt}
+
+\\fancypagestyle{premierePage}
+{
+  \\fancyhead[C]{\\textbf{${entete}}}
+
+}
+${preambulePersonnalise(listePackages)}
+
+
+\\begin{document}
+\\thispagestyle{premierePage}
+
+`
+}
 
 /**
 * Renvoie un texte avec le préambule d'un fichier LaTeX avec le style CoopMaths
@@ -6950,6 +7047,9 @@ export function exportQcmAmc (exercice, idExo) {
         /********************************************************************/
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
+        if (exercice.autoCorrection[j].propositions === undefined) {
+          exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '' }]
         }
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
           reponse = autoCorrection[j].reponse.valeur

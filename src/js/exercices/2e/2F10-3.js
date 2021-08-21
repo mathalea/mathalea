@@ -132,11 +132,11 @@ export default function representerfonctionaffine () {
           xmax: 8,
           ymax: 8
 
-        }, r, c, tA, lA, tB, lB, lC,o)
+        }, r, c, tA, lA, tB, lB, lC, o)
         // On trace le graphique
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, this.sup, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

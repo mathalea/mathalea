@@ -67,7 +67,12 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
     } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionEgale') {
-      saisieParsee = parse(saisie)
+      // Si l'utilisateur entre un entier n, on transforme en n/1
+      if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
+        saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
+      } else {
+        saisieParsee = parse(saisie)
+      }
       if (saisieParsee) {
         if (saisieParsee[0] === 'Negate') {
           signeF = -1
@@ -76,7 +81,7 @@ function verifQuestionMathLive (exercice, i) {
           signeF = 1
         }
         if (saisieParsee[1].num && saisieParsee[2].num) {
-          const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+          const fSaisie = new Fraction(parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
           if (fSaisie.egal(reponse)) resultat = 'OK'
         }
       }
@@ -196,17 +201,6 @@ function verifQuestionNumerique (exercice, i) {
 }
 
 function gestionCan (exercice) {
-  // Gestion du bouton 'Entrée' pour aller à l'exercice suivant
-  if (!context.enterHasListenner) {
-    window.addEventListener('keyup', (e) => {
-      if (e.keyCode === 13) {
-        e.preventDefault()
-        const listeBoutonsValider = document.querySelectorAll('[id^=boutonVerifex]')
-        listeBoutonsValider[context.questionCanEnCours - 1].click()
-      }
-    })
-    context.enterHasListenner = true
-  }
   for (const i in exercice.autoCorrection) {
     const button1question = document.querySelector(`#boutonVerifexercice${exercice.numeroExercice}Q${i}`)
     if (button1question) {
@@ -339,7 +333,7 @@ export function propositionsQcm (exercice, i) {
     }
     if (context.isHtml) {
       texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-      texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></span></form>`
+      texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
     }
   }
   return { texte: texte, texteCorr: texteCorr }
@@ -673,7 +667,7 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
         eleve2: userId[6],
         // eslint-disable-next-line no-unneeded-ternary
         isCan: getVueFromUrl() === 'can' ? 'oui' : 'non',
-        urlExos: document.location.href + 'serie=' + context.graine,
+        urlExos: document.location.href + '&serie=' + context.graine,
         exId: exercice.id,
         sup: exercice.sup,
         sup2: exercice.sup2,

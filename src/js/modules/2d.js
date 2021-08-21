@@ -483,7 +483,8 @@ export function pointAdistance (...args) {
  */
 function LabelPoint (...points) {
   ObjetMathalea2D.call(this)
-  this.taille = 1
+  if (!this.taille) this.taille = 10
+  if (!this.largeur) this.largeur = 10
   if (typeof points[points.length - 1] === 'string') {
     this.color = points[points.length - 1]
     points.length--
@@ -508,28 +509,28 @@ function LabelPoint (...points) {
       y = A.y
       switch (A.positionLabel) {
         case 'left':
-          code += latexParCoordonnees(A.nom, x - 10 / coeff, y, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x - 10 / coeff, y, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'right':
-          code += latexParCoordonnees(A.nom, x + 10 / coeff, y, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x + 10 / coeff, y, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'below':
-          code += latexParCoordonnees(A.nom, x, y - 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x, y - 10 / coeff, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'above':
-          code += latexParCoordonnees(A.nom, x, y + 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x, y + 10 / coeff, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'above right':
-          code += latexParCoordonnees(A.nom, x + 10 / coeff, y + 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x + 10 / coeff, y + 10 / coeff, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'below left':
-          code += latexParCoordonnees(A.nom, x - 10 / coeff, y - 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x - 10 / coeff, y - 10 / coeff, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'below right':
-          code += latexParCoordonnees(A.nom, x + 10 / coeff, y - 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x + 10 / coeff, y - 10 / coeff, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         default:
-          code += latexParCoordonnees(A.nom, x - 10 / coeff, y + 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x - 10 / coeff, y + 10 / coeff, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
       }
     }
@@ -5381,7 +5382,7 @@ function DroiteGraduee2 ({
   thickEpaisseur = 2, thickCouleur = axeCouleur, thickDistance = 1, thickOffset = 0, // Les caractéristiques des graduations principales
   thickSecDist = 0.1, thickSec = false, // Les caractéristiques des graduations secondaires. Pas de couleur, on joue sur l'opacité
   thickTerDist = 0.01, thickTer = false, // Les caractéristiques des graduations tertiaires. Pas de couleur, on joue sur l'opacité
-  pointListe = false, pointCouleur = 'blue', pointTaille = 4, pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2, // Liste de points et caractéristiques des points de ces points
+  pointListe = false, labelPointTaille = 10, labelPointLargeur = 10, pointCouleur = 'blue', pointTaille = 4, pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2, // Liste de points et caractéristiques des points de ces points
   labelsPrincipaux = true, labelsSecondaires = false, step1 = 1, step2 = 1,
   labelDistance = (axeHauteur + 10) / context.pixelsParCm,
   labelListe = false,
@@ -5396,7 +5397,7 @@ function DroiteGraduee2 ({
   this.Max = Max
 
   const objets = []; let S; let T; let P; let i
-  let longueurTotale = (Max - Min) * Unite + 1.1 // la longueur totale de l'axe flèche comprise
+  let longueurTotale = (Max - Min) * Unite + 0.5 // la longueur totale de l'axe flèche comprise
   let absord = [1, 0] // Constantes pour gérer la verticalité ou l'horizontalité de l'axe
   if (axePosition !== 'H') absord = [0, 1]
   // dessin de l'axe
@@ -5452,7 +5453,7 @@ function DroiteGraduee2 ({
   }
   if (labelsSecondaires) {
     for (let j = Min2; j <= Max2; j++) {
-      if (j % (step2 * pas2) === 0 && j % pas1 !== 0) {
+      if (j % (step2 * pas2) === 0 && j % (step1 * pas1) !== 0) {
         i = calcul((j - Min * factor) / factor)
         T = texteParPosition(`${nombreAvecEspace(arrondi(calcul(Min + i), 3))}`, x + i * Unite * absord[0] - labelDistance * absord[1], y + i * Unite * absord[1] - labelDistance * absord[0])
         objets.push(T)
@@ -5471,14 +5472,18 @@ function DroiteGraduee2 ({
     objets.push(texteParPosition(Legende, x + LegendePosition * absord[0], y + LegendePosition * absord[1]))
   }
   if (pointListe) {
+    let lab
     for (const p of pointListe) {
-      P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1], 'above')
+      P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1], 'center')
       T = tracePoint(P, pointCouleur)
       T.taille = pointTaille
       T.opacite = pointOpacite
       T.style = pointStyle
       T.epaisseur = pointEpaisseur
-      objets.push(T, labelPoint(P))
+      lab = labelPoint(P)
+      lab.taille = labelPointTaille
+      lab.largeur = labelPointLargeur
+      objets.push(T, lab)
     }
   }
 
@@ -7889,6 +7894,153 @@ export function courbe2 (...args) {
 }
 
 /**
+ * crée un objet correspondant au tracé de la fonction f de la classe Spline
+ * f devra être définie avant...
+ * @author Jean-Claude Lhote
+ */
+function CourbeSpline (f, {
+  repere = {},
+  color = 'black',
+  epaisseur = 2,
+  step = false,
+  xMin,
+  xMax,
+  yMin,
+  yMax,
+  xUnite = 1,
+  yUnite = 1,
+  traceNoeuds = true
+} = {}) {
+  ObjetMathalea2D.call(this)
+  const noeuds = []
+  let points = []
+  this.color = color
+  let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
+  if (typeof xMin === 'undefined') {
+    xmin = repere.xMin
+  } else xmin = xMin
+  if (typeof yMin === 'undefined') {
+    ymin = repere.yMin
+  } else ymin = yMin
+  if (typeof xMax === 'undefined') {
+    xmax = repere.xMax
+  } else xmax = xMax
+  if (typeof yMax === 'undefined') {
+    ymax = repere.yMax
+  } else ymax = yMax
+
+  xunite = repere.xUnite
+  yunite = repere.yUnite
+
+  if (isNaN(xunite)) { xunite = xUnite };
+  if (isNaN(yunite)) { yunite = yUnite };
+  const objets = []
+  if (traceNoeuds) {
+    for (let i = 0; i < f.x.length; i++) {
+      noeuds[i] = tracePoint(point(f.x[i], f.y[i]))
+      noeuds[i].color = 'black'
+      noeuds[i].taille = 3
+      noeuds[i].style = '+'
+      noeuds[i].epaisseur = 2
+      noeuds.opacite = 0.5
+      objets.push(noeuds[i])
+    }
+  }
+  let pas
+  let p, y
+  if (!step) {
+    pas = calcul(0.2 / xUnite)
+  } else {
+    pas = step
+  }
+  for (let x = xmin; inferieurouegal(x, xmax); x = calcul(x + pas)) {
+    y = f.image(x)
+    if (!isNaN(y)) {
+      if (y < ymax + 1 && y > ymin - 1) {
+        points.push(point(calcul(x * xunite), calcul(y * yunite)))
+      } else {
+        p = polyline([...points], this.color)
+        p.epaisseur = epaisseur
+        p.opacite = 0.7
+        objets.push(p)
+        points = []
+      }
+    } else {
+      x += 0.05
+    }
+  }
+  p = polyline([...points], this.color)
+  p.epaisseur = epaisseur
+  p.opacite = 0.7
+  objets.push(p)
+
+  // LES SORTIES TiKZ et SVG
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+}
+
+export function courbeSpline (...args) {
+  return new CourbeSpline(...args)
+}
+
+function CourbeInterpolee2 (
+  tableau,
+  color = 'black',
+  epaisseur = 2,
+  r = [1, 1],
+  xmin,
+  xmax
+) {
+  ObjetMathalea2D.call(this)
+  this.color = color
+  this.epaisseur = epaisseur
+
+  this.svg = function (coeff) {
+    let code = `<path d="M ${tableau[0][0] * coeff} ${-tableau[0][1] * coeff} L `
+    for (let i = 1; i < tableau.length; i++) {
+      code += `${arrondi(tableau[i][0] * coeff, 1)} ${-arrondi(tableau[i][1] * coeff, 1)} `
+    }
+    code += `" stroke="${this.color}" stroke-width="${this.epaisseur}" fill="transparent"  id="${this.id}" />`
+    return code
+  }
+  this.tikz = function () {
+    let code = '\\draw plot[smooth] coordinates{'
+    for (let i = 0; i < tableau.length; i++) {
+      code += `(${tableau[i][0]},${tableau[i][1]}) `
+    }
+    code += '};\n'
+    return code
+  }
+}
+
+/**
+ *
+ * @param {array} tableau de coordonnées [x,y]
+ * @param {string} couleur
+ * @param {number} epaisseur
+ * @param {objet} repere (ou tableau [xscale,yscale])
+ * @param {number} xmin
+ * @param {number} xmax
+ *
+ * @author Rémi Angot
+ */
+export function courbeInterpolee2 (...args) {
+  return new CourbeInterpolee2(...args)
+}
+
+/**
  * @SOURCE : https://gist.github.com/ericelliott/80905b159e1f3b28634ce0a690682957
  */
 // y1: start value
@@ -8167,7 +8319,7 @@ export function intervalle (A, B, color = 'blue', h = 0) {
  * texteParPoint('mon texte',A,'gauche') // Écrit 'mon texte' à gauche de A (qui sera la fin du texte)
  * texteParPoint('mon texte',A,'droite') // Écrit 'mon texte' à droite de A (qui sera le début du texte)
  * texteParPoint('mon texte',A,45) // Écrit 'mon texte' à centré sur A avec une rotation de 45°
- *
+ * Le mode Math (implémenté par Jean-Claude Lhote) n'est plus fonctionnel en html (il l'est toujours en latex) : un soucis de polices de substitution rendait les caractères 'dansant'
  * @author Rémi Angot
  */
 function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
@@ -8178,7 +8330,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   this.opacite = 1
   this.svg = function (coeff) {
     let code = ''; let style = ''
-    if (mathOn) style = ' font-family= "KaTeX_Math" '
+    // if (mathOn) style = ' font-family= "KaTeX_Math" ' désactivé par Jean-Claude Lhote
     if (this.contour) style += ` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
     else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite}" `
     if (typeof (orientation) === 'number') {
@@ -8215,7 +8367,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   }
   this.tikz = function () {
     let code = ''
-    if (mathOn) texte = '$' + texte + '$'
+    if (mathOn) texte = '$' + texte + '$' // on le laisse en Latex, parce que ça fonctionne !
     if (typeof orientation === 'number') {
       let anchor = 'center'
       if (ancrageDeRotation === 'gauche') {
@@ -8391,7 +8543,7 @@ function LatexParCoordonnees (texte, x, y, color = 'black', size = 200, hauteurL
     const demiSize = calcul(this.size / 2)
     const centrage = 0.25 * context.pixelsParCm
     if (colorBackground !== '') {
-      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff, 2) - this.hauteurLigne / 2 - centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${this.size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
+      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff, 2) - this.hauteurLigne / 2 - centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
     $\\colorbox{${this.colorBackground}}{$\\color{${color}}{${this.texte}}$}$</div></foreignObject>`
     } else {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff, 2) - this.hauteurLigne / 2 - centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">

@@ -40,3 +40,4 @@ package-lock.json
 # traces MacOS
 .DS_Store
 src/json/scoresCodesVip.json
+src/json/scoresCodesVipSebSeul.json

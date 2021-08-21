@@ -94,6 +94,23 @@ Le code est libre, AGPL, vous pouvez donc télécharger les sources sur [GitHub]
 
 ### Changelog
 
+#### 08/21
+
+- Sébastien Lozano finalise l'enregistrement des scores
+- Nouveaux boutons pour les différentes vues : course aux nombres, exercice par exercice, smartphone
+- Possibilité de mettre un compte à rebours pour les exercices
+- De nombreux exercices ont dorénavant un mode interactif et un mode AMC
+- Suppression de SVG.js au profit de MathALEA2D
+
+#### 07/21
+
+- Arrivée de Laurence Candille et Christophe Gombert pour la programmation d'exercices de collège
+- Arrivée d'Éric Schrafstetter pour la programmation d'exercices de lycée
+- Premiers développements d'exercices pour la course aux nombres
+- Amélioration de l'affichage et centralisation de toutes les fonctionnalités sur mathalea.html
+- Nouveau référentiel pour le lycée
+- Nouveau type d'exercice hybride pour la sortie AMC
+
 #### 06/21
 
 - Arrivée de Guillaume Valmont pour le lien avec Anki et la programmation d'exercices
