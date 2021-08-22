@@ -30,10 +30,18 @@ export default function gestionScores () {
     const myResponseJson = await response.json()
     if (document.getElementById('scoresInfosTimeLeft')) {
       document.getElementById('scoresInfosTimeLeft').innerHTML = `
-        Ce service ne garantit en rien la pérennité des données. Bien au contraire, <b>les données sont actuellement effacées tous les jours</b>. <!--une fois par an.-->
+        Ce service ne garantit en rien la pérennité des données. Bien au contraire, <b>les données sont régulièrement effacées</b>.<br> <!--une fois par an.-->
+
+        <div class="ui error message">          
+          <div class="header">
+            Conseil avisé.
+          </div>
+          <p>
+            <b>Nous conseillons aux utilisateurs du service de récupérer les enregistrements chaque jour dans leurs espaces de scores.</b>
+          </p>
+        </div>
         <ul>
-          <li>    
-            <b>Charge aux utilisateurs du service de les récupérer avant</b>.
+          <li> Informations non garanties quant aux espaces de scores :            
             <ul>
               <li>Nous sommes le ${myResponseJson.currentDate}, <b>le prochain effacement complet est prévu à partir du ${myResponseJson.deleteNextDate}.</b></li>
               <li>Il reste donc <b>${myResponseJson.timeLeft} jour(s) avant la prochaine remise à zéro</b> des espaces de scores.</li>          

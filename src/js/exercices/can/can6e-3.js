@@ -147,7 +147,19 @@ export default function CourseAuxNombres6e (numeroExercice) {
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
         case 'q5':
-         
+          a = randint(1, 3)
+          b = randint(1, 9, a)
+          c = calcul(a * 10 + b)
+          if (choice([true, false])) {
+            resultat = calcul(3 * c)
+            texte = `Quel est le triple de $${texNombre(c)}$ ?`
+            texteCorr = `Le triple de $${texNombre(c)}$ est $3 \\times ${texNombre(c)}=${texNombrec(3 * c)}$.`
+          } else {
+            resultat = calcul(2 * c)
+            texte = `Quel est le double de $${texNombre(c)}$ ?`
+            texteCorr = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${texNombrec(2 * c)}$.`
+          }
+          setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
         case 'q6':
           a = randint(1, 3)
