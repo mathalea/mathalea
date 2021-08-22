@@ -1511,6 +1511,17 @@ export default {
     "interactifType": "mathLive",
     "name": "4L20-0"
   },
+  "4L20-i": {
+    "titre": "Équation du premier degré",
+    "url": "/exercices/4e/4L20-i.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4L20-i"
+  },
   "4L20": {
     "titre": "Équation du premier degré",
     "url": "/exercices/4e/4L20.js",
@@ -1627,15 +1638,23 @@ export default {
   "5C12-1": {
     "titre": "Traduire une phrase par une expression et la calculer",
     "url": "/exercices/5e/5C12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5C12-1"
   },
   "5C12": {
     "titre": "Calculer une expression numérique en détaillant les calculs",
     "url": "/exercices/5e/5C12.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5C12"
   },
   "5G10-1": {
@@ -3746,14 +3765,6 @@ export default {
     "interactifReady": false,
     "name": "betaEqValAbs"
   },
-  "betaExerciceCanSimple": {
-    "titre": "Somme de deux entier",
-    "url": "/exercices/beta/betaExerciceCanSimple.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaExerciceCanSimple"
-  },
   "betaExo3d": {
     "titre": "Exo zéroMathalea2d3d",
     "url": "/exercices/beta/betaExo3d.js",
@@ -3775,6 +3786,14 @@ export default {
     "interactifReady": true,
     "interactifType": "qcm",
     "name": "betaLicence"
+  },
+  "betaModèle00_simple_Course_au_Nombres": {
+    "titre": "Somme de deux entier",
+    "url": "/exercices/beta/betaModèle00_simple_Course_au_Nombres.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaModèle00_simple_Course_au_Nombres"
   },
   "betaModèle10_simple_question-reponse": {
     "titre": "Nom de l'exercice",

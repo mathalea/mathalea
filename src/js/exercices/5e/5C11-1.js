@@ -1,5 +1,4 @@
 import EcrireUneExpressionNumerique from './_Ecrire_une_expression_numerique.js'
-
 export const titre = 'Traduire une expression par une phrase'
 
 /**
