@@ -15,6 +15,7 @@ export const amcType = 'AMCNum'
 export default function ComplementA100 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Calculer'
+  this.interactif = 1
   this.nbQuestions = 10
   this.nbCols = 2
   this.nbColsCorr = 2

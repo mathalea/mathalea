@@ -2,6 +2,12 @@ import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
 import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCOpenNum'
 /**
 * Fonction noyau pour 6 fonctions qui utilisent les mêmes variables et la fonction choisirExpressionNumerique
 * @author Jean-Claude Lhote
@@ -20,7 +26,9 @@ export default function EcrireUneExpressionNumerique () {
   this.version = 1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
 
   this.nouvelleVersion = function () {
+    this.autoCorrection = []
     let typesDeQuestionsDisponibles = []
+    let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (!this.sup) { // Si aucune liste n'est saisie
@@ -36,6 +44,7 @@ export default function EcrireUneExpressionNumerique () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     if (this.sup2) decimal = 10
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      this.autoCorrection[i] = {}
       nbOperations = parseInt(listeTypeDeQuestions[i])
       val1 = randint(2, 5)
       val2 = randint(6, 9)
@@ -67,6 +76,7 @@ export default function EcrireUneExpressionNumerique () {
           if (!this.litteral) texteCorr = `${expc}.`
           else if (nbval === 2) texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}.`
           else texteCorr += `Pour $x=${val1}$ :<br>${expc}.`
+          reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
           break
         case 4:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
@@ -77,10 +87,19 @@ export default function EcrireUneExpressionNumerique () {
           if (!this.litteral) texteCorr = `${expc}.`
           else if (nbval === 2) texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}.`
           else texteCorr = `Pour $x=${val1}$ :<br>${expc}.`
+          reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
+      if (this.questionJamaisPosee(i, expn, expf)) { // Si la question n'a jamais été posée, on en créé une autre
+        if (this.version > 2) {
+          if (!context.isAmc) {
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' Résultat : ' })
+          } else {
+            texte += '<br>Détailler les calculs dans le cadre et coder le résultat.<br>'
+          }
+          setReponse(this, i, reponse)
+          this.listeQuestions.push(texte)
+        }
         this.listeCorrections.push(texteCorr)
         i++
       }
