@@ -379,13 +379,13 @@ function miseAJourDuCode () {
   for (const exercice of listeObjetsExercice) {
     if (!exercice.interactifReady) {
       tousLesExercicesSontInteractifs = false
-      if (document.getElementById('btnCan') && document.getElementById('btnEval') ) {
+      if (document.getElementById('btnCan') && document.getElementById('btnEval')) {
         document.getElementById('btnCan').classList.add('disabled')
         document.getElementById('btnEval').classList.add('disabled')
       }
     }
   }
-  if (document.getElementById('btnCan') !== null && document.getElementById('btnEval')!== null) {
+  if (document.getElementById('btnCan') !== null && document.getElementById('btnEval') !== null) {
     tousLesExercicesSontInteractifs ? document.getElementById('btnCan').classList.remove('disabled') : document.getElementById('btnCan').classList.add('disabled')
     tousLesExercicesSontInteractifs ? document.getElementById('btnEval').classList.remove('disabled') : document.getElementById('btnEval').classList.add('disabled')
   }
