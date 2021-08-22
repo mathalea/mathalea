@@ -20,9 +20,22 @@ function createIndexScores($path,$codeProf) {
   $fp = fopen($indexProfSpace, 'a+');
   // On écrit dedans un template de base à modifier plus tard
   $string = '<?php 
+  class sortedIterator extends SplHeap {
+        public function __construct(Iterator $iterator)
+        {
+            foreach ($iterator as $item) {
+                $this->insert($item);
+            }
+        }
+        public function compare($b,$a)
+        {
+            return strcmp($a->getRealpath(), $b->getRealpath());
+        }
+  };
   $classes = array();  
   $dir_iterator = new RecursiveDirectoryIterator(dirname(__FILE__));
   $iterator = new RecursiveIteratorIterator($dir_iterator);
+  $sortIterator = new sortedIterator($iterator);
   foreach ($iterator as $file){
       if(!is_dir($file) && !in_array($file->getFilename(), array(".","..","index.php")) && !in_array(substr($file->getPath(),-2),$classes)) {    
           array_push($classes,substr($file->getPath(),-2));
@@ -41,7 +54,7 @@ function createIndexScores($path,$codeProf) {
     </div>    
     </li>\r\n";
   echo "<ul>\r\n";
-  foreach ($iterator as $file) {
+  foreach ($sortIterator as $file) {
       if (substr($file->getPath(),-2) == $classe && !in_array($file->getFilename(), array(".","..")) ) {
         echo "<br><li>
           <div class=\"ui labeled button\" tabindex=\"0\">
