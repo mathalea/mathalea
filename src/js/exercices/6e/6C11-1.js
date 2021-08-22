@@ -1,11 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texteGras, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texteGras, texteEnCouleurEtGras, sp } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité"
 
 export const amcReady = true
-export const amcType = 'AMCOpen' // type de question AMC
-export const interactifReady = false
+export const amcType = 'AMCOpenNum✖︎2' // type de question AMC
+export const interactifReady = true
+export const interactifType = 'mathLive'
 /**
  * Détermination du reste et quotient à partir de l'égalité découlant de la division euclidienne
  *
@@ -77,12 +79,44 @@ export default function DivisionsEuclidiennesEgalite () {
           <br> On a donc : ${texteEnCouleurEtGras(q)} le quotient et ${texteEnCouleurEtGras(r)} le reste.`
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(this, i, a, b, q, r)) {
         // Si la question n'a jamais été posée, on en crée une autre
+        if (!context.isAmc) {
+          texte += '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: 'Quotient : ', texteApres: sp(5) })
+          texte += '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: ' Reste : ' })
+          setReponse(this, 2 * i, q)
+          setReponse(this, 2 * i + 1, r)
+        } else {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [{ texte: texteCorr, statut: 2, feedback: '' }],
+            reponse: {
+              texte: 'Quotient',
+              valeur: q,
+              param: {
+                digits: 2,
+                decimals: 0,
+                signe: false,
+                exposantNbChiffres: 0,
+                approx: 0
+              }
+            },
+            reponse2: {
+              texte: 'Reste',
+              valeur: r,
+              param: {
+                digits: 2,
+                decimals: 0,
+                signe: false,
+                exposantNbChiffres: 0,
+                approx: 0
+              }
+            }
+          }
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         // Pour AMC question AmcOpen
-        this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 2, feedback: '' }] }
         i++
       }
       cpt++

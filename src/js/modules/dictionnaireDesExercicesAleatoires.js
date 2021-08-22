@@ -1511,6 +1511,17 @@ export default {
     "interactifType": "mathLive",
     "name": "4L20-0"
   },
+  "4L20-i": {
+    "titre": "Équation du premier degré",
+    "url": "/exercices/4e/4L20-i.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4L20-i"
+  },
   "4L20": {
     "titre": "Équation du premier degré",
     "url": "/exercices/4e/4L20.js",
@@ -2417,9 +2428,10 @@ export default {
     "url": "/exercices/6e/6C11-1.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpen"
+      "text": "AMCOpenNum✖︎2"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6C11-1"
   },
   "6C11": {
@@ -3746,14 +3758,6 @@ export default {
     "interactifReady": false,
     "name": "betaEqValAbs"
   },
-  "betaExerciceCanSimple": {
-    "titre": "Somme de deux entier",
-    "url": "/exercices/beta/betaExerciceCanSimple.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaExerciceCanSimple"
-  },
   "betaExo3d": {
     "titre": "Exo zéroMathalea2d3d",
     "url": "/exercices/beta/betaExo3d.js",
@@ -3775,6 +3779,14 @@ export default {
     "interactifReady": true,
     "interactifType": "qcm",
     "name": "betaLicence"
+  },
+  "betaModèle00_simple_Course_au_Nombres": {
+    "titre": "Somme de deux entier",
+    "url": "/exercices/beta/betaModèle00_simple_Course_au_Nombres.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaModèle00_simple_Course_au_Nombres"
   },
   "betaModèle10_simple_question-reponse": {
     "titre": "Nom de l'exercice",
@@ -4047,6 +4059,39 @@ export default {
     "interactifType": "mathLive",
     "name": "can6N1"
   },
+  "can6N10": {
+    "titre": "Quart ou Tiers",
+    "url": "/exercices/can/can6N10.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N10"
+  },
+  "can6N11": {
+    "titre": "Recomposition entier simple",
+    "url": "/exercices/can/can6N11.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N11"
+  },
+  "can6N12": {
+    "titre": "Recomposition entier moins simple",
+    "url": "/exercices/can/can6N12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N12"
+  },
   "can6N2": {
     "titre": "Fraction comme facteur manquant",
     "url": "/exercices/can/can6N2.js",
@@ -4090,6 +4135,50 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N5"
+  },
+  "can6N6": {
+    "titre": "Double ou triple (décimal)",
+    "url": "/exercices/can/can6N6.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N6"
+  },
+  "can6N7": {
+    "titre": "Recomposition entier",
+    "url": "/exercices/can/can6N7.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N7"
+  },
+  "can6N8": {
+    "titre": "Tables de x du 5 au 9",
+    "url": "/exercices/can/can6N8.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N8"
+  },
+  "can6N9": {
+    "titre": "Soustraire un nombre se finissant par 9",
+    "url": "/exercices/can/can6N9.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N9"
   },
   "CM000": {
     "titre": "Additions et de soustractions",

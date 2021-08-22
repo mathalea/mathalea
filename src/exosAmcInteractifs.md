@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 161 
-- nombre d'exos interactifReady 188 
+- nombre d'exos amcReady 169 
+- nombre d'exos interactifReady 197 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -69,6 +69,7 @@
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|KO|KO|
 |4G53|Calculs de volumes|OK|AMCNum|OK|qcm,mathLive|
 |4L20-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
+|4L20-i|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |4L20|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |AI1-1|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
 |5G10|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
@@ -101,7 +102,7 @@
 |6C10-4|Addition de deux entiers|OK|AMCNum|OK|numerique|
 |6C10-5|Labyrinthe de multiples|OK|AMCOpen|KO|KO|
 |6C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCHybride|OK|mathLive|
-|6C11-1|Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité|OK|AMCOpen|KO|KO|
+|6C11-1|Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité|OK|AMCOpenNum✖︎2|OK|mathLive|
 |6C11|Divisions euclidiennes|OK|AMCOpen|OK|mathLive|
 |6C20|Additions et soustractions de nombres décimaux|OK|AMCNum|OK|numerique|
 |6C21|Divisions euclidiennes - Niveau 2|OK|AMCOpen|KO|KO|
@@ -169,8 +170,8 @@
 |betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
-|betaExerciceCanSimple|Somme de deux entier|KO|KO|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
+|betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
 |betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
@@ -180,10 +181,17 @@
 |can3L3|Equation ax+b=c|OK|AMCNum|OK|mathLive|
 |can6e-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
 |can6N1|Double et moitié|OK|AMCNum|OK|mathLive|
+|can6N10|Quart ou Tiers|OK|AMCNum|OK|mathLive|
+|can6N11|Recomposition entier simple|OK|AMCNum|OK|mathLive|
+|can6N12|Recomposition entier moins simple|OK|AMCNum|OK|mathLive|
 |can6N2|Fraction comme facteur manquant|OK|AMCNum|OK|mathLive|
 |can6N3|Somme de quatre entiers qui se marient|OK|AMCNum|OK|mathLive|
 |can6N4|Somme de deux décimaux|OK|AMCNum|OK|mathLive|
 |can6N5|Double ou triple|OK|AMCNum|OK|mathLive|
+|can6N6|Double ou triple (décimal)|OK|AMCNum|OK|mathLive|
+|can6N7|Recomposition entier|OK|AMCNum|OK|mathLive|
+|can6N8|Tables de x du 5 au 9|OK|AMCNum|OK|mathLive|
+|can6N9|Soustraire un nombre se finissant par 9|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
