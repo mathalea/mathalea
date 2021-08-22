@@ -2441,9 +2441,10 @@ export default {
     "url": "/exercices/6e/6C11-1.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpen"
+      "text": "AMCOpenNum✖︎2"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6C11-1"
   },
   "6C11": {

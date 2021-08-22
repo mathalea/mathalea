@@ -105,7 +105,7 @@
 |6C10-4|Addition de deux entiers|OK|AMCNum|OK|numerique|
 |6C10-5|Labyrinthe de multiples|OK|AMCOpen|KO|KO|
 |6C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCHybride|OK|mathLive|
-|6C11-1|Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité|OK|AMCOpen|KO|KO|
+|6C11-1|Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité|OK|AMCOpenNum✖︎2|OK|mathLive|
 |6C11|Divisions euclidiennes|OK|AMCOpen|OK|mathLive|
 |6C20|Additions et soustractions de nombres décimaux|OK|AMCNum|OK|numerique|
 |6C21|Divisions euclidiennes - Niveau 2|OK|AMCOpen|KO|KO|
