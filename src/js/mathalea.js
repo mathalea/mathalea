@@ -299,7 +299,11 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
             contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion)
           }
           contenuUnExercice += '</li>'
-          setReponse(obj, numQuestion, obj.reponse)
+          if (obj.formatInteractif) {
+            setReponse(obj, numQuestion, obj.reponse, { formatInteractif: obj.formatInteractif })
+          } else {
+            setReponse(obj, numQuestion, obj.reponse)
+          }
           contenuUneCorrection += `<li class="correction">${obj.correction}</li>`
           numQuestion++
         }

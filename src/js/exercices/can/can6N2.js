@@ -1,5 +1,5 @@
 import Fraction from '../../modules/Fraction'
-import { calcul, pgcd, randint } from '../../modules/outils'
+import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Fraction comme facteur manquant'
 export const interactifReady = true
@@ -12,15 +12,14 @@ export default function FractionCommeFacteurManquant () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.interactif = true
+  this.formatInteractif = 'fractionEgale'
+  this.consigne = ''
 
   this.nouvelleVersion = function () {
-    let a = randint(2, 25)
-    let b = randint(2, 25, a)
-    a = calcul(a / pgcd(a, b))
-    b = calcul(b / pgcd(a, b))
+    const a = randint(2, 25)
+    const b = randint(2, 25, a)
     const c = new Fraction(a, b)
-    this.consigne = ''
-    this.reponse = c.texFraction
+    this.reponse = c
     this.question = `Quel est le nombre qui, multiplié par ${b} donne ${a} ?`
     this.correction = `c'est $${c.texFraction}$ car $${c.texFraction}\\times ${b} = ${a}$`
   }
