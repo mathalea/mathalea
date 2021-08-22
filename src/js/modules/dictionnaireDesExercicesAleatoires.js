@@ -4193,6 +4193,105 @@ export default {
     "interactifType": "mathLive",
     "name": "can6N2"
   },
+  "can6N20": {
+    "titre": "Proportionnalité simple",
+    "url": "/exercices/can/can6N20.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N20"
+  },
+  "can6N21": {
+    "titre": "Ordre de grandeur",
+    "url": "/exercices/can/can6N21.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can6N21"
+  },
+  "can6N22": {
+    "titre": "Conversions en mètres",
+    "url": "/exercices/can/can6N22.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N22"
+  },
+  "can6N23": {
+    "titre": "Fraction simple de quantité",
+    "url": "/exercices/can/can6N23.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N23"
+  },
+  "can6N24": {
+    "titre": "Reste de la division euclidienne",
+    "url": "/exercices/can/can6N24.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N24"
+  },
+  "can6N25": {
+    "titre": "La bonne unité",
+    "url": "/exercices/can/can6N25.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can6N25"
+  },
+  "can6N26": {
+    "titre": "Appliquer un pourcentage",
+    "url": "/exercices/can/can6N26.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N26"
+  },
+  "can6N27": {
+    "titre": "Question de vitesse",
+    "url": "/exercices/can/can6N27.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N27"
+  },
+  "can6N28": {
+    "titre": "Question de périmètres",
+    "url": "/exercices/can/can6N28.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can6N28"
+  },
   "can6N3": {
     "titre": "Somme de quatre entiers qui se marient",
     "url": "/exercices/can/can6N3.js",

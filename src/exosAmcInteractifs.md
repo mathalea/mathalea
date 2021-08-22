@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 179 
-- nombre d'exos interactifReady 208 
+- nombre d'exos amcReady 188 
+- nombre d'exos interactifReady 217 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -195,6 +195,15 @@
 |can6N18|Addition à trou|OK|AMCNum|OK|mathLive|
 |can6N19|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
 |can6N2|Fraction comme facteur manquant|OK|AMCNum|OK|mathLive|
+|can6N20|Proportionnalité simple|OK|AMCNum|OK|mathLive|
+|can6N21|Ordre de grandeur|OK|qcmMono|OK|qcm|
+|can6N22|Conversions en mètres|OK|AMCNum|OK|mathLive|
+|can6N23|Fraction simple de quantité|OK|AMCNum|OK|mathLive|
+|can6N24|Reste de la division euclidienne|OK|AMCNum|OK|mathLive|
+|can6N25|La bonne unité|OK|qcmMono|OK|qcm|
+|can6N26|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
+|can6N27|Question de vitesse|OK|AMCNum|OK|mathLive|
+|can6N28|Question de périmètres|OK|qcmMono|OK|qcm|
 |can6N3|Somme de quatre entiers qui se marient|OK|AMCNum|OK|mathLive|
 |can6N4|Somme de deux décimaux|OK|AMCNum|OK|mathLive|
 |can6N5|Double ou triple|OK|AMCNum|OK|mathLive|
