@@ -6,9 +6,9 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const titre = 'antécédents'
+export const titre = 'Lecture graphique'
 
-export default function NombreAntecedents () {
+export default function ImageSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1

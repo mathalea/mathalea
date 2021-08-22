@@ -232,6 +232,9 @@ async function gestionModules (isdiaporama, listeObjetsExercice) {
       const xml = window.listeScriptsIep[id]
       await loadIep(element, xml)
     }
+    // On prévient Anki qu'il faut une plus grande fenêtre
+    const IEPAffiche = new Event('IEPAffiche', { bubbles: true })
+    document.dispatchEvent(IEPAffiche)
   }
 }
 

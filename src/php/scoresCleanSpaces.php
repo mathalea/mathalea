@@ -100,8 +100,7 @@ function mailUrlToVips($pathToJson) {
       $email_message.= $passage_ligne.$boundary.$passage_ligne."<br>";
 
       $email_message .= "Namasté <b>".$vip->nom."</b>,<br>";
-      $email_message .= "Tes fichiers seront enregistrés à cette adresse : <br>";
-      $email_message .= "Url de ton espace scores : 
+      $email_message .= "Tu pourras retrouver, tes fichiers enregistrés à l'url de ton espace scores : <br>      
         <a href=\"https://coopmaths.fr/".$GLOBALS["scoresDir"].'/'.$vip->codeProf[0].'/'.$vip->codeProf[1].'/'.$vip->codeProf[2].'/'.$vip->md5Key."\" target=\"_blank\">
         https://coopmaths.fr/".$GLOBALS["scoresDir"].'/'.$vip->codeProf[0].'/'.$vip->codeProf[1].'/'.$vip->codeProf[2].'/'.$vip->md5Key."
         </a><br>";

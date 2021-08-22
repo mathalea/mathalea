@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 162 
-- nombre d'exos interactifReady 189 
+- nombre d'exos amcReady 172 
+- nombre d'exos interactifReady 200 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -49,6 +49,7 @@
 |3P10|Variations en pourcentage|KO|KO|OK|mathLive|
 |3S12|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
 |3S15|Calculer des étendues|KO|KO|OK|mathLive|
+|4AI1-1|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
 |4C10-0|Signe d’un produit ou d’un quotient de nombres relatifs|KO|KO|OK|mathLive|
 |4C10-3|Multiplication de deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-4|Quotient de deux entiers relatifs|KO|KO|OK|mathLive|
@@ -66,12 +67,14 @@
 |4G20|Calculer une longueur avec le théorème de Pythagore|OK|AMCOpenNum|OK|mathLive|
 |4G21|Déterminer si un triangle est rectangle ou pas.|OK|qcmMono|OK|qcm|
 |4G30|Calculer des longueurs avec le théorème de Thalès|OK|AMCOpenNum|OK|mathLive|
-|4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|KO|KO|
+|4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
+|4G41|Utiliser le cosinus pour calculer la mesure d’un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G53|Calculs de volumes|OK|AMCNum|OK|qcm,mathLive|
 |4L20-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
 |4L20-i|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |4L20|Équation du premier degré|OK|AMCHybride|OK|mathLive|
-|AI1-1|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
+|5C12-1|Traduire une phrase par une expression et la calculer|OK|AMCOpenNum|OK|mathLive|
+|5C12|Calculer une expression numérique en détaillant les calculs|OK|AMCOpenNum|OK|mathLive|
 |5G10|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
 |5G11|Trouver l’image d’un point par une symétrie axiale ou centrale|OK|AMCHybride|OK|mathLive|
 |5G12-1|Symétrique d’une figure dans un pavage|OK|AMCHybride|OK|mathLive|
@@ -195,13 +198,20 @@
 |betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
-|can3F1|antécédents|OK|AMCNum|OK|mathLive|
-|can3L1|Equation ax=b|OK|AMCNum|OK|mathLive|
-|can3L2|Equation ax+b=0|OK|AMCNum|OK|mathLive|
-|can3L3|Equation ax+b=c|OK|AMCNum|OK|mathLive|
+|can3F1|Lecture graphique|OK|AMCNum|OK|mathLive|
+|can3L1|Équation ax=b|OK|AMCNum|OK|mathLive|
+|can3L2|Équation ax+b=0|OK|AMCNum|OK|mathLive|
+|can3L3|Équation ax+b=c|OK|AMCNum|OK|mathLive|
 |can6N1|Double et moitié|OK|AMCNum|OK|mathLive|
+|can6N10|Quart ou Tiers|OK|AMCNum|OK|mathLive|
+|can6N11|Recomposition entier simple|OK|AMCNum|OK|mathLive|
+|can6N12|Recomposition entier moins simple|OK|AMCNum|OK|mathLive|
 |can6N2|Fraction comme facteur manquant|OK|AMCNum|OK|mathLive|
 |can6N3|Somme de quatre entiers qui se marient|OK|AMCNum|OK|mathLive|
 |can6N4|Somme de deux décimaux|OK|AMCNum|OK|mathLive|
 |can6N5|Double ou triple|OK|AMCNum|OK|mathLive|
+|can6N6|Double ou triple (décimal)|OK|AMCNum|OK|mathLive|
+|can6N7|Recomposition entier|OK|AMCNum|OK|mathLive|
+|can6N8|Tables de x du 5 au 9|OK|AMCNum|OK|mathLive|
+|can6N9|Soustraire un nombre se finissant par 9|OK|AMCNum|OK|mathLive|
 |can6e-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|

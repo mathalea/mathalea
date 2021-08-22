@@ -985,6 +985,17 @@ export default {
     "interactifReady": false,
     "name": "3S20"
   },
+  "4AI1-1": {
+    "titre": "Tortue Scratch avec répétitions",
+    "url": "/exercices/4e/4AI1-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "cliqueFigure",
+    "name": "4AI1-1"
+  },
   "4C10-0": {
     "titre": "Signe d’un produit ou d’un quotient de nombres relatifs",
     "url": "/exercices/4e/4C10-0.js",
@@ -1378,14 +1389,19 @@ export default {
     "amcType": {
       "text": "AMCOpenNum"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4G40"
   },
   "4G41": {
     "titre": "Utiliser le cosinus pour calculer la mesure d’un angle dans un triangle rectangle",
     "url": "/exercices/4e/4G41.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4G41"
   },
   "4G51": {
@@ -1568,17 +1584,6 @@ export default {
     "interactifReady": false,
     "name": "4S11"
   },
-  "AI1-1": {
-    "titre": "Tortue Scratch avec répétitions",
-    "url": "/exercices/4e/AI1-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "qcmMono"
-    },
-    "interactifReady": true,
-    "interactifType": "cliqueFigure",
-    "name": "AI1-1"
-  },
   "5A10": {
     "titre": "Écrire la liste de tous les diviseurs d’un entier",
     "url": "/exercices/5e/5A10.js",
@@ -1638,15 +1643,23 @@ export default {
   "5C12-1": {
     "titre": "Traduire une phrase par une expression et la calculer",
     "url": "/exercices/5e/5C12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5C12-1"
   },
   "5C12": {
     "titre": "Calculer une expression numérique en détaillant les calculs",
     "url": "/exercices/5e/5C12.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5C12"
   },
   "5G10-1": {
@@ -4310,7 +4323,7 @@ export default {
     "name": "c3N23"
   },
   "can3F1": {
-    "titre": "antécédents",
+    "titre": "Lecture graphique",
     "url": "/exercices/can/can3F1.js",
     "amcReady": true,
     "amcType": {
@@ -4321,7 +4334,7 @@ export default {
     "name": "can3F1"
   },
   "can3L1": {
-    "titre": "Equation ax=b",
+    "titre": "Équation ax=b",
     "url": "/exercices/can/can3L1.js",
     "amcReady": true,
     "amcType": {
@@ -4332,7 +4345,7 @@ export default {
     "name": "can3L1"
   },
   "can3L2": {
-    "titre": "Equation ax+b=0",
+    "titre": "Équation ax+b=0",
     "url": "/exercices/can/can3L2.js",
     "amcReady": true,
     "amcType": {
@@ -4343,7 +4356,7 @@ export default {
     "name": "can3L2"
   },
   "can3L3": {
-    "titre": "Equation ax+b=c",
+    "titre": "Équation ax+b=c",
     "url": "/exercices/can/can3L3.js",
     "amcReady": true,
     "amcType": {
@@ -4363,6 +4376,39 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N1"
+  },
+  "can6N10": {
+    "titre": "Quart ou Tiers",
+    "url": "/exercices/can/can6N10.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N10"
+  },
+  "can6N11": {
+    "titre": "Recomposition entier simple",
+    "url": "/exercices/can/can6N11.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N11"
+  },
+  "can6N12": {
+    "titre": "Recomposition entier moins simple",
+    "url": "/exercices/can/can6N12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N12"
   },
   "can6N2": {
     "titre": "Fraction comme facteur manquant",
@@ -4407,6 +4453,50 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N5"
+  },
+  "can6N6": {
+    "titre": "Double ou triple (décimal)",
+    "url": "/exercices/can/can6N6.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N6"
+  },
+  "can6N7": {
+    "titre": "Recomposition entier",
+    "url": "/exercices/can/can6N7.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N7"
+  },
+  "can6N8": {
+    "titre": "Tables de x du 5 au 9",
+    "url": "/exercices/can/can6N8.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N8"
+  },
+  "can6N9": {
+    "titre": "Soustraire un nombre se finissant par 9",
+    "url": "/exercices/can/can6N9.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N9"
   },
   "can6e-3": {
     "titre": "Course aux nombres fin de 6e",
