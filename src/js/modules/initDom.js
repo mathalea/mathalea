@@ -171,10 +171,16 @@ export async function initDom () {
     }
     // Le titre de l'exercice ne peut être masqué qu'après l'affichage
     document.addEventListener('exercicesAffiches', masqueTitreExerciceEtEspaces)
+    let hauteurIEP = 0; let hauteurCorrection = 0
+    document.addEventListener('IEPAffiche', () => {
+      // Envoi des informations à Anki
+      hauteurIEP = window.document.body.scrollHeight + window.document.body.scrollWidth * 0.75 + 60
+      window.parent.postMessage({ hauteur: Math.max(hauteurCorrection, hauteurIEP), reponse: 'A_COMPLETER' }, '*')
+    })
     document.addEventListener('exercicesAffiches', () => {
       // Envoi des informations à Anki
-      const hauteur = window.document.body.scrollHeight
-      window.parent.postMessage({ hauteur: hauteur, reponse: 'A_COMPLETER' }, '*')
+      hauteurCorrection = window.document.body.scrollHeight
+      window.parent.postMessage({ hauteur: Math.max(hauteurCorrection, hauteurIEP), reponse: 'A_COMPLETER' }, '*')
     })
   } else if (vue === 'eval') {
     setOutputHtml()
