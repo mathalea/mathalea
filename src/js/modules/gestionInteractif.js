@@ -188,7 +188,7 @@ function verifQuestionNumerique (exercice, i) {
   }
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
   const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-  if (champTexte.value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '').replaceAll('.', ',')) {
+  if (parseFloat(champTexte.value.replace(/\s/g, '').replace(/,/g, '.')) === exercice.autoCorrection[i].reponse.valeur[0]) {
     spanReponseLigne.innerHTML = '😎'
     resultat = 'OK'
   } else {
