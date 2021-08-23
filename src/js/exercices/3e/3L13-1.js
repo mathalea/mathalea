@@ -41,12 +41,6 @@ export default function ExerciceEquation1Tiret2 () {
         texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> On rappelle qu'il faut donner une solution exacte (par exemple $${texFraction(1, 3)})$ plutôt qu'une valeur aprrochée (comme 0,3333).`,
         couleur: 'nombres'
       })
-    } else {
-      this.introduction = lampeMessage({
-        titre: '',
-        texte: `Résoudre les équations au brouillon.<br> On rappelle qu'il faut donner une solution exacte (par exemple $${texFraction(1, 3)})$ plutôt qu'une valeur aprrochée (comme 0,3333).`,
-        couleur: 'nombres'
-      })
     }
     let listeTypeDeQuestions = ['ax+b=cx+d', 'k(ax+b)=cx+d', 'k-(ax+b)=cx+d']
     listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
