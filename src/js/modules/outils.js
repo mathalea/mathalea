@@ -5,6 +5,7 @@ import Algebrite from 'algebrite'
 import { format, evaluate, isPrime } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
+import { setReponse } from './gestionInteractif.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -47,6 +48,14 @@ export function exerciceSimpleToContenu (exercice) {
   for (let i = 0; i < exercice.nbQuestions; i++) {
     listeQuestions.push(exercice.question)
     listeCorrections.push(exercice.correction)
+    if (context.isAmc && exercice.amcType === 'AMCNum') {
+      setReponse(exercice, i, exercice.reponse, {
+        digits: nombreDeChiffresDe(exercice.reponse),
+        decimals: nombreDeChiffresDansLaPartieDecimale(exercice.reponse),
+        signe: (exercice.reponse < 0),
+        approx: 0
+      })
+    }
     exercice.nouvelleVersion()
   }
   exercice.listeQuestions = listeQuestions
@@ -7343,7 +7352,7 @@ export function exportQcmAmc (exercice, idExo) {
           break
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
-        texQr += `${autoCorrection[j].enonce} \n `
+        texQr += `${autoCorrection[j].enonce} \\\\\n`
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicols) {
             texQr += '\\begin{multicols}{2}\n'

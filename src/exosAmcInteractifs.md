@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 188 
-- nombre d'exos interactifReady 217 
+- nombre d'exos amcReady 201 
+- nombre d'exos interactifReady 231 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -43,6 +43,7 @@
 |3L12-1|Développer (a-b)(a+b)|KO|KO|OK|mathLive|
 |3L12|Factoriser a²-b²|KO|KO|OK|mathLive|
 |3L13-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
+|3L13-1|Équation du premier degré (utilisant la distributivité)|KO|KO|OK|mathLive|
 |3L13|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |3L15-1|Résoudre une équation $x^2 = a$|KO|KO|OK|mathLive|
 |3P10-1|Coefficient multiplicateur d’une variation en pourcentage|KO|KO|OK|mathLive|
@@ -167,50 +168,6 @@
 |6P12|Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple|OK|AMCNum|OK|mathLive|
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|
-|beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
-|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
-|beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
-|betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
-|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
-|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
-|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
-|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
-|c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
-|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
-|can3F1|Lecture graphique|OK|AMCNum|OK|mathLive|
-|can3L1|Équation ax=b|OK|AMCNum|OK|mathLive|
-|can3L2|Équation ax+b=0|OK|AMCNum|OK|mathLive|
-|can3L3|Équation ax+b=c|OK|AMCNum|OK|mathLive|
-|can6e-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
-|can6N1|Double et moitié|OK|AMCNum|OK|mathLive|
-|can6N10|Quart ou Tiers|OK|AMCNum|OK|mathLive|
-|can6N11|Recomposition entier simple|OK|AMCNum|OK|mathLive|
-|can6N12|Recomposition entier moins simple|OK|AMCNum|OK|mathLive|
-|can6N13|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
-|can6N14|Reste de division par 3|OK|AMCNum|OK|mathLive|
-|can6N15|Division par 9|OK|AMCNum|OK|mathLive|
-|can6N16|Ajoute 10n + 9|OK|AMCNum|OK|mathLive|
-|can6N17|Multiplier astucieusement|OK|AMCNum|OK|mathLive|
-|can6N18|Addition à trou|OK|AMCNum|OK|mathLive|
-|can6N19|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
-|can6N2|Fraction comme facteur manquant|OK|AMCNum|OK|mathLive|
-|can6N20|Proportionnalité simple|OK|AMCNum|OK|mathLive|
-|can6N21|Ordre de grandeur|OK|qcmMono|OK|qcm|
-|can6N22|Conversions en mètres|OK|AMCNum|OK|mathLive|
-|can6N23|Fraction simple de quantité|OK|AMCNum|OK|mathLive|
-|can6N24|Reste de la division euclidienne|OK|AMCNum|OK|mathLive|
-|can6N25|La bonne unité|OK|qcmMono|OK|qcm|
-|can6N26|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
-|can6N27|Question de vitesse|OK|AMCNum|OK|mathLive|
-|can6N28|Question de périmètres|OK|qcmMono|OK|qcm|
-|can6N3|Somme de quatre entiers qui se marient|OK|AMCNum|OK|mathLive|
-|can6N4|Somme de deux décimaux|OK|AMCNum|OK|mathLive|
-|can6N5|Double ou triple|OK|AMCNum|OK|mathLive|
-|can6N6|Double ou triple (décimal)|OK|AMCNum|OK|mathLive|
-|can6N7|Recomposition entier|OK|AMCNum|OK|mathLive|
-|can6N8|Tables de x du 5 au 9|OK|AMCNum|OK|mathLive|
-|can6N9|Soustraire un nombre se finissant par 9|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
@@ -231,3 +188,60 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
+|beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
+|beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
+|beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
+|betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
+|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
+|betaLicence|QCM de positionnement|KO|KO|OK|qcm|
+|betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
+|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
+|c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
+|can3F1|Lecture graphique|OK|AMCNum|OK|mathLive|
+|can3L1|Équation ax=b|OK|AMCNum|OK|mathLive|
+|can3L2|Équation ax+b=0|OK|AMCNum|OK|mathLive|
+|can3L3|Équation ax+b=c|OK|AMCNum|OK|mathLive|
+|can5C01|Produit de nombres entiers|OK|AMCNum|OK|mathLive|
+|can5C02|Somme de nombres entiers|OK|AMCNum|OK|mathLive|
+|can5C03|Différence de nombres entiers|OK|AMCNum|OK|mathLive|
+|can5C04|Triple et moitié|OK|AMCNum|OK|mathLive|
+|can5C05|Quotient entier|OK|AMCNum|OK|mathLive|
+|can5C06|Reste de division euclidienne|OK|AMCNum|OK|mathLive|
+|can5C07|Priorité opératoire|OK|AMCNum|OK|mathLive|
+|can5C08|Quart entier|OK|AMCNum|OK|mathLive|
+|can5C09|Multiplier par 5|OK|AMCNum|OK|mathLive|
+|can5D01|Conversion en heures et minutes|OK|AMCHybride|OK|mathLive|
+|can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
+|can6C01|Ordre de grandeur|OK|qcmMono|OK|qcm|
+|can6C02|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
+|can6C03|Addition à trou|OK|AMCNum|OK|mathLive|
+|can6C04|Ajoute 10n + 9|OK|AMCNum|OK|mathLive|
+|can6C05|Multiplier astucieusement|OK|AMCNum|OK|mathLive|
+|can6C06|Division par 9|OK|AMCNum|OK|mathLive|
+|can6C07|Reste de division par 3|OK|AMCNum|OK|mathLive|
+|can6C08|Quart ou Tiers|OK|AMCNum|OK|mathLive|
+|can6C09|Soustraire un nombre se finissant par 9|OK|AMCNum|OK|mathLive|
+|can6C10|Tables de x du 5 au 9|OK|AMCNum|OK|mathLive|
+|can6C11|Double ou triple (décimal)|OK|AMCNum|OK|mathLive|
+|can6C12|Double ou triple|OK|AMCNum|OK|mathLive|
+|can6C13|Somme de deux décimaux|OK|AMCNum|OK|mathLive|
+|can6C14|Somme de quatre entiers qui se marient|OK|AMCNum|OK|mathLive|
+|can6C15|Fraction comme facteur manquant|OK|AMCHybride|OK|mathLive|
+|can6C16|Double et moitié|OK|AMCNum|OK|mathLive|
+|can6C17|Fraction simple de quantité|OK|AMCNum|OK|mathLive|
+|can6C18|Reste de la division euclidienne|OK|AMCNum|OK|mathLive|
+|can6D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
+|can6M01|Question de périmètres|OK|qcmMono|OK|qcm|
+|can6M02|La bonne unité|OK|qcmMono|OK|qcm|
+|can6M03|Conversions en mètres|OK|AMCNum|OK|mathLive|
+|can6N01|Recomposition entier|OK|AMCNum|OK|mathLive|
+|can6N02|Recomposition entier simple|OK|AMCNum|OK|mathLive|
+|can6N03|Recomposition entier moins simple|OK|AMCNum|OK|mathLive|
+|can6N04|Abscisse fractionnaire|OK|AMCHybride|OK|mathLive|
+|can6P01|Proportionnalité simple|OK|AMCNum|OK|mathLive|
+|can6P02|Proportionnalité compliquée|OK|AMCNum|OK|mathLive|
+|can6P03|Question de vitesse|OK|AMCNum|OK|mathLive|
+|can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
+|canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
+|canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
