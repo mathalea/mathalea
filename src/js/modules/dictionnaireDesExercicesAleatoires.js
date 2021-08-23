@@ -103,7 +103,7 @@ export default {
     "name": "2G12-2"
   },
   "2G12-3": {
-    "titre": "Déterminer les coordonnées milieu d’un segment dans un repère",
+    "titre": "Démontrer qu'un quadrilatère est ou non un parallélogramme",
     "url": "/exercices/2e/2G12-3.js",
     "amcReady": false,
     "interactifReady": false,
