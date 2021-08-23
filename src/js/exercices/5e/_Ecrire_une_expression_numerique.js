@@ -98,8 +98,8 @@ export default function EcrireUneExpressionNumerique () {
             texte += '<br>Détailler les calculs dans le cadre et coder le résultat.<br>'
           }
           setReponse(this, i, reponse)
-          this.listeQuestions.push(texte)
         }
+        this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
       }
