@@ -1,142 +1,177 @@
 <?php
-/**
- * =============================================================================================================================
- * Outils pour la gestion des scores
- * @author Sébastien LOZANO
- * =============================================================================================================================
- */
+  /**
+   * =============================================================================================================================
+   * Outils pour la gestion des scores
+   * @author Sébastien LOZANO
+   * =============================================================================================================================
+   */
 
-/**
- * Fonction pour créer l'index des espaces de scores
- * 
- * @param string $path est le chemin où index.php sera généré
- * @param string $codeProf est le code prof constitué des 3 majuscules
- *  
- */
+  /**
+   * Fonction pour créer l'index des espaces de scores
+   * 
+   * @param string $path est le chemin où index.php sera généré
+   * @param string $codeProf est le code prof constitué des 3 majuscules
+   *  
+   */
 
-function createIndexScores($path,$codeProf) {
-  $indexProfSpace = $path.'/index.php';
-  // On ouvre le fichier
-  $fp = fopen($indexProfSpace, 'a+');
-  // On écrit dedans un template de base à modifier plus tard
-  $string = '<?php 
-  $classes = array();  
-  $dir_iterator = new RecursiveDirectoryIterator(dirname(__FILE__));
-  $iterator = new RecursiveIteratorIterator($dir_iterator);
-  foreach ($iterator as $file){
-      if(!is_dir($file) && !in_array($file->getFilename(), array(".","..","index.php")) && !in_array(substr($file->getPath(),-2),$classes)) {    
-          array_push($classes,substr($file->getPath(),-2));
+  function createIndexScores($path,$codeProf) {
+    $indexProfSpace = $path.'/index.php';
+    // On ouvre le fichier
+    $fp = fopen($indexProfSpace, 'a+');
+    // On écrit dedans un template de base à modifier plus tard
+    $string = 
+    '<?php 
+      // Pour stocker les classes distinctes
+      $classes = array();
+      // Le répetoire père
+      $startPath = dirname(__FILE__);
+      // L\'itérateur
+      $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($startPath),
+                  RecursiveIteratorIterator::SELF_FIRST);
+      // Un classe pour récupérer ce que l\'on veut 
+      class myFilesToDisplay {
+        public function __construct($file, $classe, $name, $path) {
+          $this->file = $file; // Le fichier, pour tester si c\'est un dossier
+          $this->classe = $classe; // La classe
+          $this->name = $name; // Le nom du fichier
+          $this->path = $path; // le chemin pour le lien
+        }
       }
-  }
-  echo "<ul>\r\n";
-  foreach ($classes as $classe) {
-    echo "<br><li>
-    <div class=\"ui labeled button\" tabindex=\"0\">
-      <div class=\"ui orange button\">
-        <i class=\"users icon\"></i> Classe de ".$classe."
-      </div>
-      <a class=\"ui basic orange left pointing label\" href=\"../../../../../../zipDownload.php?folder='.$path.'/".$classe."/\">
-        Télécharger une archive zip avec toutes les semaines
-      </a>
-    </div>    
-    </li>\r\n";
-  echo "<ul>\r\n";
-  foreach ($iterator as $file) {
-      if (substr($file->getPath(),-2) == $classe && !in_array($file->getFilename(), array(".","..")) ) {
+
+      $myFilesDatas = array();      
+      foreach ($iterator as $dirIt => $fileObj) {        
+        $myFilesDatas[] = new myFilesToDisplay($fileObj,substr($fileObj->getPath(),-2),$fileObj->getFilename(),$fileObj->getPath());
+      }  
+
+      // On récupère les classes distinctes dans un tableau
+      foreach ($myFilesDatas as $object) {
+        if(!is_dir($object->file) && !in_array($object->name, array(".","..","index.php")) && !in_array($object->classe,$classes)) {    
+          array_push($classes,$object->classe);           
+        }        
+      }
+      
+      // On trie les classes par ordre alphabétique
+      sort($classes);
+
+      // Un fonction de comparaison pour pouvoir trier les objets de la classe myFilesToDisplay via leur propriété name
+      function cmpByName($a, $b) {
+        return strcmp($a->name, $b->name);
+      }
+      
+      // On trie via la propriété name
+      usort($myFilesDatas, "cmpByName");
+
+      // On gère l\'affichage
+      echo "<ul>\r\n";
+      foreach ($classes as $classe) {
         echo "<br><li>
-          <div class=\"ui labeled button\" tabindex=\"0\">
-            <div class=\"ui orange button\">
-              <i class=\"calendar icon\"></i> ".substr($file->getFilename(),0,-4)."
+        <div class=\"ui labeled button\" tabindex=\"0\">
+          <div class=\"ui orange button\">
+            <i class=\"users icon\"></i> Classe de ".$classe."
+          </div>
+          <a class=\"ui basic orange left pointing label\" href=\"../../../../../../zipDownload.php?folder='.$path.'/".$classe."/\">
+            Télécharger une archive zip avec toutes les semaines
+          </a>
+        </div>    
+        \r\n";
+      echo "<ul>\r\n";
+      foreach ($myFilesDatas as $object) {
+        if (!is_dir($object->file) && $object->classe == $classe && !in_array($object->name, array(".","..")) ) {
+            echo "<br><li>
+              <div class=\"ui labeled button\" tabindex=\"0\">
+                <div class=\"ui orange button\">
+                  <i class=\"calendar icon\"></i> ".substr($object->name,0,-4)."
+                </div>
+                <a class=\"ui basic orange left pointing label\" href=\"".substr($object->path,-2)."/".$object->name."\">
+                  Télécharger uniquement ce fichier
+                </a>
+              </div>
+            </li>\r\n";
+          };
+      }
+      echo "</ul>\r\n"; 
+      echo "</li>\r\n"; 
+      }
+      if (!empty($classes)) {
+        echo "<br><li>
+        
+        <div class=\"ui labeled button\" tabindex=\"0\">
+          <div class=\"ui orange button\">
+            <i class=\"users icon\"></i> Toutes les classes
+          </div>
+          <a class=\"ui basic orange left pointing label\" href=\"../../../../../../zipDownload.php?folder='.$path.'/&allClasses=OK\">
+            Télécharger une archive zip avec toutes les semaines
+          </a>
+        </div> 
+        </li>\r\n";
+      } else {
+        echo "
+        <div class=\"ui icon message\">
+          <i class=\"notched circle loading icon\"></i>
+          <div class=\"content\">
+            <div class=\"header\">
+              Yapluka ^_^
             </div>
-            <a class=\"ui basic orange left pointing label\" href=\"".substr($file->getPath(),-2)."/".$file->getFilename()."\">
-              Télécharger uniquement ce fichier
-            </a>
+            <p> Pas encore de scores enregistrés ... </p>
           </div>
-         </li>\r\n";
-      };
-  }
-  echo "</ul>\r\n"; 
-  }
-  if (!empty($classes)) {
-    echo "<br><li>
-    
-    <div class=\"ui labeled button\" tabindex=\"0\">
-      <div class=\"ui orange button\">
-        <i class=\"users icon\"></i> Toutes les classes
-      </div>
-      <a class=\"ui basic orange left pointing label\" href=\"../../../../../../zipDownload.php?folder='.$path.'/&allClasses=OK\">
-        Télécharger une archive zip avec toutes les semaines
-      </a>
-    </div> 
-    </li>\r\n";
-  } else {
-    echo "
-    <div class=\"ui icon message\">
-      <i class=\"notched circle loading icon\"></i>
-      <div class=\"content\">
-        <div class=\"header\">
-          Yapluka ^_^
-        </div>
-        <p> Pas encore de scores enregistrés ... </p>
-      </div>
-    </div>    
-    ";
-  }
-  echo "</ul>\r\n";    
-?>';
+        </div>    
+        ";
+      }
+      echo "</ul>\r\n";    
+    ?>';
+    fputs($fp,"
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src=\"https://www.googletagmanager.com/gtag/js?id=UA-5318292-3\"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+
+          gtag('config', 'UA-5318292-3');
+        </script>
+        <meta charset=\"UTF-8\">
+        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+
+        <!-- JQuery-->
+        <script src=\"../../../../../assets/externalJs/jquery-3.6.0.min.js\"></script>
+        <script src=\"../../../../../assets/externalJs/jquery-ui-1.12.1.min.js\"></script>
+        
+
+        <!-- Semantic UI-->
+        <link rel=\"stylesheet\" type=\"text/css\" href=\"../../../../../assets/externalJs/semantic-ui/semantic.min.css\">
+        <script src=\"../../../../../assets/externalJs/semantic-ui/semantic.min.js\" type=\"text/javascript\"></script>
+        <script src=\"../../../../../assets/externalJs/semantic-ui/components/state.min.js\"></script>
+        
+        <title>MathALÉA - Espace ".$codeProf[0].$codeProf[1].$codeProf[2]."</title>
+        <style type=\"text/css\">
+          body > .ui.container {
+            margin-top: 3em;
+          }
+        </style>
+      </head>
+
+      <body style=\"overflow:auto\">
+    ");
+
+  // fputs($fp," ...
+  // ");
+
   fputs($fp,"
-<!DOCTYPE html>
-<html>
-<head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src=\"https://www.googletagmanager.com/gtag/js?id=UA-5318292-3\"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-5318292-3');
-  </script>
-  <meta charset=\"UTF-8\">
-  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-
-  <!-- JQuery-->
-  <script src=\"../../../../../assets/externalJs/jquery-3.6.0.min.js\"></script>
-  <script src=\"../../../../../assets/externalJs/jquery-ui-1.12.1.min.js\"></script>
-  
-
-  <!-- Semantic UI-->
-  <link rel=\"stylesheet\" type=\"text/css\" href=\"../../../../../assets/externalJs/semantic-ui/semantic.min.css\">
-  <script src=\"../../../../../assets/externalJs/semantic-ui/semantic.min.js\" type=\"text/javascript\"></script>
-  <script src=\"../../../../../assets/externalJs/semantic-ui/components/state.min.js\"></script>
-   
-  <title>MathALÉA - Espace ".$codeProf[0].$codeProf[1].$codeProf[2]."</title>
-  <style type=\"text/css\">
-    body > .ui.container {
-      margin-top: 3em;
-    }
-  </style>
-</head>
-
-<body style=\"overflow:auto\">
-");
-
-// fputs($fp," ...
-// ");
-
-fputs($fp,"
-          <div class=\"ui container\">
-          <h1 class=\"ui center aligned header\">Espace des scores <b>".$codeProf[0].$codeProf[1].$codeProf[2]."</b></h1>
-          <h2 class=\"ui center aligned header\">Liste des fichiers par classe et par semaine</h2>                
-            $string      
-          </div>
-");
-
-fputs($fp,"
-</body>
-  </html>
+    <div class=\"ui container\">
+    <h1 class=\"ui center aligned header\">Espace des scores <b>".$codeProf[0].$codeProf[1].$codeProf[2]."</b></h1>
+    <h2 class=\"ui center aligned header\">Liste des fichiers par classe et par semaine</h2>                
+      $string      
+    </div>
   ");
-  fclose($fp); 
-};
 
+  fputs($fp,"
+    </body>
+      </html>
+  ");
+
+  fclose($fp); 
+  };
 ?>
