@@ -88,7 +88,7 @@ export default function LireAbscisseRelative () {
       objets.push(tracePoint(A, B, C), labelPoint(A, B, C))
 
       texte = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
-      if (!context.isAmc) {
+      if (!context.isAmc && this.interactif) {
         texte += `${l1}(` + ajouteChampTexteMathLive(this, 3 * i, 'largeur10 inline', { texteApres: '  )' }) + sp(20)
         texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur10 inline', { texte: `${l2}(`, texteApres: '  )' }) + sp(20)
         texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur10 inline', { texte: `${l3}(`, texteApres: '  )' })

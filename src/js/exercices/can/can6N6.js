@@ -1,4 +1,4 @@
-import { calcul, choice, randint } from '../../modules/outils'
+import { calcul, choice, randint, texNombre } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Double ou triple (décimal)'
 export const interactifReady = true
@@ -13,17 +13,17 @@ export default function DoubleOuTripleDecimal () {
   this.interactif = true
   this.nouvelleVersion = function () {
     const a = randint(1, 3)
-    const b = randint(ç1, 9, a)
+    const b = randint(1, 9, a)
     const d = randint(1, 9)
     const c = calcul(a * 10 + b + d * 0.1)
     if (choice([true, false])) {
       this.reponse = calcul(3 * c)
-      this.question = `Quel est le triple de $${c}$ ?`
-      this.correction = `Le triple de $${c}$ est $3 \\times ${c}=${calcul(3 * c)}$.`
+      this.question = `Quel est le triple de $${texNombre(c)}$ ?`
+      this.correction = `Le triple de $${texNombre(c)}$ est $3 \\times ${texNombre(c)}=${calcul(3 * c)}$.`
     } else {
       this.reponse = calcul(2 * c)
-      this.question = `Quel est le double de $${c}$ ?`
-      this.correction = `Le double de $${c}$ est $2 \\times ${c}=${calcul(2 * c)}$.`
+      this.question = `Quel est le double de $${texNombre(c)}$ ?`
+      this.correction = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${calcul(2 * c)}$.`
     }
   }
 }

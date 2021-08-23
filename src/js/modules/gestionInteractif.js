@@ -23,6 +23,61 @@ export function exerciceInteractif (exercice) {
   }
 }
 
+function mouseOverSvgEffect () {
+  this.style.border = '1px solid #1DA962'
+}
+function mouseOutSvgEffect () {
+  this.style.border = 'none'
+}
+function mouseSvgClick () {
+  if (this.etat) {
+    // Déja choisi, donc on le réinitialise
+    this.style.border = 'none'
+    this.addEventListener('mouseover', mouseOverSvgEffect)
+    this.addEventListener('mouseout', mouseOutSvgEffect)
+    this.addEventListener('click', mouseSvgClick)
+    this.etat = false
+  } else {
+    // Passe à l'état choisi donc on désactive les listenners pour over et pour out
+    this.removeEventListener('mouseover', mouseOverSvgEffect)
+    this.removeEventListener('mouseout', mouseOutSvgEffect)
+    this.style.border = '3px solid #f15929'
+    this.etat = true
+  }
+}
+
+function verifQuestionCliqueFigure (exercice, i) {
+  // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
+  let eltFeedback = get(`resultatCheckEx${exercice.numeroExercice}Q${i}`, false)
+  // On ajoute le div pour le feedback
+  if (!eltFeedback) {
+    const eltExercice = get(`exercice${exercice.numeroExercice}`)
+    eltFeedback = addElement(eltExercice, 'div', { id: `resultatCheckEx${exercice.numeroExercice}Q${i}` })
+  }
+  setStyles(eltFeedback, 'marginBottom: 20px')
+  if (eltFeedback) eltFeedback.innerHTML = ''
+  const figures = []
+  let erreur = false // Aucune erreur détectée
+  let nbFiguresCliquees = 0
+  for (const objetFigure of exercice.figures[i]) {
+    const eltFigure = document.getElementById(objetFigure.id)
+    figures.push(eltFigure)
+    eltFigure.removeEventListener('mouseover', mouseOverSvgEffect)
+    eltFigure.removeEventListener('mouseout', mouseOutSvgEffect)
+    eltFigure.removeEventListener('click', mouseSvgClick)
+    eltFigure.hasMathaleaListener = false
+    if (eltFigure.etat) nbFiguresCliquees++
+    if (eltFigure.etat !== objetFigure.solution) erreur = true
+  }
+  if (nbFiguresCliquees > 0 && !erreur) {
+    eltFeedback.innerHTML = '😎'
+    return 'OK'
+  } else {
+    eltFeedback.innerHTML = '☹️'
+    return 'KO'
+  }
+}
+
 function verifQuestionMathLive (exercice, i) {
   const engine = new ComputeEngine()
   let saisieParsee, signeF
@@ -201,7 +256,7 @@ function verifQuestionNumerique (exercice, i) {
 }
 
 function gestionCan (exercice) {
-  for (const i in exercice.autoCorrection) {
+  for (let i = 0; i < exercice.nbQuestions; i++) {
     const button1question = document.querySelector(`#boutonVerifexercice${exercice.numeroExercice}Q${i}`)
     if (button1question) {
       if (!button1question.hasMathaleaListener) {
@@ -214,8 +269,10 @@ function gestionCan (exercice) {
             resultat = verifQuestionNumerique(exercice, i)
           }
           if (exercice.interactifType === 'qcm') {
-            console.log('qcm')
             resultat = verifQuestionQcm(exercice, i)
+          }
+          if (exercice.interactifType === 'cliqueFigure') {
+            resultat = verifQuestionCliqueFigure(exercice, i)
           }
           // Mise en couleur du numéro de la question dans le menu du haut
           if (resultat === 'OK') {
@@ -400,6 +457,9 @@ export function exerciceNumerique (exercice) {
 
 export function exerciceCliqueFigure (exercice) {
   document.addEventListener('exercicesAffiches', () => {
+    if (getVueFromUrl() === 'can') {
+      gestionCan(exercice)
+    }
     // Dès que l'exercice est affiché, on rajoute des listenners sur chaque éléments de this.figures.
     for (let i = 0; i < exercice.nbQuestions; i++) {
       for (const objetFigure of exercice.figures[i]) {
@@ -424,63 +484,12 @@ export function exerciceCliqueFigure (exercice) {
         button.addEventListener('click', event => {
           let nbBonnesReponses = 0
           let nbMauvaisesReponses = 0
-          let nbFiguresCliquees = 0
           for (let i = 0; i < exercice.nbQuestions; i++) {
-          // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
-            let eltFeedback = get(`resultatCheckEx${exercice.numeroExercice}Q${i}`, false)
-            // On ajoute le div pour le feedback
-            if (!eltFeedback) {
-              const eltExercice = get(`exercice${exercice.numeroExercice}`)
-              eltFeedback = addElement(eltExercice, 'div', { id: `resultatCheckEx${exercice.numeroExercice}Q${i}` })
-            }
-            setStyles(eltFeedback, 'marginBottom: 20px')
-            if (eltFeedback) eltFeedback.innerHTML = ''
-            const figures = []
-            let erreur = false // Aucune erreur détectée
-            for (const objetFigure of exercice.figures[i]) {
-              const eltFigure = document.getElementById(objetFigure.id)
-              figures.push(eltFigure)
-              eltFigure.removeEventListener('mouseover', mouseOverSvgEffect)
-              eltFigure.removeEventListener('mouseout', mouseOutSvgEffect)
-              eltFigure.removeEventListener('click', mouseSvgClick)
-              eltFigure.hasMathaleaListener = false
-              if (eltFigure.etat) nbFiguresCliquees++
-              if (eltFigure.etat !== objetFigure.solution) erreur = true
-            }
-            if (nbFiguresCliquees > 0 && !erreur) {
-              eltFeedback.innerHTML = '😎'
-              nbBonnesReponses++
-            } else {
-              eltFeedback.innerHTML = '☹️'
-              nbMauvaisesReponses++
-            }
+            verifQuestionCliqueFigure(exercice, i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
           }
           afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
         })
         button.hasMathaleaListener = true
-      }
-    }
-
-    function mouseOverSvgEffect () {
-      this.style.border = '1px solid #1DA962'
-    }
-    function mouseOutSvgEffect () {
-      this.style.border = 'none'
-    }
-    function mouseSvgClick () {
-      if (this.etat) {
-        // Déja choisi, donc on le réinitialise
-        this.style.border = 'none'
-        this.addEventListener('mouseover', mouseOverSvgEffect)
-        this.addEventListener('mouseout', mouseOutSvgEffect)
-        this.addEventListener('click', mouseSvgClick)
-        this.etat = false
-      } else {
-        // Passe à l'état choisi donc on désactive les listenners pour over et pour out
-        this.removeEventListener('mouseover', mouseOverSvgEffect)
-        this.removeEventListener('mouseout', mouseOutSvgEffect)
-        this.style.border = '3px solid #f15929'
-        this.etat = true
       }
     }
   })

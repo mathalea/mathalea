@@ -319,9 +319,9 @@ export default function CourseAuxNombres6e (numeroExercice) {
           a = randint(0, 7)
           b = fruits[a][1]
           c = randint(fruits[a][2], fruits[a][3])
-          resultat = calcul(c / 50 * b)
-          texte = `$${texNombrec(c / 100)}$ kg de ${fruits[a][0]} coûtent $${texNombrec(c / 100 * b)}$ €, combien coûtent $${texNombrec(c / 50)}$ kg de ${fruits[a][0]} ?`
-          texteCorr = `$${texNombrec(c / 100 * b)} \\times 2 = ${texNombre(resultat)}$`
+          resultat = calcul(c / 5 * b)
+          texte = `$${texNombrec(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombrec(c / 10 * b)}$ €, combien coûtent $${texNombrec(c / 5)}$ kg de ${fruits[a][0]} ?`
+          texteCorr = `$${texNombrec(c / 10 * b)} \\times 2 = ${texNombre(resultat)}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
         case 'q21':
@@ -394,7 +394,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
             texteCorr = `Faux car $4\\times ${a}$ cm $\\neq 2\\times ${a}$ cm $+ 2\\times ${a + 1}$ cm.`
             setReponse(this, q, 'F')
           } else {
-            texteCorr = `Vrai car $4\\times ${a} cm = 2\\times ${a - 1} cm + 2\\times ${a + 1} cm= ${4 * a} cm.`
+            texteCorr = `Vrai car $4\\times ${a}$ cm $= 2\\times ${a - 1}$ cm $+ 2\\times ${a + 1}$ cm $= ${4 * a}$ cm.`
             setReponse(this, q, 'V')
           }
           break
