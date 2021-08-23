@@ -3,7 +3,6 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombrec, lettreDepuisChiffre, htmlConsigne, egal } from '../../modules/outils.js'
 import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
-import { afficheScore } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
@@ -28,7 +27,6 @@ export default function PlacerPointsSurAxeRelatifs () {
   this.spacing = 1
   this.spacingCorr = 1
   this.sup = 1
-  this.typeExercice = 'SVGJS'
 
   this.listePackages = 'tkz-euclide'
   // fonction qui retourne l'abscisse du point pour mathalea2d en fonction de l'abscisse de l'exercice
@@ -99,8 +97,7 @@ export default function PlacerPointsSurAxeRelatifs () {
           }
         }
       }
-
-      objets.push(droiteGraduee2({
+      const axeGradue = droiteGraduee2({
         Unite: 3 * pas1,
         Min: abs0,
         Max: abs0 + 6.9 / pas1,
@@ -110,7 +107,20 @@ export default function PlacerPointsSurAxeRelatifs () {
         thickSec: true,
         labelsPrincipaux: true,
         thickDistance: 1 / pas1
-      }))
+      })
+      objets.push(axeGradue)
+      const t1 = tracePoint(A)
+      const t2 = tracePoint(B)
+      const t3 = tracePoint(C)
+      t1.taille = 5
+      t1.epaisseur = 2
+      t1.color = 'blue'
+      t2.taille = 5
+      t2.epaisseur = 2
+      t2.color = 'blue'
+      t3.taille = 5
+      t3.epaisseur = 2
+      t3.color = 'blue'
 
       texte = `Placer les points : $${l1}(${texNombrec(abs1)}), ${l2}(${texNombrec(abs2)}), ${l3}(${texNombrec(abs3)})$<br>`
 
@@ -120,7 +130,7 @@ export default function PlacerPointsSurAxeRelatifs () {
       }
 
       objets.push(labelPoint(A, B, C), tracePoint(A, B, C))
-      texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
+      texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, axeGradue, t1, t2, t3)
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -131,33 +141,30 @@ export default function PlacerPointsSurAxeRelatifs () {
       this.listeCorrections.push(texteCorr)
     }
 
-    this.correctionInteractive = (elt) => {
-      let nbBonnesReponses = 0
-      let nbMauvaisesReponses = 0
-      for (let i = 0, aucunMauvaisPointsCliques; i < this.nbQuestions; i++) {
-        aucunMauvaisPointsCliques = true
-        for (const monPoint of pointsNonSolutions[i]) {
-          if (monPoint.etat) aucunMauvaisPointsCliques = false
-          monPoint.stopCliquable()
-        }
-        for (const monPoint of pointsSolutions[i]) {
-          if (!monPoint.etat) aucunMauvaisPointsCliques = false
-          monPoint.stopCliquable()
-        }
-        const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-        for (let j = 0; j < pointsSolutions[i].length; j++) {
-          pointsSolutions[i][j].stopCliquable()
-        }
-
-        if (aucunMauvaisPointsCliques && pointsSolutions[i][0].etat && pointsSolutions[i][1].etat && pointsSolutions[i][2].etat) {
-          divFeedback.innerHTML = '😎'
-          nbBonnesReponses++
-        } else {
-          divFeedback.innerHTML = '☹️'
-          nbMauvaisesReponses++
-        }
+    this.correctionInteractive = (i) => {
+      let resultat
+      let aucunMauvaisPointsCliques = true
+      for (const monPoint of pointsNonSolutions[i]) {
+        if (monPoint.etat) aucunMauvaisPointsCliques = false
+        monPoint.stopCliquable()
       }
-      afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
+      for (const monPoint of pointsSolutions[i]) {
+        if (!monPoint.etat) aucunMauvaisPointsCliques = false
+        monPoint.stopCliquable()
+      }
+      const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+      for (let j = 0; j < pointsSolutions[i].length; j++) {
+        pointsSolutions[i][j].stopCliquable()
+      }
+
+      if (aucunMauvaisPointsCliques && pointsSolutions[i][0].etat && pointsSolutions[i][1].etat && pointsSolutions[i][2].etat) {
+        divFeedback.innerHTML = '😎'
+        resultat = 'OK'
+      } else {
+        divFeedback.innerHTML = '☹️'
+        resultat = 'KO'
+      }
+      return resultat
     }
     listeQuestionsToContenu(this)
   }
