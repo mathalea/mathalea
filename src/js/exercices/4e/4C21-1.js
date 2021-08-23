@@ -1,9 +1,14 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,pgcd,simplificationDeFractionAvecEtapes,miseEnEvidence,texFraction,ppcm} from '../../modules/outils.js'
-
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, miseEnEvidence, texFraction, ppcm, fractionSimplifiee } from '../../modules/outils.js'
+import { fraction } from '../../modules/fractions.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Additionner deux fractions'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCOpenNum✖︎2' // type de question AMC
 
 /**
 * Effectuer la somme de deux fractions
@@ -14,136 +19,175 @@ export const titre = 'Additionner deux fractions'
 * @author Rémi Angot
 * 4C21-1
 */
-export default function Exercice_additionner_des_fractions() {
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = 2; // Niveau de difficulté
-	this.sup2 = false; // Avec ou sans relatifs
-	this.titre = titre;
-	this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée";
-	this.spacing = 2;
-	this.spacingCorr = 2;
-	this.nbQuestions = 5;
-	this.nbColsCorr = 1;
+export default function ExerciceAdditionnerDesFractions () {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.sup = 2 // Niveau de difficulté
+  this.sup2 = false // Avec ou sans relatifs
+  this.titre = titre
+  this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée"
+  this.spacing = 2
+  this.spacingCorr = 2
+  this.nbQuestions = 5
+  this.nbColsCorr = 1
 
-	this.nouvelleVersion = function () {
-		this.listeQuestions = []; // Liste de questions
-		this.listeCorrections = []; // Liste de questions corrigées
-		let typesDeQuestionsDisponibles;
-		if (this.sup == 1) {
-			typesDeQuestionsDisponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier'];
-		}
-		if (this.sup == 2) {
-			typesDeQuestionsDisponibles = ['ppcm', 'ppcm', 'premiers_entre_eux', choice(['b_multiple_de_d', 'd_multiple_de_b']), 'entier'];
-		}
-		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		for (let i = 0, a, b, c, d, k, k1, k2, num, den, texte, texteCorr, typesDeQuestions; i < this.nbQuestions; i++) {
-			typesDeQuestions = listeTypeDeQuestions[i];
-			switch (typesDeQuestions) {
-				case 'ppcm':
-					let liste_couples_de_denominateurs = [[6, 9], [4, 6], [8, 12], [9, 12], [10, 15], [10, 25], [6, 21], [12, 30], [6, 8], [50, 75],];
-					let couples_de_denominateurs = choice(liste_couples_de_denominateurs);
-					if (choice([true, false])) {
-						b = couples_de_denominateurs[0];
-						d = couples_de_denominateurs[1];
-					} else {
-						b = couples_de_denominateurs[1];
-						d = couples_de_denominateurs[0];
-					}
-					k1 = ppcm(b, d) / b;
-					k2 = ppcm(b, d) / d;
-					break;
+  this.nouvelleVersion = function () {
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    const listeCouplesDeDenominateurs = [[6, 9], [4, 6], [8, 12], [9, 12], [10, 15], [10, 25], [6, 21], [12, 30], [6, 8], [50, 75]]
 
-				case 'premiers_entre_eux':
-					b = randint(2, 9);
-					d = randint(2, 9);
-					while (pgcd(b, d) != 1) {
-						b = randint(2, 9);
-						d = randint(2, 9);
-					}
-					k1 = ppcm(b, d) / b;
-					k2 = ppcm(b, d) / d;
-					break;
+    let typesDeQuestionsDisponibles
+    if (this.sup === 1) {
+      typesDeQuestionsDisponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier']
+    }
+    if (this.sup === 2) {
+      typesDeQuestionsDisponibles = ['ppcm', 'ppcm', 'premiers_entre_eux', choice(['b_multiple_de_d', 'd_multiple_de_b']), 'entier']
+    }
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    for (let i = 0, a, b, c, d, k, k1, k2, num, den, texte, texteCorr, reponse, couplesDeDenominateurs, typesDeQuestions; i < this.nbQuestions; i++) {
+      typesDeQuestions = listeTypeDeQuestions[i]
+      switch (typesDeQuestions) {
+        case 'ppcm':
+          couplesDeDenominateurs = choice(listeCouplesDeDenominateurs)
+          if (choice([true, false])) {
+            b = couplesDeDenominateurs[0]
+            d = couplesDeDenominateurs[1]
+          } else {
+            b = couplesDeDenominateurs[1]
+            d = couplesDeDenominateurs[0]
+          }
+          k1 = ppcm(b, d) / b
+          k2 = ppcm(b, d) / d
+          break
 
-				case 'd_multiple_de_b':
-					b = randint(2, 9);
-					k = randint(2, 11);
-					d = b * k;
-					break;
+        case 'premiers_entre_eux':
+          b = randint(2, 9)
+          d = randint(2, 9)
+          while (pgcd(b, d) !== 1) {
+            b = randint(2, 9)
+            d = randint(2, 9)
+          }
+          k1 = ppcm(b, d) / b
+          k2 = ppcm(b, d) / d
+          break
 
-				case 'b_multiple_de_d':
-					d = randint(2, 9);
-					k = randint(2, 11);
-					b = d * k;
-					break;
-			}
+        case 'd_multiple_de_b':
+          b = randint(2, 9)
+          k = randint(2, 11)
+          d = b * k
+          break
 
+        case 'b_multiple_de_d':
+          d = randint(2, 9)
+          k = randint(2, 11)
+          b = d * k
+          break
+      }
 
-			a = randint(1, 9, [b]);
-			c = randint(1, 9, [d]);
-			if (this.sup2) { //si les numérateurs sont relatifs
-				a = a * choice([-1, 1]);
-				c = c * choice([-1, 1]);
-			}
-			texte = `$${texFraction(a, b)}+${texFraction(c, d)}=$`;
-			texteCorr = `$${texFraction(a, b)}+${texFraction(c, d)}`;
+      a = randint(1, 9, [b])
+      c = randint(1, 9, [d])
+      if (this.sup2) { // si les numérateurs sont relatifs
+        a = a * choice([-1, 1])
+        c = c * choice([-1, 1])
+      }
+      texte = `$${texFraction(a, b)}+${texFraction(c, d)}=$`
+      texteCorr = `$${texFraction(a, b)}+${texFraction(c, d)}`
 
-			// a/b+c/d = num/den (résultat non simplifié)
-			if (typesDeQuestions == 'ppcm' || typesDeQuestions == 'premiers_entre_eux') {
-				texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}+${texFraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`;
-				//texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
-				num = a * k1 + c * k2;
-				den = b * k1;
-				texteCorr += `=${texFraction(a * k1 + `+` + ecritureParentheseSiNegatif(c * k2), den)}`;
+      // a/b+c/d = num/den (résultat non simplifié)
+      if (typesDeQuestions === 'ppcm' || typesDeQuestions === 'premiers_entre_eux') {
+        texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}+${texFraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`
+        // texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
+        num = a * k1 + c * k2
+        den = b * k1
+        texteCorr += `=${texFraction(a * k1 + '+' + ecritureParentheseSiNegatif(c * k2), den)}`
+      }
 
-			}
+      if (typesDeQuestions === 'd_multiple_de_b') {
+        texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}+${texFraction(c, d)}`
+        // texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
+        num = a * k + c
+        den = b * k
+        texteCorr += `=${texFraction(a * k + '+' + ecritureParentheseSiNegatif(c), den)}`
+      }
 
-			if (typesDeQuestions == 'd_multiple_de_b') {
-				texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}+${texFraction(c, d)}`;
-				//texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
-				num = a * k + c;
-				den = b * k;
-				texteCorr += `=${texFraction(a * k + `+` + ecritureParentheseSiNegatif(c), den)}`;
-			}
+      if (typesDeQuestions === 'b_multiple_de_d') {
+        texteCorr += `=${texFraction(a, b)}+${texFraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`
+        // texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
+        num = a + c * k
+        den = b
+        texteCorr += `=${texFraction(a + '+' + ecritureParentheseSiNegatif(c * k), den)}`
+      }
 
-			if (typesDeQuestions == 'b_multiple_de_d') {
-				texteCorr += `=${texFraction(a, b)}+${texFraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`;
-				//texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
-				num = a + c * k;
-				den = b;
-				texteCorr += `=${texFraction(a + `+` + ecritureParentheseSiNegatif(c * k), den)}`;
-			}
+      if (typesDeQuestions === 'entier') {
+        a = randint(1, 9)
+        b = randint(2, 9, [a])
+        let n = randint(1, 9)
+        if (this.sup2) {
+          a = a * choice([-1, 1])
+          n = n * choice([-1, 1])
+        }
+        if (choice([true, false])) {
+          texte = `$${n}+${texFraction(a, b)}=$`
+          texteCorr = texte
+          texteCorr += `$${texFraction(n + '\\times ' + b, b)}+${texFraction(a, b)}`
+          texteCorr += `=${texFraction(n * b + '+' + ecritureParentheseSiNegatif(a), b)}`
+        } else {
+          texte = `$${texFraction(a, b)}+${ecritureParentheseSiNegatif(n)}=$`
+          texteCorr = texte
+          texteCorr += `$${texFraction(a, b)}+${texFraction(n + '\\times ' + b, b)}`
+          texteCorr += `=${texFraction(a + '+' + ecritureParentheseSiNegatif(n * b), b)}`
+        }
+        num = n * b + a
+        den = b
+      }
+      texteCorr += `=${texFraction(num, den)}`
+      texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
 
-			if (typesDeQuestions == "entier") {
-				a = randint(1, 9);
-				b = randint(2, 9, [a]);
-				let n = randint(1, 9);
-				if (this.sup2) {
-					a = a * choice([-1, 1]);
-					n = n * choice([-1, 1]);
-				}
-				if (choice([true, false])) {
-					texte = `$${n}+${texFraction(a, b)}=$`;
-					texteCorr = texte;
-					texteCorr += `$${texFraction(n + '\\times ' + b, b)}+${texFraction(a, b)}`;
-					texteCorr += `=${texFraction(n * b + '+' + ecritureParentheseSiNegatif(a), b)}`;
-				} else {
-					texte = `$${texFraction(a, b)}+${ecritureParentheseSiNegatif(n)}=$`;
-					texteCorr = texte;
-					texteCorr += `$${texFraction(a, b)}+${texFraction(n + '\\times ' + b, b)}`;
-					texteCorr += `=${texFraction(a + '+' + ecritureParentheseSiNegatif(n * b), b)}`;
-				}
-				num = n * b + a;
-				den = b;
-			}
-			texteCorr += `=${texFraction(num, den)}`;
-			texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$';
-			this.listeQuestions.push(texte);
-			this.listeCorrections.push(texteCorr);
-		}
-		listeQuestionsToContenu(this); //Espacement de 2 em entre chaque questions.
-	};
-	this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n\
-2 : Cas général"];
-	this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs'];
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: `Calculer $${texte.substring(1, texte.length - 2)}$ et donner le résultat sous forme irreductible`,
+          propositions: [
+            {
+              texte: texteCorr,
+              statut: 3,
+              feedback: ''
+            }
+          ],
+          reponse: {
+            texte: 'numérateur',
+            valeur: fractionSimplifiee(num, den)[0],
+            param: {
+              digits: 2,
+              decimals: 0,
+              exposantNbChiffres: 0,
+              exposantSigne: false,
+              signe: true,
+              approx: 0
+            }
+          },
+          reponse2: {
+            texte: 'dénominateur',
+            valeur: fractionSimplifiee(num, den)[1],
+            param: {
+              digits: 2,
+              decimals: 0,
+              exposantNbChiffres: 0,
+              exposantSigne: false,
+              signe: false,
+              approx: 0
+            }
+          }
+        }
+      } else {
+        reponse = fraction(num, den).simplifie()
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        setReponse(this, i, reponse, { formatInteractif: 'fraction' })
+      }
 
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
+    }
+    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
+  }
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
+  this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
 }

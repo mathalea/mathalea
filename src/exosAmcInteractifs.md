@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 201 
-- nombre d'exos interactifReady 230 
+- nombre d'exos amcReady 204 
+- nombre d'exos interactifReady 234 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -54,7 +54,9 @@
 |4C10-3|Multiplication de deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-4|Quotient de deux entiers relatifs|KO|KO|OK|mathLive|
 |4C11|Calculs utilisant les priorités opératoires|KO|KO|OK|mathLive|
-|4C21|Additionner ou soustraire deux fractions|OK|AMCOpenNum✖︎2|KO|KO|
+|4C20|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
+|4C21-1|Additionner deux fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C21|Additionner ou soustraire deux fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|numerique|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
@@ -89,6 +91,7 @@
 |5N13-2|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
 |5N13|Simplification de fractions|OK|AMCOpen|OK|mathLive|
 |5N14-3|Fractions égales et égalité des produits en croix|OK|qcmMono|OK|qcm|
+|5N14|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
 |5N20|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|mathLive|
 |5P11-1|Problème de vitesse|KO|KO|OK|mathLive|
 |5R10|Trouver le terme manquant d’une somme de nombres relatifs|OK|AMCNum|OK|numerique|

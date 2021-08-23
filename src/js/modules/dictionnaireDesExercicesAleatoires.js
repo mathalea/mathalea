@@ -1066,15 +1066,23 @@ export default {
   "4C20": {
     "titre": "Comparer deux fractions (dénominateurs multiples)",
     "url": "/exercices/4e/4C20.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "4C20"
   },
   "4C21-1": {
     "titre": "Additionner deux fractions",
     "url": "/exercices/4e/4C21-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum✖︎2"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C21-1"
   },
   "4C21": {
@@ -1084,7 +1092,8 @@ export default {
     "amcType": {
       "text": "AMCOpenNum✖︎2"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C21"
   },
   "4C22-1": {
@@ -2117,8 +2126,12 @@ export default {
   "5N14": {
     "titre": "Comparer deux fractions (dénominateurs multiples)",
     "url": "/exercices/5e/5N14.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "5N14"
   },
   "5N15": {
