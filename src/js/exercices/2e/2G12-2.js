@@ -30,7 +30,7 @@ export default function Milieu () {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, g, s, s1, s2, s3, s4, xA, yA, xB, yB, xI0, xI1, yI0, yI1, xI, yI, A, B, T, L, M, I, J, O, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, g, s, s1, s2, s3, xA, yA, xB, yB, xI0, xI1, yI0, yI1, xI, yI, A, B, T, L, M, I, J, O, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
@@ -62,10 +62,10 @@ export default function Milieu () {
           J = point(0, 1, 'J')
           O = point(0, 0, 'O')
           a = axes(-9, -9, 9, 9)
-          s1 = segment(A, M, 'blue')
-          s2 = segment(B, M, 'blue')
+          s = segment(A, B, 'blue')
+       
           s.epaisseur = 2
-          s3 = codeSegments('X', 'red', s1, s2)
+          // s3 = codeSegments('X', 'red', s1, s2)
           T = tracePoint(A, B, M, I, J, O) // Repère les points avec une croix
           L = labelPoint(A, B, M, I, J, O)
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
@@ -77,7 +77,7 @@ export default function Milieu () {
             ymin: -9,
             xmax: 9,
             ymax: 9
-          }, a, g, T, L, s1, s2, s3)
+          }, a, g, T, L, s)
 
           texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
           texteCorr += '<br> alors les coordonnées du point $M$ milieu de $[AB]$ sont '
