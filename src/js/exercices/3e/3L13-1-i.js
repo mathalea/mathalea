@@ -56,8 +56,8 @@ export default function ExerciceEquation1Tiret2 () {
           a = randint(c + 1, 15) // a sera plus grand que c pour que a-c>0
         }
         texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
+        texteCorr = texte
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        texteCorr = texte + '<br>'
         setReponse(this, i, new Fraction(d - b, a - c), { formatInteractif: 'fractionEgale' })
         if (this.correctionDetaillee) {
           if (c > 0) {
@@ -90,8 +90,8 @@ export default function ExerciceEquation1Tiret2 () {
       if (listeTypeDeQuestions[i] === 'k(ax+b)=cx+d') {
         if (c === k * a) { c = randint(1, 9, [a]) } // sinon on arrive à une division par 0
         texte = `$${k}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
+        texteCorr = texte
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        texteCorr = texte + '<br>'
         setReponse(this, i, new Fraction(d - k * b, a * k - c), { formatInteractif: 'fractionEgale' })
         if (this.correctionDetaillee) {
           texteCorr += 'On développe le membre de gauche.<br>'
@@ -128,8 +128,8 @@ export default function ExerciceEquation1Tiret2 () {
       if (listeTypeDeQuestions[i] === 'k-(ax+b)=cx+d') {
         if (c === -a) { c = randint(-9, 9, [0, a]) } // sinon on arrive à une division par 0
         texte = `$${k}-(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
+        texteCorr = texte
         texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        texteCorr = texte + '<br>'
         setReponse(this, i, new Fraction(k - b - d, a + c), { formatInteractif: 'fractionEgale' })
         if (this.correctionDetaillee) {
           texteCorr += 'On développe le membre de gauche.<br>'
