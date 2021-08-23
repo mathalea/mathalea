@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 197 
-- nombre d'exos interactifReady 226 
+- nombre d'exos amcReady 201 
+- nombre d'exos interactifReady 230 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -171,7 +171,6 @@
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
 |betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
-|betaCaN5|Course aux nombres 5e|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
@@ -187,7 +186,11 @@
 |can5C03|Différence de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C04|Triple et moitié|OK|AMCNum|OK|mathLive|
 |can5C05|Quotient entier|OK|AMCNum|OK|mathLive|
-|can5D01|Somme de nombres décimaux|OK|AMCHybride|OK|mathLive|
+|can5C06|Reste de division euclidienne|OK|AMCNum|OK|mathLive|
+|can5C07|Priorité opératoire|OK|AMCNum|OK|mathLive|
+|can5C08|Quart entier|OK|AMCNum|OK|mathLive|
+|can5C09|Multiplier par 5|OK|AMCNum|OK|mathLive|
+|can5D01|Conversion en heures et minutes|OK|AMCHybride|OK|mathLive|
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
 |can6C01|Ordre de grandeur|OK|qcmMono|OK|qcm|
 |can6C02|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
@@ -219,6 +222,7 @@
 |can6P02|Proportionnalité compliquée|OK|AMCNum|OK|mathLive|
 |can6P03|Question de vitesse|OK|AMCNum|OK|mathLive|
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
+|canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|

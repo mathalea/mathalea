@@ -4,8 +4,7 @@ import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInter
 import Fraction from '../../modules/Fraction.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
-import { context } from '../../modules/context.js'
-export const titre = 'Course aux nombres 5e'
+export const titre = 'Course aux nombres début de 5e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -391,7 +390,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
       } else {
         texte += ajouteChampTexteMathLive(this, i)
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b, c, d, resultat)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

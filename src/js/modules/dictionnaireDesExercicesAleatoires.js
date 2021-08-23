@@ -3700,17 +3700,6 @@ export default {
     "interactifType": "mathLive",
     "name": "betaCaN2"
   },
-  "betaCaN5": {
-    "titre": "Course aux nombres 5e",
-    "url": "/exercices/beta/betaCaN5.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCaN5"
-  },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
     "url": "/exercices/beta/betaCaNCM2.js",
@@ -4105,8 +4094,52 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C05"
   },
+  "can5C06": {
+    "titre": "Reste de division euclidienne",
+    "url": "/exercices/can/can5C06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C06"
+  },
+  "can5C07": {
+    "titre": "Priorité opératoire",
+    "url": "/exercices/can/can5C07.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C07"
+  },
+  "can5C08": {
+    "titre": "Quart entier",
+    "url": "/exercices/can/can5C08.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C08"
+  },
+  "can5C09": {
+    "titre": "Multiplier par 5",
+    "url": "/exercices/can/can5C09.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C09"
+  },
   "can5D01": {
-    "titre": "Somme de nombres décimaux",
+    "titre": "Conversion en heures et minutes",
     "url": "/exercices/can/can5D01.js",
     "amcReady": true,
     "amcType": {
@@ -4456,6 +4489,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6P04"
+  },
+  "canPredef5-1": {
+    "titre": "Course aux nombres début de 5e",
+    "url": "/exercices/can/canPredef5-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canPredef5-1"
   },
   "canPredef6-3": {
     "titre": "Course aux nombres fin de 6e",
