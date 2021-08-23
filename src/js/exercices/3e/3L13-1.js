@@ -6,8 +6,7 @@ import Fraction from '../../modules/Fraction.js'
 export const titre = 'Équation du premier degré (utilisant la distributivité)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcReady = true
-export const amcType = 'AMCHybride'
+export const amcReady = false // AMC : pour l'instant on ne peut pas tester une réponse parfois décimale parfois fractionnaire
 
 /**
 * Équation du premier degré
@@ -36,11 +35,19 @@ export default function ExerciceEquation1Tiret2 () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.introduction = lampeMessage({
-      titre: 'Calculatrice autorisée.',
-      texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> Pour une solution comme 0,333... seule une fraction (par ex : $${texFraction(1, 3)})$ est une réponse correcte.`,
-      couleur: 'nombres'
-    })
+    if (this.interactif) {
+      this.introduction = lampeMessage({
+        titre: '',
+        texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> On rappelle qu'il faut donner une solution exacte (par exemple $${texFraction(1, 3)})$ plutôt qu'une valeur aprrochée (comme 0,3333).`,
+        couleur: 'nombres'
+      })
+    } else {
+      this.introduction = lampeMessage({
+        titre: '',
+        texte: `Résoudre les équations au brouillon.<br> On rappelle qu'il faut donner une solution exacte (par exemple $${texFraction(1, 3)})$ plutôt qu'une valeur aprrochée (comme 0,3333).`,
+        couleur: 'nombres'
+      })
+    }
     let listeTypeDeQuestions = ['ax+b=cx+d', 'k(ax+b)=cx+d', 'k-(ax+b)=cx+d']
     listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     for (let i = 0, a, b, c, d, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -57,8 +64,10 @@ export default function ExerciceEquation1Tiret2 () {
         }
         texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
         texteCorr = texte
-        texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        setReponse(this, i, new Fraction(d - b, a - c), { formatInteractif: 'fractionEgale' })
+        if (this.interactif) {
+          texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
+          setReponse(this, i, new Fraction(d - b, a - c), { formatInteractif: 'fractionEgale' })
+        }
         if (this.correctionDetaillee) {
           if (c > 0) {
             texteCorr += `On soustrait $${rienSi1(c)}x$ aux deux membres.<br>`
@@ -91,8 +100,10 @@ export default function ExerciceEquation1Tiret2 () {
         if (c === k * a) { c = randint(1, 9, [a]) } // sinon on arrive à une division par 0
         texte = `$${k}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
         texteCorr = texte
-        texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        setReponse(this, i, new Fraction(d - k * b, a * k - c), { formatInteractif: 'fractionEgale' })
+        if (this.interactif) {
+          texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
+          setReponse(this, i, new Fraction(d - k * b, a * k - c), { formatInteractif: 'fractionEgale' })
+        }
         if (this.correctionDetaillee) {
           texteCorr += 'On développe le membre de gauche.<br>'
         }
@@ -129,8 +140,10 @@ export default function ExerciceEquation1Tiret2 () {
         if (c === -a) { c = randint(-9, 9, [0, a]) } // sinon on arrive à une division par 0
         texte = `$${k}-(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
         texteCorr = texte
-        texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        setReponse(this, i, new Fraction(k - b - d, a + c), { formatInteractif: 'fractionEgale' })
+        if (this.interactif) {
+          texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
+          setReponse(this, i, new Fraction(k - b - d, a + c), { formatInteractif: 'fractionEgale' })
+        }
         if (this.correctionDetaillee) {
           texteCorr += 'On développe le membre de gauche.<br>'
         }
