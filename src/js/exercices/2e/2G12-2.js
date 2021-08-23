@@ -63,7 +63,7 @@ export default function Milieu () {
           O = point(0, 0, 'O')
           a = axes(-9, -9, 9, 9)
           s = segment(A, B, 'blue')
-       
+
           s.epaisseur = 2
           // s3 = codeSegments('X', 'red', s1, s2)
           T = tracePoint(A, B, M, I, J, O) // Repère les points avec une croix
