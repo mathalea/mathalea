@@ -1,14 +1,15 @@
+import { droiteGraduee2, mathalea2d } from '../../modules/2d'
 import { context } from '../../modules/context'
 import Fraction from '../../modules/Fraction'
-import { pgcd, randint } from '../../modules/outils'
+import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-export const titre = 'Fraction comme facteur manquant'
+export const titre = 'Abscisse fractionnaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
-export default function FractionCommeFacteurManquant () {
+export default function AbscisseFractionnaire () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
@@ -17,15 +18,31 @@ export default function FractionCommeFacteurManquant () {
   this.consigne = ''
 
   this.nouvelleVersion = function () {
-    let a, b
+    const a = randint(2, 6) // dénominateur
+    let b = randint(2, a * 4 - 1)
     do {
-      a = randint(2, 25)
-      b = randint(2, 25, a)
-    } while (pgcd(a, b) !== 1)
-    const c = new Fraction(a, b)
+      b = randint(2, a * 4 - 1) // numérateur
+    } while (b % a === 0)
+    const c = new Fraction(b, a)
     this.reponse = c
-    this.question = `Quel est le nombre qui, multiplié par ${b} donne ${a} ? (réponse fractionnaire obligatoire)`
-    this.correction = `c'est $${c.texFraction}$ car $${c.texFraction}\\times ${b} = ${a}$`
+    this.question = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5 }, droiteGraduee2({
+      Unite: 3,
+      Min: 0,
+      Max: 4.2,
+      x: 0,
+      y: 0,
+      thickSecDist: 1 / a,
+      thickSec: true,
+      thickoffset: 0,
+      axeStyle: '|->',
+      pointListe: [[b / a, 'A']],
+      pointCouleur: 'blue',
+      pointStyle: 'x',
+      labelsPrincipaux: true,
+      step1: 1,
+      step2: 1
+    }))
+    this.correction = `L'abscisse du point A est $\\dfrac{${b}}{${a}}$`
     if (context.isAmc) {
       this.autoCorrection[0] = {
         enonce: this.question,
@@ -37,7 +54,7 @@ export default function FractionCommeFacteurManquant () {
               statut: '',
               reponse: {
                 texte: 'Numérateur',
-                valeur: a,
+                valeur: b,
                 param: {
                   digits: 2,
                   decimals: 0,
@@ -54,9 +71,9 @@ export default function FractionCommeFacteurManquant () {
               statut: '',
               reponse: {
                 texte: 'Dénominateur',
-                valeur: b,
+                valeur: a,
                 param: {
-                  digits: 2,
+                  digits: 1,
                   decimals: 0,
                   signe: false,
                   approx: 0

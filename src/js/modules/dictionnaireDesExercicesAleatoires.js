@@ -4187,7 +4187,7 @@ export default {
     "url": "/exercices/can/can6N2.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -4292,6 +4292,17 @@ export default {
     "interactifType": "qcm",
     "name": "can6N28"
   },
+  "can6N29": {
+    "titre": "Abscisse fractionnaire",
+    "url": "/exercices/can/can6N29.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N29"
+  },
   "can6N3": {
     "titre": "Somme de quatre entiers qui se marient",
     "url": "/exercices/can/can6N3.js",
@@ -4302,6 +4313,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N3"
+  },
+  "can6N30": {
+    "titre": "Proportionnalité compliquée",
+    "url": "/exercices/can/can6N30.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N30"
   },
   "can6N4": {
     "titre": "Somme de deux décimaux",
