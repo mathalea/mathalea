@@ -76,7 +76,7 @@
         \r\n";
       echo "<ul>\r\n";
       foreach ($myFilesDatas as $object) {
-        if ($object->classe == $classe && !in_array($object->name, array(".","..")) ) {
+        if (!is_dir($object->file) && $object->classe == $classe && !in_array($object->name, array(".","..")) ) {
             echo "<br><li>
               <div class=\"ui labeled button\" tabindex=\"0\">
                 <div class=\"ui orange button\">
