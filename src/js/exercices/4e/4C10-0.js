@@ -1,10 +1,13 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, ecritureNombreRelatif, texteEnCouleurEtGras, Relatif, combinaisonListes } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-export const interactifReady = true
-export const interactifType = 'mathLive'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMono'
 export const titre = 'Signe d’un produit ou d’un quotient de nombres relatifs'
 
 /**
@@ -19,18 +22,17 @@ export const titre = 'Signe d’un produit ou d’un quotient de nombres relatif
  */
 export default function SigneProduitQuotientRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = 'Donner le signe des expressions numériques.'
   this.nbQuestions = 7
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
+  this.interactif = true
 
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
+    this.autoCorrection = []
     this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
     if (this.exo === this.beta + '4C10-1') {
       // signe d'un produit
@@ -76,7 +78,8 @@ export default function SigneProduitQuotientRelatifs () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      this.autoCorrection[i] = {}
       // on ne choisit que des nombres compris entre 1 et 20
       const nbMax = 20
       // Le tableau des relatifs necessaires, il m'en faut max 4 !
@@ -104,11 +107,7 @@ export default function SigneProduitQuotientRelatifs () {
           )} $ est ${texteEnCouleurEtGras(
             num.getSigneProduitString(num.relatifs[0], num.relatifs[1])
           )}.`
-          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1]) === 'positif') {
-            setReponse(this, i, '+', { formatInteractif: 'texte' })
-          } else {
-            setReponse(this, i, '-', { formatInteractif: 'texte' })
-          }
+          reponse = num.getSigneProduitString(num.relatifs[0], num.relatifs[1])
           break
         case 2: // 3 facteurs
           texte = `$ ${ecritureNombreRelatif(
@@ -138,11 +137,7 @@ export default function SigneProduitQuotientRelatifs () {
               num.relatifs[2]
             )
           )}.`
-          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2]) === 'positif') {
-            setReponse(this, i, '+', { formatInteractif: 'texte' })
-          } else {
-            setReponse(this, i, '-', { formatInteractif: 'texte' })
-          }
+          reponse = num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2])
           break
         case 3: // 4 facteurs
           texte = `$ ${ecritureNombreRelatif(
@@ -176,11 +171,7 @@ export default function SigneProduitQuotientRelatifs () {
               num.relatifs[3]
             )
           )}.`
-          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2], num.relatifs[3]) === 'positif') {
-            setReponse(this, i, '+', { formatInteractif: 'texte' })
-          } else {
-            setReponse(this, i, '-', { formatInteractif: 'texte' })
-          }
+          reponse = num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2], num.relatifs[3])
           break
         case 4: // quotient de 2 nombres
           texte = `$ \\dfrac{${ecritureNombreRelatif(
@@ -198,11 +189,7 @@ export default function SigneProduitQuotientRelatifs () {
           )}} $ est ${texteEnCouleurEtGras(
             num.getSigneProduitString(num.relatifs[0], num.relatifs[1])
           )}.`
-          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1]) === 'positif') {
-            setReponse(this, i, '+', { formatInteractif: 'texte' })
-          } else {
-            setReponse(this, i, '-', { formatInteractif: 'texte' })
-          }
+          reponse = num.getSigneProduitString(num.relatifs[0], num.relatifs[1])
           break
         case 5: // quotient d'1 nombre sur un produit de 2 nombres
           texte = `$ \\dfrac{${ecritureNombreRelatif(
@@ -232,11 +219,7 @@ export default function SigneProduitQuotientRelatifs () {
               num.relatifs[2]
             )
           )}.`
-          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2]) === 'positif') {
-            setReponse(this, i, '+', { formatInteractif: 'texte' })
-          } else {
-            setReponse(this, i, '-', { formatInteractif: 'texte' })
-          }
+          reponse = num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2])
           break
         case 6: // quotient d'1 produit de 2 nombres sur 1 nombre
           texte = `$ \\dfrac{${ecritureNombreRelatif(
@@ -266,11 +249,7 @@ export default function SigneProduitQuotientRelatifs () {
               num.relatifs[2]
             )
           )}.`
-          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2]) === 'positif') {
-            setReponse(this, i, '+', { formatInteractif: 'texte' })
-          } else {
-            setReponse(this, i, '-', { formatInteractif: 'texte' })
-          }
+          reponse = num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2])
           break
         case 7: // quotient de 2 produits de 2 nombres
           texte = `$ \\dfrac{${ecritureNombreRelatif(
@@ -304,15 +283,31 @@ export default function SigneProduitQuotientRelatifs () {
               num.relatifs[3]
             )
           )}.`
-          if (num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2], num.relatifs[3]) === 'positif') {
-            setReponse(this, i, '+', { formatInteractif: 'texte' })
-          } else {
-            setReponse(this, i, '-', { formatInteractif: 'texte' })
-          }
+          reponse = num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2], num.relatifs[3])
           break
       }
-      texte += ajouteChampTexteMathLive(this, i)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (context.isAmc || this.interactif) {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          options: { ordered: true },
+          propositions: [
+            {
+              texte: 'négatif',
+              statut: reponse === 'négatif'
+            },
+            {
+              texte: 'nul',
+              statut: false
+            },
+            {
+              texte: 'positif',
+              statut: reponse === 'positif'
+            }
+          ]
+        }
+      }
+      texte += propositionsQcm(this, i).texte
+      if (this.questionJamaisPosee(i, num.relatifs[0], num.relatifs[1], num.relatifs[2], num.relatifs[3], listeTypeDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

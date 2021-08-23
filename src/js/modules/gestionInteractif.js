@@ -341,10 +341,14 @@ export function exerciceQcm (exercice) {
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
 export function propositionsQcm (exercice, i) {
-// exercice.titre = 'cacaboudin'
   let texte = ''
   let texteCorr = ''
   let espace = ''
+  if (context.isHtml) {
+    if (!this.interactif) return { texte: '', texteCorr: '' }
+  } else {
+    if (context.isAmc) return { texte: '', texteCorr: '' }
+  }
   if (context.isHtml) {
     espace = '&emsp;'
   } else {
