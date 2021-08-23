@@ -82,14 +82,13 @@ export default function CourseAuxNombres5e (numeroExercice) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'q1':
-          a = randint(5, 12)
+          a = randint(12, 19)
           b = randint(5, 9)
           resultat = a * b
           texte = `$${a} \\times ${b}$`
           texteCorr = `$${a} \\times ${b}=${a * b}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
-
         case 'q2':
           a = randint(2, 50) + 100
           b = randint(50, 99)
@@ -138,7 +137,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
         case 'q7':
           a = randint(1, 25)
           texte = `Le triple d'un nombre vaut ${3 * a}, combien vaut sa moitié ?`
-          texteCorr = `Le nombre est ${a}, sam moitié est ${calcul(a / 2)}.`
+          texteCorr = `Le nombre est ${a}, sa moitié est ${calcul(a / 2)}.`
           setReponse(this, i, calcul(a / 2), { formatInteractif: 'calcul' })
           break
         case 'q8':
@@ -167,7 +166,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           }
           break
         case 'q9':
-          a = randint(5, 9)
+          a = randint(11, 19)
           b = randint(2, 8)
           c = a * b
           resultat = a

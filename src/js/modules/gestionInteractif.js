@@ -538,6 +538,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
     reponses = [valeurs]
   } else {
     reponses = valeurs
+    signe = valeurs < 0
   }
   if (exercice.autoCorrection[i] === undefined) {
     exercice.autoCorrection[i] = {}
