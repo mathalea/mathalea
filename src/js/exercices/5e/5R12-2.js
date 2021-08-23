@@ -31,10 +31,10 @@ export default function ReperagePointDuPlan () {
     let texte, texteCorr
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    let listePoints = [];
+    let listePoints = []
     const points = []
-    let k, xmin, xmax, ymin, ymax
-    k = Math.pow(2, parseInt(this.sup) - 1)
+    let xmin, xmax, ymin, ymax
+    const k = Math.pow(2, parseInt(this.sup) - 1)
     const nom = []
     const objets2d = []
     if (this.quartDePlan) {
@@ -73,24 +73,24 @@ export default function ReperagePointDuPlan () {
     texteCorr += ` $${nom[4]}(${texNombre(points[4].x)};${texNombre(points[4].y)})$.`
     if (this.sup2) {
       objets2d.push(repere2({
-        xMin: xmin-1,
-        yMin: ymin-1,
-        xMax: xmax+1,
-        yMax: ymax+1,
+        xMin: xmin - 1,
+        yMin: ymin - 1,
+        xMax: xmax + 1,
+        yMax: ymax + 1,
         grilleSecondaire: true,
-        grilleSecondaireDistance: 1/k,
-        grilleSecondaireXMin: xmin-1,
-        grilleSecondaireYMin: ymin-1,
-        grilleSecondaireXMax: xmax+1,
-        grilleSecondaireYMax: ymax+1
+        grilleSecondaireDistance: 1 / k,
+        grilleSecondaireXMin: xmin - 1,
+        grilleSecondaireYMin: ymin - 1,
+        grilleSecondaireXMax: xmax + 1,
+        grilleSecondaireYMax: ymax + 1
       }))
     } else {
-      objets2d.push(repere2({ xMin: xmin-1, yMin: ymin-1, xMax: xmax+1, yMax: ymax+1 }))
+      objets2d.push(repere2({ xMin: xmin - 1, yMin: ymin - 1, xMax: xmax + 1, yMax: ymax + 1 }))
     }
     for (let i = 0; i < 5; i++) {
-      objets2d.push(points[i], tracePoint(points[i],'red'), labelPoint(points[i]))
+      objets2d.push(points[i], tracePoint(points[i], 'red'), labelPoint(points[i]))
     }
-    texte += mathalea2d({ xmin: xmin-1, ymin: ymin-1, xmax: xmax+1, ymax: ymax+1, pixelsParCm: 30, scale: 0.75 }, objets2d)
+    texte += mathalea2d({ xmin: xmin - 1, ymin: ymin - 1, xmax: xmax + 1, ymax: ymax + 1, pixelsParCm: 30, scale: 0.75 }, objets2d)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenuSansNumero(this)
