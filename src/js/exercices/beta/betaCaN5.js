@@ -4,6 +4,7 @@ import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInter
 import Fraction from '../../modules/Fraction.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Course aux nombres 5e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -175,7 +176,13 @@ export default function CourseAuxNombres5e (numeroExercice) {
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q10':
-
+          a = choice([25, 20, 50, 40, 15])
+          b = randint(5, a - 1)
+          c = randint(3, 9)
+          d = c * a + b
+          texte = `Quel est le reste de la division de ${d} par ${a} ?`
+          texteCorr = `$${d}=${a} \\times ${c} + ${b}$ avec $${b}<${a}$ donc le reste de la division de ${d} par ${a} est ${b}.`
+          setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
         case 'q11':
           a = randint(5, 9)
@@ -272,33 +279,15 @@ export default function CourseAuxNombres5e (numeroExercice) {
           texte = `$${texNombrec(a * 100 + b * 10 + c)}\\times ${d}$<br> Choisis la bonne réponse sans effectuer précisément le calcul<br>`
           propositions = shuffle([`$${texNombre(resultat)}$`, `$${texNombrec(d * 1000 + a * 100 + b * 10 + c)}$`, `$${texNombrec((a * 1000 + b * 100 + c) * d)}$`])
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
-          /*   this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [{
-              texte: `$${texNombre(resultat)}$`,
-              statut: true
-            },
-            {
-              texte: `$${texNombrec(d * 1000 + a * 100 + b * 10 + c)}$`,
-              statut: false
-            },
-            {
-              texte: `$${texNombrec((a * 1000 + b * 100 + c) * d)}$`,
-              statut: false
-            }],
-            options: {}
-          }
-          */
-
           texteCorr = `$${texNombrec(a * 100 + b * 10 + c)} \\times ${d} = ${texNombre(resultat)}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q22':
           a = randint(11, 24) * 10 + randint(0, 9)
           resultat = calcul(a / 100)
-          texte = `Convertir $${a}$ cm en m (réponse avec unité obligatoire)`
+          texte = `Convertir $${a}$ cm en m.`
           texteCorr = `$${a} cm = ${texNombre(resultat)} m$`
-          setReponse(this, i, new Grandeur(resultat, 'm'), { formatInteractif: 'longueur' })
+          setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q23':
           a = randint(3, 5)
@@ -325,7 +314,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           texte = `Choisis parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]}<br>`
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}`
-          setReponse(this, i, new Grandeur(b, hauteurs[a][3]), { formatInteractif: 'longueur' })
+          setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
         case 'q26':
           a = randint(2, 9) * 10
@@ -395,8 +384,10 @@ export default function CourseAuxNombres5e (numeroExercice) {
           setReponse(this, i, texPrix(resultat) + '€')
           break
       }
-      if (listeTypeQuestions[i] === 'q22' || listeTypeQuestions[i] === 'q25') {
-        texte += ajouteChampTexteMathLive(this, i, 'longueur')
+      if (listeTypeQuestions[i] === 'q22') {
+        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' m' })
+      } else if (listeTypeQuestions[i] === 'q25') {
+        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ` ${hauteurs[a][3]}` })
       } else {
         texte += ajouteChampTexteMathLive(this, i)
       }
