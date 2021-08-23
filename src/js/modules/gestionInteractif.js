@@ -274,6 +274,9 @@ function gestionCan (exercice) {
           if (exercice.interactifType === 'cliqueFigure') {
             resultat = verifQuestionCliqueFigure(exercice, i)
           }
+          if (exercice.interactifType === 'custom') {
+            resultat = exercice.correctionInteractive(i)
+          }
           // Mise en couleur du numéro de la question dans le menu du haut
           if (resultat === 'OK') {
             document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
@@ -557,11 +560,16 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
  */
 export function exerciceCustom (exercice) {
   document.addEventListener('exercicesAffiches', () => {
+    if (getVueFromUrl() === 'can') {
+      gestionCan(exercice)
+    }
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       if (!button.hasMathaleaListener) {
         button.addEventListener('click', event => {
-        // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
+          let nbBonnesReponses = 0
+          let nbMauvaisesReponses = 0
+          // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
           let eltFeedback = get(`feedbackEx${exercice.numeroExercice}`, false)
           // On ajoute le div pour le feedback
           if (!eltFeedback) {
@@ -571,7 +579,10 @@ export function exerciceCustom (exercice) {
           setStyles(eltFeedback, 'marginBottom: 20px')
           if (eltFeedback) eltFeedback.innerHTML = ''
           // On utilise la correction définie dans l'exercice
-          exercice.correctionInteractive(eltFeedback)
+          for (let i = 0; i < exercice.nbQuestions; i++) {
+            exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
+          }
+          afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
           button.classList.add('disabled')
         })
         button.hasMathaleaListener = true

@@ -133,26 +133,23 @@ export default function PlacerPointsAbscissesFractionnaires () {
       }
       cpt++
     }
-    this.correctionInteractive = (elt) => {
-      let nbBonnesReponses = 0
-      let nbMauvaisesReponses = 0
-      for (let i = 0, aucunMauvaisPointsCliques; i < this.nbQuestions; i++) {
-        aucunMauvaisPointsCliques = true
-        const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-        pointsSolutions[i].stopCliquable()
-        for (const monPoint of pointsNonSolutions[i]) {
-          if (monPoint.etat) aucunMauvaisPointsCliques = false
-          monPoint.stopCliquable()
-        }
-        if (aucunMauvaisPointsCliques && pointsSolutions[i].etat) {
-          divFeedback.innerHTML = '😎'
-          nbBonnesReponses++
-        } else {
-          divFeedback.innerHTML = '☹️'
-          nbMauvaisesReponses++
-        }
+    this.correctionInteractive = (i) => {
+      let resultat
+      let aucunMauvaisPointsCliques = true
+      pointsSolutions[i].stopCliquable()
+      for (const monPoint of pointsNonSolutions[i]) {
+        if (monPoint.etat) aucunMauvaisPointsCliques = false
+        monPoint.stopCliquable()
       }
-      afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
+      const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+      if (aucunMauvaisPointsCliques && pointsSolutions[i].etat) {
+        divFeedback.innerHTML = '😎'
+        resultat = 'OK'
+      } else {
+        divFeedback.innerHTML = '☹️'
+        resultat = 'KO'
+      }
+      return resultat
     }
     listeQuestionsToContenu(this)
   }
