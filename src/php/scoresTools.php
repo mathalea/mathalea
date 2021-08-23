@@ -21,27 +21,47 @@
     // On écrit dedans un template de base à modifier plus tard
     $string = 
     '<?php 
-      class sortedIterator extends SplHeap {
-            public function __construct(Iterator $iterator)
-            {
-                foreach ($iterator as $item) {
-                    $this->insert($item);
-                }
-            }
-            public function compare($b,$a)
-            {
-                return strcmp($a->getRealpath(), $b->getRealpath());
-            }
-      };
-      $classes = array();  
-      $dir_iterator = new RecursiveDirectoryIterator(dirname(__FILE__));
-      $iterator = new RecursiveIteratorIterator($dir_iterator);
-      $sortIterator = new sortedIterator($iterator);
-      foreach ($iterator as $file){
-          if(!is_dir($file) && !in_array($file->getFilename(), array(".","..","index.php")) && !in_array(substr($file->getPath(),-2),$classes)) {    
-              array_push($classes,substr($file->getPath(),-2));
-          }
+      // Pour stocker les classes distinctes
+      $classes = array();
+      // Le répetoire père
+      $startPath = dirname(__FILE__);
+      // L\'itérateur
+      $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($startPath),
+                  RecursiveIteratorIterator::SELF_FIRST);
+      // Un classe pour récupérer ce que l\'on veut 
+      class myFilesToDisplay {
+        public function __construct($file, $classe, $name, $path) {
+          $this->file = $file; // Le fichier, pour tester si c\'est un dossier
+          $this->classe = $classe; // La classe
+          $this->name = $name; // Le nom du fichier
+          $this->path = $path; // le chemin pour le lien
+        }
       }
+
+      $myFilesDatas = array();      
+      foreach ($iterator as $dirIt => $fileObj) {        
+        $myFilesDatas[] = new myFilesToDisplay($fileObj,substr($fileObj->getPath(),-2),$fileObj->getFilename(),$fileObj->getPath());
+      }  
+
+      // On récupère les classes distinctes dans un tableau
+      foreach ($myFilesDatas as $object) {
+        if(!is_dir($object->file) && !in_array($object->name, array(".","..","index.php")) && !in_array($object->classe,$classes)) {    
+          array_push($classes,$object->classe);           
+        }        
+      }
+      
+      // On trie les classes par ordre alphabétique
+      sort($classes);
+
+      // Un fonction de comparaison pour pouvoir trier les objets de la classe myFilesToDisplay via leur propriété name
+      function cmpByName($a, $b) {
+        return strcmp($a->name, $b->name);
+      }
+      
+      // On trie via la propriété name
+      usort($myFilesDatas, "cmpByName");
+
+      // On gère l\'affichage
       echo "<ul>\r\n";
       foreach ($classes as $classe) {
         echo "<br><li>
@@ -53,16 +73,16 @@
             Télécharger une archive zip avec toutes les semaines
           </a>
         </div>    
-        </li>\r\n";
+        \r\n";
       echo "<ul>\r\n";
-      foreach ($sortIterator as $file) {
-          if (substr($file->getPath(),-2) == $classe && !in_array($file->getFilename(), array(".","..")) ) {
+      foreach ($myFilesDatas as $object) {
+        if ($object->classe == $classe && !in_array($object->name, array(".","..")) ) {
             echo "<br><li>
               <div class=\"ui labeled button\" tabindex=\"0\">
                 <div class=\"ui orange button\">
-                  <i class=\"calendar icon\"></i> ".substr($file->getFilename(),0,-4)."
+                  <i class=\"calendar icon\"></i> ".substr($object->name,0,-4)."
                 </div>
-                <a class=\"ui basic orange left pointing label\" href=\"".substr($file->getPath(),-2)."/".$file->getFilename()."\">
+                <a class=\"ui basic orange left pointing label\" href=\"".substr($object->path,-2)."/".$object->name."\">
                   Télécharger uniquement ce fichier
                 </a>
               </div>
@@ -70,6 +90,7 @@
           };
       }
       echo "</ul>\r\n"; 
+      echo "</li>\r\n"; 
       }
       if (!empty($classes)) {
         echo "<br><li>
