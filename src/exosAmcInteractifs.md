@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 211 
-- nombre d'exos interactifReady 242 
+- nombre d'exos amcReady 216 
+- nombre d'exos interactifReady 247 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -158,6 +158,7 @@
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1).|KO|KO|OK|mathLive|
 |6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
 |6N22|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
+|6N23-2|Lire des abscisses décimales sous trois formes|OK|AMCHybride|OK|mathLive|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
 |6N24|Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)|OK|AMCNum|OK|mathLive|
 |6N30-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCOpen|OK|mathLive|
@@ -207,7 +208,11 @@
 |betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
 |betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
+|c3C10-4|Tables d’addition|OK|AMCNum|OK|numerique|
+|c3C11|Divisions euclidiennes|OK|AMCOpen|OK|mathLive|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
+|c3N20|Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
+|c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
 |can3F1|Lecture graphique|OK|AMCNum|OK|mathLive|
 |can3L1|Équation ax=b|OK|AMCNum|OK|mathLive|
 |can3L2|Équation ax+b=0|OK|AMCNum|OK|mathLive|

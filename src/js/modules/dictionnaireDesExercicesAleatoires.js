@@ -3288,8 +3288,12 @@ export default {
   "6N23-2": {
     "titre": "Lire des abscisses décimales sous trois formes",
     "url": "/exercices/6e/6N23-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N23-2"
   },
   "6N23-3": {
@@ -4311,15 +4315,23 @@ export default {
   "c3C10-4": {
     "titre": "Tables d’addition",
     "url": "/exercices/c3/c3C10-4.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
     "name": "c3C10-4"
   },
   "c3C11": {
     "titre": "Divisions euclidiennes",
     "url": "/exercices/c3/c3C11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "c3C11"
   },
   "c3C3CaN": {
@@ -4343,15 +4355,23 @@ export default {
   "c3N20": {
     "titre": "Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales",
     "url": "/exercices/c3/c3N20.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "c3N20"
   },
   "c3N22": {
     "titre": "Lire abscisse décimale sous trois formes",
     "url": "/exercices/c3/c3N22.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "c3N22"
   },
   "c3N23": {
