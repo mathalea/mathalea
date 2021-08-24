@@ -44,6 +44,7 @@ export default function PlacerPointsSurAxeRelatifs () {
     let typesDeQuestions
     const pointsSolutions = []
     let objets = []
+    let objetsCorr = []
     const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
     this.listeQuestions = []
     this.listeCorrections = []
@@ -59,6 +60,7 @@ export default function PlacerPointsSurAxeRelatifs () {
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
       objets = []
+      objetsCorr = []
       switch (typesDeQuestions[i]) {
         case 1: // Placer des décimaux relatifs sur un axe (1 décimale)
           abs0 = randint(-7, -3)
@@ -87,6 +89,28 @@ export default function PlacerPointsSurAxeRelatifs () {
       A = point(changeCoord(abs1, abs0, pas1), 0, l1, 'above')
       B = point(changeCoord(abs2, abs0, pas1), 0, l2, 'above')
       C = point(changeCoord(abs3, abs0, pas1), 0, l3, 'above')
+      objets.push(droiteGraduee2({
+        Unite: 3 * pas1,
+        Min: abs0,
+        Max: abs0 + 6.9 / pas1,
+        x: abs0,
+        y: 0,
+        thickSecDist: 1 / pas2 / pas1,
+        thickSec: true,
+        labelsPrincipaux: true,
+        thickDistance: 1 / pas1
+      }))
+      objetsCorr.push(droiteGraduee2({
+        Unite: 3 * pas1,
+        Min: abs0,
+        Max: abs0 + 6.9 / pas1,
+        x: abs0,
+        y: 0,
+        thickSecDist: 1 / pas2 / pas1,
+        thickSec: true,
+        labelsPrincipaux: true,
+        thickDistance: 1 / pas1
+      }))
       if (this.interactif && !context.isAmc) {
         for (let indicePoint = 0, monPoint, dist; indicePoint < 70; indicePoint++) {
           dist = abs0 + indicePoint / pas1 / pas2
@@ -99,28 +123,14 @@ export default function PlacerPointsSurAxeRelatifs () {
           }
         }
       }
-
-      objets.push(droiteGraduee2({
-        Unite: 3 * pas1,
-        Min: abs0,
-        Max: abs0 + 6.9 / pas1,
-        x: abs0,
-        y: 0,
-        thickSecDist: 1 / pas2 / pas1,
-        thickSec: true,
-        labelsPrincipaux: true,
-        thickDistance: 1 / pas1
-      }))
-
       texte = `Placer les points : $${l1}(${texNombrec(abs1)}), ${l2}(${texNombrec(abs2)}), ${l3}(${texNombrec(abs3)})$<br>`
-
       texte += mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
       if (this.interactif && !context.isAmc) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
 
-      objets.push(labelPoint(A, B, C), tracePoint(A, B, C))
-      texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
+      objetsCorr.push(labelPoint(A, B, C), tracePoint(A, B, C))
+      texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objetsCorr)
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
