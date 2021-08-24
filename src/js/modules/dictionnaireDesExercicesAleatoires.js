@@ -1115,14 +1115,19 @@ export default {
     "titre": "Trouver l’inverse d’un nombre",
     "url": "/exercices/4e/4C22-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C22-1"
   },
   "4C22-2": {
     "titre": "Diviser des fractions",
     "url": "/exercices/4e/4C22-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum✖︎2"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C22-2"
   },
   "4C22": {

@@ -79,7 +79,7 @@ export default function ExerciceMultiplierFractions () {
         b = ab[1]
         c = cd[0]
         d = cd[1]
-      } while ((a * c) % (b * d) === 0 || (a * c) % d === 0)
+      } while ((a * c) % (b * d) === 0 || (a * c) % d === 0 || (b * d === 100))
       if (this.sup2 === false) {
         // methode 1 : simplifications finale
         switch (typesDeQuestions) {
