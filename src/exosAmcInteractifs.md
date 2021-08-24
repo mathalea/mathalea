@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 201 
-- nombre d'exos interactifReady 231 
+- nombre d'exos amcReady 211 
+- nombre d'exos interactifReady 242 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -51,11 +51,20 @@
 |3S12|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
 |3S15|Calculer des étendues|KO|KO|OK|mathLive|
 |4AI1-1|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
-|4C10-0|Signe d’un produit ou d’un quotient de nombres relatifs|KO|KO|OK|mathLive|
+|4C10-0|Signe d’un produit ou d’un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
+|4C10-1|Signe d’un produit de nombres relatifs|OK|qcmMono|OK|qcm|
+|4C10-2|Signe d’un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
 |4C10-3|Multiplication de deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-4|Quotient de deux entiers relatifs|KO|KO|OK|mathLive|
+|4C10-6|Multiplications et quotients de relatifs : signe avec une lettre|OK|qcmMono|OK|qcm|
 |4C11|Calculs utilisant les priorités opératoires|KO|KO|OK|mathLive|
-|4C21|Additionner ou soustraire deux fractions|OK|AMCOpenNum✖︎2|KO|KO|
+|4C20|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
+|4C21-1|Additionner deux fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C21|Additionner ou soustraire deux fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C22-1|Trouver l’inverse d’un nombre|KO|KO|OK|mathLive|
+|4C22-2|Diviser des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C22|Multiplier des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C23|Fractions et priorités opératoires|OK|AMCOpenNum✖︎2|OK|mathLive|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|numerique|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
@@ -90,6 +99,7 @@
 |5N13-2|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
 |5N13|Simplification de fractions|OK|AMCOpen|OK|mathLive|
 |5N14-3|Fractions égales et égalité des produits en croix|OK|qcmMono|OK|qcm|
+|5N14|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
 |5N20|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|mathLive|
 |5P11-1|Problème de vitesse|KO|KO|OK|mathLive|
 |5R10|Trouver le terme manquant d’une somme de nombres relatifs|OK|AMCNum|OK|numerique|
@@ -168,34 +178,14 @@
 |6P12|Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple|OK|AMCNum|OK|mathLive|
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|
-|CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
-|CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
-|CM002|Tables de divisions|OK|AMCNum|OK|numerique|
-|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
-|CM004|Les quatre opérations|OK|AMCNum|OK|numerique|
-|CM005|Ajouter 9|OK|AMCNum|OK|numerique|
-|CM006|Soustraire 9|OK|AMCNum|OK|numerique|
-|CM007|Ajouter 11|OK|AMCNum|OK|numerique|
-|CM008|Soustraire 11|OK|AMCNum|OK|numerique|
-|CM009|Moitié|OK|AMCNum|OK|numerique|
-|CM010|Tiers|OK|AMCNum|OK|numerique|
-|CM011|Quart|OK|AMCNum|OK|numerique|
-|CM012|Complément à 100|OK|AMCNum|OK|numerique|
-|CM013|Complément à une dizaine|OK|AMCNum|OK|numerique|
-|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|numerique|
-|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|numerique|
-|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
-|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
-|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
-|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
 |betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
-|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
+|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |can3F1|Lecture graphique|OK|AMCNum|OK|mathLive|
@@ -245,3 +235,23 @@
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
+|CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
+|CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
+|CM002|Tables de divisions|OK|AMCNum|OK|numerique|
+|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
+|CM004|Les quatre opérations|OK|AMCNum|OK|numerique|
+|CM005|Ajouter 9|OK|AMCNum|OK|numerique|
+|CM006|Soustraire 9|OK|AMCNum|OK|numerique|
+|CM007|Ajouter 11|OK|AMCNum|OK|numerique|
+|CM008|Soustraire 11|OK|AMCNum|OK|numerique|
+|CM009|Moitié|OK|AMCNum|OK|numerique|
+|CM010|Tiers|OK|AMCNum|OK|numerique|
+|CM011|Quart|OK|AMCNum|OK|numerique|
+|CM012|Complément à 100|OK|AMCNum|OK|numerique|
+|CM013|Complément à une dizaine|OK|AMCNum|OK|numerique|
+|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|numerique|
+|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|numerique|
+|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
+|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
+|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
+|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|

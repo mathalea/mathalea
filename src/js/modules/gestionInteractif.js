@@ -142,7 +142,11 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour les exercices où l'on attend un écriture donnée d'une fraction
     } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fraction') {
-      saisieParsee = parse(saisie)
+      if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
+        saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
+      } else {
+        saisieParsee = parse(saisie)
+      }
       if (saisieParsee) {
         if (saisieParsee[0] === 'Negate') {
           signeF = -1
@@ -341,10 +345,14 @@ export function exerciceQcm (exercice) {
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
 export function propositionsQcm (exercice, i) {
-// exercice.titre = 'cacaboudin'
   let texte = ''
   let texteCorr = ''
   let espace = ''
+  if (context.isHtml) {
+    if (!exercice.interactif) return { texte: '', texteCorr: '' }
+  } else {
+    if (context.isAmc) return { texte: '', texteCorr: '' }
+  }
   if (context.isHtml) {
     espace = '&emsp;'
   } else {

@@ -5,6 +5,11 @@ import {
   Relatif, lettreDepuisChiffre, ecritureNombreRelatif,
   texteEnCouleurEtGras
 } from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMono'
 export const titre = 'Multiplications et quotients de relatifs : signe avec une lettre'
 
 /**
@@ -13,18 +18,19 @@ export const titre = 'Multiplications et quotients de relatifs : signe avec une 
 * @author Cédric GROLLEAU
 * 4C10-6
 */
-export default function Exercice_tableau_multiplications_relatifs () {
+export default function ExerciceTableauMultiplicationsRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 3
-  this.titre = titre
   this.consigne = ''
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
   this.spacing = 2
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
+  this.interactif = true
 
   this.nouvelleVersion = function () {
+    this.autoCorrection = []
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -47,7 +53,8 @@ export default function Exercice_tableau_multiplications_relatifs () {
         break
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, nbLettres, nbNum, expLettre, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      this.autoCorrection[i] = {}
       // on ne choisit que des nombres compris entre 1 et 20
       const nbMax = 20
       // Le tableau des relatifs necessaires, il m'en faut max 5 !
@@ -58,190 +65,219 @@ export default function Exercice_tableau_multiplications_relatifs () {
         randint(-1, 1, [0]) * randint(1, nbMax),
         randint(-1, 1, [0]) * randint(1, nbMax)
       )
-      const lettre_tab = ['n', 'x', 'y', 'a', 'm']
-      const lettre = lettre_tab[randint(0, lettre_tab.length - 1)]
-      const nom_expression = lettreDepuisChiffre(i + 1)
-      const signe_expression = randint(-1, 1, [0])
-      const nb_termes = listeTypeDeQuestions[i] == 1 ? randint(3, 5) : randint(4, 6)
-      let place_lettre = randint(0, nb_termes - 1)
-      const liste_nombres = num.relatifs.slice(0, nb_termes - 1)
-      const liste_termes = []
-      for (let indice = 0; indice < liste_nombres.length; indice++) {
-        liste_termes.push(ecritureNombreRelatif(liste_nombres[indice]))
+      const lettreTab = ['n', 'x', 'y', 'a', 'm']
+      const lettre = lettreTab[randint(0, lettreTab.length - 1)]
+      const nomExpression = lettreDepuisChiffre(i + 1)
+      const signeExpression = randint(-1, 1, [0])
+      const nbTermes = listeTypeDeQuestions[i] === 1 ? randint(3, 5) : randint(4, 6)
+      let placeLettre = randint(0, nbTermes - 1)
+      const listeNombres = num.relatifs.slice(0, nbTermes - 1)
+      const listeTermes = []
+      for (let indice = 0; indice < listeNombres.length; indice++) {
+        listeTermes.push(ecritureNombreRelatif(listeNombres[indice]))
       }
-      liste_termes.splice(place_lettre, 0, lettre)
+      listeTermes.splice(placeLettre, 0, lettre)
       let calcul = ''
-      let signe_lettre, calcul_nombres
-      texte = `Donne le signe de $ ${lettre} $ pour que ${nom_expression} soit ${signe_expression == -1 ? 'negatif' : 'positif'}. <br>`
+      let signeLettre, calculNombres
+      texte = `Donne le signe de $ ${lettre} $ pour que ${nomExpression} soit ${signeExpression === -1 ? 'negatif' : 'positif'}. <br>`
       texteCorr = `${texteEnCouleurEtGras('Supposons que ' + lettre + ' soit positif : ')}`
       switch (listeTypeDeQuestions[i]) {
         case 1: // multiplications
-          calcul += `${liste_termes[0]} `
-          for (let k = 1; k < nb_termes; k++) {
-            calcul += `\\times ${liste_termes[k]}`
+          calcul += `${listeTermes[0]} `
+          for (let k = 1; k < nbTermes; k++) {
+            calcul += `\\times ${listeTermes[k]}`
           }
-          texte += ` ${nom_expression} = $ ${calcul} $ <br>`
+          texte += ` ${nomExpression} = $ ${calcul} $ <br>`
           if (this.correctionDetaillee) {
-            // texteCorr += `<br> $ ${ecritureNombreRelatif(liste_nombres[0])} $ est ${num.getSigneString()[0]}`;
-            // for (let k=1; k<nb_termes-2 ; k++) {
-            //	texteCorr += `  , $ ${ecritureNombreRelatif(liste_nombres[k])} $ est ${num.getSigneString()[k]}`
+            // texteCorr += `<br> $ ${ecritureNombreRelatif(listeNombres[0])} $ est ${num.getSigneString()[0]}`;
+            // for (let k=1; k<nbTermes-2 ; k++) {
+            // texteCorr += `  , $ ${ecritureNombreRelatif(listeNombres[k])} $ est ${num.getSigneString()[k]}`
             // }
-            // texteCorr += `  et $ ${ecritureNombreRelatif(liste_nombres[parseInt(nb_termes-2)])} $ est ${num.getSigneString()[parseInt(nb_termes-2)]}`;
-            liste_nombres.push(1)
-            texteCorr += `<br> ${num.setRegleSigneProduit(...liste_nombres)}`
-            texteCorr += `<br><br> Donc si ${texteEnCouleurEtGras(lettre + ' est positif', 'black')} $ ${calcul} $ est ${texteEnCouleurEtGras(num.getSigneProduitString(...liste_nombres), 'black')}.`
+            // texteCorr += `  et $ ${ecritureNombreRelatif(listeNombres[parseInt(nbTermes-2)])} $ est ${num.getSigneString()[parseInt(nbTermes-2)]}`;
+            listeNombres.push(1)
+            texteCorr += `<br> ${num.setRegleSigneProduit(...listeNombres)}`
+            texteCorr += `<br><br> Donc si ${texteEnCouleurEtGras(lettre + ' est positif', 'black')} $ ${calcul} $ est ${texteEnCouleurEtGras(num.getSigneProduitString(...listeNombres), 'black')}.`
             texteCorr += `<br><br> ${texteEnCouleurEtGras('Supposons maintenant que ' + lettre + ' soit négatif : ')}`
-            // texteCorr += ` $ ${ecritureNombreRelatif(liste_nombres[0])} $ est ${num.getSigneString()[0]}`;
-            // for (let k=1; k<nb_termes-1 ; k++) {
-            //	texteCorr += `  , $ ${ecritureNombreRelatif(liste_nombres[k])} $ est ${num.getSigneString()[k]} `
+            // texteCorr += ` $ ${ecritureNombreRelatif(listeNombres[0])} $ est ${num.getSigneString()[0]}`;
+            // for (let k=1; k<nbTermes-1 ; k++) {
+            // texteCorr += `  , $ ${ecritureNombreRelatif(listeNombres[k])} $ est ${num.getSigneString()[k]} `
             // }
             // texteCorr += ` et ${lettre} est négatif.`;
-            liste_nombres.push(-1)
-            texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`
-            texteCorr += `<br><br> Donc si ${texteEnCouleurEtGras(lettre + ' est négatif', 'black')} $ ${calcul} $ est ${texteEnCouleurEtGras(num.getSigneProduitString(...liste_nombres), 'black')}.`
-            texteCorr += `<br><br> ${texteEnCouleurEtGras('Conclusion :')} <br>` + texteEnCouleurEtGras(`Il faut donc que $ ${lettre} $ soit ${signe_expression == num.getSigneProduitNumber(...liste_nombres) ? 'négatif' : 'positif'} pour que ${nom_expression} soit ${signe_expression == -1 ? 'négatif' : 'positif'}`, 'black')
+            listeNombres.push(-1)
+            texteCorr += `<br><br> ${num.setRegleSigneProduit(...listeNombres)}`
+            texteCorr += `<br><br> Donc si ${texteEnCouleurEtGras(lettre + ' est négatif', 'black')} $ ${calcul} $ est ${texteEnCouleurEtGras(num.getSigneProduitString(...listeNombres), 'black')}.`
+            texteCorr += `<br><br> ${texteEnCouleurEtGras('Conclusion :')} <br>` + texteEnCouleurEtGras(`Il faut donc que $ ${lettre} $ soit ${signeExpression === num.getSigneProduitNumber(...listeNombres) ? 'négatif' : 'positif'} pour que ${nomExpression} soit ${signeExpression === -1 ? 'négatif' : 'positif'}`, 'black')
           } else {
-            texteCorr = `<br> Il faut que $ ${lettre} $ soit ${signe_expression == num.getSigneProduitNumber(...liste_nombres) ? 'positif' : 'négatif'} pour que ${nom_expression} soit ${signe_expression == -1 ? 'négatif' : 'positif'}.`
+            texteCorr = `<br> Il faut que $ ${lettre} $ soit ${signeExpression === num.getSigneProduitNumber(...listeNombres) ? 'positif' : 'négatif'} pour que ${nomExpression} soit ${signeExpression === -1 ? 'négatif' : 'positif'}.`
+            reponse = signeExpression === num.getSigneProduitNumber(...listeNombres) ? 'positif' : 'négatif'
           }
           break
         case 2: // quotient de 2 produits
-          calcul += '\\dfrac {' + liste_termes[0]
-          const nb_num = randint(2, nb_termes - 2)
-          for (let k = 1; k < nb_num + 1; k++) {
-            calcul += `\\times ${liste_termes[k]}`
+          calcul += '\\dfrac {' + listeTermes[0]
+          nbNum = randint(2, nbTermes - 2)
+          for (let k = 1; k < nbNum + 1; k++) {
+            calcul += `\\times ${listeTermes[k]}`
           }
-          calcul += '}{' + liste_termes[nb_num + 1]
-          for (let denom = nb_num + 2; denom < nb_termes; denom++) {
-            calcul += `\\times ${liste_termes[denom]}`
+          calcul += '}{' + listeTermes[nbNum + 1]
+          for (let denom = nbNum + 2; denom < nbTermes; denom++) {
+            calcul += `\\times ${listeTermes[denom]}`
           }
           calcul += '}'
-          texte += ` ${nom_expression} = $ ${calcul} $ <br>`
+          texte += ` ${nomExpression} = $ ${calcul} $ <br>`
           if (this.correctionDetaillee) {
-            // texteCorr += `$ ${ecritureNombreRelatif(liste_nombres[0])} $ est ${num.getSigneString()[0]}`;
-            // for (let k=1; k<nb_termes-1 ; k++) {
-            //	texteCorr += `  et $ ${ecritureNombreRelatif(liste_nombres[k])} $ est ${num.getSigneString()[k]}`
+            // texteCorr += `$ ${ecritureNombreRelatif(listeNombres[0])} $ est ${num.getSigneString()[0]}`;
+            // for (let k=1; k<nbTermes-1 ; k++) {
+            // texteCorr += `  et $ ${ecritureNombreRelatif(listeNombres[k])} $ est ${num.getSigneString()[k]}`
             // }
-            texteCorr += `<br> ${num.setRegleSigneQuotient(...liste_nombres)}`
-            texteCorr += `<br><br> Donc si ${texteEnCouleurEtGras(lettre + ' est positif', 'black')} $ ${calcul} $ est ${texteEnCouleurEtGras(num.getSigneProduitString(...liste_nombres), 'black')}.`
+            texteCorr += `<br> ${num.setRegleSigneQuotient(...listeNombres)}`
+            texteCorr += `<br><br> Donc si ${texteEnCouleurEtGras(lettre + ' est positif', 'black')} $ ${calcul} $ est ${texteEnCouleurEtGras(num.getSigneProduitString(...listeNombres), 'black')}.`
             texteCorr += `<br><br> ${texteEnCouleurEtGras('Supposons maintenant que ' + lettre + ' soit négatif : ')}`
-            // $ ${ecritureNombreRelatif(liste_nombres[0])} $ est ${num.getSigneString()[0]}`;
-            // for (let k=1; k<nb_termes-1 ; k++) {
-            //	texteCorr += `  et $ ${ecritureNombreRelatif(liste_nombres[k])} $ est ${num.getSigneString()[k]}`
+            // $ ${ecritureNombreRelatif(listeNombres[0])} $ est ${num.getSigneString()[0]}`;
+            // for (let k=1; k<nbTermes-1 ; k++) {
+            // texteCorr += `  et $ ${ecritureNombreRelatif(listeNombres[k])} $ est ${num.getSigneString()[k]}`
             // }
-            liste_nombres.push(-1)
-            texteCorr += `<br> ${num.setRegleSigneQuotient(...liste_nombres)}`
-            texteCorr += `<br><br> Donc si ${texteEnCouleurEtGras(lettre + ' est négatif', 'black')} $ ${calcul} $ est ${texteEnCouleurEtGras(num.getSigneProduitString(...liste_nombres), 'black')}.`
-            texteCorr += `<br><br> ${texteEnCouleurEtGras('Conclusion :')} <br>` + texteEnCouleurEtGras(`Il faut donc que $ ${lettre} $ soit ${signe_expression == num.getSigneProduitNumber(...liste_nombres) ? 'négatif' : 'positif'} pour que ${nom_expression} soit ${signe_expression == -1 ? 'négatif' : 'positif'}`, 'black')
+            listeNombres.push(-1)
+            texteCorr += `<br> ${num.setRegleSigneQuotient(...listeNombres)}`
+            texteCorr += `<br><br> Donc si ${texteEnCouleurEtGras(lettre + ' est négatif', 'black')} $ ${calcul} $ est ${texteEnCouleurEtGras(num.getSigneProduitString(...listeNombres), 'black')}.`
+            texteCorr += `<br><br> ${texteEnCouleurEtGras('Conclusion :')} <br>` + texteEnCouleurEtGras(`Il faut donc que $ ${lettre} $ soit ${signeExpression === num.getSigneProduitNumber(...listeNombres) ? 'négatif' : 'positif'} pour que ${nomExpression} soit ${signeExpression === -1 ? 'négatif' : 'positif'}`, 'black')
           } else {
-            texteCorr = `<br> Il faut que $ ${lettre} $ soit ${signe_expression == num.getSigneProduitNumber(...liste_nombres) ? 'positif' : 'négatif'} pour que ${nom_expression} soit ${signe_expression == -1 ? 'négatif' : 'positif'}.`
+            texteCorr = `<br> Il faut que $ ${lettre} $ soit ${signeExpression === num.getSigneProduitNumber(...listeNombres) ? 'positif' : 'négatif'} pour que ${nomExpression} soit ${signeExpression === -1 ? 'négatif' : 'positif'}.`
           }
+          reponse = signeExpression === num.getSigneProduitNumber(...listeNombres) ? 'positif' : 'négatif'
+
           break
         case 3: // produit avec plusieurs fois la lettre
-          signe_lettre = randint(-1, 1, [0])
-          texte = `Donne le signe de ${nom_expression} si $ ${lettre} $ est ${signe_lettre == -1 ? 'négatif' : 'positif'}. <br>`
+          signeLettre = randint(-1, 1, [0])
+          texte = `Donne le signe de ${nomExpression} si $ ${lettre} $ est ${signeLettre === -1 ? 'négatif' : 'positif'}. <br>`
           texteCorr = ''
-          const nb_lettres = randint(1, 3)
-          place_lettre = randint(0, nb_termes - 1)
-          for (let k = 0; k < nb_lettres; k++) {
-				  liste_termes.splice(place_lettre, 0, lettre)
+          nbLettres = randint(1, 3)
+          placeLettre = randint(0, nbTermes - 1)
+          for (let k = 0; k < nbLettres; k++) {
+            listeTermes.splice(placeLettre, 0, lettre)
           }
-          calcul += `${liste_termes[0]} `
-          for (let k = 1; k < nb_termes + nb_lettres; k++) {
-            calcul += `\\times ${liste_termes[k]}`
+          calcul += `${listeTermes[0]} `
+          for (let k = 1; k < nbTermes + nbLettres; k++) {
+            calcul += `\\times ${listeTermes[k]}`
           }
-          calcul_nombres = `${liste_nombres[0]} `
-          for (let k = 1; k < nb_termes - 1; k++) {
-            calcul_nombres += `\\times ${liste_nombres[k]}`
+          calculNombres = `${listeNombres[0]} `
+          for (let k = 1; k < nbTermes - 1; k++) {
+            calculNombres += `\\times ${listeNombres[k]}`
           }
-          texte += ` ${nom_expression} = $ ${calcul} $ <br>`
+          texte += ` ${nomExpression} = $ ${calcul} $ <br>`
           if (this.correctionDetaillee) {
-            if (nb_lettres == 1 || nb_lettres == 3) {
-              texteCorr += `On trouve ${nb_lettres + 1} fois le facteur $ ${lettre} $.<br> Or ${nb_lettres + 1} est pair donc leur produit sera positif.`
-              texteCorr += `<br>Le signe de l'expression a donc le signe de : $ ${calcul_nombres} $`
-              texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`
-              texteCorr += '<br><br>' + texteEnCouleurEtGras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quelque soit le signe de $ ${lettre} $.`, 'black')
+            if (nbLettres === 1 || nbLettres === 3) {
+              texteCorr += `On trouve ${nbLettres + 1} fois le facteur $ ${lettre} $.<br> Or ${nbLettres + 1} est pair donc leur produit sera positif.`
+              texteCorr += `<br>Le signe de l'expression a donc le signe de : $ ${calculNombres} $`
+              texteCorr += `<br><br> ${num.setRegleSigneProduit(...listeNombres)}`
+              texteCorr += '<br><br>' + texteEnCouleurEtGras(`Donc ${nomExpression} est ${num.getSigneProduitString(...listeNombres)} quelque soit le signe de $ ${lettre} $.`, 'black')
             } else {
-              texteCorr += `On trouve ${nb_lettres + 1} fois le facteur $ ${lettre} $. <br> Or ${nb_lettres + 1} est impair donc leur produit est du signe de $ ${lettre} $ soit ${signe_lettre == -1 ? 'négatif' : 'positif'}.`
-              if (signe_lettre == -1) {
-                texteCorr += `<br>Le signe de l'expression a donc le signe opposé à : $ ${calcul_nombres} $`
-                texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`
-                liste_nombres.push(-1)
-                texteCorr += '<br><br>' + texteEnCouleurEtGras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quand $ ${lettre} $ est ${signe_lettre == -1 ? 'négatif' : 'positif'}.`, 'black')
+              texteCorr += `On trouve ${nbLettres + 1} fois le facteur $ ${lettre} $. <br> Or ${nbLettres + 1} est impair donc leur produit est du signe de $ ${lettre} $ soit ${signeLettre === -1 ? 'négatif' : 'positif'}.`
+              if (signeLettre === -1) {
+                texteCorr += `<br>Le signe de l'expression a donc le signe opposé à : $ ${calculNombres} $`
+                texteCorr += `<br><br> ${num.setRegleSigneProduit(...listeNombres)}`
+                listeNombres.push(-1)
+                texteCorr += '<br><br>' + texteEnCouleurEtGras(`Donc ${nomExpression} est ${num.getSigneProduitString(...listeNombres)} quand $ ${lettre} $ est ${signeLettre === -1 ? 'négatif' : 'positif'}.`, 'black')
               } else {
-                texteCorr += `<br>Le signe de l'expression a donc le signe opposé à : $ ${calcul_nombres} $`
-                texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`
-                texteCorr += '<br><br>' + texteEnCouleurEtGras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quand $ ${lettre} $ est ${signe_lettre == -1 ? 'négatif' : 'positif'}.`, 'black')
+                texteCorr += `<br>Le signe de l'expression a donc le signe opposé à : $ ${calculNombres} $`
+                texteCorr += `<br><br> ${num.setRegleSigneProduit(...listeNombres)}`
+                texteCorr += '<br><br>' + texteEnCouleurEtGras(`Donc ${nomExpression} est ${num.getSigneProduitString(...listeNombres)} quand $ ${lettre} $ est ${signeLettre === -1 ? 'négatif' : 'positif'}.`, 'black')
               }
             }
+            reponse = num.getSigneProduitString(...listeNombres)
           } else {
-            if (nb_lettres == 1 || nb_lettres == 3) {
-              texteCorr = `${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quelque soit le signe de $ ${lettre} $.<br>`
+            if (nbLettres === 1 || nbLettres === 3) {
+              texteCorr = `${nomExpression} est ${num.getSigneProduitString(...listeNombres)} quelque soit le signe de $ ${lettre} $.<br>`
             } else {
-              if (signe_lettre == -1) {
-                liste_nombres.push(-1)
-                texteCorr = `${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} si $ ${lettre} $ est négatif.<br>`
+              if (signeLettre === -1) {
+                listeNombres.push(-1)
+                texteCorr = `${nomExpression} est ${num.getSigneProduitString(...listeNombres)} si $ ${lettre} $ est négatif.<br>`
               } else {
-                texteCorr = `${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} si $ ${lettre} $ est positif.<br>`
+                texteCorr = `${nomExpression} est ${num.getSigneProduitString(...listeNombres)} si $ ${lettre} $ est positif.<br>`
               }
             }
+            reponse = num.getSigneProduitString(...listeNombres)
           }
           break
         case 4: // produit avec plusieurs fois la lettre
-          signe_lettre = randint(-1, 1, [0])
-          texte = `Donne le signe de ${nom_expression} si $ ${lettre} $ est ${signe_lettre == -1 ? 'négatif' : 'positif'}. <br>`
+          signeLettre = randint(-1, 1, [0])
+          texte = `Donne le signe de ${nomExpression} si $ ${lettre} $ est ${signeLettre === -1 ? 'négatif' : 'positif'}. <br>`
           texteCorr = ''
-          const exp_lettre = randint(2, 7)
-          if (place_lettre == 0) {
-            calcul += liste_termes[0] + '^{' + exp_lettre + '}'
+          expLettre = randint(2, 7)
+          if (placeLettre === 0) {
+            calcul += listeTermes[0] + '^{' + expLettre + '}'
           } else {
-            calcul += liste_termes[0]
+            calcul += listeTermes[0]
           }
-          for (let k = 1; k < nb_termes; k++) {
-            if (k == place_lettre) {
-              calcul += '\\times ' + liste_termes[k] + '^{' + exp_lettre + '}'
+          for (let k = 1; k < nbTermes; k++) {
+            if (k === placeLettre) {
+              calcul += '\\times ' + listeTermes[k] + '^{' + expLettre + '}'
             } else {
-              calcul += '\\times ' + liste_termes[k]
+              calcul += '\\times ' + listeTermes[k]
             }
           }
-          calcul_nombres = `${liste_nombres[0]} `
-          for (let k = 1; k < nb_termes - 1; k++) {
-            calcul_nombres += `\\times ${liste_nombres[k]}`
+          calculNombres = `${listeNombres[0]} `
+          for (let k = 1; k < nbTermes - 1; k++) {
+            calculNombres += `\\times ${listeNombres[k]}`
           }
-          texte += ` ${nom_expression} = $ ${calcul} $ <br>`
+          texte += ` ${nomExpression} = $ ${calcul} $ <br>`
           if (this.correctionDetaillee) {
-            if (exp_lettre % 2 == 0) {
-              texteCorr += `On trouve ${exp_lettre} fois le facteur $ ${lettre} $.<br> Or ${exp_lettre} est pair donc leur produit sera positif.`
-              texteCorr += `<br>Le signe de l'expression a donc le signe de : $ ${calcul_nombres} $`
-              texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`
-              texteCorr += '<br><br>' + texteEnCouleurEtGras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quelque soit le signe de $ ${lettre} $.`, 'black')
+            if (expLettre % 2 === 0) {
+              texteCorr += `On trouve ${expLettre} fois le facteur $ ${lettre} $.<br> Or ${expLettre} est pair donc leur produit sera positif.`
+              texteCorr += `<br>Le signe de l'expression a donc le signe de : $ ${calculNombres} $`
+              texteCorr += `<br><br> ${num.setRegleSigneProduit(...listeNombres)}`
+              texteCorr += '<br><br>' + texteEnCouleurEtGras(`Donc ${nomExpression} est ${num.getSigneProduitString(...listeNombres)} quelque soit le signe de $ ${lettre} $.`, 'black')
+              reponse = num.getSigneProduitString(...listeNombres)
             } else {
-              texteCorr += `On trouve ${exp_lettre} fois le facteur $ ${lettre} $. <br> Or ${exp_lettre} est impair donc leur produit est du signe de $ ${lettre} $ soit ${signe_lettre == -1 ? 'négatif' : 'positif'}.`
-              if (signe_lettre == -1) {
-                texteCorr += `<br>Le signe de l'expression a donc le signe opposé à : $ ${calcul_nombres} $`
-                texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`
-                liste_nombres.push(-1)
-                texteCorr += '<br><br>' + texteEnCouleurEtGras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quand $ ${lettre} $ est ${signe_lettre == -1 ? 'négatif' : 'positif'}.`, 'black')
+              texteCorr += `On trouve ${expLettre} fois le facteur $ ${lettre} $. <br> Or ${expLettre} est impair donc leur produit est du signe de $ ${lettre} $ soit ${signeLettre === -1 ? 'négatif' : 'positif'}.`
+              if (signeLettre === -1) {
+                texteCorr += `<br>Le signe de l'expression a donc le signe opposé à : $ ${calculNombres} $`
+                texteCorr += `<br><br> ${num.setRegleSigneProduit(...listeNombres)}`
+                listeNombres.push(-1)
+                texteCorr += '<br><br>' + texteEnCouleurEtGras(`Donc ${nomExpression} est ${num.getSigneProduitString(...listeNombres)} quand $ ${lettre} $ est ${signeLettre === -1 ? 'négatif' : 'positif'}.`, 'black')
               } else {
-                texteCorr += `<br>Le signe de l'expression a donc le signe opposé à : $ ${calcul_nombres} $`
-                texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`
-                texteCorr += '<br><br>' + texteEnCouleurEtGras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quand $ ${lettre} $ est ${signe_lettre == -1 ? 'négatif' : 'positif'}.`, 'black')
+                texteCorr += `<br>Le signe de l'expression a donc le signe opposé à : $ ${calculNombres} $`
+                texteCorr += `<br><br> ${num.setRegleSigneProduit(...listeNombres)}`
+                texteCorr += '<br><br>' + texteEnCouleurEtGras(`Donc ${nomExpression} est ${num.getSigneProduitString(...listeNombres)} quand $ ${lettre} $ est ${signeLettre === -1 ? 'négatif' : 'positif'}.`, 'black')
               }
+              reponse = num.getSigneProduitString(...listeNombres)
             }
           } else {
-            if (exp_lettre % 2 == 0) {
-              texteCorr = `${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quelque soit le signe de $ ${lettre} $.<br>`
+            if (expLettre % 2 === 0) {
+              texteCorr = `${nomExpression} est ${num.getSigneProduitString(...listeNombres)} quelque soit le signe de $ ${lettre} $.<br>`
             } else {
-              if (signe_lettre == -1) {
-                liste_nombres.push(-1)
-                texteCorr = `${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} si $ ${lettre} $ est négatif.<br>`
+              if (signeLettre === -1) {
+                listeNombres.push(-1)
+                texteCorr = `${nomExpression} est ${num.getSigneProduitString(...listeNombres)} si $ ${lettre} $ est négatif.<br>`
               } else {
-                texteCorr = `${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} si $ ${lettre} $ est positif.<br>`
+                texteCorr = `${nomExpression} est ${num.getSigneProduitString(...listeNombres)} si $ ${lettre} $ est positif.<br>`
               }
             }
+            reponse = num.getSigneProduitString(...listeNombres)
           }
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (context.isAmc || this.interactif) {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          options: { ordered: true },
+          propositions: [
+            {
+              texte: 'négatif',
+              statut: reponse === 'négatif'
+            },
+            {
+              texte: 'nul',
+              statut: false
+            },
+            {
+              texte: 'positif',
+              statut: reponse === 'positif'
+            }
+          ]
+        }
+      }
+      texte += propositionsQcm(this, i).texte
+      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], ...listeNombres)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

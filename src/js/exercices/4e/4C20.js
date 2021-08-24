@@ -1,5 +1,6 @@
 import ExerciceComparerDeuxFractions from '../5e/5N14.js'
 export const titre = 'Comparer deux fractions (dénominateurs multiples)'
+export { interactifReady, interactifType, amcReady, amcType } from '../5e/5N14.js'
 
 /**
  * @author Guillaume Valmont

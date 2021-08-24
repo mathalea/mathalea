@@ -1,10 +1,14 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureNombreRelatif, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm, fractionSimplifiee, texFractionReduite } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureNombreRelatif, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm, fractionSimplifiee } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { fraction } from '../../modules/fractions.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpenNum✖︎2' // type de question AMC
 export const titre = 'Additionner ou soustraire deux fractions'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
 * Effectuer la somme ou la différence de deux fractions
@@ -16,39 +20,36 @@ export const titre = 'Additionner ou soustraire deux fractions'
 * @author Rémi Angot
 * 4C21
 */
-export default function Exercice_additionner_ou_soustraire_des_fractions () {
+export default function ExerciceAdditionnerOuSoustraireDesFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2 // Niveau de difficulté
   this.sup2 = false // Avec ou sans relatifs
-  this.titre = titre
   this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 5
   this.nbColsCorr = 1
-  this.amcReady = amcReady
-  this.amcType = amcType
 
   this.nouvelleVersion = function () {
-	  this.autoCorrection = []
+    this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
-    if (this.sup == 1) {
+    if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier']
     }
-    if (this.sup == 2) {
+    if (this.sup === 2) {
       typesDeQuestionsDisponibles = ['ppcm', 'ppcm', 'premiers_entre_eux', choice(['b_multiple_de_d', 'd_multiple_de_b']), 'entier']
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeDePlusOuMoins = combinaisonListes(['-', '-', '+', '+'], this.nbQuestions)
-    for (let i = 0, a, b, c, d, k, k1, k2, num, den, texte, texteCorr, typesDeQuestions; i < this.nbQuestions; i++) {
+    const listeCouplesDeDenominateurs = [[6, 9], [4, 6], [8, 12], [9, 12], [10, 15], [10, 25], [6, 21], [12, 30], [6, 8], [50, 75]]
+    for (let i = 0, a, b, c, d, k, k1, k2, num, den, texte, texteCorr, reponse, couplesDeDenominateurs, typesDeQuestions; i < this.nbQuestions; i++) {
       const plusOuMoins = listeDePlusOuMoins[i]
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         case 'ppcm':
-          const listeCouplesDeDenominateurs = [[6, 9], [4, 6], [8, 12], [9, 12], [10, 15], [10, 25], [6, 21], [12, 30], [6, 8], [50, 75]]
-          const couplesDeDenominateurs = choice(listeCouplesDeDenominateurs)
+          couplesDeDenominateurs = choice(listeCouplesDeDenominateurs)
           if (choice([true, false])) {
             b = couplesDeDenominateurs[0]
             d = couplesDeDenominateurs[1]
@@ -63,7 +64,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions () {
         case 'premiers_entre_eux':
           b = randint(2, 9)
           d = randint(2, 9)
-          while (pgcd(b, d) != 1) {
+          while (pgcd(b, d) !== 1) {
             b = randint(2, 9)
             d = randint(2, 9)
           }
@@ -90,45 +91,44 @@ export default function Exercice_additionner_ou_soustraire_des_fractions () {
         a = a * choice([-1, 1])
         c = c * choice([-1, 1])
       }
-      if (!this.sup2 && plusOuMoins == '-' && a / b < c / d) { // s'il n'y a pas de relatifs, il faut s'assurer que la soustraction soit positive
+      if (!this.sup2 && plusOuMoins === '-' && a / b < c / d) { // s'il n'y a pas de relatifs, il faut s'assurer que la soustraction soit positive
         [a, b, c, d] = [c, d, a, b] // on échange les 2 fractions
         k1 = ppcm(b, d) / b
         k2 = ppcm(b, d) / d
-        if (typesDeQuestions == 'd_multiple_de_b') {
+        if (typesDeQuestions === 'd_multiple_de_b') {
           typesDeQuestions = 'b_multiple_de_d' // comme on a échangé les 2 fractions, le type de la question change
           k = b / d
-        } else if (typesDeQuestions == 'b_multiple_de_d') {
+        } else if (typesDeQuestions === 'b_multiple_de_d') {
           typesDeQuestions = 'd_multiple_de_b' // comme on a échangé les 2 fractions, le type de la question change
           k = d / b
         }
-        const echange = true
       }
       texte = `$${texFraction(a, b)}${plusOuMoins}${texFraction(c, d)}=$`
       texteCorr = `$${texFraction(a, b)}${plusOuMoins}${texFraction(c, d)}`
 
       // a/b(+ou-)c/d = num/den (résultat non simplifié)
-      if (typesDeQuestions == 'ppcm' || typesDeQuestions == 'premiers_entre_eux') {
+      if (typesDeQuestions === 'ppcm' || typesDeQuestions === 'premiers_entre_eux') {
         texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}${plusOuMoins}${texFraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`
         num = calcul(a * k1 + plusOuMoins + ecritureNombreRelatif(c * k2))
         den = b * k1
         texteCorr += `=${texFraction(a * k1 + plusOuMoins + ecritureParentheseSiNegatif(c * k2), den)}`
       }
 
-      if (typesDeQuestions == 'd_multiple_de_b') {
+      if (typesDeQuestions === 'd_multiple_de_b') {
         texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}${plusOuMoins}${texFraction(c, d)}`
         num = calcul(a * k + plusOuMoins + ecritureNombreRelatif(c))
         den = b * k
         texteCorr += `=${texFraction(a * k + plusOuMoins + ecritureParentheseSiNegatif(c), den)}`
       }
 
-      if (typesDeQuestions == 'b_multiple_de_d') {
+      if (typesDeQuestions === 'b_multiple_de_d') {
         texteCorr += `=${texFraction(a, b)}${plusOuMoins}${texFraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`
         num = calcul(a + plusOuMoins + ecritureNombreRelatif(c * k))
         den = b
         texteCorr += `=${texFraction(a + plusOuMoins + ecritureParentheseSiNegatif(c * k), den)}`
       }
 
-      if (typesDeQuestions == 'entier') {
+      if (typesDeQuestions === 'entier') {
         a = randint(1, 9)
         b = randint(2, 9, [a])
         let n = randint(1, 9)
@@ -138,7 +138,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions () {
         }
         if (choice([true, false])) {
           // n+-a/b
-          if (!this.sup2 && plusOuMoins == '-' && n < a / b) {
+          if (!this.sup2 && plusOuMoins === '-' && n < a / b) {
             n = randint(5, 9) // max(a/b)=9/2
           }
           texte = `$${n}${plusOuMoins}${texFraction(a, b)}=$`
@@ -147,7 +147,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions () {
           texteCorr += `=${texFraction(n * b + plusOuMoins + ecritureParentheseSiNegatif(a), b)}`
         } else {
           // a/b +-n
-          if (!this.sup2 && plusOuMoins == '-' && n > a / b) {
+          if (!this.sup2 && plusOuMoins === '-' && n > a / b) {
             n = randint(1, 4) //
             a = n * b + randint(1, 9) // (n*b+?)/b-n>0
           }
@@ -162,46 +162,53 @@ export default function Exercice_additionner_ou_soustraire_des_fractions () {
       texteCorr += `=${texFraction(num, den)}`
       texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
       // Pour l'instant pour tester je mets num et den dans reponse
-      this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
-      this.autoCorrection[i] = {
-        enonce: `Calculer $${texte.substring(1, texte.length - 2)}$ et donner le résultat sous forme irreductible`,
-        propositions: [
-          {
-            texte: texteCorr,
-            statut: 3,
-            feedback: ''
-          }
-        ],
-        reponse: {
-          texte: 'numérateur',
-          valeur: fractionSimplifiee(num, den)[0],
-          param: {
-            digits: 2,
-            decimals: 0,
-            exposantNbChiffres: 0,
-            exposantSigne: false,
-            signe: true,
-            approx: 0
-          }
-        },
-        reponse2: {
-          texte: 'dénominateur',
-          valeur: fractionSimplifiee(num, den)[1],
-          param: {
-            digits: 2,
-            decimals: 0,
-            exposantNbChiffres: 0,
-            exposantSigne: false,
-            signe: false,
-            approx: 0
+
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: `Calculer $${texte.substring(1, texte.length - 2)}$ et donner le résultat sous forme irreductible`,
+          propositions: [
+            {
+              texte: texteCorr,
+              statut: 3,
+              feedback: ''
+            }
+          ],
+          reponse: {
+            texte: 'numérateur',
+            valeur: fractionSimplifiee(num, den)[0],
+            param: {
+              digits: 2,
+              decimals: 0,
+              exposantNbChiffres: 0,
+              exposantSigne: false,
+              signe: true,
+              approx: 0
+            }
+          },
+          reponse2: {
+            texte: 'dénominateur',
+            valeur: fractionSimplifiee(num, den)[1],
+            param: {
+              digits: 2,
+              decimals: 0,
+              exposantNbChiffres: 0,
+              exposantSigne: false,
+              signe: false,
+              approx: 0
+            }
           }
         }
+      } else {
+        reponse = fraction(num, den).simplifie()
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        setReponse(this, i, reponse, { formatInteractif: 'fraction' })
       }
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
     }
+
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n\
-2 : Cas général"]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
 }
