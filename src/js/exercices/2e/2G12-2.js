@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, segment, axes, grille, mathalea2d } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
+import { point, tracePoint, codeSegments, labelPoint, segment, axes, grille, mathalea2d } from '../../modules/2d.js'
 
 export const titre = 'Déterminer les coordonnées milieu d’un segment dans un repère'
 
@@ -11,13 +11,14 @@ export const titre = 'Déterminer les coordonnées milieu d’un segment dans un
 export default function Milieu () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-
+  this.sup = parseInt(this.sup)
   this.nbQuestions = 2
   this.nbCols = 2
   this.nbColsCorr = 2
   this.sup = 1 //
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = [1, 2, 3, 4]; let typesDeQuestions
@@ -27,22 +28,26 @@ export default function Milieu () {
     if (this.sup === 2) {
       typesDeQuestionsDisponibles = [2]
     }
-    if (this.sup === 3) {
-      typesDeQuestionsDisponibles = [3, 4]
-    }
+
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, ux, uy, g, s, xA, yA, xB, yB, xC, yC, xD, yD, xI0, xI1, yI0, yI1, xJ0, xJ1, yJ0, yJ1, xI, yI, A, B, T, L, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, g, s, s1, s2, s3, xA, yA, xB, yB, xI0, xI1, yI0, yI1, xI, yI, A, B, T, L, M, I, J, O, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
         case 1:
-
-          xA = randint(0, 9) * choice([-1, 1])
-          yA = randint(0, 5) * choice([-1, 1])
-          xB = randint(0, 5) * choice([-1, 1])
-          yB = randint(0, 5) * choice([-1, 1])
-          if (xB === xA && yA === yB) { xB = xB + randint(1, 5) * choice([-1, 1]) }
+          xA = 0
+          xB = 0
+          yA = 0
+          yB = 0
+          while (abs(xB - xA) < 3) {
+            xA = randint(0, 8) * choice([-1, 1])
+            xB = randint(0, 8) * choice([-1, 1])
+          }
+          while (abs(yB - yA) < 3) {
+            yA = randint(0, 8) * choice([-1, 1])
+            yB = randint(0, 8) * choice([-1, 1])
+          }
 
           xI0 = fractionSimplifiee(xA + xB, 2)[0]
           xI1 = fractionSimplifiee(xA + xB, 2)[1]
@@ -52,41 +57,55 @@ export default function Milieu () {
           g = grille(-9, -9, 9, 9)
           A = point(xA, yA, 'A')
           B = point(xB, yB, 'B')
+          M = point((xA + xB) / 2, (yA + yB) / 2, 'M')
+          I = point(1, 0, 'I')
+          J = point(0, 1, 'J')
+          O = point(0, 0, 'O')
           a = axes(-9, -9, 9, 9)
           s = segment(A, B, 'blue')
-          T = tracePoint(A, B) // Repère les points avec une croix
-          L = labelPoint(A, B)
+
+          s.epaisseur = 2
+          // s3 = codeSegments('X', 'red', s1, s2)
+          T = tracePoint(A, B, M, I, J, O) // Repère les points avec une croix
+          L = labelPoint(A, B, M, I, J, O)
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += ` $A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$`
-          texte += '<br>Déterminer les coordonnées du point $I$ milieu du segment $[AB]$ '
+          texte += '<br>Déterminer les coordonnées du point $M$ milieu du segment $[AB]$ '
 
           texteCorr = mathalea2d({
             xmin: -9,
             ymin: -9,
             xmax: 9,
             ymax: 9
-          }, a, g, T, s, L)
+          }, a, g, T, L, s)
 
           texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
-          texteCorr += '<br> alors les coordonnées du point $I$ milieu de $[AB]$ sont '
-          texteCorr += '$I\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>'
+          texteCorr += '<br> alors les coordonnées du point $M$ milieu de $[AB]$ sont '
+          texteCorr += '$M\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>'
           texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_I=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xB)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yB)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${texNombre(xA + xB)}}{2}\\\\y_I=\\dfrac{${texNombre(yA + yB)}}{2}\\end{cases}$`
-          if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
-          if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
-          if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
-          if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$` }
+          texteCorr += `$\\begin{cases}x_M=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xB)}}{2} \\\\ y_M=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yB)}}{2}\\end{cases}$`
+          texteCorr += `<br>On en déduit :  $\\begin{cases}x_M=\\dfrac{${texNombre(xA + xB)}}{2}\\\\y_M=\\dfrac{${texNombre(yA + yB)}}{2}\\end{cases}$`
+          if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
+          if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
+          if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
+          if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(${xI0};${yI0}\\right)$` }
 
           ;
           break
         case 2:
 
-          xA = randint(0, 9) * choice([-1, 1])
-          yA = randint(0, 5) * choice([-1, 1])
-          xI = randint(0, 5) * choice([-1, 1])
-          yI = randint(0, 5) * choice([-1, 1])
-          if (xI === xA && yI === yA) { xI = xI + randint(1, 5) * choice([-1, 1]) }
+          xA = randint(0, 4) * choice([-1, 1])
+          yA = randint(0, 4) * choice([-1, 1])
+          xI = randint(0, 4) * choice([-1, 1])
+          yI = randint(0, 4) * choice([-1, 1])
+          while (abs(xI - xA) < 2 || abs(xI - xA) > 5) {
+            xI = randint(0, 4) * choice([-1, 1])
+            xA = randint(0, 4) * choice([-1, 1])
+          }
+          while (abs(yI - yA) < 2 || abs(yI - yA) > 5) {
+            yA = randint(0, 4) * choice([-1, 1])
+            yI = randint(0, 4) * choice([-1, 1])
+          }
 
           xI0 = fractionSimplifiee(xA + xB, 2)[0]
           xI1 = fractionSimplifiee(xA + xB, 2)[1]
@@ -94,160 +113,35 @@ export default function Milieu () {
           yI1 = fractionSimplifiee(yA + yB, 2)[1]
           g = grille(-9, -9, 9, 9)
           A = point(xA, yA, 'A', 'red')
-          B = point(xB, yB, 'B', 'red')
+          B = point(2 * xI - xA, 2 * yI - yA, 'B', 'red')
+          M = point(xI, yI, 'M')
+          O = point(0, 0, 'O')
+          I = point(1, 0, 'I')
+          J = point(0, 1, 'J')
           a = axes(-9, -9, 9, 9)
           s = segment(A, B, 'blue')
-          T = tracePoint(A, B) // Repère les points avec une croix
-          L = labelPoint(A, B)
+          s.epaisseur = 2
+          T = tracePoint(A, B, M, O, I, J) // Repère les points avec une croix
+          L = labelPoint(A, B, M, O, I, J)
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
-          texte += ` $A\\left(${xA};${yA}\\right)$ et $I\\left(${xI};${yI}\\right)$`
-          texte += '<br>Déterminer les coordonnées du point $B$ tel que I soit le milieu du segment $[AB]$ '
+          texte += ` $A\\left(${xA};${yA}\\right)$ et $M\\left(${xI};${yI}\\right)$`
+          texte += '<br>Déterminer les coordonnées du point $B$ tel que $M$ soit le milieu du segment $[AB]$ '
 
           texteCorr = mathalea2d({
             xmin: -9,
             ymin: -9,
             xmax: 9,
             ymax: 9
-          }, T, L, g, a, s)
+          }, g, a, s, T, L)
 
           texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
-          texteCorr += ' <br>alors les coordonnées du point $I$ milieu de $[AB]$ sont '
-          texteCorr += '$I\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>'
+          texteCorr += ' <br>alors les coordonnées du point $M$ milieu de $[AB]$ sont '
+          texteCorr += '$M\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>'
           texteCorr += 'On applique la relation à l\'énoncé : '
           texteCorr += `$\\begin{cases}${xI}=\\dfrac{${xA}+x_B}{2} \\\\ ${yI}=\\dfrac{${yA}+y_B}{2}\\end{cases}$`
           texteCorr += `$\\iff \\begin{cases}x_B=2\\times ${xI} -${ecritureParentheseSiNegatif(xA)} \\\\ y_B=2\\times ${yI}-${ecritureParentheseSiNegatif(yA)}\\end{cases}$`
           texteCorr += `<br>On en déduit :  $\\begin{cases}x_B={${texNombre(2 * xI - xA)}}\\\\y_B=${texNombre(2 * yI - yA)}\\end{cases}$`
           texteCorr += `<br>Au final : $B\\left( ${texNombre(2 * xI - xA)};${texNombre(2 * yI - yA)}\\right)$`
-          break
-        case 3:
-
-          xA = randint(0, 9) * choice([-1, 1])
-          yA = randint(0, 9) * choice([-1, 1])
-          ux = randint(1, 9) * choice([-1, 1])
-          uy = randint(1, 9) * choice([-1, 1])
-          xB = xA + ux
-          yB = yA + uy
-          xC = randint(0, 5) * choice([-1, 1])
-          yC = randint(0, 9) * choice([-1, 1])
-          if (xC === xA && yA === yC) { xC = xC + randint(1, 5) * choice([-1, 1]) }
-          xD = xC + ux
-          yD = yC + uy
-          xI0 = fractionSimplifiee(xA + xD, 2)[0]
-          xI1 = fractionSimplifiee(xA + xD, 2)[1]
-          yI0 = fractionSimplifiee(yA + yD, 2)[0]
-          yI1 = fractionSimplifiee(yA + yD, 2)[1]
-          xJ0 = fractionSimplifiee(xB + xC, 2)[0]
-          xJ1 = fractionSimplifiee(xB + xC, 2)[1]
-          yJ0 = fractionSimplifiee(yB + yC, 2)[0]
-          yJ1 = fractionSimplifiee(yB + yC, 2)[1]
-          g = grille(-9, -9, 9, 9)
-          A = point(xA, yA, 'A', 'red')
-          B = point(xB, yB, 'B', 'red')
-          a = axes(-9, -9, 9, 9, 0.2, 1)
-          s = segment(A, B, 'blue')
-          T = tracePoint(A, B) // Repère les points avec une croix
-          L = labelPoint(A, B)
-
-          texte = 'Dans un repère orthonormé (O,I,J), on donne les 4 points suivants :<br>'
-          texte += ` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right).$`
-          texte += ` $C\\left(${xC};${yC}\\right)$ ; $D\\left(${xD};${yD}\\right).$`
-          texte += '<br>Déterminer si le quadrilatère $ABDC$ est un parallélogramme.'
-
-          texteCorr = mathalea2d({
-            xmin: -9,
-            ymin: -9,
-            xmax: 9,
-            ymax: 9
-          }, T, L, g, a, s)
-
-          texteCorr += '<br>On sait que ABDC est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.'
-          texteCorr += '<br>On cherche donc les coordonnées du milieu de chacune des deux diagonales du quadrilatère :'
-          texteCorr += 'On sait d\'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d\'un repère ,'
-          texteCorr += '<br> alors les coordonnées du point $I$ milieu de $[AD]$ sont '
-          texteCorr += '$I\\left(\\dfrac{x_A+x_D}{2};\\dfrac{y_A+y_D}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_I=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${texNombre(xA + xD)}}{2}\\\\y_I=\\dfrac{${texNombre(yA + yD)}}{2}\\end{cases}$`
-          if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
-          if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
-          if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
-          if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$` }
-          texteCorr += '<br> Les coordonnées du point $J$ milieu de $[BC]$ sont '
-          texteCorr += '$J\\left(\\dfrac{x_B+x_C}{2};\\dfrac{y_B+y_C}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_J=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2} \\\\ y_J=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_J=\\dfrac{${texNombre(xB + xC)}}{2}\\\\y_J=\\dfrac{${texNombre(yB + yC)}}{2}\\end{cases}$`
-          if (xJ1 !== 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$` }
-          if (xJ1 === 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
-          if (xJ1 !== 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
-          if (xJ1 === 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$` }
-          texteCorr += '<br>On observe que $I$ et $J$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
-          texteCorr += '<br>$ABDC$ est donc un parallélogramme.'
-          break
-        case 4:
-
-          xA = randint(0, 9) * choice([-1, 1])
-          yA = randint(0, 9) * choice([-1, 1])
-          ux = randint(1, 9) * choice([-1, 1])
-          uy = randint(1, 9) * choice([-1, 1])
-          xB = xA + ux
-          yB = yA + uy
-          xC = randint(0, 5) * choice([-1, 1])
-          yC = randint(0, 9) * choice([-1, 1])
-          if (xC === xA && yA === yC) { xC = xC + randint(1, 5) * choice([-1, 1]) }
-          xD = xC + ux + randint(1, 2) * choice([-1, 1])
-          yD = yC + uy + randint(0, 1) * choice([-1, 1])
-          xI0 = fractionSimplifiee(xA + xD, 2)[0]
-          xI1 = fractionSimplifiee(xA + xD, 2)[1]
-          yI0 = fractionSimplifiee(yA + yD, 2)[0]
-          yI1 = fractionSimplifiee(yA + yD, 2)[1]
-          xJ0 = fractionSimplifiee(xB + xC, 2)[0]
-          xJ1 = fractionSimplifiee(xB + xC, 2)[1]
-          yJ0 = fractionSimplifiee(yB + yC, 2)[0]
-          yJ1 = fractionSimplifiee(yB + yC, 2)[1]
-          g = grille(-9, -9, 9, 9)
-          A = point(xA, yA, 'A', 'red')
-          B = point(xB, yB, 'B', 'red')
-          a = axes(-9, -9, 9, 9)
-          s = segment(A, B, 'blue')
-          T = tracePoint(A, B) // Repère les points avec une croix
-          L = labelPoint(A, B)
-
-          texte = 'Dans un repère orthonormé (O,I,J), on donne les 4 points suivants :<br>'
-          texte += ` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right).$`
-          texte += ` $C\\left(${xC};${yC}\\right)$ ; $D\\left(${xD};${yD}\\right).$`
-          texte += '<br>Déterminer si le quadrilatère $ABDC$ est un parallélogramme.'
-
-          texteCorr = mathalea2d({
-            xmin: -9,
-            ymin: -9,
-            xmax: 9,
-            ymax: 9
-          }, T, L, g, a, s)
-
-          texteCorr += '<br>On sait que ABDC est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.'
-          texteCorr += '<br>On cherche donc les coordonnées du milieu de chacune des deux diagonales du quadrilatère :'
-          texteCorr += 'On sait d\'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d\'un repère ,'
-          texteCorr += '<br> alors les coordonnées du point $I$ milieu de $[AD]$ sont '
-          texteCorr += '$I\\left(\\dfrac{x_A+x_D}{2};\\dfrac{y_A+y_D}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_I=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${texNombre(xA + xD)}}{2}\\\\y_I=\\dfrac{${texNombre(yA + yD)}}{2}\\end{cases}$`
-          if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
-          if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
-          if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
-          if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$` }
-          texteCorr += '<br> Les coordonnées du point $J$ milieu de $[BC]$ sont '
-          texteCorr += '$J\\left(\\dfrac{x_B+x_C}{2};\\dfrac{y_B+y_C}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_J=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2} \\\\ y_J=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_J=\\dfrac{${texNombre(xB + xC)}}{2}\\\\y_J=\\dfrac{${texNombre(yB + yC)}}{2}\\end{cases}$`
-          if (xJ1 !== 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$` }
-          if (xJ1 === 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
-          if (xJ1 !== 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
-          if (xJ1 === 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$` }
-          texteCorr += '<br>On observe que $I$ et $J$ n\'ont pas les mêmes coordonnées, donc les deux diagonales du quadrilatère ne se coupent pas en leur milieu.'
-          texteCorr += '<br>$ABDC$ n\'est donc pas un parallélogramme.'
           break
       }
       if (this.questionJamaisPosee(i, xA, yA, xB, yB, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
@@ -259,5 +153,5 @@ export default function Milieu () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Application directe de la formule 2 : Application indirecte de la formule 3: Caractériser un parallélogramme.']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Application directe 2 : Application indirecte.']
 }

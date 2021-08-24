@@ -178,14 +178,34 @@
 |6P12|Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple|OK|AMCNum|OK|mathLive|
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|
+|CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
+|CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
+|CM002|Tables de divisions|OK|AMCNum|OK|numerique|
+|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
+|CM004|Les quatre opérations|OK|AMCNum|OK|numerique|
+|CM005|Ajouter 9|OK|AMCNum|OK|numerique|
+|CM006|Soustraire 9|OK|AMCNum|OK|numerique|
+|CM007|Ajouter 11|OK|AMCNum|OK|numerique|
+|CM008|Soustraire 11|OK|AMCNum|OK|numerique|
+|CM009|Moitié|OK|AMCNum|OK|numerique|
+|CM010|Tiers|OK|AMCNum|OK|numerique|
+|CM011|Quart|OK|AMCNum|OK|numerique|
+|CM012|Complément à 100|OK|AMCNum|OK|numerique|
+|CM013|Complément à une dizaine|OK|AMCNum|OK|numerique|
+|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|numerique|
+|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|numerique|
+|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
+|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
+|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
+|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
 |betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
-|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
+|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |can3F1|Lecture graphique|OK|AMCNum|OK|mathLive|
@@ -235,23 +255,3 @@
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
-|CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
-|CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
-|CM002|Tables de divisions|OK|AMCNum|OK|numerique|
-|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
-|CM004|Les quatre opérations|OK|AMCNum|OK|numerique|
-|CM005|Ajouter 9|OK|AMCNum|OK|numerique|
-|CM006|Soustraire 9|OK|AMCNum|OK|numerique|
-|CM007|Ajouter 11|OK|AMCNum|OK|numerique|
-|CM008|Soustraire 11|OK|AMCNum|OK|numerique|
-|CM009|Moitié|OK|AMCNum|OK|numerique|
-|CM010|Tiers|OK|AMCNum|OK|numerique|
-|CM011|Quart|OK|AMCNum|OK|numerique|
-|CM012|Complément à 100|OK|AMCNum|OK|numerique|
-|CM013|Complément à une dizaine|OK|AMCNum|OK|numerique|
-|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|numerique|
-|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|numerique|
-|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
-|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
-|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
-|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
