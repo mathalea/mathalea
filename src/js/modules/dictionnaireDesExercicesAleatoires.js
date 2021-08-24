@@ -1128,8 +1128,12 @@ export default {
   "4C22": {
     "titre": "Multiplier des fractions",
     "url": "/exercices/4e/4C22.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum✖︎2"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C22"
   },
   "4C23": {

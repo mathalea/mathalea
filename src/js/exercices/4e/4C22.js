@@ -91,35 +91,35 @@ export default function ExerciceMultiplierFractions () {
               a = a + 1
             }
             texte = `$${texFraction(a, 1)}\\times${texFraction(c, d)}=$`
-            texteCorr = `$${texFraction(a, 1)}\\times${texFraction(c, d)}$`
-            texteCorr += `$=\\dfrac{${a}}{1}\\times${texFraction(c, d)}$`
-            texteCorr += `$=${texFraction(
+            texteCorr = `$${texFraction(a, 1)}\\times${texFraction(c, d)}`
+            texteCorr += `=\\dfrac{${a}}{1}\\times${texFraction(c, d)}`
+            texteCorr += `=${texFraction(
               a + '\\times' + c,
               '1\\times' + d
-            )}$`
-            texteCorr += `$=${texFraction(a * c, d)}$`
+            )}`
+            texteCorr += `=${texFraction(a * c, d)}`
             if (pgcd(a * c, d) !== 1) {
-              texteCorr += `$=${texFractionReduite(a * c, d)}$`
-            }
+              texteCorr += `=${texFractionReduite(a * c, d)}$`
+            } else texteCorr += '$'
             reponse = fraction(a * c, d).simplifie()
             break
 
           case 2: // fraction * fraction tout positif
             p = pgcd(a * c, b * d)
             texte = `$${texFraction(a, b)}\\times${texFraction(c, d)}=$`
-            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`
-            texteCorr += `$=${texFraction(
+            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}`
+            texteCorr += `=${texFraction(
               a + '\\times' + c,
               b + '\\times' + d
-            )}$`
-            texteCorr += `$=${texFraction(a * c, b * d)}$`
+            )}`
+            texteCorr += `=${texFraction(a * c, b * d)}`
             if (p !== 1) {
-              texteCorr += `$=${texFraction(
+              texteCorr += `=${texFraction(
                 (a * c) / p + '\\times\\cancel{' + p + '}',
                 (b * d) / p + '\\times\\cancel{' + p + '}'
-              )}$`
-              texteCorr += `$=${texFraction((a * c) / p, (b * d) / p)}$`
-            }
+              )}`
+              texteCorr += `=${texFraction((a * c) / p, (b * d) / p)}$`
+            } else texteCorr += '$'
             reponse = fraction(a * c, b * d).simplifie()
 
             break
@@ -137,35 +137,35 @@ export default function ExerciceMultiplierFractions () {
             }
 
             texte = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`
-            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`
+            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}`
             aa = abs(a)
             bb = abs(b)
             cc = abs(c)
             dd = abs(d)
             p = pgcd(aa * cc, bb * dd)
-            texteCorr += `$=${signe}${texFraction(
+            texteCorr += `=${signe}${texFraction(
               aa,
               bb
-            )}\\times${texFraction(cc, dd)}$`
-            texteCorr += `$=${signe}${texFraction(
+            )}\\times${texFraction(cc, dd)}`
+            texteCorr += `=${signe}${texFraction(
               aa + '\\times' + cc,
               bb + '\\times' + dd
-            )}$`
+            )}`
             if (p === 1) {
-              texteCorr += `$=${signe}${texFraction(aa * cc, bb * dd)}$`
+              texteCorr += `=${signe}${texFraction(aa * cc, bb * dd)}$`
             } else {
-              texteCorr += `$=${signe}${texFraction(aa * cc, bb * dd)}$`
+              texteCorr += `=${signe}${texFraction(aa * cc, bb * dd)}`
               if (aa * cc !== bb * dd) {
-                texteCorr += `$=${signe}${texFraction(
+                texteCorr += `=${signe}${texFraction(
                   (aa * cc) / p + '\\times\\cancel{' + p + '}',
                   (bb * dd) / p + '\\times\\cancel{' + p + '}'
-                )}$`
-                texteCorr += `$=${signe}${texFraction(
+                )}`
+                texteCorr += `=${signe}${texFraction(
                   (aa * cc) / p,
                   (bb * dd) / p
                 )}$`
               } else {
-                texteCorr += `$=${signe}1$`
+                texteCorr += `=${signe}1$`
               }
             }
             reponse = fraction(a * c, b * d).simplifie()
@@ -192,14 +192,14 @@ export default function ExerciceMultiplierFractions () {
         switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
             texte = `$${a}\\times${texFraction(c, d)}=$`
-            texteCorr = `$${a}\\times${texFraction(c, d)}$`
-            texteCorr += `$=${texFraction(a + '\\times' + c, d)}$`
-            texteCorr += `$=${texFraction(
+            texteCorr = `$${a}\\times${texFraction(c, d)}`
+            texteCorr += `=${texFraction(a + '\\times' + c, d)}`
+            texteCorr += `=${texFraction(
               decompositionFacteursPremiers(a) +
               '\\times' +
               decompositionFacteursPremiers(c),
               decompositionFacteursPremiers(d)
-            )}$`
+            )}`
             // texteCorr += `$=${texFraction(decompositionFacteursPremiers(a * c), decompositionFacteursPremiers(d))}$`
             for (const k in listec) {
               listea.push(listec[k])
@@ -259,18 +259,18 @@ export default function ExerciceMultiplierFractions () {
             }
             denominateur = denominateur.substr(0, denominateur.length - 6)
 
-            texteCorr += `$=\\dfrac{${numerateur}}{${denominateur}}$`
-            texteCorr += `$=${texFraction(a, b)}$`
+            texteCorr += `=\\dfrac{${numerateur}}{${denominateur}}`
+            texteCorr += `=${texFraction(a, b)}$`
             reponse = fraction(a, b)
             break
 
           case 2: // fraction * fraction tout positif
             texte = `$${texFraction(a, b)}\\times${texFraction(c, d)}=$`
-            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`
-            texteCorr += `$=${texFraction(
+            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}`
+            texteCorr += `=${texFraction(
               a + '\\times' + c,
               b + '\\times' + d
-            )}$`
+            )}`
 
             for (const k in listec) {
               listea.push(listec[k])
@@ -333,8 +333,8 @@ export default function ExerciceMultiplierFractions () {
             }
             denominateur = denominateur.substr(0, denominateur.length - 6)
 
-            texteCorr += `$=\\dfrac{${numerateur}}{${denominateur}}$`
-            texteCorr += `$=${texFraction(a, b)}$`
+            texteCorr += `=\\dfrac{${numerateur}}{${denominateur}}`
+            texteCorr += `=${texFraction(a, b)}$`
             reponse = fraction(a, b)
             break
 
@@ -351,20 +351,20 @@ export default function ExerciceMultiplierFractions () {
             }
 
             texte = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`
-            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`
+            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}`
             aa = abs(a)
             bb = abs(b)
             cc = abs(c)
             dd = abs(d)
 
-            texteCorr += `$=${signe}${texFraction(
+            texteCorr += `=${signe}${texFraction(
               aa,
               bb
-            )}\\times${texFraction(cc, dd)}$`
-            texteCorr += `$=${signe}${texFraction(
+            )}\\times${texFraction(cc, dd)}`
+            texteCorr += `=${signe}${texFraction(
               aa + '\\times' + cc,
               bb + '\\times' + dd
-            )}$`
+            )}`
 
             for (const k in listec) {
               listea.push(listec[k])
@@ -427,8 +427,8 @@ export default function ExerciceMultiplierFractions () {
             }
             denominateur = denominateur.substr(0, denominateur.length - 6)
 
-            texteCorr += `$=${signe}\\dfrac{${numerateur}}{${denominateur}}$`
-            texteCorr += `$=${signe}${texFraction(a, b)}$`
+            texteCorr += `=${signe}\\dfrac{${numerateur}}{${denominateur}}`
+            texteCorr += `=${signe}${texFraction(a, b)}$`
             reponse = fraction((signe === '-' ? -1 : 1) * a, b)
             break
         }
@@ -437,7 +437,7 @@ export default function ExerciceMultiplierFractions () {
         // Si la question n'a jamais été posée, on en créé une autre
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            enonce: `Calculer $${texte.substring(1, texte.length - 2)}$ et donner le résultat sous forme irreductible`,
+            enonce: `Calculer $${texte.substring(1, texte.length - 1)}$ et donner le résultat sous forme irreductible`,
             propositions: [
               {
                 texte: texteCorr,
@@ -447,19 +447,19 @@ export default function ExerciceMultiplierFractions () {
             ],
             reponse: {
               texte: 'numérateur',
-              valeur: reponse.num,
+              valeur: reponse.signe * Math.abs(reponse.num),
               param: {
                 digits: 2,
                 decimals: 0,
                 exposantNbChiffres: 0,
                 exposantSigne: false,
-                signe: reponse.signe === '-',
+                signe: reponse.signe === -1,
                 approx: 0
               }
             },
             reponse2: {
               texte: 'dénominateur',
-              valeur: reponse.den,
+              valeur: Math.abs(reponse.den),
               param: {
                 digits: 2,
                 decimals: 0,
