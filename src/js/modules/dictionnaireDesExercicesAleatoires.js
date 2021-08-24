@@ -999,23 +999,34 @@ export default {
   "4C10-0": {
     "titre": "Signe d’un produit ou d’un quotient de nombres relatifs",
     "url": "/exercices/4e/4C10-0.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "qcm",
     "name": "4C10-0"
   },
   "4C10-1": {
     "titre": "Signe d’un produit de nombres relatifs",
     "url": "/exercices/4e/4C10-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "4C10-1"
   },
   "4C10-2": {
     "titre": "Signe d’un quotient de nombres relatifs",
     "url": "/exercices/4e/4C10-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "4C10-2"
   },
   "4C10-3": {
@@ -1044,8 +1055,12 @@ export default {
   "4C10-6": {
     "titre": "Multiplications et quotients de relatifs : signe avec une lettre",
     "url": "/exercices/4e/4C10-6.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "4C10-6"
   },
   "4C11": {

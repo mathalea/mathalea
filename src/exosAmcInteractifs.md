@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 204 
-- nombre d'exos interactifReady 234 
+- nombre d'exos amcReady 208 
+- nombre d'exos interactifReady 237 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -50,9 +50,12 @@
 |3S12|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
 |3S15|Calculer des étendues|KO|KO|OK|mathLive|
 |4AI1-1|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
-|4C10-0|Signe d’un produit ou d’un quotient de nombres relatifs|KO|KO|OK|mathLive|
+|4C10-0|Signe d’un produit ou d’un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
+|4C10-1|Signe d’un produit de nombres relatifs|OK|qcmMono|OK|qcm|
+|4C10-2|Signe d’un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
 |4C10-3|Multiplication de deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-4|Quotient de deux entiers relatifs|KO|KO|OK|mathLive|
+|4C10-6|Multiplications et quotients de relatifs : signe avec une lettre|OK|qcmMono|OK|qcm|
 |4C11|Calculs utilisant les priorités opératoires|KO|KO|OK|mathLive|
 |4C20|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
 |4C21-1|Additionner deux fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
