@@ -446,6 +446,17 @@ export default {
     "interactifReady": false,
     "name": "3F1-act"
   },
+  "3F10-1": {
+    "titre": "Vocabulaire et notations des fonctions (généralités)",
+    "url": "/exercices/3e/3F10-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMult"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "3F10-1"
+  },
   "3F10": {
     "titre": "Lectures d’images et d’antécédents depuis un tableau de valeurs",
     "url": "/exercices/3e/3F10.js",
