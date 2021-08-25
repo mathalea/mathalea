@@ -40,27 +40,20 @@ export default function VocabulaireNotationsFonctions () {
       case 2: // notations
         typesDeQuestionsDisponibles = ['notations']
         break
-      case 3: // calculs
-        typesDeQuestionsDisponibles = ['calculs']
-        break
-      case 4: // mélange langage et notations
-        typesDeQuestionsDisponibles = ['langage', 'notations']
-        break
-      case 5: // mélange tout
-        typesDeQuestionsDisponibles = ['langage', 'notations', 'calculs']
+      case 3: // mélange vocabulaire et notations
+        typesDeQuestionsDisponibles = ['vocabulaire', 'notations']
         break
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const sousChoix = combinaisonListes(rangeMinMax(0, 4), this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
-    for (let i = 0, texte, texteCorr, x, y, m, n, d, A, enonce, reponses = [], monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, x, y, m, d, A, enonce, reponses = [], monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
 
       // on ne choisit que des nombres compris entre 1 et 20
-      x = randint(-9, 9)
+      x = randint(-9, 9, [0, 1, -1])
       y = randint(-9, 9, x)
       switch (listeTypeDeQuestions[i]) {
         case 'vocabulaire':
-          sousChoix[i] = sousChoix[i] % 5
           switch (sousChoix[i]) {
             case 0:
               enonce = `$f$ est la fonction qui à $${x}$ associe $${y}$, alors pour la fonction $f$ :`
@@ -82,28 +75,32 @@ export default function VocabulaireNotationsFonctions () {
           break
 
         case 'notations':
-          if (sousChoix[i] > 3) sousChoix[i] = randint(0, 3)
           switch (sousChoix[i]) {
             case 0:
               enonce = `On sait que $f(${x})=${y}$, alors pour la fonction $f$ :`
+              reponses[i] = [[`$${x}$ est un antécédent de $${y}$`, true], [`$${x}$ est l'image de $${y}$`, false], [`$${y}$ est un antécédent de $${x}$`, false], [`$${y}$ est l'image de $${x}$`, true]]
               break
             case 1:
               enonce = `$f : ${x} \\longmapsto ${y}$, alors pour la fonction $f$ :`
+              reponses[i] = [[`$${x}$ est un antécédent de $${y}$`, true], [`$${x}$ est l'image de $${y}$`, false], [`$${y}$ est un antécédent de $${x}$`, false], [`$${y}$ est l'image de $${x}$`, true]]
               break
             case 2:
               enonce = `Pour $x=${x}$, $f(x)=${y}$, alors pour la fonction $f$ :`
+              reponses[i] = [[`$${x}$ est un antécédent de $${y}$`, true], [`$${x}$ est l'image de $${y}$`, false], [`$${y}$ est un antécédent de $${x}$`, false], [`$${y}$ est l'image de $${x}$`, true]]
               break
             case 3:
               A = point(x, y)
               d = droiteParPointEtPente(A, randint(-4, 4, 0) / 2, '', 'red')
               enonce = 'La fonction $f$ est représentée par la droite rouge ci-dessous<br>'
               enonce += mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 15, scale: 0.5 }, r, d, tracePoint(A)) + '<br>Alors pour la fonction $f$ :'
+              reponses[i] = [[`$${x}$ est un antécédent de $${y}$`, true], [`$${x}$ est l'image de $${y}$`, false], [`$${y}$ est un antécédent de $${x}$`, false], [`$${y}$ est l'image de $${x}$`, true]]
+              break
+            case 4:
+              m = randint(-9, 9, [x, y])
+              enonce = `On sait que $f(${x})=f(${y})=m$, alors pour la fonction $f$ :`
+              reponses[i] = [[`$${x}$ et $${y}$ sont des antécédents de $${m}$`, true], [`$${m}$ est l'image de $${x}$ et de $${y}$`, true], [`$${x}$ et $${y}$ sont des images de $${m}$`, false], [`$${m}$ est un antécédent de $${x}$ et $${y}$`, false]]
               break
           }
-          reponses[i] = [[`$${x}$ est un antécédent de $${y}$`, true], [`$${x}$ est l'image de $${y}$`, false], [`$${y}$ est un antécédent de $${x}$`, false], [`$${y}$ est l'image de $${x}$`, true]]
-          break
-        case 'calculs':
-
           break
       }
 
@@ -132,7 +129,7 @@ export default function VocabulaireNotationsFonctions () {
   }
   this.besoinFormulaireNumerique = [
     'Choix des questions',
-    5,
-    '1 : Vocabulaire\n2 : Notations \n3 : Calculs \n4 : Mélange vocabulaire et notations \n5 : Mélange de tout '
+    3,
+    '1 : Vocabulaire\n2 : Notations \n3 : Mélange vocabulaire et notations'
   ]
 }

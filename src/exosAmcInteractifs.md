@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 216 
-- nombre d'exos interactifReady 247 
+- nombre d'exos amcReady 217 
+- nombre d'exos interactifReady 248 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -15,6 +15,7 @@
 |3A11|Primalité ou pas|OK|qcmMono|OK|qcm|
 |3A14|Problème Les iris et les roses|OK|AMCHybride|OK|mathLive|
 |3F10-1|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
+|3F10-2|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
 |3F12-3|Compléter un tableau de valeurs|OK|AMCHybride|OK|mathLive|
