@@ -169,27 +169,27 @@
       <body style=\"overflow:auto\">
     ");
 
-  // fputs($fp," ...
-  // ");
+    // fputs($fp," ...
+    // ");
 
-  fputs($fp,"
-    <div class=\"ui container\">
-    <h1 class=\"ui center aligned header\">Espace des scores <b>".$codeProf[0].$codeProf[1].$codeProf[2]."</b></h1>
-    <h2 class=\"ui center aligned header\">Liste des fichiers par classe et par semaine</h2>                
-      $string      
-    </div>
-  ");
+    fputs($fp,"
+      <div class=\"ui container\">
+      <h1 class=\"ui center aligned header\">Espace des scores <b>".$codeProf[0].$codeProf[1].$codeProf[2]."</b></h1>
+      <h2 class=\"ui center aligned header\">Liste des fichiers par classe et par semaine</h2>                
+        $string      
+      </div>
+    ");
 
-  fputs($fp,"
-    <script>
-      $('.ui.accordion')
-        .accordion()
-      ;
-    </script>
-    </body>
-      </html>
-  ");
+    fputs($fp,"
+      <script>
+        $('.ui.accordion')
+          .accordion()
+        ;
+      </script>
+      </body>
+        </html>
+    ");
 
-  fclose($fp); 
+    fclose($fp); 
   };
 ?>
