@@ -1,5 +1,5 @@
-import Calcul_de_longueur from '../3e/3G30.js'
-export {interactifReady, interactifType, amcReady, amcType } from '../3e/3G30.js'
+import CalculDeLongueur from '../3e/3G30.js'
+export { interactifReady, interactifType, amcReady, amcType } from '../3e/3G30.js'
 export const titre = 'Utiliser le cosinus pour calculer une longueur dans un triangle rectangle'
 
 /**
