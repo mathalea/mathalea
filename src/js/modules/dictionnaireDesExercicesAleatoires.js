@@ -458,14 +458,14 @@ export default {
     "name": "3F10-1"
   },
   "3F10-2": {
-    "titre": "Vocabulaire et notations des fonctions (généralités)",
+    "titre": "Calculs d'images fonctions",
     "url": "/exercices/3e/3F10-2.js",
     "amcReady": true,
     "amcType": {
-      "text": "qcmMult"
+      "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "qcm",
+    "interactifType": "mathLive",
     "name": "3F10-2"
   },
   "3F10": {
