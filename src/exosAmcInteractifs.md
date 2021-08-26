@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 225 
-- nombre d'exos interactifReady 256 
+- nombre d'exos amcReady 224 
+- nombre d'exos interactifReady 257 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -84,6 +84,7 @@
 |4G53|Calculs de volumes|OK|AMCNum|OK|qcm,mathLive|
 |4L20-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
 |4L20|Équation du premier degré|OK|AMCHybride|OK|mathLive|
+|5A13|Décomposition en facteurs premiers|KO|KO|OK|mathLive|
 |5C12-1|Traduire une phrase par une expression et la calculer|OK|AMCOpenNum|OK|mathLive|
 |5C12|Calculer une expression numérique en détaillant les calculs|OK|AMCOpenNum|OK|mathLive|
 |5G10|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
@@ -214,7 +215,7 @@
 |can5C07|Priorité opératoire|OK|AMCNum|OK|mathLive|
 |can5C08|Quart entier|OK|AMCNum|OK|mathLive|
 |can5C09|Multiplier par 5|OK|AMCNum|OK|mathLive|
-|can5C10|Décomposition en produit de facteurs premiers niveau 1|OK|AMCNum|OK|mathLive|
+|can5C10|Décomposition en produit de facteurs premiers niveau 1|KO|KO|OK|mathLive|
 |can5D01|Conversion en heures et minutes|OK|AMCHybride|OK|mathLive|
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
 |can6C01|Ordre de grandeur|OK|qcmMono|OK|qcm|

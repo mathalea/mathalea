@@ -1672,7 +1672,8 @@ export default {
     "titre": "Décomposition en facteurs premiers",
     "url": "/exercices/5e/5A13.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5A13"
   },
   "5C11-1": {
@@ -4298,10 +4299,7 @@ export default {
   "can5C10": {
     "titre": "Décomposition en produit de facteurs premiers niveau 1",
     "url": "/exercices/can/can5C10.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
+    "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can5C10"
