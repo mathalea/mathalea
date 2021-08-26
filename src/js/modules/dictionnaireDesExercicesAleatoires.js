@@ -458,7 +458,7 @@ export default {
     "name": "3F10-1"
   },
   "3F10-2": {
-    "titre": "Calculs d'images fonctions",
+    "titre": "Calculs d’images fonctions",
     "url": "/exercices/3e/3F10-2.js",
     "amcReady": true,
     "amcType": {
@@ -4075,16 +4075,49 @@ export default {
     "interactifReady": false,
     "name": "c3N23"
   },
-  "can3F1": {
+  "can3F01": {
     "titre": "Lecture graphique",
-    "url": "/exercices/can/can3F1.js",
+    "url": "/exercices/can/can3F01.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3F1"
+    "name": "can3F01"
+  },
+  "can3F02": {
+    "titre": "Calcul d’image ou d’antécédent niveau 1",
+    "url": "/exercices/can/can3F02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F02"
+  },
+  "can3F03": {
+    "titre": "Calcul d’image ou d’antécédent niveau 2",
+    "url": "/exercices/can/can3F03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F03"
+  },
+  "can3F04": {
+    "titre": "Calcul d’image niveau 3",
+    "url": "/exercices/can/can3F04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F04"
   },
   "can3L1": {
     "titre": "Équation ax=b",
@@ -4118,6 +4151,39 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3L3"
+  },
+  "can4L01": {
+    "titre": "Résoudre une équation niveau 1",
+    "url": "/exercices/can/can4L01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4L01"
+  },
+  "can4L02": {
+    "titre": "Résoudre une équation niveau 2",
+    "url": "/exercices/can/can4L02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4L02"
+  },
+  "can4L03": {
+    "titre": "Résoudre une équation niveau 3",
+    "url": "/exercices/can/can4L03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4L03"
   },
   "can5C01": {
     "titre": "Produit de nombres entiers",
