@@ -7,7 +7,6 @@ export const titre = 'Construire le symétrique d’un point par rapport à une 
  */
 export default function SymetrieAxialePoint6e () {
   ConstruireParSymetrie.call(this)
-  this.titre = titre
   this.figure = false
   this.sup = 0
 }

@@ -296,7 +296,19 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         if (obj.questionJamaisPosee(numQuestion, obj.question)) {
           contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}`
           if (obj.interactif && obj.interactifReady) {
-            contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion)
+            if (obj.formatChampTexte) {
+              if (obj.optionsChampTexte) {
+                contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion, obj.formatChampTexte, obj.optionsChampTexte)
+              } else {
+                contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion, obj.formatChampTexte)
+              }
+            } else {
+              if (obj.optionsChampTexte) {
+                contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion, '', obj.optionsChampTexte)
+              } else {
+                contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion)
+              }
+            }
           }
           contenuUnExercice += '</li>'
           if (obj.formatInteractif) {
