@@ -74,22 +74,35 @@
           </a>
         </div>    
         \r\n";
-      echo "<ul>\r\n";
-      foreach ($myFilesDatas as $object) {
-        if (!is_dir($object->file) && $object->classe == $classe && !in_array($object->name, array(".","..")) ) {
-            echo "<br><li>
-              <div class=\"ui labeled button\" tabindex=\"0\">
-                <div class=\"ui orange button\">
-                  <i class=\"calendar icon\"></i> ".substr($object->name,0,-4)."
-                </div>
-                <a class=\"ui basic orange left pointing label\" href=\"".substr($object->path,-2)."/".$object->name."\">
-                  Télécharger uniquement ce fichier
-                </a>
-              </div>
-            </li>\r\n";
-          };
-      }
-      echo "</ul>\r\n"; 
+      echo "
+      <div class=\"ui accordion\">
+      <div class=\"title\">
+        <i class=\"dropdown icon\"></i>
+        Dérouler pour ne télécharger que les scores d\'une semaine donnée
+      </div>
+      <div class=\"content\">
+        <p class=\"transition hidden\">";
+        echo "
+          <ul>\r\n";      
+          foreach ($myFilesDatas as $object) {
+            if (!is_dir($object->file) && $object->classe == $classe && !in_array($object->name, array(".","..")) ) {
+                echo "<li>
+                  <div class=\"ui labeled button\" tabindex=\"0\">
+                    <div class=\"ui orange button\">
+                      <i class=\"calendar icon\"></i> ".substr($object->name,0,-4)."
+                    </div>
+                    <a class=\"ui basic orange left pointing label\" href=\"".substr($object->path,-2)."/".$object->name."\">
+                      Télécharger uniquement ce fichier
+                    </a>
+                  </div>
+                </li></br>\r\n";
+              };
+          }
+      echo "
+            </ul>
+            </p>
+          </div>
+        </div>\r\n"; 
       echo "</li>\r\n"; 
       }
       if (!empty($classes)) {
@@ -156,22 +169,27 @@
       <body style=\"overflow:auto\">
     ");
 
-  // fputs($fp," ...
-  // ");
+    // fputs($fp," ...
+    // ");
 
-  fputs($fp,"
-    <div class=\"ui container\">
-    <h1 class=\"ui center aligned header\">Espace des scores <b>".$codeProf[0].$codeProf[1].$codeProf[2]."</b></h1>
-    <h2 class=\"ui center aligned header\">Liste des fichiers par classe et par semaine</h2>                
-      $string      
-    </div>
-  ");
+    fputs($fp,"
+      <div class=\"ui container\">
+      <h1 class=\"ui center aligned header\">Espace des scores <b>".$codeProf[0].$codeProf[1].$codeProf[2]."</b></h1>
+      <h2 class=\"ui center aligned header\">Liste des fichiers par classe et par semaine</h2>                
+        $string      
+      </div>
+    ");
 
-  fputs($fp,"
-    </body>
-      </html>
-  ");
+    fputs($fp,"
+      <script>
+        $('.ui.accordion')
+          .accordion()
+        ;
+      </script>
+      </body>
+        </html>
+    ");
 
-  fclose($fp); 
+    fclose($fp); 
   };
 ?>
