@@ -1,6 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, choice, compareNombres, texNombre, combinaisonListes } from '../../modules/outils.js'
-
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Décomposition en facteurs premiers'
 
 /**
@@ -10,7 +12,7 @@ export const titre = 'Décomposition en facteurs premiers'
 */
 export default function ExerciceDecomposerEnFacteursPremiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers."
+  this.consigne = "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers rangés dans l'ordre croissant."
   this.spacing = 2
   this.nbQuestions = 6
   this.sup = 2 // 4 facteurs par défaut
@@ -21,7 +23,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
     this.listeCorrections = [] // Liste de questions corrigées
     const grandNombres = combinaisonListes([false, false, false, true], this.nbQuestions)
     this.sup = parseInt(this.sup)
-    for (let i = 0, n, facteurs = [], nbFacteurs, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+    for (let i = 0, n, facteurs = [], nbFacteurs, texte, reponse, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       facteurs = []
       nbFacteurs = this.sup + 2
       for (let k = 0; k < nbFacteurs; k++) {
@@ -41,12 +43,16 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       }
       texte = '$ ' + texNombre(n) + ' = \\dotfill $'
       texteCorr = '$ ' + texNombre(n) + ' = '
+      reponse = ''
       facteurs.sort(compareNombres) // classe les facteurs dans l'ordre croissant
       for (let k = 0; k < facteurs.length - 1; k++) {
         texteCorr += facteurs[k] + ' \\times  '
+        reponse += facteurs[k] + '\\times'
       }
       texteCorr += facteurs[facteurs.length - 1] + ' $'
-
+      reponse += facteurs[facteurs.length - 1]
+      texte += ajouteChampTexteMathLive(this, i)
+      setReponse(this, i, reponse)
       if (this.questionJamaisPosee(i, ...facteurs)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

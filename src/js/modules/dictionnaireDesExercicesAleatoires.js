@@ -4295,6 +4295,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C09"
   },
+  "can5C10": {
+    "titre": "Décomposition en produit de facteurs premiers niveau 1",
+    "url": "/exercices/can/can5C10.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C10"
+  },
   "can5D01": {
     "titre": "Conversion en heures et minutes",
     "url": "/exercices/can/can5D01.js",

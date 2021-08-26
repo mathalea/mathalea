@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 224 
-- nombre d'exos interactifReady 255 
+- nombre d'exos amcReady 225 
+- nombre d'exos interactifReady 256 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -214,6 +214,7 @@
 |can5C07|Priorité opératoire|OK|AMCNum|OK|mathLive|
 |can5C08|Quart entier|OK|AMCNum|OK|mathLive|
 |can5C09|Multiplier par 5|OK|AMCNum|OK|mathLive|
+|can5C10|Décomposition en produit de facteurs premiers niveau 1|OK|AMCNum|OK|mathLive|
 |can5D01|Conversion en heures et minutes|OK|AMCHybride|OK|mathLive|
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
 |can6C01|Ordre de grandeur|OK|qcmMono|OK|qcm|

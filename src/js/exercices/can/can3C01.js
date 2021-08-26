@@ -1,4 +1,4 @@
-import { choice, miseEnEvidence, randint, sp, texteEnCouleurEtGras } from '../../modules/outils'
+import { choice, randint, sp, texteEnCouleurEtGras } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Puissances de nombre entier'
 export const interactifReady = true
