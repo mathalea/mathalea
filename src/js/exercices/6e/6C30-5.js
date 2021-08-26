@@ -17,11 +17,6 @@ export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le 
 export default function MultiplierPar001 () {
   'use strict'
   Exercice.call(this)
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nbQuestions = 4 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
@@ -96,9 +91,6 @@ export default function MultiplierPar001 () {
             ordered: false,
             lastChoice: 5
           }
-          if (this.interactif) {
-            texte += '<br>' + propositionsQcm(this, i).texte
-          }
           break
 
         case 2:
@@ -129,9 +121,6 @@ export default function MultiplierPar001 () {
           this.autoCorrection[i].options = {
             ordered: false,
             lastChoice: 5
-          }
-          if (this.interactif) {
-            texte += '<br>' + propositionsQcm(this, i).texte
           }
           break
 
@@ -164,10 +153,10 @@ export default function MultiplierPar001 () {
             ordered: false,
             lastChoice: 5
           }
-          if (this.interactif) {
-            texte += '<br>' + propositionsQcm(this, i).texte
-          }
           break
+      }
+      if (this.interactif) {
+        texte += '<br>' + propositionsQcm(this, i).texte
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
