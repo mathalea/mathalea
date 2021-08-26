@@ -462,10 +462,10 @@ export default {
     "url": "/exercices/3e/3F10-2.js",
     "amcReady": true,
     "amcType": {
-      "text": "qcmMult"
+      "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "qcm",
+    "interactifType": "mathLive",
     "name": "3F10-2"
   },
   "3F10": {
@@ -4074,6 +4074,17 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "c3N23"
+  },
+  "can3C01": {
+    "titre": "Puissances de nombre entier",
+    "url": "/exercices/can/can3C01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C01"
   },
   "can3F01": {
     "titre": "Lecture graphique",

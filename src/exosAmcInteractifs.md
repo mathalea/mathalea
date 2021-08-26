@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 223 
-- nombre d'exos interactifReady 254 
+- nombre d'exos amcReady 224 
+- nombre d'exos interactifReady 255 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -194,6 +194,7 @@
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |c3N20|Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
 |c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
+|can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
 |can3F01|Lecture graphique|OK|AMCNum|OK|mathLive|
 |can3F02|Calcul d’image ou d’antécédent niveau 1|OK|AMCNum|OK|mathLive|
 |can3F03|Calcul d’image ou d’antécédent niveau 2|OK|AMCNum|OK|mathLive|
