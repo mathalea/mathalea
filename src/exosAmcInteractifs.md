@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 217 
-- nombre d'exos interactifReady 248 
+- nombre d'exos amcReady 223 
+- nombre d'exos interactifReady 254 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -15,7 +15,7 @@
 |3A11|Primalité ou pas|OK|qcmMono|OK|qcm|
 |3A14|Problème Les iris et les roses|OK|AMCHybride|OK|mathLive|
 |3F10-1|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
-|3F10-2|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
+|3F10-2|Calculs d’images fonctions|OK|AMCNum|OK|mathLive|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
 |3F12-3|Compléter un tableau de valeurs|OK|AMCHybride|OK|mathLive|
@@ -194,10 +194,16 @@
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |c3N20|Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
 |c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
-|can3F1|Lecture graphique|OK|AMCNum|OK|mathLive|
+|can3F01|Lecture graphique|OK|AMCNum|OK|mathLive|
+|can3F02|Calcul d’image ou d’antécédent niveau 1|OK|AMCNum|OK|mathLive|
+|can3F03|Calcul d’image ou d’antécédent niveau 2|OK|AMCNum|OK|mathLive|
+|can3F04|Calcul d’image niveau 3|OK|AMCNum|OK|mathLive|
 |can3L1|Équation ax=b|OK|AMCNum|OK|mathLive|
 |can3L2|Équation ax+b=0|OK|AMCNum|OK|mathLive|
 |can3L3|Équation ax+b=c|OK|AMCNum|OK|mathLive|
+|can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
+|can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
+|can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
 |can5C01|Produit de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Somme de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C03|Différence de nombres entiers|OK|AMCNum|OK|mathLive|
