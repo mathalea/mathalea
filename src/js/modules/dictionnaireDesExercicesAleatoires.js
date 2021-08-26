@@ -4075,6 +4075,17 @@ export default {
     "interactifReady": false,
     "name": "c3N23"
   },
+  "can3C01": {
+    "titre": "Puissances de nombre entier",
+    "url": "/exercices/can/can3C01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C01"
+  },
   "can3F01": {
     "titre": "Lecture graphique",
     "url": "/exercices/can/can3F01.js",
@@ -4283,6 +4294,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can5C09"
+  },
+  "can5C10": {
+    "titre": "Décomposition en produit de facteurs premiers niveau 1",
+    "url": "/exercices/can/can5C10.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C10"
   },
   "can5D01": {
     "titre": "Conversion en heures et minutes",
