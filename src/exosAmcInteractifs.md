@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 226 
-- nombre d'exos interactifReady 259 
+- nombre d'exos amcReady 228 
+- nombre d'exos interactifReady 261 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -197,6 +197,8 @@
 |c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
 |can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
 |can3C02|Moyenne entière de trois décimaux|OK|AMCNum|OK|mathLive|
+|can3C03|Fraction irréductible|OK|AMCNum|OK|mathLive|
+|can3E01|Calcul de volume 3e|OK|AMCNum|OK|mathLive|
 |can3F01|Lecture graphique|OK|AMCNum|OK|mathLive|
 |can3F02|Calcul d’image ou d’antécédent niveau 1|OK|AMCNum|OK|mathLive|
 |can3F03|Calcul d’image ou d’antécédent niveau 2|OK|AMCNum|OK|mathLive|

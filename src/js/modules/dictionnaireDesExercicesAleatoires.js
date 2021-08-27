@@ -4098,6 +4098,28 @@ export default {
     "interactifType": "mathLive",
     "name": "can3C02"
   },
+  "can3C03": {
+    "titre": "Fraction irréductible",
+    "url": "/exercices/can/can3C03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C03"
+  },
+  "can3E01": {
+    "titre": "Calcul de volume 3e",
+    "url": "/exercices/can/can3E01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3E01"
+  },
   "can3F01": {
     "titre": "Lecture graphique",
     "url": "/exercices/can/can3F01.js",
