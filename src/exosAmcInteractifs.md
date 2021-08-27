@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 228 
-- nombre d'exos interactifReady 261 
+- nombre d'exos amcReady 229 
+- nombre d'exos interactifReady 263 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -180,7 +180,7 @@
 |6P11|Résoudre des problèmes de proportionnalité en utilisant la linéarité simple|OK|AMCHybride|OK|mathLive|
 |6P12|Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple|OK|AMCNum|OK|mathLive|
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
-|6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|
+|6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
@@ -252,6 +252,7 @@
 |can6P02|Proportionnalité compliquée|OK|AMCNum|OK|mathLive|
 |can6P03|Question de vitesse|OK|AMCNum|OK|mathLive|
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
+|can6S01|Lecture de diagramme en barres|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|

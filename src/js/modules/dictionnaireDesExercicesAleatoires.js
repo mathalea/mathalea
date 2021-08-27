@@ -3622,7 +3622,8 @@ export default {
     "amcType": {
       "text": "AMCHybride"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6S10"
   },
   "6S11": {
@@ -4699,6 +4700,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6P04"
+  },
+  "can6S01": {
+    "titre": "Lecture de diagramme en barres",
+    "url": "/exercices/can/can6S01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6S01"
   },
   "canPredef5-1": {
     "titre": "Course aux nombres début de 5e",
