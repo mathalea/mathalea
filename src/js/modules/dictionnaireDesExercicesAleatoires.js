@@ -4087,6 +4087,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can3C01"
   },
+  "can3C02": {
+    "titre": "Moyenne entière de trois décimaux",
+    "url": "/exercices/can/can3C02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C02"
+  },
   "can3F01": {
     "titre": "Lecture graphique",
     "url": "/exercices/can/can3F01.js",
@@ -4163,6 +4174,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3L3"
+  },
+  "can3S01": {
+    "titre": "Calcul de probabilité simple",
+    "url": "/exercices/can/can3S01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S01"
   },
   "can4L01": {
     "titre": "Résoudre une équation niveau 1",

@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 224 
-- nombre d'exos interactifReady 257 
+- nombre d'exos amcReady 226 
+- nombre d'exos interactifReady 259 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -196,6 +196,7 @@
 |c3N20|Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
 |c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
 |can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
+|can3C02|Moyenne entière de trois décimaux|OK|AMCNum|OK|mathLive|
 |can3F01|Lecture graphique|OK|AMCNum|OK|mathLive|
 |can3F02|Calcul d’image ou d’antécédent niveau 1|OK|AMCNum|OK|mathLive|
 |can3F03|Calcul d’image ou d’antécédent niveau 2|OK|AMCNum|OK|mathLive|
@@ -203,6 +204,7 @@
 |can3L1|Équation ax=b|OK|AMCNum|OK|mathLive|
 |can3L2|Équation ax+b=0|OK|AMCNum|OK|mathLive|
 |can3L3|Équation ax+b=c|OK|AMCNum|OK|mathLive|
+|can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
 |can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
 |can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
