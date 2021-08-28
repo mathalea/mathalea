@@ -264,7 +264,12 @@ Il suffit de
 * Mettre votre correction dans `this.correction`
 * Mettre la réponse attendue dans `this.reponse`
 
-Pour changer le format, il suffit de mettre `this.formatInteractif = ` après le `Exercice.call(this)` et de compléter avec un des formats vus <a href="#13">ci-dessus</a> : `'texte'`, `'fraction'`, `'fractionPlusSimple'`, `'fractionEgale'`, `'longueur'` (voir /js/exercices/can/can6C15.js par exemple).
+**Pour changer le format**, il suffit de placer après le `Exercice.call(this)` :
+* `this.formatInteractif = ` et de compléter avec un des formats vus <a href="#13">ci-dessus</a> : `'texte'`, `'fraction'`, `'fractionPlusSimple'`, `'fractionEgale'`, `'longueur'` (voir /js/exercices/can/can6C15.js par exemple).
+* `this.formatChampTexte = 'largeur10 inline'` pour personnaliser le champTexte (10 % de la largeur sans retour à la ligne dans cet exemple)
+* `this.optionsChampTexte = { texte: 'l = ', texteApres: ' cm'}` permet d'avoir du texte avant et après le champTexte MathLive.
+
+
 ## <a id="10" href="#10">#</a> Avoir deux champs de réponse sur une question, c'est possible !
 Il suffit d'avoir un compteur indépendant du compteur `i` de la boucle qui augmente de `1` pour les questions à un champ de réponse et qui augmente de `2` pour les questions à deux champs de réponse.
 
