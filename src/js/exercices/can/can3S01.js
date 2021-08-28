@@ -1,5 +1,5 @@
 import { fraction } from '../../modules/fractions'
-import { texNombrec, randint, sp, choice } from '../../modules/outils'
+import { randint, choice } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Calcul de probabilité simple'
 export const interactifReady = true
@@ -7,6 +7,9 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
+/*!
+ * @author Jean-Claude Lhote
+ */
 export default function CalculProbaSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -9,6 +9,9 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
+/*!
+ * @author Jean-Claude Lhote
+ */
 export default function AbscisseFractionnaire () {
   Exercice.call(this)
   this.typeExercice = 'simple'

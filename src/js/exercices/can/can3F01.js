@@ -8,6 +8,9 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 export const titre = 'Lecture graphique'
 
+/*!
+ * @author Jean-Claude Lhote
+ */
 export default function ImageSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'

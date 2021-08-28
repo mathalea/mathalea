@@ -1,4 +1,4 @@
-import { choice, miseEnEvidence, randint, sp, texteEnCouleurEtGras } from '../../modules/outils'
+import { choice, miseEnEvidence, randint, sp } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Puissances de nombre entier'
 export const interactifReady = true
@@ -6,6 +6,9 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
+/*!
+ * @author Jean-Claude Lhote
+ */
 export default function CalculPuissanceSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'

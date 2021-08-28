@@ -6,6 +6,9 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
+/*!
+ * @author Jean-Claude Lhote
+ */
 export default function Division5e () {
   Exercice.call(this)
   this.nbQuestions = 1

@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 229 
-- nombre d'exos interactifReady 263 
+- nombre d'exos amcReady 236 
+- nombre d'exos interactifReady 270 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -134,6 +134,7 @@
 |6C33|Calculer en utilisant les priorités opératoires|OK|AMCNum|OK|numerique|
 |6C34|Dernier chiffre d’un calcul|OK|AMCNum|OK|numerique|
 |6D101|Utiliser les heures décimales|OK|AMCHybride|OK|mathLive|
+|6D13|Conversion en heures et minutes|OK|AMCHybride|OK|mathLive|
 |6G10-3|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |6G23-1|Mesurer un angle|OK|qcmMono|OK|qcm|
 |6G24|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
@@ -220,7 +221,8 @@
 |can5C08|Quart entier|OK|AMCNum|OK|mathLive|
 |can5C09|Multiplier par 5|OK|AMCNum|OK|mathLive|
 |can5C10|Décomposition en produit de facteurs premiers niveau 1|KO|KO|OK|mathLive|
-|can5D01|Conversion en heures et minutes|OK|AMCHybride|OK|mathLive|
+|can5C11|Différence négative|OK|AMCNum|OK|mathLive|
+|can5D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
 |can6C01|Ordre de grandeur|OK|qcmMono|OK|qcm|
 |can6C02|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
@@ -240,7 +242,12 @@
 |can6C16|Double et moitié|OK|AMCNum|OK|mathLive|
 |can6C17|Fraction simple de quantité|OK|AMCNum|OK|mathLive|
 |can6C18|Reste de la division euclidienne|OK|AMCNum|OK|mathLive|
+|can6C19|Complément à 100|OK|AMCNum|OK|mathLive|
+|can6C20|Complément à 1|OK|AMCNum|OK|mathLive|
+|can6C21|Complément à 1 Niveau 2|OK|AMCNum|OK|mathLive|
 |can6D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
+|can6D02|Reste en minutes|OK|AMCNum|OK|mathLive|
+|can6D03|Calcul de durée en minutes|OK|AMCNum|OK|mathLive|
 |can6M01|Question de périmètres|OK|qcmMono|OK|qcm|
 |can6M02|La bonne unité|OK|qcmMono|OK|qcm|
 |can6M03|Conversions en mètres|OK|AMCNum|OK|mathLive|

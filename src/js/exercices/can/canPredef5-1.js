@@ -10,9 +10,9 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
- * Description didactique de l'exercice
- * @author
- * Référence
+ * Course aux nombres avec 30 questions début de 5e
+ * @author jeanclaude Lhote
+ * Référence canPredef5-1
 */
 export default function CourseAuxNombres5e (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
