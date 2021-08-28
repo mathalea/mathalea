@@ -45,7 +45,7 @@ export default function EcrireUneExpressionNumerique () {
     if (this.sup2) decimal = 10
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
-      nbOperations = parseInt(listeTypeDeQuestions[i])
+      nbOperations = parseInt(listeTypeDeQuestions[i] % 6)
       val1 = randint(2, 5)
       val2 = randint(6, 9)
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
