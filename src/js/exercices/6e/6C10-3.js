@@ -107,7 +107,6 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
       }
       if (this.interactif) {
         texte += propositionsQcm(this, i).texte
-        // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

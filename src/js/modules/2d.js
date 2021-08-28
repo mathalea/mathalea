@@ -5474,7 +5474,7 @@ function DroiteGraduee2 ({
   if (pointListe) {
     let lab
     for (const p of pointListe) {
-      P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1], 'center')
+      P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1], 'above')
       T = tracePoint(P, pointCouleur)
       T.taille = pointTaille
       T.opacite = pointOpacite

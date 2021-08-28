@@ -186,13 +186,13 @@ export default function LectureDiagrammeBarre () {
           },
           {
             type: 'qcmMono',
-            propositions: propb,
-            options: { ordered: false }
+            options: { ordered: false },
+            propositions: propb
           },
           {
             type: 'qcmMono',
-            propositions: propc,
-            options: { ordered: false }
+            options: { ordered: false },
+            propositions: propc
           }
         ]
       }

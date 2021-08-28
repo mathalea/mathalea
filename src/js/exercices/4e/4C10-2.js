@@ -1,5 +1,5 @@
 import SigneProduitQuotientRelatifs from './4C10-0.js'
-
+export { interactifReady, interactifType, amcReady, amcType } from './4C10-0.js'
 export const titre = 'Signe d’un quotient de nombres relatifs'
 
 /**

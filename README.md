@@ -35,7 +35,7 @@ Au printemps 2020, Sébastien Lozano a réalisé un [programme](https://github.c
 
 ### Pour participer
 
-Le code est libre, AGPL, vous pouvez donc télécharger les sources sur [GitHub](https://github.com/remiangot/MathALEA) et lire la documentation sur le [wiki](https://github.com/remiangot/MathALEA/wiki). N'hésitez pas à nous contacter (contact@coopmaths.fr) pour proposer des exercices, proposer des relectures ou pour programmer. L'équipe s'engage à accompagner au mieux tous ceux qui souhaiteraient participer.
+Le code est libre, AGPL, vous pouvez donc télécharger les sources sur [GitHub](https://github.com/remiangot/MathALEA) et lire la [documentation](https://coopmaths.fr/documentation/). N'hésitez pas à nous contacter (contact@coopmaths.fr) pour proposer des exercices, proposer des relectures ou pour programmer. L'équipe s'engage à accompagner au mieux tous ceux qui souhaiteraient participer.
 
 
 

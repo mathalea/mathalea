@@ -18,7 +18,6 @@ export const titre = 'Mesurer un angle'
  */
 export default function MesurerUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = ''
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true

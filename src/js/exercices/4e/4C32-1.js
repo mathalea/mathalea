@@ -130,9 +130,6 @@ export default function CalculsAvecPuissancesDeDix () {
           ordered: false,
           lastChoice: 5
         }
-        if (this.interactif) {
-          texte += propositionsQcm(this, i).texte
-        }
       }
       if (this.interactif) {
         texte += propositionsQcm(this, i).texte

@@ -39,5 +39,10 @@ package-lock.json
 
 # traces MacOS
 .DS_Store
+
+# Fichiers avec données scores pour les VIPs
 src/json/scoresCodesVip.json
 src/json/scoresCodesVipSebSeul.json
+
+# Fichier pour mise en ligne ssh de l'hebergement de test du SebLoz
+.rsyncignore

@@ -1,7 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, miseEnEvidence, obtenirListeFractionsIrreductibles, texFraction, texFractionSigne, combinaisonListes } from '../../modules/outils.js'
-
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMono'
 export const titre = 'Comparer deux fractions (dénominateurs multiples)'
 
 /**
@@ -9,6 +13,7 @@ export const titre = 'Comparer deux fractions (dénominateurs multiples)'
 * @author Rémi Angot
 * 5N14
 * Ajout du paramètre d'inclusion de nombres négatifs le 14/08/2021 : Guillaume Valmont
+* rendu interactif + AMC par Jean-Claude Lhote
 */
 export default function ExerciceComparerDeuxFractions (max = 11) {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -19,13 +24,16 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
   this.nbQuestions = 5
   this.nbColsCorr = 1
   this.sup2 = false
+  this.interactif = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const listeSignes = combinaisonListes([-1, 1], this.nbQuestions)
     const listeFractions = obtenirListeFractionsIrreductibles()
     for (let i = 0, fraction, a, b, k, positifOuNegatif, signeAsurB, texte, texteCorr, signe, signe2; i < this.nbQuestions; i++) {
+      this.autoCorrection[i] = {}
       if (this.sup2 === true) positifOuNegatif = listeSignes[i]
       else positifOuNegatif = 1
       fraction = choice(listeFractions)
@@ -46,21 +54,39 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
       enleveElement(listeFractions, fraction) // Il n'y aura pas 2 fois la même réponse
 
       const ordreDesFractions = randint(1, 2)
-      if (ordreDesFractions === 1) {
-        texte = `$${texFractionSigne(a, b)} \\quad$ et $\\quad ${texFractionSigne(k * a + ecart, k * b)}$`
+      if (!(this.interactif || context.isAmc)) {
+        if (ordreDesFractions === 1) {
+          texte = `$${texFractionSigne(a, b)} \\quad$ et $\\quad ${texFractionSigne(k * a + ecart, k * b)}$`
+        } else {
+          texte = `$${texFractionSigne(k * a + ecart, k * b)} \\quad$ et $\\quad ${texFractionSigne(a, b)}$`
+        }
+        if (!context.isHtml) {
+          texte = texte.replace('\\quad$ et $\\quad', '\\ldots\\ldots\\ldots')
+        }
+        if (a * b < 0) signeAsurB = '-'
+        else signeAsurB = ''
+        texteCorr = `$${texFractionSigne(a, b)}= ${signeAsurB} ${texFraction(Math.abs(a) + miseEnEvidence('\\times  ' + k), Math.abs(b) + miseEnEvidence('\\times  ' + k))}=${texFractionSigne(a * k, b * k)}\\quad$`
+        if (ordreDesFractions === 1) {
+          texteCorr += `  et   $\\quad${texFractionSigne(a * k, b * k)} ${signe} ${texFractionSigne(a * k + ecart, b * k)} \\quad$ donc $\\quad ${texFractionSigne(a, b)} ${signe} ${texFractionSigne(a * k + ecart, b * k)}$ `
+        } else {
+          texteCorr += `  et   $\\quad${texFractionSigne(a * k + ecart, b * k)} ${signe2} ${texFractionSigne(a * k, b * k)} \\quad$ donc $\\quad ${texFractionSigne(a * k + ecart, b * k)} ${signe2} ${texFractionSigne(a, b)} $ `
+        }
       } else {
-        texte = `$${texFractionSigne(k * a + ecart, k * b)} \\quad$ et $\\quad ${texFractionSigne(a, b)}$`
-      }
-      if (!context.isHtml) {
-        texte = texte.replace('\\quad$ et $\\quad', '\\ldots\\ldots\\ldots')
-      }
-      if (a * b < 0) signeAsurB = '-'
-      else signeAsurB = ''
-      texteCorr = `$${texFractionSigne(a, b)}= ${signeAsurB} ${texFraction(Math.abs(a) + miseEnEvidence('\\times  ' + k), Math.abs(b) + miseEnEvidence('\\times  ' + k))}=${texFractionSigne(a * k, b * k)}\\quad$`
-      if (ordreDesFractions === 1) {
-        texteCorr += `  et   $\\quad${texFractionSigne(a * k, b * k)} ${signe} ${texFractionSigne(a * k + ecart, b * k)}\\quad$ donc $\\quad${texFractionSigne(a, b)} ${signe} ${texFractionSigne(a * k + ecart, b * k)}$ `
-      } else {
-        texteCorr += `  et   $\\quad${texFractionSigne(a * k + ecart, b * k)} ${signe2} ${texFractionSigne(a * k, b * k)} \\quad$ donc $\\quad ${texFractionSigne(a * k + ecart, b * k)} ${signe2} ${texFractionSigne(a, b)} $ `
+        this.autoCorrection[i] = {
+          enonce: 'comparer les fractions suivantes : ' + (ordreDesFractions < 2 ? `$${texFractionSigne(a, b)} \\quad$ et $\\quad ${texFractionSigne(k * a + ecart, k * b)}$` : `$${texFractionSigne(k * a + ecart, k * b)} \\quad$ et $\\quad ${texFractionSigne(a, b)}$`),
+          propositions: [
+            {
+              texte: ordreDesFractions < 2 ? `$${texFractionSigne(a, b)} < ${texFractionSigne(k * a + ecart, k * b)}$` : `$${texFractionSigne(k * a + ecart, k * b)} < ${texFractionSigne(a, b)}$`,
+              statut: ordreDesFractions < 2 ? ecart > 0 : ecart < 0
+            },
+            {
+              texte: ordreDesFractions < 2 ? `$${texFractionSigne(a, b)} > ${texFractionSigne(k * a + ecart, k * b)}$` : `$${texFractionSigne(k * a + ecart, k * b)} >${texFractionSigne(a, b)}$`,
+              statut: ordreDesFractions < 2 ? ecart < 0 : ecart > 0
+            }
+          ],
+          options: { ordered: false }
+        }
+        texte = propositionsQcm(this, i).texte
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

@@ -18,10 +18,10 @@
 $msg = "Suppression KO !"; // Pour le retour console
 $msgVip = "Création des espaces de scores VIPs KO !"; // Pour le retour console
 $msgCron = "CRON KO !"; // Pour le retour console
-$scoresDir = "./resultats"; // Pour le repertoire de stockage des espaces de scores
+$scoresDir = "resultats"; // Pour le repertoire de stockage des espaces de scores
 // On met tout à zéro dès lors que 365,25 jours ( 31 557 600 secondes ) se sont écoulés après la création du répertoire resultats
 // Temporairement mis à 1 jour (86 400 secondes)
-$intervalBeforeDelete = 86400;//31557600; // 60; // Temps avant remise à zero des espaces de scores
+$intervalBeforeDelete = 86400;// 31557600; // 60; // 2 592 000;// Temps en secondes avant remise à zero des espaces de scores
 $deleteDay = intval(date('d',filectime($scoresDir)));
 $deleteMonth = intval(date('m',filectime($scoresDir)));
 $deleteYear = intval(date('Y',filectime($scoresDir)+$intervalBeforeDelete));
@@ -99,9 +99,9 @@ function mailUrlToVips($pathToJson) {
       $email_message .= "Origine du message : site COOPMATHS <a href=\"https://coopmaths.fr/\" target=\"_blank\">https://coopmaths.fr/</a><br>";
       $email_message.= $passage_ligne.$boundary.$passage_ligne."<br>";
 
-      $email_message .= "Namasté <b>".$vip->nom."</b>,<br>";
-      $email_message .= "Tes fichiers seront enregistrés à cette adresse : <br>";
-      $email_message .= "Url de ton espace scores : 
+      $email_message .= "Namasté <b>".$vip->nom."</b>,<br><br>";
+      $email_message .= "Les espaces de scores viennent d'être remis à zéro.<br>";
+      $email_message .= "Tu pourras retrouver tes fichiers enregistrés à l'url de ton espace scores : <br>      
         <a href=\"https://coopmaths.fr/".$GLOBALS["scoresDir"].'/'.$vip->codeProf[0].'/'.$vip->codeProf[1].'/'.$vip->codeProf[2].'/'.$vip->md5Key."\" target=\"_blank\">
         https://coopmaths.fr/".$GLOBALS["scoresDir"].'/'.$vip->codeProf[0].'/'.$vip->codeProf[1].'/'.$vip->codeProf[2].'/'.$vip->md5Key."
         </a><br>";

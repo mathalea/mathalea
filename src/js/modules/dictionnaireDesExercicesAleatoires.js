@@ -103,11 +103,18 @@ export default {
     "name": "2G12-2"
   },
   "2G12-3": {
-    "titre": "Déterminer la nature d’un polygone",
+    "titre": "Démontrer qu'un quadrilatère est ou non un parallélogramme",
     "url": "/exercices/2e/2G12-3.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "2G12-3"
+  },
+  "2G12-4": {
+    "titre": "Déterminer la nature d’un polygone",
+    "url": "/exercices/2e/2G12-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G12-4"
   },
   "2G22-1": {
     "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
@@ -438,6 +445,28 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "3F1-act"
+  },
+  "3F10-1": {
+    "titre": "Vocabulaire et notations des fonctions (généralités)",
+    "url": "/exercices/3e/3F10-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMult"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "3F10-1"
+  },
+  "3F10-2": {
+    "titre": "Vocabulaire et notations des fonctions (généralités)",
+    "url": "/exercices/3e/3F10-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3F10-2"
   },
   "3F10": {
     "titre": "Lectures d’images et d’antécédents depuis un tableau de valeurs",
@@ -896,7 +925,8 @@ export default {
     "titre": "Équation du premier degré (utilisant la distributivité)",
     "url": "/exercices/3e/3L13-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L13-1"
   },
   "3L13-2": {
@@ -909,8 +939,12 @@ export default {
   "3L13": {
     "titre": "Équation du premier degré",
     "url": "/exercices/3e/3L13.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L13"
   },
   "3L14-1": {
@@ -981,26 +1015,48 @@ export default {
     "interactifReady": false,
     "name": "3S20"
   },
+  "4AI1-1": {
+    "titre": "Tortue Scratch avec répétitions",
+    "url": "/exercices/4e/4AI1-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "cliqueFigure",
+    "name": "4AI1-1"
+  },
   "4C10-0": {
     "titre": "Signe d’un produit ou d’un quotient de nombres relatifs",
     "url": "/exercices/4e/4C10-0.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "qcm",
     "name": "4C10-0"
   },
   "4C10-1": {
     "titre": "Signe d’un produit de nombres relatifs",
     "url": "/exercices/4e/4C10-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "4C10-1"
   },
   "4C10-2": {
     "titre": "Signe d’un quotient de nombres relatifs",
     "url": "/exercices/4e/4C10-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "4C10-2"
   },
   "4C10-3": {
@@ -1029,8 +1085,12 @@ export default {
   "4C10-6": {
     "titre": "Multiplications et quotients de relatifs : signe avec une lettre",
     "url": "/exercices/4e/4C10-6.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "4C10-6"
   },
   "4C11": {
@@ -1051,15 +1111,23 @@ export default {
   "4C20": {
     "titre": "Comparer deux fractions (dénominateurs multiples)",
     "url": "/exercices/4e/4C20.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "4C20"
   },
   "4C21-1": {
     "titre": "Additionner deux fractions",
     "url": "/exercices/4e/4C21-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum✖︎2"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C21-1"
   },
   "4C21": {
@@ -1069,35 +1137,49 @@ export default {
     "amcType": {
       "text": "AMCOpenNum✖︎2"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C21"
   },
   "4C22-1": {
     "titre": "Trouver l’inverse d’un nombre",
     "url": "/exercices/4e/4C22-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C22-1"
   },
   "4C22-2": {
     "titre": "Diviser des fractions",
     "url": "/exercices/4e/4C22-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum✖︎2"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C22-2"
   },
   "4C22": {
     "titre": "Multiplier des fractions",
     "url": "/exercices/4e/4C22.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum✖︎2"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C22"
   },
   "4C23": {
     "titre": "Fractions et priorités opératoires",
     "url": "/exercices/4e/4C23.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum✖︎2"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C23"
   },
   "4C25-0": {
@@ -1374,14 +1456,19 @@ export default {
     "amcType": {
       "text": "AMCOpenNum"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4G40"
   },
   "4G41": {
     "titre": "Utiliser le cosinus pour calculer la mesure d’un angle dans un triangle rectangle",
     "url": "/exercices/4e/4G41.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4G41"
   },
   "4G51": {
@@ -1510,8 +1597,12 @@ export default {
   "4L20": {
     "titre": "Équation du premier degré",
     "url": "/exercices/4e/4L20.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4L20"
   },
   "4P10-1": {
@@ -1548,17 +1639,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "4S11"
-  },
-  "AI1-1": {
-    "titre": "Tortue Scratch avec répétitions",
-    "url": "/exercices/4e/AI1-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "qcmMono"
-    },
-    "interactifReady": true,
-    "interactifType": "cliqueFigure",
-    "name": "AI1-1"
   },
   "5A10": {
     "titre": "Écrire la liste de tous les diviseurs d’un entier",
@@ -1619,15 +1699,23 @@ export default {
   "5C12-1": {
     "titre": "Traduire une phrase par une expression et la calculer",
     "url": "/exercices/5e/5C12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5C12-1"
   },
   "5C12": {
     "titre": "Calculer une expression numérique en détaillant les calculs",
     "url": "/exercices/5e/5C12.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5C12"
   },
   "5G10-1": {
@@ -2085,8 +2173,12 @@ export default {
   "5N14": {
     "titre": "Comparer deux fractions (dénominateurs multiples)",
     "url": "/exercices/5e/5N14.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "5N14"
   },
   "5N15": {
@@ -2409,9 +2501,10 @@ export default {
     "url": "/exercices/6e/6C11-1.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpen"
+      "text": "AMCOpenNum✖︎2"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6C11-1"
   },
   "6C11": {
@@ -3206,8 +3299,12 @@ export default {
   "6N23-2": {
     "titre": "Lire des abscisses décimales sous trois formes",
     "url": "/exercices/6e/6N23-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N23-2"
   },
   "6N23-3": {
@@ -3984,17 +4081,6 @@ export default {
     "interactifType": "mathLive",
     "name": "betaCaN2"
   },
-  "betaCaN5": {
-    "titre": "Course aux nombres 5e",
-    "url": "/exercices/beta/betaCaN5.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCaN5"
-  },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
     "url": "/exercices/beta/betaCaNCM2.js",
@@ -4240,15 +4326,23 @@ export default {
   "c3C10-4": {
     "titre": "Tables d’addition",
     "url": "/exercices/c3/c3C10-4.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
     "name": "c3C10-4"
   },
   "c3C11": {
     "titre": "Divisions euclidiennes",
     "url": "/exercices/c3/c3C11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "c3C11"
   },
   "c3C3CaN": {
@@ -4272,15 +4366,23 @@ export default {
   "c3N20": {
     "titre": "Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales",
     "url": "/exercices/c3/c3N20.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "c3N20"
   },
   "c3N22": {
     "titre": "Lire abscisse décimale sous trois formes",
     "url": "/exercices/c3/c3N22.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "c3N22"
   },
   "c3N23": {
@@ -4291,7 +4393,7 @@ export default {
     "name": "c3N23"
   },
   "can3F1": {
-    "titre": "antécédents",
+    "titre": "Lecture graphique",
     "url": "/exercices/can/can3F1.js",
     "amcReady": true,
     "amcType": {
@@ -4302,7 +4404,7 @@ export default {
     "name": "can3F1"
   },
   "can3L1": {
-    "titre": "Equation ax=b",
+    "titre": "Équation ax=b",
     "url": "/exercices/can/can3L1.js",
     "amcReady": true,
     "amcType": {
@@ -4313,7 +4415,7 @@ export default {
     "name": "can3L1"
   },
   "can3L2": {
-    "titre": "Equation ax+b=0",
+    "titre": "Équation ax+b=0",
     "url": "/exercices/can/can3L2.js",
     "amcReady": true,
     "amcType": {
@@ -4324,7 +4426,7 @@ export default {
     "name": "can3L2"
   },
   "can3L3": {
-    "titre": "Equation ax+b=c",
+    "titre": "Équation ax+b=c",
     "url": "/exercices/can/can3L3.js",
     "amcReady": true,
     "amcType": {
@@ -4334,70 +4436,477 @@ export default {
     "interactifType": "mathLive",
     "name": "can3L3"
   },
-  "can6N1": {
-    "titre": "Double et moitié",
-    "url": "/exercices/can/can6N1.js",
+  "can5C01": {
+    "titre": "Produit de nombres entiers",
+    "url": "/exercices/can/can5C01.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6N1"
+    "name": "can5C01"
   },
-  "can6N2": {
-    "titre": "Fraction comme facteur manquant",
-    "url": "/exercices/can/can6N2.js",
+  "can5C02": {
+    "titre": "Somme de nombres entiers",
+    "url": "/exercices/can/can5C02.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6N2"
+    "name": "can5C02"
   },
-  "can6N3": {
-    "titre": "Somme de quatre entiers qui se marient",
-    "url": "/exercices/can/can6N3.js",
+  "can5C03": {
+    "titre": "Différence de nombres entiers",
+    "url": "/exercices/can/can5C03.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6N3"
+    "name": "can5C03"
   },
-  "can6N4": {
-    "titre": "Somme de deux décimaux",
-    "url": "/exercices/can/can6N4.js",
+  "can5C04": {
+    "titre": "Triple et moitié",
+    "url": "/exercices/can/can5C04.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6N4"
+    "name": "can5C04"
   },
-  "can6N5": {
+  "can5C05": {
+    "titre": "Quotient entier",
+    "url": "/exercices/can/can5C05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C05"
+  },
+  "can5C06": {
+    "titre": "Reste de division euclidienne",
+    "url": "/exercices/can/can5C06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C06"
+  },
+  "can5C07": {
+    "titre": "Priorité opératoire",
+    "url": "/exercices/can/can5C07.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C07"
+  },
+  "can5C08": {
+    "titre": "Quart entier",
+    "url": "/exercices/can/can5C08.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C08"
+  },
+  "can5C09": {
+    "titre": "Multiplier par 5",
+    "url": "/exercices/can/can5C09.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C09"
+  },
+  "can5D01": {
+    "titre": "Conversion en heures et minutes",
+    "url": "/exercices/can/can5D01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5D01"
+  },
+  "can5N01": {
+    "titre": "Somme de nombres décimaux",
+    "url": "/exercices/can/can5N01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5N01"
+  },
+  "can6C01": {
+    "titre": "Ordre de grandeur",
+    "url": "/exercices/can/can6C01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can6C01"
+  },
+  "can6C02": {
+    "titre": "Nombre pair multiplié par 5",
+    "url": "/exercices/can/can6C02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C02"
+  },
+  "can6C03": {
+    "titre": "Addition à trou",
+    "url": "/exercices/can/can6C03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C03"
+  },
+  "can6C04": {
+    "titre": "Ajoute 10n + 9",
+    "url": "/exercices/can/can6C04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C04"
+  },
+  "can6C05": {
+    "titre": "Multiplier astucieusement",
+    "url": "/exercices/can/can6C05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C05"
+  },
+  "can6C06": {
+    "titre": "Division par 9",
+    "url": "/exercices/can/can6C06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C06"
+  },
+  "can6C07": {
+    "titre": "Reste de division par 3",
+    "url": "/exercices/can/can6C07.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C07"
+  },
+  "can6C08": {
+    "titre": "Quart ou Tiers",
+    "url": "/exercices/can/can6C08.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C08"
+  },
+  "can6C09": {
+    "titre": "Soustraire un nombre se finissant par 9",
+    "url": "/exercices/can/can6C09.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C09"
+  },
+  "can6C10": {
+    "titre": "Tables de x du 5 au 9",
+    "url": "/exercices/can/can6C10.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C10"
+  },
+  "can6C11": {
+    "titre": "Double ou triple (décimal)",
+    "url": "/exercices/can/can6C11.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C11"
+  },
+  "can6C12": {
     "titre": "Double ou triple",
-    "url": "/exercices/can/can6N5.js",
+    "url": "/exercices/can/can6C12.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6N5"
+    "name": "can6C12"
   },
-  "can6e-3": {
-    "titre": "Course aux nombres fin de 6e",
-    "url": "/exercices/can/can6e-3.js",
+  "can6C13": {
+    "titre": "Somme de deux décimaux",
+    "url": "/exercices/can/can6C13.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6e-3"
+    "name": "can6C13"
+  },
+  "can6C14": {
+    "titre": "Somme de quatre entiers qui se marient",
+    "url": "/exercices/can/can6C14.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C14"
+  },
+  "can6C15": {
+    "titre": "Fraction comme facteur manquant",
+    "url": "/exercices/can/can6C15.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C15"
+  },
+  "can6C16": {
+    "titre": "Double et moitié",
+    "url": "/exercices/can/can6C16.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C16"
+  },
+  "can6C17": {
+    "titre": "Fraction simple de quantité",
+    "url": "/exercices/can/can6C17.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C17"
+  },
+  "can6C18": {
+    "titre": "Reste de la division euclidienne",
+    "url": "/exercices/can/can6C18.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C18"
+  },
+  "can6D01": {
+    "titre": "Conversion Heures minutes",
+    "url": "/exercices/can/can6D01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6D01"
+  },
+  "can6M01": {
+    "titre": "Question de périmètres",
+    "url": "/exercices/can/can6M01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can6M01"
+  },
+  "can6M02": {
+    "titre": "La bonne unité",
+    "url": "/exercices/can/can6M02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can6M02"
+  },
+  "can6M03": {
+    "titre": "Conversions en mètres",
+    "url": "/exercices/can/can6M03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6M03"
+  },
+  "can6N01": {
+    "titre": "Recomposition entier",
+    "url": "/exercices/can/can6N01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N01"
+  },
+  "can6N02": {
+    "titre": "Recomposition entier simple",
+    "url": "/exercices/can/can6N02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N02"
+  },
+  "can6N03": {
+    "titre": "Recomposition entier moins simple",
+    "url": "/exercices/can/can6N03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N03"
+  },
+  "can6N04": {
+    "titre": "Abscisse fractionnaire",
+    "url": "/exercices/can/can6N04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N04"
+  },
+  "can6P01": {
+    "titre": "Proportionnalité simple",
+    "url": "/exercices/can/can6P01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6P01"
+  },
+  "can6P02": {
+    "titre": "Proportionnalité compliquée",
+    "url": "/exercices/can/can6P02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6P02"
+  },
+  "can6P03": {
+    "titre": "Question de vitesse",
+    "url": "/exercices/can/can6P03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6P03"
+  },
+  "can6P04": {
+    "titre": "Appliquer un pourcentage",
+    "url": "/exercices/can/can6P04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6P04"
+  },
+  "canPredef5-1": {
+    "titre": "Course aux nombres début de 5e",
+    "url": "/exercices/can/canPredef5-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canPredef5-1"
+  },
+  "canPredef6-3": {
+    "titre": "Course aux nombres fin de 6e",
+    "url": "/exercices/can/canPredef6-3.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canPredef6-3"
   }
 }

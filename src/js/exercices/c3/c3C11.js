@@ -1,5 +1,6 @@
 import DivisionsEuclidiennes from '../6e/6C11.js'
 export const titre = 'Divisions euclidiennes'
+export { interactifReady, interactifType, amcReady, amcType } from '../6e/6C11.js'
 
 /**
  * Lire des nombres déciamux sur une portion de droite graduée

@@ -17,6 +17,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
   this.titre = titre
   this.nbQuestions = 1
+  this.interactif = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -228,19 +229,26 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     this.listeCorrections.push(texteCorr) // et la liste des corrections
 
     listeQuestionsToContenuSansNumero(this) // on envoie tout à la fonction qui va mettre en forme.
+
+    // Gestion de la souris
+    // ToFix si on passe de interactif à non interactif il y a toujours l'effet au survol
+    if (this.interactif) {
+      document.addEventListener('exercicesAffiches', () => {
+      // Dès que l'exercice est affiché, on rajoute des listenners sur chaque Svg.
+        for (let i = 0; i < 5; i++) {
+          const figSvg = document.getElementById(`figure${i}exo${this.numeroExercice}`)
+          if (figSvg) {
+            figSvg.addEventListener('mouseover', mouseOverSvgEffect)
+            figSvg.addEventListener('mouseout', mouseOutSvgEffect)
+            figSvg.addEventListener('click', mouseSvgClick)
+            figSvg.etat = false
+          }
+        }
+      })
+    }
   }
   this.besoinFormulaireNumerique = ["Nombre d'instructions"] // gestion des paramètres supplémentaires
-  // Gestion de la souris
-  document.addEventListener('exercicesAffiches', () => {
-    // Dès que l'exercice est affiché, on rajoute des listenners sur chaque Svg.
-    for (let i = 0; i < 5; i++) {
-      const figSvg = document.getElementById(`figure${i}exo${this.numeroExercice}`)
-      figSvg.addEventListener('mouseover', mouseOverSvgEffect)
-      figSvg.addEventListener('mouseout', mouseOutSvgEffect)
-      figSvg.addEventListener('click', mouseSvgClick)
-      figSvg.etat = false
-    }
-  })
+
   // Pour pouvoir récupérer this dans la correction interactive
   const exercice = this
   // Gestion de la correction
