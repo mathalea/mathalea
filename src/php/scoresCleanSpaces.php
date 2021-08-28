@@ -21,7 +21,7 @@ $msgCron = "CRON KO !"; // Pour le retour console
 $scoresDir = "resultats"; // Pour le repertoire de stockage des espaces de scores
 // On met tout à zéro dès lors que 365,25 jours ( 31 557 600 secondes ) se sont écoulés après la création du répertoire resultats
 // Temporairement mis à 1 jour (86 400 secondes)
-$intervalBeforeDelete = 86400;// 31557600; // 60; // 2 592 000;// Temps en secondes avant remise à zero des espaces de scores
+$intervalBeforeDelete = 31557600; // Temps en secondes avant remise à zero des espaces de scores
 $deleteDay = intval(date('d',filectime($scoresDir)));
 $deleteMonth = intval(date('m',filectime($scoresDir)));
 $deleteYear = intval(date('Y',filectime($scoresDir)+$intervalBeforeDelete));
