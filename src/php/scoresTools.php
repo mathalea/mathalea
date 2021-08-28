@@ -130,8 +130,11 @@
         </div>    
         ";
       }
-      echo "</ul>\r\n";    
+      echo "</ul>\r\n";
+      
     ?>';
+
+
     fputs($fp,"
       <!DOCTYPE html>
       <html>
@@ -192,4 +195,30 @@
 
     fclose($fp); 
   };
+
+  /**
+   * Procédure pour récupérer tous les espaces scores dans un json
+   * 
+   * @param string $path est le répertoire père de stockage des espaces
+   */
+
+  function getAllScoresScpaces($path) {
+    // On met les fichiers dans un itérateur récursif    
+    $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
+    // On récupère uniquement les données via le fichier d'index dans un tableau
+    $datas = array();    
+    foreach ($files as $file) {
+        if (substr($file,-9) == "index.php") {
+          //echo " ├ $file<br>\n";
+          // On explose la chaine via le séparateur /
+          $explodedFile = explode("/",$file);
+          array_push($datas,array(
+            "codeProf" => $explodedFile[1].$explodedFile[2].$explodedFile[3],
+            "md5Key" => $explodedFile[4]
+          ));
+        }
+    }
+    return json_encode($datas);
+  }
+  //print_r(getAllScoresScpaces('resultats'));
 ?>
