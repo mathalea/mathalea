@@ -17,7 +17,7 @@ export default function EquationAXPlusBEgalC () {
     this.reponse = randint(-9, 9, [-1, 0, 1])
     const c = randint(-9, 9, [0])
     const b = c - a * this.reponse
-    this.question = `Résoudre $${a}x${ecritureAlgebrique(b)}=${c}$<br>`
+    this.question = `Résoudre $${a}x${ecritureAlgebrique(b)}=${c}$`
     this.correction = `$x=\\dfrac{${c}-${b}}{${a}}=${this.reponse}$`
   }
 }

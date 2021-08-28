@@ -458,14 +458,14 @@ export default {
     "name": "3F10-1"
   },
   "3F10-2": {
-    "titre": "Vocabulaire et notations des fonctions (généralités)",
+    "titre": "Calculs d’images fonctions",
     "url": "/exercices/3e/3F10-2.js",
     "amcReady": true,
     "amcType": {
-      "text": "qcmMult"
+      "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "qcm",
+    "interactifType": "mathLive",
     "name": "3F10-2"
   },
   "3F10": {
@@ -1672,7 +1672,8 @@ export default {
     "titre": "Décomposition en facteurs premiers",
     "url": "/exercices/5e/5A13.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5A13"
   },
   "5C11-1": {
@@ -3621,7 +3622,8 @@ export default {
     "amcType": {
       "text": "AMCHybride"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6S10"
   },
   "6S11": {
@@ -4075,16 +4077,93 @@ export default {
     "interactifReady": false,
     "name": "c3N23"
   },
-  "can3F1": {
-    "titre": "Lecture graphique",
-    "url": "/exercices/can/can3F1.js",
+  "can3C01": {
+    "titre": "Puissances de nombre entier",
+    "url": "/exercices/can/can3C01.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3F1"
+    "name": "can3C01"
+  },
+  "can3C02": {
+    "titre": "Moyenne entière de trois décimaux",
+    "url": "/exercices/can/can3C02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C02"
+  },
+  "can3C03": {
+    "titre": "Fraction irréductible",
+    "url": "/exercices/can/can3C03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C03"
+  },
+  "can3E01": {
+    "titre": "Calcul de volume 3e",
+    "url": "/exercices/can/can3E01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3E01"
+  },
+  "can3F01": {
+    "titre": "Lecture graphique",
+    "url": "/exercices/can/can3F01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F01"
+  },
+  "can3F02": {
+    "titre": "Calcul d’image ou d’antécédent niveau 1",
+    "url": "/exercices/can/can3F02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F02"
+  },
+  "can3F03": {
+    "titre": "Calcul d’image ou d’antécédent niveau 2",
+    "url": "/exercices/can/can3F03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F03"
+  },
+  "can3F04": {
+    "titre": "Calcul d’image niveau 3",
+    "url": "/exercices/can/can3F04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F04"
   },
   "can3L1": {
     "titre": "Équation ax=b",
@@ -4118,6 +4197,50 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3L3"
+  },
+  "can3S01": {
+    "titre": "Calcul de probabilité simple",
+    "url": "/exercices/can/can3S01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S01"
+  },
+  "can4L01": {
+    "titre": "Résoudre une équation niveau 1",
+    "url": "/exercices/can/can4L01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4L01"
+  },
+  "can4L02": {
+    "titre": "Résoudre une équation niveau 2",
+    "url": "/exercices/can/can4L02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4L02"
+  },
+  "can4L03": {
+    "titre": "Résoudre une équation niveau 3",
+    "url": "/exercices/can/can4L03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4L03"
   },
   "can5C01": {
     "titre": "Produit de nombres entiers",
@@ -4217,6 +4340,14 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can5C09"
+  },
+  "can5C10": {
+    "titre": "Décomposition en produit de facteurs premiers niveau 1",
+    "url": "/exercices/can/can5C10.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C10"
   },
   "can5D01": {
     "titre": "Conversion en heures et minutes",
@@ -4569,6 +4700,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6P04"
+  },
+  "can6S01": {
+    "titre": "Lecture de diagramme en barres",
+    "url": "/exercices/can/can6S01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6S01"
   },
   "canPredef5-1": {
     "titre": "Course aux nombres début de 5e",

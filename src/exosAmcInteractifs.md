@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 217 
-- nombre d'exos interactifReady 248 
+- nombre d'exos amcReady 229 
+- nombre d'exos interactifReady 263 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -15,7 +15,7 @@
 |3A11|Primalité ou pas|OK|qcmMono|OK|qcm|
 |3A14|Problème Les iris et les roses|OK|AMCHybride|OK|mathLive|
 |3F10-1|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
-|3F10-2|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
+|3F10-2|Calculs d’images fonctions|OK|AMCNum|OK|mathLive|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
 |3F12-3|Compléter un tableau de valeurs|OK|AMCHybride|OK|mathLive|
@@ -84,6 +84,7 @@
 |4G53|Calculs de volumes|OK|AMCNum|OK|qcm,mathLive|
 |4L20-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
 |4L20|Équation du premier degré|OK|AMCHybride|OK|mathLive|
+|5A13|Décomposition en facteurs premiers|KO|KO|OK|mathLive|
 |5C12-1|Traduire une phrase par une expression et la calculer|OK|AMCOpenNum|OK|mathLive|
 |5C12|Calculer une expression numérique en détaillant les calculs|OK|AMCOpenNum|OK|mathLive|
 |5G10|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
@@ -179,7 +180,7 @@
 |6P11|Résoudre des problèmes de proportionnalité en utilisant la linéarité simple|OK|AMCHybride|OK|mathLive|
 |6P12|Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple|OK|AMCNum|OK|mathLive|
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
-|6S10|Lire un diagramme en barre|OK|AMCHybride|KO|KO|
+|6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
@@ -194,10 +195,21 @@
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |c3N20|Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
 |c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
-|can3F1|Lecture graphique|OK|AMCNum|OK|mathLive|
+|can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
+|can3C02|Moyenne entière de trois décimaux|OK|AMCNum|OK|mathLive|
+|can3C03|Fraction irréductible|OK|AMCNum|OK|mathLive|
+|can3E01|Calcul de volume 3e|OK|AMCNum|OK|mathLive|
+|can3F01|Lecture graphique|OK|AMCNum|OK|mathLive|
+|can3F02|Calcul d’image ou d’antécédent niveau 1|OK|AMCNum|OK|mathLive|
+|can3F03|Calcul d’image ou d’antécédent niveau 2|OK|AMCNum|OK|mathLive|
+|can3F04|Calcul d’image niveau 3|OK|AMCNum|OK|mathLive|
 |can3L1|Équation ax=b|OK|AMCNum|OK|mathLive|
 |can3L2|Équation ax+b=0|OK|AMCNum|OK|mathLive|
 |can3L3|Équation ax+b=c|OK|AMCNum|OK|mathLive|
+|can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
+|can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
+|can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
+|can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
 |can5C01|Produit de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Somme de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C03|Différence de nombres entiers|OK|AMCNum|OK|mathLive|
@@ -207,6 +219,7 @@
 |can5C07|Priorité opératoire|OK|AMCNum|OK|mathLive|
 |can5C08|Quart entier|OK|AMCNum|OK|mathLive|
 |can5C09|Multiplier par 5|OK|AMCNum|OK|mathLive|
+|can5C10|Décomposition en produit de facteurs premiers niveau 1|KO|KO|OK|mathLive|
 |can5D01|Conversion en heures et minutes|OK|AMCHybride|OK|mathLive|
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
 |can6C01|Ordre de grandeur|OK|qcmMono|OK|qcm|
@@ -239,6 +252,7 @@
 |can6P02|Proportionnalité compliquée|OK|AMCNum|OK|mathLive|
 |can6P03|Question de vitesse|OK|AMCNum|OK|mathLive|
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
+|can6S01|Lecture de diagramme en barres|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|

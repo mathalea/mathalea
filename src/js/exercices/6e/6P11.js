@@ -669,7 +669,7 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
     {
       matiere: 'du carrelage',
       unite: 'carreaux',
-      qtt_matiere_unitaire: [25, 30, 50, 100],
+      qtt_matiere_unitaire: [24, 40, 60, 100],
       qtt_surface: [10, 20, 5]
     }
   ]
