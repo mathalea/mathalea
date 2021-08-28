@@ -178,7 +178,12 @@ this.autoCorrection[i] = {
 }
 ```
 ## <a id="8" href="#8">#</a> Les fonctions
-Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont l'appel permet de générer le code nécessaire facilement :
+Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont l'appel permet de générer le code nécessaire facilement.
+
+Ce sont toutes les deux des fonctions de gestionInteractif.js, si vous voulez faire appel à elles, il faut alors faire en début de fichier :
+```js
+import { setReponse, propositionsQcm } from '../../modules/gestionInteractif.js'
+```
 
 ```js
 function setReponse (this, i, a, {digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0} = {})
@@ -202,18 +207,33 @@ La solution est donc de n'effectuer le setReponse que si l'on n'est pas en conte
 ```js
 function propositionsQcm (this, i)
 ```
-Cette fonction va retourner un objet `{ texte, texteCorr }` qui contient les propositions faites pour le qcm avec leur case à cocher pour l'énoncé (`texte`) et pour la correction (`texteCorr`).
+Cette fonction va, à chaque appel, retourner un objet `{ texte, texteCorr }` qui contient les propositions faites pour le qcm avec leur case à cocher pour l'énoncé (`texte`) et pour la correction (`texteCorr`).
 
 Si le `texte` est toujours utilisé, on préférera souvent la correction classique au `texteCorr` retourné par cette fonction (à réfléchir : pourquoi ne pas activer la correction classique avec le bouton 'correction détaillée' ?)
 
-Ce sont toutes les deux des fonctions de gestionInteractif.js, si vous voulez faire appel à elles, il faut alors faire en début de fichier :
+**Attention :**
+
+Pour les interactifs de type qcm avec brassage des réponses (`option ordered = false`), il est très important de n'appeler qu'une seule fois la fonction `propositionsQcm()` !
+
+Comme `propositionsQcm()` produit un objet `{texte, texteCorr}` à chaque appel, si on l'appelle 2 fois, on brasse 2 fois les propositions, et l'ordre des réponses (`texteCorr` et `checkReponse`) n'est pas le même que celui qui est affiché et donc celui sur lequel on clique.
+
+**Donc, ne surtout pas faire :**
 ```js
-import { setReponse, propositionsQcm } from '../../modules/gestionInteractif.js'
+texte = enonce + propositionsQcm(this,i).texte
+texteCorr = propositionsQcm(this,i).texteCorr
 ```
 
+**Mais il faut faire :**
+```js
+monQcm=propositionsQcm(this,i)
+texte = enonce + monQcm.texte
+texteCorr = monQcm.texteCorr
+```
 ## <a id="9" href="#9">#</a> MathLive
 
 Nous n'avons pas encore parlé du type d'interactivité `'mathLive'` qui est pourtant très pratique ! et pas très compliqué à mettre en place comme nous allons le voir :
+
+#### <a id="12" href="#12">#</a> Dans le cas d'un exercice normal
 
 Pour rendre un exercice interactif en utilisant MathLive, il suffit de :
 1. Placer en en-tête :
@@ -225,13 +245,26 @@ export const interactifType = 'mathLive'
 2. mettre dans la boucle principale `setReponse(this, i, maRéponse)` avec maRéponse un string LaTeX ou une valeur numérique (donc sans `texNombre` ou des équivalents)
 3. faire `texte += ajouteChampTexteMathLive(this, i)` pour ajouter le champ de réponse.
 
-Par défaut, on compare des expressions littérales ou des nombres. 
+Par défaut, on compare des expressions littérales ou des nombres. <a id="13" href="#13">#</a>
 - Pour comparer des textes sans traitement, on fait `setReponse(this, i, '+', { formatInteractif: 'texte' })`.
 - Pour comparer des fractions et attendre exactement une forme, on fait `setReponse(this, i, '+', { formatInteractif: 'fraction' })` et la réponse doit être un objet fraction (créé avec `new Fraction(a, b)`)
 - Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionPlusSimple' })` et la réponse doit être un objet fraction égale à la réponse mais avec un numérateur strictement inférieur (on compare les valeurs absolues).
 - Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionEgale' })` et la réponse doit être un objet fraction égale à la réponse.
 - Pour comparer des longueurs (ou des aires), on peut faire `setReponse(this, i, new Grandeur(4, 'cm'), { formatInteractif: 'longueur' })` et personnaliser le champ texte avec `ajouteChampTexteMathLive(this, i, 'longueur')`
 
+**Lien avec AMC :**
+Si on a un `setReponse(this,i, new Fraction(n,d),{formatInteractif: 'fraction'})`, alors on peut mettre `amcType = 'AMCNum'` et ça passe automatiquement en un simili amcHybride avec 2 champs : un pour le numérateur, et un pour le dénominateur !
+
+#### <a id="14" href="#14">#</a> Dans le cas d'un exercice simple fait pour utilisé dans une Course aux Nombre (`this.typeExercice = 'simple'`)
+
+Les exercices simples sont interactifs `mathLive` par défaut !
+
+Il suffit de
+* Mettre votre énoncé dans `this.question`
+* Mettre votre correction dans `this.correction`
+* Mettre la réponse attendue dans `this.reponse`
+
+Pour changer le format, il suffit de mettre `this.formatInteractif = ` après le `Exercice.call(this)` et de compléter avec un des formats vus <a href="#13">ci-dessus</a> : `'texte'`, `'fraction'`, `'fractionPlusSimple'`, `'fractionEgale'`, `'longueur'` (voir /js/exercices/can/can6C15.js par exemple).
 ## <a id="10" href="#10">#</a> Avoir deux champs de réponse sur une question, c'est possible !
 Il suffit d'avoir un compteur indépendant du compteur `i` de la boucle qui augmente de `1` pour les questions à un champ de réponse et qui augmente de `2` pour les questions à deux champs de réponse.
 
