@@ -1,5 +1,6 @@
 import ExerciceTablesAdditions from '../6e/6C10-4.js'
 export const titre = 'Tables d’addition'
+export { interactifReady, interactifType, amcReady, amcType } from '../6e/6C10-4.js'
 
 /**
  * Lire des nombres déciamux sur une portion de droite graduée

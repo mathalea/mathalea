@@ -1,8 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, shuffle, calcul, choisitLettresDifferentes, texNombre, texFraction, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, shuffle, calcul, choisitLettresDifferentes, texNombre, texFraction, numAlpha, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../modules/outils.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { i } from 'mathjs'
+import { fraction } from '../../modules/fractions.js'
 export const titre = 'Lire des abscisses décimales sous trois formes'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * 6N23-2
@@ -24,6 +31,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
   this.sup = 1
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
+  this.interactif = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -75,12 +83,92 @@ export default function LireAbscisseDecimaleTroisFormes () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      texte = `${numAlpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
-      texte += `${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un nombre entier et d'une fraction décimale.<br>`
-      texte += `${numAlpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
+      texte = `${numAlpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.` + ajouteChampTexteMathLive(this, 0, 'largeur10 inline', { texte: ` ${noms[0]}(`, texteApres: ')' })
+      texte += `<br>${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un nombre entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, 1, 'largeur10 inline', { texte: ` ${noms[1]}(`, texteApres: '+' }) + ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texteApres: ')' })
+      texte += `<br>${numAlpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.` + ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { texte: ` ${noms[2]}(`, texteApres: ')' })
       texteCorr = `${numAlpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
       texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${texFraction(calcul(10 * (x2 - Math.floor(x2))), 10)}$.<br>`
       texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${texFraction(calcul(x3 * 10), 10)}$.`
+      if (!context.isAmc) {
+        setReponse(this, 0, x1, { formatInteractif: 'calcul' })
+        setReponse(this, 1, Math.floor(x2), { formatInteractif: 'calcul' })
+        setReponse(this, 2, fraction(calcul(10 * (x2 - Math.floor(x2))), 10), { formatInteractif: 'fraction' })
+        setReponse(this, 3, fraction(calcul(x3 * 10), 10), { formatInteractif: 'fraction' })
+      } else {
+        this.autoCorrection[0] = {
+          enonce: '', // on le remplira à la fin.
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: texteCorr,
+                statut: '',
+                reponse: {
+                  texte: `a)${noms[0]} : valeur décimale`,
+                  valeur: x1,
+                  param: {
+                    digits: nombreDeChiffresDe(x1),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(x1),
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `b)${noms[1]} : partie entière`,
+                  valeur: Math.floor(x2),
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(x2),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `b)${noms[1]} : partie fractionnaire \\dfrac{\\ldots}{10}`,
+                  valeur: calcul(10 * (x2 - Math.floor(x2))),
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(calcul(10 * (x2 - Math.floor(x2)))),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `c)${noms[2]} : fraction décimale \\dfrac{\\ldots}{10}`,
+                  valeur: calcul(x3 * 10),
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(calcul(x3 * 10)),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          ]
+        }
+      }
     } else if (parseInt(this.sup) === 2) {
       if (this.niveau === 'CM') {
         xmin = 0
@@ -125,12 +213,92 @@ export default function LireAbscisseDecimaleTroisFormes () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      texte = `${numAlpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
-      texte += `${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
-      texte += `${numAlpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
+      texte = `${numAlpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.` + ajouteChampTexteMathLive(this, 0, 'largeur10 inline', { texte: ` ${noms[0]}(`, texteApres: ')' })
+      texte += `<br>${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, 1, 'largeur10 inline', { texte: ` ${noms[1]}(`, texteApres: '+' }) + ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texteApres: ')' })
+      texte += `<br>${numAlpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.` + ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { texte: ` ${noms[2]}(`, texteApres: ')' })
       texteCorr = `${numAlpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
       texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${texFraction(calcul(100 * (x2 - Math.floor(x2))), 100)}$.<br>`
       texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${texFraction(calcul(x3 * 100), 100)}$.`
+      if (!context.isAmc) {
+        setReponse(this, 0, x1)
+        setReponse(this, 1, Math.floor(x2))
+        setReponse(this, 2, fraction(calcul(100 * (x2 - Math.floor(x2))), 100), { formatInteractif: 'fraction' })
+        setReponse(this, 3, fraction(calcul(x3 * 100), 100), { formatInteractif: 'fraction' })
+      } else {
+        this.autoCorrection[0] = {
+          enonce: '', // on le remplira à la fin.
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: texteCorr,
+                statut: '',
+                reponse: {
+                  texte: `a)${noms[0]} : valeur décimale`,
+                  valeur: x1,
+                  param: {
+                    digits: nombreDeChiffresDe(x1),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(x1),
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `b)${noms[1]} : partie entière`,
+                  valeur: Math.floor(x2),
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(x2),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `b)${noms[1]} : partie fractionnaire \\dfrac{\\ldots}{100}`,
+                  valeur: calcul(100 * (x2 - Math.floor(x2))),
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(calcul(100 * (x2 - Math.floor(x2)))),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `c)${noms[2]} : fraction décimale \\dfrac{\\ldots}{100}`,
+                  valeur: calcul(x3 * 100),
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(calcul(x3 * 100)),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          ]
+        }
+      }
     } else if (parseInt(this.sup) === 3) {
       if (this.niveau === 'CM') {
         xmin = 0
@@ -180,16 +348,99 @@ export default function LireAbscisseDecimaleTroisFormes () {
         axeStyle: extremite
       })
 
-      texte = `${numAlpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
-      texte += `${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
-      texte += `${numAlpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
+      texte = `${numAlpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.` + ajouteChampTexteMathLive(this, 0, 'largeur10 inline', { texte: ` ${noms[0]}(`, texteApres: ')' })
+      texte += `<br>${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, 1, 'largeur10 inline', { texte: ` ${noms[1]}(`, texteApres: '+' }) + ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texteApres: ')' })
+      texte += `<br>${numAlpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.` + ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { texte: ` ${noms[2]}(`, texteApres: ')' })
       texteCorr = `${numAlpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
       texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${texFraction(calcul(1000 * (x2 - Math.floor(x2))), 1000)}$.<br>`
       texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${texFraction(calcul(x3 * 1000), 1000)}$.`
+      if (!context.isAmc) {
+        setReponse(this, 0, x1)
+        setReponse(this, 1, Math.floor(x2))
+        setReponse(this, 2, fraction(calcul(1000 * (x2 - Math.floor(x2))), 1000), { formatInteractif: 'fraction' })
+        setReponse(this, 3, fraction(calcul(x3 * 1000), 1000), { formatInteractif: 'fraction' })
+      } else {
+        this.autoCorrection[0] = {
+          enonce: '', // on le remplira à la fin.
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: texteCorr,
+                statut: '',
+                reponse: {
+                  texte: `a)${noms[0]} : valeur décimale`,
+                  valeur: x1,
+                  param: {
+                    digits: nombreDeChiffresDe(x1),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(x1),
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `b)${noms[1]} : partie entière`,
+                  valeur: Math.floor(x2),
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(x2),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `b)${noms[1]} : partie fractionnaire \\dfrac{\\ldots}{1000}`,
+                  valeur: calcul(1000 * (x2 - Math.floor(x2))),
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(calcul(1000 * (x2 - Math.floor(x2)))),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `c)${noms[2]} : fraction décimale \\dfrac{\\ldots}{1000}`,
+                  valeur: calcul(x3 * 1000),
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(calcul(x3 * 1000)),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          ]
+        }
+      }
     }
     texte += mathalea2d({ xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 1.5, pixelsParCm: 25, scale: 0.5 }, d1)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
+    if (context.isAmc) {
+      this.autoCorrection[0].enonce = texte
+    }
     listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Au dixième\n2 : Au centième\n3 : Au millième']

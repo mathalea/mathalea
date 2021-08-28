@@ -81,9 +81,6 @@ export default function MultiplicationMentalDecimaux () {
             ordered: false,
             lastChoice: 5
           }
-          if (this.interactif) {
-            texte += '<br>' + propositionsQcm(this, i).texte
-          }
           break
 
         case 'mul':
@@ -119,9 +116,6 @@ export default function MultiplicationMentalDecimaux () {
             ordered: false,
             lastChoice: 5
           }
-          if (this.interactif) {
-            texte += '<br>' + propositionsQcm(this, i).texte
-          }
           break
 
         case 'add_deci':
@@ -156,9 +150,6 @@ export default function MultiplicationMentalDecimaux () {
           this.autoCorrection[i].options = {
             ordered: false,
             lastChoice: 5
-          }
-          if (this.interactif) {
-            texte += '<br>' + propositionsQcm(this, i).texte
           }
           break
 
@@ -197,10 +188,10 @@ export default function MultiplicationMentalDecimaux () {
             ordered: false,
             lastChoice: 5
           }
-          if (this.interactif) {
-            texte += '<br>' + propositionsQcm(this, i).texte
-          }
           break
+      }
+      if (this.interactif) {
+        texte += '<br>' + propositionsQcm(this, i).texte
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

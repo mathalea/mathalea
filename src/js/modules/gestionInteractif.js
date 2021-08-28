@@ -142,7 +142,11 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour les exercices où l'on attend un écriture donnée d'une fraction
     } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fraction') {
-      saisieParsee = parse(saisie)
+      if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
+        saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
+      } else {
+        saisieParsee = parse(saisie)
+      }
       if (saisieParsee) {
         if (saisieParsee[0] === 'Negate') {
           signeF = -1
@@ -274,6 +278,9 @@ function gestionCan (exercice) {
           if (exercice.interactifType === 'cliqueFigure') {
             resultat = verifQuestionCliqueFigure(exercice, i)
           }
+          if (exercice.interactifType === 'custom') {
+            resultat = exercice.correctionInteractive(i)
+          }
           // Mise en couleur du numéro de la question dans le menu du haut
           if (resultat === 'OK') {
             document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
@@ -341,10 +348,14 @@ export function exerciceQcm (exercice) {
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
 export function propositionsQcm (exercice, i) {
-// exercice.titre = 'cacaboudin'
   let texte = ''
   let texteCorr = ''
   let espace = ''
+  if (context.isHtml) {
+    if (!exercice.interactif) return { texte: '', texteCorr: '' }
+  } else {
+    if (context.isAmc) return { texte: '', texteCorr: '' }
+  }
   if (context.isHtml) {
     espace = '&emsp;'
   } else {
@@ -538,6 +549,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
     reponses = [valeurs]
   } else {
     reponses = valeurs
+    signe = valeurs < 0
   }
   if (exercice.autoCorrection[i] === undefined) {
     exercice.autoCorrection[i] = {}
@@ -557,11 +569,16 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
  */
 export function exerciceCustom (exercice) {
   document.addEventListener('exercicesAffiches', () => {
+    if (getVueFromUrl() === 'can') {
+      gestionCan(exercice)
+    }
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       if (!button.hasMathaleaListener) {
         button.addEventListener('click', event => {
-        // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
+          let nbBonnesReponses = 0
+          let nbMauvaisesReponses = 0
+          // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
           let eltFeedback = get(`feedbackEx${exercice.numeroExercice}`, false)
           // On ajoute le div pour le feedback
           if (!eltFeedback) {
@@ -571,7 +588,10 @@ export function exerciceCustom (exercice) {
           setStyles(eltFeedback, 'marginBottom: 20px')
           if (eltFeedback) eltFeedback.innerHTML = ''
           // On utilise la correction définie dans l'exercice
-          exercice.correctionInteractive(eltFeedback)
+          for (let i = 0; i < exercice.nbQuestions; i++) {
+            exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
+          }
+          afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
           button.classList.add('disabled')
         })
         button.hasMathaleaListener = true
