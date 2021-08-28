@@ -21,7 +21,7 @@ $msgCron = "CRON KO !"; // Pour le retour console
 $scoresDir = "resultats"; // Pour le repertoire de stockage des espaces de scores
 // On met tout à zéro dès lors que 365,25 jours ( 31 557 600 secondes ) se sont écoulés après la création du répertoire resultats
 // Temporairement mis à 1 jour (86 400 secondes)
-$intervalBeforeDelete = 86400;// 31557600; // 60; // 2 592 000;// Temps en secondes avant remise à zero des espaces de scores
+$intervalBeforeDelete = 31557600; // Temps en secondes avant remise à zero des espaces de scores
 $deleteDay = intval(date('d',filectime($scoresDir)));
 $deleteMonth = intval(date('m',filectime($scoresDir)));
 $deleteYear = intval(date('Y',filectime($scoresDir)+$intervalBeforeDelete));
@@ -151,7 +151,13 @@ function createVipScoresSpaces($pathToJson) {
   $vips = json_decode($data)->vips;
   // on crée les repertoires ad hoc, le repertoire resultats a été crée au debut s'il n'existait pas
   if (!is_dir($GLOBALS["scoresDir"])) { 
-    mkdir($GLOBALS["scoresDir"],0775, true);    
+    mkdir($GLOBALS["scoresDir"],0775, true);
+    // On crée un fichier à la racine du répertoire pour savoir si on doit mettre à jour les index
+    // On y stocke le date de la dernière modif du fichier qui génère les index
+    $f = fopen($GLOBALS["scoresDir"].'/iSIndexUpdateNeeded.txt',"w+");
+    fputs($f,filectime("scoresTools.php").PHP_EOL);
+    fclose($f);
+    // On crée les espaces VIPs
     foreach ($vips as $vip) {
         $path = $GLOBALS["scoresDir"].'/'.$vip->codeProf[0].'/'.$vip->codeProf[1].'/'.$vip->codeProf[2].'/'.$vip->md5Key;
         mkdir($path, 0775, true);
@@ -197,11 +203,42 @@ function recursiveRmdir($dir) {
 // Si on est le bon jour et que le répertoire a plus d'un an, on supprime et on recrée les vips
 $deleteBool = ($currentDay >= $deleteDay && $currentMonth >= $deleteMonth && $currentYear <= $deleteYear && $deletePathToDo) || !is_dir($scoresDir);
 
+// Condition de mise à jour des index des espaces scores
+$f = fopen($GLOBALS["scoresDir"].'/iSIndexUpdateNeeded.txt',"r");  
+// On récupère la date de dernière modif du fichier qui génère les index
+$firstLine = fgets($f);
+fclose($f); 
+
+// Booléen pour savoir si le fichier qui génère les index a été modifié
+$iSindexUpdateNeeded = (filectime('scoresTools.php') !=  $firstLine) ? true : false;;
+
 if ($deleteBool) {
   recursiveRmdir($scoresDir);
   $msg = "Suppression OK !"; 
   createVipScoresSpaces('./json/scoresCodesVip.json');
   $msgCron = "CRON OK !";  
+} else {
+  // On teste s'il faut mettre à jour les index des espaces scores  
+  if ($iSindexUpdateNeeded) {    
+    // Si c'est le cas on modifie la date de dernière modif stockée dans le fichier
+    $f = fopen($GLOBALS["scoresDir"].'/iSIndexUpdateNeeded.txt',"w+");    
+    fputs($f,filectime("scoresTools.php").PHP_EOL);
+    fclose($f);
+    // On réécrit tous les index des espaces scores existants sans toucher aux fichiers stockés sur le serveur
+    $pathsToIndexes = getAllScoresScpaces('resultats');
+    $decodedPathsToIndexes = json_decode($pathsToIndexes);  
+    // $f = fopen($GLOBALS["scoresDir"].'/iSIndexUpdateNeeded.txt',"a+");    
+    // foreach ($decodedPathsToIndexes as $index) {
+    //   fputs($f,$GLOBALS["scoresDir"].'/'.$index->codeProf[0].'/'.$index->codeProf[1].'/'.$index->codeProf[2].'/'.$index->md5Key.PHP_EOL);
+    // }    
+    // fclose($f);      
+    // On supprime tous les index des espaces scores existants
+    // On les recrée dans la foulée avec la fonction createIndexScores($path,$codeProf);
+    foreach ($decodedPathsToIndexes as $index) {
+      unlink($GLOBALS["scoresDir"].'/'.$index->codeProf[0].'/'.$index->codeProf[1].'/'.$index->codeProf[2].'/'.$index->md5Key.'/index.php');
+      createIndexScores($GLOBALS["scoresDir"].'/'.$index->codeProf[0].'/'.$index->codeProf[1].'/'.$index->codeProf[2].'/'.$index->md5Key,$index->codeProf);                 
+    } 
+  }
 };  
 
 echo json_encode(array(
