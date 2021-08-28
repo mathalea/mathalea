@@ -215,6 +215,8 @@ import { setReponse, propositionsQcm } from '../../modules/gestionInteractif.js'
 
 Nous n'avons pas encore parlé du type d'interactivité `'mathLive'` qui est pourtant très pratique ! et pas très compliqué à mettre en place comme nous allons le voir :
 
+#### <a id="12" href="#12">#</a> Dans le cas d'un exercice normal
+
 Pour rendre un exercice interactif en utilisant MathLive, il suffit de :
 1. Placer en en-tête :
 ```js
@@ -225,13 +227,23 @@ export const interactifType = 'mathLive'
 2. mettre dans la boucle principale `setReponse(this, i, maRéponse)` avec maRéponse un string LaTeX ou une valeur numérique (donc sans `texNombre` ou des équivalents)
 3. faire `texte += ajouteChampTexteMathLive(this, i)` pour ajouter le champ de réponse.
 
-Par défaut, on compare des expressions littérales ou des nombres. 
+Par défaut, on compare des expressions littérales ou des nombres. <a id="13" href="#13">#</a>
 - Pour comparer des textes sans traitement, on fait `setReponse(this, i, '+', { formatInteractif: 'texte' })`.
 - Pour comparer des fractions et attendre exactement une forme, on fait `setReponse(this, i, '+', { formatInteractif: 'fraction' })` et la réponse doit être un objet fraction (créé avec `new Fraction(a, b)`)
 - Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionPlusSimple' })` et la réponse doit être un objet fraction égale à la réponse mais avec un numérateur strictement inférieur (on compare les valeurs absolues).
 - Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionEgale' })` et la réponse doit être un objet fraction égale à la réponse.
 - Pour comparer des longueurs (ou des aires), on peut faire `setReponse(this, i, new Grandeur(4, 'cm'), { formatInteractif: 'longueur' })` et personnaliser le champ texte avec `ajouteChampTexteMathLive(this, i, 'longueur')`
 
+#### <a id="14" href="#14">#</a> Dans le cas d'un exercice simple fait pour utilisé dans une Course aux Nombre (`this.typeExercice = 'simple'`)
+
+Les exercices simples sont interactifs `mathLive` par défaut !
+
+Il suffit de
+* Mettre votre énoncé dans `this.question`
+* Mettre votre correction dans `this.correction`
+* Mettre la réponse attendue dans `this.reponse`
+
+Pour changer le format, il suffit de mettre `this.formatInteractif = ` après le `Exercice.call(this)` et de compléter avec un des formats vus <a href="#13">ci-dessus</a> : `'texte'`, `'fraction'`, `'fractionPlusSimple'`, `'fractionEgale'`, `'longueur'` (voir /js/exercices/can/can6C15.js par exemple).
 ## <a id="10" href="#10">#</a> Avoir deux champs de réponse sur une question, c'est possible !
 Il suffit d'avoir un compteur indépendant du compteur `i` de la boucle qui augmente de `1` pour les questions à un champ de réponse et qui augmente de `2` pour les questions à deux champs de réponse.
 
