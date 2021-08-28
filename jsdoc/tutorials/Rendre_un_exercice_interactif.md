@@ -252,6 +252,18 @@ Par défaut, on compare des expressions littérales ou des nombres. <a id="13" h
 - Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionEgale' })` et la réponse doit être un objet fraction égale à la réponse.
 - Pour comparer des longueurs (ou des aires), on peut faire `setReponse(this, i, new Grandeur(4, 'cm'), { formatInteractif: 'longueur' })` et personnaliser le champ texte avec `ajouteChampTexteMathLive(this, i, 'longueur')`
 
+**<a id="15" href="#15">#</a> Si une réponse correcte est considérée fausse**
+
+Le fonctionnement de MathLive peut parfois donner un résultat étonnant. Alors qu'on attend la réponse, "1h45min", `verifieQuestionMathLive` peut lui attendre "1h45\\min" par exemple.
+
+Si vous vous trouvez dans la situation où une réponse correcte est considérée fausse, voici la procédure à suivre :
+* Ouvrir l'inspecteur (CTRL+MAJ+C sur Firefox et Chrome, Command+Option+I sur Safari)
+* Sur l'onglet débugueur. Chercher dans l'onglet sources `webpack/src/js/modules/gestionInteractifs.js`
+* Mettre un point d'arrêt sur la ligne 95 juste après le `let saisie = champTexte.value` (clic droit sur 95 puis sur Ajouter un point d'arrêt)
+* Cliquer sur Actualiser
+* Saisir la réponse attendue dans le champ et valider la saisie
+* Mettre le curseur sur `saisie` pour visualiser la saisie qu'il a récupéré [capture d'écran](img/Interactif-1.png)
+
 **Lien avec AMC :**
 Si on a un `setReponse(this,i, new Fraction(n,d),{formatInteractif: 'fraction'})`, alors on peut mettre `amcType = 'AMCNum'` et ça passe automatiquement en un simili amcHybride avec 2 champs : un pour le numérateur, et un pour le dénominateur !
 
