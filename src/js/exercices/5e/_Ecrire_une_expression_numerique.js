@@ -35,7 +35,7 @@ export default function EcrireUneExpressionNumerique () {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     } else {
       if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
-        typesDeQuestionsDisponibles[0] = this.sup
+        typesDeQuestionsDisponibles[0] = this.sup % 6
       } else {
         typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
       }

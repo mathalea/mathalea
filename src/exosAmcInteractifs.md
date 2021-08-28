@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 236 
-- nombre d'exos interactifReady 270 
+- nombre d'exos amcReady 238 
+- nombre d'exos interactifReady 272 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -245,12 +245,14 @@
 |can6C19|Complément à 100|OK|AMCNum|OK|mathLive|
 |can6C20|Complément à 1|OK|AMCNum|OK|mathLive|
 |can6C21|Complément à 1 Niveau 2|OK|AMCNum|OK|mathLive|
+|can6C22|Valeurs décimales quarts et cinquièmes|OK|AMCNum|OK|mathLive|
 |can6D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calcul de durée en minutes|OK|AMCNum|OK|mathLive|
 |can6M01|Question de périmètres|OK|qcmMono|OK|qcm|
 |can6M02|La bonne unité|OK|qcmMono|OK|qcm|
 |can6M03|Conversions en mètres|OK|AMCNum|OK|mathLive|
+|can6M04|Conversions en tous sens|OK|AMCNum|OK|mathLive|
 |can6N01|Recomposition entier|OK|AMCNum|OK|mathLive|
 |can6N02|Recomposition entier simple|OK|AMCNum|OK|mathLive|
 |can6N03|Recomposition entier moins simple|OK|AMCNum|OK|mathLive|

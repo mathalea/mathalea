@@ -4624,6 +4624,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can6C21"
   },
+  "can6C22": {
+    "titre": "Valeurs décimales quarts et cinquièmes",
+    "url": "/exercices/can/can6C22.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C22"
+  },
   "can6D01": {
     "titre": "Conversion Heures minutes",
     "url": "/exercices/can/can6D01.js",
@@ -4689,6 +4700,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6M03"
+  },
+  "can6M04": {
+    "titre": "Conversions en tous sens",
+    "url": "/exercices/can/can6M04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6M04"
   },
   "can6N01": {
     "titre": "Recomposition entier",
