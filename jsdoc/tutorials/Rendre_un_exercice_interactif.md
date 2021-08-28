@@ -178,7 +178,12 @@ this.autoCorrection[i] = {
 }
 ```
 ## <a id="8" href="#8">#</a> Les fonctions
-Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont l'appel permet de générer le code nécessaire facilement :
+Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont l'appel permet de générer le code nécessaire facilement.
+
+Ce sont toutes les deux des fonctions de gestionInteractif.js, si vous voulez faire appel à elles, il faut alors faire en début de fichier :
+```js
+import { setReponse, propositionsQcm } from '../../modules/gestionInteractif.js'
+```
 
 ```js
 function setReponse (this, i, a, {digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0} = {})
@@ -202,15 +207,28 @@ La solution est donc de n'effectuer le setReponse que si l'on n'est pas en conte
 ```js
 function propositionsQcm (this, i)
 ```
-Cette fonction va retourner un objet `{ texte, texteCorr }` qui contient les propositions faites pour le qcm avec leur case à cocher pour l'énoncé (`texte`) et pour la correction (`texteCorr`).
+Cette fonction va, à chaque appel, retourner un objet `{ texte, texteCorr }` qui contient les propositions faites pour le qcm avec leur case à cocher pour l'énoncé (`texte`) et pour la correction (`texteCorr`).
 
 Si le `texte` est toujours utilisé, on préférera souvent la correction classique au `texteCorr` retourné par cette fonction (à réfléchir : pourquoi ne pas activer la correction classique avec le bouton 'correction détaillée' ?)
 
-Ce sont toutes les deux des fonctions de gestionInteractif.js, si vous voulez faire appel à elles, il faut alors faire en début de fichier :
+**Attention :**
+
+Pour les interactifs de type qcm avec brassage des réponses (`option ordered = false`), il est très important de n'appeler qu'une seule fois la fonction `propositionsQcm()` !
+
+Comme `propositionsQcm()` produit un objet `{texte, texteCorr}` à chaque appel, si on l'appelle 2 fois, on brasse 2 fois les propositions, et l'ordre des réponses (`texteCorr` et `checkReponse`) n'est pas le même que celui qui est affiché et donc celui sur lequel on clique.
+
+**Donc, ne surtout pas faire :**
 ```js
-import { setReponse, propositionsQcm } from '../../modules/gestionInteractif.js'
+texte = enonce + propositionsQcm(this,i).texte
+texteCorr = propositionsQcm(this,i).texteCorr
 ```
 
+**Mais il faut faire :**
+```js
+monQcm=propositionsQcm(this,i)
+texte = enonce + monQcm.texte
+texteCorr = monQcm.texteCorr
+```
 ## <a id="9" href="#9">#</a> MathLive
 
 Nous n'avons pas encore parlé du type d'interactivité `'mathLive'` qui est pourtant très pratique ! et pas très compliqué à mettre en place comme nous allons le voir :
