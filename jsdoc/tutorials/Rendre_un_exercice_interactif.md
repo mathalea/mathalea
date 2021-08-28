@@ -252,6 +252,9 @@ Par défaut, on compare des expressions littérales ou des nombres. <a id="13" h
 - Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionEgale' })` et la réponse doit être un objet fraction égale à la réponse.
 - Pour comparer des longueurs (ou des aires), on peut faire `setReponse(this, i, new Grandeur(4, 'cm'), { formatInteractif: 'longueur' })` et personnaliser le champ texte avec `ajouteChampTexteMathLive(this, i, 'longueur')`
 
+**Lien avec AMC :**
+Si on a un `setReponse(this,i, new Fraction(n,d),{formatInteractif: 'fraction'})`, alors on peut mettre `amcType = 'AMCNum'` et ça passe automatiquement en un simili amcHybride avec 2 champs : un pour le numérateur, et un pour le dénominateur !
+
 #### <a id="14" href="#14">#</a> Dans le cas d'un exercice simple fait pour utilisé dans une Course aux Nombre (`this.typeExercice = 'simple'`)
 
 Les exercices simples sont interactifs `mathLive` par défaut !
