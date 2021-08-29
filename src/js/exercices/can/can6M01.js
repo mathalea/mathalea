@@ -35,7 +35,7 @@ export default function QuestionDePerimetres () {
         }
       ]
     }
-    if (this.interactif) {
+    if (!context.isAmc) {
       texte += propositionsQcm(this, 0).texte
     }
     const texteCorr = VF[b] ? `Vrai car $4\\times ${a}$ cm = $2\\times ${a - 1}$ cm $+ 2\\times ${a + 1} $ cm $= ${4 * a}$ cm.` : `Faux car $4\\times ${a}$ cm $\\neq 2\\times ${a}$ cm $+ 2\\times ${a + 1}$ cm.`

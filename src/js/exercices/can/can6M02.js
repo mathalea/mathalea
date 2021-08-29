@@ -47,7 +47,7 @@ export default function LaBonneUnite () {
         }
       ]
     }
-    if (this.interactif) {
+    if (!context.isAmc) {
       texte += propositionsQcm(this, 0).texte
     }
     const texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}`

@@ -351,11 +351,7 @@ export function propositionsQcm (exercice, i) {
   let texte = ''
   let texteCorr = ''
   let espace = ''
-  if (context.isHtml) {
-    if (!exercice.interactif) return { texte: '', texteCorr: '' }
-  } else {
-    if (context.isAmc) return { texte: '', texteCorr: '' }
-  }
+  if (context.isAmc) return { texte: '', texteCorr: '' }
   if (context.isHtml) {
     espace = '&emsp;'
   } else {
