@@ -252,6 +252,9 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
   let iconeInteractif = ''
   if (isdiaporama) {
     contenuUnExercice += '<section class="slider single-item" id="diaporama">'
+    if (obj.typeExercice === 'simple') {
+      exerciceSimpleToContenu(obj)
+    }
     for (const question of obj.listeQuestions) {
       contenuUnExercice +=
         `\n<div id="question_diap" style="font-size:${obj.tailleDiaporama}px"><span>` +
@@ -1197,6 +1200,10 @@ function miseAJourDeLaListeDesExercices (preview) {
           }
           if (listeObjetsExercice[i].typeExercice === 'XCas') {
             besoinXCas = true
+          }
+          // Pour les diaporamas des exercices "simples" (CAN), on remet 10 questions par défaut
+          if (listeObjetsExercice[i].typeExercice === 'simple' && context.isDiaporama) {
+            listeObjetsExercice[i].nbQuestions = 10
           }
         })
       )

@@ -21,6 +21,6 @@ export default function ResteDivisionPar3 () {
     const a = calcul(b * 100 + c * 10 + d)
     this.reponse = a % 3
     this.question = `Quel est le reste de la division de $${a}$ par $3$ ?`
-    this.correction = `Le reste de la division de $${a}$ par $3$ est ${a % 3}`
+    this.correction = `Le reste de la division de $${a}$ par $3$ est ${a % 3}.`
   }
 }
