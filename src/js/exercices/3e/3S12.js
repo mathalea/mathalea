@@ -67,7 +67,7 @@ export default function calculEffectifFrequence () {
     const lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan', 'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane']
 
     texte += 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a des animaux. '
-    texte += 'Certains sont des quadripèdes ('
+    texte += 'Certains sont des quadrupèdes ('
     for (let i = 0; i < nbQuadri; i++) {
       texte += lstAnimauxExo[i] + ', '
     }
@@ -79,12 +79,12 @@ export default function calculEffectifFrequence () {
     texte = texte.substring(0, texte.length - 2)
     texte += '). '
 
-    texte += 'Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>'
+    texte += 'Voici un diagramme en barres qui donne le nombre d’individus pour chaque espèce.<br>'
     texte += numAlpha(0) + ' Quel est l\'effectif des ' + lstAnimauxExo[0] + ' ?<br>'
     texte += ajouteChampTexteMathLive(this, 1)
     texte += numAlpha(1) + ' Calculer la fréquence des ' + lstAnimauxExo[1] + ' ? Donner le résultat sous la forme d\'un pourcentage.<br>'
     texte += ajouteChampTexteMathLive(this, 2)
-    texte += numAlpha(2) + ' Calculer l\'effectif des quadripèdes ? <br>'
+    texte += numAlpha(2) + ' Calculer l\'effectif des quadrupèdes ? <br>'
     texte += ajouteChampTexteMathLive(this, 3)
     texte += numAlpha(3) + ' Calculer la fréquence des oiseaux ? Donner le résultat sous la forme d\'un pourcentage.<br>'
     texte += ajouteChampTexteMathLive(this, 4)
@@ -139,7 +139,7 @@ export default function calculEffectifFrequence () {
     texteCorr += texteGras('La fréquence des ' + lstAnimauxExo[1] + ' est donc : ' + arrondiVirgule(100 * lstNombresAnimaux[1] / Ntotal, 1) + '%. <br>')
     setReponse(this, 2, [calcul(100 * lstNombresAnimaux[1] / Ntotal, 1), `${calcul(100 * lstNombresAnimaux[1] / Ntotal, 1)}\\%`])
     // question 3
-    texteCorr += numAlpha(2) + ' On fait la somme des effectifs de chaque espèce de quadripèdes : '
+    texteCorr += numAlpha(2) + ' On fait la somme des effectifs de chaque espèce de quadrupèdes : '
     let NTotalQuadri = lstNombresAnimaux[0]
     texteCorr += lstNombresAnimaux[0]
     for (let i = 1; i < nbQuadri; i++) {
@@ -147,7 +147,7 @@ export default function calculEffectifFrequence () {
       NTotalQuadri += lstNombresAnimaux[i]
     }
     texteCorr += '. <br>'
-    texteCorr += texteGras('L\'effectif des quadripèdes est donc : ' + NTotalQuadri + '.<br>')
+    texteCorr += texteGras('L\'effectif des quadrupèdes est donc : ' + NTotalQuadri + '.<br>')
     setReponse(this, 3, NTotalQuadri)
     // question 4
     let NTotalOiseaux = lstNombresAnimaux[3]
