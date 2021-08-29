@@ -94,9 +94,6 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
     const signesDeX = combinaisonListes([true, false], this.nbQuestions)
     const typeQuestionsDisponibles = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20',
       'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']
-    // 'q1','q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10']
-    // 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20'
-    // 'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']//
     // 'q1',  produit d'entiers
     // 'q2', // somme ou différence d'entiers
     // 'q3', // Tiers, moitié, proportions d'une quantité
@@ -184,11 +181,10 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               break
 
             case 6:// différence avec 1
-              a = randint(2, 9) / 100
-
+              a = choice([true, false]) ? calcul(randint(2, 9) / 100) : calcul(randint(2, 9) / 10)
               texte = `$1-${texNombrec(a)}=$`
               texteCorr = `$1-${texNombrec(a)}=${texNombrec(1 - a)}$`
-              setReponse(this, i, 1 - a, { formatInteractif: 'calcul' })
+              setReponse(this, i, calcul(1 - a), { formatInteractif: 'calcul' })
               break
             case 7:// différence comme 346-47
               a = randint(2, 4)
@@ -256,8 +252,8 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               d = calcul(a * 60 + b)
               texte = ` $${d}$ minutes $=$  $a$ heure(s) et  $b$ minute(s).<br>
               Quelle est la valeur de $b$ ?`
-              texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min, donc $b=${d - a * 60}$.`
-              setReponse(this, i, `${d - a * 60}`, { formatInteractif: 'calcul' })
+              texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min, donc $b=${b}}$.`
+              setReponse(this, i, `${b}`, { formatInteractif: 'calcul' })
               break
             case 2:// heure décimale
               a = randint(1, 3)
@@ -265,7 +261,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               d = calcul(b * 60)
               texte = `${texNombrec(a + b)}h$=$ (format : ...h...min)`
               texteCorr = `${texNombrec(a + b)}h = ${a} h $+ ${texNombrec(b)} \\times 60$  = ${a}h ${d}min`
-              setReponse(this, i, `${a} h ${d} min`, { formatInteractif: 'texte' })
+              setReponse(this, i, `${a}h${d}\\min`, { formatInteractif: 'texte' })
               break
             case 3:// conversion en minutes
               a = randint(1, 3)
@@ -288,81 +284,84 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               break
             case 5:// conversion unités
-              N = choice(['a', 'b', 'c', 'd'])
-              if (N === 'a') {
-                if (choice([true, false])) {
-                  a = randint(1, 13) * 50
-                  resultat = a / 1000
-                  texte = `$${texNombrec(a)}$ g $ = \\ldots $ kg`
-                  texteCorr = `$${texNombrec(a)}$ g$=${texNombrec(a / 1000)}$ kg`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                } else {
-                  a = randint(1, 5) / 10
-                  resultat = a * 1000
-                  texte = `$${texNombrec(a)}$ kg $ = \\ldots $ g`
-                  texteCorr = `$${texNombrec(a)}$ g$=${texNombrec(a * 1000)}$ kg`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                }
-              }
-              if (N === 'b') {
-                if (choice([true, false])) {
-                  a = randint(1, 13) * 5
-                  resultat = a * 100
-                  texte = `$${texNombrec(a)}$ m $ = \\ldots $ cm`
-                  texteCorr = `$${texNombrec(a)}$ m$=${texNombrec(a * 100)}$ cm`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                } else {
-                  a = randint(1, 12) * 10
-                  resultat = a / 100
-                  texte = `$${texNombrec(a)}$ cm $ = \\ldots $ m`
-                  texteCorr = `$${texNombrec(a)}$ cm$=${texNombrec(a / 100)}$ m`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                }
-              }
-
-              if (N === 'c') {
-                if (choice([true, false])) {
-                  a = randint(1, 13) / 10
-                  resultat = a * 10
-                  texte = `$${texNombrec(a)}$ c$\\ell$  $= \\ldots $ m$\\ell$`
-                  texteCorr = `$${texNombrec(a)}$ c$\\ell$$=${texNombrec(a * 10)}$ m$\\ell$`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                } else {
-                  a = randint(1, 12)
-                  resultat = a / 10
-                  texte = `$${texNombrec(a)}$ m$\\ell$ $ = \\ldots $ c$\\ell$`
-                  texteCorr = `$${texNombrec(a)}$ c$\\ell$$=${texNombrec(a / 10)}$ m$\\ell$`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                }
-              }
-              if (N === 'd') {
-                if (choice([true, false])) {
-                  a = randint(1, 20) * 10
-                  resultat = a / 1000
-                  texte = `$${texNombrec(a)}$ m  $= \\ldots $ km`
-                  texteCorr = `$${texNombrec(a)}$ m$=${texNombrec(a / 1000)}$ km`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                } else {
-                  a = randint(1, 35) / 100
-                  resultat = a * 1000
-                  texte = `$${texNombrec(a)}$ km $ = \\ldots $ m`
-                  texteCorr = `$${texNombrec(a)}$ km$=${texNombrec(a * 1000)}$ m`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                }
+              switch (choice(['a', 'b', 'c', 'd'])) {
+                case 'a':
+                  if (choice([true, false])) {
+                    a = randint(1, 13) * 50
+                    resultat = calcul(a / 1000)
+                    texte = `$${texNombrec(a)}$ g $ = \\ldots $ kg`
+                    texteCorr = `$${texNombrec(a)}$ g$=${texNombrec(a / 1000)}$ kg`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  } else {
+                    a = randint(1, 5) / 10
+                    resultat = a * 1000
+                    texte = `$${texNombrec(a)}$ kg $ = \\ldots $ g`
+                    texteCorr = `$${texNombrec(a)}$ g$=${texNombrec(a * 1000)}$ kg`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  }
+                  break
+                case 'b':
+                  if (choice([true, false])) {
+                    a = randint(1, 13) * 5
+                    resultat = a * 100
+                    texte = `$${texNombrec(a)}$ m $ = \\ldots $ cm`
+                    texteCorr = `$${texNombrec(a)}$ m$=${texNombrec(a * 100)}$ cm`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  } else {
+                    a = randint(1, 12) * 10
+                    resultat = calcul(a / 100)
+                    texte = `$${texNombrec(a)}$ cm $ = \\ldots $ m`
+                    texteCorr = `$${texNombrec(a)}$ cm$=${texNombrec(a / 100)}$ m`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  }
+                  break
+                case 'c':
+                  if (choice([true, false])) {
+                    a = randint(1, 13) / 10
+                    resultat = a * 10
+                    texte = `$${texNombrec(a)}$ c$\\ell$  $= \\ldots $ m$\\ell$`
+                    texteCorr = `$${texNombrec(a)}$ c$\\ell$$=${texNombrec(a * 10)}$ m$\\ell$`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  } else {
+                    a = randint(1, 12)
+                    resultat = calcul(a / 10)
+                    texte = `$${texNombrec(a)}$ m$\\ell$ $ = \\ldots $ c$\\ell$`
+                    texteCorr = `$${texNombrec(a)}$ c$\\ell$$=${texNombrec(a / 10)}$ m$\\ell$`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  }
+                  break
+                case 'd':
+                  if (choice([true, false])) {
+                    a = randint(1, 20) * 10
+                    resultat = calcul(a / 1000)
+                    texte = `$${texNombrec(a)}$ m  $= \\ldots $ km`
+                    texteCorr = `$${texNombrec(a)}$ m$=${texNombrec(a / 1000)}$ km`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  } else {
+                    a = randint(1, 35) / 100
+                    resultat = a * 1000
+                    texte = `$${texNombrec(a)}$ km $ = \\ldots $ m`
+                    texteCorr = `$${texNombrec(a)}$ km$=${texNombrec(a * 1000)}$ m`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  }
+                  break
               }
               break
             case 6:// conversion
-              a = randint(1, 12) + randint(1, 9) / 10
-              N = choice(['a', 'b'])
-
-              texte = ` $${texNombrec(a)}$ m$^3=$.... L 
- 
-                                    `
-
-              texteCorr = `$1$ m$^3$= $1000$ L, donc $${texNombrec(a)}$ m$^3$=$${texNombrec(a)}\\times 1000$ L $=${a * 1000}$ L. 
-               `
-              setReponse(this, i, a * 1000, { formatInteractif: 'calcul' })
-
+              switch (choice(['a', 'b'])) {
+                case 'a':
+                  a = calcul(randint(1, 12) + randint(1, 9) / 10)
+                  texte = ` $${texNombrec(a)}$ m$^3=$.... L`
+                  texteCorr = `$1$ m$^3$= $1000$ L, donc $${texNombrec(a)}$ m$^3$=$${texNombrec(a)}\\times 1000$ L $=${a * 1000}$ L.`
+                  setReponse(this, i, a * 1000, { formatInteractif: 'calcul' })
+                  break
+                case 'b':
+                  a = calcul(randint(1, 9) + randint(1, 9) * 10 + randint(0, 9) * 100)
+                  texte = `.... m$^3=${texNombrec(a)}$  L`
+                  texteCorr = `$1$ m$^3$= $1000$ L, donc $${texNombrec(a)}$ L$=${texNombrec(a)}\\div 1000$ m$^3=${calcul(a / 1000)}$ m$^3$.`
+                  setReponse(this, i, calcul(a / 1000), { formatInteractif: 'calcul' })
+                  break
+              }
               break
           }
           break
@@ -370,8 +369,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
           switch (choice([1, 2, 3, 4])) {
             case 1:// conversion fraction <->décimale cinquième et quart
               a = randint(1, 9, 5)
-              b = randint(1, 11, [2, 4, 6, 8, 10])
-
+              b = choice([1, 3, 5, 9, 11])
               if (choice([true, false])) {
                 resultat = calcul(a / 5)
                 texte = `Donner la valeur décimale de  $\\dfrac{${a}}{5}$ :`

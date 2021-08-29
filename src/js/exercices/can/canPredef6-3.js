@@ -11,9 +11,9 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 
 /**
- * Description didactique de l'exercice
- * @author
- * Référence
+ * Course aux nombres avec 30 questions pour fin de 6e
+ * @author Jean-Claude Lhote
+ * Référence can Predef6-3
 */
 export default function CourseAuxNombres6e (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()

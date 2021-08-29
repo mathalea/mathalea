@@ -7,6 +7,9 @@ export const interactifType = 'qcm'
 export const amcReady = true
 export const amcType = 'qcmMono'
 
+/*!
+ * @author Jean-Claude Lhote
+ */
 export default function QuestionDePerimetres () {
   Exercice.call(this)
   this.nbQuestions = 1

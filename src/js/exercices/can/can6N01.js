@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texNombre } from '../../modules/outils'
+import { calcul, randint, texNombre } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Recomposition entier'
 export const interactifReady = true
@@ -6,6 +6,9 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
+/*!
+ * @author Jean-Claude Lhote
+ */
 export default function RecompositionEntier () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -46,8 +46,13 @@ export function exerciceSimpleToContenu (exercice) {
   const listeQuestions = []
   const listeCorrections = []
   for (let i = 0; i < exercice.nbQuestions; i++) {
-    listeQuestions.push(exercice.question)
-    listeCorrections.push(exercice.correction)
+    if (context.isAmc) {
+      listeQuestions.push(exercice.question + '<br>')
+      listeCorrections.push(exercice.correction)
+    } else {
+      listeQuestions.push(exercice.question)
+      listeCorrections.push(exercice.correction)
+    }
     if (context.isAmc && exercice.amcType === 'AMCNum') {
       setReponse(exercice, i, exercice.reponse, {
         digits: nombreDeChiffresDe(exercice.reponse),
@@ -2393,12 +2398,12 @@ export function stringNombre (nb) {
 */
 export function miseEnEvidence (texte, couleur = '#f15929') {
   if (context.isHtml) {
-    return `\\bm{{\\color{${couleur}}{${texte}}}}`
+    return `\\mathbf{{\\color{${couleur}}{${texte}}}}`
   } else {
     if (couleur[0] === '#') {
-      return `\\bm{{\\color[HTML]{${couleur.replace('#', '')}}${texte}}}`
+      return `\\mathbf{{\\color[HTML]{${couleur.replace('#', '')}}${texte}}}`
     } else {
-      return `\\bm{{\\color{${couleur.replace('#', '')}}${texte}}}`
+      return `\\mathbf{{\\color{${couleur.replace('#', '')}}${texte}}}`
     }
   }
 }
@@ -7060,42 +7065,59 @@ export function exportQcmAmc (exercice, idExo) {
         if (exercice.autoCorrection[j].propositions === undefined) {
           exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '' }]
         }
-        if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
-          reponse = autoCorrection[j].reponse.valeur
-          if (autoCorrection[j].reponse.param.digits === 0) {
-            nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
-            autoCorrection[j].reponse.param.decimals = nbChiffresPd
-            nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
-            autoCorrection[j].reponse.param.digits = nbChiffresPd + nbChiffresPe
-          } else if (autoCorrection[j].reponse.param.decimals === undefined) {
-            autoCorrection[j].reponse.param.decimals = 0
+        if (autoCorrection[j].reponse.valeur[0].num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
+          texQr += `\\element{${ref}}{\n `
+          texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+          texQr += `${autoCorrection[j].enonce} \n `
+          if (autoCorrection[j].propositions !== undefined) {
+            texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
           }
+          texQr += `Numérateur\n \\AMCnumericChoices{${autoCorrection[j].reponse.valeur[0].num}}{digits=${nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0].num)},decimals=0,sign=${autoCorrection[j].reponse.valeur[0].signe === -1},approx=0,`
+          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+          texQr += '\\end{questionmultx}\n'
+          texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 1}} \n `
+          texQr += `Dénominateur\n \\AMCnumericChoices{${autoCorrection[j].reponse.valeur[0].den}}{digits=${nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0].den)},decimals=0,sign=false,approx=0,`
+          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+          texQr += '\\end{questionmultx}\n}\n'
+          id += 2
+        } else {
+          if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
+            reponse = autoCorrection[j].reponse.valeur
+            if (autoCorrection[j].reponse.param.digits === 0) {
+              nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+              autoCorrection[j].reponse.param.decimals = nbChiffresPd
+              nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
+              autoCorrection[j].reponse.param.digits = nbChiffresPd + nbChiffresPe
+            } else if (autoCorrection[j].reponse.param.decimals === undefined) {
+              autoCorrection[j].reponse.param.decimals = 0
+            }
+          }
+          texQr += `\\element{${ref}}{\n `
+          texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+          texQr += `${autoCorrection[j].enonce} \n `
+          if (autoCorrection[j].propositions !== undefined) {
+            texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+          }
+          texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
+          if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+            texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
+          }
+          if (autoCorrection[j].reponse.param.approx !== undefined && autoCorrection[j].reponse.param.approx !== 0) {
+            texQr += `approx=${autoCorrection[j].reponse.param.approx},`
+          }
+          if (autoCorrection[j].reponse.param.vertical !== undefined && autoCorrection[j].reponse.param.vertical) {
+            texQr += `vertical=${autoCorrection[j].reponse.param.vertical},`
+          }
+          if (autoCorrection[j].reponse.param.strict !== undefined && autoCorrection[j].reponse.param.strict) {
+            texQr += `strict=${autoCorrection[j].reponse.param.strict},`
+          }
+          if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
+            texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
+          }
+          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+          texQr += '\\end{questionmultx}\n }\n'
+          id++
         }
-        texQr += `\\element{${ref}}{\n `
-        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        texQr += `${autoCorrection[j].enonce} \n `
-        if (autoCorrection[j].propositions !== undefined) {
-          texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
-        }
-        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
-        if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
-          texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
-        }
-        if (autoCorrection[j].reponse.param.approx !== undefined && autoCorrection[j].reponse.param.approx !== 0) {
-          texQr += `approx=${autoCorrection[j].reponse.param.approx},`
-        }
-        if (autoCorrection[j].reponse.param.vertical !== undefined && autoCorrection[j].reponse.param.vertical) {
-          texQr += `vertical=${autoCorrection[j].reponse.param.vertical},`
-        }
-        if (autoCorrection[j].reponse.param.strict !== undefined && autoCorrection[j].reponse.param.strict) {
-          texQr += `strict=${autoCorrection[j].reponse.param.strict},`
-        }
-        if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
-          texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
-        }
-        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
-        texQr += '\\end{questionmultx}\n }\n'
-        id++
         break
 
       case 'AMCOpenNum': // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)

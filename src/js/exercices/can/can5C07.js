@@ -1,4 +1,4 @@
-import { choice, randint } from '../../modules/outils'
+import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Priorité opératoire'
 export const interactifReady = true
@@ -6,6 +6,9 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
+/*!
+ * @author Jean-Claude Lhote
+ */
 export default function PrioriteOperatoire5e () {
   Exercice.call(this)
   this.nbQuestions = 1

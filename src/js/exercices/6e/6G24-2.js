@@ -7,7 +7,6 @@ export const titre = 'Construire le symétrique d’une figure par rapport à un
  */
 export default function SymetrieAxialeFigure6e () {
   ConstruireParSymetrie.call(this)
-  this.titre = titre
   this.figure = true
   this.sup = 0
 }
