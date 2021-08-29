@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
 /**
  * Lire un diagramme en barre
  * @author Erwan Duplessy
- * Conversion AmcReady par Jean-Claude Lhote
+ * Conversion Amc et interactif par Jean-Claude Lhote
  * Référence 6S10
  */
 

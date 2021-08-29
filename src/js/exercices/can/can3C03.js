@@ -7,6 +7,9 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
+/*!
+ * @author Jean-Claude Lhote
+ */
 export default function FractionIrreductible () {
   Exercice.call(this)
   this.typeExercice = 'simple'

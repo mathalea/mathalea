@@ -6,6 +6,9 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
+/*!
+ * @author Jean-Claude Lhote & Gilles Mora
+ */
 export default function ConversionEnM () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -2721,6 +2721,17 @@ export default {
     "interactifReady": false,
     "name": "6D12"
   },
+  "6D13": {
+    "titre": "Conversion en heures et minutes",
+    "url": "/exercices/6e/6D13.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6D13"
+  },
   "6G10-1": {
     "titre": "Description et notation des droites, segments et demi-droites",
     "url": "/exercices/6e/6G10-1.js",
@@ -4666,12 +4677,23 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C10"
   },
+  "can5C11": {
+    "titre": "Différence négative",
+    "url": "/exercices/can/can5C11.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C11"
+  },
   "can5D01": {
-    "titre": "Conversion en heures et minutes",
+    "titre": "Conversion Heures minutes",
     "url": "/exercices/can/can5D01.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCHybride"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -4886,6 +4908,50 @@ export default {
     "interactifType": "mathLive",
     "name": "can6C18"
   },
+  "can6C19": {
+    "titre": "Complément à 100",
+    "url": "/exercices/can/can6C19.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C19"
+  },
+  "can6C20": {
+    "titre": "Complément à 1",
+    "url": "/exercices/can/can6C20.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C20"
+  },
+  "can6C21": {
+    "titre": "Complément à 1 Niveau 2",
+    "url": "/exercices/can/can6C21.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C21"
+  },
+  "can6C22": {
+    "titre": "Valeurs décimales quarts et cinquièmes",
+    "url": "/exercices/can/can6C22.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C22"
+  },
   "can6D01": {
     "titre": "Conversion Heures minutes",
     "url": "/exercices/can/can6D01.js",
@@ -4896,6 +4962,28 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6D01"
+  },
+  "can6D02": {
+    "titre": "Reste en minutes",
+    "url": "/exercices/can/can6D02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6D02"
+  },
+  "can6D03": {
+    "titre": "Calcul de durée en minutes",
+    "url": "/exercices/can/can6D03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6D03"
   },
   "can6M01": {
     "titre": "Question de périmètres",
@@ -4929,6 +5017,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6M03"
+  },
+  "can6M04": {
+    "titre": "Conversions en tous sens",
+    "url": "/exercices/can/can6M04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6M04"
   },
   "can6N01": {
     "titre": "Recomposition entier",
