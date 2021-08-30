@@ -15,7 +15,7 @@ export default function Tables5A9 () {
   this.nbQuestions = 1
   this.interactif = true
   this.nouvelleVersion = function () {
-    const a = randint(5, 9)
+    const a = randint(3, 9)
     const b = randint(5, 9)
     this.reponse = a * b
     this.question = `$${a} \\times ${b}$`

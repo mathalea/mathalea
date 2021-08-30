@@ -18,7 +18,7 @@ export default function QuestionDePerimetres () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-    const a = randint(3, 15)
+    const a = randint(3, 25)
     const b = randint(0, 1)
     const VF = [false, true]
     let texte = `Est-il vrai qu'un carré de côté ${a} cm a le même périmètre qu'un rectangle de largeur ${a - b} cm et de longueur ${a + 1} cm ? (V ou F)`

@@ -15,7 +15,7 @@ export default function NombrePairFois5 () {
   this.nbQuestions = 1
   this.interactif = true
   this.nouvelleVersion = function () {
-    const a = randint(11, 24) * 2
+    const a = randint(11, 49) * 2
     this.reponse = calcul(a * 5)
     this.question = `$${a}\\times 5$`
     this.correction = `$${a}\\times 5 = ${a} \\div 2 \\times 10 = ${calcul(a / 2)}\\times 10 =${this.reponse}$`

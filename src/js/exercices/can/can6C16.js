@@ -16,7 +16,7 @@ export default function DoubleEtMoitie () {
   this.interactif = true
 
   this.nouvelleVersion = function () {
-    const a = randint(1, 25) // variables aléatoires
+    const a = randint(1, 25) * 2 // variables aléatoires
     this.question = `Le double d'un nombre vaut ${2 * a}, combien vaut sa moitié ?<br>`
     this.correction = `Le nombre est ${a}, sa moitié est ${texNombrec(a / 2)}.`
     this.reponse = calcul(a / 2)

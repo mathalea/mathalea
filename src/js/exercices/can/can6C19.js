@@ -16,7 +16,7 @@ export default function ComplementACent () {
   this.typeExercice = 'simple'
 
   this.nouvelleVersion = function () {
-    const a = randint(8, 15)
+    const a = randint(11, 35)
     this.question = `$100-${a}=$`
     this.correction = `$100-${a}=${100 - a}$`
     this.reponse = 100 - a

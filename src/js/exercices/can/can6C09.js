@@ -16,8 +16,8 @@ export default function SoustraireX9 () {
   this.interactif = true
   this.nouvelleVersion = function () {
     const a = randint(5, 9)
-    const b = randint(2, 8)
-    const c = randint(1, 3)
+    const b = randint(1, 8)
+    const c = randint(1, 4)
     this.reponse = calcul(a * 10 + b - c * 10 - 9)
     this.question = `$${a * 10 + b} - ${c * 10 + 9}$`
     this.correction = `$${a * 10 + b} - ${c * 10 + 9}=${a * 10 + b}-${(c + 1) * 10} + 1 = ${this.reponse}$`

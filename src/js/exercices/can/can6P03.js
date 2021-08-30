@@ -17,7 +17,7 @@ export default function QuestionDeVitesse () {
 
   this.nouvelleVersion = function () {
     const a = randint(3, 6) * 20
-    const b = randint(1, 3)
+    const b = randint(1, 6)
     this.reponse = calcul(a * (b + 0.5))
     this.question = `Une voiture roule à une vitesse constante de ${a} km/h. Combien de kilomètres parcourt-elle en ${b} h et 30 min ?`
     this.correction = `$${a}\\times ${texNombrec(b + 0.5)} = ${this.reponse}$`

@@ -16,7 +16,7 @@ export default function FractionSimpleDeQuantite () {
   this.interactif = true
 
   this.nouvelleVersion = function () {
-    const a = randint(3, 5)
+    const a = randint(2, 6)
     this.reponse = calcul(randint(2, 9) * 10)
     const b = calcul(this.reponse * a)
     this.question = `$\\dfrac{1}{${a}} \\text{ de } ${b} \\text{ L} = \\dots \\text{ L}$`

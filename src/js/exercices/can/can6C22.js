@@ -16,7 +16,7 @@ export default function ValeursDecimalesQuartCinquieme () {
 
   this.nouvelleVersion = function () {
     const a = randint(1, 9, 5)
-    const b = choice([1, 3, 5, 9, 11])
+    const b = choice([1, 3, 5, 6, 7, 9, 11])
     if (choice([true, false])) {
       this.reponse = calcul(a / 5)
       this.question = `Donner la valeur décimale de  $\\dfrac{${a}}{5}$ :`

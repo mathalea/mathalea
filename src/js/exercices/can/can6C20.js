@@ -16,7 +16,18 @@ export default function ComplementAUn () {
   this.typeExercice = 'simple'
 
   this.nouvelleVersion = function () {
-    const a = choice([true, false]) ? calcul(randint(2, 9) / 100) : calcul(randint(2, 9) / 10)
+    let a
+    switch (choice([1, 2, 3])) {
+      case 1:
+        a = calcul(randint(2, 9) / 10)
+        break
+      case 2:
+        a = calcul(randint(2, 9) / 100)
+        break
+      case 3:
+        a = calcul(randint(2, 9) / 1000)
+        break
+    }
     this.question = `$1-${texNombrec(a)}=$`
     this.correction = `$1-${texNombrec(a)}=${texNombrec(1 - a)}$`
     this.reponse = calcul(1 - a)
