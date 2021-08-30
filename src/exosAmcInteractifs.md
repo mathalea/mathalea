@@ -182,40 +182,22 @@
 |6P12|Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple|OK|AMCNum|OK|mathLive|
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
-|CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
-|CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
-|CM002|Tables de divisions|OK|AMCNum|OK|numerique|
-|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
-|CM004|Les quatre opérations|OK|AMCNum|OK|numerique|
-|CM005|Ajouter 9|OK|AMCNum|OK|numerique|
-|CM006|Soustraire 9|OK|AMCNum|OK|numerique|
-|CM007|Ajouter 11|OK|AMCNum|OK|numerique|
-|CM008|Soustraire 11|OK|AMCNum|OK|numerique|
-|CM009|Moitié|OK|AMCNum|OK|numerique|
-|CM010|Tiers|OK|AMCNum|OK|numerique|
-|CM011|Quart|OK|AMCNum|OK|numerique|
-|CM012|Complément à 100|OK|AMCNum|OK|numerique|
-|CM013|Complément à une dizaine|OK|AMCNum|OK|numerique|
-|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|numerique|
-|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|numerique|
-|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
-|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
-|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
-|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
 |betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
-|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
+|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
 |c3C10-4|Tables d’addition|OK|AMCNum|OK|numerique|
 |c3C11|Divisions euclidiennes|OK|AMCOpen|OK|mathLive|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |c3N20|Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
 |c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
+|can2L01|Nombre de solutions de l’équation $-x^2+a=b$|OK|AMCNum|OK|mathLive|
+|can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
 |can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
 |can3C02|Moyenne entière de trois décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Fraction irréductible|OK|AMCNum|OK|mathLive|
@@ -229,8 +211,6 @@
 |can3L3|Équation ax+b=c|OK|AMCNum|OK|mathLive|
 |can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
-|can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
-|can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
 |can5C01|Produit de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Somme de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C03|Différence de nombres entiers|OK|AMCNum|OK|mathLive|
@@ -244,6 +224,7 @@
 |can5C11|Différence négative|OK|AMCNum|OK|mathLive|
 |can5D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
+|canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |can6C01|Ordre de grandeur|OK|qcmMono|OK|qcm|
 |can6C02|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
 |can6C03|Addition à trou|OK|AMCNum|OK|mathLive|
@@ -282,5 +263,24 @@
 |can6P03|Question de vitesse|OK|AMCNum|OK|mathLive|
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |can6S01|Lecture de diagramme en barres|OK|AMCNum|OK|mathLive|
-|canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
+|CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
+|CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
+|CM002|Tables de divisions|OK|AMCNum|OK|numerique|
+|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
+|CM004|Les quatre opérations|OK|AMCNum|OK|numerique|
+|CM005|Ajouter 9|OK|AMCNum|OK|numerique|
+|CM006|Soustraire 9|OK|AMCNum|OK|numerique|
+|CM007|Ajouter 11|OK|AMCNum|OK|numerique|
+|CM008|Soustraire 11|OK|AMCNum|OK|numerique|
+|CM009|Moitié|OK|AMCNum|OK|numerique|
+|CM010|Tiers|OK|AMCNum|OK|numerique|
+|CM011|Quart|OK|AMCNum|OK|numerique|
+|CM012|Complément à 100|OK|AMCNum|OK|numerique|
+|CM013|Complément à une dizaine|OK|AMCNum|OK|numerique|
+|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|numerique|
+|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|numerique|
+|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
+|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
+|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
+|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
