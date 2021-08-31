@@ -1327,7 +1327,8 @@ export default {
     "titre": "Donner ou compléter une égalité de Pythagore",
     "url": "/exercices/4e/4G20-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4G20-1"
   },
   "4G20-2": {
@@ -1377,13 +1378,6 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "4G20"
-  },
-  "4G20MG32": {
-    "titre": "Calculer une longueur avec l’égalité de Pythagore (MG32)",
-    "url": "/exercices/4e/4G20MG32.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "4G20MG32"
   },
   "4G21": {
     "titre": "Déterminer si un triangle est rectangle ou pas.",
