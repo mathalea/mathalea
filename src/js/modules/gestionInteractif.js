@@ -329,7 +329,7 @@ export function exerciceQcm (exercice) {
         button.addEventListener('click', event => {
           let nbQuestionsValidees = 0
           let nbQuestionsNonValidees = 0
-          for (let i = 0; i < exercice.nbQuestions; i++) {
+          for (let i = 0; i < exercice.autoCorrection.length; i++) {
             const resultat = verifQuestionQcm(exercice, i)
             resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
           }
