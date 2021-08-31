@@ -246,7 +246,7 @@ export const interactifType = 'mathLive'
 3. faire `texte += ajouteChampTexteMathLive(this, i)` pour ajouter le champ de réponse.
 
 Par défaut, on compare des expressions littérales ou des nombres. <a id="13" href="#13">#</a>
-- Pour comparer des textes sans traitement, on fait `setReponse(this, i, '+', { formatInteractif: 'texte' })`.
+- Pour comparer des textes sans traitement, on fait `setReponse(this, i, '+', { formatInteractif: 'texte' })`. La réponse doit être saisie sans les $ délimiteurs du LaTeX.
 - Pour comparer des fractions et attendre exactement une forme, on fait `setReponse(this, i, '+', { formatInteractif: 'fraction' })` et la réponse doit être un objet fraction (créé avec `new Fraction(a, b)`)
 - Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionPlusSimple' })` et la réponse doit être un objet fraction égale à la réponse mais avec un numérateur strictement inférieur (on compare les valeurs absolues).
 - Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionEgale' })` et la réponse doit être un objet fraction égale à la réponse.

@@ -6,7 +6,7 @@ import { addElement, get, setStyles } from './dom.js'
 import { ComputeEngine, parse } from '@cortex-js/math-json'
 import Fraction from './Fraction.js'
 import Grandeur from './Grandeur.js'
-import { getDureeFromUrl, getUserIdFromUrl, getVueFromUrl } from './gestionUrl.js'
+import { getUserIdFromUrl, getVueFromUrl } from './gestionUrl.js'
 
 export function exerciceInteractif (exercice) {
   // passage amsType num à string cf commit 385b5ea
@@ -93,8 +93,8 @@ function verifQuestionMathLive (exercice, i) {
   let resultat = 'KO'
   let saisie = champTexte.value
   for (let reponse of reponses) {
-  // Pour le calcul littéral on remplace dfrac en frac
-    if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') { // Le format par défautt
+    if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') { // Le format par défaut
+      // Pour le calcul littéral on remplace dfrac en frac
       if (typeof reponse === 'string') {
         reponse = reponse.replaceAll('dfrac', 'frac')
       // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
@@ -106,6 +106,10 @@ function verifQuestionMathLive (exercice, i) {
         resultat = 'OK'
       }
       // Pour les exercices de simplifications de fraction
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'texte') {
+      if (saisie === reponse) {
+        resultat = 'OK'
+      }
     } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionPlusSimple') {
       saisieParsee = parse(saisie)
       if (saisieParsee) {
