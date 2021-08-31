@@ -1,3 +1,4 @@
+import { context } from '../../modules/context'
 import { propositionsQcm } from '../../modules/gestionInteractif'
 import { calcul, listeQuestionsToContenu, randint, texNombre, texNombrec } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -41,7 +42,7 @@ export default function OrdreDeGrandeur () {
         }
       ]
     }
-    if (this.interactif) {
+    if (!context.isAmc) {
       texte += propositionsQcm(this, 0).texte
     }
     const texteCorr = `$${texNombrec(a * 100 + b * 10 + c)} \\times ${d} = ${texNombre(resultat)}$`
