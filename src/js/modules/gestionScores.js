@@ -170,7 +170,7 @@ export default function gestionScores () {
           document.getElementById('scoresFeedbackHeader').innerHTML = 'Espace scores - Création validée'
           document.getElementById('scoresFeedbackBody').innerHTML = `
               Vos fichiers seront enregistrés à cette adresse : <br>
-              <a href="${myResponseJson.url}" target="_blank">${window.location.href.split('?')[0] + myResponseJson.url.substr(1)}</a><br>
+              <a href="${myResponseJson.url}" target="_blank">https://coopmaths.fr/${myResponseJson.url.substr(2)}</a><br>
               <b>Conservez la précieusement.</b><br>
               Vous pourrez y ajouter des éléments en utilisant le code prof suivant : <b>${myResponseJson.userId}</b>
             `
