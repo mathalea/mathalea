@@ -35,6 +35,7 @@ export default function ExerciceEquation1 () {
   this.sup = true // Avec des nombres relatifs
   this.sup2 = 4 // Choix du type d'équation
   this.nbQuestions = 6
+  this.listePackages = 'bclogo'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
