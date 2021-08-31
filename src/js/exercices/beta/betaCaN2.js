@@ -4,7 +4,7 @@ import {
   ecritureAlgebrique,
   calcul, texteEnCouleur, texteEnCouleurEtGras, pgcd, texNombrec, texFraction, signe, abs, listeDeNotes, prenom,
   texFractionReduite, choice, texNombre, printlatex,
-  texPrix, combinaisonListesSansChangerOrdre, range1, reduireAxPlusB, rienSi1, texRacineCarree, combinaisonListes
+  texPrix, combinaisonListesSansChangerOrdre, range1, reduireAxPlusB, rienSi1, texRacineCarree, combinaisonListes, simplificationDeFractionAvecEtapes
 } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
@@ -3115,46 +3115,35 @@ Ainsi, $DC=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
               }
               break
             case 7:// probabilités
-              N = choice(['a', 'b', 'c'])
-              if (N === 'a') {
-                texte = ` On lance deux fois de suite un dé                équilibré.<br>
-                                Quelle est la probabilité d’obtenir deux
-                fois le même nombre ?<br>
-                Donner le résultat sous la forme d'une fraction irréductible.
-                                    `
-
-                texteCorr = `Sur 36 cas possibles équiprobables, il y en a 6 qui sont des doubles. Donc la probabilité d'obtenir deux fois le même 
-                nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$.
-               `
-                setReponse(this, i, new Fraction(1, 6), { formatInteractif: 'fraction' })
-              }
-              if (N === 'b') {
-                a = randint(2, 4)
-
-                texte = ` Si on lance une pièce $${a}$ fois de suite, quelle est la probabilité d'obtenir PILE $${a}$ fois ?<br>
-                Donner le résultat sous la forme d'une fraction irréductible.
-                                      `
-
-                texteCorr = `A chaque lancer, la probabilité d'obtenir PILE est $\\dfrac{1}{2}$, donc si on lance $${a}$ fois la pièce, la probabilité 
-                d'obtenir $${a}$ PILE est $\\left(\\dfrac{1}{2}\\right)^${a}=\\dfrac{1}{${2 ** a}}$.
-                 `
-                setReponse(this, i, new Fraction(1, 2 ** a), { formatInteractif: 'fraction' })
-              }
-              if (N === 'c') {
-                a = randint(2, 4)
-
-                texte = ` On lance un dé cubique équilibré.<br>
-                Quelle est la probabilité d’obtenir un multiple de 3 ?<br>
-                Donner le résultat sous la forme d'une fraction irréductible.
-                                      `
-
-                texteCorr = `Comme il y a deux multiples de $3$, la probabilité d'ibtenir un multiple de $3$ est $\\dfrac{2}{6}=\\dfrac{1}{3}$.
-                 `
-                setReponse(this, i, new Fraction(1, 3), { formatInteractif: 'fraction' })
+              a = randint(2, 4)
+              b = choice([2, 3])
+              c = randint(2, 12)
+              p = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
+              switch (choice(['a', 'b', 'c', 'd'])) {
+                case 'a':
+                  texte = "On lance deux fois de suite un dé équilibré.<br>Quelle est la probabilité d’obtenir deux fois le même nombre ?<br>Donner le résultat sous la forme d'une fraction irréductible."
+                  texteCorr = "Sur 36 cas possibles équiprobables, il y en a 6 qui sont des doubles. Donc la probabilité d'obtenir deux fois le même nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$."
+                  setReponse(this, i, fraction(1, 6), { formatInteractif: 'fraction' })
+                  break
+                case 'b':
+                  texte = `Si on lance une pièce $${a}$ fois de suite, quelle est la probabilité d'obtenir PILE $${a}$ fois ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
+                  texteCorr = `A chaque lancer, la probabilité d'obtenir PILE est $\\dfrac{1}{2}$, donc si on lance $${a}$ fois la pièce, la probabilité d'obtenir $${a}$ fois PILE est $\\left(\\dfrac{1}{2}\\right)^${a}=\\dfrac{1}{${2 ** a}}$.`
+                  setReponse(this, i, fraction(1, 2 ** a), { formatInteractif: 'fraction' })
+                  break
+                case 'c':
+                  texte = `On lance un dé cubique équilibré.<br>Quelle est la probabilité d’obtenir un multiple de $${b}$ ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
+                  texteCorr = `Comme il y a $${5 - b}$ multiples de $${b}$, la probabilité d'ibtenir un multiple de $${b}$ est $\\dfrac{${5 - b}}{6}=\\dfrac{1}{${b}}$.`
+                  setReponse(this, i, fraction(1, b), { formatInteractif: 'fraction' })
+                  break
+                case 'd':
+                  texte = `On lance deux dés cubiques équilibrés.<br>Quelle est la probabilité d’obtenir un total de $${c}$ ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
+                  texteCorr = `Sur 36 cas possibles équiprobables, il y en a $${p[c - 2]}$ qui donnent une somme de $${c}$. Donc la probabilité d'obtenir un total de $${c}$ est $\\dfrac{${p[c - 2]}}{36}${simplificationDeFractionAvecEtapes(p[c - 2], 36)}$.`
+                  setReponse(this, i, fraction(p[c - 2], 36).simplifie(), { formatInteractif: 'fraction' })
+                  break
               }
               break
 
-            case 8:// nbre de solution d'une équation
+            case 8:// nbre de solution d'une équation (existe en question simple can2L01)
               a = randint(1, 9)
               b = randint(1, 9)
               texte = ` Combien de solutions réelles possède l'équation $-x^2+${a}=${b}$ ?<br>

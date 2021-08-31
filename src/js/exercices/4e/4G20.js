@@ -10,6 +10,8 @@ export const amcReady = true // Il reste à gérer les options numériques
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
+// Il existait une version MG32 cf le commit aba9446 https://github.com/mathalea/mathalea/commit/aba9446cb809c140f599c9a6ebd83dea0176da0f
+
 /**
  * Exercices sur le théorème de Pythagore avec MathALEA2D
  * @author Rémi Angot
@@ -26,7 +28,7 @@ export default function Pythagore2D () {
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1
-  this.typeExercice = 'Calculer'
+  this.typeDeQuestion = 'Calculer'
   this.video = 'M9sceJ8gzNc'
 
   this.nouvelleVersion = function () {
@@ -45,7 +47,7 @@ export default function Pythagore2D () {
     } else {
       this.consigne = 'Dans chaque cas, calculer la longueur manquante (si nécessaire, l\'arrondir au millimètre près).'
     }
-    if (this.sup === 2 || this.typeExercice === 'Calculer') {
+    if (this.sup === 2 || this.typeDeQuestion === 'Calculer') {
       listeTypeDeQuestions = combinaisonListes(['AB', 'BC', 'AC'], this.nbQuestions)
     }
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -76,13 +78,13 @@ export default function Pythagore2D () {
       const longueurBC = longueur(B, C, 1)
       const mesObjetsATracer = [codage, p2, nomme]
 
-      if (this.typeExercice === 'Calculer' && listeTypeDeQuestions[i] === 'AB') {
+      if (this.typeDeQuestion === 'Calculer' && listeTypeDeQuestions[i] === 'AB') {
         mesObjetsATracer.push(affAC, affBC)
       }
-      if (this.typeExercice === 'Calculer' && listeTypeDeQuestions[i] === 'BC') {
+      if (this.typeDeQuestion === 'Calculer' && listeTypeDeQuestions[i] === 'BC') {
         mesObjetsATracer.push(affAC, affAB)
       }
-      if (this.typeExercice === 'Calculer' && listeTypeDeQuestions[i] === 'AC') {
+      if (this.typeDeQuestion === 'Calculer' && listeTypeDeQuestions[i] === 'AC') {
         mesObjetsATracer.push(affAB, affBC)
       }
 
@@ -90,19 +92,62 @@ export default function Pythagore2D () {
       texte += mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, scale: 0.6, style: 'display: block' }, mesObjetsATracer)
       if (this.sup === 2) {
         if (listeTypeDeQuestions[i] === 'AB') {
-          if (this.interactif && context.isHtml) texte += `<br>$${A.nom + B.nom}^2=\\ldots$`
+          texte += `<br>$${A.nom + B.nom}^2=\\ldots$`
+          setReponse(this, i, [
+            `${B.nom + C.nom}^2-${A.nom + C.nom}^2`,
+            `${C.nom + B.nom}^2-${A.nom + C.nom}^2`,
+            `${B.nom + C.nom}^2-${C.nom + A.nom}^2`,
+            `${C.nom + B.nom}^2-${C.nom + A.nom}^2`
+          ], { formatInteractif: 'texte' })
         }
         if (listeTypeDeQuestions[i] === 'BC') {
-          if (this.interactif && context.isHtml) texte += `<br>$${B.nom + C.nom}^2=\\ldots$`
+          texte += `<br>$${B.nom + C.nom}^2=\\ldots$`
+          setReponse(this, i, [
+            `${A.nom + B.nom}^2+${A.nom + C.nom}^2`,
+            `${B.nom + A.nom}^2+${A.nom + C.nom}^2`,
+            `${A.nom + B.nom}^2+${C.nom + A.nom}^2`,
+            `${B.nom + A.nom}^2+${C.nom + A.nom}^2`,
+            //
+            `${A.nom + C.nom}^2+${A.nom + B.nom}^2`,
+            `${A.nom + C.nom}^2+${B.nom + A.nom}^2`,
+            `${C.nom + A.nom}^2+${A.nom + B.nom}^2`,
+            `${C.nom + A.nom}^2+${B.nom + A.nom}^2`
+          ], { formatInteractif: 'texte' })
         }
         if (listeTypeDeQuestions[i] === 'AC') {
-          if (this.interactif && context.isHtml) texte += `<br>$${A.nom + C.nom}^2=\\ldots$`
+          setReponse(this, i, [
+            `${B.nom + C.nom}^2-${A.nom + B.nom}^2`,
+            `${C.nom + B.nom}^2-${A.nom + B.nom}^2`,
+            `${B.nom + C.nom}^2-${B.nom + A.nom}^2`,
+            `${C.nom + B.nom}^2-${B.nom + A.nom}^2`
+          ], { formatInteractif: 'texte' })
+          texte += `<br>$${A.nom + C.nom}^2=\\ldots$`
         }
       }
       if (!context.isHtml && !context.isAmc && i !== this.nbQuestions - 1) { texte += '\\columnbreak' } // pour la sortie LaTeX sauf la dernière question
 
       texteCorr = `Le triangle $${nomDuPolygone}$ est rectangle en $${A.nom}$ donc d'après le théorème de Pythagore, on a : `
       texteCorr += `$${B.nom + C.nom}^2=${A.nom + B.nom}^2+${A.nom + C.nom}^2$`
+      if (this.typeDeQuestion === '' && this.sup === 1) {
+        setReponse(this, i, [
+        `${B.nom + C.nom}^2=${A.nom + B.nom}^2+${A.nom + C.nom}^2`,
+        `${C.nom + B.nom}^2=${A.nom + B.nom}^2+${A.nom + C.nom}^2`,
+        `${B.nom + C.nom}^2=${B.nom + A.nom}^2+${A.nom + C.nom}^2`,
+        `${C.nom + B.nom}^2=${B.nom + A.nom}^2+${A.nom + C.nom}^2`,
+        `${B.nom + C.nom}^2=${A.nom + B.nom}^2+${C.nom + A.nom}^2`,
+        `${C.nom + B.nom}^2=${A.nom + B.nom}^2+${C.nom + A.nom}^2`,
+        `${B.nom + C.nom}^2=${B.nom + A.nom}^2+${C.nom + A.nom}^2`,
+        `${C.nom + B.nom}^2=${B.nom + A.nom}^2+${C.nom + A.nom}^2`,
+        //
+        `${B.nom + C.nom}^2=${A.nom + C.nom}^2+${A.nom + B.nom}^2`,
+        `${C.nom + B.nom}^2=${A.nom + C.nom}^2+${A.nom + B.nom}^2`,
+        `${B.nom + C.nom}^2=${A.nom + C.nom}^2+${B.nom + A.nom}^2`,
+        `${C.nom + B.nom}^2=${A.nom + C.nom}^2+${B.nom + A.nom}^2`,
+        `${B.nom + C.nom}^2=${C.nom + A.nom}^2+${A.nom + B.nom}^2`,
+        `${C.nom + B.nom}^2=${C.nom + A.nom}^2+${A.nom + B.nom}^2`,
+        `${B.nom + C.nom}^2=${C.nom + A.nom}^2+${B.nom + A.nom}^2`,
+        `${C.nom + B.nom}^2=${C.nom + A.nom}^2+${B.nom + A.nom}^2`], { formatInteractif: 'texte' })
+      }
       if (this.sup === 2) {
         if (listeTypeDeQuestions[i] === 'AB') {
           texteCorr += ` d'où $${A.nom + B.nom}^2=${B.nom + C.nom}^2-${A.nom + C.nom}^2$.`
@@ -114,7 +159,7 @@ export default function Pythagore2D () {
           texteCorr += ` d'où $${A.nom + C.nom}^2=${B.nom + C.nom}^2-${A.nom + B.nom}^2$.`
         }
       }
-      if (this.typeExercice === 'Calculer') {
+      if (this.typeDeQuestion === 'Calculer') {
         if (listeTypeDeQuestions[i] === 'AB') {
           let AB
           texteCorr += ` donc $${A.nom + B.nom}^2=${B.nom + C.nom}^2-${A.nom + C.nom}^2$`
@@ -162,6 +207,8 @@ export default function Pythagore2D () {
           }
           context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'longueur' })
         }
+      } else {
+        texte += ajouteChampTexteMathLive(this, i)
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

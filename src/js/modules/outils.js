@@ -7390,6 +7390,7 @@ export function exportQcmAmc (exercice, idExo) {
           propositions = prop.propositions
           switch (qrType) {
             case 'qcmMono':
+             
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'
@@ -7404,6 +7405,11 @@ export function exportQcmAmc (exercice, idExo) {
                 }
               }
               texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+              if (propositions[0].reponse !== undefined) {
+                if (propositions[0].reponse.texte) {
+                  texQr += propositions[0].reponse.texte + '\n'
+                }
+              }
               texQr += `\t\\begin{${horizontalite}}`
               if (ordered) {
                 texQr += '[o]'

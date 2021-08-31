@@ -173,9 +173,9 @@ if ($contentType === "application/json") {
         $sep = ';';
         // S'il n'existe pas on crée l'entete et on ajoute les données
         if (strlen(file_get_contents($fileNameToSaveDatas))==0) {
-          fputs($fp, "Semaine".$sep."Identifiant utilisateur".$sep."Course aux nombres ?".$sep."Identifiant exercice".$sep."Niveau sup".$sep."Niveau sup2".$sep."Niveau sup3".$sep."Url des exos".$sep."Nombre de bonnes réponses".$sep."Nombre de questions".$sep."Score en %;Date".$sep."Heure \r\n");  
+          fputs($fp, "Semaine".$sep."Identifiant utilisateur".$sep."Course aux nombres ?".$sep."Identifiant exercice".$sep."Niveau sup".$sep."Niveau sup2".$sep."Niveau sup3".$sep."Url des exos".$sep."Nombre de bonnes réponses".$sep."Nombre de questions".$sep."Score en %".$sep."Date".$sep."Heure".$sep."Durée \r\n");  
         };
-        fputs($fp, 'semaine'.$currentWeek.$sep.$decoded->userId.$sep.$decoded->isCan.$sep.$decoded->exId.$sep.$decoded->sup.$sep.$decoded->sup2.$sep.$decoded->sup3.$sep.$decoded->urlExos.$sep.$decoded->nbBonnesReponses.$sep.$decoded->nbQuestions.$sep.$decoded->score.'%'.$sep.$currentDate.$sep.$currentTime."\r\n");  
+        fputs($fp, 'semaine'.$currentWeek.$sep.$decoded->userId.$sep.$decoded->isCan.$sep.$decoded->exId.$sep.$decoded->sup.$sep.$decoded->sup2.$sep.$decoded->sup3.$sep.$decoded->urlExos.$sep.$decoded->nbBonnesReponses.$sep.$decoded->nbQuestions.$sep.$decoded->score.'%'.$sep.$currentDate.$sep.$currentTime.$sep.$decoded->duree."\r\n");  
         fclose($fp);
       };
       

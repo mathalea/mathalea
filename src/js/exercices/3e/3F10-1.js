@@ -97,7 +97,7 @@ export default function VocabulaireNotationsFonctions () {
               break
             case 4:
               m = randint(-9, 9, [x, y])
-              enonce = `On sait que $f(${x})=f(${y})=m$, alors pour la fonction $f$ :`
+              enonce = `On sait que $f(${x})=f(${y})=${m}$, alors pour la fonction $f$ :`
               reponses[i] = [[`$${x}$ et $${y}$ sont des antécédents de $${m}$`, true], [`$${m}$ est l'image de $${x}$ et de $${y}$`, true], [`$${x}$ et $${y}$ sont des images de $${m}$`, false], [`$${m}$ est un antécédent de $${x}$ et $${y}$`, false]]
               break
           }
