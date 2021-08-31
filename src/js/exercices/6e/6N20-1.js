@@ -49,6 +49,7 @@ export default function EncadrerFractionEntre2Entiers () {
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: texte,
+            options: { multicols: true },
             propositions: [
               {
                 type: 'AMCNum',
