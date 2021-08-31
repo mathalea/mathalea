@@ -443,7 +443,6 @@ export function elimineDoublons (propositions) { // fonction qui va éliminer le
  * @param {object} exercice
  */
 export function exerciceNumerique (exercice) {
-  // console.log('Dans ExerciceNumerique : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
   document.addEventListener('exercicesAffiches', () => {
     if (getVueFromUrl() === 'can') {
       gestionCan(exercice)
