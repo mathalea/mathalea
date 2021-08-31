@@ -6,7 +6,7 @@ import { addElement, get, setStyles } from './dom.js'
 import { ComputeEngine, parse } from '@cortex-js/math-json'
 import Fraction from './Fraction.js'
 import Grandeur from './Grandeur.js'
-import { getUserIdFromUrl, getVueFromUrl } from './gestionUrl.js'
+import { getDureeFromUrl, getUserIdFromUrl, getVueFromUrl } from './gestionUrl.js'
 
 export function exerciceInteractif (exercice) {
   // passage amsType num à string cf commit 385b5ea
@@ -668,11 +668,21 @@ function saisieToGrandeur (saisie) {
  */
 
 function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
-  // TODO
-  // => OK => vérifier si le paramètre existe dans l'url
+  // => vérifier si le paramètre existe dans l'url : OK
   // il a pu être entré manuellement
   // agir en fonction pour les enregistrements
   const userId = getUserIdFromUrl() // ne renvoit pas ce que je veux, en fait si ??? bizarre
+  // TODO => gérer un chrono à partir du serveur si on est en mode chrono
+  // Pour le moment je l'ajoute aux csv avec un string 'à venir'
+  let duree = null
+  if (context.duree) {
+    // duree = getDureeFromUrl() // Pour quand ce sera fait
+    duree = 'à venir'
+    console.log('context duree : ' + duree)
+  } else {
+    duree = 'à venir'
+    console.log('pas context duree : ' + duree)
+  }
   // const str = window.location.href
   // const url = new URL(str)
   // const userId = url.searchParams.get('userId')
@@ -705,7 +715,8 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
         sup3: exercice.sup3,
         nbBonnesReponses: nbBonnesReponses,
         nbQuestions: nbBonnesReponses + nbMauvaisesReponses,
-        score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100
+        score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100,
+        duree: duree
       })
     })
     if (!response.ok) {
