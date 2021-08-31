@@ -3800,50 +3800,6 @@ export default {
     ],
     "name": "betaCan2G01"
   },
-  "betaCan2G02": {
-    "titre": "Aire et carré",
-    "url": "/exercices/beta/betaCan2G02.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCan2G02"
-  },
-  "betaCan2G03": {
-    "titre": "Périmètre d’une figure",
-    "url": "/exercices/beta/betaCan2G03.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCan2G03"
-  },
-  "betaCan2G04": {
-    "titre": "Agrandissement/réduction",
-    "url": "/exercices/beta/betaCan2G04.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCan2G04"
-  },
-  "betaCan2G05": {
-    "titre": "Agrandissement/réduction avec fraction",
-    "url": "/exercices/beta/betaCan2G05.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCan2G05"
-  },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
     "url": "/exercices/beta/betaCaNCM2.js",
@@ -4155,6 +4111,17 @@ export default {
     "interactifReady": false,
     "name": "c3N23"
   },
+  "can2G01": {
+    "titre": "Agrandissement/réduction avec fraction",
+    "url": "/exercices/can/2e/can2G01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G01"
+  },
   "can2L01": {
     "titre": "Nombre de solutions de l’équation $-x^2+a=b$",
     "url": "/exercices/can/2e/can2L01.js",
@@ -4209,6 +4176,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3C03"
+  },
+  "can3C04": {
+    "titre": "Somme Entier et fraction à réduire",
+    "url": "/exercices/can/3e/can3C04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C04"
   },
   "can3E01": {
     "titre": "Calcul de volume 3e",
@@ -4265,6 +4243,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can3F04"
   },
+  "can3G01": {
+    "titre": "Agrandissement/réduction",
+    "url": "/exercices/can/3e/can3G01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3G01"
+  },
   "can3L1": {
     "titre": "Équation ax=b",
     "url": "/exercices/can/3e/can3L1.js",
@@ -4308,6 +4297,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3S01"
+  },
+  "can4G01": {
+    "titre": "Aire et carré",
+    "url": "/exercices/can/4e/can4G01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G01"
   },
   "can4L01": {
     "titre": "Résoudre une équation niveau 1",
@@ -4812,6 +4812,28 @@ export default {
     "interactifType": "mathLive",
     "name": "can6M04"
   },
+  "can6M05": {
+    "titre": "Conversions m$^3$ et litres",
+    "url": "/exercices/can/6e/can6M05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6M05"
+  },
+  "can6M06": {
+    "titre": "Périmètre d’une figure",
+    "url": "/exercices/can/6e/can6M06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6M06"
+  },
   "can6N01": {
     "titre": "Recomposition entier",
     "url": "/exercices/can/6e/can6N01.js",
@@ -4855,6 +4877,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N04"
+  },
+  "can6N05": {
+    "titre": "Chiffre des ...",
+    "url": "/exercices/can/6e/can6N05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N05"
   },
   "can6P01": {
     "titre": "Proportionnalité simple",
@@ -4921,39 +4954,6 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "canPredef6-3"
-  },
-  "can3C04": {
-    "titre": "Somme Entier et fraction à réduire",
-    "url": "/exercices/can/can3C04.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "can3C04"
-  },
-  "can6M05": {
-    "titre": "Conversions m^3 et litres",
-    "url": "/exercices/can/can6M05.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "can6M05"
-  },
-  "can6N05": {
-    "titre": "Chiffre des ...",
-    "url": "/exercices/can/can6N05.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "can6N05"
   },
   "CM000": {
     "titre": "Additions et de soustractions",

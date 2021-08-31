@@ -1,7 +1,7 @@
-import { calcul, choice, creerNomDePolygone, randint, texNombrec } from '../../../modules/outils'
+import { calcul, creerNomDePolygone, randint, texNombrec } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 import {
-  mathalea2d, tracePoint, point, milieu, segment, latexParCoordonnees, pointAdistance, longueur, cercle, pointIntersectionCC, polygoneAvecNom
+  mathalea2d, tracePoint, point, milieu, latexParCoordonnees, pointAdistance, longueur, cercle, pointIntersectionCC, polygoneAvecNom
 } from '../../../modules/2d.js'
 export const titre = 'Périmètre d’une figure'
 export const interactifReady = true

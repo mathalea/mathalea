@@ -190,10 +190,6 @@
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
 |betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
-|betaCan2G02|Aire et carré|OK|AMCNum|OK|mathLive|
-|betaCan2G03|Périmètre d’une figure|OK|AMCNum|OK|mathLive|
-|betaCan2G04|Agrandissement/réduction|OK|AMCNum|OK|mathLive|
-|betaCan2G05|Agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
@@ -204,20 +200,24 @@
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |c3N20|Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
 |c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
+|can2G01|Agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
 |can2L01|Nombre de solutions de l’équation $-x^2+a=b$|OK|AMCNum|OK|mathLive|
 |can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
 |can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
 |can3C02|Moyenne entière de trois décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Fraction irréductible|OK|AMCNum|OK|mathLive|
+|can3C04|Somme Entier et fraction à réduire|OK|AMCNum|OK|mathLive|
 |can3E01|Calcul de volume 3e|OK|AMCNum|OK|mathLive|
 |can3F01|Lecture graphique|OK|AMCNum|OK|mathLive|
 |can3F02|Calcul d’image ou d’antécédent niveau 1|OK|AMCNum|OK|mathLive|
 |can3F03|Calcul d’image ou d’antécédent niveau 2|OK|AMCNum|OK|mathLive|
 |can3F04|Calcul d’image niveau 3|OK|AMCNum|OK|mathLive|
+|can3G01|Agrandissement/réduction|OK|AMCNum|OK|mathLive|
 |can3L1|Équation ax=b|OK|AMCNum|OK|mathLive|
 |can3L2|Équation ax+b=0|OK|AMCNum|OK|mathLive|
 |can3L3|Équation ax+b=c|OK|AMCNum|OK|mathLive|
 |can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
+|can4G01|Aire et carré|OK|AMCNum|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
 |can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
 |can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
@@ -264,19 +264,19 @@
 |can6M02|La bonne unité|OK|qcmMono|OK|qcm|
 |can6M03|Conversions en mètres|OK|AMCNum|OK|mathLive|
 |can6M04|Conversions en tous sens|OK|AMCNum|OK|mathLive|
+|can6M05|Conversions m$^3$ et litres|OK|AMCNum|OK|mathLive|
+|can6M06|Périmètre d’une figure|OK|AMCNum|OK|mathLive|
 |can6N01|Recomposition entier|OK|AMCNum|OK|mathLive|
 |can6N02|Recomposition entier simple|OK|AMCNum|OK|mathLive|
 |can6N03|Recomposition entier moins simple|OK|AMCNum|OK|mathLive|
 |can6N04|Abscisse fractionnaire|OK|AMCHybride|OK|mathLive|
+|can6N05|Chiffre des ...|OK|AMCHybride|OK|mathLive|
 |can6P01|Proportionnalité simple|OK|AMCNum|OK|mathLive|
 |can6P02|Proportionnalité compliquée|OK|AMCNum|OK|mathLive|
 |can6P03|Question de vitesse|OK|AMCNum|OK|mathLive|
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |can6S01|Lecture de diagramme en barres|OK|AMCNum|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
-|can3C04|Somme Entier et fraction à réduire|OK|AMCNum|OK|mathLive|
-|can6M05|Conversions m^3 et litres|OK|AMCNum|OK|mathLive|
-|can6N05|Chiffre des ...|OK|AMCHybride|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
