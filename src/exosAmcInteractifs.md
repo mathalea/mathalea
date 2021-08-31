@@ -196,6 +196,8 @@
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |c3N20|Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
 |c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
+|can2L01|Nombre de solutions de l’équation $-x^2+a=b$|OK|AMCNum|OK|mathLive|
+|can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
 |can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
 |can3C02|Moyenne entière de trois décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Fraction irréductible|OK|AMCNum|OK|mathLive|
@@ -210,8 +212,6 @@
 |can3L3|Équation ax+b=c|OK|AMCNum|OK|mathLive|
 |can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
-|can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
-|can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
 |can5C01|Produit de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Somme de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C03|Différence de nombres entiers|OK|AMCNum|OK|mathLive|
@@ -225,6 +225,7 @@
 |can5C11|Différence négative|OK|AMCNum|OK|mathLive|
 |can5D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
+|canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |can6C01|Ordre de grandeur|OK|qcmMono|OK|qcm|
 |can6C02|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
 |can6C03|Addition à trou|OK|AMCNum|OK|mathLive|
@@ -265,7 +266,6 @@
 |can6P03|Question de vitesse|OK|AMCNum|OK|mathLive|
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |can6S01|Lecture de diagramme en barres|OK|AMCNum|OK|mathLive|
-|canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|numerique|
