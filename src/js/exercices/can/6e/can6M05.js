@@ -1,5 +1,5 @@
-import { calcul, choice, randint, texNombre } from '../../modules/outils'
-import Exercice from '../Exercice'
+import { calcul, choice, randint, texNombre } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 export const titre = 'Conversions m^3 et litres'
 export const interactifReady = true
 export const interactifType = 'mathLive'

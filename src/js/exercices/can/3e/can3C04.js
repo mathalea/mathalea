@@ -1,6 +1,6 @@
-import { fraction } from '../../modules/fractions'
-import { obtenirListeFractionsIrreductibles, choice, texFraction, randint } from '../../modules/outils'
-import Exercice from '../Exercice'
+import { fraction } from '../../../modules/fractions'
+import { obtenirListeFractionsIrreductibles, choice, texFraction, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 export const titre = 'Somme Entier et fraction à réduire'
 export const interactifReady = true
 export const interactifType = 'mathLive'

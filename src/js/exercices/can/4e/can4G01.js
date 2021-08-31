@@ -1,5 +1,5 @@
-import { choice, randint } from '../../modules/outils'
-import Exercice from '../Exercice'
+import { choice, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 export const titre = 'Aire et carré'
 export const interactifReady = true
 export const interactifType = 'mathLive'

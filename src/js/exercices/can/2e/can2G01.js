@@ -1,6 +1,6 @@
-import { choice } from '../../modules/outils'
-import Exercice from '../Exercice'
-import Fraction from '../../modules/Fraction.js'
+import { choice } from '../../../modules/outils'
+import Exercice from '../../Exercice'
+import Fraction from '../../../modules/Fraction.js'
 export const titre = 'Agrandissement/réduction avec fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
