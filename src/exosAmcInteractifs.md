@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 241 
-- nombre d'exos interactifReady 275 
+- nombre d'exos amcReady 244 
+- nombre d'exos interactifReady 278 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -157,6 +157,7 @@
 |6N11-2|Placer un point d’abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
 |6N11|Lire l’abscisse entière d’un point (grands nombres)|OK|AMCOpen|OK|mathLive|
 |6N13|Conversions de longueurs, masses, contenance, prix ou unités informatiques|OK|AMCNum|OK|mathLive|
+|6N20-1|Encadrer une fraction entre deux nombres entiers|OK|AMCHybride|OK|mathLive|
 |6N20-2|Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.|KO|KO|OK|mathLive|
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1).|KO|KO|OK|mathLive|
 |6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
@@ -231,6 +232,8 @@
 |can3L3|Équation ax+b=c|OK|AMCNum|OK|mathLive|
 |can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
+|can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
+|can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
 |can5C01|Produit de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Somme de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C03|Différence de nombres entiers|OK|AMCNum|OK|mathLive|
