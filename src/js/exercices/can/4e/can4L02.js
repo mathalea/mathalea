@@ -1,5 +1,5 @@
-import ExerciceEquationASolutionEntiere from '../4e/4L20-0.js'
-export { interactifReady, interactifType, amcReady, amcType } from '../4e/4L20-0.js'
+import ExerciceEquationASolutionEntiere from '../../4e/4L20-0.js'
+export { interactifReady, interactifType, amcReady, amcType } from '../../4e/4L20-0.js'
 export const titre = 'Résoudre une équation niveau 2'
 
 /*!
