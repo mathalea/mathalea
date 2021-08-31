@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { premiereLettreEnMajuscule, texcolors, combinaisonListes, choice, randint, listeQuestionsToContenu, numAlpha } from '../../modules/outils.js'
+import { premiereLettreEnMajuscule, texcolors, combinaisonListes, choice, randint, listeQuestionsToContenu, numAlpha, calcul } from '../../modules/outils.js'
 import { traceGraphiqueCartesien, segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere2, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
@@ -50,7 +50,7 @@ export default function LireUnDiagramme () {
     let lstVal = [] // liste des valeurs à éviter pour les effectifs
 
     let paramsEnonce, coef, r, lstElementGraph, g
-    let reponse1, reponse2, nbMin, nbMax, monQcm1, monQcm2
+    let reponse1, reponse2, nbMin, nbMax, monQcm1, monQcm2, monQcm3
     let objets
     const lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
     const lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan',
@@ -237,29 +237,50 @@ export default function LireUnDiagramme () {
       reponse2 = lstAnimauxExo[lstNombresAnimaux.indexOf(nbMax)]
       texte += mathalea2d(paramsEnonce, objets)
       if (context.isAmc) {
-        texte += `<br>${numAlpha(0)} Quel est l'animal le moins nombreux parmi ces espèces ?`
-        texte += `<br>${numAlpha(1)} Quel est l'animal le plus nombreux parmi ces espèces ?`
+        texte += `<br>${numAlpha(0)} Quelle est l'espèce la moins nombreuse ?`
+        texte += `<br>${numAlpha(1)} Quelle est l'espèce la plus nombreuse ?`
+        texte += `<br>${numAlpha(2)} L'espèce la plus nombreuse représente ?`
       }
       if (!context.isAmc) {
-        this.autoCorrection[q * 2].propositions = []
+        this.autoCorrection[q * 3].propositions = []
         for (let i = 0; i < nbAnimaux; i++) {
-          this.autoCorrection[q * 2].propositions.push({
+          this.autoCorrection[q * 3].propositions.push({
             texte: `${lstAnimauxExo[i]}`,
             statut: reponse1 === lstAnimauxExo[i]
           })
         }
-        this.autoCorrection[q * 2 + 1].propositions = []
+        this.autoCorrection[q * 3 + 1].propositions = []
         for (let i = 0; i < nbAnimaux; i++) {
           this.autoCorrection[q * 2 + 1].propositions.push({
             texte: `${lstAnimauxExo[i]}`,
             statut: reponse2 === lstAnimauxExo[i]
           })
         }
-        this.autoCorrection[q * 2].options = {}
-        this.autoCorrection[q * 2 + 1].options = {}
+        this.autoCorrection[q * 3 + 2].propositions = []
+        this.autoCorrection[q * 3 + 2].propositions = [{
+          texte: 'Plus de la moitié des animaux',
+          statut: nbMax > effectiftotal / 2
+        },
+        {
+          texte: 'Moins de la moitié des animaux',
+          statut: nbMax < effectiftotal / 2
+        },
+        {
+          texte: 'La moitié des animaux',
+          statut: nbMax === calcul(effectiftotal / 2)
+        }
+        ]
+        this.autoCorrection[q * 3].options = {}
+        this.autoCorrection[q * 3 + 1].options = {}
+        this.autoCorrection[q * 3 + 2].options = {}
       } else {
         this.autoCorrection[q].enonce = `${texte}\n`
         this.autoCorrection[q].propositions = [
+          {
+            type: 'qcmMono',
+            propositions: [],
+            options: {}
+          },
           {
             type: 'qcmMono',
             propositions: [],
@@ -282,16 +303,33 @@ export default function LireUnDiagramme () {
             reponse: i === 0 ? { texte: 'b) Les plus nombreux :' } : {}
           })
         }
+        this.autoCorrection[q].propositions[2].propositions = [{
+          texte: 'Plus de la moitié des animaux',
+          statut: nbMax > effectiftotal / 2,
+          reponse: { texte: 'c) Part de l’espèce la plus nombreuse :' }
+        },
+        {
+          texte: 'Moins de la moitié des animaux',
+          statut: nbMax < effectiftotal / 2
+        },
+        {
+          texte: 'La moitié des animaux',
+          statut: nbMax === calcul(effectiftotal / 2)
+        }
+        ]
         this.autoCorrection[q].propositions[0].options = { ordered: true }
         this.autoCorrection[q].propositions[1].options = { ordered: false }
       }
-      monQcm1 = propositionsQcm(this, q * 2)
-      monQcm2 = propositionsQcm(this, q * 2 + 1)
+      monQcm1 = propositionsQcm(this, q * 3)
+      monQcm2 = propositionsQcm(this, q * 3 + 1)
+      monQcm3 = propositionsQcm(this, q * 3 + 2)
       if (!context.isAmc) {
-        texte += `<br>${numAlpha(0)} Quel est l'animal le moins nombreux parmi ces espèces ?` + monQcm1.texte
-        texte += `<br>${numAlpha(1)} Quel est l'animal le plus nombreux parmi ces espèces ?` + monQcm2.texte
+        texte += `<br>${numAlpha(0)} Quelle est l'espèce la moins nombreuse ?` + monQcm1.texte
+        texte += `<br>${numAlpha(1)} Quelle est l'espèce la plus nombreuse ?` + monQcm2.texte
+        texte += `<br>${numAlpha(2)} L'espèce la plus nombreuse représente ?` + monQcm3.texte
         texteCorr = `<br>${numAlpha(0)} L'animal le moins nombreux parmi ces espèces est : ` + monQcm1.texteCorr
         texteCorr += `<br>${numAlpha(1)} L'animal le plus nombreux parmi ces espèces est :` + monQcm2.texteCorr
+        texteCorr += `<br>${numAlpha(2)} L'animal le plus nombreux parmi ces espèces est :` + monQcm3.texteCorr
       }
 
       if (this.questionJamaisPosee(q, ...lstNombresAnimaux, effectiftotal)) {
