@@ -10,6 +10,8 @@ export const amcReady = true // Il reste à gérer les options numériques
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
+// Il existait une version MG32 cf le commit aba9446 https://github.com/mathalea/mathalea/commit/aba9446cb809c140f599c9a6ebd83dea0176da0f
+
 /**
  * Exercices sur le théorème de Pythagore avec MathALEA2D
  * @author Rémi Angot
