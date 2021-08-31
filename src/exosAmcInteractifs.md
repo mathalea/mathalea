@@ -211,8 +211,8 @@
 |betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
-|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
+|betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|numerique|
 |c3C10-4|Tables d’addition|OK|AMCNum|OK|numerique|
 |c3C11|Divisions euclidiennes|OK|AMCOpen|OK|mathLive|
