@@ -1,3 +1,4 @@
+import { context } from '../../../modules/context'
 import { propositionsQcm } from '../../../modules/gestionInteractif'
 import { enleveElement, listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
