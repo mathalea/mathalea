@@ -30,7 +30,7 @@ export default function Pythagore2D () {
   this.nbColsCorr = 1
   this.typeDeQuestion = 'Calculer'
   this.video = 'M9sceJ8gzNc'
-  this.besoinFormulaire2Texte = ['Côté manquant', '1 : Hypoténuse.\n2 : Côté de l\'angle droit.\n3 : Les deux.']
+  this.besoinFormulaire2Texte = ['Côté', '1 : Hypoténuse.\n2 : Côté de l\'angle droit.\n3 : Les deux.']
 
   this.nouvelleVersion = function () {
     if (this.sup) {
