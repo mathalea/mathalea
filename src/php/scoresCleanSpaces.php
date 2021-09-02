@@ -23,12 +23,17 @@ $scoresDir = "resultats"; // Pour le repertoire de stockage des espaces de score
 // Temporairement mis à 1 jour (86 400 secondes)
 $intervalBeforeDelete = 31557600; // Temps en secondes avant remise à zero des espaces de scores
 // En fait la fonction filectime() renvoie la date de la dernière modif de l'inode donc si on crée un nouveau sous-dossier l'inode change
-// filemtime() permet-t-il de corriger le problème ? Il semblerait que oui ...
-$deleteDay = intval(date('d',filemtime($scoresDir)));
-$deleteMonth = intval(date('m',filemtime($scoresDir)));
-$deleteYear = intval(date('Y',filemtime($scoresDir)+$intervalBeforeDelete));
-$deleteNextDate = date('d / m / Y à H:i:s ',filemtime($scoresDir)+$intervalBeforeDelete);
-$timeSinceCreation = (time() - filemtime($scoresDir));
+// filemtime() permet-t-il de corriger le problème ? Il semblerait que oui ... et non !
+// Et avec un timestamp dans un fichier ? On ajoute ce timestamp au moment de la création des vips
+$f = fopen($scoresDir.'/iScleanUpNeeded.txt',"r");  
+// On récupère la date de création du dossier père
+$dateOfcreation = fgets($f);
+fclose($f);
+$deleteDay = intval(date('d',$dateOfcreation)); //intval(date('d',filemtime($scoresDir)));
+$deleteMonth = intval(date('m',$dateOfcreation)); //intval(date('m',filemtime($scoresDir)));
+$deleteYear = intval(date('Y',$dateOfcreation+$intervalBeforeDelete)); // intval(date('Y',filemtime($scoresDir)+$intervalBeforeDelete));
+$deleteNextDate = date('d / m / Y à H:i:s ',$dateOfcreation+$intervalBeforeDelete); //date('d / m / Y à H:i:s ',filemtime($scoresDir)+$intervalBeforeDelete);
+$timeSinceCreation = (time() - $dateOfcreation); //(time() - filemtime($scoresDir));
 $currentDay = intval(date('d'));
 $currentMonth = intval(date('m'));
 $currentYear = intval(date('Y'));
@@ -156,8 +161,11 @@ function createVipScoresSpaces($pathToJson) {
     mkdir($GLOBALS["scoresDir"],0775, true);
     // On crée un fichier à la racine du répertoire pour savoir si on doit mettre à jour les index
     // On y stocke le date de la dernière modif du fichier qui génère les index
-    $f = fopen($GLOBALS["scoresDir"].'/iSIndexUpdateNeeded.txt',"w+");
+    $f = fopen($GLOBALS["scoresDir"].'/iSindexUpdateNeeded.txt',"w+");
     fputs($f,filectime("scoresTools.php").PHP_EOL);
+    fclose($f);
+    $f = fopen($GLOBALS["scoresDir"].'/iScleanUpNeeded.txt',"w+");
+    fputs($f,filectime($GLOBALS["scoresDir"]).PHP_EOL);
     fclose($f);
     // On crée les espaces VIPs
     foreach ($vips as $vip) {
@@ -206,7 +214,7 @@ function recursiveRmdir($dir) {
 $deleteBool = ($currentDay >= $deleteDay && $currentMonth >= $deleteMonth && $currentYear <= $deleteYear && $deletePathToDo) || !is_dir($scoresDir);
 
 // Condition de mise à jour des index des espaces scores
-$f = fopen($GLOBALS["scoresDir"].'/iSIndexUpdateNeeded.txt',"r");  
+$f = fopen($GLOBALS["scoresDir"].'/iSindexUpdateNeeded.txt',"r");  
 // On récupère la date de dernière modif du fichier qui génère les index
 $firstLine = fgets($f);
 fclose($f); 
@@ -223,17 +231,12 @@ if ($deleteBool) {
   // On teste s'il faut mettre à jour les index des espaces scores  
   if ($iSindexUpdateNeeded) {    
     // Si c'est le cas on modifie la date de dernière modif stockée dans le fichier
-    $f = fopen($GLOBALS["scoresDir"].'/iSIndexUpdateNeeded.txt',"w+");    
+    $f = fopen($GLOBALS["scoresDir"].'/iSindexUpdateNeeded.txt',"w+");    
     fputs($f,filectime("scoresTools.php").PHP_EOL);
     fclose($f);
     // On réécrit tous les index des espaces scores existants sans toucher aux fichiers stockés sur le serveur
     $pathsToIndexes = getAllScoresScpaces('resultats');
-    $decodedPathsToIndexes = json_decode($pathsToIndexes);  
-    // $f = fopen($GLOBALS["scoresDir"].'/iSIndexUpdateNeeded.txt',"a+");    
-    // foreach ($decodedPathsToIndexes as $index) {
-    //   fputs($f,$GLOBALS["scoresDir"].'/'.$index->codeProf[0].'/'.$index->codeProf[1].'/'.$index->codeProf[2].'/'.$index->md5Key.PHP_EOL);
-    // }    
-    // fclose($f);      
+    $decodedPathsToIndexes = json_decode($pathsToIndexes);       
     // On supprime tous les index des espaces scores existants
     // On les recrée dans la foulée avec la fonction createIndexScores($path,$codeProf);
     foreach ($decodedPathsToIndexes as $index) {
