@@ -66,7 +66,7 @@ function mailUrlToVips($pathToJson) {
   foreach ($vips as $vip) {
     if ($vip->isEmailOk) {
       //Création du boundary (frontière dans l'email genere
-      $boundary = "==========================================================";
+      $boundary = "==================================================================================";
       //FIN Création du boundary
   
       //Création du header de l'e-mail
@@ -102,13 +102,18 @@ function mailUrlToVips($pathToJson) {
 
   
 
-      $email_message .= "CECI EST UN COMMUNIQUÉ DU MASSILIA SOUND SYSTEM<br>";
+      $email_message .= "CECI EST UN COMMUNIQUÉ AUTOMATIQUE DU MASSILIA SOUND SYSTEM<br>";
       $email_message .= $passage_ligne.$boundary.$passage_ligne."<br>";  
       $email_message .= "Origine du message : site COOPMATHS <a href=\"https://coopmaths.fr/\" target=\"_blank\">https://coopmaths.fr/</a><br>";
       $email_message.= $passage_ligne.$boundary.$passage_ligne."<br>";
 
       $email_message .= "Namasté <b>".$vip->nom."</b>,<br><br>";
-      $email_message .= "Les espaces de scores viennent d'être remis à zéro.<br>";
+      $email_message .= "Tu reçois pour l'une des raisons suivantes :";
+      $email_message .= "<ul>
+      <li>Les espaces de scores viennent d'être remis à zéro.</li>
+      <li>On vient d'accueillir un nouveau VIP ! &#x1F60E;</li>
+      <li>Une raison inconnue ! &#x1F914;</li>
+      </ul>";
       $email_message .= "Tu pourras retrouver tes fichiers enregistrés à l'url de ton espace scores : <br>      
         <a href=\"https://coopmaths.fr/".$GLOBALS["scoresDir"].'/'.$vip->codeProf[0].'/'.$vip->codeProf[1].'/'.$vip->codeProf[2].'/'.$vip->md5Key."\" target=\"_blank\">
         https://coopmaths.fr/".$GLOBALS["scoresDir"].'/'.$vip->codeProf[0].'/'.$vip->codeProf[1].'/'.$vip->codeProf[2].'/'.$vip->md5Key."
@@ -117,6 +122,7 @@ function mailUrlToVips($pathToJson) {
       $email_message .= "Tu pourras y ajouter des éléments en utilisant le code prof suivant : <b>".$vip->codeProf."</b><br>";
       
       $email_message .= $passage_ligne.$boundary.$passage_ligne."<br>";
+      $email_message .="Porte toi bien"."<br>";
       $email_message .="SPOK &#x1f596;"."<br>";
       $email_message .= $passage_ligne.$boundary.$passage_ligne."<br>";
     
