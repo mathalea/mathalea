@@ -259,7 +259,36 @@ if ($deleteBool) {
     if ($toDelete) {
       recursiveRmdir($scoresDir.'/'.$index->codeProf[0]);      
     }
-  }
+  };
+  // On vérifie s'il y a des nouveaux VIPs et on les crée le cas échéant
+  // On récupère tous les codes profs actuels
+  $actualsCodeProf = [];
+  foreach ($decodedPathsToIndexes as $index) {      
+    array_push($actualsCodeProf,$index->codeProf);
+  };
+  // On récupère les codes profs des VIPs via le contenu du fichier dans une variable
+  $dataVips = file_get_contents('./json/scoresCodesVip.json'); 
+  // on décode le flux JSON et on accède à ce qu'on veut, ici les VIPs !
+  $allVips = json_decode($dataVips)->vips;
+  // Une variable pour savoir s'il faut refaire le mailing
+  $isMailVipsNeeded = false;
+  // On vérifie si les codes VIPs existent
+  foreach ($allVips as $vip) {
+    // Si le codes VIP n'existe pas, on crée l'espace et on envoie le mail
+    if (!in_array($vip->codeProf,$actualsCodeProf)) {
+      $isMailVipsNeeded = true;
+      $pathToCreate = $scoresDir.'/'.$vip->codeProf[0].'/'.$vip->codeProf[1].'/'.$vip->codeProf[2].'/'.$vip->md5Key;
+      mkdir($pathToCreate, 0775, true);
+      // On crée la page d'index pour l'espace
+      // Une fois tout ça créer,
+      // On va créer un fichier index.php qui va bien pour afficher tout ce qu'on veut
+      createIndexScores($pathToCreate,$vip->codeProf[0].$vip->codeProf[1].$vip->codeProf[2]);
+    }
+  };
+  // Si il faut on fait le mailing au VIPs
+  if ($isMailVipsNeeded) {
+    mailUrlToVips('./json/scoresCodesVip.json');
+  };
 };  
 
 echo json_encode(array(
