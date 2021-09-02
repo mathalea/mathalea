@@ -66,7 +66,7 @@ function mailUrlToVips($pathToJson) {
   foreach ($vips as $vip) {
     if ($vip->isEmailOk) {
       //Création du boundary (frontière dans l'email genere
-      $boundary = "==================================================================================";
+      $boundary = "=================================================";      
       //FIN Création du boundary
   
       //Création du header de l'e-mail
@@ -112,6 +112,7 @@ function mailUrlToVips($pathToJson) {
       $email_message .= "<ul>
       <li>Les espaces de scores viennent d'être remis à zéro.</li>
       <li>On vient d'accueillir un nouveau VIP ! &#x1F60E;</li>
+      <li>L'un des VIPs n'a pas utilisé son espace depuis plus de 31 jours, c'est surement moi ! &#x1F61C;</li>
       <li>Une raison inconnue ! &#x1F914;</li>
       </ul>";
       $email_message .= "Tu pourras retrouver tes fichiers enregistrés à l'url de ton espace scores : <br>      
