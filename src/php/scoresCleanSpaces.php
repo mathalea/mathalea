@@ -22,11 +22,13 @@ $scoresDir = "resultats"; // Pour le repertoire de stockage des espaces de score
 // On met tout à zéro dès lors que 365,25 jours ( 31 557 600 secondes ) se sont écoulés après la création du répertoire resultats
 // Temporairement mis à 1 jour (86 400 secondes)
 $intervalBeforeDelete = 31557600; // Temps en secondes avant remise à zero des espaces de scores
-$deleteDay = intval(date('d',filectime($scoresDir)));
-$deleteMonth = intval(date('m',filectime($scoresDir)));
-$deleteYear = intval(date('Y',filectime($scoresDir)+$intervalBeforeDelete));
-$deleteNextDate = date('d / m / Y à H:i:s ',filectime($scoresDir)+$intervalBeforeDelete);
-$timeSinceCreation = (time() - filectime($scoresDir));
+// En fait la fonction filectime() renvoie la date de la dernière modif de l'inode donc si on crée un nouveau sous-dossier l'inode change
+// filemtime() permet-t-il de corriger le problème ? Il semblerait que oui ...
+$deleteDay = intval(date('d',filemtime($scoresDir)));
+$deleteMonth = intval(date('m',filemtime($scoresDir)));
+$deleteYear = intval(date('Y',filemtime($scoresDir)+$intervalBeforeDelete));
+$deleteNextDate = date('d / m / Y à H:i:s ',filemtime($scoresDir)+$intervalBeforeDelete);
+$timeSinceCreation = (time() - filemtime($scoresDir));
 $currentDay = intval(date('d'));
 $currentMonth = intval(date('m'));
 $currentYear = intval(date('Y'));
