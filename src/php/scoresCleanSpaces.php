@@ -22,6 +22,7 @@ $scoresDir = "resultats"; // Pour le repertoire de stockage des espaces de score
 // On met tout à zéro dès lors que 365,25 jours ( 31 557 600 secondes ) se sont écoulés après la création du répertoire resultats
 // Temporairement mis à 1 jour (86 400 secondes)
 $intervalBeforeDelete = 31557600; // Temps en secondes avant remise à zero des espaces de scores
+$intervalBeforeDeleteIfInactive = 2678400; // 2 678 400 secondes c'est 31 jours
 // En fait la fonction filectime() renvoie la date de la dernière modif de l'inode donc si on crée un nouveau sous-dossier l'inode change
 // filemtime() permet-t-il de corriger le problème ? Il semblerait que oui ... et non !
 // Et avec un timestamp dans un fichier ? On ajoute ce timestamp au moment de la création des vips
@@ -164,8 +165,10 @@ function createVipScoresSpaces($pathToJson) {
     $f = fopen($GLOBALS["scoresDir"].'/iSindexUpdateNeeded.txt',"w+");
     fputs($f,filectime("scoresTools.php").PHP_EOL);
     fclose($f);
+    // On récupère la date de création du dossier pour tester s'il faudra supprimer des espaces de scores
     $f = fopen($GLOBALS["scoresDir"].'/iScleanUpNeeded.txt',"w+");
-    fputs($f,filectime($GLOBALS["scoresDir"]).PHP_EOL);
+    $timeOfCreation = filectime($GLOBALS["scoresDir"]);
+    fputs($f,$timeOfCreation.PHP_EOL);
     fclose($f);
     // On crée les espaces VIPs
     foreach ($vips as $vip) {
@@ -181,12 +184,13 @@ function createVipScoresSpaces($pathToJson) {
   // On fait le mailing
   mailUrlToVips($pathToJson);
 
+  // Ces affections servent à l'initialisation sinon on n'a pas les dates de création à l'exterieur de la fonction
   $GLOBALS["msgVip"] = "Création des espaces de scores VIPs OK !";
-  $GLOBALS["deleteDay"] = intval(date('d',filectime($GLOBALS["scoresDir"])));
-  $GLOBALS["deleteMonth"] = intval(date('m',filectime($GLOBALS["scoresDir"])));
-  $GLOBALS["deleteYear"] = intval(date('Y',filectime($GLOBALS["scoresDir"])+$GLOBALS["intervalBeforeDelete"]));
-  $GLOBALS["deleteNextDate"] = date('d / m / Y à H:i:s ',filectime($GLOBALS["scoresDir"])+$GLOBALS["intervalBeforeDelete"]);
-  $GLOBALS["timeSinceCreation"] = (time() - filectime($GLOBALS["scoresDir"]));
+  $GLOBALS["deleteDay"] = intval(date('d',$timeOfCreation)); //intval(date('d',filemtime($scoresDir)));
+  $GLOBALS["deleteMonth"] = intval(date('m',$timeOfCreation)); //intval(date('m',filemtime($scoresDir)));
+  $GLOBALS["deleteYear"] = intval(date('Y',$timeOfCreation+$intervalBeforeDelete)); // intval(date('Y',filemtime($scoresDir)+$intervalBeforeDelete));
+  $GLOBALS["deleteNextDate"] = date('d / m / Y à H:i:s ',$timeOfCreation+$intervalBeforeDelete); //date('d / m / Y à H:i:s ',filemtime($scoresDir)+$intervalBeforeDelete);
+  $GLOBALS["timeSinceCreation"] = (time() - $timeOfCreation); //(time() - filemtime($scoresDir));
   $GLOBALS["currentInterval"] = date_diff(date_create($GLOBALS["deleteYear"]."/".$GLOBALS["deleteMonth"]."/".$GLOBALS["deleteDay"]),date_create($GLOBALS["currentYear"]."/".$GLOBALS["currentMonth"]."/".$GLOBALS["currentDay"]))->format('%a');
 };
 
@@ -228,21 +232,33 @@ if ($deleteBool) {
   createVipScoresSpaces('./json/scoresCodesVip.json');
   $msgCron = "CRON OK !";  
 } else {
+  $pathsToIndexes = getAllScoresSpaces($scoresDir);
+  $decodedPathsToIndexes = json_decode($pathsToIndexes);       
   // On teste s'il faut mettre à jour les index des espaces scores  
   if ($iSindexUpdateNeeded) {    
     // Si c'est le cas on modifie la date de dernière modif stockée dans le fichier
-    $f = fopen($GLOBALS["scoresDir"].'/iSindexUpdateNeeded.txt',"w+");    
+    $f = fopen($scoresDir.'/iSindexUpdateNeeded.txt',"w+");    
     fputs($f,filectime("scoresTools.php").PHP_EOL);
     fclose($f);
     // On réécrit tous les index des espaces scores existants sans toucher aux fichiers stockés sur le serveur
-    $pathsToIndexes = getAllScoresScpaces('resultats');
-    $decodedPathsToIndexes = json_decode($pathsToIndexes);       
     // On supprime tous les index des espaces scores existants
     // On les recrée dans la foulée avec la fonction createIndexScores($path,$codeProf);
-    foreach ($decodedPathsToIndexes as $index) {
-      unlink($GLOBALS["scoresDir"].'/'.$index->codeProf[0].'/'.$index->codeProf[1].'/'.$index->codeProf[2].'/'.$index->md5Key.'/index.php');
-      createIndexScores($GLOBALS["scoresDir"].'/'.$index->codeProf[0].'/'.$index->codeProf[1].'/'.$index->codeProf[2].'/'.$index->md5Key,$index->codeProf);                 
+    foreach ($decodedPathsToIndexes as $index) {      
+      unlink($scoresDir.'/'.$index->codeProf[0].'/'.$index->codeProf[1].'/'.$index->codeProf[2].'/'.$index->md5Key.'/index.php');
+      createIndexScores($scoresDir.'/'.$index->codeProf[0].'/'.$index->codeProf[1].'/'.$index->codeProf[2].'/'.$index->md5Key,$index->codeProf);                 
     } 
+  }
+  // On nettoie les espaces non utilisés depuis plus de 31 jours
+  foreach ($decodedPathsToIndexes as $index) {      
+    $f = fopen($scoresDir.'/'.$index->codeProf[0].'/'.$index->codeProf[1].'/'.$index->codeProf[2].'/'.$index->md5Key.'/iSinactive.txt',"r");  
+    // On récupère la date de dernière modif du fichier qui génère les index
+    $dateOfCreationSpace = fgets($f);
+    fclose($f);
+    // si l'espace est inactif depuis 31 jours alors on supprime     
+    $toDelete = (time() - $dateOfCreationSpace) > $intervalBeforeDeleteIfInactive ? true : false; 
+    if ($toDelete) {
+      recursiveRmdir($scoresDir.'/'.$index->codeProf[0]);      
+    }
   }
 };  
 
