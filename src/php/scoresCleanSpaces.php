@@ -22,7 +22,7 @@ $scoresDir = "resultats"; // Pour le repertoire de stockage des espaces de score
 // On met tout à zéro dès lors que 365,25 jours ( 31 557 600 secondes ) se sont écoulés après la création du répertoire resultats
 // Temporairement mis à 1 jour (86 400 secondes)
 $intervalBeforeDelete = 31557600; // Temps en secondes avant remise à zero des espaces de scores
-$intervalBeforeDeleteIfInactive = 2678400; // 2 678 400 secondes c'est 31 jours
+$intervalBeforeDeleteIfInactive = 31557600; // 2 678 400 secondes c'est 31 jours mais c'est trop court mais 31557600 n'a pas de sens
 // En fait la fonction filectime() renvoie la date de la dernière modif de l'inode donc si on crée un nouveau sous-dossier l'inode change
 // filemtime() permet-t-il de corriger le problème ? Il semblerait que oui ... et non !
 // Et avec un timestamp dans un fichier ? On ajoute ce timestamp au moment de la création des vips
