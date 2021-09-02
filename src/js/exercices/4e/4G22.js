@@ -28,25 +28,48 @@ export default function ProblemesPythagore () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
-    if (this.nbQuestions >= 5) {
+    this.sup = parseInt(this.sup)
+    if (this.sup === 1) {
       typesDeQuestionsDisponibles = [
         'losange',
         'rectangle_diagonale_connue',
-        'rectangle_diagonale_a_trouver',
-        'parallelogramme_est_losange',
-        'parallelogramme_n_est_pas_losange',
-        'parallelogramme_est_rectangle',
-        'parallelogramme_n_est_pas_rectangle'
+        'rectangle_diagonale_a_trouver'
       ]
+    } else if (this.sup === 2) {
+      if (this.nbQuestions > 2) {
+        typesDeQuestionsDisponibles = [
+          'parallelogramme_est_losange',
+          'parallelogramme_n_est_pas_losange',
+          'parallelogramme_est_rectangle',
+          'parallelogramme_n_est_pas_rectangle'
+        ]
+      } else {
+        typesDeQuestionsDisponibles = [
+          choice(['parallelogramme_est_losange', 'parallelogramme_n_est_pas_losange']),
+          choice(['parallelogramme_est_rectangle', 'parallelogramme_n_est_pas_rectangle'])
+        ]
+      }
     } else {
-      typesDeQuestionsDisponibles = [
-        'losange',
-        'rectangle_diagonale_connue',
-        'rectangle_diagonale_a_trouver',
-        choice(['parallelogramme_est_losange', 'parallelogramme_n_est_pas_losange']),
-        choice(['parallelogramme_est_rectangle',
-          'parallelogramme_n_est_pas_rectangle'])
-      ]
+      if (this.nbQuestions >= 5) {
+        typesDeQuestionsDisponibles = [
+          'losange',
+          'rectangle_diagonale_connue',
+          'rectangle_diagonale_a_trouver',
+          'parallelogramme_est_losange',
+          'parallelogramme_n_est_pas_losange',
+          'parallelogramme_est_rectangle',
+          'parallelogramme_n_est_pas_rectangle'
+        ]
+      } else {
+        typesDeQuestionsDisponibles = [
+          'losange',
+          'rectangle_diagonale_connue',
+          'rectangle_diagonale_a_trouver',
+          choice(['parallelogramme_est_losange', 'parallelogramme_n_est_pas_losange']),
+          choice(['parallelogramme_est_rectangle',
+            'parallelogramme_n_est_pas_rectangle'])
+        ]
+      }
     }
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -324,5 +347,5 @@ export default function ProblemesPythagore () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
+  this.besoinFormulaireNumerique = ['Sens direct ou réciproque/contraposée', 3, '1 : Sens direct.\n2 : Réciproque/contraposée.\n3 : Mélange.']
 }
