@@ -7390,7 +7390,7 @@ export function exportQcmAmc (exercice, idExo) {
           propositions = prop.propositions
           switch (qrType) {
             case 'qcmMono':
-             
+
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'
