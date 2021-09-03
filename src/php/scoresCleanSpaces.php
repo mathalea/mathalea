@@ -108,7 +108,7 @@ function mailUrlToVips($pathToJson) {
       $email_message.= $passage_ligne.$boundary.$passage_ligne."<br>";
 
       $email_message .= "Namasté <b>".$vip->nom."</b>,<br><br>";
-      $email_message .= "Tu reçois pour l'une des raisons suivantes :";
+      $email_message .= "Tu le reçois pour l'une des raisons suivantes :";
       $email_message .= "<ul>
       <li>Les espaces de scores viennent d'être remis à zéro.</li>
       <li>On vient d'accueillir un nouveau VIP ! &#x1F60E;</li>
