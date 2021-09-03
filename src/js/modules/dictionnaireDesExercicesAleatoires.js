@@ -6,6 +6,14 @@ export default {
     "interactifReady": false,
     "name": "1E10"
   },
+  "1E11-2": {
+    "titre": "Résoudre une équation du second degré",
+    "url": "/exercices/1e/1E11-2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1E11-2"
+  },
   "1E11": {
     "titre": "Résoudre une équation du second degré",
     "url": "/exercices/1e/1E11.js",
@@ -3653,6 +3661,17 @@ export default {
     "interactifReady": false,
     "name": "6S11"
   },
+  "beta1N10_intercatif": {
+    "titre": "Nombre pair multiplié par 5",
+    "url": "/exercices/beta/beta1N10_intercatif.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta1N10_intercatif"
+  },
   "beta240-1": {
     "titre": "Utiliser la distributivité (simple ou double) et réduire",
     "url": "/exercices/beta/beta240-1.js",
@@ -4287,6 +4306,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can3L3"
   },
+  "can3M01": {
+    "titre": "Aire et carré",
+    "url": "/exercices/can/3e/can3M01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3M01"
+  },
   "can3S01": {
     "titre": "Calcul de probabilité simple",
     "url": "/exercices/can/3e/can3S01.js",
@@ -4297,17 +4327,6 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3S01"
-  },
-  "can4G01": {
-    "titre": "Aire et carré",
-    "url": "/exercices/can/4e/can4G01.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "can4G01"
   },
   "can4L01": {
     "titre": "Résoudre une équation niveau 1",

@@ -1,9 +1,10 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 250 
-- nombre d'exos interactifReady 285 
+- nombre d'exos amcReady 251 
+- nombre d'exos interactifReady 287 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
+|1E11-2|Résoudre une équation du second degré|KO|KO|OK|mathLive|
 |2F10-1|Reconnaître une fonction affine.|OK|qcmMono|OK|qcm|
 |2F10-2|Lecture graphique d’une fonction affine|OK|AMCHybride|OK|mathLive|
 |2F32|Lecture graphique|OK|AMCHybride|OK|mathLive|
@@ -185,6 +186,7 @@
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
+|beta1N10_intercatif|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
@@ -216,8 +218,8 @@
 |can3L1|Équation ax=b|OK|AMCNum|OK|mathLive|
 |can3L2|Équation ax+b=0|OK|AMCNum|OK|mathLive|
 |can3L3|Équation ax+b=c|OK|AMCNum|OK|mathLive|
+|can3M01|Aire et carré|OK|AMCNum|OK|mathLive|
 |can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
-|can4G01|Aire et carré|OK|AMCNum|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
 |can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
 |can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
