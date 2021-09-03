@@ -30,14 +30,25 @@ export default function Pythagore2D () {
   this.nbColsCorr = 1
   this.typeDeQuestion = 'Calculer'
   this.video = 'M9sceJ8gzNc'
+  this.besoinFormulaire2Numerique = ['Côté', 3, '1 : Hypoténuse.\n2 : Côté de l\'angle droit.\n3 : Les deux.']
 
   this.nouvelleVersion = function () {
     if (this.sup) {
       this.sup = parseInt(this.sup)
     }
+    if (this.sup2) {
+      this.sup2 = parseInt(this.sup2)
+    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions = []
+    if (this.sup2 === 1) {
+      listeTypeDeQuestions = ['BC']
+    } else if (this.sup2 === 2) {
+      listeTypeDeQuestions = ['AB', 'AC']
+    } else {
+      listeTypeDeQuestions = ['AB', 'BC', 'AC']
+    }
     const listeDeNomsDePolygones = []
     let reponse
     if (this.sup === 1) {
@@ -47,9 +58,7 @@ export default function Pythagore2D () {
     } else {
       this.consigne = 'Dans chaque cas, calculer la longueur manquante (si nécessaire, l\'arrondir au millimètre près).'
     }
-    if (this.sup === 2 || this.typeDeQuestion === 'Calculer') {
-      listeTypeDeQuestions = combinaisonListes(['AB', 'BC', 'AC'], this.nbQuestions)
-    }
+    listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''
       texteCorr = ''
