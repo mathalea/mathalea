@@ -6,6 +6,17 @@ export default {
     "interactifReady": false,
     "name": "1E10"
   },
+  "1E11-1": {
+    "titre": "Nombre pair multiplié par 5",
+    "url": "/exercices/1e/1E11-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1E11-1"
+  },
   "1E11-2": {
     "titre": "Résoudre une équation du second degré",
     "url": "/exercices/1e/1E11-2.js",

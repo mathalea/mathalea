@@ -1,9 +1,10 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 251 
-- nombre d'exos interactifReady 287 
+- nombre d'exos amcReady 252 
+- nombre d'exos interactifReady 288 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
+|1E11-1|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
 |1E11-2|Résoudre une équation du second degré|KO|KO|OK|mathLive|
 |2F10-1|Reconnaître une fonction affine.|OK|qcmMono|OK|qcm|
 |2F10-2|Lecture graphique d’une fonction affine|OK|AMCHybride|OK|mathLive|
