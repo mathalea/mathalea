@@ -9,6 +9,10 @@ Différents tutoriels sont accessibles via le panneau de gauche, n'hésitez pas 
 
 # Guide de première installation
 Le but de ce guide n'est pas de vous guider pas à pas mais de vous faire éviter tous les écueils. Il vous aiguillera à chaque "intersection" mais supposera que vous serez capables de vous en sortir à chaque "ligne droite" comme par exemple que vous serez capables de cliquer sur "suivant" lors des installations (même si c'est écrit en anglais !).
+
+Par contre, il est important que vous suiviez chacune de ces étapes, car si vous en oubliez une, vous serez certainement bloqué par une erreur par la suite.
+
+Le corollaire étant, si vous êtes bloqués par une erreur, passez en revue les points précédents pour vérifier si vous avez bien tout fait.
 ## Installation des logiciels
 - Commencer par se créer un compte sur Github.com puis le communiquer à Rémi Angot pour obtenir des droits d'écriture (sauf sur la branche master qui est protégée pour tout le monde). Vous n'avez pas à attendre qu'il le fasse pour faire la suite, alors c'est parti !
 - Installer [Visual Studio Code](https://code.visualstudio.com/Download) (conseillé si vous voulez avoir moins de soucis lors de l'installation) ou [VSCodium](https://vscodium.com) (si vous êtes plus débrouillard et voulez une installation sans aucune trace de Microsoft), appelés **VSC** par la suite.
@@ -18,7 +22,7 @@ Le but de ce guide n'est pas de vous guider pas à pas mais de vous faire évite
         - `sudo apt-get install curl apt-transport-https lsb-release`
         - `sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
         - `sudo apt-get install -y nodejs`
-    - Pour savoir à quoi correspondent les lignes précédentes et savoir comment installer sur les autres distributions [c'est par ici](documentation/tutorial-Installer_NodeJS_sur_Linux.html).
+    - Pour savoir à quoi correspondent les lignes précédentes et savoir comment installer sur les autres distributions [c'est par ici](https://coopmaths.fr/documentation/tutorial-Installer_NodeJS_sur_Linux.html).
     
 - Installer Git :
     - [Pour Windows](https://git-scm.com/download/).
@@ -57,6 +61,6 @@ Le but de ce guide n'est pas de vous guider pas à pas mais de vous faire évite
 - De la même façon, saisir `pnpm i` pour installer les dépendances nécessaires (ça prendra un moment, faites autre chose en attendant mais ne fermez pas le logiciel pour éviter les problèmes). Il faudra le refaire lorsqu'on intègrera de nouveaux outils externes, ce qui n'arrivera pas tous les jours (on préviendra sur Slack).
 - Enfin, vous pouvez vérifier que tout fonctionne en lançant `pnpm start` qui va ouvrir votre navigateur par défaut pour afficher (au bout de quelques dizaines de secondes) la dernière version de MathAlea en développement !
 
-Si le site s'affiche bien, Félicitations ! vous êtes fin prêt(e) à participer à ce projet ! et vous pouvez cliquer sur [Architecture du code](documentation/tutorial-Architecture_du_code.html) pour comprendre comment est structuré le code de MathALEA ou directement sur [Créer un exercice](documentation/tutorial-Creer_un_exercice.html) si vous voulez apprendre à créer votre premier exercice sans plus attendre !
+Si le site s'affiche bien, Félicitations ! vous êtes fin prêt(e) à participer à ce projet ! et vous pouvez cliquer sur [Architecture du code](https://coopmaths.fr/documentation/tutorial-Architecture_du_code.html) pour comprendre comment est structuré le code de MathALEA ou directement sur [Créer un exercice](https://coopmaths.fr/documentation/tutorial-Creer_un_exercice.html) si vous voulez apprendre à créer votre premier exercice sans plus attendre !
 
 Sinon, c'est que cette documentation est encore à améliorer ! et vous êtes invité(e) à faire part de vos soucis sur Slack pour qu'on vous aide et qu'on améliore cette documentation :)
