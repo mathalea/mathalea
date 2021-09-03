@@ -187,7 +187,9 @@ export default function ReciproquePythagore () {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions[0].feedback = texteCorr
       }
-      texte += propositionsQcm(this, i).texte
+      if (this.interactif) {
+        texte += propositionsQcm(this, i).texte
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

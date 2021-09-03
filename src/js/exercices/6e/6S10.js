@@ -1,21 +1,23 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, premiereLettreEnMajuscule, numAlpha, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, premiereLettreEnMajuscule, numAlpha, calcul, sp } from '../../modules/outils.js'
 import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
+import { ajouteChampTexteMathLive, ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Lire un diagramme en barre'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Lire un diagramme en barre
  * @author Erwan Duplessy
- * Conversion AmcReady par Jean-Claude Lhote
+ * Conversion Amc et interactif par Jean-Claude Lhote
  * Référence 6S10
  */
 
 export default function LectureDiagrammeBarre () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = "Répondre aux questions à l'aide du graphique."
   this.nbQuestions = 3
   this.nbQuestionsModifiable = false
@@ -23,7 +25,7 @@ export default function LectureDiagrammeBarre () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1
-
+  this.interactif = true
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // vide la liste de questions
     this.listeCorrections = [] // vide la liste de questions corrigées
@@ -74,8 +76,10 @@ export default function LectureDiagrammeBarre () {
 
     texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d’animaux.<br>Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>'
     if (!context.isAmc) {
-      texte += numAlpha(0) + ' Quels sont les animaux les plus nombreux ?<br>'
-      texte += numAlpha(1) + ' Quels sont les animaux les moins nombreux ?<br>'
+      texte += numAlpha(0) + ' Quels sont les animaux les plus nombreux ?' + ajouteChampTexte(this, 0, { texte: sp(5) + 'les' })
+      texte += '<br>' + numAlpha(1) + ' Quels sont les animaux les moins nombreux ?' + ajouteChampTexte(this, 1, { texte: sp(5) + 'les' }) + '<br>'
+      setReponse(this, 0, lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)])
+      setReponse(this, 1, lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)])
     } else {
       texte += '1) Quels sont les animaux les plus nombreux ?<br>'
       texte += '2) Quels sont les animaux les moins nombreux ?<br>'
@@ -85,6 +89,8 @@ export default function LectureDiagrammeBarre () {
       case 1:
         if (!context.isAmc) {
           texte += numAlpha(2) + ' Donner un encadrement à la dizaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
+          texte += ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texte: sp(5) }) + sp(10) + `< nombre de ${lstAnimauxExo[numAnimal]} < `
+          texte += ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { texte: sp(5) })
         } else {
           texte += '3) Donner un encadrement à la dizaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
         }
@@ -167,6 +173,8 @@ export default function LectureDiagrammeBarre () {
     const reponseinf = 10 * coef * Math.floor(reponse / (10 * coef))
     const reponsesup = reponseinf + 10 * coef
     if (!context.isAmc) {
+      setReponse(this, 2, reponseinf)
+      setReponse(this, 3, reponsesup)
       texteCorr += numAlpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[numAnimal] + '.<br>'
     } else {
       texteCorr += '3) Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[numAnimal] + '.<br>'
@@ -186,13 +194,13 @@ export default function LectureDiagrammeBarre () {
           },
           {
             type: 'qcmMono',
-            propositions: propb,
-            options: { ordered: false }
+            options: { ordered: false },
+            propositions: propb
           },
           {
             type: 'qcmMono',
-            propositions: propc,
-            options: { ordered: false }
+            options: { ordered: false },
+            propositions: propc
           }
         ]
       }

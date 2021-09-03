@@ -16,10 +16,6 @@ fichierszip/*.zip
 !/fichierszip/Projet.zip
 !/fichierszip/ProjetCrashed.zip
 
-#ignorer le fichier src/json/scoresCodesVip.json utile pour générer les espaces de scores pour les V.I.P.
-src/json/scoresCodesVip.json
-
-
 # les dépendances
 node_modules
 # le build
@@ -40,9 +36,12 @@ package-lock.json
 # traces MacOS
 .DS_Store
 
-# Fichiers avec données scores pour les VIPs
+# Fichiers avec données utiles pour générer les espaces de scores pour les VIPs
 src/json/scoresCodesVip.json
 src/json/scoresCodesVipSebSeul.json
 
 # Fichier pour mise en ligne ssh de l'hebergement de test du SebLoz
 .rsyncignore
+
+# Dossier avec les fichiers utiles pour l'hebergement de tests php SebLOZ
+src/slozano54

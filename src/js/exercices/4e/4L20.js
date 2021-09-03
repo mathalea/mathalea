@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction, lampeMessage } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction, lampeMessage, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-import Fraction from '../../modules/Fraction.js'
+import { fraction } from '../../modules/fractions.js'
+
 export const titre = 'Équation du premier degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -34,6 +35,7 @@ export default function ExerciceEquation1 () {
   this.sup = true // Avec des nombres relatifs
   this.sup2 = 4 // Choix du type d'équation
   this.nbQuestions = 6
+  this.listePackages = 'bclogo'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -68,7 +70,7 @@ export default function ExerciceEquation1 () {
       listeTypeDeQuestions,
       this.nbQuestions
     )
-    for (let i = 0, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, b, c, d, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(2, 13)
       b = randint(1, 13)
@@ -85,14 +87,24 @@ export default function ExerciceEquation1 () {
         if (listeTypeDeQuestions[i] === 'ax+b=0') {
           c = 0
         }
-        if (!this.sup && c < b) {
-          b = randint(1, 9)
-          c = randint(b, 15) // c sera plus grand que b pour que c-b>0
+        do {
+          a = randint(2, 13)
+        } while (Math.abs(c - b) % a === 0)
+        if (this.sup) {
+          a *= choice([-1, 1])
         }
-        texte = `$${a}x${ecritureAlgebrique(b)}=${c}$<br>`
+        if (!this.sup && c < b) { // Si c-b < 0 et que l'on ne veut pas de relatif, on échange c et b.
+          if (c === 0) { // si c=0, on change le signe de b, pour garder c=0
+            b *= -1
+          } else {
+            d = b
+            b = c
+            c = d
+          }
+        }
+        texte = `$${a}x${ecritureAlgebrique(b)}=${c}$`
         texteCorr = texte
-        texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        setReponse(this, i, new Fraction(c - b, a), { formatInteractif: 'fractionEgale' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '<br>$ x = $ ' })
         if (this.correctionDetaillee) {
           if (b > 0) {
             texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
@@ -118,16 +130,59 @@ export default function ExerciceEquation1 () {
           c - b,
           a
         )}$.`
+        reponse = fraction(c - b, a).simplifie()
+        if (!context.isAmc) {
+          setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+        } else {
+          this.autoCorrection[i] = {
+            enonce: `Résoudre ${texte} et donner la solution sous la forme d'une fraction irréductible`,
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: texteCorr,
+                  statut: '',
+                  reponse: {
+                    texte: 'Numérateur ',
+                    valeur: reponse.signe * Math.abs(reponse.num),
+                    param: {
+                      digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.num)),
+                      decimals: 0,
+                      signe: this.sup,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'Dénominateur',
+                    valeur: reponse.den,
+                    param: {
+                      digits: nombreDeChiffresDansLaPartieEntiere(reponse.den),
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
+        }
       }
       if (listeTypeDeQuestions[i] === 'x+b=c') {
         if (!this.sup && c < b) {
           b = randint(-9, 9, [0]) // b peut être négatif, ça sera une équation du type x-b=c
           c = abs(randint(b, 15)) // c sera plus grand que b pour que c-b>0
         }
-        texte = `$x${ecritureAlgebrique(b)}=${c}$<br>`
+        texte = `$x${ecritureAlgebrique(b)}=${c}$`
         texteCorr = texte
-        texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        setReponse(this, i, new Fraction(c - b, 1), { formatInteractif: 'fractionEgale' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '<br>$ x = $ ' })
         if (this.correctionDetaillee) {
           if (b > 0) {
             texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
@@ -140,13 +195,46 @@ export default function ExerciceEquation1 () {
         )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
         texteCorr += `$x=${c - b}$`
         texteCorr += `<br> La solution est $${c - b}$.`
+        reponse = c - b
+        if (!context.isAmc) {
+          setReponse(this, i, fraction(c - b, 1), { formatInteractif: 'fractionEgale' })
+        } else {
+          this.autoCorrection[i] = {
+            enonce: `Résoudre ${texte} et coder la solution`,
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: texteCorr,
+                  statut: '',
+                  reponse: {
+                    texte: 'Solution : ',
+                    valeur: reponse,
+                    param: {
+                      digits: nombreDeChiffresDansLaPartieEntiere(reponse),
+                      decimals: 0,
+                      signe: this.sup,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
+        }
       }
       if (listeTypeDeQuestions[i] === 'ax=b') {
-        texte = `$${a}x=${b}$<br>`
+        do {
+          a = randint(2, 13)
+          b = randint(1, 13)
+        } while (b % a === 0)
+        if (this.sup) {
+          a *= choice([-1, 1])
+          b *= choice([-1, 1])
+        }
+        texte = `$${a}x=${b}$`
         texteCorr = texte
-        texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        setReponse(this, i, new Fraction(b, a), { formatInteractif: 'fractionEgale' })
-
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '<br>$ x = $ ' })
         if (this.correctionDetaillee) {
           texteCorr += `On divise les deux membres par $${a}$.<br>`
         }
@@ -158,25 +246,75 @@ export default function ExerciceEquation1 () {
           texteCorr += `<br>$x=${texFractionReduite(b, a)}$`
         }
         texteCorr += `<br> La solution est $${texFractionReduite(b, a)}$.`
+        reponse = fraction(b, a).simplifie()
+        if (!context.isAmc) {
+          setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+        } else {
+          this.autoCorrection[i] = {
+            enonce: `Résoudre ${texte} et donner la solution sous la forme d'une fraction irréductible`,
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: texteCorr,
+                  statut: '',
+                  reponse: {
+                    texte: 'Numérateur ',
+                    valeur: reponse.signe * Math.abs(reponse.num),
+                    param: {
+                      digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.num)),
+                      decimals: 0,
+                      signe: this.sup,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'Dénominateur',
+                    valeur: reponse.den,
+                    param: {
+                      digits: nombreDeChiffresDansLaPartieEntiere(reponse.den),
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
+        }
       }
       if (listeTypeDeQuestions[i] === 'ax+b=cx+d') {
-        if (c === a) {
-          c = randint(1, 13, [a])
-        } // sinon on arrive à une division par 0
-        if (!this.sup && a < c) {
-          c = randint(1, 9)
-          a = randint(c + 1, 15) // a sera plus grand que c pour que a-c>0
-        }
-        if (!this.sup && d < b) {
-          b = randint(1, 9)
-          d = randint(b + 1, 15) // d sera plus grand que b pour que d-b>0
-        }
+        do {
+          a = randint(2, 13)
+          b = randint(1, 13)
+          c = randint(1, 13)
+          d = randint(1, 13)
+
+          if (c === a) {
+            c = randint(1, 13, [a])
+          } // sinon on arrive à une division par 0
+          if (!this.sup && a < c) {
+            c = randint(1, 9)
+            a = randint(c + 1, 15) // a sera plus grand que c pour que a-c>0
+          }
+          if (!this.sup && d < b) {
+            b = randint(1, 9)
+            d = randint(b + 1, 15) // d sera plus grand que b pour que d-b>0
+          }
+        } while ((d - b) % (a - c) === 0)
         texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(
           c
-        )}x${ecritureAlgebrique(d)}$<br>`
+        )}x${ecritureAlgebrique(d)}$`
         texteCorr = texte
-        texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-        setReponse(this, i, new Fraction((d - b), (a - c)), { formatInteractif: 'fractionEgale' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '<br>$ x = $ ' })
         if (this.correctionDetaillee) {
           if (c > 0) {
             texteCorr += `On soustrait $${rienSi1(
@@ -228,6 +366,50 @@ export default function ExerciceEquation1 () {
           d - b,
           a - c
         )}$.`
+        reponse = fraction(d - b, a - c).simplifie()
+        if (!context.isAmc) {
+          setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+        } else {
+          this.autoCorrection[i] = {
+            enonce: `Résoudre ${texte} et donner la solution sous la forme d'une fraction irréductible`,
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: texteCorr,
+                  statut: '',
+                  reponse: {
+                    texte: 'Numérateur ',
+                    valeur: reponse.signe * Math.abs(reponse.num),
+                    param: {
+                      digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.num)),
+                      decimals: 0,
+                      signe: this.sup,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'Dénominateur',
+                    valeur: reponse.den,
+                    param: {
+                      digits: nombreDeChiffresDansLaPartieEntiere(reponse.den),
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
+        }
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

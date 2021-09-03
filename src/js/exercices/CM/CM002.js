@@ -50,7 +50,7 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let typeDeQuestions = 'a_trous'
-    for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
+    for (let i = 0, cpt = 0, a, b, texte, texteCorr; i < this.nbQuestions && cpt < 50; cpt++) {
       a = couples[i][0]
       b = couples[i][1]
       if (parseInt(this.sup2) === 1) {
@@ -81,8 +81,13 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
       if (context.isDiaporama) {
         texte = texte.replace('= \\dotfill', '')
       }
-      this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
+      if (this.questionJamaisPosee(i, a, b)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      } else {
+        cpt++
+      }
     }
     listeQuestionsToContenu(this)
   }

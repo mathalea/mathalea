@@ -1,4 +1,4 @@
-import Construire_par_Symetrie from '../6e/_Construire_par_symetrie.js';
+import ConstruireParSymetrie from '../6e/_Construire_par_symetrie.js'
 export const titre = 'Construire l’image d’une figure par symétrie centrale'
 
 /**
@@ -7,10 +7,9 @@ export const titre = 'Construire l’image d’une figure par symétrie centrale
  * références  6G24-1, 6G24-2, 5G10-1, 5G10-2, 5G11-1 et 5G11-2
  * Permet une sortie html/pdf sur petits carreaux/gros carreaux/papier blanc
  */
-export default function Construire_par_symétrie_centrale_figure() {
-	Construire_par_Symetrie.call(this);
-	this.titre = titre;
-	this.sup = 2;
-	this.sup2 = 1;
-	this.figure = true
+export default function ConstruireParSymetrieCentraleFigure () {
+  ConstruireParSymetrie.call(this)
+  this.sup = 2
+  this.sup2 = 1
+  this.figure = true
 }

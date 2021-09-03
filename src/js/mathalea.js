@@ -252,6 +252,9 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
   let iconeInteractif = ''
   if (isdiaporama) {
     contenuUnExercice += '<section class="slider single-item" id="diaporama">'
+    if (obj.typeExercice === 'simple') {
+      exerciceSimpleToContenu(obj)
+    }
     for (const question of obj.listeQuestions) {
       contenuUnExercice +=
         `\n<div id="question_diap" style="font-size:${obj.tailleDiaporama}px"><span>` +
@@ -296,7 +299,19 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         if (obj.questionJamaisPosee(numQuestion, obj.question)) {
           contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}`
           if (obj.interactif && obj.interactifReady) {
-            contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion)
+            if (obj.formatChampTexte) {
+              if (obj.optionsChampTexte) {
+                contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion, obj.formatChampTexte, obj.optionsChampTexte)
+              } else {
+                contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion, obj.formatChampTexte)
+              }
+            } else {
+              if (obj.optionsChampTexte) {
+                contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion, '', obj.optionsChampTexte)
+              } else {
+                contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion)
+              }
+            }
           }
           contenuUnExercice += '</li>'
           if (obj.formatInteractif) {
@@ -1185,6 +1200,10 @@ function miseAJourDeLaListeDesExercices (preview) {
           }
           if (listeObjetsExercice[i].typeExercice === 'XCas') {
             besoinXCas = true
+          }
+          // Pour les diaporamas des exercices "simples" (CAN), on remet 10 questions par défaut
+          if (listeObjetsExercice[i].typeExercice === 'simple' && context.isDiaporama) {
+            listeObjetsExercice[i].nbQuestions = 10
           }
         })
       )

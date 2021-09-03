@@ -4,7 +4,7 @@ import {
   ecritureAlgebrique,
   calcul, texteEnCouleur, texteEnCouleurEtGras, pgcd, texNombrec, texFraction, signe, abs, listeDeNotes, prenom,
   texFractionReduite, choice, texNombre, printlatex,
-  texPrix, combinaisonListesSansChangerOrdre, range1, reduireAxPlusB, rienSi1, texRacineCarree, combinaisonListes
+  texPrix, combinaisonListesSansChangerOrdre, range1, reduireAxPlusB, rienSi1, texRacineCarree, combinaisonListes, simplificationDeFractionAvecEtapes
 } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
@@ -94,9 +94,6 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
     const signesDeX = combinaisonListes([true, false], this.nbQuestions)
     const typeQuestionsDisponibles = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20',
       'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']
-    // 'q1','q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10']
-    // 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20'
-    // 'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']//
     // 'q1',  produit d'entiers
     // 'q2', // somme ou différence d'entiers
     // 'q3', // Tiers, moitié, proportions d'une quantité
@@ -132,7 +129,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
       objets = []
       // Boucle principale où i+1 correspond au numéro de la question
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
-        case 'q1':// produit d'entiers
+        case 'q1':// produit d'entiers (existe en can simple)
           a = randint(3, 9)
           b = randint(3, 9)
           resultat = a * b
@@ -143,7 +140,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
           break
         case 'q2':
           switch (choice([1, 2, 3, 4, 5, 6, 7])) { //
-            case 1:// somme d'entiers à deux chiffres avec retenue
+            case 1:// somme d'entiers à deux chiffres avec retenue (existe en can simple)
               a = randint(1, 2) * 10 + randint(5, 9)
               b = randint(1, 4) * 10 + randint(11 - a % 10, 9)
               texte = `$${a}+${b}=$`
@@ -151,14 +148,14 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               setReponse(this, i, a + b, { formatInteractif: 'calcul' })
               break
 
-            case 2:// différence avec 100
+            case 2:// différence avec 100 (existe en can simple)
               a = randint(11, 70)
               texte = `$100-${a}=$`
               texteCorr = `$100-${a}=${100 - a}$`
               setReponse(this, i, 100 - a, { formatInteractif: 'calcul' })
               break
 
-            case 3:// différence négative
+            case 3:// différence négative (existe en can simple)
               a = randint(8, 15)
               b = randint(18, 30)
               texte = `$${a}-${b}=$`
@@ -166,7 +163,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               setReponse(this, i, a - b, { formatInteractif: 'calcul' })
               break
 
-            case 4:// produit positif
+            case 4:// produit positif (existe en can simple)
               a = randint(2, 7)
               b = randint(11, 25)
               texte = `$${a}\\times${b}=$`
@@ -174,7 +171,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               setReponse(this, i, a * b, { formatInteractif: 'calcul' })
               break
 
-            case 5:// division
+            case 5:// division (existe en can simple)
               a = randint(6, 9)
               N = randint(7, 12)
               b = a * N
@@ -183,12 +180,11 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               setReponse(this, i, b / a, { formatInteractif: 'calcul' })
               break
 
-            case 6:// différence avec 1
-              a = randint(2, 9) / 100
-
+            case 6:// différence avec 1 (existe en can simple)
+              a = choice([true, false]) ? calcul(randint(2, 9) / 100) : calcul(randint(2, 9) / 10)
               texte = `$1-${texNombrec(a)}=$`
               texteCorr = `$1-${texNombrec(a)}=${texNombrec(1 - a)}$`
-              setReponse(this, i, 1 - a, { formatInteractif: 'calcul' })
+              setReponse(this, i, calcul(1 - a), { formatInteractif: 'calcul' })
               break
             case 7:// différence comme 346-47
               a = randint(2, 4)
@@ -205,7 +201,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
           break
         case 'q3':
           switch (choice([1, 2, 3])) {
-            case 1:// double et triple
+            case 1:// double et triple (existe en can simple)
               a = randint(1, 2)
               b = randint(1, 5, a)
               c = calcul(a * 10 + b)
@@ -221,7 +217,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               }
               break
-            case 2:// tiers et quart
+            case 2:// tiers et quart (existe en can simple)
               a = randint(4, 10)
 
               if (choice([true, false])) {
@@ -238,7 +234,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
                 setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               }
               break
-            case 3:// Fraction 1/n d'une quantité
+            case 3:// Fraction 1/n d'une quantité (existe en can simple)
               a = randint(3, 5)
               resultat = calcul(randint(2, 9) * 10)
               b = calcul(resultat * a)
@@ -250,24 +246,24 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
           break
         case 'q4':
           switch (choice([1, 2, 3, 4, 5, 6])) { //
-            case 1:// conversion minutes en heures
+            case 1:// conversion minutes en heures (existe en can simple)
               a = randint(1, 2)
               b = randint(10, 59)
               d = calcul(a * 60 + b)
               texte = ` $${d}$ minutes $=$  $a$ heure(s) et  $b$ minute(s).<br>
               Quelle est la valeur de $b$ ?`
-              texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min, donc $b=${d - a * 60}$.`
-              setReponse(this, i, `${d - a * 60}`, { formatInteractif: 'calcul' })
+              texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min, donc $b=${b}}$.`
+              setReponse(this, i, `${b}`, { formatInteractif: 'calcul' })
               break
-            case 2:// heure décimale
+            case 2:// heure décimale (existe en can simple)
               a = randint(1, 3)
               b = choice([0.25, 0.5, 0.75])
               d = calcul(b * 60)
               texte = `${texNombrec(a + b)}h$=$ (format : ...h...min)`
               texteCorr = `${texNombrec(a + b)}h = ${a} h $+ ${texNombrec(b)} \\times 60$  = ${a}h ${d}min`
-              setReponse(this, i, `${a} h ${d} min`, { formatInteractif: 'texte' })
+              setReponse(this, i, `${a}h${d}\\min`, { formatInteractif: 'texte' })
               break
-            case 3:// conversion en minutes
+            case 3:// conversion en minutes (existe en can simple)
               a = randint(1, 3)
               b = randint(1, 5) * 10
               d = calcul(a * 60)
@@ -276,7 +272,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               setReponse(this, i, `${d + b} min`, { formatInteractif: 'texte' })
               break
 
-            case 4:// calcul d'un temps en minutes
+            case 4:// calcul d'un temps en minutes (existe en can simple)
               a = randint(13, 15)
               b = a + 1
               c = randint(1, 4) * 10
@@ -287,82 +283,85 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               texteCorr = `${b}h${d}-${a}h${c}=${resultat} min`
               setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               break
-            case 5:// conversion unités
-              N = choice(['a', 'b', 'c', 'd'])
-              if (N === 'a') {
-                if (choice([true, false])) {
-                  a = randint(1, 13) * 50
-                  resultat = a / 1000
-                  texte = `$${texNombrec(a)}$ g $ = \\ldots $ kg`
-                  texteCorr = `$${texNombrec(a)}$ g$=${texNombrec(a / 1000)}$ kg`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                } else {
-                  a = randint(1, 5) / 10
-                  resultat = a * 1000
-                  texte = `$${texNombrec(a)}$ kg $ = \\ldots $ g`
-                  texteCorr = `$${texNombrec(a)}$ g$=${texNombrec(a * 1000)}$ kg`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                }
-              }
-              if (N === 'b') {
-                if (choice([true, false])) {
-                  a = randint(1, 13) * 5
-                  resultat = a * 100
-                  texte = `$${texNombrec(a)}$ m $ = \\ldots $ cm`
-                  texteCorr = `$${texNombrec(a)}$ m$=${texNombrec(a * 100)}$ cm`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                } else {
-                  a = randint(1, 12) * 10
-                  resultat = a / 100
-                  texte = `$${texNombrec(a)}$ cm $ = \\ldots $ m`
-                  texteCorr = `$${texNombrec(a)}$ cm$=${texNombrec(a / 100)}$ m`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                }
-              }
-
-              if (N === 'c') {
-                if (choice([true, false])) {
-                  a = randint(1, 13) / 10
-                  resultat = a * 10
-                  texte = `$${texNombrec(a)}$ c$\\ell$  $= \\ldots $ m$\\ell$`
-                  texteCorr = `$${texNombrec(a)}$ c$\\ell$$=${texNombrec(a * 10)}$ m$\\ell$`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                } else {
-                  a = randint(1, 12)
-                  resultat = a / 10
-                  texte = `$${texNombrec(a)}$ m$\\ell$ $ = \\ldots $ c$\\ell$`
-                  texteCorr = `$${texNombrec(a)}$ c$\\ell$$=${texNombrec(a / 10)}$ m$\\ell$`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                }
-              }
-              if (N === 'd') {
-                if (choice([true, false])) {
-                  a = randint(1, 20) * 10
-                  resultat = a / 1000
-                  texte = `$${texNombrec(a)}$ m  $= \\ldots $ km`
-                  texteCorr = `$${texNombrec(a)}$ m$=${texNombrec(a / 1000)}$ km`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                } else {
-                  a = randint(1, 35) / 100
-                  resultat = a * 1000
-                  texte = `$${texNombrec(a)}$ km $ = \\ldots $ m`
-                  texteCorr = `$${texNombrec(a)}$ km$=${texNombrec(a * 1000)}$ m`
-                  setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-                }
+            case 5:// conversion unités (existe en can simple)
+              switch (choice(['a', 'b', 'c', 'd'])) {
+                case 'a':
+                  if (choice([true, false])) {
+                    a = randint(1, 13) * 50
+                    resultat = calcul(a / 1000)
+                    texte = `$${texNombrec(a)}$ g $ = \\ldots $ kg`
+                    texteCorr = `$${texNombrec(a)}$ g$=${texNombrec(a / 1000)}$ kg`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  } else {
+                    a = randint(1, 5) / 10
+                    resultat = a * 1000
+                    texte = `$${texNombrec(a)}$ kg $ = \\ldots $ g`
+                    texteCorr = `$${texNombrec(a)}$ g$=${texNombrec(a * 1000)}$ kg`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  }
+                  break
+                case 'b':
+                  if (choice([true, false])) {
+                    a = randint(1, 13) * 5
+                    resultat = a * 100
+                    texte = `$${texNombrec(a)}$ m $ = \\ldots $ cm`
+                    texteCorr = `$${texNombrec(a)}$ m$=${texNombrec(a * 100)}$ cm`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  } else {
+                    a = randint(1, 12) * 10
+                    resultat = calcul(a / 100)
+                    texte = `$${texNombrec(a)}$ cm $ = \\ldots $ m`
+                    texteCorr = `$${texNombrec(a)}$ cm$=${texNombrec(a / 100)}$ m`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  }
+                  break
+                case 'c':
+                  if (choice([true, false])) {
+                    a = randint(1, 13) / 10
+                    resultat = a * 10
+                    texte = `$${texNombrec(a)}$ c$\\ell$  $= \\ldots $ m$\\ell$`
+                    texteCorr = `$${texNombrec(a)}$ c$\\ell$$=${texNombrec(a * 10)}$ m$\\ell$`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  } else {
+                    a = randint(1, 12)
+                    resultat = calcul(a / 10)
+                    texte = `$${texNombrec(a)}$ m$\\ell$ $ = \\ldots $ c$\\ell$`
+                    texteCorr = `$${texNombrec(a)}$ c$\\ell$$=${texNombrec(a / 10)}$ m$\\ell$`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  }
+                  break
+                case 'd':
+                  if (choice([true, false])) {
+                    a = randint(1, 20) * 10
+                    resultat = calcul(a / 1000)
+                    texte = `$${texNombrec(a)}$ m  $= \\ldots $ km`
+                    texteCorr = `$${texNombrec(a)}$ m$=${texNombrec(a / 1000)}$ km`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  } else {
+                    a = randint(1, 35) / 100
+                    resultat = a * 1000
+                    texte = `$${texNombrec(a)}$ km $ = \\ldots $ m`
+                    texteCorr = `$${texNombrec(a)}$ km$=${texNombrec(a * 1000)}$ m`
+                    setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+                  }
+                  break
               }
               break
-            case 6:// conversion
-              a = randint(1, 12) + randint(1, 9) / 10
-              N = choice(['a', 'b'])
-
-              texte = ` $${texNombrec(a)}$ m$^3=$.... L 
- 
-                                    `
-
-              texteCorr = `$1$ m$^3$= $1000$ L, donc $${texNombrec(a)}$ m$^3$=$${texNombrec(a)}\\times 1000$ L $=${a * 1000}$ L. 
-               `
-              setReponse(this, i, a * 1000, { formatInteractif: 'calcul' })
-
+            case 6:// conversion (existe en can simple can6M05)
+              switch (choice(['a', 'b'])) {
+                case 'a':
+                  a = calcul(randint(1, 12) + randint(1, 9) / 10)
+                  texte = ` $${texNombre(a)}$ m$^3=$.... L`
+                  texteCorr = `$1$ m$^3$= $1000$ L, donc $${texNombre(a)}$ m$^3$=$${texNombre(a)}\\times 1000$ L $=${a * 1000}$ L.`
+                  setReponse(this, i, a * 1000, { formatInteractif: 'calcul' })
+                  break
+                case 'b':
+                  a = calcul(randint(1, 9) + randint(1, 9) * 10 + randint(0, 9) * 100)
+                  texte = `.... m$^3=${texNombre(a)}$  L`
+                  texteCorr = `$1$ m$^3$= $1000$ L, donc $${texNombre(a)}$ L$=${texNombre(a)}\\div 1000$ m$^3=${calcul(a / 1000)}$ m$^3$.`
+                  setReponse(this, i, calcul(a / 1000), { formatInteractif: 'calcul' })
+                  break
+              }
               break
           }
           break
@@ -370,8 +369,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
           switch (choice([1, 2, 3, 4])) {
             case 1:// conversion fraction <->décimale cinquième et quart
               a = randint(1, 9, 5)
-              b = randint(1, 11, [2, 4, 6, 8, 10])
-
+              b = choice([1, 3, 5, 9, 11])
               if (choice([true, false])) {
                 resultat = calcul(a / 5)
                 texte = `Donner la valeur décimale de  $\\dfrac{${a}}{5}$ :`
@@ -387,12 +385,12 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
             case 2:// fraction addition avec un entier
               fraction = choice(listeFractions)
               a = randint(1, 4)
-              fraction = choice(listeFractions)
               b = fraction[0]
               c = fraction[1]
+              d = fraction(a * c + b, c).simplifie()
               texte = `Calculer sous la forme d'une fraction irréductible :  $${a}+${texFraction(b, c)}$`
-              texteCorr = `$${a}+${texFraction(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} =${texFractionReduite(a * c + b, c)}$`
-              setReponse(this, i, new Fraction(a * c + b, c), { formatInteractif: 'fraction' })
+              texteCorr = `$${a}+${texFraction(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} =${d.texFraction}$`
+              setReponse(this, i, d, { formatInteractif: 'fraction' })
               break
 
             case 3:// addition entier et fraction avec den =100, 1000
@@ -597,8 +595,8 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               e = randint(1, 9, [a, b, c, d])
               f = randint(1, 9, [a, b, c, d, e])
               m = choice(['dizaines', 'dixièmes', 'centièmes', 'millièmes'])
-              n = a * 100 + b * 10 + c + d * 0.1 + e * 0.01 + f * 0.001
-              texte = `Dans $${texNombrec(n)}$ quel est le chiffre des ${m} ? `
+              n = calcul(a * 100 + b * 10 + c + d * 0.1 + e * 0.01 + f * 0.001)
+              texte = `Dans $${texNombre(n)}$ quel est le chiffre des ${m} ? `
               if (m === 'dizaines') {
                 texteCorr = `Le chiffre des ${m} est $${b}$.`
                 setReponse(this, i, b, { formatInteractif: 'calcul' })
@@ -3117,46 +3115,35 @@ Ainsi, $DC=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
               }
               break
             case 7:// probabilités
-              N = choice(['a', 'b', 'c'])
-              if (N === 'a') {
-                texte = ` On lance deux fois de suite un dé                équilibré.<br>
-                                Quelle est la probabilité d’obtenir deux
-                fois le même nombre ?<br>
-                Donner le résultat sous la forme d'une fraction irréductible.
-                                    `
-
-                texteCorr = `Sur 36 cas possibles équiprobables, il y en a 6 qui sont des doubles. Donc la probabilité d'obtenir deux fois le même 
-                nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$.
-               `
-                setReponse(this, i, new Fraction(1, 6), { formatInteractif: 'fraction' })
-              }
-              if (N === 'b') {
-                a = randint(2, 4)
-
-                texte = ` Si on lance une pièce $${a}$ fois de suite, quelle est la probabilité d'obtenir PILE $${a}$ fois ?<br>
-                Donner le résultat sous la forme d'une fraction irréductible.
-                                      `
-
-                texteCorr = `A chaque lancer, la probabilité d'obtenir PILE est $\\dfrac{1}{2}$, donc si on lance $${a}$ fois la pièce, la probabilité 
-                d'obtenir $${a}$ PILE est $\\left(\\dfrac{1}{2}\\right)^${a}=\\dfrac{1}{${2 ** a}}$.
-                 `
-                setReponse(this, i, new Fraction(1, 2 ** a), { formatInteractif: 'fraction' })
-              }
-              if (N === 'c') {
-                a = randint(2, 4)
-
-                texte = ` On lance un dé cubique équilibré.<br>
-                Quelle est la probabilité d’obtenir un multiple de 3 ?<br>
-                Donner le résultat sous la forme d'une fraction irréductible.
-                                      `
-
-                texteCorr = `Comme il y a deux multiples de $3$, la probabilité d'ibtenir un multiple de $3$ est $\\dfrac{2}{6}=\\dfrac{1}{3}$.
-                 `
-                setReponse(this, i, new Fraction(1, 3), { formatInteractif: 'fraction' })
+              a = randint(2, 4)
+              b = choice([2, 3])
+              c = randint(2, 12)
+              p = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
+              switch (choice(['a', 'b', 'c', 'd'])) {
+                case 'a':
+                  texte = "On lance deux fois de suite un dé équilibré.<br>Quelle est la probabilité d’obtenir deux fois le même nombre ?<br>Donner le résultat sous la forme d'une fraction irréductible."
+                  texteCorr = "Sur 36 cas possibles équiprobables, il y en a 6 qui sont des doubles. Donc la probabilité d'obtenir deux fois le même nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$."
+                  setReponse(this, i, fraction(1, 6), { formatInteractif: 'fraction' })
+                  break
+                case 'b':
+                  texte = `Si on lance une pièce $${a}$ fois de suite, quelle est la probabilité d'obtenir PILE $${a}$ fois ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
+                  texteCorr = `A chaque lancer, la probabilité d'obtenir PILE est $\\dfrac{1}{2}$, donc si on lance $${a}$ fois la pièce, la probabilité d'obtenir $${a}$ fois PILE est $\\left(\\dfrac{1}{2}\\right)^${a}=\\dfrac{1}{${2 ** a}}$.`
+                  setReponse(this, i, fraction(1, 2 ** a), { formatInteractif: 'fraction' })
+                  break
+                case 'c':
+                  texte = `On lance un dé cubique équilibré.<br>Quelle est la probabilité d’obtenir un multiple de $${b}$ ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
+                  texteCorr = `Comme il y a $${5 - b}$ multiples de $${b}$, la probabilité d'ibtenir un multiple de $${b}$ est $\\dfrac{${5 - b}}{6}=\\dfrac{1}{${b}}$.`
+                  setReponse(this, i, fraction(1, b), { formatInteractif: 'fraction' })
+                  break
+                case 'd':
+                  texte = `On lance deux dés cubiques équilibrés.<br>Quelle est la probabilité d’obtenir un total de $${c}$ ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
+                  texteCorr = `Sur 36 cas possibles équiprobables, il y en a $${p[c - 2]}$ qui donnent une somme de $${c}$. Donc la probabilité d'obtenir un total de $${c}$ est $\\dfrac{${p[c - 2]}}{36}${simplificationDeFractionAvecEtapes(p[c - 2], 36)}$.`
+                  setReponse(this, i, fraction(p[c - 2], 36).simplifie(), { formatInteractif: 'fraction' })
+                  break
               }
               break
 
-            case 8:// nbre de solution d'une équation
+            case 8:// nbre de solution d'une équation (existe en question simple can2L01)
               a = randint(1, 9)
               b = randint(1, 9)
               texte = ` Combien de solutions réelles possède l'équation $-x^2+${a}=${b}$ ?<br>

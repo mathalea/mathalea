@@ -2,7 +2,6 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, lettreDepuisChiffre, randint, texFraction } from '../../modules/outils.js'
 import { mathalea2d, droiteGraduee2, point, tracePoint, labelPoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
-import { afficheScore } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les abscisses fractionnaires'
 export const interactifReady = true
@@ -133,26 +132,23 @@ export default function PlacerPointsAbscissesFractionnaires () {
       }
       cpt++
     }
-    this.correctionInteractive = (elt) => {
-      let nbBonnesReponses = 0
-      let nbMauvaisesReponses = 0
-      for (let i = 0, aucunMauvaisPointsCliques; i < this.nbQuestions; i++) {
-        aucunMauvaisPointsCliques = true
-        const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-        pointsSolutions[i].stopCliquable()
-        for (const monPoint of pointsNonSolutions[i]) {
-          if (monPoint.etat) aucunMauvaisPointsCliques = false
-          monPoint.stopCliquable()
-        }
-        if (aucunMauvaisPointsCliques && pointsSolutions[i].etat) {
-          divFeedback.innerHTML = '😎'
-          nbBonnesReponses++
-        } else {
-          divFeedback.innerHTML = '☹️'
-          nbMauvaisesReponses++
-        }
+    this.correctionInteractive = (i) => {
+      let resultat
+      let aucunMauvaisPointsCliques = true
+      pointsSolutions[i].stopCliquable()
+      for (const monPoint of pointsNonSolutions[i]) {
+        if (monPoint.etat) aucunMauvaisPointsCliques = false
+        monPoint.stopCliquable()
       }
-      afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
+      const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+      if (aucunMauvaisPointsCliques && pointsSolutions[i].etat) {
+        divFeedback.innerHTML = '😎'
+        resultat = 'OK'
+      } else {
+        divFeedback.innerHTML = '☹️'
+        resultat = 'KO'
+      }
+      return resultat
     }
     listeQuestionsToContenu(this)
   }

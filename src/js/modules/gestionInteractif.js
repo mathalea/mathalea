@@ -93,8 +93,8 @@ function verifQuestionMathLive (exercice, i) {
   let resultat = 'KO'
   let saisie = champTexte.value
   for (let reponse of reponses) {
-  // Pour le calcul littéral on remplace dfrac en frac
-    if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') { // Le format par défautt
+    if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') { // Le format par défaut
+      // Pour le calcul littéral on remplace dfrac en frac
       if (typeof reponse === 'string') {
         reponse = reponse.replaceAll('dfrac', 'frac')
       // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
@@ -106,6 +106,10 @@ function verifQuestionMathLive (exercice, i) {
         resultat = 'OK'
       }
       // Pour les exercices de simplifications de fraction
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'texte') {
+      if (saisie === reponse) {
+        resultat = 'OK'
+      }
     } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionPlusSimple') {
       saisieParsee = parse(saisie)
       if (saisieParsee) {
@@ -142,7 +146,11 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour les exercices où l'on attend un écriture donnée d'une fraction
     } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fraction') {
-      saisieParsee = parse(saisie)
+      if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
+        saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
+      } else {
+        saisieParsee = parse(saisie)
+      }
       if (saisieParsee) {
         if (saisieParsee[0] === 'Negate') {
           signeF = -1
@@ -274,6 +282,9 @@ function gestionCan (exercice) {
           if (exercice.interactifType === 'cliqueFigure') {
             resultat = verifQuestionCliqueFigure(exercice, i)
           }
+          if (exercice.interactifType === 'custom') {
+            resultat = exercice.correctionInteractive(i)
+          }
           // Mise en couleur du numéro de la question dans le menu du haut
           if (resultat === 'OK') {
             document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
@@ -318,7 +329,7 @@ export function exerciceQcm (exercice) {
         button.addEventListener('click', event => {
           let nbQuestionsValidees = 0
           let nbQuestionsNonValidees = 0
-          for (let i = 0; i < exercice.nbQuestions; i++) {
+          for (let i = 0; i < exercice.autoCorrection.length; i++) {
             const resultat = verifQuestionQcm(exercice, i)
             resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
           }
@@ -341,10 +352,10 @@ export function exerciceQcm (exercice) {
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
 export function propositionsQcm (exercice, i) {
-// exercice.titre = 'cacaboudin'
   let texte = ''
   let texteCorr = ''
   let espace = ''
+  if (context.isAmc) return { texte: '', texteCorr: '' }
   if (context.isHtml) {
     espace = '&emsp;'
   } else {
@@ -432,7 +443,6 @@ export function elimineDoublons (propositions) { // fonction qui va éliminer le
  * @param {object} exercice
  */
 export function exerciceNumerique (exercice) {
-  // console.log('Dans ExerciceNumerique : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
   document.addEventListener('exercicesAffiches', () => {
     if (getVueFromUrl() === 'can') {
       gestionCan(exercice)
@@ -558,11 +568,16 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
  */
 export function exerciceCustom (exercice) {
   document.addEventListener('exercicesAffiches', () => {
+    if (getVueFromUrl() === 'can') {
+      gestionCan(exercice)
+    }
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       if (!button.hasMathaleaListener) {
         button.addEventListener('click', event => {
-        // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
+          let nbBonnesReponses = 0
+          let nbMauvaisesReponses = 0
+          // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
           let eltFeedback = get(`feedbackEx${exercice.numeroExercice}`, false)
           // On ajoute le div pour le feedback
           if (!eltFeedback) {
@@ -572,7 +587,10 @@ export function exerciceCustom (exercice) {
           setStyles(eltFeedback, 'marginBottom: 20px')
           if (eltFeedback) eltFeedback.innerHTML = ''
           // On utilise la correction définie dans l'exercice
-          exercice.correctionInteractive(eltFeedback)
+          for (let i = 0; i < exercice.nbQuestions; i++) {
+            exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
+          }
+          afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
           button.classList.add('disabled')
         })
         button.hasMathaleaListener = true
@@ -649,11 +667,21 @@ function saisieToGrandeur (saisie) {
  */
 
 function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
-  // TODO
-  // => OK => vérifier si le paramètre existe dans l'url
+  // => vérifier si le paramètre existe dans l'url : OK
   // il a pu être entré manuellement
   // agir en fonction pour les enregistrements
   const userId = getUserIdFromUrl() // ne renvoit pas ce que je veux, en fait si ??? bizarre
+  // TODO => gérer un chrono à partir du serveur si on est en mode chrono
+  // Pour le moment je l'ajoute aux csv avec un string 'à venir'
+  let duree = null
+  if (context.duree) {
+    // duree = getDureeFromUrl() // Pour quand ce sera fait
+    duree = 'à venir'
+    console.log('context duree : ' + duree)
+  } else {
+    duree = 'à venir'
+    console.log('pas context duree : ' + duree)
+  }
   // const str = window.location.href
   // const url = new URL(str)
   // const userId = url.searchParams.get('userId')
@@ -686,7 +714,8 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
         sup3: exercice.sup3,
         nbBonnesReponses: nbBonnesReponses,
         nbQuestions: nbBonnesReponses + nbMauvaisesReponses,
-        score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100
+        score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100,
+        duree: duree
       })
     })
     if (!response.ok) {

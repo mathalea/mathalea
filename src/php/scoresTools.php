@@ -15,6 +15,10 @@
    */
 
   function createIndexScores($path,$codeProf) {
+    // On crée un timestamp pour identifiant les espaces inactifs et le libérer
+    $f = fopen($path.'/iSinactive.txt',"w+");  
+    fputs($f,time().PHP_EOL);
+    fclose($f);
     $indexProfSpace = $path.'/index.php';
     // On ouvre le fichier
     $fp = fopen($indexProfSpace, 'a+');
@@ -45,7 +49,7 @@
 
       // On récupère les classes distinctes dans un tableau
       foreach ($myFilesDatas as $object) {
-        if(!is_dir($object->file) && !in_array($object->name, array(".","..","index.php")) && !in_array($object->classe,$classes)) {    
+        if(!is_dir($object->file) && !in_array($object->name, array(".","..","index.php","iSinactive.txt")) && !in_array($object->classe,$classes)) {    
           array_push($classes,$object->classe);           
         }        
       }
@@ -74,22 +78,35 @@
           </a>
         </div>    
         \r\n";
-      echo "<ul>\r\n";
-      foreach ($myFilesDatas as $object) {
-        if (!is_dir($object->file) && $object->classe == $classe && !in_array($object->name, array(".","..")) ) {
-            echo "<br><li>
-              <div class=\"ui labeled button\" tabindex=\"0\">
-                <div class=\"ui orange button\">
-                  <i class=\"calendar icon\"></i> ".substr($object->name,0,-4)."
-                </div>
-                <a class=\"ui basic orange left pointing label\" href=\"".substr($object->path,-2)."/".$object->name."\">
-                  Télécharger uniquement ce fichier
-                </a>
-              </div>
-            </li>\r\n";
-          };
-      }
-      echo "</ul>\r\n"; 
+      echo "
+      <div class=\"ui accordion\">
+      <div class=\"title\">
+        <i class=\"dropdown icon\"></i>
+        Dérouler pour ne télécharger que les scores d\'une semaine donnée
+      </div>
+      <div class=\"content\">
+        <p class=\"transition hidden\">";
+        echo "
+          <ul>\r\n";      
+          foreach ($myFilesDatas as $object) {
+            if (!is_dir($object->file) && $object->classe == $classe && !in_array($object->name, array(".","..")) ) {
+                echo "<li>
+                  <div class=\"ui labeled button\" tabindex=\"0\">
+                    <div class=\"ui orange button\">
+                      <i class=\"calendar icon\"></i> ".substr($object->name,0,-4)."
+                    </div>
+                    <a class=\"ui basic orange left pointing label\" href=\"".substr($object->path,-2)."/".$object->name."\">
+                      Télécharger uniquement ce fichier
+                    </a>
+                  </div>
+                </li></br>\r\n";
+              };
+          }
+      echo "
+            </ul>
+            </p>
+          </div>
+        </div>\r\n"; 
       echo "</li>\r\n"; 
       }
       if (!empty($classes)) {
@@ -117,21 +134,15 @@
         </div>    
         ";
       }
-      echo "</ul>\r\n";    
+      echo "</ul>\r\n";
+      
     ?>';
+
+
     fputs($fp,"
       <!DOCTYPE html>
       <html>
       <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src=\"https://www.googletagmanager.com/gtag/js?id=UA-5318292-3\"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag() { dataLayer.push(arguments); }
-          gtag('js', new Date());
-
-          gtag('config', 'UA-5318292-3');
-        </script>
         <meta charset=\"UTF-8\">
         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
 
@@ -156,22 +167,53 @@
       <body style=\"overflow:auto\">
     ");
 
-  // fputs($fp," ...
-  // ");
+    // fputs($fp," ...
+    // ");
 
-  fputs($fp,"
-    <div class=\"ui container\">
-    <h1 class=\"ui center aligned header\">Espace des scores <b>".$codeProf[0].$codeProf[1].$codeProf[2]."</b></h1>
-    <h2 class=\"ui center aligned header\">Liste des fichiers par classe et par semaine</h2>                
-      $string      
-    </div>
-  ");
+    fputs($fp,"
+      <div class=\"ui container\">
+      <h1 class=\"ui center aligned header\">Espace des scores <b>".$codeProf[0].$codeProf[1].$codeProf[2]."</b></h1>
+      <h2 class=\"ui center aligned header\">Liste des fichiers par classe et par semaine</h2>                
+        $string      
+      </div>
+    ");
 
-  fputs($fp,"
-    </body>
-      </html>
-  ");
+    fputs($fp,"
+      <script>
+        $('.ui.accordion')
+          .accordion()
+        ;
+      </script>
+      </body>
+        </html>
+    ");
 
-  fclose($fp); 
+    fclose($fp); 
   };
+
+  /**
+   * Procédure pour récupérer tous les espaces scores dans un json
+   * 
+   * @param string $path est le répertoire père de stockage des espaces
+   */
+
+  function getAllScoresSpaces($path) {
+    // On met les fichiers dans un itérateur récursif    
+    $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
+    // On récupère uniquement les données via le fichier d'index dans un tableau
+    $datas = array();    
+    foreach ($files as $file) {
+        if (substr($file,-9) == "index.php") {
+          //echo " ├ $file<br>\n";
+          // On explose la chaine via le séparateur /
+          $explodedFile = explode("/",$file);
+          array_push($datas,array(
+            "codeProf" => $explodedFile[1].$explodedFile[2].$explodedFile[3],
+            "md5Key" => $explodedFile[4]
+          ));
+        }
+    }
+    return json_encode($datas);
+  }
+  //print_r(getAllScoresSpaces('resultats'));
 ?>

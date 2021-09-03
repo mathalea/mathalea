@@ -10,10 +10,15 @@
 */
 
 import { telechargeFichier, introLatex, introLatexCoop } from './modules/outils.js'
-import dictionnaireDesExercices from './modules/dictionnaireDesExercicesAleatoires'
+import dictionnaireDesExercicesAleatoires from './modules/dictionnaireDesExercicesAleatoires'
+import { dictionnaireC3 } from './modules/dictionnaireC3.js'
+import { dictionnaireDNB } from './modules/dictionnaireDNB.js'
+import { dictionnaireLycee } from './modules/dictionnaireLycee.js'
 import { loadPrism } from './modules/loaders'
 import { setOutputLatex } from './modules/context.js'
 import '../css/style_mathalea.css'
+
+const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3, ...dictionnaireLycee }
 
 // Les variables globales nécessaires aux exercices (pas terrible...)
 window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
