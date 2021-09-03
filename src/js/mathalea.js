@@ -283,7 +283,17 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       contenuUneCorrection += `<img width="90%" src="${obj.pngcor}">`
       obj.video = false
     } else if (obj.typeExercice === 'simple') {
-      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
+      if (obj.interactif) {
+        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
+          numeroExercice - 1
+        }" class="keyboard icon iconeInteractif"></i><span>`
+      } else {
+        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
+          numeroExercice - 1
+        }" class="keyboard outline icon iconeInteractif"></i><span>`
+      }
+      // ToFix Ajouter la roue dentée
+      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </span> ${iconeInteractif} </h3>`
       contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
       if (obj.consigne) {
         contenuUnExercice += `<h4> ${obj.consigne} </h4>`
@@ -296,6 +306,7 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         } catch (error) {
           console.log(error)
         }
+        
         if (obj.questionJamaisPosee(numQuestion, obj.question)) {
           contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}`
           if (obj.interactif && obj.interactifReady) {
