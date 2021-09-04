@@ -476,7 +476,7 @@ function miseAJourDuCode () {
         finUrl += `,n=${listeObjetsExercice[0].nbQuestions}`
       }
       if (listeObjetsExercice[0].video.length > 1) {
-        finUrl += `,v${encodeURIComponent(listeObjetsExercice[0].video)}`
+        finUrl += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
       }
       if (listeObjetsExercice[0].correctionDetaillee && listeObjetsExercice[0].correctionDetailleeDisponible) {
         finUrl += ',cd=1'
@@ -508,7 +508,7 @@ function miseAJourDuCode () {
         if (listeObjetsExercice[i].video) {
           if (listeObjetsExercice[i].video.length > 1) {
             // Pour dnb, video est à false, pour les exercices interactif, par défaut c'est ''
-            finUrl += `,v${encodeURIComponent(listeObjetsExercice[i].video)}`
+            finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
           }
         }
         if (listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
@@ -1261,8 +1261,8 @@ function miseAJourDeLaListeDesExercices (preview) {
             listeObjetsExercice[i].nbQuestions = parseInt(urlVars[i].n)
             formNbQuestions[i].value = listeObjetsExercice[i].nbQuestions
           }
-          if (urlVars[i].v && context.isHtml && !context.isDiaporama) {
-            listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].v)
+          if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
+            listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
             formVideo[i].value = listeObjetsExercice[i].video
           }
           if (urlVars[i].cd !== undefined) {
