@@ -4325,6 +4325,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can4C04"
   },
+  "can4C05": {
+    "titre": "Différence de fractions à dénominateurs compatibles",
+    "url": "/exercices/can/4e/can4C05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4C05"
+  },
   "can4L01": {
     "titre": "Résoudre une équation niveau 1",
     "url": "/exercices/can/4e/can4L01.js",
@@ -4357,6 +4368,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can4L03"
+  },
+  "can4P01": {
+    "titre": "Problèmes de robinets",
+    "url": "/exercices/can/4e/can4P01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4P01"
   },
   "can5C01": {
     "titre": "Produit de nombres entiers",

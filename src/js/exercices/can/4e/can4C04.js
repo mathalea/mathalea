@@ -1,4 +1,4 @@
-import { choice, ecritureAlgebrique, ecritureParentheseSiNegatif, miseEnEvidence, randint, shuffle } from '../../../modules/outils'
+import { ecritureParentheseSiNegatif, miseEnEvidence, randint, shuffle } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Règle des signes'
 export const interactifReady = true
@@ -43,7 +43,7 @@ export default function RegleDesSignes () {
         this.question = `? $\\times ${ecritureParentheseSiNegatif(f[1])}\\times ${ecritureParentheseSiNegatif(f[2])}=${d}$`
         this.reponse = f[0]
         this.correction = `Comme le produit $${f[1]}\\times ${ecritureParentheseSiNegatif(f[2])}$ est ${f[1] * f[2] > 0 ? 'positif' : 'négatif'} et que le résultat est ${d > 0 ? 'positif' : 'négatif'} alors le facteur manquant est forcément ${f[0] > 0 ? 'positif' : 'négatif'}.<br>`
-        this.correction += `De plus, comme $${Math.abs(f[1])}\\times ${Math.abs(f[2])}=${Math.abs(f[1] * f[2])}=${Math.abs(d)d}\\div ${Math.abs(f[0])}$.<br>`
+        this.correction += `De plus, comme $${Math.abs(f[1])}\\times ${Math.abs(f[2])}=${Math.abs(f[1] * f[2])}=${Math.abs(d)}\\div ${Math.abs(f[0])}$.<br>`
         this.correction += `On en déduit que le facteur manquant est : $${f[0]}$ soit $${miseEnEvidence(f[0])}\\times ${ecritureParentheseSiNegatif(f[1])} \\times ${ecritureParentheseSiNegatif(f[2])}=${d}$`
         break
     }
