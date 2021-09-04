@@ -3766,11 +3766,8 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": [
-      "qcm",
-      "mathLive"
-    ],
-    "name": "betaCan2G01"
+    "interactifType": "mathLive",
+    "name": "betaCanQ16-01"
   },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
