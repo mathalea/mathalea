@@ -4457,8 +4457,19 @@ export default {
     "interactifType": "mathLive",
     "name": "can4L03"
   },
+  "can4L04": {
+    "titre": "Nombre de nombres entiers entre deux valeurs",
+    "url": "/exercices/can/4e/can4L04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4L04"
+  },
   "can4P01": {
-    "titre": "Problèmes de vitesse",
+    "titre": "Problèmes de robinets",
     "url": "/exercices/can/4e/can4P01.js",
     "amcReady": true,
     "amcType": {
@@ -4467,6 +4478,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can4P01"
+  },
+  "can4P02": {
+    "titre": "Problèmes de vitesse",
+    "url": "/exercices/can/4e/can4P02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4P02"
   },
   "can5C01": {
     "titre": "Produit de nombres entiers",
