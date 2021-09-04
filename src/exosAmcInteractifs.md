@@ -199,6 +199,8 @@
 |betaCAN2Q16-07|Calcul avec +/-99 ou +/-999|OK|AMCNum|OK|mathLive|
 |betaCAN2Q16-08|Division avec des décimaux|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
+|betaCanQ16-01|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
+|betaCanQ30|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModèle00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
 |betaModèle32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|

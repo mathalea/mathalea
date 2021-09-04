@@ -3871,6 +3871,28 @@ export default {
     "interactifType": "mathLive",
     "name": "betaCaNCM2"
   },
+  "betaCanQ16-01": {
+    "titre": "Nombre de nombres entiers entre deux valeurs",
+    "url": "/exercices/beta/betaCanQ16-01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCanQ16-01"
+  },
+  "betaCanQ30": {
+    "titre": "Nombre de solutions d’une équation se ramenant à $x^2=a$",
+    "url": "/exercices/beta/betaCanQ30.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCanQ30"
+  },
   "betaComplexes": {
     "titre": "Exercice exemple Nombres complexes",
     "url": "/exercices/beta/betaComplexes.js",
