@@ -64,7 +64,7 @@ export default function cliqueFigure () {
       }
 
       texte += '<br>'
-      texteCorr = texte + mathalea2d({ xmin: -4, xmax: 6, ymin: -1, style: '', id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), figCorr)
+      texteCorr = texte + mathalea2d({ xmin: -4, xmax: 6, ymin: -2, style: '', id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), figCorr)
       const figures = shuffle([figSegment, figDroite, figDemiDroite, figDemiDroite2])
       texte += figures.join('')
       texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
