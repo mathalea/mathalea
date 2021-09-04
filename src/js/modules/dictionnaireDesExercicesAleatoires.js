@@ -4171,77 +4171,77 @@ export default {
     "interactifType": "qcm",
     "name": "betaLicence"
   },
-  "betaModèle00_simple_Course_au_Nombres": {
+  "betaModele00_simple_Course_au_Nombres": {
     "titre": "Somme de deux entier",
-    "url": "/exercices/beta/betaModèle00_simple_Course_au_Nombres.js",
+    "url": "/exercices/beta/betaModele00_simple_Course_au_Nombres.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaModèle00_simple_Course_au_Nombres"
+    "name": "betaModele00_simple_Course_au_Nombres"
   },
-  "betaModèle10_simple_question-reponse": {
+  "betaModele10_simple_question-reponse": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle10_simple_question-reponse.js",
+    "url": "/exercices/beta/betaModele10_simple_question-reponse.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle10_simple_question-reponse"
+    "name": "betaModele10_simple_question-reponse"
   },
-  "betaModèle11_paramétrable": {
+  "betaModele11_parametrable": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle11_paramétrable.js",
+    "url": "/exercices/beta/betaModele11_parametrable.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle11_paramétrable"
+    "name": "betaModele11_parametrable"
   },
-  "betaModèle20_plusieurs_types_de_questions": {
+  "betaModele20_plusieurs_types_de_questions": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle20_plusieurs_types_de_questions.js",
+    "url": "/exercices/beta/betaModele20_plusieurs_types_de_questions.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle20_plusieurs_types_de_questions"
+    "name": "betaModele20_plusieurs_types_de_questions"
   },
-  "betaModèle21_paramétrables": {
+  "betaModele21_parametrables": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle21_paramétrables.js",
+    "url": "/exercices/beta/betaModele21_parametrables.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle21_paramétrables"
+    "name": "betaModele21_parametrables"
   },
-  "betaModèle30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle30_constructions_géométriques"
+    "name": "betaModele30_constructions_géométriques"
   },
-  "betaModèle31_paramétrables": {
+  "betaModele31_parametrables": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle31_paramétrables.js",
+    "url": "/exercices/beta/betaModele31_parametrables.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle31_paramétrables"
+    "name": "betaModele31_parametrables"
   },
-  "betaModèle32_cliqueFigure": {
+  "betaModele32_cliqueFigure": {
     "titre": "Choisir la bonne figure",
-    "url": "/exercices/beta/betaModèle32_cliqueFigure.js",
+    "url": "/exercices/beta/betaModele32_cliqueFigure.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "cliqueFigure",
-    "name": "betaModèle32_cliqueFigure"
+    "name": "betaModele32_cliqueFigure"
   },
-  "betaModèle40_tableau_proportionnalite": {
+  "betaModele40_tableau_proportionnalite": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle40_tableau_proportionnalite.js",
+    "url": "/exercices/beta/betaModele40_tableau_proportionnalite.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle40_tableau_proportionnalite"
+    "name": "betaModele40_tableau_proportionnalite"
   },
-  "betaModèle41_tableau_signes_variations": {
+  "betaModele41_tableau_signes_variations": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModèle41_tableau_signes_variations.js",
+    "url": "/exercices/beta/betaModele41_tableau_signes_variations.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModèle41_tableau_signes_variations"
+    "name": "betaModele41_tableau_signes_variations"
   },
   "betaProbaAouB": {
     "titre": "2S30-6",

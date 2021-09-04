@@ -27,7 +27,7 @@ export default function NomExercice () {
       texteCorr = `$${a} + 1 = ${a + 1}$`
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, a)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Ici, a est utilisée mais pas b, c et d, alors supprime ces trois derniers !
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
