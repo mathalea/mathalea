@@ -1,9 +1,11 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 250 
-- nombre d'exos interactifReady 285 
+- nombre d'exos amcReady 252 
+- nombre d'exos interactifReady 288 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
+|1E11-1|calculer le discriminant d'un polynôme du second degré|OK|AMCNum|OK|mathLive|
+|1E11-2|Résoudre une équation du second degré|KO|KO|OK|mathLive|
 |2F10-1|Reconnaître une fonction affine.|OK|qcmMono|OK|qcm|
 |2F10-2|Lecture graphique d’une fonction affine|OK|AMCHybride|OK|mathLive|
 |2F32|Lecture graphique|OK|AMCHybride|OK|mathLive|
@@ -205,6 +207,7 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
+|beta1N10_intercatif|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
