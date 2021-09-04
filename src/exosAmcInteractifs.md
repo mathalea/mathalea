@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 267 
-- nombre d'exos interactifReady 302 
+- nombre d'exos amcReady 268 
+- nombre d'exos interactifReady 303 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -188,6 +188,7 @@
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
+|betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
@@ -206,7 +207,6 @@
 |can2L01|Nombre de solutions de l’équation $-x^2+a=b$|OK|AMCNum|OK|mathLive|
 |can2L02|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
-|canPredef2-1|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
 |can3C02|Moyenne entière de trois décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Fraction irréductible|OK|AMCNum|OK|mathLive|
@@ -219,21 +219,22 @@
 |can3F03|Calcul d’image ou d’antécédent niveau 2|OK|AMCNum|OK|mathLive|
 |can3F04|Calcul d’image niveau 3|OK|AMCNum|OK|mathLive|
 |can3G01|Agrandissement/réduction|OK|AMCNum|OK|mathLive|
-|can3L1|Équation ax=b|OK|AMCNum|OK|mathLive|
-|can3L2|Équation ax+b=0|OK|AMCNum|OK|mathLive|
-|can3L3|Équation ax+b=c|OK|AMCNum|OK|mathLive|
+|can3L01|Équation ax=b|OK|AMCNum|OK|mathLive|
+|can3L02|Équation ax+b=0|OK|AMCNum|OK|mathLive|
+|can3L03|Équation ax+b=c|OK|AMCNum|OK|mathLive|
 |can3M01|Aire et carré|OK|AMCNum|OK|mathLive|
 |can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
 |can4C01|Priorité opératoire et relatifs|OK|AMCNum|OK|mathLive|
 |can4C02|Opposé de fraction|OK|AMCNum|OK|mathLive|
 |can4C03|Quotient d’entier qui va bien par fraction|OK|AMCNum|OK|mathLive|
 |can4C04|Règle des signes|OK|AMCNum|OK|mathLive|
-|can4C05|Différence de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
+|can4C05|Somme de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
 |can4C06|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
+|can4C07|Différence de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
 |can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
 |can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
-|can4P01|Problèmes de robinets|OK|AMCNum|OK|mathLive|
+|can4P01|Problèmes de vitesse|OK|AMCNum|OK|mathLive|
 |can5C01|Produit de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Somme de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C03|Différence de nombres entiers|OK|AMCNum|OK|mathLive|

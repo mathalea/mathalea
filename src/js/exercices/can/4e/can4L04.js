@@ -1,0 +1,28 @@
+import Exercice from '../../Exercice.js'
+import { randint, calcul } from '../../../modules/outils.js'
+export const titre = 'Nombre de nombres entiers entre deux valeurs'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Gille Mora
+ * Créé pendant l'été 2021
+ * Référence can4C06
+ * Date de publication
+*/
+export default function SubstitutionRelatif () {
+  Exercice.call(this)
+  this.typeExercice = 'simple'
+  this.nbQuestions = 1
+  this.interactif = true
+  this.formatChampTexte = 'largeur15 inline'
+  this.nouvelleVersion = function () {
+    const a = randint(1, 15)
+    const b = randint(18, 35)
+    this.question = `Le nombre d'entiers strictement compris entre $${a}$ et $${b}$ est :`
+    this.correction = `Il y a $${b}-${a}-1$ soit $${b - a - 1}$ entiers strictement compris entre $${a}$ et $${b}$ `
+    this.reponse = calcul(b - a - 1)
+  }
+}

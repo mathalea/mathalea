@@ -1,18 +1,18 @@
-import Exercice from '../../Exercice.js'
+import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu, prenomF, prenomM, randint, ecritureParentheseSiNegatif,
   ecritureAlgebrique,
   calcul, texteEnCouleur, texteEnCouleurEtGras, pgcd, texNombrec, texFraction, signe, abs, listeDeNotes, prenom,
   texFractionReduite, choice, texNombre, printlatex,
   texPrix, combinaisonListesSansChangerOrdre, range1, reduireAxPlusB, rienSi1, texRacineCarree, combinaisonListes, simplificationDeFractionAvecEtapes
-} from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
-import Fraction from '../../../modules/Fraction.js'
-import { calcule, tan } from '../../../modules/fonctionsMaths.js'
+} from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import Fraction from '../../modules/Fraction.js'
+import { calcule, tan } from '../../modules/fonctionsMaths.js'
 import {
   droiteGraduee2, mathalea2d, repere2, courbe2, tracePoint, point, droite, segmentAvecExtremites,
   codeSegments, codageAngleDroit, afficheMesureAngle, milieu, labelPoint, segment, latexParCoordonnees
-} from '../../../modules/2d.js'
+} from '../../modules/2d.js'
 
 export const titre = 'Course aux nombres seconde'
 export const interactifReady = true

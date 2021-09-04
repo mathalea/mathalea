@@ -3747,6 +3747,17 @@ export default {
     "interactifReady": false,
     "name": "betaAsymptotesObliques"
   },
+  "betaCan2": {
+    "titre": "Course aux nombres seconde",
+    "url": "/exercices/beta/betaCan2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCan2"
+  },
   "betaCan2G01": {
     "titre": "Périmètres de carrés et de rectangles",
     "url": "/exercices/beta/betaCan2G01.js",
@@ -4149,17 +4160,6 @@ export default {
     "interactifType": "mathLive",
     "name": "can2P01"
   },
-  "canPredef2-1": {
-    "titre": "Course aux nombres seconde",
-    "url": "/exercices/can/2e/canPredef2-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "canPredef2-1"
-  },
   "can3C01": {
     "titre": "Puissances de nombre entier",
     "url": "/exercices/can/3e/can3C01.js",
@@ -4292,38 +4292,38 @@ export default {
     "interactifType": "mathLive",
     "name": "can3G01"
   },
-  "can3L1": {
+  "can3L01": {
     "titre": "Équation ax=b",
-    "url": "/exercices/can/3e/can3L1.js",
+    "url": "/exercices/can/3e/can3L01.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3L1"
+    "name": "can3L01"
   },
-  "can3L2": {
+  "can3L02": {
     "titre": "Équation ax+b=0",
-    "url": "/exercices/can/3e/can3L2.js",
+    "url": "/exercices/can/3e/can3L02.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3L2"
+    "name": "can3L02"
   },
-  "can3L3": {
+  "can3L03": {
     "titre": "Équation ax+b=c",
-    "url": "/exercices/can/3e/can3L3.js",
+    "url": "/exercices/can/3e/can3L03.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3L3"
+    "name": "can3L03"
   },
   "can3M01": {
     "titre": "Aire et carré",
@@ -4392,7 +4392,7 @@ export default {
     "name": "can4C04"
   },
   "can4C05": {
-    "titre": "Différence de fractions à dénominateurs compatibles",
+    "titre": "Somme de fractions à dénominateurs compatibles",
     "url": "/exercices/can/4e/can4C05.js",
     "amcReady": true,
     "amcType": {
@@ -4412,6 +4412,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can4C06"
+  },
+  "can4C07": {
+    "titre": "Différence de fractions à dénominateurs compatibles",
+    "url": "/exercices/can/4e/can4C07.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4C07"
   },
   "can4L01": {
     "titre": "Résoudre une équation niveau 1",
@@ -4447,7 +4458,7 @@ export default {
     "name": "can4L03"
   },
   "can4P01": {
-    "titre": "Problèmes de robinets",
+    "titre": "Problèmes de vitesse",
     "url": "/exercices/can/4e/can4P01.js",
     "amcReady": true,
     "amcType": {

@@ -1,4 +1,4 @@
-import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
+import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { calcul, choice } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Quotient d’entier qui va bien par fraction'
