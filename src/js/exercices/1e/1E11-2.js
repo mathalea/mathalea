@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, arrondiVirgule, texFractionReduite, texFractionSigne, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, arrondiVirgule, texFractionReduite, texFractionSigne, texFraction, pgcd } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -42,6 +42,11 @@ export default function ResoudreEquationDegre2 () {
         a = k
         b = -k * x1 - k * x2
         c = k * x1 * x2
+        if (pgcd(a, b, c) !== 1) {
+          a = a / pgcd(a, b, c)
+          b = b / pgcd(a, b, c)
+          c = c / pgcd(a, b, c)
+        }
         texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$`
 
         texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
