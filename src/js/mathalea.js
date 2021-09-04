@@ -306,7 +306,7 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         } catch (error) {
           console.log(error)
         }
-        
+
         if (obj.questionJamaisPosee(numQuestion, obj.question)) {
           contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}`
           if (obj.interactif && obj.interactifReady) {

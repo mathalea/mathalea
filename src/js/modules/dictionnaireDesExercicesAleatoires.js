@@ -631,13 +631,6 @@ export default {
     "interactifReady": false,
     "name": "3G20-1"
   },
-  "3G20-2": {
-    "titre": "Déterminer une longueur avec la propriété de Thales (MG32)",
-    "url": "/exercices/3e/3G20-2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "3G20-2"
-  },
   "3G20": {
     "titre": "Calculer des longueurs avec le théorème de Thalès",
     "url": "/exercices/3e/3G20.js",
@@ -680,13 +673,6 @@ export default {
     "interactifReady": false,
     "name": "3G30-1"
   },
-  "3G30-MG32": {
-    "titre": "Déterminer une longueur grâce à la trigonométrie",
-    "url": "/exercices/3e/3G30-MG32.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "3G30-MG32"
-  },
   "3G30": {
     "titre": "Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie",
     "url": "/exercices/3e/3G30.js",
@@ -704,13 +690,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "3G31-1"
-  },
-  "3G31-MG32": {
-    "titre": "Déterminer un angle grâce à la trigonométrie",
-    "url": "/exercices/3e/3G31-MG32.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "3G31-MG32"
   },
   "3G31": {
     "titre": "Calculer un angle dans un triangle rectangle en utilisant la trigonométrie",
@@ -1396,13 +1375,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "4G22"
-  },
-  "4G30-1": {
-    "titre": "Calculer des longueurs avec la propriété de Thalès (MG32)",
-    "url": "/exercices/4e/4G30-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "4G30-1"
   },
   "4G30": {
     "titre": "Calculer des longueurs avec le théorème de Thalès",
