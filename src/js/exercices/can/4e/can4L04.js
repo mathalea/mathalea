@@ -1,16 +1,15 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
-export const titre = 'Nombre de nombres entiers entre deux valeurs'
+import { randint, calcul, ecritureAlgebrique } from '../../../modules/outils.js'
+export const titre = 'Substitution négative'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Gille Mora
+ * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can4C06
- * Date de publication
+ * Référence can4L04
 */
 export default function SubstitutionRelatif () {
   Exercice.call(this)
@@ -19,10 +18,11 @@ export default function SubstitutionRelatif () {
   this.interactif = true
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    const a = randint(1, 15)
-    const b = randint(18, 35)
-    this.question = `Le nombre d'entiers strictement compris entre $${a}$ et $${b}$ est :`
-    this.correction = `Il y a $${b}-${a}-1$ soit $${b - a - 1}$ entiers strictement compris entre $${a}$ et $${b}$ `
-    this.reponse = calcul(b - a - 1)
+    const a = -randint(2, 6)
+    const b = randint(12, 25)
+    const c = randint(3, 7)
+    this.question = `Calcule $${b}+${c}x$ pour $x=${a}$`
+    this.correction = `$${b}+${c}x=${b}+${c}\\times (${a})=${b}${ecritureAlgebrique(c * a)}=${b + c * a}$ `
+    this.reponse = calcul(b + c * a)
   }
 }

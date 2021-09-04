@@ -9,7 +9,7 @@ export const amcType = 'AMCNum'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can4P01
+ * Référence can4P02
  */
 export default function ProblemesDeVitesse () {
   Exercice.call(this)

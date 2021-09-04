@@ -4128,7 +4128,7 @@ export default {
     "name": "can2G01"
   },
   "can2L01": {
-    "titre": "Nombre de solutions de l’équation $-x^2+a=b$",
+    "titre": "Nombre de solutions d’une équation se ramenant à $x^2=a$",
     "url": "/exercices/can/2e/can2L01.js",
     "amcReady": true,
     "amcType": {
@@ -4424,6 +4424,28 @@ export default {
     "interactifType": "mathLive",
     "name": "can4C07"
   },
+  "can4C08": {
+    "titre": "Somme de puissances de 10",
+    "url": "/exercices/can/4e/can4C08.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4C08"
+  },
+  "can4G01": {
+    "titre": "Nombre de nombres entiers entre deux valeurs",
+    "url": "/exercices/can/4e/can4G01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G01"
+  },
   "can4L01": {
     "titre": "Résoudre une équation niveau 1",
     "url": "/exercices/can/4e/can4L01.js",
@@ -4458,7 +4480,7 @@ export default {
     "name": "can4L03"
   },
   "can4L04": {
-    "titre": "Nombre de nombres entiers entre deux valeurs",
+    "titre": "Substitution négative",
     "url": "/exercices/can/4e/can4L04.js",
     "amcReady": true,
     "amcType": {
@@ -4489,6 +4511,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can4P02"
+  },
+  "can4P03": {
+    "titre": "Quatrième proportionnelle",
+    "url": "/exercices/can/4e/can4P03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4P03"
   },
   "can5C01": {
     "titre": "Produit de nombres entiers",

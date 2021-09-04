@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 270 
-- nombre d'exos interactifReady 305 
+- nombre d'exos amcReady 273 
+- nombre d'exos interactifReady 308 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -204,7 +204,7 @@
 |can2C02|Calcul différence de deux carrés|OK|AMCNum|OK|mathLive|
 |can2C03|Calcul avec puissance|OK|AMCNum|OK|mathLive|
 |can2G01|Agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
-|can2L01|Nombre de solutions de l’équation $-x^2+a=b$|OK|AMCNum|OK|mathLive|
+|can2L01|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
 |can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
@@ -231,12 +231,15 @@
 |can4C05|Somme de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
 |can4C06|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can4C07|Différence de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
+|can4C08|Somme de puissances de 10|OK|AMCNum|OK|mathLive|
+|can4G01|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
 |can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
 |can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
-|can4L04|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
+|can4L04|Substitution négative|OK|AMCNum|OK|mathLive|
 |can4P01|Problèmes de robinets|OK|AMCNum|OK|mathLive|
 |can4P02|Problèmes de vitesse|OK|AMCNum|OK|mathLive|
+|can4P03|Quatrième proportionnelle|OK|AMCNum|OK|mathLive|
 |can5C01|Produit de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Somme de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C03|Différence de nombres entiers|OK|AMCNum|OK|mathLive|
