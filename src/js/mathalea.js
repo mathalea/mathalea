@@ -292,8 +292,14 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
           numeroExercice - 1
         }" class="keyboard outline icon iconeInteractif"></i><span>`
       }
-      // ToFix Ajouter la roue dentée
-      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </span> ${iconeInteractif} </h3>`
+      if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
+        paramTooltip += obj.besoinFormulaireNumerique[0] + ': \n' + obj.besoinFormulaireNumerique[2] + '\n'
+      }
+      if (obj.besoinFormulaire2Numerique && obj.besoinFormulaire2Numerique[2]) {
+        paramTooltip += obj.besoinFormulaire2Numerique[0] + ': \n' + obj.besoinFormulaire2Numerique[2]
+      }
+      paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
+      contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
       contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
       if (obj.consigne) {
         contenuUnExercice += `<h4> ${obj.consigne} </h4>`
