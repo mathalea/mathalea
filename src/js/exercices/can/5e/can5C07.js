@@ -8,6 +8,8 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can5C07
  */
 export default function PrioriteOperatoire5e () {
   Exercice.call(this)

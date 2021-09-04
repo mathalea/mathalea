@@ -8,6 +8,7 @@ export const amcType = 'AMCNum'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gille Mora
+ * Créé pendant l'été 2021
  * Référence can2C01
  * Date de publication
 */

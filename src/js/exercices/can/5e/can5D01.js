@@ -8,6 +8,8 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote & Gilles Mora
+ * Créé pendant l'été 2021
+ * Référence can5D01
  */
 export default function ConversionHeuresMinutes () {
   Exercice.call(this)

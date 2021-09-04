@@ -8,7 +8,8 @@ export const amcType = 'AMCNum'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gille Mora
- * Référence
+ * Créé pendant l'été 2021
+ * Référence can5C14
  * Date de publication
 */
 export default function DivisionAvecDecimaux () {

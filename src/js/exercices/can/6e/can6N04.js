@@ -11,6 +11,8 @@ export const amcType = 'AMCHybride'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6N04
  */
 export default function AbscisseFractionnaire () {
   Exercice.call(this)

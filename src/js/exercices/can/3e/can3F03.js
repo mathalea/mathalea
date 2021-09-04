@@ -4,7 +4,9 @@ export const titre = 'Calcul d’image ou d’antécédent niveau 2'
 
 /*!
  * @author Jean-Claude Lhote
- */
+  * Créé pendant l'été 2021
+ * Référence can3C03
+*/
 export default function CalculImageParFonctionAffine () {
   CalculsImagesFonctions.call(this)
   this.nbQuestions = 1

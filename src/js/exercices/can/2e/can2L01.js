@@ -8,6 +8,8 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can2L01
  */
 export default function EquationMoinsX2PlusAEgalB () {
   Exercice.call(this)

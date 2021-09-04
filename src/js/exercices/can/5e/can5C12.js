@@ -9,6 +9,8 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can5C12
  */
 export default function FractionDEntierQuiVaBien () {
   Exercice.call(this)
