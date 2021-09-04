@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, calcul, choice, texNombre, texNombrec } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, calcul, choice, texNombre, texNombrec } from '../../../modules/outils.js'
 
 export const titre = 'Calcul astucieux avec 100 ou 10'
 export const interactifReady = true
@@ -9,7 +9,7 @@ export const amcType = 'AMCNum'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gille Mora
- * Référence
+ * Référence can5C13
  * Date de publication
 */
 export default function CalculAstucieux1 () {

@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, calcul, choice } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, calcul, choice } from '../../../modules/outils.js'
 export const titre = 'Nombre de nombres entiers entre deux valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -8,7 +8,7 @@ export const amcType = 'AMCNum'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gille Mora
- * Référence
+ * Référence can2C01
  * Date de publication
 */
 export default function NombreDeNombresEntiersEntreDeuxValeurs2 () {

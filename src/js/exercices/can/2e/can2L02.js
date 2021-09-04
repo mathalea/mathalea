@@ -1,5 +1,5 @@
-import { choice, randint, texRacineCarree } from '../../modules/outils'
-import Exercice from '../Exercice'
+import { choice, randint, texRacineCarree } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 export const titre = 'Nombre de solutions d’une équation se ramenant à $x^2=a$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -8,6 +8,7 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote et Gilles Mora
+ * référence can2L02
  */
 export default function EquationPlusMoinsX2PlusAEgalB () {
   Exercice.call(this)

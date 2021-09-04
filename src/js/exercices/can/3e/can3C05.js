@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, calcul, texNombrec, rienSi1 } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, calcul, texNombrec, rienSi1 } from '../../../modules/outils.js'
 export const titre = 'Calcul avec puissance de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'

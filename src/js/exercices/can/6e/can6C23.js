@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, calcul, choice } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, calcul, choice } from '../../../modules/outils.js'
 export const titre = 'Calcul avec +/-99 ou +/-999'
 export const interactifReady = true
 export const interactifType = 'mathLive'

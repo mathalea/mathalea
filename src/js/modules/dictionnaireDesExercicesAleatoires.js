@@ -3747,17 +3747,6 @@ export default {
     "interactifReady": false,
     "name": "betaAsymptotesObliques"
   },
-  "betaCaN2": {
-    "titre": "Course aux nombres seconde",
-    "url": "/exercices/beta/betaCaN2.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCaN2"
-  },
   "betaCan2G01": {
     "titre": "Périmètres de carrés et de rectangles",
     "url": "/exercices/beta/betaCan2G01.js",
@@ -3766,8 +3755,11 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCanQ16-01"
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
+    "name": "betaCan2G01"
   },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
@@ -4080,6 +4072,39 @@ export default {
     "interactifReady": false,
     "name": "c3N23"
   },
+  "can2C01": {
+    "titre": "Nombre de nombres entiers entre deux valeurs",
+    "url": "/exercices/can/2e/can2C01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C01"
+  },
+  "can2C02": {
+    "titre": "Calcul différence de deux carrés",
+    "url": "/exercices/can/2e/can2C02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C02"
+  },
+  "can2C03": {
+    "titre": "Calcul avec puissance",
+    "url": "/exercices/can/2e/can2C03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C03"
+  },
   "can2G01": {
     "titre": "Agrandissement/réduction avec fraction",
     "url": "/exercices/can/2e/can2G01.js",
@@ -4102,6 +4127,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can2L01"
   },
+  "can2L02": {
+    "titre": "Nombre de solutions d’une équation se ramenant à $x^2=a$",
+    "url": "/exercices/can/2e/can2L02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2L02"
+  },
   "can2P01": {
     "titre": "Calculs de probabilités",
     "url": "/exercices/can/2e/can2P01.js",
@@ -4112,6 +4148,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2P01"
+  },
+  "canPredef2-1": {
+    "titre": "Course aux nombres seconde",
+    "url": "/exercices/can/2e/canPredef2-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canPredef2-1"
   },
   "can3C01": {
     "titre": "Puissances de nombre entier",
@@ -4156,6 +4203,28 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3C04"
+  },
+  "can3C05": {
+    "titre": "Calcul avec puissance de 10",
+    "url": "/exercices/can/3e/can3C05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C05"
+  },
+  "can3C06": {
+    "titre": "Calcul divers avec carrés/priorité opératoire",
+    "url": "/exercices/can/3e/can3C06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C06"
   },
   "can3E01": {
     "titre": "Calcul de volume 3e",
@@ -4333,6 +4402,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can4C05"
   },
+  "can4C06": {
+    "titre": "Nombre de nombres entiers entre deux valeurs",
+    "url": "/exercices/can/4e/can4C06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4C06"
+  },
   "can4L01": {
     "titre": "Résoudre une équation niveau 1",
     "url": "/exercices/can/4e/can4L01.js",
@@ -4505,6 +4585,28 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can5C12"
+  },
+  "can5C13": {
+    "titre": "Calcul astucieux avec 100 ou 10",
+    "url": "/exercices/can/5e/can5C13.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C13"
+  },
+  "can5C14": {
+    "titre": "Division avec des décimaux",
+    "url": "/exercices/can/5e/can5C14.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C14"
   },
   "can5D01": {
     "titre": "Conversion Heures minutes",
@@ -4780,6 +4882,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6C22"
+  },
+  "can6C23": {
+    "titre": "Calcul avec +/-99 ou +/-999",
+    "url": "/exercices/can/6e/can6C23.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C23"
   },
   "can6D01": {
     "titre": "Conversion Heures minutes",

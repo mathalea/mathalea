@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, calcul, choice, ecritureParentheseSiNegatif, abs } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, calcul, choice, ecritureParentheseSiNegatif, abs } from '../../../modules/outils.js'
 export const titre = 'Calcul divers avec carrés/priorité opératoire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -8,7 +8,7 @@ export const amcType = 'AMCNum'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gille Mora
- * Référence
+ * Référence can3C06
  * Date de publication
 */
 export default function CalculDivers1 () {
