@@ -20,8 +20,9 @@ export default function NombrePairFois5 () {
     const b = randint(-5, 5)
     const c = randint(-5, 5)
     const d = b * b - 4 * a * c
-    if (b === 0) { this.question = `Calculer le discriminant de cette expression : $${ecritureAlgebriqueSauf1(a)}x^2$` } else { this.question = `Calculer le discriminant de cette expression : $${ecritureAlgebriqueSauf1(a)}x^2${ecritureAlgebriqueSauf1(b)}x$` }
+    if (b === 0) { this.question = `Le discriminant de  $${ecritureAlgebriqueSauf1(a)}x^2$` } else { this.question = `Le discriminant de  $${ecritureAlgebriqueSauf1(a)}x^2${ecritureAlgebriqueSauf1(b)}x$` }
     if (c !== 0) { this.question += `$${ecritureAlgebrique(c)}$` }
+    this.question += '  est '
     this.correction = `$\\Delta =b^2-4ac=${b}^2 - 4 \\times ${a} \\times ${c}=${b * b - 4 * a * c}$`
     this.reponse = d
   }
