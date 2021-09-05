@@ -201,25 +201,6 @@ function createVipScoresSpaces($pathToJson) {
   $GLOBALS["currentInterval"] = date_diff(date_create($GLOBALS["deleteYear"]."/".$GLOBALS["deleteMonth"]."/".$GLOBALS["deleteDay"]),date_create($GLOBALS["currentYear"]."/".$GLOBALS["currentMonth"]."/".$GLOBALS["currentDay"]))->format('%a');
 };
 
-/**
-* Procédure de suppression recursive d'un repertoire et de ses enfants
-* 
-* @param string $dir chemin vers le repertoire à supprimer recursivement
-*/
-
-function recursiveRmdir($dir) { 
-  if (is_dir($dir)) { 
-    $objects = scandir($dir); 
-    foreach ($objects as $object) { 
-      if ($object != "." && $object != "..") { 
-        if (filetype($dir."/".$object) == "dir") recursiveRmdir($dir."/".$object); else unlink($dir."/".$object); 
-      } 
-    } 
-    reset($objects); 
-    rmdir($dir); 
-  }  
-}; 
-
 // Condition de suppression
 // Si on est le bon jour et que le répertoire a plus d'un an, on supprime et on recrée les vips
 $deleteBool = ($currentDay >= $deleteDay && $currentMonth >= $deleteMonth && $currentYear <= $deleteYear && $deletePathToDo) || !is_dir($scoresDir);

@@ -7,6 +7,25 @@
    */
 
   /**
+  * Procédure de suppression recursive d'un repertoire et de ses enfants
+  * 
+  * @param string $dir chemin vers le repertoire à supprimer recursivement
+  */
+
+  function recursiveRmdir($dir) { 
+    if (is_dir($dir)) { 
+      $objects = scandir($dir); 
+      foreach ($objects as $object) { 
+        if ($object != "." && $object != "..") { 
+          if (filetype($dir."/".$object) == "dir") recursiveRmdir($dir."/".$object); else unlink($dir."/".$object); 
+        } 
+      } 
+      reset($objects); 
+      rmdir($dir); 
+    }  
+  }; 
+
+   /**
    * Fonction pour créer l'index des espaces de scores
    * 
    * @param string $path est le chemin où index.php sera généré
@@ -216,4 +235,6 @@
     return json_encode($datas);
   }
   //print_r(getAllScoresSpaces('resultats'));
+
+
 ?>
