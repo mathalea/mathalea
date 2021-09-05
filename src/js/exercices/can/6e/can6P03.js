@@ -8,6 +8,8 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6P03
  */
 export default function QuestionDeVitesse () {
   Exercice.call(this)

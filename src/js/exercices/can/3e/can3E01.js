@@ -8,7 +8,9 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
- */
+  * Créé pendant l'été 2021
+ * Référence can3E01
+*/
 export default function CalculVolumePyramide () {
   Exercice.call(this)
   this.typeExercice = 'simple'

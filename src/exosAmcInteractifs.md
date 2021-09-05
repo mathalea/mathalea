@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 252 
-- nombre d'exos interactifReady 288 
+- nombre d'exos amcReady 275 
+- nombre d'exos interactifReady 311 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -113,7 +113,7 @@
 |5R20-2|Addition à trou de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R20-3|Additions de 5 nombres relatifs|OK|AMCNum|OK|mathLive|
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm|
-|5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|numerique|
+|5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|mathLive|
 |5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|numerique|
 |6C10-1|Tables de multiplication|OK|AMCNum|OK|numerique|
 |6C10-2|Tables de multiplications et multiples de 10|OK|qcmMono|OK|qcm,mathLive|
@@ -211,8 +211,8 @@
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
-|betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
+|betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
@@ -223,27 +223,46 @@
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |c3N20|Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
 |c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
+|can2C01|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
+|can2C02|Calcul différence de deux carrés|OK|AMCNum|OK|mathLive|
+|can2C03|Calcul avec puissance|OK|AMCNum|OK|mathLive|
 |can2G01|Agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
-|can2L01|Nombre de solutions de l’équation $-x^2+a=b$|OK|AMCNum|OK|mathLive|
+|can2L01|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
+|can2L02|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
 |can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
 |can3C02|Moyenne entière de trois décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Fraction irréductible|OK|AMCNum|OK|mathLive|
 |can3C04|Somme Entier et fraction à réduire|OK|AMCNum|OK|mathLive|
+|can3C05|Calcul avec puissance de 10|OK|AMCNum|OK|mathLive|
+|can3C06|Calcul divers avec carrés/priorité opératoire|OK|AMCNum|OK|mathLive|
 |can3E01|Calcul de volume 3e|OK|AMCNum|OK|mathLive|
 |can3F01|Lecture graphique|OK|AMCNum|OK|mathLive|
 |can3F02|Calcul d’image ou d’antécédent niveau 1|OK|AMCNum|OK|mathLive|
 |can3F03|Calcul d’image ou d’antécédent niveau 2|OK|AMCNum|OK|mathLive|
 |can3F04|Calcul d’image niveau 3|OK|AMCNum|OK|mathLive|
 |can3G01|Agrandissement/réduction|OK|AMCNum|OK|mathLive|
-|can3L1|Équation ax=b|OK|AMCNum|OK|mathLive|
-|can3L2|Équation ax+b=0|OK|AMCNum|OK|mathLive|
-|can3L3|Équation ax+b=c|OK|AMCNum|OK|mathLive|
+|can3L01|Équation ax=b|OK|AMCNum|OK|mathLive|
+|can3L02|Équation ax+b=0|OK|AMCNum|OK|mathLive|
+|can3L03|Équation ax+b=c|OK|AMCNum|OK|mathLive|
 |can3M01|Aire et carré|OK|AMCNum|OK|mathLive|
 |can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
+|can4C01|Priorité opératoire et relatifs|OK|AMCNum|OK|mathLive|
+|can4C02|Opposé de fraction|OK|AMCNum|OK|mathLive|
+|can4C03|Quotient d’entier qui va bien par fraction|OK|AMCNum|OK|mathLive|
+|can4C04|Règle des signes|OK|AMCNum|OK|mathLive|
+|can4C05|Somme de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
+|can4C06|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
+|can4C07|Différence de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
+|can4C08|Somme de puissances de 10|OK|AMCNum|OK|mathLive|
+|can4G01|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
 |can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
 |can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
+|can4L04|Substitution négative|OK|AMCNum|OK|mathLive|
+|can4P01|Problèmes de robinets|OK|AMCNum|OK|mathLive|
+|can4P02|Problèmes de vitesse|OK|AMCNum|OK|mathLive|
+|can4P03|Quatrième proportionnelle|OK|AMCNum|OK|mathLive|
 |can5C01|Produit de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Somme de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C03|Différence de nombres entiers|OK|AMCNum|OK|mathLive|
@@ -255,6 +274,9 @@
 |can5C09|Multiplier par 5|OK|AMCNum|OK|mathLive|
 |can5C10|Décomposition en produit de facteurs premiers niveau 1|KO|KO|OK|mathLive|
 |can5C11|Différence négative|OK|AMCNum|OK|mathLive|
+|can5C12|Fraction d’entier qui va bien|OK|AMCNum|OK|mathLive|
+|can5C13|Calcul astucieux avec 100 ou 10|OK|AMCNum|OK|mathLive|
+|can5C14|Division avec des décimaux|OK|AMCNum|OK|mathLive|
 |can5D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
@@ -280,6 +302,7 @@
 |can6C20|Complément à 1|OK|AMCNum|OK|mathLive|
 |can6C21|Complément à 1 Niveau 2|OK|AMCNum|OK|mathLive|
 |can6C22|Valeurs décimales quarts et cinquièmes|OK|AMCNum|OK|mathLive|
+|can6C23|Calcul avec +/-99 ou +/-999|OK|AMCNum|OK|mathLive|
 |can6D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calcul de durée en minutes|OK|AMCNum|OK|mathLive|

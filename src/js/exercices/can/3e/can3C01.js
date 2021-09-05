@@ -8,6 +8,8 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can3C01
  */
 export default function CalculPuissanceSimple () {
   Exercice.call(this)
