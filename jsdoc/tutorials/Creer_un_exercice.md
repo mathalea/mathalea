@@ -30,7 +30,7 @@ Les lignes de commande nécessitent des "anti-sèches" au début mais ont les av
 - betaModèle32_cliqueFigure
 - betaModèle40_tableau_proportionnalite
 - betaModèle41_tableau_signes_variations
-Pour rentre un des modèles interactif, consulter le guide [Rendre_un_exercice_interactif](https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif.html) dans le panneau de gauche
+Pour rentre un des modèles interactif, consulter le guide [Rendre_un_exercice_interactif_simple](https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif_simple.html) dans le panneau de gauche
 ## <a id="3" href="#3">#</a> Programmer un exercice
 Un exercice est un objet de la classe Exercice (d'où le `import Exercice` en début de fichier et le `Exercice.call` au début de la fonction exportée).
 Il a plusieurs [attributs](#11) (son titre, son énoncé, sa correction...) et a une fonction `nouvelleVersion()` qui crée un énoncé aléatoire.
