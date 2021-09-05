@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { combinaisonListes, lettreDepuisChiffre, listeQuestionsToContenu, randint, shuffle } from '../../modules/outils.js'
 import { demiDroite, droite, labelPoint, mathalea2d, point, segmentAvecExtremites } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Choisir la bonne figure'
 export const interactifReady = true
 export const interactifType = 'cliqueFigure'
@@ -35,10 +36,10 @@ export default function cliqueFigure () {
         { id: `figure2Ex${this.numeroExercice}Q${i}`, solution: false },
         { id: `figure3Ex${this.numeroExercice}Q${i}`, solution: false }
       ]
-      const figSegment = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', id: `figure0Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B))
-      const figDroite = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', id: `figure1Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), droite(A, B))
-      const figDemiDroite = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', id: `figure2Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(A, B))
-      const figDemiDroite2 = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(B, A))
+      const figSegment = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure0Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B))
+      const figDroite = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure1Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), droite(A, B))
+      const figDemiDroite = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure2Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(A, B))
+      const figDemiDroite2 = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(B, A))
       let figCorr
       switch (typesDeQuestions[i]) {
         case 'segment':
@@ -64,10 +65,12 @@ export default function cliqueFigure () {
       }
 
       texte += '<br>'
-      texteCorr = texte + mathalea2d({ xmin: -4, xmax: 6, ymin: -2, style: '', id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), figCorr)
+      texteCorr = texte + mathalea2d({ xmin: -4, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), figCorr)
       const figures = shuffle([figSegment, figDroite, figDemiDroite, figDemiDroite2])
       texte += figures.join('')
-      texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
+      if (this.interactif && context.isHtml) {
+        texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
