@@ -7,7 +7,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Gille Mora
+ * @author Gilles Mora
  * Référence
  * Date de publication
 */
@@ -19,7 +19,7 @@ export default function PoucentageE () {
   this.formatChampTexte = 'largeur11 inline'
   this.nouvelleVersion = function () {
     let a, b, n
-    switch (choice(['a', 'b', 'c', 'd', 'e'])) {
+    switch (choice(['a', 'b', 'c', 'd', 'e'])) { //,
       case 'a':
         a = calcul(randint(4, 13) * 5)
         n = choice(['pull', 'pantalon', 'tee-shirt', 'vêtement', 'blouson', 'sweat'])
@@ -27,7 +27,10 @@ export default function PoucentageE () {
         this.question = `Le prix d'un ${n} est $${a}$ €. Il baisse de $${b}$ %. <br>
         Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
-        this.correction = `Il coûte : $${a}-${texNombrec(b / 100)}\\times ${a}= ${texNombrec(a - (b * a) / 100)} €.$`
+        this.correction = `On calcule d'abord le montant de la réduction. <br>
+        Pour cela on calcule $${b}$ % de $${a}$ soit $${texNombrec(b / 100)}\\times ${a}=${texNombrec(b * a / 100)}$.<br>
+         La réduction est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+         Le nouveau prix est :   $${a}-${texNombrec(b * a / 100)}= ${texNombrec(a - (b * a) / 100)} €.$`
         this.reponse = calcul(a - (b * a) / 100)
         break
       case 'b':
@@ -37,7 +40,10 @@ export default function PoucentageE () {
         this.question = `Le prix d'un ${n} est $${a}$ €. Il baisse de $${b}$ %. <br>
         Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
-        this.correction = `Il coûte : $${a}-${texNombrec(b / 100)}\\times ${a}= ${texNombrec(a - (b * a) / 100)} €.$`
+        this.correction = `On calcule d'abord le montant de la réduction. <br>
+        Pour cela on calcule $${b}$ % de $${a}$ soit $${texNombrec(b / 100)}\\times ${a}=${texNombrec(b * a / 100)}$.<br>
+         La réduction est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+         Le nouveau prix est :   $${a}-${texNombrec(b * a / 100)}= ${texNombrec(a - (b * a) / 100)} €.$`
         this.reponse = calcul(a - (b * a) / 100)
         break
       case 'c':
@@ -47,7 +53,10 @@ export default function PoucentageE () {
         this.question = `Le prix d'un ${n} est $${a}$ €. Il augmente de $${b}$ %. <br>
         Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
-        this.correction = `Il coûte : $${a}+${texNombrec(b / 100)}\\times ${a}= ${texNombrec(a + (b * a) / 100)} €.$`
+        this.correction = `On calcule d'abord le montant de l'augmentation. <br>
+        Pour cela on calcule $${b}$ % de $${a}$ soit $${texNombrec(b / 100)}\\times ${a}=${texNombrec(b * a / 100)}$.<br>
+         L'augmentation est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+         Le nouveau prix est :   $${a}+${texNombrec(b * a / 100)}= ${texNombrec(a + (b * a) / 100)} €.$`
         this.reponse = calcul(a + (b * a) / 100)
         break
       case 'd':
@@ -56,7 +65,10 @@ export default function PoucentageE () {
         this.question = `Le prix d'une voiture est $${texNombre(a)}$ €. Il augmente de $${b}$ %. <br>
         Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
-        this.correction = `Elle coûte : $${a}+${texNombrec(b / 100)}\\times ${a}= ${texNombrec(a + (b * a) / 100)} €.$`
+        this.correction = `On calcule d'abord le montant de l'augmentation. <br>
+        Pour cela on calcule $${b}$ % de $${a}$ soit $${texNombrec(b / 100)}\\times ${a}=${texNombrec(b * a / 100)}$.<br>
+         L'augmentation est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+         Le nouveau prix est :   $${a}+${texNombrec(b * a / 100)}= ${texNombrec(a + (b * a) / 100)} €.$`
         this.reponse = calcul(a + (b * a) / 100)
         break
       case 'e':
@@ -65,7 +77,10 @@ export default function PoucentageE () {
         this.question = `Le prix d'une voiture est $${texNombre(a)}$ €. Il baisse de $${b}$ %. <br>
           Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
-        this.correction = `Elle coûte : $${a}-${texNombrec(b / 100)}\\times ${a}= ${texNombrec(a - (b * a) / 100)} €.$`
+        this.correction = `On calcule d'abord le montant de la réduction. <br>
+        Pour cela on calcule $${b}$ % de $${a}$ soit $${texNombrec(b / 100)}\\times ${a}=${texNombrec(b * a / 100)}$.<br>
+         La réduction est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+         Le nouveau prix est :   $${a}-${texNombrec(b * a / 100)}= ${texNombrec(a - (b * a) / 100)} €.$`
         this.reponse = calcul(a - (b * a) / 100)
         break
     }
