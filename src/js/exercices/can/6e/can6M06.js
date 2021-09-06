@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Gilles Mora
+ * Créé pendant l'été 2021
+ * Référence can6M06
  */
 export default function Perimetre () {
   Exercice.call(this)

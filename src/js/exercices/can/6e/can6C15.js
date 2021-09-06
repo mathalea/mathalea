@@ -10,6 +10,8 @@ export const amcType = 'AMCHybride'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6C15
  */
 export default function FractionCommeFacteurManquant () {
   Exercice.call(this)

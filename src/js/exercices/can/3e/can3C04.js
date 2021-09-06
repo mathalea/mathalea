@@ -9,7 +9,9 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
- */
+  * Créé pendant l'été 2021
+ * Référence can3C04
+*/
 export default function SommeEntierEtFractionIrred () {
   Exercice.call(this)
   this.typeExercice = 'simple'

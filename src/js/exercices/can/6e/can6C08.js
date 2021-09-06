@@ -8,6 +8,8 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6C08
  */
 export default function QuartOuTiers () {
   Exercice.call(this)
