@@ -12,5 +12,5 @@ export default function DecomposerFacteursPremierSimple () {
   this.nbQuestions = 1
   this.interactif = true
   this.sup2 = false
-  this.sup2 = 1
+  this.sup = 1
 }

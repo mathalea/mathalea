@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 275 
-- nombre d'exos interactifReady 311 
+- nombre d'exos interactifReady 315 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -242,6 +242,7 @@
 |can3F03|Calcul d’image ou d’antécédent niveau 2|OK|AMCNum|OK|mathLive|
 |can3F04|Calcul d’image niveau 3|OK|AMCNum|OK|mathLive|
 |can3G01|Agrandissement/réduction|OK|AMCNum|OK|mathLive|
+|can3G02|Image de point par transformation 3e|KO|KO|OK|mathLive|
 |can3L01|Équation ax=b|OK|AMCNum|OK|mathLive|
 |can3L02|Équation ax+b=0|OK|AMCNum|OK|mathLive|
 |can3L03|Équation ax+b=c|OK|AMCNum|OK|mathLive|
@@ -256,6 +257,7 @@
 |can4C07|Différence de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
 |can4C08|Somme de puissances de 10|OK|AMCNum|OK|mathLive|
 |can4G01|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
+|can4G02|Image de point par transformation 4e|KO|KO|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
 |can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
 |can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
@@ -278,6 +280,7 @@
 |can5C13|Calcul astucieux avec 100 ou 10|OK|AMCNum|OK|mathLive|
 |can5C14|Division avec des décimaux|OK|AMCNum|OK|mathLive|
 |can5D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
+|can5G01|Symétrique de point 5e|KO|KO|OK|mathLive|
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |can6C01|Ordre de grandeur|OK|qcmMono|OK|qcm|
@@ -306,6 +309,7 @@
 |can6D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calcul de durée en minutes|OK|AMCNum|OK|mathLive|
+|can6G01|Symétrique de point 6e|KO|KO|OK|mathLive|
 |can6M01|Question de périmètres|OK|qcmMono|OK|qcm|
 |can6M02|La bonne unité|OK|qcmMono|OK|qcm|
 |can6M03|Conversions en mètres|OK|AMCNum|OK|mathLive|
