@@ -1,9 +1,11 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 253 
-- nombre d'exos interactifReady 288 
+- nombre d'exos amcReady 252 
+- nombre d'exos interactifReady 291 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
+|1E11-1|calculer le discriminant d'un polynôme du second degré|OK|AMCNum|OK|mathLive|
+|1E11-2|Résoudre une équation du second degré|KO|KO|OK|mathLive|
 |2F10-1|Reconnaître une fonction affine.|OK|qcmMono|OK|qcm|
 |2F10-2|Lecture graphique d’une fonction affine|OK|AMCHybride|OK|mathLive|
 |2F32|Lecture graphique|OK|AMCHybride|OK|mathLive|
@@ -111,7 +113,7 @@
 |5R20-2|Addition à trou de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R20-3|Additions de 5 nombres relatifs|OK|AMCNum|OK|mathLive|
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm|
-|5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|numerique|
+|5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|mathLive|
 |5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|numerique|
 |6C10-1|Tables de multiplication|OK|AMCNum|OK|numerique|
 |6C10-2|Tables de multiplications et multiples de 10|OK|qcmMono|OK|qcm,mathLive|
@@ -185,14 +187,15 @@
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
+|beta1N10_intercatif|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
 |betaCaN2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
-|betaCAN2Q17-01|Pourcentage (évolution)|OK|AMCNum|OK|mathLive|
-|betaCAN2Q17-02|Pourcentage (proportion) 1|OK|AMCNum|OK|mathLive|
-|betaCAN2Q17-03|Pourcentage (proportion) 2|OK|AMCNum|OK|mathLive|
+|betaCAN2Q18-01|Calculs de probabilités2|KO|KO|OK|mathLive|
+|betaCAN2Q18-02|Dénombrement|KO|KO|OK|mathLive|
+|betaCAN2Q18-03|Probabilité de l’évènement contraire|KO|KO|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|

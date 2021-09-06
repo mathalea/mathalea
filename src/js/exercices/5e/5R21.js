@@ -1,11 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, ecritureParentheseSiNegatif, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Soustraction de deux entiers relatifs'
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -42,7 +42,7 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
       if (this.sup2) {
         texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = \\dotfill $`
         if (this.interactif && !context.isAmc) {
-          texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` + ajouteChampTexte(this, i, { texte: '' })
+          texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` + ajouteChampTexteMathLive(this, i, { texte: '' })
         }
         if (b > 0) {
           texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a - b} $`
@@ -52,14 +52,14 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
       } else {
         texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = \\dotfill $'
         if (this.interactif && !context.isAmc) {
-          texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = $' + ajouteChampTexte(this, i, { texte: '' })
+          texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = $' + ajouteChampTexteMathLive(this, i, { texte: '' })
         }
         texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(-1 * b) + ' = ' + ecritureNombreRelatifc(a - b) + ' $'
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        setReponse(this, i, a - b, { signe: true, digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)), decimals: 0 })
+        setReponse(this, i, [a - b, `(${ecritureAlgebrique(a-b)})`], { signe: true, digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)), decimals: 0 })
         i++
       }
       cpt++

@@ -12,7 +12,7 @@ export const titre = 'Description et notation des droites, segments et demi-droi
 export default function DescriptionSegmentDroiteDemiDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Faire une phrase pour décrire le plus précisemment possible la figure et donner sa notation mathématique'
+  this.consigne = 'Faire une phrase pour décrire le plus précisément possible la figure et donner sa notation mathématique'
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1

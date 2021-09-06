@@ -6,6 +6,25 @@ export default {
     "interactifReady": false,
     "name": "1E10"
   },
+  "1E11-1": {
+    "titre": "calculer le discriminant d'un polynôme du second degré",
+    "url": "/exercices/1e/1E11-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1E11-1"
+  },
+  "1E11-2": {
+    "titre": "Résoudre une équation du second degré",
+    "url": "/exercices/1e/1E11-2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1E11-2"
+  },
   "1E11": {
     "titre": "Résoudre une équation du second degré",
     "url": "/exercices/1e/1E11.js",
@@ -2311,7 +2330,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "5R21"
   },
   "5R22-2": {
@@ -3625,6 +3644,17 @@ export default {
     "interactifReady": false,
     "name": "6S11"
   },
+  "beta1N10_intercatif": {
+    "titre": "Nombre pair multiplié par 5",
+    "url": "/exercices/beta/beta1N10_intercatif.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta1N10_intercatif"
+  },
   "beta240-1": {
     "titre": "Utiliser la distributivité (simple ou double) et réduire",
     "url": "/exercices/beta/beta240-1.js",
@@ -3772,38 +3802,29 @@ export default {
     ],
     "name": "betaCan2G01"
   },
-  "betaCAN2Q17-01": {
-    "titre": "Pourcentage (évolution)",
-    "url": "/exercices/beta/betaCAN2Q17-01.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
+  "betaCAN2Q18-01": {
+    "titre": "Calculs de probabilités2",
+    "url": "/exercices/beta/betaCAN2Q18-01.js",
+    "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCAN2Q17-01"
+    "name": "betaCAN2Q18-01"
   },
-  "betaCAN2Q17-02": {
-    "titre": "Pourcentage (proportion) 1",
-    "url": "/exercices/beta/betaCAN2Q17-02.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
+  "betaCAN2Q18-02": {
+    "titre": "Dénombrement",
+    "url": "/exercices/beta/betaCAN2Q18-02.js",
+    "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCAN2Q17-02"
+    "name": "betaCAN2Q18-02"
   },
-  "betaCAN2Q17-03": {
-    "titre": "Pourcentage (proportion) 2",
-    "url": "/exercices/beta/betaCAN2Q17-03.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
+  "betaCAN2Q18-03": {
+    "titre": "Probabilité de l’évènement contraire",
+    "url": "/exercices/beta/betaCAN2Q18-03.js",
+    "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCAN2Q17-03"
+    "name": "betaCAN2Q18-03"
   },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
