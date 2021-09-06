@@ -15,7 +15,7 @@ export default function ProbaEvenementContraire () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.interactif = true
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const listeFractions = [
       [1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6], [1, 7],
@@ -28,7 +28,8 @@ export default function ProbaEvenementContraire () {
     this.question = `La probabilité d'un événement $A$ est $${texFraction(n, d)}$. <br>
 Quelle est la probabilité de son événement contraire ?<br>
 On donnera le résultat sous la forme d'une fraction irréductible. `
-    this.correction = `On a $P(\\overline{A})=1-P(A)=1-\\dfrac{${n}}{${d}}=${texFraction(d - n, d)}$.`
-    this.reponse = `${texFractionReduite(d - n, d)}`
+    this.correction = `La relation entre la probabilité d'un événement $A$ et celle de son contraire $\\overline{A}$ est :  $P(\\overline{A})=1-P(A)$.<br>
+        Ainsi : $P(\\overline{A})=1-\\dfrac{${n}}{${d}}=${texFraction(d - n, d)}$.`
+    this.reponse = texFractionReduite(d - n, d)
   }
 }
