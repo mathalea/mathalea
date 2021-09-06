@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, calcul, choice, texNombrec, texNombre } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, calcul, choice, texNombrec, texNombre } from '../../../modules/outils.js'
 export const titre = 'Pourcentage (évolution)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

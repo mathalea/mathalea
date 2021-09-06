@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, choice, texFractionReduite, texNombrec, texFraction, simplificationDeFractionAvecEtapes } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, choice, texFractionReduite, texNombrec, texFraction, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
 export const titre = 'Calculs de probabilités2'
 export const interactifReady = true
 export const interactifType = 'mathLive'

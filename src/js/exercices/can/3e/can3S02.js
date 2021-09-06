@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { choice, texFractionReduite, texFraction } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { choice, texFractionReduite, texFraction } from '../../../modules/outils.js'
 export const titre = 'Probabilité de l’évènement contraire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
