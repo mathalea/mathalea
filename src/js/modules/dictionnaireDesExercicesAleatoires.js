@@ -2430,7 +2430,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "6C10-1"
   },
   "6C10-2": {
@@ -3671,7 +3671,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "CM001"
   },
   "CM002": {
@@ -4138,17 +4138,6 @@ export default {
     ],
     "name": "betaCan2G01"
   },
-  "betaCanQ30": {
-    "titre": "Nombre de solutions d’une équation se ramenant à $x^2=a$",
-    "url": "/exercices/beta/betaCanQ30.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCanQ30"
-  },
   "betaComplexes": {
     "titre": "Exercice exemple Nombres complexes",
     "url": "/exercices/beta/betaComplexes.js",
@@ -4256,12 +4245,12 @@ export default {
     "interactifReady": false,
     "name": "betaModele21_parametrables"
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques"
+    "name": "betaModele30_constructions_géométriques"
   },
   "betaModele31_parametrables": {
     "titre": "Nom de l'exercice",
@@ -4370,7 +4359,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "c3C10-1"
   },
   "c3C10-2": {
@@ -4503,17 +4492,6 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2L01"
-  },
-  "can2L02": {
-    "titre": "Nombre de solutions d’une équation se ramenant à $x^2=a$",
-    "url": "/exercices/can/2e/can2L02.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "can2L02"
   },
   "can2P01": {
     "titre": "Calculs de probabilités",
