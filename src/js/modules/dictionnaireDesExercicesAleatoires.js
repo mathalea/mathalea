@@ -4237,12 +4237,12 @@ export default {
     "interactifReady": false,
     "name": "betaModele21_parametrables"
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques"
+    "name": "betaModele30_constructions_géométriques"
   },
   "betaModele31_parametrables": {
     "titre": "Nom de l'exercice",
@@ -4507,6 +4507,14 @@ export default {
     "interactifType": "mathLive",
     "name": "can2P01"
   },
+  "can2P02": {
+    "titre": "Dénombrement",
+    "url": "/exercices/can/2e/can2P02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2P02"
+  },
   "can3C01": {
     "titre": "Puissances de nombre entier",
     "url": "/exercices/can/3e/can3C01.js",
@@ -4693,6 +4701,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3S01"
+  },
+  "can3S02": {
+    "titre": "Probabilité de l’évènement contraire",
+    "url": "/exercices/can/3e/can3S02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S02"
+  },
+  "can3S03": {
+    "titre": "Calculs de probabilités2",
+    "url": "/exercices/can/3e/can3S03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S03"
   },
   "can4C01": {
     "titre": "Priorité opératoire et relatifs",
@@ -5021,6 +5045,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C14"
   },
+  "can5C15": {
+    "titre": "Pourcentage (proportion) 1",
+    "url": "/exercices/can/5e/can5C15.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C15"
+  },
   "can5D01": {
     "titre": "Conversion Heures minutes",
     "url": "/exercices/can/5e/can5D01.js",
@@ -5042,6 +5077,28 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can5N01"
+  },
+  "can5P01": {
+    "titre": "Pourcentage (évolution)",
+    "url": "/exercices/can/5e/can5P01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5P01"
+  },
+  "can5P02": {
+    "titre": "Pourcentage (proportion) 2",
+    "url": "/exercices/can/5e/can5P02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5P02"
   },
   "canPredef5-1": {
     "titre": "Course aux nombres début de 5e",

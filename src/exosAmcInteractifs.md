@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 275 
-- nombre d'exos interactifReady 311 
+- nombre d'exos amcReady 278 
+- nombre d'exos interactifReady 317 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -230,6 +230,7 @@
 |can2L01|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
+|can2P02|Dénombrement|KO|KO|OK|mathLive|
 |can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
 |can3C02|Moyenne entière de trois décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Fraction irréductible|OK|AMCNum|OK|mathLive|
@@ -247,6 +248,8 @@
 |can3L03|Équation ax+b=c|OK|AMCNum|OK|mathLive|
 |can3M01|Aire et carré|OK|AMCNum|OK|mathLive|
 |can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
+|can3S02|Probabilité de l’évènement contraire|KO|KO|OK|mathLive|
+|can3S03|Calculs de probabilités2|KO|KO|OK|mathLive|
 |can4C01|Priorité opératoire et relatifs|OK|AMCNum|OK|mathLive|
 |can4C02|Opposé de fraction|OK|AMCNum|OK|mathLive|
 |can4C03|Quotient d’entier qui va bien par fraction|OK|AMCNum|OK|mathLive|
@@ -277,8 +280,11 @@
 |can5C12|Fraction d’entier qui va bien|OK|AMCNum|OK|mathLive|
 |can5C13|Calcul astucieux avec 100 ou 10|OK|AMCNum|OK|mathLive|
 |can5C14|Division avec des décimaux|OK|AMCNum|OK|mathLive|
+|can5C15|Pourcentage (proportion) 1|OK|AMCNum|OK|mathLive|
 |can5D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
+|can5P01|Pourcentage (évolution)|OK|AMCNum|OK|mathLive|
+|can5P02|Pourcentage (proportion) 2|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |can6C01|Ordre de grandeur|OK|qcmMono|OK|qcm|
 |can6C02|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
