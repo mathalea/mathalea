@@ -16,52 +16,77 @@ export default function PoucentageP1 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.interactif = true
-  this.formatChampTexte = 'largeur11 inline'
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    let b
+    let b, caractere
+
     switch (choice(['a', 'b', 'c', 'd', 'e', 'f'])) { //
       case 'a':
         b = randint(3, 7) * 5
-        this.question = `$\\dfrac{1}{5}$ des élèves d'une classe de $${b}$ élèves a des lunettes.<br>
+        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        this.question = `$\\dfrac{1}{5}$ des élèves d'une classe de $${b}$ élèves a ${caractere}.<br>
               Quel est le nombre d'élèves n'en ayant pas ?`
-        this.correction = `Si $\\dfrac{1}{5}$ en a, $\\dfrac{4}{5}$ n'en a pas, soit : $4\\times \\dfrac{${b}}{5}=${texNombrec(4 * b / 5)}$.`
+        this.correction = `On calcule d'abord $\\dfrac{1}{5}$ de $${b}$ .<br>
+        $\\dfrac{1}{5}\\times ${b}=\\dfrac{${b}}{5}=${texNombrec(b / 5)}$.<br>
+        $${texNombrec(b / 5)}$ élèves ont ${caractere} .<br>
+          Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 5)}=${texNombrec(b - b / 5)}$`
         this.reponse = calcul(4 * b / 5)
         break
       case 'b':
         b = randint(3, 6) * 6
-        this.question = `$\\dfrac{1}{6}$ des élèves d'une classe de $${b}$ élèves a des lunettes.<br>
+        caractere = choice(['des lunettes', 'un frère', ' un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        this.question = `$\\dfrac{1}{6}$ des élèves d'une classe de $${b}$ élèves a ${caractere}.<br>
             Quel est le nombre d'élèves n'en ayant pas ?`
-        this.correction = `Si $\\dfrac{1}{6}$ en a, $\\dfrac{5}{6}$ n'en a pas, soit : $5\\times \\dfrac{${b}}{6}=${texNombrec(5 * b / 6)}$.`
+        this.correction = `On calcule d'abord $\\dfrac{1}{6}$ de $${b}$ .<br>
+        $\\dfrac{1}{6}\\times ${b}=\\dfrac{${b}}{6}=${texNombrec(b / 6)}$.<br>
+        $${texNombrec(b / 6)}$ élèves ont ${caractere} .<br>
+          Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 6)}=${texNombrec(b - b / 6)}$`
         this.reponse = calcul(5 * b / 6)
         break
       case 'c':
         b = randint(2, 5) * 7
-        this.question = `$\\dfrac{1}{7}$ d'une classe de $${b}$ élèves ont des lunettes.<br>
+        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        this.question = `$\\dfrac{1}{7}$ d'une classe de $${b}$ élèves a ${caractere}.<br>
         Quel est le nombre d'élèves n'en ayant pas ?`
-        this.correction = `Si $\\dfrac{1}{7}$ en a, $\\dfrac{6}{7}$ n'en a pas, soit : $6\\times \\dfrac{${b}}{7}=${texNombrec(6 * b / 7)}$.`
+        this.correction = `On calcule d'abord $\\dfrac{1}{7}$ de $${b}$ .<br>
+        $\\dfrac{1}{7}\\times ${b}=\\dfrac{${b}}{7}=${texNombrec(b / 7)}$.<br>
+        $${texNombrec(b / 7)}$ élèves ont ${caractere} .<br>
+          Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 7)}=${texNombrec(b - b / 7)}$`
         this.reponse = calcul(6 * b / 7)
         break
       case 'd':
         b = randint(3, 9) * 4
-        this.question = `$\\dfrac{1}{4}$ d'une classe de $${b}$ élèves ont des lunettes.<br>
+        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        this.question = `$\\dfrac{1}{4}$ d'une classe de $${b}$ élèves a ${caractere}.<br>
             Quel est le nombre d'élèves n'en ayant pas ?`
-        this.correction = `Si $\\dfrac{1}{4}$ en a, $\\dfrac{3}{4}$ n'en a pas, soit : $3\\times \\dfrac{${b}}{4}=${texNombrec(3 * b / 4)}$.`
+        this.correction = `On calcule d'abord $\\dfrac{1}{4}$ de $${b}$ .<br>
+            $\\dfrac{1}{4}\\times ${b}=\\dfrac{${b}}{4}=${texNombrec(b / 4)}$.<br>
+            $${texNombrec(b / 4)}$ élèves ont ${caractere} .<br>
+              Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 4)}=${texNombrec(b - b / 4)}$`
         this.reponse = calcul(3 * b / 4)
         break
       case 'e':
         b = randint(3, 7) * 5
-        this.question = `$20$ % des élèves d'une classe de $${b}$ élèves a des lunettes.<br>
+        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        this.question = `$20$ % des élèves d'une classe de $${b}$ élèves ont ${caractere}.<br>
               Quel est le nombre d'élèves n'en ayant pas ?`
-        this.correction = `$20$ % de $${b}$ est égal à $0,2\\times ${b}=${texNombrec(0.2 * b)}$.<br>
-        $${texNombrec(0.2 * b)}$ élèves ont des lunettes, donc $${b}-${texNombrec(0.2 * b)}=${texNombrec(0.8 * b)}$ n'en ont pas.`
-        this.reponse = calcul(b - 0.2 * b)
+        this.correction = `On calcule d'abord $20$ % de $${b}$ .<br>
+             Prendre $20$ % d'une quantité revient à en prendre le cinquième, c'est-à-dire à la diviser par $5$.<br>
+              $20$ % de $${b}$ est égal à $\\dfrac{${b}}{5}=${texNombrec(b / 5)}$.<br>
+                            $${texNombrec(b / 5)}$ élèves ont ${caractere} .<br>
+                Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 5)}=${texNombrec(b - b / 5)}$`
+        this.reponse = calcul(8 * b / 10)
         break
       case 'f':
         b = randint(3, 9) * 4
-        this.question = `$25$ % des élèves d'une classe de $${b}$ élèves a des lunettes.<br>
+        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        this.question = `$25$ % des élèves d'une classe de $${b}$ élèves ont ${caractere}.<br>
                   Quel est le nombre d'élèves n'en ayant pas ?`
-        this.correction = `$25$ % de $${b}$ est égal à $\\dfrac{1}{4}\\times ${b}=${texNombrec(0.25 * b)}$.<br>
-            $${texNombrec(0.25 * b)}$ élèves ont des lunettes, donc $${b}-${texNombrec(0.25 * b)}=${texNombrec(0.75 * b)}$ n'en ont pas.`
+        this.correction = `On calcule d'abord $25$ % de $${b}$ .<br>
+                  Prendre $25$ % d'une quantité revient à en prendre le quart, c'est-à-dire à la diviser par $4$.<br>
+                   $25$ % de $${b}$ est égal à $\\dfrac{${b}}{4}=${texNombrec(b / 4)}$.<br>
+                                 $${texNombrec(b / 4)}$ élèves ont ${caractere} .<br>
+                     Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 4)}=${texNombrec(b - b / 4)}$`
         this.reponse = calcul(b - 0.25 * b)
         break
     }
