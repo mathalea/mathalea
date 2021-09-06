@@ -12,5 +12,5 @@ export default function ImageD1Point () {
   this.nbQuestions = 1
   this.interactif = true
   this.can = true
-  this.sup = 3
+  this.sup = 4
 }
