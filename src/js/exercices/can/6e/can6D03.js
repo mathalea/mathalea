@@ -8,6 +8,8 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote & Gilles Mora
+ * Créé pendant l'été 2021
+ * Référence can6D03
  */
 export default function CalculDureeMinutes () {
   Exercice.call(this)

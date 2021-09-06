@@ -10,7 +10,9 @@ export const titre = 'Lecture graphique'
 
 /*!
  * @author Jean-Claude Lhote
- */
+  * Créé pendant l'été 2021
+ * Référence can3F01
+*/
 export default function ImageSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'

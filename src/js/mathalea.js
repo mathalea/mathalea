@@ -283,7 +283,23 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       contenuUneCorrection += `<img width="90%" src="${obj.pngcor}">`
       obj.video = false
     } else if (obj.typeExercice === 'simple') {
-      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
+      if (obj.interactif) {
+        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
+          numeroExercice - 1
+        }" class="keyboard icon iconeInteractif"></i><span>`
+      } else {
+        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
+          numeroExercice - 1
+        }" class="keyboard outline icon iconeInteractif"></i><span>`
+      }
+      if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
+        paramTooltip += obj.besoinFormulaireNumerique[0] + ': \n' + obj.besoinFormulaireNumerique[2] + '\n'
+      }
+      if (obj.besoinFormulaire2Numerique && obj.besoinFormulaire2Numerique[2]) {
+        paramTooltip += obj.besoinFormulaire2Numerique[0] + ': \n' + obj.besoinFormulaire2Numerique[2]
+      }
+      paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
+      contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
       contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
       if (obj.consigne) {
         contenuUnExercice += `<h4> ${obj.consigne} </h4>`
@@ -296,6 +312,7 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         } catch (error) {
           console.log(error)
         }
+
         if (obj.questionJamaisPosee(numQuestion, obj.question)) {
           contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}`
           if (obj.interactif && obj.interactifReady) {
@@ -459,7 +476,7 @@ function miseAJourDuCode () {
         finUrl += `,n=${listeObjetsExercice[0].nbQuestions}`
       }
       if (listeObjetsExercice[0].video.length > 1) {
-        finUrl += `,v${encodeURIComponent(listeObjetsExercice[0].video)}`
+        finUrl += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
       }
       if (listeObjetsExercice[0].correctionDetaillee && listeObjetsExercice[0].correctionDetailleeDisponible) {
         finUrl += ',cd=1'
@@ -491,7 +508,7 @@ function miseAJourDuCode () {
         if (listeObjetsExercice[i].video) {
           if (listeObjetsExercice[i].video.length > 1) {
             // Pour dnb, video est à false, pour les exercices interactif, par défaut c'est ''
-            finUrl += `,v${encodeURIComponent(listeObjetsExercice[i].video)}`
+            finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
           }
         }
         if (listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
@@ -1244,8 +1261,8 @@ function miseAJourDeLaListeDesExercices (preview) {
             listeObjetsExercice[i].nbQuestions = parseInt(urlVars[i].n)
             formNbQuestions[i].value = listeObjetsExercice[i].nbQuestions
           }
-          if (urlVars[i].v && context.isHtml && !context.isDiaporama) {
-            listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].v)
+          if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
+            listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
             formVideo[i].value = listeObjetsExercice[i].video
           }
           if (urlVars[i].cd !== undefined) {

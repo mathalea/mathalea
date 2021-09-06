@@ -8,6 +8,8 @@ export const amcType = 'AMCHybride'
 
 /*!
  * @author Gilles Mora & Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6N05
  */
 export default function ChiffreDes () {
   Exercice.call(this)

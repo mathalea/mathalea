@@ -1314,14 +1314,21 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
 * @author Rémi Angot
 */
 export function simplificationDeFractionAvecEtapes (num, den) {
+  let result = '='
+  if (num * den < 0) {
+    result += '-'
+    num = Math.abs(num)
+    den = Math.abs(den)
+  } else if (num === 0) {
+    return '=0'
+  }
   // Est-ce que le résultat est simplifiable ?
-  let result = ''
   const s = pgcd(num, den)
   if (s !== 1) {
     if ((num) % (den) === 0) { // si le résultat est entier
-      result = `=${(num) / (den)}`
+      result += `${(num) / (den)}`
     } else {
-      result = `=${texFraction(Algebrite.eval((num) / s) + miseEnEvidence('\\times' + s), Algebrite.eval(den / s) + miseEnEvidence('\\times' + s))}=${texFractionSigne(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
+      result += `${texFraction(Algebrite.eval((num) / s) + miseEnEvidence('\\times' + s), Algebrite.eval(den / s) + miseEnEvidence('\\times' + s))}=${result.charAt(1) === '-' ? '-' : ''}${texFractionSigne(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
     }
   }
   return result

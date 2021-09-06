@@ -8,6 +8,8 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote & Gilles Mora
+ * Créé pendant l'été 2021
+ * Référence can6C19
  */
 export default function ComplementACent () {
   Exercice.call(this)

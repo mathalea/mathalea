@@ -9,6 +9,8 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6S01
  */
 export default function LectureDiagrammeBarre () {
   Exercice.call(this)

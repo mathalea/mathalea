@@ -10,6 +10,8 @@ export const amcType = 'qcmMono'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6M02
  */
 export default function LaBonneUnite () {
   Exercice.call(this)

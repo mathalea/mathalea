@@ -13,6 +13,7 @@ export const amcType = 'AMCNum'
 /**
  * Course aux nombres avec 30 questions pour fin de 6e
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
  * Référence can Predef6-3
 */
 export default function CourseAuxNombres6e (numeroExercice) {

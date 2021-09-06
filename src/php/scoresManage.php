@@ -177,6 +177,10 @@ if ($contentType === "application/json") {
         };
         fputs($fp, 'semaine'.$currentWeek.$sep.$decoded->userId.$sep.$decoded->isCan.$sep.$decoded->exId.$sep.$decoded->sup.$sep.$decoded->sup2.$sep.$decoded->sup3.$sep.$decoded->urlExos.$sep.$decoded->nbBonnesReponses.$sep.$decoded->nbQuestions.$sep.$decoded->score.'%'.$sep.$currentDate.$sep.$currentTime.$sep.$decoded->duree."\r\n");  
         fclose($fp);
+        // Il faut modifier le timestamp à la racine de l'espace sinon il sera supprimé au bout de 31 jours
+        $f = fopen($path.'/'.$keypass.'/iSinactive.txt',"w+");    
+        fputs($f,time().PHP_EOL);
+        fclose($f);
       };
       
     };  
