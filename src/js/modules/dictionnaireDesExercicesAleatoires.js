@@ -4666,6 +4666,14 @@ export default {
     "interactifType": "mathLive",
     "name": "can3G01"
   },
+  "can3G02": {
+    "titre": "Image de point par transformation 3e",
+    "url": "/exercices/can/3e/can3G02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3G02"
+  },
   "can3L01": {
     "titre": "Équation ax=b",
     "url": "/exercices/can/3e/can3L01.js",
@@ -4835,6 +4843,14 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can4G01"
+  },
+  "can4G02": {
+    "titre": "Image de point par transformation 4e",
+    "url": "/exercices/can/4e/can4G02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G02"
   },
   "can4L01": {
     "titre": "Résoudre une équation niveau 1",
@@ -5085,6 +5101,14 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can5D01"
+  },
+  "can5G01": {
+    "titre": "Symétrique de point 5e",
+    "url": "/exercices/can/5e/can5G01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5G01"
   },
   "can5N01": {
     "titre": "Somme de nombres décimaux",
@@ -5415,6 +5439,14 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6D03"
+  },
+  "can6G01": {
+    "titre": "Symétrique de point 6e",
+    "url": "/exercices/can/6e/can6G01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6G01"
   },
   "can6M01": {
     "titre": "Question de périmètres",
