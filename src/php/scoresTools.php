@@ -44,6 +44,9 @@
     // On écrit dedans un template de base à modifier plus tard
     $string = 
     '<?php 
+      // On inclut le scripts avec les outils
+      require_once "../../../../../scoresTools.php";
+
       // Pour stocker les classes distinctes
       $classes = array();
       // Le répetoire père
@@ -95,7 +98,11 @@
           <a class=\"ui basic orange left pointing label\" href=\"../../../../../../zipDownload.php?folder='.$path.'/".$classe."/\">
             Télécharger une archive zip avec toutes les semaines
           </a>
-        </div>    
+        </div>
+        <a class=\"ui negative labeled icon button\" href=\"../../../../../../scoresDelDir.php?folder='.$path.'/".$classe."/\">
+          <i class=\"trash alternate icon\"></i>
+          Supprimer la classe de ".$classe."
+        </a>    
         \r\n";
       echo "
       <div class=\"ui accordion\">
@@ -118,6 +125,10 @@
                       Télécharger uniquement ce fichier
                     </a>
                   </div>
+                  <a class=\"ui negative labeled icon button\" href=\"../../../../../../scoresDelDir.php?file='.$path.'/".$classe."/".$object->name."\">
+                    <i class=\"trash alternate icon\"></i>
+                    Supprimer la ".substr($object->name,0,-4)." pour les ".substr($object->path,-2)."
+                  </a>
                 </li></br>\r\n";
               };
           }
@@ -191,8 +202,17 @@
 
     fputs($fp,"
       <div class=\"ui container\">
-      <h1 class=\"ui center aligned header\">Espace des scores <b>".$codeProf[0].$codeProf[1].$codeProf[2]."</b></h1>
-      <h2 class=\"ui center aligned header\">Liste des fichiers par classe et par semaine</h2>                
+        <h1 class=\"ui center aligned header\">Espace des scores <b>".$codeProf[0].$codeProf[1].$codeProf[2]."</b></h1>
+        <h2 class=\"ui center aligned header\">Liste des fichiers par classe et par semaine</h2>
+        <div class=\"ui icon negative message\">
+          <i class=\"exclamation triangle icon\"></i>
+          <div class=\"content\">
+            <div class=\"header\">
+              ATTENTION
+            </div>
+            <p>La suppression est irrémédiable et il n'y a pas de garde fou pour le moment !</p>
+          </div>
+        </div>                      
         $string      
       </div>
     ");
