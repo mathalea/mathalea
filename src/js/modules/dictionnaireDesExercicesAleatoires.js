@@ -4130,6 +4130,17 @@ export default {
     ],
     "name": "betaCan2G01"
   },
+  "betaCanQ30": {
+    "titre": "Nombre de solutions d’une équation se ramenant à $x^2=a$",
+    "url": "/exercices/beta/betaCanQ30.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCanQ30"
+  },
   "betaComplexes": {
     "titre": "Exercice exemple Nombres complexes",
     "url": "/exercices/beta/betaComplexes.js",
