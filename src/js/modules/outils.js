@@ -1330,7 +1330,7 @@ export function simplificationDeFractionAvecEtapes (num, den) {
     } else {
       result += `${texFraction(Algebrite.eval((num) / s) + miseEnEvidence('\\times' + s), Algebrite.eval(den / s) + miseEnEvidence('\\times' + s))}=${result.charAt(1) === '-' ? '-' : ''}${texFractionSigne(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
     }
-  }
+  } else return ''
   return result
 }
 
