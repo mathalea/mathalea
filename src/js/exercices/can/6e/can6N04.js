@@ -38,7 +38,7 @@ export default function AbscisseFractionnaire () {
       y: 0,
       thickSecDist: 1 / a,
       thickSec: true,
-      thickoffset: 0,
+      thickOffset: 0,
       axeStyle: '|->',
       pointListe: [[b / a, 'A']],
       pointCouleur: 'blue',
