@@ -1,6 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombrec, texNombre } from '../../modules/outils.js'
-
+import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient'
 
 /**
@@ -32,8 +34,8 @@ export default function EnsembleDeNombres () {
 
           texte = `$${a} \\in \\dots$`
           texteCorr = `$${a}$ est un entier naturel, on a donc $${a}\\in \\mathbb{N}$
-                    `
-
+                  `
+          setReponse(this, i, 'N')
           break
         case 2:
 
@@ -42,7 +44,7 @@ export default function EnsembleDeNombres () {
           texte = `$${a} \\in \\dots$`
           texteCorr = `$${a}$ est un entier relatif, on a donc $${a}\\in \\mathbb{Z}$
                     `
-
+          setReponse(this, i, 'Z')
           break
         case 3:
 
@@ -55,7 +57,7 @@ export default function EnsembleDeNombres () {
           texte = `$${texNombrec(b + c / 10 + d / 100)}\\in \\dots$`
           texteCorr = `$${texNombrec(b + c / 10 + d / 100)}$ est un nombre décimal, on a donc $${texNombrec(b + c / 10 + d / 100)}\\in \\mathbb{D}$
                     `
-
+          setReponse(this, i, 'D')
           break
         case 4:
 
@@ -66,7 +68,7 @@ export default function EnsembleDeNombres () {
           texte = `$\\sqrt{${texNombrec(a * a)}}\\in \\dots$`
           texteCorr = `$\\sqrt{${a * a}}=${a}$  est un entier naturel, on a donc $\\sqrt{${texNombrec(a * a)}}\\in \\mathbb{N}$
                     `
-
+          setReponse(this, i, 'N')
           break
         case 5:
 
@@ -77,7 +79,7 @@ export default function EnsembleDeNombres () {
           texte = `$\\dfrac{${texNombrec(b * a)}}{${a}}\\in \\dots$`
           texteCorr = `$\\dfrac{${texNombrec(b * a)}}{${a}}=\\dfrac{${b}\\times ${a}}{${a}}=${b}$  est un entier naturel, on a donc $\\dfrac{${texNombrec(b * a)}}{${a}}\\in \\mathbb{N}$
                     `
-
+          setReponse(this, i, 'N')
           break
         case 6:
 
@@ -87,7 +89,7 @@ export default function EnsembleDeNombres () {
           texte = `$\\dfrac{${a}}{${b}}\\in \\dots$`
           texteCorr = `$\\dfrac{${a}}{${b}}$ n'est pas un nombre décimal. On a donc $\\dfrac{${a}}{${b}}\\in \\mathbb{Q}$
                     `
-
+          setReponse(this, i, 'Q')
           break
         case 7:
 
@@ -98,7 +100,7 @@ export default function EnsembleDeNombres () {
           texte = `$\\dfrac{${a}}{${b}}\\in \\dots$`
           texteCorr = `$\\dfrac{${a}}{${b}}=${texNombre(a / b)}$  est un nombre décimal. On a donc $\\dfrac{${a}}{${b}}\\in \\mathbb{D}$
                     `
-
+          setReponse(this, i, 'D')
           break
         case 8:
 
@@ -106,16 +108,17 @@ export default function EnsembleDeNombres () {
           texte = `$\\sqrt{${a}} \\in \\dots$`
           texteCorr = `$\\sqrt{${a}}$  est un nombre irrationnel. On a donc $\\sqrt{${a}}\\in \\mathbb{R}$
                     `
-
+          setReponse(this, i, 'R')
           break
         case 9:
           a = randint(2, 9)
           texte = `$${a}\\pi \\in \\dots$`
           texteCorr = `$${a}\\pi$   est un nombre irrationnel. On a donc $${a}\\pi \\in \\mathbb{R}$
                     `
-
+          setReponse(this, i, 'R')
           break
       }
+      texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
