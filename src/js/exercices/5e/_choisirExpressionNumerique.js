@@ -171,12 +171,24 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
       souscas = randint(0, 13)
       switch (souscas) {
         case 0: // (a+b)(c+d)
+          if (calculMental) {
+            a = randint(1, 6)
+            b = choice([8, 9, 10, 11]) - a
+            c = randint(2, 7)
+            d = choice([8, 9, 10]) - c
+          }
           expf = `Le produit de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombrec(a)}+${texNombrec(b)})${signex}(${texNombrec(c)}+${texNombrec(d)})$`
           expc = `$(${texNombrec(a)}+${texNombrec(b)})${signex}(${texNombrec(c)}+${texNombrec(d)}) = ${texNombrec(a + b)} \\times ${texNombrec(c + d)} = ${texNombrec((a + b) * (c + d))}$`
           break
         case 1: // (a+b)(c-d)
           if (c <= d) { c = calcul(c + d) }
+          if (calculMental) {
+            a = randint(1, 6)
+            b = choice([8, 9, 10, 11]) - a
+            d = randint(2, 10)
+            c = choice([2, 5, 6, 7, 8, 9, 10]) + d
+          }
           expf = `Le produit de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la différence de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombrec(a)}+${texNombrec(b)})${signex}(${texNombrec(c)}-${texNombrec(d)})$`
           expc = `$(${texNombrec(a)}+${texNombrec(b)})${signex}(${texNombrec(c)}-${texNombrec(d)}) = ${texNombrec(a + b)} \\times ${texNombrec(c - d)} = ${texNombrec((a + b) * (c - d))}$`
