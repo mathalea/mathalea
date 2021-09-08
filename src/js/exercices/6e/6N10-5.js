@@ -53,14 +53,14 @@ export default function ExerciceLabyrintheNumeration () {
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let Dm, Um, C, D, U, d, c, m, dm, nombretemp
     for (let i = 0; i <= 30; i++) {
-      if (rangMax > 7) {
-        if (positions[rang] !== 'dizaines de mille') {
+      if (positions[rang] !== 'dizaines de mille') {
+        if (rangMax > 6) {
           Dm = randint(0, 9, chiffre)
         } else {
-          Dm = chiffre
+          Dm = 0
         }
       } else {
-        Dm = 0
+        Dm = chiffre
       }
       if (positions[rang] !== 'unités de mille') {
         if (rangMax > 5) {
