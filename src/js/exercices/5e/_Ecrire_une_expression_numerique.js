@@ -73,7 +73,7 @@ export default function EcrireUneExpressionNumerique () {
           else if (nbval === 2) texte = `${expf} puis calculer pour $x=${val1}$ et $y=${val2}$.` // nbval contient le nombre de valeurs en cas de calcul littéral
           else texte = `${expf} puis calculer pour $x=${val1}$.`
           texteCorr = `${expf} s'écrit ${expn}.<br>`
-          if (!this.litteral) texteCorr = `${expc}.`
+          if (!this.litteral) texteCorr = `${expc}`
           else if (nbval === 2) texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}.`
           else texteCorr += `Pour $x=${val1}$ :<br>${expc}.`
           reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
@@ -81,10 +81,10 @@ export default function EcrireUneExpressionNumerique () {
         case 4:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
           this.consigne = 'Calculer en respectant les priorités opératoires.'
-          if (!this.litteral) texte = `${expn}.`
+          if (!this.litteral) texte = `${expn}`
           else if (nbval === 2) texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
           else texte = `Pour $x=${val1}$, calculer ${expn}.`
-          if (!this.litteral) texteCorr = `${expc}.`
+          if (!this.litteral) texteCorr = `${expc}`
           else if (nbval === 2) texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}.`
           else texteCorr = `Pour $x=${val1}$ :<br>${expc}.`
           reponse = parseInt(expc.split('=')[expc.split('=').length - 1])

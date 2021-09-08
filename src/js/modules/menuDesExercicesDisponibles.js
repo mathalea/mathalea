@@ -354,7 +354,7 @@ export function menuDesExercicesDisponibles () {
     document.getElementById('liste_des_exercices').innerHTML = ''
   }
   const listeThemesCan = [
-    ['can6', 'can6 - Course aux nombres niveau 6e'], ['can5', 'can5 - Course aux nombres niveau 5e'], ['can4', 'can4 - Course aux nombres niveau 4e'],
+    ['canc3', 'canc3 - Course aux nombres niveau CM1-CM2'], ['can6', 'can6 - Course aux nombres niveau 6e'], ['can5', 'can5 - Course aux nombres niveau 5e'], ['can4', 'can4 - Course aux nombres niveau 4e'],
     ['can3', 'can3 - Course aux nombres niveau 3e'], ['can2', 'can2 - Course aux nombres niveau 2e'], ['can1', 'can1 - Course aux nombres niveau 1e'],
     ['canT', 'canT - Course aux nombres niveau Terminale'], ['canP', 'canPredef - Courses aux nombres clé en main']]
   const listeThemesC3 = [

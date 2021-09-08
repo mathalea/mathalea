@@ -25,6 +25,14 @@ export default {
     "interactifType": "mathLive",
     "name": "1E11-2"
   },
+  "1E11-3": {
+    "titre": "Déterminer la forme canonique d'un polynôme du second degré",
+    "url": "/exercices/1e/1E11-3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1E11-3"
+  },
   "1E11": {
     "titre": "Résoudre une équation du second degré",
     "url": "/exercices/1e/1E11.js",
@@ -245,7 +253,8 @@ export default {
     "titre": "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient",
     "url": "/exercices/2e/2N14-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "2N14-1"
   },
   "2N15-1": {
@@ -2422,7 +2431,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "6C10-1"
   },
   "6C10-2": {
@@ -3663,7 +3672,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "CM001"
   },
   "CM002": {
@@ -4351,7 +4360,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "c3C10-1"
   },
   "c3C10-2": {
@@ -4485,17 +4494,6 @@ export default {
     "interactifType": "mathLive",
     "name": "can2L01"
   },
-  "can2L02": {
-    "titre": "Nombre de solutions d’une équation se ramenant à $x^2=a$",
-    "url": "/exercices/can/2e/can2L02.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "can2L02"
-  },
   "can2P01": {
     "titre": "Calculs de probabilités",
     "url": "/exercices/can/2e/can2P01.js",
@@ -4506,6 +4504,14 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2P01"
+  },
+  "can2P02": {
+    "titre": "Dénombrement",
+    "url": "/exercices/can/2e/can2P02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2P02"
   },
   "can3C01": {
     "titre": "Puissances de nombre entier",
@@ -4639,6 +4645,14 @@ export default {
     "interactifType": "mathLive",
     "name": "can3G01"
   },
+  "can3G02": {
+    "titre": "Image de point par transformation 3e",
+    "url": "/exercices/can/3e/can3G02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3G02"
+  },
   "can3L01": {
     "titre": "Équation ax=b",
     "url": "/exercices/can/3e/can3L01.js",
@@ -4693,6 +4707,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3S01"
+  },
+  "can3S02": {
+    "titre": "Probabilité de l’évènement contraire",
+    "url": "/exercices/can/3e/can3S02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S02"
+  },
+  "can3S03": {
+    "titre": "Calculs de probabilités2",
+    "url": "/exercices/can/3e/can3S03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S03"
   },
   "can4C01": {
     "titre": "Priorité opératoire et relatifs",
@@ -4792,6 +4822,14 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can4G01"
+  },
+  "can4G02": {
+    "titre": "Image de point par transformation 4e",
+    "url": "/exercices/can/4e/can4G02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G02"
   },
   "can4L01": {
     "titre": "Résoudre une équation niveau 1",
@@ -5021,6 +5059,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C14"
   },
+  "can5C15": {
+    "titre": "Pourcentage (proportion) 1",
+    "url": "/exercices/can/5e/can5C15.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C15"
+  },
   "can5D01": {
     "titre": "Conversion Heures minutes",
     "url": "/exercices/can/5e/can5D01.js",
@@ -5032,6 +5081,14 @@ export default {
     "interactifType": "mathLive",
     "name": "can5D01"
   },
+  "can5G01": {
+    "titre": "Symétrique de point 5e",
+    "url": "/exercices/can/5e/can5G01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5G01"
+  },
   "can5N01": {
     "titre": "Somme de nombres décimaux",
     "url": "/exercices/can/5e/can5N01.js",
@@ -5042,6 +5099,28 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can5N01"
+  },
+  "can5P01": {
+    "titre": "Pourcentage (évolution)",
+    "url": "/exercices/can/5e/can5P01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5P01"
+  },
+  "can5P02": {
+    "titre": "Pourcentage (proportion) 2",
+    "url": "/exercices/can/5e/can5P02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5P02"
   },
   "canPredef5-1": {
     "titre": "Course aux nombres début de 5e",
@@ -5340,6 +5419,14 @@ export default {
     "interactifType": "mathLive",
     "name": "can6D03"
   },
+  "can6G01": {
+    "titre": "Symétrique de point 6e",
+    "url": "/exercices/can/6e/can6G01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6G01"
+  },
   "can6M01": {
     "titre": "Question de périmètres",
     "url": "/exercices/can/6e/can6M01.js",
@@ -5526,5 +5613,49 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "canPredef6-3"
+  },
+  "canc3C01": {
+    "titre": "Calculs automatiques",
+    "url": "/exercices/can/c3/canc3C01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3C01"
+  },
+  "canc3C02": {
+    "titre": "Composition de nombre entier",
+    "url": "/exercices/can/c3/canc3C02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3C02"
+  },
+  "canc3N01": {
+    "titre": "Écriture de nombre entier",
+    "url": "/exercices/can/c3/canc3N01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "canc3N01"
+  },
+  "canc3N02": {
+    "titre": "Suite sur une droite graduée",
+    "url": "/exercices/can/c3/canc3N02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3N02"
   }
 }
