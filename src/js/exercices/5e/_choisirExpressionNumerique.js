@@ -16,7 +16,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
   let a = arrondi(randint(2 * decimal, 10 * decimal) / decimal, arrondir)
   let b = arrondi(randint(2 * decimal, 10 * decimal, [a * decimal]) / decimal, arrondir)
   let c = arrondi(randint(2 * decimal, 10 * decimal) / decimal, arrondir)
-  const d = arrondi(randint(2 * decimal, 10 * decimal, [c * decimal]) / decimal, arrondir)
+  let d = arrondi(randint(2 * decimal, 10 * decimal, [c * decimal]) / decimal, arrondir)
   const e = arrondi(randint(2 * decimal, 10 * decimal) / decimal, arrondir)
   let souscas
   let signex = ''
@@ -195,6 +195,12 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           break
         case 2: // (a-b)(c+d)
           if (a <= b) { a = calcul(a + b) }
+          if (calculMental) {
+            b = randint(2, 10)
+            a = choice([2, 5, 6, 7, 8, 9, 10]) + b
+            c = randint(2, 7)
+            d = choice([8, 9, 10]) - c
+          }
           expf = `Le produit de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombrec(a)}-${texNombrec(b)})${signex}(${texNombrec(c)}+${texNombrec(d)})$`
           expc = `$(${texNombrec(a)}-${texNombrec(b)})${signex}(${texNombrec(c)}+${texNombrec(d)}) = ${texNombrec(a - b)} \\times ${texNombrec(c + d)} = ${texNombrec((a - b) * (c + d))}$`
