@@ -13,8 +13,7 @@ export const amcType = 'AMCOpenNum'
 * @author Jean-Claude Lhote
 * Référence 5C11, 5C11-1, 5C11-2, 5C12, 5C12-1, 5L13
 */
-export default function EcrireUneExpressionNumerique () {
-  'use strict'
+export default function EcrireUneExpressionNumerique (calculMental = true) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 4
@@ -49,7 +48,7 @@ export default function EcrireUneExpressionNumerique () {
       val1 = randint(2, 5)
       val2 = randint(6, 9)
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
-      if (!this.litteral) { resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3) } else { resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3) }
+      if (!this.litteral) { resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental) } else { resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, calculMental) }
       expf = resultats[0]
       expn = resultats[1]
       expc = resultats[2]

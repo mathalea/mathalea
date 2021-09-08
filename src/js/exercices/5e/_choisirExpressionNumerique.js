@@ -1,4 +1,4 @@
-import { randint, arrondi, calcul, texNombrec, nombreAvecEspace } from '../../modules/outils.js'
+import { randint, arrondi, calcul, texNombrec, nombreAvecEspace, choice } from '../../modules/outils.js'
 
 /**
  * Chosis aléatoirement une expressions numérique parmi de nombreuses variantes.
@@ -11,7 +11,7 @@ import { randint, arrondi, calcul, texNombrec, nombreAvecEspace } from '../../mo
  * @author Jean-Claude Lhote
  * Fonction utilisée dans plusieurs exercices.
  */
-export default function choisirExpressionNumerique (nbOperations, decimal, timesOn = true) {
+export default function choisirExpressionNumerique (nbOperations, decimal, timesOn = true, calculMental) {
   let expf; let expn; let expc; const arrondir = Math.log10(decimal)
   let a = arrondi(randint(2 * decimal, 10 * decimal) / decimal, arrondir)
   let b = arrondi(randint(2 * decimal, 10 * decimal, [a * decimal]) / decimal, arrondir)
@@ -53,18 +53,33 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
       souscas = randint(0, 9)
       switch (souscas) {
         case 0: // a(b+c)
+          if (calculMental) {
+            a = choice([2, 3, 4])
+            b = randint(1, 5)
+            c = choice([7, 8, 9, 10, 11, 12, 15, 20, 25, 50]) - b
+          }
           expf = `Le produit de ${nombreAvecEspace(a)} par la somme de ${nombreAvecEspace(b)} et ${nombreAvecEspace(c)}`
           expn = `$${texNombrec(a)}${signex}(${texNombrec(b)}+${texNombrec(c)})$`
           expc = `$${texNombrec(a)}${signex}(${texNombrec(b)}+${texNombrec(c)}) = ${texNombrec(a)} \\times ${texNombrec(b + c)}=${texNombrec(a * (b + c))}$`
           break
         case 1: // a(b-c)
           if (b <= c) { b = calcul(b + c) } // b-c positif
+          if (calculMental) {
+            a = choice([2, 3, 4])
+            c = randint(1, 5)
+            b = choice([7, 8, 9, 10, 11, 12, 15, 20, 25, 50]) + c
+          }
           expf = `Le produit de ${nombreAvecEspace(a)} par la différence de ${nombreAvecEspace(b)} et ${nombreAvecEspace(c)}`
           expn = `$${texNombrec(a)}${signex}(${texNombrec(b)}-${texNombrec(c)})$`
           expc = `$${texNombrec(a)}${signex}(${texNombrec(b)}-${texNombrec(c)}) = ${texNombrec(a)} \\times ${texNombrec(b - c)}=${texNombrec(a * (b - c))}$`
           break
         case 2: // a/(b+c)
           a = calcul(a * (b + c)) // on s'assure que le quotient tombe juste...
+          if (calculMental) {
+            b = randint(1, 5)
+            c = choice([7, 8, 9, 10, 11, 12, 15, 20, 25, 50]) - b
+            a = choice([2, 3, 4, 5]) * (c + b)
+          }
           expf = `Le quotient de ${nombreAvecEspace(a)} par la somme de ${nombreAvecEspace(b)} et ${nombreAvecEspace(c)}`
           expn = `$${texNombrec(a)} \\div (${texNombrec(b)}+${texNombrec(c)})$ ou $\\dfrac{${texNombrec(a)}}{${texNombrec(b)}+${texNombrec(c)}}$`
           expc = `$${texNombrec(a)} \\div (${texNombrec(b)}+${texNombrec(c)}) = ${texNombrec(a)} \\div ${texNombrec(b + c)}=${texNombrec(a / (b + c))}$`
@@ -72,6 +87,11 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
         case 3: // a/(b-c)
           if (b <= c) { b = calcul(b + c) } // b-c positif
           a = calcul(a * (b - c)) // on s'assure que le quotient tombe juste
+          if (calculMental) {
+            c = randint(1, 5)
+            b = choice([7, 8, 9, 10, 11, 12, 15, 20, 25, 50]) + c
+            a = choice([2, 3, 4, 5]) * (b - c)
+          }
           expf = `Le quotient de ${nombreAvecEspace(a)} par la différence de ${nombreAvecEspace(b)} et ${nombreAvecEspace(c)}`
           expn = `$${texNombrec(a)} \\div (${texNombrec(b)}-${texNombrec(c)})$ ou $\\dfrac{${texNombrec(a)}}{${texNombrec(b)}-${texNombrec(c)}}$`
           expc = `$${texNombrec(a)} \\div (${texNombrec(b)}-${texNombrec(c)}) = ${texNombrec(a)} \\div ${texNombrec(b - c)}=${texNombrec(a / (b - c))}$`
@@ -79,6 +99,11 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
         case 4: // (a+b)/c
           a = calcul(a * c)
           b = calcul(b * c) // on s'assure que le quotient tombe juste
+          if (calculMental) {
+            c = choice([2, 3, 4, 5])
+            a = randint(1, 5) * c
+            b = choice([7, 8, 9, 10, 11, 12, 15, 20, 25, 50]) * c - a
+          }
           expf = `Le quotient de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par ${nombreAvecEspace(c)}`
           expn = `$(${texNombrec(a)}+${texNombrec(b)}) \\div ${texNombrec(c)}$ ou $\\dfrac{${texNombrec(a)}+${texNombrec(b)}}{${texNombrec(c)}}$`
           expc = `$(${texNombrec(a)}+${texNombrec(b)}) \\div ${texNombrec(c)} = ${texNombrec(a + b)} \\div ${texNombrec(c)}=${texNombrec((a + b) / c)}$`
@@ -87,23 +112,43 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           if (a <= b) { a = calcul(a + b) } // a-b positif
           a = calcul(a * c)
           b = calcul(b * c) // on s'assure que le quotient tombe juste
+          if (calculMental) {
+            c = choice([2, 3, 4, 5])
+            b = randint(1, 5) * c
+            a = choice([7, 8, 9, 10, 11, 12, 15, 20, 25, 50]) * c + b
+          }
           expf = `Le quotient de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par ${nombreAvecEspace(c)}`
           expn = `$(${texNombrec(a)}-${texNombrec(b)}) \\div ${texNombrec(c)}$ ou $\\dfrac{${texNombrec(a)}-${texNombrec(b)}}{${texNombrec(c)}}$`
           expc = `$(${texNombrec(a)}-${texNombrec(b)}) \\div ${texNombrec(c)} = ${texNombrec(a - b)} \\div ${texNombrec(c)}=${texNombrec((a - b) / c)}$`
           break
         case 6: // a + bc
+          if (calculMental) {
+            c = choice([2, 3, 4, 5])
+            b = randint(2, 9)
+            a = randint(2, 9)
+          }
           expf = `La somme de ${nombreAvecEspace(a)} et du produit de ${nombreAvecEspace(b)} et $${nombreAvecEspace(c)}$`
           expn = `$${texNombrec(a)}+${texNombrec(b)} \\times ${texNombrec(c)}$`
           expc = `$${texNombrec(a)}+${texNombrec(b)} \\times ${texNombrec(c)}=${texNombrec(a)}+${texNombrec(b * c)} = ${texNombrec(a + (b * c))}$`
           break
         case 7: // a - bc
           a = calcul(a + b * c)
+          if (calculMental) {
+            c = choice([2, 3, 4, 5])
+            b = randint(2, 9)
+            a = randint(2, 9) + b * c
+          }
           expf = `La différence entre ${nombreAvecEspace(a)} et le produit de ${nombreAvecEspace(b)} et $${texNombrec(c)}$`
           expn = `$${texNombrec(a)}-${texNombrec(b)} \\times ${texNombrec(c)}$`
           expc = `$${texNombrec(a)}-${texNombrec(b)} \\times ${texNombrec(c)}=${texNombrec(a)}-${texNombrec(b * c)} = ${texNombrec(a - (b * c))}$`
           break
         case 8: // a + b/c
           b = calcul(b * c)
+          if (calculMental) {
+            c = choice([2, 3, 4, 5])
+            b = randint(2, 6) * c
+            a = randint(2, 9)
+          }
           expf = `La somme de ${nombreAvecEspace(a)} et du quotient de ${nombreAvecEspace(b)} par $${texNombrec(c)}$`
           expn = `$${texNombrec(a)}+${texNombrec(b)} \\div ${texNombrec(c)}$ ou $${texNombrec(a)}+\\dfrac{${texNombrec(b)}}{${texNombrec(c)}}$`
           expc = `$${texNombrec(a)}+${texNombrec(b)} \\div ${texNombrec(c)}=${texNombrec(a)}+${texNombrec(b / c)} = ${texNombrec(a + (b / c))}$`
@@ -111,6 +156,11 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
         case 9: // a - b/c
           a = calcul(a + b)
           b = calcul(b * c)
+          if (calculMental) {
+            c = choice([2, 3, 4, 5])
+            b = randint(2, 6) * c
+            a = randint(2, 9) + b * c
+          }
           expf = `La différence entre ${nombreAvecEspace(a)} et le quotient de ${nombreAvecEspace(b)} par $${texNombrec(c)}$`
           expn = `$${texNombrec(a)}-${texNombrec(b)} \\div ${texNombrec(c)}$ ou $${texNombrec(a)}-\\dfrac{${texNombrec(b)}}{${texNombrec(c)}}$`
           expc = `$${texNombrec(a)}-${texNombrec(b)} \\div ${texNombrec(c)}=${texNombrec(a)}-${texNombrec(b / c)} = ${texNombrec(a - (b / c))}$`
