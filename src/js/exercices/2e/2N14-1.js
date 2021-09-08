@@ -13,7 +13,7 @@ export default function EnsembleDeNombres () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient. :'
-  this.nbQuestions = 1
+  this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 2
   this.sup = 1 //
