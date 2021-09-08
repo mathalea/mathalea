@@ -34,8 +34,8 @@ export default function Formacanonique () {
     for (let i = 0, texte, texteCorr, a, b, c, alpha, beta, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (listeTypeDeQuestions[i] === 'solutionsEntieres') {
         // k(x-x1)(x-x2)
-        alpha = randint(-5, 5)
-        beta = randint(-5, 5)
+        alpha = randint(-5, 5,[0])
+        beta = randint(-5, 5,[0])
         a = randint(-4, 4, [0])
         b = -2 * a * alpha
         c = a * alpha * alpha + beta
