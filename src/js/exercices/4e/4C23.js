@@ -29,6 +29,7 @@ export default function ExerciceAdditionnerFractionProduit () {
   this.correctionDetaillee = true
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles

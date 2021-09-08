@@ -46,30 +46,30 @@ export default function ExerciceLabyrintheNumeration () {
         rangMax = 8
       }
     }
-    const rang = randint(0, rangMax)
+    const rang = randint(0, rangMax - 1)
     const chiffre = randint(0, 9)
     texte = `${texteEnCouleurEtGras(`Trouve la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un `, 'black')}$${miseEnEvidence(chiffre, 'black')}$.<br>`
     texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let Dm, Um, C, D, U, d, c, m, dm, nombretemp
     for (let i = 0; i <= 30; i++) {
-      if (rangMax > 7) {
-        if (positions[rang] !== 'dizaines de mille') {
+      if (positions[rang] !== 'dizaines de mille') {
+        if (rangMax > 6) {
           Dm = randint(0, 9, chiffre)
         } else {
-          Dm = chiffre
+          Dm = 0
         }
       } else {
-        Dm = 0
+        Dm = chiffre
       }
       if (positions[rang] !== 'unités de mille') {
         if (rangMax > 5) {
           Um = randint(0, 9, chiffre)
         } else {
-          Um = chiffre
+          Um = 0
         }
       } else {
-        Um = 0
+        Um = chiffre
       }
 
       if (positions[rang] !== 'centaines') {
