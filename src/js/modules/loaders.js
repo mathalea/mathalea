@@ -237,7 +237,7 @@ const collegeKeyboardLayer = {
         {
           class: 'small',
           latex: '\\times10^{#0}',
-          insert: '$$\\times10^{#0}$$'
+          insert: '$$\\times10^#0$$'
         }
       ],
       [

@@ -91,7 +91,11 @@ export default function NotationScientifique () {
       decimalstring = texNombrec(mantisse * 10 ** exp)
       scientifiquestring = `${texNombrec(mantisse)}\\times 10^{${exp}}`
       if (this.sup === 1) {
-        reponse = scientifiquestring
+        if (exp > 9 || exp < 0) {
+          reponse = `${texNombrec(mantisse)}\\times10^{${exp}}`
+        } else {
+          reponse = `${texNombrec(mantisse)}\\times10^${exp}`
+        }
         texte = `$${decimalstring}$`
         texteCorr = `$${decimalstring} = ${scientifiquestring}$`
         if (this.interactif) {
