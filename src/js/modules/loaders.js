@@ -233,6 +233,11 @@ const collegeKeyboardLayer = {
           class: 'small',
           latex: '\\sqrt{#0}',
           insert: '$$\\sqrt{#0}$$'
+        },
+        {
+          class: 'small',
+          latex: '\\times10^{#0}',
+          insert: '$$\\times10^{#0}$$'
         }
       ],
       [
@@ -246,7 +251,12 @@ const collegeKeyboardLayer = {
         { class: 'separator w5' },
         { class: 'small', latex: '\\frac{#0}{#0}' },
         { label: '=', key: '=' },
-        { latex: 'f' }
+        { latex: 'f' },
+        {
+          class: 'small',
+          latex: '#0^{#1}',
+          insert: '$$#0^{#1}$$'
+        }
       ],
       [
         { class: 'tex', label: '<i>c</i>' },
@@ -259,7 +269,12 @@ const collegeKeyboardLayer = {
         { class: 'separator w5' },
         { label: ';', key: ';' },
         { label: 'oui', key: 'oui' },
-        { label: 'non', key: 'non' }
+        { label: 'non', key: 'non' },
+        {
+          class: 'small',
+          latex: '\\frac{1}{#0}',
+          insert: '$$\\frac{1}{#0}$$'
+        }
       ],
       [
         { latex: '(' },
