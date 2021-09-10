@@ -1712,13 +1712,13 @@ function parametresExercice (exercice) {
                     <input id='form_sup2${i}' type='text' size='20' ></div></div>`
     }
 
-    if (exercice[i].besoinFormulairei3CaseACocher) {
+    if (exercice[i].besoinFormulaire3CaseACocher) {
       // Création d'un formulaire texte
       divParametresGeneraux.innerHTML +=
         "<div style='display: inline'><label for='form_sup3" +
         i +
         "'>" +
-        exercice[i].besoinFormulairei3CaseACocher[0] +
+        exercice[i].besoinFormulaire3CaseACocher[0] +
         " : </label><input id='form_sup3" +
         i +
         "' type='checkbox'  ></div>"
@@ -2039,7 +2039,7 @@ function parametresExercice (exercice) {
       })
     }
 
-    if (exercice[i].besoinFormulairei3CaseACocher) {
+    if (exercice[i].besoinFormulaire3CaseACocher) {
       formSup3[i] = document.getElementById('form_sup3' + i)
       formSup3[i].checked = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
       formSup3[i].addEventListener('change', function (e) {
