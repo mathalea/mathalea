@@ -149,8 +149,8 @@ export default function PremierEscapeGameMathalea () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
 
-    // this.besoinFormulaire2Numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
+    // this.besoinFormulaire2Numerique = ['Coefficient de réduction(problèmes de type1)', 3, ' 1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
   }
-  this.besoinFormulaireNumerique = ['Catégorie', 3, '1 : Noir & Blanc\n 2 : RGB\n 3 : CJMN']
+  this.besoinFormulaireNumerique = ['Catégorie', 3, ' 1 : Noir & Blanc\n 2 : RGB\n 3 : CJMN']
   // this.besoinFormulaire2Texte = ['Quel est ton mot de passe ?', 1, 'Mot de passe (en majuscule):']
 }

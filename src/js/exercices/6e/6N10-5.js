@@ -201,5 +201,5 @@ export default function ExerciceLabyrintheNumeration () {
   }
   // this.besoinFormulaireCaseACocher = ["Avec des dizaines de mille et des dix-millièmes"]
   //  this.besoinFormulaire2Numerique = ["Critère de divisibilité supplémentaire ",6,'1 : Aucun\n2 : Par 2\n3 : Par 3\n4 : Par 4\n5 : Par 5\n6 : Par 9'];
-  this.besoinFormulaireNumerique = ['Niveau de rapidité', 6, '1 : Escargot\n 2 : Tortue\n 3 : Lièvre\n 4 : Antilope\n 5 : Guépard\n 6 : Au hasard']
+  this.besoinFormulaireNumerique = ['Niveau de rapidité', 6, ' 1 : Escargot\n 2 : Tortue\n 3 : Lièvre\n 4 : Antilope\n 5 : Guépard\n 6 : Au hasard']
 } // Fin de l'exercice.

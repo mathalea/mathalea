@@ -131,5 +131,5 @@ export default function Resoudre_une_equation_produit_nul() {
 		}
 		listeQuestionsToContenu(this);
 	};
-	this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Coefficient de x = 1\n 2 : Coefficient de x>1 et solutions entières\n 3 : Solutions rationnelles\n 4 : Mélange des 3 autres niveaux'];
+	this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x = 1\n 2 : Coefficient de x>1 et solutions entières\n 3 : Solutions rationnelles\n 4 : Mélange des 3 autres niveaux'];
 }

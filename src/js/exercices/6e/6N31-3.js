@@ -231,5 +231,5 @@ export default function ArrondirUneValeur () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de nombre', 2, '1 : Nombre décimal\n 2 : Fraction']
+  this.besoinFormulaireNumerique = ['Type de nombre', 2, ' 1 : Nombre décimal\n 2 : Fraction']
 }
