@@ -3,6 +3,8 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { evaluate } from 'mathjs'
+// import math from 'mathjs'
 
 export const titre = 'Notation scientifique'
 export const interactifReady = true
@@ -89,8 +91,10 @@ export default function NotationScientifique () {
           break
       }
       reponse = calcul(mantisse * 10 ** exp)
-      decimalstring = texNombrec(mantisse * 10 ** exp)
+      // decimalstring = texNombrec(mantisse * 10 ** exp)
       scientifiquestring = `${texNombrec(mantisse)}\\times 10^{${exp}}`
+      decimalstring = scientifiqueToDecimal(mantisse, exp)
+      
       if (this.sup === 1) {
         texte = `$${decimalstring}$`
         texteCorr = `$${decimalstring} = ${scientifiquestring}$`
@@ -157,3 +161,55 @@ export default function NotationScientifique () {
   this.besoinFormulaireNumerique = ["Type d'exercices", 2, '1 : Traduire en notation scientifique\n2 : Traduire en notation décimale']
   this.besoinFormulaire2Numerique = ['Niveaux de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
 }
+
+const scientifiqueToDecimal = (mantisse, exp) => {
+  mantisse = mantisse.toString()
+  const indiceVirguleDepart = mantisse.indexOf('.')
+  const indiceVirguleArrivee = indiceVirguleDepart + exp
+  let mantisseSansVirgule = mantisse.replace('.', '')
+  const indiceMax = mantisseSansVirgule.length - 1
+  // indiceMax est l'indice du chiffre des unités
+  if (indiceVirguleArrivee > indiceMax) {
+    // On ajoute des 0 à droite
+    for (let i = indiceMax + 1; i < indiceVirguleArrivee; i++) {
+      mantisseSansVirgule += '0'
+    }
+  } else if (indiceVirguleArrivee > 0 && indiceVirguleArrivee <= indiceMax) {
+    // On insère la virgule
+    mantisseSansVirgule = mantisseSansVirgule.substring(0, indiceVirguleArrivee) + ',' + mantisseSansVirgule.substring(indiceVirguleArrivee, mantisseSansVirgule.length)
+  } else {
+    // On ajoute des 0 à gauche
+    let partiGauche = '0,'
+    for (let i = 0; i < Math.abs(indiceVirguleArrivee); i++) {
+      partiGauche += '0'
+    }
+    mantisseSansVirgule = partiGauche + mantisseSansVirgule
+  }
+  return insereEspaceDansNombre(mantisseSansVirgule)
+}
+
+const insereEspaceDansNombre = nb => {
+  const indiceVirgule = nb.indexOf(',')
+  const indiceMax = nb.length - 1
+  const tableauIndicesEspaces = []
+  if (indiceVirgule > 0) {
+    for (let i = 0; i < indiceMax; i++) {
+      if ((i - indiceVirgule) % 3 === 0 && (i - indiceVirgule) !== 0) {
+        tableauIndicesEspaces.push(i)
+      }
+    }
+  } else {
+    for (let i = 0; i < indiceMax; i++) {
+      if ((indiceMax - i) % 3 === 0) {
+        tableauIndicesEspaces.push(i)
+      }
+    }
+  }
+  for (let i = tableauIndicesEspaces.length - 1; i >= 0; i--) {
+    const indice = tableauIndicesEspaces[i] + 1
+    nb = insertCharInString(nb, indice, ' \\thickspace ')
+  }
+  return nb
+}
+
+const insertCharInString = (string, index, char) => string.substring(0, index) + char + string.substring(index, string.length)
