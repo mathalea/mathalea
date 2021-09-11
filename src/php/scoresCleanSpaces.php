@@ -26,15 +26,26 @@ $intervalBeforeDeleteIfInactive = 31557600; // 2 678 400 secondes c'est 31 jours
 // En fait la fonction filectime() renvoie la date de la dernière modif de l'inode donc si on crée un nouveau sous-dossier l'inode change
 // filemtime() permet-t-il de corriger le problème ? Il semblerait que oui ... et non !
 // Et avec un timestamp dans un fichier ? On ajoute ce timestamp au moment de la création des vips
+// Le fichier peut ne pas exister ! Donc il faut le créer s'il n'existe pas et on fixe la date au 15 aout de l'année en cours
+if (!file_exists($scoresDir.'/iScleanUpNeeded.txt')) {
+  // On récupère la date de création du dossier pour tester s'il faudra supprimer des espaces de scores
+  $f = fopen($GLOBALS["scoresDir"].'/iScleanUpNeeded.txt',"w+");
+  // On récupère la date de création du dossier père
+  $timeOfCreation = strtotime(intval(date('Y')).'/08/15');//filectime($GLOBALS["scoresDir"]);
+  // On l'ajoute au fichier
+  fputs($f,$timeOfCreation.PHP_EOL);
+  fclose($f);
+} else {
 $f = fopen($scoresDir.'/iScleanUpNeeded.txt',"r");  
 // On récupère la date de création du dossier père
-$dateOfcreation = fgets($f);
-fclose($f);
-$deleteDay = intval(date('d',$dateOfcreation)); //intval(date('d',filemtime($scoresDir)));
-$deleteMonth = intval(date('m',$dateOfcreation)); //intval(date('m',filemtime($scoresDir)));
-$deleteYear = intval(date('Y',$dateOfcreation+$intervalBeforeDelete)); // intval(date('Y',filemtime($scoresDir)+$intervalBeforeDelete));
-$deleteNextDate = date('d / m / Y à H:i:s ',$dateOfcreation+$intervalBeforeDelete); //date('d / m / Y à H:i:s ',filemtime($scoresDir)+$intervalBeforeDelete);
-$timeSinceCreation = (time() - $dateOfcreation); //(time() - filemtime($scoresDir));
+$timeOfcreation = fgets($f);
+fclose($f);  
+}
+$deleteDay = intval(date('d',$timeOfcreation)); //intval(date('d',filemtime($scoresDir)));
+$deleteMonth = intval(date('m',$timeOfcreation)); //intval(date('m',filemtime($scoresDir)));
+$deleteYear = intval(date('Y',$timeOfcreation+$intervalBeforeDelete)); // intval(date('Y',filemtime($scoresDir)+$intervalBeforeDelete));
+$deleteNextDate = date('d / m / Y à H:i:s ',$timeOfcreation+$intervalBeforeDelete); //date('d / m / Y à H:i:s ',filemtime($scoresDir)+$intervalBeforeDelete);
+$timeSinceCreation = (time() - $timeOfcreation); //(time() - filemtime($scoresDir));
 $currentDay = intval(date('d'));
 $currentMonth = intval(date('m'));
 $currentYear = intval(date('Y'));
