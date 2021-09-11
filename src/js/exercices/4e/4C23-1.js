@@ -14,8 +14,8 @@ export default function SommeOuProduitFractions () {
   this.spacingCorr = 3
   this.consigne = 'Effectuer les calculs suivants (on n\'attend pas que le résultat soit donné sous forme de fraction irréductible) :'
   this.nbQuestions = 6 // Nombre de questions par défaut
-  this.nbCols = 3 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 3 // Uniquement pour la sortie LaTeX
+  this.nbCols = 4 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.sup = 1
@@ -30,7 +30,7 @@ export default function SommeOuProduitFractions () {
     let typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6'] // On crée 6 types de questions
     switch (this.sup) {
       case 1:
-        typeQuestionsDisponibles = ['type1', 'type1', 'type1', 'type2', 'type5']
+        typeQuestionsDisponibles = ['type1', 'type1', 'type1', 'type2', 'type2', 'type5']
         break
       case 2:
         typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type3', 'type4', 'type5']
