@@ -8,8 +8,6 @@ export const amcType = 'qcmMono' // QCM
 export const interactifType = 'qcm'
 
 export const interactifReady = true
-
-
 /**
  * À partir de la donnée des 3 longueurs d'un triangle, déterminer si il est rectangle ou pas.
  * @author Rémi Angot

@@ -1511,7 +1511,8 @@ export default {
     "titre": "Utiliser la simple distributivité",
     "url": "/exercices/4e/4L10.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4L10"
   },
   "4L11": {
