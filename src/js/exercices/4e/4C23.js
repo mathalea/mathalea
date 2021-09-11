@@ -205,14 +205,14 @@ export default function ExerciceAdditionnerFractionProduit () {
         case 3: // avec piege addition non prioritaire fraction2 * fraction3 + fraction1  tout positif
           d = b
           produit = produitDeDeuxFractions(c, d, e, f)
-          texte = `$${texFraction(c, d)}\\times${texFraction(e, f)}+${texFraction(a, b)}$`
-          texteCorr = `$${texFraction(c, d)}\\times${texFraction(e, f)}+${texFraction(a, b)}$`
+          texte = `$${texFraction(a, b)}+${texFraction(c, d)}\\times${texFraction(e, f)}$`
+          texteCorr = `$${texFraction(a, b)}+${texFraction(c, d)}\\times${texFraction(e, f)}`
           if (this.correctionDetaillee) {
-            texteCorr += `$=${texFraction(c + '\\times' + e, d + '\\times' + f)}+${texFraction(a, b)}$`
-            texteCorr += `$=${texFraction(c * e, d * f)}+${texFraction(a, b)}$`
+            texteCorr += `=${texFraction(a, b)}+${texFraction(c + '\\times' + e, d + '\\times' + f)}`
+            texteCorr += `=${texFraction(a, b)}+${texFraction(c * e, d * f)}`
           } else {
-            texteCorr += `$=${produit[1]}+${texFraction(a, b)}$`
-            texteCorr += `$=${produit[0]}+${texFraction(a, b)}$`
+            texteCorr += `=${texFraction(a, b)}+${produit[1]}`
+            texteCorr += `=${texFraction(a, b)}+${produit[0]}`
           }
           // faut-il simplifier c*e/d*f
           if (!this.correctionDetaillee) {
@@ -220,10 +220,10 @@ export default function ExerciceAdditionnerFractionProduit () {
           }
           p = pgcd(c * e, d * f)
           if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${texFraction(
+            texteCorr += `=${texFraction(a, b)}+${texFraction(
               (e * c) / p + '\\times\\cancel{' + p + '}',
               (f * d) / p + '\\times\\cancel{' + p + '}'
-            )}+${texFraction(a, b)}$`
+            )}`
             c = (e * c) / p
             d = (f * d) / p
           } else {
@@ -233,34 +233,33 @@ export default function ExerciceAdditionnerFractionProduit () {
           p = ppcm(b, d) // denominateur commun = p
           k1 = p / b
           k2 = p / d
-
-          if (k2 !== 1) {
-            texteCorr += `$=${texFraction(
-              c + '\\times' + k2,
-              d + '\\times' + k2
-            )}$`
-          } else {
-            if (k1 !== 1) {
-              texteCorr += `$=${texFraction(c, d)}$`
-            }
-          }
-
           if (k1 !== 1) {
-            texteCorr += `$+${texFraction(
+            texteCorr += `=${texFraction(
               a + miseEnEvidence('\\times' + k1),
               b + miseEnEvidence('\\times' + k1)
-            )}$`
+            )}`
           } else {
             if (k2 !== 1) {
-              texteCorr += `$+${texFraction(a, b)}$`
+              texteCorr += `=${texFraction(a, b)}`
             }
           }
+          if (k2 !== 1) {
+            texteCorr += `+${texFraction(
+              c + '\\times' + k2,
+              d + '\\times' + k2
+            )}`
+          } else {
+            if (k1 !== 1) {
+              texteCorr += `+${texFraction(c, d)}`
+            }
+          }
+
           if (this.correctionDetaillee) {
-            texteCorr += `$=${texFraction(c * k2, d * k2)}+${texFraction(a * k1, b * k1)}$`
+            texteCorr += `=${texFraction(a * k1, b * k1)}+${texFraction(c * k2, d * k2)}`
           }
           e = a * k1 + c * k2
           f = p
-          texteCorr += `$=${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`
+          texteCorr += `=${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`
           reponse = fraction(e, f).simplifie()
           break
 

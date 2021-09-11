@@ -379,7 +379,7 @@ export function propositionsQcm (exercice, i) {
       texte += '<br>'
     }
     for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
-      if (context.isHtml) {
+      if (context.isHtml && exercice.interactif) {
         texte += `<div class="ui checkbox ex${exercice.numeroExercice} monQcm">
             <input type="checkbox" tabindex="0" class="hidden" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
             <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>

@@ -7,6 +7,25 @@
    */
 
   /**
+  * Procédure de suppression recursive d'un repertoire et de ses enfants
+  * 
+  * @param string $dir chemin vers le repertoire à supprimer recursivement
+  */
+
+  function recursiveRmdir($dir) { 
+    if (is_dir($dir)) { 
+      $objects = scandir($dir); 
+      foreach ($objects as $object) { 
+        if ($object != "." && $object != "..") { 
+          if (filetype($dir."/".$object) == "dir") recursiveRmdir($dir."/".$object); else unlink($dir."/".$object); 
+        } 
+      } 
+      reset($objects); 
+      rmdir($dir); 
+    }  
+  }; 
+
+   /**
    * Fonction pour créer l'index des espaces de scores
    * 
    * @param string $path est le chemin où index.php sera généré
@@ -15,8 +34,13 @@
    */
 
   function createIndexScores($path,$codeProf) {
+    // À conserver car j'avais fait n'importe quoi pour le camelCase
+    // Au moins jusqu'à l'an prochain !
+    if (file_exists($path.'/iSinactive.txt')) {
+      unlink($path.'/iSinactive.txt');
+    };
     // On crée un timestamp pour identifiant les espaces inactifs et le libérer
-    $f = fopen($path.'/iSinactive.txt',"w+");  
+    $f = fopen($path.'/isInactive.txt',"w+");  
     fputs($f,time().PHP_EOL);
     fclose($f);
     $indexProfSpace = $path.'/index.php';
@@ -25,6 +49,9 @@
     // On écrit dedans un template de base à modifier plus tard
     $string = 
     '<?php 
+      // On inclut le scripts avec les outils
+      require_once "../../../../../scoresTools.php";
+
       // Pour stocker les classes distinctes
       $classes = array();
       // Le répetoire père
@@ -49,13 +76,26 @@
 
       // On récupère les classes distinctes dans un tableau
       foreach ($myFilesDatas as $object) {
-        if(!is_dir($object->file) && !in_array($object->name, array(".","..","index.php","iSinactive.txt")) && !in_array($object->classe,$classes)) {    
+        if(!is_dir($object->file) && !in_array($object->name, array(".","..","index.php","isInactive.txt")) && !in_array($object->classe,$classes)) {    
           array_push($classes,$object->classe);           
         }        
       }
       
       // On trie les classes par ordre alphabétique
       sort($classes);
+
+      if (!empty($classes)) {
+        // On affiche un message d\'alerte
+        echo "<div class=\"ui icon negative message\">
+          <i class=\"exclamation triangle icon\"></i>
+          <div class=\"content\">
+            <div class=\"header\">
+              ATTENTION
+            </div>
+            <p>Les opérations de suppression sont irrémédiables !</p>
+          </div>
+        </div>"; 
+      };
 
       // Un fonction de comparaison pour pouvoir trier les objets de la classe myFilesToDisplay via leur propriété name
       function cmpByName($a, $b) {
@@ -76,7 +116,49 @@
           <a class=\"ui basic orange left pointing label\" href=\"../../../../../../zipDownload.php?folder='.$path.'/".$classe."/\">
             Télécharger une archive zip avec toutes les semaines
           </a>
-        </div>    
+        </div>
+     
+        <button id=\"delClasse".$classe."\" class=\"ui negative labeled icon button\" href=\"\">
+          <i class=\"trash alternate icon\"></i>
+          Supprimer la classe de ".$classe."
+        </button>
+        
+        <div id=\"modalDelClasse".$classe."\" class=\"ui basic modal\">
+          <div class=\"ui icon header\">
+            <i class=\"exclamation triangle icon\"></i>
+            Opération de suppression
+          </div>
+          <div class=\"content\">
+            <p>Les opéarations de suppression sont irrémédiables ! Sûr de vouloir supprimer ? </p>
+          </div>
+          <div class=\"actions\">
+            <div class=\"ui red basic cancel inverted button\">
+              <i class=\"remove icon\"></i>
+              Annuler
+            </div>
+            <div class=\"ui green ok inverted button\">
+              <i class=\"checkmark icon\"></i>
+              Supprimer
+            </div>
+          </div>
+        </div>  
+        <script>
+        document.getElementById(\'delClasse".$classe."\').onclick = function(){
+          $(\'#modalDelClasse".$classe."\')
+            .modal({
+              // closable  : false,
+              onDeny    : function(){
+              },
+              onApprove : async function fetchDelete(){
+                await fetch(\'../../../../../../scoresDelDir.php?folder='.$path.'/".$classe."/\');
+                window.location.reload(true);
+              }
+            })
+            .modal(\'show\')
+          ;
+        }
+      </script> 
+
         \r\n";
       echo "
       <div class=\"ui accordion\">
@@ -99,6 +181,48 @@
                       Télécharger uniquement ce fichier
                     </a>
                   </div>
+
+                  <button id=\"del".substr($object->name,0,-4).$classe."\" class=\"ui negative labeled icon button\" href=\"\">
+                  <i class=\"trash alternate icon\"></i>
+                  Supprimer la ".substr($object->name,0,-4)." pour les ".$classe."
+                  </button>
+                
+                <div id=\"modalDel".substr($object->name,0,-4).$classe."\" class=\"ui basic modal\">
+                  <div class=\"ui icon header\">
+                    <i class=\"exclamation triangle icon\"></i>
+                    Opération de suppression
+                  </div>
+                  <div class=\"content\">
+                    <p>Les opéarations de suppression sont irrémédiables ! Sûr de vouloir supprimer ? </p>
+                  </div>
+                  <div class=\"actions\">
+                    <div class=\"ui red basic cancel inverted button\">
+                      <i class=\"remove icon\"></i>
+                      Annuler
+                    </div>
+                    <div class=\"ui green ok inverted button\">
+                      <i class=\"checkmark icon\"></i>
+                      Supprimer
+                    </div>
+                  </div>
+                </div>  
+                <script>
+                document.getElementById(\'del".substr($object->name,0,-4).$classe."\').onclick = function(){
+                  $(\'#modalDel".substr($object->name,0,-4).$classe."\')
+                    .modal({
+                      // closable  : false,
+                      onDeny    : function(){
+                      },
+                      onApprove : async function fetchDelete(){
+                        await fetch(\'../../../../../../scoresDelDir.php?file='.$path.'/".$classe."/".$object->name."\');
+                        window.location.reload(true);
+                      }
+                    })
+                    .modal(\'show\')
+                  ;
+                }
+              </script> 
+
                 </li></br>\r\n";
               };
           }
@@ -172,8 +296,8 @@
 
     fputs($fp,"
       <div class=\"ui container\">
-      <h1 class=\"ui center aligned header\">Espace des scores <b>".$codeProf[0].$codeProf[1].$codeProf[2]."</b></h1>
-      <h2 class=\"ui center aligned header\">Liste des fichiers par classe et par semaine</h2>                
+        <h1 class=\"ui center aligned header\">Espace des scores <b>".$codeProf[0].$codeProf[1].$codeProf[2]."</b></h1>
+        <h2 class=\"ui center aligned header\">Liste des fichiers par classe et par semaine</h2>                      
         $string      
       </div>
     ");
@@ -183,6 +307,11 @@
         $('.ui.accordion')
           .accordion()
         ;
+        document.getElementById('test').onclick = function(){
+          $('.ui.basic.modal')
+            .modal('show')
+          ;
+        };
       </script>
       </body>
         </html>
@@ -216,4 +345,6 @@
     return json_encode($datas);
   }
   //print_r(getAllScoresSpaces('resultats'));
+
+
 ?>

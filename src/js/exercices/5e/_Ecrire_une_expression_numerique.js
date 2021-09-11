@@ -13,7 +13,7 @@ export const amcType = 'AMCOpenNum'
 * @author Jean-Claude Lhote
 * Référence 5C11, 5C11-1, 5C11-2, 5C12, 5C12-1, 5L13
 */
-export default function EcrireUneExpressionNumerique (calculMental = true) {
+export default function EcrireUneExpressionNumerique (calculMental) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 4
@@ -39,9 +39,13 @@ export default function EcrireUneExpressionNumerique (calculMental = true) {
         typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
       }
     }
-    let expf; let expn; let expc; let decimal = 1; let nbval; let nbOperations; let resultats
+    let expf; let expn; let expc; let decimal; let nbval; let nbOperations; let resultats
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    if (this.sup2) decimal = 10
+    if (!calculMental) {
+      decimal = 10
+    } else {
+      decimal = 1
+    }
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       nbOperations = parseInt(listeTypeDeQuestions[i] % 6)
@@ -106,7 +110,4 @@ export default function EcrireUneExpressionNumerique (calculMental = true) {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des expressions', 'Nombres séparés par des tirets\n 1 : Expressions de base à une opération\n2 : Expressions à deux opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions complexes'] // Texte, tooltip
-  this.besoinFormulaire2CaseACocher = ['Avec décimaux.', false]
-  this.besoinFormulaire3CaseACocher = ['Avec le signe × devant les parenthèses', true]
 }
