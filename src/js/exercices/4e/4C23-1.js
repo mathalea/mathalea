@@ -13,7 +13,7 @@ export default function SommeOuProduitFractions () {
   this.spacing = 3
   this.spacingCorr = 3
   this.consigne = 'Effectuer les calculs suivants (on n\'attend pas que le résultat soit donné sous forme de fraction irréductible) :'
-  this.nbQuestions = 6 // Nombre de questions par défaut
+  this.nbQuestions = 8 // Nombre de questions par défaut
   this.nbCols = 4 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
