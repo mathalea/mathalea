@@ -26,15 +26,36 @@ $intervalBeforeDeleteIfInactive = 31557600; // 2 678 400 secondes c'est 31 jours
 // En fait la fonction filectime() renvoie la date de la dernière modif de l'inode donc si on crée un nouveau sous-dossier l'inode change
 // filemtime() permet-t-il de corriger le problème ? Il semblerait que oui ... et non !
 // Et avec un timestamp dans un fichier ? On ajoute ce timestamp au moment de la création des vips
-$f = fopen($scoresDir.'/iScleanUpNeeded.txt',"r");  
+// Le fichier peut ne pas exister ! Donc il faut le créer s'il n'existe pas et on fixe la date au 15 aout de l'année en cours
+if (!file_exists($scoresDir.'/isCleanUpNeeded.txt')) {
+  // On récupère la date de création du dossier pour tester s'il faudra supprimer des espaces de scores
+  $f = fopen($GLOBALS["scoresDir"].'/isCleanUpNeeded.txt',"w+");
+  // On récupère la date de création du dossier père
+  $timeOfCreation = strtotime(intval(date('Y')).'/08/15');//filectime($GLOBALS["scoresDir"]);
+  // On l'ajoute au fichier
+  fputs($f,$timeOfCreation.PHP_EOL);
+  fclose($f);
+} else {
+$f = fopen($scoresDir.'/isCleanUpNeeded.txt',"r");  
 // On récupère la date de création du dossier père
-$dateOfcreation = fgets($f);
-fclose($f);
-$deleteDay = intval(date('d',$dateOfcreation)); //intval(date('d',filemtime($scoresDir)));
-$deleteMonth = intval(date('m',$dateOfcreation)); //intval(date('m',filemtime($scoresDir)));
-$deleteYear = intval(date('Y',$dateOfcreation+$intervalBeforeDelete)); // intval(date('Y',filemtime($scoresDir)+$intervalBeforeDelete));
-$deleteNextDate = date('d / m / Y à H:i:s ',$dateOfcreation+$intervalBeforeDelete); //date('d / m / Y à H:i:s ',filemtime($scoresDir)+$intervalBeforeDelete);
-$timeSinceCreation = (time() - $dateOfcreation); //(time() - filemtime($scoresDir));
+$timeOfcreation = fgets($f);
+fclose($f);  
+}
+// ========================
+// À conserver car j'avais fait n'importe quoi pour le camelCase
+// Au moins jusqu'à l'an prochain !
+// ========================
+if (file_exists($scoresDir.'/iScleanUpNeeded.txt')) {
+  unlink($scoresDir.'/iScleanUpNeeded.txt');
+};
+if (file_exists($scoresDir.'/iSindexUpdateNeeded.txt')) {
+  unlink($scoresDir.'/iSindexUpdateNeeded.txt');
+};
+$deleteDay = intval(date('d',$timeOfcreation)); //intval(date('d',filemtime($scoresDir)));
+$deleteMonth = intval(date('m',$timeOfcreation)); //intval(date('m',filemtime($scoresDir)));
+$deleteYear = intval(date('Y',$timeOfcreation+$intervalBeforeDelete)); // intval(date('Y',filemtime($scoresDir)+$intervalBeforeDelete));
+$deleteNextDate = date('d / m / Y à H:i:s ',$timeOfcreation+$intervalBeforeDelete); //date('d / m / Y à H:i:s ',filemtime($scoresDir)+$intervalBeforeDelete);
+$timeSinceCreation = (time() - $timeOfcreation); //(time() - filemtime($scoresDir));
 $currentDay = intval(date('d'));
 $currentMonth = intval(date('m'));
 $currentYear = intval(date('Y'));
@@ -169,11 +190,11 @@ function createVipScoresSpaces($pathToJson) {
     mkdir($GLOBALS["scoresDir"],0775, true);
     // On crée un fichier à la racine du répertoire pour savoir si on doit mettre à jour les index
     // On y stocke le date de la dernière modif du fichier qui génère les index
-    $f = fopen($GLOBALS["scoresDir"].'/iSindexUpdateNeeded.txt',"w+");
+    $f = fopen($GLOBALS["scoresDir"].'/isIndexUpdateNeeded.txt',"w+");
     fputs($f,filectime("scoresTools.php").PHP_EOL);
     fclose($f);
     // On récupère la date de création du dossier pour tester s'il faudra supprimer des espaces de scores
-    $f = fopen($GLOBALS["scoresDir"].'/iScleanUpNeeded.txt',"w+");
+    $f = fopen($GLOBALS["scoresDir"].'/isCleanUpNeeded.txt',"w+");
     $timeOfCreation = filectime($GLOBALS["scoresDir"]);
     fputs($f,$timeOfCreation.PHP_EOL);
     fclose($f);
@@ -206,7 +227,7 @@ function createVipScoresSpaces($pathToJson) {
 $deleteBool = ($currentDay >= $deleteDay && $currentMonth >= $deleteMonth && $currentYear <= $deleteYear && $deletePathToDo) || !is_dir($scoresDir);
 
 // Condition de mise à jour des index des espaces scores
-$f = fopen($GLOBALS["scoresDir"].'/iSindexUpdateNeeded.txt',"r");  
+$f = fopen($GLOBALS["scoresDir"].'/isIndexUpdateNeeded.txt',"r");  
 // On récupère la date de dernière modif du fichier qui génère les index
 $firstLine = fgets($f);
 fclose($f); 
@@ -225,7 +246,7 @@ if ($deleteBool) {
   // On teste s'il faut mettre à jour les index des espaces scores  
   if ($iSindexUpdateNeeded) {    
     // Si c'est le cas on modifie la date de dernière modif stockée dans le fichier
-    $f = fopen($scoresDir.'/iSindexUpdateNeeded.txt',"w+");    
+    $f = fopen($scoresDir.'/isIndexUpdateNeeded.txt',"w+");    
     fputs($f,filectime("scoresTools.php").PHP_EOL);
     fclose($f);
     // On réécrit tous les index des espaces scores existants sans toucher aux fichiers stockés sur le serveur
@@ -238,7 +259,7 @@ if ($deleteBool) {
   }
   // On nettoie les espaces non utilisés depuis plus de 31 jours
   foreach ($decodedPathsToIndexes as $index) {      
-    $f = fopen($scoresDir.'/'.$index->codeProf[0].'/'.$index->codeProf[1].'/'.$index->codeProf[2].'/'.$index->md5Key.'/iSinactive.txt',"r");  
+    $f = fopen($scoresDir.'/'.$index->codeProf[0].'/'.$index->codeProf[1].'/'.$index->codeProf[2].'/'.$index->md5Key.'/isInactive.txt',"r");  
     // On récupère la date de dernière modif du fichier qui génère les index
     $dateOfCreationSpace = fgets($f);
     fclose($f);
