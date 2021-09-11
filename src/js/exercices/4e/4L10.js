@@ -1,7 +1,11 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureParentheseSiMoins, signe, abs, lettreDepuisChiffre } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Utiliser la simple distributivité'
+
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Développer en utilisant la distributivité simple
@@ -23,6 +27,8 @@ export default function ExerciceDevelopper (difficulte = 1) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = difficulte
   this.titre = titre
+  this.interactifType = interactifType
+  this.interactifReady = interactifReady
   this.consigne = 'Développer.'
   this.spacing = 1
   this.nbQuestions = 5
@@ -50,7 +56,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
     }
     let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       let k = randint(2, 11)
       if (this.sup > 2) {
@@ -93,6 +99,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
               k
             )}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
           }
+          reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b)}`
           break
         case 'simple2':
           if (a === 1) {
@@ -130,6 +137,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
               k
             )}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
           }
+          reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b)}`
           break
         case 'x_en_facteur':
           if (a === 1) {
@@ -175,6 +183,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
               )}${inconnue}$`
             }
           }
+          reponse = `${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`
           break
         case 'developper_et_reduire':
           if (a === 1) {
@@ -210,8 +219,11 @@ export default function ExerciceDevelopper (difficulte = 1) {
             )}\\times${ecritureParentheseSiNegatif(b)}+${c}
             =${k * a}${inconnue}${ecritureAlgebrique(k * b)}+${c}=${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}$`
           }
+          reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`
           break
       }
+      setReponse(this, i, reponse)
+      texte += ajouteChampTexteMathLive(this, i)
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre

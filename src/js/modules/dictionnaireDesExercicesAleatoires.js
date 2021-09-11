@@ -253,7 +253,8 @@ export default {
     "titre": "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient",
     "url": "/exercices/2e/2N14-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "2N14-1"
   },
   "2N15-1": {
@@ -1510,7 +1511,8 @@ export default {
     "titre": "Utiliser la simple distributivité",
     "url": "/exercices/4e/4L10.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4L10"
   },
   "4L11": {
@@ -5339,6 +5341,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "canc3N02"
+  },
+  "canc3N03": {
+    "titre": "Le plus grand nombre entier",
+    "url": "/exercices/can/c3/canc3N03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3N03"
   },
   "CM000": {
     "titre": "Additions et de soustractions",

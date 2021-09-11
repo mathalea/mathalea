@@ -22,9 +22,11 @@ export default function ProblemesPythagore () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1
+  this.sup = 3
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles

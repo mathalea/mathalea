@@ -341,8 +341,8 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         }
       }
       contenuUnExercice += '</ol>'
-      contenuUnExercice += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
       if (obj.interactif || obj.interactifObligatoire) {
+        contenuUnExercice += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
         exerciceInteractif(obj)
       }
     } else {
@@ -1712,13 +1712,13 @@ function parametresExercice (exercice) {
                     <input id='form_sup2${i}' type='text' size='20' ></div></div>`
     }
 
-    if (exercice[i].besoinFormulairei3CaseACocher) {
+    if (exercice[i].besoinFormulaire3CaseACocher) {
       // Création d'un formulaire texte
       divParametresGeneraux.innerHTML +=
         "<div style='display: inline'><label for='form_sup3" +
         i +
         "'>" +
-        exercice[i].besoinFormulairei3CaseACocher[0] +
+        exercice[i].besoinFormulaire3CaseACocher[0] +
         " : </label><input id='form_sup3" +
         i +
         "' type='checkbox'  ></div>"
@@ -2039,7 +2039,7 @@ function parametresExercice (exercice) {
       })
     }
 
-    if (exercice[i].besoinFormulairei3CaseACocher) {
+    if (exercice[i].besoinFormulaire3CaseACocher) {
       formSup3[i] = document.getElementById('form_sup3' + i)
       formSup3[i].checked = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
       formSup3[i].addEventListener('change', function (e) {

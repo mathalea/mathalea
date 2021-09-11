@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 281 
-- nombre d'exos interactifReady 325 
+- nombre d'exos interactifReady 327 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -12,6 +12,7 @@
 |2F32|Lecture graphique|OK|AMCHybride|OK|mathLive|
 |2G31-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
 |2G36-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
+|2N14-1|Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient|KO|KO|OK|mathLive|
 |2N43-4|Développer (a+b)²|KO|KO|OK|mathLive|
 |2N43-5|Développer (a-b)²|KO|KO|OK|mathLive|
 |3A11-1|Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
@@ -86,6 +87,7 @@
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G41|Utiliser le cosinus pour calculer la mesure d’un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G53|Calculs de volumes|OK|AMCNum|OK|qcm,mathLive|
+|4L10|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |4L20-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
 |4L20|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |5A13|Décomposition en facteurs premiers|KO|KO|OK|mathLive|
@@ -317,6 +319,7 @@
 |canc3C02|Composition de nombre entier|OK|AMCNum|OK|mathLive|
 |canc3N01|Écriture de nombre entier|OK|qcmMono|OK|qcm|
 |canc3N02|Suite sur une droite graduée|OK|AMCHybride|OK|mathLive|
+|canc3N03|Le plus grand nombre entier|OK|AMCNum|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
 |CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |CM002|Tables de divisions|OK|AMCNum|OK|numerique|
