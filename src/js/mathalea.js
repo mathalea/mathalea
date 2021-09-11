@@ -341,8 +341,8 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         }
       }
       contenuUnExercice += '</ol>'
-      contenuUnExercice += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
       if (obj.interactif || obj.interactifObligatoire) {
+        contenuUnExercice += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
         exerciceInteractif(obj)
       }
     } else {
