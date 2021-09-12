@@ -10,6 +10,6 @@ export const titre = 'Résoudre une équation niveau 3'
 export default function UneEquationDifficile () {
   ExerciceEquationASolutionEntiere.call(this)
   this.nbQuestions = 1
-    this.sup = false
+  this.sup = false
   this.sup2 = 3
 }

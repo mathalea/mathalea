@@ -15,7 +15,6 @@ export default function FSomme2Decimaux () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  
   this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)

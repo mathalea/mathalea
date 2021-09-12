@@ -16,7 +16,7 @@ export const amcType = 'qcmMono'
 export default function EcritureDeNombreEntier () {
   Exercice.call(this)
   this.nbQuestions = 1
-    this.nouvelleVersion = function () {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     const a = randint(1, 9)

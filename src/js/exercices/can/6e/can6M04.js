@@ -15,7 +15,7 @@ export default function ConversionEnTousSens () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  
+
   this.nouvelleVersion = function () {
     let a, resultat, texte, texteCorr
     switch (choice(['a', 'b', 'c', 'd'])) {

@@ -15,7 +15,6 @@ export default function FractionSimpleDeQuantite () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  
   this.nouvelleVersion = function () {
     const a = randint(2, 6)
     this.reponse = calcul(randint(2, 9) * 10)

@@ -14,7 +14,7 @@ export default function ProbaEvenementContraire () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const listeFractions = [
       [1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6], [1, 7],

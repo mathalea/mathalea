@@ -15,7 +15,7 @@ export default function NombrePairFois5 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.nouvelleVersion = function () {
+  this.nouvelleVersion = function () {
     const a = randint(11, 49) * 2
     this.reponse = calcul(a * 5)
     this.question = `$${a}\\times 5$`

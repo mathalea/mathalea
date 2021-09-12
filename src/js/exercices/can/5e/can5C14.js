@@ -16,7 +16,7 @@ export default function DivisionAvecDecimaux () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b
     switch (choice(['a', 'b', 'c', 'd'])) { //

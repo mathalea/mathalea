@@ -1,4 +1,4 @@
-import { arrondi, calcul, choice, randint, texNombre } from '../../../modules/outils'
+import { arrondi, calcul, randint, texNombre } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Arrondi au dixième'
 export const interactifReady = true
@@ -15,7 +15,7 @@ export default function ArrondiDixieme () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.consigne = ''
+  this.consigne = ''
 
   this.nouvelleVersion = function () {
     const a = randint(1, 20)

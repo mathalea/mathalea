@@ -16,7 +16,7 @@ export default function FractionIrreductible () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.formatChampTexte = 'largeur25'
+  this.formatChampTexte = 'largeur25'
   this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
     const maFraction = choice(obtenirListeFractionsIrreductibles())

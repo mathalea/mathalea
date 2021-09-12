@@ -15,7 +15,7 @@ export default function ProportionnaliteCompliquee () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.consigne = ''
+  this.consigne = ''
   const fruits = [
     ['pêches', 4, 10, 30],
     ['Noix', 5, 4, 13],

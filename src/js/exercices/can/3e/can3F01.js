@@ -17,7 +17,7 @@ export default function ImageSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.nouvelleVersion = function () {
+  this.nouvelleVersion = function () {
     const X = randint(-5, 5)
     const Y = []
     for (let x = -6; x <= 6; x++) {

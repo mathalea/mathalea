@@ -15,7 +15,7 @@ export default function ProblemesDeVitesse () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.nouvelleVersion = function () {
+  this.nouvelleVersion = function () {
     const a = choice([2, 3, 5, 6, 10]) // diviseur de l'heure
     const b = calcul(60 / a) // nombre de minutes de l'énoncé
     const c = choice([30, 60, 90, 120])

@@ -15,7 +15,6 @@ export default function ResteDivisionEuclidienne () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  
   this.nouvelleVersion = function () {
     const a = randint(7, 9)
     const b = randint(1, a - 1)

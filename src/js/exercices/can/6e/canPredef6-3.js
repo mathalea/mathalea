@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
 */
 export default function CourseAuxNombres6e (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
-    this.nbQuestions = 30
+  this.nbQuestions = 30
   if (this.interactif) {
     this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
   } else {

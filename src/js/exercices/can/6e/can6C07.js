@@ -15,7 +15,7 @@ export default function ResteDivisionPar3 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.nouvelleVersion = function () {
+  this.nouvelleVersion = function () {
     const b = randint(1, 9)
     const c = randint(0, 9)
     const d = randint(0, 9, [b, c])

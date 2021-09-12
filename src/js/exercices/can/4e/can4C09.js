@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { calcul, choice, combinaisonListes, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Puissances de 2, 3, 4 ou 5'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,7 +15,7 @@ export default function PuissancesDe2345 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.formatChampTexte = 'largeur25'
+  this.formatChampTexte = 'largeur25'
   this.nouvelleVersion = function () {
     const a = randint(2, 5)
     let b
