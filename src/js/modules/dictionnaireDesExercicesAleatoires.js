@@ -1178,6 +1178,20 @@ export default {
     "interactifType": "mathLive",
     "name": "4C22"
   },
+  "4C23-1": {
+    "titre": "Somme, différence ou produit de fractions",
+    "url": "/exercices/4e/4C23-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4C23-1"
+  },
+  "4C23-1latex": {
+    "titre": "Somme (Différence) et produit de fractions, sans simplification finale attendue",
+    "url": "/exercices/4e/4C23-1latex.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4C23-1latex"
+  },
   "4C23": {
     "titre": "Fractions et priorités opératoires",
     "url": "/exercices/4e/4C23.js",
