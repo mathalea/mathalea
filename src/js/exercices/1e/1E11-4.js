@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, pgcd, texRacineCarree, TrouverSolutionMathador, fractionSimplifiee, texFraction, texFractionSigne } from '../../modules/outils.js'
+import { listeQuestionsToContenu, abs, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, pgcd, texRacineCarree, TrouverSolutionMathador, fractionSimplifiee, texFraction, texFractionSigne, texFractionReduite } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import { fraction } from 'mathjs'
 export const interactifReady = true
@@ -32,7 +32,7 @@ export default function Resolutionavecformecanonique () {
       listeTypeDeQuestions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres'], this.nbQuestions)
     }
 
-    for (let i = 0, texte, texteCorr, a, b, c, x1, x2, k, alpha, beta, delta, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, b, b1, a1, c1, c, x1, x2, k, alpha, beta, delta, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (listeTypeDeQuestions[i] === 'solutionsEntieres') {
         // k(x-x1)(x-x2)
         x1 = randint(-5, 2, [0])
@@ -61,16 +61,31 @@ export default function Resolutionavecformecanonique () {
         delta = b * b - 4 * a * c
         texte = `Résoudre dans $\\mathbb{R}$ l'équation $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$ sans utiliser le discriminant.`
         texte += 'en utilisant la forme canoique du polynôme.'
-
-        texteCorr = '<br>On reconnaît une équation du second degré sous la forme $ax^2+bx+c = 0$.'
+        texteCorr = `On veut résoudre dans $\\mathbb{R}$ l'équation $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$.`
+        texteCorr += '<br>On reconnaît une équation du second degré sous la forme $ax^2+bx+c = 0$.'
         texteCorr += '<br>La consigne nous amène à commencer par écrire le polynôme du second degré sous forme canonique, <br>c\'est à dire sous la forme :  $a(x-\\alpha)^2+\\beta$,'
-        texteCorr += `<br>$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$`
+        texteCorr += `<br>$${rienSi1(a)}x^2+${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$`
         if (a !== 1) {
           texteCorr = `<br>On commence par diviser les deux membres de l'égalité par $${a}$.`
-          texteCorr += `<br>$x^2${texFractionSigne(b, a)}x${texFractionSigne(c, a)}=0$`
+          texteCorr += `<br>$x^2+${texFractionReduite(b, a)}x+${texFractionReduite(c, a)}=0$`
         }
         texteCorr += '<br>On reconnaît ici le début d\'une identité remarquable :'
-        texteCorr += `<br>$\\big(x${texFractionSigne(b, 2 * a)}\\big)^2=x^2${texFractionSigne(b, a)}\\times x +\\big(${texFractionSigne(b, a)}\\big)^2$`
+        b1 = abs(b)
+        a1 = abs(a)
+
+        texteCorr += `<br>$\\big(x+${texFractionSigne(b, 2 * a)}\\big)^2=x^2+${texFractionSigne(b, a)}\\times x +\\big(${texFractionSigne(b1, 2 * a1)}\\big)^2$`
+        if (pgcd(b, 2 * a) !== 1) {
+          texteCorr += `<br>$\\big(x+${texFractionReduite(b, 2 * a)}\\big)^2=x^2+${texFractionReduite(b, a)}\\times x +${texFractionReduite(b * b, 4 * a * a)}$`
+        }
+        texteCorr += '<br>On en déduit que :'
+        texteCorr += `<br>$x^2+${texFractionSigne(b, a)}\\times x =\\big(x+${texFractionReduite(b, 2 * a)}\\big)^2-${texFractionReduite(b * b, 4 * a * a)}$`
+        texteCorr += '<br>On peut donc dire que l\'équation de départ est équivalente à :'
+        texteCorr += `<br>$\\big(x+${texFractionReduite(b, 2 * a)}\\big)^2-${texFractionReduite(b * b, 4 * a * a)}+${texFractionReduite(c, a)}=0$`
+        texteCorr += `<br>$\\big(x+${texFractionReduite(b, 2 * a)}\\big)^2+${texFractionReduite(-delta, 4 * a * a)}=0$`
+        if (delta < 0) {
+          texteCorr += '<br>L\'équation revient à ajouter deux nombres positifs, dont un non-nul. Cette somme ne peut pas être égale à zéro.'
+          texteCorr += '<br>On en déduit que $S=\\emptyset$'
+        }
       }
 
       texte += ajouteChampTexteMathLive(this, i)
