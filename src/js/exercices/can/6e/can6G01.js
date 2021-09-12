@@ -10,7 +10,6 @@ export const titre = 'Symétrique de point 6e'
 export default function SymetriqueD1Point () {
   Transformations.call(this)
   this.nbQuestions = 1
-  this.interactif = true
-  this.can = true
+    this.can = true
   this.sup = 1
 }

@@ -10,7 +10,6 @@ export const titre = 'Image de point par transformation 4e'
 export default function SymetriqueD1Point () {
   Transformations.call(this)
   this.nbQuestions = 1
-  this.interactif = true
-  this.can = true
+    this.can = true
   this.sup = 3
 }

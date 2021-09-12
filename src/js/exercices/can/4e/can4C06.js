@@ -16,8 +16,7 @@ export default function NombreDeNombresEntiersEntreDeuxValeurs () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.formatChampTexte = 'largeur15 inline'
+    this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 15)
     const b = randint(18, 35)

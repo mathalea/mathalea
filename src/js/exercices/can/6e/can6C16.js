@@ -15,8 +15,7 @@ export default function DoubleEtMoitie () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     const a = randint(1, 25) * 2 // variables aléatoires
     this.question = `Le double d'un nombre vaut ${2 * a}, combien vaut sa moitié ?<br>`

@@ -19,8 +19,7 @@ export default function ValeurApprocheeDivisionDecimale () {
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

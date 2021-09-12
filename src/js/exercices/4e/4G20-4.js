@@ -24,8 +24,7 @@ export default function ArrondirUneValeur () {
   this.sup = 1
   this.interactifType = interactifType
   this.interactifReady = interactifReady
-  this.interactif = true
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
+    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)

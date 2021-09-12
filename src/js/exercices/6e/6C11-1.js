@@ -24,8 +24,7 @@ export default function DivisionsEuclidiennesEgalite () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
   this.nbQuestions = 4
   this.sup = 1
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions

@@ -14,8 +14,7 @@ export const amcType = 'AMCNum'
 export default function ResteEnMinutes () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.interactif = true
-  this.typeExercice = 'simple'
+    this.typeExercice = 'simple'
 
   this.nouvelleVersion = function () {
     const a = randint(1, 2)

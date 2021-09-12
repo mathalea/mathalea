@@ -22,8 +22,7 @@ export default function CalculsImagesFonctions () {
   this.spacing = 2
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.sup = parseInt(this.sup)

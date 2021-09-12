@@ -15,8 +15,7 @@ export default function PuissancesDe2345 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.formatChampTexte = 'largeur25'
+    this.formatChampTexte = 'largeur25'
   this.nouvelleVersion = function () {
     const a = randint(2, 5)
     let b

@@ -10,7 +10,6 @@ export const titre = 'Image de point par transformation 3e'
 export default function ImageD1Point () {
   Transformations.call(this)
   this.nbQuestions = 1
-  this.interactif = true
-  this.can = true
+    this.can = true
   this.sup = 4
 }

@@ -16,8 +16,7 @@ export default function CalculDivers1 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.formatChampTexte = 'largeur15 inline'
+    this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c
     switch (choice(['a', 'b'])) {

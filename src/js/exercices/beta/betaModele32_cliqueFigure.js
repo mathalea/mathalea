@@ -17,8 +17,7 @@ export default function cliqueFigure () {
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.interactif = true
-
+  
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []

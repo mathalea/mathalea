@@ -14,8 +14,7 @@ export default function Denombrement () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.formatChampTexte = 'largeur10 inline'
+    this.formatChampTexte = 'largeur10 inline'
   this.nouvelleVersion = function () {
     let a, b, c, prenom1
     switch (choice(['a', 'b'])) {

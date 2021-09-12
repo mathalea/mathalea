@@ -15,8 +15,7 @@ export default function PoucentageE () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.formatChampTexte = 'largeur11 inline'
+    this.formatChampTexte = 'largeur11 inline'
   this.nouvelleVersion = function () {
     let a, b, n
     switch (choice(['a', 'b', 'c', 'd', 'e'])) { //,

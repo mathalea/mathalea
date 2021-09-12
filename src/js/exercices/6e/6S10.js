@@ -25,8 +25,7 @@ export default function LectureDiagrammeBarre () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1
-  this.interactif = true
-  this.nouvelleVersion = function () {
+    this.nouvelleVersion = function () {
     this.listeQuestions = [] // vide la liste de questions
     this.listeCorrections = [] // vide la liste de questions corrigées
 

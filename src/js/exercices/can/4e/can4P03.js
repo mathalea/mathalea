@@ -15,8 +15,7 @@ export default function QuatriemeProportionnelle () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.nouvelleVersion = function () {
+    this.nouvelleVersion = function () {
     let a = randint(1, 8)
     const b = randint(2, 9, a) * 4
     a = a * 4

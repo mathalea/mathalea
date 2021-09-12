@@ -16,8 +16,7 @@ export default function SommeEntierEtFractionIrred () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.formatChampTexte = 'largeur25'
+    this.formatChampTexte = 'largeur25'
   this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
     const maFraction = choice(obtenirListeFractionsIrreductibles())

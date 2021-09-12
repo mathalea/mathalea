@@ -15,8 +15,7 @@ export default function PlusGrandNombreEntier () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.nouvelleVersion = function () {
+    this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])

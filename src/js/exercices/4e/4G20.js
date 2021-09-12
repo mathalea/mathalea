@@ -23,8 +23,7 @@ export default function Pythagore2D () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
-  this.interactif = true
-  this.interactifType = interactifType
+    this.interactifType = interactifType
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1

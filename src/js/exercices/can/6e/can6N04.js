@@ -18,8 +18,7 @@ export default function AbscisseFractionnaire () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.formatInteractif = 'fractionEgale'
+    this.formatInteractif = 'fractionEgale'
   this.consigne = ''
 
   this.nouvelleVersion = function () {

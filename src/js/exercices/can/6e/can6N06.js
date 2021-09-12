@@ -15,8 +15,7 @@ export default function ArrondiDixieme () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.consigne = ''
+    this.consigne = ''
 
   this.nouvelleVersion = function () {
     const a = randint(1, 20)

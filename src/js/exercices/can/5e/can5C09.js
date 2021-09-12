@@ -14,8 +14,7 @@ export const amcType = 'AMCNum'
 export default function MutliplierPar5 () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.interactif = true
-  this.typeExercice = 'simple'
+    this.typeExercice = 'simple'
 
   this.nouvelleVersion = function () {
     const a = randint(11, 24) * 2
