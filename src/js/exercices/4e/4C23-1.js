@@ -30,13 +30,13 @@ export default function SommeOuProduitFractions () {
     let typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6'] // On crée 6 types de questions
     switch (this.sup) {
       case 1:
-        typeQuestionsDisponibles = ['type1', 'type1', 'type1', 'type2', 'type2', 'type5']
+        typeQuestionsDisponibles = ['type1', 'type1', 'type1', 'type1', 'type2', 'type2', 'type5', 'type6']
         break
       case 2:
-        typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type3', 'type4', 'type5']
+        typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type3', 'type3', 'type4', 'type5', 'type6']
         break
       case 3:
-        typeQuestionsDisponibles = ['type1', 'type3', 'type4', 'type6', 'type7', 'type8']
+        typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7', 'type8']
         break
     }
 
