@@ -123,7 +123,7 @@ const masqueTitreExerciceEtEspaces = () => {
 
 const gestionTimer = () => {
   const divTimer = document.getElementById('timer')
-  if (Number.isInteger(parseInt(context.duree))) {
+  if (Number.isInteger(parseInt(context.duree)) && divTimer) {
     context.tempsRestant = context.duree
     divTimer.textContent = context.tempsRestant
     if (!divTimer.hasMathaleaTimer) {
@@ -222,6 +222,7 @@ export async function initDom () {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     addElement(section, 'div', { id: 'containerErreur' })
+    addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
     document.getElementById('boutonsConnexion').appendChild(boutonMAJ())
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
@@ -343,6 +344,7 @@ export async function initDom () {
     section.append(espaceVertical())
     section.append(espaceVertical())
     addElement(section, 'div', { id: 'containerErreur' })
+    addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/mathaleaEnteteChoixDesExercices.html', section, 'div', { id: 'choix_exercices_menu' })
     section.append(espaceVertical())
     const doubleColonne = addElement(section, 'div', { class: 'ui stackable two column grid', dir: 'ltr', id: 'mathaleaContainer' })
