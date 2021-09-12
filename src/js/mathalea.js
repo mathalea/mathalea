@@ -475,13 +475,13 @@ function miseAJourDuCode () {
         finUrl += 'mathalea.html'
       }
       finUrl += `?ex=${listeDesExercices[0]}`
-      if (typeof listeObjetsExercice[0].sup !== 'undefined') {
+      if (typeof listeObjetsExercice[0].sup !== undefined) {
         finUrl += `,s=${listeObjetsExercice[0].sup}`
       }
-      if (typeof listeObjetsExercice[0].sup2 !== 'undefined') {
+      if (typeof listeObjetsExercice[0].sup2 !== undefined) {
         finUrl += `,s2=${listeObjetsExercice[0].sup2}`
       }
-      if (typeof listeObjetsExercice[0].sup3 !== 'undefined') {
+      if (typeof listeObjetsExercice[0].sup3 !== undefined) {
         finUrl += `,s3=${listeObjetsExercice[0].sup3}`
       }
       if (listeObjetsExercice[0].nbQuestionsModifiable) {
@@ -505,13 +505,13 @@ function miseAJourDuCode () {
       listeObjetsExercice[0].numeroExercice = 0
       for (let i = 1; i < listeDesExercices.length; i++) {
         finUrl += `&ex=${listeDesExercices[i]}`
-        if (typeof listeObjetsExercice[i].sup !== 'undefined') {
+        if (typeof listeObjetsExercice[i].sup !== undefined) {
           finUrl += `,s=${listeObjetsExercice[i].sup}`
         }
-        if (typeof listeObjetsExercice[i].sup2 !== 'undefined') {
+        if (typeof listeObjetsExercice[i].sup2 !== undefined) {
           finUrl += `,s2=${listeObjetsExercice[i].sup2}`
         }
-        if (typeof listeObjetsExercice[i].sup3 !== 'undefined') {
+        if (typeof listeObjetsExercice[i].sup3 !== undefined) {
           finUrl += `,s3=${listeObjetsExercice[i].sup3}`
         }
         if (listeObjetsExercice[i].nbQuestionsModifiable) {
