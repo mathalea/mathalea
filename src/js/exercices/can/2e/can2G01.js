@@ -9,13 +9,14 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Gilles Mora
+ * Créé pendant l'été 2021
+ * Référence can2G01
  */
 export default function AgrandissementReductionGFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.formatChampTexte = 'largeur25'
+    this.formatChampTexte = 'largeur25'
   this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
     const listeFractions = [

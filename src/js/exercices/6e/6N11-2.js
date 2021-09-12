@@ -182,6 +182,6 @@ export default function PlacerUnPointAbscisseEntiere2d () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     4,
-    '1 : Ordre de grandeur : milliers\n2 : Ordre de grandeur : dizaines de mille\n3 : centaines de mille\n4 : Mélange'
+    '1 : Ordre de grandeur : milliers\n2 : Ordre de grandeur : dizaines de mille\n3 : Ordre de grandeur : centaines de mille\n4 : Mélange'
   ]
 }

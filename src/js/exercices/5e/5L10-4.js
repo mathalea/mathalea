@@ -238,7 +238,7 @@ export default function Tableaux_et_fonction() {
 		listeQuestionsToContenu(this);
 
 	}
-	this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : les mêmes unités\n2 : unités différentes"];
+	this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Les mêmes unités\n2 : Unités différentes"];
 	//this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];	
 };
 

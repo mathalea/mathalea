@@ -23,11 +23,11 @@ export const amcType = 'AMCNum'
 /**
  * Ensemble de questions pour course aux nombres
  * @author Gilles Mora
- * Référence
+ * Créé pendant l'été 2021
+ * Référence canPredef2-1
 */
 export default function CourseAuxNombresSeconde (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.interactif = true
   if (this.interactif) {
     this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
   } else {

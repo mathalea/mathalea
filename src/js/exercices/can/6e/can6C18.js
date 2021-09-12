@@ -8,13 +8,13 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6C18
  */
 export default function ResteDivisionEuclidienne () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-
   this.nouvelleVersion = function () {
     const a = randint(7, 9)
     const b = randint(1, a - 1)

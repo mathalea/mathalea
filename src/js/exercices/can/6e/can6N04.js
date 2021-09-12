@@ -11,12 +11,13 @@ export const amcType = 'AMCHybride'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6N04
  */
 export default function AbscisseFractionnaire () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatInteractif = 'fractionEgale'
   this.consigne = ''
 
@@ -36,7 +37,7 @@ export default function AbscisseFractionnaire () {
       y: 0,
       thickSecDist: 1 / a,
       thickSec: true,
-      thickoffset: 0,
+      thickOffset: 0,
       axeStyle: '|->',
       pointListe: [[b / a, 'A']],
       pointCouleur: 'blue',

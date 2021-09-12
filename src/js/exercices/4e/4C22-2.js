@@ -189,6 +189,6 @@ export default function ExerciceDiviserFractions () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     2,
-    '1 : Fractions à numérateur et dénominateur positifs \n 2 : Fractions à numérateur et dénominateur relatifs'
+    ' 1 : Fractions à numérateur et dénominateur positifs \n 2 : Fractions à numérateur et dénominateur relatifs'
   ]
 }

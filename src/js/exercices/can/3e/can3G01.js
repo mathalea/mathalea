@@ -8,12 +8,13 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Gilles Mora
- */
+  * Créé pendant l'été 2021
+ * Référence can3G01
+*/
 export default function AgrandissementReduction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatChampTexte = 'largeur10 inline'
   this.nouvelleVersion = function () {
     let a, b, c

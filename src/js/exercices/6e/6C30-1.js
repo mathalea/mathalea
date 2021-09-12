@@ -200,7 +200,7 @@ export default function MultiplierDecimauxPar101001000 () {
   this.besoinFormulaireNumerique = [
     'Types de calculs',
     3,
-    '1 : Écriture décimale\n2 : Écriture fractionnaire\n3 : Écritures décimales et fractionnaires'
+    '1 : Écriture décimale\n2 : Écriture fractionnaire\n3 : Écritures décimale et fractionnaire'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des calculs à trous']
 }

@@ -8,11 +8,12 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can5N01
  */
 export default function SommeDecimale5e () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.interactif = true
   this.typeExercice = 'simple'
 
   this.nouvelleVersion = function () {

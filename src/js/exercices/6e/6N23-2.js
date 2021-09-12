@@ -31,8 +31,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
   this.sup = 1
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

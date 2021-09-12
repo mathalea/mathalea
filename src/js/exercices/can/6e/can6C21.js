@@ -7,12 +7,13 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 /*!
  * @author Jean-Claude Lhote & Gilles Mora
+ * Créé pendant l'été 2021
+ * Référence can6C21
  */
 export default function ComplementAUn () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.interactif = true
-  this.typeExercice = 'simple'
+    this.typeExercice = 'simple'
 
   this.nouvelleVersion = function () {
     const a = calcul(randint(1, 9) / 10 + randint(1, 9) / 100)

@@ -21,8 +21,7 @@ export default function RacineCareeDeCarresParfaits () {
   this.amcType = amcType
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.interactif = true
-  this.nbQuestions = 4
+    this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
   this.besoinFormulaireNumerique = ['Formulation de la question', 3, '1 : Calculer la racine\n2 : Trouver le nombre positif dont le carré est...\n3 : Les deux']

@@ -8,13 +8,14 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
- */
+  * Créé pendant l'été 2021
+ * Référence can3L02
+*/
 export default function EquationAXPlusBEgalZero () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     const a = randint(-5, 5, [0, -1, 1])
     this.reponse = randint(-9, 9, [-1, 0, 1])

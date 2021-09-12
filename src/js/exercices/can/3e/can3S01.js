@@ -9,12 +9,13 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
- */
+ * Créé pendant l'été 2021
+ * Référence can3S01
+*/
 export default function CalculProbaSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatChampTexte = 'largeur25'
   this.formatInteractif = 'fractionEgale'
   const parfums = ['au citron', 'à la fraise', 'à la menthe', "à l'orange", 'à la cerise', 'à la framboise', 'au cassis']

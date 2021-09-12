@@ -13,11 +13,11 @@ export const amcType = 'AMCNum'
 /**
  * Course aux nombres avec 30 questions pour fin de 6e
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
  * Référence can Predef6-3
 */
 export default function CourseAuxNombres6e (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.interactif = true
   this.nbQuestions = 30
   if (this.interactif) {
     this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
@@ -477,7 +477,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
   16 :  ajouter un nombre de la forme 10n+9\n
   17 :  4 × #,## × 25 ou 2 × #,## × 50\n
   18 :  addition à trou\n
-  19 :  Nombre pair de 2 chiffres × 2\n
+  19 :  Nombre pair de 2 chiffres × 5\n
   20 :  Proportionnalité simple\n
   21 :  Ordre de grandeur\n
   22 :  Conversion cm -> m\n

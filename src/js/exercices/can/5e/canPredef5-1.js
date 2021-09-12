@@ -12,6 +12,7 @@ export const amcType = 'AMCNum'
 /**
  * Course aux nombres avec 30 questions début de 5e
  * @author jeanclaude Lhote
+ * Créé pendant l'été 2021
  * Référence canPredef5-1
 */
 export default function CourseAuxNombres5e (numeroExercice) {
@@ -83,7 +84,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'q1':
           a = randint(12, 19)
-          b = randint(5, 9)
+          b = randint(2, 5)
           resultat = a * b
           texte = `$${a} \\times ${b}$`
           texteCorr = `$${a} \\times ${b}=${a * b}$`
@@ -122,7 +123,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           d = randint(10, 15) * 10 - c
           resultat = calcul(2 * (c + d))
           texte = `$${c - a} + ${d + b} + ${c + a} + ${d - b}$`
-          texteCorr = `$${2 * c} + ${2 * d}= ${2 * (c + d)}$`
+          texteCorr = `$${c - a} + ${d + b} + ${c + a} + ${d - b} = ${2 * c} + ${2 * d} = ${2 * (c + d)}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
 
           break
@@ -135,7 +136,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           setReponse(this, i, `${a}h${b}min`)
           break
         case 'q7':
-          a = randint(1, 25)
+          a = randint(1, 10) * 2
           texte = `Le triple d'un nombre vaut ${3 * a}, combien vaut sa moitié ?`
           texteCorr = `Le nombre est ${a}, sa moitié est ${calcul(a / 2)}.`
           setReponse(this, i, calcul(a / 2), { formatInteractif: 'calcul' })
@@ -166,7 +167,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           }
           break
         case 'q9':
-          a = randint(11, 19)
+          a = randint(5, 15)
           b = randint(2, 8)
           c = a * b
           resultat = a
@@ -175,7 +176,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q10':
-          a = choice([25, 20, 50, 40, 15])
+          a = choice([25, 20, 50, 40])
           b = randint(5, a - 1)
           c = randint(3, 9)
           d = c * a + b
@@ -204,9 +205,9 @@ export default function CourseAuxNombres5e (numeroExercice) {
           a = randint(2, 4)
           b = randint(10, 59)
           d = calcul(a * 60 + b)
-          texte = `Convertir $${d}$ minutes en heures(h) et minutes(min) :`
-          texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min`
-          setReponse(this, i, `${a}h${b}min`)
+          texte = `$${a}$ heures et ${b} minutes font combine de minutes ?`
+          texteCorr = `$${a}h ${b}min = ${a} \\times 60 + ${b}= ${d}$ donc $${d}$ minutes`
+          setReponse(this, i, d)
           break
         case 'q14':
           b = randint(1, 9)
@@ -254,7 +255,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q19':
-          a = randint(11, 24) * 2
+          a = randint(11, 24) * 2 + 1
           resultat = calcul(a * 5)
           texte = `$${a}\\times 5$`
           texteCorr = `$${a}\\times 5 = ${a} \\div 2 \\times 10 = ${calcul(a / 2)}\\times 10 =${resultat}$`
@@ -273,7 +274,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           a = randint(3, 7)
           b = randint(2, 9)
           c = randint(1, 9)
-          d = randint(5, 9)
+          d = randint(5, 9) * choice([10, 100])
           resultat = calcul((a * 100 + b * 10 + c) * d)
           texte = `$${texNombrec(a * 100 + b * 10 + c)}\\times ${d}$<br> Choisis la bonne réponse sans effectuer précisément le calcul<br>`
           propositions = shuffle([`$${texNombre(resultat)}$`, `$${texNombrec(d * 1000 + a * 100 + b * 10 + c)}$`, `$${texNombrec((a * 1000 + b * 100 + c) * d)}$`])
@@ -283,27 +284,35 @@ export default function CourseAuxNombres5e (numeroExercice) {
           break
         case 'q22':
           a = randint(11, 24) * 10 + randint(0, 9)
-          resultat = calcul(a / 100)
-          texte = `Convertir $${a}$ cm en m.`
-          texteCorr = `$${a} cm = ${texNombre(resultat)} m$`
+          if (choice([true, false])) {
+            resultat = calcul(a / 100)
+            texte = `Convertir $${a}$ cm en m.`
+            texteCorr = `$${a}$ cm $= ${a} / 100$m $=${texNombre(resultat)}$ m`
+          } else {
+            resultat = calcul(a / 1000)
+            texte = `Convertir $${a}$ mm en m.`
+            texteCorr = `$${a}$ mm $= ${a} / 1000$m $=${texNombre(resultat)}$ m`
+          }
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q23':
-          a = randint(3, 5)
+          a = randint(4, 5)
+          c = randint(2, 3)
           resultat = calcul(randint(2, 9) * 10)
           b = calcul(resultat * a)
-          texte = `$\\dfrac{1}{${a}} \\text{ de } ${b} \\text{ L} = \\dots \\text{ L}$`
-          texteCorr = `$\\dfrac{1}{${a}}$ de $${b}$ L = ${resultat} L`
-          setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+
+          texte = `$\\dfrac{${c}}{${a}} \\text{ de } ${b} \\text{ L} = \\dots \\text{ L}$`
+          texteCorr = `$\\dfrac{${c}}{${a}}$ de $${b}$ L = ${c}\\times \\dfrac{${b}}{${a}}=${c}\\times ${resultat}=${resultat * c} L`
+          setReponse(this, i, resultat * c, { formatInteractif: 'calcul' })
           break
         case 'q24':
-          a = randint(7, 9)
+          a = choice([12, 15, 20, 25])
           b = randint(1, a - 1)
           d = randint(5, 9)
           c = d * a + b
           resultat = c % a
           texte = `Je possède ${c} bonbons et je fabrique des sacs de ${a} bonbons. Une fois mes sacs complétés, combien me restera-t-il de bonbons ?`
-          texteCorr = `$${c}=${d}\\times ${a} + b$ , donc il me restera ${b} bonbons.`
+          texteCorr = `$${c}=${d}\\times ${a} + ${b}$ , donc il me restera ${b} bonbons.`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
         case 'q25':
@@ -316,7 +325,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
         case 'q26':
-          a = randint(2, 9) * 10
+          a = randint(2, 9) * 5
           b = randint(2, 9, a) * 10
           resultat = calcul(a * b / 100)
           texte = `$${a}\\%$ de $${b}$`
@@ -324,10 +333,10 @@ export default function CourseAuxNombres5e (numeroExercice) {
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q27':
-          a = randint(3, 6) * 20
+          a = randint(3, 6) * 15
           b = randint(1, 3)
-          resultat = calcul(a * (b + 0.5))
-          texte = `Une voiture roule à une vitesse constante de ${a} km/h. Quelle distance en km parcourt-elle en ${b} h et 30 min`
+          resultat = calcul(a * (b + 0.25))
+          texte = `Une voiture roule à une vitesse constante de ${a} km/h. Quelle distance en km parcourt-elle en ${b} h et 20 min`
           texteCorr = `$${a}\\times ${calcul(b + 0.5)} = ${resultat}$`
           setReponse(this, i, new Grandeur(resultat, 'km'), { formatInteractif: 'longueur' })
           break
@@ -376,7 +385,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           a = randint(0, 7) // index du fruit
           b = calcul(fruits[a][1] * (1 + choice([-1, 1]) * randint(1, 3) * 0.1)) // prix au kg
           c = Math.round(randint(fruits[a][2], fruits[a][3] / 10)) // nombre de kg première valeur
-          d = randint(3, 6) // nombre de kg supplémentaires
+          d = randint(2, 6, c) // nombre de kg supplémentaires
           resultat = calcul(d * b)
           texte = `$${c}$ kg de ${fruits[a][0]} coûtent $${texPrix(c * b)}$ €.<br> $${c + d}$ kg de ces mêmes ${fruits[a][0]} coûtent $${texPrix((c + d) * b)}$ €.<br>Combien coûtent ${d} kg de ces ${fruits[a][0]} ?`
           texteCorr = `$${texPrix((c + d) * b)} € - ${texPrix(c * b)} € =${texPrix(resultat)} €$`
@@ -400,5 +409,35 @@ export default function CourseAuxNombres5e (numeroExercice) {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
+  this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)',
+  `1 : Multiplication (facteur 12 à 19)\n
+  2 : Somme à abc + de\n
+  3 : Différence abc - de\n
+  4 : Somme de deux décimaux avec retenue\n
+  5 : Somme astucieuse\n
+  6 : Conversion en heures et minutes\n
+  7 : Triple et moitié\n
+  8 : Produit avec facteur 100\n
+  9 : Division\n
+  10 : Reste de division par diviseur à 2 chiffres\n
+  11 : Priorité opératoire\n
+  12 : Recomposer une nombre avec chevauchement\n
+  13 : conversion heures et minutes vers minutes\n
+  14 :  Reste de la division par 3\n
+  15 :  Une division par 9 qui tombe juste\n
+  16 :  ajouter un nombre de la forme 10n+9\n
+  17 :  quart d'un nombre\n
+  18 :  addition à trou\n
+  19 :  Nombre impair de 2 chiffres × 5\n
+  20 :  Prix de la mitié\n
+  21 :  Ordre de grandeur\n
+  22 :  Conversion cm ou mm -> m\n
+  23 :  Fraction m/n d'une quantité de L\n
+  24 :  Reste de la division euclidienne\n
+  25 :  Ordre de grandeur : hauteurs\n
+  26 :  Appliquer un pourcentage\n
+  27 :  Calcul de distance à vitesse constante\n
+  28 :  Comparaison de périmètre\n
+  29 :  Repérage fraction\n
+  30 : Proportionnalité par linéarité\n`]
 }

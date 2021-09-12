@@ -117,6 +117,6 @@ export default function Exercice_labyrinthe_divisibilite() {
 	};
 	this.besoinFormulaireNumerique = ["Critère de divisibilité ", 5, '1 : Par 2\n2 : Par 3\n3 : Par 4\n4 : Par 5\n5 : Par 9'];
 	this.besoinFormulaire2Numerique = ["Critère de divisibilité supplémentaire ", 6, '1 : Aucun\n2 : Par 2\n3 : Par 3\n4 : Par 4\n5 : Par 5\n6 : Par 9'];
-	this.besoinFormulaire3Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n 2 : Tortue\n 3 : Lièvre\n 4 : Antilope\n 5 : Guépard\n 6 : Au hasard'];
+	this.besoinFormulaire3Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard'];
 } // Fin de l'exercice.
 

@@ -8,11 +8,12 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can5C09
  */
 export default function MutliplierPar5 () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.interactif = true
   this.typeExercice = 'simple'
 
   this.nouvelleVersion = function () {

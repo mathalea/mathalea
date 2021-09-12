@@ -46,30 +46,30 @@ export default function ExerciceLabyrintheNumeration () {
         rangMax = 8
       }
     }
-    const rang = randint(0, rangMax)
+    const rang = randint(0, rangMax - 1)
     const chiffre = randint(0, 9)
     texte = `${texteEnCouleurEtGras(`Trouve la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un `, 'black')}$${miseEnEvidence(chiffre, 'black')}$.<br>`
     texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let Dm, Um, C, D, U, d, c, m, dm, nombretemp
     for (let i = 0; i <= 30; i++) {
-      if (rangMax > 7) {
-        if (positions[rang] !== 'dizaines de mille') {
+      if (positions[rang] !== 'dizaines de mille') {
+        if (rangMax > 6) {
           Dm = randint(0, 9, chiffre)
         } else {
-          Dm = chiffre
+          Dm = 0
         }
       } else {
-        Dm = 0
+        Dm = chiffre
       }
       if (positions[rang] !== 'unités de mille') {
         if (rangMax > 5) {
           Um = randint(0, 9, chiffre)
         } else {
-          Um = chiffre
+          Um = 0
         }
       } else {
-        Um = 0
+        Um = chiffre
       }
 
       if (positions[rang] !== 'centaines') {
@@ -201,5 +201,5 @@ export default function ExerciceLabyrintheNumeration () {
   }
   // this.besoinFormulaireCaseACocher = ["Avec des dizaines de mille et des dix-millièmes"]
   //  this.besoinFormulaire2Numerique = ["Critère de divisibilité supplémentaire ",6,'1 : Aucun\n2 : Par 2\n3 : Par 3\n4 : Par 4\n5 : Par 5\n6 : Par 9'];
-  this.besoinFormulaireNumerique = ['Niveau de rapidité', 6, '1 : Escargot\n 2 : Tortue\n 3 : Lièvre\n 4 : Antilope\n 5 : Guépard\n 6 : Au hasard']
+  this.besoinFormulaireNumerique = ['Niveau de rapidité', 6, ' 1 : Escargot\n 2 : Tortue\n 3 : Lièvre\n 4 : Antilope\n 5 : Guépard\n 6 : Au hasard']
 } // Fin de l'exercice.

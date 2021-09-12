@@ -10,11 +10,12 @@ export const amcType = 'qcmMono'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6M01
  */
 export default function QuestionDePerimetres () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.interactif = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []

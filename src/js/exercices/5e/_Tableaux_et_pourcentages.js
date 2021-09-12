@@ -447,7 +447,7 @@ export default function Tableaux_et_pourcentages () {
     this.besoinFormulaire2Numerique = ['Nombre de colonnes à remplir (fixé à 3 lorsque la case ci-dessous est cochée)', 4, '1 : une colonne\n2 : deux colonnes\n3 : trois colonnes\n4 : quatre colonnes']
   };
   if (this.exo === '5N11-2') { // pourcentage
-    this.besoinFormulaire2Numerique = ['Nombre de colonnes à remplir', 4, '1 : une colonne\n2 : deux colonnes\n3 : trois colonnes\n4 : quatre colonnes']
+    this.besoinFormulaire2Numerique = ['Nombre de colonnes à remplir', 4, '1 : Une colonne\n2 : Deux colonnes\n3 : Trois colonnes\n4 : Quatre colonnes']
   };
 }
 ;

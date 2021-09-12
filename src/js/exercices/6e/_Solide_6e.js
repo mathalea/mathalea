@@ -300,10 +300,10 @@ export default function Solide6e () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de solides', 3, '1 : Cubes\n 2 : Pavés droits\n 3 : Mélange']
+  this.besoinFormulaireNumerique = ['Type de solides', 3, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange']
   this.besoinFormulaire2Numerique = [
     'Type de cahier',
     3,
-    '1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
   ]
 }

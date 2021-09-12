@@ -8,12 +8,13 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6C07
  */
 export default function ResteDivisionPar3 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.nouvelleVersion = function () {
     const b = randint(1, 9)
     const c = randint(0, 9)

@@ -8,12 +8,13 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6N03
  */
 export default function RecompoEntierMoinsSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.nouvelleVersion = function () {
     const a = randint(20, 70)
     const b = randint(20, 70, a)

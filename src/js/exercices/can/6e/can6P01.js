@@ -8,13 +8,14 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6P01
  */
 export default function ProportionnaliteSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  const fruits = [
+    const fruits = [
     ['pêches', 4, 10, 30],
     ['Noix', 5, 4, 13],
     ['cerises', 6, 11, 20],

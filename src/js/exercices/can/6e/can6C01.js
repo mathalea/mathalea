@@ -10,12 +10,13 @@ export const amcType = 'qcmMono'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6C01
  */
 export default function OrdreDeGrandeur () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []

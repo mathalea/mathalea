@@ -8,12 +8,13 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Gilles Mora
- */
+  * Créé pendant l'été 2021
+ * Référence can3M01
+*/
 export default function CarreAire () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatChampTexte = 'largeur10 inline'
   this.nouvelleVersion = function () {
     let a, c

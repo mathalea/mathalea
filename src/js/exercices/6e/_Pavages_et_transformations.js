@@ -24,8 +24,7 @@ export default function PavagesEtTransformations () {
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.interactif = true
-  // this.sup = 1; // 1 pour symétrie axiale, 2 pour symétrie centrale, 3 pour translations, et 4 pour rotations ; paramètre fixé par les variantes respectives.
+    // this.sup = 1; // 1 pour symétrie axiale, 2 pour symétrie centrale, 3 pour translations, et 4 pour rotations ; paramètre fixé par les variantes respectives.
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
@@ -835,5 +834,5 @@ export default function PavagesEtTransformations () {
       }
     }
   }
-  this.besoinFormulaireNumerique = ['Transformations', 4, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Translations\n 4 : Rotations\n 5 : Homothéties\n']
+  this.besoinFormulaireNumerique = ['Transformations', 4, ' 1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Translations\n 4 : Rotations\n 5 : Homothéties\n']
 }
