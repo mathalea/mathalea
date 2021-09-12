@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, pgcd } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, pgcd, texRacineCarree } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,7 +31,7 @@ export default function Resolutionavecformecanonique () {
       listeTypeDeQuestions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres'], this.nbQuestions)
     }
 
-    for (let i = 0, texte, texteCorr, a, b, c, x1, x2, k, alpha, beta, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, b, c, x1, x2, k, alpha, beta, delta, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (listeTypeDeQuestions[i] === 'solutionsEntieres') {
         // k(x-x1)(x-x2)
         x1 = randint(-5, 2, [0])
@@ -39,10 +39,12 @@ export default function Resolutionavecformecanonique () {
         a = randint(-4, 4, [0])
         b = 0
         while (b === 0) {
+          a = randint(-4, 4, [0])
           b = -a * x1 - a * x2
         }
         c = 0
         while (c === 0) {
+          a = randint(-4, 4, [0])
           c = a * x1 * x2
         }
 
@@ -55,11 +57,12 @@ export default function Resolutionavecformecanonique () {
 
         alpha = -b / (2 * a)
         beta = -(b * b - 4 * a * c) / (4 * a)
-
+        delta = b * b - 4 * a * c
         texte = `Résoudre dans $\\mathbb{R}$ l'équation $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$ sans utiliser le discriminant.`
+        texte += 'en utilisant la forme canoique du polynôme.'
 
         texteCorr = '<br>On reconnaît une équation du second degré sous la forme $ax^2+bx+c = 0$.'
-        texteCorr += '<br>La stratégie consiste à écrire le polynôme du second degré sous forme canonique, <br>c\'est à dire sous la forme :  $a(x-\\alpha)^2+\\beta$,'
+        texteCorr += '<br>La consigne nous amène à commencer par écrire le polynôme du second degré sous forme canonique, <br>c\'est à dire sous la forme :  $a(x-\\alpha)^2+\\beta$,'
 
         texteCorr += '<br>avec $\\alpha=\\dfrac{-b}{2a}$ et $\\beta=P(\\alpha).$'
         texteCorr += `<br>Avec l'énoncé : $a=${a}$ et $b=${b}$, on en déduit que $\\alpha=${alpha}$.`
@@ -77,7 +80,7 @@ export default function Resolutionavecformecanonique () {
           if (a === -1) { texteCorr += '-' }
         } else { texteCorr += `${a}` }
         texteCorr += `(x ${ecritureAlgebrique(-alpha)})$`
-        texteCorr += `et $b = \\sqrt{${beta}}$`
+        texteCorr += 'et $b =Math.trunc(${beta})$'
         if (beta > 0) {
           if (alpha > 0) { setReponse(this, i, [`${a}(x-${alpha})^2+${beta}`]) } else { setReponse(this, i, [`${a}(x+${-alpha})^2+${beta}`]) }
         }
