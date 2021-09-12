@@ -431,8 +431,20 @@ function miseAJourDuCode () {
     btn1Question.addEventListener('click', () => {
       for (let i = 0; i < listeObjetsExercice.length; i++) {
         listeObjetsExercice[i].nbQuestions = 1
-        miseAJourDuCode()
       }
+      miseAJourDuCode()
+    })
+  }
+
+  const btnTousInteractifs = document.getElementById('btnTousInteractifs')
+  if (btnTousInteractifs !== null) {
+    btnTousInteractifs.addEventListener('click', () => {
+      for (let i = 0; i < listeObjetsExercice.length; i++) {
+        if (listeObjetsExercice[i].interactifReady) {
+          listeObjetsExercice[i].interactif = true
+        }
+      }
+      miseAJourDuCode()
     })
   }
 
