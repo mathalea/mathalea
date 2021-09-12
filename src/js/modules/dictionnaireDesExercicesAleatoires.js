@@ -4496,6 +4496,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can4C08"
   },
+  "can4C09": {
+    "titre": "Puissances de 2, 3, 4 ou 5",
+    "url": "/exercices/can/4e/can4C09.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4C09"
+  },
   "can4G01": {
     "titre": "Nombre de nombres entiers entre deux valeurs",
     "url": "/exercices/can/4e/can4G01.js",
@@ -5232,6 +5243,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can6N05"
   },
+  "can6N06": {
+    "titre": "Arrondi au dixième",
+    "url": "/exercices/can/6e/can6N06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N06"
+  },
   "can6P01": {
     "titre": "Proportionnalité simple",
     "url": "/exercices/can/6e/can6P01.js",
@@ -5352,6 +5374,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "canc3N03"
+  },
+  "canc3N04": {
+    "titre": "Arrondi à l'unité",
+    "url": "/exercices/can/c3/canc3N04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3N04"
   },
   "CM000": {
     "titre": "Additions et de soustractions",
