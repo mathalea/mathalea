@@ -79,6 +79,7 @@ function verifQuestionCliqueFigure (exercice, i) {
 }
 
 function verifQuestionMathLive (exercice, i) {
+  console.log(exercice.reponse)
   const engine = new ComputeEngine()
   let saisieParsee, signeF
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
