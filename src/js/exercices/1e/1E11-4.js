@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, pgcd, texRacineCarree } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, pgcd, texRacineCarree, TrouverSolutionMathador, fractionSimplifiee } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+import { fraction } from 'mathjs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Résoudre une équation du second degré à partir de la forme canonique'
@@ -63,31 +64,11 @@ export default function Resolutionavecformecanonique () {
 
         texteCorr = '<br>On reconnaît une équation du second degré sous la forme $ax^2+bx+c = 0$.'
         texteCorr += '<br>La consigne nous amène à commencer par écrire le polynôme du second degré sous forme canonique, <br>c\'est à dire sous la forme :  $a(x-\\alpha)^2+\\beta$,'
-
-        texteCorr += '<br>avec $\\alpha=\\dfrac{-b}{2a}$ et $\\beta=P(\\alpha).$'
-        texteCorr += `<br>Avec l'énoncé : $a=${a}$ et $b=${b}$, on en déduit que $\\alpha=${alpha}$.`
-        texteCorr += `<br>On calcule alors $\\beta=P(${alpha})$, et on obtient au final que $\\beta=${beta}$.`
-        texteCorr += '<br>Ce qui est équivalent à résoudre l\'équation $'
-        if (a === 1 || a === -1) {
-          if (a === -1) { texteCorr += '-' }
-        } else { texteCorr += `${a}` }
-        texteCorr += `(x ${ecritureAlgebrique(-alpha)})^2`
-        if (beta !== 0) { texteCorr += `${ecritureAlgebrique(beta)}` }
-        texteCorr += '=0$'
-        texteCorr += '<br> On reconnaît une identité remarquable de la forme $a^2-b^2$, '
-        texteCorr += '<br> avec $a='
-        if (a === 1 || a === -1) {
-          if (a === -1) { texteCorr += '-' }
-        } else { texteCorr += `${a}` }
-        texteCorr += `(x ${ecritureAlgebrique(-alpha)})$`
-        texteCorr += 'et $b =Math.trunc(${beta})$'
-        if (beta > 0) {
-          if (alpha > 0) { setReponse(this, i, [`${a}(x-${alpha})^2+${beta}`]) } else { setReponse(this, i, [`${a}(x+${-alpha})^2+${beta}`]) }
+        texteCorr += `<br>$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$`
+        if (a !== 1) {
+          texteCorr = `<br>On commence par diviser les deux membres de l'égalité par $${a}$.`
+          texteCorr += `<br>$x^2${fractionSimplifiee(b, a)}x${fractionSimplifiee(c, a)}=0$`
         }
-        if (beta < 0) {
-          if (alpha > 0) { setReponse(this, i, [`${a}(x-${alpha})^2${beta}`]) } else { setReponse(this, i, [`${a}(x+${-alpha})^2${beta}`]) }
-        }
-        if (beta === 0) { if (alpha > 0) { setReponse(this, i, [`${a}(x-${alpha})^2`]) } else { setReponse(this, i, [`${a}(x+${-alpha})^2}`]) } }
       }
 
       texte += ajouteChampTexteMathLive(this, i)
