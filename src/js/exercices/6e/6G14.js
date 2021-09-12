@@ -247,7 +247,7 @@ export default function ProprietesParallelesPerpendiculaires () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'étapes de raisonnement :', 4, '1 : 1 étape\n 2 : 2 étapes\n 3 : 3 étapes\n4 : Mélange aléatoire']
+  this.besoinFormulaireNumerique = ['Nombre d\'étapes de raisonnement', 4, '1 : 1 étape\n2 : 2 étapes\n3 : 3 étapes\n4 : Mélange aléatoire']
   // this.besoinFormulaire2CaseACocher = [
   //  "Avec figure ? ",false];
 }

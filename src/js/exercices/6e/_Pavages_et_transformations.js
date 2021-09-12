@@ -835,5 +835,5 @@ export default function PavagesEtTransformations () {
       }
     }
   }
-  this.besoinFormulaireNumerique = ['Transformations', 4, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Translations\n 4 : Rotations\n 5 : Homothéties\n']
+  this.besoinFormulaireNumerique = ['Transformations', 4, ' 1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Translations\n 4 : Rotations\n 5 : Homothéties\n']
 }

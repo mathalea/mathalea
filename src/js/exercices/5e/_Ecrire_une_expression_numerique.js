@@ -52,7 +52,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       val1 = randint(2, 5)
       val2 = randint(6, 9)
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
-      if (!this.litteral) { resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3) } else { resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3) }
+      if (!this.litteral) { resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental) } else { resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, calculMental) }
       expf = resultats[0]
       expn = resultats[1]
       expc = resultats[2]

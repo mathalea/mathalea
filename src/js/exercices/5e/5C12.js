@@ -79,4 +79,6 @@ export default function CalculerUneExpressionNumerique () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Choix des expressions', 'Nombres séparés par des tirets\n2 : Expressions à deux opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions complexes'] // Texte, tooltip - il faut au moins deux opérations
+  this.besoinFormulaire2CaseACocher = ['Utilisation de décimaux (pas de calcul mental)', false]
+  this.besoinFormulaire3CaseACocher = ['Avec le signe × devant les parenthèses', true]
 }

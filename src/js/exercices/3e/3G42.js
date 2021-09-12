@@ -129,5 +129,5 @@ export default function VolumeBoule () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : À partir du rayon\n 2 : À partir du rayon ou du diamètre\n 3 : À partir du rayon, du diamètre ou de l’aire\n 4 : À partir du rayon, du diamètre, de l’aire ou en résolvant un problème']
+  this.besoinFormulaireNumerique = ['Type de questions', 4, ' 1 : À partir du rayon\n 2 : À partir du rayon ou du diamètre\n 3 : À partir du rayon, du diamètre ou de l’aire\n 4 : À partir du rayon, du diamètre, de l’aire ou en résolvant un problème']
 } // Fin de l'exercice.

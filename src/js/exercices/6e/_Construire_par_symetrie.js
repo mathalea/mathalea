@@ -384,10 +384,10 @@ export default function ConstruireParSymetrie () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 4, '0 : symétries axiales simples\n 1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Mélange']
+  this.besoinFormulaireNumerique = ['Type de questions', 4, ' 0 : Symétries axiales simples\n 1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Mélange']
   this.besoinFormulaire2Numerique = [
     'Type de cahier',
     3,
-    '1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
   ]
 }
