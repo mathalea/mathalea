@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, texFraction, randint, miseEnEvidence, texteEnCouleurEtGras, choice } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
 
-export const titre = 'Somme (Différence) et produit de fractions, sans simplification finale attendue'
+export const titre = 'Somme, différence ou produit de fractions'
 
 /**
  * Description didactique de l'exercice
@@ -11,8 +12,8 @@ export const titre = 'Somme (Différence) et produit de fractions, sans simplifi
 */
 export default function SommeOuProduitFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.spacing = 3
-  this.spacingCorr = 3
+  this.spacing = context.isHtml ? 4 : 3
+  this.spacingCorr = context.isHtml ? 4 : 3
   this.consigne = 'Effectue les calculs suivants :'
   this.nbQuestions = 8 // Nombre de questions par défaut
   this.nbCols = 4 // Uniquement pour la sortie LaTeX
@@ -21,9 +22,10 @@ export default function SommeOuProduitFractions () {
   this.video = '' // Id YouTube ou url
   this.sup = 1
   this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
-  this.correctionDetaillee = false
+  this.correctionDetaillee = true
 
   this.nouvelleVersion = function (numeroExercice) {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.sup = parseInt(this.sup)
@@ -64,7 +66,7 @@ export default function SommeOuProduitFractions () {
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${texFraction(num2, den2)}$ `
             if (k > 1) {
               if (this.correctionDetaillee) {
-                texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 + '\\times' + k, den1 + '\\times' + k)}+${texFraction(num2, den2)}$`
+                texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}+${texFraction(num2, den2)}$`
               }
               texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * k, den2)}+${texFraction(num2, den2)}$ `
             }
@@ -74,7 +76,7 @@ export default function SommeOuProduitFractions () {
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2, den1)}$ `
             if (k > 1) {
               if (this.correctionDetaillee) {
-                texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2 + '\\times' + k, den1 + '\\times' + k)}$ `
+                texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$ `
               }
               texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2 * k, den2)}$ `
             }
@@ -103,7 +105,7 @@ export default function SommeOuProduitFractions () {
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${texFraction(num2, den2)}$ `
             if (k > 1) {
               if (this.correctionDetaillee) {
-                texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 + '\\times' + k, den1 + '\\times' + k)} - ${texFraction(num2, den2)}$`
+                texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))} - ${texFraction(num2, den2)}$`
               } texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * k, den1 * k)}-${texFraction(num2, den2)}$ `
             }
             texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num1 * k - num2, den2))}$ `
@@ -112,7 +114,7 @@ export default function SommeOuProduitFractions () {
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2, den1)}$ `
             if (k > 1) {
               if (this.correctionDetaillee) {
-                texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2 + '\\times' + k, den1 + '\\times' + k)}$ `
+                texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$ `
               } texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2 * k, den2)}$ `
             }
             texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num1 - num2 * k, den2))}$ `
@@ -191,6 +193,7 @@ export default function SommeOuProduitFractions () {
 
           break
       }
+      texteCorr += '<br>'
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
