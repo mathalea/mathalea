@@ -226,5 +226,5 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
   }
 
   this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
-  this.besoinFormulaire2Numerique = ['Types de calculs ', 3, '1 : Additions\n2 : Soustractions\n3 : Additions et soustractions']
+  this.besoinFormulaire2Numerique = ['Types de calculs', 3, '1 : Additions\n2 : Soustractions\n3 : Additions et soustractions']
 }

@@ -114,5 +114,5 @@ export default function AugmenterEtReduireDunPourcentage () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Valeurs entières et 10%, 20% ..\n2 : Valeurs entières et 4%, 23% ..\n3 : Une décimale comme 34,5%']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Valeurs entières et 10%, 20%...\n2 : Valeurs entières et 4%, 23%...\n3 : Une décimale comme 34,5%']
 }

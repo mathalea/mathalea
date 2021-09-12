@@ -182,7 +182,7 @@ export default function ProportionnalitePasProportionnalite () {
             )}$€.<br>Il a payé $${texPrix(z)}$€ $=${miseEnEvidence(
               texNombrec(p / y)
             )}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
-            texteCorr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`
+            texteCorr += `À l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`
             bonneReponse = 'oui'
           } else {
             index1 = listeIndex[i]

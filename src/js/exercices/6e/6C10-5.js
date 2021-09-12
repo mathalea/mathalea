@@ -87,7 +87,7 @@ export default function ExerciceLabyrintheMultiples () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Table ']
-  this.besoinFormulaire2Numerique = ['Facteur maximum ']
+  this.besoinFormulaireNumerique = ['Table']
+  this.besoinFormulaire2Numerique = ['Facteur maximum']
   this.besoinFormulaire3Numerique = ['Niveau de rapidité', 6, ' 1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
 } // Fin de l'exercice.
