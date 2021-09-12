@@ -485,7 +485,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               a = choice([1, 2, 4, 5, 7, 8]) // numérateur
               c = new Fraction(a, 3)
               resultat = calcul(a / 3)
-              texte = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous la forme d\'une fraction irréductible.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5 }, droiteGraduee2({
+              texte = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous la forme d\'une fraction irréductible.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
                 Unite: 3,
                 Min: 0,
                 Max: 3.2,
@@ -509,7 +509,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
             case 2:// droite graduée     /4 resultat décimal
               a = choice([1, 3, 5, 6, 7, 9, 10, 11]) // numérateur
               resultat = calcul(a / 4)
-              texte = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5 }, droiteGraduee2({
+              texte = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
                 Unite: 3,
                 Min: 0,
                 Max: 3.2,
@@ -533,7 +533,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
             case 3:// droite graduée     /5 resultat décimal
               a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
               resultat = calcul(a / 5)
-              texte = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5 }, droiteGraduee2({
+              texte = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
                 Unite: 3,
                 Min: 0,
                 Max: 3.2,
@@ -558,7 +558,7 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
               a = choice([1, 2, 3, 4]) // numérateur
               c = new Fraction(a, 5)
               resultat = calcul(a / 5)
-              texte = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous la forme d\'une fraction irréductible.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5 }, droiteGraduee2({
+              texte = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous la forme d\'une fraction irréductible.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
                 Unite: 6,
                 Min: 0,
                 Max: 1.2,
