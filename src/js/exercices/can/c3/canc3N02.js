@@ -40,7 +40,7 @@ export default function SuiteSurDroiteGraduee () {
       labelsPrincipaux: false
     })
     this.reponse = c + 3 * a
-    this.question = mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 2 }, d) + 'Quelle est l\'abscisse du point A ?'
+    this.question = mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 2,scale:0.5 }, d) + 'Quelle est l\'abscisse du point A ?'
     this.correction = `L'abscisse du point $A$ est $${c + 3 * a}$`
   }
 }
