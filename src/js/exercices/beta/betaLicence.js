@@ -13,7 +13,6 @@ export const interactifType = 'qcm'
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.interactif = true
   this.consigne = ''
   this.nbQuestionsModifiable = false
   this.nbQuestions = 19 // Pour la boucle des feedbacks

@@ -24,8 +24,7 @@ export default function Transformations () {
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.interactif = true
-  this.sup = 1
+    this.sup = 1
   const listeTypeDeQuestions = [
     [1, 2, 3, 4],
     [1, 2, 7, 7, 7, 7],

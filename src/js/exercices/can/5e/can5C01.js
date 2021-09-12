@@ -15,8 +15,7 @@ export default function ProduitEntiers5e () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     const b = randint(5, 9)
     const a = randint(12, 19)

@@ -15,8 +15,7 @@ export default function RecompoEntierSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.nouvelleVersion = function () {
+    this.nouvelleVersion = function () {
     const a = randint(20, 70)
     const b = randint(20, 70, a)
     this.reponse = a * 100 + b

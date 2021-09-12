@@ -24,8 +24,7 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
   this.nbQuestions = 5
   this.nbColsCorr = 1
   this.sup2 = false
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

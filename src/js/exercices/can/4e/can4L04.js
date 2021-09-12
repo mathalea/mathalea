@@ -15,7 +15,6 @@ export default function SubstitutionRelatif () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = -randint(2, 6)

@@ -99,5 +99,5 @@ export default function CalculerEtendues () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de séries', 2, '1 : Série de notes\n 2 : Série de températures']
+  this.besoinFormulaireNumerique = ['Type de séries', 2, ' 1 : Série de notes\n 2 : Série de températures']
 }

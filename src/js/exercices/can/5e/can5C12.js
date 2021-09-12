@@ -16,7 +16,6 @@ export default function FractionDEntierQuiVaBien () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatChampTexte = 'largeur25 inline'
   this.formatInteractif = 'calcul'
   this.nouvelleVersion = function () {

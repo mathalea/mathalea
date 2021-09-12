@@ -27,8 +27,7 @@ export default function ExerciceConversions (niveau = 1) {
   this.consigne = 'Compléter'
   this.spacing = 2
   this.correction_avec_des_fractions = false
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

@@ -24,14 +24,12 @@ export default function PremierEscapeGameMathalea () {
   this.sup = 1
   // this.sup2 = ''
   this.pasDeVersionLatex = false
-  this.interactif = true
-  this.nouvelleVersion = function () {
+    this.nouvelleVersion = function () {
     const lettres = []; const mots = ['BMDF', 'OGNQ', 'BUQP', 'BAUP', 'BXGE', 'BDUJ', 'MZSXQE', 'BDUEYQ', 'BMDFUQ', 'HMXQGD', 'OAGBXQ', 'PDAUFQ', 'DQXMFUAZ', 'BMDMNAXQ', 'MPPUFUAZ', 'QJBAEMZF', 'RAZOFUAZ', 'OAYBXQJQ']
     let alphabet = []
     this.listeQuestions = []
     this.listeCorrections = []
-    this.interactif = true
-    let texte = ''; let texteCorr = ''; let f1; let f2; let f3; let f4; let p
+        let texte = ''; let texteCorr = ''; let f1; let f2; let f3; let f4; let p
     // Initialisation des tableaux
     for (let i = 0; i < 26; i++) {
       alphabet.push(String.fromCharCode(65 + i))
@@ -149,8 +147,8 @@ export default function PremierEscapeGameMathalea () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
 
-    // this.besoinFormulaire2Numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
+    // this.besoinFormulaire2Numerique = ['Coefficient de réduction(problèmes de type1)', 3, ' 1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
   }
-  this.besoinFormulaireNumerique = ['Catégorie', 3, '1 : Noir & Blanc\n 2 : RGB\n 3 : CJMN']
+  this.besoinFormulaireNumerique = ['Catégorie', 3, ' 1 : Noir & Blanc\n 2 : RGB\n 3 : CJMN']
   // this.besoinFormulaire2Texte = ['Quel est ton mot de passe ?', 1, 'Mot de passe (en majuscule):']
 }

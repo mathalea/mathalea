@@ -27,8 +27,7 @@ export default function SigneProduitQuotientRelatifs () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
-  this.interactif = true
-
+  
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {

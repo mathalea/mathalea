@@ -24,8 +24,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
   this.titre = 'Conversions de longueurs'
   this.consigne = 'Compléter'
   this.spacing = 2
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     const reponses = []
     this.listeQuestions = [] // Liste de questions
@@ -203,6 +202,6 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : De dam, hm, km vers m\n 2 : De dm, cm, mm vers m\n3 : Conversions en mètres\n4 : Toutes les conversions de longueurs']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : De dam, hm, km vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Toutes les conversions de longueurs']
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
 }

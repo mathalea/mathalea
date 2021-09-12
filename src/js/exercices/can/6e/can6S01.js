@@ -16,8 +16,7 @@ export default function LectureDiagrammeBarre () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  const valeurs = [['fruits', 'une corbeille', ['bananes', 'oranges', 'pommes']],
+    const valeurs = [['fruits', 'une corbeille', ['bananes', 'oranges', 'pommes']],
     ['voitures', 'un garage', ['berline', 'utilitaire', 'cross over']],
     ['vêtements', 'une armoire', ['chemises', 'T-shirts', 'pulls']]]
   const quidam = prenom()

@@ -9,5 +9,4 @@ export default function Reglages6M22 () {
   ExercicePerimetresEtAires.call(this)
   this.sup = 2
   this.titre = titre
-  this.interactif = true
-}
+  }
