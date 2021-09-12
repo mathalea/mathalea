@@ -97,6 +97,6 @@ export default function ExerciceLabyrintheFractionsEgales () {
     listeQuestionsToContenu(this)
   }
   // this.besoinFormulaireNumerique = ["Table "]
-  this.besoinFormulaireNumerique = ['Facteur maximum ']
+  this.besoinFormulaireNumerique = ['Facteur maximum']
   this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, ' 1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
 } // Fin de l'exercice.

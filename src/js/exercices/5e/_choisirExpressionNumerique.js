@@ -483,12 +483,12 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           expc = `$(${texNombrec(a)}+${texNombrec(b)}) \\div (${texNombrec(c)}${signex}(${texNombrec(d)}+${texNombrec(e)})) = ${texNombrec(a + b)}  \\div  (${texNombrec(c)}  \\times  ${texNombrec(d + e)}) = ${texNombrec(a + b)}  \\div  ${texNombrec(c * (d + e))} = ${texNombrec((a + b) / (c * (d + e)))}$`
           break
         case 2: // (a-b)*(c+de)
-          if (calculMental) { // a-b = 2 ou 4 ou 10 et c+de < 51.
+          if (calculMental) { // a-b = 2 ou 4 ou 10 et c+de < 31.
             b = randint(2, 9)
             a = choice([2, 4, 10]) + b
             d = randint(2, 5, [a, b])
             e = randint(2, 5, [a, b, d])
-            c = randint(2, 50 - d * e, [a, b, d, e])
+            c = randint(2, 30 - d * e, [a, b, d, e])
           } else {
             if (a <= b) { a = calcul(a + b) }
           }

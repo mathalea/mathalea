@@ -21,7 +21,7 @@ export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
   this.nbQuestions = 3
-  this.nbCols = 3
+  this.nbCols = 2 // Valeur différente de 3 car sinon en Latex, 3 colonnes, c'est trop !
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = false

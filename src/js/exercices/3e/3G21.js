@@ -413,7 +413,7 @@ export default function ReciproqueThales () {
     ' 1 : Cas simple \n 2 : Complication \n 3 : Sans figure'
   ]
   this.besoinFormulaire2Numerique = [
-    'Réciproque ou contraposée ? ',
+    'Réciproque ou contraposée',
     3,
     ' 1 : Réciproque \n 2 : Contraposée \n 3 : Aléatoire'
   ]
