@@ -155,7 +155,25 @@ export default function Pythagore2D () {
         `${B.nom + C.nom}^2=${C.nom + A.nom}^2+${A.nom + B.nom}^2`,
         `${C.nom + B.nom}^2=${C.nom + A.nom}^2+${A.nom + B.nom}^2`,
         `${B.nom + C.nom}^2=${C.nom + A.nom}^2+${B.nom + A.nom}^2`,
-        `${C.nom + B.nom}^2=${C.nom + A.nom}^2+${B.nom + A.nom}^2`], { formatInteractif: 'texte' })
+        `${C.nom + B.nom}^2=${C.nom + A.nom}^2+${B.nom + A.nom}^2`,
+        // en commençant par la somme
+        `${A.nom + B.nom}^2+${A.nom + C.nom}^2=${B.nom + C.nom}^2`,
+        `${A.nom + B.nom}^2+${A.nom + C.nom}^2=${C.nom + B.nom}^2`,
+        `${B.nom + A.nom}^2+${A.nom + C.nom}^2=${B.nom + C.nom}^2`,
+        `${B.nom + A.nom}^2+${A.nom + C.nom}^2=${C.nom + B.nom}^2`,
+        `${A.nom + B.nom}^2+${C.nom + A.nom}^2=${B.nom + C.nom}^2`,
+        `${A.nom + B.nom}^2+${C.nom + A.nom}^2=${C.nom + B.nom}^2`,
+        `${B.nom + A.nom}^2+${C.nom + A.nom}^2=${B.nom + C.nom}^2`,
+        `${B.nom + A.nom}^2+${C.nom + A.nom}^2=${C.nom + B.nom}^2`,
+        //
+        `${A.nom + C.nom}^2+${A.nom + B.nom}^2=${B.nom + C.nom}^2`,
+        `${A.nom + C.nom}^2+${A.nom + B.nom}^2=${C.nom + B.nom}^2`,
+        `${A.nom + C.nom}^2+${B.nom + A.nom}^2=${B.nom + C.nom}^2`,
+        `${A.nom + C.nom}^2+${B.nom + A.nom}^2=${C.nom + B.nom}^2`,
+        `${C.nom + A.nom}^2+${A.nom + B.nom}^2=${B.nom + C.nom}^2`,
+        `${C.nom + A.nom}^2+${A.nom + B.nom}^2=${C.nom + B.nom}^2`,
+        `${C.nom + A.nom}^2+${B.nom + A.nom}^2=${B.nom + C.nom}^2`,
+        `${C.nom + A.nom}^2+${B.nom + A.nom}^2=${C.nom + B.nom}^2`], { formatInteractif: 'texte' })
       }
       if (this.sup === 2) {
         if (listeTypeDeQuestions[i] === 'AB') {
