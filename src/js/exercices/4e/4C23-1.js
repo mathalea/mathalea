@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, texFraction, randint, miseEnEvidence, texteEnCouleurEtGras, choice } from '../../modules/outils.js'
-export const titre = 'Somme/ Différence et/ ou produit (voire quotient) de fractions, sans simplification finale attendue'
+export const titre = 'Somme (Différence) et produit de fractions, sans simplification finale attendue'
 
 /**
  * Description didactique de l'exercice
@@ -12,9 +12,10 @@ export default function SommeOuProduitFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.spacing = 3
   this.spacingCorr = 3
-  this.consigne = 'Effectuer les calculs suivants (on n\'attend pas que le résultat soit donné sous forme de fraction irréductible) :'
+  this.consigne = 'Effectue les calculs suivants :'
   this.nbQuestions = 8 // Nombre de questions par défaut
   this.nbCols = 4 // Uniquement pour la sortie LaTeX
+  this.nbColonneModifiable = false
   this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
