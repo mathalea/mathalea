@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, pgcd, texRacineCarree, TrouverSolutionMathador, fractionSimplifiee } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, pgcd, texRacineCarree, TrouverSolutionMathador, fractionSimplifiee, texFraction, texFractionSigne } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import { fraction } from 'mathjs'
 export const interactifReady = true
@@ -67,8 +67,10 @@ export default function Resolutionavecformecanonique () {
         texteCorr += `<br>$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$`
         if (a !== 1) {
           texteCorr = `<br>On commence par diviser les deux membres de l'égalité par $${a}$.`
-          texteCorr += `<br>$x^2${fractionSimplifiee(b, a)}x${fractionSimplifiee(c, a)}=0$`
+          texteCorr += `<br>$x^2${texFractionSigne(b, a)}x${texFractionSigne(c, a)}=0$`
         }
+        texteCorr += '<br>On reconnaît ici le début d\'une identité remarquable :'
+        texteCorr += `<br>$\\big(x${texFractionSigne(b, 2 * a)}\\big)^2=x^2${texFractionSigne(b, a)}\\times x +\\big(${texFractionSigne(b, a)}\\big)^2$`
       }
 
       texte += ajouteChampTexteMathLive(this, i)
