@@ -16,7 +16,6 @@ export const amcType = 'qcmMono'
 export default function QuestionDePerimetres () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.interactif = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []

@@ -104,7 +104,7 @@ export default function CalculValeurApprocheeRacineCarree () {
         if (context.isAmc) {
           if (listeAvecOuSansCalculatrice[i] === 'avec') {
             this.autoCorrection[i] = {
-              enonce: `A l'aide de la calculatrice, donner un encadrement de $\\sqrt{${a}}$ ${type} près puis la valeur arrondie ${type} près: \\\\`,
+              enonce: `À l'aide de la calculatrice, donner un encadrement de $\\sqrt{${a}}$ ${type} près puis la valeur arrondie ${type} près: \\\\`,
               propositions: [
                 {
                   type: 'AMCOpen',

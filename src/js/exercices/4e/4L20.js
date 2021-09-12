@@ -23,8 +23,7 @@ export default function ExerciceEquation1 () {
   this.titre = titre
   this.consigne = 'Résoudre les équations suivantes'
   this.spacing = 2
-  this.interactif = true
-  this.interactifType = 'mathLive'
+    this.interactifType = 'mathLive'
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.correctionDetailleeDisponible = true
   if (!context.isHtml) {

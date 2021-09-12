@@ -16,8 +16,7 @@ export default function DifferenceFractionsCompatibles () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.formatChampTexte = 'largeur25 inline'
+    this.formatChampTexte = 'largeur25 inline'
   this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())

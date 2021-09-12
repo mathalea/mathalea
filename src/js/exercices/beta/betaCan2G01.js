@@ -15,8 +15,7 @@ export default function PerimetreCarreRectangle () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.interactif = true
-  this.interactifType = ''
+    this.interactifType = ''
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.autoCorrection[0] = {}

@@ -15,7 +15,6 @@ export default function CalculVolumePyramide () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatChampTexte = 'largeur25 inline'
   this.optionsChampTexte = { texteApres: `cm${exposant(3)}` }
   this.nouvelleVersion = function () {

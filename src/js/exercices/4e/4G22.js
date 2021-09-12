@@ -349,5 +349,5 @@ export default function ProblemesPythagore () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Sens direct ou réciproque/contraposée', 3, '1 : Sens direct.\n2 : Réciproque/contraposée.\n3 : Mélange.']
+  this.besoinFormulaireNumerique = ['Sens direct ou réciproque/contraposée', 3, '1 : Sens direct\n2 : Réciproque/contraposée\n3 : Mélange']
 }

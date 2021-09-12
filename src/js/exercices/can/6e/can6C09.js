@@ -15,7 +15,6 @@ export default function SoustraireX9 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.nouvelleVersion = function () {
     const a = randint(5, 9)
     const b = randint(1, 8)

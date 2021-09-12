@@ -10,7 +10,6 @@ export const titre = 'Décomposition en produit de facteurs premiers niveau 1'
 export default function DecomposerFacteursPremierSimple () {
   ExerciceDecomposerEnFacteursPremiers.call(this)
   this.nbQuestions = 1
-  this.interactif = true
   this.sup2 = false
   this.sup = 1
 }

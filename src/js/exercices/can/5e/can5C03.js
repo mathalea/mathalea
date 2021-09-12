@@ -14,8 +14,7 @@ export const amcType = 'AMCNum'
 export default function DifferenceEntiers5e () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.interactif = true
-  this.typeExercice = 'simple'
+    this.typeExercice = 'simple'
 
   this.nouvelleVersion = function () {
     const b = randint(50, 99)

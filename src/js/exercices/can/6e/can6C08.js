@@ -15,8 +15,7 @@ export default function QuartOuTiers () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.nouvelleVersion = function () {
+    this.nouvelleVersion = function () {
     const a = randint(5, 15)
     let b
     if (choice([true, false])) {

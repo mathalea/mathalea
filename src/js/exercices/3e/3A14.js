@@ -27,7 +27,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.interactif = true
   this.interactifType = 'mathLive'
 
   this.nouvelleVersion = function () {

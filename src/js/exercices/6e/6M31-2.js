@@ -181,7 +181,7 @@ export default function UnitesDeVolumesEtDeCapacite (niveau = 1) {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     3,
-    '1 : Unités de volume vers litre\n2 : Litre vers unités de volume\n3 : Unités de volumes vers litre ou inversement '
+    '1 : Unités de volume vers litre\n2 : Litre vers unités de volume\n3 : Mélange'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
 }

@@ -25,8 +25,7 @@ export default function LectureDiagrammeBarre () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1
-  this.interactif = true
-  this.nouvelleVersion = function () {
+    this.nouvelleVersion = function () {
     this.listeQuestions = [] // vide la liste de questions
     this.listeCorrections = [] // vide la liste de questions corrigées
 
@@ -206,6 +205,6 @@ export default function LectureDiagrammeBarre () {
       }
     }
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, ' choix 1 : 4 espèces\n choix 2 : 5 espèces\n choix 3 : 6 espèces']
-  this.besoinFormulaire2Numerique = ['Valeurs numériques', 2, ' choix 1 : entre 1 et 100\n choix 2 : entre 100 et 1 000']
+  this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : 4 espèces\n2 : 5 espèces\n3 : 6 espèces']
+  this.besoinFormulaire2Numerique = ['Valeurs numériques', 2, '1 : Entre 1 et 100\n2 : Entre 100 et 1 000']
 }

@@ -139,7 +139,7 @@ export default function ExploiterRepresentationGraphique () {
             'À l’aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push(
-          'A quelle ditance le projectile est-il retombé ?'
+          'À quelle ditance le projectile est-il retombé ?'
         )
         this.listeCorrections.push(
             `Le projectile retombe au sol à une distance de ${t1} m, car la courbe passe par le point de coordonnées $(${texNombrec(

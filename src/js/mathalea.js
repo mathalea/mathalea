@@ -293,10 +293,10 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         }" class="keyboard outline icon iconeInteractif"></i><span>`
       }
       if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
-        paramTooltip += obj.besoinFormulaireNumerique[0] + ': \n' + obj.besoinFormulaireNumerique[2] + '\n'
+        paramTooltip += obj.besoinFormulaireNumerique[0] + ' : \n' + obj.besoinFormulaireNumerique[2] + '\n'
       }
       if (obj.besoinFormulaire2Numerique && obj.besoinFormulaire2Numerique[2]) {
-        paramTooltip += obj.besoinFormulaire2Numerique[0] + ': \n' + obj.besoinFormulaire2Numerique[2]
+        paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
       }
       paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
       contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
@@ -371,10 +371,10 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
       } else {
         if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
-          paramTooltip += obj.besoinFormulaireNumerique[0] + ': \n' + obj.besoinFormulaireNumerique[2] + '\n'
+          paramTooltip += obj.besoinFormulaireNumerique[0] + ' : \n' + obj.besoinFormulaireNumerique[2] + '\n'
         }
         if (obj.besoinFormulaire2Numerique && obj.besoinFormulaire2Numerique[2]) {
-          paramTooltip += obj.besoinFormulaire2Numerique[0] + ': \n' + obj.besoinFormulaire2Numerique[2]
+          paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
         }
         paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
         contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
@@ -431,8 +431,20 @@ function miseAJourDuCode () {
     btn1Question.addEventListener('click', () => {
       for (let i = 0; i < listeObjetsExercice.length; i++) {
         listeObjetsExercice[i].nbQuestions = 1
-        miseAJourDuCode()
       }
+      miseAJourDuCode()
+    })
+  }
+
+  const btnTousInteractifs = document.getElementById('btnTousInteractifs')
+  if (btnTousInteractifs !== null) {
+    btnTousInteractifs.addEventListener('click', () => {
+      for (let i = 0; i < listeObjetsExercice.length; i++) {
+        if (listeObjetsExercice[i].interactifReady) {
+          listeObjetsExercice[i].interactif = true
+        }
+      }
+      miseAJourDuCode()
     })
   }
 
@@ -463,13 +475,13 @@ function miseAJourDuCode () {
         finUrl += 'mathalea.html'
       }
       finUrl += `?ex=${listeDesExercices[0]}`
-      if (typeof listeObjetsExercice[0].sup !== 'undefined') {
+      if (listeObjetsExercice[0].sup !== undefined) {
         finUrl += `,s=${listeObjetsExercice[0].sup}`
       }
-      if (typeof listeObjetsExercice[0].sup2 !== 'undefined') {
+      if (listeObjetsExercice[0].sup2 !== undefined) {
         finUrl += `,s2=${listeObjetsExercice[0].sup2}`
       }
-      if (typeof listeObjetsExercice[0].sup3 !== 'undefined') {
+      if (listeObjetsExercice[0].sup3 !== undefined) {
         finUrl += `,s3=${listeObjetsExercice[0].sup3}`
       }
       if (listeObjetsExercice[0].nbQuestionsModifiable) {
@@ -493,13 +505,13 @@ function miseAJourDuCode () {
       listeObjetsExercice[0].numeroExercice = 0
       for (let i = 1; i < listeDesExercices.length; i++) {
         finUrl += `&ex=${listeDesExercices[i]}`
-        if (typeof listeObjetsExercice[i].sup !== 'undefined') {
+        if (listeObjetsExercice[i].sup !== undefined) {
           finUrl += `,s=${listeObjetsExercice[i].sup}`
         }
-        if (typeof listeObjetsExercice[i].sup2 !== 'undefined') {
+        if (listeObjetsExercice[i].sup2 !== undefined) {
           finUrl += `,s2=${listeObjetsExercice[i].sup2}`
         }
-        if (typeof listeObjetsExercice[i].sup3 !== 'undefined') {
+        if (listeObjetsExercice[i].sup3 !== undefined) {
           finUrl += `,s3=${listeObjetsExercice[i].sup3}`
         }
         if (listeObjetsExercice[i].nbQuestionsModifiable) {

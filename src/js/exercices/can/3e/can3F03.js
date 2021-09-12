@@ -10,6 +10,5 @@ export const titre = 'Calcul d’image ou d’antécédent niveau 2'
 export default function CalculImageParFonctionAffine () {
   CalculsImagesFonctions.call(this)
   this.nbQuestions = 1
-  this.interactif = true
-  this.sup = 2
+    this.sup = 2
 }
