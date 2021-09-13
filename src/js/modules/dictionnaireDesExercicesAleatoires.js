@@ -3810,6 +3810,78 @@ export default {
     ],
     "name": "betaCan2G01"
   },
+  "betaCAN2Q20-01": {
+    "titre": "Calcul de l’hypoténuse avec Pythagore",
+    "url": "/exercices/beta/betaCAN2Q20-01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-01"
+  },
+  "betaCAN2Q20-02": {
+    "titre": "Calcul de d’un côté avec Pythagore",
+    "url": "/exercices/beta/betaCAN2Q20-02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-02"
+  },
+  "betaCAN2Q20-03": {
+    "titre": "Angle dans un triangle isocèle",
+    "url": "/exercices/beta/betaCAN2Q20-03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-03"
+  },
+  "betaCAN2Q20-04": {
+    "titre": "Calcul de la diagonale d’un carré",
+    "url": "/exercices/beta/betaCAN2Q20-04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-04"
+  },
+  "betaCAN2Q20-05": {
+    "titre": "Calcul d’une longueur avec Thalès",
+    "url": "/exercices/beta/betaCAN2Q20-05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-05"
+  },
+  "betaCAN2Q20-06": {
+    "titre": "Calcul d’une longueur avec Thalès2",
+    "url": "/exercices/beta/betaCAN2Q20-06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-06"
+  },
+  "betaCAN2Q20-07": {
+    "titre": "Calcul d’une longueur avec Thalès (milieu)",
+    "url": "/exercices/beta/betaCAN2Q20-07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-07"
+  },
+  "betaCAN2Q20-08": {
+    "titre": "Recherche valeur avec Pythagore",
+    "url": "/exercices/beta/betaCAN2Q20-08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-08"
+  },
+  "betaCAN2Q20-09": {
+    "titre": "Trigonométrie",
+    "url": "/exercices/beta/betaCAN2Q20-09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-09"
+  },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
     "url": "/exercices/beta/betaCaNCM2.js",

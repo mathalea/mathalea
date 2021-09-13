@@ -1,0 +1,121 @@
+import Exercice from '../Exercice.js'
+import { choice, texNombrec, creerNomDePolygone } from '../../modules/outils.js'
+import {
+  mathalea2d, point, segment, latexParCoordonnees, milieu, polygoneAvecNom, codageAngleDroit
+} from '../../modules/2d.js'
+export const titre = 'Trigonométrie'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Gilles Mora
+ * Référence
+ * Date de publication
+*/
+export default function Trigo () {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  this.interactif = true
+  this.formatChampTexte = 'largeur25 inline'
+  this.nbQuestions = 1
+  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+
+  this.nouvelleVersion = function () {
+    const listeTriplet = [
+      [3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29], [12, 35, 37], [9, 40, 41], [11, 60, 61]
+    ] // triplets Pythagore
+    const triplet = choice(listeTriplet)
+    const nom = creerNomDePolygone(3, ['Q'])
+    const a = triplet[0]
+    const b = triplet[1]
+    const c = triplet[2]
+    const A = point(0, 0, nom[0])
+    const B = point(-2, 3, nom[1])
+    const C = point(2, 5.7, nom[2])
+    const pol = polygoneAvecNom(A, B, C)
+    const objets = []
+    objets.push(segment(A, B), segment(B, C), segment(A, C), codageAngleDroit(A, B, C))
+    objets.push(latexParCoordonnees(`${texNombrec(b)}`, milieu(B, C).x, milieu(B, C).y + 0.25, 'black', 20, 10, ''),
+      latexParCoordonnees(`${texNombrec(c)}`, milieu(A, C).x + 0.5, milieu(A, C).y, 'black', 20, 10, ''),
+      latexParCoordonnees(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'black', 20, 10, ''))
+    objets.push(pol[0], pol[1])
+    switch (choice(['a', 'b', 'c', 'd', 'e', 'f'])) { //, 'b'
+      case 'a':
+
+        this.question = `$\\cos\\widehat{${nom[2]}}=$<br>
+        (Sous forme d'une fraction irréductible)`
+        this.question += mathalea2d({
+          xmin: -3,
+          ymin: -1,
+          xmax: 3,
+          ymax: 7,
+          pixelsParCm: 30,
+          mainlevee: false,
+          amplitude: 0.5,
+          scale: 0.7
+        }, objets)
+        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : 
+        $\\cos\\widehat{${nom[2]}}=\\dfrac{\\text{Côté adjacent à } \\widehat{${nom[2]}}}{\\text{Hypoténuse}}=\\dfrac{${b}}{${c}}.$
+      <br>`
+
+        this.reponse = `\\dfrac{${b}}{${c}}`
+        break
+      case 'b':
+
+        this.question = `$\\sin\\widehat{${nom[2]}}=$<br>
+        (Sous forme d'une fraction irréductible)`
+        this.question += mathalea2d({ xmin: -3, ymin: -1, xmax: 3, ymax: 7, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : 
+        $\\sin\\widehat{${nom[2]}}=\\dfrac{\\text{Côté opposé à } \\widehat{${nom[2]}}}{\\text{Hypoténuse}}=\\dfrac{${a}}{${c}}.$
+      <br>`
+
+        this.reponse = `\\dfrac{${a}}{${c}}`
+        break
+      case 'c':
+
+        this.question = `$\\tan\\widehat{${nom[2]}}=$<br>
+        (Sous forme d'une fraction irréductible)`
+        this.question += mathalea2d({ xmin: -3, ymin: -1, xmax: 3, ymax: 7, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : 
+        $\\tan\\widehat{${nom[2]}}=\\dfrac{\\text{Côté opposé à } \\widehat{${nom[2]}}}{\\text{Côté adjacent à } \\widehat{${nom[2]}}}=\\dfrac{${a}}{${b}}.$
+      <br>`
+
+        this.reponse = `\\dfrac{${a}}{${b}}`
+        break
+      case 'd':
+
+        this.question = `$\\cos\\widehat{${nom[0]}}=$<br>
+        (Sous forme d'une fraction irréductible)`
+        this.question += mathalea2d({ xmin: -3, ymin: -1, xmax: 3, ymax: 7, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : 
+        $\\cos\\widehat{${nom[0]}}=\\dfrac{\\text{Côté adjacent à } \\widehat{${nom[0]}}}{\\text{Hypoténuse}}=\\dfrac{${a}}{${c}}.$
+      <br>`
+
+        this.reponse = `\\dfrac{${a}}{${c}}`
+        break
+      case 'e':
+
+        this.question = `$\\sin\\widehat{${nom[0]}}=$<br>
+        (Sous forme d'une fraction irréductible)`
+        this.question += mathalea2d({ xmin: -3, ymin: -1, xmax: 3, ymax: 7, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : 
+        $\\cos\\widehat{${nom[0]}}=\\dfrac{\\text{Côté opposé à } \\widehat{${nom[0]}}}{\\text{Hypoténuse}}=\\dfrac{${b}}{${c}}.$
+      <br>`
+
+        this.reponse = `\\dfrac{${b}}{${c}}`
+        break
+      case 'f':
+
+        this.question = `$\\tan\\widehat{${nom[0]}}=$<br>
+        (Sous forme d'une fraction irréductible)`
+        this.question += mathalea2d({ xmin: -3, ymin: -1, xmax: 3, ymax: 7, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[0]}$, on a : 
+        $\\tan\\widehat{${nom[0]}}=\\dfrac{\\text{Côté opposé à } \\widehat{${nom[0]}}}{\\text{Côté adjacent à } \\widehat{${nom[0]}}}=\\dfrac{${b}}{${a}}.$
+      <br>`
+
+        this.reponse = `\\dfrac{${b}}{${a}}`
+        break
+    }
+  }
+}
