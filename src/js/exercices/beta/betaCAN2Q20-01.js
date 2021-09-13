@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../modules/outils.js'
 import {
-  mathalea2d, point, latexParCoordonnees, pointAdistance, longueur, polygoneAvecNom, milieu, codageAngleDroit
+  mathalea2d, point, latexParCoordonnees, pointAdistance, longueur, polygoneAvecNom, milieu, codageAngleDroit, similitude
 } from '../../modules/2d.js'
 export const titre = 'Calcul de l’hypoténuse avec Pythagore'
 export const interactifReady = true
@@ -23,11 +23,11 @@ export default function CalculHypotenusePythagore () {
   let a, b
   this.nouvelleVersion = function () {
     const nom = creerNomDePolygone(3, ['Q'])
-    a = randint(1, 7)//
-    b = randint(1, 7)//
+    a = randint(2, 7)//
+    b = randint(3, 7)//
     const A = point(0, 0, nom[0])
-    const B = pointAdistance(A, a, 0, nom[1])
-    const C = pointAdistance(B, b, 90, nom[2])
+    const B = pointAdistance(A, a, randint(0, 45), nom[1])
+    const C = similitude(A, B, 90, b / a, nom[2])
     const pol = polygoneAvecNom(A, B, C) // polygoneAvecNom s'occupe du placement des noms des sommets
     console.log('AB : ', a, '  BC : ', b, '  AC : ', longueur(A, C))
     const objets = []
