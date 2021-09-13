@@ -34,9 +34,9 @@ export default function MilieuEntre1EtFraction () {
     objets = []
     objets.push(segmentAvecExtremites(A, B), segmentAvecExtremites(B, C), labelPoint(B), codeSegments('||', 'blue', A, B, B, C))
     objets.push(latexParCoordonnees('1', 0, -0.5, 'black', 20, 10, ''),
-      latexParCoordonnees(`${texFraction(n, d)}`, 8, -0.5, 'black', 20, 10, ''))
+      latexParCoordonnees(`${texFraction(n, d)}`, 8, -0.6, 'black', 20, 10, ''))
     this.question = 'Quelle est l\'abscisse du point $I$ sous forme de fraction irréductible ?<br>'
-    this.question += mathalea2d({ xmin: -1, ymin: -2, xmax: 10, ymax: 2, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+    this.question += mathalea2d({ xmin: -1, ymin: -2, xmax: 10, ymax: 1, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
     this.correction = `On calcule la moyenne de $1$ et $${texFraction(n, d)}$ :<br>  
     $x_I=\\dfrac{1+${texFraction(n, d)}}{2}=
     \\dfrac{${texFraction(d, d)}+${texFraction(n, d)}}{2}=
