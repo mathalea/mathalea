@@ -63,7 +63,7 @@ function spanExercice (id, titre) {
   const amcPrecisionType = context.isAmc ? `<span style="color:#f15929;"> ${listeDesExercicesDisponibles[id].amcType.text} </span>` : ''
   const filtre = getFilterFromUrl()
   const vue = getVueFromUrl()
-  const iconeInteractifDisponible = (listeDesExercicesDisponibles[id].interactifReady && filtre !== 'interactif' && vue !== 'latex' && vue !== 'amc') ? `<span data-tooltip="Version interactive disponible."><i id="${id}" class="keyboard outline icon orange" size="mini"></i></span>` : ''
+  const iconeInteractifDisponible = (listeDesExercicesDisponibles[id].interactifReady && filtre !== 'interactif' && vue !== 'latex' && vue !== 'amc') ? `<span data-tooltip="Version interactive disponible."><a class="ui bouton lien_id_exercice" data-id_exercice="${id}" data-mode="interactif"><i id="${id}" class="keyboard outline icon orange" size="mini"></i></a></span>` : ''
   return `<span class="id_exercice">${id}</span> - <a class="ui bouton lien_id_exercice" ${tooltip} data-id_exercice="${id}">${titreTronque} ${amcPrecisionType ? '-' + amcPrecisionType : ''}</a></a>${iconeInteractifDisponible}<span data-content="Prévisualiser l'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
 }
 
@@ -220,6 +220,13 @@ function divNiveau (obj, active, id) {
 function addExercice (e) {
   // fonction ajout d'un exercice : ajoute l'exercice dans l'input avec la liste des exercice et provoque l'evt change pour recalcul de la page.
   // utilisée lors du clic sur le nom d'un exercice.
+  if ($(e.target).parents('a.lien_id_exercice').attr('data-mode') === 'interactif' || $(e.target).attr('data-mode') === 'interactif') {
+    if ( !document.getElementById('exoModeInteractif') ) {
+      $('#choix_exercices_menu').append('<span style="display:none" id="exoModeInteractif">ModeInteractifActivé</span>')
+    }      
+  } else {
+    $('#exoModeInteractif').remove();
+  }
   const numero = $(e.target).attr('data-id_exercice') ? $(e.target).attr('data-id_exercice') : $(e.target).parents('a.lien_id_exercice').attr('data-id_exercice')
   if ($('#choix_des_exercices').val() === '') {
     $('#choix_des_exercices').val($('#choix_des_exercices').val() + numero)
@@ -228,7 +235,7 @@ function addExercice (e) {
       $('#choix_des_exercices').val() + ',' + numero
     )
   }
-
+  
   // Créé un évènement de changement de la valeur du champ pour déclencher la mise à jour
   const event = new Event('change')
   document.getElementById('choix_des_exercices').dispatchEvent(event)
@@ -255,7 +262,7 @@ export function apparenceExerciceActif () {
     $('.delexercice').remove()
     listeExercicesSelectionnes = listeExercicesSelectionnes.value.split(',')
     for (let i = 0; i < listeExercicesSelectionnes.length; i++) {
-      const elemListe = $(`a.lien_id_exercice[data-id_exercice='${listeExercicesSelectionnes[i]}']`)
+      const elemListe = $(`a.lien_id_exercice[data-id_exercice='${listeExercicesSelectionnes[i]}']:not([data-mode])`)
       // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
       if (compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i]) > 1) {
       // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
@@ -307,7 +314,7 @@ function ligneTableau (exercice) {
   let ligne = ''
   const modeAmc = dictionnaireDesExercices[exercice].amcReady ? `AMC <b>${dictionnaireDesExercices[exercice].amcType.text}</b>` : ''
   // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
-  const modeInteractif = dictionnaireDesExercices[exercice].interactifReady ? ' Interactif' : ''
+  const modeInteractif = dictionnaireDesExercices[exercice].interactifReady ? `<a class="ui bouton lien_id_exercice" data-id_exercice="${exercice}" data-mode="interactif"> Interactif </a>`: ''
   if (dictionnaireDesExercices[exercice].titre) {
     if (context.isAmc) {
       ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}
