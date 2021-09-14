@@ -32,7 +32,6 @@ let listeDesExercices = [] // Liste des identifiants des exercices
 let codeLatex = ''
 let listePackages = new Set()
 
-
 // Variables pour mathalea_AMC
 let nbExemplaires = 1
 let nbQuestions = []
@@ -1258,7 +1257,7 @@ function miseAJourDeLaListeDesExercices (preview) {
             formInteractif[listeObjetsExercice.length - 1].checked = true
           }
         }
-        if (urlVars.length < 0 && ( document.getElementById('filtre').value === 'interactif' || document.getElementById('exoModeInteractif')) ) {
+        if (urlVars.length < 0 && (document.getElementById('filtre').value === 'interactif' || document.getElementById('exoModeInteractif'))) {
           listeObjetsExercice[0].interactif = true
           formInteractif[0].checked = true
         }
