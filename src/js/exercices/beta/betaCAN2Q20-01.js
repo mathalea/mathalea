@@ -38,8 +38,8 @@ export default function CalculHypotenusePythagore () {
     switch (choice(['a', 'b'])) {
       case 'a':
         objets.push(pol[0], pol[1], codageAngleDroit(A, B, C)) // pol[0], c'est le tracé et pol[1] ce sont les labels
-        objets.push(latexParCoordonnees('x', milieu(A, C).x - 0.2, milieu(A, C).y + 0.3, 'black', 20, 10, ''),
-          latexParCoordonnees(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'black', 20, 10, ''),
+        objets.push(latexParCoordonnees('x', milieu(A, C).x, milieu(A, C).y + 0.3, 'black', 20, 10, ''),
+          latexParCoordonnees(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y + 0.2, 'black', 20, 10, ''),
           latexParCoordonnees(`${texNombrec(b)}`, milieu(B, C).x + 0.2, milieu(B, C).y, 'black', 20, 10, '')
         )
         this.question = 'Sur cette figure $x=\\sqrt{a}$ avec $a=$<br>'
@@ -58,7 +58,7 @@ export default function CalculHypotenusePythagore () {
           this.question = `$${nom[0]}${nom[1]}${nom[2]}$ est un triangle rectangle en $${nom[0]}$.<br>
         $${nom[0]}${nom[1]}=${a}$ ; $${nom[0]}${nom[2]}=\\sqrt{${b}}$. Calculer $${nom[1]}${nom[2]}$ .<br>
         (donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant)`
-          this.correction = ` En utilisant le théorème de Pythagore dans $ABC$ rectangle en $A$, on obtient :<br>
+          this.correction = ` En utilisant le théorème de Pythagore dans $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[0]}$, on obtient :<br>
                $${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2=${nom[1]}${nom[2]}^2$, <br>
                soit $${a}^2+\\sqrt{${b}}^2=${nom[1]}${nom[2]}^2$, d'où $${nom[1]}${nom[2]}^2=${a * a + b}$ soit $${nom[1]}${nom[2]}=\\sqrt{${a * a + b}}=${Math.sqrt(a * a + b)}$.
              <br>`
@@ -67,7 +67,7 @@ export default function CalculHypotenusePythagore () {
           this.question = `$${nom[0]}${nom[1]}${nom[2]}$ est un triangle rectangle en $${nom[0]}$.<br>
           $${nom[0]}${nom[1]}=${a}$ ; $${nom[0]}${nom[2]}=\\sqrt{${b}}$. Calculer $${nom[1]}${nom[2]}$ .<br>
           (donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant)`
-          this.correction = ` En utilisant le théorème de Pythagore dans $ABC$ rectangle en $A$, on obtient :<br>
+          this.correction = ` En utilisant le théorème de Pythagore dans $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[0]}$, on obtient :<br>
                  $${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2=${nom[1]}${nom[2]}^2$, <br>
                  soit $${a}^2+\\sqrt{${b}}^2=${nom[1]}${nom[2]}^2$, d'où $${nom[1]}${nom[2]}^2=${a * a + b}$ soit $${nom[1]}${nom[2]}=\\sqrt{${a * a + b}}$.
                <br>`

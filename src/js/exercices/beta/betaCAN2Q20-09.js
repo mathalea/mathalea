@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
-import { choice, texNombrec, creerNomDePolygone, randint } from '../../modules/outils.js'
+import { choice, creerNomDePolygone, randint } from '../../modules/outils.js'
 import {
-  mathalea2d, point, segment, latexParCoordonnees, milieu, polygoneAvecNom, codageAngleDroit, rotation, afficheLongueurSegment, pointAdistance, similitude
+  mathalea2d, point, segment, polygoneAvecNom, codageAngleDroit, rotation, afficheLongueurSegment, pointAdistance, similitude
 } from '../../modules/2d.js'
 export const titre = 'Trigonométrie'
 export const interactifReady = true
