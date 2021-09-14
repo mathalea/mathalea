@@ -434,7 +434,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
         }
       }
     }
-    texte += mathalea2d({ xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 1.5, pixelsParCm: 25, scale: 0.5 }, d1)
+    texte += '<br>' + mathalea2d({ xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 1.5, pixelsParCm: 25, scale: 0.5 }, d1)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     if (context.isAmc) {
