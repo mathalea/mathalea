@@ -3325,11 +3325,15 @@ export function ordreDeGrandeur (x, type) {
 * @author Rémi Angot
 */
 export function creerModal (numeroExercice, contenu, labelBouton, icone) {
-  const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${labelBouton}</button>
-    <div class="ui modal" id="modal${numeroExercice}">
-    ${contenu}
-    </div>`
-  return HTML
+  if (context.isHtml) {
+    const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${labelBouton}</button>
+      <div class="ui modal" id="modal${numeroExercice}">
+      ${contenu}
+      </div>`
+    return HTML
+  } else {
+    return ''
+  }
 }
 /**
 * Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
