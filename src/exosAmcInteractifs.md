@@ -70,7 +70,7 @@
 |4C22-1|Trouver l’inverse d’un nombre|KO|KO|OK|mathLive|
 |4C22-2|Diviser des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
 |4C22|Multiplier des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
-|4C23|Fractions et priorités opératoires|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C23-1|Fractions et priorités opératoires|OK|AMCOpenNum✖︎2|OK|mathLive|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|mathLive|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
