@@ -1,5 +1,5 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 287 
+- nombre d'exos amcReady 281 
 - nombre d'exos interactifReady 334 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
@@ -219,6 +219,16 @@
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
+|betaCAN2Q20-01|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
+|betaCAN2Q20-02|Calcul de d’un côté avec Pythagore|KO|KO|OK|mathLive|
+|betaCAN2Q20-03|Angle dans un triangle isocèle|KO|KO|OK|mathLive|
+|betaCAN2Q20-04|Calcul de la diagonale d’un carré|KO|KO|OK|mathLive|
+|betaCAN2Q20-05|Calcul d’une longueur avec Thalès|KO|KO|OK|mathLive|
+|betaCAN2Q20-06|Calcul d’une longueur avec Thalès2|KO|KO|OK|mathLive|
+|betaCAN2Q20-07|Calcul d’une longueur avec Thalès (milieu)|KO|KO|OK|mathLive|
+|betaCAN2Q20-08|Recherche valeur avec Pythagore|KO|KO|OK|mathLive|
+|betaCAN2Q20-09|Trigonométrie|KO|KO|OK|mathLive|
+|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
