@@ -21,6 +21,7 @@ export default function FractionsIrreductibles () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.listePackages = 'bclogo'
+  this.sup = true
 
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
@@ -49,9 +50,9 @@ export default function FractionsIrreductibles () {
       let nb2 // nbre 2
 
       // on fixe le tableau de choix
-      const candidatsPremiersCommuns = premiersEntreBornes(2, 13) // tableau des candidats premiers communs
+      const candidatsPremiersCommuns = this.sup ? [2, 3, 5] : premiersEntreBornes(2, 13) // tableau des candidats premiers communs
       // on fixe le nombre de divisuers premiers communs
-      const nbDivPremCommuns = 4 // nombre de diviseurs premiers communs
+      const nbDivPremCommuns = this.sup ? 3 : 4 // nombre de diviseurs premiers communs
       // on initialise le tableau des diviseurs premiers communs
       const premiersCommuns = [] // tableau des diviseurs premiers communs
       // on initialise le tableau des rangs
@@ -71,8 +72,11 @@ export default function FractionsIrreductibles () {
       };
       // on initialise et on complète le tableau des multiplicités des diviseurs premiers communs
       const multiplicitesPremiersCommuns = [] // tableau des multiplicités des diviseurs premiers communs
+      let zeroDejaDonne = false
       for (let k = 0; k < nbDivPremCommuns; k++) {
-        multiplicitesPremiersCommuns.push(randint(0, 2))
+        const multipliciteHAsard = zeroDejaDonne ? randint(1, 2) : randint(0, 2)
+        if (multipliciteHAsard === 0) zeroDejaDonne = true
+        multiplicitesPremiersCommuns.push(multipliciteHAsard)
       };
       // on supprime les diviseurs premiers de multiplicité 0 et leur multiplicité
       let idx = multiplicitesPremiersCommuns.indexOf(0)
@@ -95,10 +99,11 @@ export default function FractionsIrreductibles () {
         multiplicitesNb1[k] = multiplicitesPremiersCommuns[k]
         multiplicitesNb2[k] = multiplicitesPremiersCommuns[k]
       };
-      // on ajoute un facteur premier distinct pour chaque nombre plus petit que 30
-      const rEx = randint(0, premiersEntreBornes(2, 30).length - 1) // pour exlcure le rang de nb1
-      const nb1Dist = premiersEntreBornes(2, 30)[rEx] // diviseur unique du premier nombre
-      const nb2Dist = premiersEntreBornes(2, 30)[randint(0, premiersEntreBornes(2, 30).length - 1, rEx)] // diviseur unique du deuxième nombre
+      // on ajoute un facteur premier distinct pour chaque nombre plus petit que maBorne
+      const maBorne = this.sup ? 13 : 30
+      const rEx = randint(0, premiersEntreBornes(2, maBorne).length - 1) // pour exlcure le rang de nb1
+      const nb1Dist = premiersEntreBornes(2, maBorne)[rEx] // diviseur unique du premier nombre
+      const nb2Dist = premiersEntreBornes(2, maBorne)[randint(0, premiersEntreBornes(2, maBorne).length - 1, rEx)] // diviseur unique du deuxième nombre
       // on ajoute nb1_dist, nb2_dist dans les tableaux des diviseurs premiers du premier et du second nombre
       // nb1
       let bool = false
@@ -264,5 +269,5 @@ export default function FractionsIrreductibles () {
     };
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"];
+  this.besoinFormulaireCaseACocher = ['Décomposition « simple »']
 }
