@@ -32,6 +32,7 @@ let listeDesExercices = [] // Liste des identifiants des exercices
 let codeLatex = ''
 let listePackages = new Set()
 
+
 // Variables pour mathalea_AMC
 let nbExemplaires = 1
 let nbQuestions = []
@@ -1251,13 +1252,13 @@ function miseAJourDeLaListeDesExercices (preview) {
         const urlVars = getUrlVars()
         // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
         // => évite les erreurs lors de la suppression de question dans la liste.
-        if (urlVars.length < listeObjetsExercice.length && document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') {
+        if (urlVars.length < listeObjetsExercice.length && ((document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') || document.getElementById('exoModeInteractif'))) {
           listeObjetsExercice[listeObjetsExercice.length - 1].interactif = true
           if (formInteractif[listeObjetsExercice.length - 1]) {
             formInteractif[listeObjetsExercice.length - 1].checked = true
           }
         }
-        if (urlVars.length < 0 && document.getElementById('filtre').value === 'interactif') {
+        if (urlVars.length < 0 && ( document.getElementById('filtre').value === 'interactif' || document.getElementById('exoModeInteractif')) ) {
           listeObjetsExercice[0].interactif = true
           formInteractif[0].checked = true
         }
