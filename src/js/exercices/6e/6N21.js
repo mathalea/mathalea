@@ -26,6 +26,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typeDeQuestions
