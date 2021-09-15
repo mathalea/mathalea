@@ -165,7 +165,7 @@ export default function FractionsIrreductibles () {
 
       switch (typesDeQuestions) {
         case 1: // décomposition de A
-          texte = numAlpha(0) + ` Décomposer $A = ${texNombre(nb1)}$ en produit de facteurs premiers : `
+          texte = numAlpha(0) + ` Décomposer $A = ${texNombre(nb1)}$ en produit de facteurs premiers.`
           texteCorr = numAlpha(0) + ' La décomposition en produit de facteurs premier de $A = '
           switch (tabPremMultNb1[0].mult) {
             case 1:
@@ -188,7 +188,7 @@ export default function FractionsIrreductibles () {
           texteCorr += '$.'
           // break;
           // case 2 : // décomposition de B
-          texte += '<br>' + numAlpha(1) + ` Décomposer $B = ${texNombre(nb2)}$ en produit de facteurs premiers : `
+          texte += '<br>' + numAlpha(1) + ` Décomposer $B = ${texNombre(nb2)}$ en produit de facteurs premiers.`
           texteCorr += '<br>' + numAlpha(1) + ' La décomposition en produit de facteurs premier de $B = '
           switch (tabPremMultNb2[0].mult) {
             case 1:
