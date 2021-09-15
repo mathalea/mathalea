@@ -120,7 +120,7 @@
      
         <button id=\"delClasse".$classe."\" class=\"ui negative labeled icon button\" href=\"\">
           <i class=\"trash alternate icon\"></i>
-          Supprimer la classe de ".$classe."
+          ".$classe."
         </button>
         
         <div id=\"modalDelClasse".$classe."\" class=\"ui basic modal\">
@@ -129,7 +129,7 @@
             Opération de suppression
           </div>
           <div class=\"content\">
-            <p>Les opéarations de suppression sont irrémédiables ! Sûr de vouloir supprimer ? </p>
+            <p>Les opéarations de suppression sont irrémédiables ! Sûr de vouloir supprimer la classe de ".$classe." ? </p>
           </div>
           <div class=\"actions\">
             <div class=\"ui red basic cancel inverted button\">
@@ -184,7 +184,7 @@
 
                   <button id=\"del".substr($object->name,0,-4).$classe."\" class=\"ui negative labeled icon button\" href=\"\">
                   <i class=\"trash alternate icon\"></i>
-                  Supprimer la ".substr($object->name,0,-4)." pour les ".$classe."
+                  ".substr($object->name,0,-4)."
                   </button>
                 
                 <div id=\"modalDel".substr($object->name,0,-4).$classe."\" class=\"ui basic modal\">
@@ -193,7 +193,7 @@
                     Opération de suppression
                   </div>
                   <div class=\"content\">
-                    <p>Les opéarations de suppression sont irrémédiables ! Sûr de vouloir supprimer ? </p>
+                    <p>Les opéarations de suppression sont irrémédiables ! Sûr de vouloir supprimer la ".substr($object->name,0,-4)." pour les ".$classe." ? </p>
                   </div>
                   <div class=\"actions\">
                     <div class=\"ui red basic cancel inverted button\">
