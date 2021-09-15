@@ -1579,7 +1579,7 @@ export default {
     "name": "4L15-1"
   },
   "4L16": {
-    "titre": "Déterminer la structure de l'expression littérale",
+    "titre": "Déterminer si ces expressions sont des sommes, des différences, des produits ou des quotients",
     "url": "/exercices/4e/4L16.js",
     "amcReady": false,
     "interactifReady": false,
@@ -4259,12 +4259,12 @@ export default {
     "interactifReady": false,
     "name": "betaModele21_parametrables"
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques"
+    "name": "betaModele30_constructions_géométriques"
   },
   "betaModele31_parametrables": {
     "titre": "Nom de l'exercice",
