@@ -22,7 +22,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
   this.sup = niveau // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.titre = 'Conversions de longueurs'
-  this.consigne = 'Compléter'
+  this.consigne = 'Compléter : '
   this.spacing = 2
   
   this.nouvelleVersion = function () {

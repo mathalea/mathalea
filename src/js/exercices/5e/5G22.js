@@ -13,7 +13,7 @@ export default function DroiteRemarquableDuTriangle () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
   this.titre = titre
-  this.consigne = 'Définir'
+  this.consigne = 'Définir :'
   this.spacing = 2
   this.nbQuestions = 1
   this.nbCols = 1

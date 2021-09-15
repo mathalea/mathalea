@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, prenom, texteEnCouleur, texPrix, numAlpha, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, arrondi, checkSum } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.'
+export const titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

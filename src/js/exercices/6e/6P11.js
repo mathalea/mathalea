@@ -826,7 +826,7 @@ export default function ProportionnaliteParLinearite () {
   'use strict'
   let question
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Répondre aux questions posées en justifiant'
+  this.consigne = 'Répondre aux questions posées en justifiant.'
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.nbQuestions = 6

@@ -9,5 +9,5 @@ export const titre = 'Déterminer si ces expressions sont des sommes, des diffé
 export default function DeterminerStructureExpressionLitterale () {
   DeterminerDerniereOperationExpressionLitterale.call(this)
   this.titre = titre
-  this.consigne = 'Déterminer si ces expressions sont des sommes, des différences, des produits ou des quotients'
+  this.consigne = 'Déterminer si ces expressions sont des sommes, des différences, des produits ou des quotients.'
 }
