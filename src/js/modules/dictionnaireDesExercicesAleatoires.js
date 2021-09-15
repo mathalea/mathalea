@@ -4123,42 +4123,6 @@ export default {
     "interactifReady": false,
     "name": "betaAsymptotesObliques"
   },
-  "betaCaNCM2": {
-    "titre": "Course aux nombres CM2",
-    "url": "/exercices/beta/betaCaNCM2.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCaNCM2"
-  },
-  "betaCan2": {
-    "titre": "Course aux nombres seconde",
-    "url": "/exercices/beta/betaCan2.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCan2"
-  },
-  "betaCan2G01": {
-    "titre": "Périmètres de carrés et de rectangles",
-    "url": "/exercices/beta/betaCan2G01.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": [
-      "qcm",
-      "mathLive"
-    ],
-    "name": "betaCan2G01"
-  },
   "betaCAN2Q20-01": {
     "titre": "Calcul de l’hypoténuse avec Pythagore",
     "url": "/exercices/beta/betaCAN2Q20-01.js",
@@ -4241,6 +4205,31 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "betaCaNCM2"
+  },
+  "betaCan2": {
+    "titre": "Course aux nombres seconde",
+    "url": "/exercices/beta/betaCan2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCan2"
+  },
+  "betaCan2G01": {
+    "titre": "Périmètres de carrés et de rectangles",
+    "url": "/exercices/beta/betaCan2G01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
+    "name": "betaCan2G01"
   },
   "betaComplexes": {
     "titre": "Exercice exemple Nombres complexes",
@@ -4349,12 +4338,12 @@ export default {
     "interactifReady": false,
     "name": "betaModele21_parametrables"
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques"
+    "name": "betaModele30_constructions_géométriques"
   },
   "betaModele31_parametrables": {
     "titre": "Nom de l'exercice",
@@ -5270,7 +5259,7 @@ export default {
     "name": "can6C01"
   },
   "can6C02": {
-    "titre": "Nombre pair multiplié par 5",
+    "titre": "Multiplier nombre pair par 5",
     "url": "/exercices/can/6e/can6C02.js",
     "amcReady": true,
     "amcType": {
@@ -5292,7 +5281,7 @@ export default {
     "name": "can6C03"
   },
   "can6C04": {
-    "titre": "Ajoute 10n + 9",
+    "titre": "Ajouter 10n + 9",
     "url": "/exercices/can/6e/can6C04.js",
     "amcReady": true,
     "amcType": {
@@ -5314,7 +5303,7 @@ export default {
     "name": "can6C05"
   },
   "can6C06": {
-    "titre": "Division par 9",
+    "titre": "Diviser par 9",
     "url": "/exercices/can/6e/can6C06.js",
     "amcReady": true,
     "amcType": {
@@ -5347,7 +5336,7 @@ export default {
     "name": "can6C08"
   },
   "can6C09": {
-    "titre": "Soustraire un nombre se finissant par 9",
+    "titre": "Soustraire 10n+9",
     "url": "/exercices/can/6e/can6C09.js",
     "amcReady": true,
     "amcType": {
@@ -5544,6 +5533,14 @@ export default {
     "interactifType": "mathLive",
     "name": "can6D03"
   },
+  "can6D04": {
+    "titre": "Convertir minutes heures",
+    "url": "/exercices/can/6e/can6D04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6D04"
+  },
   "can6G01": {
     "titre": "Symétrique de point 6e",
     "url": "/exercices/can/6e/can6G01.js",
@@ -5575,7 +5572,7 @@ export default {
     "name": "can6M02"
   },
   "can6M03": {
-    "titre": "Conversions en mètres",
+    "titre": "Convertir en mètres",
     "url": "/exercices/can/6e/can6M03.js",
     "amcReady": true,
     "amcType": {
@@ -5619,7 +5616,7 @@ export default {
     "name": "can6M06"
   },
   "can6N01": {
-    "titre": "Recomposition entier",
+    "titre": "Recomposer entier",
     "url": "/exercices/can/6e/can6N01.js",
     "amcReady": true,
     "amcType": {
@@ -5630,7 +5627,7 @@ export default {
     "name": "can6N01"
   },
   "can6N02": {
-    "titre": "Recomposition entier simple",
+    "titre": "Recomposer entier simple",
     "url": "/exercices/can/6e/can6N02.js",
     "amcReady": true,
     "amcType": {
@@ -5641,7 +5638,7 @@ export default {
     "name": "can6N02"
   },
   "can6N03": {
-    "titre": "Recomposition entier moins simple",
+    "titre": "Recomposer entier moins simple",
     "url": "/exercices/can/6e/can6N03.js",
     "amcReady": true,
     "amcType": {

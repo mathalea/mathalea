@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 281 
-- nombre d'exos interactifReady 334 
+- nombre d'exos amcReady 287 
+- nombre d'exos interactifReady 344 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -216,9 +216,6 @@
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
-|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
-|betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
-|betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaCAN2Q20-01|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
 |betaCAN2Q20-02|Calcul de d’un côté avec Pythagore|KO|KO|OK|mathLive|
 |betaCAN2Q20-03|Angle dans un triangle isocèle|KO|KO|OK|mathLive|
@@ -229,6 +226,8 @@
 |betaCAN2Q20-08|Recherche valeur avec Pythagore|KO|KO|OK|mathLive|
 |betaCAN2Q20-09|Trigonométrie|KO|KO|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
+|betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
+|betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
@@ -306,14 +305,14 @@
 |can5P02|Pourcentage (proportion) 2|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |can6C01|Ordre de grandeur|OK|qcmMono|OK|qcm|
-|can6C02|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
+|can6C02|Multiplier nombre pair par 5|OK|AMCNum|OK|mathLive|
 |can6C03|Addition à trou|OK|AMCNum|OK|mathLive|
-|can6C04|Ajoute 10n + 9|OK|AMCNum|OK|mathLive|
+|can6C04|Ajouter 10n + 9|OK|AMCNum|OK|mathLive|
 |can6C05|Multiplier astucieusement|OK|AMCNum|OK|mathLive|
-|can6C06|Division par 9|OK|AMCNum|OK|mathLive|
+|can6C06|Diviser par 9|OK|AMCNum|OK|mathLive|
 |can6C07|Reste de division par 3|OK|AMCNum|OK|mathLive|
 |can6C08|Quart ou Tiers|OK|AMCNum|OK|mathLive|
-|can6C09|Soustraire un nombre se finissant par 9|OK|AMCNum|OK|mathLive|
+|can6C09|Soustraire 10n+9|OK|AMCNum|OK|mathLive|
 |can6C10|Tables de x du 5 au 9|OK|AMCNum|OK|mathLive|
 |can6C11|Double ou triple (décimal)|OK|AMCNum|OK|mathLive|
 |can6C12|Double ou triple|OK|AMCNum|OK|mathLive|
@@ -331,16 +330,17 @@
 |can6D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calcul de durée en minutes|OK|AMCNum|OK|mathLive|
+|can6D04|Convertir minutes heures|KO|KO|OK|mathLive|
 |can6G01|Symétrique de point 6e|KO|KO|OK|mathLive|
 |can6M01|Question de périmètres|OK|qcmMono|OK|qcm|
 |can6M02|La bonne unité|OK|qcmMono|OK|qcm|
-|can6M03|Conversions en mètres|OK|AMCNum|OK|mathLive|
+|can6M03|Convertir en mètres|OK|AMCNum|OK|mathLive|
 |can6M04|Conversions en tous sens|OK|AMCNum|OK|mathLive|
 |can6M05|Conversions m$^3$ et litres|OK|AMCNum|OK|mathLive|
 |can6M06|Périmètre d’une figure|OK|AMCNum|OK|mathLive|
-|can6N01|Recomposition entier|OK|AMCNum|OK|mathLive|
-|can6N02|Recomposition entier simple|OK|AMCNum|OK|mathLive|
-|can6N03|Recomposition entier moins simple|OK|AMCNum|OK|mathLive|
+|can6N01|Recomposer entier|OK|AMCNum|OK|mathLive|
+|can6N02|Recomposer entier simple|OK|AMCNum|OK|mathLive|
+|can6N03|Recomposer entier moins simple|OK|AMCNum|OK|mathLive|
 |can6N04|Abscisse fractionnaire|OK|AMCHybride|OK|mathLive|
 |can6N05|Chiffre des ...|OK|AMCHybride|OK|mathLive|
 |can6N06|Arrondi au dixième|OK|AMCHybride|OK|mathLive|

@@ -1,6 +1,6 @@
 import { calcul, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Ajoute 10n + 9'
+export const titre = 'Ajouter 10n + 9'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,7 +15,7 @@ export default function Ajoute10NPlus9 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.nouvelleVersion = function () {
+  this.nouvelleVersion = function () {
     const a = randint(3, 9)
     const b = randint(2, 8)
     const c = randint(1, 5)
