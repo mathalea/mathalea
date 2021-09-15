@@ -65,6 +65,6 @@ export default function TraceCourbeInterpolee1 () {
     this.contenu = mathalea2d({ xmin: xMin - 1, xmax: xMax + 1, ymin: yMin - 1, ymax: yMax + 1 }, objets)
   }
   this.besoinFormulaireTexte = ['Liste des ordonnées sous la forme: y0;y1;y2;...']
-  this.besoinFormulaire2Texte = ['x0 et pas séparés par ; (séparateur décimal = . ) exemple : -5;0.5']
+  this.besoinFormulaire2Texte = ['Première abscisse et incrément séparés par ; (séparateur décimal = . ) exemple : -5;0.5']
   this.besoinFormulaire3Numerique = ['Modèles de couleur ', 3, '1 : Points rouges sur courbe noire\n2 : Points bleus sur courbe rouge\n3 : Points verts sur courbe bleue']
 }
