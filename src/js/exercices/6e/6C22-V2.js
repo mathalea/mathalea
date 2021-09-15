@@ -45,10 +45,16 @@ export default function ProblemesDePlusEtDeMoins () {
     const n = parseInt(this.sup) - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    if (this.interactif) {
+    if (this.interactif && !context.isAmc) {
       this.introduction = lampeMessage({
         titre: 'Calculatrice interdite.',
         texte: 'Résoudre les problèmes suivants au brouillon et écrire les réponses dans les cases, ne pas préciser "€" ni "euros" ...',
+        couleur: 'nombres'
+      })
+    } else {
+      this.introduction = lampeMessage({
+        titre: 'Calculatrice interdite.',
+        texte: 'Résoudre les problèmes suivants : ',
         couleur: 'nombres'
       })
     }
