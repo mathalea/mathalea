@@ -86,7 +86,13 @@ export default function IntervallesDeR () {
           int1 = intervalle(X1, A, 'red', 0)
           int1.epaisseur = 6
           texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x<${a}$ et représenter l'intervalle sur une droite graduée.`
-          texteCorr = mathalea2d(-2, -2, 15, 2, s, int, int1, c1)
+          texteCorr = mathalea2d({
+            xmin: -2,
+            ymin: -2,
+            xmax: 15,
+            ymax: 2,
+            scale: 0.6
+          }, s, int, int1, c1)
           texteCorr += `$I=]-\\infty;${a}[$`
           break
 
