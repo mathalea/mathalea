@@ -1,5 +1,5 @@
 import DeterminerDerniereOperationExpressionLitterale from '../5e/5L14-4.js'
-export const titre = 'Déterminer la structure de l\'expression littérale'
+export const titre = 'Déterminer si ces expressions sont des sommes, des différences, des produits ou des quotients'
 
 /**
  * @author Guillaume Valmont
@@ -9,5 +9,5 @@ export const titre = 'Déterminer la structure de l\'expression littérale'
 export default function DeterminerStructureExpressionLitterale () {
   DeterminerDerniereOperationExpressionLitterale.call(this)
   this.titre = titre
-  this.consigne = 'Déterminer la structure de l\'expression littérale'
+  this.consigne = 'Déterminer si ces expressions sont des sommes, des différences, des produits ou des quotients.'
 }

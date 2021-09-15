@@ -17,7 +17,7 @@ export default function ConversionsDeDurees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 5
   this.titre = titre
-  this.consigne = 'Compléter les égalités suivantes'
+  this.consigne = 'Compléter les égalités suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 2

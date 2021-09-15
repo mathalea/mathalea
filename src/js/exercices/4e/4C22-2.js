@@ -19,7 +19,7 @@ export default function ExerciceDiviserFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1 // Avec ou sans relatifs
   this.titre = titre
-  this.consigne = 'Calculer et donner le résultat sous forme irréductible'
+  this.consigne = 'Calculer et donner le résultat sous forme irréductible.'
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 5
