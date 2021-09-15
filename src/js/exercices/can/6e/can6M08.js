@@ -50,7 +50,7 @@ export default function QuestionDAires () {
     }
     let texteCorr = VF === 'V' ? 'Vrai' : 'Faux'
     texteCorr += ` car le carré a une aire de ${a * a} cm${exposant(2)} et le rectangle a une aire de ${a * b} cm${exposant(2)}.`
-    texteCorr += `<br>Ce qui fait ${VF === 'V' ? 'bien ' : ''} une différence de $${Math.max(a * a, a * b) - Math.min(a * a, a * b)} cm^2$ ${VF === 'F' ? ' et non pas de $' + texNombrec(Math.max(a * a, a * b) - Math.min(a * a, a * b) + c) + 'cm^2$.' : '.'}`
+    texteCorr += `<br>Ce qui fait ${VF === 'V' ? 'bien ' : ''} une différence de ${Math.max(a * a, a * b) - Math.min(a * a, a * b)} cm${exposant(2)} ${VF === 'F' ? ' et non pas de ' + texNombrec(Math.max(a * a, a * b) - Math.min(a * a, a * b) + c) + ' cm' + exposant(2) + '.' : '.'}`
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
