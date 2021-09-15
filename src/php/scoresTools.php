@@ -34,11 +34,6 @@
    */
 
   function createIndexScores($path,$codeProf) {
-    // À conserver car j'avais fait n'importe quoi pour le camelCase
-    // Au moins jusqu'à l'an prochain !
-    if (file_exists($path.'/iSinactive.txt')) {
-      unlink($path.'/iSinactive.txt');
-    };
     // On crée un timestamp pour identifiant les espaces inactifs et le libérer
     $f = fopen($path.'/isInactive.txt',"w+");  
     fputs($f,time().PHP_EOL);
