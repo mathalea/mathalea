@@ -29,7 +29,7 @@ export default function AbscisseFractionnaire () {
     } while (b % a === 0)
     const c = new Fraction(b, a)
     this.reponse = c
-    this.question = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5 }, droiteGraduee2({
+    this.question = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
       Unite: 3,
       Min: 0,
       Max: 4.2,

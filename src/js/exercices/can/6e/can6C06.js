@@ -1,6 +1,6 @@
 import { calcul, choice, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Division par 9'
+export const titre = 'Diviser par 9'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

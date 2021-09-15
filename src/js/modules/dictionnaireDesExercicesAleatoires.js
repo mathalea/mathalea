@@ -4130,6 +4130,78 @@ export default {
     "interactifReady": false,
     "name": "betaAsymptotesObliques"
   },
+  "betaCAN2Q20-01": {
+    "titre": "Calcul de l’hypoténuse avec Pythagore",
+    "url": "/exercices/beta/betaCAN2Q20-01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-01"
+  },
+  "betaCAN2Q20-02": {
+    "titre": "Calcul de d’un côté avec Pythagore",
+    "url": "/exercices/beta/betaCAN2Q20-02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-02"
+  },
+  "betaCAN2Q20-03": {
+    "titre": "Angle dans un triangle isocèle",
+    "url": "/exercices/beta/betaCAN2Q20-03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-03"
+  },
+  "betaCAN2Q20-04": {
+    "titre": "Calcul de la diagonale d’un carré",
+    "url": "/exercices/beta/betaCAN2Q20-04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-04"
+  },
+  "betaCAN2Q20-05": {
+    "titre": "Calcul d’une longueur avec Thalès",
+    "url": "/exercices/beta/betaCAN2Q20-05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-05"
+  },
+  "betaCAN2Q20-06": {
+    "titre": "Calcul d’une longueur avec Thalès2",
+    "url": "/exercices/beta/betaCAN2Q20-06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-06"
+  },
+  "betaCAN2Q20-07": {
+    "titre": "Calcul d’une longueur avec Thalès (milieu)",
+    "url": "/exercices/beta/betaCAN2Q20-07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-07"
+  },
+  "betaCAN2Q20-08": {
+    "titre": "Recherche valeur avec Pythagore",
+    "url": "/exercices/beta/betaCAN2Q20-08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-08"
+  },
+  "betaCAN2Q20-09": {
+    "titre": "Trigonométrie",
+    "url": "/exercices/beta/betaCAN2Q20-09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q20-09"
+  },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
     "url": "/exercices/beta/betaCaNCM2.js",
@@ -5194,7 +5266,7 @@ export default {
     "name": "can6C01"
   },
   "can6C02": {
-    "titre": "Nombre pair multiplié par 5",
+    "titre": "Multiplier nombre pair par 5",
     "url": "/exercices/can/6e/can6C02.js",
     "amcReady": true,
     "amcType": {
@@ -5216,7 +5288,7 @@ export default {
     "name": "can6C03"
   },
   "can6C04": {
-    "titre": "Ajoute 10n + 9",
+    "titre": "Ajouter 10n + 9",
     "url": "/exercices/can/6e/can6C04.js",
     "amcReady": true,
     "amcType": {
@@ -5238,7 +5310,7 @@ export default {
     "name": "can6C05"
   },
   "can6C06": {
-    "titre": "Division par 9",
+    "titre": "Diviser par 9",
     "url": "/exercices/can/6e/can6C06.js",
     "amcReady": true,
     "amcType": {
@@ -5271,7 +5343,7 @@ export default {
     "name": "can6C08"
   },
   "can6C09": {
-    "titre": "Soustraire un nombre se finissant par 9",
+    "titre": "Soustraire 10n+9",
     "url": "/exercices/can/6e/can6C09.js",
     "amcReady": true,
     "amcType": {
@@ -5435,6 +5507,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can6C23"
   },
+  "can6C24": {
+    "titre": "Multiplier par 0,1 ou 0,01 ou 0,001",
+    "url": "/exercices/can/6e/can6C24.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C24"
+  },
   "can6D01": {
     "titre": "Conversion Heures minutes",
     "url": "/exercices/can/6e/can6D01.js",
@@ -5468,6 +5551,14 @@ export default {
     "interactifType": "mathLive",
     "name": "can6D03"
   },
+  "can6D04": {
+    "titre": "Convertir minutes heures",
+    "url": "/exercices/can/6e/can6D04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6D04"
+  },
   "can6G01": {
     "titre": "Symétrique de point 6e",
     "url": "/exercices/can/6e/can6G01.js",
@@ -5499,7 +5590,7 @@ export default {
     "name": "can6M02"
   },
   "can6M03": {
-    "titre": "Conversions en mètres",
+    "titre": "Convertir en mètres",
     "url": "/exercices/can/6e/can6M03.js",
     "amcReady": true,
     "amcType": {
@@ -5542,8 +5633,30 @@ export default {
     "interactifType": "mathLive",
     "name": "can6M06"
   },
+  "can6M07": {
+    "titre": "Compléter un volume au litre",
+    "url": "/exercices/can/6e/can6M07.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6M07"
+  },
+  "can6M08": {
+    "titre": "Question d'aires",
+    "url": "/exercices/can/6e/can6M08.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can6M08"
+  },
   "can6N01": {
-    "titre": "Recomposition entier",
+    "titre": "Recomposer entier",
     "url": "/exercices/can/6e/can6N01.js",
     "amcReady": true,
     "amcType": {
@@ -5554,7 +5667,7 @@ export default {
     "name": "can6N01"
   },
   "can6N02": {
-    "titre": "Recomposition entier simple",
+    "titre": "Recomposer entier simple",
     "url": "/exercices/can/6e/can6N02.js",
     "amcReady": true,
     "amcType": {
@@ -5565,7 +5678,7 @@ export default {
     "name": "can6N02"
   },
   "can6N03": {
-    "titre": "Recomposition entier moins simple",
+    "titre": "Recomposer entier moins simple",
     "url": "/exercices/can/6e/can6N03.js",
     "amcReady": true,
     "amcType": {
