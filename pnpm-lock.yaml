@@ -35,7 +35,7 @@ specifiers:
   katex: ^0.13.18
   loadjs: ^4.2.0
   mathjs: ^9.4.4
-  mathlive: ^0.67.0
+  mathlive: ^0.69.6
   mini-css-extract-plugin: ^1.6.2
   minimist: ^1.2.5
   playwright: ^1.14.1
@@ -64,7 +64,7 @@ dependencies:
   katex: 0.13.18
   loadjs: 4.2.0
   mathjs: 9.4.4
-  mathlive: 0.67.0
+  mathlive: 0.69.6
   qrcode: 1.4.4
   regenerator-runtime: 0.13.9
   seedrandom: 3.0.5
@@ -437,6 +437,14 @@ packages:
 
   /@bugsnag/safe-json-stringify/6.0.0:
     resolution: {integrity: sha512-htzFO1Zc57S8kgdRK9mLcPVTW1BY2ijfH7Dk2CeZmspTWKdKqSo1iwmqrq2WtRjFlo8aRZYgLX0wFrDXF/9DLA==}
+    dev: false
+
+  /@cortex-js/compute-engine/0.4.2:
+    resolution: {integrity: sha512-ri6CHomyXvp9aWyu3ZibHzN4xNyyf/8n5YJyQWTqypwk8jPwxa+GNPd/hbJXOhwz+YDnrkp7dMqhdl31DAH+cg==}
+    engines: {node: '>=12.0.0', npm: '>=6.14.8'}
+    dependencies:
+      complex.js: 2.0.15
+      decimal.js: 10.3.1
     dev: false
 
   /@cortex-js/math-json/0.1.1:
@@ -3488,10 +3496,11 @@ packages:
       typed-function: 2.0.0
     dev: false
 
-  /mathlive/0.67.0:
-    resolution: {integrity: sha512-kQ1H2TRDWrXrdalwHp/MDNKNaFka9uIuDMKmjzhsMJUDbatV1htCaNt1SvWYdn0SMTOW6SOtRI4aMyDRDzug7w==}
+  /mathlive/0.69.6:
+    resolution: {integrity: sha512-elKjaBJRYPJhq1KYxy7gLt9a1U1WankJzmkHQmmxXaCiS6r+3SHc+EbcuAxDpSNL8NxLcHgnA4hz+gQ8uFfwxQ==}
     engines: {node: '>=12.0.0', npm: '>=6.14.8'}
-    requiresBuild: true
+    dependencies:
+      '@cortex-js/compute-engine': 0.4.2
     dev: false
 
   /mdurl/1.0.1:

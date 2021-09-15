@@ -15,8 +15,7 @@ export default function DoubleOuTripleDecimal () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.nouvelleVersion = function () {
+    this.nouvelleVersion = function () {
     const a = randint(1, 3)
     const b = randint(1, 9, a)
     const d = randint(1, 9)

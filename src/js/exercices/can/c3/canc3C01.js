@@ -15,7 +15,6 @@ export default function CalculsAutomatiques () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.nouvelleVersion = function () {
     const a = choice([50, 100, 40, 10, 20, 60, 200, 1000, 500])
     if (choice([true, false])) {

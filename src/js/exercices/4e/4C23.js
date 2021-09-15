@@ -1,484 +1,211 @@
 import Exercice from '../Exercice.js'
+import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, texFraction, randint, miseEnEvidence, texteEnCouleurEtGras, choice } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, produitDeDeuxFractions, simplificationDeFractionAvecEtapes, miseEnEvidence, texFractionSigne, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, texFraction, ppcm, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-import { fraction } from '../../modules/fractions.js'
-export const titre = 'Fractions et priorités opératoires'
-export const amcReady = true
-export const amcType = 'AMCOpenNum✖︎2' // type de question AMC
-export const interactifReady = true
-export const interactifType = 'mathLive'
+
+export const titre = 'Somme, différence ou produit de fractions'
+
 /**
- * * Calcul fractionnaire : somme d'une fraction et du produit de deux autres fractions. Paramétrages possibles :
- * 1 : Calcul avec nombres positifs sans piège de priorité
- * * 2 : Calcul avec nombres positifs avec piège
- * * 3 : Calcul avec nombres relatifs
- * @author Jean-Claude Lhote
- * 4C23
- */
-export default function ExerciceAdditionnerFractionProduit () {
+ * Description didactique de l'exercice
+ * @author Mireille Gain
+ * Référence 4C23-1
+ * Date de publication 11 septembre 2021
+*/
+export default function SommeOuProduitFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = 1 // Avec ou sans relatifs
-  this.titre = titre
-  this.consigne = 'Calculer et donner le résultat sous forme irréductible'
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 5
-  this.nbColsCorr = 1
-  this.correctionDetailleeDisponible = true
+  this.spacing = context.isHtml ? 4 : 3
+  this.spacingCorr = context.isHtml ? 4 : 3
+  this.consigne = 'Effectue les calculs suivants :'
+  this.nbQuestions = 8 // Nombre de questions par défaut
+  this.nbCols = 4 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
+  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.video = '' // Id YouTube ou url
+  this.sup = 1
+  this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
   this.correctionDetaillee = true
 
-  this.nouvelleVersion = function () {
+  this.nouvelleVersion = function (numeroExercice) {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let typesDeQuestionsDisponibles
-    const listeFractions = obtenirListeFractionsIrreductibles()
-    const listeFractionsFaciles = obtenirListeFractionsIrreductiblesFaciles()
-    let nombreDeSigneMoins
-    if (this.sup === 1) {
-      typesDeQuestionsDisponibles = [1, 2, 3, 4]// fractions faciles, relatifs
-    } else if (this.sup === 2) {
-      typesDeQuestionsDisponibles = [1, 2, 3, 2]// 1*nombre entier,3*fraction (pas de négatifs)
-    } else if (this.sup === 3) {
-      typesDeQuestionsDisponibles = [3, 3, 4, 4]// fractions, 2*positifs, 2*relatifs
-    } else {
-      typesDeQuestionsDisponibles = [4]
+    this.sup = parseInt(this.sup)
+
+    let typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6'] // On crée 6 types de questions
+    switch (this.sup) {
+      case 1:
+        typeQuestionsDisponibles = ['type1', 'type1', 'type1', 'type1', 'type2', 'type2', 'type5', 'type6']
+        break
+      case 2:
+        typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type3', 'type3', 'type4', 'type5', 'type6']
+        break
+      case 3:
+        typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7', 'type8']
+        break
     }
 
-    const listeTypeDeQuestions = combinaisonListes(
-      typesDeQuestionsDisponibles,
-      this.nbQuestions
-    )
-    for (
-      let i = 0,
-        ab,
-        cd,
-        ef,
-        a,
-        b,
-        c,
-        d,
-        e,
-        f,
-        p,
-        k1,
-        k2,
-        reponse,
-        signe1,
-        signe2,
-        texte,
-        texteCorr,
-        produit = [],
-        typesDeQuestions,
-        cpt = 0;
-      i < this.nbQuestions && cpt < 50;
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (let i = 0, num1, num2, den1, den2, den3, k, k2, alea, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+      // les numérateurs
+      num1 = randint(1, 7)
+      num2 = randint(3, 9)
+      // les dénominateurs
+      den1 = randint(2, 9)
+      k = randint(1, 4)
+      k2 = randint(2, 5)
+      den2 = k * den1
+      den3 = randint(2, 9)
+      alea = choice([1, 2])
+      texte = ''
+      texteCorr = ''
 
-    ) {
-      typesDeQuestions = listeTypeDeQuestions[i]
-      if (this.sup === 1) { ab = choice(listeFractionsFaciles); cd = choice(listeFractionsFaciles); ef = choice(listeFractionsFaciles) } else { ab = choice(listeFractions); cd = choice(listeFractions); ef = choice(listeFractions) }
+      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+        case 'type1': // Somme de fractions de dénominateurs égaux ou multiples
 
-      a = ab[0]
-      b = ab[1]
-      c = cd[0]
-      d = cd[1]
-      e = ef[0]
-      f = ef[1]
-      switch (typesDeQuestions) {
-        case 1: // sans piège fraction1 + fraction2 x fraction3 (tout positif)
-          texte = `$${texFraction(a, b)}+${texFraction(c, d)}\\times${texFraction(e, f)}$`
-
-          texteCorr = `$${texFraction(a, b)}+${texFraction(c, d)}\\times${texFraction(e, f)}$`
-          produit = produitDeDeuxFractions(c, d, e, f)
-          if (this.correctionDetaillee) {
-            texteCorr += `$=${texFraction(a, b)}+${texFraction(c + '\\times' + e, d + '\\times' + f)}$`
-            texteCorr += `$=${texFraction(a, b)}+${texFraction(c * e, d * f)}$`
-          } else {
-            texteCorr += `$=${texFraction(a, b)}+${produit[1]}$`
-            texteCorr += `$=${texFraction(a, b)}+${produit[0]}$`
-          }
-          // faut-il simplifier c*e/d*f
-          if (!this.correctionDetaillee) {
-            [c, d, e, f] = produit[2]
-          }
-          p = pgcd(c * e, d * f)
-          if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${texFraction(a, b)}+${texFraction((e * c) / p + '\\times\\cancel{' + p + '}', (f * d) / p + '\\times\\cancel{' + p + '}'
-            )}$`
-            c = (e * c) / p
-            d = (f * d) / p
-          } else {
-            c = e * c
-            d = f * d
-          }
-          p = ppcm(b, d) // p = dénominateur commun
-          k1 = p / b
-          k2 = p / d
-          if (k1 !== 1) {
-            texteCorr += `$=${texFraction(
-              a + miseEnEvidence('\\times' + k1),
-              b + miseEnEvidence('\\times' + k1)
-            )}$`
-          } else {
-            if (k2 !== 1) {
-              texteCorr += `$=${texFraction(a, b)}$`
-            }
-          }
-          if (k2 !== 1) {
-            texteCorr += `$+${texFraction(
-              c + miseEnEvidence('\\times' + k2),
-              d + miseEnEvidence('\\times' + k2)
-            )}$`
-          } else {
-            if (k1 !== 1) {
-              texteCorr += `$+${texFraction(c, d)}$`
-            }
-          }
-
-          texteCorr += `$=${texFraction(a * k1, p)}+${texFraction(c * k2, p)}$`
-          e = a * k1 + c * k2
-          f = p
-
-          texteCorr += `$=${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`
-          reponse = fraction(e, f).simplifie()
-          break
-
-        case 2: // sans piège fraction2 x fraction3 + fraction1  (tout positif)
-          texte = `$${texFraction(c, d)}\\times${texFraction(e, f)}+${texFraction(a, b)}$`
-          produit = produitDeDeuxFractions(c, d, e, f)
-          texteCorr = `$${texFraction(c, d)}\\times${texFraction(e, f)}+${texFraction(a, b)}$`
-          if (this.correctionDetaillee) {
-            texteCorr += `$=${texFraction(c + '\\times' + e, d + '\\times' + f)}+${texFraction(a, b)}$`
-            texteCorr += `$=${texFraction(c * e, d * f)}+${texFraction(a, b)}$`
-          } else {
-            texteCorr += `$=${produit[1]}+${texFraction(a, b)}$`
-            texteCorr += `$=${produit[0]}+${texFraction(a, b)}$`
-          }
-          // faut-il simplifier c*e/d*f
-          if (!this.correctionDetaillee) {
-            [c, d, e, f] = produit[2]
-          }
-          p = pgcd(c * e, d * f)
-          if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${texFraction((e * c) / p + '\\times\\cancel{' + p + '}', (f * d) / p + '\\times\\cancel{' + p + '}')}+${texFraction(a, b)}$`
-            c = (e * c) / p
-            d = (f * d) / p
-          } else {
-            c = e * c
-            d = f * d
-          }
-          p = ppcm(b, d) // p = dénominateur commun
-          k1 = p / b
-          k2 = p / d
-          if (k2 !== 1) {
-            texteCorr += `$=${texFraction(
-            c + miseEnEvidence('\\times' + k2),
-            d + miseEnEvidence('\\times' + k2)
-          )}$`
-          } else {
-            if (k1 !== 1) {
-              texteCorr += `$=${texFraction(c, d)}$`
-            }
-          }
-
-          if (k1 !== 1) {
-            texteCorr += `$+${texFraction(
-            a + miseEnEvidence('\\times' + k1),
-            b + miseEnEvidence('\\times' + k1)
-          )}$`
-          } else {
-            if (k2 !== 1) {
-              texteCorr += `$+${texFraction(a, b)}$`
-            }
-          }
-
-          if (this.correctionDetaillee) {
-            texteCorr += `$=${texFraction(c * k2, p)}+${texFraction(a * k1, p)}$`
-          }
-          e = a * k1 + c * k2
-          f = p
-
-          texteCorr += `$=${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`
-          reponse = fraction(e, f).simplifie()
-          break
-
-        case 3: // avec piege addition non prioritaire fraction2 * fraction3 + fraction1  tout positif
-          d = b
-          produit = produitDeDeuxFractions(c, d, e, f)
-          texte = `$${texFraction(c, d)}\\times${texFraction(e, f)}+${texFraction(a, b)}$`
-          texteCorr = `$${texFraction(c, d)}\\times${texFraction(e, f)}+${texFraction(a, b)}$`
-          if (this.correctionDetaillee) {
-            texteCorr += `$=${texFraction(c + '\\times' + e, d + '\\times' + f)}+${texFraction(a, b)}$`
-            texteCorr += `$=${texFraction(c * e, d * f)}+${texFraction(a, b)}$`
-          } else {
-            texteCorr += `$=${produit[1]}+${texFraction(a, b)}$`
-            texteCorr += `$=${produit[0]}+${texFraction(a, b)}$`
-          }
-          // faut-il simplifier c*e/d*f
-          if (!this.correctionDetaillee) {
-            [c, d, e, f] = produit[2]
-          }
-          p = pgcd(c * e, d * f)
-          if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${texFraction(
-              (e * c) / p + '\\times\\cancel{' + p + '}',
-              (f * d) / p + '\\times\\cancel{' + p + '}'
-            )}+${texFraction(a, b)}$`
-            c = (e * c) / p
-            d = (f * d) / p
-          } else {
-            c = e * c
-            d = f * d
-          }
-          p = ppcm(b, d) // denominateur commun = p
-          k1 = p / b
-          k2 = p / d
-
-          if (k2 !== 1) {
-            texteCorr += `$=${texFraction(
-              c + '\\times' + k2,
-              d + '\\times' + k2
-            )}$`
-          } else {
-            if (k1 !== 1) {
-              texteCorr += `$=${texFraction(c, d)}$`
-            }
-          }
-
-          if (k1 !== 1) {
-            texteCorr += `$+${texFraction(
-              a + miseEnEvidence('\\times' + k1),
-              b + miseEnEvidence('\\times' + k1)
-            )}$`
-          } else {
-            if (k2 !== 1) {
-              texteCorr += `$+${texFraction(a, b)}$`
-            }
-          }
-          if (this.correctionDetaillee) {
-            texteCorr += `$=${texFraction(c * k2, d * k2)}+${texFraction(a * k1, b * k1)}$`
-          }
-          e = a * k1 + c * k2
-          f = p
-          texteCorr += `$=${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`
-          reponse = fraction(e, f).simplifie()
-          break
-
-        case 4:
-          a = a * randint(-1, 1, [0])
-          b = b * randint(-1, 1, [0])
-          c = c * randint(-1, 1, [0])
-          d = d * randint(-1, 1, [0])
-          e = e * randint(-1, 1, [0])
-          f = f * randint(-1, 1, [0])
-
-          nombreDeSigneMoins = (c < 0) + (d < 0) + (e < 0) + (f < 0)
-          if (Math.pow(-1, nombreDeSigneMoins) === 1) {
-            signe2 = '+'
-          } else {
-            signe2 = '-'
-          }
-          texte = `$${texFraction(a, b)}+${texFraction(c, d)}\\times${texFraction(e, f)}=$`
-          texteCorr = `$${texFraction(a, b)}+${texFraction(c, d)}\\times${texFraction(e, f)}$`
-
-          c = abs(c) // gestion du signe du produit avec {signe}
-          d = abs(d)
-          e = abs(e)
-          f = abs(f)
-
-          if (a * b > 0) {
-            // suppression des signes - superflus de la première fraction
-            signe1 = ''
-          } else {
-            signe1 = '-'
-          }
-
-          a = abs(a)
-          b = abs(b)
-          produit = produitDeDeuxFractions(c, d, e, f)
-          if (this.correctionDetaillee) {
-            texteCorr += `$=${signe1}${texFraction(
-            a,
-            b
-          )}${signe2}${texFraction(c + '\\times' + e, d + '\\times' + f)}$`
-            texteCorr += `$=${signe1}${texFraction(
-            a,
-            b
-          )}${signe2}${texFraction(c * e, d * f)}$`
-          } else {
-            texteCorr += `$=${signe1}${texFraction(
-              a,
-              b
-            )}${signe2}${produit[1]}$`
-            texteCorr += `$=${signe1}${texFraction(
-              a,
-              b
-            )}${signe2}${produit[0]}$`
-          }
-          // faut-il simplifier c*e/d*f
-          if (!this.correctionDetaillee) {
-            [c, d, e, f] = produit[2]
-          }
-          p = pgcd(c * e, d * f)
-          if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${signe1}${texFraction(
-              a,
-              b
-            )}${signe2}${texFraction(
-              (e * c) / p + '\\times\\cancel{' + p + '}',
-              (f * d) / p + '\\times\\cancel{' + p + '}'
-            )}$`
-            c = (e * c) / p
-            d = (f * d) / p
-          } else {
-            c = e * c
-            d = f * d
-          }
-          p = ppcm(d, b) // mise au même dénominateur
-          if (d % b !== 0 && b % d !== 0) {
-            // dénominateur commun = p
-            k1 = p / b
-            k2 = p / d
-            texteCorr += `$=${signe1}${texFraction(
-              a + miseEnEvidence('\\times' + k1),
-              b + miseEnEvidence('\\times' + k1)
-            )}${signe2}${texFraction(
-              c + miseEnEvidence('\\times' + k2),
-              d + miseEnEvidence('\\times' + k2)
-            )}$`
-            texteCorr += `$=${signe1}${texFraction(
-              a * k1,
-              b * k1
-            )}${signe2}${texFraction(c * k2, d * k2)}$`
-            texteCorr += `$=${texFraction(
-              signe1 + a * k1 + signe2 + c * k2,
-              b * k1
-            )}$`
-            a = a * k1
-            c = c * k2
-            d = p
-          } else {
-            if (p === d) {
-              k1 = d / b // d = dénominateur commun
-              texteCorr += `$=${signe1}${texFraction(
-                a + miseEnEvidence('\\times' + k1),
-                b + miseEnEvidence('\\times' + k1)
-              )}${signe2}${texFraction(c, d)}$`
-              texteCorr += `$=${signe1}${texFraction(
-                a * k1,
-                d
-              )}${signe2}${texFraction(c, d)}$`
-              texteCorr += `$=${texFraction(
-                signe1 + a * k1 + signe2 + c,
-                d
-              )}$`
-              a = a * k1
-            } else {
-              // b=k2*d
-              k2 = b / d // b= dénominateur commun
-              texteCorr += `$=${signe1}${texFraction(
-                a,
-                b
-              )}${signe2}${texFraction(
-                c + miseEnEvidence('\\times' + k2),
-                d + miseEnEvidence('\\times' + k2)
-              )}$`
-              texteCorr += `$=${signe1}${texFraction(
-                a,
-                b
-              )}${signe2}${texFraction(c * k2, b)}$`
-              texteCorr += `$=${texFraction(
-                signe1 + a + signe2 + c * k2,
-                b
-              )}$`
-              c = c * k2
-              d = d * k2
-            }
-          }
-
-          if (a !== c) {
-            e = 0
-            if (signe1 === '') {
-              e = a
-            } else {
-              e = -a
-            }
-            if (signe2 === '+') {
-              e += c
-            } else {
-              e -= c
-            }
-          } else {
-            if (
-              (signe1 === '-' && signe2 === '+') ||
-              (signe1 === '' && signe2 === '-')
-            ) {
-              e = 0
-            } else {
-              e = 0
-              if (signe1 === '') {
-                e = a + c
-              } else {
-                e = -a - c
+          if (alea === 1) {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${texFraction(num2, den2)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${texFraction(num2, den2)}$ `
+            if (k > 1) {
+              if (this.correctionDetaillee) {
+                texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}+${texFraction(num2, den2)}$`
               }
+              texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * k, den2)}+${texFraction(num2, den2)}$ `
             }
+            texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num1 * k + num2, den2))}$ `
+          } else {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2, den1)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2, den1)}$ `
+            if (k > 1) {
+              if (this.correctionDetaillee) {
+                texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$ `
+              }
+              texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2 * k, den2)}$ `
+            }
+            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1))} ${miseEnEvidence('=' + texFraction(num1 + num2 * k, den2))}$ `
           }
 
-          texteCorr += `$=${texFractionSigne(e, d)}${simplificationDeFractionAvecEtapes(e, d)}$`
-          reponse = fraction(e, d).simplifie()
+          break
+
+        case 'type2': // Somme d'une fraction et d'un entier'
+          if (alea === 1) {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${k} + ${texFraction(num1, den1)} $ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k} + ${texFraction(num1, den1)} $ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(k * den1, den1)} + ${texFraction(num1, den1)}$ `
+            texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num1 + k * den1, den1))}$`
+          } else {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${k} $ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${k}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${texFraction(k * den1, den1)}$ `
+            texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num1 + k * den1, den1))}$ `
+          }
+          break
+
+        case 'type3': // Différence de fractions de dénominateurs égaux ou multiples
+          if (alea === 1) {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${texFraction(num2, den2)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${texFraction(num2, den2)}$ `
+            if (k > 1) {
+              if (this.correctionDetaillee) {
+                texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))} - ${texFraction(num2, den2)}$`
+              } texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * k, den1 * k)}-${texFraction(num2, den2)}$ `
+            }
+            texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num1 * k - num2, den2))}$ `
+          } else {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2, den1)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2, den1)}$ `
+            if (k > 1) {
+              if (this.correctionDetaillee) {
+                texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$ `
+              } texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2 * k, den2)}$ `
+            }
+            texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num1 - num2 * k, den2))}$ `
+          }
+
+          break
+
+        case 'type4': // Différence d'une fraction et d'un entier
+          if (alea === 1) {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${k} - ${texFraction(num1, den1)} $ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k} - ${texFraction(num1, den1)}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(k * den1, den1)} - ${texFraction(num1, den1)}$ `
+            texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(k * den1 - num1, den1))}$ `
+          } else {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${k}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${k}$ `
+            if (k > 1) { texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${texFraction(k * den1, den1)}$ ` }
+            texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num1 - k * den1, den1))}$ `
+          }
+
+          break
+
+        case 'type5': // Produit de fractions
+          texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(num2, den3)}$ `
+          texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(num2, den3)}$ `
+          texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num1 * num2, den1 * den3))}$`
+
+          break
+
+        case 'type6': // Produit d'une fraction par un entier
+          if (alea === 1) {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${k2}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${k2}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(k2, '1')}$ `
+            texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num1 * k2, den1))}$ `
+          } else {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${texFraction(num1, den1)} $ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${texFraction(num1, den1)} $  `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(k2, '1')} \\times  ${texFraction(num1, den1)}$ `
+            texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num1 * k2, den1))}$ `
+          }
+
+          break
+
+        case 'type7': // Avec priorité opératoire : a +/- bc
+          if (alea === 1) {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${texFraction(num2 * k2, den1 * den3)}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * den3, den1 * den3)} + ${texFraction(num2 * k2, den1 * den3)}$ `
+            texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num1 * den3 + num2 * k2, den1 * den3))}$ `
+          } else {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} - ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$  `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} - ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$  `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} - ${texFraction(num2 * k2, den1 * den3)}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * den3, den1 * den3)} - ${texFraction(num2 * k2, den1 * den3)}$ `
+            texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num1 * den3 - num2 * k2, den1 * den3))}$ `
+          }
+
+          break
+
+        case 'type8': // Avec priorité opératoire : ab +/- c
+          if (alea === 1) {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} + ${texFraction(num1, den1)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} + ${texFraction(num1, den1)}$  `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} + ${texFraction(num1, den1)}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} + ${texFraction(num1 * den3, den1 * den3)}$ `
+            texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num2 * k2 + num1 * den3, den1 * den3))}$ `
+          } else {
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} - ${texFraction(num1, den1)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} - ${texFraction(num1, den1)}$  `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} - ${texFraction(num1, den1)}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} - ${texFraction(num1 * den3, den1 * den3)}$ `
+            texteCorr += `<br>${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1))} $${miseEnEvidence('=' + texFraction(num2 * k2 - num1 * den3, den1 * den3))}$ `
+          }
+
           break
       }
+      texteCorr += '<br>'
 
-      if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
-        if (context.isAmc) {
-          this.autoCorrection[i] = {
-            enonce: `Calculer $${texte.substring(1, texte.length - 1)}$ et donner le résultat sous forme irreductible`,
-            propositions: [
-              {
-                texte: texteCorr,
-                statut: 3,
-                feedback: ''
-              }
-            ],
-            reponse: {
-              texte: 'numérateur',
-              valeur: reponse.signe * Math.abs(reponse.num),
-              param: {
-                digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.num)),
-                decimals: 0,
-                exposantNbChiffres: 0,
-                exposantSigne: false,
-                signe: reponse.signe === -1,
-                approx: 0
-              }
-            },
-            reponse2: {
-              texte: 'dénominateur',
-              valeur: Math.abs(reponse.den),
-              param: {
-                digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.den)),
-                decimals: 0,
-                exposantNbChiffres: 0,
-                exposantSigne: false,
-                signe: false,
-                approx: 0
-              }
-            }
-          }
-        } else {
-          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-          setReponse(this, i, reponse, { formatInteractif: 'fraction' })
-        }
+      // Si la question n'a jamais été posée, on l'enregistre
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
       }
+
       cpt++
     }
-    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
+
+    listeQuestionsToContenuSansNumero(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté ', 4,
-    '1 : Fractions faciles, positives ou non\n2 : Nombres positifs sans piège de priorité\n3 : Deux calculs avec positifs et piège de priorité et deux calculs avec relatifs\n4 : Calculs avec relatifs'
-  ]
+  this.besoinFormulaireNumerique = ['Choix du type de question', 3, '1 : Somme et produit\n2 : Somme ou différence, et produit\n3 : Avec priorité opératoire']
 }

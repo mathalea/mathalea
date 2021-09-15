@@ -15,7 +15,6 @@ export default function PoucentageP2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatChampTexte = 'largeur25 inline'
   this.nouvelleVersion = function () {
     const listeCarac = [['filles', 'Elles'], ['garçons', 'Ils'], ['sportifs', 'Ils'], ['musiciens', 'Ils']]

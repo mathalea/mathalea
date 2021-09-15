@@ -133,6 +133,6 @@ export default function FractionDuneQuantite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ["Type d'exercices", 5, "1 : Heures & minutes (inférieur à 1h)\n2 : Heures & minutes (jusqu'à 3h)\n3 : tablettes de chocolat\n4 : Bâton cassé\n5 : Mélange"]
+  this.besoinFormulaireNumerique = ["Type d'exercices", 5, "1 : Heures & minutes (inférieur à 1h)\n2 : Heures & minutes (jusqu'à 3h)\n3 : Tablettes de chocolat\n4 : Bâton cassé\n5 : Mélange"]
   this.besoinFormulaire2CaseACocher = ['Avec dessin', true]
 }

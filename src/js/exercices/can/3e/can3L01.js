@@ -15,7 +15,6 @@ export default function EquationAXEgalB () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
 
   this.nouvelleVersion = function () {
     const a = randint(-9, 9, [0, -1, 1]) // b peut être négatif, ça sera une équation du type x-b=c

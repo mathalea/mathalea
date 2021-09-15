@@ -29,8 +29,7 @@ export default function EcrireUneExpressionLitterale () {
   this.nbColsCorr = 1
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.interactif = true
-  this.amcReady = amcReady
+    this.amcReady = amcReady
   this.amcType = amcType
 
   this.nouvelleVersion = function () {

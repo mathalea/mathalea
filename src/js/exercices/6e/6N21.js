@@ -26,6 +26,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typeDeQuestions
@@ -56,11 +57,11 @@ export default function PlacerPointsAbscissesFractionnaires () {
           num = randint(origine * den + 1, (origine + 4) * den)
       }
       if (this.interactif) {
-        texte = `Place le point $${lettreDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
+        texte = `Placer le point $${lettreDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
       } else {
         num2 = randint(origine + 1, (origine + 4) * den, num)
         num3 = randint(origine + 1, (origine + 4) * den, [num, num2])
-        texte = `Place les points $${lettreDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$.`
+        texte = `Placer les points $${lettreDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$.`
       }
       const tailleUnite = 4
       const d = droiteGraduee2({

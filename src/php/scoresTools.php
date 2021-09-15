@@ -34,8 +34,13 @@
    */
 
   function createIndexScores($path,$codeProf) {
+    // À conserver car j'avais fait n'importe quoi pour le camelCase
+    // Au moins jusqu'à l'an prochain !
+    if (file_exists($path.'/iSinactive.txt')) {
+      unlink($path.'/iSinactive.txt');
+    };
     // On crée un timestamp pour identifiant les espaces inactifs et le libérer
-    $f = fopen($path.'/iSinactive.txt',"w+");  
+    $f = fopen($path.'/isInactive.txt',"w+");  
     fputs($f,time().PHP_EOL);
     fclose($f);
     $indexProfSpace = $path.'/index.php';
@@ -71,7 +76,7 @@
 
       // On récupère les classes distinctes dans un tableau
       foreach ($myFilesDatas as $object) {
-        if(!is_dir($object->file) && !in_array($object->name, array(".","..","index.php","iSinactive.txt")) && !in_array($object->classe,$classes)) {    
+        if(!is_dir($object->file) && !in_array($object->name, array(".","..","index.php","isInactive.txt")) && !in_array($object->classe,$classes)) {    
           array_push($classes,$object->classe);           
         }        
       }

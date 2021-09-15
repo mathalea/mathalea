@@ -23,8 +23,7 @@ export default function ProblemesDePlusEtDeMoins () {
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.interactif = true
-
+  
   const nombreDecimales = function (n) {
     let r, e
     if (n === 0) {

@@ -227,5 +227,5 @@ export default function Exercice_angles_triangles() {
 		}
 		listeQuestionsToContenu(this);
 	};
-	this.besoinFormulaireNumerique = ['Niveau de difficuté', 3, "1 : Facile \n 2 : Difficile \n 3 : Mélange des deux niveaux"];
+	this.besoinFormulaireNumerique = ['Niveau de difficuté', 3, " 1 : Facile \n 2 : Difficile \n 3 : Mélange des deux niveaux"];
 }

@@ -3,7 +3,6 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, shuffle, calcul, choisitLettresDifferentes, texNombre, texFraction, numAlpha, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../modules/outils.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-import { i } from 'mathjs'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Lire des abscisses décimales sous trois formes'
 export const interactifReady = true
@@ -31,7 +30,6 @@ export default function LireAbscisseDecimaleTroisFormes () {
   this.sup = 1
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.interactif = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -83,12 +81,12 @@ export default function LireAbscisseDecimaleTroisFormes () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      texte = `${numAlpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.` + ajouteChampTexteMathLive(this, 0, 'largeur10 inline', { texte: ` ${noms[0]}(`, texteApres: ')' })
-      texte += `<br>${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un nombre entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, 1, 'largeur10 inline', { texte: ` ${noms[1]}(`, texteApres: '+' }) + ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texteApres: ')' })
-      texte += `<br>${numAlpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.` + ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { texte: ` ${noms[2]}(`, texteApres: ')' })
-      texteCorr = `${numAlpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
-      texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${texFraction(calcul(10 * (x2 - Math.floor(x2))), 10)}$.<br>`
-      texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${texFraction(calcul(x3 * 10), 10)}$.`
+      texte = `${numAlpha(0)} Donner l'abscisse de $${noms[0]}$ en écriture décimale.` + ajouteChampTexteMathLive(this, 0, 'largeur10 inline', { texte: ` $${noms[0]}($`, texteApres: '$)$' })
+      texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, 1, 'largeur10 inline', { texte: ` $${noms[1]}($`, texteApres: '+' }) + ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texteApres: '$)$' })
+      texte += `<br>${numAlpha(2)} Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale.` + ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { texte: ` $${noms[2]}($`, texteApres: '$)$' })
+      texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${texNombre(x1)}$.<br>`
+      texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${texFraction(calcul(10 * (x2 - Math.floor(x2))), 10)}$.<br>`
+      texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${texFraction(calcul(x3 * 10), 10)}$.`
       if (!context.isAmc) {
         setReponse(this, 0, x1, { formatInteractif: 'calcul' })
         setReponse(this, 1, Math.floor(x2), { formatInteractif: 'calcul' })
@@ -213,12 +211,12 @@ export default function LireAbscisseDecimaleTroisFormes () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      texte = `${numAlpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.` + ajouteChampTexteMathLive(this, 0, 'largeur10 inline', { texte: ` ${noms[0]}(`, texteApres: ')' })
-      texte += `<br>${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, 1, 'largeur10 inline', { texte: ` ${noms[1]}(`, texteApres: '+' }) + ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texteApres: ')' })
-      texte += `<br>${numAlpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.` + ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { texte: ` ${noms[2]}(`, texteApres: ')' })
-      texteCorr = `${numAlpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
-      texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${texFraction(calcul(100 * (x2 - Math.floor(x2))), 100)}$.<br>`
-      texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${texFraction(calcul(x3 * 100), 100)}$.`
+      texte = `${numAlpha(0)} Donner l'abscisse de $${noms[0]}$ en écriture décimale.` + ajouteChampTexteMathLive(this, 0, 'largeur10 inline', { texte: ` $${noms[0]}($`, texteApres: '$)$' })
+      texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, 1, 'largeur10 inline', { texte: ` $${noms[1]}($`, texteApres: '+' }) + ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texteApres: '$)$' })
+      texte += `<br>${numAlpha(2)} Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale.` + ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { texte: ` $${noms[2]}($`, texteApres: '$)$' })
+      texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${texNombre(x1)}$.<br>`
+      texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${texFraction(calcul(100 * (x2 - Math.floor(x2))), 100)}$.<br>`
+      texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${texFraction(calcul(x3 * 100), 100)}$.`
       if (!context.isAmc) {
         setReponse(this, 0, x1)
         setReponse(this, 1, Math.floor(x2))
@@ -435,7 +433,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
         }
       }
     }
-    texte += mathalea2d({ xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 1.5, pixelsParCm: 25, scale: 0.5 }, d1)
+    texte += '<br>' + mathalea2d({ xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 1.5, pixelsParCm: 25, scale: 0.5 }, d1)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     if (context.isAmc) {

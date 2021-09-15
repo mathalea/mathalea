@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 281 
-- nombre d'exos interactifReady 326 
+- nombre d'exos amcReady 287 
+- nombre d'exos interactifReady 334 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -70,9 +70,9 @@
 |4C22-1|Trouver l’inverse d’un nombre|KO|KO|OK|mathLive|
 |4C22-2|Diviser des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
 |4C22|Multiplier des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
-|4C23|Fractions et priorités opératoires|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C23-1|Fractions et priorités opératoires|OK|AMCOpenNum✖︎2|OK|mathLive|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
-|4C32|Notation scientifique|OK|AMCNum|OK|numerique|
+|4C32|Notation scientifique|OK|AMCNum|OK|mathLive|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
 |4F12|Problème s’appuyant sur la lecture d’une représentation graphique|OK|AMCHybride|KO|KO|
 |4G10|Trouver l’image d’un point par une symétrie axiale ou centrale ou par une translation|OK|AMCHybride|OK|mathLive|
@@ -87,6 +87,7 @@
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G41|Utiliser le cosinus pour calculer la mesure d’un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G53|Calculs de volumes|OK|AMCNum|OK|qcm,mathLive|
+|4L10|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |4L20-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
 |4L20|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |5A13|Décomposition en facteurs premiers|KO|KO|OK|mathLive|
@@ -135,6 +136,7 @@
 |6C30-4|Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)|OK|qcmMono|OK|qcm|
 |6C30-5|Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)|OK|qcmMono|OK|qcm|
 |6C30|Multiplications posées de nombres décimaux|OK|AMCNum|OK|numerique|
+|6C31-2|Donner des valeurs approchées d’un quotient décimal|KO|KO|OK|mathLive|
 |6C31|Divisions décimales|OK|AMCNum|OK|numerique|
 |6C33|Calculer en utilisant les priorités opératoires|OK|AMCNum|OK|numerique|
 |6C34|Dernier chiffre d’un calcul|OK|AMCNum|OK|numerique|
@@ -169,6 +171,7 @@
 |6N22|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
 |6N23-2|Lire des abscisses décimales sous trois formes|OK|AMCHybride|OK|mathLive|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
+|6N23|Donner l’écriture décimale d’une fraction décimale|OK|AMCNum|OK|mathLive|
 |6N24|Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)|OK|AMCNum|OK|mathLive|
 |6N30-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCOpen|OK|mathLive|
 |6N30-2|Placer un point d’abscisse décimale|OK|AMCOpen|OK|custom|
@@ -221,6 +224,7 @@
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|mathLive|
 |c3C10-4|Tables d’addition|OK|AMCNum|OK|numerique|
+|c3C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCHybride|OK|mathLive|
 |c3C11|Divisions euclidiennes|OK|AMCOpen|OK|mathLive|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |c3N20|Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
@@ -260,6 +264,7 @@
 |can4C06|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can4C07|Différence de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
 |can4C08|Somme de puissances de 10|OK|AMCNum|OK|mathLive|
+|can4C09|Puissances de 2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
 |can4G01|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can4G02|Image de point par transformation 4e|KO|KO|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
@@ -328,6 +333,7 @@
 |can6N03|Recomposition entier moins simple|OK|AMCNum|OK|mathLive|
 |can6N04|Abscisse fractionnaire|OK|AMCHybride|OK|mathLive|
 |can6N05|Chiffre des ...|OK|AMCHybride|OK|mathLive|
+|can6N06|Arrondi au dixième|OK|AMCHybride|OK|mathLive|
 |can6P01|Proportionnalité simple|OK|AMCNum|OK|mathLive|
 |can6P02|Proportionnalité compliquée|OK|AMCNum|OK|mathLive|
 |can6P03|Question de vitesse|OK|AMCNum|OK|mathLive|
@@ -338,3 +344,5 @@
 |canc3C02|Composition de nombre entier|OK|AMCNum|OK|mathLive|
 |canc3N01|Écriture de nombre entier|OK|qcmMono|OK|qcm|
 |canc3N02|Suite sur une droite graduée|OK|AMCHybride|OK|mathLive|
+|canc3N03|Le plus grand nombre entier|OK|AMCNum|OK|mathLive|
+|canc3N04|Arrondi à l'unité|OK|AMCHybride|OK|mathLive|

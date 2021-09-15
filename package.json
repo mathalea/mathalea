@@ -34,7 +34,7 @@
     "katex": "^0.13.18",
     "loadjs": "^4.2.0",
     "mathjs": "^9.4.4",
-    "mathlive": "^0.67.0",
+    "mathlive": "^0.69.6",
     "qrcode": "^1.4.4",
     "regenerator-runtime": "^0.13.9",
     "seedrandom": "^3.0.5",

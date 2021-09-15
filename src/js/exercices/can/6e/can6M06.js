@@ -18,7 +18,6 @@ export default function Perimetre () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatChampTexte = 'largeur10 inline'
   this.nouvelleVersion = function () {
     const nom = creerNomDePolygone(4, ['Q'])
@@ -33,7 +32,7 @@ export default function Perimetre () {
     const c1 = cercle(C, d)
     const c2 = cercle(A, b)
     const D = pointIntersectionCC(c1, c2, nom[3], 1)
-    if (!D) alert('PAs de point D')
+    if (!D) alert('Pas de point D')
     const objets = []
     const xmin = Math.min(A.x, B.x, C.x, D.x) - 1
     const ymin = Math.min(A.y, B.y, C.y, D.y) - 1

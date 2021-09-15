@@ -23,14 +23,13 @@ export default function Pythagore2D () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
-  this.interactif = true
-  this.interactifType = interactifType
+    this.interactifType = interactifType
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1
   this.typeDeQuestion = 'Calculer'
   this.video = 'M9sceJ8gzNc'
-  this.besoinFormulaire2Numerique = ['Côté', 3, '1 : Hypoténuse.\n2 : Côté de l\'angle droit.\n3 : Les deux.']
+  this.besoinFormulaire2Numerique = ['Côté', 3, '1 : Hypoténuse\n2 : Côté de l\'angle droit\n3 : Les deux']
 
   this.nouvelleVersion = function () {
     if (this.sup) {
@@ -155,7 +154,25 @@ export default function Pythagore2D () {
         `${B.nom + C.nom}^2=${C.nom + A.nom}^2+${A.nom + B.nom}^2`,
         `${C.nom + B.nom}^2=${C.nom + A.nom}^2+${A.nom + B.nom}^2`,
         `${B.nom + C.nom}^2=${C.nom + A.nom}^2+${B.nom + A.nom}^2`,
-        `${C.nom + B.nom}^2=${C.nom + A.nom}^2+${B.nom + A.nom}^2`], { formatInteractif: 'texte' })
+        `${C.nom + B.nom}^2=${C.nom + A.nom}^2+${B.nom + A.nom}^2`,
+        // en commençant par la somme
+        `${A.nom + B.nom}^2+${A.nom + C.nom}^2=${B.nom + C.nom}^2`,
+        `${A.nom + B.nom}^2+${A.nom + C.nom}^2=${C.nom + B.nom}^2`,
+        `${B.nom + A.nom}^2+${A.nom + C.nom}^2=${B.nom + C.nom}^2`,
+        `${B.nom + A.nom}^2+${A.nom + C.nom}^2=${C.nom + B.nom}^2`,
+        `${A.nom + B.nom}^2+${C.nom + A.nom}^2=${B.nom + C.nom}^2`,
+        `${A.nom + B.nom}^2+${C.nom + A.nom}^2=${C.nom + B.nom}^2`,
+        `${B.nom + A.nom}^2+${C.nom + A.nom}^2=${B.nom + C.nom}^2`,
+        `${B.nom + A.nom}^2+${C.nom + A.nom}^2=${C.nom + B.nom}^2`,
+        //
+        `${A.nom + C.nom}^2+${A.nom + B.nom}^2=${B.nom + C.nom}^2`,
+        `${A.nom + C.nom}^2+${A.nom + B.nom}^2=${C.nom + B.nom}^2`,
+        `${A.nom + C.nom}^2+${B.nom + A.nom}^2=${B.nom + C.nom}^2`,
+        `${A.nom + C.nom}^2+${B.nom + A.nom}^2=${C.nom + B.nom}^2`,
+        `${C.nom + A.nom}^2+${A.nom + B.nom}^2=${B.nom + C.nom}^2`,
+        `${C.nom + A.nom}^2+${A.nom + B.nom}^2=${C.nom + B.nom}^2`,
+        `${C.nom + A.nom}^2+${B.nom + A.nom}^2=${B.nom + C.nom}^2`,
+        `${C.nom + A.nom}^2+${B.nom + A.nom}^2=${C.nom + B.nom}^2`], { formatInteractif: 'texte' })
       }
       if (this.sup === 2) {
         if (listeTypeDeQuestions[i] === 'AB') {

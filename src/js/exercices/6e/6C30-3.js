@@ -24,8 +24,7 @@ export default function MultiplicationMentalDecimaux () {
   Exercice.call(this)
   this.titre = titre
   this.interactifObligatoire = true // Il n'existe pas de version non QCM
-  this.interactif = true
-  this.consigne = 'Trouver la réponse exacte du calcul parmi les réponses proposées.'
+    this.consigne = 'Trouver la réponse exacte du calcul parmi les réponses proposées.'
   this.nbQuestions = 4 // Ici le nombre de questions
   this.video = ''
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
@@ -210,6 +209,6 @@ export default function MultiplicationMentalDecimaux () {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
   // this.besoinFormulaireCaseACocher = ['Mode QCM',true]
-  //  this.besoinFormulaire2Numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
+  //  this.besoinFormulaire2Numerique = ["Type de cahier",3,`1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
   // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
 } // Fin de l'exercice.

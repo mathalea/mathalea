@@ -29,7 +29,6 @@ export default function TableauDeValeurs () {
   this.spacing = 1
   this.sup = 5 // niveau de difficulté
   this.correctionDetailleeDisponible = true
-  this.interactif = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

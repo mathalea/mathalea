@@ -8,8 +8,6 @@ export const amcType = 'qcmMono' // QCM
 export const interactifType = 'qcm'
 
 export const interactifReady = true
-
-
 /**
  * À partir de la donnée des 3 longueurs d'un triangle, déterminer si il est rectangle ou pas.
  * @author Rémi Angot
@@ -21,8 +19,7 @@ export default function ReciproquePythagore () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
-  this.interactif = true
-  this.interactifType = interactifType
+    this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 3
   this.nbCols = 1

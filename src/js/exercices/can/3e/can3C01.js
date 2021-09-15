@@ -15,8 +15,7 @@ export default function CalculPuissanceSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-  this.formatChampTexte = 'largeur10 inline'
+    this.formatChampTexte = 'largeur10 inline'
   this.nouvelleVersion = function () {
     const a = choice([2, 3, 4])
     const b = randint(20, 50)

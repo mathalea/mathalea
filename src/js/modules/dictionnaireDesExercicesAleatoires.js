@@ -1178,15 +1178,22 @@ export default {
     "interactifType": "mathLive",
     "name": "4C22"
   },
-  "4C23": {
+  "4C23-1": {
     "titre": "Fractions et priorités opératoires",
-    "url": "/exercices/4e/4C23.js",
+    "url": "/exercices/4e/4C23-1.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCOpenNum✖︎2"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
+    "name": "4C23-1"
+  },
+  "4C23": {
+    "titre": "Somme, différence ou produit de fractions",
+    "url": "/exercices/4e/4C23.js",
+    "amcReady": false,
+    "interactifReady": false,
     "name": "4C23"
   },
   "4C25-0": {
@@ -1257,7 +1264,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "4C32"
   },
   "4C33-1": {
@@ -1511,7 +1518,8 @@ export default {
     "titre": "Utiliser la simple distributivité",
     "url": "/exercices/4e/4L10.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4L10"
   },
   "4L11": {
@@ -2633,7 +2641,8 @@ export default {
     "titre": "Donner des valeurs approchées d’un quotient décimal",
     "url": "/exercices/6e/6C31-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6C31-2"
   },
   "6C31": {
@@ -3345,8 +3354,12 @@ export default {
   "6N23": {
     "titre": "Donner l’écriture décimale d’une fraction décimale",
     "url": "/exercices/6e/6N23.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N23"
   },
   "6N24-1": {
@@ -4381,6 +4394,17 @@ export default {
     "interactifType": "numerique",
     "name": "c3C10-4"
   },
+  "c3C10": {
+    "titre": "Additions, soustractions et multiplications posées de nombres entiers",
+    "url": "/exercices/c3/c3C10.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "c3C10"
+  },
   "c3C11": {
     "titre": "Divisions euclidiennes",
     "url": "/exercices/c3/c3C11.js",
@@ -4811,6 +4835,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can4C08"
+  },
+  "can4C09": {
+    "titre": "Puissances de 2, 3, 4 ou 5",
+    "url": "/exercices/can/4e/can4C09.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4C09"
   },
   "can4G01": {
     "titre": "Nombre de nombres entiers entre deux valeurs",
@@ -5548,6 +5583,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can6N05"
   },
+  "can6N06": {
+    "titre": "Arrondi au dixième",
+    "url": "/exercices/can/6e/can6N06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N06"
+  },
   "can6P01": {
     "titre": "Proportionnalité simple",
     "url": "/exercices/can/6e/can6P01.js",
@@ -5657,5 +5703,27 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "canc3N02"
+  },
+  "canc3N03": {
+    "titre": "Le plus grand nombre entier",
+    "url": "/exercices/can/c3/canc3N03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3N03"
+  },
+  "canc3N04": {
+    "titre": "Arrondi à l'unité",
+    "url": "/exercices/can/c3/canc3N04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3N04"
   }
 }
