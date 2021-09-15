@@ -1346,7 +1346,7 @@ export default {
     "name": "4G20-1"
   },
   "4G20-2": {
-    "titre": "Racine carrée d’un carré parfait (calcul mental)",
+    "titre": "Déterminer la racine carrée d’un carré parfait (calcul mental)",
     "url": "/exercices/4e/4G20-2.js",
     "amcReady": true,
     "amcType": {
@@ -1394,7 +1394,7 @@ export default {
     "name": "4G20"
   },
   "4G21": {
-    "titre": "Déterminer si un triangle est rectangle ou pas.",
+    "titre": "Déterminer si un triangle est rectangle ou pas",
     "url": "/exercices/4e/4G21.js",
     "amcReady": true,
     "amcType": {
@@ -1405,7 +1405,7 @@ export default {
     "name": "4G21"
   },
   "4G22": {
-    "titre": "Problèmes utilisant le théorème de Pythagore",
+    "titre": "Résoudre des problèmes utilisant le théorème de Pythagore",
     "url": "/exercices/4e/4G22.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1797,7 +1797,7 @@ export default {
     "name": "5G12"
   },
   "5G13": {
-    "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles.",
+    "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
     "url": "/exercices/5e/5G13.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2210,7 +2210,7 @@ export default {
     "name": "5N20"
   },
   "5P10": {
-    "titre": "Tableaux et proportionnalité.",
+    "titre": "Reconnaître des tableaux de proportionnalité",
     "url": "/exercices/5e/5P10.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2225,7 +2225,7 @@ export default {
     "name": "5P11-1"
   },
   "5P12": {
-    "titre": "Partager une quantité en deux ou trois parts selon un ratio donné.",
+    "titre": "Partager une quantité en deux ou trois parts selon un ratio donné",
     "url": "/exercices/5e/5P12.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2315,7 +2315,7 @@ export default {
     "name": "5R20-3"
   },
   "5R20-4": {
-    "titre": "Résoudre un problème en utilisant une somme algébrique de relatifs.",
+    "titre": "Résoudre un problème en utilisant une somme algébrique de relatifs",
     "url": "/exercices/5e/5R20-4.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2572,7 +2572,7 @@ export default {
     "name": "6C23"
   },
   "6C30-1": {
-    "titre": "Multiplications d’un nombre décimal par 10, 100 ou 1 000.",
+    "titre": "Multiplier un nombre décimal par 10, 100 ou 1 000",
     "url": "/exercices/6e/6C30-1.js",
     "amcReady": true,
     "amcType": {
@@ -3057,7 +3057,7 @@ export default {
     "name": "6M22-2"
   },
   "6M22": {
-    "titre": "Périmètres et aires de disques (à partir d’un texte).",
+    "titre": "Déterminer périmètres et aires de disques (à partir d’un texte)",
     "url": "/exercices/6e/6M22.js",
     "amcReady": true,
     "amcType": {
@@ -3153,14 +3153,14 @@ export default {
     "name": "6N10-2"
   },
   "6N10-3": {
-    "titre": "Chiffre des ... Nombre de ...",
+    "titre": "Trouver le chiffre des ... et le nombre de ...",
     "url": "/exercices/6e/6N10-3.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "6N10-3"
   },
   "6N10-4": {
-    "titre": "Écrire correctement les grands nombres entiers.",
+    "titre": "Écrire correctement les grands nombres entiers",
     "url": "/exercices/6e/6N10-4.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3253,7 +3253,7 @@ export default {
     "name": "6N20-1"
   },
   "6N20-2": {
-    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.",
+    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale",
     "url": "/exercices/6e/6N20-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3261,7 +3261,7 @@ export default {
     "name": "6N20-2"
   },
   "6N20": {
-    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1).",
+    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1)",
     "url": "/exercices/6e/6N20.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3503,7 +3503,7 @@ export default {
     "name": "6N33"
   },
   "6N34": {
-    "titre": "Conversions avec tous les préfixes de milli à tera.",
+    "titre": "Effectuer des conversions avec tous les préfixes de milli à tera",
     "url": "/exercices/6e/6N34.js",
     "amcReady": true,
     "amcType": {
@@ -3582,7 +3582,7 @@ export default {
     "name": "6P10"
   },
   "6P11-1": {
-    "titre": "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.",
+    "titre": "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité",
     "url": "/exercices/6e/6P11-1.js",
     "amcReady": true,
     "amcType": {
@@ -4345,12 +4345,12 @@ export default {
     "interactifReady": false,
     "name": "betaModele21_parametrables"
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques"
+    "name": "betaModele30_constructions_géométriques"
   },
   "betaModele31_parametrables": {
     "titre": "Nom de l'exercice",
