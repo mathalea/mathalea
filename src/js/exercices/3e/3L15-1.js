@@ -16,7 +16,7 @@ export default function ResoudreEquatioeX2EgalA () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Résoudre les équations suivantes'
+  this.consigne = 'Résoudre les équations suivantes.'
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1

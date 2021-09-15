@@ -19,7 +19,7 @@ export const titre = 'Calculer le pourcentage d’un nombre de tête'
 export default function PourcentageDunNombre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.spacing = 2
   this.spacingCorr = 3.5
   this.nbCols = 2

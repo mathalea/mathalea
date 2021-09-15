@@ -63,7 +63,7 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
         texteCorr += `<br>Le calcul serait le suivant : ${expc}.`
         texteCorr += '<br>Pour n\'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.'
         texteCorr += texteEnCouleur(`<br>La dernière opération dans ${expn} est donc une ${lastOp}.`)
-        if (this.consigne === 'Déterminer la structure de l\'expression littérale') {
+        if (this.consigne === 'Déterminer la structure de l\'expression littérale.') {
           texteCorr += texteEnCouleur(`<br>Cette expression est donc ${structureExpression}.`)
         }
       };

@@ -9,5 +9,5 @@ export const titre = 'Déterminer la structure de l\'expression littérale'
 export default function DeterminerStructureExpressionLitterale () {
   DeterminerDerniereOperationExpressionLitterale.call(this)
   this.titre = titre
-  this.consigne = 'Déterminer la structure de l\'expression littérale'
+  this.consigne = 'Déterminer la structure de l\'expression littérale.'
 }

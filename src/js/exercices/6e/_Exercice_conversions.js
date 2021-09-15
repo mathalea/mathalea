@@ -24,7 +24,7 @@ export default function ExerciceConversions (niveau = 1) {
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.titre =
     'Conversions de longueurs, masses, contenance, prix ou unités informatiques'
-  this.consigne = 'Compléter'
+  this.consigne = 'Compléter : '
   this.spacing = 2
   this.correction_avec_des_fractions = false
   

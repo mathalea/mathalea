@@ -22,7 +22,7 @@ export const titre = 'Équation du premier degré à solutions entières'
 export default function ExerciceEquationASolutionEntiere () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre les équations suivantes'
+  this.consigne = 'Résoudre les équations suivantes.'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.correctionDetailleeDisponible = true

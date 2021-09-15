@@ -20,7 +20,7 @@ export default function LectureExpressionFonctionsAffines () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = "Donner l'expression des fonctions représentées"
+  this.consigne = "Donner l'expression des fonctions représentées."
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
