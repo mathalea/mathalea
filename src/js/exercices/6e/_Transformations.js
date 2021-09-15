@@ -18,13 +18,13 @@ export default function Transformations () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
   // this.titre = "Trouver l'image d'un point par une transformation du plan";
+  this.can = false
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.interactif = true
-  this.sup = 1
+    this.sup = 1
   const listeTypeDeQuestions = [
     [1, 2, 3, 4],
     [1, 2, 7, 7, 7, 7],
@@ -35,7 +35,7 @@ export default function Transformations () {
   // this.sup = 1; // 1 pour les 6ème, 2 pour les 5èmes, 3 pour les 4èmes, et 4 pour les 3èmes.
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   this.nouvelleVersion = function (numeroExercice) {
-    let choixTransformation
+    let choixTransformation, nbImages
     if (typeof this.sup === 'number') {
       // Si c'est un nombre c'est pour le niveau 1=6e, 4=3e
       choixTransformation = combinaisonListes(listeTypeDeQuestions[this.sup - 1], 3)
@@ -45,8 +45,10 @@ export default function Transformations () {
         choixTransformation[i] = parseInt(choixTransformation[i])
       }
     }
+    if (this.can) {
+      nbImages = 1
+    } else nbImages = 3
 
-    console.log(choixTransformation)
     const M = []; const N = []; let pointM; let pointN
     const O = point(0, 0, 'O', 'below')
     const d1 = droiteParPointEtPente(O, 1)
@@ -101,7 +103,7 @@ export default function Transformations () {
     } else {
       yu = randint(-3, 3)
     }
-    for (let j = 0; j < 3; j++) {
+    for (let j = 0; j < nbImages; j++) {
       if (choixTransformation[j] === 10) {
         k[j] = choice([2, 4]) * randint(-1, 1, [0]) // rapport d'homothétie < 1 ( 0.5 ou 0.25 )
         k2 = k[j]
@@ -168,10 +170,10 @@ export default function Transformations () {
     }
     // n[i] est un tableau contenant -1 pour la transformation d'indice i si elle n'est pas utilisée, et contenant le numéro du point concerné si la transformation i est utilisée pour ce point.
     // Je l'utilise pour faire apparaître la correction liée au point et à la transformation.
-    for (let j = 0; j < 3; j++) {
+    for (let j = 0; j < nbImages; j++) {
       n[choixTransformation[j] - 1] = antecedents[j]
     }
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < nbImages; i++) {
       switch (choixTransformation[i]) {
         case 1:
           texte +=

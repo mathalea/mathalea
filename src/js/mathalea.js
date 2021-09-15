@@ -283,7 +283,23 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       contenuUneCorrection += `<img width="90%" src="${obj.pngcor}">`
       obj.video = false
     } else if (obj.typeExercice === 'simple') {
-      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
+      if (obj.interactif) {
+        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
+          numeroExercice - 1
+        }" class="keyboard icon iconeInteractif"></i><span>`
+      } else {
+        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
+          numeroExercice - 1
+        }" class="keyboard outline icon iconeInteractif"></i><span>`
+      }
+      if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
+        paramTooltip += obj.besoinFormulaireNumerique[0] + ' : \n' + obj.besoinFormulaireNumerique[2] + '\n'
+      }
+      if (obj.besoinFormulaire2Numerique && obj.besoinFormulaire2Numerique[2]) {
+        paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
+      }
+      paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
+      contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
       contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
       if (obj.consigne) {
         contenuUnExercice += `<h4> ${obj.consigne} </h4>`
@@ -296,6 +312,7 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         } catch (error) {
           console.log(error)
         }
+
         if (obj.questionJamaisPosee(numQuestion, obj.question)) {
           contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}`
           if (obj.interactif && obj.interactifReady) {
@@ -324,8 +341,8 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         }
       }
       contenuUnExercice += '</ol>'
-      contenuUnExercice += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
       if (obj.interactif || obj.interactifObligatoire) {
+        contenuUnExercice += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
         exerciceInteractif(obj)
       }
     } else {
@@ -354,10 +371,10 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
       } else {
         if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
-          paramTooltip += obj.besoinFormulaireNumerique[0] + ': \n' + obj.besoinFormulaireNumerique[2] + '\n'
+          paramTooltip += obj.besoinFormulaireNumerique[0] + ' : \n' + obj.besoinFormulaireNumerique[2] + '\n'
         }
         if (obj.besoinFormulaire2Numerique && obj.besoinFormulaire2Numerique[2]) {
-          paramTooltip += obj.besoinFormulaire2Numerique[0] + ': \n' + obj.besoinFormulaire2Numerique[2]
+          paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
         }
         paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
         contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
@@ -414,8 +431,20 @@ function miseAJourDuCode () {
     btn1Question.addEventListener('click', () => {
       for (let i = 0; i < listeObjetsExercice.length; i++) {
         listeObjetsExercice[i].nbQuestions = 1
-        miseAJourDuCode()
       }
+      miseAJourDuCode()
+    })
+  }
+
+  const btnTousInteractifs = document.getElementById('btnTousInteractifs')
+  if (btnTousInteractifs !== null) {
+    btnTousInteractifs.addEventListener('click', () => {
+      for (let i = 0; i < listeObjetsExercice.length; i++) {
+        if (listeObjetsExercice[i].interactifReady) {
+          listeObjetsExercice[i].interactif = true
+        }
+      }
+      miseAJourDuCode()
     })
   }
 
@@ -446,20 +475,20 @@ function miseAJourDuCode () {
         finUrl += 'mathalea.html'
       }
       finUrl += `?ex=${listeDesExercices[0]}`
-      if (typeof listeObjetsExercice[0].sup !== 'undefined') {
+      if (listeObjetsExercice[0].sup !== undefined) {
         finUrl += `,s=${listeObjetsExercice[0].sup}`
       }
-      if (typeof listeObjetsExercice[0].sup2 !== 'undefined') {
+      if (listeObjetsExercice[0].sup2 !== undefined) {
         finUrl += `,s2=${listeObjetsExercice[0].sup2}`
       }
-      if (typeof listeObjetsExercice[0].sup3 !== 'undefined') {
+      if (listeObjetsExercice[0].sup3 !== undefined) {
         finUrl += `,s3=${listeObjetsExercice[0].sup3}`
       }
       if (listeObjetsExercice[0].nbQuestionsModifiable) {
         finUrl += `,n=${listeObjetsExercice[0].nbQuestions}`
       }
       if (listeObjetsExercice[0].video.length > 1) {
-        finUrl += `,v${encodeURIComponent(listeObjetsExercice[0].video)}`
+        finUrl += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
       }
       if (listeObjetsExercice[0].correctionDetaillee && listeObjetsExercice[0].correctionDetailleeDisponible) {
         finUrl += ',cd=1'
@@ -476,13 +505,13 @@ function miseAJourDuCode () {
       listeObjetsExercice[0].numeroExercice = 0
       for (let i = 1; i < listeDesExercices.length; i++) {
         finUrl += `&ex=${listeDesExercices[i]}`
-        if (typeof listeObjetsExercice[i].sup !== 'undefined') {
+        if (listeObjetsExercice[i].sup !== undefined) {
           finUrl += `,s=${listeObjetsExercice[i].sup}`
         }
-        if (typeof listeObjetsExercice[i].sup2 !== 'undefined') {
+        if (listeObjetsExercice[i].sup2 !== undefined) {
           finUrl += `,s2=${listeObjetsExercice[i].sup2}`
         }
-        if (typeof listeObjetsExercice[i].sup3 !== 'undefined') {
+        if (listeObjetsExercice[i].sup3 !== undefined) {
           finUrl += `,s3=${listeObjetsExercice[i].sup3}`
         }
         if (listeObjetsExercice[i].nbQuestionsModifiable) {
@@ -491,7 +520,7 @@ function miseAJourDuCode () {
         if (listeObjetsExercice[i].video) {
           if (listeObjetsExercice[i].video.length > 1) {
             // Pour dnb, video est à false, pour les exercices interactif, par défaut c'est ''
-            finUrl += `,v${encodeURIComponent(listeObjetsExercice[i].video)}`
+            finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
           }
         }
         if (listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
@@ -1222,13 +1251,13 @@ function miseAJourDeLaListeDesExercices (preview) {
         const urlVars = getUrlVars()
         // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
         // => évite les erreurs lors de la suppression de question dans la liste.
-        if (urlVars.length < listeObjetsExercice.length && document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') {
+        if (urlVars.length < listeObjetsExercice.length && ((document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') || document.getElementById('exoModeInteractif'))) {
           listeObjetsExercice[listeObjetsExercice.length - 1].interactif = true
           if (formInteractif[listeObjetsExercice.length - 1]) {
             formInteractif[listeObjetsExercice.length - 1].checked = true
           }
         }
-        if (urlVars.length < 0 && document.getElementById('filtre').value === 'interactif') {
+        if (urlVars.length < 0 && (document.getElementById('filtre').value === 'interactif' || document.getElementById('exoModeInteractif'))) {
           listeObjetsExercice[0].interactif = true
           formInteractif[0].checked = true
         }
@@ -1244,8 +1273,8 @@ function miseAJourDeLaListeDesExercices (preview) {
             listeObjetsExercice[i].nbQuestions = parseInt(urlVars[i].n)
             formNbQuestions[i].value = listeObjetsExercice[i].nbQuestions
           }
-          if (urlVars[i].v && context.isHtml && !context.isDiaporama) {
-            listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].v)
+          if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
+            listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
             formVideo[i].value = listeObjetsExercice[i].video
           }
           if (urlVars[i].cd !== undefined) {
@@ -1648,7 +1677,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire2CaseACocher) {
       // Création d'un formulaire texte
       divParametresGeneraux.innerHTML +=
-        "<div style='display: inline'><label for='form_sup2" +
+        "<div><label for='form_sup2" +
         i +
         "'>" +
         exercice[i].besoinFormulaire2CaseACocher[0] +
@@ -1695,13 +1724,13 @@ function parametresExercice (exercice) {
                     <input id='form_sup2${i}' type='text' size='20' ></div></div>`
     }
 
-    if (exercice[i].besoinFormulairei3CaseACocher) {
+    if (exercice[i].besoinFormulaire3CaseACocher) {
       // Création d'un formulaire texte
       divParametresGeneraux.innerHTML +=
         "<div style='display: inline'><label for='form_sup3" +
         i +
         "'>" +
-        exercice[i].besoinFormulairei3CaseACocher[0] +
+        exercice[i].besoinFormulaire3CaseACocher[0] +
         " : </label><input id='form_sup3" +
         i +
         "' type='checkbox'  ></div>"
@@ -2022,7 +2051,7 @@ function parametresExercice (exercice) {
       })
     }
 
-    if (exercice[i].besoinFormulairei3CaseACocher) {
+    if (exercice[i].besoinFormulaire3CaseACocher) {
       formSup3[i] = document.getElementById('form_sup3' + i)
       formSup3[i].checked = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
       formSup3[i].addEventListener('change', function (e) {

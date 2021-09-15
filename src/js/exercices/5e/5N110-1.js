@@ -20,8 +20,7 @@ export default function VariationEnPourcentages () {
   this.spacingCorr = 2
   this.nbColsCorr = 1
   this.nbCols = 1
-  this.interactif = true
-  this.interactifType = 'mathLive'
+    this.interactifType = 'mathLive'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

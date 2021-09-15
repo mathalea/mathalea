@@ -18,7 +18,7 @@ export default function EcrireNombresEntiers () {
   this.sup = 1
   this.sup2 = 3
   this.nouvelleVersion = function () {
-    if (parseInt(this.sup) === 2) { this.consigne = 'Écrire le nombre en chiffres' } else { this.consigne = 'Écrire le nombre en lettres' }
+    if (parseInt(this.sup) === 2) { this.consigne = 'Écrire le nombre en chiffres.' } else { this.consigne = 'Écrire le nombre en lettres.' }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles

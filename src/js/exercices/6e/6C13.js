@@ -87,7 +87,7 @@ export default function VocabulaireEtOperations () {
   this.besoinFormulaireNumerique = [
     'Type de questions',
     4,
-    '1 : Phrase -> Calcul\n 2 : Calcul -> Phrase\n 3 : Phrase -> Calcul + résultat\n 4 : Mélange'
+    ' 1 : Phrase -> Calcul\n 2 : Calcul -> Phrase\n 3 : Phrase -> Calcul + résultat\n 4 : Mélange'
   ]
   this.besoinFormulaire2CaseACocher = ['Décimaux', false]
 }

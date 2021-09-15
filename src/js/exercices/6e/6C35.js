@@ -14,7 +14,7 @@ export const titre = 'Modéliser des problèmes'
 export default function ModelisationProblemes () {
   Exercice.call(this)
   this.titre = titre
-  this.consigne = 'Associer chaque problème avec sa modélisation'
+  this.consigne = 'Associer chaque problème avec sa modélisation.'
   this.nbQuestions = 8
   this.nbQuestionsModifiable = false
   this.sup = 2

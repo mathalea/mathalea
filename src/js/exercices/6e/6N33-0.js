@@ -13,7 +13,7 @@ export const titre = 'Calculer la fraction d’une quantité'
 export default function FractionDuneQuantite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
   context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
   this.sup = 1
@@ -133,6 +133,6 @@ export default function FractionDuneQuantite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ["Type d'exercices", 5, "1 : Heures & minutes (inférieur à 1h)\n2 : Heures & minutes (jusqu'à 3h)\n3 : tablettes de chocolat\n4 : Bâton cassé\n5 : Mélange"]
+  this.besoinFormulaireNumerique = ["Type d'exercices", 5, "1 : Heures & minutes (inférieur à 1h)\n2 : Heures & minutes (jusqu'à 3h)\n3 : Tablettes de chocolat\n4 : Bâton cassé\n5 : Mélange"]
   this.besoinFormulaire2CaseACocher = ['Avec dessin', true]
 }

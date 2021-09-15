@@ -19,7 +19,7 @@ export default function ExerciceDiviserFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1 // Avec ou sans relatifs
   this.titre = titre
-  this.consigne = 'Calculer et donner le résultat sous forme irréductible'
+  this.consigne = 'Calculer et donner le résultat sous forme irréductible.'
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 5
@@ -189,6 +189,6 @@ export default function ExerciceDiviserFractions () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     2,
-    '1 : Fractions à numérateur et dénominateur positifs \n 2 : Fractions à numérateur et dénominateur relatifs'
+    ' 1 : Fractions à numérateur et dénominateur positifs \n 2 : Fractions à numérateur et dénominateur relatifs'
   ]
 }

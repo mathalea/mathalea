@@ -57,7 +57,7 @@ export default function Equationspresqueproduitnulle () {
           } else {
             texteCorr += 'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
             texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
-            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(c + e, d + f)}=0$<br>`
+            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(c + e, d + f)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d - f, c + e)}$<br>
                        On en déduit :  `
             if ((-d - f) / (c + e) < -b / a) {
@@ -88,7 +88,7 @@ export default function Equationspresqueproduitnulle () {
           } else {
             texteCorr += 'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
             texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
-            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(c - e, d - f)}=0$<br>`
+            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(c - e, d - f)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d + f, c - e)}$<br>
                    On en déduit :  `
             if ((-d + f) / (c - e) < -b / a) {
@@ -118,7 +118,7 @@ export default function Equationspresqueproduitnulle () {
           } else {
             texteCorr += 'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
             texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
-            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(a + e, b + f)}=0$<br>`
+            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(a + e, b + f)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-b - f, a + e)}$<br>
                On en déduit :  `
             if ((-b - f) / (a + e) < -b / a) {
@@ -148,7 +148,7 @@ export default function Equationspresqueproduitnulle () {
           } else {
             texteCorr += 'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
             texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
-            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(c - a, d - b)}=0$<br>`
+            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(c - a, d - b)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d + b, c - a)}$<br>
            On en déduit :  `
             if ((-d + b) / (c - b) < -b / a) {

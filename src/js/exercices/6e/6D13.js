@@ -11,10 +11,9 @@ export const amcType = 'AMCHybride'
 export default function ConversionHeuresMinutes () {
   Exercice.call(this)
   this.nbQuestions = 5
-  this.interactif = true
 
   this.nouvelleVersion = function () {
-    this.lisQuestions = []
+    this.listeQuestions = []
     this.listeCorrections = []
     for (let i = 0, cpt = 0, a, b, d, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
       a = randint(2, 4)

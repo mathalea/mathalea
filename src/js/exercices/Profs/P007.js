@@ -11,7 +11,7 @@ export const titre = 'Fabriquer des pavages pour travailler les transformations'
  * Publié le 12/12/2020
  * Ref : P007
  */
-export default function Pavages_mathalea2d () {
+export default function PavagesMathalea2d () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -43,11 +43,10 @@ export default function Pavages_mathalea2d () {
     this.listeCorrections = []
     this.listeQuestions = []
     let texte = ''; let texteCorr = ''
-    let type_de_pavage
 
     const monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
-    type_de_pavage = parseInt(this.sup)
-    monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
+    const typeDePavage = parseInt(this.sup)
+    monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
     if (this.sup3) { // Doit-on afficher les Numéros ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
         objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'black', 0.04 * monpavage.echelle, 0, true))

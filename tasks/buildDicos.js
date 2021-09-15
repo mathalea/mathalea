@@ -159,6 +159,7 @@ for (const file of exercicesList) {
         console.error(`\x1b[34m${file} est interactifReady mais n'a pas d'export interactifType => Il FAUT L'AJOUTER !!! (à l'ancienne)\x1b[37m`)
       }
       if (interactifReady) {
+        console.log(file)
         // On verifie s'il y a un interactifType
         if (/export +const +interactifType */.test(srcContent)) {
           // regex à vérifier même si elle ne doit théoriquement pas servir puisque le module fonctionne

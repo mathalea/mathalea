@@ -1314,16 +1314,23 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
 * @author Rémi Angot
 */
 export function simplificationDeFractionAvecEtapes (num, den) {
+  let result = '='
+  if (num * den < 0) {
+    result += '-'
+    num = Math.abs(num)
+    den = Math.abs(den)
+  } else if (num === 0) {
+    return '=0'
+  }
   // Est-ce que le résultat est simplifiable ?
-  let result = ''
   const s = pgcd(num, den)
   if (s !== 1) {
     if ((num) % (den) === 0) { // si le résultat est entier
-      result = `=${(num) / (den)}`
+      result += `${(num) / (den)}`
     } else {
-      result = `=${texFraction(Algebrite.eval((num) / s) + miseEnEvidence('\\times' + s), Algebrite.eval(den / s) + miseEnEvidence('\\times' + s))}=${texFractionSigne(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
+      result += `${texFraction(Algebrite.eval((num) / s) + miseEnEvidence('\\times' + s), Algebrite.eval(den / s) + miseEnEvidence('\\times' + s))}=${result.charAt(1) === '-' ? '-' : ''}${texFractionSigne(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
     }
-  }
+  } else return ''
   return result
 }
 
@@ -2356,6 +2363,7 @@ export function sp (nb = 1) {
 /**
 * Renvoie un nombre dans le format français (séparateur de classes)
 * Fonctionne sans le mode maths contrairement à texNombre()
+* insereEspaceDansNombre fonctionne peut-être mieux
 * @author Rémi Angot
 */
 export function nombreAvecEspace (nb) {
@@ -2372,6 +2380,72 @@ export function nombreAvecEspace (nb) {
     return result
   }
 }
+
+/**
+ *
+ * @param {number} mantisse
+ * @param {integer} exp
+ * @returns {string} Écriture décimale avec espaces
+ */
+export const scientifiqueToDecimal = (mantisse, exp) => {
+  mantisse = mantisse.toString()
+  const indiceVirguleDepart = mantisse.indexOf('.')
+  const indiceVirguleArrivee = indiceVirguleDepart + exp
+  let mantisseSansVirgule = mantisse.replace('.', '')
+  const indiceMax = mantisseSansVirgule.length - 1
+  // indiceMax est l'indice du chiffre des unités
+  if (indiceVirguleArrivee > indiceMax) {
+    // On ajoute des 0 à droite
+    for (let i = indiceMax + 1; i < indiceVirguleArrivee; i++) {
+      mantisseSansVirgule += '0'
+    }
+  } else if (indiceVirguleArrivee > 0 && indiceVirguleArrivee <= indiceMax) {
+    // On insère la virgule
+    mantisseSansVirgule = mantisseSansVirgule.substring(0, indiceVirguleArrivee) + ',' + mantisseSansVirgule.substring(indiceVirguleArrivee, mantisseSansVirgule.length)
+  } else {
+    // On ajoute des 0 à gauche
+    let partiGauche = '0,'
+    for (let i = 0; i < Math.abs(indiceVirguleArrivee); i++) {
+      partiGauche += '0'
+    }
+    mantisseSansVirgule = partiGauche + mantisseSansVirgule
+  }
+  return insereEspaceDansNombre(mantisseSansVirgule)
+}
+
+/**
+ *
+ * @param {string |number} nb
+ * @returns {string}
+ */
+export const insereEspaceDansNombre = nb => {
+  if (!Number.isNaN(nb)) {
+    nb = nb.toString().replace('.', ',')
+  }
+  let indiceVirgule = nb.indexOf(',')
+  const indiceMax = nb.length - 1
+  const tableauIndicesEspaces = []
+  if (indiceVirgule < 0) {
+    // S'il n'y a pas de virgule c'est qu'elle est après le dernier chiffre
+    indiceVirgule = nb.length
+  }
+  for (let i = 0; i < indiceMax; i++) {
+    if ((i - indiceVirgule) % 3 === 0 && (i - indiceVirgule) !== 0) {
+      if (i < indiceVirgule) {
+        tableauIndicesEspaces.push(i - 1) // Partie entière espace à gauche
+      } else {
+        tableauIndicesEspaces.push(i) // Partie décimale espace à droite
+      }
+    }
+  }
+  for (let i = tableauIndicesEspaces.length - 1; i >= 0; i--) {
+    const indice = tableauIndicesEspaces[i] + 1
+    if (indice !== 0)nb = insertCharInString(nb, indice, ' \\thickspace ')
+  }
+  return nb
+}
+
+export const insertCharInString = (string, index, char) => string.substring(0, index) + char + string.substring(index, string.length)
 
 /**
 * Renvoie un nombre dans le format français (séparateur de classes) version sans Katex (pour les SVG)
@@ -3251,11 +3325,15 @@ export function ordreDeGrandeur (x, type) {
 * @author Rémi Angot
 */
 export function creerModal (numeroExercice, contenu, labelBouton, icone) {
-  const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${labelBouton}</button>
-    <div class="ui modal" id="modal${numeroExercice}">
-    ${contenu}
-    </div>`
-  return HTML
+  if (context.isHtml) {
+    const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${labelBouton}</button>
+      <div class="ui modal" id="modal${numeroExercice}">
+      ${contenu}
+      </div>`
+    return HTML
+  } else {
+    return ''
+  }
 }
 /**
 * Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
@@ -7390,6 +7468,7 @@ export function exportQcmAmc (exercice, idExo) {
           propositions = prop.propositions
           switch (qrType) {
             case 'qcmMono':
+
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'
@@ -7404,6 +7483,11 @@ export function exportQcmAmc (exercice, idExo) {
                 }
               }
               texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+              if (propositions[0].reponse !== undefined) {
+                if (propositions[0].reponse.texte) {
+                  texQr += propositions[0].reponse.texte + '\n'
+                }
+              }
               texQr += `\t\\begin{${horizontalite}}`
               if (ordered) {
                 texQr += '[o]'

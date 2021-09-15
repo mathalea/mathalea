@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, creerCouples, choice, texNombre, randint } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
@@ -19,10 +19,9 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
   this.titre = 'Tables de multiplications'
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer : '
   this.spacing = 2
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
@@ -89,7 +88,9 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
       if (context.isDiaporama) {
         texte = texte.replace('= \\dotfill', '')
       }
-      this.autoCorrection[i].reponse.param = { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+      if (context.isAmc) {
+        this.autoCorrection[i].reponse.param = { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+      }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

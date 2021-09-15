@@ -632,7 +632,7 @@ function questionEchelle (exo, i) { // X cm sur une carte correspond à x km dan
   const prenoms = [prenomF(), prenomM()]
   texte = `${numAlpha(0)} Sur une carte sur laquelle ${distanceCarte} cm représente ${distanceReel} km dans la réalité, <br>
 ${prenoms[0]} mesure son trajet, elle trouve une distance de ${distanceCarte2} cm. <br>` +
-'A quelle distance cela correspond dans la réalité ? ' + ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' km' })
+'À quelle distance cela correspond dans la réalité ? ' + ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' km' })
   texteCorr = `${numAlpha(0)} ${distanceCarte2} cm c'est ${texteEnCouleur(texNombrec(rapport[alea1]))} fois ${distanceCarte} cm <br>
 Dans la réalité, ${distanceCarte} cm correspond à ${texteEnCouleur(distanceReel, 'blue')} km donc <br>` +
 `  ${distanceCarte2} cm va correspondre à ${texteEnCouleur(texNombrec(rapport[alea1]))} fois ${texteEnCouleur(distanceReel, 'blue')} km  <br>` +
@@ -826,7 +826,7 @@ export default function ProportionnaliteParLinearite () {
   'use strict'
   let question
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Répondre aux questions posées en justifiant'
+  this.consigne = 'Répondre aux questions posées en justifiant.'
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.nbQuestions = 6
@@ -834,7 +834,7 @@ export default function ProportionnaliteParLinearite () {
   this.nbColsCorr = 1
   this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
   this.sup = false
-  this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Achat.\n2 : Recette.\n3 : Dilution.\n4 : Distance.\n5 : Echelle.\n6 : Surface.']
+  this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Echelle\n6 : Surface']
   this.nouvelleVersion = function () {
     let indiceQuestion = 0
     this.listeQuestions = [] // Liste de questions

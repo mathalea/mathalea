@@ -79,6 +79,7 @@ function verifQuestionCliqueFigure (exercice, i) {
 }
 
 function verifQuestionMathLive (exercice, i) {
+  console.log(exercice.reponse)
   const engine = new ComputeEngine()
   let saisieParsee, signeF
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
@@ -93,8 +94,8 @@ function verifQuestionMathLive (exercice, i) {
   let resultat = 'KO'
   let saisie = champTexte.value
   for (let reponse of reponses) {
-  // Pour le calcul littéral on remplace dfrac en frac
-    if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') { // Le format par défautt
+    if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') { // Le format par défaut
+      // Pour le calcul littéral on remplace dfrac en frac
       if (typeof reponse === 'string') {
         reponse = reponse.replaceAll('dfrac', 'frac')
       // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
@@ -106,6 +107,10 @@ function verifQuestionMathLive (exercice, i) {
         resultat = 'OK'
       }
       // Pour les exercices de simplifications de fraction
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'texte') {
+      if (saisie === reponse) {
+        resultat = 'OK'
+      }
     } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionPlusSimple') {
       saisieParsee = parse(saisie)
       if (saisieParsee) {
@@ -325,7 +330,7 @@ export function exerciceQcm (exercice) {
         button.addEventListener('click', event => {
           let nbQuestionsValidees = 0
           let nbQuestionsNonValidees = 0
-          for (let i = 0; i < exercice.nbQuestions; i++) {
+          for (let i = 0; i < exercice.autoCorrection.length; i++) {
             const resultat = verifQuestionQcm(exercice, i)
             resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
           }
@@ -351,11 +356,7 @@ export function propositionsQcm (exercice, i) {
   let texte = ''
   let texteCorr = ''
   let espace = ''
-  if (context.isHtml) {
-    if (!exercice.interactif) return { texte: '', texteCorr: '' }
-  } else {
-    if (context.isAmc) return { texte: '', texteCorr: '' }
-  }
+  if (context.isAmc) return { texte: '', texteCorr: '' }
   if (context.isHtml) {
     espace = '&emsp;'
   } else {
@@ -379,7 +380,7 @@ export function propositionsQcm (exercice, i) {
       texte += '<br>'
     }
     for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
-      if (context.isHtml) {
+      if (context.isHtml && exercice.interactif) {
         texte += `<div class="ui checkbox ex${exercice.numeroExercice} monQcm">
             <input type="checkbox" tabindex="0" class="hidden" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
             <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
@@ -443,7 +444,6 @@ export function elimineDoublons (propositions) { // fonction qui va éliminer le
  * @param {object} exercice
  */
 export function exerciceNumerique (exercice) {
-  // console.log('Dans ExerciceNumerique : ', exercice.nbQuestions, exercice.titre, exercice.numeroExercice, exercice.id)
   document.addEventListener('exercicesAffiches', () => {
     if (getVueFromUrl() === 'can') {
       gestionCan(exercice)
@@ -668,11 +668,21 @@ function saisieToGrandeur (saisie) {
  */
 
 function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
-  // TODO
-  // => OK => vérifier si le paramètre existe dans l'url
+  // => vérifier si le paramètre existe dans l'url : OK
   // il a pu être entré manuellement
   // agir en fonction pour les enregistrements
   const userId = getUserIdFromUrl() // ne renvoit pas ce que je veux, en fait si ??? bizarre
+  // TODO => gérer un chrono à partir du serveur si on est en mode chrono
+  // Pour le moment je l'ajoute aux csv avec un string 'à venir'
+  let duree = null
+  if (context.duree) {
+    // duree = getDureeFromUrl() // Pour quand ce sera fait
+    duree = 'à venir'
+    console.log('context duree : ' + duree)
+  } else {
+    duree = 'à venir'
+    console.log('pas context duree : ' + duree)
+  }
   // const str = window.location.href
   // const url = new URL(str)
   // const userId = url.searchParams.get('userId')
@@ -705,7 +715,8 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
         sup3: exercice.sup3,
         nbBonnesReponses: nbBonnesReponses,
         nbQuestions: nbBonnesReponses + nbMauvaisesReponses,
-        score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100
+        score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100,
+        duree: duree
       })
     })
     if (!response.ok) {

@@ -46,10 +46,10 @@ export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
     const figure = randint(1, 2)
     let texteCorr
     if (this.sup === 1) {
-      this.consigne = 'Calculer le périmètre de chacune des figures suivantes'
+      this.consigne = 'Calculer le périmètre de chacune des figures suivantes.'
     }
     if (this.sup === 2) {
-      this.consigne = "Calculer l'aire de chacune des figures suivantes"
+      this.consigne = "Calculer l'aire de chacune des figures suivantes."
     }
 
     if (figure === 1) {

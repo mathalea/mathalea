@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Racine carrée d’un carré parfait (calcul mental)'
+export const titre = 'Déterminer la racine carrée d’un carré parfait (calcul mental)'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifType = 'numerique'
@@ -21,7 +21,6 @@ export default function RacineCareeDeCarresParfaits () {
   this.amcType = amcType
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.interactif = true
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -55,7 +54,7 @@ export default function RacineCareeDeCarresParfaits () {
       a = listeRacines[i]
       c = a * a
       if (listeQuestions[i] === 1) {
-        texte = `Calcule de tête $\\sqrt{${c}}=$` + ajouteChampTexte(this, i)
+        texte = `Calculer de tête $\\sqrt{${c}}=$` + ajouteChampTexte(this, i)
       } else if (listeQuestions[i] === 2) {
         texte = `Quel est le nombre positif dont le carré est $${c}$ ?` + ajouteChampTexte(this, i)
       }

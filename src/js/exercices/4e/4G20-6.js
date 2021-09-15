@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, arrondiVirgule, randint, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, arrondiVirgule, randint, arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Encadrer une racine carrée et en donner un arrondi'
@@ -104,7 +104,7 @@ export default function CalculValeurApprocheeRacineCarree () {
         if (context.isAmc) {
           if (listeAvecOuSansCalculatrice[i] === 'avec') {
             this.autoCorrection[i] = {
-              enonce: `A l'aide de la calculatrice, donner un encadrement de $\\sqrt{${a}}$ ${type} près puis la valeur arrondie ${type} près: \\\\`,
+              enonce: `À l'aide de la calculatrice, donner un encadrement de $\\sqrt{${a}}$ ${type} près puis la valeur arrondie ${type} près: \\\\`,
               propositions: [
                 {
                   type: 'AMCOpen',

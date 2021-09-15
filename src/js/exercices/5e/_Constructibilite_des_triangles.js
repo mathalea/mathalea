@@ -386,7 +386,7 @@ export default function ConstructibiliteDesTriangles () {
   if (this.exo === this.beta + '5G21-1') {
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 longueurs\n2 : 2 longueurs et le périmètre']
   } else if (this.exo === this.beta + '5G31-1') {
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 angles\n2 : 2 angles et le 3e en fonction du 1er ou du 2eme']
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 angles\n2 : 2 angles et le 3ème en fonction du 1er ou du 2ème']
   } else {
     // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
   };

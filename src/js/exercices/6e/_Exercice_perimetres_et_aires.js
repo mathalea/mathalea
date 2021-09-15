@@ -24,8 +24,7 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
     'Pour chacune des figures, calculer son périmètre puis son aire (valeur exacte et si nécessaire valeur approchée au dixième près).'
   this.spacing = 1
   this.nbQuestions = 4
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

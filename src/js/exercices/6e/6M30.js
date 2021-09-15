@@ -19,7 +19,7 @@ export default function CalculDeVolumes () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = "Calculer, en détaillant, le volume des solides donnés. Arrondir à l'unité"
+  this.consigne = "Calculer, en détaillant, le volume des solides donnés. Arrondir à l'unité."
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1

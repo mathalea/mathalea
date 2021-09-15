@@ -21,10 +21,9 @@ export const amcType = 'AMCHybride'
 export default function ExerciceEquation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre les équations suivantes'
+  this.consigne = 'Résoudre les équations suivantes.'
   this.spacing = 2
-  this.interactif = true
-  this.interactifType = 'mathLive'
+    this.interactifType = 'mathLive'
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.correctionDetailleeDisponible = true
   if (!context.isHtml) {
@@ -35,6 +34,7 @@ export default function ExerciceEquation1 () {
   this.sup = true // Avec des nombres relatifs
   this.sup2 = 4 // Choix du type d'équation
   this.nbQuestions = 6
+  this.listePackages = 'bclogo'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

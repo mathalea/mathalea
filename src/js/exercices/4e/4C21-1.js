@@ -24,7 +24,7 @@ export default function ExerciceAdditionnerDesFractions () {
   this.sup = 2 // Niveau de difficulté
   this.sup2 = false // Avec ou sans relatifs
   this.titre = titre
-  this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée"
+  this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 5

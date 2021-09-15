@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texteEnCouleurEtGras,tableauColonneLigne} from '../../modules/outils.js'
-export const titre = 'Tableaux et proportionnalité.'
+export const titre = 'Reconnaître des tableaux de proportionnalité'
 
 /** 
  * * Justifier qu'un tableau est un tableau de proportionnalité ou non
