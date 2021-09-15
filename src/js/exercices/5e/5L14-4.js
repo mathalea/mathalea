@@ -50,20 +50,20 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
       structureExpression = resultats[6]
 
       if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
-      texte = `${expn}.`
+      texte = `${expn}`
       if (this.debug) {
         texte += '<br><br>=====CORRECTION======<br>'
         texte += `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
         texte += `<br>Le calcul serait le suivant :<br> ${expc}.`
         texte += '<br>Pour n\'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.'
-        texte += texteEnCouleur(`<br>La dernière opération dans ${expn} est donc une ${lastOp}.`)
+        texte += texteEnCouleur(`<br>La dernière opération dans ${expn} est une ${lastOp}.`)
         texteCorr = ''
       } else {
         texteCorr = `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
         texteCorr += `<br>Le calcul serait le suivant : ${expc}.`
         texteCorr += '<br>Pour n\'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.'
-        texteCorr += texteEnCouleur(`<br>La dernière opération dans ${expn} est donc une ${lastOp}.`)
-        if (this.consigne === 'Déterminer la structure de l\'expression littérale') {
+        texteCorr += texteEnCouleur(`<br>La dernière opération dans ${expn} est une ${lastOp}.`)
+        if (this.consigne === 'Déterminer si ces expressions sont des sommes, des différences, des produits ou des quotients') {
           texteCorr += texteEnCouleur(`<br>Cette expression est donc ${structureExpression}.`)
         }
       };
