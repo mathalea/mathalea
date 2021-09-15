@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 import { point, segment, crochetD, crochetG, intervalle, mathalea2d } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée'
 
@@ -13,8 +14,8 @@ export default function IntervallesDeR () {
   this.titre = titre
   this.consigne = 'Répondre aux questions suivantes: :'
   this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
+  this.nbCols = 1
+  this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -40,13 +41,16 @@ export default function IntervallesDeR () {
           A = point(2, 0, a)
           B = point(6, 0, b)
           c1 = crochetG(A, 'red')
-          int1 = intervalle(A, X2, 'red', -0.1)
+          c1.taille = context.isHtml ? 0.2 : 0.4
+          int1 = intervalle(A, X2, 'red', 0)
+          int1.epaisseur = 6
           texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x>${a}$ et représenter l'intervalle sur une droite graduée.`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
             xmax: 15,
-            ymax: 2
+            ymax: 2,
+            scale: 0.6
           }, s, int, int1, c1)
           texteCorr += `$I=]${a};+\\infty[$`
           break
@@ -58,13 +62,16 @@ export default function IntervallesDeR () {
           B = point(6, 0, b)
           X2 = point(12, 0)
           c1 = crochetD(A, 'red')
-          int1 = intervalle(A, X2, 'red', -0.1)
+          c1.taille = context.isHtml ? 0.2 : 0.4
+          int1 = intervalle(A, X2, 'red', 0)
+          int1.epaisseur = 6
           texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\geqslant ${a}$ et représenter l'intervalle sur une droite graduée.`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
             xmax: 15,
-            ymax: 2
+            ymax: 2,
+            scale: 0.6
           }, s, int, int1, c1)
           texteCorr += `$I=[${a};+\\infty[$`
           break
@@ -75,7 +82,9 @@ export default function IntervallesDeR () {
           A = point(2, 0, a)
           B = point(6, 0, b)
           c1 = crochetD(A, 'red')
-          int1 = intervalle(X1, A, 'red', -0.1)
+          c1.taille = context.isHtml ? 0.2 : 0.4
+          int1 = intervalle(X1, A, 'red', 0)
+          int1.epaisseur = 6
           texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x<${a}$ et représenter l'intervalle sur une droite graduée.`
           texteCorr = mathalea2d(-2, -2, 15, 2, s, int, int1, c1)
           texteCorr += `$I=]-\\infty;${a}[$`
@@ -87,13 +96,16 @@ export default function IntervallesDeR () {
           A = point(2, 0, a)
           B = point(6, 0, b)
           c1 = crochetG(A, 'red')
-          int1 = intervalle(X1, A, 'red', -0.1)
+          c1.taille = context.isHtml ? 0.2 : 0.4
+          int1 = intervalle(X1, A, 'red', 0)
+          int1.epaisseur = 6
           texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\leqslant ${a}$ et représenter l'intervalle sur une droite graduée.`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
             xmax: 15,
-            ymax: 2
+            ymax: 2,
+            scale: 0.6
           }, s, int, int1, c1)
           texteCorr += `$I=]-\\infty;${a}]$`
           break
@@ -105,14 +117,18 @@ export default function IntervallesDeR () {
           A = point(2, 0, a)
           B = point(6, 0, b)
           c1 = crochetG(A, 'red')
+          c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetD(B, 'red')
-          int1 = intervalle(A, B, 'red', -0.1)
+          c2.taille = context.isHtml ? 0.2 : 0.4
+          int1 = intervalle(A, B, 'red', 0)
+          int1.epaisseur = 6
           texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a} < x < ${b}$ et représenter l'intervalle sur une droite graduée.`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
             xmax: 15,
-            ymax: 2
+            ymax: 2,
+            scale: 0.6
           }, s, int, int1, c1, c2)
           texteCorr += `$I=]${a};${b}[$`
           break
@@ -124,14 +140,18 @@ export default function IntervallesDeR () {
           A = point(2, 0, a)
           B = point(6, 0, b)
           c1 = crochetD(A, 'red')
+          c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetD(B, 'red')
-          int1 = intervalle(A, B, 'red', -0.1)
+          c2.taille = context.isHtml ? 0.2 : 0.4
+          int1 = intervalle(A, B, 'red', 0)
+          int1.epaisseur = 6
           texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x<${b}$ et représenter l'intervalle sur une droite graduée.`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
             xmax: 15,
-            ymax: 2
+            ymax: 2,
+            scale: 0.6
           }, s, int, int1, c1, c2)
           texteCorr += `$I=[${a};${b}[$`
           break
@@ -143,14 +163,18 @@ export default function IntervallesDeR () {
           A = point(2, 0, a)
           B = point(6, 0, b)
           c1 = crochetD(A, 'red')
+          c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetG(B, 'red')
-          int1 = intervalle(A, B, 'red', -0.1)
+          c2.taille = context.isHtml ? 0.2 : 0.4
+          int1 = intervalle(A, B, 'red', 0)
+          int1.epaisseur = 6
           texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x\\leqslant ${b}$ et représenter l'intervalle sur une droite graduée.`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
             xmax: 15,
-            ymax: 2
+            ymax: 2,
+            scale: 0.6
           }, s, int, int1, c1, c2)
           texteCorr += `$I=[${a};${b}]$`
           break
@@ -162,14 +186,18 @@ export default function IntervallesDeR () {
           A = point(2, 0, a)
           B = point(6, 0, b)
           c1 = crochetG(A, 'red')
+          c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetG(B, 'red')
-          int1 = intervalle(A, B, 'red', -0.1)
+          c2.taille = context.isHtml ? 0.2 : 0.4
+          int1 = intervalle(A, B, 'red', 0)
+          int1.epaisseur = 6
           texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}< x\\leqslant ${b}$ et représenter l'intervalle sur une droite graduée.`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
             xmax: 15,
-            ymax: 2
+            ymax: 2,
+            scale: 0.6
           }, s, int, int1, c1, c2)
           texteCorr += `$I=]${a};${b}]$`
           break
@@ -181,14 +209,18 @@ export default function IntervallesDeR () {
           A = point(2, 0, a)
           B = point(6, 0, b)
           c1 = crochetG(A, 'red')
+          c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetG(B, 'red')
-          int1 = intervalle(A, B, 'red', -0.1)
+          c2.taille = context.isHtml ? 0.2 : 0.4
+          int1 = intervalle(A, B, 'red', 0)
+          int1.epaisseur = 6
           texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};${b}]$ et représenter l'intervalle sur une droite graduée.`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
             xmax: 15,
-            ymax: 2
+            ymax: 2,
+            scale: 0.6
           }, s, int, int1, c1, c2)
           texteCorr += `$${a}< x\\leqslant ${b}$`
           break
@@ -199,14 +231,18 @@ export default function IntervallesDeR () {
           A = point(2, 0, a)
           B = point(6, 0, b)
           c1 = crochetD(A, 'red')
+          c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetG(B, 'red')
-          int1 = intervalle(A, B, 'red', -0.1)
+          c2.taille = context.isHtml ? 0.2 : 0.4
+          int1 = intervalle(A, B, 'red', 0)
+          int1.epaisseur = 6
           texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}]$ et représenter l'intervalle sur une droite graduée.`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
             xmax: 15,
-            ymax: 2
+            ymax: 2,
+            scale: 0.6
           }, s, int, int1, c1, c2)
           texteCorr += `$${a}\\leqslant x\\leqslant ${b}$`
           break
@@ -217,14 +253,18 @@ export default function IntervallesDeR () {
           A = point(2, 0, a)
           B = point(6, 0, b)
           c1 = crochetD(A, 'red')
+          c1.taille = context.isHtml ? 0.2 : 0.4
           c2 = crochetD(B, 'red')
-          int1 = intervalle(A, B, 'red', -0.1)
+          c2.taille = context.isHtml ? 0.2 : 0.4
+          int1 = intervalle(A, B, 'red', 0)
+          int1.epaisseur = 6
           texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}[$ et représenter l'intervalle sur une droite graduée.`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
             xmax: 15,
-            ymax: 2
+            ymax: 2,
+            scale: 0.6
           }, s, int, int1, c1, c2)
           texteCorr += `$${a}\\leqslant x< ${b}$`
           break
@@ -235,13 +275,16 @@ export default function IntervallesDeR () {
           A = point(2, 0, a)
           B = point(12, 0, b)
           c1 = crochetG(A, 'red')
+          c1.taille = context.isHtml ? 0.2 : 0.4
 
-          int1 = intervalle(A, B, 'red', -0.1); texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};+\\infty[$ et représenter l'intervalle sur une droite graduée.`
+          int1 = intervalle(A, B, 'red', 0); texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};+\\infty[$ et représenter l'intervalle sur une droite graduée.`
+          int1.epaisseur = 6
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
             xmax: 15,
-            ymax: 2
+            ymax: 2,
+            scale: 0.6
           }, s, int, int1, c1)
           texteCorr += `$x > ${a}$`
           break
@@ -252,14 +295,17 @@ export default function IntervallesDeR () {
           A = point(7, 0, a)
           B = point(12, 0, b)
           c1 = crochetD(A, 'red')
+          c1.taille = context.isHtml ? 0.2 : 0.4
 
-          int1 = intervalle(X1, A, 'red', -0.1)
+          int1 = intervalle(X1, A, 'red', 0)
+          int1.epaisseur = 6
           texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}[$ et représenter l'intervalle sur une droite graduée.`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
             xmax: 15,
-            ymax: 2
+            ymax: 2,
+            scale: 0.6
           }, s, int, int1, c1)
           texteCorr += `$x < ${a}$`
           break
@@ -270,14 +316,17 @@ export default function IntervallesDeR () {
           A = point(7, 0, a)
           B = point(12, 0, b)
           c1 = crochetG(A, 'red')
+          c1.taille = context.isHtml ? 0.2 : 0.4
 
-          int1 = intervalle(X1, A, 'red', -0.1)
+          int1 = intervalle(X1, A, 'red', 0)
+          int1.epaisseur = 6
           texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}]$ et représenter l'intervalle sur une droite graduée.`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
             xmax: 15,
-            ymax: 2
+            ymax: 2,
+            scale: 0.6
           }, s, int, int1, c1)
           texteCorr += `$x \\leqslant ${a}$`
           break
