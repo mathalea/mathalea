@@ -5500,6 +5500,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can6C23"
   },
+  "can6C24": {
+    "titre": "Multiplier par 0,1 ou 0,01 ou 0,001",
+    "url": "/exercices/can/6e/can6C24.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C24"
+  },
   "can6D01": {
     "titre": "Conversion Heures minutes",
     "url": "/exercices/can/6e/can6D01.js",
@@ -5614,6 +5625,28 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6M06"
+  },
+  "can6M07": {
+    "titre": "Compléter un volume au litre",
+    "url": "/exercices/can/6e/can6M07.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6M07"
+  },
+  "can6M08": {
+    "titre": "Question d'aires",
+    "url": "/exercices/can/6e/can6M08.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can6M08"
   },
   "can6N01": {
     "titre": "Recomposer entier",
