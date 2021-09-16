@@ -18,7 +18,19 @@ export default function EcrireNombresEntiers () {
   this.sup = 1
   this.sup2 = 3
   this.nouvelleVersion = function () {
-    if (parseInt(this.sup) === 2) { this.consigne = 'Écrire le nombre en chiffres.' } else { this.consigne = 'Écrire le nombre en lettres.' }
+    let typeDeConsigne = []
+    if (parseInt(this.sup) === 1) {
+      this.consigne = 'Écrire le nombre en chiffres.'
+      typeDeConsigne = combinaisonListes([1], this.nbQuestions)
+    }
+    if (parseInt(this.sup) === 2) {
+      this.consigne = 'Écrire le nombre en lettres.'
+      typeDeConsigne = combinaisonListes([2], this.nbQuestions)
+    }
+    if (parseInt(this.sup) === 3) {
+      this.consigne = 'Passer de l\'écriture en chiffres à celle en lettres et inversement.'
+      typeDeConsigne = combinaisonListes([1, 2], this.nbQuestions)
+    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
@@ -51,7 +63,7 @@ export default function EcrireNombresEntiers () {
         }
         if (tranche[listeTypeDeQuestions[i] - 1] === 0) nombre = 0
       }
-      if (parseInt(this.sup) === 1) {
+      if (typeDeConsigne[i] === 1) {
         if (!context.isDiaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
         else texte = `$${texNombre(nombre)}$`
         if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
@@ -72,6 +84,6 @@ export default function EcrireNombresEntiers () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres']
-  this.besoinFormulaire2Numerique = ['Niveau', 4, '1 : Élémentaire\n2 : Facile\n3 : Moyen\n4 : Difficile']
+  this.besoinFormulaireNumerique = ['Type d\'exercice', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
+  this.besoinFormulaire2Numerique = ['Niveau', 4, '1 : Élémentaire (jusqu\'à la classe des milliers) \n2 : Facile (jusqu\'à la classe des millions)\n3 : Moyen (jusqu\'à la classe des milliards)\n4 : Difficile']
 }
