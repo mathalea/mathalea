@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, texteEnCouleurEtGras, listeDesDiviseurs, sp, numAlpha } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Problème Les iris et les roses'
+export const titre = 'Résoudre des problèmes avec recherche de diviseurs communs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -271,5 +271,5 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des expressions', 'Nombres séparés par des tirets\n 1 : Fleuriste\n2 : Boulanger\n3 : Professeur\n']
+  this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n 1 : Fleuriste\n2 : Boulanger\n3 : Professeur\n']
 }

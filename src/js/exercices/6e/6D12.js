@@ -245,6 +245,6 @@ export default function CalculsDeDureesOuHoraires () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     4,
-    "1 : Calcul de durée\n2 : Calcul de l'horaire de fin\n3 : Calcul de l'horaire de début\n4 : 3 types de questions"
+    "1 : Calcul de durées\n2 : Calcul de l'horaire de fin\n3 : Calcul de l'horaire de début\n4 : Mélange"
   ]
 }

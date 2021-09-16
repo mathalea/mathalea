@@ -95,9 +95,9 @@ export default function ArrondirUneValeur () {
       }
 
       if (this.sup === 1) texte = `$${nb}$`
-      else if (this.sup === 2) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${num}\\div ${den}, \\text{~elle~renvoie} : ${texNombre(n)}$`
-      else if (this.sup === 3) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$`
-      else if (this.sup === 4) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$`
+      else if (this.sup === 2) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${num}\\div ${den}, \\text{~elle~renvoie} : ${texNombre(n)}$.`
+      else if (this.sup === 3) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$.`
+      else if (this.sup === 4) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$.`
 
       texteCorr = "Encadrement et arrondi à l'unité : "
       if (di < 5) {
@@ -230,5 +230,5 @@ export default function ArrondirUneValeur () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de nombre', 2, ' 1 : Nombre décimal\n 2 : Fraction']
+  this.besoinFormulaireNumerique = ['Type de nombres', 2, ' 1 : Nombres décimaux\n 2 : Fractions']
 }

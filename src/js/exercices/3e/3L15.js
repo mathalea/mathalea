@@ -184,7 +184,7 @@ export default function ExerciceEquations () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ["Types d'équations", 2, "1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Tous les types précédents"]
+  this.besoinFormulaireNumerique = ["Type d'équations", 2, "1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Mélange"]
 }
 
 function ax2plusbx (a, b) {

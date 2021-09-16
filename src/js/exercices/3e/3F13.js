@@ -126,5 +126,5 @@ export default function Antecedent_graphique () {
     listeQuestionsToContenuSansNumero(this)
   }
 
-  this.besoinFormulaireNumerique = ['Type de fonctions', 2, '1 : Affine\n2 : Polynome du 2nd degré']
+  this.besoinFormulaireNumerique = ['Type de fonctions', 2, '1 : Affine\n2 : Polynôme du 2nd degré']
 }
