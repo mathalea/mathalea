@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, texNombre2, arrondi, sp, personnes, personne, miseEnEvidence, combinaisonListes, texFraction, randint, numAlpha, choice, premiereLettreEnMajuscule, ppcm, calcul } from '../../modules/outils.js'
 
 export const titre = 'Problèmes de ratio'
