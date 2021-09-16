@@ -7474,6 +7474,9 @@ export function exportQcmAmc (exercice, idExo) {
           propositions = prop.propositions
           switch (qrType) {
             case 'qcmMono':
+              if (elimineDoublons(propositions)) {
+                console.log('doublons trouvés')
+              }
 
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
@@ -7514,6 +7517,9 @@ export function exportQcmAmc (exercice, idExo) {
               id++
               break
             case 'qcmMult':
+              if (elimineDoublons(propositions)) {
+                console.log('doublons trouvés')
+              }
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'
