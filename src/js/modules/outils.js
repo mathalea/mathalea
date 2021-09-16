@@ -5,7 +5,7 @@ import Algebrite from 'algebrite'
 import { format, evaluate, isPrime } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
-import { setReponse } from './gestionInteractif.js'
+import { elimineDoublons, setReponse } from './gestionInteractif.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -7070,6 +7070,9 @@ export function exportQcmAmc (exercice, idExo) {
     }
     switch (type) {
       case 'qcmMono': // question QCM 1 bonne réponse
+        if (elimineDoublons(exercice.autoCorrection[j].propositions)) {
+          console.log('doublons trouvés')
+        }
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
         }
@@ -7097,6 +7100,9 @@ export function exportQcmAmc (exercice, idExo) {
         break
 
       case 'qcmMult': // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
+        if (elimineDoublons(exercice.autoCorrection[j].propositions)) {
+          console.log('doublons trouvés')
+        }
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
         }
