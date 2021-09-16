@@ -1,8 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, abs, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, pgcd, texFractionSigne, texFractionReduite } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
-import {} from 'mathjs'
-import {} from 'core-js/core/number'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Résoudre une équation du second degré à partir de la forme canonique'
@@ -99,12 +97,18 @@ export default function Resolutionavecformecanonique () {
         texteCorr += '<br>On peut donc dire que l\'équation de départ est équivalente à :'
         texteCorr += `<br>$\\big(x+${texFractionReduite(b, 2 * a)}\\big)^2-${texFractionReduite(b * b, 4 * a * a)}+${texFractionReduite(c, a)}=0$`
         texteCorr += `<br>$\\big(x+${texFractionReduite(b, 2 * a)}\\big)^2+${texFractionReduite(-delta, 4 * a * a)}=0$`
+
         if (delta < 0) {
           texteCorr += '<br>L\'équation revient à ajouter deux nombres positifs, dont un non-nul. Cette somme ne peut pas être égale à zéro.'
           texteCorr += '<br>On en déduit que $S=\\emptyset$'
         }
-        texteCorr += '<br>On reconnaît l\'identité remarquable $a^2-b^2$ :'
-        texteCorr += `<br>avec  $a=x+${texFractionReduite(b, 2 * a)}$ et $b = \\dfrac{\\sqrt{${beta}}{2${a}}}$`
+        if (delta > 0) {
+          texteCorr += '<br>On reconnaît l\'identité remarquable $a^2-b^2$ :'
+          texteCorr += `<br>avec  $a=x+${texFractionReduite(b, 2 * a)}$ `
+          texteCorr += `et $b =\\sqrt{${texFractionReduite(delta, 4 * a * a)}}$`
+          texteCorr += '<br>L\'équation à résoudre est équivalente à :'
+          texteCorr += `<br> $\\left(x+${texFractionReduite(b, 2 * a)} -\\sqrt{${texFractionReduite(delta, 4 * a * a)}}\\right)\\left(x+${texFractionReduite(b, 2 * a)} +\\sqrt{${texFractionReduite(delta, 4 * a * a)}}\\right)=0$`
+        }
       }
 
       texte += ajouteChampTexteMathLive(this, i)
