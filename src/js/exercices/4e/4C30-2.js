@@ -11,7 +11,7 @@ export const titre = 'Écriture décimale d’une puissance de 10'
 export default function EcritureDecimalePuissanceDe10() {
   Exercice.call(this);
   this.titre = titre;
-  this.consigne = "Donner l'écriture décimale";
+  this.consigne = "Donner l'écriture décimale.";
   this.nbQuestions = 8;
   this.nbCols = 1;
   this.nbColsCorr = 1;

@@ -1,6 +1,6 @@
 import { calcul, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Soustraire un nombre se finissant par 9'
+export const titre = 'Soustraire 10n+9'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

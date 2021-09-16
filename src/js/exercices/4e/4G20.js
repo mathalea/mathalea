@@ -23,11 +23,12 @@ export default function Pythagore2D () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
-    this.interactifType = interactifType
+  this.interactifType = interactifType
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1
-  this.typeDeQuestion = 'Calculer'
+  this.sup2 = 3
+  this.typeDeQuestion = 'Calculer :'
   this.video = 'M9sceJ8gzNc'
   this.besoinFormulaire2Numerique = ['Côté', 3, '1 : Hypoténuse\n2 : Côté de l\'angle droit\n3 : Les deux']
 
@@ -86,13 +87,13 @@ export default function Pythagore2D () {
       const longueurBC = longueur(B, C, 1)
       const mesObjetsATracer = [codage, p2, nomme]
 
-      if (this.typeDeQuestion === 'Calculer' && listeTypeDeQuestions[i] === 'AB') {
+      if (this.typeDeQuestion === 'Calculer :' && listeTypeDeQuestions[i] === 'AB') {
         mesObjetsATracer.push(affAC, affBC)
       }
-      if (this.typeDeQuestion === 'Calculer' && listeTypeDeQuestions[i] === 'BC') {
+      if (this.typeDeQuestion === 'Calculer :' && listeTypeDeQuestions[i] === 'BC') {
         mesObjetsATracer.push(affAC, affAB)
       }
-      if (this.typeDeQuestion === 'Calculer' && listeTypeDeQuestions[i] === 'AC') {
+      if (this.typeDeQuestion === 'Calculer :' && listeTypeDeQuestions[i] === 'AC') {
         mesObjetsATracer.push(affAB, affBC)
       }
 
@@ -185,7 +186,7 @@ export default function Pythagore2D () {
           texteCorr += ` d'où $${A.nom + C.nom}^2=${B.nom + C.nom}^2-${A.nom + B.nom}^2$.`
         }
       }
-      if (this.typeDeQuestion === 'Calculer') {
+      if (this.typeDeQuestion === 'Calculer :') {
         if (listeTypeDeQuestions[i] === 'AB') {
           let AB
           texteCorr += ` donc $${A.nom + B.nom}^2=${B.nom + C.nom}^2-${A.nom + C.nom}^2$`

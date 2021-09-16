@@ -10,7 +10,7 @@ export const titre = 'Intercaler un nombre décimal entre deux nombres décimaux
 */
 export default function IntercalerDecimalEntre2Decimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Compléter avec un nombre décimal'
+  this.consigne = 'Compléter avec un nombre décimal.'
   this.nbQuestions = 6
   this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX

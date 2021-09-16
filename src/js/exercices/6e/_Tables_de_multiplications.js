@@ -19,7 +19,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
   this.titre = 'Tables de multiplications'
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer : '
   this.spacing = 2
   
   this.nouvelleVersion = function () {

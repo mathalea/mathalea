@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenomF,prenomM,texteEnCouleur,texteGras,texPrix,numAlpha} from '../../modules/outils.js'
-export const titre = 'Résoudre un problème en utilisant une somme algébrique de relatifs.'
+export const titre = 'Résoudre un problème en utilisant une somme algébrique de relatifs'
 
 /** 
  * * résoudre un problème additif avec des relatifs

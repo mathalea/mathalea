@@ -21,7 +21,7 @@ export const amcType = 'AMCHybride'
 export default function ExerciceEquation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre les équations suivantes'
+  this.consigne = 'Résoudre les équations suivantes.'
   this.spacing = 2
     this.interactifType = 'mathLive'
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
