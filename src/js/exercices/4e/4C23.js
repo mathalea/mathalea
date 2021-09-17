@@ -207,5 +207,5 @@ export default function SommeOuProduitFractions () {
 
     listeQuestionsToContenuSansNumero(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Choix du type de question', 3, '1 : Somme et produit\n2 : Somme ou différence, et produit\n3 : Avec priorité opératoire']
+  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Somme et produit\n2 : Somme ou différence, et produit\n3 : Avec priorité opératoire']
 }

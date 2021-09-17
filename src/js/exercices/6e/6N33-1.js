@@ -94,7 +94,7 @@ $${p}~\\%~\\text{de }${n}= ${calcul(p / 10)} \\times ${n}\\div${10} =  ${texNomb
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     2,
-    ' 1 : Pourcentages 10, 20, 30, 40, 50 \n 2: Pourcentages 10, 20, 25, 30, 40, 50, 60, 90'
+    ' 1 : Pourcentages 10, 20, 30, 40, 50 \n 2 : Pourcentages 10, 20, 25, 30, 40, 50, 60, 90'
   ]
   this.besoinFormulaire2CaseACocher = ['Plusieurs méthodes']
 }

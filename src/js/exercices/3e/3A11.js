@@ -296,5 +296,5 @@ export default function PremierOuPas () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Difficulté', 2, '1 : Sans Calculatrice\n2 : Avec calculatrice']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans Calculatrice\n2 : Avec calculatrice']
 }

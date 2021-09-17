@@ -84,6 +84,6 @@ export default function EcrireNombresEntiers () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type d\'exercice', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
+  this.besoinFormulaireNumerique = ['Type d\'exercices', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
   this.besoinFormulaire2Numerique = ['Niveau', 4, '1 : Élémentaire (jusqu\'à la classe des milliers) \n2 : Facile (jusqu\'à la classe des millions)\n3 : Moyen (jusqu\'à la classe des milliards)\n4 : Difficile']
 }

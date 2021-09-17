@@ -189,5 +189,5 @@ export default function ImageGraphique () {
     listeQuestionsToContenuSansNumero(this)
   }
 
-  this.besoinFormulaireNumerique = ['Type de fonctions', 3, '1 : Affine\n2 : Polynome du 2nd degré\n3 : Polynome du 3e degré']
+  this.besoinFormulaireNumerique = ['Type de fonction', 3, '1 : Affine\n2 : Polynome du 2nd degré\n3 : Polynome du 3e degré']
 }

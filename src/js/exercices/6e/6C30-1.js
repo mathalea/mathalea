@@ -198,9 +198,9 @@ export default function MultiplierDecimauxPar101001000 () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = [
-    'Types de calculs',
+    'Type de calculs',
     3,
-    '1 : Écriture décimale\n2 : Écriture fractionnaire\n3 : Écritures décimale et fractionnaire'
+    '1 : Écriture décimale\n2 : Écriture fractionnaire\n3 : Mélange'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des calculs à trous']
 }

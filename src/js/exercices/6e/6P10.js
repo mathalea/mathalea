@@ -362,5 +362,5 @@ export default function ProportionnalitePasProportionnalite () {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireTexte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Achat.\n2 : Distance.\n3 : Âge.\n4 : Épidémie.\n5 : Catalogue (tableau de proportionnalité).']
+  this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Distance\n3 : Âge\n4 : Épidémie\n5 : Catalogue (tableau de proportionnalité)']
 }

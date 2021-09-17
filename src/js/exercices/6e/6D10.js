@@ -146,6 +146,6 @@ export default function ConversionsDeDurees () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     5,
-    '1 : Conversions en s ou min\n2 : Conversions en jours-heures \n3 : Conversions en HMS\n4 : Conversions en semaines-jours-heures \n5 : Tous types de conversions'
+    '1 : Conversions en secondes ou minutes\n2 : Conversions en jours-heures\n3 : Conversions en heures-minutes-secondes\n4 : Conversions en semaines-jours-heures\n5 : Mélange'
   ]
 }

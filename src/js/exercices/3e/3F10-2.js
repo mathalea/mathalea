@@ -226,6 +226,6 @@ export default function CalculsImagesFonctions () {
   this.besoinFormulaireNumerique = [
     'Choix des questions',
     5,
-    '1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynome de degré 2 \n4 : Fonction rationnelle \n5 : Mélange de tout '
+    '1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynome de degré 2 \n4 : Fonction rationnelle \n5 : Mélange'
   ]
 }

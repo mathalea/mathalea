@@ -124,6 +124,6 @@ export default function Construire_homothetie_point_3e () {
 
     //  let nonchoisi,coords=[],x,y,objetsEnonce=[],objetsCorrection=[],nomd,label_pos
   }
-  this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5, '1\n2\n3\n4\n5']
+  this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
   // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];
 }
