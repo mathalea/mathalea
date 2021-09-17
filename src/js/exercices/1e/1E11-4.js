@@ -57,7 +57,7 @@ export default function Resolutionavecformecanonique () {
         texteCorr += `<br>Dans le polynôme de l'énoncé : $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
         if (a !== 1) { // On simplifie par a si a<>1
           texteCorr += `<br>On commence par diviser les deux membres de l'égalité par $${a}$.`
-          texteCorr += '<br>$x^2 '
+
 
           // fin du test si a<>1
         }

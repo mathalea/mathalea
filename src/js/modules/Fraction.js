@@ -108,6 +108,27 @@ class Fraction {
       return texFractionSimplifiee
     })
     /**
+     * le code LaTeX de l'écriture algébrique de la fraction
+     * @property ecritureAlgebriqueFraction
+     * @type {string}
+     */
+    let ecritureAlgebriqueFraction
+    definePropRo(this, 'ecritureAlgebriqueFraction', () => {
+      if (!ecritureAlgebriqueFraction) ecritureAlgebriqueFraction = this.signe === 1 ? '+' + this.texFraction : this.texFraction
+      return ecritureAlgebriqueFraction
+    })
+    /**
+     * le code LaTeX de l'écriture avec parenthèse si négatif
+     * @property ecritureParentheseSiNegatif
+     * @type {string}
+     */
+    let ecritureParentheseSiNegatif
+    definePropRo(this, 'ecritureParentheseSiNegatif', () => {
+      if (!ecritureParentheseSiNegatif) ecritureParentheseSiNegatif = this.signe === 1 ? this.texFraction : '\\left(' + this.texFraction + '\\right)'
+      return ecritureParentheseSiNegatif
+    })
+
+    /**
      * Valeurs avec 6 décimales
      * @type {number}
      */
@@ -144,6 +165,14 @@ class Fraction {
    */
   opposeIrred () {
     return new Fraction(-this.numIrred, this.denIrred)
+  }
+
+  /**
+   * Retourne la Valeur absolue de la fraction
+   * @return {Fraction}
+   */
+  valeurAbsolue () {
+    return new Fraction(Math.abs(this.num), Math.abs(this.den))
   }
 
   /**
