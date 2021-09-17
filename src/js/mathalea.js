@@ -1999,7 +1999,7 @@ function parametresExercice (exercice) {
       formSup[i].value = exercice[i].sup // Rempli le formulaire avec le paramètre supplémentaire
       formSup[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup = e.target.value
+        exercice[i].sup = parseInt(e.target.value)
         miseAJourDuCode()
       })
     }
@@ -2029,7 +2029,7 @@ function parametresExercice (exercice) {
       formSup2[i].value = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
       formSup2[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup2 = e.target.value
+        exercice[i].sup2 = parseInt(e.target.value)
         miseAJourDuCode()
       })
     }
@@ -2066,7 +2066,7 @@ function parametresExercice (exercice) {
       formSup3[i].value = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
       formSup3[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup3 = e.target.value
+        exercice[i].sup3 = parseInt(e.target.value)
         miseAJourDuCode()
       })
     }
