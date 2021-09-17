@@ -680,7 +680,7 @@ export function menuDesExercicesDisponibles () {
   listeHtmlDesExercicesTab = `<div id="recherche"> </div><table id='listtab' class="stripe"><thead>
     <tr><th class="colonnecode">Code</th><th>Intitulé de l'exercice</th><th>Mode</th><th>Prévisualiser</th></thead><tbody>
     ${listeHtmlDesExercicesTab}
-    </tbody><tfoot><tr><th class="colonnecode">Code</th><th>Intitulé de l'exercice</th><th>Mode</th><th>prévisualiser</th></tr>
+    </tbody><tfoot><tr><th class="colonnecode">Code</th><th>Intitulé de l'exercice</th><th>Mode</th><th>Prévisualiser</th></tr>
     </tfoot></table>`
   $('#liste_des_exercices_tableau').html(listeHtmlDesExercicesTab)
   $('#liste_des_exercices_tableau').hide()

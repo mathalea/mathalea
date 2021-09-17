@@ -425,6 +425,6 @@ export default function ExerciceEquation1 () {
   this.besoinFormulaire2Numerique = [
     "Type d'équations",
     4,
-    '1 : ax=b ou x+a=b ou x-a=b\n2: ax+b=c\n3: ax+b=cx+d\n4: Les 2 types précédents'
+    '1 : ax=b ou x+a=b ou x-a=b\n2 : ax+b=c\n3 : ax+b=cx+d\n4 : Les 2 types précédents'
   ]
 }

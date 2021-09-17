@@ -86,5 +86,5 @@ export default function ArrondirUneValeur () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de nombre', 2, ' 1 : Racine carrée\n 2 : Valeur avec cosinus']
+  this.besoinFormulaireNumerique = ['Type de nombres', 2, ' 1 : Racine carrée\n 2 : Valeur avec cosinus']
 }

@@ -155,6 +155,6 @@ export default function ExerciceSubstituer (difficulte = 1) {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication par un facteur positif\n2: Multiplication par un facteur relatif']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication par un facteur positif\n2 : Multiplication par un facteur relatif']
   exerciceInteractif(this)
 }

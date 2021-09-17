@@ -271,5 +271,5 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n 1 : Fleuriste\n2 : Boulanger\n3 : Professeur\n']
+  this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Boulanger\n3 : Professeur\n']
 }

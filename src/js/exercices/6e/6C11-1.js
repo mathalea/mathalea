@@ -125,6 +125,6 @@ export default function DivisionsEuclidiennesEgalite () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     2,
-    "1 : L'égalité correspond à la division euclidienne.\n2: L'égalité ne correspond pas nécessairement à la division euclidienne."
+    "1 : L'égalité correspond à la division euclidienne.\n 2: L'égalité ne correspond pas nécessairement à la division euclidienne."
   ]
 }

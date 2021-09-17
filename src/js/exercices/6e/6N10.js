@@ -66,13 +66,13 @@ export default function EcrireNombresEntiers () {
       if (typeDeConsigne[i] === 1) {
         if (!context.isDiaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
         else texte = `$${texNombre(nombre)}$`
-        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
-        else texteCorr = `${nombreEnLettres(nombre)}.`
+        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}`
+        else texteCorr = `${nombreEnLettres(nombre)}`
       } else {
         if (!context.isDiaporama) texte = `${nombreEnLettres(nombre)} : \\dotfill`
         else texte = `${nombreEnLettres(nombre)}`
-        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$.`
-        else texteCorr = `$${texNombre(nombre)}$.`
+        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$`
+        else texteCorr = `$${texNombre(nombre)}$`
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

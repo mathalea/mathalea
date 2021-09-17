@@ -375,6 +375,6 @@ export default function Constructions_parallelogrammes_particuliers() {
         listeQuestionsToContenu(this);
 
     };
-    this.besoinFormulaireNumerique = ['Niveau de diffculté', 3, "1 : Figures faciles\n2 : Figures plus difficiles\n3 : Figure au hasard"];
+    this.besoinFormulaireNumerique = ['Niveau de diffculté', 3, "1 : Figures faciles\n2 : Figures plus difficiles\n3 : Mélange"];
     // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];	
 }

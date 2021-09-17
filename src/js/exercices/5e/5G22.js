@@ -90,5 +90,5 @@ export default function DroiteRemarquableDuTriangle () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de droites', 3, '1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Toutes les droites']
+  this.besoinFormulaireNumerique = ['Type de droites', 3, '1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Mélange']
 }
