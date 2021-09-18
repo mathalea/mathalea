@@ -464,7 +464,7 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
   'use strict'
   let question
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Répondre aux questions posées en justifiant'
+  this.consigne = 'Répondre aux questions posées en justifiant.'
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.nbQuestions = 6
@@ -472,7 +472,7 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
   this.nbColsCorr = 1
   this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
   this.sup = false
-  this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Achat.\n2 : Recette.\n3 : Dilution.\n4 : Distance.\n5 : Echelle.\n6 : Surface.']
+  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Échelle\n6 : Surface']
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

@@ -22,7 +22,7 @@ export default function UnitesDeVolumesEtDeCapacite (niveau = 1) {
   this.sup = niveau // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.titre = titre
-  this.consigne = 'Compléter'
+  this.consigne = 'Compléter : '
   this.spacing = 2
   this.nbQuestions = 8
   this.nbColsCorr = 1
@@ -181,7 +181,7 @@ export default function UnitesDeVolumesEtDeCapacite (niveau = 1) {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     3,
-    '1 : Unités de volume vers litre\n2 : Litre vers unités de volume\n3 : Mélange'
+    '1 : Unités de volume vers Litres\n2 : Litres vers unités de volume\n3 : Mélange'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
 }

@@ -1251,13 +1251,13 @@ function miseAJourDeLaListeDesExercices (preview) {
         const urlVars = getUrlVars()
         // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
         // => évite les erreurs lors de la suppression de question dans la liste.
-        if (urlVars.length < listeObjetsExercice.length && document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') {
+        if (urlVars.length < listeObjetsExercice.length && ((document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') || document.getElementById('exoModeInteractif'))) {
           listeObjetsExercice[listeObjetsExercice.length - 1].interactif = true
           if (formInteractif[listeObjetsExercice.length - 1]) {
             formInteractif[listeObjetsExercice.length - 1].checked = true
           }
         }
-        if (urlVars.length < 0 && document.getElementById('filtre').value === 'interactif') {
+        if (urlVars.length < 0 && (document.getElementById('filtre').value === 'interactif' || document.getElementById('exoModeInteractif'))) {
           listeObjetsExercice[0].interactif = true
           formInteractif[0].checked = true
         }
@@ -1677,7 +1677,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire2CaseACocher) {
       // Création d'un formulaire texte
       divParametresGeneraux.innerHTML +=
-        "<div style='display: inline'><label for='form_sup2" +
+        "<div><label for='form_sup2" +
         i +
         "'>" +
         exercice[i].besoinFormulaire2CaseACocher[0] +
@@ -1999,7 +1999,7 @@ function parametresExercice (exercice) {
       formSup[i].value = exercice[i].sup // Rempli le formulaire avec le paramètre supplémentaire
       formSup[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup = e.target.value
+        exercice[i].sup = parseInt(e.target.value)
         miseAJourDuCode()
       })
     }
@@ -2029,7 +2029,7 @@ function parametresExercice (exercice) {
       formSup2[i].value = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
       formSup2[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup2 = e.target.value
+        exercice[i].sup2 = parseInt(e.target.value)
         miseAJourDuCode()
       })
     }
@@ -2066,7 +2066,7 @@ function parametresExercice (exercice) {
       formSup3[i].value = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
       formSup3[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup3 = e.target.value
+        exercice[i].sup3 = parseInt(e.target.value)
         miseAJourDuCode()
       })
     }

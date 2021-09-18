@@ -17,7 +17,7 @@ export const amcType = 'AMCHybride'
  */
 export default function HeuresDecimales () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Compléter les égalités suivantes'
+  this.consigne = 'Compléter les égalités suivantes.'
   this.spacing = 2
   this.nbQuestions = 5
   this.nbColsCorr = 1

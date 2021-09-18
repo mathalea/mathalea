@@ -10,7 +10,7 @@ export const titre = 'Additions de deux entiers relatifs dans un tableau à doub
 */
 export default function ExerciceTableauAdditionsRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.spacing = 1
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false

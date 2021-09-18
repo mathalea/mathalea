@@ -5,7 +5,7 @@ import Algebrite from 'algebrite'
 import { format, evaluate, isPrime } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
-import { setReponse } from './gestionInteractif.js'
+import { elimineDoublons, setReponse } from './gestionInteractif.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -3325,11 +3325,15 @@ export function ordreDeGrandeur (x, type) {
 * @author Rémi Angot
 */
 export function creerModal (numeroExercice, contenu, labelBouton, icone) {
-  const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${labelBouton}</button>
-    <div class="ui modal" id="modal${numeroExercice}">
-    ${contenu}
-    </div>`
-  return HTML
+  if (context.isHtml) {
+    const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${labelBouton}</button>
+      <div class="ui modal" id="modal${numeroExercice}">
+      ${contenu}
+      </div>`
+    return HTML
+  } else {
+    return ''
+  }
 }
 /**
 * Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
@@ -7066,6 +7070,9 @@ export function exportQcmAmc (exercice, idExo) {
     }
     switch (type) {
       case 'qcmMono': // question QCM 1 bonne réponse
+        if (elimineDoublons(exercice.autoCorrection[j].propositions)) {
+          console.log('doublons trouvés')
+        }
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
         }
@@ -7093,6 +7100,9 @@ export function exportQcmAmc (exercice, idExo) {
         break
 
       case 'qcmMult': // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
+        if (elimineDoublons(exercice.autoCorrection[j].propositions)) {
+          console.log('doublons trouvés')
+        }
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
         }
@@ -7464,6 +7474,9 @@ export function exportQcmAmc (exercice, idExo) {
           propositions = prop.propositions
           switch (qrType) {
             case 'qcmMono':
+              if (elimineDoublons(propositions)) {
+                console.log('doublons trouvés')
+              }
 
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
@@ -7504,6 +7517,9 @@ export function exportQcmAmc (exercice, idExo) {
               id++
               break
             case 'qcmMult':
+              if (elimineDoublons(propositions)) {
+                console.log('doublons trouvés')
+              }
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'

@@ -1,6 +1,6 @@
 import { calcul, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Nombre pair multiplié par 5'
+export const titre = 'Multiplier nombre pair par 5'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

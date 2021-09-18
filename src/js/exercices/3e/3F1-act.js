@@ -74,7 +74,7 @@ export default function fonction_notion_vocabulaire() {
 
 		this.introduction = lampeMessage({
 			titre: `Introduction`,
-			texte: `Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>
+			texte: `Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique, celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>
 				On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre qu'on trouve à la sortie.<br>
 				Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$
 				<br>`,
@@ -104,7 +104,7 @@ export default function fonction_notion_vocabulaire() {
 
 					// question
 					if (context.isHtml) {
-						texte = `La $\\mathbf{machine\\,f}$ renvoie le ` + katexPopup(`périmètre`, `Rappel`, `Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés`) + ` d'un carré de côté $x$`;
+						texte = `La $\\mathbf{machine\\,f}$ renvoie le ` + katexPopup(`périmètre`, `Rappel`, `Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés.`) + ` d'un carré de côté $x$.`;
 					} else {
 						texte = `<br>La $\\mathbf{machine\\,f}$ renvoie le \\textbf{périmètre} \\footnote{\\textbf{Rappel :} Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés} d'un carré de côté $x$`;
 					}
@@ -119,7 +119,7 @@ export default function fonction_notion_vocabulaire() {
 					// sous question a/						
 					if (context.isHtml) {
 						texte += numAlpha(j) + ` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `;
-						texte += katexPopup('avec le mot image', 'Image', 'La valeur du périmètre est l\'image de la valeur du côté') + `<br>`;
+						texte += katexPopup('avec le mot image', 'Image', 'La valeur du périmètre est l\'image de la valeur du côté.') + `<br>`;
 						texteCorr = numAlpha(j) + ` Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est à dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4 * x}$ cm.<br>`;
 						texteCorr += `On dit que ${4 * x} est l'image de ${x} par la fonction f.<br>`;
 						j++; //incrémente la sous question	

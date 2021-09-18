@@ -240,5 +240,5 @@ export default function EgalitesEntreFractions () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99]
-  this.besoinFormulaire2Numerique = ['Type de question', 3, '1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Alternance']
+  this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Mélange']
 }

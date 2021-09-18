@@ -44,7 +44,7 @@ export const amcType = 'AMCNum' // Question numérique
 export default function Priorites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 1
@@ -332,6 +332,6 @@ export default function Priorites () {
   this.besoinFormulaireNumerique = [
     'Type de calculs',
     3,
-    '1 : Sans parenthèses\n2: Avec parenthèses\n3: Avec ou sans parenthèses'
+    '1 : Sans parenthèses\n2: Avec parenthèses\n3: Mélange'
   ]
 }

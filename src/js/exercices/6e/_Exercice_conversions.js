@@ -24,7 +24,7 @@ export default function ExerciceConversions (niveau = 1) {
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.titre =
     'Conversions de longueurs, masses, contenance, prix ou unités informatiques'
-  this.consigne = 'Compléter'
+  this.consigne = 'Compléter : '
   this.spacing = 2
   this.correction_avec_des_fractions = false
   
@@ -239,6 +239,6 @@ export default function ExerciceConversions (niveau = 1) {
     listeQuestionsToContenu(this)
   }
 
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, "1 : De da, h, k vers l'unité de référence\n2 : De d, c, m vers l'unité de référence\n3 : Multiplications ou divisions vers l'unité de référence\n4 : Conversions avec les octets\n5: Toutes les conversions"]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, "1 : De da, h, k vers l'unité de référence\n2 : De d, c, m vers l'unité de référence\n3 : Multiplications ou divisions vers l'unité de référence\n4 : Conversions avec les octets\n5: Mélange"]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
 }

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence } from '../../modules/outils.js'
-export const titre = 'Chiffre des ... Nombre de ...'
+export const titre = 'Trouver le chiffre des ... et le nombre de ...'
 
 /**
  * * Donner le chiffre des ... le nombre de ...

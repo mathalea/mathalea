@@ -706,6 +706,7 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
         classe2: userId[4],
         eleve1: userId[5],
         eleve2: userId[6],
+        eleve3: userId[7],
         // eslint-disable-next-line no-unneeded-ternary
         isCan: getVueFromUrl() === 'can' ? 'oui' : 'non',
         urlExos: document.location.href + '&serie=' + context.graine,

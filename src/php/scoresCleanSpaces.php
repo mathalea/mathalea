@@ -41,16 +41,7 @@ $f = fopen($scoresDir.'/isCleanUpNeeded.txt',"r");
 $timeOfcreation = fgets($f);
 fclose($f);  
 }
-// ========================
-// À conserver car j'avais fait n'importe quoi pour le camelCase
-// Au moins jusqu'à l'an prochain !
-// ========================
-if (file_exists($scoresDir.'/iScleanUpNeeded.txt')) {
-  unlink($scoresDir.'/iScleanUpNeeded.txt');
-};
-if (file_exists($scoresDir.'/iSindexUpdateNeeded.txt')) {
-  unlink($scoresDir.'/iSindexUpdateNeeded.txt');
-};
+
 $deleteDay = intval(date('d',$timeOfcreation)); //intval(date('d',filemtime($scoresDir)));
 $deleteMonth = intval(date('m',$timeOfcreation)); //intval(date('m',filemtime($scoresDir)));
 $deleteYear = intval(date('Y',$timeOfcreation+$intervalBeforeDelete)); // intval(date('Y',filemtime($scoresDir)+$intervalBeforeDelete));

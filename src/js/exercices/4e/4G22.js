@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, calcul, texNombrec, creerNomDePolygone, texNombre } from '../../modules/outils.js'
-export const titre = 'Problèmes utilisant le théorème de Pythagore'
+export const titre = 'Résoudre des problèmes utilisant le théorème de Pythagore'
 
 /**
  * Problèmes utilisant le théorème de Pythagore ou sa réciproque et des propriétés des quadrilatères particuliers.

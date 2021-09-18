@@ -129,6 +129,6 @@ export default function VocabulaireNotationsFonctions () {
   this.besoinFormulaireNumerique = [
     'Choix des questions',
     3,
-    '1 : Vocabulaire\n2 : Notations \n3 : Mélange vocabulaire et notations'
+    '1 : Vocabulaire\n2 : Notations \n3 : Mélange'
   ]
 }

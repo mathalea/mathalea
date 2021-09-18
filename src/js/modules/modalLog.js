@@ -32,7 +32,8 @@ export const modalLog = async () => {
           classe1: userId[3],
           classe2: userId[4],
           eleve1: userId[5],
-          eleve2: userId[6]
+          eleve2: userId[6],
+          eleve3: userId[7]
         })
       })
       if (!response.ok) {

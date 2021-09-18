@@ -11,7 +11,7 @@ export const titre = 'Écrire une fraction sur 100 puis sous la forme d’un pou
 export default function FractionVersPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Compléter'
+  this.consigne = 'Compléter :'
   this.nbQuestions = 6
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX

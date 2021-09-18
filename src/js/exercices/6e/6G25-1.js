@@ -424,5 +424,5 @@ export default function betaExoPavage6e () {
     }
   }
   this.besoinFormulaireNumerique = ['Choix des axes :', 2, '1 : Axe horizontal\n2 : Axe vertical']
-  this.besoinFormulaire2Texte = ['Echelle de la figure (nombre avec un point comme séparateur décimal)']
+  this.besoinFormulaire2Texte = ['Échelle de la figure (nombre avec un point comme séparateur décimal)']
 }
