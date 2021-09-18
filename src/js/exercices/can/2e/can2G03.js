@@ -1,8 +1,8 @@
-import Exercice from '../Exercice.js'
-import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, choice, calcul, creerNomDePolygone, texNombrec, exposant } from '../../../modules/outils.js'
 import {
   mathalea2d, point, latexParCoordonnees, pointAdistance, longueur, polygoneAvecNom, milieu, codageAngleDroit, similitude
-} from '../../modules/2d.js'
+} from '../../../modules/2d.js'
 export const titre = 'Calcul de l’hypoténuse avec Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'

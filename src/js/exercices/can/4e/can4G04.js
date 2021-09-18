@@ -1,8 +1,8 @@
-import Exercice from '../Exercice.js'
-import { randint, calcul, creerNomDePolygone, texNombrec } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, calcul, creerNomDePolygone, texNombrec, exposant } from '../../../modules/outils.js'
 import {
   mathalea2d, point, latexParCoordonnees, pointAdistance, longueur, polygoneAvecNom, milieu, codageAngleDroit
-} from '../../modules/2d.js'
+} from '../../../modules/2d.js'
 export const titre = 'Calcul de d’un côté avec Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,7 +41,7 @@ export default function CalculCotePythagore () {
       latexParCoordonnees(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'black', 20, 10, ''),
       latexParCoordonnees('x', milieu(B, C).x + 0.2, milieu(B, C).y, 'black', 20, 10, '')
     )
-    this.question = 'Sur cette figure $x=\\sqrt{a}$ avec $a=$<br>'
+    this.question = `Sur cette figure, $x$${exposant(2)}$=$<br>`
     this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.7 }, objets)
     this.correction = ` En utilisant le théorème de Pythagore, on a :<br>
         $${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2=${nom[0]}${nom[2]}^2$, soit
