@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, choice, texNombrec, ecritureParentheseSiNegatif, texteEnCouleur, creerNomDePolygone } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, choice, texNombrec, ecritureParentheseSiNegatif, texteEnCouleur, creerNomDePolygone } from '../../../modules/outils.js'
 export const titre = 'Calculs des coordonnées du milieu'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -7,8 +7,8 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can2G04
+ * Date de publication sptembre 2021
 */
 export default function CalculCoordonneesMilieu () {
   Exercice.call(this)

@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, choice, ecritureParentheseSiNegatif, creerNomDePolygone, texteEnCouleur } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, choice, ecritureParentheseSiNegatif, creerNomDePolygone, texteEnCouleur } from '../../../modules/outils.js'
 export const titre = 'Calcul d’une distance dans un repère'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -7,8 +7,8 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can2G05
+ * Date de publication sptembre 2021
 */
 export default function DistanceRepere () {
   Exercice.call(this)
@@ -56,7 +56,7 @@ export default function DistanceRepere () {
            Enfin, on en prend la racine carrée.<br>
             Comme $${(c - a) ** 2 + (d - b) ** 2}$ n'est pas un carré parfait, on ne simplifie pas (la réponse doit être sous la forme $\\sqrt{a}$ ou d'un entier).
            `)
-          this.reponse = `\\sqrt{${(c - a) ** 2 + (d - b) ** 2}}`
+          this.reponse = [`\\sqrt{${(c - a) ** 2 + (d - b) ** 2}}`, `${Math.sqrt((c - a) ** 2 + (d - b) ** 2)}`]
         }
         break
       case 'b' :

@@ -1,8 +1,8 @@
-import Exercice from '../Exercice.js'
+import Exercice from '../../Exercice.js'
 import {
   randint, ecritureParentheseSiNegatif,
   ecritureAlgebrique, texteEnCouleur, texFractionReduite, reduireAxPlusB, simplificationDeFractionAvecEtapes, texFraction
-} from '../../modules/outils.js'
+} from '../../../modules/outils.js'
 export const titre = 'Calcul d’une image avec un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,8 +10,8 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can2F02
+ * Date de publication sptembre 2021
 */
 export default function CalculImageQuotient () {
   Exercice.call(this) // Héritage de la classe Exercice()

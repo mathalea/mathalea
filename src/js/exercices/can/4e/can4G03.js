@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+ * Référence can4G03
  * Date de publication
 */
 export default function CalculHypotenusePythagore () {

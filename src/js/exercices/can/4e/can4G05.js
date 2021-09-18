@@ -7,8 +7,8 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can4G05
+ * Date de publication sptembre 2021
 */
 export default function DiagonaleCarre () {
   Exercice.call(this) // Héritage de la classe Exercice()

@@ -1,17 +1,17 @@
-import Exercice from '../Exercice.js'
-import { choice, texFraction, texFractionReduite, simplificationDeFractionAvecEtapes, texteEnCouleur } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { choice, texFraction, texFractionReduite, simplificationDeFractionAvecEtapes, texteEnCouleur } from '../../../modules/outils.js'
 import {
   mathalea2d, point, segmentAvecExtremites,
   codeSegments, labelPoint, latexParCoordonnees
-} from '../../modules/2d.js'
+} from '../../../modules/2d.js'
 export const titre = 'milieu entre 1 et fraction avec graphique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can3C07
+ * Date de publication sptembre 2021
 */
 export default function MilieuEntre1EtFraction () {
   Exercice.call(this)

@@ -10,8 +10,8 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can4G04
+ * Date de publication sptembre 2021
 */
 export default function CalculCotePythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
