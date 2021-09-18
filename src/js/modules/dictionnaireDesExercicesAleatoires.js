@@ -4238,6 +4238,41 @@ export default {
     ],
     "name": "betaCan2G01"
   },
+  "betaCAN2Q19-01": {
+    "titre": "Calculs des coordonnées du milieu",
+    "url": "/exercices/beta/betaCAN2Q19-01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q19-01"
+  },
+  "betaCAN2Q19-02": {
+    "titre": "Calcul d’une distance dans un repère",
+    "url": "/exercices/beta/betaCAN2Q19-02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q19-02"
+  },
+  "betaCAN2Q19-03": {
+    "titre": "milieu entre 1 et fraction avec graphique",
+    "url": "/exercices/beta/betaCAN2Q19-03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q19-03"
+  },
+  "betaCaNCM2": {
+    "titre": "Course aux nombres CM2",
+    "url": "/exercices/beta/betaCaNCM2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCaNCM2"
+  },
   "betaComplexes": {
     "titre": "Exercice exemple Nombres complexes",
     "url": "/exercices/beta/betaComplexes.js",
@@ -4273,19 +4308,19 @@ export default {
     "interactifReady": false,
     "name": "betaEqCarreDansC"
   },
-  "betaEqValAbs": {
-    "titre": "Equation avec une valeur absolue",
-    "url": "/exercices/beta/betaEqValAbs.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaEqValAbs"
-  },
   "betaEquationsLog": {
     "titre": "Equations avec logarithmes",
     "url": "/exercices/beta/betaEquationsLog.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "betaEquationsLog"
+  },
+  "betaEqValAbs": {
+    "titre": "Equation avec une valeur absolue",
+    "url": "/exercices/beta/betaEqValAbs.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaEqValAbs"
   },
   "betaExo3d": {
     "titre": "Exo zéroMathalea2d3d",
@@ -4345,12 +4380,12 @@ export default {
     "interactifReady": false,
     "name": "betaModele21_parametrables"
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques"
+    "name": "betaModele30_constructions_géométriques"
   },
   "betaModele31_parametrables": {
     "titre": "Nom de l'exercice",
@@ -4402,6 +4437,13 @@ export default {
     "interactifReady": false,
     "name": "betaPuissances"
   },
+  "betarotation3d": {
+    "titre": "Rotation 3d de polygones",
+    "url": "/exercices/beta/betarotation3d.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betarotation3d"
+  },
   "betaSpline": {
     "titre": "Nom de l'exercice",
     "url": "/exercices/beta/betaSpline.js",
@@ -4422,13 +4464,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaTracerParabole"
-  },
-  "betarotation3d": {
-    "titre": "Rotation 3d de polygones",
-    "url": "/exercices/beta/betarotation3d.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betarotation3d"
   },
   "betatrinome": {
     "titre": "Exercice exemple",

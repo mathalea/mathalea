@@ -228,6 +228,10 @@
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
+|betaCAN2Q19-01|Calculs des coordonnées du milieu|KO|KO|OK|mathLive|
+|betaCAN2Q19-02|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
+|betaCAN2Q19-03|milieu entre 1 et fraction avec graphique|KO|KO|OK|mathLive|
+|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
