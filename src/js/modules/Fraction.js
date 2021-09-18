@@ -1,5 +1,6 @@
-import { texFractionSigne, unSiPositifMoinsUnSinon, arrondi, fractionSimplifiee, obtenirListeFacteursPremiers, calcul, texFraction, quotientier } from './outils.js'
+import { texFractionSigne, unSiPositifMoinsUnSinon, arrondi, fractionSimplifiee, obtenirListeFacteursPremiers, calcul, texFraction, quotientier, extraireRacineCarree } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
+import { fraction } from './fractions.js'
 
 const definePropRo = (obj, prop, get) => {
   Object.defineProperty(obj, prop, {
@@ -72,6 +73,8 @@ class Fraction {
      * @property texFraction
      * @type {string}
      */
+    this.signeString = (this.signe === -1) ? '-' : (this.signe === 0) ? '' : '+'
+
     let texFraction
     definePropRo(this, 'texFraction', () => {
       if (!texFraction) texFraction = texFractionSigne(this.num, this.den)
@@ -109,13 +112,13 @@ class Fraction {
     })
     /**
      * le code LaTeX de l'écriture algébrique de la fraction
-     * @property ecritureAlgebriqueFraction
+     * @property ecritureAlgebrique
      * @type {string}
      */
-    let ecritureAlgebriqueFraction
-    definePropRo(this, 'ecritureAlgebriqueFraction', () => {
-      if (!ecritureAlgebriqueFraction) ecritureAlgebriqueFraction = this.signe === 1 ? '+' + this.texFraction : this.texFraction
-      return ecritureAlgebriqueFraction
+    let ecritureAlgebrique
+    definePropRo(this, 'ecritureAlgebrique', () => {
+      if (!ecritureAlgebrique) ecritureAlgebrique = this.signe === 1 ? '+' + this.texFraction : this.texFraction
+      return ecritureAlgebrique
     })
     /**
      * le code LaTeX de l'écriture avec parenthèse si négatif
@@ -141,6 +144,26 @@ class Fraction {
    */
   simplifie () {
     return new Fraction(this.numIrred, this.denIrred)
+  }
+
+  /**
+   * Retourne la fraction racine carrée
+   * @return {Fraction}
+   */
+  racineCarree () {
+    const factoNum = extraireRacineCarree(Math.abs(this.num))
+    const factoDen = extraireRacineCarree(Math.abs(this.den))
+    if (this.signe === -1) {
+      return false
+    } else if (this.signe === 0) {
+      return '0'
+    } else {
+      if (factoNum[1] / factoDen[1] !== 1) {
+        return this.signeString + fraction(factoNum[0], factoDen[0]).simplifie().texFraction
+      } else {
+        return this.signeString + fraction(factoNum[0], factoDen[0]).simplifie().texFraction + `\\sqrt{${fraction(factoNum[1], factoDen[1]).simplifie().texFraction}}`
+      }
+    }
   }
 
   /**
