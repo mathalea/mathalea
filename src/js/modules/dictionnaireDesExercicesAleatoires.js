@@ -3839,6 +3839,14 @@ export default {
     "interactifType": "mathLive",
     "name": "betaCAN2Q21-01"
   },
+  "betaCAN2Q21-02": {
+    "titre": "Calcul d’une image avec un quotient",
+    "url": "/exercices/beta/betaCAN2Q21-02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q21-02"
+  },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
     "url": "/exercices/beta/betaCaNCM2.js",
