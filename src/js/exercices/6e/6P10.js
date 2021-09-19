@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -161,10 +162,10 @@ export default function ProportionnalitePasProportionnalite () {
             somme = calcul(y * pu, 2)
             p = y * randint(2, 5)
             z = calcul(p * pu, 2)
-            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
+            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}.<br>`
             texte += `Elle  repart avec ${y} ${objet} pour $${texPrix(
             somme
-          )}$€. ${prenoms[1]
+          )}$€.<br> ${prenoms[1]
             } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
               z
             )}$€.<br>`
@@ -197,8 +198,8 @@ export default function ProportionnalitePasProportionnalite () {
             pu -= 0.1
             p = y * randint(2, 5)
             z = calcul(p * pu, 2)
-            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
-            texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}$€. ${prenoms[1]
+            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}.<br>`
+            texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}$€.<br> ${prenoms[1]
             } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
               z
             )}$€.<br>`
@@ -251,7 +252,7 @@ export default function ProportionnalitePasProportionnalite () {
           prenoms = [prenomF(), prenomM()]
           x = randint(5, 20)
           y = x + randint(25, 35)
-          texte = `${prenoms[0]} vient d'avoir ${x} ans cette année. Son père ${prenoms[1]} vient de fêter  son ${y}ème anniversaire.<br>`
+          texte = `${prenoms[0]} vient d'avoir ${x} ans cette année.<br> Son père ${prenoms[1]} vient de fêter  son ${y}ème anniversaire.<br>`
           texte += `L'âge de son père est-il proportionnel à l'âge de ${prenoms[0]} ?<br>`
           texteCorr = `Aujourd'hui la différence d'âge entre ${prenoms[0]
             } et ${prenoms[1]} est de ${y - x} ans.<br>`
@@ -269,7 +270,7 @@ export default function ProportionnalitePasProportionnalite () {
           texte = `Une épidémie se répand dans la ville de ${villes[index1]}.<br>`
           texte += `Le nombre de malades ${verbes[index2]} tous les ${index2 + 2
             } jours.<br>`
-          texte += 'Le nombre de malades est-il proportionnel au nombre de jours passés depuis le début de l\'épidémie ?<br>'
+          texte += `Le nombre de malades est-il proportionnel au nombre de${getVueFromUrl() === 'multi' ? '<br>' : ' '}jours passés depuis le début de l\'épidémie ?<br>`
           texteCorr = `Admettons qu'il y ait 10 malades le premier jour. Le ${1 + 2 + index2
             }ème jour il y aura $10 \\times ${index2 + 2} = ${10 * (index2 + 2)
             }$ malades.<br>`
@@ -296,7 +297,7 @@ export default function ProportionnalitePasProportionnalite () {
           met = listeProportionnelOuPas[compteurProportionnelsOuPas]
           compteurProportionnelsOuPas += 1
           if (!met) tirages[p][1] -= 0.1
-          texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par correspondance en fonction de la quantité saisie dans le panier<br>`
+          texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par${getVueFromUrl() === 'multi' ? '<br>' : ' '}correspondance en fonction de la quantité saisie dans le panier.<br>`
           texte += 'Il note les prix dans le tableau suivant :<br> <br>'
           texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs en un seul morceau
           for (let j = 0; j <= tirages.length; j++) texte += '|c'
@@ -330,7 +331,7 @@ export default function ProportionnalitePasProportionnalite () {
           }
           break
       }
-      if (this.questionJamaisPosee(i, x, y, p, z, pu)) {
+      if (this.questionJamaisPosee(i, x, y, p, z, pu, listeChoix[i])) {
         if (this.interactif || context.isAmc) {
           this.autoCorrection[i] = {}
           this.autoCorrection[i].options = { ordered: true }
