@@ -132,7 +132,7 @@ function listeHtmlDesExercicesDUnNiveauAvecSousTheme (listeDeThemes) { // liste_
   // Appelée par la fonction menuDesExercicesDisponibles
   let liste = '<div class="accordion transition">'
   for (const theme of listeDeThemes) {
-    liste += `<div class="title"><h3 style="background-color:#f15929; color:white"><i class="dropdown icon"></i>${theme[1]}</h3></div>`
+    liste += `<div class="title"><h3><i class="dropdown icon"></i>${theme[1]}</h3></div>`
     liste += '<div class="content">'
     for (let i = 2; i < theme.length; i++) {
       liste += `<h4 style="color:#f15929">${theme[i]}</h4>`
