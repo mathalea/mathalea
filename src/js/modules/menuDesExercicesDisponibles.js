@@ -224,11 +224,11 @@ function addExercice (e) {
   // fonction ajout d'un exercice : ajoute l'exercice dans l'input avec la liste des exercice et provoque l'evt change pour recalcul de la page.
   // utilisée lors du clic sur le nom d'un exercice.
   if ($(e.target).parents('a.lien_id_exercice').attr('data-mode') === 'interactif' || $(e.target).attr('data-mode') === 'interactif') {
-    if ( !document.getElementById('exoModeInteractif') ) {
+    if (!document.getElementById('exoModeInteractif')) {
       $('#choix_exercices_menu').append('<span style="display:none" id="exoModeInteractif">ModeInteractifActivé</span>')
-    }      
+    }
   } else {
-    $('#exoModeInteractif').remove();
+    $('#exoModeInteractif').remove()
   }
   const numero = $(e.target).attr('data-id_exercice') ? $(e.target).attr('data-id_exercice') : $(e.target).parents('a.lien_id_exercice').attr('data-id_exercice')
   if ($('#choix_des_exercices').val() === '') {
@@ -238,7 +238,7 @@ function addExercice (e) {
       $('#choix_des_exercices').val() + ',' + numero
     )
   }
-  
+
   // Créé un évènement de changement de la valeur du champ pour déclencher la mise à jour
   const event = new Event('change')
   document.getElementById('choix_des_exercices').dispatchEvent(event)
@@ -317,7 +317,7 @@ function ligneTableau (exercice) {
   let ligne = ''
   const modeAmc = dictionnaireDesExercices[exercice].amcReady ? `AMC <b>${dictionnaireDesExercices[exercice].amcType.text}</b>` : ''
   // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
-  const modeInteractif = dictionnaireDesExercices[exercice].interactifReady ? `<a class="ui bouton lien_id_exercice" data-id_exercice="${exercice}" data-mode="interactif"> Interactif </a>`: ''
+  const modeInteractif = dictionnaireDesExercices[exercice].interactifReady ? `<a class="ui bouton lien_id_exercice" data-id_exercice="${exercice}" data-mode="interactif"> Interactif </a>` : ''
   if (dictionnaireDesExercices[exercice].titre) {
     if (context.isAmc) {
       ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}
