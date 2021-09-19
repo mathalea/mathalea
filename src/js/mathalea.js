@@ -1779,6 +1779,18 @@ function parametresExercice (exercice) {
         i +
         "' type='text' size='20' ></div></div>"
     }
+
+    if (exercice[i].besoinFormulaire4CaseACocher) {
+      // Création d'un formulaire texte
+      divParametresGeneraux.innerHTML +=
+        "<div style='display: inline'><label for='form_sup4" +
+        i +
+        "'>" +
+        exercice[i].besoinFormulaire4CaseACocher[0] +
+        " : </label><input id='form_sup4" +
+        i +
+        "' type='checkbox'  ></div>"
+    }
   }
 
   for (let i = 0; i < exercice.length; i++) {

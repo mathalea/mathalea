@@ -82,6 +82,7 @@ export default function Exercice () {
   this.besoinFormulaire3Numerique = false // Sinon this.besoinFormulaire3Numerique = [texte, max, tooltip facultatif]
   this.besoinFormulaire3Texte = false // Sinon this.besoinFormulaire3Texte = [texte, tooltip]
   this.besoinFormulaire3CaseACocher = false // Sinon this.besoinFormulaire3CaseACocher = [texte]
+  this.besoinFormulaire4CaseACocher = false // Sinon this.besoinFormulaire3CaseACocher = [texte]
 
   // ///////////////////////////////////////////////
   // Exercice avec des dépendances particulières
