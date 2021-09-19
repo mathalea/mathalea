@@ -7,7 +7,7 @@
 - `,i=1` ou `,i=0` pour avoir un exercice interactif ou pas (précédemment interactif=).
 - `,n=5` pour avoir 5 questions (précédemment nbQuestions=).
 - `,vXXXX` pour spécifier l'URL d'un complément numérique (id Youtube, url, code iframe...).
-- `,s=`, `,s2=`, `,s3=` pour changer les réglages de l'exercices (au travers des variables `this.sup`, `this.sup2`, `this.sup3`).
+- `,s=`, `,s2=`, `,s3=`, `,s4=` pour changer les réglages de l'exercices (au travers des variables `this.sup`, `this.sup2`, `this.sup3`, `this.sup4`).
 - `,cd=1` ou `,cd=0`pour avoir une correction détaillée ou pas (par défaut 1 en sortie HTML et 0 en sortie LaTeX).
 - `&serie=XXXX` permet de contrôler l'aléatoire et d'avoir exactement les mêmes valeurs numériques.
 - `&log=1` déclenche une fenêtre modale de connexion pour l'enregistrement des scores (un peu comme un popup dans la page).
