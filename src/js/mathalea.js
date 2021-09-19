@@ -1791,6 +1791,50 @@ function parametresExercice (exercice) {
         i +
         "' type='checkbox'  ></div>"
     }
+
+    if (exercice[i].besoinFormulaire4Numerique) {
+      // Création d'un formulaire numérique
+      if (exercice[i].besoinFormulaire4Numerique[2]) {
+        // Si un tooltip est défini
+        divParametresGeneraux.innerHTML +=
+          '<div data-tooltip="' +
+          exercice[i].besoinFormulaire4Numerique[2] +
+          '"" data-inverted="" data-position="top left"><label for="form_sup4' +
+          i +
+          '">' +
+          exercice[i].besoinFormulaire4Numerique[0] +
+          ' : </label><input id="form_sup4' +
+          i +
+          '" type="number"  min="1" max="' +
+          exercice[i].besoinFormulaire4Numerique[1] +
+          '"></div>'
+      } else {
+        divParametresGeneraux.innerHTML +=
+          '<div><label for="form_sup4' +
+          i +
+          '">' +
+          exercice[i].besoinFormulaire4Numerique[0] +
+          ' : </label><input id="form_sup4' +
+          i +
+          '" type="number"  min="1" max="' +
+          exercice[i].besoinFormulaire4Numerique[1] +
+          '"></div>'
+      }
+    }
+
+    if (exercice[i].besoinFormulaire4Texte) {
+      // Création d'un formulaire texte
+      divParametresGeneraux.innerHTML +=
+        "<p></p><div style='display: inline'><label for='form_sup4" +
+        i +
+        "'>" +
+        exercice[i].besoinFormulaire4Texte[0] +
+        " : </label><div style='display: inline' data-tooltip='" +
+        exercice[i].besoinFormulaire4Texte[1] +
+        "' data-inverted=''><input id='form_sup4" +
+        i +
+        "' type='text' size='20' ></div></div>"
+    }
   }
 
   for (let i = 0; i < exercice.length; i++) {
