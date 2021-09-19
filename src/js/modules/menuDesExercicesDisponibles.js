@@ -130,14 +130,17 @@ function listeHtmlDesExercicesDUnNiveau (listeDeThemes) { // liste_de_themes = [
 }
 function listeHtmlDesExercicesDUnNiveauAvecSousTheme (listeDeThemes) { // liste_de_themes = [['6N1','6N1 - Numérations et fractions niveau 1'] , [' ',' '] ]
   // Appelée par la fonction menuDesExercicesDisponibles
-  let liste = ''
+  let liste = '<div class="accordion transition">'
   for (const theme of listeDeThemes) {
-    liste += `<h3 style="background-color:#f15929; color:white">${theme[1]}</h3>`
+    liste += `<div class="title"><h3 style="background-color:#f15929; color:white"><i class="dropdown icon"></i>${theme[1]}</h3></div>`
+    liste += '<div class="content">'
     for (let i = 2; i < theme.length; i++) {
       liste += `<h4 style="color:#f15929">${theme[i]}</h4>`
       liste += listeHtmlDesExercicesDUnTheme(theme[i].substr(0, 4))
     }
+    liste += '</div>'
   }
+  liste += '</div>'
   return liste
 }
 
