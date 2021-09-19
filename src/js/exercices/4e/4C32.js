@@ -163,5 +163,5 @@ export default function NotationScientifique () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ["Type d'exercices", 2, '1 : Traduire en notation scientifique\n2 : Traduire en notation décimale']
-  this.besoinFormulaire2Numerique = ['Niveaux de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
+  this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
 }

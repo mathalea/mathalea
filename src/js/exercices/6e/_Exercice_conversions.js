@@ -239,6 +239,6 @@ export default function ExerciceConversions (niveau = 1) {
     listeQuestionsToContenu(this)
   }
 
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, "1 : De da, h, k vers l'unité de référence\n2 : De d, c, m vers l'unité de référence\n3 : Multiplications ou divisions vers l'unité de référence\n4 : Conversions avec les octets\n5: Mélange"]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, "1 : De da, h, k vers l'unité de référence\n2 : De d, c, m vers l'unité de référence\n3 : Multiplications ou divisions vers l'unité de référence\n4 : Conversions avec les octets\n5 : Mélange"]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
 }

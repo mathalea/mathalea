@@ -200,7 +200,7 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     3,
-    '1 : Carré, rectangle et triangle rectangle\n2: Cercles\n3: Mélange'
+    '1 : Carré, rectangle et triangle rectangle\n2 : Cercles\n3 : Mélange'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
 }

@@ -118,5 +118,5 @@ export default function dernierChiffre () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Sommes\n2: Sommes et produits\n3: Sommes, produits et différences']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Sommes\n2 : Sommes et produits\n3 : Sommes, produits et différences']
 }

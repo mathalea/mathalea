@@ -73,14 +73,14 @@ export default function EcrireNombresEntiers () {
         setReponse(this, i, nombreEnLettres(nombre))
         if (!context.isDiaporama) texte = `$${texNombre(nombre)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexteMathLive(this, i)}`
         else texte = `$${texNombre(nombre)}$`
-        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
-        else texteCorr = `${nombreEnLettres(nombre)}.`
+        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}`
+        else texteCorr = `${nombreEnLettres(nombre)}`
       } else {
         setReponse(this, i, nombre)
         if (!context.isDiaporama) texte = `${nombreEnLettres(nombre)} ${!this.interactif ? ' : \\dotfill $' : '<br>' + ajouteChampTexteMathLive(this, i)}`
         else texte = `${nombreEnLettres(nombre)}`
-        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$.`
-        else texteCorr = `$${texNombre(nombre)}$.`
+        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$`
+        else texteCorr = `$${texNombre(nombre)}$`
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
