@@ -75,9 +75,16 @@ export default function SommeOuProduitFractions () {
               if (this.correctionDetaillee) {
                 texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}+${texFraction(num2, den2)}$`
               }
-              texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * k, den2)}+${texFraction(num2, den2)}$ `
+              texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * k, den2)}+${texFraction(num2, den2)}$<br>`
             }
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k + num2, den2))}$ `
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k + num2, den2))}$ `
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2, den1)}$ `
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2, den1)}$ `
@@ -85,9 +92,16 @@ export default function SommeOuProduitFractions () {
               if (this.correctionDetaillee) {
                 texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$ `
               }
-              texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2 * k, den2)}$ `
+              texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2 * k, den2)}$<br>`
             }
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + num2 * k, den2))}$ `
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + num2 * k, den2))}$ `
           }
 
           break
@@ -96,13 +110,27 @@ export default function SommeOuProduitFractions () {
           if (alea === 1) {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${k} + ${texFraction(num1, den1)} $ `
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k} + ${texFraction(num1, den1)} $ `
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(k * den1, den1)} + ${texFraction(num1, den1)}$ `
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + k * den1, den1))}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(k * den1, den1)} + ${texFraction(num1, den1)}$<br>`
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + k * den1, den1))}$`
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${k} $ `
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${k}$ `
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${texFraction(k * den1, den1)}$ `
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + k * den1, den1))}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${texFraction(k * den1, den1)}$<br>`
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + k * den1, den1))}$ `
           }
           break
 
@@ -113,18 +141,32 @@ export default function SommeOuProduitFractions () {
             if (k > 1) {
               if (this.correctionDetaillee) {
                 texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))} - ${texFraction(num2, den2)}$`
-              } texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * k, den1 * k)}-${texFraction(num2, den2)}$ `
+              } texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * k, den1 * k)}-${texFraction(num2, den2)}$<br>`
             }
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k - num2, den2))}$ `
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k - num2, den2))}$ `
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2, den1)}$ `
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2, den1)}$ `
             if (k > 1) {
               if (this.correctionDetaillee) {
                 texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$ `
-              } texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2 * k, den2)}$ `
+              } texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2 * k, den2)}$<br>`
             }
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - num2 * k, den2))}$ `
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - num2 * k, den2))}$ `
           }
 
           break
@@ -133,21 +175,41 @@ export default function SommeOuProduitFractions () {
           if (alea === 1) {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${k} - ${texFraction(num1, den1)} $ `
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k} - ${texFraction(num1, den1)}$ `
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(k * den1, den1)} - ${texFraction(num1, den1)}$ `
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(k * den1 - num1, den1))}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(k * den1, den1)} - ${texFraction(num1, den1)}$<br>`
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(k * den1 - num1, den1))}$ `
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${k}$ `
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${k}$ `
-            if (k > 1) { texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${texFraction(k * den1, den1)}$ ` }
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - k * den1, den1))}$ `
+            if (k > 1) { texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${texFraction(k * den1, den1)}$<br>` }
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - k * den1, den1))}$ `
           }
 
           break
 
         case 'type5': // Produit de fractions
           texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(num2, den3)}$ `
-          texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(num2, den3)}$ `
-          texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * num2, den1 * den3))}$`
+          texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(num2, den3)}$<br>`
+          if (!context.isHtml) {
+            if (i !== (this.nbQuestions - 1)) {
+              if (i % 4 !== 3) {
+                texteCorr += '\\columnbreak\n'
+              }
+            }
+          } texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * num2, den1 * den3))}$`
 
           break
 
@@ -155,13 +217,27 @@ export default function SommeOuProduitFractions () {
           if (alea === 1) {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${k2}$ `
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${k2}$ `
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(k2, '1')}$ `
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k2, den1))}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(k2, '1')}$<br>`
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k2, den1))}$ `
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${texFraction(num1, den1)} $ `
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${texFraction(num1, den1)} $  `
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(k2, '1')} \\times  ${texFraction(num1, den1)}$ `
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k2, den1))}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(k2, '1')} \\times  ${texFraction(num1, den1)}$<br>`
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k2, den1))}$ `
           }
 
           break
@@ -171,14 +247,28 @@ export default function SommeOuProduitFractions () {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$ `
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$ `
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${texFraction(num2 * k2, den1 * den3)}$ `
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * den3, den1 * den3)} + ${texFraction(num2 * k2, den1 * den3)}$ `
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 + num2 * k2, den1 * den3))}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * den3, den1 * den3)} + ${texFraction(num2 * k2, den1 * den3)}$<br>`
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 + num2 * k2, den1 * den3))}$ `
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} - ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$  `
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} - ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$  `
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} - ${texFraction(num2 * k2, den1 * den3)}$ `
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * den3, den1 * den3)} - ${texFraction(num2 * k2, den1 * den3)}$ `
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 - num2 * k2, den1 * den3))}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * den3, den1 * den3)} - ${texFraction(num2 * k2, den1 * den3)}$<br>`
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 - num2 * k2, den1 * den3))}$ `
           }
 
           break
@@ -188,31 +278,38 @@ export default function SommeOuProduitFractions () {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} + ${texFraction(num1, den1)}$ `
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} + ${texFraction(num1, den1)}$  `
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} + ${texFraction(num1, den1)}$ `
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} + ${texFraction(num1 * den3, den1 * den3)}$ `
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 + num1 * den3, den1 * den3))}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} + ${texFraction(num1 * den3, den1 * den3)}$<br>`
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 + num1 * den3, den1 * den3))}$ `
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} - ${texFraction(num1, den1)}$ `
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} - ${texFraction(num1, den1)}$`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} - ${texFraction(num1, den1)}$  `
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} - ${texFraction(num1, den1)}$ `
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} - ${texFraction(num1 * den3, den1 * den3)}$ `
-            texteCorr += `<br>$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 - num1 * den3, den1 * den3))}$ `
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} - ${texFraction(num1 * den3, den1 * den3)}$<br>`
+            if (!context.isHtml) {
+              if (i !== (this.nbQuestions - 1)) {
+                if (i % 4 !== 3) {
+                  texteCorr += '\\columnbreak\n'
+                }
+              }
+            }
+            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 - num1 * den3, den1 * den3))}$ `
           }
           break
       }
-      texteCorr += '<br>'
-
+      texte += '<br>'
+      texteCorr += '\n'
       if (!context.isHtml) {
         if (i % 4 === 3) {
           texteCorr += '\\end{multicols}'
         } else if (i === this.nbQuestions - 1) {
           texteCorr += '\\end{multicols}'
-        }
-      }
-      if (!context.isHtml) {
-        if (i !== (this.nbQuestions - 1)) {
-          if (i % 4 !== 3) {
-            texteCorr += '\\columnbreak'
-          }
         }
       }
 
@@ -226,7 +323,7 @@ export default function SommeOuProduitFractions () {
       cpt++
     }
 
-    listeQuestionsToContenuSansNumero(this) // On envoie l'exercice à la fonction de mise en page
+    listeQuestionsToContenuSansNumero(this, false) // On envoie l'exercice à la fonction de mise en page
   }
   this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Somme et produit\n2 : Somme ou différence, et produit\n3 : Avec priorité opératoire']
 }
