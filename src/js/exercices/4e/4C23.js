@@ -203,9 +203,9 @@ export default function SommeOuProduitFractions () {
 
       if (!context.isHtml) {
         if (i % 4 === 3) {
-          texteCorr += '<br>\\end{multicols}'
+          texteCorr += '\\end{multicols}'
         } else if (i === this.nbQuestions - 1) {
-          texteCorr += '<br>\\end{multicols}'
+          texteCorr += '\\end{multicols}'
         }
       }
       if (!context.isHtml) {
