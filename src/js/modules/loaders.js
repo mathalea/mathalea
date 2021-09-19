@@ -1,5 +1,6 @@
 import loadjs from 'loadjs'
 import slick from '../../assets/externalJs/slick/slick'
+import { UserFriendlyError } from './messages'
 
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
@@ -21,12 +22,21 @@ const apps = {
  */
 async function load (name) {
   // on est dans une fct async, si l'une de ces deux lignes plantent ça va retourner une promesse rejetée avec l'erreur
-  if (!apps[name]) throw Error(`app ${name} inconnue`)
+  if (!apps[name]) throw UserFriendlyError(`application ${name} inconnue`)
   // cf https://github.com/muicss/loadjs
-  if (!loadjs.isDefined(name)) await loadjs(apps[name], name, { returnPromise: true })
-  return new Promise(resolve => {
-    // loadjs.ready veut une callback
-    loadjs.ready(name, resolve)
+  try {
+    if (!loadjs.isDefined(name)) await loadjs(apps[name], name, { returnPromise: true })
+  } catch (error) {
+    console.error(error)
+    throw new UserFriendlyError(`Le chargement de ${name} a échoué`)
+  }
+  // loadjs.ready veut une callback, on emballe ça dans une promesse
+  return new Promise((resolve, reject) => {
+    loadjs.ready(name, {
+      success: resolve,
+      // si le chargement précédent a réussi on voit pas trop comment on pourrait arriver là, mais ça reste plus prudent de gérer l'erreur éventuelle
+      error: () => reject(new UserFriendlyError(`Le chargement de ${name} a échoué`))
+    })
   })
 }
 
@@ -47,7 +57,7 @@ function waitForGiac () {
         resolve()
       } else if (delay > timeout) {
         clearInterval(monInterval)
-        reject(Error(`xcas toujours pas chargé après ${delay}s`))
+        reject(UserFriendlyError(`xcas n’est toujours pas chargé après ${delay}s`))
       }
     }, 500)
   })
@@ -71,9 +81,14 @@ export async function loadGiac () {
  * @return {Promise<iepApp>} L'appli iep
  */
 export async function loadIep (elt, xml) {
-  const { default: iepLoadPromise } = await import('instrumenpoche')
-  const iepApp = await iepLoadPromise(elt, xml, { zoom: true, autostart: false })
-  return iepApp
+  try {
+    const { default: iepLoadPromise } = await import('instrumenpoche')
+    const iepApp = await iepLoadPromise(elt, xml, { zoom: true, autostart: false })
+    return iepApp
+  } catch (error) {
+    console.error(error)
+    throw UserFriendlyError('Le chargement d’instrumenpoche a échoué')
+  }
 }
 
 /**
@@ -92,7 +107,7 @@ export async function loadMG32 (elt, svgOptions, mtgOptions) {
     return mtgApp
   } catch (error) {
     console.error(error)
-    return Error('Erreur de chargement de Mathgraph')
+    throw new UserFriendlyError('Erreur de chargement de Mathgraph')
   }
 }
 
@@ -100,21 +115,16 @@ export async function loadMG32 (elt, svgOptions, mtgOptions) {
  * Charge prism
  * @return {Promise<undefined>}
  */
-export async function loadPrism () {
-  try {
-    await load('prism')
-  } catch (error) {
-    console.error(error)
-    return Error('Erreur de chargement de prism')
-  }
+export function loadPrism () {
+  return load('prism')
 }
 
 /**
  * Charge scratchblocks
  * @return {Promise} qui peut échouer…
  */
-export async function loadScratchblocks () {
-  await load('scratchblocks')
+export function loadScratchblocks () {
+  return load('scratchblocks')
 }
 
 /**
