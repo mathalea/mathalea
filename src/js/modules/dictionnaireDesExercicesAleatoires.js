@@ -457,7 +457,7 @@ export default {
     "name": "3A13"
   },
   "3A14": {
-    "titre": "Problème Les iris et les roses",
+    "titre": "Résoudre des problèmes avec recherche de diviseurs communs",
     "url": "/exercices/3e/3A14.js",
     "amcReady": true,
     "amcType": {
@@ -688,7 +688,7 @@ export default {
     "name": "3G22"
   },
   "3G23": {
-    "titre": "Reconnaître des triangles semblables dans différentes configurations",
+    "titre": "Reconnaître des triangles égaux dans différentes configurations",
     "url": "/exercices/3e/3G23.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2111,17 +2111,6 @@ export default {
     "interactifReady": false,
     "name": "5N11-4"
   },
-  "5N110-1": {
-    "titre": "Variation en pourcentages",
-    "url": "/exercices/5e/5N110-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "5N110-1"
-  },
   "5N110": {
     "titre": "Variation en pourcentages",
     "url": "/exercices/5e/5N110.js",
@@ -3177,7 +3166,8 @@ export default {
     "titre": "Écrire un nombre en chiffres ou en lettres",
     "url": "/exercices/6e/6N10.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N10"
   },
   "6N11-2": {
@@ -4130,78 +4120,6 @@ export default {
     "interactifReady": false,
     "name": "betaAsymptotesObliques"
   },
-  "betaCAN2Q20-01": {
-    "titre": "Calcul de l’hypoténuse avec Pythagore",
-    "url": "/exercices/beta/betaCAN2Q20-01.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q20-01"
-  },
-  "betaCAN2Q20-02": {
-    "titre": "Calcul de d’un côté avec Pythagore",
-    "url": "/exercices/beta/betaCAN2Q20-02.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q20-02"
-  },
-  "betaCAN2Q20-03": {
-    "titre": "Angle dans un triangle isocèle",
-    "url": "/exercices/beta/betaCAN2Q20-03.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q20-03"
-  },
-  "betaCAN2Q20-04": {
-    "titre": "Calcul de la diagonale d’un carré",
-    "url": "/exercices/beta/betaCAN2Q20-04.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q20-04"
-  },
-  "betaCAN2Q20-05": {
-    "titre": "Calcul d’une longueur avec Thalès",
-    "url": "/exercices/beta/betaCAN2Q20-05.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q20-05"
-  },
-  "betaCAN2Q20-06": {
-    "titre": "Calcul d’une longueur avec Thalès2",
-    "url": "/exercices/beta/betaCAN2Q20-06.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q20-06"
-  },
-  "betaCAN2Q20-07": {
-    "titre": "Calcul d’une longueur avec Thalès (milieu)",
-    "url": "/exercices/beta/betaCAN2Q20-07.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q20-07"
-  },
-  "betaCAN2Q20-08": {
-    "titre": "Recherche valeur avec Pythagore",
-    "url": "/exercices/beta/betaCAN2Q20-08.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q20-08"
-  },
-  "betaCAN2Q20-09": {
-    "titre": "Trigonométrie",
-    "url": "/exercices/beta/betaCAN2Q20-09.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q20-09"
-  },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
     "url": "/exercices/beta/betaCaNCM2.js",
@@ -4582,6 +4500,22 @@ export default {
     "interactifType": "mathLive",
     "name": "can2C03"
   },
+  "can2F01": {
+    "titre": "Calcul d’une image second degré",
+    "url": "/exercices/can/2e/can2F01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2F01"
+  },
+  "can2F02": {
+    "titre": "Calcul d’une image avec un quotient",
+    "url": "/exercices/can/2e/can2F02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2F02"
+  },
   "can2G01": {
     "titre": "Agrandissement/réduction avec fraction",
     "url": "/exercices/can/2e/can2G01.js",
@@ -4592,6 +4526,38 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2G01"
+  },
+  "can2G02": {
+    "titre": "Calcul de d’un côté avec Pythagore",
+    "url": "/exercices/can/2e/can2G02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G02"
+  },
+  "can2G03": {
+    "titre": "Calcul de l’hypoténuse avec Pythagore",
+    "url": "/exercices/can/2e/can2G03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G03"
+  },
+  "can2G04": {
+    "titre": "Calculs des coordonnées du milieu",
+    "url": "/exercices/can/2e/can2G04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G04"
+  },
+  "can2G05": {
+    "titre": "Calcul d’une distance dans un repère",
+    "url": "/exercices/can/2e/can2G05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G05"
   },
   "can2L01": {
     "titre": "Nombre de solutions d’une équation se ramenant à $x^2=a$",
@@ -4689,6 +4655,14 @@ export default {
     "interactifType": "mathLive",
     "name": "can3C06"
   },
+  "can3C07": {
+    "titre": "milieu entre 1 et fraction avec graphique",
+    "url": "/exercices/can/3e/can3C07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C07"
+  },
   "can3E01": {
     "titre": "Calcul de volume 3e",
     "url": "/exercices/can/3e/can3E01.js",
@@ -4762,6 +4736,30 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3G02"
+  },
+  "can3G03": {
+    "titre": "Calcul d’une longueur avec Thalès2",
+    "url": "/exercices/can/3e/can3G03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3G03"
+  },
+  "can3G04": {
+    "titre": "Recherche valeur avec Pythagore",
+    "url": "/exercices/can/3e/can3G04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3G04"
+  },
+  "can3G05": {
+    "titre": "Trigonométrie",
+    "url": "/exercices/can/3e/can3G05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3G05"
   },
   "can3L01": {
     "titre": "Équation ax=b",
@@ -4951,6 +4949,46 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can4G02"
+  },
+  "can4G03": {
+    "titre": "Calcul de l’hypoténuse avec Pythagore",
+    "url": "/exercices/can/4e/can4G03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G03"
+  },
+  "can4G04": {
+    "titre": "Calcul de d’un côté avec Pythagore",
+    "url": "/exercices/can/4e/can4G04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G04"
+  },
+  "can4G05": {
+    "titre": "Calcul de la diagonale d’un carré",
+    "url": "/exercices/can/4e/can4G05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G05"
+  },
+  "can4G06": {
+    "titre": "Calcul d’une longueur avec Thalès",
+    "url": "/exercices/can/4e/can4G06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G06"
+  },
+  "can4G07": {
+    "titre": "Calcul d’une longueur avec Thalès (milieu)",
+    "url": "/exercices/can/4e/can4G07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G07"
   },
   "can4L01": {
     "titre": "Résoudre une équation niveau 1",
@@ -5209,6 +5247,14 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can5G01"
+  },
+  "can5G02": {
+    "titre": "Angle dans un triangle isocèle",
+    "url": "/exercices/can/5e/can5G02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5G02"
   },
   "can5N01": {
     "titre": "Somme de nombres décimaux",
@@ -5554,7 +5600,10 @@ export default {
   "can6D04": {
     "titre": "Convertir minutes heures",
     "url": "/exercices/can/6e/can6D04.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6D04"

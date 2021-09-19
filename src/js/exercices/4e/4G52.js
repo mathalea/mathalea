@@ -159,5 +159,5 @@ export default function ReperagePaveDroit () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30\n2 : 45\n3 : 60']
+  this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30°\n2 : 45°\n3 : 60°']
 }

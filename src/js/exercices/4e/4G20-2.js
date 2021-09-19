@@ -24,7 +24,7 @@ export default function RacineCareeDeCarresParfaits () {
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.besoinFormulaireNumerique = ['Formulation de la question', 3, '1 : Calculer la racine\n2 : Trouver le nombre positif dont le carré est...\n3 : Les deux']
+  this.besoinFormulaireNumerique = ['Formulation de la question', 3, '1 : Calculer la racine de ...\n2 : Trouver le nombre positif dont le carré est ...\n3 : Mélange']
   this.besoinFormulaire2Numerique = ['Entier maximum', 2, '1 : 144\n2 : 256']
   this.sup = 1
   this.sup2 = 2

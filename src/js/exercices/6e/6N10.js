@@ -1,7 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, nombreEnLettres } from '../../modules/outils.js'
+
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+
 export const titre = 'Écrire un nombre en chiffres ou en lettres'
+
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
@@ -20,11 +26,11 @@ export default function EcrireNombresEntiers () {
   this.nouvelleVersion = function () {
     let typeDeConsigne = []
     if (parseInt(this.sup) === 1) {
-      this.consigne = 'Écrire le nombre en chiffres.'
+      this.consigne = 'Écrire le nombre en lettres.'
       typeDeConsigne = combinaisonListes([1], this.nbQuestions)
     }
     if (parseInt(this.sup) === 2) {
-      this.consigne = 'Écrire le nombre en lettres.'
+      this.consigne = 'Écrire le nombre en chiffres.'
       typeDeConsigne = combinaisonListes([2], this.nbQuestions)
     }
     if (parseInt(this.sup) === 3) {
@@ -64,15 +70,17 @@ export default function EcrireNombresEntiers () {
         if (tranche[listeTypeDeQuestions[i] - 1] === 0) nombre = 0
       }
       if (typeDeConsigne[i] === 1) {
-        if (!context.isDiaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
+        setReponse(this, i, nombreEnLettres(nombre))
+        if (!context.isDiaporama) texte = `$${texNombre(nombre)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexteMathLive(this, i)}`
         else texte = `$${texNombre(nombre)}$`
-        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
-        else texteCorr = `${nombreEnLettres(nombre)}.`
+        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}`
+        else texteCorr = `${nombreEnLettres(nombre)}`
       } else {
-        if (!context.isDiaporama) texte = `${nombreEnLettres(nombre)} : \\dotfill`
+        setReponse(this, i, nombre)
+        if (!context.isDiaporama) texte = `${nombreEnLettres(nombre)} ${!this.interactif ? ' : \\dotfill $' : '<br>' + ajouteChampTexteMathLive(this, i)}`
         else texte = `${nombreEnLettres(nombre)}`
-        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$.`
-        else texteCorr = `$${texNombre(nombre)}$.`
+        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$`
+        else texteCorr = `$${texNombre(nombre)}$`
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

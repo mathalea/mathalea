@@ -300,12 +300,12 @@ function questionDillution (exo, i) { // questions de mélange de volumes
   const volumeFinalAff = texNombrec(volumeFinal) // pour affichage avec bon séparateur.
   const volumeInitialAff = texNombrec(volumeInitial) // pour affichage avec bon séparateur.
   const texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} qu'il faut  ` +
-  ` ${texNombrec(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour ${volumeInitialAff} ${liste[alea1].unite_solvant[0]} d'eau.<br> ` +
+  ` ${texNombrec(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour ${volumeInitialAff} ${liste[alea1].unite_solvant[1]} d'eau.<br> ` +
   `On veut utiliser ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau.` +
   `<br> Quel volume de ${liste[alea1].solute} doit-on prévoir ? ` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' ' + liste[alea1].unite_solute })
 
   const texteCorr = `Commençons par trouver combien est-ce qu'il faut de ${liste[alea1].solute} pour 1 ${liste[alea1].unite_solvant[0]} d'eau : <br>` +
-  ` ${volumeInitial} ${liste[alea1].unite_solvant[0]} d'eau, c'est ${texteEnCouleur(volumeInitial)} fois 1 ${liste[alea1].unite_solvant[0]} d'eau. ` +
+  ` ${volumeInitial} ${liste[alea1].unite_solvant[1]} d'eau, c'est ${texteEnCouleur(volumeInitial)} fois 1 ${liste[alea1].unite_solvant[0]} d'eau. ` +
   `Pour 1 ${liste[alea1].unite_solvant[0]} d'eau, il faut donc ${texteEnCouleur(volumeInitial)} fois moins que ${texNombrec(quantite)} ${liste[alea1].unite_solute}.<br>` +
   `${texNombrec(quantite)} ${liste[alea1].unite_solute} $\\div $ ${texteEnCouleur(volumeInitial)} = ${texNombrec(liste[alea1].volumeUnitaire[alea2])} ${liste[alea1].unite_solute}. <br>` +
   texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
@@ -410,7 +410,7 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
       matiere: 'du gazon',
       unite: 'kg',
       qtt_matiere_unitaire: [2.5, 3, 5, 10],
-      qtt_surface: [30, 40, 50]
+      qtt_surface: [25, 40, 50]
     },
     {
       matiere: 'du carrelage',
