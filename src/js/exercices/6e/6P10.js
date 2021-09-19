@@ -330,7 +330,7 @@ export default function ProportionnalitePasProportionnalite () {
           }
           break
       }
-      if (this.questionJamaisPosee(i, x, y, p, z, pu)) {
+      if (this.questionJamaisPosee(i, x, y, p, z, pu, listeChoix[i])) {
         if (this.interactif || context.isAmc) {
           this.autoCorrection[i] = {}
           this.autoCorrection[i].options = { ordered: true }
