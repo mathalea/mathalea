@@ -851,6 +851,7 @@ function miseAJourDuCode () {
         } else {
           listeObjetsExercice[i].nouvelleVersion()
           if (listeObjetsExercice[i].pasDeVersionLatex) {
+            // on affiche le pb mais on continue quand même
             errorHandler(getNoLatexError(listeObjetsExercice[i].id))
           }
           if (listeObjetsExercice[i].typeExercice === 'simple') {
@@ -1166,13 +1167,11 @@ async function miseAJourDeLaListeDesExercices (preview) {
   try {
     let besoinXCas = false
     const promises = []
+    // pour ne pas ajouter preview à la liste originale
     const listeExercices = listeDesExercices
-    if (preview) {
-      listeExercices.push(preview)
-    }
+    if (preview) listeExercices.push(preview)
     listeObjetsExercice = []
-    for (let i = 0, id; i < listeExercices.length; i++) {
-      id = listeExercices[i]
+    listeExercices.forEach((id, i) => {
       let url
       try {
         url = dictionnaireDesExercices[id].url
@@ -1237,173 +1236,166 @@ async function miseAJourDeLaListeDesExercices (preview) {
           })
         )
       }
-    }
-    Promise.all(promises)
-      .then(() => {
-        if (!preview) {
-          parametresExercice(listeObjetsExercice)
+    })
+    await Promise.all(promises)
+    if (!preview) parametresExercice(listeObjetsExercice)
+    if (!preview || context.isHtml) {
+      // ajout de context.isHtml par conserver les infos sur le fait que les exercices sont en mode interactif
+      // Récupère les paramètres passés dans l'URL
+      const urlVars = getUrlVars()
+      // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
+      // => évite les erreurs lors de la suppression de question dans la liste.
+      if (urlVars.length < listeObjetsExercice.length && ((document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') || document.getElementById('exoModeInteractif'))) {
+        listeObjetsExercice[listeObjetsExercice.length - 1].interactif = true
+        if (formInteractif[listeObjetsExercice.length - 1]) {
+          formInteractif[listeObjetsExercice.length - 1].checked = true
         }
-      })
-      .then(() => {
-        if (!preview || context.isHtml) {
-          // ajout de context.isHtml par conserver les infos sur le fait que les exercices sont en mode interactif
-          // Récupère les paramètres passés dans l'URL
-          const urlVars = getUrlVars()
-          // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
-          // => évite les erreurs lors de la suppression de question dans la liste.
-          if (urlVars.length < listeObjetsExercice.length && ((document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') || document.getElementById('exoModeInteractif'))) {
-            listeObjetsExercice[listeObjetsExercice.length - 1].interactif = true
-            if (formInteractif[listeObjetsExercice.length - 1]) {
-              formInteractif[listeObjetsExercice.length - 1].checked = true
-            }
+      }
+      if (urlVars.length < 0 && (document.getElementById('filtre').value === 'interactif' || document.getElementById('exoModeInteractif'))) {
+        listeObjetsExercice[0].interactif = true
+        formInteractif[0].checked = true
+      }
+      for (let i = 0; i < urlVars.length; i++) {
+        if (urlVars[i].id !== listeExercices[i]) {
+          urlVars.splice(i, 1)
+        }
+      }
+      for (let i = 0; i < urlVars.length; i++) {
+        // récupère les éventuels paramètres dans l'URL
+        // et les recopie dans les formulaires des paramètres
+        if (urlVars[i].n && listeObjetsExercice[i].nbQuestionsModifiable) {
+          listeObjetsExercice[i].nbQuestions = parseInt(urlVars[i].n)
+          formNbQuestions[i].value = listeObjetsExercice[i].nbQuestions
+        }
+        if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
+          listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
+          formVideo[i].value = listeObjetsExercice[i].video
+        }
+        if (urlVars[i].cd !== undefined) {
+          if (urlVars[i].cd === 1 && listeObjetsExercice[i].correctionDetailleeDisponible) {
+            listeObjetsExercice[i].correctionDetaillee = true
+            formCorrectionDetaillee[i].checked = true
           }
-          if (urlVars.length < 0 && (document.getElementById('filtre').value === 'interactif' || document.getElementById('exoModeInteractif'))) {
-            listeObjetsExercice[0].interactif = true
-            formInteractif[0].checked = true
+          if (urlVars[i].cd === 0 && listeObjetsExercice[i].correctionDetailleeDisponible) {
+            listeObjetsExercice[i].correctionDetaillee = false
+            formCorrectionDetaillee[i].checked = false
           }
-          for (let i = 0; i < urlVars.length; i++) {
-            if (urlVars[i].id !== listeExercices[i]) {
-              urlVars.splice(i, 1)
-            }
-          }
-          for (let i = 0; i < urlVars.length; i++) {
-            // récupère les éventuels paramètres dans l'URL
-            // et les recopie dans les formulaires des paramètres
-            if (urlVars[i].n && listeObjetsExercice[i].nbQuestionsModifiable) {
-              listeObjetsExercice[i].nbQuestions = parseInt(urlVars[i].n)
-              formNbQuestions[i].value = listeObjetsExercice[i].nbQuestions
-            }
-            if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
-              listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
-              formVideo[i].value = listeObjetsExercice[i].video
-            }
-            if (urlVars[i].cd !== undefined) {
-              if (urlVars[i].cd === 1 && listeObjetsExercice[i].correctionDetailleeDisponible) {
-                listeObjetsExercice[i].correctionDetaillee = true
-                formCorrectionDetaillee[i].checked = true
-              }
-              if (urlVars[i].cd === 0 && listeObjetsExercice[i].correctionDetailleeDisponible) {
-                listeObjetsExercice[i].correctionDetaillee = false
-                formCorrectionDetaillee[i].checked = false
-              }
-            }
-            // En vue CAN ou eval on met toujours les exercices en interactif
-            if (context.vue === 'can' || context.vue === 'eval') {
+        }
+        // En vue CAN ou eval on met toujours les exercices en interactif
+        if (context.vue === 'can' || context.vue === 'eval') {
+          listeObjetsExercice[i].interactif = true
+        } else {
+          if (urlVars[i].i !== undefined) {
+            if (urlVars[i].i) {
               listeObjetsExercice[i].interactif = true
+              if (formInteractif[i]) {
+                formInteractif[i].checked = true
+              }
             } else {
-              if (urlVars[i].i !== undefined) {
-                if (urlVars[i].i) {
-                  listeObjetsExercice[i].interactif = true
-                  if (formInteractif[i]) {
-                    formInteractif[i].checked = true
-                  }
-                } else {
-                  listeObjetsExercice[i].interactif = false
-                  if (formInteractif[i]) {
-                    formInteractif[i].checked = false
-                  }
-                }
+              listeObjetsExercice[i].interactif = false
+              if (formInteractif[i]) {
+                formInteractif[i].checked = false
               }
-            }
-            if (typeof urlVars[i].s !== 'undefined') {
-              // Si le string peut être convertit en int alors on le fait
-              if (isNumeric(urlVars[i].s)) {
-                listeObjetsExercice[i].sup = parseInt(urlVars[i].s)
-              } else {
-                listeObjetsExercice[i].sup = urlVars[i].s
-              }
-              // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
-              try {
-                formSup[i].value = listeObjetsExercice[i].sup
-              } catch {}
-            }
-            if (typeof urlVars[i].s2 !== 'undefined') {
-              if (isNumeric(urlVars[i].s2)) {
-                listeObjetsExercice[i].sup2 = parseInt(urlVars[i].s2)
-              } else {
-                listeObjetsExercice[i].sup2 = urlVars[i].s2
-              }
-              try {
-                formSup2[i].value = listeObjetsExercice[i].sup2
-              } catch (error) {}
-            }
-            if (typeof urlVars[i].s3 !== 'undefined') {
-              if (isNumeric(urlVars[i].s3)) {
-                listeObjetsExercice[i].sup3 = parseInt(urlVars[i].s3)
-              } else {
-                listeObjetsExercice[i].sup3 = urlVars[i].s3
-              }
-              try {
-                formSup3[i].value = listeObjetsExercice[i].sup3
-              } catch (error) {}
             }
           }
         }
-      })
-      .then(() => {
-        if (besoinXCas) {
-          // On charge le javascript de XCas
-          let div // le div dans lequel on fera apparaitre le cercle de chargement
-          if (context.isHtml) {
-            div = document.getElementById('exercices')
+        if (typeof urlVars[i].s !== 'undefined') {
+          // Si le string peut être convertit en int alors on le fait
+          if (isNumeric(urlVars[i].s)) {
+            listeObjetsExercice[i].sup = parseInt(urlVars[i].s)
           } else {
-            div = document.getElementById('div_codeLatex')
+            listeObjetsExercice[i].sup = urlVars[i].s
           }
-          div.innerHTML = `<div class="profile-main-loader">
+          // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
+          try {
+            formSup[i].value = listeObjetsExercice[i].sup
+          } catch {}
+        }
+        if (typeof urlVars[i].s2 !== 'undefined') {
+          if (isNumeric(urlVars[i].s2)) {
+            listeObjetsExercice[i].sup2 = parseInt(urlVars[i].s2)
+          } else {
+            listeObjetsExercice[i].sup2 = urlVars[i].s2
+          }
+          try {
+            formSup2[i].value = listeObjetsExercice[i].sup2
+          } catch (error) {}
+        }
+        if (typeof urlVars[i].s3 !== 'undefined') {
+          if (isNumeric(urlVars[i].s3)) {
+            listeObjetsExercice[i].sup3 = parseInt(urlVars[i].s3)
+          } else {
+            listeObjetsExercice[i].sup3 = urlVars[i].s3
+          }
+          try {
+            formSup3[i].value = listeObjetsExercice[i].sup3
+          } catch (error) {
+            console.error(error)
+          }
+        }
+      }
+    }
+    if (besoinXCas) {
+      // On charge le javascript de XCas
+      let div // le div dans lequel on fera apparaitre le cercle de chargement
+      if (context.isHtml) {
+        div = document.getElementById('exercices')
+      } else {
+        div = document.getElementById('div_codeLatex')
+      }
+      div.innerHTML = `<div class="profile-main-loader">
                     <div class="loader">
                       <svg class="circular-loader"viewBox="25 25 50 50" >
                         <circle class="loader-path" cx="50" cy="50" r="20" fill="none" stroke="#70c542" stroke-width="2" />
                       </svg>
                     </div>
                   </div>`
-          return loadGiac()
+      await loadGiac()
+    }
+
+    if (preview) {
+      // gestion de l'affichage des exercices
+      const output = context.isHtml
+      context.isHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
+      let filtre
+      if (document.getElementById('filtre')) {
+        filtre = document.getElementById('filtre').value
+      }
+      if (typeof listeObjetsExercice[listeExercices.length - 1].nouvelleVersion === 'function') {
+        try {
+          if (filtre && filtre === 'interactif') {
+            // lorsqu'on est en mode interactif la prévisualisation est en mode interactif.
+            listeObjetsExercice[listeExercices.length - 1].interactif = 1
+          }
+          listeObjetsExercice[listeExercices.length - 1].nouvelleVersion(0)
+        } catch (error) {
+          console.error(error)
         }
-      })
-      .then(() => {
-        if (preview) {
-          // gestion de l'affichage des exercices
-          const output = context.isHtml
-          context.isHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
-          let filtre
-          if (document.getElementById('filtre')) {
-            filtre = document.getElementById('filtre').value
-          }
-          if (typeof listeObjetsExercice[listeExercices.length - 1].nouvelleVersion === 'function') {
-            try {
-              if (filtre && filtre === 'interactif') {
-                // lorsqu'on est en mode interactif la prévisualisation est en mode interactif.
-                listeObjetsExercice[listeExercices.length - 1].interactif = 1
-              }
-              listeObjetsExercice[listeExercices.length - 1].nouvelleVersion(0)
-            } catch (error) {
-              console.log(error)
-            }
-          }
-          listeObjetsExercice[listeExercices.length - 1].id = listeExercices[listeExercices.length - 1]
-          const contenu = contenuExerciceHtml(listeObjetsExercice[listeExercices.length - 1], listeExercices.length, false)
-          $('#popup_preview').html(contenu.contenu_un_exercice)
-          $('.popup').addClass('show')
-          if (document.getElementById('left')) {
-            $('.popuptext').css({ top: document.getElementById('left').scrollTop - 10 })
-            $('.popuptext').css({ left: document.getElementById('left').offsetLeft + 5 })
-            if (window.innerWidth < 765) {
-              $('.popuptext').css({ left: document.getElementById('left').offsetLeft + 25 })
-              $('.popup').css({ left: document.getElementById('left').offsetLeft + 25 })
-            }
-          } else {
-            $('.popuptext').css({ top: document.documentElement.scrollTop - 10 })
-          }
-          $('.popuptext').show()
-          listeDesExercices.pop()
-          if (!output) {
-            gestionModules(false, listeObjetsExercice)
-          }
-          context.isHtml = output
-          miseAJourDuCode() // permet de gérer les popup avec module.
-        } else {
-          miseAJourDuCode()
+      }
+      listeObjetsExercice[listeExercices.length - 1].id = listeExercices[listeExercices.length - 1]
+      const contenu = contenuExerciceHtml(listeObjetsExercice[listeExercices.length - 1], listeExercices.length, false)
+      $('#popup_preview').html(contenu.contenu_un_exercice)
+      $('.popup').addClass('show')
+      if (document.getElementById('left')) {
+        $('.popuptext').css({ top: document.getElementById('left').scrollTop - 10 })
+        $('.popuptext').css({ left: document.getElementById('left').offsetLeft + 5 })
+        if (window.innerWidth < 765) {
+          $('.popuptext').css({ left: document.getElementById('left').offsetLeft + 25 })
+          $('.popup').css({ left: document.getElementById('left').offsetLeft + 25 })
         }
-      }).catch(errorHandler)
+      } else {
+        $('.popuptext').css({ top: document.documentElement.scrollTop - 10 })
+      }
+      $('.popuptext').show()
+      listeDesExercices.pop()
+      if (!output) {
+        gestionModules(false, listeObjetsExercice)
+      }
+      context.isHtml = output
+      miseAJourDuCode() // permet de gérer les popup avec module.
+    } else {
+      miseAJourDuCode()
+    }
   } catch (error) {
     errorHandler(error)
   }
