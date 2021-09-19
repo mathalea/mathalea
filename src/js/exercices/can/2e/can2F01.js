@@ -1,8 +1,8 @@
-import Exercice from '../Exercice.js'
+import Exercice from '../../Exercice.js'
 import {
   randint, calcul, choice, ecritureParentheseSiNegatif, texNombrec,
   ecritureAlgebrique, rienSi1, texteEnCouleur
-} from '../../modules/outils.js'
+} from '../../../modules/outils.js'
 export const titre = 'Calcul d’une image second degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+ * Référence can2F01
  * Date de publication
 */
 export default function CalculImageSecondDegre () {

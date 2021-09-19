@@ -1,8 +1,8 @@
-import Exercice from '../Exercice.js'
-import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
   mathalea2d, point, latexParCoordonnees, pointAdistance, longueur, polygoneAvecNom, milieu, codageAngleDroit, similitude
-} from '../../modules/2d.js'
+} from '../../../modules/2d.js'
 export const titre = 'Calcul de l’hypoténuse avec Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,8 +10,8 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can2G03
+ * Date de publication septembre 2021
 */
 export default function CalculHypotenusePythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
