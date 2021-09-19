@@ -484,6 +484,9 @@ function miseAJourDuCode () {
       if (listeObjetsExercice[0].sup3 !== undefined) {
         finUrl += `,s3=${listeObjetsExercice[0].sup3}`
       }
+      if (listeObjetsExercice[0].sup4 !== undefined) {
+        finUrl += `,s4=${listeObjetsExercice[0].sup4}`
+      }
       if (listeObjetsExercice[0].nbQuestionsModifiable) {
         finUrl += `,n=${listeObjetsExercice[0].nbQuestions}`
       }
@@ -513,6 +516,9 @@ function miseAJourDuCode () {
         }
         if (listeObjetsExercice[i].sup3 !== undefined) {
           finUrl += `,s3=${listeObjetsExercice[i].sup3}`
+        }
+        if (listeObjetsExercice[i].sup4 !== undefined) {
+          finUrl += `,s4=${listeObjetsExercice[i].sup4}`
         }
         if (listeObjetsExercice[i].nbQuestionsModifiable) {
           finUrl += `,n=${listeObjetsExercice[i].nbQuestions}`
