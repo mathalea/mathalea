@@ -99,21 +99,21 @@ export function listeDeChosesAImprimer (exercice) {
  * @param {Exercice} exercice
  * @author Rémi Angot
  */
-export function listeQuestionsToContenuSansNumero (exercice) {
+export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = true) {
   if (context.isHtml) {
-    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing)
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing, retourCharriot)
     if (exercice.interactif) {
       exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr)
   } else {
     if (document.getElementById('supprimer_reference').checked === true) {
-      exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
+      exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
     } else {
-      exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
+      exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
     }
     // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
-    exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
+    exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr, retourCharriot), exercice.nbColsCorr)
   }
 }
 
@@ -2141,14 +2141,18 @@ export function texEnumerateSansNumero (liste, spacing) {
 * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
 * @author Rémi Angot
 */
-export function texParagraphe (liste, spacing = false) {
+export function texParagraphe (liste, spacing = false, retourCharriot) {
   let result = ''
   if (spacing > 1) {
     result = `\\begin{spacing}{${spacing}}\n`
   }
 
   for (const i in liste) {
-    result += `\t${liste[i]}\\\\\n`
+    if (retourCharriot) {
+      result += `\t${liste[i]}\\\\\n`
+    } else {
+      result += `\t${liste[i]}\n`
+    }
   }
   if (spacing > 1) {
     result += '\\end{spacing}'
@@ -2235,9 +2239,13 @@ export function enumerateSansPuceSansNumero (liste, spacing) {
 * @param string
 * @author Rémi Angot
 */
-export function htmlParagraphe (texte) {
+export function htmlParagraphe (texte, retourCharriot) {
   if (texte.length > 1) {
-    return `\n<p>${texte}</p>\n\n`
+    if (retourCharriot) {
+      return `\n<p>${texte}</p>\n\n`
+    } else {
+      return `\n${texte}\n\n`
+    }
   } else {
     return ''
   }
