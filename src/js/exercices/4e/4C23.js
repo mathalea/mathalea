@@ -211,7 +211,7 @@ export default function SommeOuProduitFractions () {
       if (!context.isHtml) {
         if (i !== (this.nbQuestions - 1)) {
           if (i % 4 !== 3) {
-            texteCorr += '\\columnbreak \\'
+            texteCorr += '\\columnbreak'
           }
         }
       }
