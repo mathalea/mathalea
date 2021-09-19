@@ -484,6 +484,9 @@ function miseAJourDuCode () {
       if (listeObjetsExercice[0].sup3 !== undefined) {
         finUrl += `,s3=${listeObjetsExercice[0].sup3}`
       }
+      if (listeObjetsExercice[0].sup4 !== undefined) {
+        finUrl += `,s4=${listeObjetsExercice[0].sup4}`
+      }
       if (listeObjetsExercice[0].nbQuestionsModifiable) {
         finUrl += `,n=${listeObjetsExercice[0].nbQuestions}`
       }
@@ -513,6 +516,9 @@ function miseAJourDuCode () {
         }
         if (listeObjetsExercice[i].sup3 !== undefined) {
           finUrl += `,s3=${listeObjetsExercice[i].sup3}`
+        }
+        if (listeObjetsExercice[i].sup4 !== undefined) {
+          finUrl += `,s4=${listeObjetsExercice[i].sup4}`
         }
         if (listeObjetsExercice[i].nbQuestionsModifiable) {
           finUrl += `,n=${listeObjetsExercice[i].nbQuestions}`
@@ -1419,6 +1425,7 @@ const formSpacingCorr = []
 const formSup = []
 const formSup2 = []
 const formSup3 = []
+const formSup4 = []
 const formInteractif = [] // Création de tableaux qui recevront les éléments HTML de chaque formulaires
 
 function parametresExercice (exercice) {
@@ -1779,6 +1786,62 @@ function parametresExercice (exercice) {
         i +
         "' type='text' size='20' ></div></div>"
     }
+
+    if (exercice[i].besoinFormulaire4CaseACocher) {
+      // Création d'un formulaire texte
+      divParametresGeneraux.innerHTML +=
+        "<div style='display: inline'><label for='form_sup4" +
+        i +
+        "'>" +
+        exercice[i].besoinFormulaire4CaseACocher[0] +
+        " : </label><input id='form_sup4" +
+        i +
+        "' type='checkbox'  ></div>"
+    }
+
+    if (exercice[i].besoinFormulaire4Numerique) {
+      // Création d'un formulaire numérique
+      if (exercice[i].besoinFormulaire4Numerique[2]) {
+        // Si un tooltip est défini
+        divParametresGeneraux.innerHTML +=
+          '<div data-tooltip="' +
+          exercice[i].besoinFormulaire4Numerique[2] +
+          '"" data-inverted="" data-position="top left"><label for="form_sup4' +
+          i +
+          '">' +
+          exercice[i].besoinFormulaire4Numerique[0] +
+          ' : </label><input id="form_sup4' +
+          i +
+          '" type="number"  min="1" max="' +
+          exercice[i].besoinFormulaire4Numerique[1] +
+          '"></div>'
+      } else {
+        divParametresGeneraux.innerHTML +=
+          '<div><label for="form_sup4' +
+          i +
+          '">' +
+          exercice[i].besoinFormulaire4Numerique[0] +
+          ' : </label><input id="form_sup4' +
+          i +
+          '" type="number"  min="1" max="' +
+          exercice[i].besoinFormulaire4Numerique[1] +
+          '"></div>'
+      }
+    }
+
+    if (exercice[i].besoinFormulaire4Texte) {
+      // Création d'un formulaire texte
+      divParametresGeneraux.innerHTML +=
+        "<p></p><div style='display: inline'><label for='form_sup4" +
+        i +
+        "'>" +
+        exercice[i].besoinFormulaire4Texte[0] +
+        " : </label><div style='display: inline' data-tooltip='" +
+        exercice[i].besoinFormulaire4Texte[1] +
+        "' data-inverted=''><input id='form_sup4" +
+        i +
+        "' type='text' size='20' ></div></div>"
+    }
   }
 
   for (let i = 0; i < exercice.length; i++) {
@@ -2084,6 +2147,43 @@ function parametresExercice (exercice) {
       formSup3[i].addEventListener('blur', function (e) {
         // Perte du focus
         exercice[i].sup3 = e.target.value
+        miseAJourDuCode()
+      })
+    }
+
+    if (exercice[i].besoinFormulaire4CaseACocher) {
+      formSup4[i] = document.getElementById('form_sup4' + i)
+      formSup4[i].checked = exercice[i].sup4 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup4[i].addEventListener('change', function (e) {
+        //
+        exercice[i].sup4 = e.target.checked
+        miseAJourDuCode()
+      })
+    }
+
+    if (exercice[i].besoinFormulaire4Numerique) {
+      formSup4[i] = document.getElementById('form_sup4' + i)
+      formSup4[i].value = exercice[i].sup4 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup4[i].addEventListener('change', function (e) {
+        // Dès que le nombre change, on met à jour
+        exercice[i].sup4 = parseInt(e.target.value)
+        miseAJourDuCode()
+      })
+    }
+
+    if (exercice[i].besoinFormulaire4Texte) {
+      formSup4[i] = document.getElementById('form_sup4' + i)
+      formSup4[i].addEventListener('keydown', function (e) {
+        // Appui sur la touche entrée
+        if (e.keyCode === 13) {
+          exercice[i].sup4 = e.target.value // Récupère  la saisie de l'utilisateur
+          miseAJourDuCode()
+        }
+      })
+
+      formSup4[i].addEventListener('blur', function (e) {
+        // Perte du focus
+        exercice[i].sup4 = e.target.value
         miseAJourDuCode()
       })
     }
