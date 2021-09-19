@@ -1,5 +1,5 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 290 
+- nombre d'exos amcReady 289 
 - nombre d'exos interactifReady 347 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
@@ -17,7 +17,7 @@
 |2N43-5|Développer (a-b)²|KO|KO|OK|mathLive|
 |3A11-1|Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
 |3A11|Primalité ou pas|OK|qcmMono|OK|qcm|
-|3A14|Problème Les iris et les roses|OK|AMCHybride|OK|mathLive|
+|3A14|Résoudre des problèmes avec recherche de diviseurs communs|OK|AMCHybride|OK|mathLive|
 |3F10-1|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
 |3F10-2|Calculs d’images fonctions|OK|AMCNum|OK|mathLive|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
@@ -102,7 +102,6 @@
 |5L14-2|Substitution|OK|AMCNum|OK|numerique|
 |5L14|Calculer la valeur d’une expression littérale|KO|KO|OK|mathLive|
 |5M20|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
-|5N110-1|Variation en pourcentages|OK|AMCNum|OK|mathLive|
 |5N110|Variation en pourcentages|OK|AMCNum|OK|mathLive|
 |5N13-2|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
 |5N13|Simplification de fractions|OK|AMCOpen|OK|mathLive|
@@ -161,6 +160,7 @@
 |6M30|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |6M31|Conversions de volume|OK|qcmMono|OK|qcm,mathLive|
 |6N10-1|Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...|OK|AMCNum|OK|mathLive|
+|6N10|Écrire un nombre en chiffres ou en lettres|KO|KO|OK|mathLive|
 |6N11-2|Placer un point d’abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
 |6N11|Lire l’abscisse entière d’un point (grands nombres)|OK|AMCOpen|OK|mathLive|
 |6N13|Conversions de longueurs, masses, contenance, prix ou unités informatiques|OK|AMCNum|OK|mathLive|

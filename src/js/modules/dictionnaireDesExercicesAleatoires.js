@@ -457,7 +457,7 @@ export default {
     "name": "3A13"
   },
   "3A14": {
-    "titre": "Problème Les iris et les roses",
+    "titre": "Résoudre des problèmes avec recherche de diviseurs communs",
     "url": "/exercices/3e/3A14.js",
     "amcReady": true,
     "amcType": {
@@ -688,7 +688,7 @@ export default {
     "name": "3G22"
   },
   "3G23": {
-    "titre": "Reconnaître des triangles semblables dans différentes configurations",
+    "titre": "Reconnaître des triangles égaux dans différentes configurations",
     "url": "/exercices/3e/3G23.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2111,17 +2111,6 @@ export default {
     "interactifReady": false,
     "name": "5N11-4"
   },
-  "5N110-1": {
-    "titre": "Variation en pourcentages",
-    "url": "/exercices/5e/5N110-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "5N110-1"
-  },
   "5N110": {
     "titre": "Variation en pourcentages",
     "url": "/exercices/5e/5N110.js",
@@ -3177,7 +3166,8 @@ export default {
     "titre": "Écrire un nombre en chiffres ou en lettres",
     "url": "/exercices/6e/6N10.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N10"
   },
   "6N11-2": {
@@ -4345,12 +4335,12 @@ export default {
     "interactifReady": false,
     "name": "betaModele21_parametrables"
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques"
+    "name": "betaModele30_constructions_géométriques"
   },
   "betaModele31_parametrables": {
     "titre": "Nom de l'exercice",
