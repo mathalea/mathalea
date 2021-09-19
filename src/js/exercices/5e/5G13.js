@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondiVirgule, texNombre } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, mathalea2d, symetrieAxiale, translation, vecteur, triangle2points2longueurs, droite, pointAdistance, rotation, afficheLongueurSegment, segment, afficheMesureAngle, longueur, droiteParPointEtParallele, angle, polygoneAvecNom } from '../../modules/2d.js'
+import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const titre = 'Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles'
 
 /**
@@ -74,7 +75,7 @@ export default function ConservationSymetrie () {
           texteCorr += `Donc le segment [B'C'] mesure lui aussi $${texNombre(longueur(B, C, 1))}$ cm.<br>`
           break
       }
-      texte += 'Compléter le symétrique de la figure en utilisant les propriétés de conservation de la symétrie et en justifiant ses démarches.<br>'
+      texte += `Compléter le symétrique de la figure en utilisant les propriétés de${getVueFromUrl() === 'multi' ? '<br>' : ' '}conservation de la symétrie et en justifiant ses démarches.<br>`
       // On applique prépare la transformation
       if (this.sup === 1) { // Symétrie axiale
         d = droite(translation(A, vecteur(-randint(30, 40) / 10, 0)), translation(C, vecteur(-randint(30, 40) / 10, 0)), '(d)')
