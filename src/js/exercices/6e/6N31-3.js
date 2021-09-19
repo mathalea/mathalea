@@ -25,7 +25,7 @@ export default function ArrondirUneValeur () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = false
-    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
+  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
