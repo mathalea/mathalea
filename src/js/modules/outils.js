@@ -162,7 +162,16 @@ export function deuxColonnes (cont1, cont2) {
     `
   }
 }
-
+/**
+ * Contraint une valeur à rester dans un intervalle donné. Si elle est trop petite, elle prend la valeur min, si elle est trop grande elle prend la valeur max
+ * @author Jean-Claude Lhote à partir du code de Eric Elter
+ * @param {number} min borne inférieur
+ * @param {number} max borne supérieur
+ * @param {number} valeur la valeur à contraindre
+ */
+export function contraindreValeur (min, max, valeur) {
+  return (valeur < min) ? min : (valeur > max) ? max : valeur
+}
 /**
  * Compare deux nombres (pour les nombres en virgule flottante afin d'éviter les effets de la conversion en virgule flottante).
  * @author Jean-Claude Lhote
