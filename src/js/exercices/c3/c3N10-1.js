@@ -33,11 +33,11 @@ export default function C3N101 () {
   this.nouvelleVersion = function () {
     let typeDeConsigne = []
     if (parseInt(this.sup3) === 1) {
-      this.consigne = 'Écrire le nombre en chiffres.'
+      this.consigne = 'Écrire le nombre en lettres.'
       typeDeConsigne = combinaisonListes([1], this.nbQuestions)
     }
     if (parseInt(this.sup3) === 2) {
-      this.consigne = 'Écrire le nombre en lettres.'
+      this.consigne = 'Écrire le nombre en chiffres.'
       typeDeConsigne = combinaisonListes([2], this.nbQuestions)
     }
     if (parseInt(this.sup3) === 3) {
