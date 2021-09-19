@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -233,7 +234,7 @@ function questionRecette (exo, i) { // questions avec des masses pour un nombre 
   const quantite = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneInit) // Calcul de la quantité dans la recette à partir de la qtt/personne et du nb de personne
   const quantiteReponse = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneFinal) // Pour la correction
   const prenoms = [prenomF(), prenomM()] // Choix de prénoms pour l'énoncé
-  const texte = `${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour ${nbPersonneInit} personnes qu'il faut ${texNombrec(quantite)} g de ${liste[alea1].ingredient}. <br>` +
+  const texte = `${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]}${getVueFromUrl() === 'multi' ? '<br>' : ' '}pour ${nbPersonneInit} personnes qu'il faut ${texNombrec(quantite)} g de ${liste[alea1].ingredient}. <br>` +
 `Elle veut adapter sa recette pour ${nbPersonneFinal} personnes.` +
 `<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ?` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' g' })
   const texteCorr = `Commençons par trouver la masse de ${liste[alea1].ingredient} pour une personne : <br>` +
@@ -299,7 +300,7 @@ function questionDillution (exo, i) { // questions de mélange de volumes
   }
   const volumeFinalAff = texNombrec(volumeFinal) // pour affichage avec bon séparateur.
   const volumeInitialAff = texNombrec(volumeInitial) // pour affichage avec bon séparateur.
-  const texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} qu'il faut  ` +
+  const texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} qu'il faut ${getVueFromUrl() === 'multi' ? '<br>' : ' '}` +
   ` ${texNombrec(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour ${volumeInitialAff} ${liste[alea1].unite_solvant[1]} d'eau.<br> ` +
   `On veut utiliser ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau.` +
   `<br> Quel volume de ${liste[alea1].solute} doit-on prévoir ? ` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' ' + liste[alea1].unite_solute })
