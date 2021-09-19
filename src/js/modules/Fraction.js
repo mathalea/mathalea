@@ -158,10 +158,10 @@ class Fraction {
     } else if (this.signe === 0) {
       return '0'
     } else {
-      if (factoNum[1] / factoDen[1] !== 1) {
-        return this.signeString + fraction(factoNum[0], factoDen[0]).simplifie().texFraction
+      if (calcul(factoNum[1] / factoDen[1]) === 1) {
+        return fraction(factoNum[0], factoDen[0]).simplifie().texFraction
       } else {
-        return this.signeString + fraction(factoNum[0], factoDen[0]).simplifie().texFraction + `\\sqrt{${fraction(factoNum[1], factoDen[1]).simplifie().texFraction}}`
+        return fraction(factoNum[0], factoDen[0]).simplifie().texFraction + `\\sqrt{${fraction(factoNum[1], factoDen[1]).simplifie().texFraction}}`
       }
     }
   }

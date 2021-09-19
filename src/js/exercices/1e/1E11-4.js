@@ -2,7 +2,6 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
-import { abs, sqrt } from 'mathjs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Résoudre une équation du second degré à partir de la forme canonique'
@@ -53,11 +52,11 @@ export default function Resolutionavecformecanonique () {
         delta = b * b - 4 * a * c
         b2 = fraction(delta, 4 * a * a) // terme b² dans l'expression a²-b²
         if (delta >= 0) {
-          if (sqrt(delta) === Math.trunc(sqrt(delta))) {
-            b3 = fraction(sqrt(delta), 2 * a)
+          if (Math.sqrt(delta) === Math.trunc(Math.sqrt(delta))) {
+            b3 = fraction(Math.sqrt(delta), Math.abs(2 * a))
           } else { b3 = b2 }
-          x1 = fraction(-b - sqrt(delta), 2 * a)
-          x2 = fraction(-b + sqrt(delta), 2 * a)
+          x1 = fraction(-b - Math.sqrt(delta), 2 * a)
+          x2 = fraction(-b + Math.sqrt(delta), 2 * a)
         }
         texte = `Résoudre dans $\\mathbb{R}$ l'équation $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$ sans utiliser le discriminant.`
         texte += 'en utilisant la forme canoique du polynôme.'
@@ -97,16 +96,15 @@ export default function Resolutionavecformecanonique () {
         if (delta > 0) { // Cas des deux solutions :
           texteCorr += '<br>On reconnaît l\'identité remarquable $a^2-b^2$ :'
           texteCorr += `<br>avec  $a= \\left(x ${alpha.simplifie().ecritureAlgebrique}\\right)$ `
-          texteCorr += `et $b =\\sqrt{${b2.simplifie().texFraction}}$`
-          // texteCorr += `et $b =${b2.racineCarree()}= ${b3.simplifie().texFraction}$`
-          // 
+          // texteCorr += `et $b =\\sqrt{${b2.simplifie().texFraction}}$`
+          texteCorr += `et $b =${b2.racineCarree()}$`// = ${b3.simplifie().texFraction} why ?
           texteCorr += '<br>L\'équation à résoudre est équivalente à :'
-          texteCorr += `<br> $\\left(x ${alpha.simplifie().ecritureAlgebrique}-${b2.simplifie().texFraction}\\right)\\left(x ${alpha.simplifie().ecritureAlgebrique}+${b2.simplifie().texFraction}\\right)=0$`
+          texteCorr += `<br> $\\left(x ${alpha.simplifie().ecritureAlgebrique}-${b3.simplifie().texFraction}\\right)\\left(x ${alpha.simplifie().ecritureAlgebrique}+${b3.simplifie().texFraction}\\right)=0$`
           texteCorr += `<br> $\\left(x ${x1.simplifie().oppose().ecritureAlgebrique}\\right)\\left(x ${x2.simplifie().oppose().ecritureAlgebrique}\\right)=0$`
           texteCorr += '<br> On applique la propriété du produit nul :'
           texteCorr += `<br> Soit $x ${x1.simplifie().oppose().ecritureAlgebrique}=0$ , soit $x ${x2.simplifie().oppose().ecritureAlgebrique}=0$`
-          texteCorr += `<br> Soit $x = ${x1}$ , soit $x =${x2}$`
-          texteCorr += `<br> $S =\\left\\{${x1};${x2}\\right\\}$`
+          texteCorr += `<br> Soit $x = ${x1.texFractionSimplifiee}$ , soit $x =${x2.texFractionSimplifiee}$`
+          texteCorr += `<br> $S =\\left\\{${x1.texFractionSimplifiee};${x2.texFractionSimplifiee}\\right\\}$`
         }
       }
 
