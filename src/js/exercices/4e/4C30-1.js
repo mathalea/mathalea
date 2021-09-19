@@ -189,7 +189,7 @@ export default function Puissances_encadrement() {
   this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     4,
-    "1 : nombre entier positif\n2 : nombre décimal positif\n3 : nombre entier positif inférieur à un\n4 : Mélange",
+    "1 : Nombre entier positif\n2 : Nombre décimal positif\n3 : Nombre entier positif inférieur à 1\n4 : Mélange",
   ];
 }
 

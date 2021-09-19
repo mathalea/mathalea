@@ -114,7 +114,7 @@ export default function Egalite_d_angles () {
       correction = `${numAlpha(0)} Les angles $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[2]}${noms[3]}${noms[1]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ mesure $180\\degree-${d}\\degree=${180 - d}\\degree$.<br>`
       correction += `${numAlpha(1)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[0]}${noms[2]}${noms[3]}}=180-\\widehat{${noms[3]}${noms[0]}${noms[2]}}-\\widehat{${noms[0]}${noms[3]}${noms[2]}}=180\\degree-${a}\\degree-${180 - d}\\degree=${-a + d}\\degree$.<br>`
       correction += `${numAlpha(2)} Pour les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ coupées par la sécante $(${noms[2]}${noms[4]})$ les angles $\\widehat{${noms[0]}${noms[2]}${noms[3]}}$ et $\\widehat{${noms[1]}${noms[4]}${noms[3]}}$ sont des angles alternes-internes.<br>`
-      correction += '$\\phantom{c/}$ Or si des angles alternes-internes sont égaux, cela signifie que les droites coupées par la sécante sont parallèles.<br>'
+      correction += '$\\phantom{c/}$ Or, si des angles alternes-internes sont égaux, alors cela signifie que les droites coupées par la sécante sont parallèles.<br>'
       correction += `$\\phantom{c/}$ Les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont donc parallèles.<br>`
       correction += `${numAlpha(3)} Les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont parallèles et les segments $[${noms[0]}${noms[2]}]$ et $[${noms[4]}${noms[1]}]$ sont de même longueur.<br>`
       correction += '$\\phantom{c/}$ Or, un quadrilatère qui possède des côtés opposés parallèles et de même longueur est un parallèlogramme.<br>'
@@ -138,5 +138,5 @@ export default function Egalite_d_angles () {
     this.listeCorrections.push(figure[3])
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Numéro de figure', 3, '1 : Le trapèze\n2: Le papillon\n3: Au hasard']
+  this.besoinFormulaireNumerique = ['Numéro de figure', 3, '1 : Le trapèze\n2 : Le papillon\n3 : Au hasard']
 }

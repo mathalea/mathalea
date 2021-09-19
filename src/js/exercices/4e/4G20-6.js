@@ -22,7 +22,7 @@ export default function CalculValeurApprocheeRacineCarree () {
   this.nbColsCorr = 2
   this.tailleDiaporama = 100
   this.video = ''
-  this.besoinFormulaireNumerique = ['Avec ou sans calculatrice', 3, '1 : Avec calculatrice\n2 : Sans calculatrice\n3 : L\'un ou l\'autre']
+  this.besoinFormulaireNumerique = ['Avec ou sans calculatrice', 3, '1 : Avec calculatrice\n2 : Sans calculatrice\n3 : Mélange']
   this.sup = 3
 
   this.nouvelleVersion = function (numeroExercice) {

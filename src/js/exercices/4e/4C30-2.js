@@ -68,7 +68,7 @@ export default function EcritureDecimalePuissanceDe10() {
     }
     listeQuestionsToContenu(this);
   };
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Exposants positifs\n2 : Exposants négatifs\n3 : Exposants relatifs'];
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Exposants positifs\n2 : Exposants négatifs\n3 : Mélange'];
 }
 
 

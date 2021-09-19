@@ -332,6 +332,6 @@ export default function Priorites () {
   this.besoinFormulaireNumerique = [
     'Type de calculs',
     3,
-    '1 : Sans parenthèses\n2: Avec parenthèses\n3: Mélange'
+    '1 : Sans parenthèses\n2 : Avec parenthèses\n3 : Mélange'
   ]
 }

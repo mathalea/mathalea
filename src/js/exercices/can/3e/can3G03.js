@@ -1,8 +1,8 @@
-import Exercice from '../Exercice.js'
-import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
   mathalea2d, point, latexParCoordonnees, pointAdistance, labelPoint, segment, milieu
-} from '../../modules/2d.js'
+} from '../../../modules/2d.js'
 export const titre = 'Calcul d’une longueur avec Thalès2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,8 +10,8 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can3G03
+ * Date de publication sptembre 2021
 */
 export default function CalculLongueurThales2 () {
   Exercice.call(this) // Héritage de la classe Exercice()

@@ -30,7 +30,7 @@ export default function Pythagore2D () {
   this.sup2 = 3
   this.typeDeQuestion = 'Calculer :'
   this.video = 'M9sceJ8gzNc'
-  this.besoinFormulaire2Numerique = ['Côté', 3, '1 : Hypoténuse\n2 : Côté de l\'angle droit\n3 : Les deux']
+  this.besoinFormulaire2Numerique = ['Côté', 3, '1 : Hypoténuse\n2 : Côté de l\'angle droit\n3 : Mélange']
 
   this.nouvelleVersion = function () {
     if (this.sup) {

@@ -314,7 +314,7 @@ export default function Puissances_d_un_relatif_1() {
   this.besoinFormulaireNumerique = [
     "Règle à travailler",
     5,
-    "1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange",
+    "1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances de même exposant\n5 : Mélange",
   ];
 }
 

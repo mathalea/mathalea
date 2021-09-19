@@ -36,13 +36,13 @@ export default function CalculsImagesFonctions () {
         typesDeQuestionsDisponibles = ['affine']
         break
       case 3:
-        typesDeQuestionsDisponibles = ['polynome']
+        typesDeQuestionsDisponibles = ['polynôme']
         break
       case 4:
         typesDeQuestionsDisponibles = ['fraction']
         break
       case 5:
-        typesDeQuestionsDisponibles = ['linéaire', 'affine', 'polynome', 'fraction']
+        typesDeQuestionsDisponibles = ['linéaire', 'affine', 'polynôme', 'fraction']
         break
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -131,7 +131,7 @@ export default function CalculsImagesFonctions () {
               break
           }
           break
-        case 'polynome':
+        case 'polynôme':
           ant = x
           switch (sousChoix[i]) {
             case 0:

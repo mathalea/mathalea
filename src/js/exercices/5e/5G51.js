@@ -370,7 +370,7 @@ export default function Representer_un_solide5e() {
     }
     listeQuestionsToContenu(this);
   };
-    this.besoinFormulaireNumerique = ['Type de solides', 5, ` 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange cubes, pavés, prismes`];
+    this.besoinFormulaireNumerique = ['Type de solides', 5, ` 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange`];
 
   this.besoinFormulaire2Numerique = [
     "Type de cahier",
