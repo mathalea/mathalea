@@ -1425,6 +1425,7 @@ const formSpacingCorr = []
 const formSup = []
 const formSup2 = []
 const formSup3 = []
+const formSup4 = []
 const formInteractif = [] // Création de tableaux qui recevront les éléments HTML de chaque formulaires
 
 function parametresExercice (exercice) {
@@ -2146,6 +2147,43 @@ function parametresExercice (exercice) {
       formSup3[i].addEventListener('blur', function (e) {
         // Perte du focus
         exercice[i].sup3 = e.target.value
+        miseAJourDuCode()
+      })
+    }
+
+    if (exercice[i].besoinFormulaire4CaseACocher) {
+      formSup4[i] = document.getElementById('form_sup4' + i)
+      formSup4[i].checked = exercice[i].sup4 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup4[i].addEventListener('change', function (e) {
+        //
+        exercice[i].sup4 = e.target.checked
+        miseAJourDuCode()
+      })
+    }
+
+    if (exercice[i].besoinFormulaire4Numerique) {
+      formSup4[i] = document.getElementById('form_sup4' + i)
+      formSup4[i].value = exercice[i].sup4 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup4[i].addEventListener('change', function (e) {
+        // Dès que le nombre change, on met à jour
+        exercice[i].sup4 = parseInt(e.target.value)
+        miseAJourDuCode()
+      })
+    }
+
+    if (exercice[i].besoinFormulaire4Texte) {
+      formSup4[i] = document.getElementById('form_sup4' + i)
+      formSup4[i].addEventListener('keydown', function (e) {
+        // Appui sur la touche entrée
+        if (e.keyCode === 13) {
+          exercice[i].sup4 = e.target.value // Récupère  la saisie de l'utilisateur
+          miseAJourDuCode()
+        }
+      })
+
+      formSup4[i].addEventListener('blur', function (e) {
+        // Perte du focus
+        exercice[i].sup4 = e.target.value
         miseAJourDuCode()
       })
     }
