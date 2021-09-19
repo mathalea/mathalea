@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, miseEnEvidence, listeDesDiviseurs, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, miseEnEvidence, listeDesDiviseurs, nombreDeChiffresDansLaPartieEntiere, lettreDepuisChiffre } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Calculer en utilisant les priorités opératoires'
 export const amcReady = true
@@ -49,6 +49,7 @@ export default function Priorites () {
   this.nbCols = 2
   this.nbColsCorr = 1
   this.sup = 3
+  this.sup2 = false
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
@@ -312,6 +313,19 @@ export default function Priorites () {
           setReponse(this, i, a * (b / c + d))
           break
       }
+      if (this.sup2) {
+        texte = `${lettreDepuisChiffre(i + 1)} = ${texte}`
+        // On découpe
+        const etapes = texteCorr.split('=')
+        texteCorr = ''
+        etapes.forEach(function (etape) {
+          etape = etape.replace('$', '')
+          if (context.isHtml) {
+            texteCorr += '<br>'
+          }
+          texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
+        })
+      }
       if (this.interactif && context.isHtml) texte = texte.substring(0, texte.length - 1) + '~=$' + ajouteChampTexte(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         if (context.isAmc) {
@@ -334,4 +348,5 @@ export default function Priorites () {
     3,
     '1 : Sans parenthèses\n2 : Avec parenthèses\n3 : Mélange'
   ]
+  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
 }
