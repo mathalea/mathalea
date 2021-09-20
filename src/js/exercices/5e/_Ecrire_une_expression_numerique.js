@@ -71,7 +71,12 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           texteCorr = `${expn} est ${expf}.`
           break
         case 3:
-          this.consigne = 'Traduire la phrase par un calcul et effectuer ce calcul en respectant les priorités opératoires.'
+          // this.consigne = 'Traduire la phrase par un calcul et effectuer ce calcul en respectant les priorités opératoires.'
+          if (this.interactif) {
+            this.consigne = 'Traduire la phrase par un calcul et effectuer ce calcul au brouillon en respectant les priorités opératoires.<br> Saisir uniquement le résultat.'
+          } else {
+            this.consigne = 'Traduire la phrase par un calcul et effectuer ce calcul en respectant les priorités opératoires.'
+          }
           if (!this.litteral) texte = `${expf}.`
           else if (nbval === 2) texte = `${expf} puis calculer pour $x=${val1}$ et $y=${val2}$.` // nbval contient le nombre de valeurs en cas de calcul littéral
           else texte = `${expf} puis calculer pour $x=${val1}$.`
