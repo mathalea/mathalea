@@ -1339,7 +1339,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
           try {
             formSup3[i].value = listeObjetsExercice[i].sup3
           } catch (error) {
-            console.error(error)
+            // console.error(error)
           }
         }
         if (typeof urlVars[i].s4 !== 'undefined') {
@@ -1351,7 +1351,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
           try {
             formSup4[i].value = listeObjetsExercice[i].sup4
           } catch (error) {
-            console.error(error)
+            // console.error(error)
           }
         }
       }
