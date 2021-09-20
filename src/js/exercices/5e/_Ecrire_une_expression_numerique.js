@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffre } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true
@@ -76,10 +76,28 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           else if (nbval === 2) texte = `${expf} puis calculer pour $x=${val1}$ et $y=${val2}$.` // nbval contient le nombre de valeurs en cas de calcul littéral
           else texte = `${expf} puis calculer pour $x=${val1}$.`
           texteCorr = `${expf} s'écrit ${expn}.<br>`
-          if (!this.litteral) texteCorr = `${expc}`
-          else if (nbval === 2) texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}.`
+
+          if (!this.litteral) {
+            if (!this.sup4) {
+              texteCorr = `${expc}`
+            } else {
+              texteCorr = ''
+              // On découpe
+              const etapes = expc.split('=')
+              etapes.forEach(function (etape) {
+                etape = etape.replace('$', '')
+                if (context.isHtml) {
+                  texteCorr += '<br>'
+                }
+                texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
+              })
+            }
+          } else if (nbval === 2) texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}.`
           else texteCorr += `Pour $x=${val1}$ :<br>${expc}.`
-          reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
+          // reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
+          reponse = expc.split('=')[expc.split('=').length - 1].replace('$', '')
+          console.log(reponse)
+          // console.log(expc)
           break
         case 4:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
