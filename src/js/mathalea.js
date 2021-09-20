@@ -1229,6 +1229,9 @@ async function miseAJourDeLaListeDesExercices (preview) {
             if (dictionnaireDesExercices[id].sup3 !== undefined) {
               listeObjetsExercice[i].sup3 = dictionnaireDesExercices[id].sup3
             }
+            if (dictionnaireDesExercices[id].sup4 !== undefined) {
+              listeObjetsExercice[i].sup4 = dictionnaireDesExercices[id].sup4
+            }
             if (dictionnaireDesExercices[id].nbQuestions !== undefined) {
               listeObjetsExercice[i].nbQuestions = dictionnaireDesExercices[id].nbQuestions
             }
@@ -1336,7 +1339,19 @@ async function miseAJourDeLaListeDesExercices (preview) {
           try {
             formSup3[i].value = listeObjetsExercice[i].sup3
           } catch (error) {
-            console.error(error)
+            // console.error(error)
+          }
+        }
+        if (typeof urlVars[i].s4 !== 'undefined') {
+          if (isNumeric(urlVars[i].s4)) {
+            listeObjetsExercice[i].sup4 = parseInt(urlVars[i].s4)
+          } else {
+            listeObjetsExercice[i].sup4 = urlVars[i].s4
+          }
+          try {
+            formSup4[i].value = listeObjetsExercice[i].sup4
+          } catch (error) {
+            // console.error(error)
           }
         }
       }
