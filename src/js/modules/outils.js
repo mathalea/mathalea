@@ -2406,7 +2406,10 @@ export function nombreAvecEspace (nb) {
  */
 export const scientifiqueToDecimal = (mantisse, exp) => {
   mantisse = mantisse.toString()
-  const indiceVirguleDepart = mantisse.indexOf('.')
+  let indiceVirguleDepart = mantisse.indexOf('.')
+  if (indiceVirguleDepart < 0) {
+    indiceVirguleDepart = mantisse.length
+  }
   const indiceVirguleArrivee = indiceVirguleDepart + exp
   let mantisseSansVirgule = mantisse.replace('.', '')
   const indiceMax = mantisseSansVirgule.length - 1
