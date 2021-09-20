@@ -1341,17 +1341,17 @@ async function miseAJourDeLaListeDesExercices (preview) {
           } catch (error) {
             console.error(error)
           }
-          if (typeof urlVars[i].s4 !== 'undefined') {
-            if (isNumeric(urlVars[i].s4)) {
-              listeObjetsExercice[i].sup4 = parseInt(urlVars[i].s4)
-            } else {
-              listeObjetsExercice[i].sup4 = urlVars[i].s4
-            }
-            try {
-              formSup4[i].value = listeObjetsExercice[i].sup4
-            } catch (error) {
-              console.error(error)
-            }
+        }
+        if (typeof urlVars[i].s4 !== 'undefined') {
+          if (isNumeric(urlVars[i].s4)) {
+            listeObjetsExercice[i].sup4 = parseInt(urlVars[i].s4)
+          } else {
+            listeObjetsExercice[i].sup4 = urlVars[i].s4
+          }
+          try {
+            formSup4[i].value = listeObjetsExercice[i].sup4
+          } catch (error) {
+            console.error(error)
           }
         }
       }
