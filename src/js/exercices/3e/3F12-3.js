@@ -220,7 +220,7 @@ export default function TableauDeValeurs () {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$.\\\\ \n
-          Calculer :\\\\ \n1) $f(${listeDeX[i][0]})$\n2) $f(${listeDeX[i][1]})$\n3) $f(${listeDeX[i][2]})$\\\\ \n
+          Calculer :\\\\ \na) $f(${listeDeX[i][0]})$\\\\ \nb) $f(${listeDeX[i][1]})$\\\\ \nc) $f(${listeDeX[i][2]})$\\\\ \n
           Utiliser le cadre pour les calculs si besoin puis coder les réponses.\\\\`,
           propositions: [
             {
@@ -237,7 +237,7 @@ export default function TableauDeValeurs () {
                 texte: this.listeCorrections[0],
                 statut: '',
                 reponse: {
-                  texte: `$f(${listeDeX[i][0]})$`,
+                  texte: `a) $f(${listeDeX[i][0]})$`,
                   valeur: f(listeDeX[i][0]),
                   param: {
                     digits: nombreDeChiffresDansLaPartieEntiere(f(listeDeX[i][0])),
@@ -254,7 +254,7 @@ export default function TableauDeValeurs () {
                 texte: this.listeCorrections[1],
                 statut: '',
                 reponse: {
-                  texte: `$f(${listeDeX[i][1]})$`,
+                  texte: `b) $f(${listeDeX[i][1]})$`,
                   valeur: f(listeDeX[i][1]),
                   param: {
                     digits: nombreDeChiffresDansLaPartieEntiere(f(listeDeX[i][1])),
@@ -271,7 +271,7 @@ export default function TableauDeValeurs () {
                 texte: this.listeCorrections[2],
                 statut: '',
                 reponse: {
-                  texte: `$f(${listeDeX[i][2]})$`,
+                  texte: `c) $f(${listeDeX[i][2]})$`,
                   valeur: f(listeDeX[i][2]),
                   param: {
                     digits: nombreDeChiffresDansLaPartieEntiere(f(listeDeX[i][2])),
