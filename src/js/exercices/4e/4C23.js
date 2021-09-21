@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, texFraction, randint, miseEnEvidence, choice } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { fraction } from 'mathjs'
 
 export const titre = 'Somme, différence ou produit de fractions'
 export const interactifType = 'mathLive'
@@ -350,7 +351,7 @@ export default function SommeOuProduitFractions () {
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-        setReponse(this, i, texFraction(num, den), { formatInteractif: 'fractionEgale' })
+        setReponse(this, i, fraction(num, den), { formatInteractif: 'fractionEgale' })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
