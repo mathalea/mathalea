@@ -116,7 +116,8 @@ export default function ConservationSymetrie () {
           objetsCorrectionOnly.push(afficheLongueurSegment(imageB, imageC))
         }
       } else if (listeTypeDeQuestions[i] === 'parallelisme') {
-        objetsCorrectionOnly.push(tracePoint(imageA, imageB, imageC))
+        objetsEnonceEtCorr.push(tracePoint(imageC), labelPoint(imageC))
+        objetsCorrectionOnly.push(tracePoint(imageA, imageB))
       }
       const xmin = Math.min(A.x, B.x, C.x, imageA.x, imageB.x, imageC.x) - 2
       const xmax = Math.max(A.x, B.x, C.x, imageA.x, imageB.x, imageC.x) + 2

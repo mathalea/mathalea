@@ -23,7 +23,7 @@ export default function ExerciceEquation1 () {
   this.titre = titre
   this.consigne = 'Résoudre les équations suivantes.'
   this.spacing = 2
-    this.interactifType = 'mathLive'
+  this.interactifType = 'mathLive'
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.correctionDetailleeDisponible = true
   if (!context.isHtml) {
@@ -102,7 +102,7 @@ export default function ExerciceEquation1 () {
           }
         }
         texte = `$${a}x${ecritureAlgebrique(b)}=${c}$`
-        texteCorr = texte
+        texteCorr = texte + '<br>'
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '<br>$ x = $ ' })
         if (this.correctionDetaillee) {
           if (b > 0) {
@@ -180,7 +180,7 @@ export default function ExerciceEquation1 () {
           c = abs(randint(b, 15)) // c sera plus grand que b pour que c-b>0
         }
         texte = `$x${ecritureAlgebrique(b)}=${c}$`
-        texteCorr = texte
+        texteCorr = texte + '<br>'
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '<br>$ x = $ ' })
         if (this.correctionDetaillee) {
           if (b > 0) {
@@ -232,7 +232,7 @@ export default function ExerciceEquation1 () {
           b *= choice([-1, 1])
         }
         texte = `$${a}x=${b}$`
-        texteCorr = texte
+        texteCorr = texte + '<br>'
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '<br>$ x = $ ' })
         if (this.correctionDetaillee) {
           texteCorr += `On divise les deux membres par $${a}$.<br>`
@@ -312,7 +312,7 @@ export default function ExerciceEquation1 () {
         texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(
           c
         )}x${ecritureAlgebrique(d)}$`
-        texteCorr = texte
+        texteCorr = texte + '<br>'
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '<br>$ x = $ ' })
         if (this.correctionDetaillee) {
           if (c > 0) {
