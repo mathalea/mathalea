@@ -310,7 +310,7 @@ export default function CalculDeVolumes () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     2,
-    '1 : Sans conversions\n2 : Avec des conversions'
+    '1 : Sans conversion\n2 : Avec des conversions'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
   if (context.isHtml && !context.isDiaporama) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip

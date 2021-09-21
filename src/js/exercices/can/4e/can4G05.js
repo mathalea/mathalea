@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, choice } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Calcul de la diagonale d’un carré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -7,8 +7,8 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can4G05
+ * Date de publication sptembre 2021
 */
 export default function DiagonaleCarre () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -41,7 +41,7 @@ export default function DiagonaleCarre () {
         et de diagonale $d$, on a <br>
         $\\sqrt{${a}}^2+\\sqrt{${a}}^2=d^2$ soit $d^2=${a}+${a}=${2 * a}$, d'où $d=\\sqrt{${2 * a}}$
        <br>`
-        this.reponse = `\\sqrt{${2 * a}}`
+        this.reponse = [`\\sqrt{${2 * a}}`, `${Math.sqrt(2 * a)}`]
         break
     }
   }

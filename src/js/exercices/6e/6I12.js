@@ -185,7 +185,7 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
         echelle)
     }
     if (context.isHtml) {
-      texte += '</td></tr>'
+      texte += '</td></tr></table>'
       texte += `<div id="resultatCheckEx${this.numeroExercice}Q${0}"></div>`
     } else {
       texte += '\\end{minipage} '

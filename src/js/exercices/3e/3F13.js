@@ -5,7 +5,7 @@ export const titre = 'Lire les antécédents d’un nombre à partir d’un grap
 
 /**
 * Un graphique étant tracé, déterminer les antécédents de nombres donnés.
-* La fonction est un polynome de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
+* La fonction est un polynôme de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
 *
 * @author Rémi Angot
 * 3F13
@@ -126,5 +126,5 @@ export default function Antecedent_graphique () {
     listeQuestionsToContenuSansNumero(this)
   }
 
-  this.besoinFormulaireNumerique = ['Type de fonctions', 2, '1 : Affine\n2 : Polynome du 2nd degré']
+  this.besoinFormulaireNumerique = ['Type de fonctions', 2, '1 : Affine\n2 : Polynôme du 2nd degré']
 }

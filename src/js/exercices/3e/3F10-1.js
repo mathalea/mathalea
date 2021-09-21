@@ -24,7 +24,7 @@ export default function VocabulaireNotationsFonctions () {
   this.spacing = 2
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
-  
+
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.sup = parseInt(this.sup)
@@ -103,19 +103,23 @@ export default function VocabulaireNotationsFonctions () {
           break
       }
 
-      if (context.isAmc || this.interactif) {
-        this.autoCorrection[i] = {
-          enonce: enonce,
-          options: { ordered: false, vertical: true },
-          propositions: []
-        }
-        for (let k = 0; k < reponses[i].length; k++) {
-          this.autoCorrection[i].propositions.push({ texte: reponses[i][k][0], statut: reponses[i][k][1] })
-        }
+      this.autoCorrection[i] = {
+        enonce: enonce,
+        options: { ordered: false, vertical: true },
+        propositions: []
+      }
+      for (let k = 0; k < reponses[i].length; k++) {
+        this.autoCorrection[i].propositions.push({ texte: reponses[i][k][0], statut: reponses[i][k][1] })
       }
       monQcm = propositionsQcm(this, i)
-      texte = enonce + monQcm.texte
-      texteCorr = monQcm.texteCorr
+      if (!context.isAmc) {
+        texte = enonce + monQcm.texte
+        texteCorr = monQcm.texteCorr
+      } else {
+        texte = enonce
+        texteCorr = ''
+      }
+
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -129,6 +133,6 @@ export default function VocabulaireNotationsFonctions () {
   this.besoinFormulaireNumerique = [
     'Choix des questions',
     3,
-    '1 : Vocabulaire\n2 : Notations \n3 : Mélange vocabulaire et notations'
+    '1 : Vocabulaire\n2 : Notations \n3 : Mélange'
   ]
 }

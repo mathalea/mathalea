@@ -61,7 +61,7 @@ export default function CompleterUneFacture () {
         texte += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & \\ldots\\ldots \\\\ \n`
         texte += '\\hline\n'
         texte += '\\text{Prix total (H.T.)} & & & \\ldots\\ldots \\\\ \n'
-        texte += '\\hline\n'
+        texte += '\\hline\\hline\n'
         texte += '\\text{TVA (20~\\%)} & & & \\ldots\\ldots \\\\ \n'
         texte += '\\hline\n'
         texte += '\\text{Prix total (T.T.C.)} & & & \\ldots\\ldots \\\\ \n '
@@ -83,7 +83,7 @@ export default function CompleterUneFacture () {
         texteCorr += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & ${texPrix(calcul(p3 * q3))} \\\\ \n`
         texteCorr += '\\hline\n'
         texteCorr += `\\text{Prix total (H.T.)} & & & ${texPrix(calcul(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
-        texteCorr += '\\hline\n'
+        texteCorr += '\\hline\\hline\n'
         texteCorr += `\\text{TVA (20~\\%)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 0.2))} \\\\ \n`
         texteCorr += '\\hline\n'
         texteCorr += `\\text{Prix total (T.T.C.)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 1.2))} \\\\ \n `
@@ -112,7 +112,7 @@ export default function CompleterUneFacture () {
         texte += `\\text{Réduction (${r}~\\%)} & & & \\ldots\\ldots \\\\ \n`
         texte += '\\hline\n'
         texte += '\\text{Prix total net (H.T.)} & & & \\ldots\\ldots \\\\ \n'
-        texte += '\\hline\n'
+        texte += '\\hline\\hline\n'
         texte += '\\text{TVA (20~\\%)} & & & \\ldots\\ldots \\\\ \n'
         texte += '\\hline\n'
         texte += '\\text{Prix total (T.T.C.)} & & & \\ldots\\ldots \\\\ \n '
@@ -138,7 +138,7 @@ export default function CompleterUneFacture () {
         texteCorr += `\\text{Réduction (${r}~\\%)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * r / 100))} \\\\ \n`
         texteCorr += '\\hline\n'
         texteCorr += `\\text{Prix total net (H.T.)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100)))} \\\\ \n`
-        texteCorr += '\\hline\n'
+        texteCorr += '\\hline\\hline\n'
         texteCorr += `\\text{TVA (20~\\%)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 0.2))} \\\\ \n`
         texteCorr += '\\hline\n'
         texteCorr += `\\text{Prix total (T.T.C.)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 1.2))} \\\\ \n `

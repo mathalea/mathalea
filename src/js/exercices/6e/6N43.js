@@ -226,5 +226,5 @@ export default function CriteresDeDivisibilite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Critères de divisibilité par 2, 5, 10\n2 : Critères de divisibilité par 3,9\n3 : Critères de divisibilité par 2, 3, 5, 9, 10\n4 : Avec ou sans critère de divisibilité']
+  this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Critères de divisibilité par 2, 5 et10\n2 : Critères de divisibilité par 3 et 9\n3 : Critères de divisibilité par 2, 3, 5, 9 et 10\n4 : Avec ou sans critère de divisibilité']
 }

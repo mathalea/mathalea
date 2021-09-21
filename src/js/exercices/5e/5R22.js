@@ -28,7 +28,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.nbQuestions = 5
-    this.interactifReady = interactifReady
+  this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
@@ -67,7 +67,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
       if (this.sup2) {
         texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = \\dotfill $`
         if (this.interactif && context.isHtml) {
-          texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} =$` + ajouteChampTexte(this, i, { texte: `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} =$` })
+          texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} =$` + ajouteChampTexte(this, i)
         }
         if (!context.isHtml && !context.isAmc) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`

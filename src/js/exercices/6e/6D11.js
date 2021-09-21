@@ -97,5 +97,5 @@ export default function SommeDeDurees () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2] // "1 : Additions simples\n2 : Additions avec d'��ventuelles conversions"]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Additions simples\n2 : Additions avec d'éventuelles conversions"]
 }

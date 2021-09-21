@@ -506,5 +506,5 @@ export default function ExploiterRepresentationGraphique () {
       }
     } else listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix du problème', 3, '1 : Projectile\n2 : Trajet à vélo\n3 : Température\n4 : Au hasard']
+  this.besoinFormulaireNumerique = ['Choix des problèmes', 3, '1 : Projectile\n2 : Trajet à vélo\n3 : Température\n4 : Au hasard']
 }

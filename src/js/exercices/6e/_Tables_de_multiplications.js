@@ -101,8 +101,8 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     'Nombres séparés par des tirets'
   ] // Texte, tooltip
   this.besoinFormulaire2Numerique = [
-    'Style de questions',
+    'Type de questions',
     3,
-    '1 : Classique\n2: À trous\n3: Mélangé'
+    '1 : Classique\n2 : À trous\n3 : Mélange'
   ]
 }

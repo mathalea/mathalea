@@ -13,7 +13,7 @@ export default function ProprietesMediatrice () {
   Exercice.call(this)
   this.nbQuestions = 4
 
-  this.besoinFormulaireNumerique = ['Situation', 3, '1 : C appartenant (ou pas) à la médiatrice\n2 : C équidistant (ou pas) à A et B\n3 : L\'un ou l\'autre']
+  this.besoinFormulaireNumerique = ['Situation', 3, '1 : C appartenant (ou pas) à la médiatrice\n2 : C équidistant (ou pas) de A et B\n3 : Mélange']
   this.sup = 3
   this.besoinFormulaire2CaseACocher = ['Inclure des situations où le point C n\'appartient pas à la médiatrice']
   this.sup2 = true

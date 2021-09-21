@@ -400,6 +400,6 @@ export default function PrioritesEtRelatifs () {
   this.besoinFormulaireNumerique = [
     'Type de calculs',
     3,
-    '1 : Sans opérations entre parenthèses\n2: Avec des opérations entre parenthèses\n3: Avec ou sans opérations entre parenthèses'
+    '1 : Sans opérations entre parenthèses\n2 : Avec des opérations entre parenthèses\n3 : Mélange'
   ]
 }

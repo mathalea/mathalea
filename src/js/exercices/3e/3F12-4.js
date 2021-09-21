@@ -11,7 +11,7 @@ export const amcType = 'AMCHybride'
 
 /**
 * Un graphique étant tracé, déterminer l'image de nombres donnés.
-* La fonction est un polynome de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
+* La fonction est un polynôme de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
 *
 * @author Rémi Angot
 * 3F12-4
@@ -189,5 +189,5 @@ export default function ImageGraphique () {
     listeQuestionsToContenuSansNumero(this)
   }
 
-  this.besoinFormulaireNumerique = ['Type de fonctions', 3, '1 : Affine\n2 : Polynome du 2nd degré\n3 : Polynome du 3e degré']
+  this.besoinFormulaireNumerique = ['Type de fonction', 3, '1 : Affine\n2 : Polynome du 2nd degré\n3 : Polynome du 3e degré']
 }

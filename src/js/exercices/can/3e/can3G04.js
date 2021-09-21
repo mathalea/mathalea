@@ -1,8 +1,8 @@
-import Exercice from '../Exercice.js'
-import { randint, choice, texNombrec, creerNomDePolygone } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, choice, texNombrec, creerNomDePolygone } from '../../../modules/outils.js'
 import {
   mathalea2d, point, segment, latexParCoordonnees, milieu, polygoneAvecNom
-} from '../../modules/2d.js'
+} from '../../../modules/2d.js'
 export const titre = 'Recherche valeur avec Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,8 +10,8 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can3G04
+ * Date de publication sptembre 2021
 */
 export default function RechercheValeurPythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -46,7 +46,7 @@ export default function RechercheValeurPythagore () {
       Comme la valeur de $x$ cherchée est positive, on a  $x=\\sqrt{${texNombrec(a ** 2 / 2)}}$.
   <br>`
 
-        this.reponse = `\\sqrt{${a ** 2 / 2}}`
+        this.reponse = [`\\sqrt{${a ** 2 / 2}}`, `${Math.sqrt(a ** 2 / 2)}`]
         break
       case 'b':
         nom = creerNomDePolygone(3, ['Q'])
@@ -70,7 +70,7 @@ export default function RechercheValeurPythagore () {
       Comme la valeur de $x$ cherchée est positive, on a  $x=\\sqrt{${texNombrec(a / 2)}}=${Math.sqrt(a / 2)}$.
   `
 
-        this.reponse = Math.sqrt(a / 2)
+        this.reponse = [Math.sqrt(a / 2), `\\sqrt{${a / 2}}`]
         break
     }
   }

@@ -111,5 +111,5 @@ export default function TermeInconnuDeSomme () {
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Nombres entiers\n2 : Nombres décimaux']
   this.besoinFormulaire2Numerique = ['Valeur maximale', 9999]
-  this.besoinFormulaire3Numerique = ["Type d'égalité", 2, '1 : Égalité à trou\n2 : Équation']
+  this.besoinFormulaire3Numerique = ["Type d'égalités", 2, '1 : Égalités à trou\n2 : Équations']
 }
