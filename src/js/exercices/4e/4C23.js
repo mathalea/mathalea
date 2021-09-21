@@ -1,17 +1,22 @@
 import Exercice from '../Exercice.js'
 import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, texFraction, randint, miseEnEvidence, choice } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Somme, différence ou produit de fractions'
+export const interactifType = 'mathLive'
+export const interactifReady = true
 
 /**
  * Description didactique de l'exercice
  * @author Mireille Gain
  * Référence 4C23-1
- * Date de publication 11 septembre 2021
+ * Date de publication septembre 2021
 */
 export default function SommeOuProduitFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.spacing = context.isHtml ? 4 : 3
   this.spacingCorr = context.isHtml ? 4 : 3
   this.nbColonneModifiable = false
@@ -45,7 +50,7 @@ export default function SommeOuProduitFractions () {
     }
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, num1, num2, den1, den2, den3, k, k2, alea, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, num1, num2, den1, den2, den3, k, k2, alea, texte, texteCorr, num, den, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       // les numérateurs
       num1 = randint(1, 7)
       num2 = randint(3, 9)
@@ -85,6 +90,8 @@ export default function SommeOuProduitFractions () {
               }
             }
             texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k + num2, den2))}$ `
+            num = num1 * k + num2
+            den = den2
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2, den1)}$ `
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2, den1)}$<br>`
@@ -102,6 +109,8 @@ export default function SommeOuProduitFractions () {
               }
             }
             texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + num2 * k, den2))}$ `
+            num = num1 + num2 * k
+            den = den2
           }
 
           break
@@ -132,6 +141,8 @@ export default function SommeOuProduitFractions () {
             }
             texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + k * den1, den1))}$`
           }
+          num = num1 + k * den1
+          den = den1
           break
 
         case 'type3': // Différence de fractions de dénominateurs égaux ou multiples
@@ -152,6 +163,8 @@ export default function SommeOuProduitFractions () {
               }
             }
             texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k - num2, den2))}$ `
+            num = num1 * k - num2
+            den = den2
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2, den1)}$`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2, den1)}$<br>`
@@ -169,6 +182,8 @@ export default function SommeOuProduitFractions () {
               }
             }
             texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - num2 * k, den2))}$`
+            num = num1 - num2 * k
+            den = den2
           }
 
           break
@@ -186,6 +201,8 @@ export default function SommeOuProduitFractions () {
               }
             }
             texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(k * den1 - num1, den1))}$`
+            num = k * den1 - num1
+            den = den1
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${k}$`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${k}$<br>`
@@ -200,6 +217,8 @@ export default function SommeOuProduitFractions () {
               }
             }
             texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - k * den1, den1))}$ `
+            num = num1 - k * den1
+            den = den1
           }
 
           break
@@ -214,7 +233,8 @@ export default function SommeOuProduitFractions () {
               }
             }
           } texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * num2, den1 * den3))}$`
-
+          num = num1 * num2
+          den = den1 * den3
           break
 
         case 'type6': // Produit d'une fraction par un entier
@@ -243,6 +263,8 @@ export default function SommeOuProduitFractions () {
             }
             texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k2, den1))}$`
           }
+          num = num1 * k2
+          den = den1
 
           break
 
@@ -260,6 +282,8 @@ export default function SommeOuProduitFractions () {
               }
             }
             texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 + num2 * k2, den1 * den3))}$`
+            num = num1 * den3 + num2 * k2
+            den = den1 * den3
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} - ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} - ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$<br>`
@@ -273,6 +297,8 @@ export default function SommeOuProduitFractions () {
               }
             }
             texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 - num2 * k2, den1 * den3))}$`
+            num = num1 * den3 - num2 * k2
+            den = den1 * den3
           }
 
           break
@@ -291,6 +317,8 @@ export default function SommeOuProduitFractions () {
               }
             }
             texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 + num1 * den3, den1 * den3))}$`
+            num = num2 * k2 + num1 * den3
+            den = den1 * den3
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} - ${texFraction(num1, den1)}$`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} - ${texFraction(num1, den1)}$<br>`
@@ -304,6 +332,8 @@ export default function SommeOuProduitFractions () {
               }
             }
             texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 - num1 * den3, den1 * den3))}$`
+            num = num2 * k2 - num1 * den3
+            den = den1 * den3
           }
           break
       }
@@ -319,6 +349,8 @@ export default function SommeOuProduitFractions () {
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        setReponse(this, i, texFraction(num, den), { formatInteractif: 'fractionEgale' })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
