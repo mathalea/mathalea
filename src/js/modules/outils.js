@@ -7189,7 +7189,7 @@ export function exportQcmAmc (exercice, idExo) {
           id += 2
         } else {
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
-            reponse = autoCorrection[j].reponse.valeur
+            reponse = autoCorrection[j].reponse.valeur[0]
             if (autoCorrection[j].reponse.param.digits === 0) {
               nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
               autoCorrection[j].reponse.param.decimals = nbChiffresPd
