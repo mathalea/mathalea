@@ -545,11 +545,12 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres 
  */
 export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, formatInteractif = 'calcul' } = {}) {
   let reponses = []
-  if (!Array.isArray(valeurs)) {
-    reponses = [valeurs]
+  if (Array.isArray(valeurs)) { // J'ai remis ici une condition non negative.
+    reponses = valeurs // reponses contient donc directement le tableau valeurs
+    signe = valeurs < 0 // Existait dans ton code iniital, je ne comprends pas cette ligne... Comment tester la signe d'un tableau ?
   } else {
-    reponses = valeurs
-    signe = valeurs < 0
+    reponses = [valeurs] // ici, valeurs n'est pas un tableau mais on le met dans reponses sous forme de tableau
+    signe = valeurs < 0 // Si la valeur est négative, alors signe devient true.
   }
   if (exercice.autoCorrection[i] === undefined) {
     exercice.autoCorrection[i] = {}
