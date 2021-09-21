@@ -547,7 +547,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   let reponses = []
   if (Array.isArray(valeurs)) { // J'ai remis ici une condition non negative.
     reponses = valeurs // reponses contient donc directement le tableau valeurs
-    signe = valeurs < 0 // Existait dans ton code iniital, je ne comprends pas cette ligne... Comment tester la signe d'un tableau ?
+    signe = valeurs[0] < 0 // Existait dans ton code iniital, je ne comprends pas cette ligne... Comment tester la signe d'un tableau ?
   } else {
     reponses = [valeurs] // ici, valeurs n'est pas un tableau mais on le met dans reponses sous forme de tableau
     signe = valeurs < 0 // Si la valeur est négative, alors signe devient true.
@@ -558,7 +558,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   if (exercice.autoCorrection[i].reponse === undefined) {
     exercice.autoCorrection[i].reponse = {}
   }
-  exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx, formatInteractif }
+  exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx, formatInteractif: formatInteractif }
   exercice.autoCorrection[i].reponse.valeur = reponses
 }
 
