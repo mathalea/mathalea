@@ -104,7 +104,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         // Si il faut multiplier pour convertir
         resultat = calcul(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte = `$${texNombre(a)} ${texTexte(prefixeMulti[k][0] + unite)} = `
-        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' ' + unite })}` : `\\dotfill  ${unite}$`
+        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' ' + unite })}` : `\\dotfill  ${texTexte(unite)}$`
 
         texteCorr =
           '$ ' +
@@ -122,7 +122,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       } else if (div && typesDeQuestions < 4) {
         resultat = calcul(a / prefixeDiv[k][1]).toString() // Attention aux notations scientifiques pour 10e-8
         texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
-        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' ' + unite })}` : `\\dotfill  ${unite}$`
+        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' ' + unite })}` : `\\dotfill  ${texTexte(unite)}$`
         texteCorr =
           '$ ' +
           texNombre(a) +
