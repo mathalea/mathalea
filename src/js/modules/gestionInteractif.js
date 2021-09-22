@@ -79,7 +79,7 @@ function verifQuestionCliqueFigure (exercice, i) {
 }
 
 function verifQuestionMathLive (exercice, i) {
-  console.log(exercice.reponse)
+  // Au commit 917faac, il y avait un retour console
   const engine = new ComputeEngine()
   let saisieParsee, signeF
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
