@@ -108,7 +108,6 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
         this.listeCorrections.push(texteCorr)
         if (!this.sup2) {
           setReponse(this, i, a + s1 * b + s2 * c + s3 * d + s4 * e, { signe: true })
-          console.log(`${i} : ${a + s1 * b + s2 * c + s3 * d + s4 * e}`)
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: texte,
@@ -135,7 +134,6 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
           }
         } else {
           setReponse(this, i, a + b + c + d + e, { signe: true })
-          console.log(`${i} : ${a + b + c + d + e}`)
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: texte,
