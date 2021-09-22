@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences, contraindreValeur } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
@@ -42,8 +42,12 @@ export default function ProportionnalitePasProportionnalite () {
         listeChoixDisponibles[0] = this.sup
       } else {
         listeChoixDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < listeChoixDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          listeChoixDisponibles[i] = contraindreValeur(1, 5, listeChoixDisponibles[i], 1)
+        }
       }
     }
+
     const listeChoix = combinaisonListes(
       listeChoixDisponibles,
       this.nbQuestions
@@ -163,6 +167,7 @@ export default function ProportionnalitePasProportionnalite () {
             p = y * randint(2, 5)
             z = calcul(p * pu, 2)
             texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}.<br>`
+            // texte += parseInt('p')
             texte += `Elle  repart avec ${y} ${objet} pour $${texPrix(
             somme
           )}$€.<br> ${prenoms[1]
@@ -241,10 +246,10 @@ export default function ProportionnalitePasProportionnalite () {
           texteCorr += `${prenoms[1]
             } parcourt chaque minute environ $${texNombrec(arrondi(index2, 1))}$ m.<br>`
           if (index1 === index2) {
-            texteCorr += 'Pour ces deux élèves le temps mis et la distance parcourue sont proportionnelles (si l\'on compare leur vitesse moyenne)'
+            texteCorr += 'Pour ces deux élèves, le temps mis et la distance parcourue sont proportionnelles (si l\'on compare leur vitesse moyenne)'
             bonneReponse = 'oui'
           } else {
-            texteCorr += 'Pour ces deux élèves le temps mis et la distance parcourue ne sont pas proportionnelles (si l\'on compare leur vitesse moyenne).<br>'
+            texteCorr += 'Pour ces deux élèves, le temps mis et la distance parcourue ne sont pas proportionnelles (si l\'on compare leur vitesse moyenne).<br>'
             bonneReponse = 'non'
           }
           break
@@ -254,10 +259,10 @@ export default function ProportionnalitePasProportionnalite () {
           y = x + randint(25, 35)
           texte = `${prenoms[0]} vient d'avoir ${x} ans cette année.<br> Son père ${prenoms[1]} vient de fêter  son ${y}ème anniversaire.<br>`
           texte += `L'âge de son père est-il proportionnel à l'âge de ${prenoms[0]} ?<br>`
-          texteCorr = `Aujourd'hui la différence d'âge entre ${prenoms[0]
+          texteCorr = `Aujourd'hui, la différence d'âge entre ${prenoms[0]
             } et ${prenoms[1]} est de ${y - x} ans.<br>`
           texteCorr += `Dans ${x} années, ${prenoms[0]} aura ${2 * x
-            } ans, c'est à dire le double d'aujourd'hui.<br>`
+            } ans, c'est-à-dire le double d'aujourd'hui.<br>`
           texteCorr += `Son père ${prenoms[1]} aura ${x + y
             } ans cette année-là.<br>Quand l'âge de ${prenoms[0]
             } double, l'âge de ${prenoms[1]} ne double pas, donc l'âge de ${prenoms[0]
@@ -270,7 +275,8 @@ export default function ProportionnalitePasProportionnalite () {
           texte = `Une épidémie se répand dans la ville de ${villes[index1]}.<br>`
           texte += `Le nombre de malades ${verbes[index2]} tous les ${index2 + 2
             } jours.<br>`
-          texte += `Le nombre de malades est-il proportionnel au nombre de${getVueFromUrl() === 'multi' ? '<br>' : ' '}jours passés depuis le début de l\'épidémie ?<br>`
+          texte += `Le nombre de malades est-il proportionnel au nombre de${getVueFromUrl() === 'multi' ? '<br>' : ' '}`
+          texte += 'jours passés depuis le début de l\'épidémie ?<br>'
           texteCorr = `Admettons qu'il y ait 10 malades le premier jour. Le ${1 + 2 + index2
             }ème jour il y aura $10 \\times ${index2 + 2} = ${10 * (index2 + 2)
             }$ malades.<br>`
@@ -322,7 +328,7 @@ export default function ProportionnalitePasProportionnalite () {
               arrondi(tirages[p][1], 2)
             )}}{${tirages[p][0]}}=${texPrix(
               arrondi(calcul(tirages[p][1] / tirages[p][0]), 2)
-            )}$€/${objet.substring(0, objet.length - 1)}<br>`
+            )}$€/${objet.substring(0, objet.length - 1)}.<br>`
             texteCorr += `Le prix des ${objet} n'est pas proportionnel à leur nombre.<br>`
             bonneReponse = 'non'
           } else {
