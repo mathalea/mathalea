@@ -229,7 +229,7 @@ export default function PremierOuPasCriterePar7Par11 () {
             tabPremiersATester.push(prems[r])
             r++
           }
-          texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `
+          texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par les nombres `
           texteCorr += tabPremiersATester[0]
           for (let k = 1; k < tabPremiersATester.length; k++) {
             texteCorr += ', ' + tabPremiersATester[k]
