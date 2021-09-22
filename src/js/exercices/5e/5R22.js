@@ -109,34 +109,59 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
         if (!this.sup2) {
           setReponse(this, i, a + s1 * b + s2 * c + s3 * d + s4 * e, { signe: true })
           console.log(`${i} : ${a + s1 * b + s2 * c + s3 * d + s4 * e}`)
+          if (context.isAmc) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              propositions: [
+                {
+                  texte: texteCorr,
+                  statut: 3,
+                  feedback: ''
+                }
+              ],
+              reponse: {
+                texte: 'résultat',
+                valeur: a + s1 * b + s2 * c + s3 * d + s4 * e,
+                param: {
+                  digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + s1 * b + s2 * c + s3 * d + s4 * e)),
+                  decimals: 0,
+                  signe: true,
+                  exposantNbChiffres: 0,
+                  exposantSigne: false,
+                  approx: 0
+                }
+              }
+            }
+          }
         } else {
           setReponse(this, i, a + b + c + d + e, { signe: true })
           console.log(`${i} : ${a + b + c + d + e}`)
-        }
-        if (context.isAmc) {
-          this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [
-              {
-                texte: texteCorr,
-                statut: 3,
-                feedback: ''
-              }
-            ],
-            reponse: {
-              texte: 'résultat',
-              valeur: a + s1 * b + s2 * c + s3 * d + s4 * e,
-              param: {
-                digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + s1 * b + s2 * c + s3 * d + s4 * e)),
-                decimals: 0,
-                signe: true,
-                exposantNbChiffres: 0,
-                exposantSigne: false,
-                approx: 0
+          if (context.isAmc) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              propositions: [
+                {
+                  texte: texteCorr,
+                  statut: 3,
+                  feedback: ''
+                }
+              ],
+              reponse: {
+                texte: 'résultat',
+                valeur: a + b + c + d + e,
+                param: {
+                  digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b + c + d + e)),
+                  decimals: 0,
+                  signe: true,
+                  exposantNbChiffres: 0,
+                  exposantSigne: false,
+                  approx: 0
+                }
               }
             }
           }
         }
+
         i++
       }
       cpt++
