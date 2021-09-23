@@ -154,6 +154,6 @@ export default function DivisionDecimale () {
   this.besoinFormulaireNumerique = [
     'Type de questions',
     2,
-    '1 : Déterminer le quotient exact\n2: Déterminer un quotient approché au millième près'
+    '1 : Déterminer le quotient exact\n2 : Déterminer un quotient approché au millième près'
   ]
 }

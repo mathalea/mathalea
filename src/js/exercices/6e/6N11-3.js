@@ -228,6 +228,6 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples consécutifs de dix\n3 : Encadrer entre deux multiples consécutifs de cent']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples consécutifs de 10\n3 : Encadrer entre deux multiples consécutifs de 100']
   // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
 };

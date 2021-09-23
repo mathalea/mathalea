@@ -1,9 +1,9 @@
-import Exercice from '../Exercice.js'
-import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
   mathalea2d, point, afficheMesureAngle, codeSegments, longueur, polygoneAvecNom
-} from '../../modules/2d.js'
-import { tan } from '../../modules/fonctionsMaths.js'
+} from '../../../modules/2d.js'
+import { tan } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Angle dans un triangle isocèle'
 export const interactifReady = true
 export const interactifType = 'mathLive'

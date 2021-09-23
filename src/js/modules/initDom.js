@@ -1,6 +1,6 @@
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
-import { getDureeFromUrl, getLogFromUrl, getVueFromUrl } from './gestionUrl'
+import { getDureeFromUrl, getLogFromUrl, getTaillePoliceFromUrl, getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 
@@ -150,6 +150,10 @@ export async function initDom () {
   if (vue) {
     context.vue = vue
   }
+  const taillePolice = getTaillePoliceFromUrl()
+  if (taillePolice) {
+    context.taillePolice = taillePolice
+  }
   document.body.innerHTML = ''
   let section
   if (vue === 'recto' || vue === 'verso') {
@@ -219,6 +223,9 @@ export async function initDom () {
     addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
   } else if (vue === 'embed' || vue === 'e') {
+    if (!context.taillePolice) {
+      context.taillePolice = 1.5
+    }
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     addElement(section, 'div', { id: 'containerErreur' })
@@ -228,8 +235,8 @@ export async function initDom () {
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
     const divExercice = get('exercices', false)
     const divCorrection = get('corrections', false)
-    divExercice.style.fontSize = '1.5em'
-    divCorrection.style.fontSize = '1.5em'
+    divExercice.style.fontSize = context.taillePolice + 'em'
+    divCorrection.style.fontSize = context.taillePolice + 'em'
     document.addEventListener('exercicesAffiches', () => {
       gestionTimer()
       document.querySelector('#accordeon_parametres').style.display = 'none'

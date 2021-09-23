@@ -136,8 +136,8 @@ export default function Premier_ou_pas_5e() {
 					N = cribleEratostheneN(29)[r]; //on choisit un nombre premier inférieur à 529
 					texte = N + ``;
 					let tab_premiers_a_tester = cribleEratostheneN(N);
-					//texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
-					texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
+					//texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par les nombres `;
+					texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par les nombres `;
 					texteCorr += tab_premiers_a_tester[0];
 					for (let k = 1; k < tab_premiers_a_tester.length; k++) {
 						texteCorr += `, ` + tab_premiers_a_tester[k];

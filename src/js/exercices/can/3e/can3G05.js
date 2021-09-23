@@ -1,8 +1,8 @@
-import Exercice from '../Exercice.js'
-import { choice, creerNomDePolygone, randint } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { choice, creerNomDePolygone, randint } from '../../../modules/outils.js'
 import {
   mathalea2d, point, segment, polygoneAvecNom, codageAngleDroit, rotation, afficheLongueurSegment, pointAdistance, similitude
-} from '../../modules/2d.js'
+} from '../../../modules/2d.js'
 export const titre = 'Trigonométrie'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+ * Référence can3G05
  * Date de publication
 */
 export default function Trigo () {

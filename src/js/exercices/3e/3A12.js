@@ -41,7 +41,7 @@ export default function FractionsIrreductibles () {
     const typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    this.introduction = warnMessage('À la question ' + numAlpha(3) + ' une observation judicieuse et argumentée pourra faire gagner du temps!', 'nombres', 'Coup de pouce')
+    this.introduction = warnMessage('À la question ' + numAlpha(3) + ' une observation judicieuse et argumentée pourra faire gagner du temps !', 'nombres', 'Coup de pouce')
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
@@ -165,7 +165,7 @@ export default function FractionsIrreductibles () {
 
       switch (typesDeQuestions) {
         case 1: // décomposition de A
-          texte = numAlpha(0) + ` Décomposer $A = ${texNombre(nb1)}$ en produit de facteurs premiers : `
+          texte = numAlpha(0) + ` Décomposer $A = ${texNombre(nb1)}$ en produit de facteurs premiers.`
           texteCorr = numAlpha(0) + ' La décomposition en produit de facteurs premier de $A = '
           switch (tabPremMultNb1[0].mult) {
             case 1:
@@ -188,7 +188,7 @@ export default function FractionsIrreductibles () {
           texteCorr += '$.'
           // break;
           // case 2 : // décomposition de B
-          texte += '<br>' + numAlpha(1) + ` Décomposer $B = ${texNombre(nb2)}$ en produit de facteurs premiers : `
+          texte += '<br>' + numAlpha(1) + ` Décomposer $B = ${texNombre(nb2)}$ en produit de facteurs premiers.`
           texteCorr += '<br>' + numAlpha(1) + ' La décomposition en produit de facteurs premier de $B = '
           switch (tabPremMultNb2[0].mult) {
             case 1:
@@ -213,9 +213,9 @@ export default function FractionsIrreductibles () {
           // case 3 : // reduction de A sur B
           texte += '<br>' + numAlpha(2) + ` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ irréductible `
           if (context.isHtml) {
-            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + ' et au ' + numAlpha(1)
+            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1) + '.'
           } else {
-            texte += ' à l\'aide des questions ' + numAlpha(0) + ' et ' + numAlpha(1)
+            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1) + '.'
           };
           texteCorr += '<br>' + numAlpha(2) + ` $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}} = `
           texteCorr += '\\dfrac{'
@@ -229,14 +229,14 @@ export default function FractionsIrreductibles () {
             texteCorr += '\\times \\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[k] + '}'
           };
           texteCorr += `\\times ${nb2Dist}} = `
-          texteCorr += `\\dfrac{${nb1Dist}}{${nb2Dist}}$.`
+          texteCorr += `\\dfrac{${nb1Dist}}{${nb2Dist}}$`
           // break;
           // case 4 : // reduction de B sur A
           texte += '<br>' + numAlpha(3) + ` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$ irréductible`
           if (context.isHtml) {
-            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + ' et au ' + numAlpha(1)
+            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1) + '.'
           } else {
-            texte += ' à l\'aide des questions ' + numAlpha(0) + ' et ' + numAlpha(1)
+            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1) + '.'
           };
           texteCorr += '<br>' + numAlpha(3) + ` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}} = `
           texteCorr += '\\dfrac{'

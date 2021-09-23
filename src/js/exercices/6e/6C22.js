@@ -119,6 +119,10 @@ export default function ProblemesDePlusEtDeMoins () {
 
           break
       }
+      if (this.interactif) {
+        texte += '<br>Les deux filles possèdent en tout : '
+        texte += ajouteChampTexte(this, i) + '  €'
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

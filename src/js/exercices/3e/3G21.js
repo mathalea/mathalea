@@ -415,6 +415,6 @@ export default function ReciproqueThales () {
   this.besoinFormulaire2Numerique = [
     'Réciproque ou contraposée',
     3,
-    ' 1 : Réciproque \n 2 : Contraposée \n 3 : Aléatoire'
+    ' 1 : Réciproque \n 2 : Contraposée \n 3 : Mélange'
   ]
 }

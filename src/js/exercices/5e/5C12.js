@@ -1,6 +1,6 @@
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { combinaisonListes, listeQuestionsToContenu, randint, lettreDepuisChiffre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
@@ -20,7 +20,7 @@ export default function CalculerUneExpressionNumerique () {
   this.sup = false
   this.sup2 = false // si false alors utilisation de nombres entiers (calcul mental), si true alors utilisation de nombres à un chiffre après la virgule.
   this.sup3 = true
-
+  this.sup4 = false
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     let typesDeQuestionsDisponibles = []
@@ -43,6 +43,7 @@ export default function CalculerUneExpressionNumerique () {
     } else {
       decimal = 1
     }
+
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       nbOperations = parseInt(listeTypeDeQuestions[i] % 6)
@@ -56,12 +57,38 @@ export default function CalculerUneExpressionNumerique () {
       nbval = resultats[3]
       if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
       this.consigne = 'Calculer en respectant les priorités opératoires.'
-      if (!this.litteral) texte = `${expn}`
-      else if (nbval === 2) texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
-      else texte = `Pour $x=${val1}$, calculer ${expn}.`
-      if (!this.litteral) texteCorr = `${expc}`
-      else if (nbval === 2) texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}.`
-      else texteCorr = `Pour $x=${val1}$ :<br>${expc}.`
+      if (!this.litteral) {
+        if (!this.sup4) {
+          texte = `${expn}`
+        } else {
+          texte = `${lettreDepuisChiffre(i + 1)} = ${expn}`
+        }
+      } else if (nbval === 2) {
+        texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
+      } else {
+        texte = `Pour $x=${val1}$, calculer ${expn}.`
+      }
+
+      if (!this.litteral) {
+        if (!this.sup4) {
+          texteCorr = `${expc}`
+        } else {
+          texteCorr = ''
+          // On découpe
+          const etapes = expc.split('=')
+          etapes.forEach(function (etape) {
+            etape = etape.replace('$', '')
+            if (context.isHtml) {
+              texteCorr += '<br>'
+            }
+            texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
+          })
+        }
+      } else if (nbval === 2) {
+        texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}.`
+      } else {
+        texteCorr = `Pour $x=${val1}$ :<br>${expc}.`
+      }
       reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
       if (this.questionJamaisPosee(i, expn, expf)) { // Si la question n'a jamais été posée, on en créé une autre
         if (!context.isAmc) {
@@ -81,4 +108,5 @@ export default function CalculerUneExpressionNumerique () {
   this.besoinFormulaireTexte = ['Choix des expressions', 'Nombres séparés par des tirets\n2 : Expressions à deux opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions complexes'] // Texte, tooltip - il faut au moins deux opérations
   this.besoinFormulaire2CaseACocher = ['Utilisation de décimaux (pas de calcul mental)', false]
   this.besoinFormulaire3CaseACocher = ['Avec le signe × devant les parenthèses', true]
+  this.besoinFormulaire4CaseACocher = ['Présentation des corrections en colonnes', false]
 }

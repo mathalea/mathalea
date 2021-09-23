@@ -17,7 +17,7 @@ export default function SommeFractionsCompatibles () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur25 inline'
-  this.formatInteractif = 'fraction'
+  this.formatInteractif = 'fractionEgale'
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3])

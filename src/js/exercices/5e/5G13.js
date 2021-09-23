@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondiVirgule, texNombre } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, mathalea2d, symetrieAxiale, translation, vecteur, triangle2points2longueurs, droite, pointAdistance, rotation, afficheLongueurSegment, segment, afficheMesureAngle, longueur, droiteParPointEtParallele, angle, polygoneAvecNom } from '../../modules/2d.js'
+import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const titre = 'Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles'
 
 /**
@@ -14,8 +15,8 @@ export default function ConservationSymetrie () {
   this.consigne = ''
   this.nbQuestions = 2
 
-  this.besoinFormulaireNumerique = ['Transformation', 2, '1 : Symétrie Axiale\n2 : Symétrie centrale']
-  this.besoinFormulaire2Numerique = ['Propriétés conservées', 3, '1 : Parallélisme\n2 : Longueur et Angle\n3 : Parallélisme, Longueur et Angle']
+  this.besoinFormulaireNumerique = ['Transformations', 2, '1 : Symétries axiales\n2 : Symétries centrales']
+  this.besoinFormulaire2Numerique = ['Propriétés conservées', 3, '1 : Parallélisme\n2 : Longueurs et Angles\n3 : Mélange']
   this.sup = 1
   this.sup2 = 3
   this.nbCols = 1
@@ -74,7 +75,7 @@ export default function ConservationSymetrie () {
           texteCorr += `Donc le segment [B'C'] mesure lui aussi $${texNombre(longueur(B, C, 1))}$ cm.<br>`
           break
       }
-      texte += 'Compléter le symétrique de la figure en utilisant les propriétés de conservation de la symétrie et en justifiant ses démarches.<br>'
+      texte += `Compléter le symétrique de la figure en utilisant les propriétés de${getVueFromUrl() === 'multi' ? '<br>' : ' '}conservation de la symétrie et en justifiant ses démarches.<br>`
       // On applique prépare la transformation
       if (this.sup === 1) { // Symétrie axiale
         d = droite(translation(A, vecteur(-randint(30, 40) / 10, 0)), translation(C, vecteur(-randint(30, 40) / 10, 0)), '(d)')
@@ -115,7 +116,8 @@ export default function ConservationSymetrie () {
           objetsCorrectionOnly.push(afficheLongueurSegment(imageB, imageC))
         }
       } else if (listeTypeDeQuestions[i] === 'parallelisme') {
-        objetsCorrectionOnly.push(tracePoint(imageA, imageB, imageC))
+        objetsEnonceEtCorr.push(tracePoint(imageC), labelPoint(imageC))
+        objetsCorrectionOnly.push(tracePoint(imageA, imageB))
       }
       const xmin = Math.min(A.x, B.x, C.x, imageA.x, imageB.x, imageC.x) - 2
       const xmax = Math.max(A.x, B.x, C.x, imageA.x, imageB.x, imageC.x) + 2

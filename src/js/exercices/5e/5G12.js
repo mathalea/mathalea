@@ -194,7 +194,7 @@ export default function Pavage_et_demi_tour2d() {
 	  texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
 	  texte+=`<br>`
 	  for (let i=0;i<this.nbQuestions;i++){
-		texte+=`Quel est l'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ ?<br>`
+		texte+=`Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ ?<br>`
 		texteCorr+=`L'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ est la figure ${couples[i][1]}<br>`
 		if (this.correctionDetaillee){
 			t=this.nbQuestions*3;
@@ -225,5 +225,5 @@ export default function Pavage_et_demi_tour2d() {
 	}
 	this.besoinFormulaireNumerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, ' 1 : Taille modeste\n 2 : Grande taille'];
 	this.besoinFormulaire2CaseACocher=["Montrer les centres"]
-	this.besoinFormulaire3Numerique=['Choix du pavage',8,'1 : Pavage de triangles équilatéraux\n2 : Pavage de carrés\n3 : Pavage d\'hexagones réguliers\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n 6 : Pavage de losanges (hexagonal d\'écolier)\n7 : Pavage 6.3.6.3\n8 : Un des sept pavages au hasard']
+	this.besoinFormulaire3Numerique = ['Choix du pavage', 8, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones réguliers\n4 : Carrés et triangles équilatéraux\n5 : Octogones et carrés\n 6 : Losanges (pavage hexagonal d\'écolier)\n7 : Hexagones et triangles équilatéraux\n8 : Un des sept pavages au hasard'];
 }

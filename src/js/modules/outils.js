@@ -5,7 +5,7 @@ import Algebrite from 'algebrite'
 import { format, evaluate, isPrime } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
-import { setReponse } from './gestionInteractif.js'
+import { elimineDoublons, setReponse } from './gestionInteractif.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -99,21 +99,21 @@ export function listeDeChosesAImprimer (exercice) {
  * @param {Exercice} exercice
  * @author Rémi Angot
  */
-export function listeQuestionsToContenuSansNumero (exercice) {
+export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = true) {
   if (context.isHtml) {
-    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing)
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing, retourCharriot)
     if (exercice.interactif) {
       exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr)
   } else {
     if (document.getElementById('supprimer_reference').checked === true) {
-      exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
+      exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
     } else {
-      exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
+      exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
     }
     // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
-    exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
+    exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr, retourCharriot), exercice.nbColsCorr)
   }
 }
 
@@ -162,7 +162,16 @@ export function deuxColonnes (cont1, cont2) {
     `
   }
 }
-
+/**
+ * Contraint une valeur à rester dans un intervalle donné. Si elle est trop petite, elle prend la valeur min, si elle est trop grande elle prend la valeur max
+ * @author Jean-Claude Lhote à partir du code de Eric Elter
+ * @param {number} min borne inférieur
+ * @param {number} max borne supérieur
+ * @param {number} valeur la valeur à contraindre
+ */
+export function contraindreValeur (min, max, valeur) {
+  return (valeur < min) ? min : (valeur > max) ? max : valeur
+}
 /**
  * Compare deux nombres (pour les nombres en virgule flottante afin d'éviter les effets de la conversion en virgule flottante).
  * @author Jean-Claude Lhote
@@ -2132,14 +2141,18 @@ export function texEnumerateSansNumero (liste, spacing) {
 * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
 * @author Rémi Angot
 */
-export function texParagraphe (liste, spacing = false) {
+export function texParagraphe (liste, spacing = false, retourCharriot) {
   let result = ''
   if (spacing > 1) {
     result = `\\begin{spacing}{${spacing}}\n`
   }
 
   for (const i in liste) {
-    result += `\t${liste[i]}\\\\\n`
+    if (retourCharriot) {
+      result += `\t${liste[i]}\\\\\n`
+    } else {
+      result += `\t${liste[i]}\n`
+    }
   }
   if (spacing > 1) {
     result += '\\end{spacing}'
@@ -2226,9 +2239,13 @@ export function enumerateSansPuceSansNumero (liste, spacing) {
 * @param string
 * @author Rémi Angot
 */
-export function htmlParagraphe (texte) {
+export function htmlParagraphe (texte, retourCharriot) {
   if (texte.length > 1) {
-    return `\n<p>${texte}</p>\n\n`
+    if (retourCharriot) {
+      return `\n<p>${texte}</p>\n\n`
+    } else {
+      return `\n${texte}\n\n`
+    }
   } else {
     return ''
   }
@@ -2389,7 +2406,10 @@ export function nombreAvecEspace (nb) {
  */
 export const scientifiqueToDecimal = (mantisse, exp) => {
   mantisse = mantisse.toString()
-  const indiceVirguleDepart = mantisse.indexOf('.')
+  let indiceVirguleDepart = mantisse.indexOf('.')
+  if (indiceVirguleDepart < 0) {
+    indiceVirguleDepart = mantisse.length
+  }
   const indiceVirguleArrivee = indiceVirguleDepart + exp
   let mantisseSansVirgule = mantisse.replace('.', '')
   const indiceMax = mantisseSansVirgule.length - 1
@@ -7070,6 +7090,9 @@ export function exportQcmAmc (exercice, idExo) {
     }
     switch (type) {
       case 'qcmMono': // question QCM 1 bonne réponse
+        if (elimineDoublons(exercice.autoCorrection[j].propositions)) {
+          console.log('doublons trouvés')
+        }
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
         }
@@ -7097,6 +7120,9 @@ export function exportQcmAmc (exercice, idExo) {
         break
 
       case 'qcmMult': // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
+        if (elimineDoublons(exercice.autoCorrection[j].propositions)) {
+          console.log('doublons trouvés')
+        }
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
         }
@@ -7163,7 +7189,7 @@ export function exportQcmAmc (exercice, idExo) {
           id += 2
         } else {
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
-            reponse = autoCorrection[j].reponse.valeur
+            reponse = autoCorrection[j].reponse.valeur[0]
             if (autoCorrection[j].reponse.param.digits === 0) {
               nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
               autoCorrection[j].reponse.param.decimals = nbChiffresPd
@@ -7468,6 +7494,9 @@ export function exportQcmAmc (exercice, idExo) {
           propositions = prop.propositions
           switch (qrType) {
             case 'qcmMono':
+              if (elimineDoublons(propositions)) {
+                console.log('doublons trouvés')
+              }
 
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
@@ -7508,6 +7537,9 @@ export function exportQcmAmc (exercice, idExo) {
               id++
               break
             case 'qcmMult':
+              if (elimineDoublons(propositions)) {
+                console.log('doublons trouvés')
+              }
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'

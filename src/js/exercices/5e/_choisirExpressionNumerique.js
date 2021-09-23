@@ -138,7 +138,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             b = randint(2, 9)
             a = randint(2, 9) + b * c
           }
-          expf = `La différence entre ${nombreAvecEspace(a)} et le produit de ${nombreAvecEspace(b)} et $${texNombrec(c)}$`
+          expf = `La différence entre ${nombreAvecEspace(a)} et le produit de ${nombreAvecEspace(b)} et $${nombreAvecEspace(c)}$`
           expn = `$${texNombrec(a)}-${texNombrec(b)} \\times ${texNombrec(c)}$`
           expc = `$${texNombrec(a)}-${texNombrec(b)} \\times ${texNombrec(c)}=${texNombrec(a)}-${texNombrec(b * c)} = ${texNombrec(a - (b * c))}$`
           break
@@ -149,7 +149,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             b = randint(2, 6) * c
             a = randint(2, 9)
           }
-          expf = `La somme de ${nombreAvecEspace(a)} et du quotient de ${nombreAvecEspace(b)} par $${texNombrec(c)}$`
+          expf = `La somme de ${nombreAvecEspace(a)} et du quotient de ${nombreAvecEspace(b)} par $${nombreAvecEspace(c)}$`
           expn = `$${texNombrec(a)}+${texNombrec(b)} \\div ${texNombrec(c)}$ ou $${texNombrec(a)}+\\dfrac{${texNombrec(b)}}{${texNombrec(c)}}$`
           expc = `$${texNombrec(a)}+${texNombrec(b)} \\div ${texNombrec(c)}=${texNombrec(a)}+${texNombrec(b / c)} = ${texNombrec(a + (b / c))}$`
           break
@@ -161,7 +161,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             b = randint(2, 6) * c
             a = randint(2, 9) + b * c
           }
-          expf = `La différence entre ${nombreAvecEspace(a)} et le quotient de ${nombreAvecEspace(b)} par $${texNombrec(c)}$`
+          expf = `La différence entre ${nombreAvecEspace(a)} et le quotient de ${nombreAvecEspace(b)} par $${nombreAvecEspace(c)}$`
           expn = `$${texNombrec(a)}-${texNombrec(b)} \\div ${texNombrec(c)}$ ou $${texNombrec(a)}-\\dfrac{${texNombrec(b)}}{${texNombrec(c)}}$`
           expc = `$${texNombrec(a)}-${texNombrec(b)} \\div ${texNombrec(c)}=${texNombrec(a)}-${texNombrec(b / c)} = ${texNombrec(a - (b / c))}$`
           break

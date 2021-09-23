@@ -355,7 +355,7 @@ export default function RepresenterUnSolide () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de solides', 3, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés']
+  this.besoinFormulaireNumerique = ['Type de solides', 3, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange']
 
   this.besoinFormulaire2Numerique = [
     'Type de cahier',

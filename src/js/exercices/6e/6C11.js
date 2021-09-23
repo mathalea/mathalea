@@ -118,6 +118,6 @@ export default function DivisionsEuclidiennes () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     2,
-    '1 : Diviseur à 1 chiffre\n2: Diviseur à 2 chiffres'
+    '1 : Diviseur à 1 chiffre\n2 : Diviseur à 2 chiffres'
   ]
 }

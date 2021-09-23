@@ -79,7 +79,7 @@ function verifQuestionCliqueFigure (exercice, i) {
 }
 
 function verifQuestionMathLive (exercice, i) {
-  console.log(exercice.reponse)
+  // Au commit 917faac, il y avait un retour console
   const engine = new ComputeEngine()
   let saisieParsee, signeF
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
@@ -545,11 +545,17 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres 
  */
 export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, formatInteractif = 'calcul' } = {}) {
   let reponses = []
-  if (!Array.isArray(valeurs)) {
-    reponses = [valeurs]
+  if (Array.isArray(valeurs)) { // J'ai remis ici une condition non negative.
+    reponses = valeurs // reponses contient donc directement le tableau valeurs
+    // si valeur est un tableau ou prend le signe de la première valeur
+    if (valeurs[0].num !== undefined) {
+      signe = (valeurs[0].signe === -1) // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
+    } else {
+      signe = (valeurs[0] < 0) // sinon, on teste si elle est négative.
+    }
   } else {
-    reponses = valeurs
-    signe = valeurs < 0
+    reponses = [valeurs] // ici, valeurs n'est pas un tableau mais on le met dans reponses sous forme de tableau
+    signe = (valeurs < 0) // Si la valeur est négative, alors signe devient true.
   }
   if (exercice.autoCorrection[i] === undefined) {
     exercice.autoCorrection[i] = {}
@@ -557,7 +563,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   if (exercice.autoCorrection[i].reponse === undefined) {
     exercice.autoCorrection[i].reponse = {}
   }
-  exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx, formatInteractif }
+  exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx, formatInteractif: formatInteractif }
   exercice.autoCorrection[i].reponse.valeur = reponses
 }
 
@@ -706,6 +712,7 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
         classe2: userId[4],
         eleve1: userId[5],
         eleve2: userId[6],
+        eleve3: userId[7],
         // eslint-disable-next-line no-unneeded-ternary
         isCan: getVueFromUrl() === 'can' ? 'oui' : 'non',
         urlExos: document.location.href + '&serie=' + context.graine,
