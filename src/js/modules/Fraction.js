@@ -150,20 +150,46 @@ class Fraction {
    * Retourne la fraction racine carrée
    * @return {Fraction}
    */
-  racineCarree () {
+  racineCarree (detaillee = false) {
     const factoNum = extraireRacineCarree(Math.abs(this.num))
     const factoDen = extraireRacineCarree(Math.abs(this.den))
     const k = fraction(factoNum[0], factoDen[0]).simplifie()
     const r = fraction(factoNum[1], factoDen[1]).simplifie()
+    let etape = ''
+    if (detaillee) {
+      if (k.valeurDecimale !== 1) {
+        if (k.den === 1) {
+          etape = `\\sqrt{${factoNum[0]}^2\\times${factoNum[1]}}=`
+        } else {
+          if (factoNum[0] !== 1) {
+            etape = `\\sqrt{\\dfrac{${factoNum[0]}^2\\times${factoNum[1]}}{${factoDen[0]}^2\\times${factoDen[1]}}}=`
+          } else {
+            if (factoDen[1] !== 1) {
+              etape = `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2\\times${factoDen[1]}}}=`
+            } else {
+              etape = `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2}}=`
+            }
+          }
+        }
+      }
+    }
     if (this.signe === -1) {
       return false
     } else if (this.signe === 0) {
       return '0'
     } else {
       if (calcul(factoNum[1] / factoDen[1]) === 1) {
-        return k.texFraction
+        return etape + k.texFraction
       } else {
-        return (k.valeurDecimale === 1 ? '' : k.texFraction) + `\\sqrt{${r.texFraction}}`
+        if (k.num === 1 && k.den !== 1) {
+          if (r.den === 1) {
+            return (k.valeurDecimale === 1 ? etape : etape + `\\dfrac{\\sqrt{${r.num}}}{${k.den}}`)
+          } else {
+            return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.texFraction}}`
+          }
+        } else {
+          return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.texFraction}}`
+        }
       }
     }
   }

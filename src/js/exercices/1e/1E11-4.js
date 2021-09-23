@@ -50,14 +50,15 @@ export default function Resolutionavecformecanonique () {
         alpha = fraction(b, 2 * a)
         beta = fraction(-(b * b - 4 * a * c), 4 * a)
         delta = b * b - 4 * a * c
-        b2 = fraction(delta, 4 * a * a) // terme b² dans l'expression a²-b²
-        if (delta >= 0) {
+        b2 = fraction(delta, 4 * a * a).simplifie() // terme b² dans l'expression a²-b²
+        /*    if (delta >= 0) {
           if (Math.sqrt(delta) === Math.trunc(Math.sqrt(delta))) {
-            b3 = fraction(Math.sqrt(delta), Math.abs(2 * a))
+            b3 = fraction(Math.sqrt(delta), Math.abs(2 * a)).simplifie()
           } else { b3 = b2 }
           x1 = fraction(-b - Math.sqrt(delta), 2 * a)
           x2 = fraction(-b + Math.sqrt(delta), 2 * a)
         }
+        */
         texte = `Résoudre dans $\\mathbb{R}$ l'équation $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$ sans utiliser le discriminant.`
         texte += 'en utilisant la forme canoique du polynôme.'
         texteCorr = `On veut résoudre dans $\\mathbb{R}$ l'équation $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0\\quad(1)$.`
@@ -97,7 +98,7 @@ export default function Resolutionavecformecanonique () {
           texteCorr += '<br>On reconnaît l\'identité remarquable $a^2-b^2$ :'
           texteCorr += `<br>avec  $a= \\left(x ${alpha.simplifie().ecritureAlgebrique}\\right)$ `
           // texteCorr += `et $b =\\sqrt{${b2.simplifie().texFraction}}$`
-          texteCorr += `et $b =${b2.racineCarree()}$`// = ${b3.simplifie().texFraction} why ?
+          texteCorr += `et $b =${b2.racineCarree(true)}$`// = ${b3.simplifie().texFraction} why ?
           texteCorr += '<br>L\'équation à résoudre est équivalente à :'
           texteCorr += `<br> $\\left(x ${alpha.simplifie().ecritureAlgebrique}-${b2.racineCarree()}\\right)\\left(x ${alpha.simplifie().ecritureAlgebrique}+${b2.racineCarree()}\\right)=0$`
           // texteCorr += `<br> $\\left(x ${x1.simplifie().oppose().ecritureAlgebrique}\\right)\\left(x ${x2.simplifie().oppose().ecritureAlgebrique}\\right)=0$`
