@@ -1193,7 +1193,8 @@ export default {
     "titre": "Somme, différence ou produit de fractions",
     "url": "/exercices/4e/4C23.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C23"
   },
   "4C25-0": {
@@ -2354,7 +2355,7 @@ export default {
       "text": "AMCOpenNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "5R22"
   },
   "5S10": {
@@ -5540,7 +5541,7 @@ export default {
     "name": "can6C21"
   },
   "can6C22": {
-    "titre": "Valeurs décimales quarts et cinquièmes",
+    "titre": "Valeurs décimales de fractions",
     "url": "/exercices/can/6e/can6C22.js",
     "amcReady": true,
     "amcType": {
