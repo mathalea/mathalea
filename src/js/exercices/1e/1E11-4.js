@@ -67,7 +67,7 @@ export default function Resolutionavecformecanonique () {
         // On simplifie par a si a !==1
         if (a !== 1) {
           texteCorr += `<br>On commence par diviser les deux membres de l'égalité par le coefficient $a$ qui vaut ici $${a}$.`
-          texteCorr += `<br>$(1)\\iff\\quad x^2 ${rienSi1(b1.simplifie().ecritureAlgebrique)} x ${c1.simplifie().ecritureAlgebrique}=0$`
+          texteCorr += `<br>$(1)\\iff\\quad x^2 ${b1.valeurDecimale === 1 ? '+ ' : b1.valeurDecimale === -1 ? '- ' : b1.simplifie().ecritureAlgebrique} x ${c1.simplifie().ecritureAlgebrique}=0$`
 
           // fin du test si a<>1
         }
@@ -84,7 +84,7 @@ export default function Resolutionavecformecanonique () {
         texteCorr += `$x^2 ${alpha.signe === 1 ? '+' : '-'}${Math.abs(alpha.num * 2) === Math.abs(alpha.den) ? '' : alpha.multiplieEntier(2).valeurAbsolue().simplifie().texFraction}x= \\left(x ${alpha.simplifie().ecritureAlgebrique}\\right)^2    ${alpha.produitFraction(alpha).oppose().simplifie().ecritureAlgebrique} $`
         // 3èmeligne correction On transforme l'équation avec l'IR
         texteCorr += '<br>Il vient alors :'
-        texteCorr += `<br>$\\phantom{\\iff}\\quad x^2 ${rienSi1(b1.simplifie().ecritureAlgebrique)} x ${c1.simplifie().ecritureAlgebrique}=0$`
+        texteCorr += `<br>$\\phantom{\\iff}\\quad x^2 ${b1.valeurDecimale === 1 ? '+ ' : b1.valeurDecimale === -1 ? '- ' : b1.simplifie().ecritureAlgebrique} x ${c1.simplifie().ecritureAlgebrique}=0$`
         texteCorr += `<br>$\\iff\\quad  \\left(x ${alpha.simplifie().ecritureAlgebrique}\\right)^2    ${alpha.produitFraction(alpha).oppose().simplifie().ecritureAlgebrique}${c1.simplifie().ecritureAlgebrique}=0$`
         // 4èmeligne correction : On factorise pour obtenir équation produit-nul
         texteCorr += `<br>$\\iff\\quad  \\left(x ${alpha.simplifie().ecritureAlgebrique}\\right)^2    ${b2.simplifie().oppose().ecritureAlgebrique}=0$`
@@ -99,12 +99,12 @@ export default function Resolutionavecformecanonique () {
           // texteCorr += `et $b =\\sqrt{${b2.simplifie().texFraction}}$`
           texteCorr += `et $b =${b2.racineCarree()}$`// = ${b3.simplifie().texFraction} why ?
           texteCorr += '<br>L\'équation à résoudre est équivalente à :'
-          texteCorr += `<br> $\\left(x ${alpha.simplifie().ecritureAlgebrique}-${b3.simplifie().texFraction}\\right)\\left(x ${alpha.simplifie().ecritureAlgebrique}+${b3.simplifie().texFraction}\\right)=0$`
-          texteCorr += `<br> $\\left(x ${x1.simplifie().oppose().ecritureAlgebrique}\\right)\\left(x ${x2.simplifie().oppose().ecritureAlgebrique}\\right)=0$`
+          texteCorr += `<br> $\\left(x ${alpha.simplifie().ecritureAlgebrique}-${b2.racineCarree()}\\right)\\left(x ${alpha.simplifie().ecritureAlgebrique}+${b2.racineCarree()}\\right)=0$`
+          // texteCorr += `<br> $\\left(x ${x1.simplifie().oppose().ecritureAlgebrique}\\right)\\left(x ${x2.simplifie().oppose().ecritureAlgebrique}\\right)=0$`
           texteCorr += '<br> On applique la propriété du produit nul :'
-          texteCorr += `<br> Soit $x ${x1.simplifie().oppose().ecritureAlgebrique}=0$ , soit $x ${x2.simplifie().oppose().ecritureAlgebrique}=0$`
-          texteCorr += `<br> Soit $x = ${x1.texFractionSimplifiee}$ , soit $x =${x2.texFractionSimplifiee}$`
-          texteCorr += `<br> $S =\\left\\{${x1.texFractionSimplifiee};${x2.texFractionSimplifiee}\\right\\}$`
+          texteCorr += `<br> Soit $x ${alpha.simplifie().ecritureAlgebrique}-${b2.racineCarree()}=0$ , soit $x ${alpha.simplifie().ecritureAlgebrique}+${b2.racineCarree()}=0$`
+          texteCorr += `<br> Soit $x = ${alpha.oppose().simplifie().texFraction}+${b2.racineCarree()}$ , soit $x =${alpha.oppose().simplifie().texFraction}-${b2.racineCarree()}$`
+          texteCorr += `<br> $S =\\left\\{${alpha.oppose().simplifie().texFraction}-${b2.racineCarree()};${alpha.oppose().simplifie().texFraction}+${b2.racineCarree()}\\right\\}$`
         }
       }
 

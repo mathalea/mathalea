@@ -153,15 +153,17 @@ class Fraction {
   racineCarree () {
     const factoNum = extraireRacineCarree(Math.abs(this.num))
     const factoDen = extraireRacineCarree(Math.abs(this.den))
+    const k = fraction(factoNum[0], factoDen[0]).simplifie()
+    const r = fraction(factoNum[1], factoDen[1]).simplifie()
     if (this.signe === -1) {
       return false
     } else if (this.signe === 0) {
       return '0'
     } else {
       if (calcul(factoNum[1] / factoDen[1]) === 1) {
-        return fraction(factoNum[0], factoDen[0]).simplifie().texFraction
+        return k.texFraction
       } else {
-        return fraction(factoNum[0], factoDen[0]).simplifie().texFraction + `\\sqrt{${fraction(factoNum[1], factoDen[1]).simplifie().texFraction}}`
+        return (k.valeurDecimale === 1 ? '' : k.texFraction) + `\\sqrt{${r.texFraction}}`
       }
     }
   }
