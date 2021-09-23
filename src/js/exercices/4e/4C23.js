@@ -2,7 +2,6 @@ import Exercice from '../Exercice.js'
 import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, texFraction, randint, miseEnEvidence, choice } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-import Fraction from '../../modules/Fraction.js'
 import { fraction } from '../../modules/fractions.js'
 
 export const titre = 'Somme, différence ou produit de fractions'
@@ -22,7 +21,7 @@ export default function SommeOuProduitFractions () {
   this.spacing = context.isHtml ? 4 : 3
   this.spacingCorr = context.isHtml ? 4 : 3
   this.nbColonneModifiable = false
-  this.consigne = 'Effectue les calculs suivants :'
+  this.consigne = 'Effectuer les calculs suivants :'
   this.nbQuestions = 8 // Nombre de questions par défaut
   this.nbCols = 4 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX

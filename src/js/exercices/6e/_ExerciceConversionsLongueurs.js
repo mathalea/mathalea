@@ -24,7 +24,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
   this.titre = 'Conversions de longueurs'
   this.consigne = 'Compléter : '
   this.spacing = 2
-  
+
   this.nouvelleVersion = function () {
     const reponses = []
     this.listeQuestions = [] // Liste de questions
