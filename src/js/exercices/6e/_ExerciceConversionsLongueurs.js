@@ -24,7 +24,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
   this.titre = 'Conversions de longueurs'
   this.consigne = 'Compléter : '
   this.spacing = 2
-  
+
   this.nouvelleVersion = function () {
     const reponses = []
     this.listeQuestions = [] // Liste de questions
@@ -104,7 +104,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         // Si il faut multiplier pour convertir
         resultat = calcul(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte = `$${texNombre(a)} ${texTexte(prefixeMulti[k][0] + unite)} = `
-        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' ' + unite })}` : `\\dotfill  ${texTexte(unite)}$`
+        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfill  ${texTexte(unite)}$`
 
         texteCorr =
           '$ ' +
@@ -114,7 +114,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texNombre(a) +
           '\\times' +
           texNombre(prefixeMulti[k][1]) +
-          unite +
+          texTexte(unite) +
           ' = ' +
           texNombre(resultat) +
           texTexte(unite) +
@@ -122,7 +122,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       } else if (div && typesDeQuestions < 4) {
         resultat = calcul(a / prefixeDiv[k][1]).toString() // Attention aux notations scientifiques pour 10e-8
         texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
-        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' ' + unite })}` : `\\dotfill  ${texTexte(unite)}$`
+        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfill  ${texTexte(unite)}$`
         texteCorr =
           '$ ' +
           texNombre(a) +
@@ -131,10 +131,10 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texNombre(a) +
           '\\div' +
           texNombre(prefixeDiv[k][1]) +
-          unite +
+          texTexte(unite) +
           ' = ' +
           texNombre(resultat) +
-          unite +
+          texTexte(unite) +
           '$'
       } else {
         // pour type de question = 4
@@ -147,7 +147,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         if (randint(0, 1) > 0) {
           resultat = calcul(a * Math.pow(10, ecart))
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite2])} = `
-          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' ' + listeUnite[unite1] })}` : `\\dotfill  ${texTexte(listeUnite[unite1])}$`
+          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + listeUnite[unite1] })}` : `\\dotfill  ${texTexte(listeUnite[unite1])}$`
           texteCorr =
             '$ ' +
             texNombre(a) +
@@ -164,7 +164,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         } else {
           resultat = calcul(a / Math.pow(10, ecart))
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite1])} = `
-          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' ' + listeUnite[unite2] })}` : `\\dotfill  ${texTexte(listeUnite[unite2])}$`
+          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + listeUnite[unite2] })}` : `\\dotfill  ${texTexte(listeUnite[unite2])}$`
           texteCorr =
             '$ ' +
             texNombre(a) +
@@ -183,7 +183,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
 
       if (reponses.indexOf(resultat) === -1) {
         reponses[i] = resultat
-        setReponse(this, i, arrondiVirgule(resultat))
+        setReponse(this, i, resultat.toString().replace('.', ','))
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isDiaporama) {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
