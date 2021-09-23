@@ -8,13 +8,14 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can5C01
  */
 export default function ProduitEntiers5e () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     const b = randint(5, 9)
     const a = randint(12, 19)

@@ -23,21 +23,32 @@ export default function Pythagore2D () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
-  this.interactif = true
   this.interactifType = interactifType
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1
-  this.typeDeQuestion = 'Calculer'
+  this.sup2 = 3
+  this.typeDeQuestion = 'Calculer :'
   this.video = 'M9sceJ8gzNc'
+  this.besoinFormulaire2Numerique = ['Côté', 3, '1 : Hypoténuse\n2 : Côté de l\'angle droit\n3 : Mélange']
 
   this.nouvelleVersion = function () {
     if (this.sup) {
       this.sup = parseInt(this.sup)
     }
+    if (this.sup2) {
+      this.sup2 = parseInt(this.sup2)
+    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions = []
+    if (this.sup2 === 1) {
+      listeTypeDeQuestions = ['BC']
+    } else if (this.sup2 === 2) {
+      listeTypeDeQuestions = ['AB', 'AC']
+    } else {
+      listeTypeDeQuestions = ['AB', 'BC', 'AC']
+    }
     const listeDeNomsDePolygones = []
     let reponse
     if (this.sup === 1) {
@@ -47,9 +58,7 @@ export default function Pythagore2D () {
     } else {
       this.consigne = 'Dans chaque cas, calculer la longueur manquante (si nécessaire, l\'arrondir au millimètre près).'
     }
-    if (this.sup === 2 || this.typeDeQuestion === 'Calculer') {
-      listeTypeDeQuestions = combinaisonListes(['AB', 'BC', 'AC'], this.nbQuestions)
-    }
+    listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''
       texteCorr = ''
@@ -78,13 +87,13 @@ export default function Pythagore2D () {
       const longueurBC = longueur(B, C, 1)
       const mesObjetsATracer = [codage, p2, nomme]
 
-      if (this.typeDeQuestion === 'Calculer' && listeTypeDeQuestions[i] === 'AB') {
+      if (this.typeDeQuestion === 'Calculer :' && listeTypeDeQuestions[i] === 'AB') {
         mesObjetsATracer.push(affAC, affBC)
       }
-      if (this.typeDeQuestion === 'Calculer' && listeTypeDeQuestions[i] === 'BC') {
+      if (this.typeDeQuestion === 'Calculer :' && listeTypeDeQuestions[i] === 'BC') {
         mesObjetsATracer.push(affAC, affAB)
       }
-      if (this.typeDeQuestion === 'Calculer' && listeTypeDeQuestions[i] === 'AC') {
+      if (this.typeDeQuestion === 'Calculer :' && listeTypeDeQuestions[i] === 'AC') {
         mesObjetsATracer.push(affAB, affBC)
       }
 
@@ -146,7 +155,25 @@ export default function Pythagore2D () {
         `${B.nom + C.nom}^2=${C.nom + A.nom}^2+${A.nom + B.nom}^2`,
         `${C.nom + B.nom}^2=${C.nom + A.nom}^2+${A.nom + B.nom}^2`,
         `${B.nom + C.nom}^2=${C.nom + A.nom}^2+${B.nom + A.nom}^2`,
-        `${C.nom + B.nom}^2=${C.nom + A.nom}^2+${B.nom + A.nom}^2`], { formatInteractif: 'texte' })
+        `${C.nom + B.nom}^2=${C.nom + A.nom}^2+${B.nom + A.nom}^2`,
+        // en commençant par la somme
+        `${A.nom + B.nom}^2+${A.nom + C.nom}^2=${B.nom + C.nom}^2`,
+        `${A.nom + B.nom}^2+${A.nom + C.nom}^2=${C.nom + B.nom}^2`,
+        `${B.nom + A.nom}^2+${A.nom + C.nom}^2=${B.nom + C.nom}^2`,
+        `${B.nom + A.nom}^2+${A.nom + C.nom}^2=${C.nom + B.nom}^2`,
+        `${A.nom + B.nom}^2+${C.nom + A.nom}^2=${B.nom + C.nom}^2`,
+        `${A.nom + B.nom}^2+${C.nom + A.nom}^2=${C.nom + B.nom}^2`,
+        `${B.nom + A.nom}^2+${C.nom + A.nom}^2=${B.nom + C.nom}^2`,
+        `${B.nom + A.nom}^2+${C.nom + A.nom}^2=${C.nom + B.nom}^2`,
+        //
+        `${A.nom + C.nom}^2+${A.nom + B.nom}^2=${B.nom + C.nom}^2`,
+        `${A.nom + C.nom}^2+${A.nom + B.nom}^2=${C.nom + B.nom}^2`,
+        `${A.nom + C.nom}^2+${B.nom + A.nom}^2=${B.nom + C.nom}^2`,
+        `${A.nom + C.nom}^2+${B.nom + A.nom}^2=${C.nom + B.nom}^2`,
+        `${C.nom + A.nom}^2+${A.nom + B.nom}^2=${B.nom + C.nom}^2`,
+        `${C.nom + A.nom}^2+${A.nom + B.nom}^2=${C.nom + B.nom}^2`,
+        `${C.nom + A.nom}^2+${B.nom + A.nom}^2=${B.nom + C.nom}^2`,
+        `${C.nom + A.nom}^2+${B.nom + A.nom}^2=${C.nom + B.nom}^2`], { formatInteractif: 'texte' })
       }
       if (this.sup === 2) {
         if (listeTypeDeQuestions[i] === 'AB') {
@@ -159,7 +186,7 @@ export default function Pythagore2D () {
           texteCorr += ` d'où $${A.nom + C.nom}^2=${B.nom + C.nom}^2-${A.nom + B.nom}^2$.`
         }
       }
-      if (this.typeDeQuestion === 'Calculer') {
+      if (this.typeDeQuestion === 'Calculer :') {
         if (listeTypeDeQuestions[i] === 'AB') {
           let AB
           texteCorr += ` donc $${A.nom + B.nom}^2=${B.nom + C.nom}^2-${A.nom + C.nom}^2$`

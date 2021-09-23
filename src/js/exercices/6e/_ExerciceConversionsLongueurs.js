@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, arrondi, texNombre, texTexte, calcul, arrondiVirgule } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, arrondi, texNombre, texTexte, calcul } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,9 +22,8 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
   this.sup = niveau // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.titre = 'Conversions de longueurs'
-  this.consigne = 'Compléter'
+  this.consigne = 'Compléter : '
   this.spacing = 2
-  this.interactif = true
 
   this.nouvelleVersion = function () {
     const reponses = []
@@ -105,7 +104,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         // Si il faut multiplier pour convertir
         resultat = calcul(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte = `$${texNombre(a)} ${texTexte(prefixeMulti[k][0] + unite)} = `
-        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' ' + unite })}` : `\\dotfill  ${unite}$`
+        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfill  ${texTexte(unite)}$`
 
         texteCorr =
           '$ ' +
@@ -115,7 +114,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texNombre(a) +
           '\\times' +
           texNombre(prefixeMulti[k][1]) +
-          unite +
+          texTexte(unite) +
           ' = ' +
           texNombre(resultat) +
           texTexte(unite) +
@@ -123,7 +122,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       } else if (div && typesDeQuestions < 4) {
         resultat = calcul(a / prefixeDiv[k][1]).toString() // Attention aux notations scientifiques pour 10e-8
         texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
-        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' ' + unite })}` : `\\dotfill  ${unite}$`
+        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfill  ${texTexte(unite)}$`
         texteCorr =
           '$ ' +
           texNombre(a) +
@@ -132,10 +131,10 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texNombre(a) +
           '\\div' +
           texNombre(prefixeDiv[k][1]) +
-          unite +
+          texTexte(unite) +
           ' = ' +
           texNombre(resultat) +
-          unite +
+          texTexte(unite) +
           '$'
       } else {
         // pour type de question = 4
@@ -148,7 +147,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         if (randint(0, 1) > 0) {
           resultat = calcul(a * Math.pow(10, ecart))
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite2])} = `
-          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' ' + listeUnite[unite1] })}` : `\\dotfill  ${texTexte(listeUnite[unite1])}$`
+          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + listeUnite[unite1] })}` : `\\dotfill  ${texTexte(listeUnite[unite1])}$`
           texteCorr =
             '$ ' +
             texNombre(a) +
@@ -165,7 +164,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         } else {
           resultat = calcul(a / Math.pow(10, ecart))
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite1])} = `
-          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' ' + listeUnite[unite2] })}` : `\\dotfill  ${texTexte(listeUnite[unite2])}$`
+          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + listeUnite[unite2] })}` : `\\dotfill  ${texTexte(listeUnite[unite2])}$`
           texteCorr =
             '$ ' +
             texNombre(a) +
@@ -184,7 +183,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
 
       if (reponses.indexOf(resultat) === -1) {
         reponses[i] = resultat
-        setReponse(this, i, arrondiVirgule(resultat))
+        setReponse(this, i, resultat.toString().replace('.', ','))
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isDiaporama) {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
@@ -203,6 +202,6 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : De dam, hm, km vers m\n 2 : De dm, cm, mm vers m\n3 : Conversions en mètres\n4 : Toutes les conversions de longueurs']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : De dam, hm, km vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
 }

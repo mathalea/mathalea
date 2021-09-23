@@ -17,7 +17,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
   this.titre = titre
   this.nbQuestions = 1
-  this.interactif = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -186,7 +185,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         echelle)
     }
     if (context.isHtml) {
-      texte += '</td></tr>'
+      texte += '</td></tr></table>'
       texte += `<div id="resultatCheckEx${this.numeroExercice}Q${0}"></div>`
     } else {
       texte += '\\end{minipage} '

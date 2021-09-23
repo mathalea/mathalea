@@ -1,8 +1,8 @@
 import { context } from '../../../modules/context'
 import { propositionsQcm } from '../../../modules/gestionInteractif'
-import { calcul, listeQuestionsToContenu, randint, texNombre, texNombrec } from '../../../modules/outils'
+import { calcul, listeQuestionsToContenu, randint, texNombre, texNombrec, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Ordre de grandeur'
+export const titre = 'Ordre de grandeur QCM'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -10,11 +10,12 @@ export const amcType = 'qcmMono'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6C01
  */
 export default function OrdreDeGrandeur () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.interactif = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []
@@ -24,7 +25,7 @@ export default function OrdreDeGrandeur () {
     const c = randint(1, 9)
     const d = randint(5, 9)
     const resultat = calcul((a * 100 + b * 10 + c) * d)
-    let texte = `$${texNombrec(a * 100 + b * 10 + c)}\\times ${d}$<br> Choisis la bonne réponse sans effectuer précisément le calcul<br>`
+    let texte = `$${texNombrec(a * 100 + b * 10 + c)}\\times ${d}$<br> Choisis la bonne réponse sans effectuer précisément le calcul :<br>`
     this.autoCorrection[0] = {
       enonce: texte,
       propositions: [
@@ -45,7 +46,21 @@ export default function OrdreDeGrandeur () {
     if (!context.isAmc) {
       texte += propositionsQcm(this, 0).texte
     }
-    const texteCorr = `$${texNombrec(a * 100 + b * 10 + c)} \\times ${d} = ${texNombre(resultat)}$`
+    let texteCorr = `$${texNombrec(a * 100 + b * 10 + c)} \\times ${d} = ${texNombre(resultat)}$<br>
+        `
+    if (a * 100 + b * 10 + c > a * 100 + 50) {
+      texteCorr += texteEnCouleur(`
+    Mentalement : <br>
+On remplace le premier facteur $${a * 100 + b * 10 + c}$ par $${(a + 1) * 100}$, on calcule
+$${(a + 1) * 100}\\times ${d}=${((a + 1) * 100) * d}$ et on sélectionne le résultat qui s'en rapproche le plus. 
+    `)
+    } else {
+      texteCorr += texteEnCouleur(`
+    Mentalement : <br>
+    On remplace le premier facteur $${a * 100 + b * 10 + c}$ par $${a * 100}$, on calcule
+    $${a * 100}\\times ${d}=${a * 100 * d}$ et on sélectionne le résultat qui s'en rapproche le plus. 
+           `)
+    }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)

@@ -2,14 +2,12 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, calcul, texNombrec, creerNomDePolygone, texNombre } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
-export const titre = 'Déterminer si un triangle est rectangle ou pas.'
+export const titre = 'Déterminer si un triangle est rectangle ou pas'
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
 export const interactifType = 'qcm'
 
 export const interactifReady = true
-
-
 /**
  * À partir de la donnée des 3 longueurs d'un triangle, déterminer si il est rectangle ou pas.
  * @author Rémi Angot
@@ -21,8 +19,7 @@ export default function ReciproquePythagore () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
-  this.interactif = true
-  this.interactifType = interactifType
+    this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 3
   this.nbCols = 1

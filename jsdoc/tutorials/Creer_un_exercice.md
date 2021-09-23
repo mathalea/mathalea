@@ -30,7 +30,7 @@ Les lignes de commande nécessitent des "anti-sèches" au début mais ont les av
 - betaModèle32_cliqueFigure
 - betaModèle40_tableau_proportionnalite
 - betaModèle41_tableau_signes_variations
-Pour rentre un des modèles interactif, consulter le guide [Rendre_un_exercice_interactif](https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif.html) dans le panneau de gauche
+Pour rentre un des modèles interactif, consulter le guide [Rendre_un_exercice_interactif_simple](https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif_simple.html) dans le panneau de gauche
 ## <a id="3" href="#3">#</a> Programmer un exercice
 Un exercice est un objet de la classe Exercice (d'où le `import Exercice` en début de fichier et le `Exercice.call` au début de la fonction exportée).
 Il a plusieurs [attributs](#11) (son titre, son énoncé, sa correction...) et a une fonction `nouvelleVersion()` qui crée un énoncé aléatoire.
@@ -293,6 +293,11 @@ export default function ConstruireUnDiagramme4e () {
   this.besoinFormulaire3Numerique = false // Sinon this.besoinFormulaire3Numerique = [texte, max, tooltip facultatif]
   this.besoinFormulaire3Texte = false // Sinon this.besoinFormulaire3Texte = [texte, tooltip]
   this.besoinFormulaire3CaseACocher = false // Sinon this.besoinFormulaire3CaseACocher = [texte]
+  // Ajoute un formulaire de paramétrage par l'utilisateur récupéré via this.sup4 ou dans le paramètre d'url ',s4='
+  this.besoinFormulaire4Numerique = false // Sinon this.besoinFormulaire4Numerique = [texte, max, tooltip facultatif]
+  this.besoinFormulaire4Texte = false // Sinon this.besoinFormulaire4Texte = [texte, tooltip]
+  this.besoinFormulaire4CaseACocher = false // Sinon this.besoinFormulaire4CaseACocher = [texte]
+
 ```
 #### <a id="18" href="#18">#</a> Exercice avec des dépendances particulières
 ``` javascript

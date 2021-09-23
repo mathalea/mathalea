@@ -82,6 +82,6 @@ export default function FractionsDunite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ["Type d'exercices", 4, '1 : fraction inférieure à 1\n2 : demis, tiers et quarts\n3 : quarts, cinquièmes, sixièmes et dixièmes\n4 : toutes les fractions précédentes entre 1 et 3']
-  this.besoinFormulaire2Numerique = ['Type de cahier', 2, '1 :  petits carreaux\n2 : Cahier gros carreaux type Seyes']
+  this.besoinFormulaireNumerique = ["Type d'exercices", 4, '1 : Fraction inférieure à 1\n2 : Demis, tiers et quarts\n3 : Quarts, cinquièmes, sixièmes et dixièmes\n4 : Toutes les fractions précédentes entre 1 et 3']
+  this.besoinFormulaire2Numerique = ['Type de cahier', 2, '1 : Cahier à petits carreaux\n2 : Cahier à gros carreaux (Seyes)']
 }

@@ -17,14 +17,19 @@ export default function ProprietesParallelesPerpendiculaires () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 4
+  this.sup2 = false
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
   this.nouvelleVersion = function () {
-    let typesDeQuestionsDisponibles; const questionsParNiveau = []
-    questionsParNiveau.push(range(3))
-    questionsParNiveau.push(rangeMinMax(9, 15))
-    questionsParNiveau.push(rangeMinMax(19, 31, 20))
-
+    let typesDeQuestionsDisponibles
+    let questionsParNiveau = []
+    if (!this.sup2) {
+      questionsParNiveau.push(range(3))
+      questionsParNiveau.push(rangeMinMax(9, 15))
+      questionsParNiveau.push(rangeMinMax(19, 31, 20))
+    } else {
+      questionsParNiveau = [[2], [15], [31]]
+    }
     if (this.sup < 4) typesDeQuestionsDisponibles = questionsParNiveau[parseInt(this.sup) - 1]
     else typesDeQuestionsDisponibles = questionsParNiveau[0].concat(questionsParNiveau[1].concat(questionsParNiveau[2]))
 
@@ -247,7 +252,6 @@ export default function ProprietesParallelesPerpendiculaires () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'étapes de raisonnement :', 4, '1 : 1 étape\n 2 : 2 étapes\n 3 : 3 étapes\n4 : Mélange aléatoire']
-  // this.besoinFormulaire2CaseACocher = [
-  //  "Avec figure ? ",false];
+  this.besoinFormulaireNumerique = ['Nombre d\'étapes de raisonnement :', 4, '1 : Une étape\n2 : Deux étapes\n3 : Trois étapes\n4 : Mélange']
+  this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
 }

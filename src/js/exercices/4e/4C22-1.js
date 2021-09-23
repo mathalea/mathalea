@@ -364,6 +364,6 @@ export default function ExerciceTrouverInverse () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     4,
-    '1 : Nombres entiers\n 2 : Fractions\n 3 : Nombres décimaux\n 4 : Mélange des 3 niveaux'
+    ' 1 : Nombres entiers\n 2 : Fractions\n 3 : Nombres décimaux\n 4 : Mélange'
   ]
 }

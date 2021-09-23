@@ -13,7 +13,7 @@ export default function ReperagePointDuPlan () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Donner les coordonnées des points représentés'
+  this.consigne = 'Donner les coordonnées des points représentés.'
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1

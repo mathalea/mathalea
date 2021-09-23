@@ -139,7 +139,7 @@ export default function ExploiterRepresentationGraphique () {
             'À l’aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push(
-          'A quelle ditance le projectile est-il retombé ?'
+          'À quelle ditance le projectile est-il retombé ?'
         )
         this.listeCorrections.push(
             `Le projectile retombe au sol à une distance de ${t1} m, car la courbe passe par le point de coordonnées $(${texNombrec(
@@ -506,5 +506,5 @@ export default function ExploiterRepresentationGraphique () {
       }
     } else listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix du problème', 3, '1 : Projectile\n2 : Trajet à vélo\n3 : Température\n4 : Au hasard']
+  this.besoinFormulaireNumerique = ['Choix des problèmes', 3, '1 : Projectile\n2 : Trajet à vélo\n3 : Température\n4 : Au hasard']
 }

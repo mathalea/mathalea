@@ -1,3 +1,4 @@
+import { context } from '../../../modules/context'
 import { propositionsQcm } from '../../../modules/gestionInteractif'
 import { enleveElement, listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
@@ -9,12 +10,13 @@ export const amcType = 'qcmMono'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6M02
  */
 export default function LaBonneUnite () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.interactif = true
-
+  
   const hauteurs = [
     ['chaise', 75, 115, 'cm'],
     ['grue', 120, 250, 'dm'],

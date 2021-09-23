@@ -8,11 +8,12 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote & Gilles Mora
+ * Créé pendant l'été 2021
+ * Référence can6D02
  */
 export default function ResteEnMinutes () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.interactif = true
   this.typeExercice = 'simple'
 
   this.nouvelleVersion = function () {

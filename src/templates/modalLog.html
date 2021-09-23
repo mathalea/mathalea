@@ -5,14 +5,21 @@
       <input
         id="scoresInputUserId"
         type="text"
-        placeholder="PPPCCEE"
+        placeholder="PPPCCEEE"
         onkeyup="
           const btnValider = document.getElementById('scoresSubmitUserId') 
           this.value=this.value.toUpperCase()
-          if (this.value.length === 7) {
+          if (this.value.length === 7 || this.value.length === 8) {
             btnValider.classList.add('positive')
             btnValider.classList.remove('disabled')
-            btnValider.focus()
+            // J'ai un pb pour donner le focus au bouton valider
+            // et tolérer 7 ou 8 caractères
+            // btnValider.focus()
+          }
+          // Si on revient en arrière ou si on va trop loin le bouton de validation se désactive
+          if (this.value.length > 8 || this.value.length < 7) {
+            btnValider.classList.add('disabled')
+            btnValider.classList.remove('positive')
           } 
     "
       />

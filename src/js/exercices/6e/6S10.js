@@ -25,11 +25,10 @@ export default function LectureDiagrammeBarre () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1
-  this.interactif = true
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // vide la liste de questions
     this.listeCorrections = [] // vide la liste de questions corrigées
-
+    const bornesinf = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
     const lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
     let nbAnimaux = 4 // nombre d'animaux différents dans l'énoncé
     switch (parseInt(this.sup)) {
@@ -132,7 +131,8 @@ export default function LectureDiagrammeBarre () {
     })
 
     const lstElementGraph = []
-    for (let i = 0; i < nbAnimaux; i++) {
+    const bornesAEviter = [calcul(10 * coef * Math.floor(lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[numAnimal])] / (10 * coef)))]
+    for (let i = 0, borne; i < nbAnimaux; i++) {
       lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: 0.1 / coef }))
       if (context.isAmc) {
         if (i === lstNombresAnimaux.indexOf(nMax)) {
@@ -146,9 +146,11 @@ export default function LectureDiagrammeBarre () {
           propb.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: false })
         }
         if (i === numAnimal) {
-          propc.push({ texte: `entre ${calcul(10 * coef * Math.floor(lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[i])] / (10 * coef)))} et ${calcul(10 * coef * (1 + Math.floor(lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[i])] / (10 * coef))))}`, statut: true })
+          propc.push({ texte: `entre ${bornesAEviter[0]} et ${bornesAEviter[0] + 10 * coef}`, statut: true })
         } else {
-          propc.push({ texte: `entre ${calcul(10 * coef * Math.floor(lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[i])] / (10 * coef)))} et ${calcul(10 * coef * (1 + Math.floor(lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[i])] / (10 * coef))))}`, statut: false })
+          borne = choice(bornesinf, bornesAEviter)
+          bornesAEviter.push(borne)
+          propc.push({ texte: `entre ${borne} et ${borne + 10 * coef}`, statut: false })
         }
       }
     }
@@ -206,6 +208,6 @@ export default function LectureDiagrammeBarre () {
       }
     }
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, ' choix 1 : 4 espèces\n choix 2 : 5 espèces\n choix 3 : 6 espèces']
-  this.besoinFormulaire2Numerique = ['Valeurs numériques', 2, ' choix 1 : entre 1 et 100\n choix 2 : entre 100 et 1 000']
+  this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : 4 espèces\n2 : 5 espèces\n3 : 6 espèces']
+  this.besoinFormulaire2Numerique = ['Valeurs numériques', 2, '1 : Entre 1 et 100\n2 : Entre 100 et 1 000']
 }

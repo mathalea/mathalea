@@ -104,7 +104,7 @@ export default function decompositionFacteursPremiers() {
 					// correction						
 					texteCorr = `Nous allons successivement tester la divisibilité de $${texNombre(nombre_a_decomposer)}$ par tous les nombres premiers inférieurs à `;
 					texteCorr += `$${texNombre(nombre_a_decomposer)}$ en commençant par 2, 3, 5, 7, ...<br>`;
-					texteCorr = `Il est suffisant de tester la divisibilité de $${texNombre(nombre_a_decomposer)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${texNombre(nombre_a_decomposer)}}$ c'est à dire inférieurs à $${texNombre(racine_premier_1)}$.<br>`;
+					texteCorr = `Il est suffisant de tester la divisibilité de $${texNombre(nombre_a_decomposer)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${texNombre(nombre_a_decomposer)}}$ c'est-à-dire inférieurs à $${texNombre(racine_premier_1)}$.<br>`;
 					texteCorr += `Ce sont les nombres de la liste : <br>`;
 					texteCorr += cribleEratostheneN(racine_premier_1)[0] + ` ; `;
 					for (let k = 1; k < cribleEratostheneN(racine_premier_1).length; k++) {
@@ -153,7 +153,7 @@ export default function decompositionFacteursPremiers() {
 					};
 					texte = `À l'aide de la calculatrice, décomposer $${texNombre(premier1 * premier2)}$ en produit de facteurs premiers.`;
 					let racine_prem = Math.trunc(Math.sqrt(premier1 * premier2));
-					texteCorr = `Il est suffisant de tester la divisibilité de $${texNombre(premier1 * premier2)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${texNombre(premier1 * premier2)}}$ c'est à dire inférieurs à $${texNombre(racine_prem)}$.<br>`;
+					texteCorr = `Il est suffisant de tester la divisibilité de $${texNombre(premier1 * premier2)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${texNombre(premier1 * premier2)}}$ c'est-à-dire inférieurs à $${texNombre(racine_prem)}$.<br>`;
 					texteCorr += `Ce sont les nombres de la liste suivante : <br>$`;
 					texteCorr += cribleEratostheneN(racine_prem)[0];
 					for (let k = 1; k < cribleEratostheneN(racine_prem).length; k++) {
@@ -175,7 +175,7 @@ export default function decompositionFacteursPremiers() {
 					let racine_premier = Math.trunc(Math.sqrt(premier));
 					texte = `À l'aide de la calculatrice, décomposer $${texNombre(premier)}$ en produit de facteurs premiers.`;
 					texteCorr = `En testant la divisibilité de $${texNombre(premier)}$ par tous les nombres premiers inférieurs ou égaux à $${racine_premier}$`;
-					texteCorr += ` c'est à dire les nombre de la liste $`;
+					texteCorr += ` c'est-à-dire les nombre de la liste $`;
 					texteCorr += cribleEratostheneN(racine_premier)[0];
 					for (let k = 1; k < cribleEratostheneN(racine_premier).length; k++) {
 						texteCorr += `; ` + cribleEratostheneN(racine_premier)[k];

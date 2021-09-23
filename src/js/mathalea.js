@@ -5,7 +5,12 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExercic
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
 import { mg32DisplayAll } from './modules/mathgraph'
-import { messageUtilisateur } from './modules/messages.js'
+import {
+  errorHandler,
+  getInvalidModuleError, getNoLatexError,
+  getUnknownError,
+  UserFriendlyError
+} from './modules/messages.js'
 import { ajouteChampTexteMathLive, exerciceInteractif, setReponse } from './modules/gestionInteractif.js'
 import Exercice from './exercices/Exercice.js'
 import Clipboard from 'clipboard'
@@ -165,42 +170,37 @@ function copierExercicesFormVersAffichage (exliste) {
  * @return {Promise}
  */
 async function gestionModules (isdiaporama, listeObjetsExercice) {
-  // besoin katex, mg32, iep, scratch
-  // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
-  loadMathLive()
-  renderMathInElement(document.body, {
-    delimiters: [
-      { left: '\\[', right: '\\]', display: true },
-      { left: '$', right: '$', display: false }
-    ],
-    throwOnError: true,
-    errorColor: '#CC0000',
-    strict: 'warn',
-    trust: false
-  })
-  $('.katexPopup').popup({
-    popup: '.special.popup',
-    on: 'hover',
-    variation: 'inverted',
-    inline: true
-  })
-  const exosMg32 = listeObjetsExercice.filter((exo) => exo.typeExercice === 'MG32')
-  if (exosMg32.length) {
-    // faut charger mathgraph et lui filer ces figures
-    try {
+  try {
+    // besoin katex, mg32, iep, scratch
+    // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
+    loadMathLive()
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false }
+      ],
+      throwOnError: true,
+      errorColor: '#CC0000',
+      strict: 'warn',
+      trust: false
+    })
+    $('.katexPopup').popup({
+      popup: '.special.popup',
+      on: 'hover',
+      variation: 'inverted',
+      inline: true
+    })
+    const exosMg32 = listeObjetsExercice.filter((exo) => exo.typeExercice === 'MG32')
+    if (exosMg32.length) {
+      // faut charger mathgraph et lui filer ces figures
+
       // faut attendre que le div soit créé
       // @todo ce code devrait plutôt être exécuté après la création du div
       // (et ce serait même mieux d'ajouter les conteneurs comme propriétés des exos passés à mg32DisplayAll
       // => il n'y aurait plus de couplage sur le préfixe MG32div)
       await waitFor('MG32div0')
       await mg32DisplayAll(exosMg32)
-    } catch (error) {
-      // On traite l'erreur
-      console.log(error)
-      messageUtilisateur({ code: 'mg32load' })
     }
-  }
-  try {
     const besoinScratch = listeObjetsExercice.some((exo) => exo.typeExercice === 'Scratch')
     if (besoinScratch) {
       await scratchTraductionFr()
@@ -215,26 +215,24 @@ async function gestionModules (isdiaporama, listeObjetsExercice) {
         languages: ['fr']
       })
     }
-  } catch (error) {
-    // On traite l'erreur
-    console.log(error)
-    messageUtilisateur({ code: 'scratchLoad' })
-  }
-  const besoinIEP = listeObjetsExercice.some((exo) => exo.typeExercice === 'IEP')
-  if (besoinIEP) {
-    for (const id of window.listeAnimationsIepACharger) {
-      const element = document.getElementById(`IEPContainer${id}`)
-      if (!element) {
-        console.error(Error(`Pas d’élément IEPContainer${id} dans le dom, chargement instrumenpoche ignoré`))
-        continue
+    const besoinIEP = listeObjetsExercice.some((exo) => exo.typeExercice === 'IEP')
+    if (besoinIEP) {
+      for (const id of window.listeAnimationsIepACharger) {
+        const element = document.getElementById(`IEPContainer${id}`)
+        if (!element) {
+          console.error(Error(`Pas d’élément IEPContainer${id} dans le dom, chargement instrumenpoche ignoré`))
+          continue
+        }
+        element.style.marginTop = '30px'
+        const xml = window.listeScriptsIep[id]
+        await loadIep(element, xml)
       }
-      element.style.marginTop = '30px'
-      const xml = window.listeScriptsIep[id]
-      await loadIep(element, xml)
+      // On prévient Anki qu'il faut une plus grande fenêtre
+      const IEPAffiche = new Event('IEPAffiche', { bubbles: true })
+      document.dispatchEvent(IEPAffiche)
     }
-    // On prévient Anki qu'il faut une plus grande fenêtre
-    const IEPAffiche = new Event('IEPAffiche', { bubbles: true })
-    document.dispatchEvent(IEPAffiche)
+  } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -283,7 +281,23 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       contenuUneCorrection += `<img width="90%" src="${obj.pngcor}">`
       obj.video = false
     } else if (obj.typeExercice === 'simple') {
-      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
+      if (obj.interactif) {
+        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
+          numeroExercice - 1
+        }" class="keyboard icon iconeInteractif"></i><span>`
+      } else {
+        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
+          numeroExercice - 1
+        }" class="keyboard outline icon iconeInteractif"></i><span>`
+      }
+      if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
+        paramTooltip += obj.besoinFormulaireNumerique[0] + ' : \n' + obj.besoinFormulaireNumerique[2] + '\n'
+      }
+      if (obj.besoinFormulaire2Numerique && obj.besoinFormulaire2Numerique[2]) {
+        paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
+      }
+      paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
+      contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
       contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
       if (obj.consigne) {
         contenuUnExercice += `<h4> ${obj.consigne} </h4>`
@@ -296,6 +310,7 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         } catch (error) {
           console.log(error)
         }
+
         if (obj.questionJamaisPosee(numQuestion, obj.question)) {
           contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}`
           if (obj.interactif && obj.interactifReady) {
@@ -324,8 +339,8 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         }
       }
       contenuUnExercice += '</ol>'
-      contenuUnExercice += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
       if (obj.interactif || obj.interactifObligatoire) {
+        contenuUnExercice += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
         exerciceInteractif(obj)
       }
     } else {
@@ -354,10 +369,10 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
       } else {
         if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
-          paramTooltip += obj.besoinFormulaireNumerique[0] + ': \n' + obj.besoinFormulaireNumerique[2] + '\n'
+          paramTooltip += obj.besoinFormulaireNumerique[0] + ' : \n' + obj.besoinFormulaireNumerique[2] + '\n'
         }
         if (obj.besoinFormulaire2Numerique && obj.besoinFormulaire2Numerique[2]) {
-          paramTooltip += obj.besoinFormulaire2Numerique[0] + ': \n' + obj.besoinFormulaire2Numerique[2]
+          paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
         }
         paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
         contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
@@ -414,8 +429,20 @@ function miseAJourDuCode () {
     btn1Question.addEventListener('click', () => {
       for (let i = 0; i < listeObjetsExercice.length; i++) {
         listeObjetsExercice[i].nbQuestions = 1
-        miseAJourDuCode()
       }
+      miseAJourDuCode()
+    })
+  }
+
+  const btnTousInteractifs = document.getElementById('btnTousInteractifs')
+  if (btnTousInteractifs !== null) {
+    btnTousInteractifs.addEventListener('click', () => {
+      for (let i = 0; i < listeObjetsExercice.length; i++) {
+        if (listeObjetsExercice[i].interactifReady) {
+          listeObjetsExercice[i].interactif = true
+        }
+      }
+      miseAJourDuCode()
     })
   }
 
@@ -446,20 +473,23 @@ function miseAJourDuCode () {
         finUrl += 'mathalea.html'
       }
       finUrl += `?ex=${listeDesExercices[0]}`
-      if (typeof listeObjetsExercice[0].sup !== 'undefined') {
+      if (listeObjetsExercice[0].sup !== undefined) {
         finUrl += `,s=${listeObjetsExercice[0].sup}`
       }
-      if (typeof listeObjetsExercice[0].sup2 !== 'undefined') {
+      if (listeObjetsExercice[0].sup2 !== undefined) {
         finUrl += `,s2=${listeObjetsExercice[0].sup2}`
       }
-      if (typeof listeObjetsExercice[0].sup3 !== 'undefined') {
+      if (listeObjetsExercice[0].sup3 !== undefined) {
         finUrl += `,s3=${listeObjetsExercice[0].sup3}`
+      }
+      if (listeObjetsExercice[0].sup4 !== undefined) {
+        finUrl += `,s4=${listeObjetsExercice[0].sup4}`
       }
       if (listeObjetsExercice[0].nbQuestionsModifiable) {
         finUrl += `,n=${listeObjetsExercice[0].nbQuestions}`
       }
       if (listeObjetsExercice[0].video.length > 1) {
-        finUrl += `,v${encodeURIComponent(listeObjetsExercice[0].video)}`
+        finUrl += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
       }
       if (listeObjetsExercice[0].correctionDetaillee && listeObjetsExercice[0].correctionDetailleeDisponible) {
         finUrl += ',cd=1'
@@ -476,14 +506,17 @@ function miseAJourDuCode () {
       listeObjetsExercice[0].numeroExercice = 0
       for (let i = 1; i < listeDesExercices.length; i++) {
         finUrl += `&ex=${listeDesExercices[i]}`
-        if (typeof listeObjetsExercice[i].sup !== 'undefined') {
+        if (listeObjetsExercice[i].sup !== undefined) {
           finUrl += `,s=${listeObjetsExercice[i].sup}`
         }
-        if (typeof listeObjetsExercice[i].sup2 !== 'undefined') {
+        if (listeObjetsExercice[i].sup2 !== undefined) {
           finUrl += `,s2=${listeObjetsExercice[i].sup2}`
         }
-        if (typeof listeObjetsExercice[i].sup3 !== 'undefined') {
+        if (listeObjetsExercice[i].sup3 !== undefined) {
           finUrl += `,s3=${listeObjetsExercice[i].sup3}`
+        }
+        if (listeObjetsExercice[i].sup4 !== undefined) {
+          finUrl += `,s4=${listeObjetsExercice[i].sup4}`
         }
         if (listeObjetsExercice[i].nbQuestionsModifiable) {
           finUrl += `,n=${listeObjetsExercice[i].nbQuestions}`
@@ -491,7 +524,7 @@ function miseAJourDuCode () {
         if (listeObjetsExercice[i].video) {
           if (listeObjetsExercice[i].video.length > 1) {
             // Pour dnb, video est à false, pour les exercices interactif, par défaut c'est ''
-            finUrl += `,v${encodeURIComponent(listeObjetsExercice[i].video)}`
+            finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
           }
         }
         if (listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
@@ -517,6 +550,9 @@ function miseAJourDuCode () {
       }
       if (context.vue) {
         finUrl += `&v=${context.vue}`
+      }
+      if (context.taillePolice) {
+        finUrl += `&p=${context.taillePolice}`
       }
       try {
         if (context.userId) {
@@ -823,7 +859,8 @@ function miseAJourDuCode () {
         } else {
           listeObjetsExercice[i].nouvelleVersion()
           if (listeObjetsExercice[i].pasDeVersionLatex) {
-            messageUtilisateur({ code: 'noLatex', exercice: listeObjetsExercice[i].id })
+            // on affiche le pb mais on continue quand même
+            errorHandler(getNoLatexError(listeObjetsExercice[i].id))
           }
           if (listeObjetsExercice[i].typeExercice === 'simple') {
             exerciceSimpleToContenu(listeObjetsExercice[i])
@@ -1134,247 +1171,257 @@ function miseAJourDuCode () {
  * sans l'ajouter à la liste
  * @private
  */
-function miseAJourDeLaListeDesExercices (preview) {
-  let besoinXCas = false
-  const promises = []
-  const listeExercices = listeDesExercices
-  if (preview) {
-    listeExercices.push(preview)
-  }
-  listeObjetsExercice = []
-  for (let i = 0, id; i < listeExercices.length; i++) {
-    id = listeExercices[i]
-    let url
-    try {
-      url = dictionnaireDesExercices[id].url
-    } catch (error) {
-      console.log(error)
-      console.log(`Exercice ${id} non disponible`)
-      throw new Error(`code: 'codeExerciceInconnu', exercice: ${id}`)
-    }
-    if (dictionnaireDesExercices[id].typeExercice === 'dnb') {
-      listeObjetsExercice[i] = dictionnaireDesExercices[id]
-      promises.push(
-        fetch(url)
-          .then((response) => response.text())
-          .then((data) => {
-            listeObjetsExercice[i].nbQuestionsModifiable = false
-            listeObjetsExercice[i].video = ''
-            listeObjetsExercice[i].titre = id
-            listeObjetsExercice[i].contenu = data
+async function miseAJourDeLaListeDesExercices (preview) {
+  try {
+    let besoinXCas = false
+    const promises = []
+    // pour ne pas ajouter preview à la liste originale
+    const listeExercices = listeDesExercices
+    if (preview) listeExercices.push(preview)
+    listeObjetsExercice = []
+    listeExercices.forEach((id, i) => {
+      let url
+      try {
+        url = dictionnaireDesExercices[id].url
+      } catch (error) {
+        console.error(error)
+        throw getUnknownError(id)
+      }
+
+      if (dictionnaireDesExercices[id].typeExercice === 'dnb') {
+        listeObjetsExercice[i] = dictionnaireDesExercices[id]
+        promises.push(
+          fetch(url)
+            .then((response) => response.text())
+            .then((data) => {
+              listeObjetsExercice[i].nbQuestionsModifiable = false
+              listeObjetsExercice[i].video = ''
+              listeObjetsExercice[i].titre = id
+              listeObjetsExercice[i].contenu = data
+            })
+        )
+        promises.push(
+          fetch(dictionnaireDesExercices[id].urlcor)
+            .then((response) => response.text())
+            .then((data) => {
+              listeObjetsExercice[i].contenuCorrection = data
+            })
+        )
+      } else {
+        // avec webpack on ne peut pas faire de import(url), car il faut lui indiquer quels fichiers sont susceptibles d'être chargés
+        // ici il ne peut s'agir que de js contenus dans exercices (dnb déjà traité dans le if au dessus)
+        const chunks = /^\/exercices\/(.*)/.exec(url)
+        if (!chunks) throw UserFriendlyError(`url invalide : ${url}`)
+        const path = chunks[1]
+        promises.push(
+          // cf https://webpack.js.org/api/module-methods/#magic-comments
+          import(/* webpackMode: "lazy" */ './exercices/' + path).then((module) => {
+            if (!module) throw getInvalidModuleError(path)
+            const Exo = module.default
+            listeObjetsExercice[i] = new Exo()
+            ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
+              if (module[p] !== undefined) listeObjetsExercice[i][p] = module[p]
+            })
+            if (dictionnaireDesExercices[id].sup !== undefined) {
+              listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
+            }
+            if (dictionnaireDesExercices[id].sup2 !== undefined) {
+              listeObjetsExercice[i].sup2 = dictionnaireDesExercices[id].sup2
+            }
+            if (dictionnaireDesExercices[id].sup3 !== undefined) {
+              listeObjetsExercice[i].sup3 = dictionnaireDesExercices[id].sup3
+            }
+            if (dictionnaireDesExercices[id].sup4 !== undefined) {
+              listeObjetsExercice[i].sup4 = dictionnaireDesExercices[id].sup4
+            }
+            if (dictionnaireDesExercices[id].nbQuestions !== undefined) {
+              listeObjetsExercice[i].nbQuestions = dictionnaireDesExercices[id].nbQuestions
+            }
+            if (listeObjetsExercice[i].typeExercice === 'XCas') {
+              besoinXCas = true
+            }
+            // Pour les diaporamas des exercices "simples" (CAN), on remet 10 questions par défaut
+            if (listeObjetsExercice[i].typeExercice === 'simple' && context.isDiaporama) {
+              listeObjetsExercice[i].nbQuestions = 10
+            }
           })
-      )
-      promises.push(
-        fetch(dictionnaireDesExercices[id].urlcor)
-          .then((response) => response.text())
-          .then((data) => {
-            listeObjetsExercice[i].contenuCorrection = data
-          })
-      )
-    } else {
-      // avec webpack on ne peut pas faire de import(url), car il faut lui indiquer quels fichiers sont susceptibles d'être chargés
-      // ici il ne peut s'agir que de js contenus dans exercices (dnb déjà traité dans le if au dessus)
-      const chunks = /^\/exercices\/(.*)/.exec(url)
-      if (!chunks) throw Error(`url non prévue : ${url}`)
-      const path = chunks[1]
-      promises.push(
-        // cf https://webpack.js.org/api/module-methods/#magic-comments
-        import(/* webpackMode: "lazy" */ './exercices/' + path).then((module) => {
-          if (!module) throw Error(`l'import de ${path} a réussi mais on ne récupère rien, il doit y avoir un oubli d'export`)
-          const Exo = module.default
-          listeObjetsExercice[i] = new Exo()
-          ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
-            if (module[p] !== undefined) listeObjetsExercice[i][p] = module[p]
-          })
-          if (dictionnaireDesExercices[id].sup !== undefined) {
-            listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
-          }
-          if (dictionnaireDesExercices[id].sup2 !== undefined) {
-            listeObjetsExercice[i].sup2 = dictionnaireDesExercices[id].sup2
-          }
-          if (dictionnaireDesExercices[id].sup3 !== undefined) {
-            listeObjetsExercice[i].sup3 = dictionnaireDesExercices[id].sup3
-          }
-          if (dictionnaireDesExercices[id].nbQuestions !== undefined) {
-            listeObjetsExercice[i].nbQuestions = dictionnaireDesExercices[id].nbQuestions
-          }
-          if (listeObjetsExercice[i].typeExercice === 'XCas') {
-            besoinXCas = true
-          }
-          // Pour les diaporamas des exercices "simples" (CAN), on remet 10 questions par défaut
-          if (listeObjetsExercice[i].typeExercice === 'simple' && context.isDiaporama) {
-            listeObjetsExercice[i].nbQuestions = 10
-          }
-        })
-      )
-    }
-  }
-  Promise.all(promises)
-    .then(() => {
-      if (!preview) {
-        parametresExercice(listeObjetsExercice)
+        )
       }
     })
-    .then(() => {
-      if (!preview || context.isHtml) {
-        // ajout de context.isHtml par conserver les infos sur le fait que les exercices sont en mode interactif
-        // Récupère les paramètres passés dans l'URL
-        const urlVars = getUrlVars()
-        // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
-        // => évite les erreurs lors de la suppression de question dans la liste.
-        if (urlVars.length < listeObjetsExercice.length && document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') {
-          listeObjetsExercice[listeObjetsExercice.length - 1].interactif = true
-          if (formInteractif[listeObjetsExercice.length - 1]) {
-            formInteractif[listeObjetsExercice.length - 1].checked = true
+    await Promise.all(promises)
+    if (!preview) parametresExercice(listeObjetsExercice)
+    if (!preview || context.isHtml) {
+      // ajout de context.isHtml par conserver les infos sur le fait que les exercices sont en mode interactif
+      // Récupère les paramètres passés dans l'URL
+      const urlVars = getUrlVars()
+      // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
+      // => évite les erreurs lors de la suppression de question dans la liste.
+      if (urlVars.length < listeObjetsExercice.length && ((document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') || document.getElementById('exoModeInteractif'))) {
+        listeObjetsExercice[listeObjetsExercice.length - 1].interactif = true
+        if (formInteractif[listeObjetsExercice.length - 1]) {
+          formInteractif[listeObjetsExercice.length - 1].checked = true
+        }
+      }
+      if (urlVars.length < 0 && (document.getElementById('filtre').value === 'interactif' || document.getElementById('exoModeInteractif'))) {
+        listeObjetsExercice[0].interactif = true
+        formInteractif[0].checked = true
+      }
+      for (let i = 0; i < urlVars.length; i++) {
+        if (urlVars[i].id !== listeExercices[i]) {
+          urlVars.splice(i, 1)
+        }
+      }
+      for (let i = 0; i < urlVars.length; i++) {
+        // récupère les éventuels paramètres dans l'URL
+        // et les recopie dans les formulaires des paramètres
+        if (urlVars[i].n && listeObjetsExercice[i].nbQuestionsModifiable) {
+          listeObjetsExercice[i].nbQuestions = parseInt(urlVars[i].n)
+          formNbQuestions[i].value = listeObjetsExercice[i].nbQuestions
+        }
+        if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
+          listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
+          formVideo[i].value = listeObjetsExercice[i].video
+        }
+        if (urlVars[i].cd !== undefined) {
+          if (urlVars[i].cd === 1 && listeObjetsExercice[i].correctionDetailleeDisponible) {
+            listeObjetsExercice[i].correctionDetaillee = true
+            formCorrectionDetaillee[i].checked = true
+          }
+          if (urlVars[i].cd === 0 && listeObjetsExercice[i].correctionDetailleeDisponible) {
+            listeObjetsExercice[i].correctionDetaillee = false
+            formCorrectionDetaillee[i].checked = false
           }
         }
-        if (urlVars.length < 0 && document.getElementById('filtre').value === 'interactif') {
-          listeObjetsExercice[0].interactif = true
-          formInteractif[0].checked = true
-        }
-        for (let i = 0; i < urlVars.length; i++) {
-          if (urlVars[i].id !== listeExercices[i]) {
-            urlVars.splice(i, 1)
-          }
-        }
-        for (let i = 0; i < urlVars.length; i++) {
-          // récupère les éventuels paramètres dans l'URL
-          // et les recopie dans les formulaires des paramètres
-          if (urlVars[i].n && listeObjetsExercice[i].nbQuestionsModifiable) {
-            listeObjetsExercice[i].nbQuestions = parseInt(urlVars[i].n)
-            formNbQuestions[i].value = listeObjetsExercice[i].nbQuestions
-          }
-          if (urlVars[i].v && context.isHtml && !context.isDiaporama) {
-            listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].v)
-            formVideo[i].value = listeObjetsExercice[i].video
-          }
-          if (urlVars[i].cd !== undefined) {
-            if (urlVars[i].cd === 1 && listeObjetsExercice[i].correctionDetailleeDisponible) {
-              listeObjetsExercice[i].correctionDetaillee = true
-              formCorrectionDetaillee[i].checked = true
-            }
-            if (urlVars[i].cd === 0 && listeObjetsExercice[i].correctionDetailleeDisponible) {
-              listeObjetsExercice[i].correctionDetaillee = false
-              formCorrectionDetaillee[i].checked = false
-            }
-          }
-          // En vue CAN ou eval on met toujours les exercices en interactif
-          if (context.vue === 'can' || context.vue === 'eval') {
-            listeObjetsExercice[i].interactif = true
-          } else {
-            if (urlVars[i].i !== undefined) {
-              if (urlVars[i].i) {
-                listeObjetsExercice[i].interactif = true
-                if (formInteractif[i]) {
-                  formInteractif[i].checked = true
-                }
-              } else {
-                listeObjetsExercice[i].interactif = false
-                if (formInteractif[i]) {
-                  formInteractif[i].checked = false
-                }
+        // En vue CAN ou eval on met toujours les exercices en interactif
+        if (context.vue === 'can' || context.vue === 'eval') {
+          listeObjetsExercice[i].interactif = true
+        } else {
+          if (urlVars[i].i !== undefined) {
+            if (urlVars[i].i) {
+              listeObjetsExercice[i].interactif = true
+              if (formInteractif[i]) {
+                formInteractif[i].checked = true
+              }
+            } else {
+              listeObjetsExercice[i].interactif = false
+              if (formInteractif[i]) {
+                formInteractif[i].checked = false
               }
             }
           }
-          if (typeof urlVars[i].s !== 'undefined') {
-            // Si le string peut être convertit en int alors on le fait
-            if (isNumeric(urlVars[i].s)) {
-              listeObjetsExercice[i].sup = parseInt(urlVars[i].s)
-            } else {
-              listeObjetsExercice[i].sup = urlVars[i].s
-            }
-            // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
-            try {
-              formSup[i].value = listeObjetsExercice[i].sup
-            } catch {}
+        }
+        if (typeof urlVars[i].s !== 'undefined') {
+          // Si le string peut être convertit en int alors on le fait
+          if (isNumeric(urlVars[i].s)) {
+            listeObjetsExercice[i].sup = parseInt(urlVars[i].s)
+          } else {
+            listeObjetsExercice[i].sup = urlVars[i].s
           }
-          if (typeof urlVars[i].s2 !== 'undefined') {
-            if (isNumeric(urlVars[i].s2)) {
-              listeObjetsExercice[i].sup2 = parseInt(urlVars[i].s2)
-            } else {
-              listeObjetsExercice[i].sup2 = urlVars[i].s2
-            }
-            try {
-              formSup2[i].value = listeObjetsExercice[i].sup2
-            } catch (error) {}
+          // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
+          try {
+            formSup[i].value = listeObjetsExercice[i].sup
+          } catch {}
+        }
+        if (typeof urlVars[i].s2 !== 'undefined') {
+          if (isNumeric(urlVars[i].s2)) {
+            listeObjetsExercice[i].sup2 = parseInt(urlVars[i].s2)
+          } else {
+            listeObjetsExercice[i].sup2 = urlVars[i].s2
           }
-          if (typeof urlVars[i].s3 !== 'undefined') {
-            if (isNumeric(urlVars[i].s3)) {
-              listeObjetsExercice[i].sup3 = parseInt(urlVars[i].s3)
-            } else {
-              listeObjetsExercice[i].sup3 = urlVars[i].s3
-            }
-            try {
-              formSup3[i].value = listeObjetsExercice[i].sup3
-            } catch (error) {}
+          try {
+            formSup2[i].value = listeObjetsExercice[i].sup2
+          } catch (error) {}
+        }
+        if (typeof urlVars[i].s3 !== 'undefined') {
+          if (isNumeric(urlVars[i].s3)) {
+            listeObjetsExercice[i].sup3 = parseInt(urlVars[i].s3)
+          } else {
+            listeObjetsExercice[i].sup3 = urlVars[i].s3
+          }
+          try {
+            formSup3[i].value = listeObjetsExercice[i].sup3
+          } catch (error) {
+            // console.error(error)
+          }
+        }
+        if (typeof urlVars[i].s4 !== 'undefined') {
+          if (isNumeric(urlVars[i].s4)) {
+            listeObjetsExercice[i].sup4 = parseInt(urlVars[i].s4)
+          } else {
+            listeObjetsExercice[i].sup4 = urlVars[i].s4
+          }
+          try {
+            formSup4[i].value = listeObjetsExercice[i].sup4
+          } catch (error) {
+            // console.error(error)
           }
         }
       }
-    })
-    .then(() => {
-      if (besoinXCas) {
-        // On charge le javascript de XCas
-        let div // le div dans lequel on fera apparaitre le cercle de chargement
-        if (context.isHtml) {
-          div = document.getElementById('exercices')
-        } else {
-          div = document.getElementById('div_codeLatex')
-        }
-        div.innerHTML = `<div class="profile-main-loader">
+    }
+    if (besoinXCas) {
+      // On charge le javascript de XCas
+      let div // le div dans lequel on fera apparaitre le cercle de chargement
+      if (context.isHtml) {
+        div = document.getElementById('exercices')
+      } else {
+        div = document.getElementById('div_codeLatex')
+      }
+      div.innerHTML = `<div class="profile-main-loader">
                     <div class="loader">
                       <svg class="circular-loader"viewBox="25 25 50 50" >
                         <circle class="loader-path" cx="50" cy="50" r="20" fill="none" stroke="#70c542" stroke-width="2" />
                       </svg>
                     </div>
                   </div>`
-        return loadGiac()
+      await loadGiac()
+    }
+
+    if (preview) {
+      // gestion de l'affichage des exercices
+      const output = context.isHtml
+      context.isHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
+      let filtre
+      if (document.getElementById('filtre')) {
+        filtre = document.getElementById('filtre').value
       }
-    })
-    .then(() => {
-      if (preview) {
-        // gestion de l'affichage des exercices
-        const output = context.isHtml
-        context.isHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
-        let filtre
-        if (document.getElementById('filtre')) {
-          filtre = document.getElementById('filtre').value
-        }
-        if (typeof listeObjetsExercice[listeExercices.length - 1].nouvelleVersion === 'function') {
-          try {
-            if (filtre && filtre === 'interactif') {
-              // lorsqu'on est en mode interactif la prévisualisation est en mode interactif.
-              listeObjetsExercice[listeExercices.length - 1].interactif = 1
-            }
-            listeObjetsExercice[listeExercices.length - 1].nouvelleVersion(0)
-          } catch (error) {
-            console.log(error)
+      if (typeof listeObjetsExercice[listeExercices.length - 1].nouvelleVersion === 'function') {
+        try {
+          if (filtre && filtre === 'interactif') {
+            // lorsqu'on est en mode interactif la prévisualisation est en mode interactif.
+            listeObjetsExercice[listeExercices.length - 1].interactif = 1
           }
+          listeObjetsExercice[listeExercices.length - 1].nouvelleVersion(0)
+        } catch (error) {
+          console.error(error)
         }
-        listeObjetsExercice[listeExercices.length - 1].id = listeExercices[listeExercices.length - 1]
-        const contenu = contenuExerciceHtml(listeObjetsExercice[listeExercices.length - 1], listeExercices.length, false)
-        $('#popup_preview').html(contenu.contenu_un_exercice)
-        $('.popup').addClass('show')
-        if (document.getElementById('left')) {
-          $('.popuptext').css({ top: document.getElementById('left').scrollTop - 10 })
-          $('.popuptext').css({ left: document.getElementById('left').offsetLeft + 5 })
-          if (window.innerWidth < 765) {
-            $('.popuptext').css({ left: document.getElementById('left').offsetLeft + 25 })
-            $('.popup').css({ left: document.getElementById('left').offsetLeft + 25 })
-          }
-        } else {
-          $('.popuptext').css({ top: document.documentElement.scrollTop - 10 })
+      }
+      listeObjetsExercice[listeExercices.length - 1].id = listeExercices[listeExercices.length - 1]
+      const contenu = contenuExerciceHtml(listeObjetsExercice[listeExercices.length - 1], listeExercices.length, false)
+      $('#popup_preview').html(contenu.contenu_un_exercice)
+      $('.popup').addClass('show')
+      if (document.getElementById('left')) {
+        $('.popuptext').css({ top: document.getElementById('left').scrollTop - 10 })
+        $('.popuptext').css({ left: document.getElementById('left').offsetLeft + 5 })
+        if (window.innerWidth < 765) {
+          $('.popuptext').css({ left: document.getElementById('left').offsetLeft + 25 })
+          $('.popup').css({ left: document.getElementById('left').offsetLeft + 25 })
         }
-        $('.popuptext').show()
-        listeDesExercices.pop()
-        if (!output) {
-          gestionModules(false, listeObjetsExercice)
-        }
-        context.isHtml = output
-        miseAJourDuCode() // permet de gérer les popup avec module.
       } else {
-        miseAJourDuCode()
+        $('.popuptext').css({ top: document.documentElement.scrollTop - 10 })
       }
-    })
+      $('.popuptext').show()
+      listeDesExercices.pop()
+      if (!output) {
+        gestionModules(false, listeObjetsExercice)
+      }
+      context.isHtml = output
+      miseAJourDuCode() // permet de gérer les popup avec module.
+    } else {
+      miseAJourDuCode()
+    }
+  } catch (error) {
+    errorHandler(error)
+  }
 }
 
 let div// div dans lequel le code va être affiché
@@ -1390,6 +1437,7 @@ const formSpacingCorr = []
 const formSup = []
 const formSup2 = []
 const formSup3 = []
+const formSup4 = []
 const formInteractif = [] // Création de tableaux qui recevront les éléments HTML de chaque formulaires
 
 function parametresExercice (exercice) {
@@ -1648,7 +1696,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire2CaseACocher) {
       // Création d'un formulaire texte
       divParametresGeneraux.innerHTML +=
-        "<div style='display: inline'><label for='form_sup2" +
+        "<div><label for='form_sup2" +
         i +
         "'>" +
         exercice[i].besoinFormulaire2CaseACocher[0] +
@@ -1695,13 +1743,13 @@ function parametresExercice (exercice) {
                     <input id='form_sup2${i}' type='text' size='20' ></div></div>`
     }
 
-    if (exercice[i].besoinFormulairei3CaseACocher) {
+    if (exercice[i].besoinFormulaire3CaseACocher) {
       // Création d'un formulaire texte
       divParametresGeneraux.innerHTML +=
         "<div style='display: inline'><label for='form_sup3" +
         i +
         "'>" +
-        exercice[i].besoinFormulairei3CaseACocher[0] +
+        exercice[i].besoinFormulaire3CaseACocher[0] +
         " : </label><input id='form_sup3" +
         i +
         "' type='checkbox'  ></div>"
@@ -1747,6 +1795,62 @@ function parametresExercice (exercice) {
         " : </label><div style='display: inline' data-tooltip='" +
         exercice[i].besoinFormulaire3Texte[1] +
         "' data-inverted=''><input id='form_sup3" +
+        i +
+        "' type='text' size='20' ></div></div>"
+    }
+
+    if (exercice[i].besoinFormulaire4CaseACocher) {
+      // Création d'un formulaire texte
+      divParametresGeneraux.innerHTML +=
+        "<div><label for='form_sup4" +
+        i +
+        "'>" +
+        exercice[i].besoinFormulaire4CaseACocher[0] +
+        " : </label><input id='form_sup4" +
+        i +
+        "' type='checkbox'  ></div>"
+    }
+
+    if (exercice[i].besoinFormulaire4Numerique) {
+      // Création d'un formulaire numérique
+      if (exercice[i].besoinFormulaire4Numerique[2]) {
+        // Si un tooltip est défini
+        divParametresGeneraux.innerHTML +=
+          '<div data-tooltip="' +
+          exercice[i].besoinFormulaire4Numerique[2] +
+          '"" data-inverted="" data-position="top left"><label for="form_sup4' +
+          i +
+          '">' +
+          exercice[i].besoinFormulaire4Numerique[0] +
+          ' : </label><input id="form_sup4' +
+          i +
+          '" type="number"  min="1" max="' +
+          exercice[i].besoinFormulaire4Numerique[1] +
+          '"></div>'
+      } else {
+        divParametresGeneraux.innerHTML +=
+          '<div><label for="form_sup4' +
+          i +
+          '">' +
+          exercice[i].besoinFormulaire4Numerique[0] +
+          ' : </label><input id="form_sup4' +
+          i +
+          '" type="number"  min="1" max="' +
+          exercice[i].besoinFormulaire4Numerique[1] +
+          '"></div>'
+      }
+    }
+
+    if (exercice[i].besoinFormulaire4Texte) {
+      // Création d'un formulaire texte
+      divParametresGeneraux.innerHTML +=
+        "<p></p><div style='display: inline'><label for='form_sup4" +
+        i +
+        "'>" +
+        exercice[i].besoinFormulaire4Texte[0] +
+        " : </label><div style='display: inline' data-tooltip='" +
+        exercice[i].besoinFormulaire4Texte[1] +
+        "' data-inverted=''><input id='form_sup4" +
         i +
         "' type='text' size='20' ></div></div>"
     }
@@ -1970,7 +2074,7 @@ function parametresExercice (exercice) {
       formSup[i].value = exercice[i].sup // Rempli le formulaire avec le paramètre supplémentaire
       formSup[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup = e.target.value
+        exercice[i].sup = parseInt(e.target.value)
         miseAJourDuCode()
       })
     }
@@ -2000,7 +2104,7 @@ function parametresExercice (exercice) {
       formSup2[i].value = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
       formSup2[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup2 = e.target.value
+        exercice[i].sup2 = parseInt(e.target.value)
         miseAJourDuCode()
       })
     }
@@ -2022,7 +2126,7 @@ function parametresExercice (exercice) {
       })
     }
 
-    if (exercice[i].besoinFormulairei3CaseACocher) {
+    if (exercice[i].besoinFormulaire3CaseACocher) {
       formSup3[i] = document.getElementById('form_sup3' + i)
       formSup3[i].checked = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
       formSup3[i].addEventListener('change', function (e) {
@@ -2037,7 +2141,7 @@ function parametresExercice (exercice) {
       formSup3[i].value = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
       formSup3[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup3 = e.target.value
+        exercice[i].sup3 = parseInt(e.target.value)
         miseAJourDuCode()
       })
     }
@@ -2055,6 +2159,43 @@ function parametresExercice (exercice) {
       formSup3[i].addEventListener('blur', function (e) {
         // Perte du focus
         exercice[i].sup3 = e.target.value
+        miseAJourDuCode()
+      })
+    }
+
+    if (exercice[i].besoinFormulaire4CaseACocher) {
+      formSup4[i] = document.getElementById('form_sup4' + i)
+      formSup4[i].checked = exercice[i].sup4 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup4[i].addEventListener('change', function (e) {
+        //
+        exercice[i].sup4 = e.target.checked
+        miseAJourDuCode()
+      })
+    }
+
+    if (exercice[i].besoinFormulaire4Numerique) {
+      formSup4[i] = document.getElementById('form_sup4' + i)
+      formSup4[i].value = exercice[i].sup4 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup4[i].addEventListener('change', function (e) {
+        // Dès que le nombre change, on met à jour
+        exercice[i].sup4 = parseInt(e.target.value)
+        miseAJourDuCode()
+      })
+    }
+
+    if (exercice[i].besoinFormulaire4Texte) {
+      formSup4[i] = document.getElementById('form_sup4' + i)
+      formSup4[i].addEventListener('keydown', function (e) {
+        // Appui sur la touche entrée
+        if (e.keyCode === 13) {
+          exercice[i].sup4 = e.target.value // Récupère  la saisie de l'utilisateur
+          miseAJourDuCode()
+        }
+      })
+
+      formSup4[i].addEventListener('blur', function (e) {
+        // Perte du focus
+        exercice[i].sup4 = e.target.value
         miseAJourDuCode()
       })
     }
@@ -2451,10 +2592,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       formChoixDesExercices.value = listeDesExercices.join(',')
       copierExercicesFormVersAffichage(listeDesExercices)
     }
-    try {
-      miseAJourDeLaListeDesExercices()
-    } catch (err) {
-      messageUtilisateur(err)
-    }
+    miseAJourDeLaListeDesExercices()
   }
 })

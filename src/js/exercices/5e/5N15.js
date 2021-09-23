@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, texNombre2, arrondi, sp, personnes, personne, miseEnEvidence, combinaisonListes, texFraction, randint, numAlpha, choice, premiereLettreEnMajuscule, ppcm, calcul } from '../../modules/outils.js'
 
 export const titre = 'Problèmes de ratio'
@@ -123,7 +122,7 @@ export default function ProblemeDeRatio () {
               texteCorr += `${quidam.prenom} doit ajouter un volume d'eau de : $${texFraction(y + '\\times' + k * x, x)}=${y * k}\\text{ cL} $.`
             }
           } else { // On mélange du sirop, du jus de fruit et de la limonade.
-            texte += `${quidam.prenom} prépare un coktail à base de sirop  ${sirops[index % 5]}, de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse pour ses amis. ${premiereLettreEnMajuscule(article)} mélange les trois ingédients dans le ratio $~${x}~:~${y}~:~${z}$.<br>`
+            texte += `${quidam.prenom} prépare un coktail à base de sirop  ${sirops[index % 5]}, de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse pour ses amis. ${premiereLettreEnMajuscule(article)} mélange les trois ingrédients dans le ratio $~${x}~:~${y}~:~${z}$.<br>`
             if (choice([true, false])) {
               texte += `${premiereLettreEnMajuscule(article)} désire préparer $${total}\\text{ cL} $ de boisson. Quelle quantité de sirop, de jus et d'eau gazeuse doit-${article} mélanger ?`
               texteCorr += `Si ${quidam.prenom} mélange selon le ratio donné $${x}\\text{ cL} $ de sirop ${sirops[index % 5]}, $${y}\\text{ cL} $ de jus ${jusdefruit[index2 % 5]} et $${z}\\text{ cL} $ d'eau gazeuse ${article} obtiendra $${x + y + z}\\text{ cL} $ de coktail.<br>`
@@ -292,7 +291,7 @@ export default function ProblemeDeRatio () {
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
-  this.besoinFormulaireNumerique = ['Type de ratios', 3, '1 : x:y\n 2 : x:y:z\n 3 : Mélange']
-  //  this.besoinFormulaire2Numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
+  this.besoinFormulaireNumerique = ['Type de ratios', 3, ' 1 : x:y\n 2 : x:y:z\n 3 : Mélange']
+  //  this.besoinFormulaire2Numerique = ["Type de cahier",3,` 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
   // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
 } // Fin de l'exercice.

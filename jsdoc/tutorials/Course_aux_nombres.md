@@ -33,7 +33,7 @@ Pour que les exercices dédiés aux courses aux nombres soient rangés au bon en
 * Mettre la réponse attendue dans `this.reponse`
 * Tester l'exercice en lançant dans un terminal `pnpm start`
 
-Par défaut, on compare des expressions littérales ou des nombres. Si vous voulez comparer autre chose (textes, fractions, longueurs par exemple, vous pouvez voir comment faire [ici](https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif.html#14))
+Par défaut, on compare des expressions littérales ou des nombres. Si vous voulez comparer autre chose (textes, fractions, longueurs par exemple, vous pouvez voir comment faire [ici](https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif_simple.html#14))
 #### <a id="6" href="#6">#</a> **Étape 5 : Partager l'exercice**
 Pour partager votre travail et le rendre accessible aux autres, vous pouvez saisir la commande suivante dans un terminal :
 * `git push origin nomDeLaBranche` (le nomDeLaBranche est le nom que vous avez choisi à [l'étape 1](#2))

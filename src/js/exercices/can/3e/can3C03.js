@@ -9,12 +9,13 @@ export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote
- */
+  * Créé pendant l'été 2021
+ * Référence can3C03
+*/
 export default function FractionIrreductible () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatChampTexte = 'largeur25'
   this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {

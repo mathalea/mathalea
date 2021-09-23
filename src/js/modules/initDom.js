@@ -1,6 +1,6 @@
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
-import { getDureeFromUrl, getLogFromUrl, getVueFromUrl } from './gestionUrl'
+import { getDureeFromUrl, getLogFromUrl, getTaillePoliceFromUrl, getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 
@@ -123,7 +123,7 @@ const masqueTitreExerciceEtEspaces = () => {
 
 const gestionTimer = () => {
   const divTimer = document.getElementById('timer')
-  if (Number.isInteger(parseInt(context.duree))) {
+  if (Number.isInteger(parseInt(context.duree)) && divTimer) {
     context.tempsRestant = context.duree
     divTimer.textContent = context.tempsRestant
     if (!divTimer.hasMathaleaTimer) {
@@ -149,6 +149,10 @@ export async function initDom () {
   const vue = getVueFromUrl()
   if (vue) {
     context.vue = vue
+  }
+  const taillePolice = getTaillePoliceFromUrl()
+  if (taillePolice) {
+    context.taillePolice = taillePolice
   }
   document.body.innerHTML = ''
   let section
@@ -219,15 +223,20 @@ export async function initDom () {
     addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
   } else if (vue === 'embed' || vue === 'e') {
+    if (!context.taillePolice) {
+      context.taillePolice = 1.5
+    }
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     addElement(section, 'div', { id: 'containerErreur' })
-    section.appendChild(boutonMAJ())
+    addElement(section, 'div', { id: 'timer' })
+    await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
+    document.getElementById('boutonsConnexion').appendChild(boutonMAJ())
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
     const divExercice = get('exercices', false)
     const divCorrection = get('corrections', false)
-    divExercice.style.fontSize = '1.5em'
-    divCorrection.style.fontSize = '1.5em'
+    divExercice.style.fontSize = context.taillePolice + 'em'
+    divCorrection.style.fontSize = context.taillePolice + 'em'
     document.addEventListener('exercicesAffiches', () => {
       gestionTimer()
       document.querySelector('#accordeon_parametres').style.display = 'none'
@@ -249,7 +258,8 @@ export async function initDom () {
   } else if (vue === 'multi') {
     setOutputHtml()
     section = addElement(document.body, 'section', { style: 'width: 100%' })
-    section.appendChild(boutonMAJ())
+    await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
+    document.getElementById('boutonsConnexion').appendChild(boutonMAJ())
     addElement(section, 'div', { id: 'containerErreur' })
     addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/mathaleaBasique.html', section)
@@ -341,6 +351,7 @@ export async function initDom () {
     section.append(espaceVertical())
     section.append(espaceVertical())
     addElement(section, 'div', { id: 'containerErreur' })
+    addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/mathaleaEnteteChoixDesExercices.html', section, 'div', { id: 'choix_exercices_menu' })
     section.append(espaceVertical())
     const doubleColonne = addElement(section, 'div', { class: 'ui stackable two column grid', dir: 'ltr', id: 'mathaleaContainer' })

@@ -27,8 +27,7 @@ export default function SigneProduitQuotientRelatifs () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
-  this.interactif = true
-
+  
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
@@ -286,27 +285,25 @@ export default function SigneProduitQuotientRelatifs () {
           reponse = num.getSigneProduitString(num.relatifs[0], num.relatifs[1], num.relatifs[2], num.relatifs[3])
           break
       }
-      if (context.isAmc || this.interactif) {
-        this.autoCorrection[i] = {
-          enonce: texte,
-          options: { ordered: true },
-          propositions: [
-            {
-              texte: 'négatif',
-              statut: reponse === 'négatif'
-            },
-            {
-              texte: 'nul',
-              statut: false
-            },
-            {
-              texte: 'positif',
-              statut: reponse === 'positif'
-            }
-          ]
-        }
+      this.autoCorrection[i] = {
+        enonce: texte,
+        options: { ordered: true },
+        propositions: [
+          {
+            texte: 'négatif',
+            statut: reponse === 'négatif'
+          },
+          {
+            texte: 'nul',
+            statut: false
+          },
+          {
+            texte: 'positif',
+            statut: reponse === 'positif'
+          }
+        ]
       }
-      texte += propositionsQcm(this, i).texte
+      texte += '<br>' + propositionsQcm(this, i).texte
       if (this.questionJamaisPosee(i, num.relatifs[0], num.relatifs[1], num.relatifs[2], num.relatifs[3], listeTypeDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

@@ -1,4 +1,4 @@
-import { calcul, randint, texNombrec } from '../../../modules/outils'
+import { calcul, randint, texNombrec, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Complément à 1 Niveau 2'
 export const interactifReady = true
@@ -7,17 +7,24 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 /*!
  * @author Jean-Claude Lhote & Gilles Mora
+ * Créé pendant l'été 2021
+ * Référence can6C21
  */
 export default function ComplementAUn () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.interactif = true
+  this.formatChampTexte = 'largeur15 inline'
   this.typeExercice = 'simple'
 
   this.nouvelleVersion = function () {
     const a = calcul(randint(1, 9) / 10 + randint(1, 9) / 100)
     this.question = `$1-${texNombrec(a)}=$`
     this.correction = `$1-${texNombrec(a)}=${texNombrec(1 - a)}$`
+    this.correction += texteEnCouleur(`
+    <br> Mentalement : <br>
+    $1$ unité = $100$ centièmes.<br>
+    On enlève $${texNombrec(100 * a)}$ centièmes à $100$ centièmes, il en reste $${texNombrec(100 * (1 - a))}$.<br>
+    Ainsi, $1-${texNombrec(a)}=${texNombrec(1 - a)}$.  `)
     this.reponse = calcul(1 - a)
   }
 }

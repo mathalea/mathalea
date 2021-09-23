@@ -1,11 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, ecritureAlgebriquec, signe, texNombreCoul, sommeDesTermesParSigne, triePositifsNegatifs, lettreDepuisChiffre, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Additions et soustractions de nombres relatifs'
 export const interactifReady = true
-export const interactifType = 'numerique'
+// export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpenNum'
 
@@ -22,13 +23,12 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
   this.sup = max
   this.sup2 = false // écriture simplifiée
   this.titre = titre
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.spacing = 2
   this.spacingCorr = 1
   this.nbCols = 1
   this.nbColsCorr = 1
   this.nbQuestions = 5
-  this.interactif = true
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.amcType = amcType
@@ -68,7 +68,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
       if (this.sup2) {
         texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = \\dotfill $`
         if (this.interactif && context.isHtml) {
-          texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} =$` + ajouteChampTexte(this, i, { texte: `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} =$` })
+          texte = ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} =$` })
         }
         if (!context.isHtml && !context.isAmc) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
@@ -83,7 +83,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
       } else {
         texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = \\dotfill $`
         if (this.interactif && context.isHtml) {
-          texte = ajouteChampTexte(this, i, { texte: `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = $` })
+          texte = ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = $` })
         }
         if (!context.isHtml && !context.isAmc) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
@@ -106,31 +106,60 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        setReponse(this, i, a + s1 * b + s2 * c + s3 * d + s4 * e, { signe: true })
-        if (context.isAmc) {
-          this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [
-              {
-                texte: texteCorr,
-                statut: 3,
-                feedback: ''
+        if (!this.sup2) {
+          setReponse(this, i, a + s1 * b + s2 * c + s3 * d + s4 * e, { signe: true })
+          if (context.isAmc) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              propositions: [
+                {
+                  texte: texteCorr,
+                  statut: 3,
+                  feedback: ''
+                }
+              ],
+              reponse: {
+                texte: 'résultat',
+                valeur: a + s1 * b + s2 * c + s3 * d + s4 * e,
+                param: {
+                  digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + s1 * b + s2 * c + s3 * d + s4 * e)),
+                  decimals: 0,
+                  signe: true,
+                  exposantNbChiffres: 0,
+                  exposantSigne: false,
+                  approx: 0
+                }
               }
-            ],
-            reponse: {
-              texte: 'résultat',
-              valeur: a + s1 * b + s2 * c + s3 * d + s4 * e,
-              param: {
-                digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + s1 * b + s2 * c + s3 * d + s4 * e)),
-                decimals: 0,
-                signe: true,
-                exposantNbChiffres: 0,
-                exposantSigne: false,
-                approx: 0
+            }
+          }
+        } else {
+          setReponse(this, i, a + b + c + d + e, { signe: true })
+          if (context.isAmc) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              propositions: [
+                {
+                  texte: texteCorr,
+                  statut: 3,
+                  feedback: ''
+                }
+              ],
+              reponse: {
+                texte: 'résultat',
+                valeur: a + b + c + d + e,
+                param: {
+                  digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b + c + d + e)),
+                  decimals: 0,
+                  signe: true,
+                  exposantNbChiffres: 0,
+                  exposantSigne: false,
+                  approx: 0
+                }
               }
             }
           }
         }
+
         i++
       }
       cpt++

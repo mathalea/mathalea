@@ -9,7 +9,7 @@ export const titre = 'Multiplier un entier par 10, 100, 1 000...'
  */
 export default function MultiplierEntierPar101001000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.nbQuestions = 8
   this.nbCols = 2
   this.nbColsCorr = 2

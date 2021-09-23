@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { combinaisonListes, lettreDepuisChiffre, listeQuestionsToContenu, randint, shuffle } from '../../modules/outils.js'
 import { demiDroite, droite, labelPoint, mathalea2d, point, segmentAvecExtremites } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Choisir la bonne figure'
 export const interactifReady = true
 export const interactifType = 'cliqueFigure'
@@ -15,7 +16,6 @@ export default function cliqueFigure () {
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.interactif = true
 
   this.nouvelleVersion = function () {
     this.consigne = (this.interactif) ? 'Cliquer sur la bonne figure.' : 'Entourer la bonne figure.'
@@ -35,34 +35,41 @@ export default function cliqueFigure () {
         { id: `figure2Ex${this.numeroExercice}Q${i}`, solution: false },
         { id: `figure3Ex${this.numeroExercice}Q${i}`, solution: false }
       ]
+      const figSegment = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure0Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B))
+      const figDroite = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure1Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), droite(A, B))
+      const figDemiDroite = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure2Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(A, B))
+      const figDemiDroite2 = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(B, A))
+      let figCorr
       switch (typesDeQuestions[i]) {
         case 'segment':
           texte = `Le segment d'extrémités $${A.nom}$ et $${B.nom}$.`
           this.figures[i][0].solution = true
+          figCorr = {}
           break
         case 'droite':
           texte = `La droite passant par les points $${A.nom}$ et $${B.nom}$.`
           this.figures[i][1].solution = true
+          figCorr = droite(A, B)
           break
         case 'demidroite':
           texte = `La demi-droite d'origine $${A.nom}$ passant par $${B.nom}$.`
           this.figures[i][2].solution = true
+          figCorr = demiDroite(A, B)
           break
         case 'demidroite2':
           texte = `La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$.`
           this.figures[i][3].solution = true
+          figCorr = demiDroite(B, A)
           break
       }
 
       texte += '<br>'
-      const figSegment = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', id: `figure0Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B))
-      const figDroite = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', id: `figure1Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), droite(A, B))
-      const figDemiDroite = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', id: `figure2Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(A, B))
-      const figDemiDroite2 = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(B, A))
+      texteCorr = texte + mathalea2d({ xmin: -4, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), figCorr)
       const figures = shuffle([figSegment, figDroite, figDemiDroite, figDemiDroite2])
       texte += figures.join('')
-      texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
-      texteCorr = mathalea2d({ xmin: -4, xmax: 6, ymin: -1, style: '', id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), segmentAvecExtremites(A, B))
+      if (this.interactif && context.isHtml) {
+        texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

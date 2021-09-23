@@ -6,15 +6,13 @@ export const titre = 'Résoudre des équations se ramenant au produit-nul.'
 /**
  * Résoudre des équations se ramenant au produit-nul
 * @author Stéphane Guyon
-* 2L12-2
-* A DEPLACER EN 2N52-4 !!!!!!!!!!!!!!!!!!!!!!!!!
+* 2N52-4 (ex 2L12-2)
 */
 export default function Equationspresqueproduitnulle () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.video = ''
-  this.consigne = 'Résoudre dans $\\mathbb R$ les équations suivantes :'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1
@@ -26,6 +24,7 @@ export default function Equationspresqueproduitnulle () {
   this.correctionDetaillee = true
 
   this.nouvelleVersion = function () {
+    this.consigne = `Résoudre dans $\\mathbb R$ ${this.nbQuestions > 1 ? 'les équations suivantes' : 'l\'équation suivante'} :`
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
@@ -57,7 +56,7 @@ export default function Equationspresqueproduitnulle () {
           } else {
             texteCorr += 'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
             texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
-            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(c + e, d + f)}=0$<br>`
+            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(c + e, d + f)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d - f, c + e)}$<br>
                        On en déduit :  `
             if ((-d - f) / (c + e) < -b / a) {
@@ -88,7 +87,7 @@ export default function Equationspresqueproduitnulle () {
           } else {
             texteCorr += 'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
             texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
-            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(c - e, d - f)}=0$<br>`
+            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(c - e, d - f)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d + f, c - e)}$<br>
                    On en déduit :  `
             if ((-d + f) / (c - e) < -b / a) {
@@ -118,7 +117,7 @@ export default function Equationspresqueproduitnulle () {
           } else {
             texteCorr += 'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
             texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
-            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(a + e, b + f)}=0$<br>`
+            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(a + e, b + f)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-b - f, a + e)}$<br>
                On en déduit :  `
             if ((-b - f) / (a + e) < -b / a) {
@@ -148,7 +147,7 @@ export default function Equationspresqueproduitnulle () {
           } else {
             texteCorr += 'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
             texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
-            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(c - a, d - b)}=0$<br>`
+            texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(c - a, d - b)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d + b, c - a)}$<br>
            On en déduit :  `
             if ((-d + b) / (c - b) < -b / a) {

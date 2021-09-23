@@ -58,20 +58,21 @@ if ($contentType === "application/json") {
     $classe2 = $decoded->classe2;
     $eleve1 = $decoded->eleve1;
     $eleve2 = $decoded->eleve2;  
+    $eleve3 = $decoded->eleve3;  
     // On ne crée l'espace que si les variables on on le format voulu
     // => les variables prof1,prof2 et prof3 sont des majuscules
     // => les variables classe1 et classe2 sont des caractères alphanumériques
-    // => les variables eleve1 et eleve2 sont des caractères alphanumériques
+    // => les variables eleve1 et eleve2 et eleve3 sont des caractères alphanumériques
     $prof = str_split($prof1.$prof2.$prof3);
     $classe = str_split($classe1.$classe2);
-    $eleve = str_split($eleve1.$eleve2);
+    $eleve = str_split($eleve1.$eleve2.$eleve3);
     // Un booléen pour tester si le code prof est en majuscules
     $isOkProf = true;
     $isOkClasse = true;
     $isOkEleve = true;
     $userIdLen = strlen($decoded->userId);    
-    if ($userIdLen > 7) {
-      $errors .= "le code doit avoir 7 caractères maximum.<br>";
+    if ($userIdLen > 8) {
+      $errors .= "le code doit avoir 8 caractères maximum.<br>";
     }
     if (count($prof)!=3) {
       $errors .= "Le code prof doit avoir 3 caractères.<br>"; 
@@ -79,8 +80,9 @@ if ($contentType === "application/json") {
     if (count($classe)!=2) {
       $errors .= "Le code classe doit avoir 2 caractères.<br>"; 
     };
-    if (count($eleve)!=2) {
-      $errors .= "Le code eleve doit avoir 2 caractères.<br>"; 
+    // jusqu'au commit bb487f7, c'était 2 caractères exactement
+    if (count($eleve)!=2 && count($eleve)!=3) {
+      $errors .= "Le code eleve doit avoir 2 ou 3 caractères.<br>"; 
     };
 
     foreach ($prof as $car) {
@@ -177,6 +179,10 @@ if ($contentType === "application/json") {
         };
         fputs($fp, 'semaine'.$currentWeek.$sep.$decoded->userId.$sep.$decoded->isCan.$sep.$decoded->exId.$sep.$decoded->sup.$sep.$decoded->sup2.$sep.$decoded->sup3.$sep.$decoded->urlExos.$sep.$decoded->nbBonnesReponses.$sep.$decoded->nbQuestions.$sep.$decoded->score.'%'.$sep.$currentDate.$sep.$currentTime.$sep.$decoded->duree."\r\n");  
         fclose($fp);
+        // Il faut modifier le timestamp à la racine de l'espace sinon il sera supprimé au bout de 31 jours
+        $f = fopen($path.'/'.$keypass.'/isInactive.txt',"w+");    
+        fputs($f,time().PHP_EOL);
+        fclose($f);
       };
       
     };  
@@ -184,7 +190,7 @@ if ($contentType === "application/json") {
 
   echo json_encode(array(
     "url" => $url,
-    "userId" => $prof1.$prof2.$prof3.$classe1.$classe2.$eleve1.$eleve2,
+    "userId" => $prof1.$prof2.$prof3.$classe1.$classe2.$eleve1.$eleve2.$eleve3,
     "errors" => $errors
   ));  
 

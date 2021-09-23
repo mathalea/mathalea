@@ -368,6 +368,6 @@ export default function ParalleleEtPerpendiculaires () {
   this.besoinFormulaireNumerique = [
     'Type de cahier',
     3,
-    '1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
   ]
 }

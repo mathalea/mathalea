@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone, numAlpha } from '../../modules/outils.js'
 import { point, tracePoint, pointSurDroite, pointIntersectionDD, labelPoint, droite, droiteVerticaleParPoint, droiteParPointEtPente, codageMediatrice, codageMilieu, segment, polygone, nommePolygone, rotation, symetrieAxiale, grille, seyes, mathalea2d } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 
 /**
  * @author Jean-Claude Lhote
@@ -53,7 +54,7 @@ export default function ConstruireParSymetrie () {
     const objetsCorrection = []
     let p1; let p2; let p1nom
     for (
-      let i = 0, cpt = 0;
+      let i = 0, cpt = 0, numQuestion;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -102,11 +103,17 @@ export default function ConstruireParSymetrie () {
 
           objetsCorrection.push(d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), cC, cD, cE, sC, sD, sE, sED, sDE, sCE, sEC)
           objetsEnonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d)
-          enonce = numAlpha(0) + ' Reproduire la figure ci-dessous.<br>'
-          enonce += numAlpha(1) + ` Construire le point $${p1nom[2]}'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-          enonce += numAlpha(2) + ` Construire le point $${p1nom[3]}'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-          enonce += numAlpha(3) + ` Construire le point $${p1nom[4]}'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-          enonce += numAlpha(5) + ' Coder la figure.<br>'
+          if (context.isHtml) {
+            numQuestion = 0
+            enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'
+          } else {
+            numQuestion = -1
+            enonce = ''
+          }
+          enonce += numAlpha(numQuestion + 1) + ` Construire le point $${p1nom[2]}'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+          enonce += numAlpha(numQuestion + 2) + ` Construire le point $${p1nom[3]}'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+          enonce += numAlpha(numQuestion + 3) + ` Construire le point $${p1nom[4]}'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+          enonce += numAlpha(numQuestion + 5) + ' Coder la figure.<br>'
           Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) - 1)
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, EE.y, CC.y, DD.y) - 1)
@@ -150,11 +157,17 @@ export default function ConstruireParSymetrie () {
 
           objetsCorrection.push(d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), cC, cD, cE, sC, sD, sE, sED, sDE, sCE, sEC)
           objetsEnonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d)
-          enonce = numAlpha(0) + ' Reproduire la figure ci-dessous.<br>'
-          enonce += numAlpha(1) + ` Construire le point $${p1nom[2]}'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-          enonce += numAlpha(2) + ` Construire le point $${p1nom[3]}'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-          enonce += numAlpha(3) + ` Construire le point $${p1nom[4]}'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-          enonce += numAlpha(5) + ' Coder la figure.<br>'
+          if (context.isHtml) {
+            numQuestion = 0
+            enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'
+          } else {
+            numQuestion = -1
+            enonce = ''
+          }
+          enonce += numAlpha(numQuestion + 1) + ` Construire le point $${p1nom[2]}'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+          enonce += numAlpha(numQuestion + 2) + ` Construire le point $${p1nom[3]}'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+          enonce += numAlpha(numQuestion + 3) + ` Construire le point $${p1nom[4]}'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+          enonce += numAlpha(numQuestion + 5) + ' Coder la figure.<br>'
           Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) - 1)
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, EE.y, CC.y, DD.y) - 1)
@@ -180,11 +193,17 @@ export default function ConstruireParSymetrie () {
 
           objetsCorrection.push(tracePoint(A, C, D, CC, DD, AA), labelPoint(A, B, C, D, CC, DD, AA), cC, cD, cA, sC, sD, sA)
           objetsEnonce.push(tracePoint(A, B, C, D), labelPoint(A, B, C, D))
-          enonce = numAlpha(0) + ' Reproduire la figure ci-dessous.<br>'
-          enonce += numAlpha(1) + ` Construire le point $${p1nom[2]}'$ symétrique de $${p1nom[2]}$ par rapport au point $${p1nom[1]}$.<br>`
-          enonce += numAlpha(2) + ` Construire le point $${p1nom[3]}'$ symétrique de $${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
-          enonce += numAlpha(3) + ` Construire le point $${p1nom[0]}'$ symétrique de $${p1nom[0]}$ par rapport au point $${p1nom[1]}$.<br>`
-          enonce += numAlpha(4) + ' Coder la figure.<br>'
+          if (context.isHtml) {
+            numQuestion = 0
+            enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'
+          } else {
+            numQuestion = -1
+            enonce = ''
+          }
+          enonce += numAlpha(numQuestion + 1) + ` Construire le point $${p1nom[2]}'$ symétrique de $${p1nom[2]}$ par rapport au point $${p1nom[1]}$.<br>`
+          enonce += numAlpha(numQuestion + 2) + ` Construire le point $${p1nom[3]}'$ symétrique de $${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
+          enonce += numAlpha(numQuestion + 3) + ` Construire le point $${p1nom[0]}'$ symétrique de $${p1nom[0]}$ par rapport au point $${p1nom[1]}$.<br>`
+          enonce += numAlpha(numQuestion + 4) + ' Coder la figure.<br>'
           Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, AA.x, CC.x, DD.x) - 1)
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, AA.x, CC.x, DD.x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, AA.y, CC.y, DD.y) - 1)
@@ -225,9 +244,15 @@ export default function ConstruireParSymetrie () {
           sED.pointilles = true
           objetsCorrection.push(d, tracePoint(A, B), labelPoint(A, B), cC, cD, cE, sC, sD, sE, CC, DD, p1, p1.sommets, p2, p2.sommets, sCE, sED)
           objetsEnonce.push(d, tracePoint(A, B), labelPoint(A, B), CC, p1)
-          enonce = numAlpha(0) + 'Reproduire la figure ci-dessous.<br>'
-          enonce += numAlpha(1) + ` Construire le triangle  $${p1nom[2]}'${p1nom[3]}'${p1nom[4]}'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-          enonce += numAlpha(2) + ' Coder la figure.<br>'
+          if (context.isHtml) {
+            numQuestion = 0
+            enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'
+          } else {
+            numQuestion = -1
+            enonce = ''
+          }
+          enonce += numAlpha(numQuestion + 1) + ` Construire le triangle  $${p1nom[2]}'${p1nom[3]}'${p1nom[4]}'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+          enonce += numAlpha(numQuestion + 2) + ' Coder la figure.<br>'
           Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) - 1)
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) - 1)
@@ -266,9 +291,15 @@ export default function ConstruireParSymetrie () {
           inter = pointIntersectionDD(sCE, sED)
           objetsCorrection.push(d, tracePoint(A, B), labelPoint(A, B), cC, cD, cE, sC, sD, sE, CC, DD, p1, p2, sCE, sED)
           objetsEnonce.push(d, tracePoint(A, B), labelPoint(A, B), CC, p1)
-          enonce = numAlpha(0) + 'Reproduire la figure ci-dessous.<br>'
-          enonce += numAlpha(1) + ` Construire le triangle  $${p1nom[2]}'${p1nom[3]}'${p1nom[4]}'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-          enonce += numAlpha(2) + ' Coder la figure.<br>'
+          if (context.isHtml) {
+            numQuestion = 0
+            enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'
+          } else {
+            numQuestion = -1
+            enonce = ''
+          }
+          enonce += numAlpha(numQuestion + 1) + ` Construire le triangle  $${p1nom[2]}'${p1nom[3]}'${p1nom[4]}'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+          enonce += numAlpha(numQuestion + 2) + ' Coder la figure.<br>'
           Xmin = Math.floor(Math.min(inter.x, A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) - 1)
           Xmax = Math.ceil(Math.max(inter.x, A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) + 1)
           Ymin = Math.floor(Math.min(inter.y, A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) - 1)
@@ -298,9 +329,15 @@ export default function ConstruireParSymetrie () {
 
           objetsCorrection.push(tracePoint(B), labelPoint(B), cC, cD, cA, sC, sD, sA, DD, CC, p1, p2)
           objetsEnonce.push(tracePoint(B), labelPoint(B), CC, p1)
-          enonce = numAlpha(0) + 'Reproduire la figure ci-dessous.<br>'
-          enonce += numAlpha(1) + ` Construire le triangle  $${p1nom[0]}'${p1nom[2]}'${p1nom[3]}'$ symétrique de $${p1nom[0]}${p1nom[2]}${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
-          enonce += numAlpha(2) + ' Coder la figure.<br>'
+          if (context.isHtml) {
+            numQuestion = 0
+            enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'
+          } else {
+            numQuestion = -1
+            enonce = ''
+          }
+          enonce += numAlpha(numQuestion + 1) + ` Construire le triangle  $${p1nom[0]}'${p1nom[2]}'${p1nom[3]}'$ symétrique de $${p1nom[0]}${p1nom[2]}${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
+          enonce += numAlpha(numQuestion + 2) + ' Coder la figure.<br>'
           Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) - 1)
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) - 1)
@@ -347,10 +384,10 @@ export default function ConstruireParSymetrie () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 4, '0 : symétries axiales simples\n 1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Mélange']
+  this.besoinFormulaireNumerique = ['Type de questions', 4, ' 0 : Symétrie axiale simple\n 1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Mélange']
   this.besoinFormulaire2Numerique = [
     'Type de cahier',
     3,
-    '1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
   ]
 }

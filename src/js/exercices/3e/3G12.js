@@ -182,7 +182,7 @@ export default function Pavage_et_rotation2d() {
 			}
 		}
 		if (couples.length < this.nbQuestions) {
-			console.log('trop de questions, augmentez la taille du pavage');
+			console.log('Trop de questions, augmentez la taille du pavage !');
 			return;
 		}
 
@@ -201,23 +201,23 @@ export default function Pavage_et_rotation2d() {
 			objets.push(monpavage.polygones[i]);
 		}
 		texte = mathalea2d(fenetre, objets); // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
-		texte += `<br>Dans la rotation de centre $A$ et d\'angle ${alpha}° dans le sens `;
+		texte += `<br>Soit la rotation de centre $A$ et d\'angle ${alpha}° dans le sens `;
 		if (sensdirect == 1) {
 			texte += `inverse des aiguilles d'une montre.<br>`;
 		}
 		else {
 			texte += `des aiguilles d'une montre.<br>`;
 		}
-		texteCorr += `Dans la rotation de centre $A$ et d\'angle ${alpha}° dans le sens `;
+		texteCorr += `Soit la rotation de centre $A$ et d\'angle ${alpha}° dans le sens `;
 		if (sensdirect == 1) {
-			texteCorr += `inverse des aiguilles d'une montre, <br>`;
+			texteCorr += `inverse des aiguilles d'une montre. <br>`;
 		}
 		else {
-			texteCorr += `des aiguilles d'une montre, <br>`;
+			texteCorr += `des aiguilles d'une montre. <br>`;
 		}
 		for (let i = 0; i < this.nbQuestions; i++) {
-			texte += `Quel est l'image de la figure $${couples[i][0]}$ ?<br>`;
-			texteCorr += `- l'image de la figure $${couples[i][0]}$ est la figure ${couples[i][1]}.<br>`;
+			texte += `Quelle est l'image de la figure $${couples[i][0]}$ ?<br>`;
+			texteCorr += `L'image de la figure $${couples[i][0]}$ est la figure ${couples[i][1]}.<br>`;
 
 			if (this.correctionDetaillee) {
 				t = this.nbQuestions * 3;
@@ -247,7 +247,7 @@ export default function Pavage_et_rotation2d() {
 		this.listeCorrections.push(texteCorr);
 		listeQuestionsToContenu(this);
 	};
-	this.besoinFormulaireNumerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, '1 : Taille modeste\n 2 : Grande taille'];
+	this.besoinFormulaireNumerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, ' 1 : Taille modeste\n 2 : Grande taille'];
 	this.besoinFormulaire2CaseACocher = ["Montrer les centres"];
-	this.besoinFormulaire3Numerique = ['Choix du pavage', 8, '1 : Pavage de triangles équilatéraux\n2 : Pavage de carrés\n3 : Pavage d\'hexagones réguliers\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n 6 : Pavage de losanges (hexagonal d\'écolier)\n7 : Pavage 6.3.6.3\n8 : Un des sept pavages au hasard'];
+	this.besoinFormulaire3Numerique = ['Choix du pavage', 8, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones réguliers\n4 : Carrés et triangles équilatéraux\n5 : Octogones et carrés\n 6 : Losanges (pavage hexagonal d\'écolier)\n7 : Hexagones et triangles équilatéraux\n8 : Un des sept pavages au hasard'];
 }

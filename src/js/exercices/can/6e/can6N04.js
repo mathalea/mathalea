@@ -11,12 +11,13 @@ export const amcType = 'AMCHybride'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6N04
  */
 export default function AbscisseFractionnaire () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatInteractif = 'fractionEgale'
   this.consigne = ''
 
@@ -28,7 +29,7 @@ export default function AbscisseFractionnaire () {
     } while (b % a === 0)
     const c = new Fraction(b, a)
     this.reponse = c
-    this.question = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5 }, droiteGraduee2({
+    this.question = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
       Unite: 3,
       Min: 0,
       Max: 4.2,
@@ -36,7 +37,7 @@ export default function AbscisseFractionnaire () {
       y: 0,
       thickSecDist: 1 / a,
       thickSec: true,
-      thickoffset: 0,
+      thickOffset: 0,
       axeStyle: '|->',
       pointListe: [[b / a, 'A']],
       pointCouleur: 'blue',

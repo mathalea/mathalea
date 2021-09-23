@@ -61,7 +61,10 @@ function spanExercice (id, titre) {
     : ''
   const titreTronque = titre.length > maxLength ? titre.substr(0, maxLength) + '...' : titre
   const amcPrecisionType = context.isAmc ? `<span style="color:#f15929;"> ${listeDesExercicesDisponibles[id].amcType.text} </span>` : ''
-  return `<span class="id_exercice">${id}</span> - <a class="ui bouton lien_id_exercice" ${tooltip} data-id_exercice="${id}">${titreTronque} ${amcPrecisionType ? '-' + amcPrecisionType : ''}</a></a><span data-content="Prévisualiser l'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
+  const filtre = getFilterFromUrl()
+  const vue = getVueFromUrl()
+  const iconeInteractifDisponible = (listeDesExercicesDisponibles[id].interactifReady && filtre !== 'interactif' && vue !== 'latex' && vue !== 'amc') ? `<span data-tooltip="Version interactive disponible."><a class="ui bouton lien_id_exercice" data-id_exercice="${id}" data-mode="interactif"><i id="${id}" class="keyboard outline icon orange" size="mini"></i></a></span>` : ''
+  return `<span class="id_exercice">${id}</span> - <a class="ui bouton lien_id_exercice" ${tooltip} data-id_exercice="${id}">${titreTronque} ${amcPrecisionType ? '-' + amcPrecisionType : ''}</a></a>${iconeInteractifDisponible}<span data-content="Prévisualiser l'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
 }
 
 function listeHtmlDesExercicesDUnTheme (theme) {
@@ -127,14 +130,17 @@ function listeHtmlDesExercicesDUnNiveau (listeDeThemes) { // liste_de_themes = [
 }
 function listeHtmlDesExercicesDUnNiveauAvecSousTheme (listeDeThemes) { // liste_de_themes = [['6N1','6N1 - Numérations et fractions niveau 1'] , [' ',' '] ]
   // Appelée par la fonction menuDesExercicesDisponibles
-  let liste = ''
+  let liste = '<div class="accordion transition">'
   for (const theme of listeDeThemes) {
-    liste += `<h3 style="background-color:#f15929; color:white">${theme[1]}</h3>`
+    liste += `<div class="title"><h3><i class="dropdown icon"></i>${theme[1]}</h3></div>`
+    liste += '<div class="content">'
     for (let i = 2; i < theme.length; i++) {
       liste += `<h4 style="color:#f15929">${theme[i]}</h4>`
       liste += listeHtmlDesExercicesDUnTheme(theme[i].substr(0, 4))
     }
+    liste += '</div>'
   }
+  liste += '</div>'
   return liste
 }
 
@@ -217,6 +223,13 @@ function divNiveau (obj, active, id) {
 function addExercice (e) {
   // fonction ajout d'un exercice : ajoute l'exercice dans l'input avec la liste des exercice et provoque l'evt change pour recalcul de la page.
   // utilisée lors du clic sur le nom d'un exercice.
+  if ($(e.target).parents('a.lien_id_exercice').attr('data-mode') === 'interactif' || $(e.target).attr('data-mode') === 'interactif') {
+    if (!document.getElementById('exoModeInteractif')) {
+      $('#choix_exercices_menu').append('<span style="display:none" id="exoModeInteractif">ModeInteractifActivé</span>')
+    }
+  } else {
+    $('#exoModeInteractif').remove()
+  }
   const numero = $(e.target).attr('data-id_exercice') ? $(e.target).attr('data-id_exercice') : $(e.target).parents('a.lien_id_exercice').attr('data-id_exercice')
   if ($('#choix_des_exercices').val() === '') {
     $('#choix_des_exercices').val($('#choix_des_exercices').val() + numero)
@@ -252,7 +265,7 @@ export function apparenceExerciceActif () {
     $('.delexercice').remove()
     listeExercicesSelectionnes = listeExercicesSelectionnes.value.split(',')
     for (let i = 0; i < listeExercicesSelectionnes.length; i++) {
-      const elemListe = $(`a.lien_id_exercice[data-id_exercice='${listeExercicesSelectionnes[i]}']`)
+      const elemListe = $(`a.lien_id_exercice[data-id_exercice='${listeExercicesSelectionnes[i]}']:not([data-mode])`)
       // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
       if (compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i]) > 1) {
       // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
@@ -304,7 +317,7 @@ function ligneTableau (exercice) {
   let ligne = ''
   const modeAmc = dictionnaireDesExercices[exercice].amcReady ? `AMC <b>${dictionnaireDesExercices[exercice].amcType.text}</b>` : ''
   // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
-  const modeInteractif = dictionnaireDesExercices[exercice].interactifReady ? ' Interactif' : ''
+  const modeInteractif = dictionnaireDesExercices[exercice].interactifReady ? `<a class="ui bouton lien_id_exercice" data-id_exercice="${exercice}" data-mode="interactif"> Interactif </a>` : ''
   if (dictionnaireDesExercices[exercice].titre) {
     if (context.isAmc) {
       ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}
@@ -354,7 +367,7 @@ export function menuDesExercicesDisponibles () {
     document.getElementById('liste_des_exercices').innerHTML = ''
   }
   const listeThemesCan = [
-    ['can6', 'can6 - Course aux nombres niveau 6e'], ['can5', 'can5 - Course aux nombres niveau 5e'], ['can4', 'can4 - Course aux nombres niveau 4e'],
+    ['canc3', 'canc3 - Course aux nombres niveau CM1-CM2'], ['can6', 'can6 - Course aux nombres niveau 6e'], ['can5', 'can5 - Course aux nombres niveau 5e'], ['can4', 'can4 - Course aux nombres niveau 4e'],
     ['can3', 'can3 - Course aux nombres niveau 3e'], ['can2', 'can2 - Course aux nombres niveau 2e'], ['can1', 'can1 - Course aux nombres niveau 1e'],
     ['canT', 'canT - Course aux nombres niveau Terminale'], ['canP', 'canPredef - Courses aux nombres clé en main']]
   const listeThemesC3 = [
@@ -670,7 +683,7 @@ export function menuDesExercicesDisponibles () {
   listeHtmlDesExercicesTab = `<div id="recherche"> </div><table id='listtab' class="stripe"><thead>
     <tr><th class="colonnecode">Code</th><th>Intitulé de l'exercice</th><th>Mode</th><th>Prévisualiser</th></thead><tbody>
     ${listeHtmlDesExercicesTab}
-    </tbody><tfoot><tr><th class="colonnecode">Code</th><th>Intitulé de l'exercice</th><th>Mode</th><th>prévisualiser</th></tr>
+    </tbody><tfoot><tr><th class="colonnecode">Code</th><th>Intitulé de l'exercice</th><th>Mode</th><th>Prévisualiser</th></tr>
     </tfoot></table>`
   $('#liste_des_exercices_tableau').html(listeHtmlDesExercicesTab)
   $('#liste_des_exercices_tableau').hide()

@@ -526,7 +526,7 @@ export default function ProblemesGrandeursComposees () {
               'Définition : Puissance (grandeur physique)',
               'C’est le produit de la force électromotrice (tension) exprimée en Volt (V) par l\'intensité du courant électrique exprimée en ampères (A).<br>L\'unité de mesure de la puissance est le Watt (W)'
             ) +
-            ' maximale de cet appareil si il fonctionne sur le secteur ?<br>'
+            ' maximale de cet appareil s\'il fonctionne sur le secteur ?<br>'
           texte +=
             numAlpha(1) +
             ` Un ${appareils[index1][0]} fonctionne à une puissance maximum de ${appareils[index1][1]} W.<br>Quel est l'ampérage minimum nécessaire pour le fusible qui protégera ce ${appareils[index][0]} des court-ciruits ?<br>`
@@ -959,7 +959,7 @@ export default function ProblemesGrandeursComposees () {
             )}\\text{ hab/km}^{2}$.<br>`
           texteCorr +=
             numAlpha(1) +
-            ` A cette date, le nombre d'habitants de ${villes[index2][0]
+            ` À cette date, le nombre d'habitants de ${villes[index2][0]
             } était de :<br> $${texNombrec(
               villes[index2][1] / villes[index2][2]
             )}\\text{ hab/km}^2\\times ${texNombrec(
@@ -1197,12 +1197,12 @@ export default function ProblemesGrandeursComposees () {
       }
       cpt++
     }
-    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
+    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque question.
   }
   // this.besoinFormulaireCaseACocher =['Choix des exercices aléatoire'];
   // this.besoinFormulaire2Numerique = ['Type d\'exercice', 14, '1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'];
   this.besoinFormulaireTexte = [
-    'Choix des grandeurs',
-    'Nombres séparés par des tirets\n 1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'
+    'Type des grandeurs',
+    'Nombres séparés par des tirets\n 1 : Energie consommée\n 2 :  Volume\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesse\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'
   ] // Texte, tooltip
 }

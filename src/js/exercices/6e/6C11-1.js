@@ -24,8 +24,7 @@ export default function DivisionsEuclidiennesEgalite () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
   this.nbQuestions = 4
   this.sup = 1
-  this.interactif = true
-
+  
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
@@ -50,7 +49,7 @@ export default function DivisionsEuclidiennesEgalite () {
       b = randint(3, 25)
       r = typesDeQuestions === 1 ? 0 : randint(1, b - 1)
       a = b * q + r
-      texte = `Utilise l'égalité suivante pour donner le quotient et le reste de la division euclidienne de $ ${texNombre(a)} $ par $ ${b} $<br>`
+      texte = `Utilise l'égalité suivante pour donner le quotient et le reste de la division euclidienne de $ ${texNombre(a)} $ par $ ${b} $.<br>`
       switch (typesDeQuestions) {
         case 1: // égalité "directe"
           texte += `$ ${texNombre(a)} = ${b} \\times ${q} $<br>`
@@ -63,19 +62,19 @@ export default function DivisionsEuclidiennesEgalite () {
         case 3:
           texte += `$ ${texNombre(a)} = ${b} \\times ${q - 1} + ${r + b} $<br>`
           texteCorr = `${r + b} est supérieur à ${b}. ${r + b} n'est donc pas le reste. <br> L'égalité $ ${texNombre(a)} = ${b} \\times ${q - 1} + ${r + b} $ ne traduit pas directement la division euclidienne de $ ${texNombre(a)} $ par ${b}. <br>
-            Transformons cette égalité en utilisant le fait que $ ${r + b} = ${r} + ${b} $<br>
+            Transformons cette égalité en utilisant le fait que $ ${r + b} = ${r} + ${b} $.<br>
             $ ${texNombre(a)} = ${b} \\times ${q - 1} + ${r + b} = ${b} \\times ${q - 1} + ${b} + ${r} = ${b} \\times ${q} + ${r} $ <br>
-            Ainsi, $ ${texNombre(a)} = ${b} \\times ${q} + ${r} $
+            Ainsi, $ ${texNombre(a)} = ${b} \\times ${q} + ${r} $.
             <br> On a donc : ${texteEnCouleurEtGras(q)} le quotient et ${texteEnCouleurEtGras(r)} le reste.`
           break
         case 4:
           texte += `$ ${texNombre(a)} = ${b} \\times ${q + 1} - ${b - r} $<br>`
           texteCorr = `L'égalité $ ${texNombre(a)} = ${b} \\times ${q + 1} - ${b - r} $ ne traduit pas directement la division euclidienne de $ ${texNombre(a)} $ par ${b}.  <br>
           Transformons cette égalité : <br>
-          Dans cette égalité on a pris ${q + 1} fois ${b} et on dépasse $ ${texNombre(a)} $. Cela veut dire qu'on a pris ${b} trop de fois.<br>
-          Prenons le une fois de moins, on va donc avoir ${q} fois ${b} : <br> 
+          Dans cette égalité, on a pris ${q + 1} fois ${b} et on dépasse $ ${texNombre(a)} $. Cela veut dire qu'on a pris ${b} trop de fois.<br>
+          Prenons-le une fois de moins, on va donc avoir ${q} fois ${b} : <br> 
           $ ${texNombre(a)} = ${b} \\times ${q + 1} - ${b - r} = ${b} \\times ${q} + ${b} - ${b - r} = ${b} \\times ${q} + ${r} $ <br>
-          Ainsi, $ ${texNombre(a)} = ${b} \\times ${q} + ${r} $
+          Ainsi, $ ${texNombre(a)} = ${b} \\times ${q} + ${r} $.
           <br> On a donc : ${texteEnCouleurEtGras(q)} le quotient et ${texteEnCouleurEtGras(r)} le reste.`
           break
       }
@@ -126,6 +125,6 @@ export default function DivisionsEuclidiennesEgalite () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     2,
-    "1 : L'égalité correspond à la division euclidienne\n2: L'égalité ne correspond pas nécessairement à la division euclidienne"
+    "1 : L'égalité correspond à la division euclidienne.\n 2: L'égalité ne correspond pas nécessairement à la division euclidienne."
   ]
 }

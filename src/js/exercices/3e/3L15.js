@@ -15,7 +15,7 @@ export const titre = 'Équations du second degré se ramenant au premier degré'
 export default function ExerciceEquations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre les équations suivantes'
+  this.consigne = 'Résoudre les équations suivantes.'
   this.nbQuestions = 6
   this.nbCols = 2
   this.nbColsCorr = 1
@@ -184,7 +184,7 @@ export default function ExerciceEquations () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ["Types d'équations", 2, "1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Tous les types précédents"]
+  this.besoinFormulaireNumerique = ["Type d'équations", 2, "1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Mélange"]
 }
 
 function ax2plusbx (a, b) {

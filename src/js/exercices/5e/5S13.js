@@ -142,5 +142,5 @@ export default function CalculerDesFrequences () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de séries', 3, '1 : Lancers de dés \n 2 : Liste de notes\n 3 : Un mois de températures']
+  this.besoinFormulaireNumerique = ['Type de séries', 3, '1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures']
 }

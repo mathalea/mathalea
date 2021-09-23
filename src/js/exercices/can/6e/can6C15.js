@@ -10,12 +10,14 @@ export const amcType = 'AMCHybride'
 
 /*!
  * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+ * Référence can6C15
  */
 export default function FractionCommeFacteurManquant () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
+  this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fractionEgale'
   this.consigne = ''
 
@@ -27,8 +29,11 @@ export default function FractionCommeFacteurManquant () {
     } while (pgcd(a, b) !== 1)
     const c = new Fraction(a, b)
     this.reponse = c
-    this.question = `Quel est le nombre qui, multiplié par ${b} donne ${a} ? (réponse fractionnaire obligatoire)`
-    this.correction = `c'est $${c.texFraction}$ car $${c.texFraction}\\times ${b} = ${a}$`
+    this.question = `Quel est le nombre qui, multiplié par $${b}$ donne $${a}$ ? (réponse fractionnaire obligatoire)`
+    this.correction = `Le nombre qui, multiplié par $a$ donne $b$ est le nombre $\\dfrac{b}{a}$.<br>
+    Ainsi, le nombre qui,  multiplié par $${b}$ donne $${a}$ est $${c.texFraction}$.<br>
+    On a bien : $ ${b} \\times${c.texFraction}= ${a}$`
+
     if (context.isAmc) {
       this.autoCorrection[0] = {
         enonce: this.question,

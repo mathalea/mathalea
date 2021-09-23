@@ -27,7 +27,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
   this.interactif = false
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = "Calculer l'aire des 3 figures suivantes"
+  this.consigne = "Calculer l'aire des 3 figures suivantes."
   this.spacing = 2
   this.nbCols = 1
   this.nbColsCorr = 1

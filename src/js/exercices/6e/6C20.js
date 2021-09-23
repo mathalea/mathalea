@@ -169,5 +169,5 @@ export default function AdditionnerSoustrairesDecimaux () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Additions de décimaux\n2: Soustraction de décimaux\n3 : Additions et soustraction de décimaux']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Additions de décimaux\n2 : Soustractions de décimaux\n3 : Mélange']
 }

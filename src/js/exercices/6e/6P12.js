@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -233,7 +234,7 @@ function questionRecette (exo, i) { // questions avec des masses pour un nombre 
   const quantite = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneInit) // Calcul de la quantité dans la recette à partir de la qtt/personne et du nb de personne
   const quantiteReponse = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneFinal) // Pour la correction
   const prenoms = [prenomF(), prenomM()] // Choix de prénoms pour l'énoncé
-  const texte = `${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour ${nbPersonneInit} personnes qu'il faut ${texNombrec(quantite)} g de ${liste[alea1].ingredient}. <br>` +
+  const texte = `${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]}${getVueFromUrl() === 'multi' ? '<br>' : ' '}pour ${nbPersonneInit} personnes qu'il faut ${texNombrec(quantite)} g de ${liste[alea1].ingredient}. <br>` +
 `Elle veut adapter sa recette pour ${nbPersonneFinal} personnes.` +
 `<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ?` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' g' })
   const texteCorr = `Commençons par trouver la masse de ${liste[alea1].ingredient} pour une personne : <br>` +
@@ -299,13 +300,13 @@ function questionDillution (exo, i) { // questions de mélange de volumes
   }
   const volumeFinalAff = texNombrec(volumeFinal) // pour affichage avec bon séparateur.
   const volumeInitialAff = texNombrec(volumeInitial) // pour affichage avec bon séparateur.
-  const texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} qu'il faut  ` +
-  ` ${texNombrec(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour ${volumeInitialAff} ${liste[alea1].unite_solvant[0]} d'eau.<br> ` +
+  const texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} qu'il faut ${getVueFromUrl() === 'multi' ? '<br>' : ' '}` +
+  ` ${texNombrec(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour ${volumeInitialAff} ${liste[alea1].unite_solvant[1]} d'eau.<br> ` +
   `On veut utiliser ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau.` +
   `<br> Quel volume de ${liste[alea1].solute} doit-on prévoir ? ` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' ' + liste[alea1].unite_solute })
 
   const texteCorr = `Commençons par trouver combien est-ce qu'il faut de ${liste[alea1].solute} pour 1 ${liste[alea1].unite_solvant[0]} d'eau : <br>` +
-  ` ${volumeInitial} ${liste[alea1].unite_solvant[0]} d'eau, c'est ${texteEnCouleur(volumeInitial)} fois 1 ${liste[alea1].unite_solvant[0]} d'eau. ` +
+  ` ${volumeInitial} ${liste[alea1].unite_solvant[1]} d'eau, c'est ${texteEnCouleur(volumeInitial)} fois 1 ${liste[alea1].unite_solvant[0]} d'eau. ` +
   `Pour 1 ${liste[alea1].unite_solvant[0]} d'eau, il faut donc ${texteEnCouleur(volumeInitial)} fois moins que ${texNombrec(quantite)} ${liste[alea1].unite_solute}.<br>` +
   `${texNombrec(quantite)} ${liste[alea1].unite_solute} $\\div $ ${texteEnCouleur(volumeInitial)} = ${texNombrec(liste[alea1].volumeUnitaire[alea2])} ${liste[alea1].unite_solute}. <br>` +
   texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
@@ -380,7 +381,7 @@ function questionEchelle (exo, i) { // X cm sur une carte correspond à x km dan
   const prenoms = [prenomF(), prenomM()]
   const texte = `Sur une carte sur laquelle ${distanceCarte} cm représente ${texNombrec(distanceReel)} km dans la réalité, <br>
   ${prenoms[0]} mesure sont trajet, elle trouve une distance de ${distanceCarte2} cm. <br>` +
-  'A quelle distance cela correspond dans la réalité ?' + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' km' })
+  'À quelle distance cela correspond dans la réalité ?' + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' km' })
 
   const texteCorr = `Commençons par trouver 1 cm sur la carte correspond à combien de km dans la réalité : <br>
   1 cm, c'est ${texteEnCouleur(distanceCarte)} fois moins que ${distanceCarte} cm.<br>` +
@@ -410,7 +411,7 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
       matiere: 'du gazon',
       unite: 'kg',
       qtt_matiere_unitaire: [2.5, 3, 5, 10],
-      qtt_surface: [30, 40, 50]
+      qtt_surface: [25, 40, 50]
     },
     {
       matiere: 'du carrelage',
@@ -464,7 +465,7 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
   'use strict'
   let question
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Répondre aux questions posées en justifiant'
+  this.consigne = 'Répondre aux questions posées en justifiant.'
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.nbQuestions = 6
@@ -472,8 +473,7 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
   this.nbColsCorr = 1
   this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
   this.sup = false
-  this.interactif = true
-  this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Achat.\n2 : Recette.\n3 : Dilution.\n4 : Distance.\n5 : Echelle.\n6 : Surface.']
+  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Échelle\n6 : Surface']
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

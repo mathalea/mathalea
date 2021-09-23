@@ -29,8 +29,7 @@ export default function betaExoPavage6e () {
   this.interactifReady = interactifReady
   this.amcType = amcType
   this.interactifType = interactifType
-  this.interactif = true
-
+  
   // on Choisit trois axes parmis les possibilités prédéfinies... 6 types d'axes laissant le pavage invariant
   // un axe horizontal passe par les sommets 0 de deux triangles d'indices 2n et 2n+2 (sauf si 2n%14=12)
   // un axe vertical passe par les centres de gravités de deux triangles d'indice i et i+13 (sauf si i%14=0)
@@ -425,5 +424,5 @@ export default function betaExoPavage6e () {
     }
   }
   this.besoinFormulaireNumerique = ['Choix des axes :', 2, '1 : Axe horizontal\n2 : Axe vertical']
-  this.besoinFormulaire2Texte = ['Echelle de la figure (nombre avec un point comme séparateur décimal)']
+  this.besoinFormulaire2Texte = ['Échelle de la figure (nombre avec un point comme séparateur décimal)']
 }

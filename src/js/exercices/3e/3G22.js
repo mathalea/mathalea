@@ -680,6 +680,6 @@ export default function AgrandissementReduction () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type d\'exercices', 3, '1 : Calcul d\' aire et de volumes\n 2 : Problème complexe\n 3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non']
+  this.besoinFormulaireNumerique = ['Type d\'exercices', 3, ' 1 : Calcul d\' aire et de volumes\n 2 : Problème complexe\n 3 : Mélange']
+  this.besoinFormulaire2Numerique = ['Coefficient de réduction (problèmes de type 1)', 3, ' 1 : Décimal\n 2 : Non décimal\n 3 : Mélange']
 }

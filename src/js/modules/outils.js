@@ -5,7 +5,7 @@ import Algebrite from 'algebrite'
 import { format, evaluate, isPrime } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
-import { setReponse } from './gestionInteractif.js'
+import { elimineDoublons, setReponse } from './gestionInteractif.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -99,21 +99,21 @@ export function listeDeChosesAImprimer (exercice) {
  * @param {Exercice} exercice
  * @author Rémi Angot
  */
-export function listeQuestionsToContenuSansNumero (exercice) {
+export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = true) {
   if (context.isHtml) {
-    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing)
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing, retourCharriot)
     if (exercice.interactif) {
       exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr)
   } else {
     if (document.getElementById('supprimer_reference').checked === true) {
-      exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
+      exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
     } else {
-      exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
+      exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
     }
     // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
-    exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
+    exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr, retourCharriot), exercice.nbColsCorr)
   }
 }
 
@@ -162,7 +162,16 @@ export function deuxColonnes (cont1, cont2) {
     `
   }
 }
-
+/**
+ * Contraint une valeur à rester dans un intervalle donné. Si elle est trop petite, elle prend la valeur min, si elle est trop grande elle prend la valeur max
+ * @author Jean-Claude Lhote à partir du code de Eric Elter
+ * @param {number} min borne inférieur
+ * @param {number} max borne supérieur
+ * @param {number} valeur la valeur à contraindre
+ */
+export function contraindreValeur (min, max, valeur) {
+  return (valeur < min) ? min : (valeur > max) ? max : valeur
+}
 /**
  * Compare deux nombres (pour les nombres en virgule flottante afin d'éviter les effets de la conversion en virgule flottante).
  * @author Jean-Claude Lhote
@@ -1314,16 +1323,23 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
 * @author Rémi Angot
 */
 export function simplificationDeFractionAvecEtapes (num, den) {
+  let result = '='
+  if (num * den < 0) {
+    result += '-'
+    num = Math.abs(num)
+    den = Math.abs(den)
+  } else if (num === 0) {
+    return '=0'
+  }
   // Est-ce que le résultat est simplifiable ?
-  let result = ''
   const s = pgcd(num, den)
   if (s !== 1) {
     if ((num) % (den) === 0) { // si le résultat est entier
-      result = `=${(num) / (den)}`
+      result += `${(num) / (den)}`
     } else {
-      result = `=${texFraction(Algebrite.eval((num) / s) + miseEnEvidence('\\times' + s), Algebrite.eval(den / s) + miseEnEvidence('\\times' + s))}=${texFractionSigne(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
+      result += `${texFraction(Algebrite.eval((num) / s) + miseEnEvidence('\\times' + s), Algebrite.eval(den / s) + miseEnEvidence('\\times' + s))}=${result.charAt(1) === '-' ? '-' : ''}${texFractionSigne(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
     }
-  }
+  } else return ''
   return result
 }
 
@@ -2125,14 +2141,18 @@ export function texEnumerateSansNumero (liste, spacing) {
 * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
 * @author Rémi Angot
 */
-export function texParagraphe (liste, spacing = false) {
+export function texParagraphe (liste, spacing = false, retourCharriot) {
   let result = ''
   if (spacing > 1) {
     result = `\\begin{spacing}{${spacing}}\n`
   }
 
   for (const i in liste) {
-    result += `\t${liste[i]}\\\\\n`
+    if (retourCharriot) {
+      result += `\t${liste[i]}\\\\\n`
+    } else {
+      result += `\t${liste[i]}\n`
+    }
   }
   if (spacing > 1) {
     result += '\\end{spacing}'
@@ -2219,9 +2239,13 @@ export function enumerateSansPuceSansNumero (liste, spacing) {
 * @param string
 * @author Rémi Angot
 */
-export function htmlParagraphe (texte) {
+export function htmlParagraphe (texte, retourCharriot) {
   if (texte.length > 1) {
-    return `\n<p>${texte}</p>\n\n`
+    if (retourCharriot) {
+      return `\n<p>${texte}</p>\n\n`
+    } else {
+      return `\n${texte}\n\n`
+    }
   } else {
     return ''
   }
@@ -2356,6 +2380,7 @@ export function sp (nb = 1) {
 /**
 * Renvoie un nombre dans le format français (séparateur de classes)
 * Fonctionne sans le mode maths contrairement à texNombre()
+* insereEspaceDansNombre fonctionne peut-être mieux
 * @author Rémi Angot
 */
 export function nombreAvecEspace (nb) {
@@ -2372,6 +2397,75 @@ export function nombreAvecEspace (nb) {
     return result
   }
 }
+
+/**
+ *
+ * @param {number} mantisse
+ * @param {integer} exp
+ * @returns {string} Écriture décimale avec espaces
+ */
+export const scientifiqueToDecimal = (mantisse, exp) => {
+  mantisse = mantisse.toString()
+  let indiceVirguleDepart = mantisse.indexOf('.')
+  if (indiceVirguleDepart < 0) {
+    indiceVirguleDepart = mantisse.length
+  }
+  const indiceVirguleArrivee = indiceVirguleDepart + exp
+  let mantisseSansVirgule = mantisse.replace('.', '')
+  const indiceMax = mantisseSansVirgule.length - 1
+  // indiceMax est l'indice du chiffre des unités
+  if (indiceVirguleArrivee > indiceMax) {
+    // On ajoute des 0 à droite
+    for (let i = indiceMax + 1; i < indiceVirguleArrivee; i++) {
+      mantisseSansVirgule += '0'
+    }
+  } else if (indiceVirguleArrivee > 0 && indiceVirguleArrivee <= indiceMax) {
+    // On insère la virgule
+    mantisseSansVirgule = mantisseSansVirgule.substring(0, indiceVirguleArrivee) + ',' + mantisseSansVirgule.substring(indiceVirguleArrivee, mantisseSansVirgule.length)
+  } else {
+    // On ajoute des 0 à gauche
+    let partiGauche = '0,'
+    for (let i = 0; i < Math.abs(indiceVirguleArrivee); i++) {
+      partiGauche += '0'
+    }
+    mantisseSansVirgule = partiGauche + mantisseSansVirgule
+  }
+  return insereEspaceDansNombre(mantisseSansVirgule)
+}
+
+/**
+ *
+ * @param {string |number} nb
+ * @returns {string}
+ */
+export const insereEspaceDansNombre = nb => {
+  if (!Number.isNaN(nb)) {
+    nb = nb.toString().replace('.', ',')
+  }
+  let indiceVirgule = nb.indexOf(',')
+  const indiceMax = nb.length - 1
+  const tableauIndicesEspaces = []
+  if (indiceVirgule < 0) {
+    // S'il n'y a pas de virgule c'est qu'elle est après le dernier chiffre
+    indiceVirgule = nb.length
+  }
+  for (let i = 0; i < indiceMax; i++) {
+    if ((i - indiceVirgule) % 3 === 0 && (i - indiceVirgule) !== 0) {
+      if (i < indiceVirgule) {
+        tableauIndicesEspaces.push(i - 1) // Partie entière espace à gauche
+      } else {
+        tableauIndicesEspaces.push(i) // Partie décimale espace à droite
+      }
+    }
+  }
+  for (let i = tableauIndicesEspaces.length - 1; i >= 0; i--) {
+    const indice = tableauIndicesEspaces[i] + 1
+    if (indice !== 0)nb = insertCharInString(nb, indice, ' \\thickspace ')
+  }
+  return nb
+}
+
+export const insertCharInString = (string, index, char) => string.substring(0, index) + char + string.substring(index, string.length)
 
 /**
 * Renvoie un nombre dans le format français (séparateur de classes) version sans Katex (pour les SVG)
@@ -3251,11 +3345,15 @@ export function ordreDeGrandeur (x, type) {
 * @author Rémi Angot
 */
 export function creerModal (numeroExercice, contenu, labelBouton, icone) {
-  const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${labelBouton}</button>
-    <div class="ui modal" id="modal${numeroExercice}">
-    ${contenu}
-    </div>`
-  return HTML
+  if (context.isHtml) {
+    const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${labelBouton}</button>
+      <div class="ui modal" id="modal${numeroExercice}">
+      ${contenu}
+      </div>`
+    return HTML
+  } else {
+    return ''
+  }
 }
 /**
 * Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
@@ -6992,6 +7090,9 @@ export function exportQcmAmc (exercice, idExo) {
     }
     switch (type) {
       case 'qcmMono': // question QCM 1 bonne réponse
+        if (elimineDoublons(exercice.autoCorrection[j].propositions)) {
+          console.log('doublons trouvés')
+        }
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
         }
@@ -7019,6 +7120,9 @@ export function exportQcmAmc (exercice, idExo) {
         break
 
       case 'qcmMult': // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
+        if (elimineDoublons(exercice.autoCorrection[j].propositions)) {
+          console.log('doublons trouvés')
+        }
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
         }
@@ -7085,7 +7189,7 @@ export function exportQcmAmc (exercice, idExo) {
           id += 2
         } else {
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
-            reponse = autoCorrection[j].reponse.valeur
+            reponse = autoCorrection[j].reponse.valeur[0]
             if (autoCorrection[j].reponse.param.digits === 0) {
               nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
               autoCorrection[j].reponse.param.decimals = nbChiffresPd
@@ -7390,7 +7494,10 @@ export function exportQcmAmc (exercice, idExo) {
           propositions = prop.propositions
           switch (qrType) {
             case 'qcmMono':
-             
+              if (elimineDoublons(propositions)) {
+                console.log('doublons trouvés')
+              }
+
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'
@@ -7430,6 +7537,9 @@ export function exportQcmAmc (exercice, idExo) {
               id++
               break
             case 'qcmMult':
+              if (elimineDoublons(propositions)) {
+                console.log('doublons trouvés')
+              }
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'

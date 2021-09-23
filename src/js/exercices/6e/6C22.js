@@ -23,7 +23,6 @@ export default function ProblemesDePlusEtDeMoins () {
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.interactif = true
 
   const nombreDecimales = function (n) {
     let r, e
@@ -45,11 +44,13 @@ export default function ProblemesDePlusEtDeMoins () {
     const n = parseInt(this.sup) - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.introduction = lampeMessage({
-      titre: 'Calculatrice interdite.',
-      texte: 'Résoudre le problème suivant au brouillon et écrire la réponse dans la case, ne pas préciser "€" ni "euros" ...',
-      couleur: 'nombres'
-    })
+    if (context.isHtml && this.interactif) {
+      this.introduction = lampeMessage({
+        titre: 'Calculatrice interdite.',
+        texte: `Résoudre ${this.nbQuestions > 1 ? 'les problèmes suivants' : 'le problème suivant'} au brouillon et écrire la réponse dans la case sans écrire « € » ni « euros ».`,
+        couleur: 'nombres'
+      })
+    }
     const typeQuestionsDisponibles = ['deplus', 'demoins', 'deplus'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
@@ -70,10 +71,9 @@ export default function ProblemesDePlusEtDeMoins () {
           m = r - e
           somme = m + r
 
-          texte = `<br> ${prenom2} dit à ${prenom1}  : "J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de plus que toi."<br>`
+          texte = `${prenom2} dit à ${prenom1}  : « J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de plus que toi. »<br>`
           if (!context.isAmc) {
-            texte += 'Combien d\'argent en tout possèdent les deux filles ?<br>Les deux filles possèdent en tout : '
-            texte += ajouteChampTexte(this, i) + '  €'
+            texte += 'Combien d\'argent en tout possèdent les deux filles ?'
           } else {
             texte += 'Combien d\'argent en euros possèdent en tout les deux filles ?<br>'
           }
@@ -91,10 +91,9 @@ export default function ProblemesDePlusEtDeMoins () {
           m = r + e
           somme = m + r
 
-          texte = `<br> ${prenom2} dit à ${prenom1} : "J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de moins que toi."<br>`
+          texte = `${prenom2} dit à ${prenom1} : « J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de moins que toi. »<br>`
           if (!context.isAmc) {
-            texte += 'Combien d\'argent en tout possèdent les deux filles ?<br>Les deux filles possèdent en tout :'
-            texte += ajouteChampTexte(this, i) + '  €'
+            texte += 'Combien d\'argent en tout possèdent les deux filles ?'
           } else {
             texte += 'Combien d\'argent en euros possèdent en tout les deux filles ?<br>'
           }
@@ -107,6 +106,10 @@ export default function ProblemesDePlusEtDeMoins () {
           texteCorr += texteEnCouleur(`<br>Les deux filles possèdent en tout : ${texPrix(somme)}€`)
           setReponse(this, i, somme)
           break
+      }
+      if (this.interactif) {
+        texte += '<br>Les deux filles possèdent en tout : '
+        texte += ajouteChampTexte(this, i) + '  €'
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

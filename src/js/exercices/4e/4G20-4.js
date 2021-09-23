@@ -19,12 +19,11 @@ export default function ArrondirUneValeur () {
   this.titre = titre
 
   this.nbQuestions = 3
-  this.nbCols = 3
+  this.nbCols = 2 // Valeur différente de 3 car sinon en Latex, 3 colonnes, c'est trop
   this.nbColsCorr = 1
   this.sup = 1
   this.interactifType = interactifType
   this.interactifReady = interactifReady
-  this.interactif = true
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 
   this.nouvelleVersion = function () {
@@ -87,5 +86,4 @@ export default function ArrondirUneValeur () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de nombre', 2, '1 : Racine carrée\n 2 : Valeur avec cosinus']
 }

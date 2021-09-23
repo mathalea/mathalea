@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, texteEnCouleurEtGras, listeDesDiviseurs, sp, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, texteEnCouleurEtGras, listeDesDiviseurs, sp, numAlpha, contraindreValeur } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Problème Les iris et les roses'
+export const titre = 'Résoudre des problèmes avec recherche de diviseurs communs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -24,10 +24,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.interactif = true
   this.interactifType = 'mathLive'
 
   this.nouvelleVersion = function () {
@@ -44,9 +42,9 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         QuestionsDisponibles[0] = this.sup
       } else {
         QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        this.nbQuestions = QuestionsDisponibles.length
+        // this.nbQuestions = QuestionsDisponibles.length
         for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = parseInt(QuestionsDisponibles[i]) // parseInt en fait un tableau d'entiers
+          QuestionsDisponibles[i] = contraindreValeur(1, 3, parseInt(QuestionsDisponibles[i])) // parseInt en fait un tableau d'entiers
         }
       }
     }
@@ -73,20 +71,20 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texteCorr = numAlpha(0)
             texteCorr += `- Les diviseurs de ${var1 * objet} sont : ${listeDesDiviseurs(var1 * objet).join(', ')}.<br>`
             texteCorr += `${sp(2)}- Les diviseurs de ${var2 * objet} sont : ${listeDesDiviseurs(var2 * objet).join(', ')}.<br>`
-            texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet} <br>`
-            texteCorr += ' Le nombre maximal de bouquets est donc : ' + texteEnCouleurEtGras(`${objet}<br><br>`)
+            texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet}.<br>`
+            texteCorr += ' Le nombre maximal de bouquets est donc : ' + texteEnCouleurEtGras(`${objet}`) + '.<br><br>'
             setReponse(this, 3 * i, objet)
 
             texte += numAlpha(1) + `Nombre d’iris dans chaque bouquet :${sp(8)}`
             texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur25') + '<br><br>'
-            texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$.<br>`
-            texteCorr += 'Le nombre d’iris dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var1} <br><br>`)
+            texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$<br>`
+            texteCorr += 'Le nombre d’iris dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
             setReponse(this, 3 * i + 1, var1)
 
             texte += numAlpha(2) + ' Nombre de roses dans chaque bouquet :'
             texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur25') + '<br>'
-            texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$.<br>`
-            texteCorr += 'Le nombre de roses dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var2} <br>`)
+            texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$<br>`
+            texteCorr += 'Le nombre de roses dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var2}`) + '.<br><br>'
             setReponse(this, 3 * i + 2, var2)
           } else {
             texte = `Un fleuriste dispose de ${var1 * objet} iris et de ${var2 * objet} roses. <br>`
@@ -96,16 +94,16 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texteCorr = numAlpha(0)
             texteCorr += `- Les diviseurs de ${var1 * objet} sont : ${listeDesDiviseurs(var1 * objet).join(', ')}.<br>`
             texteCorr += `${sp(2)}- Les diviseurs de ${var2 * objet} sont : ${listeDesDiviseurs(var2 * objet).join(', ')}.<br>`
-            texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet} <br>`
-            texteCorr += ' Le nombre maximal de bouquets est donc : ' + texteEnCouleurEtGras(`${objet}<br><br>`)
+            texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet}.<br>`
+            texteCorr += ' Le nombre maximal de bouquets est donc : ' + texteEnCouleurEtGras(`${objet}`) + '.<br><br>'
 
             texte += numAlpha(1) + 'Quel est le nombre d’iris dans chaque bouquet ?<br><br>'
-            texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$.<br>`
-            texteCorr += 'Le nombre d’iris dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var1} <br><br>`)
+            texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$<br>`
+            texteCorr += 'Le nombre d’iris dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
 
-            texte += numAlpha(2) + ' Quel est le nombre de roses dans chaque bouquet ?<br><br>'
-            texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$.<br>`
-            texteCorr += 'Le nombre de roses dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var2} <br>`)
+            texte += numAlpha(2) + 'Quel est le nombre de roses dans chaque bouquet ?<br><br>'
+            texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$<br>`
+            texteCorr += 'Le nombre de roses dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var2}`) + '.<br><br>'
           }
           break
         case 2:
@@ -120,20 +118,20 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texteCorr = numAlpha(0)
             texteCorr += `- Les diviseurs de ${var1 * objet} sont : ${listeDesDiviseurs(var1 * objet).join(', ')}.<br>`
             texteCorr += `${sp(2)}- Les diviseurs de ${var2 * objet} sont : ${listeDesDiviseurs(var2 * objet).join(', ')}.<br>`
-            texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet} <br>`
-            texteCorr += ' Le nombre maximal de groupes est donc : ' + texteEnCouleurEtGras(`${objet}<br><br>`)
+            texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet}.<br>`
+            texteCorr += ' Le nombre maximal de groupes est donc : ' + texteEnCouleurEtGras(`${objet}`) + '.<br><br>'
             setReponse(this, 3 * i, objet)
 
             texte += numAlpha(1) + 'Nombre de garçons dans chaque groupe :'
             texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur25') + '<br><br>'
-            texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$.<br>`
-            texteCorr += 'Le nombre de garçons dans chaque groupe est :' + texteEnCouleurEtGras(` ${var1} <br><br>`)
+            texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$<br>`
+            texteCorr += 'Le nombre de garçons dans chaque groupe est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
             setReponse(this, 3 * i + 1, var1)
 
             texte += numAlpha(2) + ` Nombre de filles dans chaque groupe :${sp(6)}`
             texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur25') + '<br>'
-            texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$.<br>`
-            texteCorr += 'Le nombre de filles dans chaque groupe est :' + texteEnCouleurEtGras(` ${var2} <br>`)
+            texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$<br>`
+            texteCorr += 'Le nombre de filles dans chaque groupe est :' + texteEnCouleurEtGras(` ${var2}`) + '.<br><br>'
             setReponse(this, 3 * i + 2, var2)
           } else {
             texte = `Un professeur organise une sortie pédagogique au Futuroscope pour ses élèves de 3ème. Il est accompagné de ${var1 * objet} garçons et de ${var2 * objet} filles. <br>`
@@ -143,16 +141,16 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texteCorr = numAlpha(0)
             texteCorr += `- Les diviseurs de ${var1 * objet} sont : ${listeDesDiviseurs(var1 * objet).join(', ')}.<br>`
             texteCorr += `${sp(2)}- Les diviseurs de ${var2 * objet} sont : ${listeDesDiviseurs(var2 * objet).join(', ')}.<br>`
-            texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet} <br>`
-            texteCorr += ' Le nombre maximal de groupes est donc : ' + texteEnCouleurEtGras(`${objet}<br><br>`)
+            texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet}.<br>`
+            texteCorr += ' Le nombre maximal de groupes est donc : ' + texteEnCouleurEtGras(`${objet}`) + '.<br><br>'
 
             texte += numAlpha(1) + 'Quel est le nombre de garçons dans chaque groupe ?<br><br>'
-            texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$.<br>`
-            texteCorr += 'Le nombre de garçons dans chaque groupe est :' + texteEnCouleurEtGras(` ${var1} <br><br>`)
+            texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$<br>`
+            texteCorr += 'Le nombre de garçons dans chaque groupe est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
 
-            texte += numAlpha(2) + ' Quel est le nombre de filles dans chaque groupe ?<br><br>'
-            texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$.<br>`
-            texteCorr += 'Le nombre de filles dans chaque groupe est :' + texteEnCouleurEtGras(` ${var2} <br>`)
+            texte += numAlpha(2) + 'Quel est le nombre de filles dans chaque groupe ?<br><br>'
+            texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$<br>`
+            texteCorr += 'Le nombre de filles dans chaque groupe est :' + texteEnCouleurEtGras(` ${var2}`) + '.<br><br>'
           }
           break
         default: // si un utilisateur saisit 4 ou une valeur erronnée renvoie par défaut vers le prbme 3
@@ -167,20 +165,20 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texteCorr = numAlpha(0)
             texteCorr += `- Les diviseurs de ${var1 * objet} sont : ${listeDesDiviseurs(var1 * objet).join(', ')}.<br>`
             texteCorr += `${sp(2)};- Les diviseurs de ${var2 * objet} sont : ${listeDesDiviseurs(var2 * objet).join(', ')}.<br>`
-            texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet} <br>`
-            texteCorr += ' Le nombre maximal de corbeilles est donc : ' + texteEnCouleurEtGras(`${objet}<br><br>`)
+            texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet}.<br>`
+            texteCorr += ' Le nombre maximal de corbeilles est donc : ' + texteEnCouleurEtGras(`${objet}`) + '.<br><br>'
             setReponse(this, 3 * i, objet)
 
             texte += numAlpha(1) + 'Nombre de croissants dans chaque corbeille :'
             texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur25') + '<br><br>'
-            texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$.<br>`
-            texteCorr += 'Le nombre de croissants dans chaque corbeille est :' + texteEnCouleurEtGras(` ${var1} <br><br>`)
+            texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$<br>`
+            texteCorr += 'Le nombre de croissants dans chaque corbeille est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
             setReponse(this, 3 * i + 1, var1)
 
             texte += numAlpha(2) + ` Nombre de brioches dans chaque corbeille :${sp(2)}`
             texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur25') + '<br>'
-            texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$.<br>`
-            texteCorr += 'Le nombre de brioches dans chaque corbeille est :' + texteEnCouleurEtGras(` ${var2} <br>`)
+            texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$<br>`
+            texteCorr += 'Le nombre de brioches dans chaque corbeille est :' + texteEnCouleurEtGras(` ${var2}`) + '.<br><br>'
             setReponse(this, 3 * i + 2, var2)
           } else {
             texte = `Un boulanger dispose de ${var1 * objet} croissants et de ${var2 * objet} brioches. <br>`
@@ -190,16 +188,16 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texteCorr = numAlpha(0)
             texteCorr += `- Les diviseurs de ${var1 * objet} sont : ${listeDesDiviseurs(var1 * objet).join(', ')}.<br>`
             texteCorr += `${sp(2)}- Les diviseurs de ${var2 * objet} sont : ${listeDesDiviseurs(var2 * objet).join(', ')}.<br>`
-            texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet} <br>`
-            texteCorr += ' Le nombre maximal de corbeilles est donc : ' + texteEnCouleurEtGras(`${objet}<br><br>`)
+            texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet}.<br>`
+            texteCorr += ' Le nombre maximal de corbeilles est donc : ' + texteEnCouleurEtGras(`${objet}`) + '.<br><br>'
 
             texte += numAlpha(1) + 'Quel est le nombre de croissants dans chaque corbeille ?<br><br>'
-            texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$.<br>`
-            texteCorr += 'Le nombre de croissants dans chaque corbeille est :' + texteEnCouleurEtGras(` ${var1} <br><br>`)
+            texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$<br>`
+            texteCorr += 'Le nombre de croissants dans chaque corbeille est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
 
-            texte += numAlpha(2) + ' Quel est le nombre de brioches dans chaque corbeille ?<br><br>'
-            texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$.<br>`
-            texteCorr += 'Le nombre de brioches dans chaque corbeille est :' + texteEnCouleurEtGras(` ${var2} <br>`)
+            texte += numAlpha(2) + 'Quel est le nombre de brioches dans chaque corbeille ?<br><br>'
+            texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$<br>`
+            texteCorr += 'Le nombre de brioches dans chaque corbeille est :' + texteEnCouleurEtGras(` ${var2}`) + '.<br><br>'
           }
           break
       } // fin du switch
@@ -272,5 +270,5 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des expressions', 'Nombres séparés par des tirets\n 1 : Fleuriste\n2 : Boulanger\n3 : Professeur\n']
+  this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n']
 }

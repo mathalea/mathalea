@@ -240,7 +240,7 @@ export default function DenombrerCubes () {
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : compter les cubes\n2 : compter les cubes manquants\n3 un mélange des deux']
-  this.besoinFormulaire2Numerique = ["Taille de l'empilement", 5, '3 \n4 \n5 \n6 \n7']
+  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Compter les cubes\n2 : Compter les cubes manquants\n3 : Mélange']
+  this.besoinFormulaire2Numerique = ["Taille de l'empilement (3 à 7)", 5]
   // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
 } // Fin de l'exercice.
