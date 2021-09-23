@@ -98,14 +98,14 @@ export default function Resolutionavecformecanonique () {
           texteCorr += '<br>On reconnaît l\'identité remarquable $a^2-b^2$ :'
           texteCorr += `<br>avec  $a= \\left(x ${alpha.simplifie().ecritureAlgebrique}\\right)$ `
           // texteCorr += `et $b =\\sqrt{${b2.simplifie().texFraction}}$`
-          texteCorr += `et $b =${b2.racineCarree(true)}$`// = ${b3.simplifie().texFraction} why ?
+          texteCorr += `et $b =${b2.texRacineCarree(true)}$`// = ${b3.simplifie().texFraction} why ?
           texteCorr += '<br>L\'équation à résoudre est équivalente à :'
-          texteCorr += `<br> $\\left(x ${alpha.simplifie().ecritureAlgebrique}-${b2.racineCarree()}\\right)\\left(x ${alpha.simplifie().ecritureAlgebrique}+${b2.racineCarree()}\\right)=0$`
+          texteCorr += `<br> $\\left(x ${alpha.simplifie().ecritureAlgebrique}-${b2.texRacineCarree()}\\right)\\left(x ${alpha.simplifie().ecritureAlgebrique}+${b2.texRacineCarree()}\\right)=0$`
           // texteCorr += `<br> $\\left(x ${x1.simplifie().oppose().ecritureAlgebrique}\\right)\\left(x ${x2.simplifie().oppose().ecritureAlgebrique}\\right)=0$`
           texteCorr += '<br> On applique la propriété du produit nul :'
-          texteCorr += `<br> Soit $x ${alpha.simplifie().ecritureAlgebrique}-${b2.racineCarree()}=0$ , soit $x ${alpha.simplifie().ecritureAlgebrique}+${b2.racineCarree()}=0$`
-          texteCorr += `<br> Soit $x = ${alpha.oppose().simplifie().texFraction}+${b2.racineCarree()}$ , soit $x =${alpha.oppose().simplifie().texFraction}-${b2.racineCarree()}$`
-          texteCorr += `<br> $S =\\left\\{${alpha.oppose().simplifie().texFraction}-${b2.racineCarree()};${alpha.oppose().simplifie().texFraction}+${b2.racineCarree()}\\right\\}$`
+          texteCorr += `<br> Soit $x ${alpha.simplifie().ecritureAlgebrique}-${b2.texRacineCarree()}=0$ , soit $x ${alpha.simplifie().ecritureAlgebrique}+${b2.texRacineCarree()}=0$`
+          texteCorr += `<br> Soit $x = ${alpha.oppose().simplifie().texFraction}+${b2.texRacineCarree()}$ , soit $x =${alpha.oppose().simplifie().texFraction}-${b2.texRacineCarree()}$`
+          texteCorr += `<br> $S =\\left\\{${alpha.oppose().simplifie().texFraction}-${b2.texRacineCarree()};${alpha.oppose().simplifie().texFraction}+${b2.texRacineCarree()}\\right\\}$`
         }
       }
 

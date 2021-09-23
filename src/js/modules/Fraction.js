@@ -147,10 +147,11 @@ class Fraction {
   }
 
   /**
-   * Retourne la fraction racine carrée
+   * Retourne la chaine latex contenant la racine carrée de la fraction
+   * @param {boolean} detaillee Si detaillee est true, une étape de calcul se place avant le résultat.
    * @return {Fraction}
    */
-  racineCarree (detaillee = false) {
+  texRacineCarree (detaillee = false) {
     const factoNum = extraireRacineCarree(Math.abs(this.num))
     const factoDen = extraireRacineCarree(Math.abs(this.den))
     const k = fraction(factoNum[0], factoDen[0]).simplifie()
@@ -191,6 +192,23 @@ class Fraction {
           return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.texFraction}}`
         }
       }
+    }
+  }
+
+  /**
+   * Retourne la racine carrée de la fraction si c'est une fraction et false sinon
+   * @param {boolean} detaillee Si detaillee est true, une étape de calcul se place avant le résultat.
+   * @return {Fraction}
+   */
+  RacineCarree (detaillee = false) {
+    const factoNum = extraireRacineCarree(Math.abs(this.num))
+    const factoDen = extraireRacineCarree(Math.abs(this.den))
+    const k = fraction(factoNum[0], factoDen[0]).simplifie()
+    const r = fraction(factoNum[1], factoDen[1]).simplifie()
+    if (r.valeurDecimale !== 1 || this.signe === -1) {
+      return false
+    } else {
+      return k
     }
   }
 
