@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, pgcd, texFractionReduite, lettreMinusculeDepuisChiffre, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, pgcd, texFractionReduite, lettreMinusculeDepuisChiffre, nombreDeChiffresDe } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Compléter un tableau de valeurs'
 export const interactifReady = true
@@ -53,6 +53,7 @@ export default function TableauDeValeurs () {
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeDeX = combinaisonListes([[-3, 0, 3], [-2, 0, 2], [1, 2, 5], [-3, 6, 9]], this.nbQuestions)
+    let maxNbChiffres
     for (let i = 0, texte, texteCorr, a, b, c, d, f, x1, x2, x3, expression, nomdef, ligne2, calculs = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       nomdef = lettreMinusculeDepuisChiffre(6 + i) // on commence par f puis on continue dans l'ordre alphabétique
       x1 = listeDeX[i][0]
@@ -218,6 +219,7 @@ export default function TableauDeValeurs () {
         texteCorr = '$\\begin{array}{|l|c|c|c|}\n'
       }
       if (context.isAmc) {
+        maxNbChiffres = Math.max(nombreDeChiffresDe(f(listeDeX[i][0])), nombreDeChiffresDe(f(listeDeX[i][1])), nombreDeChiffresDe(f(listeDeX[i][2])))
         this.autoCorrection[i] = {
           enonce: `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$.\\\\ \n
           Calculer :\\\\ \na) $f(${listeDeX[i][0]})$\\\\ \nb) $f(${listeDeX[i][1]})$\\\\ \nc) $f(${listeDeX[i][2]})$\\\\ \n
@@ -234,13 +236,13 @@ export default function TableauDeValeurs () {
             {
               type: 'AMCNum',
               propositions: [{
-                texte: this.listeCorrections[0],
+                texte: calculs.split('<br>')[0],
                 statut: '',
                 reponse: {
                   texte: `a) $f(${listeDeX[i][0]})$`,
                   valeur: f(listeDeX[i][0]),
                   param: {
-                    digits: nombreDeChiffresDansLaPartieEntiere(f(listeDeX[i][0])),
+                    digits: maxNbChiffres,
                     decimals: 0,
                     signe: true,
                     approx: 0
@@ -251,13 +253,13 @@ export default function TableauDeValeurs () {
             {
               type: 'AMCNum',
               propositions: [{
-                texte: this.listeCorrections[1],
+                texte: calculs.split('<br>')[1],
                 statut: '',
                 reponse: {
                   texte: `b) $f(${listeDeX[i][1]})$`,
                   valeur: f(listeDeX[i][1]),
                   param: {
-                    digits: nombreDeChiffresDansLaPartieEntiere(f(listeDeX[i][1])),
+                    digits: maxNbChiffres,
                     decimals: 0,
                     signe: true,
                     approx: 0
@@ -268,13 +270,13 @@ export default function TableauDeValeurs () {
             {
               type: 'AMCNum',
               propositions: [{
-                texte: this.listeCorrections[2],
+                texte: calculs.split('<br>')[2],
                 statut: '',
                 reponse: {
                   texte: `c) $f(${listeDeX[i][2]})$`,
                   valeur: f(listeDeX[i][2]),
                   param: {
-                    digits: nombreDeChiffresDansLaPartieEntiere(f(listeDeX[i][2])),
+                    digits: maxNbChiffres,
                     decimals: 0,
                     signe: true,
                     approx: 0
