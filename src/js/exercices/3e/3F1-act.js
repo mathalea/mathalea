@@ -120,14 +120,14 @@ export default function fonction_notion_vocabulaire() {
 					if (context.isHtml) {
 						texte += numAlpha(j) + ` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `;
 						texte += katexPopup('avec le mot image', 'Image', 'La valeur du périmètre est l\'image de la valeur du côté.') + `<br>`;
-						texteCorr = numAlpha(j) + ` Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est à dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4 * x}$ cm.<br>`;
+						texteCorr = numAlpha(j) + ` Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est-à-dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4 * x}$ cm.<br>`;
 						texteCorr += `On dit que ${4 * x} est l'image de ${x} par la fonction f.<br>`;
 						j++; //incrémente la sous question	
 					} else { //sortie LaTeX
 						texte += `\\begin{enumerate}[itemsep=1em]`;
 						texte += `\\item Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse avec le mot \\textbf{image} \\footnote{\\textbf{Image :} La valeur du périmètre est l\'image de la valeur du côté}`;
 						texteCorr = `\\begin{enumerate}[itemsep=1em]`;
-						texteCorr += `\\item Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est à dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4 * x}$ cm.<br>`;
+						texteCorr += `\\item Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est-à-dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4 * x}$ cm.<br>`;
 						texteCorr += `On dit que ${4 * x} est l'image de ${x} par la fonction f.`;
 					};
 
@@ -230,7 +230,7 @@ export default function fonction_notion_vocabulaire() {
 					if (context.isHtml) {
 						texte += numAlpha(j) + ` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `;
 						texte += katexPopup('avec le mot image', 'Image', 'la valeur de l\'aire est l\'image de la valeur du côté') + `<br>`;
-						texteCorr = numAlpha(j) + ` Si le côté vaut ${x} cm alors la machine renvoie l'aire d'un carré de côté ${x} cm, c'est à dire $${x}\\times ${x}=${texNombre(x * x)}\\,cm^2$.<br>`;
+						texteCorr = numAlpha(j) + ` Si le côté vaut ${x} cm alors la machine renvoie l'aire d'un carré de côté ${x} cm, c'est-à-dire $${x}\\times ${x}=${texNombre(x * x)}\\,cm^2$.<br>`;
 						texteCorr += `On dit que ${nombreAvecEspace(x * x)} est l'image de ${x} par la fonction g.<br>`;
 						j++; //incrémente la sous question
 					} else { //sortie LaTeX
@@ -238,7 +238,7 @@ export default function fonction_notion_vocabulaire() {
 						texte += `\\item  Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `;
 						texte += `avec le mot \\textbf{image} \\footnote{\\textbf{Image :} La valeur de l\'aire est l\'image de la valeur du côté.}`;
 						texteCorr = `\\begin{enumerate}[itemsep=1em]`;
-						texteCorr += `\\item Si le côté vaut ${x} cm alors la machine renvoie l'aire d'un carré de côté ${x} cm, c'est à dire $${x}\\times ${x}=${texNombre(x * x)}\\,cm^2$.<br>`;
+						texteCorr += `\\item Si le côté vaut ${x} cm alors la machine renvoie l'aire d'un carré de côté ${x} cm, c'est-à-dire $${x}\\times ${x}=${texNombre(x * x)}\\,cm^2$.<br>`;
 						texteCorr += `On dit que ${nombreAvecEspace(x * x)} est l'image de ${x} par la fonction g.`;
 					};
 

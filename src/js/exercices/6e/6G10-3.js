@@ -16,7 +16,7 @@ export default function cliqueFigure () {
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1
-  
+
   this.nouvelleVersion = function () {
     this.consigne = (this.interactif) ? 'Cliquer sur la bonne figure.' : 'Entourer la bonne figure.'
     this.listeQuestions = [] // Liste de questions
