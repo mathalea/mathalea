@@ -1,4 +1,4 @@
-import { calcul, randint } from '../../../modules/outils'
+import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Fraction simple de quantité'
 export const interactifReady = true
@@ -15,11 +15,18 @@ export default function FractionSimpleDeQuantite () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.formatChampTexte = 'largeur15 inline'
+  this.optionsChampTexte = { texteApres: ' L' }
   this.nouvelleVersion = function () {
     const a = randint(2, 6)
     this.reponse = calcul(randint(2, 9) * 10)
     const b = calcul(this.reponse * a)
-    this.question = `$\\dfrac{1}{${a}} \\text{ de } ${b} \\text{ L} = \\dots \\text{ L}$`
-    this.correction = `$\\dfrac{1}{${a}}$ de $${b}$ L = ${this.reponse} L`
+    this.question = `$\\dfrac{1}{${a}} \\text{ de } ${b} \\text{ L} = $`
+    this.correction = `$\\dfrac{1}{${a}}$ de $${b}$ L = $${this.reponse}$ L`
+    this.correction += texteEnCouleur(`
+    <br> Mentalement : <br>
+    Prendre $\\dfrac{1}{${a}}$ d'une quantité revient à la diviser par $${a}$.<br>
+    Ainsi, $\\dfrac{1}{${a}}$ de $${b}=${b}\\div ${a}=${b / a}$.
+     `)
   }
 }

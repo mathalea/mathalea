@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, ecritureAlgebrique, choice, calcul, texNombre, miseEnEvidence, sp, ecritureParentheseSiNegatif, texNombrec } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, ecritureAlgebrique, choice, calcul, texNombre, miseEnEvidence, sp, ecritureParentheseSiNegatif, texNombrec, nombreDeChiffresDe } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -57,22 +58,23 @@ export default function CalculsImagesFonctions () {
       // on ne choisit que des nombres compris entre 1 et 20
       x = randint(-9, 9, [0, 1, -1])
       y = randint(-9, 9, [x, 0])
-      m = randint(0, 2) + 2
-      n = choice([2, 4, 5], [m])
+      n = choice([2, 4, 5])
+      m = randint(2, 6, [n, n * 2, n * 3])
+
       tagImage = true
       switch (listeTypeDeQuestions[i]) {
         case 'linéaire':
           switch (sousChoix[i]) {
             case 0:
               enonce = `Soit $f$ la fonction définie par $f(x)=\\dfrac{${m}}{${n}}x$. ${sp(5)} Quelle est l'image de $${n * x}$ ?<br>`
-              correction = `$f(x)=\\dfrac{${m}}{${n}}x$ donc ici on a : $f(${x}=\\dfrac{${m}}{${n}} \\times ${ecritureParentheseSiNegatif(n * x)}=\\dfrac{${m * x * n}}{${n}}=${m * x}$`
+              correction = `$f(x)=\\dfrac{${m}}{${n}}x$ donc ici on a : $f(${x})=\\dfrac{${m}}{${n}} \\times ${ecritureParentheseSiNegatif(n * x)}=\\dfrac{${m * x * n}}{${n}}=${m * x}$`
               ant = n * x
               tagImage = true
               reponses[i] = m * x
               break
             case 1:
               enonce = `Soit $f: x \\longmapsto ${m}x$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
-              correction = `$f(x)=${m}x$ donc ici on a : $f(${x}=${m} \\times ${ecritureParentheseSiNegatif(x)}=${m * x}$`
+              correction = `$f(x)=${m}x$ donc ici on a : $f(${x})=${m} \\times ${ecritureParentheseSiNegatif(x)}=${m * x}$`
               reponses[i] = m * x
               ant = x
               tagImage = true
@@ -229,6 +231,15 @@ export default function CalculsImagesFonctions () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    let maxNbChiffres = 0
+    if (context.isAmc) {
+      for (let i = 0; i < this.nbQuestions; i++) {
+        maxNbChiffres = Math.max(maxNbChiffres, nombreDeChiffresDe(this.autoCorrection[i].reponse.valeur[0]))
+      }
+      for (let i = 0; i < this.nbQuestions; i++) {
+        this.autoCorrection[i].reponse.param.digits = maxNbChiffres
+      }
+    }
   }
   this.besoinFormulaireNumerique = [
     'Choix des questions',

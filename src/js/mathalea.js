@@ -9,7 +9,6 @@ import {
   errorHandler,
   getInvalidModuleError, getNoLatexError,
   getUnknownError,
-  messageUtilisateur,
   UserFriendlyError
 } from './modules/messages.js'
 import { ajouteChampTexteMathLive, exerciceInteractif, setReponse } from './modules/gestionInteractif.js'
@@ -551,6 +550,9 @@ function miseAJourDuCode () {
       }
       if (context.vue) {
         finUrl += `&v=${context.vue}`
+      }
+      if (context.taillePolice) {
+        finUrl += `&p=${context.taillePolice}`
       }
       try {
         if (context.userId) {
@@ -1800,7 +1802,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire4CaseACocher) {
       // Création d'un formulaire texte
       divParametresGeneraux.innerHTML +=
-        "<div style='display: inline'><label for='form_sup4" +
+        "<div><label for='form_sup4" +
         i +
         "'>" +
         exercice[i].besoinFormulaire4CaseACocher[0] +

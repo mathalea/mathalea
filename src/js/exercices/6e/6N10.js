@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, listeQuestionsToContenu, texNombre, combinaisonListes, choice, nombreEnLettres, shuffle } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, texNombre, combinaisonListes, choice, nombreEnLettres, shuffle, contraindreValeur } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Écrire un nombre entier en chiffres ou en lettres'
@@ -64,10 +64,12 @@ export default function EcrirePetitsNombresEntiers () {
       } else {
         QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = Math.max(Math.min(parseInt(QuestionsDisponibles[i]), 8), 2) // parseInt en fait un tableau d'entiers comprise entre 2 et 6
+          // QuestionsDisponibles[i] = Math.max(Math.min(parseInt(QuestionsDisponibles[i]), 8), 2) // parseInt en fait un tableau d'entiers comprise entre 2 et 6
+          QuestionsDisponibles[i] = contraindreValeur(2, 8, parseInt(QuestionsDisponibles[i]))
         }
       }
     }
+    // if (QuestionsDisponibles.length === 0) { QuestionsDisponibles = [2, 3, 4, 5, 6, 7, 8] }
 
     if (!this.sup2) { // Si aucune liste n'est saisie
       OptionsDisponibles = [0]

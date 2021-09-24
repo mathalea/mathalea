@@ -52,7 +52,7 @@ class NoteLaCouleur {
     }
     /**
        * méthode pour tester une instruction : retourne un tableau dont le premier élément indique si l'instruction est valide.
-       * c'est à dire qu'elle n'entraine pas une sortie de plateau.
+       * c'est-à-dire qu'elle n'entraine pas une sortie de plateau.
        * true -> l'instruction maintient le lutin sur le plateau
        * false -> l'instruction le fait sortir du plateau
        * Les autres éléments du tableau sont dans cet ordre :

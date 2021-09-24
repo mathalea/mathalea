@@ -19,6 +19,15 @@ export function getVueFromUrl () {
   const urlParams = new URLSearchParams(queryString)
   return urlParams.get('v')
 }
+/**
+ *
+ * @returns {string} Vue depuis l'URL
+ */
+export function getTaillePoliceFromUrl () {
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  return urlParams.get('p')
+}
 
 /**
  *
@@ -147,6 +156,7 @@ export function getUrlSearch () {
   const urlParams = new URLSearchParams(queryString)
   if (context.userId) urlParams.set('userId', context.userId)
   if (context.vue) urlParams.set('v', context.vue)
+  if (context.taillePolice) urlParams.set('p', context.taillePolice)
   if (context.duree) urlParams.set('duree', context.duree)
   // On finit la réécriture de l'url
   const entries = urlParams.entries()

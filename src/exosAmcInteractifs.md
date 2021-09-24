@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 290 
-- nombre d'exos interactifReady 355 
+- nombre d'exos interactifReady 356 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -71,6 +71,7 @@
 |4C22-2|Diviser des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
 |4C22|Multiplier des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
 |4C23-1|Fractions et priorités opératoires|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C23|Somme, différence ou produit de fractions|KO|KO|OK|mathLive|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|mathLive|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
@@ -116,7 +117,7 @@
 |5R20-3|Additions de 5 nombres relatifs|OK|AMCNum|OK|mathLive|
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|mathLive|
-|5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|numerique|
+|5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|mathLive|
 |6C10-1|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |6C10-2|Tables de multiplications et multiples de 10|OK|qcmMono|OK|qcm,mathLive|
 |6C10-3|Tables de multiplications et nombres décimaux|OK|qcmMono|OK|qcm|
@@ -333,7 +334,7 @@
 |can6C19|Complément à 100|OK|AMCNum|OK|mathLive|
 |can6C20|Complément à 1|OK|AMCNum|OK|mathLive|
 |can6C21|Complément à 1 Niveau 2|OK|AMCNum|OK|mathLive|
-|can6C22|Valeurs décimales quarts et cinquièmes|OK|AMCNum|OK|mathLive|
+|can6C22|Valeurs décimales de fractions|OK|AMCNum|OK|mathLive|
 |can6C23|Calcul avec +/-99 ou +/-999|OK|AMCNum|OK|mathLive|
 |can6C24|Multiplier par 0,1 ou 0,01 ou 0,001|OK|AMCNum|OK|mathLive|
 |can6D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
