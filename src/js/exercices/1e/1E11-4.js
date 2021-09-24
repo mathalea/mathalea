@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, extraireRacineCarree, signe } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, extraireRacineCarree, signe, pgcd, calcul } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 export const interactifReady = true
@@ -32,7 +32,7 @@ export default function Resolutionavecformecanonique () {
       listeTypeDeQuestions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres'], this.nbQuestions)
     }
 
-    for (let i = 0, texte, texteCorr, a, b, b1, b2, c1, x1, x2, c, delta, alpha, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, b, p, b1, b2, c1, x1String, x2String, stringX1, stringX2, x1, x2, c, delta, alpha, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (listeTypeDeQuestions[i] === 'solutionsEntieres') {
         // On définit les paramètres utiles à l'exo :
         // x1 = randint(-5, 5, [0])
@@ -52,7 +52,7 @@ export default function Resolutionavecformecanonique () {
         b2 = fraction(delta, 4 * a * a).simplifie() // terme b² dans l'expression a²-b²
         /*    if (delta >= 0) {
           if (Math.sqrt(delta) === Math.trunc(Math.sqrt(delta))) {
-            b3 = fraction(Math.sqrt(delta), Math.abs(2 * a)).simplifie()
+            b3 = fraction(Math.sqrt(delta), Math.abs(calcul(2 * a/p))).simplifie()
           } else { b3 = b2 }
           x1 = fraction(-b - Math.sqrt(delta), 2 * a)
           x2 = fraction(-b + Math.sqrt(delta), 2 * a)
@@ -99,18 +99,53 @@ export default function Resolutionavecformecanonique () {
           texteCorr += `et $b =${b2.texRacineCarree(true)}$`// = ${b3.simplifie().texFraction} why ?
           texteCorr += '<br>L\'équation à résoudre est équivalente à :'
           texteCorr += `<br> $\\left(x ${alpha.simplifie().ecritureAlgebrique}-${b2.texRacineCarree()}\\right)\\left(x ${alpha.simplifie().ecritureAlgebrique}+${b2.texRacineCarree()}\\right)=0$`
-          if (b2.estParfaite()) {
-            x1 = alpha.sommeFraction(b2.racineCarree().simplifie().oppose()).simplifie().ecritureAlgebrique
-            x2 = alpha.sommeFraction(b2.racineCarree().simplifie()).simplifie().ecritureAlgebrique
+          if (pgcd(Math.abs(b), Math.abs(calcul(2 * a))) === pgcd(extraireRacineCarree(delta)[0], Math.abs(calcul(2 * a)))) {
+            p = pgcd(Math.abs(b), Math.abs(calcul(2 * a)))
           } else {
-            x1 = `${signe(a)}\\dfrac{${b}-${rienSi1(extraireRacineCarree(delta)[0])}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(2 * a)}}`
-            x2 = `${signe(a)}\\dfrac{${b}+${rienSi1(extraireRacineCarree(delta)[0])}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(2 * a)}}`
+            p = 1
           }
-          texteCorr += `<br> $\\left(x ${x1}\\right)\\left(x ${x2}\\right)=0$`
+          if (b2.estParfaite()) {
+            x1 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie().oppose()).simplifie()
+            x2 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie()).simplifie()
+            if (a < 0) {
+              x1String = x1.oppose().ecritureAlgebrique
+              x2String = x2.oppose().ecritureAlgebrique
+            } else {
+              x1String = x1.ecritureAlgebrique
+              x2String = x2.ecritureAlgebrique
+            }
+          } else {
+            if (a < 0) {
+              if (b < 0) {
+                x1String = `+\\dfrac{${calcul(-b / p)}-${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
+                stringX1 = `\\dfrac{${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}-${calcul(-b / p)}}{${Math.abs(calcul(2 * a / p))}}`
+                x2String = `+\\dfrac{${calcul(-b / p)}+${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
+                stringX2 = `\\dfrac{${calcul(b / p)}-${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
+              } else {
+                x2String = `+\\dfrac{${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}-${b}}{${Math.abs(calcul(2 * a / p))}}`
+                stringX2 = `\\dfrac{${calcul(b / p)}-${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
+                x1String = `-\\dfrac{${calcul(b / p)}+${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
+                stringX1 = `\\dfrac{${calcul(b / p)}+${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
+              }
+            } else {
+              if (b < 0) {
+                x1String = `-\\dfrac{${calcul(-b / p)}+${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
+                stringX1 = `\\dfrac{${calcul(-b / p)}+${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
+                x2String = `-\\dfrac{${calcul(-b / p)}-${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
+                stringX2 = `\\dfrac{${calcul(-b / p)}-${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
+              } else {
+                x1String = `-\\dfrac{${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}-${b}}{${Math.abs(calcul(2 * a / p))}}`
+                stringX1 = `\\dfrac{${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}-${b}}{${Math.abs(calcul(2 * a / p))}}`
+                x2String = `+\\dfrac{${calcul(b / p)}+${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
+                stringX2 = `\\dfrac{${calcul(-b / p)}-${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
+              }
+            }
+          }
+          texteCorr += `<br> $\\left(x ${x1String}\\right)\\left(x ${x2String}\\right)=0$`
           texteCorr += '<br> On applique la propriété du produit nul :'
-          texteCorr += `<br> Soit $x ${x1}=0$ , soit $x ${x2}=0$`
-          texteCorr += `<br> Soit $x = ${x1.substring(0, 1) === '-' ? x1.substring(1) : '-' + x1.substring(1)}$ , soit $x = ${x2.substring(0, 1) === '-' ? x2.substring(1) : '-' + x2.substring(1)}$`
-          texteCorr += `<br> $S =\\left\\{${x1.substring(0, 1) === '-' ? x1.substring(1) : '-' + x1.substring(1)};${x2.substring(0, 1) === '-' ? x2.substring(1) : '-' + x2.substring(1)}\\right\\}$`
+          texteCorr += `<br> Soit $x ${x1String}=0$ , soit $x ${x2String}=0$`
+          texteCorr += `<br> Soit $x = ${stringX1}$ , soit $x = ${stringX2}$`
+          texteCorr += `<br> $S =\\left\\{${stringX2};${stringX1}\\right\\}$`
         }
       }
 
