@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, extraireRacineCarree, signe, pgcd, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, extraireRacineCarree, pgcd, calcul } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 export const interactifReady = true
