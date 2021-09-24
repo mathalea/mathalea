@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, combinaisonListes, rienSi1, ecritureAlgebrique
 import { ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 import { choisiDelta } from '../../modules/fonctionsMaths.js'
-export const interactifReady = true
+export const interactifReady = false
 export const interactifType = 'mathLive'
 export const titre = 'Résoudre une équation du second degré à partir de la forme canonique'
 
@@ -70,8 +70,7 @@ export default function Resolutionavecformecanonique () {
       if (delta < 0) {
         texteCorr += '<br>L\'équation revient à ajouter deux nombres positifs, dont un non-nul. Cette somme ne peut pas être égale à zéro.'
         texteCorr += '<br>On en déduit que $S=\\emptyset$'
-      }
-      if (delta > 0) { // Cas des deux solutions :
+      } else if (delta > 0) { // Cas des deux solutions :
         texteCorr += '<br>On reconnaît l\'identité remarquable $a^2-b^2$ :'
         texteCorr += `<br>avec  $a= \\left(x ${alpha.simplifie().ecritureAlgebrique}\\right)$ `
         texteCorr += `et $b =${b2.texRacineCarree(true)}$`// = ${b3.simplifie().texFraction} why ?
@@ -124,6 +123,8 @@ export default function Resolutionavecformecanonique () {
         texteCorr += `<br> Soit $x ${x1String}=0$ , soit $x ${x2String}=0$`
         texteCorr += `<br> Soit $x = ${stringX1}$ , soit $x = ${stringX2}$`
         texteCorr += `<br> $S =\\left\\{${stringX2};${stringX1}\\right\\}$`
+      } else { // cas de delta  = 0
+        // pour l'instant pas de delta nul avec choisiDelta
       }
 
       texte += ajouteChampTexteMathLive(this, i)
