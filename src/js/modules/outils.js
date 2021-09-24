@@ -826,9 +826,9 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
 * @author Rémi Angot
 */
 export function rienSi1 (a) {
-  if (a === 1) {
+  if (a === 1 || a === '1') {
     return ''
-  } else if (a === -1) {
+  } else if (a === -1 || a === '-1') {
     return '-'
   } else {
     return a
