@@ -1,5 +1,6 @@
-import { texFractionSigne, unSiPositifMoinsUnSinon, arrondi, fractionSimplifiee, obtenirListeFacteursPremiers, calcul, texFraction, quotientier } from './outils.js'
+import { texFractionSigne, unSiPositifMoinsUnSinon, arrondi, fractionSimplifiee, obtenirListeFacteursPremiers, calcul, texFraction, quotientier, extraireRacineCarree } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
+import { fraction } from './fractions.js'
 
 const definePropRo = (obj, prop, get) => {
   Object.defineProperty(obj, prop, {
@@ -72,6 +73,8 @@ class Fraction {
      * @property texFraction
      * @type {string}
      */
+    this.signeString = (this.signe === -1) ? '-' : (this.signe === 0) ? '' : '+'
+
     let texFraction
     definePropRo(this, 'texFraction', () => {
       if (!texFraction) texFraction = texFractionSigne(this.num, this.den)
@@ -108,6 +111,27 @@ class Fraction {
       return texFractionSimplifiee
     })
     /**
+     * le code LaTeX de l'écriture algébrique de la fraction
+     * @property ecritureAlgebrique
+     * @type {string}
+     */
+    let ecritureAlgebrique
+    definePropRo(this, 'ecritureAlgebrique', () => {
+      if (!ecritureAlgebrique) ecritureAlgebrique = this.signe === 1 ? '+' + this.texFraction : this.texFraction
+      return ecritureAlgebrique
+    })
+    /**
+     * le code LaTeX de l'écriture avec parenthèse si négatif
+     * @property ecritureParentheseSiNegatif
+     * @type {string}
+     */
+    let ecritureParentheseSiNegatif
+    definePropRo(this, 'ecritureParentheseSiNegatif', () => {
+      if (!ecritureParentheseSiNegatif) ecritureParentheseSiNegatif = this.signe === 1 ? this.texFraction : '\\left(' + this.texFraction + '\\right)'
+      return ecritureParentheseSiNegatif
+    })
+
+    /**
      * Valeurs avec 6 décimales
      * @type {number}
      */
@@ -120,6 +144,80 @@ class Fraction {
    */
   simplifie () {
     return new Fraction(this.numIrred, this.denIrred)
+  }
+
+  /**
+   * Retourne la chaine latex contenant la racine carrée de la fraction
+   * @param {boolean} detaillee Si detaillee est true, une étape de calcul se place avant le résultat.
+   * @return {Fraction}
+   */
+  texRacineCarree (detaillee = false) {
+    let factoDen = extraireRacineCarree(Math.abs(this.den))
+    let factoNum
+    if (factoDen[1] !== 1) {
+      factoNum = extraireRacineCarree(Math.abs(this.num * factoDen[1]))
+      factoDen = extraireRacineCarree(Math.abs(this.den * factoDen[1]))
+    } else {
+      factoNum = extraireRacineCarree(Math.abs(this.num))
+    }
+    const k = fraction(factoNum[0], factoDen[0]).simplifie()
+    const r = fraction(factoNum[1], factoDen[1]).simplifie()
+    let etape = ''
+    if (this.signe === -1) {
+      return false
+    } else if (this.signe === 0) {
+      return '0'
+    } else {
+      if (detaillee) {
+        etape = `\\sqrt{\\dfrac{${this.num}}{${this.den}}}=`
+        if (k.valeurDecimale !== 1) {
+          if (k.den === 1) {
+            etape += `\\sqrt{${factoNum[0]}^2\\times${factoNum[1]}}=`
+          } else {
+            if (factoNum[0] !== 1) {
+              etape += `\\sqrt{\\dfrac{${factoNum[0]}^2\\times${factoNum[1]}}{${factoDen[0]}^2\\times${factoDen[1]}}}=`
+            } else {
+              if (factoDen[1] !== 1) {
+                etape += `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2\\times${factoDen[1]}}}=`
+              } else {
+                etape += `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2}}=`
+              }
+            }
+          }
+        }
+      }
+
+      if (calcul(factoNum[1] / factoDen[1]) === 1) {
+        return etape + k.texFraction
+      } else {
+        if (k.num === 1 && k.den !== 1) {
+          if (r.den === 1) {
+            return (k.valeurDecimale === 1 ? etape : etape + `\\dfrac{\\sqrt{${r.num}}}{${k.den}}`)
+          } else {
+            return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.texFraction}}`
+          }
+        } else {
+          return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.texFraction}}`
+        }
+      }
+    }
+  }
+
+  /**
+   * Retourne la racine carrée de la fraction si c'est une fraction et false sinon
+   * @param {boolean} detaillee Si detaillee est true, une étape de calcul se place avant le résultat.
+   * @return {Fraction}
+   */
+  racineCarree () {
+    const factoNum = extraireRacineCarree(Math.abs(this.num))
+    const factoDen = extraireRacineCarree(Math.abs(this.den))
+    const k = fraction(factoNum[0], factoDen[0]).simplifie()
+    const r = fraction(factoNum[1], factoDen[1]).simplifie()
+    if (r.valeurDecimale !== 1 || this.signe === -1) {
+      return false
+    } else {
+      return k
+    }
   }
 
   /**
@@ -144,6 +242,14 @@ class Fraction {
    */
   opposeIrred () {
     return new Fraction(-this.numIrred, this.denIrred)
+  }
+
+  /**
+   * Retourne la Valeur absolue de la fraction
+   * @return {Fraction}
+   */
+  valeurAbsolue () {
+    return new Fraction(Math.abs(this.num), Math.abs(this.den))
   }
 
   /**
@@ -355,6 +461,15 @@ class Fraction {
   }
 
   /**
+   * Retourne true si la fraction courante est inférieure ou égale à f2
+   * @param {Fraction} f2
+   * @return {boolean}
+   */
+  inferieurlarge (f2) {
+    return (this.num / this.den) < (f2.num / f2.den)
+  }
+
+  /**
    * Retourne true si la fraction est égale et "plus simple"
    * @param {Fraction} f2
    * @return {boolean}
@@ -364,12 +479,27 @@ class Fraction {
   }
 
   /**
-   * Retourne true si la fraction courante est inférieure ou égale à f2
-   * @param {Fraction} f2
+   * Retourne true si la fraction est irreductible
    * @return {boolean}
    */
-  inferieurlarge (f2) {
-    return (this.num / this.den) < (f2.num / f2.den)
+  estIrreductible () {
+    return (this.num === this.numIrred && this.den === this.denIrred)
+  }
+
+  /**
+   * Retourne true si la fraction est un entier
+   * @return {boolean}
+   */
+  estEntiere () {
+    return (this.denIrred === 1)
+  }
+
+  /**
+   * Retourne true si la racine carrée de la fraction est rationnelle
+   * @return {boolean}
+   */
+  estParfaite () {
+    return (this.racineCarree() !== false)
   }
 
   /**
