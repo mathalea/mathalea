@@ -17,6 +17,6 @@ export default function SigneQuotientRelatifs () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     5,
-    "1 : Quotient de deux nombres\n2 : Quotient d'un nombre sur un produit de deux facteurs\n3 : Quotient d'un produit de deux factueurs sur un nombre\n4 : Quotient de deux produits de deux facteurs\n5 : Mélange"
+    "1 : Quotient de deux nombres\n2 : Quotient d'un nombre sur un produit de deux facteurs\n3 : Quotient d'un produit de deux facteurs sur un nombre\n4 : Quotient de deux produits de deux facteurs\n5 : Mélange"
   ]
 }

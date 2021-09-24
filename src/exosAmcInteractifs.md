@@ -1,11 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-<<<<<<< HEAD
-- nombre d'exos amcReady 250 
-- nombre d'exos interactifReady 288 
-=======
-- nombre d'exos amcReady 287 
-- nombre d'exos interactifReady 334 
->>>>>>> master
+- nombre d'exos amcReady 290 
+- nombre d'exos interactifReady 356 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -23,9 +18,9 @@
 |2N43-5|Développer (a-b)²|KO|KO|OK|mathLive|
 |3A11-1|Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
 |3A11|Primalité ou pas|OK|qcmMono|OK|qcm|
-|3A14|Problème Les iris et les roses|OK|AMCHybride|OK|mathLive|
+|3A14|Résoudre des problèmes avec recherche de diviseurs communs|OK|AMCHybride|OK|mathLive|
 |3F10-1|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
-|3F10-2|Calculs d’images fonctions|OK|AMCNum|OK|mathLive|
+|3F10-2|Fonction : calculs d’images (et d’antécédents)|OK|AMCNum|OK|mathLive|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
 |3F12-3|Compléter un tableau de valeurs|OK|AMCHybride|OK|mathLive|
@@ -76,7 +71,8 @@
 |4C22-1|Trouver l’inverse d’un nombre|KO|KO|OK|mathLive|
 |4C22-2|Diviser des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
 |4C22|Multiplier des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
-|4C23|Fractions et priorités opératoires|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C23-1|Fractions et priorités opératoires|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C23|Somme, différence ou produit de fractions|KO|KO|OK|mathLive|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|mathLive|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
@@ -84,11 +80,11 @@
 |4G10|Trouver l’image d’un point par une symétrie axiale ou centrale ou par une translation|OK|AMCHybride|OK|mathLive|
 |4G11-1|Trouver l’image d’une figure par une translation dans un pavage|OK|AMCHybride|OK|mathLive|
 |4G20-1|Donner ou compléter une égalité de Pythagore|KO|KO|OK|mathLive|
-|4G20-2|Racine carrée d’un carré parfait (calcul mental)|OK|AMCNum|OK|numerique|
+|4G20-2|Déterminer la racine carrée d’un carré parfait (calcul mental)|OK|AMCNum|OK|numerique|
 |4G20-4|Arrondir une racine carrée|KO|KO|OK|mathLive|
 |4G20-6|Encadrer une racine carrée et en donner un arrondi|OK|AMCHybride|OK|mathLive|
 |4G20|Calculer une longueur avec le théorème de Pythagore|OK|AMCOpenNum|OK|mathLive|
-|4G21|Déterminer si un triangle est rectangle ou pas.|OK|qcmMono|OK|qcm|
+|4G21|Déterminer si un triangle est rectangle ou pas|OK|qcmMono|OK|qcm|
 |4G30|Calculer des longueurs avec le théorème de Thalès|OK|AMCOpenNum|OK|mathLive|
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G41|Utiliser le cosinus pour calculer la mesure d’un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
@@ -108,7 +104,6 @@
 |5L14-2|Substitution|OK|AMCNum|OK|numerique|
 |5L14|Calculer la valeur d’une expression littérale|KO|KO|OK|mathLive|
 |5M20|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
-|5N110-1|Variation en pourcentages|OK|AMCNum|OK|mathLive|
 |5N110|Variation en pourcentages|OK|AMCNum|OK|mathLive|
 |5N13-2|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
 |5N13|Simplification de fractions|OK|AMCOpen|OK|mathLive|
@@ -123,7 +118,7 @@
 |5R20-3|Additions de 5 nombres relatifs|OK|AMCNum|OK|mathLive|
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|mathLive|
-|5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|numerique|
+|5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|mathLive|
 |6C10-1|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |6C10-2|Tables de multiplications et multiples de 10|OK|qcmMono|OK|qcm,mathLive|
 |6C10-3|Tables de multiplications et nombres décimaux|OK|qcmMono|OK|qcm|
@@ -136,7 +131,7 @@
 |6C21|Divisions euclidiennes - Niveau 2|OK|AMCOpen|KO|KO|
 |6C22|Problème - de plus de moins|OK|AMCNum|OK|numerique|
 |6C23|Additionner ou soustraire des fractions de même dénominateur|OK|qcmMono|OK|qcm|
-|6C30-1|Multiplications d’un nombre décimal par 10, 100 ou 1 000.|OK|AMCNum|OK|numerique|
+|6C30-1|Multiplier un nombre décimal par 10, 100 ou 1 000|OK|AMCNum|OK|numerique|
 |6C30-2|Calculer le produit de deux décimaux connaissant le produit de deux entiers|OK|AMCNum|OK|numerique|
 |6C30-3|Opérations avec les nombres décimaux|OK|qcmMono|OK|qcm|
 |6C30-4|Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)|OK|qcmMono|OK|qcm|
@@ -161,18 +156,20 @@
 |6M11|Aires de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M12|Conversions de longueurs|OK|AMCNum|OK|mathLive|
 |6M20|Aires de triangles|OK|AMCNum|OK|mathLive|
-|6M22|Périmètres et aires de disques (à partir d’un texte).|OK|AMCHybride|OK|mathLive|
+|6M22|Déterminer périmètres et aires de disques (à partir d’un texte)|OK|AMCHybride|OK|mathLive|
 |6M23|Conversions d’aires|OK|qcmMono|OK|qcm,mathLive|
 |6M30-0|Volumes de pavés droit par dénombrement|OK|AMCNum|OK|mathLive|
 |6M30|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |6M31|Conversions de volume|OK|qcmMono|OK|qcm,mathLive|
+|6N10-0|Écrire un nombre en chiffres ou en lettres|KO|KO|OK|mathLive|
 |6N10-1|Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...|OK|AMCNum|OK|mathLive|
+|6N10|Écrire un nombre entier en chiffres ou en lettres|KO|KO|OK|mathLive|
 |6N11-2|Placer un point d’abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
 |6N11|Lire l’abscisse entière d’un point (grands nombres)|OK|AMCOpen|OK|mathLive|
 |6N13|Conversions de longueurs, masses, contenance, prix ou unités informatiques|OK|AMCNum|OK|mathLive|
 |6N20-1|Encadrer une fraction entre deux nombres entiers|OK|AMCHybride|OK|mathLive|
-|6N20-2|Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.|KO|KO|OK|mathLive|
-|6N20|Décomposer une fraction (partie entière + fraction inférieure à 1).|KO|KO|OK|mathLive|
+|6N20-2|Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale|KO|KO|OK|mathLive|
+|6N20|Décomposer une fraction (partie entière + fraction inférieure à 1)|KO|KO|OK|mathLive|
 |6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
 |6N22|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
 |6N23-2|Lire des abscisses décimales sous trois formes|OK|AMCHybride|OK|mathLive|
@@ -185,13 +182,13 @@
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|OK|numerique|
 |6N33|Calculer la fraction d’un nombre|OK|AMCNum|OK|mathLive|
-|6N34|Conversions avec tous les préfixes de milli à tera.|OK|AMCNum|OK|mathLive|
+|6N34|Effectuer des conversions avec tous les préfixes de milli à tera|OK|AMCNum|OK|mathLive|
 |6N41|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
 |6N43-2|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|KO|KO|
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|qcm|
 |6N43|Critères de divisibilité|OK|qcmMono|OK|qcm|
 |6P10|Reconnaître une situation de proportionnalité|OK|qcmMono|OK|qcm|
-|6P11-1|Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.|OK|AMCHybride|OK|mathLive|
+|6P11-1|Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité|OK|AMCHybride|OK|mathLive|
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
 |6P11|Résoudre des problèmes de proportionnalité en utilisant la linéarité simple|OK|AMCHybride|OK|mathLive|
 |6P12|Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple|OK|AMCNum|OK|mathLive|
@@ -238,7 +235,13 @@
 |can2C01|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can2C02|Calcul différence de deux carrés|OK|AMCNum|OK|mathLive|
 |can2C03|Calcul avec puissance|OK|AMCNum|OK|mathLive|
+|can2F01|Calcul d’une image second degré|KO|KO|OK|mathLive|
+|can2F02|Calcul d’une image avec un quotient|KO|KO|OK|mathLive|
 |can2G01|Agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
+|can2G02|Calcul de d’un côté avec Pythagore|KO|KO|OK|mathLive|
+|can2G03|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
+|can2G04|Calculs des coordonnées du milieu|KO|KO|OK|mathLive|
+|can2G05|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
 |can2L01|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
 |can2P02|Dénombrement|KO|KO|OK|mathLive|
@@ -248,6 +251,7 @@
 |can3C04|Somme Entier et fraction à réduire|OK|AMCNum|OK|mathLive|
 |can3C05|Calcul avec puissance de 10|OK|AMCNum|OK|mathLive|
 |can3C06|Calcul divers avec carrés/priorité opératoire|OK|AMCNum|OK|mathLive|
+|can3C07|milieu entre 1 et fraction avec graphique|KO|KO|OK|mathLive|
 |can3E01|Calcul de volume 3e|OK|AMCNum|OK|mathLive|
 |can3F01|Lecture graphique|OK|AMCNum|OK|mathLive|
 |can3F02|Calcul d’image ou d’antécédent niveau 1|OK|AMCNum|OK|mathLive|
@@ -255,6 +259,9 @@
 |can3F04|Calcul d’image niveau 3|OK|AMCNum|OK|mathLive|
 |can3G01|Agrandissement/réduction|OK|AMCNum|OK|mathLive|
 |can3G02|Image de point par transformation 3e|KO|KO|OK|mathLive|
+|can3G03|Calcul d’une longueur avec Thalès2|KO|KO|OK|mathLive|
+|can3G04|Recherche valeur avec Pythagore|KO|KO|OK|mathLive|
+|can3G05|Trigonométrie|KO|KO|OK|mathLive|
 |can3L01|Équation ax=b|OK|AMCNum|OK|mathLive|
 |can3L02|Équation ax+b=0|OK|AMCNum|OK|mathLive|
 |can3L03|Équation ax+b=c|OK|AMCNum|OK|mathLive|
@@ -273,6 +280,11 @@
 |can4C09|Puissances de 2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
 |can4G01|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can4G02|Image de point par transformation 4e|KO|KO|OK|mathLive|
+|can4G03|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
+|can4G04|Calcul de d’un côté avec Pythagore|KO|KO|OK|mathLive|
+|can4G05|Calcul de la diagonale d’un carré|KO|KO|OK|mathLive|
+|can4G06|Calcul d’une longueur avec Thalès|KO|KO|OK|mathLive|
+|can4G07|Calcul d’une longueur avec Thalès (milieu)|KO|KO|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
 |can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
 |can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
@@ -297,19 +309,20 @@
 |can5C15|Pourcentage (proportion) 1|OK|AMCNum|OK|mathLive|
 |can5D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can5G01|Symétrique de point 5e|KO|KO|OK|mathLive|
+|can5G02|Angle dans un triangle isocèle|KO|KO|OK|mathLive|
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
 |can5P01|Pourcentage (évolution)|OK|AMCNum|OK|mathLive|
 |can5P02|Pourcentage (proportion) 2|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
-|can6C01|Ordre de grandeur|OK|qcmMono|OK|qcm|
-|can6C02|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
+|can6C01|Ordre de grandeur QCM|OK|qcmMono|OK|qcm|
+|can6C02|Multiplier nombre pair par 5|OK|AMCNum|OK|mathLive|
 |can6C03|Addition à trou|OK|AMCNum|OK|mathLive|
-|can6C04|Ajoute 10n + 9|OK|AMCNum|OK|mathLive|
+|can6C04|Ajouter 10n + 9|OK|AMCNum|OK|mathLive|
 |can6C05|Multiplier astucieusement|OK|AMCNum|OK|mathLive|
-|can6C06|Division par 9|OK|AMCNum|OK|mathLive|
+|can6C06|Diviser par 9|OK|AMCNum|OK|mathLive|
 |can6C07|Reste de division par 3|OK|AMCNum|OK|mathLive|
 |can6C08|Quart ou Tiers|OK|AMCNum|OK|mathLive|
-|can6C09|Soustraire un nombre se finissant par 9|OK|AMCNum|OK|mathLive|
+|can6C09|Soustraire 10n+9|OK|AMCNum|OK|mathLive|
 |can6C10|Tables de x du 5 au 9|OK|AMCNum|OK|mathLive|
 |can6C11|Double ou triple (décimal)|OK|AMCNum|OK|mathLive|
 |can6C12|Double ou triple|OK|AMCNum|OK|mathLive|
@@ -322,21 +335,25 @@
 |can6C19|Complément à 100|OK|AMCNum|OK|mathLive|
 |can6C20|Complément à 1|OK|AMCNum|OK|mathLive|
 |can6C21|Complément à 1 Niveau 2|OK|AMCNum|OK|mathLive|
-|can6C22|Valeurs décimales quarts et cinquièmes|OK|AMCNum|OK|mathLive|
+|can6C22|Valeurs décimales de fractions|OK|AMCNum|OK|mathLive|
 |can6C23|Calcul avec +/-99 ou +/-999|OK|AMCNum|OK|mathLive|
+|can6C24|Multiplier par 0,1 ou 0,01 ou 0,001|OK|AMCNum|OK|mathLive|
 |can6D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calcul de durée en minutes|OK|AMCNum|OK|mathLive|
+|can6D04|Convertir minutes heures|OK|AMCHybride|OK|mathLive|
 |can6G01|Symétrique de point 6e|KO|KO|OK|mathLive|
 |can6M01|Question de périmètres|OK|qcmMono|OK|qcm|
 |can6M02|La bonne unité|OK|qcmMono|OK|qcm|
-|can6M03|Conversions en mètres|OK|AMCNum|OK|mathLive|
+|can6M03|Convertir en mètres|OK|AMCNum|OK|mathLive|
 |can6M04|Conversions en tous sens|OK|AMCNum|OK|mathLive|
 |can6M05|Conversions m$^3$ et litres|OK|AMCNum|OK|mathLive|
 |can6M06|Périmètre d’une figure|OK|AMCNum|OK|mathLive|
-|can6N01|Recomposition entier|OK|AMCNum|OK|mathLive|
-|can6N02|Recomposition entier simple|OK|AMCNum|OK|mathLive|
-|can6N03|Recomposition entier moins simple|OK|AMCNum|OK|mathLive|
+|can6M07|Compléter un volume au litre|OK|AMCNum|OK|mathLive|
+|can6M08|Question d'aires|OK|qcmMono|OK|qcm|
+|can6N01|Recomposer entier|OK|AMCNum|OK|mathLive|
+|can6N02|Recomposer entier simple|OK|AMCNum|OK|mathLive|
+|can6N03|Recomposer entier moins simple|OK|AMCNum|OK|mathLive|
 |can6N04|Abscisse fractionnaire|OK|AMCHybride|OK|mathLive|
 |can6N05|Chiffre des ...|OK|AMCHybride|OK|mathLive|
 |can6N06|Arrondi au dixième|OK|AMCHybride|OK|mathLive|

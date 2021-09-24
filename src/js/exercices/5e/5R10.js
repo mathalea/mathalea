@@ -24,7 +24,7 @@ export default function TermeInconnuDeSomme () {
   this.sup3 = 1
   this.sup2 = 20 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
   this.titre = titre
-  this.consigne = 'Calcule le terme manquant'
+  this.consigne = 'Calculer le terme manquant.'
   this.spacing = 2
   this.interactif = false
   this.interactifReady = interactifReady
@@ -111,5 +111,5 @@ export default function TermeInconnuDeSomme () {
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Nombres entiers\n2 : Nombres décimaux']
   this.besoinFormulaire2Numerique = ['Valeur maximale', 9999]
-  this.besoinFormulaire3Numerique = ["Type d'égalité", 2, '1 : Égalité à trou\n2 : Équation']
+  this.besoinFormulaire3Numerique = ["Type d'égalités", 2, '1 : Égalités à trou\n2 : Équations']
 }

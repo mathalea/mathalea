@@ -18,6 +18,6 @@ export default function SigneProduitRelatifs () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     4,
-    '1 : Deux facteurs\n2 : Trois facteurs\n3 : Quatre facteurs\n4 : Mélange'
+    '1 : 2 facteurs\n2 : 3 facteurs\n3 : 4 facteurs\n4 : Mélange'
   ]
 }

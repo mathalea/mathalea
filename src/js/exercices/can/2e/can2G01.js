@@ -16,7 +16,7 @@ export default function AgrandissementReductionGFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.formatChampTexte = 'largeur25'
+  this.formatChampTexte = 'largeur25'
   this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
     const listeFractions = [

@@ -465,7 +465,7 @@ export default {
     "name": "3A13"
   },
   "3A14": {
-    "titre": "Problème Les iris et les roses",
+    "titre": "Résoudre des problèmes avec recherche de diviseurs communs",
     "url": "/exercices/3e/3A14.js",
     "amcReady": true,
     "amcType": {
@@ -494,7 +494,7 @@ export default {
     "name": "3F10-1"
   },
   "3F10-2": {
-    "titre": "Calculs d’images fonctions",
+    "titre": "Fonction : calculs d’images (et d’antécédents)",
     "url": "/exercices/3e/3F10-2.js",
     "amcReady": true,
     "amcType": {
@@ -696,7 +696,7 @@ export default {
     "name": "3G22"
   },
   "3G23": {
-    "titre": "Reconnaître des triangles semblables dans différentes configurations",
+    "titre": "Reconnaître des triangles égaux dans différentes configurations",
     "url": "/exercices/3e/3G23.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1186,13 +1186,21 @@ export default {
     "interactifType": "mathLive",
     "name": "4C22"
   },
-  "4C23": {
+  "4C23-1": {
     "titre": "Fractions et priorités opératoires",
-    "url": "/exercices/4e/4C23.js",
+    "url": "/exercices/4e/4C23-1.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCOpenNum✖︎2"
     },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4C23-1"
+  },
+  "4C23": {
+    "titre": "Somme, différence ou produit de fractions",
+    "url": "/exercices/4e/4C23.js",
+    "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "4C23"
@@ -1347,7 +1355,7 @@ export default {
     "name": "4G20-1"
   },
   "4G20-2": {
-    "titre": "Racine carrée d’un carré parfait (calcul mental)",
+    "titre": "Déterminer la racine carrée d’un carré parfait (calcul mental)",
     "url": "/exercices/4e/4G20-2.js",
     "amcReady": true,
     "amcType": {
@@ -1395,7 +1403,7 @@ export default {
     "name": "4G20"
   },
   "4G21": {
-    "titre": "Déterminer si un triangle est rectangle ou pas.",
+    "titre": "Déterminer si un triangle est rectangle ou pas",
     "url": "/exercices/4e/4G21.js",
     "amcReady": true,
     "amcType": {
@@ -1406,7 +1414,7 @@ export default {
     "name": "4G21"
   },
   "4G22": {
-    "titre": "Problèmes utilisant le théorème de Pythagore",
+    "titre": "Résoudre des problèmes utilisant le théorème de Pythagore",
     "url": "/exercices/4e/4G22.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1580,7 +1588,7 @@ export default {
     "name": "4L15-1"
   },
   "4L16": {
-    "titre": "Déterminer la structure de l'expression littérale",
+    "titre": "Déterminer si ces expressions sont des sommes, des différences, des produits ou des quotients",
     "url": "/exercices/4e/4L16.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1798,7 +1806,7 @@ export default {
     "name": "5G12"
   },
   "5G13": {
-    "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles.",
+    "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
     "url": "/exercices/5e/5G13.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2112,17 +2120,6 @@ export default {
     "interactifReady": false,
     "name": "5N11-4"
   },
-  "5N110-1": {
-    "titre": "Variation en pourcentages",
-    "url": "/exercices/5e/5N110-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "5N110-1"
-  },
   "5N110": {
     "titre": "Variation en pourcentages",
     "url": "/exercices/5e/5N110.js",
@@ -2211,7 +2208,7 @@ export default {
     "name": "5N20"
   },
   "5P10": {
-    "titre": "Tableaux et proportionnalité.",
+    "titre": "Reconnaître des tableaux de proportionnalité",
     "url": "/exercices/5e/5P10.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2226,7 +2223,7 @@ export default {
     "name": "5P11-1"
   },
   "5P12": {
-    "titre": "Partager une quantité en deux ou trois parts selon un ratio donné.",
+    "titre": "Partager une quantité en deux ou trois parts selon un ratio donné",
     "url": "/exercices/5e/5P12.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2316,7 +2313,7 @@ export default {
     "name": "5R20-3"
   },
   "5R20-4": {
-    "titre": "Résoudre un problème en utilisant une somme algébrique de relatifs.",
+    "titre": "Résoudre un problème en utilisant une somme algébrique de relatifs",
     "url": "/exercices/5e/5R20-4.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2366,7 +2363,7 @@ export default {
       "text": "AMCOpenNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "5R22"
   },
   "5S10": {
@@ -2573,7 +2570,7 @@ export default {
     "name": "6C23"
   },
   "6C30-1": {
-    "titre": "Multiplications d’un nombre décimal par 10, 100 ou 1 000.",
+    "titre": "Multiplier un nombre décimal par 10, 100 ou 1 000",
     "url": "/exercices/6e/6C30-1.js",
     "amcReady": true,
     "amcType": {
@@ -3058,7 +3055,7 @@ export default {
     "name": "6M22-2"
   },
   "6M22": {
-    "titre": "Périmètres et aires de disques (à partir d’un texte).",
+    "titre": "Déterminer périmètres et aires de disques (à partir d’un texte)",
     "url": "/exercices/6e/6M22.js",
     "amcReady": true,
     "amcType": {
@@ -3135,6 +3132,14 @@ export default {
     ],
     "name": "6M31"
   },
+  "6N10-0": {
+    "titre": "Écrire un nombre en chiffres ou en lettres",
+    "url": "/exercices/6e/6N10-0.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6N10-0"
+  },
   "6N10-1": {
     "titre": "Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...",
     "url": "/exercices/6e/6N10-1.js",
@@ -3154,14 +3159,14 @@ export default {
     "name": "6N10-2"
   },
   "6N10-3": {
-    "titre": "Chiffre des ... Nombre de ...",
+    "titre": "Trouver le chiffre des ... et le nombre de ...",
     "url": "/exercices/6e/6N10-3.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "6N10-3"
   },
   "6N10-4": {
-    "titre": "Écrire correctement les grands nombres entiers.",
+    "titre": "Écrire correctement les grands nombres entiers",
     "url": "/exercices/6e/6N10-4.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3175,10 +3180,11 @@ export default {
     "name": "6N10-5"
   },
   "6N10": {
-    "titre": "Écrire un nombre en chiffres ou en lettres",
+    "titre": "Écrire un nombre entier en chiffres ou en lettres",
     "url": "/exercices/6e/6N10.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N10"
   },
   "6N11-2": {
@@ -3254,7 +3260,7 @@ export default {
     "name": "6N20-1"
   },
   "6N20-2": {
-    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.",
+    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale",
     "url": "/exercices/6e/6N20-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3262,7 +3268,7 @@ export default {
     "name": "6N20-2"
   },
   "6N20": {
-    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1).",
+    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1)",
     "url": "/exercices/6e/6N20.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3504,7 +3510,7 @@ export default {
     "name": "6N33"
   },
   "6N34": {
-    "titre": "Conversions avec tous les préfixes de milli à tera.",
+    "titre": "Effectuer des conversions avec tous les préfixes de milli à tera",
     "url": "/exercices/6e/6N34.js",
     "amcReady": true,
     "amcType": {
@@ -3583,7 +3589,7 @@ export default {
     "name": "6P10"
   },
   "6P11-1": {
-    "titre": "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.",
+    "titre": "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité",
     "url": "/exercices/6e/6P11-1.js",
     "amcReady": true,
     "amcType": {
@@ -3983,6 +3989,20 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "P012"
+  },
+  "P013": {
+    "titre": "interpolation cosinusoïdale",
+    "url": "/exercices/Profs/P013.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P013"
+  },
+  "P014": {
+    "titre": "Interpollation de Catmull-Rom",
+    "url": "/exercices/Profs/P014.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P014"
   },
   "beta1N10_intercatif": {
     "titre": "Nombre pair multiplié par 5",
@@ -4497,6 +4517,22 @@ export default {
     "interactifType": "mathLive",
     "name": "can2C03"
   },
+  "can2F01": {
+    "titre": "Calcul d’une image second degré",
+    "url": "/exercices/can/2e/can2F01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2F01"
+  },
+  "can2F02": {
+    "titre": "Calcul d’une image avec un quotient",
+    "url": "/exercices/can/2e/can2F02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2F02"
+  },
   "can2G01": {
     "titre": "Agrandissement/réduction avec fraction",
     "url": "/exercices/can/2e/can2G01.js",
@@ -4507,6 +4543,38 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2G01"
+  },
+  "can2G02": {
+    "titre": "Calcul de d’un côté avec Pythagore",
+    "url": "/exercices/can/2e/can2G02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G02"
+  },
+  "can2G03": {
+    "titre": "Calcul de l’hypoténuse avec Pythagore",
+    "url": "/exercices/can/2e/can2G03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G03"
+  },
+  "can2G04": {
+    "titre": "Calculs des coordonnées du milieu",
+    "url": "/exercices/can/2e/can2G04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G04"
+  },
+  "can2G05": {
+    "titre": "Calcul d’une distance dans un repère",
+    "url": "/exercices/can/2e/can2G05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G05"
   },
   "can2L01": {
     "titre": "Nombre de solutions d’une équation se ramenant à $x^2=a$",
@@ -4604,6 +4672,14 @@ export default {
     "interactifType": "mathLive",
     "name": "can3C06"
   },
+  "can3C07": {
+    "titre": "milieu entre 1 et fraction avec graphique",
+    "url": "/exercices/can/3e/can3C07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C07"
+  },
   "can3E01": {
     "titre": "Calcul de volume 3e",
     "url": "/exercices/can/3e/can3E01.js",
@@ -4677,6 +4753,30 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3G02"
+  },
+  "can3G03": {
+    "titre": "Calcul d’une longueur avec Thalès2",
+    "url": "/exercices/can/3e/can3G03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3G03"
+  },
+  "can3G04": {
+    "titre": "Recherche valeur avec Pythagore",
+    "url": "/exercices/can/3e/can3G04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3G04"
+  },
+  "can3G05": {
+    "titre": "Trigonométrie",
+    "url": "/exercices/can/3e/can3G05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3G05"
   },
   "can3L01": {
     "titre": "Équation ax=b",
@@ -4866,6 +4966,46 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can4G02"
+  },
+  "can4G03": {
+    "titre": "Calcul de l’hypoténuse avec Pythagore",
+    "url": "/exercices/can/4e/can4G03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G03"
+  },
+  "can4G04": {
+    "titre": "Calcul de d’un côté avec Pythagore",
+    "url": "/exercices/can/4e/can4G04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G04"
+  },
+  "can4G05": {
+    "titre": "Calcul de la diagonale d’un carré",
+    "url": "/exercices/can/4e/can4G05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G05"
+  },
+  "can4G06": {
+    "titre": "Calcul d’une longueur avec Thalès",
+    "url": "/exercices/can/4e/can4G06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G06"
+  },
+  "can4G07": {
+    "titre": "Calcul d’une longueur avec Thalès (milieu)",
+    "url": "/exercices/can/4e/can4G07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G07"
   },
   "can4L01": {
     "titre": "Résoudre une équation niveau 1",
@@ -5125,6 +5265,14 @@ export default {
     "interactifType": "mathLive",
     "name": "can5G01"
   },
+  "can5G02": {
+    "titre": "Angle dans un triangle isocèle",
+    "url": "/exercices/can/5e/can5G02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5G02"
+  },
   "can5N01": {
     "titre": "Somme de nombres décimaux",
     "url": "/exercices/can/5e/can5N01.js",
@@ -5170,7 +5318,7 @@ export default {
     "name": "canPredef5-1"
   },
   "can6C01": {
-    "titre": "Ordre de grandeur",
+    "titre": "Ordre de grandeur QCM",
     "url": "/exercices/can/6e/can6C01.js",
     "amcReady": true,
     "amcType": {
@@ -5181,7 +5329,7 @@ export default {
     "name": "can6C01"
   },
   "can6C02": {
-    "titre": "Nombre pair multiplié par 5",
+    "titre": "Multiplier nombre pair par 5",
     "url": "/exercices/can/6e/can6C02.js",
     "amcReady": true,
     "amcType": {
@@ -5203,7 +5351,7 @@ export default {
     "name": "can6C03"
   },
   "can6C04": {
-    "titre": "Ajoute 10n + 9",
+    "titre": "Ajouter 10n + 9",
     "url": "/exercices/can/6e/can6C04.js",
     "amcReady": true,
     "amcType": {
@@ -5225,7 +5373,7 @@ export default {
     "name": "can6C05"
   },
   "can6C06": {
-    "titre": "Division par 9",
+    "titre": "Diviser par 9",
     "url": "/exercices/can/6e/can6C06.js",
     "amcReady": true,
     "amcType": {
@@ -5258,7 +5406,7 @@ export default {
     "name": "can6C08"
   },
   "can6C09": {
-    "titre": "Soustraire un nombre se finissant par 9",
+    "titre": "Soustraire 10n+9",
     "url": "/exercices/can/6e/can6C09.js",
     "amcReady": true,
     "amcType": {
@@ -5401,7 +5549,7 @@ export default {
     "name": "can6C21"
   },
   "can6C22": {
-    "titre": "Valeurs décimales quarts et cinquièmes",
+    "titre": "Valeurs décimales de fractions",
     "url": "/exercices/can/6e/can6C22.js",
     "amcReady": true,
     "amcType": {
@@ -5421,6 +5569,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6C23"
+  },
+  "can6C24": {
+    "titre": "Multiplier par 0,1 ou 0,01 ou 0,001",
+    "url": "/exercices/can/6e/can6C24.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C24"
   },
   "can6D01": {
     "titre": "Conversion Heures minutes",
@@ -5455,6 +5614,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can6D03"
   },
+  "can6D04": {
+    "titre": "Convertir minutes heures",
+    "url": "/exercices/can/6e/can6D04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6D04"
+  },
   "can6G01": {
     "titre": "Symétrique de point 6e",
     "url": "/exercices/can/6e/can6G01.js",
@@ -5486,7 +5656,7 @@ export default {
     "name": "can6M02"
   },
   "can6M03": {
-    "titre": "Conversions en mètres",
+    "titre": "Convertir en mètres",
     "url": "/exercices/can/6e/can6M03.js",
     "amcReady": true,
     "amcType": {
@@ -5529,8 +5699,30 @@ export default {
     "interactifType": "mathLive",
     "name": "can6M06"
   },
+  "can6M07": {
+    "titre": "Compléter un volume au litre",
+    "url": "/exercices/can/6e/can6M07.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6M07"
+  },
+  "can6M08": {
+    "titre": "Question d'aires",
+    "url": "/exercices/can/6e/can6M08.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can6M08"
+  },
   "can6N01": {
-    "titre": "Recomposition entier",
+    "titre": "Recomposer entier",
     "url": "/exercices/can/6e/can6N01.js",
     "amcReady": true,
     "amcType": {
@@ -5541,7 +5733,7 @@ export default {
     "name": "can6N01"
   },
   "can6N02": {
-    "titre": "Recomposition entier simple",
+    "titre": "Recomposer entier simple",
     "url": "/exercices/can/6e/can6N02.js",
     "amcReady": true,
     "amcType": {
@@ -5552,7 +5744,7 @@ export default {
     "name": "can6N02"
   },
   "can6N03": {
-    "titre": "Recomposition entier moins simple",
+    "titre": "Recomposer entier moins simple",
     "url": "/exercices/can/6e/can6N03.js",
     "amcReady": true,
     "amcType": {

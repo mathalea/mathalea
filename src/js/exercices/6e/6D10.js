@@ -17,7 +17,7 @@ export default function ConversionsDeDurees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 5
   this.titre = titre
-  this.consigne = 'Compléter les égalités suivantes'
+  this.consigne = 'Compléter les égalités suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 2
@@ -146,6 +146,6 @@ export default function ConversionsDeDurees () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     5,
-    '1 : Conversions en s ou min\n2 : Conversions en jours-heures \n3 : Conversions en HMS\n4 : Conversions en semaines-jours-heures \n5 : Tous types de conversions'
+    '1 : Conversions en secondes ou minutes\n2 : Conversions en jours-heures\n3 : Conversions en heures-minutes-secondes\n4 : Conversions en semaines-jours-heures\n5 : Mélange'
   ]
 }

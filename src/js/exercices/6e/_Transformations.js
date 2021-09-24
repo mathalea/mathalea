@@ -414,6 +414,6 @@ export default function Transformations () {
   }
   this.besoinFormulaireTexte = [
     'Choix des transformations',
-    '3 nombres séparés par des tirets\n 1&2 : symétries obliques\n 3&4 : symétries horizontales ou verticales\n 5&6 : rotations de 90°\n 7 : symétrie centrale\n 8 : translation\n 9 : homothétie k>1\n 10 : homothétie k<1'
+    '3 nombres séparés par des tirets\n 1&2 : Symétries obliques\n 3&4 : Symétries horizontales ou verticales\n 5&6 : Rotations de 90°\n 7 : Symétrie centrale\n 8 : Translation\n 9 : Homothéties k>1\n 10 : Homothéties k<1'
   ] // Texte, tooltip
 }

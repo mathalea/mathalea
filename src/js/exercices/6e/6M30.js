@@ -19,7 +19,7 @@ export default function CalculDeVolumes () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = "Calculer, en détaillant, le volume des solides donnés. Arrondir à l'unité"
+  this.consigne = "Calculer, en détaillant, le volume des solides donnés. Arrondir à l'unité."
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -310,7 +310,7 @@ export default function CalculDeVolumes () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     2,
-    '1 : Sans conversions\n2 : Avec des conversions'
+    '1 : Sans conversion\n2 : Avec des conversions'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
   if (context.isHtml && !context.isDiaporama) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip

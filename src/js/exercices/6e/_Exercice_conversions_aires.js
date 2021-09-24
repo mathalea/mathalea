@@ -28,7 +28,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = 1 // interactifType Qcm
   this.titre = "Conversions d'aires"
-  this.consigne = 'Compléter'
+  this.consigne = 'Compléter :'
   this.spacing = 2
   this.nbColsCorr = 1
   this.amcReady = amcReady
@@ -333,7 +333,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     6,
-    "1 : Conversions en m² avec des multiplications\n2 : Conversions en m² avec des divisions\n3 : Conversions en m² avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions\n5 : Conversions d'hectares et ares en m² \n6 : Toutes les conversions"
+    "1 : Conversions en m² avec des multiplications\n2 : Conversions en m² avec des divisions\n3 : Conversions en m² avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions\n5 : Conversions d'hectares et ares en m² \n6 : Mélange"
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
   if (context.isHtml && !context.isDiaporama) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip

@@ -252,6 +252,6 @@ export default function ProprietesParallelesPerpendiculaires () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'étapes de raisonnement :', 4, '1 : 1 étape\n 2 : 2 étapes\n 3 : 3 étapes\n4 : Mélange aléatoire']
+  this.besoinFormulaireNumerique = ['Nombre d\'étapes de raisonnement :', 4, '1 : Une étape\n2 : Deux étapes\n3 : Trois étapes\n4 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
 }

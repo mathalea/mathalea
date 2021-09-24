@@ -7,14 +7,14 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can2P02
+ * Date de publication septembre 2021
 */
 export default function Denombrement () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur10 inline'
   this.nouvelleVersion = function () {
     let a, b, c, prenom1
     switch (choice(['a', 'b'])) {

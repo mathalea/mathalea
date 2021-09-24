@@ -1,4 +1,4 @@
-import { calcul, randint } from '../../../modules/outils'
+import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Addition à trou'
 export const interactifReady = true
@@ -15,13 +15,19 @@ export default function AdditionATrou () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.nouvelleVersion = function () {
+  this.nouvelleVersion = function () {
     const a = randint(5, 9)
     const b = randint(6, 9)
     const c = randint(1, 5)
     const d = randint(1, 4)
     this.reponse = d * 10 + b
     this.question = `$${c * 10 + a} + \\dots = ${calcul((c + d) * 10 + b + a)}$`
-    this.correction = `$${calcul((c + d) * 10 + b + a)} - ${c * 10 + a} = ${this.reponse}$`
+    this.correction = `On obtient le nombre cherché par la différence : $${calcul((c + d) * 10 + b + a)} - ${c * 10 + a} = ${this.reponse}$`
+    this.correction += texteEnCouleur(`<br> Mentalement : <br>
+    On complète $${c * 10 + a}$ jusqu'à la dizaine la plus proche en ajoutant $${(c + 1) * 10 - (c * 10 + a)}$, on obtient $${(c + 1) * 10}$,
+    puis de $${(c + 1) * 10}$ à $${(c + d) * 10 + b + a}$, on ajoute encore $${(c + d) * 10 + b + a - (c + 1) * 10}$. <br>
+    Au total 
+    on a donc ajouter $${(c + 1) * 10 - (c * 10 + a)}$ et  $${(c + d) * 10 + b + a - (c + 1) * 10}$ ce qui donne la réponse $${this.reponse}$.<br>
+      `)
   }
 }

@@ -31,7 +31,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
   this.sup = max // Correspond au facteur commun
   this.sup2 = false // Si true alors il n'y aura que des soustractions
   this.titre = titre
-  this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée"
+  this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 5
@@ -226,5 +226,5 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
   }
 
   this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
-  this.besoinFormulaire2Numerique = ['Types de calculs', 3, '1 : Additions\n2 : Soustractions\n3 : Additions et soustractions']
+  this.besoinFormulaire2Numerique = ['Type de calculs', 3, '1 : Additions\n2 : Soustractions\n3 : Mélange']
 }

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Faire des phrases avec les mots : divisible, diviseur et multiple'
 
 /**
@@ -16,6 +17,7 @@ export default function DivisibleDiviseurMultiple () {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
+  this.listePackages = 'xlop'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -27,6 +29,7 @@ export default function DivisibleDiviseurMultiple () {
     const a1 = b * q + r
     this.introduction = `À l'aide des calculs suivants, compléter les phrases suivantes avec les nombre $${a1}$, $${a}$, $${b}$ ou $${q}$.<br><br>`
     this.introduction += Operation({ operande1: a, operande2: b, type: 'divisionE' })
+    if (!context.isHtml) this.introduction += '\\qquad'
     this.introduction += Operation({ operande1: a1, operande2: b, type: 'divisionE' })
 
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6] // On créé 3 types de questions

@@ -404,7 +404,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           c = new Fraction(b, a)
           resultat = calcul(b / a)
 
-          texte = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5 }, droiteGraduee2({
+          texte = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
             Unite: 3,
             Min: 0,
             Max: 4.2,

@@ -7,7 +7,7 @@ export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
 export const interactifType = 'numerique'
 
-export const titre = 'Multiplications d’un nombre décimal par 10, 100 ou 1 000.'
+export const titre = 'Multiplier un nombre décimal par 10, 100 ou 1 000'
 
 /**
  * Multiplication d'un nombre décimal dans différentes écritures par 10, 100, 1000
@@ -198,9 +198,9 @@ export default function MultiplierDecimauxPar101001000 () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = [
-    'Types de calculs',
+    'Type de calculs',
     3,
-    '1 : Écriture décimale\n2 : Écriture fractionnaire\n3 : Écritures décimale et fractionnaire'
+    '1 : Écriture décimale\n2 : Écriture fractionnaire\n3 : Mélange'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des calculs à trous']
 }

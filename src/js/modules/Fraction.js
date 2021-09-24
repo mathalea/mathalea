@@ -200,7 +200,7 @@ class Fraction {
    * @param {boolean} detaillee Si detaillee est true, une étape de calcul se place avant le résultat.
    * @return {Fraction}
    */
-  RacineCarree (detaillee = false) {
+  RacineCarree () {
     const factoNum = extraireRacineCarree(Math.abs(this.num))
     const factoDen = extraireRacineCarree(Math.abs(this.den))
     const k = fraction(factoNum[0], factoDen[0]).simplifie()
@@ -453,6 +453,15 @@ class Fraction {
   }
 
   /**
+   * Retourne true si la fraction courante est inférieure ou égale à f2
+   * @param {Fraction} f2
+   * @return {boolean}
+   */
+  inferieurlarge (f2) {
+    return (this.num / this.den) < (f2.num / f2.den)
+  }
+
+  /**
    * Retourne true si la fraction est égale et "plus simple"
    * @param {Fraction} f2
    * @return {boolean}
@@ -462,12 +471,27 @@ class Fraction {
   }
 
   /**
-   * Retourne true si la fraction courante est inférieure ou égale à f2
-   * @param {Fraction} f2
+   * Retourne true si la fraction est irreductible
    * @return {boolean}
    */
-  inferieurlarge (f2) {
-    return (this.num / this.den) < (f2.num / f2.den)
+  estIrreductible () {
+    return (this.num === this.numIrred && this.den === this.denIrred)
+  }
+
+  /**
+   * Retourne true si la fraction est un entier
+   * @return {boolean}
+   */
+  estEntiere () {
+    return (this.denIrred === 1)
+  }
+
+  /**
+   * Retourne true si la racine carrée de la fraction est rationnelle
+   * @return {boolean}
+   */
+  estParfaite () {
+    return (this.racineCarree() !== false)
   }
 
   /**

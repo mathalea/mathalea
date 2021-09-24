@@ -4,9 +4,9 @@ import { tableauDeVariation, mathalea2d, repere2, courbe2, segment, vecteur, rot
 export const titre = 'étude de fonction de degré 3'
 
 /**
- * Description didactique de l'exercice
- * @author
- * Référence
+ * tableau de variation d'une fonction et tracé de la courbe (polynomes de degré <= 3)
+ * @author Jean-Claude Lhote
+ * Référence P010
 */
 export default function variationPolynomeDegre3 () {
   Exercice.call(this) // Héritage de la classe Exercice()

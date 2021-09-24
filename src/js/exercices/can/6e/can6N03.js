@@ -1,6 +1,6 @@
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Recomposition entier moins simple'
+export const titre = 'Recomposer entier moins simple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6N03
  */
-export default function RecompoEntierMoinsSimple () {
+export default function RecomposerEntierMoinsSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1

@@ -16,7 +16,7 @@ export default function Exercice_simplification_somme_algebrique(max = 20) {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = max;
 	this.titre = titre;
-	this.consigne = 'Simplifier puis calculer';
+	this.consigne = 'Simplifier puis calculer.';
 	this.spacing = 2;
 
 	this.nouvelleVersion = function () {

@@ -45,57 +45,6 @@ export function addFeedback (container, { message, type = 'error', titre } = {})
 }
 
 /**
-* Affiche un message à l'utilisateur
-* @author Cédric GROLLEAU
-* @param {Object} datas
-* @param {string} datas.code codeExerciceInconnu|mg32load|scratchLoad
-* @param {string} [datas.exercice] à fournir si code vaut 'codeExerciceInconnu'
-*/
-export function messageUtilisateur ({ code, exercice }) {
-  const container = get('containerErreur')
-  switch (code) {
-    case 'codeExerciceInconnu':
-      addFeedback(container, {
-        titre: 'le code de l’exercice n’est pas valide',
-        message: `L'identifiant ${exercice} ne correspond à aucun exercice MathALEA. <br> Ceci est peut-être dû à un lien incomplet ou obsolète. `,
-        type: 'error'
-      })
-      break
-    case 'mg32load':
-      addFeedback(container, {
-        titre: 'Erreur de chargement du module mg32',
-        message: `Une erreur est survenue lors du chargement d'un module pour l'affichage de l'exercice. <br>
-          Essayez de rafraichir la page. <br> Si l'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
-        type: 'warning'
-      })
-      break
-    case 'scratchLoad':
-      addFeedback(container, {
-        titre: 'Erreur de chargement du module scratch',
-        message: `Une erreur est survenue lors du chargement d'un module pour l'affichage de l'exercice. <br>
-          Essayez de rafraichir la page. <br> Si l'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
-        type: 'warning'
-      })
-      break
-    case 'noLatex':
-      addFeedback(container, {
-        titre: 'Pas de contenu Latex pour cet exercice',
-        message: `L'exercice ${exercice} n'a, pour l'instant, pas de version Latex`,
-        type: 'warning'
-      })
-      break
-    default:
-      console.error(Error(`code ${code} non géré par messageUtilisateur`))
-      addFeedback(container, {
-        titre: 'Erreur interne',
-        message: `Une erreur est survenue.<br>
-          Essayez de rafraichir la page. <br> Si l'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
-        type: 'warning'
-      })
-  }
-}
-
-/**
  * Ajoute un feedback (erreur ou encouragement)
  * @param {Object} feedback
  * @param {string} feedback.id id du div conteneur à utiliser
@@ -109,4 +58,38 @@ export function messageFeedback ({ id, message = '', type = 'error' } = {}) {
   const div = addFeedback(container, { message, type })
   div.style.width = '400px'
   return div
+}
+
+export class UserFriendlyError extends Error {
+  /**
+   * Erreur destinée à être affichée à l'utilisateur
+   * @param {string} [message] Si non fourni ce sera le texte générique 'Une erreur est survenue…
+   * @param {Object} [options]
+   * @param {string} [options.titre=Erreur interne]
+   * @param {string} [options.type=error]
+   */
+  constructor (message, { titre, type } = {}) {
+    if (!message) message = 'Une erreur est survenue.<br>Essayez de rafraichir la page.<br>Si l\'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>'
+    super(message)
+    this.isUserFriendly = true // pour indiquer que le message peut être affiché tel quel à l'utilisateur
+    this.titre = titre || 'Erreur interne'
+    this.type = (types.includes(type) && type) || 'error'
+  }
+}
+
+export const getInvalidModuleError = (path) => new UserFriendlyError(`${path} existe mais ne fournit pas les données attendues, impossible de charger cet exercice`)
+export const getNoLatexError = (id) => new UserFriendlyError(`L'exercice ${id} n'a, pour l'instant, pas de version Latex`, { titre: 'Pas de contenu Latex pour cet exercice', type: 'warning' })
+export const getUnknownError = (id) => new UserFriendlyError(`L'identifiant ${id} ne correspond à aucun exercice MathALEA.<br>Ceci est peut-être dû à un lien incomplet ou obsolète.`, { titre: 'Le code de l’exercice n’est pas valide' })
+
+/**
+ * Gestionnaire d'erreur générique (à mettre dans un catch). Il affichera l'erreur à l'utilisateur en cas de UserFriendlyError, ou le message d'erreur par défaut
+ * @param {Error} error
+ */
+export function errorHandler (error) {
+  // on sort toujours l'erreur d'origine en console
+  console.error(error)
+  // et on gère un retour utilisateur
+  const container = get('containerErreur')
+  if (!error.isUserFriendly) error = new UserFriendlyError() // le message d'erreur par défaut
+  addFeedback(container, error)
 }

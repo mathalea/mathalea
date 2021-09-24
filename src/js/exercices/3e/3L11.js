@@ -214,6 +214,6 @@ export default function ExerciceDevelopper (difficulte = 1) {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     2,
-    '1 : Multiplication par un facteur positif\n2: Multiplication par un facteur relatif'
+    '1 : Multiplication par un facteur positif\n2 : Multiplication par un facteur relatif'
   ]
 }

@@ -17,7 +17,7 @@ export const interactifType = 'numerique'
 export default function ExerciceTablesAdditions (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.sup = max // Le paramètre accessible à l'utilisateur sera la valeur maximale
   this.spacing = 2
   this.tailleDiaporama = 100
