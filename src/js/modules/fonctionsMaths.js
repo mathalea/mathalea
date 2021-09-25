@@ -116,7 +116,7 @@ export function choisiDelta (positif) {
     b = randint(-5, 5, 0)
     c = randint(-5, 5, 0)
     d = b * b - 4 * a * c
-  } while (positif ? d < 0 : d > 0)
+  } while (positif ? d <= 0 : d >= 0)
   return [a, b, c]
 }
 /**
