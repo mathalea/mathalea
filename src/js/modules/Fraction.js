@@ -152,33 +152,41 @@ class Fraction {
    * @return {Fraction}
    */
   texRacineCarree (detaillee = false) {
-    const factoNum = extraireRacineCarree(Math.abs(this.num))
-    const factoDen = extraireRacineCarree(Math.abs(this.den))
+    let factoDen = extraireRacineCarree(Math.abs(this.den))
+    let factoNum
+    if (factoDen[1] !== 1) {
+      factoNum = extraireRacineCarree(Math.abs(this.num * factoDen[1]))
+      factoDen = extraireRacineCarree(Math.abs(this.den * factoDen[1]))
+    } else {
+      factoNum = extraireRacineCarree(Math.abs(this.num))
+    }
     const k = fraction(factoNum[0], factoDen[0]).simplifie()
     const r = fraction(factoNum[1], factoDen[1]).simplifie()
     let etape = ''
-    if (detaillee) {
-      if (k.valeurDecimale !== 1) {
-        if (k.den === 1) {
-          etape = `\\sqrt{${factoNum[0]}^2\\times${factoNum[1]}}=`
-        } else {
-          if (factoNum[0] !== 1) {
-            etape = `\\sqrt{\\dfrac{${factoNum[0]}^2\\times${factoNum[1]}}{${factoDen[0]}^2\\times${factoDen[1]}}}=`
-          } else {
-            if (factoDen[1] !== 1) {
-              etape = `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2\\times${factoDen[1]}}}=`
-            } else {
-              etape = `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2}}=`
-            }
-          }
-        }
-      }
-    }
     if (this.signe === -1) {
       return false
     } else if (this.signe === 0) {
       return '0'
     } else {
+      if (detaillee) {
+        etape = `\\sqrt{\\dfrac{${this.num}}{${this.den}}}=`
+        if (k.valeurDecimale !== 1) {
+          if (k.den === 1) {
+            etape += `\\sqrt{${factoNum[0]}^2\\times${factoNum[1]}}=`
+          } else {
+            if (factoNum[0] !== 1) {
+              etape += `\\sqrt{\\dfrac{${factoNum[0]}^2\\times${factoNum[1]}}{${factoDen[0]}^2\\times${factoDen[1]}}}=`
+            } else {
+              if (factoDen[1] !== 1) {
+                etape += `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2\\times${factoDen[1]}}}=`
+              } else {
+                etape += `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2}}=`
+              }
+            }
+          }
+        }
+      }
+
       if (calcul(factoNum[1] / factoDen[1]) === 1) {
         return etape + k.texFraction
       } else {
@@ -200,7 +208,7 @@ class Fraction {
    * @param {boolean} detaillee Si detaillee est true, une étape de calcul se place avant le résultat.
    * @return {Fraction}
    */
-  RacineCarree () {
+  racineCarree () {
     const factoNum = extraireRacineCarree(Math.abs(this.num))
     const factoDen = extraireRacineCarree(Math.abs(this.den))
     const k = fraction(factoNum[0], factoDen[0]).simplifie()
