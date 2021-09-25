@@ -37,8 +37,7 @@ export default {
     "titre": "Résoudre une équation du second degré à partir de la forme canonique",
     "url": "/exercices/1e/1E11-4.js",
     "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifReady": false,
     "name": "1E11-4"
   },
   "1E11": {
@@ -2547,17 +2546,6 @@ export default {
     "interactifReady": false,
     "name": "6C21"
   },
-  "6C22-V2": {
-    "titre": "Problème - de plus de moins",
-    "url": "/exercices/6e/6C22-V2.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "numerique",
-    "name": "6C22-V2"
-  },
   "6C22": {
     "titre": "Problème - de plus de moins",
     "url": "/exercices/6e/6C22.js",
@@ -3170,10 +3158,14 @@ export default {
     "name": "6N10-2"
   },
   "6N10-3": {
-    "titre": "Trouver le chiffre des ... et le nombre de ...",
+    "titre": "Chiffre des ... Nombre de ...",
     "url": "/exercices/6e/6N10-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N10-3"
   },
   "6N10-4": {

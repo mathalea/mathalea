@@ -1,6 +1,6 @@
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif'
-import { calcul, listeQuestionsToContenu, randint, sp } from '../../modules/outils'
+import { calcul, listeQuestionsToContenu, randint, sp, texteEnCouleur } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Conversion en heures et minutes'
 export const interactifReady = true
@@ -8,10 +8,11 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
-export default function ConversionHeuresMinutes () {
+export default function ConversionHeuresMinutes (can = false) {
   Exercice.call(this)
   this.nbQuestions = 5
-
+  this.correctionDetailleeDisponible = true
+  this.correctionDetaillee = false
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
@@ -22,7 +23,20 @@ export default function ConversionHeuresMinutes () {
       texte = `Convertir $${d}$ minutes en heures(h) et minutes(min) :` +
      ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: sp(5), texteApres: ' h ' }) +
       ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: sp(5), texteApres: ' min ' })
-      texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min`
+      console.log(can)
+      if (can) {
+        texteCorr = texteEnCouleur(`
+    <br> Mentalement : <br>
+On cherche le multiple de $60$ inférieur à $${d}$ le plus grand possible. C'est $${Math.floor(d / 60)}\\times 60 = ${Math.floor(d / 60) * 60}$.<br>
+Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.floor(d / 60)}$h$${d % 60}$min.`) + '<br>'
+      } else {
+        if (this.correctionDetaillee) {
+          texteCorr = `On doit effectuer la division euclidienne de ${d} par 60 car il y a 60 minutes dans une heure.<br>Le quotient entier donne le nombre d'heures et le reste enter donne le nombre de minutes.<br>`
+        } else {
+          texteCorr = ''
+        }
+      }
+      texteCorr += `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min.`
       if (this.questionJamaisPosee(i, a, b, d)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

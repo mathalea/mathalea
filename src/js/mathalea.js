@@ -932,11 +932,21 @@ function miseAJourDuCode () {
             codeCorrection += '\n\n'
           } else {
             for (let i = 0; i < listeDesExercices.length; i++) {
-              listeObjetsExercice[i].nouvelleVersion()
-              codeExercices += listeObjetsExercice[i].contenu
-              codeExercices += '\n\n'
-              codeCorrection += listeObjetsExercice[i].contenuCorrection
-              codeCorrection += '\n\n'
+              if (listeObjetsExercice[i].typeExercice === 'dnb') {
+                listePackages.add('dnb')
+                codeExercices += '\n\n\\exo{}\n\n'
+                codeExercices += listeObjetsExercice[i].contenu
+                codeExercices += '\n\n'
+                codeCorrection += '\n\n\\exo{}\n\n'
+                codeCorrection += listeObjetsExercice[i].contenuCorrection
+                codeCorrection += '\n\n'
+              } else {
+                listeObjetsExercice[i].nouvelleVersion()
+                codeExercices += listeObjetsExercice[i].contenu
+                codeExercices += '\n\n'
+                codeCorrection += listeObjetsExercice[i].contenuCorrection
+                codeCorrection += '\n\n'
+              }
             }
           }
           if (v < $('#nombre_de_versions').val() - 1) {
