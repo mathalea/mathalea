@@ -33,6 +33,14 @@ export default {
     "interactifType": "mathLive",
     "name": "1E11-3"
   },
+  "1E11-4": {
+    "titre": "Résoudre une équation du second degré à partir de la forme canonique",
+    "url": "/exercices/1e/1E11-4.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1E11-4"
+  },
   "1E11": {
     "titre": "Résoudre une équation du second degré",
     "url": "/exercices/1e/1E11.js",
