@@ -86,10 +86,14 @@ export default function Resolutionavecformecanonique () {
           x2 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie()).simplifie()
           if (a < 0) {
             x1String = x1.oppose().ecritureAlgebrique
+            stringX1 = x1.ecritureAlgebrique
             x2String = x2.oppose().ecritureAlgebrique
+            stringX2 = x2.ecritureAlgebrique
           } else {
             x1String = x1.ecritureAlgebrique
+            stringX1 = x1.oppose().ecritureAlgebrique
             x2String = x2.ecritureAlgebrique
+            stringX2 = x2.oppose().ecritureAlgebrique
           }
         } else {
           if (a < 0) {
