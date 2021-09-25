@@ -3,12 +3,12 @@
 |6e|5e|4e|3e|2nde|1ere|Term|Reste|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |6C13|5A10|4C10-5|3A10|2F10-3|ref : 1E10||CM020|
-|6C32|5A11-1|4C20-1|3A11-2|2F10-4|ref : 1E11||CM021|
-|6C35|5A11|4C25-0|3A11-3|2G12-1|ref : 1E12||PEA11-1|
-|6D10|5A12-1|4C30-1|3A12|2G12-2|ref : 1F10||PEA11|
-|6D11|5C11-1|4C30-2|3A13|2G12-3|ref : 1N10||P003|
-|6D12|5C11-2|4C30-3|3F1-act|2G12-4|ref : 1N11||P004|
-|6G10-1|5C11|4C30|3F12|2G22-1|||P005|
+|6C32|5A11-1|4C20-1|3A11-2|2F10-4|ref : 1E11-4||CM021|
+|6C35|5A11|4C25-0|3A11-3|2G12-1|ref : 1E11||PEA11-1|
+|6D10|5A12-1|4C30-1|3A12|2G12-2|ref : 1E12||PEA11|
+|6D11|5C11-1|4C30-2|3A13|2G12-3|ref : 1F10||P003|
+|6D12|5C11-2|4C30-3|3F1-act|2G12-4|ref : 1N10||P004|
+|6G10-1|5C11|4C30|3F12|2G22-1|ref : 1N11||P005|
 |6G10-2|5G10-1|4C32-2|3F13|2G23-1|||P006|
 |6G10|5G10-2|4C32-3|3F21|2G23-2|||P007|
 |6G11|5G11-1|4C33-1|3G10-3|2G23|||P008|
@@ -37,32 +37,32 @@
 |6M25|5G51|4P10-1||2N52-4|||betaEq1erDegreDansC|
 |6M31-2|5L10-1|4P10-2||2N60-4|||betaEq2eDegAvecParam|
 |6N10-2|5L10-3|4P10||2N61-2|||betaEqCarreDansC|
-|6N10-3|5L10-4|4S10||2N61-4|||betaEqValAbs|
-|6N10-4|5L12-1|4S11|||||betaEquationsLog|
-|6N10-5|5L12||||||betaExo3d|
-|6N11-3|5L14-1||||||betaExoSimpleMatthieu|
-|6N11-4|5L14-3||||||betaModele10_simple_question-reponse|
-|6N12|5L14-4||||||betaModele11_parametrable|
-|6N14|5L14-5||||||betaModele20_plusieurs_types_de_questions|
-|6N22-1|5L14-6||||||betaModele21_parametrables|
-|6N22-2|5L15||||||betaModele30_constructions_géométriques|
-|6N23-0|5M10||||||betaModele31_parametrables|
-|6N23-1|5N11-1||||||betaModele40_tableau_proportionnalite|
-|6N23-3|5N11-2||||||betaModele41_tableau_signes_variations|
-|6N23-4|5N11-3||||||betaProbaAouB|
-|6N24-1|5N11-4||||||betaProbabilites|
-|6N31-1|5N14-2||||||betaPuissances|
-|6N31-2|5N15||||||betaSpline|
-|6N31-4|5N20-0||||||betaSys2x2CombLin|
-|6N31|5P10||||||betaTracerParabole|
-|6N32|5P12||||||betarotation3d|
-|6N33-0|5R10-0||||||betatrinome|
-|6N33-2|5R10-1||||||moule_a_exo_mathalea|
-|6N33-3|5R12-2||||||moule_a_exo_mathalea2d|
-|6N41-1|5R12||||||c3C10-2|
-|6N43-4|5R20-4||||||c3N10|
-|6P13-1|5R20-5||||||c3N23|
-|6S11|5R22-2|||||||
+|6N10-4|5L10-4|4S10||2N61-4|||betaEqValAbs|
+|6N10-5|5L12-1|4S11|||||betaEquationsLog|
+|6N11-3|5L12||||||betaExo3d|
+|6N11-4|5L14-1||||||betaExoSimpleMatthieu|
+|6N12|5L14-3||||||betaModele10_simple_question-reponse|
+|6N14|5L14-4||||||betaModele11_parametrable|
+|6N22-1|5L14-5||||||betaModele20_plusieurs_types_de_questions|
+|6N22-2|5L14-6||||||betaModele21_parametrables|
+|6N23-0|5L15||||||betaModele30_constructions_géométriques|
+|6N23-1|5M10||||||betaModele31_parametrables|
+|6N23-3|5N11-1||||||betaModele40_tableau_proportionnalite|
+|6N23-4|5N11-2||||||betaModele41_tableau_signes_variations|
+|6N24-1|5N11-3||||||betaProbaAouB|
+|6N31-1|5N11-4||||||betaProbabilites|
+|6N31-2|5N14-2||||||betaPuissances|
+|6N31-4|5N15||||||betaSpline|
+|6N31|5N20-0||||||betaSys2x2CombLin|
+|6N32|5P10||||||betaTracerParabole|
+|6N33-0|5P12||||||betarotation3d|
+|6N33-2|5R10-0||||||betatrinome|
+|6N33-3|5R10-1||||||moule_a_exo_mathalea|
+|6N41-1|5R12-2||||||moule_a_exo_mathalea2d|
+|6N43-4|5R12||||||c3C10-2|
+|6P13-1|5R20-4||||||c3N10|
+|6S11|5R20-5||||||c3N23|
+||5R22-2|||||||
 ||5S10|||||||
 ||5S11|||||||
 ||5S12|||||||
