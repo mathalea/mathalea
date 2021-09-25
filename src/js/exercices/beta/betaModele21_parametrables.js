@@ -23,7 +23,7 @@ export default function NomExercice () {
   this.tailleDiaporama = 100
   this.video = ''
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
 

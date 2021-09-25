@@ -105,9 +105,9 @@ export default function PlacerUnPointAbscisseEntiere2d () {
       })
       const mesObjets = [d[2 * i]]
       if (this.interactif) {
-        texte = `Place le point $${l1}\\left(${abscisse[0][1]}\\right).$`
+        texte = `Placer le point $${l1}\\left(${abscisse[0][1]}\\right).$`
       } else {
-        texte = `Place les points $${l1}\\left(${abscisse[0][1]}\\right)$, $~${l2}\\left(${abscisse[1][1]}\\right)$ et $~${l3}\\left(${abscisse[2][1]}\\right)$.`
+        texte = `Placer les points $${l1}\\left(${abscisse[0][1]}\\right)$, $~${l2}\\left(${abscisse[1][1]}\\right)$ et $~${l3}\\left(${abscisse[2][1]}\\right)$.`
       }
       pointsNonSolutions[i] = []
       if (this.interactif) {

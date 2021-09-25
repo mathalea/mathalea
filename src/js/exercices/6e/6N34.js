@@ -1,5 +1,5 @@
 import ExerciceConversions from './_Exercice_conversions.js'
-export const titre = 'Conversions avec tous les préfixes de milli à tera.'
+export const titre = 'Effectuer des conversions avec tous les préfixes de milli à tera'
 export { interactifReady, interactifType, amcReady, amcType } from './_Exercice_conversions.js'
 
 /**

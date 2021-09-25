@@ -45,7 +45,7 @@ export default function PrioritesEtRelatifs () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 1
@@ -400,6 +400,6 @@ export default function PrioritesEtRelatifs () {
   this.besoinFormulaireNumerique = [
     'Type de calculs',
     3,
-    '1 : Sans opérations entre parenthèses\n2: Avec des opérations entre parenthèses\n3: Avec ou sans opérations entre parenthèses'
+    '1 : Sans opérations entre parenthèses\n2 : Avec des opérations entre parenthèses\n3 : Mélange'
   ]
 }

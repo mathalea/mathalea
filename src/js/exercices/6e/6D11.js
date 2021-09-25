@@ -17,7 +17,7 @@ export const titre = 'Additionner des durées'
 export default function SommeDeDurees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Compléter les égalités suivantes'
+  this.consigne = 'Compléter les égalités suivantes.'
   this.sup = 1 // 2 niveaux de difficultés
   this.spacing = 2
   this.nbQuestions = 5
@@ -97,5 +97,5 @@ export default function SommeDeDurees () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2] // "1 : Additions simples\n2 : Additions avec d'��ventuelles conversions"]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Additions simples\n2 : Additions avec d'éventuelles conversions"]
 }

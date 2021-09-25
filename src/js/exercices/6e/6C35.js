@@ -14,7 +14,7 @@ export const titre = 'Modéliser des problèmes'
 export default function ModelisationProblemes () {
   Exercice.call(this)
   this.titre = titre
-  this.consigne = 'Associer chaque problème avec sa modélisation'
+  this.consigne = 'Associer chaque problème avec sa modélisation.'
   this.nbQuestions = 8
   this.nbQuestionsModifiable = false
   this.sup = 2
@@ -453,6 +453,6 @@ export default function ModelisationProblemes () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Valeurs différentes suivant les exercices\n2: Valeurs identiques dans tous les exercices'
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Valeurs différentes suivant les exercices\n2 : Valeurs identiques dans tous les exercices'
   ]
 }

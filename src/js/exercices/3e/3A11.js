@@ -230,8 +230,8 @@ export default function PremierOuPas () {
             tabPremiersATester.push(prems[r])
             r++
           }
-          // texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
-          texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `
+          // texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par les nombres `;
+          texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par les nombres `
           texteCorr += tabPremiersATester[0]
           for (let k = 1; k < tabPremiersATester.length; k++) {
             texteCorr += ', ' + tabPremiersATester[k]
@@ -254,8 +254,8 @@ export default function PremierOuPas () {
             tabPremiersATester.push(prems[r])
             r++
           }
-          // texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
-          texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `
+          // texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par les nombres `;
+          texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par les nombres `
           texteCorr += tabPremiersATester[0]
           for (let k = 1; k < tabPremiersATester.length; k++) {
             texteCorr += ', ' + tabPremiersATester[k]
@@ -296,5 +296,5 @@ export default function PremierOuPas () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Difficulté', 2, '1 : Sans Calculatrice\n2 : Avec calculatrice']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans Calculatrice\n2 : Avec calculatrice']
 }

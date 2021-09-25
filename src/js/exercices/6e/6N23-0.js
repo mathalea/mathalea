@@ -18,7 +18,7 @@ export default function EcrireNombresDecimal () {
   this.sup = 1
   this.sup2 = 1
   this.nouvelleVersion = function () {
-    if (parseInt(this.sup) === 2) { this.consigne = 'Écrire le nombre en chiffres' } else { this.consigne = 'Écrire le nombre en lettres' }
+    if (parseInt(this.sup) === 2) { this.consigne = 'Écrire le nombre en chiffres.' } else { this.consigne = 'Écrire le nombre en lettres.' }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [parseInt(this.sup2) + 1] // <1 000, <1 000 000)
@@ -76,6 +76,6 @@ export default function EcrireNombresDecimal () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres']
+  this.besoinFormulaireNumerique = ['Type d\'exercices', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres']
   this.besoinFormulaire2Numerique = ['Classe maximum', 2, '1 : Unités\n2 : Milliers']
 }

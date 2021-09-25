@@ -325,6 +325,6 @@ export default function VocabulaireDesTriangles () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans conversions de longueurs\n2 : Avec conversions de longueurs']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans conversion de longueurs\n2 : Avec conversions de longueurs']
   this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
 }

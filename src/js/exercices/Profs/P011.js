@@ -1,12 +1,10 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
-import { mathalea2d, polygoneAvecNom, codeSegments, codageAngleDroit, afficheMesureAngle, codeAngle, afficheLongueurSegment } from '../../modules/2d.js'
+import { mathalea2d, polygoneAvecNom, codeSegments, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Construis mon triangle'
 
-export default function Exercice_zero_mathalea2d () {
+export default function ConstruisMonTriangle () {
   'use strict'
   Exercice.call(this)
   this.titre = titre

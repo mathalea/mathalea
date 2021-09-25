@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
  */
 export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = "Donner l'écriture décimale"
+  this.consigne = "Donner l'écriture décimale."
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 8

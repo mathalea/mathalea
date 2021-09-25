@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, texNombre2, arrondi, sp, personnes, personne, miseEnEvidence, combinaisonListes, texFraction, randint, numAlpha, choice, premiereLettreEnMajuscule, ppcm, calcul } from '../../modules/outils.js'
 
 export const titre = 'Problèmes de ratio'
@@ -123,7 +122,7 @@ export default function ProblemeDeRatio () {
               texteCorr += `${quidam.prenom} doit ajouter un volume d'eau de : $${texFraction(y + '\\times' + k * x, x)}=${y * k}\\text{ cL} $.`
             }
           } else { // On mélange du sirop, du jus de fruit et de la limonade.
-            texte += `${quidam.prenom} prépare un coktail à base de sirop  ${sirops[index % 5]}, de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse pour ses amis. ${premiereLettreEnMajuscule(article)} mélange les trois ingédients dans le ratio $~${x}~:~${y}~:~${z}$.<br>`
+            texte += `${quidam.prenom} prépare un coktail à base de sirop  ${sirops[index % 5]}, de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse pour ses amis. ${premiereLettreEnMajuscule(article)} mélange les trois ingrédients dans le ratio $~${x}~:~${y}~:~${z}$.<br>`
             if (choice([true, false])) {
               texte += `${premiereLettreEnMajuscule(article)} désire préparer $${total}\\text{ cL} $ de boisson. Quelle quantité de sirop, de jus et d'eau gazeuse doit-${article} mélanger ?`
               texteCorr += `Si ${quidam.prenom} mélange selon le ratio donné $${x}\\text{ cL} $ de sirop ${sirops[index % 5]}, $${y}\\text{ cL} $ de jus ${jusdefruit[index2 % 5]} et $${z}\\text{ cL} $ d'eau gazeuse ${article} obtiendra $${x + y + z}\\text{ cL} $ de coktail.<br>`

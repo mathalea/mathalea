@@ -16,7 +16,7 @@ export default function ResoudreEquatioeX2EgalA () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Résoudre les équations suivantes'
+  this.consigne = 'Résoudre les équations suivantes.'
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -46,7 +46,7 @@ export default function ResoudreEquatioeX2EgalA () {
         case 1: a = randint(1, 20) // x²=a*a donc x=a ou -a.
           texte = `$x^2=${a * a}$`
           texteCorr = `$x^2=${a * a}$ équivaut à $x = \\sqrt{${a * a}}$ ou $x = -\\sqrt{${a * a}}$<br>Soit $x = ${a}$ ou $x = -${a}$<br>`
-          texteCorr += `Il est équivalent de résoudre $x^2 - ${a * a}=0$ c'est à dire $x^2 - ${a}^{2}=0$ <br>Soit $(x - ${a})(x + ${a})=0$ qui donne les deux solutions ci-dessus. `
+          texteCorr += `Il est équivalent de résoudre $x^2 - ${a * a}=0$ c'est-à-dire $x^2 - ${a}^{2}=0$ <br>Soit $(x - ${a})(x + ${a})=0$ qui donne les deux solutions ci-dessus. `
           setReponse(this, i, [`${a};${-a}`, `${-a};${a}`])
           break
         case 2: // x²=(ns*ns)/(ds*ds) solutions rationnelles
@@ -55,14 +55,14 @@ export default function ResoudreEquatioeX2EgalA () {
           ds = fraction[1]
           texte = `$x^2=\\dfrac{${ns * ns}}{${ds * ds}}$`
           texteCorr = `$x^2=\\dfrac{${ns * ns}}{${ds * ds}}$ équivaut à $x = \\sqrt{\\dfrac{${ns * ns}}{${ds * ds}}}$ ou $x = -\\sqrt{\\dfrac{${ns * ns}}{${ds * ds}}}$<br>Soit $x = \\dfrac{${ns}}{${ds}}$ ou $x = -\\dfrac{${ns}}{${ds}}$<br>`
-          texteCorr += `Il est équivalent de résoudre $x^2 - \\dfrac{${ns * ns}}{${ds * ds}}=0$ c'est à dire $x^2 - (\\dfrac{${ns}}{${ds}})^{2}=0$<br>Soit $(x - \\dfrac{${ns}}{${ds}})(x + \\dfrac{${ns}}{${ds}})=0$ qui donne les deux solutions ci-dessus. `
+          texteCorr += `Il est équivalent de résoudre $x^2 - \\dfrac{${ns * ns}}{${ds * ds}}=0$ c'est-à-dire $x^2 - (\\dfrac{${ns}}{${ds}})^{2}=0$<br>Soit $(x - \\dfrac{${ns}}{${ds}})(x + \\dfrac{${ns}}{${ds}})=0$ qui donne les deux solutions ci-dessus. `
           setReponse(this, i, [`\\dfrac{${ns}}{${ds}};-\\dfrac{${ns}}{${ds}}`, `-\\dfrac{${ns}}{${ds}};\\dfrac{${ns}}{${ds}}`])
           break
 
         case 3: a = randint(2, 50, [4, 9, 16, 25, 36, 49]) // solution irrationnelles
           texte = `$x^2=${a}$`
           texteCorr = `$x^2=${a}$ équivaut à $x = \\sqrt{${a}}$ ou $x = -\\sqrt{${a}}$<br>`
-          texteCorr += `Il est équivalent de résoudre $x^2 - ${a}=0$  c'est à dire $x^2 - (\\sqrt{${a}})^{2}=0$<br>Soit $(x - \\sqrt{${a}})(x + \\sqrt{${a}})=0$ qui donne les deux solutions ci-dessus. `
+          texteCorr += `Il est équivalent de résoudre $x^2 - ${a}=0$  c'est-à-dire $x^2 - (\\sqrt{${a}})^{2}=0$<br>Soit $(x - \\sqrt{${a}})(x + \\sqrt{${a}})=0$ qui donne les deux solutions ci-dessus. `
           setReponse(this, i, `\\sqrt{${a}};-\\sqrt{${a}}`)
           break
       }
@@ -79,5 +79,5 @@ export default function ResoudreEquatioeX2EgalA () {
     this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, séparer les avec un point-virgule.</em>" : ''
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Solutions entières\n 2 : Solutions rationnelles\n 3 : Solutions irrationnelles\n 4 : Mélange des 3 autres niveaux']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Solutions entières\n 2 : Solutions rationnelles\n 3 : Solutions irrationnelles\n 4 : Mélange']
 }

@@ -25,7 +25,7 @@ export default function ExerciceAdditionsRelatifsATrou (max = 20) {
   this.amcType = amcType
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Compléter'
+  this.consigne = 'Compléter :'
   this.spacing = 2
 
   this.nouvelleVersion = function (numeroExercice) {

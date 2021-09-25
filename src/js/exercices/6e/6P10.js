@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences, contraindreValeur } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -15,7 +16,7 @@ export const amcType = 'qcmMono'
  */
 export default function ProportionnalitePasProportionnalite () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Répondre aux questions posées en justifiant'
+  this.consigne = 'Répondre aux questions posées en justifiant.'
   context.isHtml ? this.spacing = 2 : this.spacing = 1.4
   context.isHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1
   this.nbQuestions = 5
@@ -41,8 +42,17 @@ export default function ProportionnalitePasProportionnalite () {
         listeChoixDisponibles[0] = this.sup
       } else {
         listeChoixDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < listeChoixDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          if (typeof (listeChoixDisponibles[i]) === 'number') {
+            listeChoixDisponibles[i] = contraindreValeur(1, 5, parseInt(listeChoixDisponibles[i]))
+          } else {
+            listeChoixDisponibles[i] = [1] // ou tout autre valeur possible...
+          }
+        }
       }
     }
+    if (listeChoixDisponibles.length === 0) { listeChoixDisponibles = [1, 2, 3, 4, 5] }
+
     const listeChoix = combinaisonListes(
       listeChoixDisponibles,
       this.nbQuestions
@@ -161,10 +171,11 @@ export default function ProportionnalitePasProportionnalite () {
             somme = calcul(y * pu, 2)
             p = y * randint(2, 5)
             z = calcul(p * pu, 2)
-            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
+            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}.<br>`
+            // texte += parseInt('p')
             texte += `Elle  repart avec ${y} ${objet} pour $${texPrix(
             somme
-          )}$€. ${prenoms[1]
+          )}$€.<br> ${prenoms[1]
             } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
               z
             )}$€.<br>`
@@ -197,8 +208,8 @@ export default function ProportionnalitePasProportionnalite () {
             pu -= 0.1
             p = y * randint(2, 5)
             z = calcul(p * pu, 2)
-            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
-            texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}$€. ${prenoms[1]
+            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}.<br>`
+            texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}$€.<br> ${prenoms[1]
             } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
               z
             )}$€.<br>`
@@ -240,10 +251,10 @@ export default function ProportionnalitePasProportionnalite () {
           texteCorr += `${prenoms[1]
             } parcourt chaque minute environ $${texNombrec(arrondi(index2, 1))}$ m.<br>`
           if (index1 === index2) {
-            texteCorr += 'Pour ces deux élèves le temps mis et la distance parcourue sont proportionnelles (si l\'on compare leur vitesse moyenne)'
+            texteCorr += 'Pour ces deux élèves, le temps mis et la distance parcourue sont proportionnelles (si l\'on compare leur vitesse moyenne)'
             bonneReponse = 'oui'
           } else {
-            texteCorr += 'Pour ces deux élèves le temps mis et la distance parcourue ne sont pas proportionnelles (si l\'on compare leur vitesse moyenne).<br>'
+            texteCorr += 'Pour ces deux élèves, le temps mis et la distance parcourue ne sont pas proportionnelles (si l\'on compare leur vitesse moyenne).<br>'
             bonneReponse = 'non'
           }
           break
@@ -251,12 +262,12 @@ export default function ProportionnalitePasProportionnalite () {
           prenoms = [prenomF(), prenomM()]
           x = randint(5, 20)
           y = x + randint(25, 35)
-          texte = `${prenoms[0]} vient d'avoir ${x} ans cette année. Son père ${prenoms[1]} vient de fêter  son ${y}ème anniversaire.<br>`
+          texte = `${prenoms[0]} vient d'avoir ${x} ans cette année.<br> Son père ${prenoms[1]} vient de fêter  son ${y}ème anniversaire.<br>`
           texte += `L'âge de son père est-il proportionnel à l'âge de ${prenoms[0]} ?<br>`
-          texteCorr = `Aujourd'hui la différence d'âge entre ${prenoms[0]
+          texteCorr = `Aujourd'hui, la différence d'âge entre ${prenoms[0]
             } et ${prenoms[1]} est de ${y - x} ans.<br>`
           texteCorr += `Dans ${x} années, ${prenoms[0]} aura ${2 * x
-            } ans, c'est à dire le double d'aujourd'hui.<br>`
+            } ans, c'est-à-dire le double d'aujourd'hui.<br>`
           texteCorr += `Son père ${prenoms[1]} aura ${x + y
             } ans cette année-là.<br>Quand l'âge de ${prenoms[0]
             } double, l'âge de ${prenoms[1]} ne double pas, donc l'âge de ${prenoms[0]
@@ -269,7 +280,8 @@ export default function ProportionnalitePasProportionnalite () {
           texte = `Une épidémie se répand dans la ville de ${villes[index1]}.<br>`
           texte += `Le nombre de malades ${verbes[index2]} tous les ${index2 + 2
             } jours.<br>`
-          texte += 'Le nombre de malades est-il proportionnel au nombre de jours passés depuis le début de l\'épidémie ?<br>'
+          texte += `Le nombre de malades est-il proportionnel au nombre de${getVueFromUrl() === 'multi' ? '<br>' : ' '}`
+          texte += 'jours passés depuis le début de l\'épidémie ?<br>'
           texteCorr = `Admettons qu'il y ait 10 malades le premier jour. Le ${1 + 2 + index2
             }ème jour il y aura $10 \\times ${index2 + 2} = ${10 * (index2 + 2)
             }$ malades.<br>`
@@ -296,7 +308,7 @@ export default function ProportionnalitePasProportionnalite () {
           met = listeProportionnelOuPas[compteurProportionnelsOuPas]
           compteurProportionnelsOuPas += 1
           if (!met) tirages[p][1] -= 0.1
-          texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par correspondance en fonction de la quantité saisie dans le panier<br>`
+          texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par${getVueFromUrl() === 'multi' ? '<br>' : ' '}correspondance en fonction de la quantité saisie dans le panier.<br>`
           texte += 'Il note les prix dans le tableau suivant :<br> <br>'
           texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs en un seul morceau
           for (let j = 0; j <= tirages.length; j++) texte += '|c'
@@ -321,7 +333,7 @@ export default function ProportionnalitePasProportionnalite () {
               arrondi(tirages[p][1], 2)
             )}}{${tirages[p][0]}}=${texPrix(
               arrondi(calcul(tirages[p][1] / tirages[p][0]), 2)
-            )}$€/${objet.substring(0, objet.length - 1)}<br>`
+            )}$€/${objet.substring(0, objet.length - 1)}.<br>`
             texteCorr += `Le prix des ${objet} n'est pas proportionnel à leur nombre.<br>`
             bonneReponse = 'non'
           } else {
@@ -330,7 +342,7 @@ export default function ProportionnalitePasProportionnalite () {
           }
           break
       }
-      if (this.questionJamaisPosee(i, x, y, p, z, pu)) {
+      if (this.questionJamaisPosee(i, x, y, p, z, pu, listeChoix[i])) {
         if (this.interactif || context.isAmc) {
           this.autoCorrection[i] = {}
           this.autoCorrection[i].options = { ordered: true }
@@ -362,5 +374,5 @@ export default function ProportionnalitePasProportionnalite () {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireTexte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Achat.\n2 : Distance.\n3 : Âge.\n4 : Épidémie.\n5 : Catalogue (tableau de proportionnalité).']
+  this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Distance\n3 : Âge\n4 : Épidémie\n5 : Catalogue (tableau de proportionnalité)']
 }

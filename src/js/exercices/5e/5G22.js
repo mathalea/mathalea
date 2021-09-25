@@ -13,7 +13,7 @@ export default function DroiteRemarquableDuTriangle () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
   this.titre = titre
-  this.consigne = 'Définir'
+  this.consigne = 'Définir :'
   this.spacing = 2
   this.nbQuestions = 1
   this.nbCols = 1
@@ -90,5 +90,5 @@ export default function DroiteRemarquableDuTriangle () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de droites', 3, '1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Toutes les droites']
+  this.besoinFormulaireNumerique = ['Type de droites', 3, '1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Mélange']
 }

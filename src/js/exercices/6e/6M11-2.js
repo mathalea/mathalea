@@ -17,7 +17,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.pasDeVersionLatex = true
   this.titre = titre
-  this.consigne = "Calculer le périmètre et l'aire des 2 figures suivantes"
+  this.consigne = "Calculer le périmètre et l'aire des 2 figures suivantes."
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 1
