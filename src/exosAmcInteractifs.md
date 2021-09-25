@@ -128,6 +128,7 @@
 |6C11|Divisions euclidiennes|OK|AMCOpen|OK|mathLive|
 |6C20|Additions et soustractions de nombres décimaux|OK|AMCNum|OK|numerique|
 |6C21|Divisions euclidiennes - Niveau 2|OK|AMCOpen|KO|KO|
+|6C22-V2|Problème - de plus de moins|OK|AMCNum|OK|numerique|
 |6C22|Problème - de plus de moins|OK|AMCNum|OK|numerique|
 |6C23|Additionner ou soustraire des fractions de même dénominateur|OK|qcmMono|OK|qcm|
 |6C30-1|Multiplier un nombre décimal par 10, 100 ou 1 000|OK|AMCNum|OK|numerique|
