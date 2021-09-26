@@ -137,8 +137,8 @@ export default function Resolutionavecformecanonique () {
               }
             } else { // a et b positifs
               if (!egal(Math.abs(2 * a) / p, 1)) { // présence d'un dénominateur
-                x1String = `-\\dfrac{${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}-${b}}{${Math.abs(calcul(2 * a / p))}}`
-                stringX1 = `\\dfrac{${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}-${b}}{${Math.abs(calcul(2 * a / p))}}`
+                x1String = `-\\dfrac{${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}-${calcul(b / p)}}{${Math.abs(calcul(2 * a / p))}}`
+                stringX1 = `\\dfrac{${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}-${calcul(b / p)}}{${Math.abs(calcul(2 * a / p))}}`
                 x2String = `+\\dfrac{${calcul(b / p)}+${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
                 stringX2 = `\\dfrac{${calcul(-b / p)}-${rienSi1(calcul(extraireRacineCarree(delta)[0]) / p)}\\sqrt{${extraireRacineCarree(delta)[1]}}}{${Math.abs(calcul(2 * a / p))}}`
               } else { // absence de trait de fraction
