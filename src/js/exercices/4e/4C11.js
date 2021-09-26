@@ -334,16 +334,19 @@ export default function PrioritesEtRelatifs () {
             a = randint(2, 11)
             b = randint(2, 11)
           }
+          // eslint-disable-next-line no-case-declarations
           const liste = listeDesDiviseurs(a * b)
           if (liste.length > 2) {
             liste.pop() // on supprime le plus grand diviseur qui est le produit
             enleveElement(liste, a) // on supprime a
             enleveElement(liste, b) // on supprime b
           }
+          // eslint-disable-next-line no-case-declarations
           const somme = choice(liste, [1]) * choice([-1, 1]) // la somme doit être un diviseur différent de 1
           c = randint(-30, 30, [0])
           d = somme - c
 
+          // eslint-disable-next-line no-unmodified-loop-condition
           while (a > 0 && b > 0 && c > 0 && d > 0) {
             a *= choice([-1, 1])
             b *= choice([-1, 1])
