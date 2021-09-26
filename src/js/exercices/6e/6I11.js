@@ -52,7 +52,7 @@ class NoteLaCouleur {
     }
     /**
        * méthode pour tester une instruction : retourne un tableau dont le premier élément indique si l'instruction est valide.
-       * c'est-à-dire qu'elle n'entraine pas une sortie de plateau.
+       * c'est à dire qu'elle n'entraine pas une sortie de plateau.
        * true -> l'instruction maintient le lutin sur le plateau
        * false -> l'instruction le fait sortir du plateau
        * Les autres éléments du tableau sont dans cet ordre :
@@ -292,7 +292,7 @@ export default function Note_la_couleur () {
           liste_instructions = []
           j = 0
           compteur_essais_sequence = 0
-          pion.codeScratch = '\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n '
+          pion.codeScratch = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n \\blockinit{quand \\greenflag est cliqué}\n '
           pion.codeScratch += `\\blockmove{aller à x: \\ovalnum{${xdepart}} y: \\ovalnum{${ydepart}}}\n \\blockmove{s'orienter à \\ovalnum{${angledepart}}}\n`
           pion.currentIndex += pion.codeScratch.length
           while (nb_couleurs > j && compteur_essais_sequence < 10) {
@@ -487,11 +487,16 @@ export default function Note_la_couleur () {
     texte += `N'hésitez pas à vous rendre sur le site ${modalUrl(numeroExercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
     texte += `Pour jouer, regarder les règles du jeu${modalPdf(numeroExercice + 2, '../../pdf/reglesnlc.pdf', 'Règles du jeu', 'Règles - PDF', 'file pdf')} .<br>`
     texte += 'Exécuter le programme et trouver la succession de couleur.<br>'
-    texte += '<table><tr><td>' +
+    if (context.isHtml) {
+      texte += '<table><tr><td>' +
       scratchblock(pion.codeScratch) +
       '</td><td>' +
       mathalea2d(paramsCorrection, objetsEnonce) +
       '</td></tr></table>'
+    } else {
+      texte += `\\begin{minipage}{.3 \\linewidth} \n\t ${scratchblock(pion.codeScratch)} \n \\end{minipage}
+      \\begin{minipage}{.7 \\linewidth} \n\t ${mathalea2d(paramsCorrection, objetsEnonce)} \n\\end{minipage}`
+    }
     texteCorr = 'On obtient la série de couleurs suivante :<br> '
     texteCorr += `${texteGras(couleurs[0])} `
     for (let i = 1; i < couleurs.length; i++) {
@@ -516,6 +521,6 @@ export default function Note_la_couleur () {
     listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireCaseACocher = ['Plateau avec numéros', true]
-  this.besoinFormulaire2Numerique = ['Type de programmes', 2, '1 : Avancer et tourner\n2 : Boucles']
-  this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximum 6)', 6]
+  this.besoinFormulaire2Numerique = ['Type de programme', 2, '1 : Avancer et tourner\n2 : Boucles']
+  this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximmum 6)', 6]
 }

@@ -52,7 +52,7 @@ function FondEcran (url, x, y, largeur, hauteur) {
   }
   this.tikz = function () {
     return `\\node[inner sep=0pt] at (${x},${y})
-    {\\includegraphics[width= l cm]{url}};`
+    {\\includegraphics[width= 15 cm]{${url}};`
   }
 }
 
@@ -8805,10 +8805,10 @@ function ObjetLutin () {
       if (color.length > 1 && color !== 'black') {
         tableauOptions.push(color)
       }
-      if (epaisseur !== 1) {
+      if ((!isNaN(epaisseur)) && epaisseur !== 1) {
         tableauOptions.push(`line width = ${epaisseur}`)
       }
-      if (opacite !== 1) {
+      if ((!isNaN(opacite)) && opacite !== 1) {
         tableauOptions.push(`opacity = ${opacite}`)
       }
       if (pointilles) {
@@ -8920,7 +8920,7 @@ export function mettrexA (x, lutin = context.lutin) {
   lutin.x = calcul(x / context.unitesLutinParCm)
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
+    lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   }
   lutin.xMin = Math.min(lutin.xMin, lutin.x)
   lutin.xMax = Math.max(lutin.xMax, lutin.x)
@@ -8935,7 +8935,7 @@ export function mettreyA (y, lutin = context.lutin) {
   lutin.y = calcul(y / context.unitesLutinParCm)
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
+    lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   }
   lutin.yMin = Math.min(lutin.yMin, lutin.y)
   lutin.yMax = Math.max(lutin.yMax, lutin.y)
@@ -8950,7 +8950,7 @@ export function ajouterAx (x, lutin = context.lutin) {
   lutin.x += calcul(x / context.unitesLutinParCm)
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
+    lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   }
   lutin.xMin = Math.min(lutin.xMin, lutin.x)
   lutin.xMax = Math.max(lutin.xMax, lutin.x)
@@ -8965,7 +8965,7 @@ export function ajouterAy (y, lutin = context.lutin) {
   lutin.y += calcul(y / context.unitesLutinParCm)
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
+    lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   }
   lutin.yMin = Math.min(lutin.yMin, lutin.y)
   lutin.yMax = Math.max(lutin.yMax, lutin.y)
@@ -8977,9 +8977,9 @@ export function ajouterAy (y, lutin = context.lutin) {
 export function attendre (tempo, lutin = context.lutin) {
   const x = lutin.x; const y = lutin.y
   for (let i = 0; i < tempo; i++) {
-    lutin.listeTraces.push([x, y, x + 0.1, y, lutin.color, lutin.epaisseur, lutin.pointilles])
-    lutin.listeTraces.push([x + 0.1, y, x - 0.1, y, lutin.color, lutin.epaisseur, lutin.pointilles])
-    lutin.listeTraces.push([x - 0.1, y, x, y, lutin.color, lutin.epaisseur, lutin.pointilles])
+    lutin.listeTraces.push([x, y, x + 0.1, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([x + 0.1, y, x - 0.1, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([x - 0.1, y, x, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   }
 }
 
