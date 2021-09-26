@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, miseEnEvidence, listeDesDiviseurs } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, miseEnEvidence, listeDesDiviseurs, lettreDepuisChiffre } from '../../modules/outils.js'
 export const titre = 'Calculs utilisant les priorités opératoires'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -67,11 +67,7 @@ export default function PrioritesEtRelatifs () {
       listeQuestionsDisponibles,
       this.nbQuestions
     )
-    for (
-      let i = 0, texte, texteCorr, a, b, c, d, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-
-    ) {
+    for (let i = 0, texte, texteCorr, a, b, c, d, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // a+b*c
           a = randint(2, 11) * choice([-1, 1])
@@ -387,6 +383,19 @@ export default function PrioritesEtRelatifs () {
           break
       }
       texte += ajouteChampTexteMathLive(this, i)
+      if (this.sup2) {
+        texte = `${lettreDepuisChiffre(i + 1)} = ${texte}`
+        // On découpe
+        const etapes = texteCorr.split('=')
+        texteCorr = ''
+        etapes.forEach(function (etape) {
+          etape = etape.replace('$', '')
+          if (context.isHtml) {
+            texteCorr += '<br>'
+          }
+          texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
+        })
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -402,4 +411,5 @@ export default function PrioritesEtRelatifs () {
     3,
     '1 : Sans opérations entre parenthèses\n2 : Avec des opérations entre parenthèses\n3 : Mélange'
   ]
+  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
 }
