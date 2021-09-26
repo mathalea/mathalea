@@ -5,17 +5,17 @@ import { fraction } from '../../modules/fractions.js'
 import { choisiDelta } from '../../modules/fonctionsMaths.js'
 export const interactifReady = false
 export const interactifType = 'mathLive'
-export const titre = 'Résoudre une équation du second degré à partir de la forme canonique'
+export const titre = 'Résoudre une équation du second degré.'
 
 /**
  * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
  * @author Stéphane Guyon
  * Référence 1E11
 */
-export default function Resolutionavecformecanonique () {
+export default function Resolutionavecdelta () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Utiliser la forme canonique pour résoudre une équation du second degré : '
+  this.consigne = ' '
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
