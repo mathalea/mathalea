@@ -8805,10 +8805,10 @@ function ObjetLutin () {
       if (color.length > 1 && color !== 'black') {
         tableauOptions.push(color)
       }
-      if (!isNaN(epaisseur) && epaisseur !== 1) {
+      if ((!isNaN(epaisseur)) && epaisseur !== 1) {
         tableauOptions.push(`line width = ${epaisseur}`)
       }
-      if (!isNaN(opacite) && opacite !== 1) {
+      if ((!isNaN(opacite)) && opacite !== 1) {
         tableauOptions.push(`opacity = ${opacite}`)
       }
       if (pointilles) {
