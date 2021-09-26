@@ -1,4 +1,4 @@
-import { calcul, creerNomDePolygone, randint, texNombrec } from '../../../modules/outils'
+import { calcul, creerNomDePolygone, randint, texNombrec, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 import {
   mathalea2d, tracePoint, point, milieu, latexParCoordonnees, pointAdistance, longueur, cercle, pointIntersectionCC, polygoneAvecNom
@@ -18,7 +18,7 @@ export default function Perimetre () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const nom = creerNomDePolygone(4, ['Q'])
     const a = randint(3, 6)//
@@ -50,7 +50,10 @@ export default function Perimetre () {
     this.question = `Quel est le périmètre de ce quadrilatère $${nom}$ ?<br>` +
      mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: true, amplitude: 0.5, scale: 0.7 }, objets)
     this.reponse = a + b + c + d
-    this.correction = ` Le périmètre est donné par : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)}+${texNombrec(d)}=${texNombrec(a + b + c + d)}$ cm.`
+    this.correction = ` Le périmètre est : $${texNombrec(a + b + c + d)}$ m.`
     this.optionsChampTexte = { texteApres: ' cm' }
+    this.correction += texteEnCouleur(`<br> Mentalement : <br>
+   On doit calculer la somme des valeurs. On regroupe pour faciliter le calcul : <br>
+   $\\underbrace{${texNombrec(a)}+${texNombrec(b)}}_{${texNombrec(a + b)}}+\\underbrace{${texNombrec(c)}+${texNombrec(d)}}_{${texNombrec(c + d)}}=${texNombrec(a + b + c + d)}$ m.`)
   }
 }
