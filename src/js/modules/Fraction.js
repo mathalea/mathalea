@@ -169,7 +169,15 @@ class Fraction {
       return '0'
     } else {
       if (detaillee) {
-        etape = `\\sqrt{\\dfrac{${this.num}}{${this.den}}}=`
+        if (this.den !== 1) {
+          etape = `\\sqrt{\\dfrac{${this.num}}{${this.den}}}=`
+        } else {
+          if (factoNum[0] !== 1) {
+            etape = `\\sqrt{${this.num}}=`
+          } else {
+            etape = ''
+          }
+        }
         if (k.valeurDecimale !== 1) {
           if (k.den === 1) {
             etape += `\\sqrt{${factoNum[0]}^2\\times${factoNum[1]}}=`
