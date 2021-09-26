@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, produitDeDeuxFractions, simplificationDeFractionAvecEtapes, miseEnEvidence, texFractionSigne, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, texFraction, ppcm, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, produitDeDeuxFractions, simplificationDeFractionAvecEtapes, miseEnEvidence, texFractionSigne, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, texFraction, ppcm, nombreDeChiffresDansLaPartieEntiere, lettreDepuisChiffre } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Fractions et priorités opératoires'
@@ -467,6 +467,20 @@ export default function ExerciceAdditionnerFractionProduit () {
         } else {
           texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
           setReponse(this, i, reponse, { formatInteractif: 'fraction' })
+          if (this.sup2) {
+            texte = `${lettreDepuisChiffre(i + 1)} = ${texte}`
+            // On découpe
+            const etapes = texteCorr.split('=')
+            texteCorr = ''
+            etapes.forEach(function (etape) {
+              // etape = etape.replace('$', '')
+              etape = etape.split('$').join('')
+              if (context.isHtml) {
+                texteCorr += '<br>'
+              }
+              texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
+            })
+          }
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -480,4 +494,5 @@ export default function ExerciceAdditionnerFractionProduit () {
     'Niveau de difficulté', 4,
     '1 : Fractions faciles, positives ou non\n2 : Nombres positifs sans piège de priorité\n3 : Deux calculs avec positifs et piège de priorité et deux calculs avec relatifs\n4 : Calculs avec relatifs'
   ]
+  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
 }
