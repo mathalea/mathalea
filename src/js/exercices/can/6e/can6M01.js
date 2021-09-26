@@ -1,6 +1,6 @@
 import { context } from '../../../modules/context'
 import { propositionsQcm } from '../../../modules/gestionInteractif'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Question de périmètres'
 export const interactifReady = true
@@ -23,7 +23,7 @@ export default function QuestionDePerimetres () {
     const a = randint(3, 25)
     const b = randint(0, 1)
     const VF = [false, true]
-    let texte = `Est-il vrai qu'un carré de côté ${a} cm a le même périmètre qu'un rectangle de largeur ${a - b} cm et de longueur ${a + 1} cm ? (V ou F)`
+    let texte = `Est-il vrai qu'un carré de côté $${a}$ cm a le même périmètre qu'un rectangle de largeur $${a - b}$ cm et de longueur $${a + 1}$ cm ? `
     this.autoCorrection[0] = {
       enonce: texte,
       propositions: [
@@ -40,9 +40,24 @@ export default function QuestionDePerimetres () {
     if (!context.isAmc) {
       texte += propositionsQcm(this, 0).texte
     }
-    const texteCorr = VF[b] ? `Vrai car $4\\times ${a}$ cm = $2\\times ${a - 1}$ cm $+ 2\\times ${a + 1} $ cm $= ${4 * a}$ cm.` : `Faux car $4\\times ${a}$ cm $\\neq 2\\times ${a}$ cm $+ 2\\times ${a + 1}$ cm.`
+    this.correction = VF[b]
+      ? `Vrai <br>
+      $\\bullet$ Pour le carré : $4\\times ${a}=${4 * a}$ cm.<br>
+      $\\bullet$ Pour le rectangle  : $2\\times (${a - b}+ ${a + 1}) = ${4 * a}$ cm.`
+      : `Faux <br>
+      $\\bullet$ Pour le carré : $4\\times ${a}=${4 * a}$ cm.<br>
+      $\\bullet$ Pour le rectangle  : $2\\times (${a}+${a + 1})= ${2 * 2 * a + 2}$ cm.`
+    this.correction += VF[b]
+      ? texteEnCouleur(`<br> Mentalement : <br>
+           Pour le rectangle, la somme de la longueur $${a + 1}$ et de la largeur $${a - b}$ donne le demi-périmètre : $${2 * a - b + 1}$.<br>
+      Pour avoir son périmètre, on multiplie  par $2$, on obtient : $2\\times ${2 * a - b + 1}=${4 * a - 2 * b + 2}$.`)
+      : texteEnCouleur(`<br> Mentalement : <br>
+      Pour le rectangle, la somme de la longueur $${a + 1}$ et de la largeur $${a}$ donne le demi-périmètre : $${2 * a + 1}$.<br>
+      Pour avoir son périmètre, on multiplie  par $2$, on obtient : $2\\times ${2 * a + 1}=${4 * a + 2}$.
+      `)
+
     this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
+    this.listeCorrections.push(this.correction)
     listeQuestionsToContenu(this)
   }
 }
