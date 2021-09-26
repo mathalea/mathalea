@@ -40,13 +40,15 @@ export default function Resolutionavecformecanonique () {
       texteCorr = `Facroriser, si cela est possible : $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
       texteCorr += '<br>On reconnaît un polynôme du second degré sous la forme $ax^2+bx+c$.'
       texteCorr += '<br>On cherche les éventuelles racine(s) du polynôme.'
+      texteCorr += '<br>On commence par calculer le discriminant : $\\Delta = b^2-4ac$'
+      texteCorr += `<br>$\\Delta = ${b}^2-4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${delta}$`
 
       // test des solutions
       if (delta < 0) {
-        texteCorr += '<br>Le discriminant étant négatif, d\'après le cours, l\'équation n\'admet pas de solutions réelles.'
+        texteCorr += '<br>Le discriminant étant négatif, d\'après le cours, le polynôme n\'admet aucune racine réelle.'
         texteCorr += '<br>On en déduit que $S=\\emptyset$'
       } else if (delta > 0) { // Cas des deux solutions :
-        texteCorr += '<br>Le discriminant étant positif, d\'après le cours, le polynômeadmet deux racines réelles :'
+        texteCorr += '<br>Le discriminant étant positif, d\'après le cours, le polynôme admet deux racines réelles :'
         texteCorr += '<br>$x_1=\\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2=\\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
         texteCorr += `<br>$x_1=\\dfrac{-${ecritureParentheseSiNegatif(b)}-\\sqrt{${delta}}}{2\\times${ecritureParentheseSiNegatif(a)}}$ et $x_2=\\dfrac{-${ecritureParentheseSiNegatif(b)}+\\sqrt{${delta}}}{2\\times${ecritureParentheseSiNegatif(a)}}$`
 
@@ -125,9 +127,9 @@ export default function Resolutionavecformecanonique () {
           }
         }
         texteCorr += `<br> Après simplification, on obtient : $x_1= ${stringX1}$ et  $x_2=${stringX2}$` // Solution
-        texteCorr += '<br> d\'après le cours, on sait que le olynôme se factorise alors sous la forme : $a(x-x_1)(x-x_2)$'
+        texteCorr += '<br> d\'après le cours, on sait que le polynôme se factorise alors sous la forme : $a(x-x_1)(x-x_2)$'
         if (!egal(Math.abs(2 * a) / p, 1)) { // présence de traits de fraction donc réécriture du produit nul
-          texteCorr += `<br> finalement, $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=${rienSi1(a)}\\left(x ${x1String}\\right)\\left(x ${x2String}\\right)$`
+          texteCorr += `<br> Finalement, $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=${rienSi1(a)}\\left(x ${x1String}\\right)\\left(x ${x2String}\\right)$`
         }
       } else { // cas de delta  = 0
         // pour l'instant pas de delta nul avec choisiDelta
