@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, extraireRacineCarree, pgcd, calcul, egal } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, ecritureParentheseSiNegatif, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, extraireRacineCarree, pgcd, calcul, egal } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 import { choisiDelta } from '../../modules/fonctionsMaths.js'
@@ -8,9 +8,9 @@ export const interactifType = 'mathLive'
 export const titre = 'Factoriser, si possible, un polynôme du second degré'
 
 /**
- * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
+ *
  * @author Stéphane Guyon
- * Référence 1E11
+ * Référence 1E13
 */
 export default function Resolutionavecformecanonique () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -37,20 +37,19 @@ export default function Resolutionavecformecanonique () {
       delta = b * b - 4 * a * c
       b2 = fraction(delta, 4 * a * a).simplifie() // terme b² dans l'expression a²-b²
       texte = `Facroriser, si cela est possible :  $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$. `
-      texteCorr = `Facroriser, si cela est possible : $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}\\quad(1)$.`
-      texteCorr += '<br>On reconnaît un polynôme du second degré sous la forme $ax^2+bx+c = 0$.'
+      texteCorr = `Facroriser, si cela est possible : $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
+      texteCorr += '<br>On reconnaît un polynôme du second degré sous la forme $ax^2+bx+c$.'
       texteCorr += '<br>On cherche les éventuelles racine(s) du polynôme.'
 
-        // ******************************************************************************************************************
-      // ******************      Reconnaissance de l'identité remarquable :    ********************************************
-      // ******************************************************************************************************************
-    
       // test des solutions
       if (delta < 0) {
-        texteCorr += '<br>L\'équation revient à ajouter deux nombres positifs, dont un non-nul. Cette somme ne peut pas être égale à zéro.'
+        texteCorr += '<br>Le discriminant étant négatif, d\'après le cours, l\'équation n\'admet pas de solutions réelles.'
         texteCorr += '<br>On en déduit que $S=\\emptyset$'
       } else if (delta > 0) { // Cas des deux solutions :
-       
+        texteCorr += '<br>Le discriminant étant positif, d\'après le cours, le polynômeadmet deux racines réelles :'
+        texteCorr += '<br>$x_1=\\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2=\\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
+        texteCorr += `<br>$x_1=\\dfrac{-${ecritureParentheseSiNegatif(b)}-\\sqrt{${delta}}}{2\\times${ecritureParentheseSiNegatif(a)}}$ et $x_2=\\dfrac{-${ecritureParentheseSiNegatif(b)}+\\sqrt{${delta}}}{2\\times${ecritureParentheseSiNegatif(a)}}$`
+
         if (pgcd(Math.abs(b), Math.abs(calcul(2 * a))) === pgcd(extraireRacineCarree(delta)[0], Math.abs(calcul(2 * a)))) {
           p = pgcd(Math.abs(b), Math.abs(calcul(2 * a)))
         } else {
@@ -125,13 +124,11 @@ export default function Resolutionavecformecanonique () {
             }
           }
         }
+        texteCorr += `<br> Après simplification, on obtient : $x_1= ${stringX1}$ et  $x_2=${stringX2}$` // Solution
+        texteCorr += '<br> d\'après le cours, on sait que le olynôme se factorise alors sous la forme : $a(x-x_1)(x-x_2)$'
         if (!egal(Math.abs(2 * a) / p, 1)) { // présence de traits de fraction donc réécriture du produit nul
-          texteCorr += `<br> $\\left(x ${x1String}\\right)\\left(x ${x2String}\\right)=0$`
+          texteCorr += `<br> finalement, $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=${rienSi1(a)}\\left(x ${x1String}\\right)\\left(x ${x2String}\\right)$`
         }
-        texteCorr += '<br> On applique la propriété du produit nul :' // fin de la rédaction
-        texteCorr += `<br> Soit $x ${x1String}=0$ , soit $x ${x2String}=0$` // on isole les facteurs nuls
-        texteCorr += `<br> Soit $x = ${stringX1}$ , soit $x = ${stringX2}$`// on écrit les solutions
-        texteCorr += `<br> $S =\\left\\{${stringX2};${stringX1}\\right\\}$` // Solution
       } else { // cas de delta  = 0
         // pour l'instant pas de delta nul avec choisiDelta
       }
