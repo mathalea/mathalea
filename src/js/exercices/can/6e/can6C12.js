@@ -15,6 +15,7 @@ export default function DoubleOuTriple () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 3)
     const b = randint(1, 9, a)
