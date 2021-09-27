@@ -1,6 +1,6 @@
-import { arrondi, calcul, randint, texNombre } from '../../../modules/outils'
+import { arrondi, calcul, randint, texNombre, choice } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Arrondi au dixième'
+export const titre = 'Arrondi au dixième ou au centième'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -11,19 +11,41 @@ export const amcType = 'AMCHybride'
  * Publié le 11 / 09 / 2021
  * Référence can6N06
  */
-export default function ArrondiDixieme () {
+export default function ArrondiDixiemeCentième () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.formatChampTexte = 'largeur15 inline'
   this.consigne = ''
 
   this.nouvelleVersion = function () {
     const a = randint(1, 20)
     const b = randint(0, 9, 5)
     const c = randint(1, 9, b)
-    const d = calcul(a + b * 0.1 + c * 0.01)
-    this.question = `Quel est l'arrondi au dixième de $${texNombre(d)}$ ?`
-    this.correction = `$${texNombre(d)} \\approx ${texNombre(arrondi(d, 1))}$`
-    this.reponse = arrondi(d, 1)
+    const e = randint(1, 9)
+    const d = calcul(a + b * 0.1 + c * 0.01 + e * 0.001)
+    if (choice([true, false])) {
+      this.question = `Quel est l'arrondi au dixième de $${texNombre(d)}$ ?`
+      if (c > 4) {
+        this.correction = `Pour arrondir au dixième, on regarde le chiffre des centièmes : $${c}$.<br>
+     Comme $${c}\\geqslant 5$, alors l'arrondi au dixième de $${texNombre(d)}$ est $${texNombre(arrondi(d, 1))}$.`
+        this.reponse = arrondi(d, 1)
+      } else {
+        this.correction = `Pour arrondir au dixième, on regarde le chiffre des centièmes : $${c}$.<br>
+        Comme $${c}< 5$, alors l'arrondi au dixième de $${texNombre(d)}$  est $${texNombre(arrondi(d, 1))}$.`
+        this.reponse = arrondi(d, 1)
+      }
+    } else {
+      this.question = `Quel est l'arrondi au centième de $${texNombre(d)}$ ?`
+      if (e > 4) {
+        this.correction = `Pour arrondir au centième, on regarde le chiffre des millièmes : $${e}$.<br>
+     Comme $${e}\\geqslant 5$, alors l'arrondi au centième de $${texNombre(d)}$ est $${texNombre(arrondi(d, 2))}$.`
+        this.reponse = arrondi(d, 2)
+      } else {
+        this.correction = `Pour arrondir au centième, on regarde le chiffre des millièmes : $${e}$.<br>
+        Comme $${e}< 5$, alors l'arrondi au centième de $${texNombre(d)}$ est $${texNombre(arrondi(d, 2))}$.`
+        this.reponse = arrondi(d, 2)
+      }
+    }
   }
 }

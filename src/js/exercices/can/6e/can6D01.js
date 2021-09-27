@@ -15,7 +15,7 @@ export default function ConversionHeuresMinutes () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.nouvelleVersion = function () {
+  this.nouvelleVersion = function () {
     const a = randint(2, 4)
     const b = randint(10, 59)
     const d = calcul(a * 60 + b)

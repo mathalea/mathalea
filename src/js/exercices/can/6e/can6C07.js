@@ -15,6 +15,7 @@ export default function ResteDivisionPar3 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const b = randint(1, 9)
     const c = randint(0, 9)

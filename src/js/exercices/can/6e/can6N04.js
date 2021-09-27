@@ -1,7 +1,7 @@
 import { droiteGraduee2, mathalea2d } from '../../../modules/2d'
 import { context } from '../../../modules/context'
 import Fraction from '../../../modules/Fraction'
-import { randint } from '../../../modules/outils'
+import { pgcd, randint, texFractionReduite } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Abscisse fractionnaire'
 export const interactifReady = true
@@ -18,6 +18,7 @@ export default function AbscisseFractionnaire () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fractionEgale'
   this.consigne = ''
 
@@ -29,7 +30,7 @@ export default function AbscisseFractionnaire () {
     } while (b % a === 0)
     const c = new Fraction(b, a)
     this.reponse = c
-    this.question = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
+    this.question = 'Determiner l\'abscisse du point $A$ situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
       Unite: 3,
       Min: 0,
       Max: 4.2,
@@ -46,7 +47,19 @@ export default function AbscisseFractionnaire () {
       step1: 1,
       step2: 1
     }))
-    this.correction = `L'abscisse du point A est $\\dfrac{${b}}{${a}}$`
+    if (pgcd(a, b) === 1) {
+      this.correction = `L'unité est divisée en $${a}$ graduations.<br>
+    Une graduation correspond donc à $\\dfrac{1}{${a}}$. <br>
+     Comme le point $A$ est situé à $${b}$ graduations de l'origine, 
+      l'abscisse du point $A$ est donc $\\dfrac{1}{${a}}\\times ${b}$ soit  $\\dfrac{${b}}{${a}}$.<br>
+      `
+    } else {
+      this.correction = `L'unité est divisée en $${a}$ graduations.<br>
+      Une graduation correspond donc à $\\dfrac{1}{${a}}$. <br>
+       Comme le point $A$ est situé à $${b}$ graduations de l'origine, 
+        l'abscisse du point $A$ est donc $\\dfrac{1}{${a}}\\times ${b}$ soit  $\\dfrac{${b}}{${a}}$ que l'on peut simplifier en $${texFractionReduite(b, a)}$.<br>
+        `
+    }
     if (context.isAmc) {
       this.autoCorrection[0] = {
         enonce: this.question,

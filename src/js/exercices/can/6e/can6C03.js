@@ -15,6 +15,7 @@ export default function AdditionATrou () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(5, 9)
     const b = randint(6, 9)

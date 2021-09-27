@@ -15,6 +15,7 @@ export default function MultiplierParPuissanceDixNeg () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
@@ -22,7 +23,7 @@ export default function MultiplierParPuissanceDixNeg () {
     const facteur = calcul(a * 100 + b * 10 + c)
     const d = choice([0.1, 0.01, 0.001])
     this.reponse = calcul(facteur * d)
-    this.question = `$${facteur}\\times ${texNombre(d)}$`
+    this.question = `$${facteur}\\times ${texNombre(d)}=$`
     this.correction = `$${facteur}\\times ${texNombre(d)}=${texNombre(this.reponse)}$`
   }
 }

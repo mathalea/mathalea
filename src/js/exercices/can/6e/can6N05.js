@@ -15,20 +15,23 @@ export default function ChiffreDes () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.formatInteractif = 'fractionEgale'
+  this.formatChampTexte = 'largeur15 inline'
   this.consigne = ''
 
   this.nouvelleVersion = function () {
-    const a = randint(1, 2)
+    const a = randint(1, 3)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
     const d = randint(1, 9, [a, b, c])
     const e = randint(1, 9, [a, b, c, d])
     const f = randint(1, 9, [a, b, c, d, e])
     const n = calcul(a * 100 + b * 10 + c + d * 0.1 + e * 0.01 + f * 0.001)
-    const m = choice(['dizaines', 'dixièmes', 'centièmes', 'millièmes'])
+    const m = choice(['centaines', 'dizaines', 'dixièmes', 'centièmes', 'millièmes'])
     this.question = `Dans $${texNombre(n)}$ quel est le chiffre des ${m} ? `
     switch (m) {
+      case 'centaines':
+        this.reponse = a
+        break
       case 'dizaines':
         this.reponse = b
         break
@@ -42,6 +45,12 @@ export default function ChiffreDes () {
         this.reponse = f
         break
     }
-    this.correction = `Le chiffre des ${m} est $${this.reponse}$.`
+    this.correction = `Le chiffre des ${m} est $${this.reponse}$.<br>$\\begin{array}{|c|c|c|c|c|c|c|}\n`
+    this.correction += '\\hline\n'
+    this.correction += '\\\\\nCentaine &  Dizaine & Unité&  \\Large{\\textbf{,}}& Dixième & Centième & Millième \\\\\n \\\\\n'
+    this.correction += '\\hline\n'
+    this.correction += `\\\\\n${a}&${b}&${c} & \\Large{\\textbf{,}}& ${d}&${e}& ${f} \\\\\n \\\\\n`
+    this.correction += '\\hline\n'
+    this.correction += '\\end{array}\n$'
   }
 }
