@@ -65,7 +65,7 @@ export default function EcrirePetitsNombresEntiers () {
         QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
           // QuestionsDisponibles[i] = Math.max(Math.min(parseInt(QuestionsDisponibles[i]), 8), 2) // parseInt en fait un tableau d'entiers comprise entre 2 et 6
-          QuestionsDisponibles[i] = contraindreValeur(2, 8, QuestionsDisponibles[i], 2)
+          QuestionsDisponibles[i] = contraindreValeur(2, 8, parseInt(QuestionsDisponibles[i]), 2)
         }
       }
     }

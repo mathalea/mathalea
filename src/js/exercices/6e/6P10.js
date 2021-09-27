@@ -43,7 +43,7 @@ export default function ProportionnalitePasProportionnalite () {
       } else {
         listeChoixDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < listeChoixDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeChoixDisponibles[i] = contraindreValeur(1, 5, listeChoixDisponibles[i], 1)
+          listeChoixDisponibles[i] = contraindreValeur(1, 5, parseInt(listeChoixDisponibles[i]), 1)
         }
       }
     }

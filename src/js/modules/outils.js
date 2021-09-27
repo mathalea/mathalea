@@ -172,7 +172,7 @@ export function deuxColonnes (cont1, cont2) {
  */
 
 export function contraindreValeur (min, max, valeur, defaut) {
-  return !(isNaN(parseInt(valeur))) ? (parseInt(valeur) < min) ? min : (parseInt(valeur) > max) ? max : parseInt(valeur) : defaut
+  return !(isNaN(valeur)) ? (valeur < min) ? min : (valeur > max) ? max : valeur : defaut
 }
 
 /**
