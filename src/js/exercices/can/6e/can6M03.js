@@ -20,6 +20,6 @@ export default function ConvertirEnM () {
     const a = randint(11, 24) * 10 + randint(0, 9)
     this.reponse = calcul(a / 100)
     this.question = `$${a}$ cm font combien de mètres ?`
-    this.correction = `$${a} cm = ${texNombre(this.reponse)} m$`
+    this.correction = `Comme $1$ cm $=0,01$ m, $${a}$ cm = $${texNombre(this.reponse)}$ m.`
   }
 }

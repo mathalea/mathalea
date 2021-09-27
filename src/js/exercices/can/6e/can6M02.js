@@ -16,7 +16,7 @@ export const amcType = 'qcmMono'
 export default function LaBonneUnite () {
   Exercice.call(this)
   this.nbQuestions = 1
-  
+
   const hauteurs = [
     ['chaise', 75, 115, 'cm'],
     ['grue', 120, 250, 'dm'],

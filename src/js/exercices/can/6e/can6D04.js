@@ -9,6 +9,7 @@ export { interactifReady, interactifType, amcReady, amcType } from '../../6e/6D1
  * Référence can6D04
  */
 export default function ConvertirMinutesHeures () {
-  ConversionHeuresMinutes.call(this)
+  ConversionHeuresMinutes.call(this, true)
   this.nbQuestions = 1
+  this.correctionDetaillee = true
 }

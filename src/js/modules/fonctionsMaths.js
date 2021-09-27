@@ -1,6 +1,6 @@
 import { multiply, inv, matrix } from 'mathjs'
 
-import { calcul, arrondi, ecritureAlgebrique, egal } from './outils.js'
+import { calcul, arrondi, ecritureAlgebrique, egal, randint } from './outils.js'
 /**
 * Convertit un angle de radian vers degrés et fonction inverse
 * @Example
@@ -104,7 +104,28 @@ export function calculeS (a, arrondir = false) {
   result[1] = result[1].replace(/[0]*$/, '')
   if (result[1].length !== 0) { return result[0] + ',' + result[1] } else return result[0]
 }
-
+/**
+ * delta(true) retourne dans un tableau des valeurs de a, b, c telles que b*b-4*a*c >0
+ * delta(false) retourne dans un tableau des valeurs de a, b, c telles que b*b-4*a*c <0
+ * @author Jean-Claude Lhote
+ */
+export function choisiDelta (positif) {
+  let d, a, b, c
+  do {
+    a = randint(-5, 5, 0)
+    b = randint(-5, 5, 0)
+    c = randint(-5, 5, 0)
+    d = b * b - 4 * a * c
+  } while (positif ? d <= 0 : d >= 0)
+  return [a, b, c]
+}
+/**
+ * onction qui retourne un polynome du second degré correctement écrit.
+ * @param {number} a
+ * @param {number} b
+ * @param {number} c
+ * @returns {string}
+ */
 export function expTrinome (a, b, c) {
   let expr = ''
   if (typeof a === 'number') {

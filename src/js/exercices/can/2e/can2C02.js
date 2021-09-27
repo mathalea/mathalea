@@ -16,7 +16,7 @@ export default function CalculAstucieuxAvecDifferenceCarre () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(15, 40)
     const b = a + 1

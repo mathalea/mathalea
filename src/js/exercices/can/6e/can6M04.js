@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texNombre } from '../../../modules/outils'
+import { calcul, choice, randint, texNombre, texteEnCouleur, texNombrec } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Conversions en tous sens'
 export const interactifReady = true
@@ -17,63 +17,129 @@ export default function ConversionEnTousSens () {
   this.nbQuestions = 1
 
   this.nouvelleVersion = function () {
-    let a, resultat, texte, texteCorr
-    switch (choice(['a', 'b', 'c', 'd'])) {
+    let a, resultat
+    switch (choice(['a', 'b', 'c', 'd'])) { //
       case 'a':
         if (choice([true, false])) {
           a = randint(1, 13) * 50
           resultat = calcul(a / 1000)
-          texte = `$${texNombre(a)}$ g $ = \\ldots $ kg`
-          texteCorr = `$${texNombre(a)}$ g$=${resultat}$ kg`
+          this.question = `$${texNombre(a)}$ g  =`
+          if (!this.interactif) {
+            this.question += ' .... kg'
+          }
+          this.formatChampTexte = 'largeur15 inline'
+          this.optionsChampTexte = { texteApres: ' kg' }
+          this.correction = `$${texNombre(a)}$ g$=${texNombrec(a / 1000)}$ kg`
+          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+  Comme $1$ kg $=1000$ g, alors $1$ g $=0,001$ kg.<br>
+  Ainsi pour passer des "g" au "kg", on divise par $1000$.<br>
+    Comme : $${texNombre(a)}\\div 1000 =${texNombrec(a / 1000)}$, alors $${texNombrec(a)}$ g$=${texNombrec(a / 1000)}$ kg.  `)
         } else {
           a = randint(1, 5) / 10
-          resultat = a * 1000
-          texte = `$${texNombre(a)}$ kg $ = \\ldots $ g`
-          texteCorr = `$${texNombre(a)}$ g$=${resultat}$ kg`
+          resultat = calcul(a * 1000)
+          this.question = `$${texNombre(a)}$ kg  = `
+          if (!this.interactif) {
+            this.question += ' ..... g'
+          }
+          this.formatChampTexte = 'largeur15 inline'
+          this.optionsChampTexte = { texteApres: ' g' }
+          this.correction = `$${texNombre(a)}$ kg$=${texNombrec(a * 1000)}$ g`
+          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          Comme $1$ kg $=1000$ g,  pour passer des "kg" au "g", on multiplie par $1000$.<br>
+            Comme : $${texNombre(a)}\\times 1000 =${texNombrec(a * 1000)}$, alors $${texNombrec(a)}$ kg$=${resultat}$ g.  `)
         }
         break
       case 'b':
         if (choice([true, false])) {
           a = randint(1, 13) * 5
-          resultat = a * 100
-          texte = `$${texNombre(a)}$ m $ = \\ldots $ cm`
-          texteCorr = `$${texNombre(a)}$ m$=${resultat}$ cm`
+          resultat = calcul(a * 100)
+          this.question = `$${texNombre(a)}$ m  =`
+          if (!this.interactif) {
+            this.question += '..... cm'
+          }
+          this.formatChampTexte = 'largeur15 inline'
+          this.optionsChampTexte = { texteApres: ' cm' }
+          this.correction = `$${texNombre(a)}$ m$=${texNombrec(a * 100)}$ cm`
+          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
+            Comme : $${texNombre(a)}\\times 100 =${texNombrec(a * 100)}$, alors $${texNombrec(a)}$ m$=${texNombrec(a * 100)}$ cm.  `)
         } else {
           a = randint(1, 12) * 10
           resultat = calcul(a / 100)
-          texte = `$${texNombre(a)}$ cm $ = \\ldots $ m`
-          texteCorr = `$${texNombre(a)}$ cm$=${resultat}$ m`
+          this.question = `$${texNombre(a)}$ cm  =`
+          if (!this.interactif) {
+            this.question += '..... m'
+          }
+          this.formatChampTexte = 'largeur15 inline'
+          this.optionsChampTexte = { texteApres: ' m' }
+          this.correction = `$${texNombre(a)}$ cm$=${texNombre(a / 100)}$ m.`
+          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
+          Ainsi pour passer des "cm" au "m", on divise par $100$.<br>
+            Comme  $${texNombre(a)}\\div 100 =${texNombrec(a / 100)}$, alors $${texNombrec(a)}$ cm$=${texNombrec(a / 100)}$ m.  `)
         }
         break
       case 'c':
         if (choice([true, false])) {
           a = randint(1, 13) / 10
-          resultat = a * 10
-          texte = `$${texNombre(a)}$ c$\\ell$  $= \\ldots $ m$\\ell$`
-          texteCorr = `$${texNombre(a)}$ c$\\ell$$=${resultat}$ m$\\ell$`
+          resultat = calcul(a * 10)
+          this.question = `$${texNombre(a)}$ cL  =  `
+          if (!this.interactif) {
+            this.question += ' .... mL'
+          }
+          this.formatChampTexte = 'largeur15 inline'
+          this.optionsChampTexte = { texteApres: ' mL' }
+          this.correction = `$${texNombre(a)}$ cL$=${texNombrec(a / 10)}$ mL`
+          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          Comme $1$ cL$ =10$ mL,  pour passer des "cL" au "mL", on multiplie par $10$.<br>
+            Comme  $${texNombre(a)}\\times 10 =${texNombrec(a * 10)}$, alors $${texNombrec(a)}$ cL$=${texNombrec(a * 10)}$ mL.  `)
         } else {
           a = randint(1, 12)
           resultat = calcul(a / 10)
-          texte = `$${texNombre(a)}$ m$\\ell$ $ = \\ldots $ c$\\ell$`
-          texteCorr = `$${texNombre(a)}$ c$\\ell$$=${resultat}$ m$\\ell$`
+          this.question = `$${texNombre(a)}$ mL  = `
+          if (!this.interactif) {
+            this.question += ' .... cL'
+          }
+          this.formatChampTexte = 'largeur15 inline'
+          this.optionsChampTexte = { texteApres: '  cL' }
+          this.correction = `$${texNombre(a)}$ mL$=${texNombrec(a / 10)}$ cL`
+          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          Comme $1$ cL$ =10$ mL, alors $1$ mL $=0,1$ cL.<br>
+          Ainsi pour passer des "mL" au "cL", on divise par $10$.<br>
+            Comme  $${texNombre(a)}\\div 10 =${texNombrec(a / 10)}$, alors $${texNombrec(a)}$ mL$=${texNombrec(a / 10)}$ cL.  `)
         }
         break
       case 'd':
         if (choice([true, false])) {
           a = randint(1, 20) * 10
           resultat = calcul(a / 1000)
-          texte = `$${texNombre(a)}$ m  $= \\ldots $ km`
-          texteCorr = `$${texNombre(a)}$ m$=${resultat}$ km`
+          this.question = `$${texNombre(a)}$ m  $=$ `
+          if (!this.interactif) {
+            this.question += ' .... km'
+          }
+          this.formatChampTexte = 'largeur15 inline'
+          this.optionsChampTexte = { texteApres: ' km' }
+          this.correction = `$${texNombre(a)}$ m$=${texNombrec(a / 1000)}$ km`
+          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          Comme $1$ km $=1000$ m, alors $1$ m $=0,001$ km.<br>
+          Ainsi pour passer des "m" au "km", on divise par $1000$.<br>
+            Comme  $${texNombre(a)}\\div 1000 =${texNombrec(a / 1000)}$, alors $${texNombrec(a)}$ m$=${texNombrec(a / 1000)}$ km.  `)
         } else {
           a = randint(1, 35) / 100
-          resultat = a * 1000
-          texte = `$${texNombre(a)}$ km $ = \\ldots $ m`
-          texteCorr = `$${texNombre(a)}$ km$=${resultat}$ m`
+          resultat = calcul(a * 1000)
+          this.question = `$${texNombre(a)}$ km $=$`
+          if (!this.interactif) {
+            this.question += ' .... m'
+          }
+          this.formatChampTexte = 'largeur15 inline'
+          this.optionsChampTexte = { texteApres: ' m' }
+          this.correction = `$${texNombre(a)}$ km$=${texNombrec(a * 1000)}$ m`
+          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          Comme $1$ km $=1000$ m,  pour passer des "km" au "m", on multiplie par $1000$.<br>
+            Comme  $${texNombre(a)}\\times 1000 =${texNombrec(a * 1000)}$, alors $${texNombrec(a)}$ km$=${texNombrec(a * 1000)}$ m.  `)
         }
         break
     }
     this.reponse = resultat
-    this.question = texte
-    this.correction = texteCorr
   }
 }

@@ -23,6 +23,8 @@ export default function ProblemesDePlusEtDeMoins () {
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
+  this.interactif = true
+  this.listePackages = 'bclogo'
 
   const nombreDecimales = function (n) {
     let r, e
@@ -44,10 +46,16 @@ export default function ProblemesDePlusEtDeMoins () {
     const n = parseInt(this.sup) - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    if (context.isHtml && this.interactif) {
+    if (this.interactif && context.isHtml) {
       this.introduction = lampeMessage({
         titre: 'Calculatrice interdite.',
-        texte: `Résoudre ${this.nbQuestions > 1 ? 'les problèmes suivants' : 'le problème suivant'} au brouillon et écrire la réponse dans la case sans écrire « € » ni « euros ».`,
+        texte: 'Résoudre les problèmes suivants au brouillon et écrire les réponses dans les cases, ne pas préciser "€" ni "euros" ...',
+        couleur: 'nombres'
+      })
+    } else {
+      this.introduction = lampeMessage({
+        titre: 'Calculatrice interdite.',
+        texte: 'Résoudre les problèmes suivants : ',
         couleur: 'nombres'
       })
     }
@@ -71,40 +79,44 @@ export default function ProblemesDePlusEtDeMoins () {
           m = r - e
           somme = m + r
 
-          texte = `${prenom2} dit à ${prenom1}  : « J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de plus que toi. »<br>`
-          if (!context.isAmc) {
+          texte = `<br> ${prenom2} dit à ${prenom1}  : "J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de plus que toi."<br>`
+          if (this.interactif && !context.isAmc) {
             texte += 'Combien d\'argent en tout possèdent les deux filles ?'
+            texte += '<br>Les deux filles possèdent en tout : '
+            texte += ajouteChampTexte(this, i) + '  €'
+            setReponse(this, i, somme)
           } else {
             texte += 'Combien d\'argent en euros possèdent en tout les deux filles ?<br>'
           }
           texteCorr = `D'après l'énoncé ${prenom2} a : ${texPrix(r)}€<br>${prenom2}  a ${texPrix(e)}€`
           texteCorr += texteEnCouleurEtGras(' de plus ')
-          texteCorr += `que ${prenom1} signifie que ${prenom1} a ${texPrix(e)}€`
+          texteCorr += `que ${prenom1} signifie que ${prenom1} a ${texPrix(e)}€ `
           texteCorr += texteEnCouleurEtGras(' de moins ')
           texteCorr += `que ${prenom2} . <br>${prenom1} a donc : ${texPrix(r)}€ - ${texPrix(e)}€ = ${texPrix(m)}€`
-          texteCorr += `<br>${texPrix(r)}€ + ${texPrix(m)}€ = ${texPrix(somme)}€`
+          texteCorr += `<br>${texPrix(r)}€ + ${texPrix(m)}€ = ${texPrix(somme)}€ `
           texteCorr += texteEnCouleur(`<br>Les deux filles possèdent en tout : ${texPrix(somme)}€`)
-          setReponse(this, i, somme)
 
           break
         case 'demoins':
           m = r + e
           somme = m + r
 
-          texte = `${prenom2} dit à ${prenom1} : « J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de moins que toi. »<br>`
-          if (!context.isAmc) {
-            texte += 'Combien d\'argent en tout possèdent les deux filles ?'
+          texte = `<br> ${prenom2} dit à ${prenom1} : "J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de moins que toi."<br>`
+          if (this.interactif && !context.isAmc) {
+            texte += 'Combien d\'argent en tout possèdent les deux filles ?<br>Les deux filles possèdent en tout :'
+            texte += ajouteChampTexte(this, i) + '  €'
+            setReponse(this, i, somme)
           } else {
             texte += 'Combien d\'argent en euros possèdent en tout les deux filles ?<br>'
           }
           texteCorr = `D'après l'énoncé ${prenom2} a : ${texPrix(r)}€<br>${prenom2}  a ${texPrix(e)}€`
           texteCorr += texteEnCouleurEtGras(' de moins ')
-          texteCorr += `que ${prenom1} signifie que ${prenom1} a ${texPrix(e)}€`
+          texteCorr += `que ${prenom1} signifie que ${prenom1} a ${texPrix(e)}€ `
           texteCorr += texteEnCouleurEtGras(' de plus ')
           texteCorr += `que ${prenom2} . <br>${prenom1} a donc : ${texPrix(r)}€ + ${texPrix(e)}€ = ${texPrix(m)}€`
-          texteCorr += `<br>${texPrix(r)}€ + ${texPrix(m)}€ = ${texPrix(somme)}€`
+          texteCorr += `<br>${texPrix(r)}€ + ${texPrix(m)}€ = ${texPrix(somme)}€ `
           texteCorr += texteEnCouleur(`<br>Les deux filles possèdent en tout : ${texPrix(somme)}€`)
-          setReponse(this, i, somme)
+
           break
       }
       if (this.interactif) {

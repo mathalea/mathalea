@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, ecritureAlgebrique, choice, calcul, texNombre, miseEnEvidence, sp, ecritureParentheseSiNegatif, texNombrec } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, ecritureAlgebrique, choice, calcul, texNombre, miseEnEvidence, sp, ecritureParentheseSiNegatif, texNombrec, nombreDeChiffresDe } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -57,8 +58,9 @@ export default function CalculsImagesFonctions () {
       // on ne choisit que des nombres compris entre 1 et 20
       x = randint(-9, 9, [0, 1, -1])
       y = randint(-9, 9, [x, 0])
-      m = randint(0, 2) + 2
-      n = choice([2, 4, 5], [m])
+      n = choice([2, 4, 5])
+      m = randint(2, 6, [n, n * 2, n * 3])
+
       tagImage = true
       switch (listeTypeDeQuestions[i]) {
         case 'linéaire':
@@ -229,6 +231,15 @@ export default function CalculsImagesFonctions () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    let maxNbChiffres = 0
+    if (context.isAmc) {
+      for (let i = 0; i < this.nbQuestions; i++) {
+        maxNbChiffres = Math.max(maxNbChiffres, nombreDeChiffresDe(this.autoCorrection[i].reponse.valeur[0]))
+      }
+      for (let i = 0; i < this.nbQuestions; i++) {
+        this.autoCorrection[i].reponse.param.digits = maxNbChiffres
+      }
+    }
   }
   this.besoinFormulaireNumerique = [
     'Choix des questions',

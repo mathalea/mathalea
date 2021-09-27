@@ -69,6 +69,7 @@ export default function EcrirePetitsNombresEntiers () {
         }
       }
     }
+    // if (QuestionsDisponibles.length === 0) { QuestionsDisponibles = [2, 3, 4, 5, 6, 7, 8] }
 
     if (!this.sup2) { // Si aucune liste n'est saisie
       OptionsDisponibles = [0]

@@ -1,5 +1,4 @@
 import { context } from './context'
-import { get, setStyles } from './dom'
 import { getVueFromUrl, setUrl } from './gestionUrl'
 
 export async function gestionVue (vue) {

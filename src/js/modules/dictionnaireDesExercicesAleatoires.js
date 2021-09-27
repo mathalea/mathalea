@@ -33,6 +33,13 @@ export default {
     "interactifType": "mathLive",
     "name": "1E11-3"
   },
+  "1E11-4": {
+    "titre": "Résoudre une équation du second degré à partir de la forme canonique",
+    "url": "/exercices/1e/1E11-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E11-4"
+  },
   "1E11": {
     "titre": "Résoudre une équation du second degré",
     "url": "/exercices/1e/1E11.js",
@@ -1193,7 +1200,8 @@ export default {
     "titre": "Somme, différence ou produit de fractions",
     "url": "/exercices/4e/4C23.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C23"
   },
   "4C25-0": {
@@ -2354,7 +2362,7 @@ export default {
       "text": "AMCOpenNum"
     },
     "interactifReady": true,
-    "interactifType": "numerique",
+    "interactifType": "mathLive",
     "name": "5R22"
   },
   "5S10": {
@@ -3150,10 +3158,14 @@ export default {
     "name": "6N10-2"
   },
   "6N10-3": {
-    "titre": "Trouver le chiffre des ... et le nombre de ...",
+    "titre": "Chiffre des ... Nombre de ...",
     "url": "/exercices/6e/6N10-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N10-3"
   },
   "6N10-4": {
@@ -5540,7 +5552,7 @@ export default {
     "name": "can6C21"
   },
   "can6C22": {
-    "titre": "Valeurs décimales quarts et cinquièmes",
+    "titre": "Valeurs décimales de fractions",
     "url": "/exercices/can/6e/can6C22.js",
     "amcReady": true,
     "amcType": {

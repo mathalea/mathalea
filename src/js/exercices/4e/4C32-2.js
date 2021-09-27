@@ -51,14 +51,14 @@ nano : milliardième $\\times10^{-9}$<br>
             if (liste_de_sens[i]=='div') {
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{m} = ${texNombre(a)}~\\ldots\\ldots~\\text{km}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += "Il faut $1~000$ m pour 1 km, on va donc diviser par $1~000$, c'est à dire multiplier par $10^{-3}$.<br>"
+                    texteCorr += "Il faut $1~000$ m pour 1 km, on va donc diviser par $1~000$, c'est-à-dire multiplier par $10^{-3}$.<br>"
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{m} = ${texNombre(a)}\\times10^{${n-3}}~\\text{km}$`;
             }
             if (liste_de_sens[i]=='fois') {
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{km} = ${texNombre(a)}~\\ldots\\ldots~\\text{m}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += "$1~\\text{km}=1~000~\\text{km}$, on va donc multiplier par $1~000$, c'est à dire multiplier par $10^{3}$.<br>"
+                    texteCorr += "$1~\\text{km}=1~000~\\text{km}$, on va donc multiplier par $1~000$, c'est-à-dire multiplier par $10^{3}$.<br>"
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{km} = ${texNombre(a)}\\times10^{${n+3}}~\\text{m}$`;
             }
@@ -69,14 +69,14 @@ nano : milliardième $\\times10^{-9}$<br>
             if (liste_de_sens[i]=='div') {
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{${unite[0]}} = ${texNombre(a)}~\\ldots\\ldots~\\text{M${unite[0]}}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += `Il faut 1 million de ${unite[1]} pour 1 M${unite[0]}, on va donc diviser par 1 million, c'est à dire multiplier par $10^{-6}$.<br>`
+                    texteCorr += `Il faut 1 million de ${unite[1]} pour 1 M${unite[0]}, on va donc diviser par 1 million, c'est-à-dire multiplier par $10^{-6}$.<br>`
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{${unite[0]}} = ${texNombre(a)}\\times10^{${n-6}}~\\text{M${unite[0]}}$`;
             }
             if (liste_de_sens[i]=='fois') {
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{M${unite[0]}} = ${texNombre(a)}~\\ldots\\ldots~\\text{${unite[0]}}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += `1 M${unite[0]} c'est un million de ${unite[1]}, on va donc multiplier par 1 million, c'est à dire multiplier par $10^{6}$.<br>`
+                    texteCorr += `1 M${unite[0]} c'est un million de ${unite[1]}, on va donc multiplier par 1 million, c'est-à-dire multiplier par $10^{6}$.<br>`
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{M${unite[0]}} = ${texNombre(a)}\\times10^{${n+6}}~\\text{${unite[0]}}$`;
             }
@@ -87,7 +87,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(13,20)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{${unite[0]}} = ${texNombre(a)}~\\ldots\\ldots~\\text{G${unite[0]}}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += `Il faut 1 milliard de ${unite[1]} pour 1 G${unite[0]}, on va donc diviser par 1 milliard, c'est à dire multiplier par $10^{-9}$.<br>`
+                    texteCorr += `Il faut 1 milliard de ${unite[1]} pour 1 G${unite[0]}, on va donc diviser par 1 milliard, c'est-à-dire multiplier par $10^{-9}$.<br>`
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{${unite[0]}} = ${texNombre(a)}\\times10^{${n-9}}~\\text{G${unite[0]}}$`;
             }
@@ -95,7 +95,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(4,10)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{G${unite[0]}} = ${texNombre(a)}~\\ldots\\ldots~\\text{${unite[0]}}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += `1 G${unite[0]} c'est un milliard de ${unite[1]}, on va donc multiplier par 1 milliard, c'est à dire multiplier par $10^{9}$.<br>`
+                    texteCorr += `1 G${unite[0]} c'est un milliard de ${unite[1]}, on va donc multiplier par 1 milliard, c'est-à-dire multiplier par $10^{9}$.<br>`
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{G${unite[0]}} = ${texNombre(a)}\\times10^{${n+9}}~\\text{${unite[0]}}$`;
             }
@@ -105,7 +105,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(13,20)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{g} = ${texNombre(a)}~\\ldots\\ldots~\\text{t}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += `Il faut 1 million de grammes pour 1 tonne, on va donc diviser par 1 million, c'est à dire multiplier par $10^{-6}$.<br>`
+                    texteCorr += `Il faut 1 million de grammes pour 1 tonne, on va donc diviser par 1 million, c'est-à-dire multiplier par $10^{-6}$.<br>`
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{g} = ${texNombre(a)}\\times10^{${n-6}}~\\text{t}$`;
             }
@@ -113,7 +113,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(4,10)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{t} = ${texNombre(a)}~\\ldots\\ldots~\\text{g}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += `Une tonne c'est un million de grammes, on va donc multiplier par 1 million, c'est à dire multiplier par $10^{6}$.<br>`
+                    texteCorr += `Une tonne c'est un million de grammes, on va donc multiplier par 1 million, c'est-à-dire multiplier par $10^{6}$.<br>`
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{t} = ${texNombre(a)}\\times10^{${n+6}}~\\text{g}$`;
             }
@@ -124,7 +124,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(8,12)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{M${unite[0]}} = ${texNombre(a)}~\\ldots\\ldots~\\text{G${unite[0]}}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += `Il faut mille-millions de ${unite[1]} pour faire 1 milliard de ${unite[1]}, on va donc diviser par mille, c'est à dire multiplier par $10^{-3}$.<br>`
+                    texteCorr += `Il faut mille-millions de ${unite[1]} pour faire 1 milliard de ${unite[1]}, on va donc diviser par mille, c'est-à-dire multiplier par $10^{-3}$.<br>`
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{M${unite[0]}} = ${texNombre(a)}\\times10^{${n-3}}~\\text{G${unite[0]}}$`;
             }
@@ -132,7 +132,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(4,10)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{G${unite[0]}} = ${texNombre(a)}~\\ldots\\ldots~\\text{M${unite[0]}}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += `Un milliard de ${unite[1]} c'est mille-millions de ${unite[1]}, on va donc multiplier par mille, c'est à dire multiplier par $10^{3}$.<br>`
+                    texteCorr += `Un milliard de ${unite[1]} c'est mille-millions de ${unite[1]}, on va donc multiplier par mille, c'est-à-dire multiplier par $10^{3}$.<br>`
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{G${unite[0]}} = ${texNombre(a)}\\times10^{${n+3}}~\\text{M${unite[0]}}$`;
             }
@@ -143,7 +143,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(9,15)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{M${unite[0]}} = ${texNombre(a)}~\\ldots\\ldots~\\text{T${unite[0]}}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += `Il faut mille  méga-${unite[1]} pour faire un giga-${unite[1]} et mille giga-${unite[1]} pour faire un téra-${unite[1]}, on va donc diviser par un million, c'est à dire multiplier par $10^{-6}$.<br>`
+                    texteCorr += `Il faut mille  méga-${unite[1]} pour faire un giga-${unite[1]} et mille giga-${unite[1]} pour faire un téra-${unite[1]}, on va donc diviser par un million, c'est-à-dire multiplier par $10^{-6}$.<br>`
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{M${unite[0]}} = ${texNombre(a)}\\times10^{${n-6}}~\\text{T${unite[0]}}$`;
             }
@@ -151,7 +151,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(4,10)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{T${unite[0]}} = ${texNombre(a)}~\\ldots\\ldots~\\text{M${unite[0]}}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += `Un téra-${unite[1]} c'est mille giga-${unite[1]} donc un million de méga-${unite[1]}, on va donc multiplier par un million, c'est à dire multiplier par $10^{6}$.<br>`
+                    texteCorr += `Un téra-${unite[1]} c'est mille giga-${unite[1]} donc un million de méga-${unite[1]}, on va donc multiplier par un million, c'est-à-dire multiplier par $10^{6}$.<br>`
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{T${unite[0]}} = ${texNombre(a)}\\times10^{${n+6}}~\\text{M${unite[0]}}$`;
             }
@@ -162,7 +162,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(8,12)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{G${unite[0]}} = ${texNombre(a)}~\\ldots\\ldots~\\text{T${unite[0]}}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += `Il faut mille-milliards de ${unite[1]} pour faire 1 T${unite[0]}, on va donc diviser par mille, c'est à dire multiplier par $10^{-3}$.<br>`
+                    texteCorr += `Il faut mille-milliards de ${unite[1]} pour faire 1 T${unite[0]}, on va donc diviser par mille, c'est-à-dire multiplier par $10^{-3}$.<br>`
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{G${unite[0]}} = ${texNombre(a)}\\times10^{${n-3}}~\\text{T${unite[0]}}$`;
             }
@@ -170,7 +170,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(4,10)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{T${unite[0]}} = ${texNombre(a)}~\\ldots\\ldots~\\text{G${unite[0]}}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += `Un téra-${unite[1]} c'est mille-milliards de ${unite[1]}, on va donc multiplier par mille, c'est à dire multiplier par $10^{3}$.<br>`
+                    texteCorr += `Un téra-${unite[1]} c'est mille-milliards de ${unite[1]}, on va donc multiplier par mille, c'est-à-dire multiplier par $10^{3}$.<br>`
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{T${unite[0]}} = ${texNombre(a)}\\times10^{${n+3}}~\\text{G${unite[0]}}$`;
             }
@@ -180,14 +180,14 @@ nano : milliardième $\\times10^{-9}$<br>
             if (liste_de_sens[i]=='div') {
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{mm} = ${texNombre(a)}~\\ldots\\ldots~\\text{m}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += "Il faut $1~000$ mm pour 1 m, on va donc diviser par $1~000$, c'est à dire multiplier par $10^{-3}$.<br>"
+                    texteCorr += "Il faut $1~000$ mm pour 1 m, on va donc diviser par $1~000$, c'est-à-dire multiplier par $10^{-3}$.<br>"
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{mm} = ${texNombre(a)}\\times10^{${n-3}}~\\text{m}$`;
             }
             if (liste_de_sens[i]=='fois') {
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{m} = ${texNombre(a)}~\\ldots\\ldots~\\text{mm}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += "$1~\\text{m}=1~000~\\text{mm}$, on va donc multiplier par $1~000$, c'est à dire multiplier par $10^{3}$.<br>"
+                    texteCorr += "$1~\\text{m}=1~000~\\text{mm}$, on va donc multiplier par $1~000$, c'est-à-dire multiplier par $10^{3}$.<br>"
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{m} = ${texNombre(a)}\\times10^{${n+3}}~\\text{mm}$`;
             }
@@ -197,7 +197,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(3,10)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\mu\\text{m} = ${texNombre(a)}~\\ldots\\ldots~\\text{m}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += "Il faut un million de $\\mu\\text{m}$ pour 1 m, on va donc diviser par un million, c'est à dire multiplier par $10^{-6}$.<br>"
+                    texteCorr += "Il faut un million de $\\mu\\text{m}$ pour 1 m, on va donc diviser par un million, c'est-à-dire multiplier par $10^{-6}$.<br>"
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\mu\\text{m} = ${texNombre(a)}\\times10^{${n-6}}~\\text{m}$`;
             }
@@ -205,7 +205,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(3,10,[6])*(-1)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{m} = ${texNombre(a)}~\\ldots\\ldots~\\mu\\text{m}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += "Un mètre équivaut à un million de micro-mètres, on va donc multiplier par un million, c'est à dire multiplier par $10^{6}$.<br>"
+                    texteCorr += "Un mètre équivaut à un million de micro-mètres, on va donc multiplier par un million, c'est-à-dire multiplier par $10^{6}$.<br>"
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{m} = ${texNombre(a)}\\times10^{${n+6}}~\\mu\\text{m}$`;
             }
@@ -215,7 +215,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(3,8)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{nm} = ${texNombre(a)}~\\ldots\\ldots~\\text{m}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += "Il faut un milliard de nano-mètres pour 1 m, on va donc diviser par un milliard, c'est à dire multiplier par $10^{-9}$.<br>"
+                    texteCorr += "Il faut un milliard de nano-mètres pour 1 m, on va donc diviser par un milliard, c'est-à-dire multiplier par $10^{-9}$.<br>"
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{nm} = ${texNombre(a)}\\times10^{${n-9}}~\\text{m}$`;
             }
@@ -223,7 +223,7 @@ nano : milliardième $\\times10^{-9}$<br>
                 n = randint(3,12,[9,11])*(-1)
                 texte = `$${texNombre(a)}\\times10^{${n}}~\\text{m} = ${texNombre(a)}~\\ldots\\ldots~\\text{nm}$`;
                 if (this.correctionDetaillee){
-                    texteCorr += "Un mètre équivaut à un milliard de nano-mètres, on va donc multiplier par un milliard, c'est à dire multiplier par $10^{9}$.<br>"
+                    texteCorr += "Un mètre équivaut à un milliard de nano-mètres, on va donc multiplier par un milliard, c'est-à-dire multiplier par $10^{9}$.<br>"
                 }
                 texteCorr += `$${texNombre(a)}\\times10^{${n}}~\\text{m} = ${texNombre(a)}\\times10^{${n+9}}~\\text{nm}$`;
             }

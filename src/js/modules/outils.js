@@ -829,9 +829,9 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
 * @author Rémi Angot
 */
 export function rienSi1 (a) {
-  if (a === 1) {
+  if (a === 1 || a === '1') {
     return ''
-  } else if (a === -1) {
+  } else if (a === -1 || a === '-1') {
     return '-'
   } else {
     return a
@@ -7192,7 +7192,7 @@ export function exportQcmAmc (exercice, idExo) {
           id += 2
         } else {
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
-            reponse = autoCorrection[j].reponse.valeur
+            reponse = autoCorrection[j].reponse.valeur[0]
             if (autoCorrection[j].reponse.param.digits === 0) {
               nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
               autoCorrection[j].reponse.param.decimals = nbChiffresPd

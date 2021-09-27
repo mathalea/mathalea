@@ -1,12 +1,18 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence } from '../../modules/outils.js'
-export const titre = 'Trouver le chiffre des ... et le nombre de ...'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, combinaisonListes } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+export const titre = 'Chiffre des ... Nombre de ...'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 /**
  * * Donner le chiffre des ... le nombre de ...
  * * 6N10-3
  * @author Sébastien Lozano
+ * Rendu interactif par Jean-Claude Lhote et ajout de paramètre type de questions
  */
 
 export default function chiffreNombreDe () {
@@ -30,11 +36,22 @@ export default function chiffreNombreDe () {
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     if (this.beta) {
       typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5]
     } else {
       // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      typesDeQuestionsDisponibles = shuffle([0, 1, 2, 3, 4, 5])
+      switch (this.sup) {
+        case 1:
+          typesDeQuestionsDisponibles = combinaisonListes([0, 1, 2], this.nbQuestions)
+          break
+        case 2:
+          typesDeQuestionsDisponibles = combinaisonListes([3, 4, 5], this.nbQuestions)
+          break
+        default:
+          typesDeQuestionsDisponibles = combinaisonListes([0, 1, 2, 3, 4, 5], this.nbQuestions)
+          break
+      }
     };
 
     this.listeQuestions = [] // Liste de questions
@@ -42,7 +59,7 @@ export default function chiffreNombreDe () {
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
-
+    const reponses = []
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const mmc = randint(0, 9, [0])
       const mmd = randint(0, 9, [mmc])
@@ -181,7 +198,8 @@ export default function chiffreNombreDe () {
           $${miseEnEvidence(texNombre(chiffreNombreCorr(situations[k].type, nbStr, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs)))}$
 `
         })
-      };
+        reponses[k] = chiffreNombreCorr(situations[k].type, nbStr, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs)
+      }
 
       // autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
@@ -247,8 +265,9 @@ export default function chiffreNombreDe () {
           };
           break
       };
-
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
+      setReponse(this, i, reponses[listeTypeDeQuestions[i]])
+      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], nb)) { // Si la question n'a jamais été posée, on en crée une autre
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25')
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -257,6 +276,5 @@ export default function chiffreNombreDe () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
+  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Chiffre des ...\n2 : Nombre de ...\n3 : Mélange']
 };

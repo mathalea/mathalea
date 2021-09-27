@@ -46,6 +46,12 @@ export default function EcrireUneExpressionNumerique (calculMental) {
     } else {
       decimal = 1
     }
+    // pour 5C12-1
+    if (this.sup2) {
+      decimal = 10
+    } else {
+      decimal = 1
+    }
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       nbOperations = parseInt(listeTypeDeQuestions[i] % 6)
@@ -101,8 +107,6 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           else texteCorr += `Pour $x=${val1}$ :<br>${expc}.`
           // reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
           reponse = expc.split('=')[expc.split('=').length - 1].replace('$', '')
-          console.log(reponse)
-          // console.log(expc)
           break
         case 4:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire

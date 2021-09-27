@@ -9,7 +9,6 @@ import {
   errorHandler,
   getInvalidModuleError, getNoLatexError,
   getUnknownError,
-  messageUtilisateur,
   UserFriendlyError
 } from './modules/messages.js'
 import { ajouteChampTexteMathLive, exerciceInteractif, setReponse } from './modules/gestionInteractif.js'
@@ -552,6 +551,9 @@ function miseAJourDuCode () {
       if (context.vue) {
         finUrl += `&v=${context.vue}`
       }
+      if (context.taillePolice) {
+        finUrl += `&p=${context.taillePolice}`
+      }
       try {
         if (context.userId) {
           finUrl += `&userId=${context.userId}`
@@ -930,11 +932,21 @@ function miseAJourDuCode () {
             codeCorrection += '\n\n'
           } else {
             for (let i = 0; i < listeDesExercices.length; i++) {
-              listeObjetsExercice[i].nouvelleVersion()
-              codeExercices += listeObjetsExercice[i].contenu
-              codeExercices += '\n\n'
-              codeCorrection += listeObjetsExercice[i].contenuCorrection
-              codeCorrection += '\n\n'
+              if (listeObjetsExercice[i].typeExercice === 'dnb') {
+                listePackages.add('dnb')
+                codeExercices += '\n\n\\exo{}\n\n'
+                codeExercices += listeObjetsExercice[i].contenu
+                codeExercices += '\n\n'
+                codeCorrection += '\n\n\\exo{}\n\n'
+                codeCorrection += listeObjetsExercice[i].contenuCorrection
+                codeCorrection += '\n\n'
+              } else {
+                listeObjetsExercice[i].nouvelleVersion()
+                codeExercices += listeObjetsExercice[i].contenu
+                codeExercices += '\n\n'
+                codeCorrection += listeObjetsExercice[i].contenuCorrection
+                codeCorrection += '\n\n'
+              }
             }
           }
           if (v < $('#nombre_de_versions').val() - 1) {
@@ -1800,7 +1812,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire4CaseACocher) {
       // Création d'un formulaire texte
       divParametresGeneraux.innerHTML +=
-        "<div style='display: inline'><label for='form_sup4" +
+        "<div><label for='form_sup4" +
         i +
         "'>" +
         exercice[i].besoinFormulaire4CaseACocher[0] +

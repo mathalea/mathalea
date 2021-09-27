@@ -26,11 +26,11 @@ export default function QuestionDAires () {
     let VF
     let texte
     if (choice([true, false])) {
-      texte = `Est-il vrai qu'un carré de côté ${a} cm et un rectangle de largeur ${Math.min(a, b)} cm et de longueur ${Math.max(a, b)} cm ont une aire qui diffère de ${Math.max(a * a, a * b) - Math.min(a * a, a * b)} cm${exposant(2)} ? (V ou F)`
+      texte = `Est-il vrai qu'un carré de côté $${a}$ cm et un rectangle de largeur $${Math.min(a, b)}$ cm et de longueur $${Math.max(a, b)}$ cm ont une aire qui diffère de $${Math.max(a * a, a * b) - Math.min(a * a, a * b)}$ cm${exposant(2)} ?`
       VF = 'V'
     } else {
       VF = 'F'
-      texte = `Est-il vrai qu'un carré de côté ${a} cm et un rectangle de largeur ${Math.min(a, b)} cm et de longueur ${Math.max(a, b)} cm ont une aire qui diffère de ${Math.max(a * a, a * b) - Math.min(a * a, a * b) + c} cm${exposant(2)} ? (V ou F)`
+      texte = `Est-il vrai qu'un carré de côté $${a}$ cm et un rectangle de largeur $${Math.min(a, b)}$ cm et de longueur $${Math.max(a, b)}$ cm ont une aire qui diffère de $${Math.max(a * a, a * b) - Math.min(a * a, a * b) + c}$ cm${exposant(2)} ?`
     }
     this.autoCorrection[0] = {
       enonce: texte,
@@ -49,8 +49,9 @@ export default function QuestionDAires () {
       texte += propositionsQcm(this, 0).texte
     }
     let texteCorr = VF === 'V' ? 'Vrai' : 'Faux'
-    texteCorr += ` car le carré a une aire de ${a * a} cm${exposant(2)} et le rectangle a une aire de ${a * b} cm${exposant(2)}.`
-    texteCorr += `<br>Ce qui fait ${VF === 'V' ? 'bien ' : ''} une différence de ${Math.max(a * a, a * b) - Math.min(a * a, a * b)} cm${exposant(2)} ${VF === 'F' ? ' et non pas de ' + texNombrec(Math.max(a * a, a * b) - Math.min(a * a, a * b) + c) + ' cm' + exposant(2) + '.' : '.'}`
+    texteCorr += `<br> $\\bullet$  le carré a une aire de $${a}\\times ${a}=${a * a}$ cm${exposant(2)}.<br>
+    $\\bullet$  Le rectangle a une aire de $${a}\\times ${b}=${a * b}$ cm${exposant(2)}.`
+    texteCorr += `<br>Ce qui fait ${VF === 'V' ? 'bien ' : ''} une différence de $${Math.max(a * a, a * b)} - ${Math.min(a * a, a * b)}=${Math.max(a * a, a * b) - Math.min(a * a, a * b)}$ cm${exposant(2)} ${VF === 'F' ? ' et non pas de ' + texNombrec(Math.max(a * a, a * b) - Math.min(a * a, a * b) + c) + ' cm' + exposant(2) + '.' : '.'}`
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)

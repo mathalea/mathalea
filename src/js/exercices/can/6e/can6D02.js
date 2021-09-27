@@ -15,14 +15,14 @@ export default function ResteEnMinutes () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.typeExercice = 'simple'
-
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 2)
     const b = randint(10, 59)
     const d = calcul(a * 60 + b)
     this.question = ` $${d}$ minutes $=$  $a$ heure(s) et  $b$ minute(s).<br>
-    Quelle est la valeur de $b$ ?`
-    this.correction = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min, donc $b=${b}}$.`
+    Quelle est la valeur de $b$ sachant que $a$ est le plus grand possible ?`
+    this.correction = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = $${a}h ${b}$ min, donc $b=${b}$.`
     this.reponse = b
   }
 }

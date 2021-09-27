@@ -8,7 +8,7 @@ let intervalID = {}
 let pause = false
 
 export const initDiaporama = () => {
-//export const initDiaporama = async () => {
+// export const initDiaporama = async () => {
   // await loadSlick() Le chargement de Slick ne semble pas créer la variable Slick
   $('#prev').hide()
   $('#next').hide()
