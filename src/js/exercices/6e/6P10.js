@@ -43,15 +43,10 @@ export default function ProportionnalitePasProportionnalite () {
       } else {
         listeChoixDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < listeChoixDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          if (typeof (listeChoixDisponibles[i]) === 'number') {
-            listeChoixDisponibles[i] = contraindreValeur(1, 5, parseInt(listeChoixDisponibles[i]))
-          } else {
-            listeChoixDisponibles[i] = [1] // ou tout autre valeur possible...
-          }
+          listeChoixDisponibles[i] = contraindreValeur(1, 5, parseInt(listeChoixDisponibles[i]), 1)
         }
       }
     }
-    if (listeChoixDisponibles.length === 0) { listeChoixDisponibles = [1, 2, 3, 4, 5] }
 
     const listeChoix = combinaisonListes(
       listeChoixDisponibles,

@@ -168,10 +168,13 @@ export function deuxColonnes (cont1, cont2) {
  * @param {number} min borne inférieur
  * @param {number} max borne supérieur
  * @param {number} valeur la valeur à contraindre
+ * @param {number} defaut valeur par défaut si non entier
  */
-export function contraindreValeur (min, max, valeur) {
-  return (valeur < min) ? min : (valeur > max) ? max : valeur
+
+export function contraindreValeur (min, max, valeur, defaut) {
+  return !(isNaN(valeur)) ? (valeur < min) ? min : (valeur > max) ? max : valeur : defaut
 }
+
 /**
  * Compare deux nombres (pour les nombres en virgule flottante afin d'éviter les effets de la conversion en virgule flottante).
  * @author Jean-Claude Lhote
