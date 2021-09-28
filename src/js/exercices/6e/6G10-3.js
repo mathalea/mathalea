@@ -2,12 +2,11 @@ import Exercice from '../Exercice.js'
 import { combinaisonListes, enleveElement, lettreDepuisChiffre, listeQuestionsToContenu, randint, shuffle } from '../../modules/outils.js'
 import { demiDroite, droite, labelPoint, mathalea2d, point, segmentAvecExtremites } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Choisir la bonne figure'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
-export const interactifType = ['qcm', 'cliqueFigure']
+export const interactifType = ['cliqueFigure']
 
 /**
  * Plusieurs éléments sont proposés, il faut choisir le bon (par clic si interactif, par case à cocher par AMC)
@@ -21,7 +20,6 @@ export default function cliqueFigure () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
-    this.interactifType = parseInt(this.sup2) === 2 ? 'cliqueFigure' : 'qcm'
     this.autoCorrection = []
     this.consigne = (this.interactif) ? 'Cliquer sur la bonne figure.' : 'Entourer la bonne figure.' /// Penser ici à AMC aussi.
     this.listeQuestions = [] // Liste de questions
@@ -44,66 +42,68 @@ export default function cliqueFigure () {
       const figDroite = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure1Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), droite(A, B))
       const figDemiDroite = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure2Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(A, B))
       const figDemiDroite2 = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(B, A))
+      const figSegmentAMC = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.3, id: `figure0Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B))
+      const figDroiteAMC = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.3, id: `figure1Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), droite(A, B))
+      const figDemiDroiteAMC = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.3, id: `figure2Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(A, B))
+      const figDemiDroite2AMC = mathalea2d({ xmin: -2, xmax: 6, ymin: -2, style: '', scale: 0.3, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(B, A))
       let figCorr
-      let figCorrecteQCM
-      const figIncorrect = [figSegment, figDroite, figDemiDroite, figDemiDroite2]
+      let figCorrecteAMC
+      const figIncorrectAMC = [figSegmentAMC, figDroiteAMC, figDemiDroiteAMC, figDemiDroite2AMC]
       switch (typesDeQuestions[i]) {
         case 'segment':
           texte = `Le segment d'extrémités $${A.nom}$ et $${B.nom}$.`
           this.figures[i][0].solution = true
           figCorr = {}
-          figCorrecteQCM = figSegment
+          figCorrecteAMC = figSegmentAMC
           break
         case 'droite':
           texte = `La droite passant par les points $${A.nom}$ et $${B.nom}$.`
           this.figures[i][1].solution = true
           figCorr = droite(A, B)
-          figCorrecteQCM = figDroite
+          figCorrecteAMC = figDroiteAMC
           break
         case 'demidroite':
           texte = `La demi-droite d'origine $${A.nom}$ passant par $${B.nom}$.`
           this.figures[i][2].solution = true
           figCorr = demiDroite(A, B)
-          figCorrecteQCM = figDemiDroite
+          figCorrecteAMC = figDemiDroiteAMC
           break
         case 'demidroite2':
           texte = `La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$.`
           this.figures[i][3].solution = true
           figCorr = demiDroite(B, A)
-          figCorrecteQCM = figDemiDroite2
+          figCorrecteAMC = figDemiDroite2AMC
           break
       }
-      enleveElement(figIncorrect, figCorrecteQCM)
-      if (this.interactif && this.interactifType === 'qcm') {
-        this.autoCorrection[i] = {}
-        this.autoCorrection[i].propositions = [
-          {
-            texte: figCorrecteQCM,
-            statut: true,
-            feedback: 'Correct !'
-          },
-          {
-            texte: figIncorrect[0],
-            statut: false,
-            feedback: 'xxxxxxxxx.'
-          },
-          {
-            texte: figIncorrect[1],
-            statut: false,
-            feedback: 'xxxxxxxxx.'
-          },
-          {
-            texte: figIncorrect[2],
-            statut: false,
-            feedback: 'xxxxxxxxx.'
-          }
-        ]
-        this.autoCorrection[i].options = {
-          ordered: false,
-          lastChoice: 4
+
+      // PROPRE A AMC
+      enleveElement(figIncorrectAMC, figCorrecteAMC)
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].propositions = [
+        {
+          texte: figCorrecteAMC,
+          statut: true
+        },
+        {
+          texte: figIncorrectAMC[0],
+          statut: false
+        },
+        {
+          texte: figIncorrectAMC[1],
+          statut: false
+        },
+        {
+          texte: figIncorrectAMC[2],
+          statut: false
         }
-        texte += propositionsQcm(this, i).texte
-      } else {
+      ]
+      this.autoCorrection[i].options = {
+        ordered: false,
+        lastChoice: 4
+      }
+      // FIN DE AMC
+
+      if (this.interactif) {
         texte += '<br>'
         texteCorr = texte + mathalea2d({ xmin: -4, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), figCorr)
         const figures = shuffle([figSegment, figDroite, figDemiDroite, figDemiDroite2])
@@ -123,6 +123,4 @@ export default function cliqueFigure () {
     }
     listeQuestionsToContenu(this)
   }
-  if (context.isHtml && !context.isDiaporama) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Cliquer sur figure'] // Texte, tooltip
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
 }
