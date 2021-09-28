@@ -45,7 +45,7 @@ export default function CalculAstucieux1 () {
         break
       case 'd':
         this.question = `$2,5 \\times ${texNombre(d)}\\times 4$`
-        this.correction = `$2,5 \\times ${texNombre(d)}\\times 4 = 100 \\times ${texNombre(d)} = ${texNombrec(100 * d)}$`
+        this.correction = `$2,5 \\times ${texNombre(d)}\\times 4 = 10 \\times ${texNombre(d)} = ${texNombrec(10 * d)}$`
         this.reponse = calcul(10 * d)
         break
       case 'e':
