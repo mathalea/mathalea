@@ -21,6 +21,7 @@ export default function cliqueFigure () {
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
+    this.interactifType = 'cliqueFigure'
     this.consigne = (this.interactif) ? 'Cliquer sur la bonne figure.' : 'Entourer la bonne figure.' /// Penser ici à AMC aussi.
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -103,14 +104,12 @@ export default function cliqueFigure () {
       }
       // FIN DE AMC
 
-      if (this.interactif) {
-        texte += '<br>'
-        texteCorr = texte + mathalea2d({ xmin: -4, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), figCorr)
-        const figures = shuffle([figSegment, figDroite, figDemiDroite, figDemiDroite2])
-        texte += figures.join('')
-        if (this.interactif && context.isHtml) {
-          texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
-        }
+      texte += '<br>'
+      texteCorr = texte + mathalea2d({ xmin: -4, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), figCorr)
+      const figures = shuffle([figSegment, figDroite, figDemiDroite, figDemiDroite2])
+      texte += figures.join('')
+      if (this.interactif && context.isHtml) {
+        texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
