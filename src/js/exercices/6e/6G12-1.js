@@ -3,14 +3,15 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombre, texteEnCouleur, numAlpha } from '../../modules/outils.js'
 import { point, tracePoint, pointSurDroite, pointIntersectionDD, labelPoint, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, segment, rotation, codageAngleDroit, afficheCoteSegment, grille, seyes, longueur, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
-
+export const amcReady = true
+export const amcType = 'AMCOpen' // type de question AMC
 export const titre = 'Tracer des parallèles et des perpendiculaires'
 
 /**
  * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
  * références 6G11, 6G12 et 6G12-1
  * Animation de la correction ajoutée le 16/04/2021
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote  (AMC par Eric Elter en septembre 2021)
  */
 export default function ParalleleEtPerpendiculaires () {
   'use strict'
@@ -168,7 +169,7 @@ export default function ParalleleEtPerpendiculaires () {
           else enonce = numAlpha(0) + ' Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>'
           enonce +=
             numAlpha(1) +
-            this.sup2 + ' Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>'
+            ' Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>'
           enonce +=
             numAlpha(2) +
             ' Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nommer $M$ le point d\'intersection de cette droite avec la droite $(AB)$.<br>'
@@ -362,7 +363,7 @@ export default function ParalleleEtPerpendiculaires () {
       objetsEnonce.push(g, carreaux)
       objetsCorrection.push(g, carreaux)
 
-      enonce += mathalea2d(
+      enonce += '<br>' + mathalea2d(
         {
           xmin: Xmin,
           ymin: Ymin,
@@ -384,6 +385,9 @@ export default function ParalleleEtPerpendiculaires () {
         },
         objetsCorrection
       )
+      /** ********************** AMC Open *****************************/
+      this.autoCorrection = [{ enonce: enonce + '<br>', propositions: [{ texte: correction, statut: 3, sanscadre: true }] }]
+      /****************************************************/
       correction += anim.htmlBouton(this.numeroExercice, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

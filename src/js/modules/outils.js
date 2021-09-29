@@ -7157,7 +7157,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `\t\t${autoCorrection[j].enonce} \n `
         texQr += `\t\t\\explain{${autoCorrection[j].propositions[0].texte}}\n`
-        texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}\n` // le statut contiendra le nombre de lignes pour ce type
+        texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}[${autoCorrection[j].propositions[0].sanscadre}]\n` // le statut contiendra le nombre de lignes pour ce type
         texQr += '\t\\end{question}\n }\n'
         id++
         break
@@ -7734,6 +7734,8 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
    \\usepackage{enumitem}
    \\usepackage{tabularx}\t% Pour faire des tableaux
 
+   \\usepackage{xargs}\t% EE : pour permettre DES options dans newcommand
+
   %%%%% PACKAGES FIGURES %%%%%
   %\\usepackage{pstricks,pst-plot,pstricks-add}
   %   POUR PSTRICKS d'où compilation sans PDFLateX mais : dvi, dvi2ps, ps2PDF...
@@ -7809,9 +7811,13 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   \\newcommand{\\collerVertic}{\\vspace{-3mm}} % évite un trop grand espace vertical
   \\newcommand{\\TT}{\\sout{\\textbf{Tiers Temps}} \\noindent} % 
   \\newcommand{\\Prio}{\\fbox{\\textbf{PRIORITAIRE}} \\noindent} % 
-  \\newcommand{\\notation}[1]{
-    \\AMCOpen{lines=#1}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{R}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{V}\\scoring{1}}
-    }
+  \\newcommandx{\\notation}[2][2=false]{
+    \\AMCOpen{lines=#1,lineup=#2,lineuptext=\\hspace{1cm}}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{R}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{V}\\scoring{1}}
+  }
+  %%\\newcommand{\\notation}[1]{
+  %%\\AMCOpen{lines=#1}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{R}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{V}\\scoring{1}}
+  %%}
+    
   %%pour afficher ailleurs que dans une question
   \\makeatletter
   \\newcommand{\\AffichageSiCorrige}[1]{\\ifAMC@correc #1\\fi}
