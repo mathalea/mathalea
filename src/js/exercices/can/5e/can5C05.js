@@ -1,4 +1,4 @@
-import { randint } from '../../../modules/outils'
+import { randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Quotient entier'
 export const interactifReady = true
@@ -15,13 +15,19 @@ export default function Division5e () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.typeExercice = 'simple'
-
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    const a = randint(11, 19)
-    const b = randint(2, 8)
+    const a = randint(11, 15)
+    const b = randint(3, 6)
     const c = a * b
     this.reponse = a
     this.question = `$${c} \\div ${b}$`
     this.correction = `$${c} \\div ${b}=${a}$`
+    this.correction += texteEnCouleur(`
+    <br> Mentalement : <br>
+    On décompose $${c}$ en $${b * 10}+${c - 10 * b}=${b}\\times 10+${b}\\times ${(c - 10 * b) / b}=${b}(10+${(c - 10 * b) / b})$.<br>
+        Ainsi : 
+     $${c} \\div ${b}=10+${(c - 10 * b) / b}=${a}$.<br>
+     `)
   }
 }
