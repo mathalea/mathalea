@@ -594,10 +594,16 @@ export function exerciceCustom (exercice) {
           setStyles(eltFeedback, 'marginBottom: 20px')
           if (eltFeedback) eltFeedback.innerHTML = ''
           // On utilise la correction définie dans l'exercice
-          for (let i = 0; i < exercice.nbQuestions; i++) {
-            exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
+          if (exercice.exoCustomResultat) {
+            for (let i = 0; i < exercice.nbQuestions; i++) {
+              exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
+            }
+            afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
+          } else {
+            for (let i = 0; i < exercice.nbQuestions; i++) {
+              exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
+            }
           }
-          afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
           button.classList.add('disabled')
         })
         button.hasMathaleaListener = true

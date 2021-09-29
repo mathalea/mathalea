@@ -164,6 +164,9 @@ export default function PlacerPointsSurAxeRelatifs () {
       this.listeCorrections.push(texteCorr)
     }
 
+    // Pour distinguer les deux types de codage de recuperation des résultats
+    this.exoCustomResultat = true
+    // Gestion de la correction
     this.correctionInteractive = (i) => {
       let resultat
       let aucunMauvaisPointsCliques = true

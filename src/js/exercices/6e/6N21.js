@@ -133,6 +133,9 @@ export default function PlacerPointsAbscissesFractionnaires () {
       }
       cpt++
     }
+    // Pour distinguer les deux types de codage de recuperation des résultats
+    this.exoCustomResultat = true
+    // Gestion de la correction
     this.correctionInteractive = (i) => {
       let resultat
       let aucunMauvaisPointsCliques = true
