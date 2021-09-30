@@ -7698,7 +7698,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
 
   // variable preambule à abonder le cas échéant si des packages sont nécessaires.
   // Merci à Sébastien Lozano pour la vérification des dépendances
-  // Merci à Liouba Lerou pour ses documents qui ont servi de base
+  // Merci à Liouba Leroux pour ses documents qui ont servi de base
   // A faire : abonder le preambule pour qu'il colle à tous les exos Mathalea_AMC
 
   let preambule = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -7711,7 +7711,9 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
     preambule += '\t \\documentclass[10pt,a4paper,french]{article}\n'
   }
 
-  preambule += `\t 
+  preambule += `\t
+  %%%%%% EE : Le mettre le plus tôt possible pour éviter un Warning à la compilation 
+  \\RequirePackage{etex}\t  % pour avoir plus de "registres" mémoires / tikz...
   %%%%% PACKAGES LANGUE %%%%%  
   \\usepackage{babel} % sans option => langue définie dans la classe du document
    \\usepackage[T1]{fontenc} 
@@ -7740,7 +7742,6 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %\\usepackage{pstricks,pst-plot,pstricks-add}
   %   POUR PSTRICKS d'où compilation sans PDFLateX mais : dvi, dvi2ps, ps2PDF...
   %   MAIS ON PRÉFÉRERA UTILISER TIKZ...
-  \\RequirePackage{etex}\t  % pour avoir plus de "registres" mémoires / tikz...
   \\usepackage{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
   \\usepackage{pgf,tikz}
   \\usepackage{graphicx} % pour inclure une image
