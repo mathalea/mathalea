@@ -55,11 +55,19 @@ export default {
     "name": "1E12"
   },
   "1E13": {
-    "titre": "Résoudre une équation du second degré à partir de la forme canonique",
+    "titre": "Factoriser, si possible, un polynôme du second degré",
     "url": "/exercices/1e/1E13.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "1E13"
+  },
+  "1E14": {
+    "titre": "f",
+    "url": "/exercices/1e/1E14.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1E14"
   },
   "1F10": {
     "titre": "Calculs de dérivées",
