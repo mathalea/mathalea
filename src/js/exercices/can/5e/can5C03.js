@@ -1,4 +1,4 @@
-import { calcul, randint } from '../../../modules/outils'
+import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Différence de nombres entiers'
 export const interactifReady = true
@@ -14,13 +14,23 @@ export const amcType = 'AMCNum'
 export default function DifferenceEntiers5e () {
   Exercice.call(this)
   this.nbQuestions = 1
-    this.typeExercice = 'simple'
-
+  this.typeExercice = 'simple'
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    const b = randint(50, 99)
-    const a = randint(2, 50) + 100
+    const b = randint(41, 69, [50, 60])
+    const a = randint(2, 30) + 100
     this.reponse = calcul(a - b)
-    this.question = `$${a} - ${b}$`
+    this.question = `$${a} - ${b}=$`
     this.correction = `$${a} - ${b}=${a - b}$`
+    this.correction += texteEnCouleur(`<br> Mentalement : <br>
+    On décompose le calcul $${a} - ${b}$ en  $(100+${a - 100})- ${b}$.<br>
+    On obtient : <br>
+    
+    $\\begin{aligned}
+    \\underbrace{100-${b}}_{${100 - b}}+${a - 100}&=${100 - b}+${a - 100}\\\\
+    &=${a - b}
+    \\end{aligned}$<br>
+       Cela donne :  $${a} - ${b}=${a - b}$.
+      `)
   }
 }

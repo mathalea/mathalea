@@ -1,4 +1,4 @@
-import { calcul, randint } from '../../../modules/outils'
+import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Produit de nombres entiers'
 export const interactifReady = true
@@ -15,12 +15,16 @@ export default function ProduitEntiers5e () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const b = randint(5, 9)
     const a = randint(12, 19)
     this.reponse = calcul(a * b)
-    this.question = `$${a} \\times ${b}$`
+    this.question = `$${a} \\times ${b}=$`
     this.correction = `$${a} \\times ${b}=${a * b}$`
+    this.correction += texteEnCouleur(`<br> Mentalement : <br>
+    On décompose le calcul $${a} \\times ${b}$ en  $(10+${a - 10})\\times ${b}=10\\times ${b} +${a - 10}\\times ${b}$.<br>
+       Cela donne :  $${10 * b}+${(a - 10) * b}=${this.reponse}$.
+      `)
   }
 }
