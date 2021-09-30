@@ -567,10 +567,10 @@ export default function ExerciceInequationProduit () {
           valGrand = texFractionReduite(-d, c) // la plus grande valeur est la solution de la deuxième équation
           if (c > 0) {
             ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-            ligne3 = ['Line', 30, '', 0, '-', 20, 'd', 20, '-', 20, 'z', 20, '+', 20]
+            ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
           } else {
             ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
-            ligne3 = ['Line', 30, '', 0, '+', 20, 'd', 20, '+', 20, 'z', 20, '-', 20]
+            ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
           }
         } else { // Si la racine double est la deuxième
           ligne1 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '+', 20]
@@ -578,10 +578,10 @@ export default function ExerciceInequationProduit () {
           valGrand = texFractionReduite(-b, a) // la plus grande valeur est la solution de la première équation
           if (c > 0) {
             ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-            ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'd', 20, '+', 20]
+            ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '+', 20]
           } else {
             ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
-            ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'd', 20, '-', 20]
+            ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '-', 20]
           }
         }
         // Affiche le tableau
