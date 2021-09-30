@@ -40,12 +40,12 @@ export default {
     "interactifReady": false,
     "name": "1E11-4"
   },
-  "1E11-new": {
-    "titre": "Résoudre une équation du second degré à partir de la forme canonique",
-    "url": "/exercices/1e/1E11-new.js",
+  "1E11-5": {
+    "titre": "Résoudre une équation du second degré avec le discriminant.",
+    "url": "/exercices/1e/1E11-5.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "1E11-new"
+    "name": "1E11-5"
   },
   "1E11": {
     "titre": "Résoudre une équation du second degré",
