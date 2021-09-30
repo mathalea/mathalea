@@ -96,7 +96,7 @@ export default function Resolutionavecdelta () {
             }
           }
         }
-        texteCorr += `<br> d'où après simplification : $x_1 = ${stringX1}$ et  $x_2 = ${stringX2}$`
+        texteCorr += `<br> Après simplification, on obtient : $x_1= ${stringX2}$ et  $x_2=${stringX1}$` // Solution
         texteCorr += `<br> $S =\\left\\{${stringX2};${stringX1}\\right\\}$`
       } else { // cas de delta  = 0
         // pour l'instant pas de delta nul avec choisiDelta
