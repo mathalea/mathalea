@@ -69,11 +69,10 @@ export default {
     "name": "1E13"
   },
   "1E14": {
-    "titre": "f",
+    "titre": "Factoriser un polynôme du second degré avec racines entières",
     "url": "/exercices/1e/1E14.js",
     "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifReady": false,
     "name": "1E14"
   },
   "1F10": {
