@@ -68,6 +68,14 @@ export default {
     "interactifReady": false,
     "name": "1E13"
   },
+  "1E14": {
+    "titre": "f",
+    "url": "/exercices/1e/1E14.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1E14"
+  },
   "1F10": {
     "titre": "Calculs de dérivées",
     "url": "/exercices/1e/1F10.js",
