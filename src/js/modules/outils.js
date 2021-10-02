@@ -7157,8 +7157,11 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `\t\t${autoCorrection[j].enonce} \n `
         texQr += `\t\t\\explain{${autoCorrection[j].propositions[0].texte}}\n`
-        texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}[${autoCorrection[j].propositions[0].sanscadre}]\n` // le statut contiendra le nombre de lignes pour ce type
-        texQr += '\t\\end{question}\n }\n'
+        texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}`
+        if (!(isNaN(autoCorrection[j].propositions[0].sanscadre))) {
+          texQr += `[${autoCorrection[j].propositions[0].sanscadre}]` // le statut contiendra le nombre de lignes pour ce type
+        }
+        texQr += '\n\t\\end{question}\n }\n'
         id++
         break
       case 'AMCNum': // AMCOpen question ouverte avec encodage numérique de la réponse
