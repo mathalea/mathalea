@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, texNombrec } from '../../../modules/outils.js'
+import { randint, calcul, choice, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
 export const titre = 'Pourcentage (proportion) 1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export default function PoucentageP1 () {
   this.nouvelleVersion = function () {
     let b, caractere
 
-    switch (choice(['a', 'b', 'c', 'd', 'e', 'f'])) { //
+    switch (choice(['c'])) { // 'a', 'b', 'c', 'd', 'e', 'f'
       case 'a':
         b = randint(3, 7) * 5
         caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
@@ -29,6 +29,9 @@ export default function PoucentageP1 () {
         $\\dfrac{1}{5}\\times ${b}=\\dfrac{${b}}{5}=${texNombrec(b / 5)}$.<br>
         $${texNombrec(b / 5)}$ élèves ont ${caractere} .<br>
           Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 5)}=${texNombrec(b - b / 5)}$`
+        this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          Pour calculer $\\dfrac{1}{5}$ d'une quantité, on la divise par $5$. <br>
+          Ainsi, $\\dfrac{1}{5}\\times ${b}=${b}\\div 5=${b / 5}$.`)
         this.reponse = calcul(4 * b / 5)
         break
       case 'b':
@@ -40,6 +43,9 @@ export default function PoucentageP1 () {
         $\\dfrac{1}{6}\\times ${b}=\\dfrac{${b}}{6}=${texNombrec(b / 6)}$.<br>
         $${texNombrec(b / 6)}$ élèves ont ${caractere} .<br>
           Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 6)}=${texNombrec(b - b / 6)}$`
+        this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          Pour calculer $\\dfrac{1}{6}$ d'une quantité, on la divise par $6$. <br>
+          Ainsi, $\\dfrac{1}{6}\\times ${b}=${b}\\div 6=${b / 6}$.`)
         this.reponse = calcul(5 * b / 6)
         break
       case 'c':
@@ -51,6 +57,9 @@ export default function PoucentageP1 () {
         $\\dfrac{1}{7}\\times ${b}=\\dfrac{${b}}{7}=${texNombrec(b / 7)}$.<br>
         $${texNombrec(b / 7)}$ élèves ont ${caractere} .<br>
           Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 7)}=${texNombrec(b - b / 7)}$`
+        this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          Pour calculer $\\dfrac{1}{7}$ d'une quantité, on la divise par $7$. <br>
+          Ainsi, $\\dfrac{1}{7}\\times ${b}=${b}\\div 7=${b / 7}$.`)
         this.reponse = calcul(6 * b / 7)
         break
       case 'd':
@@ -62,6 +71,9 @@ export default function PoucentageP1 () {
             $\\dfrac{1}{4}\\times ${b}=\\dfrac{${b}}{4}=${texNombrec(b / 4)}$.<br>
             $${texNombrec(b / 4)}$ élèves ont ${caractere} .<br>
               Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 4)}=${texNombrec(b - b / 4)}$`
+        this.correction += texteEnCouleur(`<br> Mentalement : <br>
+              Pour calculer $\\dfrac{1}{4}$ d'une quantité, on la divise par $4$. <br>
+              Ainsi, $\\dfrac{1}{4}\\times ${b}=${b}\\div 4=${b / 4}$.`)
         this.reponse = calcul(3 * b / 4)
         break
       case 'e':

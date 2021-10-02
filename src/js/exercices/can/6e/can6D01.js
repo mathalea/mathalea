@@ -16,6 +16,9 @@ export default function ConversionHeuresMinutes () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
+  if (!this.interactif) {
+    this.question += ' .... minutes'
+  }
   this.optionsChampTexte = { texteApres: ' minutes' }
   this.nouvelleVersion = function () {
     const a = randint(2, 4)

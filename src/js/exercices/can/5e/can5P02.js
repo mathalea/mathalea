@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { calcul, choice, texNombrec, randint, texNombre, texFractionReduite } from '../../../modules/outils.js'
+import { calcul, choice, texNombrec, randint, texNombre, texFractionReduite, texteEnCouleur } from '../../../modules/outils.js'
 export const titre = 'Pourcentage (proportion) 2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export default function PoucentageP2 () {
     const listeCarac2 = [['maisons', 'T2'], ['maisons', 'T3'], ['appartements', 'T2'], ['appartements', 'T3']
     ]
     let a, b, c, n, d, carac, carac2
-    switch (choice(['a', 'b'])) { //, 'c', 'd', 'e', 'f'
+    switch (choice(['a', 'b'])) { //, 'b'
       case 'a':
         if (choice([true, false])) {
           a = choice([20, 40])
@@ -64,6 +64,13 @@ export default function PoucentageP2 () {
         $${c}$ % de $${texNombrec(b * a / 100)}=${texNombrec(c / 100)}\\times ${b * a / 100}=${texNombrec(c * b * a / 10000)}$.<br>
         Il y a donc $${texNombrec(c * b * a / 10000)}$ ${n} de type ${d} dans cette ville.
         `
+        this.correction += texteEnCouleur(`
+        <br> Mentalement : <br>
+                Prendre $10$ % d'une quantité revient à la diviser par $10$. <br>
+       Pour calculer $20$ %, $30$ %, $40$ %, .... d'une quantité, on 
+       commence par calculer  $10$ % de cette quantité en la divisant par $10$, puis on multiplie 
+       par $2$ ce résultat si on veut en calculer $20$ %, par $3$ si on veut en calculer $30$ %, ....<br>
+                           `)
         this.reponse = calcul(c * b * a / 10000)
         break
     }
