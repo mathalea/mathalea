@@ -4,7 +4,7 @@ import { ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 import { choisiDelta } from '../../modules/fonctionsMaths.js'
 export const interactifReady = false
-export const interactifType = 'mathLive'
+// export const interactifType = 'mathLive'
 export const titre = 'Factoriser, si possible, un polynôme du second degré'
 
 /**
