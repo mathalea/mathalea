@@ -104,12 +104,14 @@ export default function cliqueFigure () {
       }
       // FIN DE AMC
 
-      texte += '<br>'
-      texteCorr = texte + mathalea2d({ xmin: -4, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), figCorr)
-      const figures = shuffle([figSegment, figDroite, figDemiDroite, figDemiDroite2])
-      texte += figures.join('')
-      if (this.interactif && context.isHtml) {
-        texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
+      if (!context.isAmc) {
+        texte += '<br>'
+        texteCorr = texte + mathalea2d({ xmin: -4, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), figCorr)
+        const figures = shuffle([figSegment, figDroite, figDemiDroite, figDemiDroite2])
+        texte += figures.join('')
+        if (this.interactif && context.isHtml) {
+          texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
+        }
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
