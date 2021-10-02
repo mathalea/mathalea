@@ -208,19 +208,23 @@ function verifQuestionQcm (exercice, i) {
     if (exercice.autoCorrection[i].propositions[k].statut) nbBonnesReponsesAttendues++
   }
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+  let aucuneMauvaiseReponseDonnee = true
   exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
     const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
     const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
     if (proposition.statut) {
-      label.style.backgroundColor = monVert
       if (check.checked) {
         nbBonnesReponses++
-        indiceFeedback = indice
+        if (aucuneMauvaiseReponseDonnee) {
+          indiceFeedback = indice
+          label.style.backgroundColor = monVert
+        }
       }
     } else if (check.checked === true) {
       label.style.backgroundColor = monRouge
       nbMauvaisesReponses++
       indiceFeedback = indice
+      aucuneMauvaiseReponseDonnee = false
     }
   })
   let typeFeedback = 'positive'
