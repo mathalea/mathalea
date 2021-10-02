@@ -3602,7 +3602,8 @@ export default {
     "titre": "Faire des phrases avec les mots : divisible, diviseur et multiple",
     "url": "/exercices/6e/6N43-4.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "listeDeroulante",
     "name": "6N43-4"
   },
   "6N43": {

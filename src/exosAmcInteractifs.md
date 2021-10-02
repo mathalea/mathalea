@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 295 
-- nombre d'exos interactifReady 358 
+- nombre d'exos interactifReady 359 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -189,6 +189,7 @@
 |6N41|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
 |6N43-2|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|OK|qcm|
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|qcm|
+|6N43-4|Faire des phrases avec les mots : divisible, diviseur et multiple|KO|KO|OK|listeDeroulante|
 |6N43|Critères de divisibilité|OK|qcmMono|OK|qcm|
 |6P10|Reconnaître une situation de proportionnalité|OK|qcmMono|OK|qcm|
 |6P11-1|Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité|OK|AMCHybride|OK|mathLive|

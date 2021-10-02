@@ -56,9 +56,9 @@
 6N33-2,5N20-0,,,,,,betaSys2x2CombLin
 6N33-3,5P10,,,,,,betaTracerParabole
 6N41-1,5P12,,,,,,betarotation3d
-6N43-4,5R10-0,,,,,,betatrinome
-6P13-1,5R10-1,,,,,,moule_a_exo_mathalea
-6S11,5R12-2,,,,,,moule_a_exo_mathalea2d
+6P13-1,5R10-0,,,,,,betatrinome
+6S11,5R10-1,,,,,,moule_a_exo_mathalea
+,5R12-2,,,,,,moule_a_exo_mathalea2d
 ,5R12,,,,,,c3C10-2
 ,5R20-4,,,,,,c3N10
 ,5R20-5,,,,,,c3N23

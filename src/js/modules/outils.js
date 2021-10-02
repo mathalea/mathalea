@@ -5807,6 +5807,14 @@ export function partieEntiereEnLettres (nb) {
   if (classeDesUnites.length > 1 && classeDesUnites !== 'zéro') {
     result += classeDesUnites
   }
+  result = result.replace('deux-cents-mille', 'deux-cent-mille')
+  result = result.replace('trois-cents-mille', 'trois-cent-mille')
+  result = result.replace('quatre-cents-mille', 'quatre-cent-mille')
+  result = result.replace('cinq-cents-mille', 'cinq-cent-mille')
+  result = result.replace('six-cents-mille', 'six-cent-mille')
+  result = result.replace('sept-cents-mille', 'sept-cent-mille')
+  result = result.replace('huit-cents-mille', 'huit-cent-mille')
+  result = result.replace('neuf-cents-mille', 'neuf-cent-mille')
   return result
 }
 
