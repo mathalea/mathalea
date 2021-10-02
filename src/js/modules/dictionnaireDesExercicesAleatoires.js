@@ -3583,7 +3583,8 @@ export default {
     "amcType": {
       "text": "qcmMult"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "6N43-2"
   },
   "6N43-3": {

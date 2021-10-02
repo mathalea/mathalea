@@ -2,7 +2,10 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import { context } from '../../modules/context.js'
+import { choixDeroulant, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Faire des phrases avec les mots : divisible, diviseur et multiple'
+export const interactifReady = true
+export const interactifType = 'listeDeroulante'
 
 /**
  * Compléter des phrases avec les mots divisible, divieur et multiple
@@ -39,32 +42,57 @@ export default function DivisibleDiviseurMultiple () {
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1:
           texte = '... est divisible par ...'
+          if (this.interactif) {
+            texte = choixDeroulant(this, i, 0, [a1, a, b, q]) + 'est divisible par' + choixDeroulant(this, i, 1, [a1, a, b, q])
+          }
           texteCorr = `${a} est divisible par ${b} ou ${a} est divisible par ${q}.`
+          setReponse(this, i, [[a, b], [a, q]])
           break
         case 2:
           texte = '... est un diviseur de ...'
+          if (this.interactif) {
+            texte = choixDeroulant(this, i, 0, [a1, a, b, q]) + 'est un diviseur de' + choixDeroulant(this, i, 1, [a1, a, b, q])
+          }
           texteCorr = `${b} est un diviseur de ${a} ou ${q} est un diviseur de ${a}.`
+          setReponse(this, i, [[b, a], [q, a]])
           break
         case 3:
           texte = '... est un multiple de ...'
+          if (this.interactif) {
+            texte = choixDeroulant(this, i, 0, [a1, a, b, q]) + 'est un multiple de' + choixDeroulant(this, i, 1, [a1, a, b, q])
+          }
           texteCorr = `${a} est un multiple de ${b} ou ${a} est un multiple de ${q}.`
+          setReponse(this, i, [[a, b], [a, q]])
           break
         case 4:
           texte = '... n\'est pas divisible par ...'
+          if (this.interactif) {
+            texte = choixDeroulant(this, i, 0, [a1, a, b, q]) + 'n\'est pas divisible par' + choixDeroulant(this, i, 1, [a1, a, b, q])
+          }
           texteCorr = `${a1} n'est pas divisible par ${b} ou ${a1} n'est pas divisible par ${q}.`
+          setReponse(this, i, [[a1, b], [a1, q]])
           break
         case 5:
           texte = '... n\'est pas un diviseur de ...'
+          if (this.interactif) {
+            texte = choixDeroulant(this, i, 0, [a1, a, b, q]) + 'n\'est pas un diviseur de' + choixDeroulant(this, i, 1, [a1, a, b, q])
+          }
           texteCorr = `${b} n'est pas un diviseur de ${a1} ou ${q} n'est pas un diviseur de ${a1}.`
+          setReponse(this, i, [[b, a1], [q, a1]])
           break
         case 6:
           texte = '... n\'est pas un multiple de ...'
+          if (this.interactif) {
+            texte = choixDeroulant(this, i, 0, [a1, a, b, q]) + 'n\'est pas un multiple de' + choixDeroulant(this, i, 1, [a1, a, b, q])
+          }
           texteCorr = `${a1} n'est pas un multiple de ${b} ou ${a1} est n'est pas un multiple de ${q}.`
+          setReponse(this, i, [[a1, b], [a1, q]])
           break
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
+        // texte = '<div class="ui form>' + texte + '</div>'
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -73,7 +101,4 @@ export default function DivisibleDiviseurMultiple () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }
-
-// python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
