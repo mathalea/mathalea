@@ -170,8 +170,8 @@ export default function PremierOuPas5e () {
           }
 
           texte = N + ''
-          // texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par les nombres `
-          texteCorr = '<b>Proposition de correction 1 :</b> <br>'
+          texteCorr = '<b>Proposition de deux corrections valables :</b> <br>'
+          texteCorr += '<b>Proposition de correction 1 :</b> <br>'
           texteCorr += `En effectuant la division euclidienne de ${N} par tous les nombres premiers dont le carré est inférieur à $${N}$, c'est-à-dire par ${stringNbCorr1} `
           texteCorr += tabPremiersATester[0]
           for (let k = 1; k < tabPremiersATester.length; k++) {
