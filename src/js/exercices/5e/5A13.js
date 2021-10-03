@@ -78,6 +78,6 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombre de facteurs', 3, '1 : 3 facteurs\n2 : 4 facteurs\n3 : 5 facteurs']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : 3 facteurs\n2 : 4 facteurs\n3 : 5 facteurs']
   this.besoinFormulaire2CaseACocher = ['Grands nombres (une fois sur quatre)']
 }
