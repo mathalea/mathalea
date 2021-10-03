@@ -197,7 +197,7 @@ export default function ProprietesParallelesPerpendiculaires () {
       texte += phrases[code.length - 1]
       texte += `.<br>Que peut-on dire de $(d_${numDroites[code[0][0] - 1]})$ et $(d_${numDroites[code[code.length - 1][1] - 1]})$ ?`
       if (context.isAmc) {
-        texte += ' On pourra s\' aider en traçant une figure.'
+        texte += ' On pourra s\'aider en traçant une figure.'
       }
       // construction de la figure
 
@@ -267,7 +267,15 @@ export default function ProprietesParallelesPerpendiculaires () {
       }
 
       /** ********************** AMC Open *****************************/
-      this.autoCorrection = [{ enonce: texte + '<br>', propositions: [{ texte: texteCorr, statut: 3 }] }]
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].options = { ordered: false }
+      this.autoCorrection[i].enonce = texte + '<br>'
+      this.autoCorrection[i].propositions = [
+        {
+          texte: texteCorr,
+          statut: 3
+        }
+      ]
       /****************************************************/
 
       if (this.listeQuestions.indexOf(texte) === -1) {
