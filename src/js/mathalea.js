@@ -1232,21 +1232,13 @@ async function miseAJourDeLaListeDesExercices (preview) {
             ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
               if (module[p] !== undefined) listeObjetsExercice[i][p] = module[p]
             })
-            if (dictionnaireDesExercices[id].sup !== undefined) {
-              listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
-            }
-            if (dictionnaireDesExercices[id].sup2 !== undefined) {
-              listeObjetsExercice[i].sup2 = dictionnaireDesExercices[id].sup2
-            }
-            if (dictionnaireDesExercices[id].sup3 !== undefined) {
-              listeObjetsExercice[i].sup3 = dictionnaireDesExercices[id].sup3
-            }
-            if (dictionnaireDesExercices[id].sup4 !== undefined) {
-              listeObjetsExercice[i].sup4 = dictionnaireDesExercices[id].sup4
-            }
-            if (dictionnaireDesExercices[id].nbQuestions !== undefined) {
-              listeObjetsExercice[i].nbQuestions = dictionnaireDesExercices[id].nbQuestions
-            }
+            ;['sup', 'sup2', 'sup3', 'sup4', 'nbQuestions', 'besoinFormulaireNumerique', 'besoinFormulaire2Numerique', 'besoinFormulaire3Numerique',
+              'besoinFormulaire4Numerique', 'besoinFormulaireCaseACocher', 'besoinFormulaire2CaseACocher', 'besoinFormulaire3CaseACocher', 'besoinFormulaire4CaseACocher',
+              'besoinFormulaireTexte', 'besoinFormulaire2Texte', 'besoinFormulaire3Texte', 'besoinFormulaire4Texte'].forEach((p) => {
+              if (dictionnaireDesExercices[id][p] !== undefined) {
+                listeObjetsExercice[i][p] = dictionnaireDesExercices[id][p]
+              }
+            })
             if (listeObjetsExercice[i].typeExercice === 'XCas') {
               besoinXCas = true
             }
