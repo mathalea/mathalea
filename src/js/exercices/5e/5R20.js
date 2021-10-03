@@ -1,11 +1,12 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, texNombre } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
-export const interactifType = 'qcm'
+export const interactifType = ['qcm', 'mathlive']
 
 export const titre = 'Addition de deux entiers relatifs'
 
@@ -24,9 +25,13 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
   this.spacing = 2
   this.qcmDisponible = true
   this.modeQcm = false
+  this.sup3 = false
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
+    this.modeQcm = this.sup3
+    if (!context.isHtml) this.modeQcm = this.interactif
+    this.interactifType = this.modeQcm ? 'qcm' : 'mathLive'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     for (let i = 0, a, b, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -63,8 +68,11 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
           statut: false
         }
       ]
-      if (this.interactif) {
+      if (this.modeQcm) {
         texte += propositionsQcm(this, i).texte
+      } else {
+        texte = texte.replace('\\dotfill $', '$' + ajouteChampTexteMathLive(this, i))
+        setReponse(this, i, a + b)
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -77,4 +85,5 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
   }
   this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
   this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
+  if (context.isHtml) this.besoinFormulaire3CaseACocher = ['QCM']
 }
