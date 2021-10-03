@@ -387,8 +387,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           }
           expf = `Le double de la somme de ${nombreAvecEspace(a)} et du produit de ${nombreAvecEspace(b)} par ${nombreAvecEspace(c)}`
           expn = `$2${signex}(${texNombrec(a)}+${texNombrec(b)} \\times ${texNombrec(c)})$`
-          expc = `$2${signex}(${texNombrec(a)}+${texNombrec(b)} \\times ${texNombrec(c)}) = 2${signex}(${texNombrec(a)}+${texNombrec(b * c)}) = 2 \\times  ${texNombrec(a + b * c)} = ${texNombrec(2*(a + b * c))}$`
-          console.log('Rrr souscas => ' + souscas)
+          expc = `$2${signex}(${texNombrec(a)}+${texNombrec(b)} \\times ${texNombrec(c)}) = 2${signex}(${texNombrec(a)}+${texNombrec(b * c)}) = 2 \\times  ${texNombrec(a + b * c)} = ${texNombrec(2 * (a + b * c))}$`
           break
         case 1: // 3(a+b)/c
           if (calculMental) { // b et d sont différents et plus grands que 1.
@@ -405,7 +404,6 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           expf = `Le triple du quotient de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par ${nombreAvecEspace(c)}`
           expn = `$3${signex}(${texNombrec(a)}+${texNombrec(b)}) \\div ${texNombrec(c)}$ ou $3 \\times \\dfrac{${texNombrec(a)}+${texNombrec(b)}}{${texNombrec(c)}}$`
           expc = `$3${signex}(${texNombrec(a)}+${texNombrec(b)}) \\div ${texNombrec(c)} = 3 \\times  ${texNombrec(a + b)} \\div ${texNombrec(c)} = ${texNombrec(3 * (a + b))} \\div ${texNombrec(c)} = ${texNombrec(3 * (a + b) / c)}$`
-          console.log('Rrr souscas => ' + souscas)
           break
         case 2: // (a-b)/3
           if (calculMental) {
@@ -419,7 +417,6 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           expf = `Le tiers de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)}`
           expn = `$(${texNombrec(a)}-${texNombrec(b)}) \\div  3$ ou $\\dfrac{${texNombrec(a)}-${texNombrec(b)}}{3}$`
           expc = `$(${texNombrec(a)}-${texNombrec(b)}) \\div  3 = ${texNombrec(a - b)} \\div  3 = ${texNombrec((a - b) / 3)}$`
-          console.log('Rrr souscas => ' + souscas)
           break
         case 3: // (a-b)/3*2(c+d)
           if (calculMental) {
@@ -435,7 +432,6 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           expf = `Le produit du tiers de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par le double de la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$\\left((${texNombrec(a)}-${texNombrec(b)}) \\div  3\\right) \\times  2${signex}(${texNombrec(c)}+${texNombrec(d)})$`
           expc = `$\\left((${texNombrec(a)}-${texNombrec(b)}) \\div  3\\right) \\times  2${signex}(${texNombrec(c)}+${texNombrec(d)}) = ${texNombrec(a - b)} \\div  3  \\times  2  \\times ${texNombrec(c + d)} = ${texNombrec((a - b) / 3)}  \\times  2  \\times  ${texNombrec(c + d)} =  ${texNombrec(2 * (a - b) / 3)}  \\times  ${texNombrec(c + d)} = ${texNombrec(2 * (c + d) * (a - b) / 3)}$`
-          console.log('Rrr souscas => ' + souscas)
           break
         case 4: // 3(a+b)-2(c+d)
           if (calculMental) { // Le résultat final sera ici, en moyenne, 7, 8 ou 9.
@@ -449,7 +445,6 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           expf = `La différence du triple de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} et du double de la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$3${signex}(${texNombrec(a)}+${texNombrec(b)})-2${signex}(${texNombrec(c)}+${texNombrec(d)})$`
           expc = `$3${signex}(${texNombrec(a)}+${texNombrec(b)})-2${signex}(${texNombrec(c)}+${texNombrec(d)}) = 3  \\times  ${texNombrec(a + b)} - 2  \\times  ${texNombrec(c + d)} = ${texNombrec(3 * (a + b))} - ${texNombrec(2 * (c + d))} = ${texNombrec(3 * (a + b) - 2 * (c + d))}$`
-          console.log('Rrr souscas => ' + souscas)
           break
         case 5: // 2(a-b)+3(c+d)
           if (calculMental) { // 2(a-b)<11 et c+d<14
@@ -463,7 +458,6 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           expf = `La somme du double de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} et du triple de la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$2${signex}(${texNombrec(a)}-${texNombrec(b)})+3${signex}(${texNombrec(c)}+${texNombrec(d)})$`
           expc = `$2${signex}(${texNombrec(a)}-${texNombrec(b)})+3${signex}(${texNombrec(c)}+${texNombrec(d)}) = 2  \\times  ${texNombrec(a - b)} + 3  \\times  ${texNombrec(c + d)} = ${texNombrec(2 * (a - b))} + ${texNombrec(3 * (c + d))} = ${texNombrec(2 * (a - b) + 3 * (c + d))}$`
-          console.log('Rrr souscas => ' + souscas)
           break
       }
       break
