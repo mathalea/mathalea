@@ -43,7 +43,7 @@ export default function ExerciceTablesAdditions (max = 20) {
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
-        this.autoCorrection[i].reponse = { valeur: a + b, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b)), decimals: 0, exposantNbChiffres: 0, signe: false } }
+        this.autoCorrection[i].reponse.param = { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b)), decimals: 0, exposantNbChiffres: 0, signe: false }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

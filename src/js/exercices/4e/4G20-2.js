@@ -70,7 +70,7 @@ export default function RacineCareeDeCarresParfaits () {
             this.autoCorrection[i].enonce = `$${c} = \\dots^2$`
             this.autoCorrection[i].propositions = [{ texte: `$${c}=${a}^2$`, statut: '' }]
           }
-          this.autoCorrection[i].reponse = { valeur: a, param: { digits: 2, decimals: 0, exposantNbChiffres: 0, exposantSigne: false, signe: false } }
+          this.autoCorrection[i].reponse.param = { digits: 2, decimals: 0, exposantNbChiffres: 0, exposantSigne: false, signe: false }
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
