@@ -20,16 +20,32 @@ export default function OpposeDeFraction () {
   this.formatInteractif = 'fractionEgale'
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
-    const b = a.num * choice([-1, 1])
     const c = a.den
-    const d = fraction(b, c)
-    if (choice([true, false])) {
-      this.question = `L'opposé de $\\dfrac{${b}}{${c}}$`
-      this.correction = `L'opposé de $\\dfrac{${b}}{${c}}$ est ${d.texFraction}`
-    } else {
-      this.question = `L'opposé de $-\\dfrac{${-b}}{${c}}$`
-      this.correction = `L'opposé de $-\\dfrac{${-b}}{${c}}$ est ${d.texFraction}`
+    let b, d
+
+    switch (choice(['a', 'b', 'c'])) { // 'b', 'c'
+      case 'a':
+        b = a.num
+        d = fraction(b, c)
+        this.question = `L'opposé de $\\dfrac{${b}}{${c}}$ est : `
+        this.correction = `L'opposé de $\\dfrac{${b}}{${c}}$ est $-${d.texFraction}$.`
+        this.reponse = d.oppose()
+        break
+      case 'b' :
+        b = a.num * (-1)
+        d = fraction(b, c)
+        this.question = `L'opposé de $\\dfrac{${b}}{${c}}$ est : `
+        this.correction = `L'opposé de $\\dfrac{${b}}{${c}}$ est $\\dfrac{${-b}}{${c}}$.`
+        this.reponse = d.oppose()
+        break
+
+      case 'c' :
+        b = a.num
+        d = fraction(b, c)
+        this.question = `L'opposé de $-\\dfrac{${b}}{${c}}$ est :`
+        this.correction = `L'opposé de $-\\dfrac{${b}}{${c}}$ est $${d.texFraction}$.`
+        this.reponse = d
+        break
     }
-    this.reponse = d.oppose()
   }
 }
