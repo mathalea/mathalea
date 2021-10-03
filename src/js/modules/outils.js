@@ -168,10 +168,13 @@ export function deuxColonnes (cont1, cont2) {
  * @param {number} min borne inférieur
  * @param {number} max borne supérieur
  * @param {number} valeur la valeur à contraindre
+ * @param {number} defaut valeur par défaut si non entier
  */
-export function contraindreValeur (min, max, valeur) {
-  return (valeur < min) ? min : (valeur > max) ? max : valeur
+
+export function contraindreValeur (min, max, valeur, defaut) {
+  return !(isNaN(valeur)) ? (valeur < min) ? min : (valeur > max) ? max : valeur : defaut
 }
+
 /**
  * Compare deux nombres (pour les nombres en virgule flottante afin d'éviter les effets de la conversion en virgule flottante).
  * @author Jean-Claude Lhote
@@ -5804,6 +5807,14 @@ export function partieEntiereEnLettres (nb) {
   if (classeDesUnites.length > 1 && classeDesUnites !== 'zéro') {
     result += classeDesUnites
   }
+  result = result.replace('deux-cents-mille', 'deux-cent-mille')
+  result = result.replace('trois-cents-mille', 'trois-cent-mille')
+  result = result.replace('quatre-cents-mille', 'quatre-cent-mille')
+  result = result.replace('cinq-cents-mille', 'cinq-cent-mille')
+  result = result.replace('six-cents-mille', 'six-cent-mille')
+  result = result.replace('sept-cents-mille', 'sept-cent-mille')
+  result = result.replace('huit-cents-mille', 'huit-cent-mille')
+  result = result.replace('neuf-cents-mille', 'neuf-cent-mille')
   return result
 }
 
@@ -7154,8 +7165,11 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `\t\t${autoCorrection[j].enonce} \n `
         texQr += `\t\t\\explain{${autoCorrection[j].propositions[0].texte}}\n`
-        texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}\n` // le statut contiendra le nombre de lignes pour ce type
-        texQr += '\t\\end{question}\n }\n'
+        texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}`
+        if (!(isNaN(autoCorrection[j].propositions[0].sanscadre))) {
+          texQr += `[${autoCorrection[j].propositions[0].sanscadre}]` // le statut contiendra le nombre de lignes pour ce type
+        }
+        texQr += '\n\t\\end{question}\n }\n'
         id++
         break
       case 'AMCNum': // AMCOpen question ouverte avec encodage numérique de la réponse
@@ -7695,7 +7709,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
 
   // variable preambule à abonder le cas échéant si des packages sont nécessaires.
   // Merci à Sébastien Lozano pour la vérification des dépendances
-  // Merci à Liouba Lerou pour ses documents qui ont servi de base
+  // Merci à Liouba Leroux pour ses documents qui ont servi de base
   // A faire : abonder le preambule pour qu'il colle à tous les exos Mathalea_AMC
 
   let preambule = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -7708,7 +7722,9 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
     preambule += '\t \\documentclass[10pt,a4paper,french]{article}\n'
   }
 
-  preambule += `\t 
+  preambule += `\t
+  %%%%%% EE : Le mettre le plus tôt possible pour éviter un Warning à la compilation 
+  \\RequirePackage{etex}\t  % pour avoir plus de "registres" mémoires / tikz...
   %%%%% PACKAGES LANGUE %%%%%  
   \\usepackage{babel} % sans option => langue définie dans la classe du document
    \\usepackage[T1]{fontenc} 
@@ -7731,11 +7747,12 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
    \\usepackage{enumitem}
    \\usepackage{tabularx}\t% Pour faire des tableaux
 
+   \\usepackage{xargs}\t% EE : pour permettre DES options dans newcommand
+
   %%%%% PACKAGES FIGURES %%%%%
   %\\usepackage{pstricks,pst-plot,pstricks-add}
   %   POUR PSTRICKS d'où compilation sans PDFLateX mais : dvi, dvi2ps, ps2PDF...
   %   MAIS ON PRÉFÉRERA UTILISER TIKZ...
-  \\RequirePackage{etex}\t  % pour avoir plus de "registres" mémoires / tikz...
   \\usepackage{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
   \\usepackage{pgf,tikz}
   \\usepackage{graphicx} % pour inclure une image
@@ -7806,9 +7823,13 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   \\newcommand{\\collerVertic}{\\vspace{-3mm}} % évite un trop grand espace vertical
   \\newcommand{\\TT}{\\sout{\\textbf{Tiers Temps}} \\noindent} % 
   \\newcommand{\\Prio}{\\fbox{\\textbf{PRIORITAIRE}} \\noindent} % 
-  \\newcommand{\\notation}[1]{
-    \\AMCOpen{lines=#1}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{R}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{V}\\scoring{1}}
-    }
+  \\newcommandx{\\notation}[2][2=false]{
+    \\AMCOpen{lines=#1,lineup=#2,lineuptext=\\hspace{1cm}}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{R}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{V}\\scoring{1}}
+  }
+  %%\\newcommand{\\notation}[1]{
+  %%\\AMCOpen{lines=#1}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{R}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{V}\\scoring{1}}
+  %%}
+    
   %%pour afficher ailleurs que dans une question
   \\makeatletter
   \\newcommand{\\AffichageSiCorrige}[1]{\\ifAMC@correc #1\\fi}

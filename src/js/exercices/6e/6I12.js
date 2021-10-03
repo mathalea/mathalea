@@ -250,6 +250,8 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
 
   // Pour pouvoir récupérer this dans la correction interactive
   const exercice = this
+  // Pour distinguer les deux types de codage de recuperation des résultats
+  this.exoCustomResultat = false
   // Gestion de la correction
   this.correctionInteractive = (elt) => {
     let nbBonnesReponses = 0

@@ -64,7 +64,7 @@ export default function NotationSegmentDroiteDemiDroite () {
         dAC,
         labels
       )
-      texteCorr = `...tracer ${dABCorr}, ${dBCCorr}, ${dACCorr}.`
+      texteCorr = `Placer 3 points $${p[0]}$, $${p[1]}$ et $${p[2]}$ non alignés puis tracer ${dABCorr}, ${dBCCorr}, ${dACCorr}.`
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

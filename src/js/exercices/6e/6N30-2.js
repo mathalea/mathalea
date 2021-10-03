@@ -162,6 +162,9 @@ export default function PlacerPointsSurAxe () {
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
+    // Pour distinguer les deux types de codage de recuperation des résultats
+    this.exoCustomResultat = false
+    // Gestion de la correction
     this.correctionInteractive = (elt) => {
       let nbBonnesReponses = 0
       let nbMauvaisesReponses = 0

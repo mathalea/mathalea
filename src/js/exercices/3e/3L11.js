@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureParentheseSiMoins, signe, abs, lettreDepuisChiffre } from '../../modules/outils.js'
+import { randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureParentheseSiMoins, signe, abs, lettreDepuisChiffre, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Utiliser la simple distributivité'
 
@@ -30,7 +31,8 @@ export default function ExerciceDevelopper (difficulte = 1) {
   this.interactifType = interactifType
   this.interactifReady = interactifReady
   this.consigne = 'Développer.'
-  this.spacing = 1
+  this.spacing = context.isHtml ? 3 : 2
+  this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5
   this.nbColsCorr = 1
 
@@ -209,7 +211,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
       }
       cpt++
     }
-    listeQuestionsToContenu(this)
+    listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',

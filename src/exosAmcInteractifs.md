@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 291 
-- nombre d'exos interactifReady 357 
+- nombre d'exos amcReady 295 
+- nombre d'exos interactifReady 359 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -142,7 +142,10 @@
 |6C34|Dernier chiffre d’un calcul|OK|AMCNum|OK|numerique|
 |6D101|Utiliser les heures décimales|OK|AMCHybride|OK|mathLive|
 |6D13|Conversion en heures et minutes|OK|AMCHybride|OK|mathLive|
-|6G10-3|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|6G10-3|Choisir la bonne figure|OK|qcmMono|OK|cliqueFigure|
+|6G11|Tracer des perpendiculaires|OK|AMCOpen|KO|KO|
+|6G12-1|Tracer des parallèles et des perpendiculaires|OK|AMCOpen|KO|KO|
+|6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
 |6G23-1|Mesurer un angle|OK|qcmMono|OK|qcm|
 |6G24|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
 |6G25-1|Symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
@@ -184,8 +187,9 @@
 |6N33|Calculer la fraction d’un nombre|OK|AMCNum|OK|mathLive|
 |6N34|Effectuer des conversions avec tous les préfixes de milli à tera|OK|AMCNum|OK|mathLive|
 |6N41|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
-|6N43-2|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|KO|KO|
+|6N43-2|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|OK|qcm|
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|qcm|
+|6N43-4|Faire des phrases avec les mots : divisible, diviseur et multiple|KO|KO|OK|listeDeroulante|
 |6N43|Critères de divisibilité|OK|qcmMono|OK|qcm|
 |6P10|Reconnaître une situation de proportionnalité|OK|qcmMono|OK|qcm|
 |6P11-1|Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité|OK|AMCHybride|OK|mathLive|
@@ -356,7 +360,7 @@
 |can6N03|Recomposer entier moins simple|OK|AMCNum|OK|mathLive|
 |can6N04|Abscisse fractionnaire|OK|AMCHybride|OK|mathLive|
 |can6N05|Chiffre des ...|OK|AMCHybride|OK|mathLive|
-|can6N06|Arrondi au dixième|OK|AMCHybride|OK|mathLive|
+|can6N06|Arrondi au dixième ou au centième|OK|AMCHybride|OK|mathLive|
 |can6P01|Proportionnalité simple|OK|AMCNum|OK|mathLive|
 |can6P02|Proportionnalité compliquée|OK|AMCNum|OK|mathLive|
 |can6P03|Question de vitesse|OK|AMCNum|OK|mathLive|

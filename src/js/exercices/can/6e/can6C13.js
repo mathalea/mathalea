@@ -14,6 +14,7 @@ export const amcType = 'AMCNum'
 export default function FSomme2Decimaux () {
   Exercice.call(this)
   this.typeExercice = 'simple'
+  this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.nouvelleVersion = function () {
     let a, b, c, d, e

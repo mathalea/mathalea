@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, texFraction } from '../../modules/outils.js'
+import { randint, choice, texFraction, lettreDepuisChiffre, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Factoriser a²-b²'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,8 +20,8 @@ export default function FactoriserIdentitesRemarquables3 () {
   this.consigne = 'Factoriser les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
+  this.spacing = context.isHtml ? 3 : 2
+  this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5
   this.sup = 2
 
@@ -34,22 +35,22 @@ export default function FactoriserIdentitesRemarquables3 () {
     for (let i = 0, texte, texteCorr, reponse, cpt = 0, a, b, ns, ds, fraction = []; i < this.nbQuestions && cpt < 50;) {
       if (this.sup === 1) {
         a = randint(1, 9) // coef de x est égal à 1
-        texte = `$x^2-${a * a}$` // (x-a)(x+a)
-        texteCorr = `$x^2-${a * a}=x^2-${a}^2=(x-${a})(x+${a})$`
+        texte = `$${lettreDepuisChiffre(i + 1)} = x^2-${a * a}$` // (x-a)(x+a)
+        texteCorr = `$${lettreDepuisChiffre(i + 1)} = x^2-${a * a}=x^2-${a}^2=(x-${a})(x+${a})$`
         reponse = [`(x-${a})(x+${a})`, `(x+${a})(x-${a})`]
       } else if (this.sup === 2) {
         a = randint(1, 9) // (bx-a)(bx+a) avec a et b entier positifs entre 1 et 9,  b différent de 1
         b = randint(2, 9)
-        texte = `$${b * b}x^2-${a * a}$` // b>1
-        texteCorr = `$${b * b}x^2-${a * a}=(${b}x)^2-${a}^2=(${b}x-${a})(${b}x+${a})$`
+        texte = `$${lettreDepuisChiffre(i + 1)} = ${b * b}x^2-${a * a}$` // b>1
+        texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${b * b}x^2-${a * a}=(${b}x)^2-${a}^2=(${b}x-${a})(${b}x+${a})$`
         reponse = [`(${b}x-${a})(${b}x+${a})`, `(${b}x+${a})(${b}x-${a})`]
       } else { //  (bx-a)(bx+a) avec a entier et b rationnel simple
         a = randint(1, 9)
         fraction = choice(Fractions)
         ns = fraction[0]
         ds = fraction[1]
-        texte = `$${texFraction(ns * ns, ds * ds)}x^2-${a * a}$` // b>1
-        texteCorr = `$${texFraction(ns * ns, ds * ds)}x^2-${a * a}=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)$`
+        texte = `$${lettreDepuisChiffre(i + 1)} = ${texFraction(ns * ns, ds * ds)}x^2-${a * a}$` // b>1
+        texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${texFraction(ns * ns, ds * ds)}x^2-${a * a}=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)$`
         reponse = [`\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)`, `\\left(${texFraction(ns, ds)}x+${a}\\right)\\left(${texFraction(ns, ds)}x-${a}\\right)`]
       }
       texte += ajouteChampTexteMathLive(this, i)
@@ -63,7 +64,7 @@ export default function FactoriserIdentitesRemarquables3 () {
       }
       cpt++
     }
-    listeQuestionsToContenu(this)
+    listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel']
 }

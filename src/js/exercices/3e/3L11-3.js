@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffre, printlatex } from '../../modules/outils.js'
+import { randint, combinaisonListes, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
 export const interactifReady = true
@@ -22,7 +22,8 @@ export default function DistributiviteSimpleDoubleReduction () {
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  this.spacing = context.isHtml ? 3 : 2
+  this.spacingCorr = context.isHtml ? 3 : 2
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -179,6 +180,6 @@ export default function DistributiviteSimpleDoubleReduction () {
       }
       cpt++
     }
-    listeQuestionsToContenu(this)
+    listeQuestionsToContenuSansNumero(this)
   }
 }

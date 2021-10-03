@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, choice, combinaisonListes, abs, lettreDepuisChiffre, printlatex } from '../../modules/outils.js'
+import { choice, combinaisonListes, abs, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
@@ -133,6 +133,6 @@ export default function FactoriserParNombreOux () {
       }
       cpt++
     }
-    listeQuestionsToContenu(this)
+    listeQuestionsToContenuSansNumero(this)
   }
 }

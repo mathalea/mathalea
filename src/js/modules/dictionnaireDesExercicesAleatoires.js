@@ -40,6 +40,13 @@ export default {
     "interactifReady": false,
     "name": "1E11-4"
   },
+  "1E11-5": {
+    "titre": "Résoudre une équation du second degré avec le discriminant.",
+    "url": "/exercices/1e/1E11-5.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E11-5"
+  },
   "1E11": {
     "titre": "Résoudre une équation du second degré",
     "url": "/exercices/1e/1E11.js",
@@ -53,6 +60,20 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "1E12"
+  },
+  "1E13": {
+    "titre": "Factoriser, si possible, un polynôme du second degré",
+    "url": "/exercices/1e/1E13.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E13"
+  },
+  "1E14": {
+    "titre": "Factoriser un polynôme du second degré avec racines entières",
+    "url": "/exercices/1e/1E14.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E14"
   },
   "1F10": {
     "titre": "Calculs de dérivées",
@@ -278,12 +299,12 @@ export default {
     "interactifReady": false,
     "name": "2N15-2"
   },
-  "2N21": {
+  "2N20-8": {
     "titre": "Déterminer la parité d’une expression",
-    "url": "/exercices/2e/2N21.js",
+    "url": "/exercices/2e/2N20-8.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N21"
+    "name": "2N20-8"
   },
   "2N32-1": {
     "titre": "Existence d’une racine carrée",
@@ -2749,9 +2770,14 @@ export default {
   "6G10-3": {
     "titre": "Choisir la bonne figure",
     "url": "/exercices/6e/6G10-3.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
     "interactifReady": true,
-    "interactifType": "cliqueFigure",
+    "interactifType": [
+      "cliqueFigure"
+    ],
     "name": "6G10-3"
   },
   "6G10": {
@@ -2764,21 +2790,30 @@ export default {
   "6G11": {
     "titre": "Tracer des perpendiculaires",
     "url": "/exercices/6e/6G11.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6G11"
   },
   "6G12-1": {
     "titre": "Tracer des parallèles et des perpendiculaires",
     "url": "/exercices/6e/6G12-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6G12-1"
   },
   "6G12": {
     "titre": "Tracer des parallèles",
     "url": "/exercices/6e/6G12.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6G12"
   },
@@ -3548,7 +3583,8 @@ export default {
     "amcType": {
       "text": "qcmMult"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "6N43-2"
   },
   "6N43-3": {
@@ -3566,7 +3602,8 @@ export default {
     "titre": "Faire des phrases avec les mots : divisible, diviseur et multiple",
     "url": "/exercices/6e/6N43-4.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "listeDeroulante",
     "name": "6N43-4"
   },
   "6N43": {
@@ -5780,7 +5817,7 @@ export default {
     "name": "can6N05"
   },
   "can6N06": {
-    "titre": "Arrondi au dixième",
+    "titre": "Arrondi au dixième ou au centième",
     "url": "/exercices/can/6e/can6N06.js",
     "amcReady": true,
     "amcType": {

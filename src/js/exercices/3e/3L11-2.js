@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre, printlatex } from '../../modules/outils.js'
+import { randint, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Réduire une expression'
 export const interactifReady = true
@@ -20,6 +20,8 @@ export default function ReductionSiPossible () {
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1
+  this.spacing = context.isHtml ? 3 : 2
+  this.spacingCorr = context.isHtml ? 3 : 2
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -169,6 +171,6 @@ export default function ReductionSiPossible () {
       }
       cpt++
     }
-    listeQuestionsToContenu(this)
+    listeQuestionsToContenuSansNumero(this)
   }
 }
