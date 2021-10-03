@@ -386,7 +386,17 @@ export default function ParalleleEtPerpendiculaires () {
         objetsCorrection
       )
       /** ********************** AMC Open *****************************/
-      this.autoCorrection = [{ enonce: enonce + '<br>', propositions: [{ texte: correction, statut: 3, sanscadre: true }] }]
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].options = { ordered: false }
+      this.autoCorrection[i].enonce = enonce + '<br>'
+      this.autoCorrection[i].propositions = [
+        {
+          texte: correction,
+          statut: 3,
+          sanscadre: true
+        }
+      ]
+      // this.autoCorrection = [{ enonce: enonce + '<br>', propositions: [{ texte: correction, statut: 3, sanscadre: true }] }]
       /****************************************************/
       correction += anim.htmlBouton(this.numeroExercice, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
