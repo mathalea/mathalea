@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, creerNomDePolygone } from '../../../modules/outils.js'
 import { afficheLongueurSegment, codeAngle, mathalea2d, point, pointAdistance, polygoneAvecNom } from '../../../modules/2d.js'
-export const titre = 'Nombre de nombres entiers entre deux valeurs'
+export const titre = 'Calcul d’une longueur d’un côté avec Pythagore '
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can4G01
 */
-export default function NombreDeNombresEntiersEntreDeuxValeurs () {
+export default function LongueurPythagore () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1

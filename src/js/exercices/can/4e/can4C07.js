@@ -1,5 +1,5 @@
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
-import { choice, randint, simplificationDeFractionAvecEtapes } from '../../../modules/outils'
+import { choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Différence de fractions à dénominateurs compatibles'
 export const interactifReady = true
@@ -16,14 +16,21 @@ export default function DifferenceFractionsCompatibles () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.formatChampTexte = 'largeur25 inline'
-  this.formatInteractif = 'fraction'
+  this.formatChampTexte = 'largeur15 inline'
+  this.formatInteractif = 'fractionEgale'
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3])
-    const b = fraction(randint(2, 6), a.den * c)
-    this.question = `$${a.texFraction} - ${b.texFraction}$`
-    this.correction = `$${a.texFraction} - ${b.texFraction}=${a.fractionEgale(c).texFraction} - ${b.texFraction}=\\dfrac{${a.num * c}-${b.num}}{${b.den}}=\\dfrac{${a.num * c - b.num}}{${b.den}}${simplificationDeFractionAvecEtapes(a.num * c - b.num, b.den)}$`
+    const b = fraction(1, a.den * c)
+    this.question = `$${a.texFraction} - ${b.texFraction}=$`
+    this.correction = `Pour soustraire des fractions, on les met au même dénominateur.<br>
+    <br>
+    Pour écrire $${a.texFraction}$ avec le même dénominateur que $${b.texFraction}$, 
+    on multiplie son numérateur et son dénominateur par $${c}$.<br><br>
+    Ainsi,
+    $${a.texFraction} - ${b.texFraction}=
+   \\dfrac{${a.num}\\times ${c}}{${a.den}\\times ${c}}+ ${b.texFraction}
+    =${a.fractionEgale(c).texFraction} - ${b.texFraction}=\\dfrac{${a.num * c}-${b.num}}{${b.den}}=\\dfrac{${a.num * c - b.num}}{${b.den}}${simplificationDeFractionAvecEtapes(a.num * c - b.num, b.den)}$`
     this.reponse = a.differenceFraction(b).simplifie()
   }
 }

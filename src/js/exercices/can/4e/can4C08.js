@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { calcul, combinaisonListes } from '../../../modules/outils.js'
+import { calcul, combinaisonListes, texNombre } from '../../../modules/outils.js'
 export const titre = 'Somme de puissances de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,11 +15,13 @@ export default function SommePuissancesDeDix () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur25'
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    const a = combinaisonListes([0, 1, 2, 3, 4, 5, 6, 7, 8], 3)
-    this.question = `$10^${a[0]}+10^${a[1]}+10^${a[2]}$`
-    this.correction = `$10^${a[0]}+10^${a[1]}+10^${a[2]}=${10 ** a[0]}+${10 ** a[1]}+${10 ** a[2]}=${10 ** a[0] + 10 ** a[1] + 10 ** a[2]}$`
+    const a = combinaisonListes([0, 1, 2, 3, 4, 5, 6], 3)
+    this.question = `$10^${a[0]}+10^${a[1]}+10^${a[2]}=$`
+    this.correction = `$10^${a[0]}+10^${a[1]}+10^${a[2]}=
+    ${texNombre(10 ** a[0])}+${texNombre(10 ** a[1])}+${texNombre(10 ** a[2])}
+    =${texNombre(10 ** a[0] + 10 ** a[1] + 10 ** a[2])}$`
     this.reponse = calcul(10 ** a[0] + 10 ** a[1] + 10 ** a[2])
   }
 }
