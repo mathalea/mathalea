@@ -1695,8 +1695,12 @@ export default {
   "5A12-1": {
     "titre": "Primalité ou pas",
     "url": "/exercices/5e/5A12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "5A12-1"
   },
   "5A13": {
@@ -2354,7 +2358,10 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "qcm",
+    "interactifType": [
+      "qcm",
+      "mathlive"
+    ],
     "name": "5R20"
   },
   "5R21": {
@@ -2820,7 +2827,10 @@ export default {
   "6G14": {
     "titre": "Utiliser les propriétés des droites perpendiculaires",
     "url": "/exercices/6e/6G14.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6G14"
   },
@@ -4320,12 +4330,12 @@ export default {
     "interactifReady": false,
     "name": "betaModele21_parametrables"
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques"
+    "name": "betaModele30_constructions_géométriques"
   },
   "betaModele31_parametrables": {
     "titre": "Nom de l'exercice",
