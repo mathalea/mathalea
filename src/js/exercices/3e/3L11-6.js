@@ -14,24 +14,19 @@ export const interactifType = 'mathLive'
 * 3L11-6
 */
 export default function FactoriserUneExpression3e () {
-  'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.consigne = 'Factoriser les expressions suivantes.'
-  this.nbQuestions = 8
+  this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 2
   this.sup = 1
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
-  if (context.isHtml) {
-    this.spacingCorr = 2
-    this.spacing = 2
-  } else {
-    this.spacingCorr = 1
-  }
+  this.spacing = context.isHtml ? 3 : 2
+  this.spacingCorr = context.isHtml ? 3 : 2
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

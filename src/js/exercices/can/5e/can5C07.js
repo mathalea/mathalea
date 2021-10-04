@@ -1,4 +1,4 @@
-import { randint } from '../../../modules/outils'
+import { randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Priorité opératoire'
 export const interactifReady = true
@@ -15,7 +15,7 @@ export default function PrioriteOperatoire5e () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.typeExercice = 'simple'
-
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(5, 9)
     const b = 20 - a
@@ -23,5 +23,10 @@ export default function PrioriteOperatoire5e () {
     this.reponse = b + a * c
     this.question = `$${b} + ${a} \\times ${c}$`
     this.correction = `$${b} + ${a} \\times ${c}= ${b} + ${a * c} = ${this.reponse}$`
+    this.correction += texteEnCouleur(`
+    <br> Mentalement : <br>
+    La multiplication étant prioritaire sur l'addition, on commence par calculer $${a} \\times ${c}=${a * c}$.<br>
+    On ajoute ensuite  $${b}$ pour obtenir le résultat : $${a * c}+${b}=${this.reponse}$.
+     `)
   }
 }

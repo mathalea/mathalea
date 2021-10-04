@@ -1,12 +1,14 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range, rangeMinMax, shuffle, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range, rangeMinMax, shuffle, combinaisonListes, contraindreValeur, choice } from '../../modules/outils.js'
 import { point, pointIntersectionDD, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteParPointEtPente, rotation, codageAngleDroit, mathalea2d } from '../../modules/2d.js'
+export const amcReady = true
+export const amcType = 'AMCOpen' // type de question AMC
 export const titre = 'Utiliser les propriétés des droites perpendiculaires'
 
 /**
  * Ref 6G14
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote (EE : pour l'ajout d'AMC et la possibilité de sélectionner différents mélanges)
  * publié le 22/11/2020
  */
 export default function ProprietesParallelesPerpendiculaires () {
@@ -21,22 +23,43 @@ export default function ProprietesParallelesPerpendiculaires () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
   this.nouvelleVersion = function () {
-    let typesDeQuestionsDisponibles
+    let typesDeQuestionsDisponibles = []
     let questionsParNiveau = []
     if (!this.sup2) {
       questionsParNiveau.push(range(3))
       questionsParNiveau.push(rangeMinMax(9, 15))
       questionsParNiveau.push(rangeMinMax(19, 31, 20))
+      questionsParNiveau.push(questionsParNiveau[0].concat(questionsParNiveau[1].concat(questionsParNiveau[2])))
     } else {
-      questionsParNiveau = [[2], [15], [31]]
+      questionsParNiveau = [[2], [15], [31], [2, 15, 31]]
     }
-    if (this.sup < 4) typesDeQuestionsDisponibles = questionsParNiveau[parseInt(this.sup) - 1]
-    else typesDeQuestionsDisponibles = questionsParNiveau[0].concat(questionsParNiveau[1].concat(questionsParNiveau[2]))
-
-    const listeTypeDeQuestions = combinaisonListes(
-      typesDeQuestionsDisponibles,
-      this.nbQuestions
-    )
+    let AvecMelange = true
+    if (!this.sup) { // Si aucun melange n'est saisi
+      typesDeQuestionsDisponibles = questionsParNiveau[3]
+    } else {
+      if (typeof (this.sup) === 'number') { // Si c'est un nombre, on duplique ce nombre et on insère un - entre les deux.
+        this.sup = this.sup + '-' + this.sup
+      } else { AvecMelange = false }
+      let QuestionsDisponibles = []
+      const IndiceNew = [0, 0, 0, 0, 0]
+      let NumQuestionsDisponibles
+      QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+      for (let i = 0; i < this.nbQuestions; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+        NumQuestionsDisponibles = contraindreValeur(1, 4, parseInt(QuestionsDisponibles[i % QuestionsDisponibles.length]), 4) - 1
+        typesDeQuestionsDisponibles[i] = choice(questionsParNiveau[NumQuestionsDisponibles], typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles])) // Ce slice permet de gérer, par exemple, le mélange 1-1-2 pour 10 questions car il n'y a pas assez de choix différents pour le mélange 1.
+        if (typesDeQuestionsDisponibles[i] === undefined) { // Dans le cas, on a épuisé tous les choix différents d'un mélange
+          IndiceNew[NumQuestionsDisponibles] = i
+          typesDeQuestionsDisponibles[i] = choice(questionsParNiveau[NumQuestionsDisponibles], typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles]))
+        }
+      }
+    }
+    let listeTypeDeQuestions = []
+    if (AvecMelange) {
+      listeTypeDeQuestions = combinaisonListes(
+        typesDeQuestionsDisponibles,
+        this.nbQuestions
+      )
+    } else { listeTypeDeQuestions = typesDeQuestionsDisponibles }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const droites = []; let code; let raisonnement; let numDroites = []; const phrases = []; let textetemp
@@ -173,7 +196,9 @@ export default function ProprietesParallelesPerpendiculaires () {
       }
       texte += phrases[code.length - 1]
       texte += `.<br>Que peut-on dire de $(d_${numDroites[code[0][0] - 1]})$ et $(d_${numDroites[code[code.length - 1][1] - 1]})$ ?`
-
+      if (context.isAmc) {
+        texte += ' On pourra s\'aider en traçant une figure.'
+      }
       // construction de la figure
 
       P.push(point(0, 0))
@@ -206,7 +231,7 @@ export default function ProprietesParallelesPerpendiculaires () {
       }
       // correction raisonnement ordonné
       context.fenetreMathalea2d = [-2, -2, 15, 10]
-      texteCorr = 'À partir de l\'énoncé, on peut réaliser le schéma suivant (il en existe une infinité)<br> Les droites données parallèles dans l\'énoncé sont de même couleur/style.<br>'
+      texteCorr = 'À partir de l\'énoncé, on peut réaliser le schéma suivant (il en existe une infinité).<br> Les droites données parallèles dans l\'énoncé sont de même couleur/style.<br>'
       texteCorr += mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: 0.3, mainlevee: false, amplitude: 0.3 }, objets) + '<br>'
       for (let j = 0; j < code.length - 1; j++) {
         if (this.correctionDetaillee) texteCorr += 'On sait que : '
@@ -241,6 +266,18 @@ export default function ProprietesParallelesPerpendiculaires () {
         }
       }
 
+      /** ********************** AMC Open *****************************/
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].options = { ordered: false }
+      this.autoCorrection[i].enonce = texte + '<br>'
+      this.autoCorrection[i].propositions = [
+        {
+          texte: texteCorr,
+          statut: 3
+        }
+      ]
+      /****************************************************/
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte + '<br>')
@@ -252,6 +289,6 @@ export default function ProprietesParallelesPerpendiculaires () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'étapes de raisonnement :', 4, '1 : Une étape\n2 : Deux étapes\n3 : Trois étapes\n4 : Mélange']
+  this.besoinFormulaireTexte = ['Nombre d\'étapes de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape\n2 : Deux étapes\n3 : Trois étapes\n4 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
 }

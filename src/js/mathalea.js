@@ -1232,21 +1232,13 @@ async function miseAJourDeLaListeDesExercices (preview) {
             ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
               if (module[p] !== undefined) listeObjetsExercice[i][p] = module[p]
             })
-            if (dictionnaireDesExercices[id].sup !== undefined) {
-              listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
-            }
-            if (dictionnaireDesExercices[id].sup2 !== undefined) {
-              listeObjetsExercice[i].sup2 = dictionnaireDesExercices[id].sup2
-            }
-            if (dictionnaireDesExercices[id].sup3 !== undefined) {
-              listeObjetsExercice[i].sup3 = dictionnaireDesExercices[id].sup3
-            }
-            if (dictionnaireDesExercices[id].sup4 !== undefined) {
-              listeObjetsExercice[i].sup4 = dictionnaireDesExercices[id].sup4
-            }
-            if (dictionnaireDesExercices[id].nbQuestions !== undefined) {
-              listeObjetsExercice[i].nbQuestions = dictionnaireDesExercices[id].nbQuestions
-            }
+            ;['sup', 'sup2', 'sup3', 'sup4', 'nbQuestions', 'besoinFormulaireNumerique', 'besoinFormulaire2Numerique', 'besoinFormulaire3Numerique',
+              'besoinFormulaire4Numerique', 'besoinFormulaireCaseACocher', 'besoinFormulaire2CaseACocher', 'besoinFormulaire3CaseACocher', 'besoinFormulaire4CaseACocher',
+              'besoinFormulaireTexte', 'besoinFormulaire2Texte', 'besoinFormulaire3Texte', 'besoinFormulaire4Texte'].forEach((p) => {
+              if (dictionnaireDesExercices[id][p] !== undefined) {
+                listeObjetsExercice[i][p] = dictionnaireDesExercices[id][p]
+              }
+            })
             if (listeObjetsExercice[i].typeExercice === 'XCas') {
               besoinXCas = true
             }
@@ -1329,7 +1321,11 @@ async function miseAJourDeLaListeDesExercices (preview) {
           }
           // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
           try {
-            formSup[i].value = listeObjetsExercice[i].sup
+            if (listeObjetsExercice[i].besoinFormulaireCaseACocher) {
+              formSup[i].checked = listeObjetsExercice[i].sup
+            } else {
+              formSup[i].value = listeObjetsExercice[i].sup
+            }
           } catch {}
         }
         if (typeof urlVars[i].s2 !== 'undefined') {
@@ -1339,7 +1335,11 @@ async function miseAJourDeLaListeDesExercices (preview) {
             listeObjetsExercice[i].sup2 = urlVars[i].s2
           }
           try {
-            formSup2[i].value = listeObjetsExercice[i].sup2
+            if (listeObjetsExercice[i].besoinFormulaire2CaseACocher) {
+              formSup2[i].checked = listeObjetsExercice[i].sup2
+            } else {
+              formSup2[i].value = listeObjetsExercice[i].sup2
+            }
           } catch (error) {}
         }
         if (typeof urlVars[i].s3 !== 'undefined') {
@@ -1349,7 +1349,11 @@ async function miseAJourDeLaListeDesExercices (preview) {
             listeObjetsExercice[i].sup3 = urlVars[i].s3
           }
           try {
-            formSup3[i].value = listeObjetsExercice[i].sup3
+            if (listeObjetsExercice[i].besoinFormulaire3CaseACocher) {
+              formSup3[i].checked = listeObjetsExercice[i].sup3
+            } else {
+              formSup3[i].value = listeObjetsExercice[i].sup3
+            }
           } catch (error) {
             // console.error(error)
           }

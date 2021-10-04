@@ -34,7 +34,7 @@ export const amcType = 'typeAMC'
 `'typeAMC'` peut être l'une des valeurs suivantes :
 * `'qcmMono'` : qcm avec une seule bonne réponse (évolution vers le bouton radio ?). Modèle : 6C10-2
 * `'qcmMult'` : qcm avec possibilité de plusieurs bonnes réponses. Modèle : 6N43-2
-* `'AMCOpen'` : question ouverte -> il n'y a pas d'interactivité l'affichage est classique par contre on peut l'exporter vers AMC en question ouverte. Modèle : 6C10-5
+* `'AMCOpen'` : question ouverte -> il n'y a pas d'interactivité, l'affichage est classique par contre on peut l'exporter vers AMC en question ouverte (ajout EE : avec la possibilité d'afficher ou pas le cadre de saisie qui est ainsi inutile en géométrie). Modèle : 6C10-5 (et 6G12-1 pour enlever le cadre)
 * `'AMCNum'` : réponse numérique à entrer dans un formulaire texte. AmcNumeriqueChoice (voire attribut reponse). Modèle : 6C10
 * `'AMCOpenNum'` : réponse identique au type `'AMCNum'` mais AMC ajoute une zone pour une réponse ouverte. Modèle : 3G30
 * `'AMCOpenNum✖︎2'` : identique à `'AMCOpenNum'` avec deux réponses numériques (`reponse` et `reponse2`). Modèle : 4C21

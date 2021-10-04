@@ -33,6 +33,8 @@
 	 \usepackage{enumerate}					% Pour modifier les numérotations
 	 \usepackage{enumitem}
 	 \usepackage{tabularx}					% Pour faire des tableaux
+	 
+	 \usepackage{xargs}		% EE : pour permettre DES options dans newcommand
 
 	%%%%% PACKAGES FIGURES %%%%%
 	%\usepackage{pstricks,pst-plot,pstricks-add}
@@ -82,7 +84,7 @@
 	%\usepackage{hyperref}					% Pour gérer les liens hyper-texte
 	 \usepackage{fourier}
 	 \usepackage{colortbl} 					% Pour des tableaux en couleur
-	 \usepackage{setspace}					% Pour egin{spacing}{2.0} end{spacing}
+	 \usepackage{setspace}					% Pour begin{spacing}{2.0} end{spacing}
 	 \usepackage{multirow}					% Pour des cellules multilignes dans un tableau
 	%\usepackage{import}						% Equivalent de input mais en spécifiant le répertoire de travail
 	%\usepackage[]{qrcode}
@@ -107,9 +109,11 @@
 	\newcommand{\collerVertic}{\vspace{-3mm}} % évite un trop grand espace vertical
 	\newcommand{\TT}{\sout{\textbf{Tiers Temps}} \noindent} % 
 	\newcommand{\Prio}{\fbox{\textbf{PRIORITAIRE}} \noindent} % 
-	\newcommand{\notation}[1]{
-		\AMCOpen{lines=#1}{\mauvaise[{\tiny NR}]{NR}\scoring{0}\mauvaise[{\tiny RR}]{R}\scoring{0.01}\mauvaise[{\tiny R}]{R}\scoring{0.33}\mauvaise[{\tiny V}]{V}\scoring{0.67}\bonne[{\tiny VV}]{V}\scoring{1}}
-		}
+	\newcommandx{\notation}[2][2=false]{
+    \AMCOpen{lines=#1,lineup=#2,lineuptext=\hspace{1cm}}{\mauvaise[{\tiny NR}]{NR}\scoring{0}\mauvaise[{\tiny RR}]{R}\scoring{0.01}\mauvaise[{\tiny R}]{R}\scoring{0.33}\mauvaise[{\tiny V}]{V}\scoring{0.67}\bonne[{\tiny VV}]{V}\scoring{1}}
+    }%\newcommand{\notation}[1]{
+	%	\AMCOpen{lines=#1}{\mauvaise[{\tiny NR}]{NR}\scoring{0}\mauvaise[{\tiny RR}]{R}\scoring{0.01}\mauvaise[{\tiny R}]{R}\scoring{0.33}\mauvaise[{\tiny V}]{V}\scoring{0.67}\bonne[{\tiny VV}]{V}\scoring{1}}
+	%	}
 	%%pour afficher ailleurs que dans une question
 	\makeatletter
 	\newcommand{\AffichageSiCorrige}[1]{\ifAMC@correc #1\fi}

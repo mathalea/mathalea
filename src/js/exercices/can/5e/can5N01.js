@@ -1,4 +1,4 @@
-import { calcul, randint, texNombrec } from '../../../modules/outils'
+import { calcul, randint, texNombrec, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Somme de nombres décimaux'
 export const interactifReady = true
@@ -15,14 +15,21 @@ export default function SommeDecimale5e () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.typeExercice = 'simple'
-
+  this.formatChampTexte = 'largeur25 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
     const d = randint(1, 9, [a, b, c])
     this.reponse = calcul(10 + (b + d) * 0.1 + c * 0.01)
-    this.question = `$${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}$`
+    this.question = `$${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}=$`
     this.correction = `$${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}=${texNombrec(10 + (b + d) * 0.1 + c * 0.01)}$`
+    this.correction += texteEnCouleur(`
+    <br> Mentalement : <br>
+    On fait la somme des parties entières des deux nombres : $${a}+${10 - a}=${10}$, puis on ajoute les parties décimales. <br>
+    On obtient :<br>
+$${texNombrec(b * 0.1 + c * 0.01)}+${texNombrec(d * 0.1)}=${texNombrec(b * 0.1 + c * 0.01 + d * 0.1)}$.<br>
+Ainsi, $${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}=${texNombrec(10 + (b + d) * 0.1 + c * 0.01)}$.
+    `)
   }
 }

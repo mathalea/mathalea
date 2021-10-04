@@ -1,4 +1,4 @@
-import { randint } from '../../../modules/outils'
+import { randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Différence négative'
 export const interactifReady = true
@@ -14,13 +14,17 @@ export const amcType = 'AMCNum'
 export default function DifferenceNegative () {
   Exercice.call(this)
   this.nbQuestions = 1
-    this.typeExercice = 'simple'
-
+  this.typeExercice = 'simple'
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(8, 15)
     const b = randint(18, 30)
     this.question = `$${a}-${b}=$`
     this.correction = `$${a}-${b}=${a - b}$`
     this.reponse = a - b
+    this.correction += texteEnCouleur(`<br> Mentalement : <br>
+    On décompose $${b}$ en $${a}+${b - a}$, ce qui donne :<br>
+     $${a}-${b}=${a}-${a}-${b - a}=${a - b}$.
+       `)
   }
 }

@@ -23,7 +23,9 @@ export const dictionnaireC3 = {
     url: '/exercices/6e/6C23.js',
     nbQuestions: 4,
     sup: 1,
-    sup2: 1
+    sup2: 1,
+    besoinFormulaireNumerique: false,
+    besoinFormulaire2Numerique: false
   },
   c3C12: {
     titre: "Déterminer le dernier chiffre d'une opération",

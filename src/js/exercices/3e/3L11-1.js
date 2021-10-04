@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, egal, randint, combinaisonListes, printlatex } from '../../modules/outils.js'
+import { egal, randint, combinaisonListes, printlatex, listeQuestionsToContenuSansNumero, lettreDepuisChiffre } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser la double distributivité'
@@ -23,8 +23,8 @@ export default function DoubleDistributivite () {
   this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
+  this.spacing = context.isHtml ? 3 : 2
+  this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5
   this.sup = 1
 
@@ -51,31 +51,31 @@ export default function DoubleDistributivite () {
         case 1: // (x+b)(x+d)
           b = randint(2, 10)
           d = randint(2, 12)
-          texte = `$(x+${b})(x+${d})$`
-          texteCorr = `$(x+${b})(x+${d})=x^2+${b}x+${d}x+${b * d}=x^2+${b + d}x+${b * d}$`
+          texte = `$${lettreDepuisChiffre(i + 1)} = (x+${b})(x+${d})$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)} = (x+${b})(x+${d})=x^2+${b}x+${d}x+${b * d}=x^2+${b + d}x+${b * d}$`
           reponse = `x^2+${b + d}x+${b * d}`
           reponse1 = 1
           reponse2 = b + d
           reponse3 = b * d
           break
         case 2: // (ax+b)(cx+d)
-          texte = `$(${a}x+${b})(${c}x+${d})$`
-          texteCorr = `$(${a}x+${b})(${c}x+${d})=${a * c}x^2+${a * d}x+${b * c}x+${b * d}=${a * c}x^2+${a * d + b * c}x+${b * d}$`
+          texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x+${b})(${c}x+${d})$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x+${b})(${c}x+${d})=${a * c}x^2+${a * d}x+${b * c}x+${b * d}=${a * c}x^2+${a * d + b * c}x+${b * d}$`
           reponse = `${a * c}x^2+${a * d + b * c}x+${b * d}`
           reponse1 = a * c
           reponse2 = a * d + b * c
           reponse3 = b * d
           break
         case 3: // (ax-b)(cx+d)
-          texte = `$(${a}x-${b})(${c}x+${d})$`
+          texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})$`
           if (egal(a * d - b * c, 0)) {
-            texteCorr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2-${b * d}`)}$`
+            texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2-${b * d}`)}$`
             reponse = printlatex(`${a * c}*x^2-${b * d}`)
             reponse1 = a * c
             reponse2 = 0
             reponse3 = -b * d
           } else {
-            texteCorr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)}$`
+            texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)}$`
             reponse = printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)
             reponse1 = a * c
             reponse2 = a * d - b * c
@@ -83,8 +83,8 @@ export default function DoubleDistributivite () {
           }
           break
         case 4: // (ax-b)(cx-d)
-          texte = `$(${a}x-${b})(${c}x-${d})$`
-          texteCorr = `$(${a}x-${b})(${c}x-${d})=${a * c}x^2-${a * d}x-${b * c}x+${b * d}=${a * c}x^2-${a * d + b * c}x+${b * d}$`
+          texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x-${d})$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x-${d})=${a * c}x^2-${a * d}x-${b * c}x+${b * d}=${a * c}x^2-${a * d + b * c}x+${b * d}$`
           reponse = `${a * c}x^2-${a * d + b * c}x+${b * d}`
           reponse1 = a * c
           reponse2 = -a * d - b * c
@@ -108,7 +108,7 @@ export default function DoubleDistributivite () {
       }
       cpt++
     }
-    listeQuestionsToContenu(this)
+    listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
 }

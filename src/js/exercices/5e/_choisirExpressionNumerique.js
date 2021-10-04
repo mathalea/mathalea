@@ -387,7 +387,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           }
           expf = `Le double de la somme de ${nombreAvecEspace(a)} et du produit de ${nombreAvecEspace(b)} par ${nombreAvecEspace(c)}`
           expn = `$2${signex}(${texNombrec(a)}+${texNombrec(b)} \\times ${texNombrec(c)})$`
-          expc = `$2${signex}(${texNombrec(a)}+${texNombrec(b)} \\times ${texNombrec(c)}) = 2${signex}(${texNombrec(a)}+${texNombrec(b * c)}) = 2 \\times  ${texNombrec(a + b * c)}$`
+          expc = `$2${signex}(${texNombrec(a)}+${texNombrec(b)} \\times ${texNombrec(c)}) = 2${signex}(${texNombrec(a)}+${texNombrec(b * c)}) = 2 \\times  ${texNombrec(a + b * c)} = ${texNombrec(2 * (a + b * c))}$`
           break
         case 1: // 3(a+b)/c
           if (calculMental) { // b et d sont différents et plus grands que 1.

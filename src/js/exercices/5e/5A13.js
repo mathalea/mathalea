@@ -45,6 +45,22 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       texteCorr = '$ ' + texNombre(n) + ' = '
       reponse = ''
       facteurs.sort(compareNombres) // classe les facteurs dans l'ordre croissant
+      let ensembleDeFacteurs = new Set(facteurs)
+      ensembleDeFacteurs = [...ensembleDeFacteurs] // tableau des facteurs sans répétition
+      let produitAvecPuissances = ''
+      for (let k = 0; k < ensembleDeFacteurs.length; k++) {
+        const facteur = ensembleDeFacteurs[k]
+        let puissance = 0
+        for (let j = 0; j < facteurs.length; j++) {
+          if (facteurs[j] === facteur) puissance++
+        }
+        if (puissance > 1) {
+          produitAvecPuissances += `${facteur}^${puissance}`
+        } else {
+          produitAvecPuissances += `${facteur}`
+        }
+        if (k !== ensembleDeFacteurs.length - 1) produitAvecPuissances += ' \\times '
+      }
       for (let k = 0; k < facteurs.length - 1; k++) {
         texteCorr += facteurs[k] + ' \\times  '
         reponse += facteurs[k] + '\\times'
@@ -52,7 +68,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       texteCorr += facteurs[facteurs.length - 1] + ' $'
       reponse += facteurs[facteurs.length - 1]
       texte += ajouteChampTexteMathLive(this, i)
-      setReponse(this, i, reponse)
+      setReponse(this, i, [reponse, produitAvecPuissances])
       if (this.questionJamaisPosee(i, ...facteurs)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -62,6 +78,6 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombre de facteurs', 3, '1 : 3 facteurs\n2 : 4 facteurs\n3 : 5 facteurs']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : 3 facteurs\n2 : 4 facteurs\n3 : 5 facteurs']
   this.besoinFormulaire2CaseACocher = ['Grands nombres (une fois sur quatre)']
 }

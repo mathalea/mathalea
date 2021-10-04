@@ -5,8 +5,8 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Trans
 
 /** */
 // 5G10
-export default function Symetrie_axiale_5e() {
-	Transformations.call(this);
-	this.sup = 1;
-	this.titre = titre;
-  }
+export default function SymetrieAxiale5e () {
+  Transformations.call(this)
+  this.sup = 1
+  this.titre = titre
+}
