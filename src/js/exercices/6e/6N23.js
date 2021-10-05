@@ -22,7 +22,7 @@ export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 8
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -43,6 +43,8 @@ export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
       // X, XX, X0X, X00X,XXX
       b = choice([10, 100, 1000])
       setReponse(this, i, calcul(a / b))
+      this.autoCorrection[i].reponse.param.digits = 6
+      this.autoCorrection[i].reponse.param.decimals = 3
       texte = `$${texFraction(texNombre(a), texNombre(b))} ${!this.interactif ? ' = \\dotfill $' : '=$' + ajouteChampTexteMathLive(this, i, 'largeur25 inline')}`
       texteCorr =
         '$ ' +
