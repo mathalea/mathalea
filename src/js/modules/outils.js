@@ -4747,8 +4747,17 @@ export function nombreEnLettres (nb, type = 1) {
         break
     }
 
-    if (type === 1) nbstring = partieEntiereEnLettres(partieEntiere) + ' unités et ' + partieEntiereEnLettres(partieDecimale) + decstring
-    else nbstring = partieEntiereEnLettres(partieEntiere) + ' virgule ' + partieEntiereEnLettres(partieDecimale)
+    if (type === 1) {
+      nbstring = partieEntiereEnLettres(partieEntiere) + ' unités et ' + partieEntiereEnLettres(partieDecimale) + decstring
+    } else if (nbDec === nombreDeChiffresDansLaPartieEntiere(partieDecimale)) {
+      nbstring = partieEntiereEnLettres(partieEntiere) + ' virgule ' + partieEntiereEnLettres(partieDecimale)
+    } else {
+      nbstring = partieEntiereEnLettres(partieEntiere) + ' virgule '
+      for (let n = 0; n < nbDec - nombreDeChiffresDansLaPartieEntiere(partieDecimale); n++) {
+        nbstring += 'zéro-'
+      }
+      nbstring += partieEntiereEnLettres(partieDecimale)
+    }
   }
   return nbstring
 }
