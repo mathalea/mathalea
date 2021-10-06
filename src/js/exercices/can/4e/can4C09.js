@@ -15,9 +15,9 @@ export default function PuissancesDe2345 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur25'
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    const a = randint(2, 5)
+    const a = randint(2, 10)
     let b
     switch (a) {
       case 2:
@@ -30,10 +30,25 @@ export default function PuissancesDe2345 () {
         b = randint(1, 3)
         break
       case 5:
-        b = randint(1, 3)
+        b = randint(1, 2)
+        break
+      case 6:
+        b = randint(1, 2)
+        break
+      case 7:
+        b = randint(1, 2)
+        break
+      case 8:
+        b = randint(1, 2)
+        break
+      case 9:
+        b = randint(1, 2)
+        break
+      case 10:
+        b = randint(1, 2)
         break
     }
-    this.question = `$${a}^${b}$`
+    this.question = `$${a}^${b}=$`
     this.correction = `$${a}^${b}=`
     this.correction += `${a}`
     if (b > 1) {
