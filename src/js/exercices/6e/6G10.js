@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, creerNomDePolygone } from '../../modules/outils.js'
+import { listeQuestionsToContenu, creerNomDePolygone, combinaisonListes } from '../../modules/outils.js'
 import { point, labelPoint, droite, segment, demiDroite, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Notation des droites, segments et demi-droites'
 
@@ -19,19 +19,16 @@ export default function NotationSegmentDroiteDemiDroite () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    const listeDesTypesDeQuestions = combinaisonListes([1, 1, 2, 3, 4, 4], this.nbQuestions * 3)
 
-    for (
-      let i = 0, texte, texteCorr, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-
-    ) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const p = creerNomDePolygone(3, 'PQ')
       const A = point(0, 0, p[0], 'above left')
       const B = point(1, 1.2, p[1], 'above')
       const C = point(2.2, -0.3, p[2], 'above right')
-      function creerDroiteDemiSegment (A, B) {
+      function creerDroiteDemiSegment (A, B, type) {
         let trait, notation
-        switch (randint(1, 4)) {
+        switch (type) {
           case 1:
             trait = droite(A, B)
             notation = `$(${A.nom}${B.nom})$`
@@ -51,9 +48,9 @@ export default function NotationSegmentDroiteDemiDroite () {
         }
         return [trait, notation]
       }
-      const [dAB, dABCorr] = creerDroiteDemiSegment(A, B)
-      const [dAC, dACCorr] = creerDroiteDemiSegment(A, C)
-      const [dBC, dBCCorr] = creerDroiteDemiSegment(B, C)
+      const [dAB, dABCorr] = creerDroiteDemiSegment(A, B, listeDesTypesDeQuestions[3 * i])
+      const [dAC, dACCorr] = creerDroiteDemiSegment(A, C, listeDesTypesDeQuestions[3 * i + 1])
+      const [dBC, dBCCorr] = creerDroiteDemiSegment(B, C, listeDesTypesDeQuestions[3 * i + 2])
       const labels = labelPoint(A, B, C)
 
       texte = `Placer 3 points $${p[0]}$, $${p[1]}$ et $${p[2]}$ non alignés puis tracer... <br><br>`
