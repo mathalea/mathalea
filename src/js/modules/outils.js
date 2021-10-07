@@ -511,7 +511,7 @@ export function choice (liste, listeAEviter = []) {
 * @param {listeAEviter}
 *
 * @example
-* // Renvoie [1,4,5,6,7,8,9,10]
+* // Renvoie [0,1,4,5,6,7,8,9,10]
 * range(10,[2,3])
 *
 * @author Rémi Angot
