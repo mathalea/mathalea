@@ -19,6 +19,7 @@ export default function EcrireNombresDecimal () {
   this.sup2 = 1
   this.nouvelleVersion = function () {
     if (parseInt(this.sup) === 2) { this.consigne = 'Écrire le nombre en chiffres.' } else { this.consigne = 'Écrire le nombre en lettres.' }
+    const type = this.sup3 ? 2 : 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [parseInt(this.sup2) + 1] // <1 000, <1 000 000)
@@ -56,12 +57,12 @@ export default function EcrireNombresDecimal () {
       if (parseInt(this.sup) === 1) {
         if (!context.isDiaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
         else texte = `$${texNombre(nombre)}$`
-        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
-        else texteCorr = `${nombreEnLettres(partEnt)} unités et ${nombreEnLettres(partDec)}.`
+        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre, type)}.`
+        else texteCorr = `${nombreEnLettres(nombre, type)}.`
       } else {
-        if (!context.isDiaporama) texte = `${nombreEnLettres(partEnt)} unités et ${nombreEnLettres(partDec)} : \\dotfill`
-        else texte = `${nombreEnLettres(partEnt)} unités et ${nombreEnLettres(partDec)}`
-        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(partEnt)} unités et ${nombreEnLettres(partDec)} : $${texNombre(nombre)}$.`
+        if (!context.isDiaporama) texte = ` ${nombreEnLettres(nombre, type)} : \\dotfill`
+        else texte = ` ${nombreEnLettres(nombre, type)}`
+        if (!context.isDiaporama) texteCorr = ` ${nombreEnLettres(nombre, type)} : $${texNombre(nombre)}$.`
         else texteCorr = `$${texNombre(nombre)}$.`
       }
       texte = texte.replace('et-un unités', 'et-une unités')
@@ -78,4 +79,5 @@ export default function EcrireNombresDecimal () {
   }
   this.besoinFormulaireNumerique = ['Type d\'exercices', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres']
   this.besoinFormulaire2Numerique = ['Classe maximum', 2, '1 : Unités\n2 : Milliers']
+  this.besoinFormulaire3CaseACocher = ['Avec le mot virgule ', false]
 }
