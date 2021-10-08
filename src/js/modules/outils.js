@@ -621,6 +621,27 @@ export function enleveDoublonNum (arr, tolerance) {
   return arr
 }
 /**
+ * retourne un tableau dans lequel les doublons ont été supprimés s'il y en a MAIS SANS TRI
+ * @param {array} arr Tableau duquel ont veut supprimer les doublons numériques
+ * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
+ * @author Eric Elter d'après enleveDoublonNum
+ */
+export function enleveDoublonNum2 (arr, tolerance) {
+  let k = 0
+  while (k < arr.length - 1) {
+    let kk = k + 1
+    while (kk < arr.length - 1) {
+      if (egal(arr[k], arr[kk], tolerance)) {
+        arr[k] = calcul((arr[k] + arr[kk]) / 2) // On remplace la valeur dont on a trouvé un double par la moyenne des deux valeurs
+        arr.splice(kk, 1) // on supprime le doublon.
+      }
+      kk++
+    }
+    k++
+  }
+  return arr
+}
+/**
  * fonction qui retourne une chaine construite en concaténant les arguments
  * Le rôle de cette fonction est de construire un identifiant unique de question
  * afin de contrôler que l'aléatoire ne produit pas deux questions identiques.
@@ -2330,9 +2351,11 @@ export function texNombre (nb) {
 
 /**
 * Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
-* @author Rémi Angot
+* Avec espace géré par nbsp pour pouvoir l'inclure dans une phrase formatée en français et pas seulement un calcul.
+* @author Eric Elter d'après la fonction de Rémi Angot
+* Rajout Octobre 2021 pour 6C14
 */
-export function texNombre2 (nb) {
+export function texNombre3 (nb) {
   let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
   const rangVirgule = nombre.indexOf(',')
   let partieEntiere = ''
@@ -2347,10 +2370,10 @@ export function texNombre2 (nb) {
   }
 
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    partieEntiere = partieEntiere.substring(0, i) + '\\thickspace ' + partieEntiere.substring(i)
+    partieEntiere = partieEntiere.substring(0, i) + '&nbsp;' + partieEntiere.substring(i)
   }
   for (let i = 3; i <= partieDecimale.length; i += 3) {
-    partieDecimale = partieDecimale.substring(0, i) + '\\thickspace ' + partieDecimale.substring(i)
+    partieDecimale = partieDecimale.substring(0, i) + '&nbsp;' + partieDecimale.substring(i)
     i += 12
   }
   if (partieDecimale === '') {
@@ -2368,7 +2391,7 @@ export function nombrec2 (nb) {
 }
 
 /**
- * Renvoie un espace insécable pour le mode texte suivant la sorite html ou Latex.
+ * Renvoie un espace insécable pour le mode texte suivant la sortie html ou Latex.
  * @author Jean-Claude Lhote
  */
 export function sp (nb = 1) {
