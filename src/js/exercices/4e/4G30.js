@@ -10,4 +10,5 @@ export { interactifReady, interactifType, amcReady, amcType, titre } from './_Th
 export default function Thales2D4e () {
   Thales2D.call(this)
   this.besoinFormulaireNumerique = false
+  this.video = '1RKPa6Wk2zc'
 }

@@ -1,5 +1,5 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 297 
+- nombre d'exos amcReady 298 
 - nombre d'exos interactifReady 360 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
@@ -177,6 +177,7 @@
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1)|KO|KO|OK|mathLive|
 |6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
 |6N22|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
+|6N23-0|Écrire un nombre décimal en chiffres ou en lettres|OK|AMCNum|KO|KO|
 |6N23-2|Lire des abscisses décimales sous trois formes|OK|AMCHybride|OK|mathLive|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
 |6N23|Donner l’écriture décimale d’une fraction décimale|OK|AMCNum|OK|mathLive|
@@ -284,10 +285,10 @@
 |can4C07|Différence de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
 |can4C08|Somme de puissances de 10|OK|AMCNum|OK|mathLive|
 |can4C09|Puissances de 2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
-|can4G01|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
+|can4G01|Calcul d’une longueur d’un côté avec Pythagore |OK|AMCNum|OK|mathLive|
 |can4G02|Image de point par transformation 4e|KO|KO|OK|mathLive|
 |can4G03|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
-|can4G04|Calcul de d’un côté avec Pythagore|KO|KO|OK|mathLive|
+|can4G04|Calcul d’un côté avec Pythagore|KO|KO|OK|mathLive|
 |can4G05|Calcul de la diagonale d’un carré|KO|KO|OK|mathLive|
 |can4G06|Calcul d’une longueur avec Thalès|KO|KO|OK|mathLive|
 |can4G07|Calcul d’une longueur avec Thalès (milieu)|KO|KO|OK|mathLive|

@@ -3359,7 +3359,10 @@ export default {
   "6N23-0": {
     "titre": "Écrire un nombre décimal en chiffres ou en lettres",
     "url": "/exercices/6e/6N23-0.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": false,
     "name": "6N23-0"
   },
@@ -4999,7 +5002,7 @@ export default {
     "name": "can4C09"
   },
   "can4G01": {
-    "titre": "Nombre de nombres entiers entre deux valeurs",
+    "titre": "Calcul d’une longueur d’un côté avec Pythagore ",
     "url": "/exercices/can/4e/can4G01.js",
     "amcReady": true,
     "amcType": {
@@ -5026,7 +5029,7 @@ export default {
     "name": "can4G03"
   },
   "can4G04": {
-    "titre": "Calcul de d’un côté avec Pythagore",
+    "titre": "Calcul d’un côté avec Pythagore",
     "url": "/exercices/can/4e/can4G04.js",
     "amcReady": false,
     "interactifReady": true,
