@@ -348,6 +348,14 @@ export default {
     "interactifReady": false,
     "name": "2N32-6"
   },
+  "2N41-1": {
+    "titre": "Calculer avec les identités remarquables",
+    "url": "/exercices/2e/2N41-1.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N41-1"
+  },
   "2N41-7": {
     "titre": "Factoriser avec les identités remarquables (niveau II)",
     "url": "/exercices/2e/2N41-7.js",
@@ -4333,12 +4341,12 @@ export default {
     "interactifReady": false,
     "name": "betaModele21_parametrables"
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques"
+    "name": "betaModele30_constructions_géométriques"
   },
   "betaModele31_parametrables": {
     "titre": "Nom de l'exercice",
