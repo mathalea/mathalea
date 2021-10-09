@@ -13,6 +13,7 @@
 |2G31-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
 |2G36-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
 |2N14-1|Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient|KO|KO|OK|mathLive|
+|2N41-1|Calculer avec les identités remarquables|KO|KO|OK|mathLive|
 |2N43-4|Développer (a+b)²|KO|KO|OK|mathLive|
 |2N43-5|Développer (a-b)²|KO|KO|OK|mathLive|
 |3A11-1|Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|

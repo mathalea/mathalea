@@ -9,5 +9,5 @@ export { interactifReady, interactifType, amcReady, amcType, titre } from '../4e
 export default function Thales2D3e () {
   Thales2D.call(this)
   this.sup = 2
-  this.video = 'qzOOlUrRCEY'
+  this.video = 'j_zZOpLLl9k'
 }
