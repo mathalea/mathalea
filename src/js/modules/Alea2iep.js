@@ -1424,18 +1424,96 @@ export default function Alea2iep () {
     this.equerreZoom(zoomEquerre)
     this.regleModifierLongueur(longueurRegle)
   }
-
-  this.perpendiculaireRegleEquerreDroitePoint = function (d, P) {
-    const H = projectionOrtho(P, d)
-    const A = rotation(P, H, 90)
-    const B = rotation(A, H, 180)
-    const alpha = angleOriente(point(10000, H.y), H, B)
-    this.equerreRotation(alpha)
-    this.equerreMontrer(H)
-    this.regleSegment(H, P)
+  /**
+     * Trace la parallèlee à (AB) passant par C avec la règle et l'équerre.
+     * Cette macro réalise la construction en décrivant ce qu'elle fait à chaque étape
+     * @param {point} A
+     * @param {point} B
+     * @param {point} M
+     * @param {boolean} dessus
+     * @param {*} options
+     */
+  this.paralleleRegleEquerreDroitePointAvecDescription = function (A, B, M, dessus, description = true) {
+    A.nom = 'A'
+    B.nom = 'B'
+    M.nom = 'M'
+    const AA = homothetie(A, B, 1.5)
+    const BB = homothetie(B, A, 1.5)
+    const d = droite(A, B)
+    const dd = rotation(d, A, 90)
+    const H = projectionOrtho(M, dd)
+    const N = homothetie(M, H, 1.5)
+    const P = homothetie(H, M, 1.5)
+    this.tempo = 10
+    this.pointsCreer(A, B, M)
+    this.pointMasquer(AA, BB)
+    this.traitRapide(AA, BB)
+    if (description) this.textePosition('Nous allons voir comment construire la parallèle à (AB) passant par M à la règle et à l\'equerre.', -10, 10, { couleur: 'black', taille: 4, tempo: 50 })
+    if (description) this.textePosition('1. Commençons par placer l\'équerre le long de la droite (AB) ainsi.', -9, 9.3, { couleur: 'green', taille: 2, tempo: 10 })
+    this.equerreMontrer(A)
+    this.equerreRotation(d.angleAvecHorizontale + (dessus ? -90 : 0), { tempo: 20 })
+    if (description) this.textePosition('2. Plaçons ensuite la règle contre l\'équerre comme ceci.', -9, 8.6, { couleur: 'green', taille: 2, tempo: 10 })
+    this.regleRotation(d.angleAvecHorizontale - 90)
+    this.regleMontrer(AA)
+    this.regleDeplacer(homothetie(rotation(B, A, 90), A, 1.5), { tempo: 20 })
+    if (description) this.textePosition('Remarque : On peut tracer des pointillés pour matérialiser la position de la règle.', -9.5, 7.9, { couleur: 'pink', taille: 2, tempo: 10 })
+    this.crayonMontrer(A)
+    this.tracer(homothetie(rotation(B, A, dessus ? 90 : -90), A, 1.5), { pointilles: true })
+    if (description) this.textePosition('3. Ensuite, on déplace l\'équerre le long de la règle jusqu\'à ce que le côté passe par M.', -9, 7.2, { couleur: 'green', taille: 2, tempo: 10 })
+    if (!dessus) {
+      this.equerreRotation(d.angleAvecHorizontale - 90)
+    }
+    this.equerreDeplacer(H, { tempo: 20 })
+    if (description) this.textePosition('4. On trace ensuite la parallèle demandée.', -9, 6.5, { couleur: 'green', taille: 2, tempo: 10 })
+    this.crayonDeplacer(H)
+    this.tracer(N)
     this.equerreMasquer()
-    this.codageAngleDroit(A, H, P)
-    this.regleProlongerSegment(P, H, { longueur: longueur(P, H) * 2 })
+    if (description) this.textePosition('On utilise la règle pour prolonger le tracé.', 2.5, 6.5, { couleur: 'green', taille: 2, tempo: 10 })
+    this.regleDeplacer(P)
+    this.regleRotation(d.angleAvecHorizontale)
+    this.tracer(P)
+    this.regleMasquer()
+    if (description) this.textePosition('5. Pour finir, on code la figure.', 0, -5, { couleur: 'green', taille: 2, tempo: 20 })
+    this.codageAngleDroit(B, A, H)
+    this.codageAngleDroit(A, H, M)
+    this.crayonMasquer()
+  }
+
+  /**
+   *
+   * @param {point} A
+   * @param {point} B
+   * @param {point} C
+   * @param {boolean} description
+   */
+  this.paralleleAuCompasAvecDescription = function (A, B, C, description = true) {
+    const D = translation2Points(C, A, B, 'D')
+    A.nom = 'A'
+    B.nom = 'B'
+    C.nom = 'C'
+    const AA = homothetie(A, B, 1.5)
+    const BB = homothetie(B, A, 1.5)
+    const N = homothetie(C, D, 1.5)
+    const P = homothetie(D, C, 1.5)
+    this.tempo = 10
+    this.pointsCreer(A, B, C)
+    this.traitRapide(AA, BB)
+    if (description) this.textePosition('Nous allons voir comment construire la parallèle à (AB) passant par M à la règle et au compas.', -10, 10, { couleur: 'black', taille: 4, tempo: 50 })
+    if (description) this.textePosition('1. Commençons par prendre avec le compas l\'écartement correspondant à la longueur AB.', -9, 9.3, { couleur: 'green', taille: 2, tempo: 10 })
+    this.compasEcarter2Points(A, B)
+    if (description) this.textePosition('2. Reportons cette longueur à partir du point C.', -9, 8.6, { couleur: 'green', taille: 2, tempo: 10 })
+    this.compasTracerArcCentrePoint(C, D, 10)
+    if (description) this.textePosition('3. Prenos ensuite avec le compas l\'écartement correspondant à la longueur AC.', -9, 7.9, { couleur: 'green', taille: 2, tempo: 10 })
+    this.compasEcarter2Points(A, C)
+    if (description) this.textePosition('4. Reportons cette longueur à partir du point B.', -9, 7.2, { couleur: 'green', taille: 2, tempo: 10 })
+    this.compasTracerArcCentrePoint(B, D, 10)
+    this.compasMasquer()
+    if (description) this.textePosition('5. Notons D, le point d\'intersection des deux arcs de cercle.', -9, 6.5, { couleur: 'green', taille: 2, tempo: 10 })
+    this.pointCreer(D)
+    if (description) this.textePosition('6. Traçons la droite passant par C et D.', -9, 5.8, { couleur: 'green', taille: 2, tempo: 10 })
+    this.regleSegment(N, P)
+    this.regleMasquer()
+    this.crayonMasquer()
   }
 
   /**
