@@ -1406,7 +1406,7 @@ export default function Alea2iep () {
      * @param {point} C
      * @param {*} options
      */
-  this.perpendiculaireRegleEquerre2points3epoint = function (A, B, C, options) {
+  this.paralleleRegleEquerre2points3epoint = function (A, B, C, options) {
     const longueurRegle = this.regle.longueur
     const zoomEquerre = this.equerre.zoom
     const d = droite(A, B)
