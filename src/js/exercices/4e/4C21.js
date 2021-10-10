@@ -146,6 +146,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
           texteCorr = texte
           texteCorr += `$${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plusOuMoins}${texFraction(a, b)}`
           texteCorr += `=${texFraction(n * b + plusOuMoins + ecritureParentheseSiNegatif(a), b)}`
+          num = calcul(n * b + plusOuMoins + ecritureParentheseSiNegatif(a))
         } else {
           // a/b +-n
           if (!this.sup2 && plusOuMoins === '-' && n > a / b) {
@@ -155,9 +156,9 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
           texte = `$${texFraction(a, b)}${plusOuMoins}${ecritureParentheseSiNegatif(n)}=$`
           texteCorr = texte
           texteCorr += `$${texFraction(a, b)}${plusOuMoins}${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
-          texteCorr += `=${texFraction(a + '+' + ecritureParentheseSiNegatif(n * b), b)}`
+          texteCorr += `=${texFraction(a + plusOuMoins + ecritureParentheseSiNegatif(n * b), b)}`
+          num = calcul(ecritureParentheseSiNegatif(a) + plusOuMoins + n * b)
         }
-        num = calcul(n * b + plusOuMoins + ecritureParentheseSiNegatif(a))
         den = b
       }
       texteCorr += `=${texFraction(num, den)}`

@@ -4341,12 +4341,12 @@ export default {
     "interactifReady": false,
     "name": "betaModele21_parametrables"
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques"
+    "name": "betaModele30_constructions_géométriques"
   },
   "betaModele31_parametrables": {
     "titre": "Nom de l'exercice",

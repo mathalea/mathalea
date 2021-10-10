@@ -12,7 +12,7 @@ export const dictionnaireLycee = {
     url: '/exercices/6e/6N21.js'
   },
   '2N12-1': {
-    titre: 'Encadrer une fration entre deux nombres entiers',
+    titre: 'Encadrer une fraction entre deux nombres entiers',
     url: '/exercices/6e/6N20-1.js'
   },
   '2N12-2': {

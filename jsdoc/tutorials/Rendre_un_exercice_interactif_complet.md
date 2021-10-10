@@ -16,11 +16,12 @@ export const interactifReady = true // pour définir qu'exercice peut s'afficher
 export const interactifType = 'typeInteractivite'
 ```
 `'typeInteractivite'` peut être :
-* `'qcm'` pour avoir un qcm. Modèle : 5L10-2
-* `'numerique'` pour avoir une réponse numérique. Modèle : 5R22
-* `'mathLive'`pour avoir un champ avec clavier et vérification d'égalité formelle. Modèle : 4C10-4
-* `'cliqueFigure'` pour choisir une figure. Modèle : 6G10-3
-* `'custom'` pour appeler la fonction this.correctionInteractive() définie dans l'exercice. Modèle : 6N11-2
+* `'qcm'` pour avoir un qcm. Exemple : 5L10-2
+* `'numerique'` pour avoir une réponse numérique. Exemple : 5R22
+* `'mathLive'`pour avoir un champ avec clavier et vérification d'égalité formelle. Exemple : 4C10-4
+* `'cliqueFigure'` pour choisir une figure. Exemple : 6G10-3
+* `'listeDeroulante'` permet d'avoir à choisir une réponse parmi différentes options d'une liste déroulante. Exemple : 6N43-4
+* `'custom'` pour appeler la fonction this.correctionInteractive() définie dans l'exercice. Exemple : 6N11-2
 
 **Remarque :**
 On peut utiliser `this.interactif = false` pour définir le mode dans lequel l'exercice va s'afficher par défaut (on le place avec les autres réglages par défaut de l'exercice entre `Exercice.call(this)` et `this.nouvelleVersion = function`)
@@ -32,13 +33,13 @@ export const amcReady = true // pour définir que l'exercice peut servir à AMC
 export const amcType = 'typeAMC'
 ```
 `'typeAMC'` peut être l'une des valeurs suivantes :
-* `'qcmMono'` : qcm avec une seule bonne réponse (évolution vers le bouton radio ?). Modèle : 6C10-2
-* `'qcmMult'` : qcm avec possibilité de plusieurs bonnes réponses. Modèle : 6N43-2
-* `'AMCOpen'` : question ouverte -> il n'y a pas d'interactivité, l'affichage est classique par contre on peut l'exporter vers AMC en question ouverte (ajout EE : avec la possibilité d'afficher ou pas le cadre de saisie qui est ainsi inutile en géométrie). Modèle : 6C10-5 (et 6G12-1 pour enlever le cadre)
-* `'AMCNum'` : réponse numérique à entrer dans un formulaire texte. AmcNumeriqueChoice (voire attribut reponse). Modèle : 6C10
-* `'AMCOpenNum'` : réponse identique au type `'AMCNum'` mais AMC ajoute une zone pour une réponse ouverte. Modèle : 3G30
-* `'AMCOpenNum✖︎2'` : identique à `'AMCOpenNum'` avec deux réponses numériques (`reponse` et `reponse2`). Modèle : 4C21
-* `'AMCOpenNum✖︎3'` : identique à `'AMCOpenNum'` avec trois réponses numériques (`reponse`, `reponse2` et `reponse3`). Modèle : 3L11-1
+* `'qcmMono'` : qcm avec une seule bonne réponse (évolution vers le bouton radio ?). Exemple : 6C10-2
+* `'qcmMult'` : qcm avec possibilité de plusieurs bonnes réponses. Exemple : 6N43-2
+* `'AMCOpen'` : question ouverte -> il n'y a pas d'interactivité, l'affichage est classique par contre on peut l'exporter vers AMC en question ouverte (ajout EE : avec la possibilité d'afficher ou pas le cadre de saisie qui est ainsi inutile en géométrie). Exemple : 6C10-5 (et 6G12-1 pour enlever le cadre)
+* `'AMCNum'` : réponse numérique à entrer dans un formulaire texte. AmcNumeriqueChoice (voire attribut reponse). Exemple : 6C10
+* `'AMCOpenNum'` : réponse identique au type `'AMCNum'` mais AMC ajoute une zone pour une réponse ouverte. Exemple : 3G30
+* `'AMCOpenNum✖︎2'` : identique à `'AMCOpenNum'` avec deux réponses numériques (`reponse` et `reponse2`). Exemple : 4C21
+* `'AMCOpenNum✖︎3'` : identique à `'AMCOpenNum'` avec trois réponses numériques (`reponse`, `reponse2` et `reponse3`). Exemple : 3L11-1
 * `'custom'` : Ces exercices ne sont pas prédéfinis, ils partagent le bouton de validation puis appellent la méthode `correctionInteractive()` définie dans l'exercice. Ils ne sont pas compatibles avec AMC
 
 ## <a id="3" href="#3">#</a> 2. Définir la correction et le feedback éventuel
@@ -176,6 +177,14 @@ this.autoCorrection[i] = {
     } // et ainsi de suite pour toutes les question-reponse
   ]
 }
+```
+<a id="16" href="#16">#</a>
+
+* **type `'listeDeroulante'`** (Interactif) **:** Ici, l'utilisateur devra sélectionner une réponse dans un menu déroulant dont les différentes options sont définies par la fonction `choixDeroulant` et dont les bonnes réponses sont définies par la fonction `setReponse` à importer toutes les deux de `'../../modules/gestionInteractif.js'` (voir ex. 6N43-4)
+```js
+texte = 'Choisir une bonne réponse parmi ' + choixDeroulant(this, i, 0, [a, b, c, d]) // Si on veut avoir plusieurs menus déroulants dans la même question, il suffit d'incrémenter le troisième paramètre comme choixDeroulant(this, i, 1, [a, b, c, d]) (voir ex. 6N43-4)
+texteCorr = `Les bonnes réponses sont ${a} et ${d}.`
+setReponse(this, i, [a, d]) // S'il y a plusieurs menus déroulants, le troisième paramètre peut être une liste de listes comme setReponse(this, i, [[a, d], [c, d])
 ```
 ## <a id="8" href="#8">#</a> Les fonctions
 Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont l'appel permet de générer le code nécessaire facilement.
