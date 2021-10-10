@@ -19,7 +19,6 @@ export default function identitesCalculs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false // pour avoir la correction et l'enoncé en même temps
   this.can = false // pour décliner en version CAN
-
   this.canVersion = '' // Pour distinguer les déclinaisons
   // 'v1' Pour une version simple type 29² 31² ou 29x31, seulement 1 d'écart par rapport à la dizaine ou à la centaine
   // 'v2' Pour une version type (30-2)² (30+2)² ou (30-2)x(30+2), écart par rapport à la dizaine ou à la centaine de 1 à 4
