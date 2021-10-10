@@ -18,6 +18,10 @@ export default function identitesCalculs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false // pour avoir la correction et l'enoncé en même temps
   this.can = false // pour décliner en version CAN
+
+  this.canVersion = '' // Pour distinguer les déclinaisons
+  // 'v1' Pour une version simple type 29² 31² ou 29x31, seulement 1 d'écart par rapport à la dizaine ou à la centaine
+  // 'v2' Pour une version type (30-2)² (30+2)² ou (30-2)x(30+2), écart par rapport à la dizaine ou à la centaine de 1 à 4
   this.sup = 1
   if (this.debug) {
     this.nbQuestions = 3
@@ -109,9 +113,18 @@ export default function identitesCalculs () {
         bDifference = randint(1, 4)
         bSomDif = randint(1, 9)
       } else {
-        bSomme = 1
-        bDifference = 1
-        bSomDif = 1
+        switch (this.canVersion) {
+          case 'v1' :
+            bSomme = 1
+            bDifference = 1
+            bSomDif = 1
+            break
+          case 'v2' :
+            bSomme = randint(1, 4)
+            bDifference = randint(1, 4)
+            bSomDif = randint(1, 9)
+            break
+        }
       }
       const coeff = choice([10, 100])
       const coeffSomDif = 100
@@ -234,9 +247,18 @@ export default function identitesCalculs () {
             };
             setReponse(this, i, situations[0].resultatNumerique)
           } else {
-            this.question = `${enonces[0].enonceCanV1} <br> ${enonces[0].enonceCanV2}`
-            this.correction = `${enonces[0].correction1} <br><br> ${enonces[0].correction2}`
-            this.reponse = `${enonces[0].resultatCan}`
+            switch (this.canVersion) {
+              case 'v1' :
+                this.question = `${enonces[0].enonceCanV1}`
+                this.correction = `${enonces[0].correction1} <br><br> ${enonces[0].correction2}`
+                this.reponse = `${enonces[0].resultatCan}`
+                break
+              case 'v2' :
+                this.question = `${enonces[0].enonceCanV2}`
+                this.correction = `${enonces[0].correction1} <br><br> ${enonces[0].correction2}`
+                this.reponse = `${enonces[0].resultatCan}`
+                break
+            }
           }
           break
         case 1: // carré d'une différence
@@ -263,9 +285,18 @@ export default function identitesCalculs () {
             };
             setReponse(this, i, situations[1].resultatNumerique)
           } else {
-            this.question = `${enonces[1].enonceCanV1} <br> ${enonces[1].enonceCanV2}`
-            this.correction = `${enonces[1].correction1} <br><br> ${enonces[1].correction2}`
-            this.reponse = `${enonces[1].resultatCan}`
+            switch (this.canVersion) {
+              case 'v1' :
+                this.question = `${enonces[1].enonceCanV1}`
+                this.correction = `${enonces[1].correction1} <br><br> ${enonces[1].correction2}`
+                this.reponse = `${enonces[1].resultatCan}`
+                break
+              case 'v2' :
+                this.question = `${enonces[1].enonceCanV2}`
+                this.correction = `${enonces[1].correction1} <br><br> ${enonces[1].correction2}`
+                this.reponse = `${enonces[1].resultatCan}`
+                break
+            }
           }
           break
         case 2: // Produit somme différence
@@ -292,9 +323,18 @@ export default function identitesCalculs () {
             };
             setReponse(this, i, situations[2].resultatNumerique)
           } else {
-            this.question = `${enonces[2].enonceCanV1} <br> ${enonces[2].enonceCanV2}`
-            this.correction = `${enonces[2].correction1} <br><br> ${enonces[2].correction2}`
-            this.reponse = `${enonces[2].resultatCan}`
+            switch (this.canVersion) {
+              case 'v1' :
+                this.question = `${enonces[2].enonceCanV1}`
+                this.correction = `${enonces[2].correction1} <br><br> ${enonces[2].correction2}`
+                this.reponse = `${enonces[2].resultatCan}`
+                break
+              case 'v2' :
+                this.question = `${enonces[2].enonceCanV2}`
+                this.correction = `${enonces[2].correction1} <br><br> ${enonces[2].correction2}`
+                this.reponse = `${enonces[2].resultatCan}`
+                break
+            }
           }
           break
       };

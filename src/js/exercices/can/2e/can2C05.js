@@ -9,7 +9,7 @@ export { interactifReady, interactifType } from '../../3e/3L11-5.js'
  * @author Sébastien Lozano
  */
 
-export const titre = 'Calculer avec les identités remarquables - simple'
+export const titre = 'Calculer avec les identités remarquables - Guidé'
 
 export default function identitesCalculs2e () {
   identitesCalculs.call(this)
@@ -17,6 +17,6 @@ export default function identitesCalculs2e () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.can = true
-  this.canVersion = 'v1'
+  this.canVersion = 'v2'
   this.consigne = ''
 }
