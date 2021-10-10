@@ -566,8 +566,24 @@ export default function Alea2iep () {
  * @param {point} A
  * @param {objet} options Défaut : { tempo: 0 }
  */
-  this.pointMasquer = function (A, { tempo = 0 } = {}) {
-    this.liste_script.push(`<action id="${A.id}" mouvement="masquer" objet="point" tempo="${tempo}" />`)
+  this.pointMasquer = function (...args) {
+    const enleveDernier = arr => arr.slice(0, -1)
+    if (args[args.length - 1].typeObjet === 'point') {
+      for (const point of args) {
+        this.liste_script.push(`<action id="${point.id}" mouvement="masquer" objet="point" tempo="0" />`)
+      }
+    } else {
+      if (args[args.length - 1].tempo !== undefined) {
+        const tempo = args[args.length - 1].tempo
+        for (const point of enleveDernier(args)) {
+          this.liste_script.push(`<action id="${point.id}" mouvement="masquer" objet="point" tempo="${tempo}" />`)
+        }
+      } else {
+        for (const point of enleveDernier(args)) {
+          this.liste_script.push(`<action id="${point.id}" mouvement="masquer" objet="point" tempo="0" />`)
+        }
+      }
+    }
   }
   /**
    * Montrer un point qui aurait été caché
@@ -1126,11 +1142,27 @@ export default function Alea2iep () {
   }
   /**
  * Masque le trait d'id fourni
- * @param {int} id
+ * @param {array} id
  * @param {objet} options Défaut : { tempo: 0 }
  */
-  this.texteMasquer = function (id, { tempo = 0 } = {}) {
-    this.liste_script.push(`<action mouvement="masquer" objet="texte" id="${id}"  />`)
+  this.texteMasquer = function (...args) {
+    const enleveDernier = arr => arr.slice(0, -1)
+    if (Number.isNaN(args[args.length - 1])) {
+      if (args[args.length - 1].tempo !== undefined) {
+        const tempo = args[args.length - 1].tempo
+        for (const texte of enleveDernier(args)) {
+          this.liste_script.push(`<action mouvement="masquer" objet="texte" id="${texte}" tempo="${tempo}" />`)
+        }
+      } else {
+        for (const texte of enleveDernier(args)) {
+          this.liste_script.push(`<action mouvement="masquer" objet="texte" id="${texte}" tempo="0" />`)
+        }
+      }
+    } else {
+      for (const texte of args) {
+        this.liste_script.push(`<action mouvement="masquer" objet="texte" id="${texte}" tempo="0" />`)
+      }
+    }
   }
 
   /**
