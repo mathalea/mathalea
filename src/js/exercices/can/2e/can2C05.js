@@ -4,8 +4,8 @@ export { interactifReady, interactifType } from '../../3e/3L11-5.js'
 /**
  * * Calcul mental autour des identités remarquables
  * * Clone de 3L11-5
- * * numéro de l'exo ex : 2N41-1
- * * publié le  7/10/2021
+ * * numéro de l'exo ex : can2C05
+ * * publié le  10/10/2021
  * @author Sébastien Lozano
  */
 
