@@ -1406,11 +1406,14 @@ export default function Alea2iep () {
      * @param {point} C
      * @param {*} options
      */
-  this.perpendiculaireRegleEquerre2points3epoint = function (A, B, C, options) {
+  this.perpendiculaireRegleEquerre2points3epoint = function (A, B, C, description = false) {
     const longueurRegle = this.regle.longueur
     const zoomEquerre = this.equerre.zoom
     const d = droite(A, B)
+    d.nom = `(${A.nom}${B.nom})`
     let dist
+    if (A.nom === undefined) A.nom = 'A'
+    if (B.nom === undefined) B.nom = 'B'
     if (appartientDroite(C, A, B)) {
       dist = 7.5
     } else {
@@ -1420,9 +1423,24 @@ export default function Alea2iep () {
     this.equerreZoom(calcul(dist * 100 / 7.5))
     this.regleModifierLongueur(Math.max(dist * 2, 15))
 
-    this.perpendiculaireRegleEquerreDroitePoint(d, C)
+    this.perpendiculaireRegleEquerreDroitePoint(d, C, description)
     this.equerreZoom(zoomEquerre)
     this.regleModifierLongueur(longueurRegle)
+  }
+  this.perpendiculaireRegleEquerreDroitePoint = function (d, P, description) {
+    const H = projectionOrtho(P, d)
+    const A = rotation(P, H, 90)
+    const B = rotation(A, H, 180)
+    const alpha = angleOriente(point(10000, H.y), H, B)
+    if (description) this.textePosition(`Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom}et l'autre côté de l'angle droit passant par le point ${P.nom}.`, 0, 10, { couleur: 'lightblue' })
+    this.equerreRotation(alpha)
+    this.equerreMontrer(H)
+    if (description) this.textePosition(`Tracer le segment de droite passant par le point ${P.nom}`, 0, 9.3, { couleur: 'lightblue' })
+    this.regleSegment(H, P)
+    this.equerreMasquer()
+    if (description) this.textePosition('coder l\'angle droit.')
+    this.codageAngleDroit(A, H, P)
+    this.regleProlongerSegment(P, H, { longueur: longueur(P, H) * 2 })
   }
   /**
      * Trace la parallèlee à (AB) passant par C avec la règle et l'équerre.

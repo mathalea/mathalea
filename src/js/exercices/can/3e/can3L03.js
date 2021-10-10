@@ -15,7 +15,7 @@ export default function EquationAXPlusBEgalC () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  
+
   this.nouvelleVersion = function () {
     const a = randint(-5, 5, [0, -1, 1])
     this.reponse = randint(-9, 9, [-1, 0, 1])
