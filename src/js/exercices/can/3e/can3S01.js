@@ -16,7 +16,7 @@ export default function CalculProbaSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur25'
+  this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fractionEgale'
   const parfums = ['au citron', 'à la fraise', 'à la menthe', "à l'orange", 'à la cerise', 'à la framboise', 'au cassis']
   this.nouvelleVersion = function () {
@@ -25,7 +25,9 @@ export default function CalculProbaSimple () {
     const parfum1 = choice(parfums)
     const parfum2 = choice(parfums, parfum1)
     this.reponse = fraction(1, k + 1)
-    this.question = `Un sachet de bonbons contient ${a} bonbons ${parfum1} et ${k * a} bonbons ${parfum2}. On choisit un bonbon au hasard. Quelle est la probabilité de choisir un bonbon ${parfum1} ?`
+    this.question = `Un sachet de bonbons contient ${a} bonbons ${parfum1} et ${k * a} bonbons ${parfum2}.<br>
+     On choisit un bonbon au hasard. <br>
+    Quelle est la probabilité de choisir un bonbon ${parfum1} ?`
     this.correction = `Il y a en tout : $${a} + ${k * a} = ${a * (k + 1)}$ bonbons.<br>La probabilité de choisir un bonbon ${parfum1} est de $\\dfrac{${a}}{${a + k * a}}=\\dfrac{1}{${k + 1}}$.`
   }
 }
