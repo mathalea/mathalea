@@ -157,7 +157,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
           texteCorr = texte
           texteCorr += `$${texFraction(a, b)}${plusOuMoins}${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
           texteCorr += `=${texFraction(a + plusOuMoins + ecritureParentheseSiNegatif(n * b), b)}`
-          num = calcul(ecritureParentheseSiNegatif(a) + plusOuMoins + n * b)
+          num = calcul(ecritureParentheseSiNegatif(a) + plusOuMoins + ecritureParentheseSiNegatif(n * b))
         }
         den = b
       }
