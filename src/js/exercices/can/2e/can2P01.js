@@ -18,7 +18,7 @@ export default function CalculsDeProbabilites () {
   this.nbQuestions = 1
   this.interactif =
   this.formatInteractif = 'fraction'
-
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(2, 4)
     const b = choice([2, 3])
@@ -27,7 +27,7 @@ export default function CalculsDeProbabilites () {
     switch (choice(['a', 'b', 'b', 'b', 'c', 'c', 'd', 'd', 'd', 'd', 'd'])) {
       case 'a':
         this.question = "On lance deux fois de suite un dé équilibré.<br>Quelle est la probabilité d’obtenir deux fois le même nombre ?<br>Donner le résultat sous la forme d'une fraction irréductible."
-        this.correction = "Sur 36 cas possibles équiprobables, il y en a 6 qui sont des doubles. Donc la probabilité d'obtenir deux fois le même nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$."
+        this.correction = "Sur $36$ cas possibles équiprobables, il y en a $6$ qui sont des doubles. Donc la probabilité d'obtenir deux fois le même nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$."
         this.reponse = fraction(1, 6)
         break
       case 'b':
@@ -42,7 +42,7 @@ export default function CalculsDeProbabilites () {
         break
       case 'd':
         this.question = `On lance deux dés cubiques équilibrés.<br>Quelle est la probabilité d’obtenir un total de $${c}$ ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
-        this.correction = `Sur 36 cas possibles équiprobables, il y en a $${p[c - 2]}$ qui donnent une somme de $${c}$. Donc la probabilité d'obtenir un total de $${c}$ est $\\dfrac{${p[c - 2]}}{36}${simplificationDeFractionAvecEtapes(p[c - 2], 36)}$.`
+        this.correction = `Sur $36$ cas possibles équiprobables, il y en a $${p[c - 2]}$ qui donnent une somme de $${c}$. Donc la probabilité d'obtenir un total de $${c}$ est $\\dfrac{${p[c - 2]}}{36}${simplificationDeFractionAvecEtapes(p[c - 2], 36)}$.`
         this.reponse = fraction(p[c - 2], 36).simplifie()
         break
     }
