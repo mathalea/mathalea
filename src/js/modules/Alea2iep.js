@@ -1457,7 +1457,7 @@ export default function Alea2iep () {
     this.crayonDeplacer(P3)
     this.regleRotation(alpha - 90)
     this.tracer(rotation(P3, H, 180))
-    if (description) this.textePosition('4. coder l\'angle droit.', 0, 7.9, { couleur: 'lightblue' })
+    if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.9, { couleur: 'lightblue' })
     this.regleMasquer()
     this.codageAngleDroit(A, H, P)
   }
@@ -1493,7 +1493,7 @@ export default function Alea2iep () {
     this.regleMontrer(P1)
     this.crayonDeplacer(P1)
     this.tracer(P2)
-    if (description) this.textePosition('4. coder l\'angle droit.', 0, 7.2, { couleur: 'lightblue' })
+    if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.2, { couleur: 'lightblue' })
     this.regleMasquer()
     this.codageAngleDroit(P1, A, B)
   }
@@ -1537,7 +1537,7 @@ export default function Alea2iep () {
     this.regleMontrer(P11)
     this.crayonMontrer(P11)
     this.tracer(P12)
-    if (description) this.textePosition('5. coder l\'angle droit.', 0, 6.5, { couleur: 'lightblue' })
+    if (description) this.textePosition('5. Coder l\'angle droit.', 0, 6.5, { couleur: 'lightblue' })
     this.regleMasquer()
     this.codageAngleDroit(P1, A, B)
   }
@@ -1579,7 +1579,7 @@ export default function Alea2iep () {
     this.regleMontrer(P1)
     this.crayonMontrer(P1)
     this.tracer(P2)
-    if (description) this.textePosition('5. coder l\'angle droit.', 0, 8.2, { couleur: 'lightblue', tempo: 20 })
+    if (description) this.textePosition('5. Coder l\'angle droit.', 0, 8.2, { couleur: 'lightblue', tempo: 20 })
     this.regleMasquer()
     this.codageAngleDroit(P1, H, B)
   }
