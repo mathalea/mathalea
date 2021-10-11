@@ -7,7 +7,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Gille Mora
+ * @author Gilles Mora
  * Créé pendant l'été 2021
  * Référence can3C06
  * Date de publication
@@ -24,13 +24,13 @@ export default function CalculDivers1 () {
         a = randint(2, 9)
         b = randint(2, 9)
         c = randint(-9, 9, 0)
-        this.question = `$${a}-${b}\\times ${ecritureParentheseSiNegatif(c)}$`
+        this.question = `$${a}-${b}\\times ${ecritureParentheseSiNegatif(c)}=$`
         this.correction = `$${a}-${b}\\times ${ecritureParentheseSiNegatif(c)}=${a}-${ecritureParentheseSiNegatif(b * c)}=${a - b * c}$.`
         this.reponse = calcul(a - b * c)
         break
       case 'b':
         a = randint(-10, -1)
-        this.question = ` $(${a})^2+${abs(a)}^2=$.`
+        this.question = ` $(${a})^2+${abs(a)}^2=$`
         this.correction = `$(${a})^2+${abs(a)}^2=${a * a}+${a * a}=${2 * a * a}$.`
         this.reponse = calcul(2 * a * a)
         break
