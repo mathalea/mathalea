@@ -1518,7 +1518,7 @@ export default function Alea2iep () {
     this.compasEcarter2Points(A, B)
     this.compasTracerArcCentrePoint(A, B, { couleur: 'lightgray', epaisseur: 1 })
     this.compasTracerArcCentrePoint(A, C, { couleur: 'lightgray', epaisseur: 1 })
-    this.pointsCreer(B, C, { label: true, tempo: 10 })
+    this.pointsCreer(B, C, { tempo: 10 })
     if (description) {
       this.textePosition('2. Choisir un écartement de compas supérieur à la longueur AB.', 0, 9.3, { couleur: 'lightblue' })
     }
