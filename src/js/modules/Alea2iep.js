@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { vecteur, polygoneAvecNom, translation, symetrieAxiale, appartientDroite, point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, norme } from './2d.js'
+import { vecteur, polygoneAvecNom, translation, symetrieAxiale, appartientDroite, point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, norme, pointSurDroite, similitude } from './2d.js'
 import { calcul, randint, nombreAvecEspace, arrondi, texNombre } from './outils.js'
 import iepLoadPromise from 'instrumenpoche'
 import { context } from './context.js'
@@ -527,7 +527,7 @@ export default function Alea2iep () {
     }
     let codeXML
     if (label) {
-      codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" />`
+      codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" tempo="${tempo}"/>`
       // codeXML += `\n<action couleur="${couleurLabel}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" tempo="${tempo}"  />`
       const M = point(A.x, A.y)
       if (typeof dx !== 'undefined') {
@@ -1401,6 +1401,7 @@ export default function Alea2iep () {
   }
   /**
      * Trace la perpendiculaire à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
+     * Description désactivée par défaut.
      * @param {point} A
      * @param {point} B
      * @param {point} C
@@ -1430,6 +1431,14 @@ export default function Alea2iep () {
     this.equerreZoom(zoomEquerre)
     this.regleModifierLongueur(longueurRegle)
   }
+
+  /**
+   * Construit à la règle et à l'équerre la perpendiculaire à une droite d passant par un point P n'appartenant pas à d.
+   * description désactivable.
+   * @param {droite} d
+   * @param {point} P
+   * @param {boolean} description
+   */
   this.perpendiculaireRegleEquerreDroitePoint = function (d, P, description) {
     const H = projectionOrtho(P, d)
     const A = rotation(P, H, 90)
@@ -1451,6 +1460,128 @@ export default function Alea2iep () {
     if (description) this.textePosition('4. coder l\'angle droit.', 0, 7.9, { couleur: 'lightblue' })
     this.regleMasquer()
     this.codageAngleDroit(A, H, P)
+  }
+  /**
+   * Trace la perpendiculaire à une droite passant par un point de cette droite à l'équerre et à la règle.
+   * @param {droite} d
+   * @param {number} x  // pour choisir le point sur d : l'abscisse de A
+   * @param {boolean} description
+   */
+  this.perpendiculaireRegleEquerrePointSurLaDroite = function (d, x, description) {
+    const A = pointSurDroite(d, x, 'A')
+    const B = pointSurDroite(d, x + 5)
+    const P1 = rotation(B, A, 90)
+    const P2 = rotation(P1, A, 180)
+    if (d.nom === undefined) {
+      d.nom = '(d)'
+    }
+    this.traitRapide(pointSurDroite(d, -20), pointSurDroite(d, 20))
+    this.pointCreer(A)
+    if (description) this.textePosition(`1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom}.`, 0, 10, { couleur: 'lightblue' })
+    this.equerreRotation(d.angleAvecHorizontale)
+    this.equerreMontrer(B)
+    if (description) {
+      this.textePosition(`2. Faire glisser l'équerre sur la droite jusqu'au point ${A.nom}`, 0, 9.3, { couleur: 'lightblue' })
+    }
+    this.equerreDeplacer(A)
+    if (description) this.textePosition('3. Tracer le long de l\'autre côté de l\'angle droit de l\'équerre.', 0, 8.6, { couleur: 'lightblue' })
+    this.crayonMontrer(A)
+    this.tracer(P1)
+    this.equerreMasquer()
+    if (description) this.textePosition(`4. Prolonger la perpendiculaire à ${d.nom} à la règle.`, 0, 7.9, { couleur: 'lightblue' })
+    this.regleRotation(d.angleAvecHorizontale - 90)
+    this.regleMontrer(P1)
+    this.crayonDeplacer(P1)
+    this.tracer(P2)
+    if (description) this.textePosition('4. coder l\'angle droit.', 0, 7.2, { couleur: 'lightblue' })
+    this.regleMasquer()
+    this.codageAngleDroit(P1, A, B)
+  }
+  /**
+   * Trace la perpendiculaire à une droite passant par un point de cette droite au compas.
+   * @param {droite} d
+   * @param {number} x // pour choisir le point sur d : l'abscisse de A
+   * @param {boolean} description
+   */
+  this.perpendiculaireCompasPointSurLaDroite = function (d, x, description) {
+    const A = pointSurDroite(d, x, 'A')
+    const B = pointSurDroite(d, x + 3, 'B')
+    const C = pointSurDroite(d, x - 3, 'C')
+    const P1 = similitude(B, A, 90, 1.2)
+    const P2 = similitude(B, A, -90, 1.2)
+    if (d.nom === undefined) {
+      d.nom = '(d)'
+    }
+    this.traitRapide(pointSurDroite(d, -20), pointSurDroite(d, 20))
+    this.pointCreer(A)
+    if (description) this.textePosition('1. Avec le compas, marquer deux points B et C de part et d\'autre de A, tels que AB=AC.', 0, 10, { couleur: 'lightblue' })
+    this.compasEcarter2Points(A, B)
+    this.compasTracerArcCentrePoint(A, B, { couleur: 'lightgray', epaisseur: 1 })
+    this.compasTracerArcCentrePoint(A, C, { couleur: 'lightgray', epaisseur: 1 })
+    this.pointsCreer(B, C, { label: true, tempo: 10 })
+    if (description) {
+      this.textePosition('2. Choisir un écartement de compas supérieur à la longueur AB.', 0, 9.3, { couleur: 'lightblue' })
+    }
+    this.compasEcarter2Points(B, P1)
+    if (description) this.textePosition('3. Tracer un arc de cercle de centre B avec cet écartement.', 0, 8.6, { couleur: 'lightblue' })
+    this.compasTracerArcCentrePoint(B, P1, { couleur: 'lightgray', epaisseur: 1 })
+    if (description) this.textePosition('4. Tracer un arc de cercle de centre C en conservant le même écartement.', 0, 7.9, { couleur: 'lightblue' })
+    this.compasTracerArcCentrePoint(C, P1, { couleur: 'lightgray', epaisseur: 1 })
+    this.compasMasquer()
+    if (description) {
+      this.textePosition('4. Tracer la droite qui passe par le point d\'intersection des arcs de cercle et par le point A.', 0, 7.2, { couleur: 'lightblue' })
+    }
+    this.regleRotation(d.angleAvecHorizontale - 90)
+    const P11 = homothetie(P1, A, 1.1)
+    const P12 = homothetie(P2, A, 1.1)
+    this.regleMontrer(P11)
+    this.crayonMontrer(P11)
+    this.tracer(P12)
+    if (description) this.textePosition('5. coder l\'angle droit.', 0, 6.5, { couleur: 'lightblue' })
+    this.regleMasquer()
+    this.codageAngleDroit(P1, A, B)
+  }
+  /**
+   * Trace la perpendiculaire à une droite passant par un point n'appartenant pas à cette droite au compas.
+   * @param {droite} d
+   * @param {number} x // pour choisir le point sur d : l'abscisse de A
+   * @param {boolean} description
+   */
+  this.perpendiculaireCompasPoint = function (d, A, description) {
+    const H = projectionOrtho(A, d)
+    const B = similitude(A, H, -90, 1.2, 'B')
+    const C = homothetie(B, H, -0.7, 'C')
+    const D = rotation(A, H, 180)
+    const P1 = homothetie(A, H, 1.2)
+    const P2 = homothetie(A, H, -1.2)
+    if (d.nom === '') {
+      d.nom = '(d)'
+    }
+    if (A.nom === '') {
+      A.nom = 'A'
+    }
+    this.traitRapide(pointSurDroite(d, -20), pointSurDroite(d, 20))
+    this.textePoint(d.nom, translation(pointSurDroite(d, 0), vecteur(0, -0.5)))
+    this.pointCreer(A)
+    if (description) this.textePosition(`1. Choisir deux points B et C sur la droite ${d.nom}.`, 0, 11, { couleur: 'lightblue', tempo: 20 })
+    this.tempo = 20
+    this.pointCreer(B)
+    this.pointCreer(C)
+    if (description) this.textePosition(`2. Tracer un arc de cercle de centre B passant par A et un autre de centre C passant par ${A.nom}.`, 0, 10.3, { couleur: 'lightblue', tempo: 20 })
+    this.compasEcarter2Points(B, A)
+    this.compasTracerArcCentrePoint(B, D, { couleur: 'lightgray', epaisseur: 1 })
+    this.compasEcarter2Points(C, A)
+    this.compasTracerArcCentrePoint(C, D, { couleur: 'lightgray', epaisseur: 1 })
+    if (description) this.textePosition(`3. Ces deux arcs de cercle se recoupent en un point qui est le symétrique de ${A.nom} par rapport à ${d.nom}`, 0, 9.6, { couleur: 'lightblue', tempo: 20 })
+    this.compasMasquer()
+    if (description) this.textePosition('4. Tracer la droite qui passe par le point d\'intersection des arcs de cercle et par le point A.', 0, 8.9, { couleur: 'lightblue', tempo: 20 })
+    this.regleRotation(d.angleAvecHorizontale - 90)
+    this.regleMontrer(P1)
+    this.crayonMontrer(P1)
+    this.tracer(P2)
+    if (description) this.textePosition('5. coder l\'angle droit.', 0, 8.2, { couleur: 'lightblue', tempo: 20 })
+    this.regleMasquer()
+    this.codageAngleDroit(P1, H, B)
   }
   /**
      * Trace la parallèlee à (AB) passant par C avec la règle et l'équerre.
