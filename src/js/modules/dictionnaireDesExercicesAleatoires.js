@@ -4341,12 +4341,12 @@ export default {
     "interactifReady": false,
     "name": "betaModele21_parametrables"
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques"
+    "name": "betaModele30_constructions_géométriques"
   },
   "betaModele31_parametrables": {
     "titre": "Nom de l'exercice",
@@ -4577,6 +4577,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2C03"
+  },
+  "can2C04": {
+    "titre": "Calculer avec les identités remarquables - simple",
+    "url": "/exercices/can/2e/can2C04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C04"
+  },
+  "can2C05": {
+    "titre": "Calculer avec les identités remarquables - Guidé",
+    "url": "/exercices/can/2e/can2C05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C05"
   },
   "can2F01": {
     "titre": "Calcul d’une image second degré",

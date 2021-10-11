@@ -16,7 +16,7 @@ export default function SommeEntierEtFractionIrred () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-    this.formatChampTexte = 'largeur25'
+  this.formatChampTexte = 'largeur15'
   this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
     const maFraction = choice(obtenirListeFractionsIrreductibles())
@@ -26,6 +26,6 @@ export default function SommeEntierEtFractionIrred () {
     const d = fraction(a * c + b, c).simplifie()
     this.reponse = d
     this.question = `Calculer sous la forme d'une fraction irréductible :  $${a}+${texFraction(b, c)}$`
-    this.correction = `$${a}+${texFraction(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} =${d.texFraction}$`
+    this.correction = `$${a}+${texFraction(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} + \\dfrac{${b}}{${c}}  =${d.texFraction}$`
   }
 }
