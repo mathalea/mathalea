@@ -107,6 +107,8 @@ export default function Questions6C12 () {
       let enonceAMC
       let correctionAMC
       let reponseAMC
+      let digitAMC
+      let decimalesAMC
       const enonceAMCInit = `${quidame} repère ${ArticleIndef} ${ArticleSingulier} dans un magazine de publicité à ${texNombre3(PrixUnitaire)}${sp()}€. <br>`
       texte = enonceAMCInit + '<br>'
       texteCorr = ''
@@ -201,6 +203,8 @@ export default function Questions6C12 () {
           setReponse(this, 8 * i + kk, reponseAMC)
         }
         if (context.isAmc) {
+          digitAMC = this.sup3 ? 4 : 6
+          decimalesAMC = this.sup3 ? 0 : 2
           propositionsAMC[2 * kk] = {
             type: 'AMCOpen',
             propositions:
@@ -225,8 +229,8 @@ export default function Questions6C12 () {
                      valeur: reponseAMC,
                      param:
                        {
-                         digits: 6,
-                         decimals: 2,
+                         digits: digitAMC,
+                         decimals: decimalesAMC,
                          signe: false
                        }
                    }
