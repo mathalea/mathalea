@@ -3901,6 +3901,14 @@ export default {
     "interactifType": "mathLive",
     "name": "betaCAN2Q22-01"
   },
+  "betaCAN2Q22-01B": {
+    "titre": "Coordonnées d’un point sur une droite2",
+    "url": "/exercices/beta/betaCAN2Q22-01B.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q22-01B"
+  },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
     "url": "/exercices/beta/betaCaNCM2.js",
