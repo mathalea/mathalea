@@ -122,7 +122,7 @@ export default function Questions6C12 () {
         switch (QuestionsDisponibles[kk]) {
           case 1:
             enonceAMC += `Quel serait le prix de ${DixOuCent} ${ArticlePluriel} à ${texNombre3(PrixUnitaire)}${sp()}€ l'unité${sp()}?<br><br>`
-            reponseAMC = DixOuCent * PrixUnitaire
+            reponseAMC = arrondi(DixOuCent * PrixUnitaire)
             correctionAMC += ` $${DixOuCent} \\times ${texNombre3(PrixUnitaire)} = ${texNombre3(reponseAMC)}$<br>`
             correctionAMC += `Le prix de ${DixOuCent} ${ArticlePluriel} serait de ` + texteEnCouleurEtGras(`${texNombre3(reponseAMC)}`) + `${sp()}€.<br><br>`
             break
@@ -134,14 +134,14 @@ export default function Questions6C12 () {
             break
           case 3:
             enonceAMC += `Si ${quidame} achetait ${ArticleIndef} ${ArticleSingulier} à ${texNombre3(PrixUnitaire)}${sp()}€ ainsi que d'autres articles pour ${texNombre3(AutrePrix)}${sp()}€, quel serait le prix final${sp()}?<br><br>`
-            reponseAMC = PrixUnitaire + AutrePrix
+            reponseAMC = arrondi(PrixUnitaire + AutrePrix)
             correctionAMC += ` $${PrixUnitaire} + ${texNombre3(AutrePrix)} = ${texNombre3(reponseAMC)}$<br>`
             correctionAMC += `Si ${quidame} achetait ${ArticleIndef} ${ArticleSingulier} à ${texNombre3(PrixUnitaire)}${sp()}€ ainsi que d'autres articles pour ${texNombre3(AutrePrix)}${sp()}€, `
             correctionAMC += 'le prix final serait de ' + texteEnCouleurEtGras(`${texNombre3(reponseAMC)}`) + `${sp()}€.<br><br>`
             break
           case 4:
             enonceAMC += `${quidame} dispose d'un bon de réduction de ${texNombre3(PrixReduction)}${sp()}€. Si ${quidame} achetait ${ArticleIndef} ${ArticleSingulier} à ${texNombre3(PrixUnitaire)}${sp()}€, quel somme d'argent paierait ${quidame} au final${sp()}?<br><br>`
-            reponseAMC = PrixUnitaire - PrixReduction
+            reponseAMC = arrondi(PrixUnitaire - PrixReduction)
             correctionAMC += ` $${PrixUnitaire} - ${texNombre3(PrixReduction)} = ${texNombre3(reponseAMC)}$<br>`
             correctionAMC += `Grâce à son bon de réduction, ${quidame} ne paierait que ` + texteEnCouleurEtGras(`${texNombre3(reponseAMC)}`) + `${sp()}€.<br><br>`
             break
