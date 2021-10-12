@@ -1164,7 +1164,16 @@ export default function Alea2iep () {
       }
     }
   }
-
+  /**
+   * Change la couleur d'un texte déjà créé dont on donne l'id retourné par this.textePoint ou this.textePosition
+   * Nécessité de redonner le texte car on réécrit le texte dans une autre couleur.
+   * @param {string} texte
+   * @param {number} id
+   * @param {string} couleur
+   */
+  this.texteChangeCouleur = function (texte, id, couleur) {
+    this.liste_script.push(`\n<action couleur="${couleur}" texte="${texte}" id="${id}" mouvement="ecrire" objet="texte" />`)
+  }
   /**
    * Met l'animation en pause forçant l'utilisateur à appuyer sur lecture pour voir la suite
    */
