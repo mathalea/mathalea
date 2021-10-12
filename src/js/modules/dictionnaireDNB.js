@@ -7011,4 +7011,64 @@ export let dictionnaireDNB = {
         "urlcor": "/dnb/2021/tex/dnb_2021_06_asie_5_cor.tex",
         "tags": ["Géométrie dans l'espace", "Volumes", "Prise d'initiatives"]
     },
+    "dnb_2021_09_metropole_1": {
+        "annee": "2021",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "1",
+        "png": "/dnb/2021/tex/png/dnb_2021_09_metropole_1.png",
+        "pngcor": "/dnb/2021/tex/png/dnb_2021_09_metropole_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "/dnb/2021/tex/dnb_2021_09_metropole_1.tex",
+        "urlcor": "/dnb/2021/tex/dnb_2021_09_metropole_1_cor.tex",
+        "tags": ["Fractions", "Probabilités", "Transformations", "Arithmétique", "Puissances", "QCM"] 
+    },
+    "dnb_2021_09_metropole_2": {
+        "annee": "2021",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "2",
+        "png": "/dnb/2021/tex/png/dnb_2021_09_metropole_2.png",
+        "pngcor": "/dnb/2021/tex/png/dnb_2021_09_metropole_2_cor.png",
+        "typeExercice": "dnb",
+        "url": "/dnb/2021/tex/dnb_2021_09_metropole_2.tex",
+        "urlcor": "/dnb/2021/tex/dnb_2021_09_metropole_2_cor.tex",
+        "tags": ["Statistiques", "Pourcentages"]
+    },
+    "dnb_2021_09_metropole_3": {
+        "annee": "2021",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "3",
+        "png": "/dnb/2021/tex/png/dnb_2021_09_metropole_3.png",
+        "pngcor": "/dnb/2021/tex/png/dnb_2021_09_metropole_3_cor.png",
+        "typeExercice": "dnb",
+        "url": "/dnb/2021/tex/dnb_2021_09_metropole_3.tex",
+        "urlcor": "/dnb/2021/tex/dnb_2021_09_metropole_3_cor.tex",        
+        "tags": ["Programme de calcul", "Calcul littéral", "Tableur"]
+    },
+    "dnb_2021_09_metropole_4": {
+        "annee": "2021",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "4",
+        "png": "/dnb/2021/tex/png/dnb_2021_09_metropole_4.png",
+        "pngcor": "/dnb/2021/tex/png/dnb_2021_09_metropole_4_cor.png",
+        "typeExercice": "dnb",
+        "url": "/dnb/2021/tex/dnb_2021_09_metropole_4.tex",
+        "urlcor": "/dnb/2021/tex/dnb_2021_09_metropole_4_cor.tex",
+        "tags": ["Algorithmique-programmation", "Calcul littéral", "Géométrie"]
+    },
+    "dnb_2021_09_metropole_5": {
+        "annee": "2021",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "5",
+        "png": "/dnb/2021/tex/png/dnb_2021_09_metropole_5.png",
+        "pngcor": "/dnb/2021/tex/png/dnb_2021_09_metropole_5_cor.png",
+        "typeExercice": "dnb",
+        "url": "/dnb/2021/tex/dnb_2021_09_metropole_5.tex",
+        "urlcor": "/dnb/2021/tex/dnb_2021_09_metropole_5_cor.tex",
+        "tags": ["Pourcentages", "Thalès", "Pythagore"]
+    },
 }
