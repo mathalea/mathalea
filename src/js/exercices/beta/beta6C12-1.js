@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, range, texteEnCouleurEtGras, sp, numAlpha, contraindreValeur, choice, arrondi, prenomF, rangeMinMax, texNombre3, troncature, estentier, compteOccurences, enleveDoublonNum2, combinaisonListes, enleveElementNo } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Résoudre des problèmes de prix'
+export const titre = 'Résoudre des problèmes de masses'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -10,17 +10,17 @@ export const amcType = 'AMCHybride'
 
 /**
  * Description didactique de l'exercice
- * A partir d'un prix, proposer différentes questions qui permettent de répondre, selon les questions,
+ * A partir d'une masse, proposer différentes questions qui permettent de répondre, selon les questions,
  * soit de tête (*10), soit après un calcul posé (multiplication, addition ou soustraction),
  * soit après un calcul avec calculatrice (division)
  * Chacune de ces questions indépendantes trouve de l'intérêt par le choix de l'opération à effectuer
  * et donc à donner du sens à chacune des opérations.
  * @author Eric Elter
- * Référence 6C12 - Exercice aisément adaptable pour les CM.
+ * Référence 6C12-1 - Inspiré de 6C12 - Exercice aisément adaptable pour les CM.
  * Date octobre 2021
 */
 
-export default function Questions6C12 () {
+export default function QuestionsMasses () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Répondre aux questions suivantes.' // Consigne modifiée, plus bas, à l'intérieur de la fonction
   this.nbQuestionsModifiable = true
@@ -69,11 +69,11 @@ export default function Questions6C12 () {
       let AutrePrix
       let PrixReduction
       if (this.sup3) {
-        PrixUnitaire = arrondi(10 * choice([1, 2]) + TabPrixUnitaire[0], 0)
+        PrixUnitaire = arrondi(TabPrixUnitaire[0], 0)
         AutrePrix = arrondi(10 * TabAutrePrix[0] + TabAutrePrix[1], 0)
         PrixReduction = arrondi(choice(rangeMinMax(5, arrondi(PrixUnitaire / 2, 0)), 0))
       } else {
-        PrixUnitaire = arrondi(10 * choice([1, 2]) + TabPrixUnitaire[0] + 0.1 * TabPrixUnitaire[1] + 0.01 * TabPrixUnitaire[2])
+        PrixUnitaire = arrondi(TabPrixUnitaire[0] + 0.1 * TabPrixUnitaire[1] + 0.01 * TabPrixUnitaire[2])
         AutrePrix = arrondi(10 * choice([1, 2]) + TabAutrePrix[0] + 0.1 * TabAutrePrix[1] + 0.01 * TabAutrePrix[2])
         PrixReduction = arrondi(choice(rangeMinMax(101, arrondi(50 * PrixUnitaire, 0))) / 100, 2)
       }
@@ -83,19 +83,12 @@ export default function Questions6C12 () {
       const FamilleF = ['mère', 'sœur', 'cousine', 'grand-mère', 'tante', 'voisine']
       const Personnage2 = choice(FamilleF)
       const Objets = [
-        'un', 'jeu vidéo', 'jeux vidéo', 'ce',
-        'un', 'pantalon', 'pantalons', 'ce',
-        'une', 'casquette', 'casquettes', 'cette',
-        'une', 'carte de collection', 'cartes de collection', 'cette',
-        'un', 'jouet', 'jouets', 'ce',
-        'un', 'livre', 'livres', 'ce',
-        'une', 'serviette', 'serviettes', 'cette'
+        'pommes', 'cerises', 'prunes', 'fraises',
+        'haricots', 'pommes de terre', 'tomates', 'pêches',
+        'nectarines', 'mangues', 'carottes', 'cacahuètes fraiches'
       ]
-      const NumArticle = choice(range(6))
-      const ArticleIndef = Objets[4 * NumArticle]
-      const ArticleSingulier = Objets[4 * NumArticle + 1]
-      const ArticlePluriel = Objets[4 * NumArticle + 2]
-      const ArticleDemonst = Objets[4 * NumArticle + 3]
+      const NumArticle = choice(range(11))
+      const ArticlePluriel = Objets[NumArticle]
       const NbArticles = choice(rangeMinMax(3, 9))
       const NbArticles2 = choice(rangeMinMax(3, 9), [NbArticles])
       const NbArticles3 = choice(rangeMinMax(11, 19), [NbArticles + NbArticles2, NbArticles2 + NbArticles2]) - NbArticles2
@@ -112,12 +105,12 @@ export default function Questions6C12 () {
       let lignesAMC
       let alignementAMC
       let sanscadreAMC
-      const enonceAMCInit = `${quidame} repère ${ArticleIndef} ${ArticleSingulier} dans un magazine de publicité à ${texNombre3(PrixUnitaire)}${sp()}€. <br>`
+      const enonceAMCInit = `${quidame} repère des ${ArticlePluriel} dans un magazine de publicité à $${texNombre3(PrixUnitaire)}$${sp()}€ le kilogramme. <br>`
       texte = enonceAMCInit + '<br>'
       texteCorr = ''
       correctionAMC = ''
       for (let kk = 0; kk < QuestionsDisponibles.length; kk++) {
-        if (QuestionsDisponibles.length > 1 || !context.isAmc) { // Si une seule question ou si pas AMC, pas besoin de puces numerotees
+        if (QuestionsDisponibles.length > 1 & !context.isAmc) { // Si une seule question ou si pas AMC, pas besoin de puces numerotees
           enonceAMC = numAlpha(kk)
           correctionAMC = numAlpha(kk)
         } else {
@@ -127,74 +120,78 @@ export default function Questions6C12 () {
         lignesAMC = 3
         switch (QuestionsDisponibles[kk]) {
           case 1:
-            enonceAMC += `Quel serait le prix de ${DixOuCent} ${ArticlePluriel} à ${texNombre3(PrixUnitaire)}${sp()}€ l'unité${sp()}?<br><br>`
+            enonceAMC += `Quel serait le prix de $${DixOuCent}$ kilogrammes de ${ArticlePluriel}${sp()}?<br><br>`
             reponseAMC = arrondi(DixOuCent * PrixUnitaire)
             correctionAMC += ` $${DixOuCent} \\times ${texNombre3(PrixUnitaire)} = ${texNombre3(reponseAMC)}$<br>`
-            correctionAMC += `Le prix de ${DixOuCent} ${ArticlePluriel} serait de ` + texteEnCouleurEtGras(`${texNombre3(reponseAMC)}`) + `${sp()}€.<br><br>`
+            correctionAMC += `Le prix de $${DixOuCent}$ kilogrammes de ${ArticlePluriel} serait de ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             lignesAMC = 1
             break
           case 2:
-            enonceAMC += `Quel serait le prix de ${NbArticles} ${ArticlePluriel} à ${texNombre3(PrixUnitaire)}${sp()}€ l'unité${sp()}?<br><br>`
+            enonceAMC += `Quel serait le prix de $${NbArticles}$ kilogrammes de ${ArticlePluriel}${sp()}?<br><br>`
             reponseAMC = arrondi(NbArticles * PrixUnitaire)
             correctionAMC += ` $${NbArticles} \\times ${texNombre3(PrixUnitaire)} = ${texNombre3(arrondi(NbArticles * PrixUnitaire))}$<br>`
-            correctionAMC += `Le prix de ${NbArticles} ${ArticlePluriel} serait de ` + texteEnCouleurEtGras(`${texNombre3(reponseAMC)}`) + `${sp()}€.<br><br>`
+            correctionAMC += `Le prix de $${NbArticles}$ kilogrammes de ${ArticlePluriel} serait de ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             break
           case 3:
-            enonceAMC += `Si ${quidame} achetait ${ArticleIndef} ${ArticleSingulier} à ${texNombre3(PrixUnitaire)}${sp()}€ ainsi que d'autres articles pour ${texNombre3(AutrePrix)}${sp()}€, quel serait le prix final${sp()}?<br><br>`
+            enonceAMC += `Si ${quidame} achetait un kilogramme de ${ArticlePluriel} ainsi que d'autres articles pour $${texNombre3(AutrePrix)}$${sp()}€, quel serait le prix final${sp()}?<br><br>`
             reponseAMC = arrondi(PrixUnitaire + AutrePrix)
             correctionAMC += ` $${texNombre3(PrixUnitaire)} + ${texNombre3(AutrePrix)} = ${texNombre3(reponseAMC)}$<br>`
-            correctionAMC += `Si ${quidame} achetait ${ArticleIndef} ${ArticleSingulier} à ${texNombre3(PrixUnitaire)}${sp()}€ ainsi que d'autres articles pour ${texNombre3(AutrePrix)}${sp()}€, `
-            correctionAMC += 'le prix final serait de ' + texteEnCouleurEtGras(`${texNombre3(reponseAMC)}`) + `${sp()}€.<br><br>`
+            correctionAMC += `Si ${quidame} achetait un kilogramme de ${ArticlePluriel} ainsi que d'autres articles pour $${texNombre3(AutrePrix)}$${sp()}€, `
+            correctionAMC += 'le prix final serait de ' + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             break
           case 4:
-            enonceAMC += `${quidame} dispose d'un bon de réduction de ${texNombre3(PrixReduction)}${sp()}€. Si ${quidame} achetait ${ArticleIndef} ${ArticleSingulier} à ${texNombre3(PrixUnitaire)}${sp()}€, quel somme d'argent paierait ${quidame} au final${sp()}?<br><br>`
+            enonceAMC += `${quidame} dispose d'un bon de réduction de $${texNombre3(PrixReduction)}$${sp()}€. Si ${quidame} achetait un kilogramme de ${ArticlePluriel}, quelle somme d'argent paierait ${quidame} au final${sp()}?<br><br>`
             reponseAMC = arrondi(PrixUnitaire - PrixReduction)
             correctionAMC += ` $${texNombre3(PrixUnitaire)} - ${texNombre3(PrixReduction)} = ${texNombre3(reponseAMC)}$<br>`
-            correctionAMC += `Grâce à son bon de réduction, ${quidame} ne paierait que ` + texteEnCouleurEtGras(`${texNombre3(reponseAMC)}`) + `${sp()}€.<br><br>`
+            correctionAMC += `Grâce à son bon de réduction, ${quidame} ne paierait que ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             break
           case 5:
-            enonceAMC += `Si ${quidame} achetait ${NbArticles2} ${ArticlePluriel} à ${texNombre3(PrixUnitaire)}${sp()}€ l'unité et son ${Personnage1} en achetait ${NbArticles3} de plus, quelle somme paierait-ils à eux deux${sp()}?<br><br>`
+            enonceAMC += `Si ${quidame} achetait $${NbArticles2}$ kilogrammes de ${ArticlePluriel} et son ${Personnage1} en achetait $${NbArticles3}$ kilogrammes de plus, quelle somme d'argent paierait-ils à eux deux${sp()}?<br><br>`
             reponseAMC = arrondi((NbArticles2 + NbArticles3) * PrixUnitaire)
             correctionAMC += ` $${NbArticles2} + ${NbArticles3} = ${NbArticles2 + NbArticles3}$<br>`
-            correctionAMC += `${quidame} et son ${Personnage1} achèteraient ${NbArticles2 + NbArticles3} ${ArticlePluriel}.<br>`
+            correctionAMC += `${quidame} et son ${Personnage1} achèteraient $${NbArticles2 + NbArticles3}$ ${ArticlePluriel}.<br>`
             correctionAMC += `$${NbArticles2 + NbArticles3} \\times ${texNombre3(PrixUnitaire)} = ${texNombre3(reponseAMC)}$<br>`
-            correctionAMC += `Si ${quidame} et son ${Personnage1} achetaient ${NbArticles2 + NbArticles3} ${ArticlePluriel} à ${texNombre3(PrixUnitaire)}${sp()}€ l'unité, `
-            correctionAMC += 'le prix final serait de ' + texteEnCouleurEtGras(`${texNombre3(reponseAMC)}`) + `${sp()}€.<br><br>`
+            correctionAMC += `Si ${quidame} et son ${Personnage1} achetaient $${NbArticles2 + NbArticles3}$ kilogrammes de ${ArticlePluriel}, `
+            correctionAMC += 'le prix final serait de ' + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             break
           case 6:
-            enonceAMC += `Si ${quidame} achetait ${NbArticles5} ${ArticlePluriel} à ${texNombre3(PrixUnitaire)}${sp()}€ l'unité mais que sa ${Personnage2} lui propose de lui en rembourser ${NbArticles4}, quelle somme ${quidame} dépenserait-elle${sp()}?<br><br>`
+            enonceAMC += `Si ${quidame} achetait $${NbArticles5}$ kilogrammes de ${ArticlePluriel} mais que sa ${Personnage2} lui propose de lui en rembourser $${NbArticles4}$ kilogrammes, quelle somme d'argent ${quidame} dépenserait-elle${sp()}?<br><br>`
             reponseAMC = arrondi((NbArticles5 - NbArticles4) * PrixUnitaire)
             correctionAMC += `$${NbArticles5} - ${NbArticles4} = ${NbArticles5 - NbArticles4}$<br>`
-            correctionAMC += `${quidame} ne payerait que ${NbArticles5 - NbArticles4} ${ArticlePluriel}.<br>`
+            correctionAMC += `${quidame} ne payerait que $${NbArticles5 - NbArticles4}$ ${ArticlePluriel}.<br>`
             correctionAMC += `$${NbArticles5 - NbArticles4} \\times ${texNombre3(PrixUnitaire)} = ${texNombre3(reponseAMC)}$<br>`
-            correctionAMC += `Si ${quidame} achetait ${NbArticles5} ${ArticlePluriel} à ${texNombre3(PrixUnitaire)}${sp()}€ l'unité mais que sa ${Personnage2} lui propose de lui en rembourser ${NbArticles4}, `
-            correctionAMC += `${quidame} dépenserait ` + texteEnCouleurEtGras(`${texNombre3(reponseAMC)}`) + `${sp()}€.<br><br>`
+            correctionAMC += `Si ${quidame} achetait $${NbArticles5}$ kilogrammes de ${ArticlePluriel} mais que sa ${Personnage2} lui propose de lui en rembourser $${NbArticles4}$ kilogrammes, `
+            correctionAMC += `${quidame} dépenserait ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             break
           case 7 :
-            enonceAMC += `Si ${quidame} décidait d'acheter ${ArticleDemonst} ${ArticleSingulier} à ${texNombre3(PrixUnitaire)}${sp()}€ avec 9 amis, quelle somme équitable minimale devraient-ils, chacun, donner${sp()}?<br><br>`
+            enonceAMC += `Si ${quidame} décidait d'acheter un kilogramme de ${ArticlePluriel} avec $9$ amis, quelle somme équitable minimale devraient-ils, chacun, donner${sp()}?<br><br>`
             correctionAMC += '$1 + 9 = 10$<br>'
-            correctionAMC += 'Le partage se ferait entre 10 personnes.<br>'
+            correctionAMC += 'Le partage se ferait entre $10$ personnes.<br>'
             if (this.sup3) {
               reponseAMC = arrondi(PrixUnitaire / 10, 3)
               correctionAMC += `$${texNombre3(PrixUnitaire)} \\div 10 = ${texNombre3(reponseAMC)}$<br>`
-              correctionAMC += `Si ${quidame} partageait ${ArticleDemonst} ${ArticleSingulier} avec 9 amis, chacun donnerait équitablement ` + texteEnCouleurEtGras(`${texNombre3(reponseAMC)}`) + `${sp()}€.<br><br>`
+              correctionAMC += `Si ${quidame} partageait un kilogramme de ${ArticlePluriel} avec $9$ amis, chacun donnerait équitablement ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             } else {
               reponseAMC = troncature(arrondi(PrixUnitaire / 10, 3) + 0.01, 2)
-              correctionAMC += `$${texNombre3(PrixUnitaire)} \\div 10 \\approx ${texNombre3(arrondi(PrixUnitaire / 10, 3))}$ et $${texNombre3(troncature(arrondi(PrixUnitaire / 10, 3), 2))} < ${texNombre3(arrondi(PrixUnitaire / 10, 3))} < ${texNombre3(reponseAMC)}$<br>`
-              correctionAMC += `Si ${quidame} partageait ${ArticleDemonst} ${ArticleSingulier} avec ${Nbpartage} camarades, chacun donnerait équitablement au moins ` + texteEnCouleurEtGras(`${texNombre3(reponseAMC)}`) + `${sp()}€.<br><br>`
+              correctionAMC += `$${texNombre3(PrixUnitaire)} \\div 10 = ${texNombre3(arrondi(PrixUnitaire / 10, 3))}$ et $${texNombre3(troncature(arrondi(PrixUnitaire / 10, 3), 2))} < ${texNombre3(arrondi(PrixUnitaire / 10, 3))} < ${texNombre3(reponseAMC)}$<br>`
+              correctionAMC += `Si ${quidame} partageait un kilogramme de ${ArticlePluriel} avec $9$ amis, chacun donnerait équitablement au moins ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             } break
           case 8 :
-            enonceAMC += `Si ${quidame} décidait d'acheter ${ArticleDemonst} ${ArticleSingulier} à ${texNombre3(PrixUnitaire)}${sp()}€ avec ${Nbpartage} camarades, quelle somme équitable minimale devraient-ils, chacun, donner${sp()}?<br><br>`
+            enonceAMC += `Si ${quidame} décidait d'acheter un kilogramme de  ${ArticlePluriel} avec $${Nbpartage}$ camarades, quelle somme équitable minimale devraient-ils, chacun, donner${sp()}?<br><br>`
             correctionAMC += `$1 + ${Nbpartage} = ${Nbpartage + 1}$<br>`
-            correctionAMC += `Le partage se ferait entre ${Nbpartage + 1} personnes.<br>`
+            correctionAMC += `Le partage se ferait entre $${Nbpartage + 1}$ personnes.<br>`
             if (estentier(arrondi(PrixUnitaire * 100, 0) / (Nbpartage + 1))) {
               reponseAMC = arrondi(PrixUnitaire / (Nbpartage + 1), 3)
               correctionAMC += `$${texNombre3(PrixUnitaire)} \\div ${Nbpartage + 1} = ${texNombre3(reponseAMC)}$<br>`
-              correctionAMC += `Si ${quidame} partageait ${ArticleDemonst} ${ArticleSingulier} avec ${Nbpartage} camarades, chacun donnerait équitablement ` + texteEnCouleurEtGras(`${texNombre3(reponseAMC)}`) + `${sp()}€.<br><br>`
+              correctionAMC += `Si ${quidame} partageait un kilogramme de ${ArticlePluriel} avec $${Nbpartage}$ camarades, chacun donnerait équitablement ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             } else {
               reponseAMC = troncature(arrondi(PrixUnitaire / (Nbpartage + 1), 3) + 0.01, 2)
-              correctionAMC += `$${texNombre3(PrixUnitaire)} \\div ${Nbpartage + 1} \\approx ${texNombre3(arrondi(PrixUnitaire / (Nbpartage + 1), 3))}$ et $${texNombre3(troncature(arrondi(PrixUnitaire / (Nbpartage + 1), 3), 2))} < ${texNombre3(arrondi(PrixUnitaire / (Nbpartage + 1), 3))} < ${texNombre3(reponseAMC)}$<br>`
-              correctionAMC += `Si ${quidame} partageait ${ArticleDemonst} ${ArticleSingulier} avec ${Nbpartage} camarades, chacun donnerait équitablement au moins ` + texteEnCouleurEtGras(`${texNombre3(reponseAMC)}`) + `${sp()}€.<br><br>`
+              if (estentier(arrondi(PrixUnitaire * 1000, 0) / (Nbpartage + 1))) {
+                correctionAMC += `$${texNombre3(PrixUnitaire)} \\div ${Nbpartage + 1} = ${texNombre3(arrondi(PrixUnitaire / (Nbpartage + 1), 3))}$ et $${texNombre3(troncature(arrondi(PrixUnitaire / (Nbpartage + 1), 3), 2))} < ${texNombre3(arrondi(PrixUnitaire / (Nbpartage + 1), 3))} < ${texNombre3(reponseAMC)}$<br>`
+              } else {
+                correctionAMC += `$${texNombre3(PrixUnitaire)} \\div ${Nbpartage + 1} \\approx ${texNombre3(arrondi(PrixUnitaire / (Nbpartage + 1), 3))}$ et $${texNombre3(troncature(arrondi(PrixUnitaire / (Nbpartage + 1), 3), 2))} < ${texNombre3(arrondi(PrixUnitaire / (Nbpartage + 1), 3))} < ${texNombre3(reponseAMC)}$<br>`
+              }
+              correctionAMC += `Si ${quidame} partageait un kilogramme de ${ArticlePluriel} avec $${Nbpartage}$ camarades, chacun donnerait équitablement au moins ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             }
             break
         } // fin du switch
