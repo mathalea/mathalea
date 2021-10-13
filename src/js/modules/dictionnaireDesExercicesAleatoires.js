@@ -3901,13 +3901,21 @@ export default {
     "interactifType": "mathLive",
     "name": "betaCAN2Q22-01"
   },
-  "betaCAN2Q22-01B": {
-    "titre": "Coordonnées d’un point sur une droite2",
-    "url": "/exercices/beta/betaCAN2Q22-01B.js",
+  "betaCAN2Q22-02": {
+    "titre": "Coordonnées point d’intersection axe des abscisses/droite",
+    "url": "/exercices/beta/betaCAN2Q22-02.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCAN2Q22-01B"
+    "name": "betaCAN2Q22-02"
+  },
+  "betaCAN2Q22-03": {
+    "titre": "Coordonnées point d’intersection axe des ordonnées/droite",
+    "url": "/exercices/beta/betaCAN2Q22-03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q22-03"
   },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",

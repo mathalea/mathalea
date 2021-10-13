@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 298 
-- nombre d'exos interactifReady 366 
+- nombre d'exos interactifReady 367 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -211,7 +211,8 @@
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaCAN2Q22-01|Coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
-|betaCAN2Q22-01B|Coordonnées d’un point sur une droite2|KO|KO|OK|mathLive|
+|betaCAN2Q22-02|Coordonnées point d’intersection axe des abscisses/droite|KO|KO|OK|mathLive|
+|betaCAN2Q22-03|Coordonnées point d’intersection axe des ordonnées/droite|KO|KO|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|

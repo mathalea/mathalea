@@ -22,8 +22,10 @@ export default function CoordonneesPointDroite () {
     const b = randint(-10, 10, 0)
     const c = randint(-10, 10, 0)
 
-    this.listeQuestions = [` Donner les coordonnées du point de la droite 
-    d'équation $y=${reduireAxPlusB(a, b)}$ qui a pour abscisse $${c}$ : $\\Bigg($ ${ajouteChampTexteMathLive(this, 0, 'largeur10 inline')} ${sp(2)} ; ${ajouteChampTexteMathLive(this, 1, 'largeur10 inline')}${sp(7)}$\\Bigg)$`]
+    this.listeQuestions = [` Les coordonnées du point de la droite 
+    d'équation $y=${reduireAxPlusB(a, b)}$ dont l'abscisse est $${c}$  sont : <br>
+    <center>$\\Bigg($ ${ajouteChampTexteMathLive(this, 0, 'largeur10 inline')} ${sp(2)} ; 
+    ${ajouteChampTexteMathLive(this, 1, 'largeur10 inline')}${sp(2)}$\\Bigg)$`]
     if (a === 1) {
       this.listeCorrections = [`Puisque $${c}$ est l'abscisse de ce point, son ordonnée est donnée par :<br>
         $y= ${c}+${ecritureParentheseSiNegatif(b)}=${a * c + b}$.<br>
