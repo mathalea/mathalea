@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  * Référence can4G07
- * Date de publication sptembre 2021
+ * Date de publication septembre 2021
 */
 export default function CalculLongueurThalesMilieu () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -41,7 +41,8 @@ export default function CalculLongueurThalesMilieu () {
       Calculer $${nom[1]}${nom[2]}$.`
       this.question += mathalea2d({ xmin: -1, ymin: -3, xmax: 8, ymax: 5, pixelsParCm: 30, mainlevee: false, amplitude: 0.5 }, objets)
       this.correction = ` Les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$ sont 2 fois plus grandes que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
-      Ainsi : $${nom[1]}${nom[2]}=2\\times $${nom[3]}${nom[4]}${nom[2]}$=2\\times ${texNombrec(a)}=${texNombrec(2 * a)}$.
+      Le triangle $${nom[0]}${nom[1]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
+      Ainsi : $${nom[1]}${nom[2]}=2\\times ${nom[3]}${nom[4]}=2\\times ${texNombrec(a)}=${texNombrec(2 * a)}$.
   `
 
       this.reponse = calcul(2 * a)
@@ -61,8 +62,9 @@ export default function CalculLongueurThalesMilieu () {
          $${nom[1]}${nom[2]}=${texNombrec(a)}$. <br>
          Calculer $${nom[3]}${nom[4]}$.`
       this.question += mathalea2d({ xmin: -1, ymin: -3, xmax: 8, ymax: 5, pixelsParCm: 30, mainlevee: false, amplitude: 0.5 }, objets)
-      this.correction = ` Les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$ sont 2 fois plus grandes que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
-         Ainsi : $${nom[3]}${nom[4]}= ${nom[1]}${nom[2]} \\div 2 = ${texNombrec(a)}\\div 2 =${texNombrec(a / 2)}$.
+      this.correction = ` Les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont 2 fois plus petites que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
+      Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est une réduction du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
+            Ainsi : $${nom[3]}${nom[4]}= ${nom[1]}${nom[2]} \\div 2 = ${texNombrec(a)}\\div 2 =${texNombrec(a / 2)}$.
      `
 
       this.reponse = calcul(a / 2)

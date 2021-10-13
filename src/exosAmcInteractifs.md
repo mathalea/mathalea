@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 297 
-- nombre d'exos interactifReady 360 
+- nombre d'exos amcReady 298 
+- nombre d'exos interactifReady 363 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -13,6 +13,7 @@
 |2G31-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
 |2G36-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
 |2N14-1|Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient|KO|KO|OK|mathLive|
+|2N41-1|Calculer avec les identités remarquables|KO|KO|OK|mathLive|
 |2N43-4|Développer (a+b)²|KO|KO|OK|mathLive|
 |2N43-5|Développer (a-b)²|KO|KO|OK|mathLive|
 |3A11-1|Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
@@ -177,6 +178,7 @@
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1)|KO|KO|OK|mathLive|
 |6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
 |6N22|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
+|6N23-0|Écrire un nombre décimal en chiffres ou en lettres|OK|AMCNum|KO|KO|
 |6N23-2|Lire des abscisses décimales sous trois formes|OK|AMCHybride|OK|mathLive|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
 |6N23|Donner l’écriture décimale d’une fraction décimale|OK|AMCNum|OK|mathLive|
@@ -241,6 +243,8 @@
 |can2C01|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can2C02|Calcul différence de deux carrés|OK|AMCNum|OK|mathLive|
 |can2C03|Calcul avec puissance|OK|AMCNum|OK|mathLive|
+|can2C04|Calculer avec les identités remarquables - simple|KO|KO|OK|mathLive|
+|can2C05|Calculer avec les identités remarquables - Guidé|KO|KO|OK|mathLive|
 |can2F01|Calcul d’une image second degré|KO|KO|OK|mathLive|
 |can2F02|Calcul d’une image avec un quotient|KO|KO|OK|mathLive|
 |can2G01|Agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
@@ -284,10 +288,10 @@
 |can4C07|Différence de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
 |can4C08|Somme de puissances de 10|OK|AMCNum|OK|mathLive|
 |can4C09|Puissances de 2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
-|can4G01|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
+|can4G01|Calcul d’une longueur d’un côté avec Pythagore |OK|AMCNum|OK|mathLive|
 |can4G02|Image de point par transformation 4e|KO|KO|OK|mathLive|
 |can4G03|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
-|can4G04|Calcul de d’un côté avec Pythagore|KO|KO|OK|mathLive|
+|can4G04|Calcul d’un côté avec Pythagore|KO|KO|OK|mathLive|
 |can4G05|Calcul de la diagonale d’un carré|KO|KO|OK|mathLive|
 |can4G06|Calcul d’une longueur avec Thalès|KO|KO|OK|mathLive|
 |can4G07|Calcul d’une longueur avec Thalès (milieu)|KO|KO|OK|mathLive|

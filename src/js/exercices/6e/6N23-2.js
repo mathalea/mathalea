@@ -266,7 +266,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: `b)${noms[1]} : partie fractionnaire \\dfrac{\\ldots}{100}`,
+                  texte: `b)${noms[1]} : partie fractionnaire $\\dfrac{\\ldots}{100}$`,
                   valeur: calcul(100 * (x2 - Math.floor(x2))),
                   param: {
                     digits: nombreDeChiffresDansLaPartieEntiere(calcul(100 * (x2 - Math.floor(x2)))),
@@ -283,7 +283,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: `c)${noms[2]} : fraction décimale \\dfrac{\\ldots}{100}`,
+                  texte: `c)${noms[2]} : fraction décimale $\\dfrac{\\ldots}{100}$`,
                   valeur: calcul(x3 * 100),
                   param: {
                     digits: nombreDeChiffresDansLaPartieEntiere(calcul(x3 * 100)),
@@ -401,7 +401,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: `b)${noms[1]} : partie fractionnaire \\dfrac{\\ldots}{1000}`,
+                  texte: `b)${noms[1]} : partie fractionnaire $\\dfrac{\\ldots}{1000}$`,
                   valeur: calcul(1000 * (x2 - Math.floor(x2))),
                   param: {
                     digits: nombreDeChiffresDansLaPartieEntiere(calcul(1000 * (x2 - Math.floor(x2)))),
@@ -418,7 +418,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: `c)${noms[2]} : fraction décimale \\dfrac{\\ldots}{1000}`,
+                  texte: `c)${noms[2]} : fraction décimale $\\dfrac{\\ldots}{1000}$`,
                   valeur: calcul(x3 * 1000),
                   param: {
                     digits: nombreDeChiffresDansLaPartieEntiere(calcul(x3 * 1000)),

@@ -16,7 +16,7 @@ export default function AgrandissementReductionGFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur25'
+  this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
     const listeFractions = [
@@ -32,7 +32,7 @@ export default function AgrandissementReductionGFraction () {
         d = fraction[1]
 
         this.question = `Les longueurs d'un triangle sont multipliées par $\\dfrac{${n}}{${d}}$.<br>
-        Par quelle fration est multipliée son aire  ?
+        Par quelle fraction est multipliée son aire  ?
         `
 
         this.reponse = new Fraction(n * n, d * d)

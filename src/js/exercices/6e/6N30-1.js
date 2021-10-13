@@ -48,9 +48,9 @@ export default function LireAbscisseDecimaleBis2d () {
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
-      this.autoCorrection[3 * i] = { propositions: [{ statut: 4, feedback: '' }] }
-      this.autoCorrection[3 * i + 1] = { propositions: [{ statut: 4, feedback: '' }] }
-      this.autoCorrection[3 * i + 2] = { propositions: [{ statut: 4, feedback: '' }] }
+      if (context.isAmc) {
+        this.autoCorrection[i] = { propositions: [{ statut: 4, feedback: '' }] }
+      }
       switch (typesDeQuestions[i]) {
         case 3: // Placer des demis ou des quarts sur un axe
           abs0 = 0

@@ -27,7 +27,7 @@ export default function ExerciceTableauMultiplicationsRelatifs () {
   this.spacing = 2
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
-  
+
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.sup = parseInt(this.sup)
@@ -255,26 +255,25 @@ export default function ExerciceTableauMultiplicationsRelatifs () {
           }
           break
       }
-      if (context.isAmc || this.interactif) {
-        this.autoCorrection[i] = {
-          enonce: texte,
-          options: { ordered: true },
-          propositions: [
-            {
-              texte: 'négatif',
-              statut: reponse === 'négatif'
-            },
-            {
-              texte: 'nul',
-              statut: false
-            },
-            {
-              texte: 'positif',
-              statut: reponse === 'positif'
-            }
-          ]
-        }
+      this.autoCorrection[i] = {
+        enonce: texte,
+        options: { ordered: true },
+        propositions: [
+          {
+            texte: 'négatif',
+            statut: reponse === 'négatif'
+          },
+          {
+            texte: 'nul',
+            statut: false
+          },
+          {
+            texte: 'positif',
+            statut: reponse === 'positif'
+          }
+        ]
       }
+
       texte += propositionsQcm(this, i).texte
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], ...listeNombres)) {
         // Si la question n'a jamais été posée, on en créé une autre

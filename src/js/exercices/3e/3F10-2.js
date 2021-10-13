@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, ecritureAlgebrique, choice, calcul, texNombre, miseEnEvidence, sp, ecritureParentheseSiNegatif, texNombrec, nombreDeChiffresDe } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, ecritureAlgebrique, choice, calcul, texNombre, miseEnEvidence, sp, ecritureParentheseSiNegatif, texNombrec, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true
@@ -231,13 +231,17 @@ export default function CalculsImagesFonctions () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    let maxNbChiffres = 0
+    let maxNbChiffresAvantLaVirgule = 0
+    let maxNbDecimals = 0
     if (context.isAmc) {
       for (let i = 0; i < this.nbQuestions; i++) {
-        maxNbChiffres = Math.max(maxNbChiffres, nombreDeChiffresDe(this.autoCorrection[i].reponse.valeur[0]))
+        maxNbChiffresAvantLaVirgule = Math.max(maxNbChiffresAvantLaVirgule, nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur[0]))
+        maxNbDecimals = Math.max(maxNbDecimals, nombreDeChiffresDansLaPartieDecimale(this.autoCorrection[i].reponse.valeur[0]))
       }
       for (let i = 0; i < this.nbQuestions; i++) {
-        this.autoCorrection[i].reponse.param.digits = maxNbChiffres
+        this.autoCorrection[i].reponse.param.digits = maxNbChiffresAvantLaVirgule + maxNbDecimals
+        this.autoCorrection[i].reponse.param.decimals = maxNbDecimals
+        this.autoCorrection[i].reponse.param.signe = true
       }
     }
   }

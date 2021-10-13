@@ -17,6 +17,7 @@ export default function ImageSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const X = randint(-5, 5)
     const Y = []
@@ -27,7 +28,8 @@ export default function ImageSpline () {
     const r = repere2({ xMin: -7, xMax: 7, yMin: -6, yMax: 6 })
     const c = courbeSpline(f, { repere: r, step: 0.1, color: 'red', xMin: -6, xMax: 6, traceNoeuds: true })
     this.reponse = f.image(X)
-    this.question = `Quel est l'image de ${X} ?<br>${mathalea2d({ xmin: -7, xmax: 7, ymin: -6, ymax: 6 }, r, c)}`
-    this.correction = `${X} a pour image ${f.image(X)}.`
+    this.question = `Quel est l'image de $${X}$ ?<br>${mathalea2d({ xmin: -7, xmax: 7, ymin: -6, ymax: 6 }, r, c)}`
+    this.correction = `Pour lire l'image de $${X}$, on place la valeur de $${X}$ sur l'axe des abscisses (axe de lecture  des antécédents) et on lit 
+    son image $${f.image(X)}$ sur l'axe des ordonnées (axe de lecture des images).`
   }
 }

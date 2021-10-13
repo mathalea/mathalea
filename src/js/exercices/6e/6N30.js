@@ -47,9 +47,9 @@ export default function LireAbscisseDecimale () {
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
-      this.autoCorrection[3 * i] = { propositions: [{ statut: 4, feedback: '' }] }
-      this.autoCorrection[3 * i + 1] = { propositions: [{ statut: 4, feedback: '' }] }
-      this.autoCorrection[3 * i + 2] = { propositions: [{ statut: 4, feedback: '' }] }
+      if (context.isAmc) {
+        this.autoCorrection[i] = { propositions: [{ statut: 4, feedback: '' }] }
+      }
       switch (typesDeQuestions[i]) {
         case 1: // Placer des décimaux sur un axe (1 décimale)
           abs0 = randint(0, 9)
@@ -125,6 +125,7 @@ export default function LireAbscisseDecimale () {
         if (context.isAmc) {
           this.autoCorrection[i].enonce = texte
           this.autoCorrection[i].propositions[0].texte = texteCorr
+          this.autoCorrection[i].propositions[0].statut = 1
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
