@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  * Référence can4G06
- * Date de publication sptembre 2021
+ * Date de publication septembre 2021
 */
 export default function CalculLongueurThales () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -51,9 +51,9 @@ export default function CalculLongueurThales () {
         Calculer $${nom[3]}${nom[2]}$.`
       this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 2 }, objets)
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[2]}$.<br>
-    Le coefficient d'agrandissment est  donné par : $\\dfrac{${nom[0]}${nom[3]}}{${nom[0]}${nom[1]}}=\\dfrac{${texNombrec(a)}}{${b}}=${texNombrec(a / b)}$.<br>
-    On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombrec(a / b)}$ fois plus grandes que les longueurs du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>
-        Ainsi, $${nom[3]}${nom[2]}=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
+    Le coefficient d'agrandissement est  donné par : $\\dfrac{${nom[0]}${nom[3]}}{${nom[0]}${nom[1]}}=\\dfrac{${texNombrec(a)}}{${b}}=${texNombrec(a / b)}$.<br>
+    On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombrec(a / b)}$ fois plus grandes que celles du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>
+        Ainsi, $${nom[3]}${nom[2]}=${texNombrec(a / b)}\\times ${nom[1]}${nom[4]}=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
                   <br>`
       this.reponse = calcul(a * c / b)
     } else {
@@ -82,9 +82,9 @@ export default function CalculLongueurThales () {
        Calculer $${nom[0]}${nom[3]}$.`
       this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 2 }, objets)
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[2]}$.<br>
-   Le coefficient d'agrandissment est  donné par : $\\dfrac{${nom[2]}${nom[3]}}{${nom[1]}${nom[4]}}=\\dfrac{${texNombrec(k * b)}}{${b}}=${texNombrec(k)}$.<br>
-   On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombrec(a / b)}$ fois plus grandes que les longueurs du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>
-       Ainsi, $${nom[0]}${nom[3]}=${texNombrec(k)}\\times ${a}=${texNombrec(k * a)}$.
+   Le coefficient d'agrandissement est  donné par : $\\dfrac{${nom[2]}${nom[3]}}{${nom[1]}${nom[4]}}=\\dfrac{${texNombrec(k * b)}}{${b}}=${texNombrec(k)}$.<br>
+   On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombrec(k)}$ fois plus grandes que celles du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>
+       Ainsi, $${nom[0]}${nom[3]}=${texNombrec(k)}\\times ${nom[0]}${nom[1]}=${texNombrec(k)}\\times ${a}=${texNombrec(k * a)}$.
                  <br>`
       this.reponse = calcul(k * a)
     }

@@ -33,6 +33,7 @@ export default function LireUnDiagramme () {
     this.sup2 = parseInt(this.sup2)
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     let typesDeQuestionsDisponibles
     if (this.sup2 < 5) {
       typesDeQuestionsDisponibles = [this.sup2]
@@ -62,8 +63,9 @@ export default function LireUnDiagramme () {
       lstAnimauxExo = []
       lstNombresAnimaux = []
       if (!context.isAmc) {
-        this.autoCorrection[q * 2] = {}
-        this.autoCorrection[q * 2 + 1] = {}
+        this.autoCorrection[q * 3] = {}
+        this.autoCorrection[q * 3 + 1] = {}
+        this.autoCorrection[q * 3 + 2] = {}
       } else {
         this.autoCorrection[q] = {}
       }
@@ -251,13 +253,13 @@ export default function LireUnDiagramme () {
         }
         this.autoCorrection[q * 3 + 1].propositions = []
         for (let i = 0; i < nbAnimaux; i++) {
-          this.autoCorrection[q * 2 + 1].propositions.push({
+          this.autoCorrection[q * 3 + 1].propositions.push({
             texte: `${lstAnimauxExo[i]}`,
             statut: reponse2 === lstAnimauxExo[i]
           })
         }
         this.autoCorrection[q * 3 + 2].propositions = []
-        this.autoCorrection[q * 3 + 2].propositions = [{
+        this.autoCorrection[q * 3 + 2].propositions.push({
           texte: 'Plus de la moitié des animaux',
           statut: nbMax > effectiftotal / 2
         },
@@ -269,7 +271,7 @@ export default function LireUnDiagramme () {
           texte: 'La moitié des animaux',
           statut: nbMax === calcul(effectiftotal / 2)
         }
-        ]
+        )
         this.autoCorrection[q * 3].options = {}
         this.autoCorrection[q * 3 + 1].options = {}
         this.autoCorrection[q * 3 + 2].options = {}
@@ -332,7 +334,7 @@ export default function LireUnDiagramme () {
         texteCorr += `<br>${numAlpha(2)} L'animal le plus nombreux parmi ces espèces est :` + monQcm3.texteCorr
       }
 
-      if (this.questionJamaisPosee(q, ...lstNombresAnimaux, effectiftotal)) {
+      if (this.questionJamaisPosee(q, effectiftotal)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         q++

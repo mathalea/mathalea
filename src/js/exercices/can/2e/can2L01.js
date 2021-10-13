@@ -15,7 +15,7 @@ export default function EquationPlusMoinsX2PlusAEgalB () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  
+
   this.nouvelleVersion = function () {
     const a = randint(1, 20)
     const b = randint(1, 20)

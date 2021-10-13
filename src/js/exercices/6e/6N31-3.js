@@ -25,10 +25,11 @@ export default function ArrondirUneValeur () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = false
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
+  this.spacingCorr = context.isHtml ? 2.5 : 3.5
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
+    this.spacing = (this.interactif && this.sup === 2) ? 3 : 1
     this.autoCorrection = []
     if (!context.isAmc && !this.interactif) {
       this.consigne = "Encadrer chaque nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi."

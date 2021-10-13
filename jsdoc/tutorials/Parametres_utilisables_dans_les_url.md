@@ -21,6 +21,7 @@
     - `&v=can` propose le même genre de vue mais forcément interactive où chaque page ne propose qu'une question. Parfaite pour une course aux nombres !
     - `&v=recto` et `&v=verso` dirigent vers des versions épurées contenant uniquement les énnoncés (recto) ou les correction (verso) ainsi que le logo COOPMaths, utilisés pour les intégrer à Anki.
     - `&v=e` ou `&v=embed` permet d'épurer la page, de grossir le texte, d'ajouter le logo COOPMaths et de rendre inaccessibles les paramètres, parfait pour l'intégration dans d'autres sites !
+        - `&p=1.5` permet d'ajuster la taille de la police en vue embed. L'unité est em et est à 1.5 par défaut.
     - `&v=multi` permet d'afficher plusieurs énoncés sur toute la largeur de l'écran, notamment pour être utilisés comme questions flash.
     - `&v=cm` dirige vers l'écran de paramétrage en vue d'un affichage sous forme de diaporama.
         - `&duree=10` est utilisé pour la durée des diaporamas.

@@ -158,6 +158,9 @@ function item_to_contenu (txt) {
     if (dictionnaire.s3) {
       exercice_aleatoire.sup3 = dictionnaire.s3
     }
+    if (dictionnaire.s4) {
+      exercice_aleatoire.sup4 = dictionnaire.s4
+    }
     if (dictionnaire.nb_questions) {
       exercice_aleatoire.nbQuestions = dictionnaire.nb_questions
     }
@@ -165,7 +168,9 @@ function item_to_contenu (txt) {
       exercice_aleatoire.nbQuestions = dictionnaire.n
     }
     exercice_aleatoire.id = idExerciceMathALEA
-    exercice_aleatoire.nouvelleVersion()
+    if (exercice_aleatoire.typeExercice !== 'dnb') {
+      exercice_aleatoire.nouvelleVersion()
+    }
     codeLatex += `\n\n%%% ${e} : Exercice aléatoire - ${exercice_aleatoire.titre}%%%\n\n`
     codeLatex += exercice_aleatoire.contenu + '\n\n'
     codeLatex_corr += exercice_aleatoire.contenuCorrection + '\n\n'
@@ -291,25 +296,47 @@ window.addEventListener('load', function () {
         console.log(error)
         // console.log(`Exercice ${id} non disponible`);
       }
-      // promises.push(
+      if (dictionnaireDesExercices[id].typeExercice === 'dnb') {
+        listeObjetsExercice[id] = dictionnaireDesExercices[id]
+        promises.push(
+          fetch(url)
+            .then((response) => response.text())
+            .then((data) => {
+              listeObjetsExercice[id].nbQuestionsModifiable = false
+              listeObjetsExercice[id].video = ''
+              listeObjetsExercice[id].titre = id
+              listeObjetsExercice[id].contenu = data
+              listeObjetsExercice[id].listePackages = 'dnb'
+            })
+        )
+        promises.push(
+          fetch(dictionnaireDesExercices[id].urlcor)
+            .then((response) => response.text())
+            .then((data) => {
+              listeObjetsExercice[id].contenuCorrection = data
+            })
+        )
+      } else {
+        // promises.push(
       // import(url)
       // avec webpack on ne peut pas faire de import(url), car il faut lui indiquer quels fichiers sont susceptibles d'être chargés
       // ici il ne peut s'agir que de js contenus dans exercices (dnb déjà traité dans le if au dessus)
-      const chunks = /^\/exercices\/(.*)/.exec(url)
-      if (!chunks) throw Error(`url non prévue : ${url}`)
-      const path = chunks[1]
-      promises.push(
+        const chunks = /^\/exercices\/(.*)/.exec(url)
+        if (!chunks) throw Error(`url non prévue : ${url}`)
+        const path = chunks[1]
+        promises.push(
         // cf https://webpack.js.org/api/module-methods/#magic-comments
-        import(/* webpackMode: "lazy" */ './exercices/' + path)
-          .catch((error) => {
-            console.log(error)
-            // FIXME si c'est effectivement un [i] et pas [id], mettre un commentaire ici pour dire pourquoi, car en survolant le code ça semble un bug
-            listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: '', contenuCorrection: '' } // Un exercice vide pour l'exercice qui n'existe pas
-          })
-          .then(({ default: Exo }) => {
-            listeObjetsExercice[id] = new Exo() // Ajoute l'objet dans la liste des
-          })
-      )
+          import(/* webpackMode: "lazy" */ './exercices/' + path)
+            .catch((error) => {
+              console.log(error)
+              // FIXME si c'est effectivement un [i] et pas [id], mettre un commentaire ici pour dire pourquoi, car en survolant le code ça semble un bug
+              listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: '', contenuCorrection: '' } // Un exercice vide pour l'exercice qui n'existe pas
+            })
+            .then(({ default: Exo }) => {
+              listeObjetsExercice[id] = new Exo() // Ajoute l'objet dans la liste des
+            })
+        )
+      }
     }
     // FIXME ce promise.all est lancé avant que le chargement de l'exo ne soit fini (listeObjetsExercice n'est pas encore complété), et on sait pas qui va terminer en premier
     Promise.all(promises)
@@ -383,6 +410,10 @@ window.addEventListener('load', function () {
     // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
     $('input[name=encoded_snip]').val(encodeURIComponent(contenu_fichier))
+    if (listePackages.has('dnb')) {
+      // Force le passage à xelatex sur Overleaf pour les exercices de DNB
+      $('input[name=engine]').val('xelatex')
+    }
     if ($('#nom_du_fichier').val()) {
       $('input[name=snip_name]').val($('#nom_du_fichier').val()) // nomme le projet sur Overleaf
     }

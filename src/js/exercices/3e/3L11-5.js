@@ -10,11 +10,18 @@ export const interactifType = 'mathLive'
  * * Calcul mental autour des identités remarquables
  * * numéro de l'exo ex : 3L11-5
  * * publié le  14/11/2020
+ * * décliné en 2N41-1 => 07/10/2021
+ * * décliné en can2C04 => 08/10/2021
+ * * décliné en can2C05 => 10/10/2021
  * @author Sébastien Lozano
  */
 export default function identitesCalculs () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.debug = false
+  this.debug = false // pour avoir la correction et l'enoncé en même temps
+  this.can = false // pour décliner en version CAN
+  this.canVersion = '' // Pour distinguer les déclinaisons
+  // 'v1' Pour une version simple type 29² 31² ou 29x31, seulement 1 d'écart par rapport à la dizaine ou à la centaine
+  // 'v2' Pour une version type (30-2)² (30+2)² ou (30-2)x(30+2), écart par rapport à la dizaine ou à la centaine de 1 à 4
   this.sup = 1
   if (this.debug) {
     this.nbQuestions = 3
@@ -74,11 +81,19 @@ export default function identitesCalculs () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour gérer l'affichage sous forme de carré
       // a et b  sont les facteurs du produit, s'ils sont égaux on affiche sous forme de carré
-      function ifIsCarreAfficheCarre (a, b) {
-        if (a === b) {
-          return `${a}^2`
+      function ifIsCarreAfficheCarre (a, b, canV2 = false) {
+        if (!canV2) {
+          if (a === b) {
+            return `${a}^2`
+          } else {
+            return `${a}\\times ${b}`
+          }
         } else {
-          return `${a}\\times ${b}`
+          if (a === b) {
+            return `(${a})^2`
+          } else {
+            return `(${a})\\times (${b})`
+          }
         }
       }
 
@@ -92,9 +107,25 @@ export default function identitesCalculs () {
       };
 
       const a = randint(2, 9)
-      const bSomme = randint(1, 4)
-      const bDifference = randint(1, 4)
-      const bSomDif = randint(1, 9)
+      let bSomme, bDifference, bSomDif
+      if (!this.can) {
+        bSomme = randint(1, 4)
+        bDifference = randint(1, 4)
+        bSomDif = randint(1, 9)
+      } else {
+        switch (this.canVersion) {
+          case 'v1' :
+            bSomme = 1
+            bDifference = 1
+            bSomDif = 1
+            break
+          case 'v2' :
+            bSomme = randint(1, 4)
+            bDifference = randint(1, 4)
+            bSomDif = randint(1, 9)
+            break
+        }
+      }
       const coeff = choice([10, 100])
       const coeffSomDif = 100
       const signesSomDif = choice([[{ str: '-', nb: -1 }, { str: '+', nb: 1 }], [{ str: '+', nb: 1 }, { str: '-', nb: -1 }]])
@@ -182,83 +213,136 @@ export default function identitesCalculs () {
                     $${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre, `${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].termes_rectangles[0]}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].carre_de_b}$<br>
                     $${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre, `${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
                     $${situations[k].lettre} = ${situations[k].resultat}$            
-                `
+                `,
+          enonceCanV1: `$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb, situations[k].facteurs[1].nb)}=$`,
+          enonceCanV2: `$${ifIsCarreAfficheCarre(situations[k].facteurs[0].str, situations[k].facteurs[1].str, true)}=$`,
+          resultatCan: `${situations[k].resultatNumerique}`
+
         })
       };
 
       // autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
         case 0: // carré d'une somme
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction1}<br>${enonces[0].correction2}`
-            texteCorr = ''
-          } else {
-            if (context.isHtml) {
-              texteCorr = `${enonces[0].correction1}<br><br>${enonces[0].correction2}`
+          if (!this.can) {
+            texte = `${enonces[0].enonce}`
+            if (this.debug) {
+              texte += '<br>'
+              texte += `<br> =====CORRECTION======<br>${enonces[0].correction1}<br>${enonces[0].correction2}`
+              texteCorr = ''
             } else {
-              texteCorr = 'Détaillons deux méthodes : <br><br>'
-              texteCorr += '\\begin{minipage}{8cm}'
-              texteCorr += enonces[0].correction1
-              texteCorr += '\\end{minipage}'
-              texteCorr += '\\hfill \\vrule \\hfill'
-              texteCorr += '\\begin{minipage}{8cm}'
-              texteCorr += enonces[0].correction2
-              texteCorr += '\\end{minipage}'
-              texteCorr += '<br>'
+              if (context.isHtml) {
+                texteCorr = `${enonces[0].correction1}<br><br>${enonces[0].correction2}`
+              } else {
+                texteCorr = 'Détaillons deux méthodes : <br><br>'
+                texteCorr += '\\begin{minipage}{8cm}'
+                texteCorr += enonces[0].correction1
+                texteCorr += '\\end{minipage}'
+                texteCorr += '\\hfill \\vrule \\hfill'
+                texteCorr += '\\begin{minipage}{8cm}'
+                texteCorr += enonces[0].correction2
+                texteCorr += '\\end{minipage}'
+                texteCorr += '<br>'
+              };
             };
-          };
-          setReponse(this, i, situations[0].resultatNumerique)
+            setReponse(this, i, situations[0].resultatNumerique)
+          } else {
+            switch (this.canVersion) {
+              case 'v1' :
+                this.question = `${enonces[0].enonceCanV1}`
+                this.correction = `${enonces[0].correction1} <br><br> ${enonces[0].correction2}`
+                this.reponse = `${enonces[0].resultatCan}`
+                break
+              case 'v2' :
+                this.question = `${enonces[0].enonceCanV2}`
+                this.correction = `${enonces[0].correction1} <br><br> ${enonces[0].correction2}`
+                this.reponse = `${enonces[0].resultatCan}`
+                break
+            }
+          }
           break
         case 1: // carré d'une différence
-          texte = `${enonces[1].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[1].correction1}<br>${enonces[1].correction2}`
-            texteCorr = ''
-          } else {
-            if (context.isHtml) {
-              texteCorr = `${enonces[1].correction1}<br><br>${enonces[1].correction2}`
+          if (!this.can) {
+            texte = `${enonces[1].enonce}`
+            if (this.debug) {
+              texte += '<br>'
+              texte += `<br> =====CORRECTION======<br>${enonces[1].correction1}<br>${enonces[1].correction2}`
+              texteCorr = ''
             } else {
-              texteCorr = 'Détaillons deux méthodes : <br><br>'
-              texteCorr += '\\begin{minipage}{8cm}'
-              texteCorr += enonces[1].correction1
-              texteCorr += '\\end{minipage}'
-              texteCorr += '\\hfill \\vrule \\hfill'
-              texteCorr += '\\begin{minipage}{8cm}'
-              texteCorr += enonces[1].correction2
-              texteCorr += '\\end{minipage}'
-              texteCorr += '<br>'
+              if (context.isHtml) {
+                texteCorr = `${enonces[1].correction1}<br><br>${enonces[1].correction2}`
+              } else {
+                texteCorr = 'Détaillons deux méthodes : <br><br>'
+                texteCorr += '\\begin{minipage}{8cm}'
+                texteCorr += enonces[1].correction1
+                texteCorr += '\\end{minipage}'
+                texteCorr += '\\hfill \\vrule \\hfill'
+                texteCorr += '\\begin{minipage}{8cm}'
+                texteCorr += enonces[1].correction2
+                texteCorr += '\\end{minipage}'
+                texteCorr += '<br>'
+              };
             };
-          };
-          setReponse(this, i, situations[1].resultatNumerique)
+            setReponse(this, i, situations[1].resultatNumerique)
+          } else {
+            switch (this.canVersion) {
+              case 'v1' :
+                this.question = `${enonces[1].enonceCanV1}`
+                this.correction = `${enonces[1].correction1} <br><br> ${enonces[1].correction2}`
+                this.reponse = `${enonces[1].resultatCan}`
+                break
+              case 'v2' :
+                this.question = `${enonces[1].enonceCanV2}`
+                this.correction = `${enonces[1].correction1} <br><br> ${enonces[1].correction2}`
+                this.reponse = `${enonces[1].resultatCan}`
+                break
+            }
+          }
           break
         case 2: // Produit somme différence
-          texte = `${enonces[2].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[2].correction1}<br>${enonces[2].correction2}`
-            texteCorr = ''
-          } else {
-            if (context.isHtml) {
-              texteCorr = `${enonces[2].correction1}<br><br>${enonces[2].correction2}`
+          if (!this.can) {
+            texte = `${enonces[2].enonce}`
+            if (this.debug) {
+              texte += '<br>'
+              texte += `<br> =====CORRECTION======<br>${enonces[2].correction1}<br>${enonces[2].correction2}`
+              texteCorr = ''
             } else {
-              texteCorr = 'Détaillons deux méthodes : <br><br>'
-              texteCorr += '\\begin{minipage}{8cm}'
-              texteCorr += enonces[2].correction1
-              texteCorr += '\\end{minipage}'
-              texteCorr += '\\hfill \\vrule \\hfill'
-              texteCorr += '\\begin{minipage}{8cm}'
-              texteCorr += enonces[2].correction2
-              texteCorr += '\\end{minipage}'
-              texteCorr += '<br>'
+              if (context.isHtml) {
+                texteCorr = `${enonces[2].correction1}<br><br>${enonces[2].correction2}`
+              } else {
+                texteCorr = 'Détaillons deux méthodes : <br><br>'
+                texteCorr += '\\begin{minipage}{8cm}'
+                texteCorr += enonces[2].correction1
+                texteCorr += '\\end{minipage}'
+                texteCorr += '\\hfill \\vrule \\hfill'
+                texteCorr += '\\begin{minipage}{8cm}'
+                texteCorr += enonces[2].correction2
+                texteCorr += '\\end{minipage}'
+                texteCorr += '<br>'
+              };
             };
-          };
-          setReponse(this, i, situations[2].resultatNumerique)
+            setReponse(this, i, situations[2].resultatNumerique)
+          } else {
+            switch (this.canVersion) {
+              case 'v1' :
+                this.question = `${enonces[2].enonceCanV1}`
+                this.correction = `${enonces[2].correction1} <br><br> ${enonces[2].correction2}`
+                this.reponse = `${enonces[2].resultatCan}`
+                break
+              case 'v2' :
+                this.question = `${enonces[2].enonceCanV2}`
+                this.correction = `${enonces[2].correction1} <br><br> ${enonces[2].correction2}`
+                this.reponse = `${enonces[2].resultatCan}`
+                break
+            }
+          }
           break
       };
-      texte += ajouteChampTexteMathLive(this, i)
+      if (!this.can) {
+        texte += ajouteChampTexteMathLive(this, i)
+      } else {
+        // comment
+      }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         let mybool = false
         this.listeQuestions.forEach(elt => {
@@ -277,5 +361,4 @@ export default function identitesCalculs () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence\n4 : Mélange"]
-  // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
 }

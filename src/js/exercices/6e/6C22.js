@@ -23,7 +23,6 @@ export default function ProblemesDePlusEtDeMoins () {
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.interactif = true
   this.listePackages = 'bclogo'
 
   const nombreDecimales = function (n) {
@@ -79,11 +78,11 @@ export default function ProblemesDePlusEtDeMoins () {
           m = r - e
           somme = m + r
 
-          texte = `<br> ${prenom2} dit à ${prenom1}  : "J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de plus que toi."<br>`
+          texte = `${prenom2} dit à ${prenom1}  : « J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de plus que toi. »<br>`
           if (this.interactif && !context.isAmc) {
             texte += 'Combien d\'argent en tout possèdent les deux filles ?'
             texte += '<br>Les deux filles possèdent en tout : '
-            texte += ajouteChampTexte(this, i) + '  €'
+            texte += ajouteChampTexte(this, i) + '  €.'
             setReponse(this, i, somme)
           } else {
             texte += 'Combien d\'argent en euros possèdent en tout les deux filles ?<br>'
@@ -101,10 +100,10 @@ export default function ProblemesDePlusEtDeMoins () {
           m = r + e
           somme = m + r
 
-          texte = `<br> ${prenom2} dit à ${prenom1} : "J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de moins que toi."<br>`
+          texte = `${prenom2} dit à ${prenom1} : « J'ai ${texPrix(r)}€ soit ${texPrix(e)}€ de moins que toi. »<br>`
           if (this.interactif && !context.isAmc) {
             texte += 'Combien d\'argent en tout possèdent les deux filles ?<br>Les deux filles possèdent en tout :'
-            texte += ajouteChampTexte(this, i) + '  €'
+            texte += ajouteChampTexte(this, i) + '  €.'
             setReponse(this, i, somme)
           } else {
             texte += 'Combien d\'argent en euros possèdent en tout les deux filles ?<br>'
@@ -118,10 +117,6 @@ export default function ProblemesDePlusEtDeMoins () {
           texteCorr += texteEnCouleur(`<br>Les deux filles possèdent en tout : ${texPrix(somme)}€`)
 
           break
-      }
-      if (this.interactif) {
-        texte += '<br>Les deux filles possèdent en tout : '
-        texte += ajouteChampTexte(this, i) + '  €'
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
