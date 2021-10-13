@@ -621,6 +621,27 @@ export function enleveDoublonNum (arr, tolerance) {
   return arr
 }
 /**
+ * retourne un tableau dans lequel les doublons ont été supprimés s'il y en a MAIS SANS TRI
+ * @param {array} arr Tableau duquel ont veut supprimer les doublons numériques
+ * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
+ * @author Eric Elter d'après enleveDoublonNum
+ */
+export function enleveDoublonNum2 (arr, tolerance) {
+  let k = 0
+  while (k < arr.length - 1) {
+    let kk = k + 1
+    while (kk < arr.length - 1) {
+      if (egal(arr[k], arr[kk], tolerance)) {
+        arr[k] = calcul((arr[k] + arr[kk]) / 2) // On remplace la valeur dont on a trouvé un double par la moyenne des deux valeurs
+        arr.splice(kk, 1) // on supprime le doublon.
+      }
+      kk++
+    }
+    k++
+  }
+  return arr
+}
+/**
  * fonction qui retourne une chaine construite en concaténant les arguments
  * Le rôle de cette fonction est de construire un identifiant unique de question
  * afin de contrôler que l'aléatoire ne produit pas deux questions identiques.
@@ -2368,7 +2389,43 @@ export function nombrec2 (nb) {
 }
 
 /**
- * Renvoie un espace insécable pour le mode texte suivant la sorite html ou Latex.
+* Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
+* Avec espace géré par nbsp en HTML pour pouvoir l'inclure dans une phrase formatée en français et pas seulement un calcul.
+* Modif EE pour la gestion de l'espace dans un texte non mathématique
+* @author Eric Elter d'après la fonction de Rémi Angot
+* Rajout Octobre 2021 pour 6C14
+*/
+export function texNombre3 (nb) {
+  let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
+  const rangVirgule = nombre.indexOf(',')
+  let partieEntiere = ''
+  if (rangVirgule !== -1) {
+    partieEntiere = nombre.substring(0, rangVirgule)
+  } else {
+    partieEntiere = nombre
+  }
+  let partieDecimale = ''
+  if (rangVirgule !== -1) {
+    partieDecimale = nombre.substring(rangVirgule + 1)
+  }
+
+  for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
+    partieEntiere = partieEntiere.substring(0, i) + sp() + partieEntiere.substring(i)
+  }
+  for (let i = 3; i <= partieDecimale.length; i += 3) {
+    partieDecimale = partieDecimale.substring(0, i) + sp() + partieDecimale.substring(i)
+    i += 12
+  }
+  if (partieDecimale === '') {
+    nombre = partieEntiere
+  } else {
+    nombre = partieEntiere + ',' + partieDecimale
+  }
+  return nombre
+}
+
+/**
+ * Renvoie un espace insécable pour le mode texte suivant la sortie html ou Latex.
  * @author Jean-Claude Lhote
  */
 export function sp (nb = 1) {
@@ -3793,7 +3850,7 @@ export function numAlpha (k) {
   'use strict'
   if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + ') &nbsp;</span>'
   // else return '\\textcolor [HTML] {f15929} {'+String.fromCharCode(97+k)+'/}';
-  else return '\\textbf {' + String.fromCharCode(97 + k) + '.}'
+  else return '\\textbf {' + String.fromCharCode(97 + k) + '.} '
 }
 
 /**
@@ -7534,7 +7591,7 @@ export function exportQcmAmc (exercice, idExo) {
                   lastchoice = prop.options.lastChoice
                 }
               }
-
+              // texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
               texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
               if (propositions[0].reponse !== undefined) {
                 if (propositions[0].reponse.texte) {
@@ -7577,6 +7634,7 @@ export function exportQcmAmc (exercice, idExo) {
                   lastchoice = prop.options.lastChoice
                 }
               }
+              // texQr += `\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
               texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
               texQr += `\t\\begin{${horizontalite}}`
               if (ordered) {
@@ -7610,6 +7668,7 @@ export function exportQcmAmc (exercice, idExo) {
                   rep.param.decimals = 0
                 }
               }
+              // texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
               texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
               if (propositions !== undefined) {
                 texQr += `\\explain{${propositions[0].texte}}\n`
@@ -7636,7 +7695,9 @@ export function exportQcmAmc (exercice, idExo) {
               id++
               break
             case 'AMCOpen':
+              // texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
               texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+              if (!(propositions[0].enonce === undefined)) texQr += `\t${propositions[0].enonce}\n`
               texQr += `\t\t\\explain{${propositions[0].texte}}\n`
               texQr += `\t\t\\notation{${propositions[0].statut}}\n` // le statut contiendra le nombre de lignes pour ce type
               texQr += '\t\\end{question}\n'
