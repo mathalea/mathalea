@@ -113,11 +113,11 @@ export default function QuestionsPrix () {
       let alignementAMC
       let sanscadreAMC
       const enonceAMCInit = `${quidame} repère des ${ArticlePluriel} dans un magazine de publicité à $${texNombre3(PrixUnitaire)}$${sp()}€ l'unité.<br>`
-      texte = enonceAMCInit + '<br>'
+      texte = enonceAMCInit + '<br><br>'
       texteCorr = ''
       correctionAMC = ''
       for (let kk = 0; kk < QuestionsDisponibles.length; kk++) {
-        if (QuestionsDisponibles.length > 1 & !context.isAmc) { // Si une seule question ou si pas AMC, pas besoin de puces numerotees
+        if (QuestionsDisponibles.length > 1) { // Si une seule question ou si pas AMC, pas besoin de puces numerotees
           enonceAMC = numAlpha(kk)
           correctionAMC = numAlpha(kk)
         } else {
@@ -208,12 +208,13 @@ export default function QuestionsPrix () {
           texte += enonceAMC
           texteCorr += correctionAMC
         }
-        // enonceAMC += 'yoyo'
+        // enonceAMC
         if (this.interactif && !context.isAmc) {
           texte += ajouteChampTexteMathLive(this, 8 * i + kk, 'inline largeur25') + '<br><br>'
           setReponse(this, 8 * i + kk, reponseAMC)
         }
         if (context.isAmc) {
+          if (kk === 0) enonceAMC = enonceAMCInit + enonceAMC
           enonceAMC += this.sup4 === 1 ? 'Code la réponse en noircissant les bonnes cases.' : this.sup4 === 2 ? 'Indique, tout d\'abord, le calcul et effectue-le de tête ou bien posé dans le cadre ci-dessous.' : 'Indique tout d\'abord, ci-dessous, le calcul et effectue-le de tête ou bien posé sur cette feuille. Puis code la réponse en noircissant les bonnes cases.'
           digitAMC = this.sup3 ? 4 : 6
           decimalesAMC = this.sup3 ? 0 : 2
@@ -267,7 +268,6 @@ export default function QuestionsPrix () {
       if (this.questionJamaisPosee(i, PrixUnitaire)) {
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            enonce: enonceAMCInit,
             propositions: propositionsAMC
           }
         }

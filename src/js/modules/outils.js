@@ -7561,7 +7561,9 @@ export function exportQcmAmc (exercice, idExo) {
           break
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
-        texQr += `${autoCorrection[j].enonce} \\\\\n`
+        if (!exercice.autoCorrection[j].enonce === '') { // Dans une suite de questions, il se peut qu'il n'y ait pas d'énoncé général donc pas besoin de saut de ligne non plus.
+          texQr += `${autoCorrection[j].enonce} \\\\\n `
+        }
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicols) {
             texQr += '\\begin{multicols}{2}\n'
@@ -7674,11 +7676,9 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `\\explain{${propositions[0].texte}}\n`
               }
               texQr += `${rep.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
-              texQr += '\\begin{'
               if (!(propositions[0].alignement === undefined)) {
+                texQr += '\\begin{'
                 texQr += `${propositions[0].alignement}}`
-              } else {
-                texQr += 'flushright}'
               }
               texQr += `\\AMCnumericChoices{${rep.valeur}}{digits=${rep.param.digits},decimals=${rep.param.decimals},sign=${rep.param.signe},`
               if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
@@ -7697,11 +7697,9 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `vhead=${rep.param.vhead},`
               }
               texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
-              texQr += '\\end{'
               if (!(propositions[0].alignement === undefined)) {
+                texQr += '\\end{'
                 texQr += `${propositions[0].alignement}}`
-              } else {
-                texQr += 'flushright}'
               }
               texQr += '\\end{questionmultx}\n'
               id++
