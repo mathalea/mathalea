@@ -289,6 +289,7 @@ export async function initDom () {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
+    document.getElementById('boutonsConnexion').appendChild(boutonMAJ())
     const menuEval = addElement(section, 'div', { id: 'menuEval' })
     addElement(section, 'div', { id: 'containerErreur' })
     const divTimer = addElement(section, 'div', { id: 'timer' })
