@@ -69,13 +69,13 @@ export default function QuestionsMasses () {
       let AutrePrix
       let PrixReduction
       if (this.sup3) {
-        PrixUnitaire = arrondi(TabPrixUnitaire[0], 0)
+        PrixUnitaire = choice(rangeMinMax(2, 9))
         AutrePrix = arrondi(10 * TabAutrePrix[0] + TabAutrePrix[1], 0)
-        PrixReduction = arrondi(choice(rangeMinMax(5, arrondi(PrixUnitaire / 2, 0)), 0))
+        PrixReduction = arrondi(choice(rangeMinMax(1, arrondi(PrixUnitaire / 2, 0)), 0))
       } else {
         PrixUnitaire = arrondi(TabPrixUnitaire[0] + 0.1 * TabPrixUnitaire[1] + 0.01 * TabPrixUnitaire[2])
         AutrePrix = arrondi(10 * choice([1, 2]) + TabAutrePrix[0] + 0.1 * TabAutrePrix[1] + 0.01 * TabAutrePrix[2])
-        PrixReduction = arrondi(choice(rangeMinMax(101, arrondi(50 * PrixUnitaire, 0))) / 100, 2)
+        PrixReduction = arrondi(choice(rangeMinMax(50, arrondi(50 * PrixUnitaire, 0))) / 100, 2)
       }
       const quidame = prenomF()
       const FamilleH = ['père', 'frère', 'cousin', 'grand-père', 'oncle', 'voisin']
@@ -110,14 +110,15 @@ export default function QuestionsMasses () {
       texteCorr = ''
       correctionAMC = ''
       for (let kk = 0; kk < QuestionsDisponibles.length; kk++) {
-        if (QuestionsDisponibles.length > 1 & !context.isAmc) { // Si une seule question ou si pas AMC, pas besoin de puces numerotees
+        if (QuestionsDisponibles.length > 1) { // Si une seule question, pas besoin de puces numerotees
           enonceAMC = numAlpha(kk)
           correctionAMC = numAlpha(kk)
         } else {
-          enonceAMC[1] = ''
+          enonceAMC = ''
           correctionAMC += ''
         }
         lignesAMC = 3
+        digitAMC = this.sup3 ? 2 : 4
         switch (QuestionsDisponibles[kk]) {
           case 1:
             enonceAMC += `Quel serait le prix de $${DixOuCent}$ kilogrammes de ${ArticlePluriel}${sp()}?<br><br>`
@@ -125,6 +126,7 @@ export default function QuestionsMasses () {
             correctionAMC += ` $${DixOuCent} \\times ${texNombre3(PrixUnitaire)} = ${texNombre3(reponseAMC)}$<br>`
             correctionAMC += `Le prix de $${DixOuCent}$ kilogrammes de ${ArticlePluriel} serait de ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             lignesAMC = 1
+            if (DixOuCent === 100) digitAMC++
             break
           case 2:
             enonceAMC += `Quel serait le prix de $${NbArticles}$ kilogrammes de ${ArticlePluriel}${sp()}?<br><br>`
@@ -199,14 +201,13 @@ export default function QuestionsMasses () {
           texte += enonceAMC
           texteCorr += correctionAMC
         }
-        // enonceAMC += 'yoyo'
         if (this.interactif && !context.isAmc) {
           texte += ajouteChampTexteMathLive(this, 8 * i + kk, 'inline largeur25') + '<br><br>'
           setReponse(this, 8 * i + kk, reponseAMC)
         }
         if (context.isAmc) {
+          if (kk === 0) enonceAMC = enonceAMCInit + enonceAMC
           enonceAMC += this.sup4 === 1 ? 'Code la réponse en noircissant les bonnes cases.' : this.sup4 === 2 ? 'Indique, tout d\'abord, le calcul et effectue-le de tête ou bien posé dans le cadre ci-dessous.' : 'Indique tout d\'abord, ci-dessous, le calcul et effectue-le de tête ou bien posé sur cette feuille. Puis code la réponse en noircissant les bonnes cases.'
-          digitAMC = this.sup3 ? 4 : 6
           decimalesAMC = this.sup3 ? 0 : 2
           alignementAMC = this.sup4 === 1 ? 'center' : 'flushright'
           sanscadreAMC = !(this.sup4 === 2)
@@ -258,8 +259,8 @@ export default function QuestionsMasses () {
       if (this.questionJamaisPosee(i, PrixUnitaire)) {
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            enonce: enonceAMCInit,
-            propositions: propositionsAMC
+            propositions: propositionsAMC,
+            enonceAvant: false
           }
         }
         // Si la question n'a jamais été posée, on en crée une autre

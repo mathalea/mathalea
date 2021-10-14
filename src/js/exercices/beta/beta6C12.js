@@ -113,20 +113,19 @@ export default function QuestionsPrix () {
       let alignementAMC
       let sanscadreAMC
       const enonceAMCInit = `${quidame} repère des ${ArticlePluriel} dans un magazine de publicité à $${texNombre3(PrixUnitaire)}$${sp()}€ l'unité.<br>`
-      texte = enonceAMCInit + '<br><br>'
+      texte = enonceAMCInit + '<br>'
       texteCorr = ''
       correctionAMC = ''
       for (let kk = 0; kk < QuestionsDisponibles.length; kk++) {
-        if (QuestionsDisponibles.length > 1) { // Si une seule question ou si pas AMC, pas besoin de puces numerotees
+        if (QuestionsDisponibles.length > 1) { // Si une seule question, pas besoin de puces numerotees
           enonceAMC = numAlpha(kk)
           correctionAMC = numAlpha(kk)
         } else {
           enonceAMC = ''
           correctionAMC += ''
         }
-        console.log(QuestionsDisponibles.length)
-        console.log(enonceAMC)
         lignesAMC = 3
+        digitAMC = this.sup3 ? 3 : 5
         switch (QuestionsDisponibles[kk]) {
           case 1:
             enonceAMC += `Quel serait le prix de $${DixOuCent}$ ${ArticlePluriel}${sp()}?<br><br>`
@@ -134,6 +133,7 @@ export default function QuestionsPrix () {
             correctionAMC += ` $${DixOuCent} \\times ${texNombre3(PrixUnitaire)} = ${texNombre3(reponseAMC)}$<br>`
             correctionAMC += `Le prix de $${DixOuCent}$ ${ArticlePluriel} serait de ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             lignesAMC = 1
+            if (DixOuCent === 100) digitAMC++
             break
           case 2:
             enonceAMC += `Quel serait le prix de $${NbArticles}$ ${ArticlePluriel}${sp()}?<br><br>`
@@ -208,7 +208,6 @@ export default function QuestionsPrix () {
           texte += enonceAMC
           texteCorr += correctionAMC
         }
-        // enonceAMC
         if (this.interactif && !context.isAmc) {
           texte += ajouteChampTexteMathLive(this, 8 * i + kk, 'inline largeur25') + '<br><br>'
           setReponse(this, 8 * i + kk, reponseAMC)
@@ -216,7 +215,6 @@ export default function QuestionsPrix () {
         if (context.isAmc) {
           if (kk === 0) enonceAMC = enonceAMCInit + enonceAMC
           enonceAMC += this.sup4 === 1 ? 'Code la réponse en noircissant les bonnes cases.' : this.sup4 === 2 ? 'Indique, tout d\'abord, le calcul et effectue-le de tête ou bien posé dans le cadre ci-dessous.' : 'Indique tout d\'abord, ci-dessous, le calcul et effectue-le de tête ou bien posé sur cette feuille. Puis code la réponse en noircissant les bonnes cases.'
-          digitAMC = this.sup3 ? 4 : 6
           decimalesAMC = this.sup3 ? 0 : 2
           alignementAMC = this.sup4 === 1 ? 'center' : 'flushright'
           sanscadreAMC = !(this.sup4 === 2)
