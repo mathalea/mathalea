@@ -268,7 +268,8 @@ export default function QuestionsPrix () {
       if (this.questionJamaisPosee(i, PrixUnitaire)) {
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            propositions: propositionsAMC
+            propositions: propositionsAMC,
+            enonceAvant: false
           }
         }
         // Si la question n'a jamais été posée, on en crée une autre
