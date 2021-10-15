@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombrec, calcul } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Décomposer un nombre décimal (nombre de..., chiffre de..., partie entière, partie décimale)'
+export const titre = 'Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale)'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
