@@ -7,6 +7,6 @@ export const titre = 'Construire le symétrique d’un point par symétrie centr
  */
 export default function SymetrieCentralePoint () {
   ConstruireParSymetrie.call(this)
-  this.figure = true
+  this.figure = false
   this.sup = 2
 }

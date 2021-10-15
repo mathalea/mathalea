@@ -210,9 +210,6 @@
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
-|betaCAN2Q22-01|Coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
-|betaCAN2Q22-02|Coordonnées point d’intersection axe des abscisses/droite|KO|KO|OK|mathLive|
-|betaCAN2Q22-03|Coordonnées point d’intersection axe des ordonnées/droite|KO|KO|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
@@ -237,6 +234,9 @@
 |can2G04|Calculs des coordonnées du milieu|KO|KO|OK|mathLive|
 |can2G05|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
 |can2L01|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
+|can2L02|Coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
+|can2L03|Coordonnées point d’intersection axe des abscisses/droite|KO|KO|OK|mathLive|
+|can2L04|Coordonnées point d’intersection axe des ordonnées/droite|KO|KO|OK|mathLive|
 |can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
 |can2P02|Dénombrement|KO|KO|OK|mathLive|
 |can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|

@@ -1,6 +1,6 @@
-import Exercice from '../Exercice.js'
-import { randint, sp, listeQuestionsToContenuSansNumero, reduireAxPlusB, texFractionReduite } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import Exercice from '../../Exercice.js'
+import { randint, sp, listeQuestionsToContenuSansNumero, reduireAxPlusB, texFractionReduite } from '../../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Coordonnées point d’intersection axe des abscisses/droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,8 +23,8 @@ export default function CoordonneesPointIntersectionAxeAbscissesDroite () {
     const b = n * a
     this.listeQuestions = [` Les coordonnées du point d'intersection 
     entre la droite d'équation $y=${reduireAxPlusB(a, b)}$ et l'axe des abscisses sont : <br><br>
-    <center>$\\Bigg($ ${ajouteChampTexteMathLive(this, 0, 'largeur10 inline')} ${sp(2)} ;
-    ${ajouteChampTexteMathLive(this, 1, 'largeur10 inline')}${sp(2)}$\\Bigg)$`]
+    <center>$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(20)} ;
+    ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(20)} $\\Bigg)$`]
     this.listeCorrections = [`L'ordonnée de ce point est $0$ puisque le point d'intersection se situe sur l'axe des abscisses.<br>
       Son abscisse est donc donnée par la solution de l'équation  $${reduireAxPlusB(a, b)}=0$, c'est-à-dire $x=${texFractionReduite(-b, a)}$.
     <br>Les coordonnées de ce   point sont donc : $(${texFractionReduite(-b, a)};0)$.`]
