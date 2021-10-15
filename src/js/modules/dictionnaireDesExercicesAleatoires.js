@@ -3746,6 +3746,17 @@ export default {
     "interactifType": "mathLive",
     "name": "beta6C12"
   },
+  "beta6N10-2": {
+    "titre": "Décomposer un nombre décimal (nombre de..., chiffre de...)",
+    "url": "/exercices/6e/beta6N10-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta6N10-2"
+  },
   "beta1N10_intercatif": {
     "titre": "Nombre pair multiplié par 5",
     "url": "/exercices/beta/beta1N10_intercatif.js",
@@ -3903,22 +3914,6 @@ export default {
       "mathLive"
     ],
     "name": "betaCan2G01"
-  },
-  "betaCAN5C16": {
-    "titre": "Recherche un nombre à ajouter",
-    "url": "/exercices/beta/betaCAN5C16.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN5C16"
-  },
-  "betaCAN6M09": {
-    "titre": "Périmètre carré et rectangle",
-    "url": "/exercices/beta/betaCAN6M09.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN6M09"
   },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
