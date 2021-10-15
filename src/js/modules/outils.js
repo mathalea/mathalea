@@ -7561,7 +7561,9 @@ export function exportQcmAmc (exercice, idExo) {
           break
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
-        texQr += `${autoCorrection[j].enonce} \\\\\n`
+        if (autoCorrection[j].enonceAvant === undefined) { // Dans une suite de questions, il se peut qu'il n'y ait pas d'énoncé général donc pas besoin de saut de ligne non plus.
+          texQr += `${autoCorrection[j].enonce} \\\\\n `
+        }
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicols) {
             texQr += '\\begin{multicols}{2}\n'
@@ -7674,6 +7676,10 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `\\explain{${propositions[0].texte}}\n`
               }
               texQr += `${rep.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+              if (!(propositions[0].alignement === undefined)) {
+                texQr += '\\begin{'
+                texQr += `${propositions[0].alignement}}`
+              }
               texQr += `\\AMCnumericChoices{${rep.valeur}}{digits=${rep.param.digits},decimals=${rep.param.decimals},sign=${rep.param.signe},`
               if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
                 texQr += `exponent=${rep.param.exposantNbChiffres},exposign=${rep.param.exposantSigne},`
@@ -7691,6 +7697,10 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `vhead=${rep.param.vhead},`
               }
               texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+              if (!(propositions[0].alignement === undefined)) {
+                texQr += '\\end{'
+                texQr += `${propositions[0].alignement}}`
+              }
               texQr += '\\end{questionmultx}\n'
               id++
               break
@@ -7699,7 +7709,11 @@ export function exportQcmAmc (exercice, idExo) {
               texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
               if (!(propositions[0].enonce === undefined)) texQr += `\t${propositions[0].enonce}\n`
               texQr += `\t\t\\explain{${propositions[0].texte}}\n`
-              texQr += `\t\t\\notation{${propositions[0].statut}}\n` // le statut contiendra le nombre de lignes pour ce type
+              texQr += `\t\t\\notation{${propositions[0].statut}}`
+              if (!(isNaN(propositions[0].sanscadre))) {
+                texQr += `[${propositions[0].sanscadre}]` // le statut contiendra le nombre de lignes pour ce type
+              }
+              texQr += '\n' // le statut contiendra le nombre de lignes pour ce type
               texQr += '\t\\end{question}\n'
               id++
               break
