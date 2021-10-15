@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 300 
-- nombre d'exos interactifReady 366 
+- nombre d'exos amcReady 304 
+- nombre d'exos interactifReady 370 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -141,6 +141,7 @@
 |6C30|Multiplications posées de nombres décimaux|OK|AMCNum|OK|numerique|
 |6C31-2|Donner des valeurs approchées d’un quotient décimal|KO|KO|OK|mathLive|
 |6C31|Divisions décimales|OK|AMCNum|OK|numerique|
+|6C32|Problème - Les courses|OK|AMCNum|OK|mathLive|
 |6C33|Calculer en utilisant les priorités opératoires|OK|AMCNum|OK|numerique|
 |6C34|Dernier chiffre d’un calcul|OK|AMCNum|OK|numerique|
 |6D101|Utiliser les heures décimales|OK|AMCHybride|OK|mathLive|
@@ -204,12 +205,15 @@
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
-|beta6C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |beta6N10-2|Décomposer un nombre décimal (nombre de..., chiffre de...)|OK|AMCNum|OK|mathLive|
 |beta1N10_intercatif|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
+|beta6C12-1|Résoudre des problèmes de masses|OK|AMCHybride|OK|mathLive|
+|beta6C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
+|betac3C12-1|Résoudre des problèmes de masses|OK|AMCHybride|OK|mathLive|
+|betac3C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
