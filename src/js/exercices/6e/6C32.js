@@ -1,8 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, calcul, choice, arrondiVirgule, texNombre, texPrix } from '../../modules/outils.js'
+import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Problème - Les courses'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * On achète 2 aliments dont on connait la masse (un en grammes et l'autre en kilogrammes) et le prix au kilogramme. Il faut calculer le prix total.
@@ -123,6 +126,17 @@ export default function ProblemeCourse () {
       )}~\\text{\\euro}$<br>`
     }
 
+    // Pour tolérer l'écriture d'un somme avec des centimes, par exemple 54,1 € ou 54,10 €
+    const reponse = arrondiVirgule(calcul(
+      masseEnKgDeAliment1 * prixAliment1 +
+      (masseEnGdeAliment2 * prixAliment2) / 1000
+    ))
+    const reponses = [reponse, `${reponse}0`]
+
+    setReponse(this, 1, reponses)
+    if (this.interactif) {
+      texte += `<br> ${ajouteChampTexteMathLive(this, 1, 'largeur20 inline', { texteApres: ' €', texte: 'Le prix total à payer sera de ' })}`
+    }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
 
