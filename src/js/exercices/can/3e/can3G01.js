@@ -15,7 +15,7 @@ export default function AgrandissementReduction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c
     switch (choice(['a', 'b', 'c', 'c'])) {
@@ -27,7 +27,7 @@ export default function AgrandissementReduction () {
         `
         this.optionsChampTexte = { texteApres: '' }
         this.reponse = a * a
-        this.correction = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$, soit ici par $${b}=${a ** 2}$.<br>
+        this.correction = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$, soit ici par $${a}^2=${a ** 2}$.<br>
         `
         break
       case 'b':
@@ -42,7 +42,7 @@ export default function AgrandissementReduction () {
         `
         break
       case 'c':
-        a = randint(2, 7)// aire
+        a = randint(2, 4)// aire
         c = randint(2, 4)// coefficient
 
         this.question = `Les longueurs d'un rectangle de $${a}$ cm$^2$  sont multipliées par $${c}$.<br>

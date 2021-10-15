@@ -11,13 +11,13 @@ export const interactifType = 'mathLive'
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  * Référence can2F02
- * Date de publication sptembre 2021
+ * Date de publication septembre 2021
 */
 export default function CalculImageQuotient () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.interactif = true
-  this.formatChampTexte = 'largeur25 inline'
+  this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 

@@ -3735,6 +3735,28 @@ export default {
     "interactifReady": false,
     "name": "6S11"
   },
+  "beta6C12": {
+    "titre": "Résoudre des problèmes de prix",
+    "url": "/exercices/6e/beta6C12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta6C12"
+  },
+  "beta6N10-2": {
+    "titre": "Décomposer un nombre décimal (nombre de..., chiffre de...)",
+    "url": "/exercices/6e/beta6N10-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta6N10-2"
+  },
   "beta1N10_intercatif": {
     "titre": "Nombre pair multiplié par 5",
     "url": "/exercices/beta/beta1N10_intercatif.js",

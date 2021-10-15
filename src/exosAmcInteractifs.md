@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 298 
-- nombre d'exos interactifReady 367 
+- nombre d'exos amcReady 300 
+- nombre d'exos interactifReady 366 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -204,6 +204,8 @@
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
+|beta6C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
+|beta6N10-2|Décomposer un nombre décimal (nombre de..., chiffre de...)|OK|AMCNum|OK|mathLive|
 |beta1N10_intercatif|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
