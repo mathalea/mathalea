@@ -90,7 +90,10 @@ this.autoCorrection = [
       { 
         texte: 'Ce qui apparaitra sur le corrigé',
         statut: 3 // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-        feedback: ''
+        feedback: '',
+        enonce: 'Texte écrit au dessus ou avant les cases à cocher' // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+        sanscadre : false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+    
       }
     ]
   }
@@ -107,11 +110,12 @@ this.autoCorrection[i] = {
       texte: 'ce qui est affiché dans le corrigé AMC',
       statut: nombreDeRéponsesNumériques,
       feedback: ''
-    }
+      }
   ],
     reponse: {
       texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
       valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
+      alignement: 'flushleft' // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte pqui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
       param: {
         digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
         decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
@@ -128,14 +132,16 @@ this.autoCorrection[i] = {
 ```js
 this.autoCorrection[i] = {
   enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
+  enonceAvant: true, //EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de la question. 
   propositions: [
     {
       type: type1, // on donne le type de la première question-réponse qcmMono, qcmMult, Num...
       propositions : [ // une ou plusieures(Qcms) 'propositions'
         {
-          texte: // la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm ,
-          statut: // true au false(Qcms) ,
+          texte: // Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm ,
+          statut: // true au false(Qcms)
           feedback: ''
+
         }
       ],
       reponse: { // utilisé si type = 'Num'
