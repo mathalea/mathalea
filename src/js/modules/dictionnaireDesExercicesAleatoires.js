@@ -2693,8 +2693,12 @@ export default {
   "6C32": {
     "titre": "Problème - Les courses",
     "url": "/exercices/6e/6C32.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6C32"
   },
   "6C33": {
@@ -3735,17 +3739,6 @@ export default {
     "interactifReady": false,
     "name": "6S11"
   },
-  "beta6C12": {
-    "titre": "Résoudre des problèmes de prix",
-    "url": "/exercices/6e/beta6C12.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "beta6C12"
-  },
   "beta6N10-2": {
     "titre": "Décomposer un nombre décimal (nombre de..., chiffre de...)",
     "url": "/exercices/6e/beta6N10-2.js",
@@ -3846,6 +3839,28 @@ export default {
     "interactifReady": false,
     "name": "beta4G20-4"
   },
+  "beta6C12-1": {
+    "titre": "Résoudre des problèmes de masses",
+    "url": "/exercices/beta/beta6C12-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta6C12-1"
+  },
+  "beta6C12": {
+    "titre": "Résoudre des problèmes de prix",
+    "url": "/exercices/beta/beta6C12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta6C12"
+  },
   "beta6C33-1": {
     "titre": "Parenthèses manquantes",
     "url": "/exercices/beta/beta6C33-1.js",
@@ -3889,6 +3904,28 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaAsymptotesObliques"
+  },
+  "betac3C12-1": {
+    "titre": "Résoudre des problèmes de masses",
+    "url": "/exercices/beta/betac3C12-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betac3C12-1"
+  },
+  "betac3C12": {
+    "titre": "Résoudre des problèmes de prix",
+    "url": "/exercices/beta/betac3C12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betac3C12"
   },
   "betaCan2": {
     "titre": "Course aux nombres seconde",
