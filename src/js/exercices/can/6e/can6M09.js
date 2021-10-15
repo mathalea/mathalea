@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { calcul, choice, randint, texNombrec } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { calcul, choice, randint, texNombrec } from '../../../modules/outils.js'
 export const titre = 'Périmètre carré et rectangle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,11 +33,11 @@ export default function PerimetreCarreRectangle () {
       case 'b':
         a = randint(4, 7) * 2
         b = randint(1, a - 1)
-        this.question = `Le périmètre d'un rectangle de largeur $${a}$ cm est $${(a + b) * 2}$ cm.<br>Quelle est sa longueur ?
+        this.question = `Le périmètre d'un rectangle de largeur $${b}$ cm est $${(a + b) * 2}$ cm.<br>Quelle est sa longueur ?
             `
-        this.correction = `Si on note $L$ la longueur du rectangle, <b>le demi-périmètre</b> de ce rectangle est $${a}+L=\\dfrac{${(a + b) * 2}}{2}=${a + b}$ cm. 
-        <br>Donc $L=${b}$ cm.`
-        this.reponse = b
+        this.correction = `Si on note $L$ la longueur du rectangle, <b>le demi-périmètre</b> de ce rectangle est $${b}+L=\\dfrac{${(a + b) * 2}}{2}=${a + b}$ cm. 
+        <br>Donc $L=${a}$ cm.`
+        this.reponse = a
         break
     }
   }

@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, ecritureParentheseSiNegatif, texteEnCouleur, calcul, abs } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, ecritureParentheseSiNegatif, texteEnCouleur, calcul, abs } from '../../../modules/outils.js'
 export const titre = 'Recherche un nombre à ajouter'
 export const interactifReady = true
 export const interactifType = 'mathLive'
