@@ -1,11 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, calcul, choice, arrondiVirgule, texNombre, texPrix } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, calcul, choice, arrondiVirgule, texNombre, texPrix, arrondi } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Problème - Les courses'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 /**
  * On achète 2 aliments dont on connait la masse (un en grammes et l'autre en kilogrammes) et le prix au kilogramme. Il faut calculer le prix total.
@@ -133,9 +135,14 @@ export default function ProblemeCourse () {
     ))
     const reponses = [reponse, `${reponse}0`]
 
-    setReponse(this, 1, reponses)
+    setReponse(this, 0, reponses)
+    if (context.isAmc) {
+      this.autoCorrection[0].reponse.valeur[0] = arrondi(masseEnKgDeAliment1 * prixAliment1 + (masseEnGdeAliment2 * prixAliment2) / 1000, 2)
+      this.autoCorrection[0].reponse.param.digits = 5
+      this.autoCorrection[0].reponse.param.decimals = 2
+    }
     if (this.interactif) {
-      texte += `<br> ${ajouteChampTexteMathLive(this, 1, 'largeur20 inline', { texteApres: ' €', texte: 'Le prix total à payer sera de ' })}`
+      texte += `<br> ${ajouteChampTexteMathLive(this, 0, 'largeur20 inline', { texteApres: ' €', texte: 'Le prix total à payer sera de ' })}`
     }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
