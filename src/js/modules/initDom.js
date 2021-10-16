@@ -190,6 +190,8 @@ export async function initDom () {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
+    // On ajoute temporairement le bouton "Nouvelles Données" à la vue eval en attendant la modale de paramétrage
+    document.getElementById('boutonsConnexion').appendChild(boutonMAJ())
     const menuEval = addElement(section, 'div', { id: 'menuEval' })
     addElement(section, 'div', { id: 'containerErreur' })
     addElement(section, 'div', { id: 'timer' })
@@ -289,6 +291,7 @@ export async function initDom () {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
+    // On ajoute temporairement le bouton "Nouvelles Données" à la vue can en attendant la modale de paramétrage
     document.getElementById('boutonsConnexion').appendChild(boutonMAJ())
     const menuEval = addElement(section, 'div', { id: 'menuEval' })
     addElement(section, 'div', { id: 'containerErreur' })
