@@ -331,7 +331,7 @@ export default function Priorites () {
         if (context.isAmc) {
           this.autoCorrection[i].enonce = texte.substring(0, texte.length - 1) + '~=$'
           this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
-          this.autoCorrection[i].reponse.param.digits = nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur) + 1
+          this.autoCorrection[i].reponse.param.digits = nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur[0]) + 1
           this.autoCorrection[i].reponse.param.decimals = 0
         }
         // Si la question n'a jamais été posée, on en crée une autre
