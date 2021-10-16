@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ecritureNombreRelatif, ecritureAlgebrique, combinaisonListes } from '../../modules/outils.js'
 
 export const titre = 'Simplifier l’écriture d’une somme de 2 relatifs et calculer'
 
@@ -9,6 +9,7 @@ export const titre = 'Simplifier l’écriture d’une somme de 2 relatifs et ca
 * On peut paramétrer les distances à zéro qui sont par défaut inférieures à 20
 * @author Rémi Angot
 * 5R22-2
+* Rendu les différentes situations équiprobables le 16/10/2021 par Guillaume Valmont
 */
 export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -20,10 +21,12 @@ export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    let liste = [[-1, -1, -1], [-1, -1, 1], [-1, 1, -1], [-1, 1, 1], [1, -1, -1], [1, -1, 1], [1, 1, -1], [1, 1, 1]]
+    liste = combinaisonListes(liste, this.nbQuestions)
     for (let i = 0, a, b, s, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
-      a = randint(1, this.sup) * choice([-1, 1])
-      b = randint(1, this.sup) * choice([-1, 1])
-      s = choice([-1, 1]) // + ou -
+      a = randint(1, this.sup) * liste[i][0]
+      b = randint(1, this.sup) * liste[i][1]
+      s = liste[i][2] // + ou -
 
       if (s === 1) {
         texte = '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + ' = \\dotfill $'
