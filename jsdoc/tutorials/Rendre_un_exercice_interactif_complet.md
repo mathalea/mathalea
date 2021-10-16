@@ -305,8 +305,9 @@ Supposons qu'on nomme cet autre compteur `j`.
 Au lieu de faire `setReponse(this, i, maRéponse)` et `texte += ajouteChampTexteMathLive(this, i)`, il suffit de faire `setReponse(this, j, maRéponse)` et `texte += ajouteChampTexteMathLive(this, j)`
 
 Le soucis, c'est que pour l'instant chaque formulaire rapporte un point au niveau du score. Il y aura donc des questions à 2 points et d'autres à 1 point.
-## <a id="11" href="#11">#</a> Remarque  :
-Pour une compatibilité entre les exercices interactifs en ligne et AMC,
+## <a id="11" href="#11">#</a> Remarques :
+
+#### Pour une compatibilité entre les exercices interactifs en ligne et AMC,
 
 **il ne faut pas faire :**
 * `texte = propositionsQcm()` ;
@@ -323,3 +324,24 @@ Afin de ne pas se retrouver avec un code hors contexte, les fonctions `propositi
 Il convient donc de ne pas utiliser l'affectation `texte = ...` mais la concaténation `texte += ...`
 
 En effet, le `texte` initial de l'énoncé sert souvent tel quel pour les énoncés AMC. En cas d'affectation `texte` transmettrait une chaine vide comme énoncé pour AMC. Il en va de même pour l'utilisation de `propositionsQcm()` qui retourne un tableau avec deux chaines vides dans ce contexte de sortie AMC.
+
+#### Si vous bricolez `this.autoCorrection[i].reponse.valeur` à la main pour AMC
+Il faut intégrer que cette variable doit être un tableau dont on n'utilisera pour AMC que le premier élément.
+
+Donc **vous devez renseigner :**
+- `this.autoCorrection[i]reponse.valeur[0]` <- Notez bien le `[0]` qui indique que c'est un tableau
+- `this.autoCorrection[i]reponse.param.digits`
+- `this.autoCorrection[i]reponse.param.decimals`
+
+Sinon, vous pouvez laisser faire `setReponse(this,i,reponses)` en veillant à ce que le premier élément de réponses (ou le seul) soit un nombre décimal (6.543 par exemple). `setReponse` crée un tableau même si il n'y a qu'une valeur.
+
+`setReponse(this,i,reponse)` renseigne le `this.autoCorrection[i]` pour une réponse de type numérique ou une réponse avec plusieurs valeurs en affectant la variable `this.autoCorrection[i].reponse.valeur`.
+
+Cette variable est un tableau pour pouvoir en mode interactif tester plusieurs formes de réponse.
+
+En mode AMCNum, on récupère la valeur décimale contenue dans `this.autoCorrection[i].reponse.valeur[0]`.
+
+Mais AMC a besoin de savoir combien de chiffres présenter au codage, combien de chiffres dans la partie décimale, si on le veut en notation scientifique, si il y a besoin d'un signe, si on tolère une marge d'erreur...
+
+`setReponse()` ne fixe ces paramètres qui sont dans `this.autoCorrection[i].reponse.param` que s'ils sont passés en argument (il faut donc y penser).
+un `setReponse(this, i, reponse, {digits: 6, decimals: 5, signe: true, exposantNbChiffres: 2, exopsantSigne: true, approx:1, formatInteractif: 'calcul'})` règle AMCNum pour un nombre dont la mantisse comporte 6 chiffres dont 5 après la virgule avec case signe +/- avec un codage en notation scientifique avec signe pour l'exposant et avec 2 chiffres pour l'exposant, la tolérance est de 1 sur le dernier chiffre significatif (valeur approchée par défaut ou par excès acceptée). Exemple de résultat possible : -124.924 seront tolérés -124.923, -124.924 et -124.925 (je crois car je ne sais pas trop quel comportement aurait AMC si le nombre envoyé comme premier paramètre était -123,9247 en précisant 6 chiffres, mais il me semble que AMC provoquerait un warning disant qu'il n'y a pas assez de chiffres pour coder la réponse 'number is to large'...)
