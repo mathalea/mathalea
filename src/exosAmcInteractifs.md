@@ -240,6 +240,9 @@
 |can2G04|Calculs des coordonnées du milieu|KO|KO|OK|mathLive|
 |can2G05|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
 |can2L01|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
+|can2L02|Coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
+|can2L03|Coordonnées point d’intersection axe des abscisses/droite|KO|KO|OK|mathLive|
+|can2L04|Coordonnées point d’intersection axe des ordonnées/droite|KO|KO|OK|mathLive|
 |can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
 |can2P02|Dénombrement|KO|KO|OK|mathLive|
 |can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|

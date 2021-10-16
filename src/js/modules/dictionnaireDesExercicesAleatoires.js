@@ -4393,6 +4393,30 @@ export default {
     "interactifType": "mathLive",
     "name": "can2L01"
   },
+  "can2L02": {
+    "titre": "Coordonnées d’un point sur une droite",
+    "url": "/exercices/can/2e/can2L02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2L02"
+  },
+  "can2L03": {
+    "titre": "Coordonnées point d’intersection axe des abscisses/droite",
+    "url": "/exercices/can/2e/can2L03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2L03"
+  },
+  "can2L04": {
+    "titre": "Coordonnées point d’intersection axe des ordonnées/droite",
+    "url": "/exercices/can/2e/can2L04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2L04"
+  },
   "can2P01": {
     "titre": "Calculs de probabilités",
     "url": "/exercices/can/2e/can2P01.js",
