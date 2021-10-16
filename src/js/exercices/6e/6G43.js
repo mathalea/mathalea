@@ -59,12 +59,12 @@ export default function DenombrerCubes () {
       // deuxième ligne et suivantes
       for (let i = 0; i < larg; i++) {
         for (let j = 1; j < long; j++) {
-          tabHauteurs[i][j] = Math.min(tabHauteurs[i][j - 1] + randint(0, 2), hmax)
+          tabHauteurs[i][j] = Math.min(tabHauteurs[i][j - 1] + randint(1, 2), hmax)
         }
       }
       // Vérification Dernière Ligne : ne pas être vide.
       for (let i = 0; i < larg; i++) {
-        tabHauteurs[i][long - 1] = Math.max(1, tabHauteurs[i][long - 1])
+        tabHauteurs[i][long - 1] = Math.max(2, tabHauteurs[i][long - 1])
       }
       // Ajoute les cubes dans un tableau une dimension
       // il faut trier les cubes : x décroissant puis y décroissant, puis z croissant
