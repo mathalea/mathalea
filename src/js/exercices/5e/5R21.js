@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, ecritureParentheseSiNegatif, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, ecritureParentheseSiNegatif, nombreDeChiffresDansLaPartieEntiere, combinaisonListes } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Soustraction de deux entiers relatifs'
@@ -16,6 +16,7 @@ export const amcType = 'AMCNum'
 * * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
 * @author Rémi Angot
 * 5R21
+* Rendu les différentes situations équiprobables le 16/10/2021 par Guillaume Valmont
 */
 export default function ExerciceSoustractionsRelatifs (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -24,7 +25,7 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
   this.titre = titre
   this.consigne = 'Calculer :'
   this.spacing = 2
-    this.interactifReady = interactifReady
+  this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
@@ -32,10 +33,12 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    let liste = [[-1, -1], [-1, 1], [1, -1]] // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
+    liste = combinaisonListes(liste, this.nbQuestions)
     for (let i = 0, a, b, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(1, this.sup)
       b = randint(1, this.sup)
-      k = choice([[-1, -1], [-1, 1], [1, -1]]) // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
+      k = liste[i]
       a = a * k[0]
       b = b * k[1]
       if (this.sup2) {
@@ -58,7 +61,7 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        setReponse(this, i, [a - b, `(${ecritureAlgebrique(a-b)})`], { signe: true, digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)), decimals: 0 })
+        setReponse(this, i, [a - b, `(${ecritureAlgebrique(a - b)})`], { signe: true, digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)), decimals: 0 })
         i++
       }
       cpt++
