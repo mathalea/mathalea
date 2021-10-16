@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texNombrec, texteEnCouleur } from '../../../modules/outils'
+import { calcul, randint, texNombrec, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Multiplier par les multiples de 101'
 export const interactifReady = true
