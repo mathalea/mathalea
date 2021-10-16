@@ -1,6 +1,6 @@
 import DenombrerCubes from '../../6e/6G43.js'
 export { interactifReady, interactifType } from '../../6e/6G43.js'
-export const titre = 'Compter les cubes'
+export const titre = 'Compter les cubes manquants'
 
 /*!
  * @author Jean-Claude Lhote
