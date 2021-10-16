@@ -1,6 +1,6 @@
 AMC, ou [Auto Multiple Choice](https://www.auto-multiple-choice.net/exemples.fr) permet de corriger automatiquement des copies scannées d'élèves.
 
-Vous pouvez voir l'étendue des possibilités sur ce sujet 0 dont le but est d'apprendre aux élèves à correctement coder leurs réponses en vue d'une correction automatisée.
+Vous pouvez voir l'étendue des possibilités sur [ce sujet 0](doc/Sujet0.tex) dont le but est d'apprendre aux élèves à correctement coder leurs réponses en vue d'une correction automatisée.
 
 Depuis début 2021, MAthalea propose pour certains exercices, une version exportable pour AMC. 
 Une interface a été faite pour permettre de sélectionner les exercices mathalea disponibles et créer automatiquement le fichier pour AMC.
@@ -14,4 +14,3 @@ Dans l'interface du générateur AMC de Mathalea, des cases à cocher permettent
 - on peut choisir l'entête (pré-remplie nécessite un fichier liste.csv conforme au modèle préremplie d'AMC, avec le type AmcCodeGrid, une grille pour coder le nom de l'élève sera produite)
 - on peut choisir le format A4 portrait ou A3 paysage avec 2 colonnes.
 - on peut choisir combien de questions seront restituées pour chaque groupe de questions.
-

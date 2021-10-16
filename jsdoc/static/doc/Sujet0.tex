@@ -1,0 +1,174 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{csvsimple}%
+
+\usepackage[francais,bloc,completemulti,insidebox]{automultiplechoice}
+ \usepackage{geometry} 
+   \geometry{headsep=0.3cm, left=1.5cm,right=1.5cm,top=2.4cm,bottom=1.5cm}
+   
+   \AMCcodeHspace=.3em % réduction de la taille des cases pour le code élève
+   \AMCcodeVspace=.3em 
+  % \AMCcodeBoxSep=.1em
+   
+   \def\AMCotextReserved{\emph{Ne rien cocher, réservé au prof !}}
+   \AMCboxStyle{shape=square,size=2.5ex,down=.4ex,rule=0.5pt,outsidesep=.1em,color=black}
+  %%%%%% Définition des barèmes 
+  \baremeDefautS{
+    e=0.0001,% incohérence (plusieurs réponses données à 0,0001 pour définir des manquements au respect de consignes)
+    b=1,% bonne réponse 1
+    m=-0.01,% mauvaise réponse 0,01 pour différencier de la 
+    v=0} % non réponse qui reste à 0
+  
+  \baremeDefautM{formula=((NBC-NMC)/NB)*((NBC-NMC)/NB>0)} % nombre de bonnes réponses cochées minorées des mauvaises réponses cochées, ramenées à 1, et ramenée à 0 si résultat négatif.
+  
+  %%%%%%%%% Paramètres pour réponses à construire 
+  \AMCinterIrep=0pt \AMCinterBrep=.5ex \AMCinterIquest=0pt \AMCinterBquest=3ex \AMCpostOquest=7mm \setlength{\AMChorizAnswerSep}{3em plus 4em} \setlength{\AMChorizBoxSep}{1em}
+
+\newcommand{\sujet}{
+\exemplaire{1}{%
+
+%%% debut de l'en-tête des copies :  
+\begin{center}
+\noindent{}\fbox{\vspace*{3mm}
+         \Large\bf\nom{}~\prenom{}\normalsize{}% 
+          \vspace*{3mm}
+      }
+\end{center}
+
+\noindent{\bf QCM  \hfill TEST}
+
+\vspace*{.5cm}
+\begin{minipage}{.4\linewidth}
+  \centering\large\bf Test\\ Examen du 01/01/2008
+\end{minipage}
+
+\begin{center}\em
+Durée : 10 minutes.
+
+  Aucun document n'est autorisé.
+  L'usage de la calculatrice est interdit.
+
+  Les questions faisant apparaître le symbole \multiSymbole{} peuvent
+  présenter zéro, une ou plusieurs bonnes réponses. Les autres ont
+  une unique bonne réponse.
+
+  Des points négatifs pourront être affectés à de \emph{très
+    mauvaises} réponses.
+\end{center}
+\vspace{1ex}
+%%% fin de l'en-tête
+
+\restituegroupe{general}
+ 
+
+
+\AMCassociation{\id}
+
+%\AMCaddpagesto{3}
+	  }
+}
+
+%%%%§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+
+\begin{document}
+%%%Options
+\AMCrandomseed{1237893}
+
+\def\AMCformQuestion#1{{\sc Question #1 :}}
+
+\setdefaultgroupmode{withoutreplacement}
+%%% Fin Options
+
+%%% groupes
+
+
+\element{general}{
+  \begin{question}{qcm1}    
+    Coche la bonne réponse et uniquement celle-là.
+    \begin{reponses}
+      \bonne{Bonne réponse}
+      \mauvaise{Mauvaise réponse}
+      \mauvaise{Mauvaise réponse}
+      \mauvaise{Mauvaise réponse}
+    \end{reponses}
+  \end{question}
+}
+
+\element{general}{
+  \begin{questionmult}{qcm2}    
+    Coche les bonnes réponses. (le symbole \multiSymbole{} signale une question qui peut avoir plusieurs bonnes réponses
+    \begin{reponses}
+      \bonne{Bonne réponse}
+      \mauvaise{Mauvaise réponse}
+      \bonne{Bonne réponse}
+    \end{reponses}
+  \end{questionmult}
+}
+
+\element{general}{
+  \begin{questionmult}{qcm3}
+    Coche la ou les bonnes réponses (le symbole \multiSymbole{} signale une question qui peut avoir plusieurs bonnes réponses mais pas forcément plusieurs)
+    \begin{reponseshoriz}[o]
+      \mauvaise{Mauvaise réponse}
+      \mauvaise{Mauvaise réponse}
+      \mauvaise{Mauvaise réponse}
+      \bonne{Bonne réponse}
+      \mauvaise{Mauvaise réponse}
+    \end{reponseshoriz}
+  \end{questionmult}
+}
+
+\element{general}{
+  \begin{questionmult}{qcm4}
+    Coche la ou les bonnes réponses (le symbole \multiSymbole{} signale une question qui peut avoir plusieurs bonnes réponses mais qui n'en a pas forcément)
+    \begin{reponseshoriz}[o]
+      \mauvaise{Mauvaise réponse}
+      \mauvaise{Mauvaise réponse}
+      \mauvaise{Mauvaise réponse}
+      \mauvaise{Mauvaise réponse}
+      \mauvaise{Mauvaise réponse}
+    \end{reponseshoriz}
+  \end{questionmult}
+}
+\element{general}{
+ \begin{questionmultx}{num1} 
+ Coder le nombre 47 avec les cases ci-dessous (un chiffre par ligne, les dizaines puis les unités). 
+ \AMCnumericChoices{47}{digits=2,decimals=0,sign=false,borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}
+\end{questionmultx}
+ }
+ 
+ \element{general}{
+ \begin{questionmultx}{num2} 
+ Coder le nombre 8 avec les cases ci-dessous (un chiffre par ligne, 0 dizaine et 8 unités). 
+ \AMCnumericChoices{8}{digits=2,decimals=0,sign=false,borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}
+\end{questionmultx}
+ }
+ 
+ \element{general}{
+ \begin{questionmultx}{num3} 
+ Coder le nombre 2,3 avec les cases ci-dessous (un chiffre par ligne, les unités avant la virgule les dixièmes ensuite). 
+ \AMCnumericChoices{2.3}{digits=2,decimals=1,sign=false,borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}
+\end{questionmultx}
+ }
+ 
+ 
+ \element{general}{
+ \begin{questionmultx}{num4} 
+ Coder le nombre $-1,2\times 10^{-3}$ avec les cases ci-dessous (un chiffre par ligne, et n'oublie pas de coder les signes moins). 
+ \AMCnumericChoices{-0.0012}{digits=2,decimals=1,sign=true,exponent=1,exposign=true,borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}
+\end{questionmultx}
+ }
+
+\element{general}{
+\begin{question}{open1}
+dessine un triangle ABC dans le cadre ci-dessous
+\AMCOpen{lines=4,dots=false}{\mauvaise[{\tiny NR}]{NR}\scoring{0}\mauvaise[{\tiny RR}]{RR}\scoring{0.01}\mauvaise[{\tiny R}]{R}\scoring{0.33}\mauvaise[{\tiny V}]{V}\scoring{0.67}\bonne[{\tiny VV}]{VV}\scoring{1}}
+\end{question}
+}
+
+%%%% fin des groupes
+
+
+\csvreader[head to column names]{liste.csv}{}{\sujet}
+
+\end{document}
