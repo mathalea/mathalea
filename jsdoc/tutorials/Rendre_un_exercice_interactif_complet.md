@@ -28,11 +28,11 @@ export const amcType = 'typeAMC'
 |[`'qcmMono'`](#4)|qcm avec une seule bonne réponse|**6C10-2**|
 |[`'qcmMult'`](#4)|qcm avec possibilité de plusieurs bonnes réponses ou une unique ou bien aucune|**6N43-2**|
 |[`'AMCOpen'`](#5)|question ouverte, avec la possibilité d'afficher ou pas le cadre de saisie qui peut être inutile en géométrie.|**6C10-5** et **6G12-1**|
-|[`'AMCNum'`](#6)|réponse numérique à entrer dans un formulaire texte (AMCNumericChoice dans le langage AMC)|**6C10**|
-|[`'AMCOpenNum'`](#6)|réponse identique au type `'AMCNum'` mais AMC ajoute une zone pour une réponse ouverte. Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum` au profit de `AMCHybride`.|**3G30**|
+|[`'AMCNum'`](#6)|réponse numérique à coder (AMCNumericChoice dans le langage AMC)|**6C10**|
+|[`'AMCOpenNum'`](#6)|mélange de `'AMCOpen'` et `'AMCNum'`, une question ouverte et une réponse numérique à coder. Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum` au profit de `AMCHybride`.|**3G30**|
 |[`'AMCOpenNum✖︎2'`](#6)|identique à `'AMCOpenNum'` avec deux réponses numériques (`reponse` et `reponse2`). Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum✖︎2` au profit de `AMCHybride`.|**4C21**|
 |[`'AMCOpenNum✖︎3'`](#6)|identique à `'AMCOpenNum'` avec trois réponses numériques (`reponse`, `reponse2` et `reponse3`). Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum✖︎3` au profit de `AMCHybride`.|**3L11-1**|
-|[`'AMCHybride'`](#7)|utilisation de plusieurs choix parmi les précédents |**2F10-2**|
+|[`'AMCHybride'`](#7)|utilisation de plusieurs choix (exclusifs ou répétés) parmi `'qcmMono'`, `'qcmMult'`, `'AMCOpen'` et `'AMCNum'` |**2F10-2**|
 
 ## <a id="2" href="#2"></a> 2. Définir la correction
 
@@ -44,7 +44,7 @@ this.autoCorrection = [] // doit contenir un tableau d'objets avec autant d'él�
 ```
 ## <a id="3" href="#3"></a> 3. Configurer le typeAMC choisi
 
-Il faut adapter `this.autoCorrection` en le configurant selon le type `AMCType` choisi, comme décrit ci-dessous :
+Il faut adapter `this.autoCorrection` en le configurant selon le type `AMCType` choisi, comme décrit dans les paragraphes ci-dessous.
 
 >>## <a id="4" href="#4"></a> 3.1. types `'qcmMono'` et `'qcmMult'`
 
@@ -134,7 +134,9 @@ this.autoCorrection[i] = {
 // si approx vaut 6 ou plus.
 
 ```
-`'AMCOpenNum✖︎2'` (`'AMCOpenNum✖︎3'`) contient aussi un attribut `reponse2` (et `reponse3`) au(x) fonctionnement(s) identique(s) à celui de l'attribut `reponse` ci-dessus.
+`'AMCOpenNum✖︎2'` contient aussi un attribut `reponse2` au fonctionnement identique à celui de l'attribut `reponse` ci-dessus.
+
+`'AMCOpenNum✖︎3'` contient aussi des attributs `reponse2` et `reponse3` aux fonctionnements identiques à celui de l'attribut `reponse` ci-dessus.
 
 Les types `'AMCOpenNum'`, `'AMCOpenNum✖︎2'` et `'AMCOpenNum✖︎3'` sont amenés à disparaître au profit de `'AMCHybride'`.
 
@@ -151,16 +153,16 @@ this.autoCorrection[i] = {
   enonceAvant: true, //EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de la question. 
   propositions: [
     {
-      type: type1, // on donne le type de la première question-réponse qcmMono, qcmMult, Num...
-      propositions : [ // une ou plusieures(Qcms) 'propositions'
+      type: type1, // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+      propositions : [ // une ou plusieurs (Qcms) 'propositions'
         {
-          texte: // Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm ,
-          statut: // true au false(Qcms)
+          texte: '',// Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm 
+          statut: ,// true au false pour un QCM
           feedback: ''
 
         }
       ],
-      reponse: { // utilisé si type = 'Num'
+      reponse: { // utilisé si type = 'AMCNum'
         texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
         valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
         param: {
@@ -175,15 +177,15 @@ this.autoCorrection[i] = {
       options: {ordered: false, lastChoice: false} // options pour Qcms
     },
     {
-      type: type2, // on donne le type de la deuxième question-réponse qcmMono, qcmMult, Num...
-      proposition : [ // une ou plusieures(Qcms) 'propositions'
+      type: type2, // on donne le type de la deuxième question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+      proposition : [ // une ou plusieurs (Qcms) 'propositions'
         {
-          texte: // la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm ,
-          statut: // true au false(Qcms) ,
+          texte: '',// Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm 
+          statut: ,// true au false pour un QCM
           feedback: ''
         }
       ],
-      reponse: { // utilisé si type = 'Num'
+      reponse: { // utilisé si type = 'AMCNum'
         texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
         valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
         param: {
@@ -200,10 +202,10 @@ this.autoCorrection[i] = {
   ]
 }
 ```
+Pour le type `'AMCHybride'`, les possibilités étant si nombreuses qu'il ne faut pas hésiter à aller regarder le code d'un exercice dont la sortie peut correspondre à vos envies de programmeur.
 
+A FAIRE : METTRE ICI UN TABLEAU D'EXERCICES TEMOINS RECENSANT DIFFERENTES UTILISATIONS D'HYBRIDE...
 
 ## <a id="8" href="#8"></a> 4. Plusieurs sorties AMC différentes dans un même exercice
 
 On peut aussi faire le choix de ne pas imposer à un utilisateur le choix d'un type AMC mais en proposer plusieurs. Un exemple de ce type est le beta6C12 (à modifier) avec une sortie de type `'AMCOpen'`, une autre sortie de type `'AMCNum'` et enfin une dernière sortie `'AMCHybride'` avec `'AMCOpen'` et `'AMCNum'`.
-
-Cette page n'est pas terminée mais c'est un bon début pour voir à quoi cela va rassembler et serait renommée "Rendre un exercice utilisable par AMC".
