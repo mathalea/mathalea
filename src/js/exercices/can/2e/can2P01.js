@@ -22,9 +22,9 @@ export default function CalculsDeProbabilites () {
   this.nouvelleVersion = function () {
     const a = randint(2, 4)
     const b = choice([2, 3])
-    const c = randint(2, 12)
+    const c = choice([2,3,11,12])
     const p = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
-    switch (choice(['a', 'b', 'b', 'b', 'c', 'c', 'd', 'd', 'd', 'd', 'd'])) {
+    switch (choice(['a', 'b', 'b', 'b', 'c', 'c', 'd', 'd', 'd'])) {
       case 'a':
         this.question = "On lance deux fois de suite un dé équilibré.<br>Quelle est la probabilité d’obtenir deux fois le même nombre ?<br>Donner le résultat sous la forme d'une fraction irréductible."
         this.correction = "Sur $36$ cas possibles équiprobables, il y en a $6$ qui sont des doubles. Donc la probabilité d'obtenir deux fois le même nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$."
