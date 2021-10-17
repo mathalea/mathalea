@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 import Exercice from '../Exercice.js'
-import { choice, randint, objet, jour, listeQuestionsToContenu, combinaisonListes, prenomF, prenomM, objetF, objetM, sp } from '../../modules/outils.js'
+import { choice, randint, objet, jour, listeQuestionsToContenu, prenomF, prenomM, objetF, objetM, sp, shuffle } from '../../modules/outils.js'
 import { point, polygone, segment, mathalea2d, texteParPosition } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
@@ -18,7 +18,7 @@ export default function ModelisationProblemes () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = 'Associer chaque problème avec sa modélisation.'
-  this.nbQuestions = 8
+  this.nbQuestions = 7
   this.nbQuestionsModifiable = false
   this.sup = 2
   this.nbCols = 1
@@ -31,9 +31,9 @@ export default function ModelisationProblemes () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+    const typesDeQuestionsDisponibles = [1, choice([2, 3]), 4, 5, 6, 7, 8]
+    const listeTypeDeQuestions = shuffle(typesDeQuestionsDisponibles)
 
     const b1 = randint(15, 50)
     let c1 = randint(5, 9)
@@ -83,11 +83,11 @@ export default function ModelisationProblemes () {
           tb1 = texteParPosition('?', 6, 1)
           th1 = texteParPosition(b1, 3, 3)
           th12 = texteParPosition(c1, 9, 3)
-          n1 = texteParPosition('A.', -1, 4)
+          n1 = texteParPosition(`${lettres[i]}.`, -1, 4)
 
-          texteCorr += 'Cet énoncé est associé avec le schéma A.'
+          texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
-          setReponse(this, i, ['a', 'A'], { formatInteractif: 'texte' })
+          setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: -1.5, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
@@ -96,7 +96,7 @@ export default function ModelisationProblemes () {
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
-          if (i === 7) {
+          if (i === 6) {
             texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
@@ -133,11 +133,11 @@ export default function ModelisationProblemes () {
           tb2 = texteParPosition(b1, 22, 1)
           th2 = texteParPosition(c1, 19, 3)
           th22 = texteParPosition('?', 25, 3)
-          n2 = texteParPosition('B.', 15, 4)
+          n2 = texteParPosition(`${lettres[i]}.`, 15, 4)
 
-          texteCorr += 'Cet énoncé est associé avec le schéma B.'
+          texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
-          setReponse(this, i, ['b', 'B'], { formatInteractif: 'texte' })
+          setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: 15, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
@@ -146,7 +146,7 @@ export default function ModelisationProblemes () {
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
-          if (i === 7) {
+          if (i === 6) {
             texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
@@ -181,11 +181,11 @@ export default function ModelisationProblemes () {
           tb3 = texteParPosition(b5, 38, 1)
           th3 = texteParPosition('?', 35, 3)
           th32 = texteParPosition(c5, 41, 3)
-          n3 = texteParPosition('C.', 31, 4)
+          n3 = texteParPosition(`${lettres[i]}.`, 31, 4)
 
-          texteCorr += 'Cet énoncé est associé avec le schéma C.'
+          texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
-          setReponse(this, i, ['c', 'C'], { formatInteractif: 'texte' })
+          setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: 31, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
@@ -194,7 +194,7 @@ export default function ModelisationProblemes () {
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
-          if (i === 7) {
+          if (i === 6) {
             texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
@@ -234,11 +234,11 @@ export default function ModelisationProblemes () {
           th43 = texteParPosition('. . .', 55, 3)
           th44 = texteParPosition(b5, 59, 3)
           th45 = texteParPosition(c5, 54, 5)
-          n4 = texteParPosition('D.', 47, 4)
+          n4 = texteParPosition(`${lettres[i]}.`, 47, 4)
 
-          texteCorr += 'Cet énoncé est associé avec le schéma D.'
+          texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
-          setReponse(this, i, ['d', 'D'], { formatInteractif: 'texte' })
+          setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: 47, ymin: -1, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
@@ -247,7 +247,7 @@ export default function ModelisationProblemes () {
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
-          if (i === 7) {
+          if (i === 6) {
             texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
@@ -288,11 +288,11 @@ export default function ModelisationProblemes () {
           th53 = texteParPosition('. . .', 7, -3)
           th54 = texteParPosition('?', 11, -3)
           th55 = texteParPosition(c3, 6, -0.8)
-          n5 = texteParPosition('E.', -1, -2)
+          n5 = texteParPosition(`${lettres[i]}.`, -1, -2)
 
-          texteCorr += 'Cet énoncé est associé avec le schéma E.'
+          texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
-          setReponse(this, i, ['e', 'E'], { formatInteractif: 'texte' })
+          setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
@@ -301,7 +301,7 @@ export default function ModelisationProblemes () {
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
-          if (i === 7) {
+          if (i === 6) {
             texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
@@ -335,11 +335,11 @@ export default function ModelisationProblemes () {
           tb6 = texteParPosition('?', 22, -5)
           th6 = texteParPosition(b7, 19, -3)
           th62 = texteParPosition(a7, 25, -3)
-          n6 = texteParPosition('F.', 15, -2)
+          n6 = texteParPosition(`${lettres[i]}.`, 15, -2)
 
-          texteCorr += 'Cet énoncé est associé avec le schéma F.'
+          texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
-          setReponse(this, i, ['f', 'F'], { formatInteractif: 'texte' })
+          setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: 15, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
@@ -348,7 +348,7 @@ export default function ModelisationProblemes () {
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
-          if (i === 7) {
+          if (i === 6) {
             texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
@@ -389,11 +389,11 @@ export default function ModelisationProblemes () {
           th73 = texteParPosition('. . .', 39, -3)
           th74 = texteParPosition(c3, 43, -3)
           th75 = texteParPosition('?', 38, -0.8)
-          n7 = texteParPosition('G.', 31, -2)
+          n7 = texteParPosition(`${lettres[i]}.`, 31, -2)
 
-          texteCorr += 'Cet énoncé est associé avec le schéma G.'
+          texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
-          setReponse(this, i, ['G', 'g'], { formatInteractif: 'texte' })
+          setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: 31, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
@@ -402,7 +402,7 @@ export default function ModelisationProblemes () {
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
-          if (i === 7) {
+          if (i === 6) {
             texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
@@ -435,11 +435,11 @@ export default function ModelisationProblemes () {
           tb8 = texteParPosition(b7, 54, -5)
           th8 = texteParPosition(a7, 51, -3)
           th82 = texteParPosition('?', 57, -3)
-          n8 = texteParPosition('H.', 47, -2)
+          n8 = texteParPosition(`${lettres[i]}.`, 47, -2)
 
-          texteCorr += 'Cet énoncé est associé avec le schéma H.'
+          texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
-          setReponse(this, i, ['h', 'H'], { formatInteractif: 'texte' })
+          setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: 47, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
@@ -447,7 +447,7 @@ export default function ModelisationProblemes () {
             )
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
-          if (i === 7) {
+          if (i === 6) {
             texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
