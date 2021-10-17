@@ -89,7 +89,7 @@ export default function ConversionEnTousSens () {
           }
           this.formatChampTexte = 'largeur15 inline'
           this.optionsChampTexte = { texteApres: ' mL' }
-          this.correction = `$${texNombre(a)}$ cL$=${texNombrec(a / 10)}$ mL`
+          this.correction = `$${texNombre(a)}$ cL$=${texNombrec(a * 10)}$ mL`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Comme $1$ cL$ =10$ mL,  pour passer des "cL" au "mL", on multiplie par $10$.<br>
             Comme  $${texNombre(a)}\\times 10 =${texNombrec(a * 10)}$, alors $${texNombrec(a)}$ cL$=${texNombrec(a * 10)}$ mL.  `)
