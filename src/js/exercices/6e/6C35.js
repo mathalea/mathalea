@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 import Exercice from '../Exercice.js'
-import { choice, randint, objet, jour, listeQuestionsToContenu, prenomF, prenomM, objetF, objetM, sp, shuffle } from '../../modules/outils.js'
+import { choice, randint, objet, jour, listeQuestionsToContenu, prenomF, prenomM, objetF, objetM, sp, shuffle, range } from '../../modules/outils.js'
 import { point, polygone, segment, mathalea2d, texteParPosition } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
@@ -32,6 +32,8 @@ export default function ModelisationProblemes () {
     this.listeQuestions = []
     this.listeCorrections = []
     const lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+    const schemas = []
+    const brouilleLesCartes = shuffle(range(6))
     const typesDeQuestionsDisponibles = [1, choice([2, 3]), 4, 5, 6, 7, 8]
     const listeTypeDeQuestions = shuffle(typesDeQuestionsDisponibles)
 
@@ -57,7 +59,7 @@ export default function ModelisationProblemes () {
       p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
       p8, traitHorizontal8, traitVertical8, tb8, th8, th82
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr; i < 7; i++) {
       texte = ''
       texteCorr = ''
 
@@ -84,33 +86,15 @@ export default function ModelisationProblemes () {
           th1 = texteParPosition(b1, 3, 3)
           th12 = texteParPosition(c1, 9, 3)
           n1 = texteParPosition(`${lettres[i]}.`, -1, 4)
-
+          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1)
           texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
-            texteCorr += '<br>' + mathalea2d(
-              { xmin: -1.5, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
-              p1, traitHorizontal1, traitVertical1, tb1, th1, th12
-            )
+            texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
-
-          if (i === 6) {
-            texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
-              { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
-              p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
-              p2, traitHorizontal2, traitVertical2, tb2, th2, th22,
-              p3, traitHorizontal3, traitVertical3, tb3, th3, th32,
-              p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45,
-              p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55,
-              p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
-              p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
-              p8, traitHorizontal8, traitVertical8, tb8, th8, th82
-            )
-          }
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
-
         case 2:
           if (o === 1) {
             texte += `${prenomM()} achète ${b1} ${objetM()}.`
@@ -122,43 +106,27 @@ export default function ModelisationProblemes () {
             texte += '<br>Combien doit-il encore en récupérer ?'
           }
 
-          A2 = point(16, 0)
-          B2 = point(28, 0)
-          C2 = point(28, 4)
-          D2 = point(16, 4)
+          A2 = point(0, 0)
+          B2 = point(12, 0)
+          C2 = point(12, 4)
+          D2 = point(0, 4)
           p2 = polygone([A2, B2, C2, D2], 'red')
           p2.epaisseur = 3
-          traitHorizontal2 = segment(point(16, 2), point(28, 2))
-          traitVertical2 = segment(point(22, 2), point(22, 4))
-          tb2 = texteParPosition(b1, 22, 1)
-          th2 = texteParPosition(c1, 19, 3)
-          th22 = texteParPosition('?', 25, 3)
-          n2 = texteParPosition(`${lettres[i]}.`, 15, 4)
+          traitHorizontal2 = segment(point(0, 2), point(12, 2))
+          traitVertical2 = segment(point(6, 2), point(6, 4))
+          tb2 = texteParPosition(b1, 6, 1)
+          th2 = texteParPosition(c1, 3, 3)
+          th22 = texteParPosition('?', 9, 3)
+          n2 = texteParPosition(`${lettres[i]}.`, -1, 4)
+          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p2, traitHorizontal2, traitVertical2, tb2, th2, th22, n2)
 
           texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
-            texteCorr += '<br>' + mathalea2d(
-              { xmin: 15, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
-              p2, traitHorizontal2, traitVertical2, tb2, th2, th22
-            )
+            texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
-
-          if (i === 6) {
-            texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
-              { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
-              p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
-              p2, traitHorizontal2, traitVertical2, tb2, th2, th22,
-              p3, traitHorizontal3, traitVertical3, tb3, th3, th32,
-              p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45,
-              p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55,
-              p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
-              p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
-              p8, traitHorizontal8, traitVertical8, tb8, th8, th82
-            )
-          }
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
         case 3:
           if (o === 1) {
@@ -169,44 +137,26 @@ export default function ModelisationProblemes () {
             texte += `<br>Il lui en reste encore ${c5} à donner.`
             texte += '<br>Combien en a-t-elle déjà distribué ?'
           }
-
-          A3 = point(32, 0)
-          B3 = point(44, 0)
-          C3 = point(44, 4)
-          D3 = point(32, 4)
+          A3 = point(0, 0)
+          B3 = point(12, 0)
+          C3 = point(12, 4)
+          D3 = point(0, 4)
           p3 = polygone([A3, B3, C3, D3], 'red')
           p3.epaisseur = 3
-          traitHorizontal3 = segment(point(32, 2), point(44, 2))
-          traitVertical3 = segment(point(38, 2), point(38, 4))
-          tb3 = texteParPosition(b5, 38, 1)
-          th3 = texteParPosition('?', 35, 3)
-          th32 = texteParPosition(c5, 41, 3)
-          n3 = texteParPosition(`${lettres[i]}.`, 31, 4)
-
+          traitHorizontal3 = segment(point(0, 2), point(12, 2))
+          traitVertical3 = segment(point(6, 2), point(6, 4))
+          tb3 = texteParPosition(b5, 6, 1)
+          th3 = texteParPosition('?', 3, 3)
+          th32 = texteParPosition(c5, 9, 3)
+          n3 = texteParPosition(`${lettres[i]}.`, -1, 4)
+          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p3, traitHorizontal3, traitVertical3, tb3, th3, th32, n3)
           texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
-            texteCorr += '<br>' + mathalea2d(
-              { xmin: 31, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
-              p3, traitHorizontal3, traitVertical3, tb3, th3, th32
-            )
+            texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
-
-          if (i === 6) {
-            texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
-              { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
-              p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
-              p2, traitHorizontal2, traitVertical2, tb2, th2, th22,
-              p3, traitHorizontal3, traitVertical3, tb3, th3, th32,
-              p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45,
-              p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55,
-              p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
-              p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
-              p8, traitHorizontal8, traitVertical8, tb8, th8, th82
-            )
-          }
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
         case 4:
           if (o === 1) {
@@ -216,50 +166,33 @@ export default function ModelisationProblemes () {
             texte += `${prenomF()} récupère ${c5} paquets de ${b5} ${objetM()} chacun.`
             texte += '<br>Combien en a-t-elle en tout ?'
           }
-          A4 = point(48, 0)
-          B4 = point(60, 0)
-          C4 = point(60, 4)
-          D4 = point(48, 4)
+          A4 = point(0, 0)
+          B4 = point(12, 0)
+          C4 = point(12, 4)
+          D4 = point(0, 4)
           p4 = polygone([A4, B4, C4, D4], 'red')
           p4.epaisseur = 3
-          traitHorizontal4 = segment(point(48, 2), point(60, 2))
-          traitHorizontal42 = segment(point(48, 4.5), point(60, 4.5))
+          traitHorizontal4 = segment(point(0, 2), point(12, 2))
+          traitHorizontal42 = segment(point(0, 4.5), point(12, 4.5))
           traitHorizontal42.styleExtremites = '<->'
-          traitVertical4 = segment(point(50, 2), point(50, 4))
-          traitVertical42 = segment(point(52, 2), point(52, 4))
-          traitVertical43 = segment(point(58, 2), point(58, 4))
-          tb4 = texteParPosition('?', 54, 1)
-          th4 = texteParPosition(b5, 49, 3)
-          th42 = texteParPosition(b5, 51, 3)
-          th43 = texteParPosition('. . .', 55, 3)
-          th44 = texteParPosition(b5, 59, 3)
-          th45 = texteParPosition(c5, 54, 5)
-          n4 = texteParPosition(`${lettres[i]}.`, 47, 4)
-
+          traitVertical4 = segment(point(2, 2), point(2, 4))
+          traitVertical42 = segment(point(4, 2), point(4, 4))
+          traitVertical43 = segment(point(10, 2), point(10, 4))
+          tb4 = texteParPosition('?', 6, 1)
+          th4 = texteParPosition(b5, 1, 3)
+          th42 = texteParPosition(b5, 3, 3)
+          th43 = texteParPosition('. . .', 7, 3)
+          th44 = texteParPosition(b5, 11, 3)
+          th45 = texteParPosition(c5, 6, 5)
+          n4 = texteParPosition(`${lettres[i]}.`, -1, 4)
+          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45, n4)
           texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
-            texteCorr += '<br>' + mathalea2d(
-              { xmin: 47, ymin: -1, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
-              p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45
-            )
+            texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
-
-          if (i === 6) {
-            texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
-              { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
-              p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
-              p2, traitHorizontal2, traitVertical2, tb2, th2, th22,
-              p3, traitHorizontal3, traitVertical3, tb3, th3, th32,
-              p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45,
-              p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55,
-              p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
-              p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
-              p8, traitHorizontal8, traitVertical8, tb8, th8, th82
-            )
-          }
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
         case 5:
           if (o === 1) {
@@ -269,51 +202,33 @@ export default function ModelisationProblemes () {
             texte += `${c3} ${objetF()} identiques coûtent ${d3} €.`
             texte += '<br>Quel est le prix d\'une d\'entre elles ?'
           }
-
-          A5 = point(0, -6)
-          B5 = point(12, -6)
-          C5 = point(12, -2)
-          D5 = point(0, -2)
+          A5 = point(0, 0)
+          B5 = point(12, 0)
+          C5 = point(12, 4)
+          D5 = point(0, 4)
           p5 = polygone([A5, B5, C5, D5], 'blue')
           p5.epaisseur = 3
-          traitHorizontal5 = segment(point(0, -4), point(12, -4))
-          traitHorizontal52 = segment(point(0, -1.3), point(12, -1.3))
+          traitHorizontal5 = segment(point(0, 2), point(12, 2))
+          traitHorizontal52 = segment(point(0, 4.7), point(12, 4.7))
           traitHorizontal52.styleExtremites = '<->'
-          traitVertical5 = segment(point(2, -4), point(2, -2))
-          traitVertical52 = segment(point(4, -4), point(4, -2))
-          traitVertical53 = segment(point(10, -4), point(10, -2))
-          tb5 = texteParPosition(d3, 6, -5)
-          th5 = texteParPosition('?', 1, -3)
-          th52 = texteParPosition('?', 3, -3)
-          th53 = texteParPosition('. . .', 7, -3)
-          th54 = texteParPosition('?', 11, -3)
-          th55 = texteParPosition(c3, 6, -0.8)
-          n5 = texteParPosition(`${lettres[i]}.`, -1, -2)
-
+          traitVertical5 = segment(point(2, 2), point(2, 4))
+          traitVertical52 = segment(point(4, 2), point(4, 4))
+          traitVertical53 = segment(point(10, 2), point(10, 4))
+          tb5 = texteParPosition(d3, 6, 1)
+          th5 = texteParPosition('?', 1, 3)
+          th52 = texteParPosition('?', 3, 3)
+          th53 = texteParPosition('. . .', 7, 3)
+          th54 = texteParPosition('?', 11, 3)
+          th55 = texteParPosition(c3, 6, 5.2)
+          n5 = texteParPosition(`${lettres[i]}.`, -1, 4)
+          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55, n5)
           texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
-            texteCorr += '<br>' + mathalea2d(
-              { xmin: -1.5, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
-              p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55
-            )
+            texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
-
-          if (i === 6) {
-            texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
-              { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
-              p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
-              p2, traitHorizontal2, traitVertical2, tb2, th2, th22,
-              p3, traitHorizontal3, traitVertical3, tb3, th3, th32,
-              p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45,
-              p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55,
-              p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
-              p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
-              p8, traitHorizontal8, traitVertical8, tb8, th8, th82
-            )
-          }
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
         case 6:
           if (o === 1) {
@@ -323,44 +238,26 @@ export default function ModelisationProblemes () {
             texte += `Un lot de ${objetM()} coûte ${b7} € et un lot de ${objetF()} coûte ${a7} €.`
             texte += '<br>Combien coûte l\'ensemble ?'
           }
-
-          A6 = point(16, -6)
-          B6 = point(28, -6)
-          C6 = point(28, -2)
-          D6 = point(16, -2)
+          A6 = point(0, 0)
+          B6 = point(12, 0)
+          C6 = point(12, 4)
+          D6 = point(0, 4)
           p6 = polygone([A6, B6, C6, D6], 'blue')
           p6.epaisseur = 3
-          traitHorizontal6 = segment(point(16, -4), point(28, -4))
-          traitVertical6 = segment(point(22, -4), point(22, -2))
-          tb6 = texteParPosition('?', 22, -5)
-          th6 = texteParPosition(b7, 19, -3)
-          th62 = texteParPosition(a7, 25, -3)
-          n6 = texteParPosition(`${lettres[i]}.`, 15, -2)
-
+          traitHorizontal6 = segment(point(0, 2), point(12, 2))
+          traitVertical6 = segment(point(6, 2), point(6, 4))
+          tb6 = texteParPosition('?', 6, 1)
+          th6 = texteParPosition(b7, 3, 3)
+          th62 = texteParPosition(a7, 9, 3)
+          n6 = texteParPosition(`${lettres[i]}.`, -1, 4)
+          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p6, traitHorizontal6, traitVertical6, tb6, th6, th62, n6)
           texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
-            texteCorr += '<br>' + mathalea2d(
-              { xmin: 15, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
-              p6, traitHorizontal6, traitVertical6, tb6, th6, th62
-            )
+            texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
-
-          if (i === 6) {
-            texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
-              { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
-              p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
-              p2, traitHorizontal2, traitVertical2, tb2, th2, th22,
-              p3, traitHorizontal3, traitVertical3, tb3, th3, th32,
-              p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45,
-              p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55,
-              p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
-              p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
-              p8, traitHorizontal8, traitVertical8, tb8, th8, th82
-            )
-          }
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
         case 7:
           if (o === 1) {
@@ -370,51 +267,33 @@ export default function ModelisationProblemes () {
             texte += `J'ai payé ${d3} € pour des ${objetM()} coûtant ${c3} € chacun.`
             texte += '<br>Combien en ai-je acheté ?'
           }
-
-          A7 = point(32, -6)
-          B7 = point(44, -6)
-          C7 = point(44, -2)
-          D7 = point(32, -2)
+          A7 = point(0, 0)
+          B7 = point(12, 0)
+          C7 = point(12, 4)
+          D7 = point(0, 4)
           p7 = polygone([A7, B7, C7, D7], 'blue')
           p7.epaisseur = 3
-          traitHorizontal7 = segment(point(32, -4), point(44, -4))
-          traitHorizontal72 = segment(point(32, -1.3), point(44, -1.3))
+          traitHorizontal7 = segment(point(0, 2), point(12, 2))
+          traitHorizontal72 = segment(point(0, 4.7), point(12, 4.7))
           traitHorizontal72.styleExtremites = '<->'
-          traitVertical7 = segment(point(34, -4), point(34, -2))
-          traitVertical72 = segment(point(36, -4), point(36, -2))
-          traitVertical73 = segment(point(42, -4), point(42, -2))
-          tb7 = texteParPosition(d3, 38, -5)
-          th7 = texteParPosition(c3, 33, -3)
-          th72 = texteParPosition(c3, 35, -3)
-          th73 = texteParPosition('. . .', 39, -3)
-          th74 = texteParPosition(c3, 43, -3)
-          th75 = texteParPosition('?', 38, -0.8)
-          n7 = texteParPosition(`${lettres[i]}.`, 31, -2)
-
+          traitVertical7 = segment(point(2, 2), point(2, 4))
+          traitVertical72 = segment(point(4, 2), point(4, 4))
+          traitVertical73 = segment(point(10, 2), point(10, 4))
+          tb7 = texteParPosition(d3, 6, 1)
+          th7 = texteParPosition(c3, 1, 3)
+          th72 = texteParPosition(c3, 3, 3)
+          th73 = texteParPosition('. . .', 7, 3)
+          th74 = texteParPosition(c3, 11, 3)
+          th75 = texteParPosition('?', 6, 5.2)
+          n7 = texteParPosition(`${lettres[i]}.`, -1, 4)
+          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75, n7)
           texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
-            texteCorr += '<br>' + mathalea2d(
-              { xmin: 31, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
-              p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75
-            )
+            texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
-
-          if (i === 6) {
-            texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
-              { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
-              p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
-              p2, traitHorizontal2, traitVertical2, tb2, th2, th22,
-              p3, traitHorizontal3, traitVertical3, tb3, th3, th32,
-              p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45,
-              p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55,
-              p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
-              p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
-              p8, traitHorizontal8, traitVertical8, tb8, th8, th82
-            )
-          }
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
         case 8:
           if (o === 1) {
@@ -424,52 +303,42 @@ export default function ModelisationProblemes () {
             texte += `${prenomF()} a trouvé ${b7} ${objetF()} et ${prenomM()} en a trouvé ${a7}`
             texte += '<br>Combien en a-t-il de moins qu\'elle ?'
           }
-          A8 = point(48, -6)
-          B8 = point(60, -6)
-          C8 = point(60, -2)
-          D8 = point(48, -2)
+          A8 = point(0, 0)
+          B8 = point(12, 0)
+          C8 = point(12, 4)
+          D8 = point(0, 4)
           p8 = polygone([A8, B8, C8, D8], 'blue')
           p8.epaisseur = 3
-          traitHorizontal8 = segment(point(48, -4), point(60, -4))
-          traitVertical8 = segment(point(54, -4), point(54, -2))
-          tb8 = texteParPosition(b7, 54, -5)
-          th8 = texteParPosition(a7, 51, -3)
-          th82 = texteParPosition('?', 57, -3)
-          n8 = texteParPosition(`${lettres[i]}.`, 47, -2)
-
+          traitHorizontal8 = segment(point(0, 2), point(12, 2))
+          traitVertical8 = segment(point(6, 2), point(6, 4))
+          tb8 = texteParPosition(b7, 6, 1)
+          th8 = texteParPosition(a7, 3, 3)
+          th82 = texteParPosition('?', 9, 3)
+          n8 = texteParPosition(`${lettres[i]}.`, -1, 4)
+          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p8, traitHorizontal8, traitVertical8, tb8, th8, th82, n8)
           texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
-            texteCorr += '<br>' + mathalea2d(
-              { xmin: 47, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
-              p8, traitHorizontal8, traitVertical8, tb8, th8, th82
-            )
+            texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
-          if (i === 6) {
-            texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
-              { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
-              p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
-              p2, traitHorizontal2, traitVertical2, tb2, th2, th22,
-              p3, traitHorizontal3, traitVertical3, tb3, th3, th32,
-              p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45,
-              p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55,
-              p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
-              p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
-              p8, traitHorizontal8, traitVertical8, tb8, th8, th82
-            )
-          }
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-        i++
+      if (i === 6) {
+        texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>'
+        for (let j = 0; j < 4; j++) {
+          texte += schemas[j]
+        }
+        texte += '<br>'
+        for (let j = 4; j < 7; j++) {
+          texte += schemas[j]
+        }
       }
-      cpt++
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
     }
+
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Valeurs différentes suivant les exercices\n2 : Valeurs identiques dans tous les exercices'
