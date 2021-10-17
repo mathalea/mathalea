@@ -1,10 +1,13 @@
 /* eslint-disable camelcase */
 
 import Exercice from '../Exercice.js'
-import { choice, randint, objet, jour, listeQuestionsToContenu, combinaisonListes, prenomF, prenomM, objetF, objetM } from '../../modules/outils.js'
+import { choice, randint, objet, jour, listeQuestionsToContenu, combinaisonListes, prenomF, prenomM, objetF, objetM, sp } from '../../modules/outils.js'
 import { point, polygone, segment, mathalea2d, texteParPosition } from '../../modules/2d.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Modéliser des problèmes'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Associer huit problèmes à huit types de modélisation différents
@@ -83,6 +86,8 @@ export default function ModelisationProblemes () {
           n1 = texteParPosition('A.', -1, 4)
 
           texteCorr += 'Cet énoncé est associé avec le schéma A.'
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          setReponse(this, i, ['a', 'A'], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: -1.5, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
@@ -131,6 +136,8 @@ export default function ModelisationProblemes () {
           n2 = texteParPosition('B.', 15, 4)
 
           texteCorr += 'Cet énoncé est associé avec le schéma B.'
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          setReponse(this, i, ['b', 'B'], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: 15, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
@@ -177,6 +184,8 @@ export default function ModelisationProblemes () {
           n3 = texteParPosition('C.', 31, 4)
 
           texteCorr += 'Cet énoncé est associé avec le schéma C.'
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          setReponse(this, i, ['c', 'C'], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: 31, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
@@ -201,10 +210,10 @@ export default function ModelisationProblemes () {
           break
         case 4:
           if (o === 1) {
-            texte += `${prenomF()} a acheté ${b5} ${objetM()} à ${c5} € pièce.`
+            texte += `${prenomF()} a acheté ${c5} ${objetM()} à ${b5} € pièce.`
             texte += '<br>Combien a-t-elle payé ?'
           } else {
-            texte += `${prenomF()} récupère ${b5} paquets de ${c5} ${objetM()} chacun.`
+            texte += `${prenomF()} récupère ${c5} paquets de ${b5} ${objetM()} chacun.`
             texte += '<br>Combien en a-t-elle en tout ?'
           }
           A4 = point(48, 0)
@@ -228,6 +237,8 @@ export default function ModelisationProblemes () {
           n4 = texteParPosition('D.', 47, 4)
 
           texteCorr += 'Cet énoncé est associé avec le schéma D.'
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          setReponse(this, i, ['d', 'D'], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: 47, ymin: -1, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
@@ -280,6 +291,8 @@ export default function ModelisationProblemes () {
           n5 = texteParPosition('E.', -1, -2)
 
           texteCorr += 'Cet énoncé est associé avec le schéma E.'
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          setReponse(this, i, ['e', 'E'], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
@@ -325,6 +338,8 @@ export default function ModelisationProblemes () {
           n6 = texteParPosition('F.', 15, -2)
 
           texteCorr += 'Cet énoncé est associé avec le schéma F.'
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          setReponse(this, i, ['f', 'F'], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: 15, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
@@ -377,6 +392,8 @@ export default function ModelisationProblemes () {
           n7 = texteParPosition('G.', 31, -2)
 
           texteCorr += 'Cet énoncé est associé avec le schéma G.'
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          setReponse(this, i, ['G', 'g'], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: 31, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
@@ -421,6 +438,8 @@ export default function ModelisationProblemes () {
           n8 = texteParPosition('H.', 47, -2)
 
           texteCorr += 'Cet énoncé est associé avec le schéma H.'
+          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          setReponse(this, i, ['h', 'H'], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + mathalea2d(
               { xmin: 47, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
