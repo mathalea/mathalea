@@ -1,72 +1,65 @@
-MathAlea permet de rendre un exercice interactif de deux façons :
-- en ligne : l'utilisateur saisit une réponse (dans un champ ou coche une case), celle-ci est vérifiée automatiquement et son score peut éventuellement être récupéré par son professeur.
-- sur papier : principalement sous forme de QCM ou de réponses numériques à coder mais pas que, les copies des élèves peuvent être scannées et corrigées automatiquement via ce qu'on appele communément AMC pour [Auto Multiple Choice](https://www.auto-multiple-choice.net/exemples.fr) et dont vous pouvez trouver un guide dans le [panneau de gauche](https://coopmaths.fr/documentation/tutorial-Utiliser_AMC.html).
+---
 
-Dans les deux cas, pour rendre un exercice interactif, il faut deux chose :
-1. Faire charger le nécessaire.
-2. Définir la correction et le feedback éventuel.
+MathAlea permet de rendre un exercice utilisable avec AMC (pour [Auto Multiple Choice](https://www.auto-multiple-choice.net/exemples.fr)). C'est un document Latex pour enseignant qui est produit. Sur feuille, l'elève aura un document qui reprend toutes les questions de l'exercice mais sous forme de QCM, de réponses numériques à coder, de questions ouvertes ou bien encore un mélange de toutes ces possibilités. Les copies des élèves peuvent être scannées et corrigées automatiquement via AMC  et dont un guide se trouve dans le [panneau de gauche](https://coopmaths.fr/documentation/tutorial-Utiliser_AMC.html).
+ 
+ ---
 
-**Remarque :**
-Le moyen le plus simple de rendre un exercice interactif est d'utiliser MathLive, vous pouvez parcourir cette page pour voir les autres types d'interactivité ou y aller [directement](#9).
+ Les actions obligatoires, à mener pour permettre à un exercice d'être utilisable avec AMC, sont décrites ci-dessous et explicitées, plus bas, en détail.
 
-## <a id="1" href="#1">#</a> 1.a Faire charger le nécessaire pour rendre un exercice en ligne interactif
-Pour faire charger le nécessaire, il faut ajouter ces lignes juste après les `import` de début d'exercice :
-```js
-export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
-export const interactifType = 'typeInteractivite'
-```
-`'typeInteractivite'` peut être :
-* `'qcm'` pour avoir un qcm. Exemple : 5L10-2
-* `'numerique'` pour avoir une réponse numérique. Exemple : 5R22
-* `'mathLive'`pour avoir un champ avec clavier et vérification d'égalité formelle. Exemple : 4C10-4
-* `'cliqueFigure'` pour choisir une figure. Exemple : 6G10-3
-* `'listeDeroulante'` permet d'avoir à choisir une réponse parmi différentes options d'une liste déroulante. Exemple : 6N43-4
-* `'custom'` pour appeler la fonction this.correctionInteractive() définie dans l'exercice. Exemple : 6N11-2
+1. [Charger le code nécessaire](#1)
+1. [Définir la correction](#2)
+1. [Configurer le typeAMC choisi](#3)
+    1. [types `'qcmMono'` et `'qcmMult'`](#4)
+    1. [type `'AMCOpen'`](#5)
+    1. [types `'AMCNum'`, `'AMCOpenNum'`, `'AMCOpenNum✖︎2'` et `'AMCOpenNum✖︎3'`](#6)
+    1. [type `'AMCHybride'`](#7)
+1. [Plusieurs sorties AMC différentes dans un même exercice](#8)
 
-**Remarque :**
-On peut utiliser `this.interactif = false` pour définir le mode dans lequel l'exercice va s'afficher par défaut (on le place avec les autres réglages par défaut de l'exercice entre `Exercice.call(this)` et `this.nouvelleVersion = function`)
+    
 
-## <a id="2" href="#2">#</a> 1.b Faire charger le nécessaire pour rendre un exercice utilisable avec AMC
-Pour faire charger le nécessaire, il faut ajouter ces lignes juste après les `import` de début d'exercice :
+## <a id="1" href="#1"></a> 1. Charger le code nécessaire pour rendre un exercice utilisable avec AMC
+Pour charger le code nécessaire pour rendre un exercice utilisable avec AMC, il faut ajouter ces deux lignes de code juste après les `import` de début d'exercice :
 ```js
 export const amcReady = true // pour définir que l'exercice peut servir à AMC
 export const amcType = 'typeAMC'
 ```
-`'typeAMC'` peut être l'une des valeurs suivantes :
-* `'qcmMono'` : qcm avec une seule bonne réponse (évolution vers le bouton radio ?). Exemple : 6C10-2
-* `'qcmMult'` : qcm avec possibilité de plusieurs bonnes réponses. Exemple : 6N43-2
-* `'AMCOpen'` : question ouverte -> il n'y a pas d'interactivité, l'affichage est classique par contre on peut l'exporter vers AMC en question ouverte (ajout EE : avec la possibilité d'afficher ou pas le cadre de saisie qui est ainsi inutile en géométrie). Exemple : 6C10-5 (et 6G12-1 pour enlever le cadre)
-* `'AMCNum'` : réponse numérique à entrer dans un formulaire texte. AmcNumeriqueChoice (voire attribut reponse). Exemple : 6C10
-* `'AMCOpenNum'` : réponse identique au type `'AMCNum'` mais AMC ajoute une zone pour une réponse ouverte. Exemple : 3G30
-* `'AMCOpenNum✖︎2'` : identique à `'AMCOpenNum'` avec deux réponses numériques (`reponse` et `reponse2`). Exemple : 4C21
-* `'AMCOpenNum✖︎3'` : identique à `'AMCOpenNum'` avec trois réponses numériques (`reponse`, `reponse2` et `reponse3`). Exemple : 3L11-1
-* `'custom'` : Ces exercices ne sont pas prédéfinis, ils partagent le bouton de validation puis appellent la méthode `correctionInteractive()` définie dans l'exercice. Ils ne sont pas compatibles avec AMC
+|Choix de `'typeAMC'`|Description de ce choix|Exercice témoin|
+|-----|-----|-----|
+|[`'qcmMono'`](#4)|qcm avec une seule bonne réponse|6C10-2|
+|[`'qcmMult'`](#4)|qcm avec possibilité de plusieurs bonnes réponses|6N43-2|
+|[`'AMCOpen'`](#5)|question ouverte, avec la possibilité d'afficher ou pas le cadre de saisie qui peut être inutile en géométrie.|6C10-5 et 6G12-1|
+|[`'AMCNum'`](#6)|réponse numérique à entrer dans un formulaire texte (AMCNumericChoice dans le langage AMC)|6C10|
+|[`'AMCOpenNum'`](#6)|réponse identique au type `'AMCNum'` mais AMC ajoute une zone pour une réponse ouverte. Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum` au profit de `AMCHybride`.|3G30|
+|[`'AMCOpenNum✖︎2'`](#6)|identique à `'AMCOpenNum'` avec deux réponses numériques (`reponse` et `reponse2`). Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum✖︎2` au profit de `AMCHybride`.|4C21|
+|[`'AMCOpenNum✖︎2'`](#6)|identique à `'AMCOpenNum'` avec deux réponses numériques (`reponse`, `reponse2` et `reponse3`). Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum✖︎3` au profit de `AMCHybride`.|3L11-1|
+|[`'AMCHybride'`](#7)|utilisation de plusieurs choix parmi les précédents |2F10-2|
 
-## <a id="3" href="#3">#</a> 2. Définir la correction et le feedback éventuel
-La définition de la correction ainsi que celle du feedback éventuel se font via la variable `this.autoCorrection`
+## <a id="2" href="#2"></a> 2. Définir la correction
+
+La définition de la correction se fait via la variable `this.autoCorrection`.
 ```js
-this.autoCorrection // doit contenir un tableau d'objets avec autant d'éléments qu'il y a de répétitions de l'énoncé (this.nbQuestions).
-this.autoCorrection[0] // définit la première question
-this.autoCorrection[1] // definit la deuxième question et ainsi de suite.
+this.autoCorrection = [] // doit contenir un tableau d'objets avec autant d'éléments qu'il y a de répétitions de l'énoncé (this.nbQuestions).
+                        // this.autoCorrection[0] définira la première question
+                        // this.autoCorrection[1] définira la deuxième question et ainsi de suite.
 ```
+## <a id="3" href="#3"></a> 3. Configurer le typeAMC choisi
 
-Selon les types, `this.autoCorrection` s'adapte :
+Il faut adapter `this.autoCorrection` en le configurant selon le type `AMCType` choisi, comme décrit ci-dessous :
 
-<a id="4" href="#4">#</a>
+>>## <a id="4" href="#4"></a> 3.1. types `'qcmMono'` et `'qcmMult'`
 
-* **types `'qcm'`** (Interactif)**, `'qcmMono'` et `'qcmMult'`** (AMC) **:** (à la différence des deux autres, `'qcmMono'` ne peut avoir qu'un seul `statut` à `true`)
 ```js
 this.autoCorrection[i] = {
   enonce: 'la question est posée ici',
   propositions: [
     {
       texte: 'ce qui est écrit à droite de la case à cocher',
-      statut: // true ou false pour indiquer si c'est une bonne réponse (true),
+      statut: true, // true ou false pour indiquer si c'est une bonne réponse (true) - En Mono, une unique bonne réponse ; en Mult, au moins deux bonnes réponses
       feedback: 'message' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
     },
     {
       texte: 'deuxième proposition',
-      statut: //true ou false,
+      statut: false, // true ou false pour indiquer si c'est une bonne réponse (true) - En Mono, une unique bonne réponse ; en Mult, au moins deux bonnes réponses
       feedback: '...'
     },
     {
@@ -79,9 +72,10 @@ this.autoCorrection[i] = {
   }
 }
 ```
-<a id="5" href="#5">#</a>
 
-* **type `'AMCOpen'`** (AMC) **:** ici un exemple pour une exercice ne produisant qu'une question (il y aura autant d'objets que `this.nbQuestion` > 1)
+
+>>## <a id="5" href="#5"></a> 3.2. type `'AMCOpen'`
+
 ```js
 this.autoCorrection = [
   { 
@@ -99,9 +93,14 @@ this.autoCorrection = [
   }
 ]
 ```
-<a id="6" href="#6">#</a>
 
-* **types `'numerique'`** (Interactif) **, `'AMCNum'`, `'AMCOpenNum'` et `'AMCOpenNum✖︎2'`** (AMC) **:** (`'AMCOpenNum✖︎2'` contient aussi un attribut `reponse2` au fonctionnement identique à celui de l'attribut `reponse` ci-dessous)
+L'exemple ci-dessus est pour un exercice ne produisant qu'une seule zone de réponse, quel que soit le nombre de questions.
+
+
+
+>>## <a id="6" href="#6"></a> 3.3. types `'AMCNum'`, `'AMCOpenNum'`, `'AMCOpenNum✖︎2'` et `'AMCOpenNum✖︎3'` 
+
+
 ```js
 this.autoCorrection[i] = {
   enonce: 'ici la question est posée',
@@ -125,10 +124,19 @@ this.autoCorrection[i] = {
         approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance... voir AMC)
       }
     }
-```
-<a id="7" href="#7">#</a>
 
-* **type `'AMCHybride'`** (AMC) **:** Dans ce type, chaque question-réponse peut avoir un type différent. Il y a seul énoncé, une seule correction et plusieurs champs question-réponse (il faudra donc numéroter les questions dans l'énoncé).
+```
+`'AMCOpenNum✖︎2'` (`'AMCOpenNum✖︎3'`) contient aussi un attribut `reponse2` (et `reponse3`) au(x) fonctionnement(s) identique(s) à celui de l'attribut `reponse` ci-dessus.
+
+Les types `'AMCOpenNum'`, `'AMCOpenNum✖︎2'` et `'AMCOpenNum✖︎3'` sont amenés à disparaître au profit de `'AMCHybride'`.
+
+
+
+>>## <a id="7" href="#7"></a> 3.4. type `'AMCHybride'` 
+
+
+Dans ce type, chaque question-réponse peut avoir un type différent. Il y a un seul énoncé, une seule correction et plusieurs champs question-réponse (il faudra donc numéroter les questions dans l'énoncé).
+
 ```js
 this.autoCorrection[i] = {
   enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
@@ -184,142 +192,10 @@ this.autoCorrection[i] = {
   ]
 }
 ```
-<a id="16" href="#16">#</a>
-
-* **type `'listeDeroulante'`** (Interactif) **:** Ici, l'utilisateur devra sélectionner une réponse dans un menu déroulant dont les différentes options sont définies par la fonction `choixDeroulant` et dont les bonnes réponses sont définies par la fonction `setReponse` à importer toutes les deux de `'../../modules/gestionInteractif.js'` (voir ex. 6N43-4)
-```js
-texte = 'Choisir une bonne réponse parmi ' + choixDeroulant(this, i, 0, [a, b, c, d]) // Si on veut avoir plusieurs menus déroulants dans la même question, il suffit d'incrémenter le troisième paramètre comme choixDeroulant(this, i, 1, [a, b, c, d]) (voir ex. 6N43-4)
-texteCorr = `Les bonnes réponses sont ${a} et ${d}.`
-setReponse(this, i, [a, d]) // S'il y a plusieurs menus déroulants, le troisième paramètre peut être une liste de listes comme setReponse(this, i, [[a, d], [c, d])
-```
-## <a id="8" href="#8">#</a> Les fonctions
-Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont l'appel permet de générer le code nécessaire facilement.
-
-Ce sont toutes les deux des fonctions de gestionInteractif.js, si vous voulez faire appel à elles, il faut alors faire en début de fichier :
-```js
-import { setReponse, propositionsQcm } from '../../modules/gestionInteractif.js'
-```
-
-```js
-function setReponse (this, i, a, {digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0} = {})
-```
-Cette fonction permet de fixer une réponse numérique à une exercice interactif/AMC de type `'numerique'`, `'mathLive'`, `'AMCNum'` ou `'AMCOpenNum'`. 
-
-(à développer une fonction `setReponses()` qui fixe les réponses des exercices de type `'AMCOpenNum✖︎2'` ou `'AMCOpenNum✖︎3'`.
-
-Les trois premiers arguments sont obligatoires : l'exercice appelant (`this`), l'index de la question (`i`), une réponse numérique (`a`).
-
-**Si on attend une réponse négative, ne pas oublier de mettre le paramètre `signe: true` !** (qui est nécessaire pour la sortie AMC) Écrire par exemple `setReponse(this, i, reponse, { signe: true })`
-
-Le quatrième est facultatif et ne sert que pour AMC (des valeurs par défaut seront mises garantissant un fonctionnement correct dans la plupart des cas : la fonction d'export AMC calculera le nombre de chiffres à coder à partir de la réponse).
-
-**Attention :**
-
-setReponse crée autant d'enregistrements dans autoCorrection qu'il y a de champs donc de questions.
-Or dans ce cas, la version AMC regroupe toutes les questions en une seule.
-Comme je récupérais le nombre d'enregistrements de autoCorrection pour ce paramètre, j'avais 4 à la place de 1.
-La solution est donc de n'effectuer le setReponse que si l'on n'est pas en contexte AMC
-```js
-function propositionsQcm (this, i)
-```
-Cette fonction va, à chaque appel, retourner un objet `{ texte, texteCorr }` qui contient les propositions faites pour le qcm avec leur case à cocher pour l'énoncé (`texte`) et pour la correction (`texteCorr`).
-
-Si le `texte` est toujours utilisé, on préférera souvent la correction classique au `texteCorr` retourné par cette fonction (à réfléchir : pourquoi ne pas activer la correction classique avec le bouton 'correction détaillée' ?)
-
-**Attention :**
-
-Pour les interactifs de type qcm avec brassage des réponses (`option ordered = false`), il est très important de n'appeler qu'une seule fois la fonction `propositionsQcm()` !
-
-Comme `propositionsQcm()` produit un objet `{texte, texteCorr}` à chaque appel, si on l'appelle 2 fois, on brasse 2 fois les propositions, et l'ordre des réponses (`texteCorr` et `checkReponse`) n'est pas le même que celui qui est affiché et donc celui sur lequel on clique.
-
-**Donc, ne surtout pas faire :**
-```js
-texte = enonce + propositionsQcm(this,i).texte
-texteCorr = propositionsQcm(this,i).texteCorr
-```
-
-**Mais il faut faire :**
-```js
-monQcm=propositionsQcm(this,i)
-texte = enonce + monQcm.texte
-texteCorr = monQcm.texteCorr
-```
-## <a id="9" href="#9">#</a> MathLive
-
-Nous n'avons pas encore parlé du type d'interactivité `'mathLive'` qui est pourtant très pratique ! et pas très compliqué à mettre en place comme nous allons le voir :
-
-#### <a id="12" href="#12">#</a> Dans le cas d'un exercice normal
-
-Pour rendre un exercice interactif en utilisant MathLive, il suffit de :
-1. Placer en en-tête :
-```js
-import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
-export const interactifReady = true
-export const interactifType = 'mathLive'
-```
-2. mettre dans la boucle principale `setReponse(this, i, maRéponse)` avec maRéponse un string LaTeX ou une valeur numérique (donc sans `texNombre` ou des équivalents)
-3. faire `texte += ajouteChampTexteMathLive(this, i)` pour ajouter le champ de réponse.
-
-Par défaut, on compare des expressions littérales ou des nombres. <a id="13" href="#13">#</a>
-- Pour comparer des textes sans traitement, on fait `setReponse(this, i, '+', { formatInteractif: 'texte' })`. La réponse doit être saisie sans les $ délimiteurs du LaTeX.
-- Pour comparer des fractions et attendre exactement une forme, on fait `setReponse(this, i, '+', { formatInteractif: 'fraction' })` et la réponse doit être un objet fraction (créé avec `new Fraction(a, b)`)
-- Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionPlusSimple' })` et la réponse doit être un objet fraction égale à la réponse mais avec un numérateur strictement inférieur (on compare les valeurs absolues).
-- Pour comparer des fractions, on peut aussi faire `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionEgale' })` et la réponse doit être un objet fraction égale à la réponse.
-- Pour comparer des longueurs (ou des aires), on peut faire `setReponse(this, i, new Grandeur(4, 'cm'), { formatInteractif: 'longueur' })` et personnaliser le champ texte avec `ajouteChampTexteMathLive(this, i, 'longueur')`
-
-**<a id="15" href="#15">#</a> Si une réponse correcte est considérée fausse**
-
-Le fonctionnement de MathLive peut parfois donner un résultat étonnant. Alors qu'on attend la réponse, "1h45min", `verifieQuestionMathLive` peut lui attendre "1h45\\min" par exemple.
-
-Si vous vous trouvez dans la situation où une réponse correcte est considérée fausse, voici la procédure à suivre :
-* Ouvrir l'inspecteur (CTRL+MAJ+C sur Firefox et Chrome, Command+Option+I sur Safari)
-* Sur l'onglet débugueur. Chercher dans l'onglet sources `webpack/src/js/modules/gestionInteractifs.js`
-* Mettre un point d'arrêt sur la ligne 95 juste après le `let saisie = champTexte.value` (clic droit sur 95 puis sur Ajouter un point d'arrêt)
-* Cliquer sur Actualiser
-* Saisir la réponse attendue dans le champ et valider la saisie
-* Mettre le curseur sur `saisie` pour visualiser la saisie qu'il a récupéré [capture d'écran](img/Interactif-1.png)
-
-**Lien avec AMC :**
-Si on a un `setReponse(this,i, new Fraction(n,d),{formatInteractif: 'fraction'})`, alors on peut mettre `amcType = 'AMCNum'` et ça passe automatiquement en un simili amcHybride avec 2 champs : un pour le numérateur, et un pour le dénominateur !
-
-#### <a id="14" href="#14">#</a> Dans le cas d'un exercice simple fait pour utilisé dans une Course aux Nombre (`this.typeExercice = 'simple'`)
-
-Les exercices simples sont interactifs `mathLive` par défaut !
-
-Il suffit de
-* Mettre votre énoncé dans `this.question`
-* Mettre votre correction dans `this.correction`
-* Mettre la réponse attendue dans `this.reponse`
-
-**Pour changer le format**, il suffit de placer après le `Exercice.call(this)` :
-* `this.formatInteractif = ` et de compléter avec un des formats vus <a href="#13">ci-dessus</a> : `'texte'`, `'fraction'`, `'fractionPlusSimple'`, `'fractionEgale'`, `'longueur'` (voir /js/exercices/can/can6C15.js par exemple).
-* `this.formatChampTexte = 'largeur10 inline'` pour personnaliser le champTexte (10 % de la largeur sans retour à la ligne dans cet exemple)
-* `this.optionsChampTexte = { texte: 'l = ', texteApres: ' cm'}` permet d'avoir du texte avant et après le champTexte MathLive.
 
 
-## <a id="10" href="#10">#</a> Avoir deux champs de réponse sur une question, c'est possible !
-Il suffit d'avoir un compteur indépendant du compteur `i` de la boucle qui augmente de `1` pour les questions à un champ de réponse et qui augmente de `2` pour les questions à deux champs de réponse.
+## <a id="8" href="#8"></a> 4. Plusieurs sorties AMC différentes dans un même exercice
 
-Supposons qu'on nomme cet autre compteur `j`.
+On peut aussi faire le choix de ne pas imposer à un utilisateur le choix d'un type AMC mais en proposer plusieurs. Un exemple de ce type est le beta6C12 (à modifier) avec une sortie de type `'AMCOpen'`, une autre sortie de type `'AMCNum'` et enfin une dernière sortie `'AMCHybride'` avec `'AMCOpen'` et `'AMCNum'`.
 
-Au lieu de faire `setReponse(this, i, maRéponse)` et `texte += ajouteChampTexteMathLive(this, i)`, il suffit de faire `setReponse(this, j, maRéponse)` et `texte += ajouteChampTexteMathLive(this, j)`
-
-Le soucis, c'est que pour l'instant chaque formulaire rapporte un point au niveau du score. Il y aura donc des questions à 2 points et d'autres à 1 point.
-## <a id="11" href="#11">#</a> Remarque  :
-Pour une compatibilité entre les exercices interactifs en ligne et AMC,
-
-**il ne faut pas faire :**
-* `texte = propositionsQcm()` ;
-* `texte = ajouteChampTexteMathLive()`.
-
-Mais **il faut faire :**
-* `texte += propositionsQcm()` ;
-* `texte += ajouteChampTexteMathLive()`.
-
-La raison se trouve ci-dessous :
-
-Afin de ne pas se retrouver avec un code hors contexte, les fonctions `propositionsQcm` et `ajouteChampTexteMathLive` retournent des chaines vides lorsque le contexte est la sortie Latex ou le générateur AMC.
-
-Il convient donc de ne pas utiliser l'affectation `texte = ...` mais la concaténation `texte += ...`
-
-En effet, le `texte` initial de l'énoncé sert souvent tel quel pour les énoncés AMC. En cas d'affectation `texte` transmettrait une chaine vide comme énoncé pour AMC. Il en va de même pour l'utilisation de `propositionsQcm()` qui retourne un tableau avec deux chaines vides dans ce contexte de sortie AMC.
+Cette page n'est pas terminée mais c'est un bon début pour voir à quoi cela va rassembler et serait renommée "Rendre un exercice utilisable par AMC".
