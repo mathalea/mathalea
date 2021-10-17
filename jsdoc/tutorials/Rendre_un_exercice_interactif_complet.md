@@ -4,7 +4,7 @@ MathAlea permet de rendre un exercice utilisable avec AMC (pour [Auto Multiple C
  
  ---
 
- Les actions obligatoires, à mener pour permettre à un exercice d'être utilisable avec AMC, sont décrites ci-dessous et explicitées, plus bas, en détail.
+ Les actions obligatoires à mener, pour permettre à un exercice d'être utilisable avec AMC, sont décrites ci-dessous et explicitées, plus bas, en détail.
 
 1. [Charger le code nécessaire](#1)
 1. [Définir la correction](#2)
@@ -25,14 +25,14 @@ export const amcType = 'typeAMC'
 ```
 |Choix de `'typeAMC'`|Description de ce choix|Exercice témoin|
 |-----|-----|-----|
-|[`'qcmMono'`](#4)|qcm avec une seule bonne réponse|6C10-2|
-|[`'qcmMult'`](#4)|qcm avec possibilité de plusieurs bonnes réponses|6N43-2|
-|[`'AMCOpen'`](#5)|question ouverte, avec la possibilité d'afficher ou pas le cadre de saisie qui peut être inutile en géométrie.|6C10-5 et 6G12-1|
-|[`'AMCNum'`](#6)|réponse numérique à entrer dans un formulaire texte (AMCNumericChoice dans le langage AMC)|6C10|
-|[`'AMCOpenNum'`](#6)|réponse identique au type `'AMCNum'` mais AMC ajoute une zone pour une réponse ouverte. Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum` au profit de `AMCHybride`.|3G30|
-|[`'AMCOpenNum✖︎2'`](#6)|identique à `'AMCOpenNum'` avec deux réponses numériques (`reponse` et `reponse2`). Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum✖︎2` au profit de `AMCHybride`.|4C21|
-|[`'AMCOpenNum✖︎2'`](#6)|identique à `'AMCOpenNum'` avec deux réponses numériques (`reponse`, `reponse2` et `reponse3`). Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum✖︎3` au profit de `AMCHybride`.|3L11-1|
-|[`'AMCHybride'`](#7)|utilisation de plusieurs choix parmi les précédents |2F10-2|
+|[`'qcmMono'`](#4)|qcm avec une seule bonne réponse|**6C10-2**|
+|[`'qcmMult'`](#4)|qcm avec possibilité de plusieurs bonnes réponses ou une unique ou bien aucune|**6N43-2**|
+|[`'AMCOpen'`](#5)|question ouverte, avec la possibilité d'afficher ou pas le cadre de saisie qui peut être inutile en géométrie.|**6C10-5** et **6G12-1**|
+|[`'AMCNum'`](#6)|réponse numérique à entrer dans un formulaire texte (AMCNumericChoice dans le langage AMC)|**6C10**|
+|[`'AMCOpenNum'`](#6)|réponse identique au type `'AMCNum'` mais AMC ajoute une zone pour une réponse ouverte. Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum` au profit de `AMCHybride`.|**3G30**|
+|[`'AMCOpenNum✖︎2'`](#6)|identique à `'AMCOpenNum'` avec deux réponses numériques (`reponse` et `reponse2`). Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum✖︎2` au profit de `AMCHybride`.|**4C21**|
+|[`'AMCOpenNum✖︎3'`](#6)|identique à `'AMCOpenNum'` avec trois réponses numériques (`reponse`, `reponse2` et `reponse3`). Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum✖︎3` au profit de `AMCHybride`.|**3L11-1**|
+|[`'AMCHybride'`](#7)|utilisation de plusieurs choix parmi les précédents |**2F10-2**|
 
 ## <a id="2" href="#2"></a> 2. Définir la correction
 
@@ -54,12 +54,12 @@ this.autoCorrection[i] = {
   propositions: [
     {
       texte: 'ce qui est écrit à droite de la case à cocher',
-      statut: true, // true ou false pour indiquer si c'est une bonne réponse (true) - En Mono, une unique bonne réponse ; en Mult, au moins deux bonnes réponses
+      statut: true, // true ou false pour indiquer si c'est une bonne réponse (true) - En Mono, une unique bonne réponse ; en Mult, plusieurs bonnes réponses ou une seule ou bien aucune
       feedback: 'message' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
     },
     {
       texte: 'deuxième proposition',
-      statut: false, // true ou false pour indiquer si c'est une bonne réponse (true) - En Mono, une unique bonne réponse ; en Mult, au moins deux bonnes réponses
+      statut: false, // true ou false pour indiquer si c'est une bonne réponse (true) - En Mono, une unique bonne réponse ; en Mult, plusieurs bonnes réponses ou une seule ou bien aucune
       feedback: '...'
     },
     {
@@ -121,9 +121,17 @@ this.autoCorrection[i] = {
         signe: false, // (présence d'une case + ou - pour AMC)
         exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
         exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
-        approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance... voir AMC)
+        approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance... voir plus bas pour un point technique non intuitif)
       }
     }
+
+
+// La valeur de tolérance "approx" est forcément un entier avec la contrainte suivante :
+// AMC transforme tous les nombres (décimaux inclus) comme des entiers (en enlevant
+// la virgule) avant de faire la diﬀérence et de comparer avec approx. Par exemple, si
+// decimals=2, si la bonne valeur est 3,14 et si la valeur saisie est 3,2 alors la diﬀérence
+// entière calculée est 320-314=6, de sorte que les points scoreapprox ne sont acquis que
+// si approx vaut 6 ou plus.
 
 ```
 `'AMCOpenNum✖︎2'` (`'AMCOpenNum✖︎3'`) contient aussi un attribut `reponse2` (et `reponse3`) au(x) fonctionnement(s) identique(s) à celui de l'attribut `reponse` ci-dessus.
@@ -161,7 +169,7 @@ this.autoCorrection[i] = {
           signe: false, // (présence d'une case + ou - pour AMC)
           exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
           exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
-          approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance... voir AMC)
+          approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
         }
       }
       options: {ordered: false, lastChoice: false} // options pour Qcms
