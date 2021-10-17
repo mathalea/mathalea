@@ -1,15 +1,15 @@
 import CalculsImagesFonctions from '../../3e/3F10-2.js'
 export { interactifReady, interactifType, amcReady, amcType } from '../../3e/3F10-2.js'
-export const titre = 'Calcul d’image par fonction linéaire'
+export const titre = 'Calcul d’antécédent par fonction affine'
 
 /*!
  * @author Jean-Claude Lhote
   * Créé pendant l'été 2021
- * Référence can3F10-2
+ * Référence can3C04
 */
-export default function CalculImageParFonctionLineaire () {
+export default function CalculAntecedentAffine () {
   CalculsImagesFonctions.call(this)
   this.nbQuestions = 1
-  this.sup = 1
-  this.sup2 = 1
+  this.sup = 2
+  this.sup2 = 2
 }

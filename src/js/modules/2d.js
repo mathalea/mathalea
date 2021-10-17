@@ -4713,7 +4713,7 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4) {
  *
  * @author Rémi Angot
  */
-function AfficheLongueurSegment (A, B, color = 'black', d = 0.5) {
+function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   ObjetMathalea2D.call(this)
   this.color = color
   this.extremite1 = A
@@ -4733,7 +4733,7 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5) {
     } else {
       angle = 180 - s.angleAvecHorizontale
     }
-    return texteParPoint(l + ' cm', N, angle, this.color).svg(coeff)
+    return texteParPoint(`${l}${unite !== '' ? ' ' + unite : ''}`, N, angle, this.color).svg(coeff)
   }
 
   this.tikz = function () {
