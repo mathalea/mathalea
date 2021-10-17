@@ -1,6 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, obtenirListeFacteursPremiers, texNombre, miseEnEvidence, modalPdf, modalVideo, cribleEratostheneN, premiersEntreBornes, warnMessage } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+
 export const titre = 'Décomposition en facteurs premiers d’un entier'
 
 /**
@@ -18,7 +22,8 @@ export default function decompositionFacteursPremiers () {
   this.sup = 1
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = 'À l\'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.'
+  // mais une différence selon que l'exo est affiché en interactif ou non
+  this.consigne = ''
   // this.consigne += `<br>`;
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
@@ -37,6 +42,12 @@ export default function decompositionFacteursPremiers () {
       this.boutonAide += modalVideo('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
     } else { // sortie LaTeX
     };
+
+    if (this.interactif) {
+      this.consigne = 'À l\'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.'
+    } else {
+      this.consigne = 'À l\'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.'
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -59,6 +70,7 @@ export default function decompositionFacteursPremiers () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
+      let nombre, reponse
 
       switch (typesDeQuestions) {
         case 1: // 3 à 5 facteurs premiers max compris entre 0 et 30, de multiplicité 1,2 ou 3 max
@@ -129,17 +141,23 @@ export default function decompositionFacteursPremiers () {
             texteCorr += `Finalement on obtient la décomposition suivante : $ ${texNombre(nombreTodecompose)} = `
             if (tabMultiplicites[0] === 1) {
               texteCorr += `${tabPremiers[0]}`
+              reponse = `${tabPremiers[0]}`
             } else {
               texteCorr += `${tabPremiers[0]}^{${tabMultiplicites[0]}}`
+              reponse = `${tabPremiers[0]}^{${tabMultiplicites[0]}}`
             };
             for (let k = 1; k < tabPremiers.length; k++) {
               if (tabMultiplicites[k] === 1) {
                 texteCorr += `\\times ${tabPremiers[k]}`
+                reponse += `\\times ${tabPremiers[k]}`
               } else {
                 texteCorr += `\\times ${tabPremiers[k]}^{${tabMultiplicites[k]}}`
+                reponse += `\\times ${tabPremiers[k]}^{${tabMultiplicites[k]}}`
               };
             };
             texteCorr += '$'
+            nombre = nombreTodecompose
+            setReponse(this, i, reponse)
           }
           break
         case 2: // deux premiers compris entre 30 et 100 de multiplicité 1
@@ -170,6 +188,9 @@ export default function decompositionFacteursPremiers () {
               quotientIntermediaire = quotientIntermediaire / listeFacteursPremiers[k]
             };
             texteCorr += ` D'où $${texNombre(premier1 * premier2)} = ${texNombre(premier1)}\\times${texNombre(premier2)}$.`
+            reponse = `${premier1}\\times${premier2}`
+            nombre = premier1 * premier2
+            setReponse(this, i, reponse)
           }
           break
         case 3: // un gros premier entre 1000 et 2000
@@ -188,9 +209,14 @@ export default function decompositionFacteursPremiers () {
             texteCorr += '$, '
             texteCorr += `on se rend compte que $${texNombre(premier)}$ est un nombre premier donc `
             texteCorr += `$${texNombre(premier)} = ${texNombre(premier)}$.`
+
+            reponse = `${premier}`
+            nombre = premier
+            setReponse(this, i, reponse)
           }
           break
-      };
+      }
+      texte += ajouteChampTexteMathLive(this, i, 'largeur20 inline', { texte: `<br> <b>Écrire les diviseurs premiers dans l'ordre croissant et la décomposition à l'aide de puissances lorsque l'exposant est supérieur ou égal à deux.</b> <br> La décomposition de $${texNombre(nombre)}$ est : ` })
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
