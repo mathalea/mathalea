@@ -1,6 +1,6 @@
 {
   "name": "mathalea",
-  "version": "2.6.3",
+  "version": "2.6.4",
   "description": "Générateur d'exercices de mathématiques",
   "main": "mathalea.js",
   "scripts": {
@@ -18,7 +18,11 @@
     "test": "node testsBrowser/start.js",
     "test:all": "node testsBrowser/start.js --task runAll --verbose",
     "test:list": "node testsBrowser/start.js --list",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:patch": "standard-version --release-as patch",
+    "release:major": "standard-version --release-as major"
   },
   "dependencies": {
     "@bugsnag/js": "^7.11.0",
