@@ -10,18 +10,17 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
 1. [Configurer le `typeInteractivite` choisi](#2)
     1. [`mathlive`](#3)
         1. [Lignes de code spécifiques](#4)
-        1. [Gestion des différentes types de réponse](#4)
-    1. [`qcm`](#5)
-    1. [`numerique`](#6)
-    1. [`cliqueFigure`](#7)
+        1. [Gestion des différentes types de réponse](#5)
+        1. [Comprendre pourquoi une réponse correcte est pourtant considérée fausse](#6)
+        1. [Dans les exercices de la Course Aux Nombres](#7)
+        1. [Permettre deux champs de réponse sur une même question](#8)
+    1. [`qcm`](#9)
+    1. [`numerique`](#10)
+    1. [`cliqueFigure`](#11)
     1. [`listeDeroulante`](#7)
     1. [`custom`](#7)
 
 ## <a id="1" href="#1"></a> 1. Charger le code nécessaire pour rendre un exercice interactif
-
-* **types `'qcm'`
-
-* **type `'listeDeroulante'`** (Interactif) **:** Ici, l'utilisateur devra sélectionner une réponse dans un menu déroulant dont les différentes options sont définies par la fonction `choixDeroulant` et dont les bonnes réponses sont définies par la fonction `setReponse` à importer toutes les deux de `'../../modules/gestionInteractif.js'` (voir ex. 6N43-4)
 
 ```js
 
@@ -67,65 +66,162 @@ Pour rendre un exercice interactif en utilisant MathLive, il faut rajouter 3 nou
 >>>>## <a id="4" href="#4"></a> 2. 1. 1. Lignes de code spécifiques
 
 1. Rajouter un import dans l'en-tête comme ceci :
-```js
-import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
-export const interactifReady = true
-export const interactifType = 'mathLive'
-```
+>>```js
+>>import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+>>export const interactifReady = true
+>>export const interactifType = 'mathLive'
+>>```
 2. Initialiser la variable `setReponse` dans la boucle principale, pour chaque question, de la sorte :
-```js 
-setReponse(this, i, maReponse) 
-```
+>>```js 
+>>setReponse(this, i, maReponse) 
+>>```
 `maReponse` est une chaîne de caractère LaTeX (de type `'${x1}'`) ou une valeur numérique (donc sans formatage avec `texNombre` par exemple).
 
 3. Ajouter, pour chaque question, le champ de réponse avec le clavier virtuel après l'énoncé de la sorte :
-```js 
-texte += ajouteChampTexteMathLive(this, i)
-```
+>>```js 
+>>texte += ajouteChampTexteMathLive(this, i)
+>>```
+`ajouteChampTexteMathLive` a le fonctionnement par défaut ci-dessus, mais possède les options suivantes :
+>>```js 
+>>texte += ajouteChampTexteMathLive(this, i,'largeur 25') // 25 % de la largeur de la page est occupés par le champ de réponse
+>>texte += ajouteChampTexteMathLive(this, i,'inline') // sans retour à la ligne 
+>>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25') // mélange des deux options précédentes
+>>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texte: 'avant' })) // s'écrit "avant" devant le champ de réponses
+>>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texteApres: 'apres' })) // s'écrit "après" derrière le champ de réponses
+ >>```
+
+
 
 >>>>## <a id="5" href="#5"></a> 2. 1. 2. Gestion des différentes types de réponses attendues
 
 Toutes les réponses sont traitées en comparant la saisie de l'élève avec la réponse (ou les réponses) choisie(s) par le concepteur de l'exercice.
 Le fonctionnement par défaut est de comparer des expressions littérales ou des nombres, de façon intuitive.
-- Pour comparer des textes sans traitement, on code ainsi `setReponse(this, i, '+', { formatInteractif: 'texte' })`. La réponse doit être saisie sans les $ délimiteurs du LaTeX.
+- Pour comparer des textes sans traitement, on code, comme dans l'exercice-témoin **2N14-1** :
+>>```js
+>>setReponse(this, i, 'reponse', { formatInteractif: 'texte' }) // reponse doit être saisie sans les $ délimiteurs du LaTeX
+>>```
+
 - Pour comparer des fractions, il y a trois méthodes différentes pour coder.
--  `setReponse(this, i, maFractionReponse, { formatInteractif: 'fraction' })` et `maFractionReponse` doit être un objet fraction (créé avec `new Fraction(a, b)`).
--  `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionPlusSimple' })` et la réponse doit être un objet fraction égale à la réponse mais avec un numérateur strictement inférieur (on compare les valeurs absolues).
--  `setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fractionEgale' })` et la réponse doit être un objet fraction égale à la réponse.
-- Pour comparer des longueurs (ou des aires), on peut faire `setReponse(this, i, new Grandeur(4, 'cm'), { formatInteractif: 'longueur' })` et personnaliser le champ texte avec `ajouteChampTexteMathLive(this, i, 'longueur')`
+ 
+>>``` js
+>>// Méthode 1 : Exercice-témoin 4C22
+>>setReponse(this, i, maFractionReponse, { formatInteractif: 'fraction' }) // maFractionReponse doit être un objet fraction (créé avec new Fraction(n, d))
+>>
+>>// Méthode 2 : Exercice-témoin 5N13
+>>setReponse(this, i, maFractionReponse, { formatInteractif: 'fractionPlusSimple' }) // maFractionReponse doit être un objet fraction (créé avec new Fraction(n, d)) égale à la réponse mais avec un numérateur strictement inférieur (EE : à quoi ?) (on compare les valeurs absolues).
+>>
+>>// Méthode 3 : Exercice-témoin 3L13-1
+>>setReponse(this, i, maFractionReponse, { formatInteractif: 'fractionEgale' }) // maFractionReponse doit être un objet fraction (créé avec new Fraction(n, d))
+>>
+>>EE : Il manque des infos car je ne comprends pas la différence entre la méthode 1 et la méthode 3
+>>
+>>```
 
-Non non NON ????
+- Pour comparer des longueurs (ou des aires), on code, comme dans l'exercice-témoin **6M11** :
+>>``` js
+>>setReponse(this, i, new Grandeur(resultat, 'cm'), { formatInteractif: 'longueur' }) // resultat est un nombre. On personnalisera le champ texte avec ajouteChampTexteMathLive(this, i, 'longueur')
+>>```
+- EE : Vérifier ci-dessous mes propos sur 'calcul' car j'écris en devinant et pas en ayant réalisé donc je dis peut-être des aneries.
 
-**<a id="15" href="#15">#</a> Si une réponse correcte est considérée fausse**
+- Pour comparer la réponse avec le résultat d'un calcul saisi dans le champ de réponse, on code, comme dans l'exercice-témoin **3F12-3** :
+>>``` js
+>>setReponse(this, i, resultat, { formatInteractif: 'calcul' }) // resultat est un nombre
+>>```
+EE : Une réflexion pour moi uniquement. Ne pas s'en préoccuper. Non non NON ???? Réponse différente
+ 
+>>>>## <a id="6" href="#6"></a> 2. 1. 3. Comprendre pourquoi une réponse correcte est pourtant considérée fausse
 
-Le fonctionnement de MathLive peut parfois donner un résultat étonnant. Alors qu'on attend la réponse, "1h45min", `verifieQuestionMathLive` peut lui attendre "1h45\\min" par exemple.
+Le fonctionnement de MathLive peut parfois donner un résultat étonnant. Alors qu'on attend la réponse, "**1h45min**", `verifieQuestionMathLive` peut lui attendre "**1h45\\min**" par exemple.
 
 Si vous vous trouvez dans la situation où une réponse correcte est considérée fausse, voici la procédure à suivre :
 * Ouvrir l'inspecteur (CTRL+MAJ+C sur Firefox et Chrome, Command+Option+I sur Safari)
-* Sur l'onglet débugueur. Chercher dans l'onglet sources `webpack/src/js/modules/gestionInteractifs.js`
+* Sur l'onglet débugueur, chercher dans l'onglet sources `webpack/src/js/modules/gestionInteractifs.js`
 * Mettre un point d'arrêt sur la ligne 95 juste après le `let saisie = champTexte.value` (clic droit sur 95 puis sur Ajouter un point d'arrêt)
 * Cliquer sur Actualiser
 * Saisir la réponse attendue dans le champ et valider la saisie
-* Mettre le curseur sur `saisie` pour visualiser la saisie qu'il a récupéré [capture d'écran](img/Interactif-1.png)
+* Mettre le curseur sur `saisie` pour visualiser la saisie qu'il a récupéré comme sur cette [capture d'écran](img/Interactif-1.png)
 
-## <a id="14" href="#14">#</a> Dans le cas d'un exercice simple fait pour utilisé dans une Course aux Nombre (`this.typeExercice = 'simple'`)
+>>>>## <a id="7" href="#7"></a> 2. 1. 4. Dans les exercices de la Course Aux Nombres
 
-Il suffit de
-* Mettre votre énoncé dans `this.question`
-* Mettre votre correction dans `this.correction`
+Les exercices utilisables dans la Course Aux Nombres dont des exercices avec `this.typeExercice = 'simple'`.
+
+L'utilisation de mathLive au sein de ces exercices nécessitent ces actions :
+* Mettre l'énoncé dans `this.question`
+* Mettre la correction dans `this.correction`
 * Mettre la réponse attendue dans `this.reponse`
-
-**Pour changer le format**, il suffit de placer après le `Exercice.call(this)` :
-* `this.formatInteractif = ` et de compléter avec un des formats vus <a href="#13">ci-dessus</a> : `'texte'`, `'fraction'`, `'fractionPlusSimple'`, `'fractionEgale'`, `'longueur'` (voir /js/exercices/can/can6C15.js par exemple).
-* `this.formatChampTexte = 'largeur10 inline'` pour personnaliser le champTexte (10 % de la largeur sans retour à la ligne dans cet exemple)
+Si le format de mathLive par défaut ne convient pas, on peut le changer. Pour cela, il suffit de placer après `Exercice.call(this)` :
+* `this.formatInteractif = ` et de compléter avec un des formats vus <a href="#5">ci-dessus</a> : `'texte'`, `'fraction'`, `'fractionPlusSimple'`, `'fractionEgale'`, `'longueur'`, `'calcul'` (Exercice-témoin **can6C15**).
+* `this.formatChampTexte = 'largeur10 inline'` pour personnaliser le champTexte (10 % de la largeur sans retour à la ligne, dans cet exemple)
 * `this.optionsChampTexte = { texte: 'l = ', texteApres: ' cm'}` permet d'avoir du texte avant et après le champTexte MathLive.
 
+>>>>## <a id="7" href="#7"></a> 2. 1. 5. Permettre deux champs de réponse sur une même question
+Il est possible d'avoir deux champs de réponse sur une même question.
 
-## <a id="10" href="#10">#</a> Avoir deux champs de réponse sur une question, c'est possible !
 Il suffit d'avoir un compteur indépendant du compteur `i` de la boucle qui augmente de `1` pour les questions à un champ de réponse et qui augmente de `2` pour les questions à deux champs de réponse.
 
 Supposons qu'on nomme cet autre compteur `j`.
 
 Au lieu de faire `setReponse(this, i, maRéponse)` et `texte += ajouteChampTexteMathLive(this, i)`, il suffit de faire `setReponse(this, j, maRéponse)` et `texte += ajouteChampTexteMathLive(this, j)`
 
-Le soucis, c'est que pour l'instant chaque formulaire rapporte un point au niveau du score. Il y aura donc des questions à 2 points et d'autres à 1 point.
+EE : Je n'ai pas compris... Qui a la référence d'un exercice-témoin ?
+
+Le souci, c'est que pour l'instant chaque formulaire rapporte un point au niveau du score. Il y aura donc des questions à 2 points et d'autres à 1 point.
+
+>>## <a id="9" href="#9"></a> 2. 2. `qcm`
+
+Exercice-témoin : **5L10-2**
+
+Pour chaque question, la configuration des réponses se fait pendant la définition de la correction se fait via par le tableau `this.autoCorrection`. L'indice du tableau correspond au numéro de la question.
+
+```js
+this.autoCorrection[i] = {
+  enonce: 'la question est posée ici',
+  propositions: [
+    {
+      texte: 'première proposition du QCM écrite à droite de la case à cocher',
+      statut: true, // true ou false pour indiquer si c'est une bonne réponse (true)
+      feedback: 'message1' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
+    },
+    {
+      texte: 'deuxième proposition du QCM écrite à droite de la case à cocher',
+      statut: false, // true ou false pour indiquer si c'est une bonne réponse (true)
+      feedback: 'message1'
+    },
+    {
+
+    } //.... autant de fois qu'il y a de propositions dans le qcm
+  ],
+  options: {
+    ordered: true // (si les réponses doivent rester dans l'ordre ci-dessus, false s'il faut les mélanger),
+    lastChoice: index // (en cas de mélange, l'index à partir duquel les propositions restent à leur place, souvent le dernier choix par défaut)
+  }
+}
+```
+>>## <a id="10" href="#10"></a> 2. 3. `numerique`
+
+EE : Est-ce que le type numérique est encore à utiliser ou il faut le proscire au profit de Mathlive ?
+
+
+>>## <a id="11" href="#11"></a> 2. 4. `cliqueFigure`
+
+Exercice-témoin : **6G10-3**
+
+Ici, l'élève devra cliquer sur une figure pour signaler sa réponse. Le programmeur,lui, aura créé un tableau contenant toutes les références aux différences figures, associées chacune à un identifiant unique et à un booléen de bonne ou mauvaise réponse. Ensuite, c'est la fonction `resultatCheckEx` qui gère la partie interactive.
+
+>>## <a id="12" href="#12"></a> 2. 5. `listeDeroulante`
+
+Exercice-témoin : **6N43-4**
+
+Ici, l'élève devra sélectionner une réponse dans un menu déroulant dont les différentes options sont définies, par le créateur de l'exercice, par la fonction `choixDeroulant`.
+
+---
+
+EE : Des interrogations :
+
+Lien Interactif-AMC comme indiqué ici : [https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif_complet.html#11](https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif_complet.html#11). Est-ce encore utile ?
+
+Un autre lien AMC ici aussi : [https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif_complet.html#15](https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif_complet.html#15). Est-ce utile et toujours fonctionnel ?
+
+**Ci-dessous est un pense-bête**
+
+Ne pas oublier d'introduite dans ce doc, [https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif_complet.html#8](https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif_complet.html#8)
