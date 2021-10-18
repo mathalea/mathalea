@@ -109,7 +109,7 @@ export default function TrianglesEgaux () {
             scale: 0.5
           },
           p1, p2, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, nommeP2)
-          texteCorr = `Ces deux triangles ne sont pas égaux. Ils ont la même forme mais leurs longueurs peuvent être différentes. On dit qu'ils sont ${texteEnCouleur('semblables')}`
+          texteCorr = `On ne peut pas déterminer si ces triangles sont égaux. Ils ont la même forme mais leurs longueurs peuvent être différentes. On dit qu'ils sont ${texteEnCouleur('semblables')}`
           break
         case 'CC':
           texte = '<br>' + mathalea2d({
@@ -120,7 +120,7 @@ export default function TrianglesEgaux () {
             scale: 0.5
           },
           p1, p2, code1, code2, code5, code6, nommeP1, nommeP2)
-          texteCorr = 'Ces deux triangles ne sont pas égaux.'
+          texteCorr = 'On ne peut pas déterminer si ces triangles sont égaux.'
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
