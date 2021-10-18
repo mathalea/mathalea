@@ -3952,29 +3952,45 @@ export default {
     ],
     "name": "betaCan2G01"
   },
-  "betaCAN2Q23-06": {
-    "titre": "Recherche d’un prix unitaire",
-    "url": "/exercices/beta/betaCAN2Q23-06.js",
+  "betaCAN2Q23-01": {
+    "titre": "Calcul avec racine carrée niveau 3",
+    "url": "/exercices/beta/betaCAN2Q23-01.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCAN2Q23-06"
+    "name": "betaCAN2Q23-01"
   },
-  "betaCAN2Q23-07": {
-    "titre": "Encadrement avec puissance de 10",
-    "url": "/exercices/beta/betaCAN2Q23-07.js",
+  "betaCAN2Q23-02": {
+    "titre": "Programme de calcul",
+    "url": "/exercices/beta/betaCAN2Q23-02.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCAN2Q23-07"
+    "name": "betaCAN2Q23-02"
   },
-  "betaCAN2Q23-08": {
-    "titre": "calcul astucieux avec factorisation",
-    "url": "/exercices/beta/betaCAN2Q23-08.js",
+  "betaCAN2Q23-03": {
+    "titre": "Calcul avec racine carrée niveau 2",
+    "url": "/exercices/beta/betaCAN2Q23-03.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCAN2Q23-08"
+    "name": "betaCAN2Q23-03"
+  },
+  "betaCAN2Q23-04": {
+    "titre": "Calcul avec racine carrée niveau 1",
+    "url": "/exercices/beta/betaCAN2Q23-04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q23-04"
+  },
+  "betaCAN2Q23-05": {
+    "titre": "Simplifications de racines carrées",
+    "url": "/exercices/beta/betaCAN2Q23-05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q23-05"
   },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
@@ -4347,6 +4363,30 @@ export default {
     "interactifType": "mathLive",
     "name": "can2C05"
   },
+  "can2C06": {
+    "titre": "Simplifications de racines carrées",
+    "url": "/exercices/can/2e/can2C06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C06"
+  },
+  "can2C07": {
+    "titre": "Calcul avec racine carrée niveau 2",
+    "url": "/exercices/can/2e/can2C07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C07"
+  },
+  "can2C08": {
+    "titre": "Calcul avec racine carrée niveau 3",
+    "url": "/exercices/can/2e/can2C08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C08"
+  },
   "can2F01": {
     "titre": "Calcul d’une image second degré",
     "url": "/exercices/can/2e/can2F01.js",
@@ -4533,6 +4573,30 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3C07"
+  },
+  "can3C08": {
+    "titre": "Programme de calcul",
+    "url": "/exercices/can/3e/can3C08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C08"
+  },
+  "can3C09": {
+    "titre": "Calcul avec racine carrée niveau 1",
+    "url": "/exercices/can/3e/can3C09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C09"
+  },
+  "can3C10": {
+    "titre": "Encadrement avec puissance de 10",
+    "url": "/exercices/can/3e/can3C10.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C10"
   },
   "can3E01": {
     "titre": "Calcul de volume 3e",
@@ -5119,6 +5183,14 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C16"
   },
+  "can5C17": {
+    "titre": "Calcul astucieux avec factorisation",
+    "url": "/exercices/can/5e/can5C17.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C17"
+  },
   "can5D01": {
     "titre": "Conversion Heures minutes",
     "url": "/exercices/can/5e/can5D01.js",
@@ -5453,6 +5525,14 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6C24"
+  },
+  "can6C25": {
+    "titre": "Recherche d’un prix unitaire",
+    "url": "/exercices/can/6e/can6C25.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C25"
   },
   "can6D01": {
     "titre": "Conversion Heures minutes",

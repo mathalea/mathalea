@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 306 
-- nombre d'exos interactifReady 385 
+- nombre d'exos interactifReady 395 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -219,9 +219,11 @@
 |betac3C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
-|betaCAN2Q23-06|Recherche d’un prix unitaire|KO|KO|OK|mathLive|
-|betaCAN2Q23-07|Encadrement avec puissance de 10|KO|KO|OK|mathLive|
-|betaCAN2Q23-08|calcul astucieux avec factorisation|KO|KO|OK|mathLive|
+|betaCAN2Q23-01|Calcul avec racine carrée niveau 3|KO|KO|OK|mathLive|
+|betaCAN2Q23-02|Programme de calcul|KO|KO|OK|mathLive|
+|betaCAN2Q23-03|Calcul avec racine carrée niveau 2|KO|KO|OK|mathLive|
+|betaCAN2Q23-04|Calcul avec racine carrée niveau 1|KO|KO|OK|mathLive|
+|betaCAN2Q23-05|Simplifications de racines carrées|KO|KO|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
@@ -238,6 +240,9 @@
 |can2C03|Calcul avec puissance|OK|AMCNum|OK|mathLive|
 |can2C04|Calculer avec les identités remarquables - simple|KO|KO|OK|mathLive|
 |can2C05|Calculer avec les identités remarquables - Guidé|KO|KO|OK|mathLive|
+|can2C06|Simplifications de racines carrées|KO|KO|OK|mathLive|
+|can2C07|Calcul avec racine carrée niveau 2|KO|KO|OK|mathLive|
+|can2C08|Calcul avec racine carrée niveau 3|KO|KO|OK|mathLive|
 |can2F01|Calcul d’une image second degré|KO|KO|OK|mathLive|
 |can2F02|Calcul d’une image avec un quotient|KO|KO|OK|mathLive|
 |can2G01|Agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
@@ -258,6 +263,9 @@
 |can3C05|Calcul avec puissance de 10|OK|AMCNum|OK|mathLive|
 |can3C06|Calcul divers avec carrés/priorité opératoire|OK|AMCNum|OK|mathLive|
 |can3C07|milieu entre 1 et fraction avec graphique|KO|KO|OK|mathLive|
+|can3C08|Programme de calcul|KO|KO|OK|mathLive|
+|can3C09|Calcul avec racine carrée niveau 1|KO|KO|OK|mathLive|
+|can3C10|Encadrement avec puissance de 10|KO|KO|OK|mathLive|
 |can3E01|Calcul de volume 3e|OK|AMCNum|OK|mathLive|
 |can3F01|Lecture graphique|OK|AMCNum|OK|mathLive|
 |can3F02|Calcul d’image par fonction linéaire|OK|AMCNum|OK|mathLive|
@@ -315,6 +323,7 @@
 |can5C14|Division avec des décimaux|OK|AMCNum|OK|mathLive|
 |can5C15|Pourcentage (proportion) 1|OK|AMCNum|OK|mathLive|
 |can5C16|Recherche un nombre à ajouter|KO|KO|OK|mathLive|
+|can5C17|Calcul astucieux avec factorisation|KO|KO|OK|mathLive|
 |can5D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can5G01|Symétrique de point 5e|KO|KO|OK|mathLive|
 |can5G02|Angle dans un triangle isocèle|KO|KO|OK|mathLive|
@@ -346,6 +355,7 @@
 |can6C22|Valeurs décimales de fractions|OK|AMCNum|OK|mathLive|
 |can6C23|Calcul avec +/-99 ou +/-999|OK|AMCNum|OK|mathLive|
 |can6C24|Multiplier par 0,1 ou 0,01 ou 0,001|OK|AMCNum|OK|mathLive|
+|can6C25|Recherche d’un prix unitaire|KO|KO|OK|mathLive|
 |can6D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calcul de durée en minutes|OK|AMCNum|OK|mathLive|
