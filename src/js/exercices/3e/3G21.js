@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, arrondi, abs, texNombrec, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, arrondi, abs, texNombrec, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction, calcul } from '../../modules/outils.js'
 
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
@@ -51,7 +51,7 @@ export default function ReciproqueThales () {
     let y2 = randint(3, 5)
     let x3 = randint(5, 6)
     let y3 = randint(-2, 1)
-    let k = (randint(2, 8) * randint(-1, 1, [0])) / 10
+    let k = calcul((randint(2, 8) * randint(-1, 1, [0])) / 10)
     let k2
     if (parseInt(this.sup2) === 1) { k2 = k } else if (parseInt(this.sup2) === 3) { k2 = k * (1 + randint(0, 1) * 0.1) } else { k2 = k * (1 + randint(-1, 1, 0) * 0.1) }
 
@@ -76,11 +76,11 @@ export default function ReciproqueThales () {
     let dist35
 
     if (k < 0) {
-      dist35 = dist13 + dist15
-      dist24 = dist12 + dist14
+      dist35 = calcul(dist13 + dist15)
+      dist24 = calcul(dist12 + dist14)
     } else {
-      dist35 = dist13 - dist15
-      dist24 = dist12 - dist14
+      dist35 = calcul(dist13 - dist15)
+      dist24 = calcul(dist12 - dist14)
     }
 
     let texte, texteCorr
