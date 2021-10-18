@@ -7252,6 +7252,9 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].propositions === undefined) {
           autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '' }]
         }
+        if (!Array.isArray(autoCorrection[j].reponse.valeur)) {
+          autoCorrection[j].reponse.valeur = [autoCorrection[j].reponse.valeur]
+        }
         if (autoCorrection[j].reponse.valeur[0].num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
           texQr += `\\element{${ref}}{\n `
           texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
@@ -7322,6 +7325,9 @@ export function exportQcmAmc (exercice, idExo) {
         if (exercice.autoCorrection[j].propositions === undefined) {
           exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: 2, feedback: '' }]
         }
+        if (!Array.isArray(autoCorrection[j].reponse.valeur)) {
+          autoCorrection[j].reponse.valeur = [autoCorrection[j].reponse.valeur]
+        }
         texQr += `\\element{${ref}}{\n `
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
@@ -7385,6 +7391,12 @@ export function exportQcmAmc (exercice, idExo) {
         if (exercice.autoCorrection[j].propositions === undefined) {
           exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '', feedback: '' }]
         }
+        if (!Array.isArray(autoCorrection[j].reponse.valeur)) {
+          autoCorrection[j].reponse.valeur = [autoCorrection[j].reponse.valeur]
+        }
+        if (!Array.isArray(autoCorrection[j].reponse2.valeur)) {
+          autoCorrection[j].reponse2.valeur = [autoCorrection[j].reponse2.valeur]
+        }
         texQr += `\\element{${ref}}{\n `
         // premier champ de codage
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
@@ -7423,7 +7435,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}c} \n `
-        reponse2 = autoCorrection[j].reponse2.valeur
+        reponse2 = autoCorrection[j].reponse2.valeur[0]
         if (autoCorrection[j].reponse2.param.digits === 0) {
           nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse2)
           autoCorrection[j].reponse2.param.decimals = nbChiffresPd
@@ -7458,6 +7470,15 @@ export function exportQcmAmc (exercice, idExo) {
         }
         if (exercice.autoCorrection[j].propositions === undefined) {
           exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '', feedback: '' }]
+        }
+        if (!Array.isArray(autoCorrection[j].reponse.valeur)) {
+          autoCorrection[j].reponse.valeur = [autoCorrection[j].reponse.valeur]
+        }
+        if (!Array.isArray(autoCorrection[j].reponse2.valeur)) {
+          autoCorrection[j].reponse2.valeur = [autoCorrection[j].reponse2.valeur]
+        }
+        if (!Array.isArray(autoCorrection[j].reponse3.valeur)) {
+          autoCorrection[j].reponse3.valeur = [autoCorrection[j].reponse3.valeur]
         }
         texQr += `\\element{${ref}}{\n `
         // premier champ de codage
@@ -7499,7 +7520,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.2 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}c} \n `
-        reponse2 = autoCorrection[j].reponse2.valeur
+        reponse2 = autoCorrection[j].reponse2.valeur[0]
         if (autoCorrection[j].reponse2.param.digits === 0) {
           nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse2)
           autoCorrection[j].reponse2.param.decimals = nbChiffresPd
@@ -7525,7 +7546,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.2 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}d} \n `
-        reponse3 = autoCorrection[j].reponse3.valeur
+        reponse3 = autoCorrection[j].reponse3.valeur[0]
         if (autoCorrection[j].reponse3.param.digits === 0) {
           nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse3)
           autoCorrection[j].reponse3.param.decimals = nbChiffresPd
@@ -7659,8 +7680,11 @@ export function exportQcmAmc (exercice, idExo) {
               break
             case 'AMCNum':
               rep = prop.propositions[0].reponse
+              if (!Array.isArray(rep.valeur)) {
+                rep.valeur = [rep.valeur]
+              }
               if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres === 0) {
-                reponse = rep.valeur
+                reponse = rep.valeur[0]
                 if (rep.param.digits === 0) {
                   nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
                   rep.param.decimals = nbChiffresPd
@@ -7680,7 +7704,7 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += '\\begin{'
                 texQr += `${propositions[0].alignement}}`
               }
-              texQr += `\\AMCnumericChoices{${rep.valeur}}{digits=${rep.param.digits},decimals=${rep.param.decimals},sign=${rep.param.signe},`
+              texQr += `\\AMCnumericChoices{${rep.valeur[0]}}{digits=${rep.param.digits},decimals=${rep.param.decimals},sign=${rep.param.signe},`
               if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
                 texQr += `exponent=${rep.param.exposantNbChiffres},exposign=${rep.param.exposantSigne},`
               }
