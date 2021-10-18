@@ -21,6 +21,7 @@ export default function ModelisationProblemes () {
   this.nbQuestions = 7
   this.nbQuestionsModifiable = false
   this.sup = 2
+  this.sup2 = 3
   this.nbCols = 1
   this.nbColsCorr = 1
   this.tailleDiaporama = 50
@@ -31,10 +32,44 @@ export default function ModelisationProblemes () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-    const lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+    let colorA, colorB
+    let lettres
     const schemas = []
-    const brouilleLesCartes = shuffle(range(6))
-    const typesDeQuestionsDisponibles = [1, choice([2, 3]), 4, 5, 6, 7, 8]
+    let brouilleLesCartes
+    let typesDeQuestionsDisponibles
+    switch (parseInt(this.sup2)) {
+      case 1:
+        this.nbQuestion = 3
+        typesDeQuestionsDisponibles = [1, choice([2, 3]), 4]
+        colorA = 'black'
+        lettres = shuffle(['A', 'B', 'C'])
+        brouilleLesCartes = shuffle(range(2))
+
+        break
+      case 2:
+        this.nbQuestions = 4
+        typesDeQuestionsDisponibles = [5, 6, 7, 8]
+        colorB = 'black'
+        lettres = shuffle(['A', 'B', 'C', 'D'])
+        brouilleLesCartes = shuffle(range(3))
+        break
+      case 3:
+        this.nbQuestions = 7
+        typesDeQuestionsDisponibles = [1, choice([2, 3]), 4, 5, 6, 7, 8]
+        colorA = 'red'
+        colorB = 'blue'
+        lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+        brouilleLesCartes = shuffle(range(6))
+        break
+      default:
+        this.nbQuestions = 7
+        typesDeQuestionsDisponibles = [1, choice([2, 3]), 4, 5, 6, 7, 8]
+        colorA = 'black'
+        colorB = 'black'
+        lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+        brouilleLesCartes = shuffle(range(6))
+        break
+    }
     const listeTypeDeQuestions = shuffle(typesDeQuestionsDisponibles)
 
     const b1 = randint(15, 50)
@@ -59,7 +94,7 @@ export default function ModelisationProblemes () {
       p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
       p8, traitHorizontal8, traitVertical8, tb8, th8, th82
 
-    for (let i = 0, texte, texteCorr; i < 7; i++) {
+    for (let i = 0, texte, texteCorr; i < listeTypeDeQuestions.length; i++) {
       texte = ''
       texteCorr = ''
 
@@ -78,7 +113,7 @@ export default function ModelisationProblemes () {
           B1 = point(12, 0)
           C1 = point(12, 4)
           D1 = point(0, 4)
-          p1 = polygone([A1, B1, C1, D1], 'red')
+          p1 = polygone([A1, B1, C1, D1], colorA)
           p1.epaisseur = 3
           traitHorizontal1 = segment(point(0, 2), point(12, 2))
           traitVertical1 = segment(point(6, 2), point(6, 4))
@@ -110,7 +145,7 @@ export default function ModelisationProblemes () {
           B2 = point(12, 0)
           C2 = point(12, 4)
           D2 = point(0, 4)
-          p2 = polygone([A2, B2, C2, D2], 'red')
+          p2 = polygone([A2, B2, C2, D2], colorA)
           p2.epaisseur = 3
           traitHorizontal2 = segment(point(0, 2), point(12, 2))
           traitVertical2 = segment(point(6, 2), point(6, 4))
@@ -141,7 +176,7 @@ export default function ModelisationProblemes () {
           B3 = point(12, 0)
           C3 = point(12, 4)
           D3 = point(0, 4)
-          p3 = polygone([A3, B3, C3, D3], 'red')
+          p3 = polygone([A3, B3, C3, D3], colorA)
           p3.epaisseur = 3
           traitHorizontal3 = segment(point(0, 2), point(12, 2))
           traitVertical3 = segment(point(6, 2), point(6, 4))
@@ -170,7 +205,7 @@ export default function ModelisationProblemes () {
           B4 = point(12, 0)
           C4 = point(12, 4)
           D4 = point(0, 4)
-          p4 = polygone([A4, B4, C4, D4], 'red')
+          p4 = polygone([A4, B4, C4, D4], colorA)
           p4.epaisseur = 3
           traitHorizontal4 = segment(point(0, 2), point(12, 2))
           traitHorizontal42 = segment(point(0, 4.5), point(12, 4.5))
@@ -206,7 +241,7 @@ export default function ModelisationProblemes () {
           B5 = point(12, 0)
           C5 = point(12, 4)
           D5 = point(0, 4)
-          p5 = polygone([A5, B5, C5, D5], 'blue')
+          p5 = polygone([A5, B5, C5, D5], colorB)
           p5.epaisseur = 3
           traitHorizontal5 = segment(point(0, 2), point(12, 2))
           traitHorizontal52 = segment(point(0, 4.7), point(12, 4.7))
@@ -242,7 +277,7 @@ export default function ModelisationProblemes () {
           B6 = point(12, 0)
           C6 = point(12, 4)
           D6 = point(0, 4)
-          p6 = polygone([A6, B6, C6, D6], 'blue')
+          p6 = polygone([A6, B6, C6, D6], colorB)
           p6.epaisseur = 3
           traitHorizontal6 = segment(point(0, 2), point(12, 2))
           traitVertical6 = segment(point(6, 2), point(6, 4))
@@ -271,7 +306,7 @@ export default function ModelisationProblemes () {
           B7 = point(12, 0)
           C7 = point(12, 4)
           D7 = point(0, 4)
-          p7 = polygone([A7, B7, C7, D7], 'blue')
+          p7 = polygone([A7, B7, C7, D7], colorB)
           p7.epaisseur = 3
           traitHorizontal7 = segment(point(0, 2), point(12, 2))
           traitHorizontal72 = segment(point(0, 4.7), point(12, 4.7))
@@ -307,7 +342,7 @@ export default function ModelisationProblemes () {
           B8 = point(12, 0)
           C8 = point(12, 4)
           D8 = point(0, 4)
-          p8 = polygone([A8, B8, C8, D8], 'blue')
+          p8 = polygone([A8, B8, C8, D8], colorB)
           p8.epaisseur = 3
           traitHorizontal8 = segment(point(0, 2), point(12, 2))
           traitVertical8 = segment(point(6, 2), point(6, 4))
@@ -325,13 +360,13 @@ export default function ModelisationProblemes () {
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
       }
-      if (i === 6) {
+      if (i === listeTypeDeQuestions.length - 1) {
         texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>'
-        for (let j = 0; j < 4; j++) {
+        for (let j = 0; j < Math.min(4, listeTypeDeQuestions.length); j++) {
           texte += schemas[j]
         }
         texte += '<br>'
-        for (let j = 4; j < 7; j++) {
+        for (let j = 4; j < Math.min(7, listeTypeDeQuestions.length); j++) {
           texte += schemas[j]
         }
       }
@@ -341,6 +376,6 @@ export default function ModelisationProblemes () {
 
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Valeurs différentes suivant les exercices\n2 : Valeurs identiques dans tous les exercices'
-  ]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Valeurs différentes suivant les exercices\n2 : Valeurs identiques dans tous les exercices']
+  this.besoinFormulaire2Numerique = ['Sélection de problèmes', 4, '1 : 3 problèmes basés sur les mêmes nombres\n2 : 4 problèmes basés sur les mêmes nombres\n3 : 7 problèmes avec distinction 2 couleurs\n4 : 7 problèmes mélangés.']
 }
