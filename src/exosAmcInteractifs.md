@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 306 
-- nombre d'exos interactifReady 382 
+- nombre d'exos interactifReady 385 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -36,7 +36,7 @@
 |3G10-2|Trouver l’image d’un point par une transformation choisie aléatoirement|OK|AMCHybride|OK|mathLive|
 |3G12-1|Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage|OK|AMCHybride|OK|mathLive|
 |3G20|Calculer des longueurs avec le théorème de Thalès|OK|AMCOpenNum|OK|mathLive|
-|3G21|Contrôler si deux droites sont parallèles|OK|AMCHybride|KO|KO|
+|3G21|Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès|OK|AMCHybride|KO|KO|
 |3G30|Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
 |3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
 |3G32-1|Calcul d’un parallèle terrestre|OK|AMCOpenNum|OK|mathLive|
@@ -209,26 +209,23 @@
 |6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
-|beta6C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |beta1N10_intercatif|Nombre pair multiplié par 5|OK|AMCNum|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C12-1|Résoudre des problèmes de masses|OK|AMCHybride|OK|mathLive|
 |beta6C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
+|betac3C12-1|Résoudre des problèmes de masses|OK|AMCHybride|OK|mathLive|
+|betac3C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
-|betaCAN2Q23-01|Calcul avec racine carrée niveau 3|KO|KO|OK|mathLive|
-|betaCAN2Q23-02|Programme de calcul|KO|KO|OK|mathLive|
-|betaCAN2Q23-03|Calcul avec racine carrée niveau 2|KO|KO|OK|mathLive|
-|betaCAN2Q23-04|Calcul avec racine carrée niveau |KO|KO|OK|mathLive|
-|betaCAN2Q23-05|Simplifications de racines carrées|KO|KO|OK|mathLive|
+|betaCAN2Q23-06|Recherche d’un prix unitaire|KO|KO|OK|mathLive|
+|betaCAN2Q23-07|Encadrement avec puissance de 10|KO|KO|OK|mathLive|
+|betaCAN2Q23-08|calcul astucieux avec factorisation|KO|KO|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
-|betac3C12-1|Résoudre des problèmes de masses|OK|AMCHybride|OK|mathLive|
-|betac3C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|mathLive|
 |c3C10-4|Tables d’addition|OK|AMCNum|OK|numerique|
 |c3C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCHybride|OK|mathLive|

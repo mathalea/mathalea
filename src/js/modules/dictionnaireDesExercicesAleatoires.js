@@ -709,7 +709,7 @@ export default {
     "name": "3G20"
   },
   "3G21": {
-    "titre": "Contrôler si deux droites sont parallèles",
+    "titre": "Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès",
     "url": "/exercices/3e/3G21.js",
     "amcReady": true,
     "amcType": {
@@ -3750,17 +3750,6 @@ export default {
     "interactifReady": false,
     "name": "6S11"
   },
-  "beta6C12": {
-    "titre": "Résoudre des problèmes de prix",
-    "url": "/exercices/6e/beta6C12.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "beta6C12"
-  },
   "beta1N10_intercatif": {
     "titre": "Nombre pair multiplié par 5",
     "url": "/exercices/beta/beta1N10_intercatif.js",
@@ -3916,6 +3905,28 @@ export default {
     "interactifReady": false,
     "name": "betaAsymptotesObliques"
   },
+  "betac3C12-1": {
+    "titre": "Résoudre des problèmes de masses",
+    "url": "/exercices/beta/betac3C12-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betac3C12-1"
+  },
+  "betac3C12": {
+    "titre": "Résoudre des problèmes de prix",
+    "url": "/exercices/beta/betac3C12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betac3C12"
+  },
   "betaCan2": {
     "titre": "Course aux nombres seconde",
     "url": "/exercices/beta/betaCan2.js",
@@ -3941,45 +3952,29 @@ export default {
     ],
     "name": "betaCan2G01"
   },
-  "betaCAN2Q23-01": {
-    "titre": "Calcul avec racine carrée niveau 3",
-    "url": "/exercices/beta/betaCAN2Q23-01.js",
+  "betaCAN2Q23-06": {
+    "titre": "Recherche d’un prix unitaire",
+    "url": "/exercices/beta/betaCAN2Q23-06.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCAN2Q23-01"
+    "name": "betaCAN2Q23-06"
   },
-  "betaCAN2Q23-02": {
-    "titre": "Programme de calcul",
-    "url": "/exercices/beta/betaCAN2Q23-02.js",
+  "betaCAN2Q23-07": {
+    "titre": "Encadrement avec puissance de 10",
+    "url": "/exercices/beta/betaCAN2Q23-07.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCAN2Q23-02"
+    "name": "betaCAN2Q23-07"
   },
-  "betaCAN2Q23-03": {
-    "titre": "Calcul avec racine carrée niveau 2",
-    "url": "/exercices/beta/betaCAN2Q23-03.js",
+  "betaCAN2Q23-08": {
+    "titre": "calcul astucieux avec factorisation",
+    "url": "/exercices/beta/betaCAN2Q23-08.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCAN2Q23-03"
-  },
-  "betaCAN2Q23-04": {
-    "titre": "Calcul avec racine carrée niveau ",
-    "url": "/exercices/beta/betaCAN2Q23-04.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q23-04"
-  },
-  "betaCAN2Q23-05": {
-    "titre": "Simplifications de racines carrées",
-    "url": "/exercices/beta/betaCAN2Q23-05.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q23-05"
+    "name": "betaCAN2Q23-08"
   },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
@@ -4183,35 +4178,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaTracerParabole"
-  },
-  "betac3C12-1": {
-    "titre": "Résoudre des problèmes de masses",
-    "url": "/exercices/beta/betac3C12-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betac3C12-1"
-  },
-  "betac3C12": {
-    "titre": "Résoudre des problèmes de prix",
-    "url": "/exercices/beta/betac3C12.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betac3C12"
-  },
-  "betarotation3d": {
-    "titre": "Rotation 3d de polygones",
-    "url": "/exercices/beta/betarotation3d.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betarotation3d"
   },
   "betatrinome": {
     "titre": "Exercice exemple",
