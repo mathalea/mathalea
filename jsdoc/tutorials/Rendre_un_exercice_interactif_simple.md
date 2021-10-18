@@ -17,8 +17,8 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
     1. [`qcm`](#9)
     1. [`numerique`](#10)
     1. [`cliqueFigure`](#11)
-    1. [`listeDeroulante`](#7)
-    1. [`custom`](#7)
+    1. [`listeDeroulante`](#12)
+    1. [`custom`](#13)
 
 ## <a id="1" href="#1"></a> 1. Charger le code nécessaire pour rendre un exercice interactif
 
@@ -213,6 +213,12 @@ Ici, l'élève devra cliquer sur une figure pour signaler sa réponse. Le progra
 Exercice-témoin : **6N43-4**
 
 Ici, l'élève devra sélectionner une réponse dans un menu déroulant dont les différentes options sont définies, par le créateur de l'exercice, par la fonction `choixDeroulant`.
+
+>>## <a id="13" href="#13"></a> 2. 5. `custom`
+
+Exercice-témoin : **6I12**
+
+EE : Je ne sais absolument pas quoi mettre dans la doc.
 
 ---
 
