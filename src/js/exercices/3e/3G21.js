@@ -1,21 +1,22 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, arrondi, abs, texNombrec, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, arrondi, abs, texNombrec, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction, calcul, creerBoutonMathalea2d } from '../../modules/outils.js'
+import { angleOriente, homothetie, mathalea2d, point, pointSurSegment, polygone, rotation, texteParPoint } from '../../modules/2d.js'
 
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
 
-export const titre = 'Contrôler si deux droites sont parallèles'
+export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès'
 
 /**
  * Reciproque_Thales
  * @author Jean-Claude Lhote
+ * 18/10/21 passage de MG32 à MathALEA2D par Rémi Angot
  * 3G21
  */
 export default function ReciproqueThales () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
@@ -27,9 +28,6 @@ export default function ReciproqueThales () {
   this.sup = 1
   this.sup2 = 1
   this.listePackages = 'tkz-euclide'
-  this.typeExercice = 'MG32'
-  this.amcReady = amcReady
-  this.amcType = amcType
 
   // let s1='A',s2='B',s3='C',s4='M',s5='N'
   // coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
@@ -100,19 +98,37 @@ export default function ReciproqueThales () {
     //   fraction2 = [];
     //  fraction1 = fractionSimplifiee(num1, den1);
     // fraction2 = fractionSimplifiee(num2, den2);
+    const A = point(0, 0)
+    const B = point(x2, y2)
+    const C = point(x3, y3)
+    const t1 = polygone(A, B, C)
+    t1.id = `M2D_${numeroExercice}_t1`
+    const M = homothetie(B, A, k)
+    const N = homothetie(C, A, k)
+    const t2 = polygone(A, M, N)
+    t2.id = `M2D_${numeroExercice}_t2`
+    const m = pointSurSegment(M, N, -0.5)
+    const n = pointSurSegment(N, M, -0.5)
+    const marqueNomM = texteParPoint(s4, m, 'milieu', 'black', 1, 'middle', true)
+    const marqueNomN = texteParPoint(s5, n, 'milieu', 'black', 1, 'middle', true)
+    const c = pointSurSegment(C, B, -0.5)
+    const b = pointSurSegment(B, C, -0.5)
+    const marqueNomC = texteParPoint(s3, c, 'milieu', 'black', 1, 'middle', true)
+    const marqueNomB = texteParPoint(s2, b, 'milieu', 'black', 1, 'middle', true)
+    const xMin = Math.min(A.x, B.x, C.x, M.x, N.x) - 1
+    const xMax = Math.max(A.x, B.x, C.x, M.x, N.x) + 1
+    const yMin = Math.min(A.y, B.y, C.y, M.y, N.y) - 1
+    const yMax = Math.max(A.y, B.y, C.y, M.y, N.y) + 1
+    let a
+    if (k < 0) {
+      const demiangle = angleOriente(N, A, B) / 2
+      const a2 = pointSurSegment(A, N, 0.5)
+      a = rotation(a2, A, demiangle)
+    } else {
+      a = pointSurSegment(A, N, -0.5)
+    }
+    const marqueNomA = texteParPoint(s1, a)
     if (context.isHtml) {
-      this.typeExercice = 'MG32'
-      this.dimensionsDivMg32 = [700, 500]
-      let codeBase64
-
-      if (k < 0) {
-        codeBase64 =
-          'TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wEAAAAAAAAAAAYfAAADsgAAAQEAAAAAAAAAAQAAACX#####AAAAAQAKQ0NhbGNDb25zdAD#####AAJwaQAWMy4xNDE1OTI2NTM1ODk3OTMyMzg0Nv####8AAAABAApDQ29uc3RhbnRlQAkh+1RELRj#####AAAAAQAKQ1BvaW50QmFzZQD#####AAAAAAAWAAJBJwBANgAAAAAAAEAzAAAAAAAABwABQHYBR64UeuFAcdwo9cKPXP####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQD#####AQAAAAAQAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQD#####AQAAAAAQAAJJJwDAGAAAAAAAAAAAAAAAAAAABQABQEerQ5WBBiUAAAAC#####wAAAAEACUNEcm9pdGVBQgD#####AQAAAAASAAABAAEAAAABAAAAA#####8AAAABABZDRHJvaXRlUGVycGVuZGljdWxhaXJlAP####8BAAAAABAAAAEAAQAAAAEAAAAE#####wAAAAEACUNDZXJjbGVPQQD#####AQAAAAABAAAAAQAAAAP#####AAAAAQAQQ0ludERyb2l0ZUNlcmNsZQD#####AAAABQAAAAb#####AAAAAQAQQ1BvaW50TGllQmlwb2ludAD#####AQAAAAAQAAABBQABAAAABwAAAAkA#####wEAAAAAEAACSicAwCgAAAAAAADAEAAAAAAAAAUAAgAAAAf#####AAAAAgAHQ1JlcGVyZQD#####AObm5gABAAAAAQAAAAMAAAAJAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAA#####wAAAAEACkNVbml0ZXhSZXAA#####wAEdW5pdAAAAAr#####AAAAAQALQ0hvbW90aGV0aWUA#####wAAAAH#####AAAAAQAKQ09wZXJhdGlvbgMAAAABP#AAAAAAAAD#####AAAAAQAPQ1Jlc3VsdGF0VmFsZXVyAAAAC#####8AAAABAAtDUG9pbnRJbWFnZQD#####AQAAAAASAAJXIgEBAAAAAAMAAAAM#####wAAAAEACUNMb25ndWV1cgD#####AAAAAQAAAA3#####AAAAAQAHQ0NhbGN1bAD#####AAJ4MgABMgAAAAFAAAAAAAAAAAAAABEA#####wACeTIAATUAAAABQBQAAAAAAAAAAAARAP####8AAngzAAE2AAAAAUAYAAAAAAAAAAAAEQD#####AAJ5MwACLTH#####AAAAAQAMQ01vaW5zVW5haXJlAAAAAT#wAAAAAAAAAAAAEQD#####AAFrAAQtMC41AAAAEgAAAAE#4AAAAAAAAP####8AAAABABBDUG9pbnREYW5zUmVwZXJlAP####8BAAAAABgAAlonAAAAAAAAAAAAQAgAAAAAAAAHAAAAAAoAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAATAP####8AAAAAABgAAkInAMAwAAAAAAAAwEOAAAAAAAAHAAAAAAoAAAAOAAAADwAAAA4AAAAQAAAAEwD#####AAAAAAAYAAJDJwAAAAAAAAAAAEAIAAAAAAAABwAAAAAKAAAADgAAABEAAAAOAAAAEgAAAAwA#####wAAABQAAAAOAAAAEwAAAA8A#####wAAAAAAGAACTScAwCQAAAAAAADAAAAAAAAAAAcAAAAAFQAAABcAAAAPAP####8AAAAAABgAAk4nAMAzAAAAAAAAwEMAAAAAAAAHAAAAABYAAAAX#####wAAAAEACUNQb2x5Z29uZQD#####AAAAAAACAAAABAAAABYAAAAVAAAAFAAAABYAAAAUAP####8AAAAAAAIAAAAEAAAAGQAAABQAAAAYAAAAGf####8AAAABABBDU3VyZmFjZVBvbHlnb25lAP####8BAAD#AAAABQAAABsAAAAVAP####8B#wAAAAAABQAAABr#####AAAAAQAQQ01hY3JvQXBwYXJpdGlvbgD#####AP8AAAH#####EECIoKPXCj1xQELhR64UeuECAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAZBcHBBTU4AAAAAAAEAAAAcAAAAABYA#####wD#AAAB#####xBAiLCj1wo9cUBUMKPXCj1wAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAAGQXBwQUJDAAAAAAABAAAAHQD#####AAAAAQARQ01hY3JvRGlzcGFyaXRpb24A#####wD#AAAB#####xBAi+Cj1wo9cUBE4UeuFHrhAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAAHTWFzcUFNTgAAAAAAAQAAABwAAAAXAP####8A#wAAAf####8QQIvoo9cKPXFAVPCj1wo9cAIAAAAAAAAAAAAAAAABAAAAAAAAAAAAB01hc3FBQkMAAAAAAAEAAAAd#####wAAAAEAC0NNYWNyb1BhdXNlAP####8A#wAAAf####8QQIj4o9cKPXFAX3Cj1wo9cAIAAAAAAAAAAAAAAAABAAAAAAAAAAAABVBhdXNlAAAAAAAB#####wAAAAEAEUNNYWNyb1N1aXRlTWFjcm9zAP####8A#wAAAf####8QQFHFHrhR64VAePwo9cKPXAIAAAAAAAAAAAAAAAABAAAAAAAAAAAAClRyaWFuZ2xlIDEAAAAAAAMAAAAfAAAAIgAAACEAAAAZAP####8A#wAAAf####8QQFFFHrhR64VAe3wo9cKPXAIAAAAAAAAAAAAAAAABAAAAAAAAAAAAClRyaWFuZ2xlIDIAAAAAAAMAAAAeAAAAIgAAACAAAAAO##########8='
-      } else {
-        codeBase64 =
-          'TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wEAAAAAAAAAAAYfAAADsgAAAQEAAAAAAAAAAQAAACX#####AAAAAQAKQ0NhbGNDb25zdAD#####AAJwaQAWMy4xNDE1OTI2NTM1ODk3OTMyMzg0Nv####8AAAABAApDQ29uc3RhbnRlQAkh+1RELRj#####AAAAAQAKQ1BvaW50QmFzZQD#####AAAAAAAWAAJBJwDAKAAAAAAAAEAiAAAAAAAABwABQHMxR64UeuFAcbwo9cKPXP####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQD#####AQAAAAAOAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQD#####AQAAAAAQAAJJJwDAGAAAAAAAAAAAAAAAAAAABQABQEerQ5WBBiUAAAAC#####wAAAAEACUNEcm9pdGVBQgD#####AQAAAAASAAABAAEAAAABAAAAA#####8AAAABABZDRHJvaXRlUGVycGVuZGljdWxhaXJlAP####8BAAAAAA4AAAEAAQAAAAEAAAAE#####wAAAAEACUNDZXJjbGVPQQD#####AQAAAAABAAAAAQAAAAP#####AAAAAQAQQ0ludERyb2l0ZUNlcmNsZQD#####AAAABQAAAAb#####AAAAAQAQQ1BvaW50TGllQmlwb2ludAD#####AQAAAAAOAAABBQABAAAABwAAAAkA#####wEAAAAAEAACSicAwCgAAAAAAADAEAAAAAAAAAUAAgAAAAf#####AAAAAgAHQ1JlcGVyZQD#####AObm5gABAAAAAQAAAAMAAAAJAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAA#####wAAAAEACkNVbml0ZXhSZXAA#####wAEdW5pdAAAAAr#####AAAAAQALQ0hvbW90aGV0aWUA#####wAAAAH#####AAAAAQAKQ09wZXJhdGlvbgMAAAABP#AAAAAAAAD#####AAAAAQAPQ1Jlc3VsdGF0VmFsZXVyAAAAC#####8AAAABAAtDUG9pbnRJbWFnZQD#####AQAAAAASAAJXIgEBAAAAAAMAAAAM#####wAAAAEACUNMb25ndWV1cgD#####AAAAAQAAAA3#####AAAAAQAHQ0NhbGN1bAD#####AAJ4MgABMgAAAAFAAAAAAAAAAAAAABEA#####wACeTIAATUAAAABQBQAAAAAAAAAAAARAP####8AAngzAAE2AAAAAUAYAAAAAAAAAAAAEQD#####AAJ5MwACLTH#####AAAAAQAMQ01vaW5zVW5haXJlAAAAAT#wAAAAAAAAAAAAEQD#####AAFrAAMwLjUAAAABP+AAAAAAAAD#####AAAAAQAQQ1BvaW50RGFuc1JlcGVyZQD#####AQAAAAAYAAJaJwAAAAAAAAAAAEAIAAAAAAAABwAAAAAKAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAEwD#####AAAAAAAYAAJCJwDAMAAAAAAAAMBDgAAAAAAABwAAAAAKAAAADgAAAA8AAAAOAAAAEAAAABMA#####wAAAAAAGAACQycAAAAAAAAAAABACAAAAAAAAAcAAAAACgAAAA4AAAARAAAADgAAABIAAAAMAP####8AAAAUAAAADgAAABMAAAAPAP####8AAAAAABgAAk0nAMA7AAAAAAAAwDcAAAAAAAAHAAAAABUAAAAXAAAADwD#####AAAAAAAYAAJOJwDAKAAAAAAAAEAAAAAAAAAABwAAAAAWAAAAF#####8AAAABAAlDUG9seWdvbmUA#####wAAAAAAAgAAAAQAAAAWAAAAFQAAABQAAAAWAAAAFAD#####AAAAAAACAAAABAAAABkAAAAUAAAAGAAAABn#####AAAAAQAQQ1N1cmZhY2VQb2x5Z29uZQD#####AQAA#wAAAAUAAAAbAAAAFQD#####Af8AAAAAAAUAAAAa#####wAAAAEAEENNYWNyb0FwcGFyaXRpb24A#####wD#AAAB#####xBAiKCj1wo9cUBC4UeuFHrhAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAAGQXBwQU1OAAAAAAABAAAAHAAAAAAWAP####8A#wAAAf####8QQIiwo9cKPXFAVDCj1wo9cAIAAAAAAAAAAAAAAAABAAAAAAAAAAAABkFwcEFCQwAAAAAAAQAAAB0A#####wAAAAEAEUNNYWNyb0Rpc3Bhcml0aW9uAP####8A#wAAAf####8QQIvgo9cKPXFAROFHrhR64QIAAAAAAAAAAAAAAAABAAAAAAAAAAAAB01hc3FBTU4AAAAAAAEAAAAcAAAAFwD#####AP8AAAH#####EECL6KPXCj1xQFTwo9cKPXACAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAdNYXNxQUJDAAAAAAABAAAAHf####8AAAABAAtDTWFjcm9QYXVzZQD#####AP8AAAH#####EECI+KPXCj1xQF9wo9cKPXACAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAVQYXVzZQAAAAAAAf####8AAAABABFDTWFjcm9TdWl0ZU1hY3JvcwD#####AP8AAAH#####EEBRxR64UeuFQHj8KPXCj1wCAAAAAAAAAAAAAAAAAQAAAAAAAAAAAApUcmlhbmdsZSAxAAAAAAADAAAAHwAAACIAAAAhAAAAGQD#####AP8AAAH#####EEBRRR64UeuFQHt8KPXCj1wCAAAAAAAAAAAAAAAAAQAAAAAAAAAAAApUcmlhbmdsZSAyAAAAAAADAAAAHgAAACIAAAAgAAAADv##########'
-      }
-
       if (parseInt(this.sup) === 1) {
         // AM,AB,AN,AC sont donnés pas de calculs intermédiaires
         texte = `Dans la figure ci-dessous, $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s5}=${s15}$ cm et $${s1 + s4}=${s14}$ cm.<br>`
@@ -128,7 +144,7 @@ export default function ReciproqueThales () {
             `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` +
             ' cm.<br>'
           texteCorr +=
-            'et que ' +
+            'On sait aussi que ' +
             `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` +
             ' cm.<br>'
         } else {
@@ -138,13 +154,13 @@ export default function ReciproqueThales () {
             `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` +
             ' cm.<br>'
           texteCorr +=
-            'et que ' +
+            'On sait aussi que ' +
             `$${s1 + s4}=${s2 + s4}-${s1 + s2}=${s24}-${s12}=${s14}$` +
             ' cm.<br>'
         }
       } else if (randint(1, 2) === 1) {
         // triangles imbriqués sans figure
-        texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$ <br> $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.`
+        texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$. <br> $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
         texteCorr = ''
       } else {
         // papillon sans figure
@@ -154,46 +170,62 @@ export default function ReciproqueThales () {
       }
       texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>`
 
-      texteCorr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
+      texteCorr += `D'une part, on a : $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
         s15
       )}}{${s14}\\times${miseEnEvidence(s15)}}=\\dfrac{
         ${texNombrec(arrondi(dist12 * dist15, 3))}}
         {${s14}\\times${s15}}
-      $`
-      texteCorr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
+      $.`
+      texteCorr += `<br>D'autre part, on a : $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
         s14
       )}}{${s15}\\times${miseEnEvidence(s14)}}=\\dfrac{${texNombrec(arrondi(dist13 * dist14, 3))}}
         {${s14}\\times${s15}}
-      $`
+      $.`
 
       if (k !== k2) {
         // droites non parallèles
-        texteCorr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`
+        texteCorr += `<br>D'où : $\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`
         texteCorr += `Donc d'après le théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`
       } else {
         // droites parallèles
-        texteCorr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>` // car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${texNombre(arrondi(dist12*dist15,3))}$.<br>`;
-        if (k > 0) { texteCorr += `$${s1}$,$${s4}$,$${s2}$ et $${s1}$,$${s5}$,$${s3}$ sont alignés dans le même ordre.<br>` } else { texteCorr += `$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>` }
+        texteCorr += `<br>D'où : $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>` // car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${texNombre(arrondi(dist12*dist15,3))}$.<br>`;
+        if (k > 0) { texteCorr += `De plus, $${s1}$, $${s4}$, $${s2}$ et $${s1}$, $${s5}$, $${s3}$ sont alignés dans le même ordre.<br>` } else { texteCorr += `De plus, $${s4}$, $${s1}$, $${s2}$ et $${s5}$, $${s1}$, $${s3}$ sont alignés dans le même ordre.<br>` }
         texteCorr += `Donc d'après la réciproque du théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`
       }
 
-      if (this.sup < 3) {
-        this.MG32codeBase64 = codeBase64
-        this.mg32init = (mtg32App, idDoc) => {
-          mtg32App.giveFormula2(idDoc, 'x3', x3)
-          mtg32App.giveFormula2(idDoc, 'y2', y2)
-          mtg32App.giveFormula2(idDoc, 'y3', y3)
-          mtg32App.giveFormula2(idDoc, 'k', k)
-          mtg32App.rename(idDoc, "A'", s1)
-          mtg32App.rename(idDoc, "B'", s2)
-          mtg32App.rename(idDoc, "C'", s3)
-          mtg32App.rename(idDoc, "M'", s4)
-          mtg32App.rename(idDoc, "N'", s5)
-          mtg32App.calculate(idDoc)
-          mtg32App.display(idDoc)
-        }
-        texte += `$\\footnotesize{\\textit{Le point \\thickspace ${s1} peut être déplacé (si la figure est tronquée).}}$<br>`
+      if (this.sup !== 3) {
+        texte += mathalea2d({ xmin: xMin, xMax: xMax, ymin: yMin, ymax: yMax }, t1, t2, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN)
       }
+
+      const epaisseurTriangle = (k < 0) ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
+      const boutonAideMathalea2d = creerBoutonMathalea2d(numeroExercice,
+        `if (document.getElementById('M2D_${numeroExercice}_t1').dataset.colorie == undefined || (document.getElementById('M2D_${numeroExercice}_t1').dataset.colorie == 'false')){
+          document.getElementById('M2D_${numeroExercice}_t1').style.stroke = 'blue';
+          document.getElementById('M2D_${numeroExercice}_t2').style.stroke = 'red';
+          document.getElementById('M2D_${numeroExercice}_t1').style.opacity = .5;
+          document.getElementById('M2D_${numeroExercice}_t1').style.strokeWidth = ${epaisseurTriangle};
+          document.getElementById('M2D_${numeroExercice}_t2').style.opacity = 1;
+          document.getElementById('M2D_${numeroExercice}_t2').style.strokeWidth = 2;
+          document.getElementById('M2D_${numeroExercice}_t1').dataset.colorie = 'dejaEnCouleur';
+          document.getElementById('btnMathALEA2d_${numeroExercice}').classList.add('active');
+        } else {
+          document.getElementById('M2D_${numeroExercice}_t1').style.stroke = 'black';
+          document.getElementById('M2D_${numeroExercice}_t2').style.stroke = 'black';
+          document.getElementById('M2D_${numeroExercice}_t1').style.opacity = 1;
+          document.getElementById('M2D_${numeroExercice}_t1').style.strokeWidth = 1;
+          document.getElementById('M2D_${numeroExercice}_t2').style.opacity = 1;
+          document.getElementById('M2D_${numeroExercice}_t2').style.strokeWidth = 1;
+          document.getElementById('M2D_${numeroExercice}_t1').dataset.colorie = 'false';
+          document.getElementById('btnMathALEA2d_${numeroExercice}').classList.remove('active');
+  
+        }
+        `,
+        'Mettre en couleur les 2 triangles')
+
+      if (context.isHtml) {
+        texte += `<br><div style="display: inline-block;margin-top:20px;">${boutonAideMathalea2d}</div>`
+      }
+
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       if (this.sup < 3) {
@@ -230,7 +262,7 @@ export default function ReciproqueThales () {
             `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` +
             ' cm.<br>'
           texteCorr +=
-            'et que ' +
+            'On sait aussi que ' +
             `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` +
             ' cm.<br>'
         } else { // papillon
@@ -239,7 +271,7 @@ export default function ReciproqueThales () {
             `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` +
             ' cm.<br>'
           texteCorr +=
-            'et que ' +
+            'On sait aussi que ' +
             `$${s1 + s4}=${s2 + s4}-${s1 + s2}=${s24}-${s12}=${s14}$` +
             ' cm.<br>'
         } // énoncé sans figure
