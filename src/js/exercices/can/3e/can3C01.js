@@ -17,7 +17,7 @@ export default function CalculPuissanceSimple () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    const a = choice([2, 3, 4, 5])
+    const a = choice([2, 3, 4])
     const b = randint(20, 50)
     const c = [['Le double', 'La moitié'], ['Le triple', 'Le tiers'], ['Le quadruple', 'Le quart']]
     switch (choice(['a', 'b', 'c', 'd'])) { // 'b', 'c'
