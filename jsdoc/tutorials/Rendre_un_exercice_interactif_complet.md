@@ -8,11 +8,11 @@ MathAlea permet de rendre un exercice utilisable avec AMC (pour [Auto Multiple C
 
 1. [Charger le code nécessaire](#1)
 1. [Définir la correction](#2)
-1. [Configurer le typeAMC choisi](#3)
-    1. [types `'qcmMono'` et `'qcmMult'`](#4)
-    1. [type `'AMCOpen'`](#5)
-    1. [types `'AMCNum'`, `'AMCOpenNum'`, `'AMCOpenNum✖︎2'` et `'AMCOpenNum✖︎3'`](#6)
-    1. [type `'AMCHybride'`](#7)
+1. [Configurer le `typeAMC` choisi](#3)
+    1. [`qcmMono` et `qcmMult`](#4)
+    1. [`AMCOpen`](#5)
+    1. [`AMCNum`, `AMCOpenNum`, `AMCOpenNum✖︎2` et `AMCOpenNum✖︎3`](#6)
+    1. [`AMCHybride`](#7)
 1. [Plusieurs sorties AMC différentes dans un même exercice](#8)
 
     
@@ -23,7 +23,7 @@ Pour charger le code nécessaire pour rendre un exercice utilisable avec AMC, il
 export const amcReady = true // pour définir que l'exercice peut servir à AMC
 export const amcType = 'typeAMC'
 ```
-|Choix de `'typeAMC'`|Description de ce choix|Exercice témoin|
+|Choix de `'typeAMC'`|Description de ce choix|Exercices-témoins|
 |-----|-----|-----|
 |[`'qcmMono'`](#4)|qcm avec une seule bonne réponse|**6C10-2**|
 |[`'qcmMult'`](#4)|qcm avec possibilité de plusieurs bonnes réponses ou une unique ou bien aucune|**6N43-2**|
@@ -42,11 +42,11 @@ this.autoCorrection = [] // doit contenir un tableau d'objets avec autant d'él�
                         // this.autoCorrection[0] définira la première question
                         // this.autoCorrection[1] définira la deuxième question et ainsi de suite.
 ```
-## <a id="3" href="#3"></a> 3. Configurer le typeAMC choisi
+## <a id="3" href="#3"></a> 3. Configurer le `typeAMC` choisi
 
 Il faut adapter `this.autoCorrection` en le configurant selon le type `AMCType` choisi, comme décrit dans les paragraphes ci-dessous.
 
->>## <a id="4" href="#4"></a> 3.1. types `'qcmMono'` et `'qcmMult'`
+>>## <a id="4" href="#4"></a> 3.1. `qcmMono` et `qcmMult`
 
 ```js
 this.autoCorrection[i] = {
@@ -74,7 +74,7 @@ this.autoCorrection[i] = {
 ```
 
 
->>## <a id="5" href="#5"></a> 3.2. type `'AMCOpen'`
+>>## <a id="5" href="#5"></a> 3.2.`AMCOpen`
 
 ```js
 this.autoCorrection = [
@@ -98,7 +98,7 @@ L'exemple ci-dessus est pour un exercice ne produisant qu'une seule zone de rép
 
 
 
->>## <a id="6" href="#6"></a> 3.3. types `'AMCNum'`, `'AMCOpenNum'`, `'AMCOpenNum✖︎2'` et `'AMCOpenNum✖︎3'` 
+>>## <a id="6" href="#6"></a> 3.3. `AMCNum`, `AMCOpenNum`, `AMCOpenNum✖︎2` et `AMCOpenNum✖︎3` 
 
 
 ```js
@@ -134,15 +134,15 @@ this.autoCorrection[i] = {
 // si approx vaut 6 ou plus.
 
 ```
-`'AMCOpenNum✖︎2'` contient aussi un attribut `reponse2` au fonctionnement identique à celui de l'attribut `reponse` ci-dessus.
+`AMCOpenNum✖︎2` contient aussi un attribut `reponse2` au fonctionnement identique à celui de l'attribut `reponse` ci-dessus.
 
-`'AMCOpenNum✖︎3'` contient aussi des attributs `reponse2` et `reponse3` aux fonctionnements identiques à celui de l'attribut `reponse` ci-dessus.
+`AMCOpenNum✖︎3` contient aussi des attributs `reponse2` et `reponse3` aux fonctionnements identiques à celui de l'attribut `reponse` ci-dessus.
 
-Les types `'AMCOpenNum'`, `'AMCOpenNum✖︎2'` et `'AMCOpenNum✖︎3'` sont amenés à disparaître au profit de `'AMCHybride'`.
+Les types `AMCOpenNum`, `AMCOpenNum✖︎2` et `AMCOpenNum✖︎3` sont amenés à disparaître au profit de `AMCHybride`.
 
 
 
->>## <a id="7" href="#7"></a> 3.4. type `'AMCHybride'` 
+>>## <a id="7" href="#7"></a> 3.4. `AMCHybride` 
 
 
 Dans ce type, chaque question-réponse peut avoir un type différent. Il y a un seul énoncé, une seule correction et plusieurs champs question-réponse (il faudra donc numéroter les questions dans l'énoncé).
@@ -168,7 +168,7 @@ this.autoCorrection[i] = {
         param: {
           digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
           decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
-          signe: false, // (présence d'une case + ou - pour AMC)
+          signe: false, // (présence d'une case + ou -)
           exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
           exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
           approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
@@ -191,7 +191,7 @@ this.autoCorrection[i] = {
         param: {
           digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
           decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
-          signe: false, // (présence d'une case + ou - pour AMC)
+          signe: false, // (présence d'une case + ou -)
           exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
           exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
           approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance... voir AMC)
@@ -202,10 +202,18 @@ this.autoCorrection[i] = {
   ]
 }
 ```
-Pour le type `'AMCHybride'`, les possibilités étant si nombreuses qu'il ne faut pas hésiter à aller regarder le code d'un exercice dont la sortie peut correspondre à vos envies de programmeur.
+Pour le type `AMCHybride`, les possibilités étant si nombreuses qu'il ne faut pas hésiter à aller regarder le code d'un exercice dont la sortie peut correspondre à vos envies de programmeur et dont quelques exemples apparaissent ci-dessous.
 
-A FAIRE : METTRE ICI UN TABLEAU D'EXERCICES TEMOINS RECENSANT DIFFERENTES UTILISATIONS D'HYBRIDE...
+|Exercices-témoins avec `AMCHybride`|TypeAMC utilisés|
+|-----|-----|
+|**2F32**|double usage de `AMCNum`|
+|**3A14**|triple usage de `AMCNum`|
+|**6C10**|usage simple de `AMCOpen` et usage simple de `AMCNum`|
+|**4G20-6**|usage de `AMCOpen` et double usage de `AMCNum`|
+
+
+
 
 ## <a id="8" href="#8"></a> 4. Plusieurs sorties AMC différentes dans un même exercice
 
-On peut aussi faire le choix de ne pas imposer à un utilisateur le choix d'un type AMC mais en proposer plusieurs. Un exemple de ce type est le beta6C12 (à modifier) avec une sortie de type `'AMCOpen'`, une autre sortie de type `'AMCNum'` et enfin une dernière sortie `'AMCHybride'` avec `'AMCOpen'` et `'AMCNum'`.
+On peut aussi faire le choix de ne pas imposer à un utilisateur le choix d'un type AMC mais en proposer plusieurs. Un exercice-témoin de ce type est le **beta6C12** (à modifier qd plus béta) avec une sortie de type `AMCOpen`, une autre sortie de type `AMCNum` et enfin une dernière sortie de type `AMCHybride` avec un usage simple de `AMCOpen` et un usage simple de `AMCNum`.
