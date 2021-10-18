@@ -1,0 +1,16 @@
+{
+    "types": [
+      {"type": "feat", "section": "Nouvelles fonctionnalités"},
+      {"type": "fix", "section": "Bug réparés"},
+      {"type": "ex", "section": "Nouveaux exercices"},
+      {"type": "chore", "hidden": true},
+      {"type": "docs", "hidden": true},
+      {"type": "style", "hidden": true},
+      {"type": "lint", "hidden": true},
+      {"type": "refactor", "hidden": true},
+      {"type": "perf", "hidden": true},
+      {"type": "test", "hidden": true}
+    ],
+    "commitUrlFormat": "https://github.com/mathalea/mathalea/commits/{{hash}}",
+    "compareUrlFormat": "https://github.com/mathalea/mathalea/compare/{{previousTag}}...{{currentTag}}"
+  }
