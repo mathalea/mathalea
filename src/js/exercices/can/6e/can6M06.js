@@ -51,7 +51,7 @@ export default function Perimetre () {
      mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: true, amplitude: 0.5, scale: 0.7 }, objets)
     this.reponse = a + b + c + d
     this.correction = ` Le périmètre est : $${texNombrec(a + b + c + d)}$ m.`
-    this.optionsChampTexte = { texteApres: ' cm' }
+    this.optionsChampTexte = { texteApres: ' m' }
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
    On doit calculer la somme des valeurs. On regroupe pour faciliter le calcul : <br>
    $\\underbrace{${texNombrec(a)}+${texNombrec(b)}}_{${texNombrec(a + b)}}+\\underbrace{${texNombrec(c)}+${texNombrec(d)}}_{${texNombrec(c + d)}}=${texNombrec(a + b + c + d)}$ m.`)
