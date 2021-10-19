@@ -118,6 +118,9 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 
 - Le fonctionnement, par défaut, de la fonction `setReponse()` est de comparer des expressions littérales ou des nombres, de façon intuitive. On remarque que `formatInteractif: 'calcul'` étant défini par défaut, on peut s'en passer.
 
+###### <a id="EE1" href="#EE1"></a>Questionnement EE1
+
+**EE1 : Première question dans l'encadré noir ci-dessous. La seconde, dessous.**
 >>```js
 >>setReponse(this, i, 5.4)  // Pour comparer la réponse saisie avec le nombre 5.4
 >>                          // équivalent à setReponse(this, i, 5.4,{ formatInteractif: 'calcul' })
@@ -129,6 +132,10 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >> setReponse(this, i, ['Non','non,'NON'])  // Pour comparer la réponse saisie avec le mot 'non' écrit sous trois formes différentes
 >>                                          // équivalent à setReponse(this, i, ['Non','non,'NON'],{ formatInteractif: 'calcul' })
 >>```
+**EE1 : Est-ce que quand la réponse est une chaine de caractères, la casse est importante ? Si oui, pourquoi est-ce nécessaire, ne peut-on pas recoder setReponse pour ne pas considérer la casse d'un texte significative ?**
+
+
+**EE1 : Voir questionnement EE2 plus bas.**
 
 - Parce que la conception d'un exercice en AMC ne gère pas tout à fait les réponses comme la conception d'un exercice en interactif, il est important (si on souhaite proposer une sortie AMC) de n'appeler `setReponse()` que lorqu'on n'est pas dans le contexte AMC :
 
@@ -168,13 +175,13 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >>``` js
 >>setReponse(this, i, new Grandeur(resultat, 'cm'), { formatInteractif: 'longueur' }) // resultat est un nombre. On personnalisera le champ texte avec ajouteChampTexteMathLive(this, i, 'longueur')
 >>```
-###### <a id="EE" href="#EE"></a>Questionnement EE
+###### <a id="EE2" href="#EE2"></a>Questionnement EE2
 
-**EE : Voici un copier-coller de la doc initiale :**
+**EE2 : Voici un copier-coller de la doc initiale :**
 
  Lien avec AMC : Si on a un setReponse(this,i, new Fraction(n,d),{formatInteractif: 'fraction'}), alors on peut mettre amcType = 'AMCNum' et ça passe automatiquement en un simili amcHybride avec 2 champs : un pour le numérateur, et un pour le dénominateur !
 
- **EE : Je ne comprends pas ce copier-coller. En mettant juste amcType, l'exercice devient AMC ? C'est quoi un simili-hybride ?**
+ **EE2 : Je ne comprends pas ce copier-coller. En mettant juste amcType, l'exercice devient AMC ? C'est quoi un simili-hybride ?**
 
 >>>>## <a id="6" href="#6"></a> [2. 1. 4. Comprendre pourquoi une réponse correcte est pourtant considérée fausse](#6)
 

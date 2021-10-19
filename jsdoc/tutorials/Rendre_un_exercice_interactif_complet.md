@@ -158,47 +158,49 @@ this.autoCorrection[i] = {
         {
           texte: '',// Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm 
           statut: ,// true au false pour un QCM
-          feedback: ''
-
+          feedback: '',
+          reponse: { // utilisé si type = 'AMCNum'
+            texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
+            valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
+            param: {
+              digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+              decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
+              signe: false, // (présence d'une case + ou -)
+              exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
+              exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
+              approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
+            }
+          },
+          options: {ordered: false, lastChoice: false} // options pour Qcms
         }
-      ],
-      reponse: { // utilisé si type = 'AMCNum'
-        texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
-        valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
-        param: {
-          digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
-          decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
-          signe: false, // (présence d'une case + ou -)
-          exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
-          exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
-          approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
-        }
-      }
-      options: {ordered: false, lastChoice: false} // options pour Qcms
+      ]
     },
     {
       type: type2, // on donne le type de la deuxième question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
-      proposition : [ // une ou plusieurs (Qcms) 'propositions'
+      propositions : [ // une ou plusieurs (Qcms) 'propositions'
         {
           texte: '',// Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm 
           statut: ,// true au false pour un QCM
-          feedback: ''
+          feedback: '',
+          reponse: { // utilisé si type = 'AMCNum'
+            texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
+            valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
+            param: {
+              digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+              decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
+              signe: false, // (présence d'une case + ou -)
+              exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
+              exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
+              approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
+            }
+          },
+          options: {ordered: false, lastChoice: false} // options pour Qcms
         }
-      ],
-      reponse: { // utilisé si type = 'AMCNum'
-        texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
-        valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
-        param: {
-          digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
-          decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
-          signe: false, // (présence d'une case + ou -)
-          exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
-          exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
-          approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance... voir AMC)
-        }
-      },
-      options: {ordered: false, lastChoice: false} // options pour Qcms
-    } // et ainsi de suite pour toutes les question-reponse
+      ]
+    },
+    {
+        .... // et ainsi de suite pour toutes les questions-reponses
+    } 
   ]
 }
 ```
