@@ -10,7 +10,7 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
 1. [Configurer le `typeInteractivite` choisi](#2)
     1. [`mathlive`](#3)
         1. [Lignes de code spécifiques](#4)
-        1. [Gestion des différentes types de réponse](#5)
+        1. [Gestion des différentes types de réponses attendues](#5)
         1. [Comprendre pourquoi une réponse correcte est pourtant considérée fausse](#6)
         1. [Dans les exercices de la Course Aux Nombres](#7)
         1. [Permettre deux champs de réponse sur une même question](#8)
@@ -69,40 +69,47 @@ Pour rendre un exercice interactif en utilisant MathLive, il faut rajouter 3 nou
 >>```js 
 >>setReponse(this, i, resultat) 
 >>```
-Par défaut, `resultat` est une chaîne de caractère LaTeX (de type `'${x1}'`) ou une valeur numérique (donc sans formatage avec `texNombre` par exemple). On verra, [plus bas](#5), que `resultat` peut être plus divers que cela et les modifications à apporter alors.
+Par défaut, `resultat` est une chaîne de caractère LaTeX (de type `'${x1}'`), une valeur numérique (donc sans formatage avec `texNombre` par exemple) ou bien un tableau de bons résultats possibles. On verra, [plus bas](#5), que `resultat` peut être plus divers que cela et les modifications à apporter alors.
 
-3. Ajouter, pour chaque question, le champ de réponse avec le clavier virtuel après l'énoncé de la sorte :
+3. Ajouter, pour chaque question, le champ de réponses avec le clavier virtuel après l'énoncé de la sorte :
 >>```js 
 >>texte += ajouteChampTexteMathLive(this, i)
 >>```
 `ajouteChampTexteMathLive` a le fonctionnement par défaut ci-dessus, mais possède les options suivantes :
 >>```js 
 >> // syntaxe de ajouteChampTexteMathLive() : ajouteChampTexteMathLive(this, i, 'style', {...options})
->>texte += ajouteChampTexteMathLive(this, i,'largeur 25') // 25 % de la largeur de la page est occupés par le champ de réponse
+>>texte += ajouteChampTexteMathLive(this, i,'largeur 25') // 25 % de la largeur de la page est occupés par le champ de réponses
 >>texte += ajouteChampTexteMathLive(this, i,'inline') // sans retour à la ligne 
 >>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25') // mélange des deux options précédentes
 >>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texte: 'avant' })) // écrit "avant" devant le champ de réponses
 >>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texteApres: 'après' })) // écrit "après" derrière le champ de réponses
+>>texte += ajouteChampTexteMathLive(this, i,'longueur') // le champ de réponses oblige l'élève à remplir une valeur numérique ET une unité de longueur.
  >>```
-
 
 
 >>>>## <a id="5" href="#5"></a> 2. 1. 2. Gestion des différentes types de réponses attendues
 
 Toutes les réponses sont traitées en comparant la saisie de l'élève avec la réponse (ou les réponses) choisie(s) par le concepteur de l'exercice.
 
-- Le fonctionnement, par défaut, est de comparer des expressions littérales ou des nombres, de façon intuitive. On a indiqué le code [plus haut](#59) et on le retrouve ici. On remarque que, par défaut, on peut ommettre `formatInteractif: 'calcul'`.
+- Le fonctionnement, par défaut, est de comparer des expressions littérales ou des nombres, de façon intuitive. On a indiqué le code [plus haut](#59) et on le retrouve ici. On remarque que, par défaut, on peut omettre `formatInteractif: 'calcul'`.
 
->>``` js
->>setReponse(this, i, resultat) // équivalent à setReponse(this, i, resultat,{ formatInteractif: 'calcul' })
+>>```js
+>>setReponse(this, i, 5.4)  // Pour comparer la réponse saisie avec le nombre 5.4
+>>                          // équivalent à setReponse(this, i, 5.4,{ formatInteractif: 'calcul' })
+>>
+>>setReponse(this, i, '${reste}') // Pour comparer la réponse saisie avec le chaine de caractères 'reste'
+>>                                // équivalent à setReponse(this, i, '${reste}',{ formatInteractif: 'calcul' })
+>> EE : Pour l'exemple ci-dessus, s'il est vrai, quelle différence y a-t-il avec { formatInteractif: 'texte' } ? 
+>>
+>> setReponse(this, i, ['Non','non,'NON'])  // Pour comparer la réponse saisie avec le mot 'non' écrit sous trois formes différentes
+>>                                          // équivalent à setReponse(this, i, ['Non','non,'NON'],{ formatInteractif: 'calcul' })
 >>```
 
+- Pour comparer des textes avec respect strict de la casse, on code, comme dans l'exercice-témoin **2N14-1** :
 
-- Pour comparer des textes sans traitement, on code, comme dans l'exercice-témoin **2N14-1** :
 >>```js
 >>setReponse(this, i, 'resultat', { formatInteractif: 'texte' }) // resultat doit être saisie sans les $ délimiteurs du LaTeX
 >>```
-
 - Pour comparer des fractions, il y a trois méthodes différentes pour coder.
  
 >>``` js
@@ -142,15 +149,17 @@ Si vous vous trouvez dans la situation où une réponse correcte est considéré
 
 >>>>## <a id="7" href="#7"></a> 2. 1. 4. Dans les exercices de la Course Aux Nombres
 
+Exercice-témoin : **can6C15**
+
 Les exercices utilisables dans la Course Aux Nombres sont des exercices avec `this.typeExercice = 'simple'`.
 
 L'utilisation de mathLive au sein de ces exercices nécessitent ces actions :
-* Mettre l'énoncé dans `this.question`
-* Mettre la correction dans `this.correction`
-* Mettre la réponse attendue dans `this.reponse`
+* Mettre l'énoncé dans `this.question`.
+* Mettre la correction dans `this.correction`.
+* Mettre la réponse attendue dans `this.reponse`.
 Si le format de mathLive par défaut ne convient pas, on peut le changer. Pour cela, il suffit de placer après `Exercice.call(this)` :
-* `this.formatInteractif = ` et de compléter avec un des formats vus <a href="#5">ci-dessus</a> : `'texte'`, `'fraction'`, `'fractionPlusSimple'`, `'fractionEgale'`, `'longueur'`, `'calcul'` (Exercice-témoin **can6C15**).
-* `this.formatChampTexte = 'largeur10 inline'` pour personnaliser le champTexte (10 % de la largeur sans retour à la ligne, dans cet exemple)
+* `this.formatInteractif = ` et de compléter avec un des formats vus <a href="#5">ci-dessus</a> : `'texte'`, `'fraction'`, `'fractionPlusSimple'`, `'fractionEgale'`, `'longueur'`, `'calcul'`.
+* `this.formatChampTexte = 'largeur10 inline'` pour personnaliser le champTexte (10 % de la largeur sans retour à la ligne, dans cet exemple).
 * `this.optionsChampTexte = { texte: 'l = ', texteApres: ' cm'}` permet d'avoir du texte avant et après le champTexte MathLive.
 
 >>>>## <a id="7" href="#7"></a> 2. 1. 5. Permettre deux champs de réponse sur une même question
@@ -210,7 +219,7 @@ this.autoCorrection[i] = {
 ```
 >>## <a id="10" href="#10"></a> 2. 3. `numerique`
 
-Octobre 2021 : Le type `numerique` est à proscrire au profit de `mathLive`. Ce type est encore dans cette documentation car encore en place dans des exercices plus anciens.
+Octobre 2021 : Le type `numerique` est à proscrire au profit de `mathLive`. Ce type est uniquement dans cette documentation car encore en place dans des exercices plus anciens.
 
 
 >>## <a id="11" href="#11"></a> 2. 4. `cliqueFigure`
