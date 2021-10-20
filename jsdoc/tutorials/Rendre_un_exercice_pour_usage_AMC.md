@@ -18,7 +18,7 @@ MathAlea permet de rendre un exercice utilisable avec AMC (pour [Auto Multiple C
     
 
 ## <a id="1" href="#1"></a> 1. Charger le code nécessaire pour rendre un exercice utilisable avec AMC
-Pour charger le code nécessaire pour rendre un exercice utilisable avec AMC, il faut ajouter ces deux lignes de code juste après les `import` de début d'exercice :
+Pour charger le code nécessaire pour rendre un exercice utilisable avec AMC, il faut ajouter ces deux lignes de code juste après les `import` de début du code de l'exercice :
 ```js
 export const amcReady = true // pour définir que l'exercice peut servir à AMC
 export const amcType = 'typeAMC'
@@ -151,6 +151,7 @@ Dans ce type, chaque question-réponse peut avoir un type différent. Il y a un 
 this.autoCorrection[i] = {
   enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
   enonceAvant: true, //EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de la question. 
+  options: { multicols: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
   propositions: [
     {
       type: type1, // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
@@ -210,6 +211,7 @@ Pour le type `AMCHybride`, les possibilités étant si nombreuses qu'il ne faut 
 |-----|-----|
 |**2F32**|double usage de `AMCNum`|
 |**3A14**|triple usage de `AMCNum`|
+|**6N23-1**|quadruple usage de `AMCNum`|
 |**6C10**|usage simple de `AMCOpen` et usage simple de `AMCNum`|
 |**4G20-6**|usage de `AMCOpen` et double usage de `AMCNum`|
 

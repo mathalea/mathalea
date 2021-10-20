@@ -31,7 +31,7 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
 ## <a id="1" href="#1"></a> [1. Charger le code nécessaire pour rendre un exercice interactif](#1)
 
 
-- Pour charger le code nécessaire pour rendre un exercice interactif, il faut ajouter ces deux lignes de code juste après les `import` de début d'exercice :
+- Pour charger le code nécessaire pour rendre un exercice interactif, il faut ajouter ces deux lignes de code juste après les `import` du début du code de l'exercice :
 >>```js
 >>export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
 >>export const interactifType = 'typeInteractivite'
@@ -72,7 +72,16 @@ Selon le `typeInteractivite` choisi, la programmation est différente. Les parag
 
 >>## <a id="3" href="#3"></a> [2. 1. `mathLive`](#3)
 
-Pour rendre un exercice interactif en utilisant MathLive, il faut rajouter 3 nouvelles lignes de code et gérer éventuellement les types de réponses attendues. D'autres actions, pour concepteurs plus curieux, sont egalement précisées dans les paragraphes ci-dessous.
+MathLive est la technologie qui permet de proposer à l'élève un champ de réponses avec un clavier virtuel (pratique sur les téléphones portables).
+
+Pour rendre un exercice interactif en utilisant MathLive, il faut rajouter des lignes de codes spécifiques décrites [ci-dessous](#4). Ce fonctionnement suffit pour tout concepteur désireux d'introduire, a minima, une interactivité avec MathLive.
+
+Les concepteurs plus curieux, trouveront, aussi, dans ce chapitre :
+>> - [comment comprendre, par des exemples, le détail de traitement de la comparaison entre la réponse saisie par l'élève et la réponse exacte attendue](#5),
+>> - [comment gérer une réponse sous forme de texte, sous forme de fraction, sous forme de longueur ou d'aire (avec l'unité adéquate)](#6),
+>> - [comment débugguer pourquoi une réponse correcte peut être pourtant considérée fausse](#7),
+>> - [comment utiliser MathLive dans les exercices adaptés à la Course Aux Nombres](#8),
+>> - [comment permettre plusieurs champs de réponse pour une même question](#9).
 
 >>>>## <a id="4" href="#4"></a> [2. 1. 1. Lignes de code spécifiques](#4)
 
@@ -114,7 +123,7 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >>```
 >>Les 3 premiers paramètres sont obligatoires et désignent, respectivement, l'exercice appelant, le numéro de la question dans la programmation de l'exercice et la réponse attendue.
 
->>A cela, s'ajoutent toute sorte de paramètres optionnels dont la plupart servent uniquement pour AMC (lien vers doc). Seul le dernier paramètre `formatInteractif` est pertinent ici et indique le type de réponses attendues. On verra son utilité au [prochain paragraphe](#5).
+>>A cela, s'ajoutent toute sorte de paramètres optionnels dont la plupart servent uniquement afin de rendre un [exercice pour un usage AMC](tutorial-Rendre_un_exercice_pour_usage_AMC.html). Seul le dernier paramètre `formatInteractif` est pertinent ici et indique le type de réponses attendues. On verra son utilité au [prochain paragraphe](#5).
 
 - Le fonctionnement, par défaut, de la fonction `setReponse()` est de comparer des expressions littérales ou des nombres, de façon intuitive. On remarque que `formatInteractif: 'calcul'` étant défini par défaut, on peut s'en passer.
 
@@ -137,7 +146,7 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 
 **EE1 : Voir questionnement EE2 plus bas.**
 
-- Parce que la conception d'un exercice en AMC ne gère pas tout à fait les réponses comme la conception d'un exercice en interactif, il est important (si on souhaite proposer une sortie AMC) de n'appeler `setReponse()` que lorqu'on n'est pas dans le contexte AMC :
+- Parce que la conception d'un exercice  AMC ne gère pas tout à fait les réponses comme la conception d'un exercice en interactif, il est important (si on souhaite proposer une sortie AMC) de n'appeler `setReponse()` que lorqu'on n'est pas dans le contexte AMC :
 
 >>```js
 >> if (this.interactif && !context.isAmc) {
@@ -304,7 +313,7 @@ Pour chaque question, un QCM sera créé et constitué de plusieurs cases à coc
 >>        texteCorr = propositionsQcm(this, i).texteCorr    // MAUVAIS CODAGE VOLONTAIRE : NE PAS RECOPIER
 >> }
 >>```
->> En effet, comme la fonction `propositionsQcm()` produit un objet `{texte, texteCorr}` à chaque appel, si on l'appelle 2 fois, on brasse 2 fois les propositions, et l'ordre des réponses ne sera, alors, pas le même que celui qui est affiché et donc celui sur lequel on clique.
+>> En effet, comme la fonction `propositionsQcm()` produit un objet `{texte, texteCorr}` à chaque appel ; si on l'appelle 2 fois, on brasse 2 fois les propositions, et l'ordre des réponses ne sera, alors, pas le même que celui qui est affiché et donc celui sur lequel on clique.
 
 
 
@@ -325,11 +334,11 @@ Exercice-témoin : **6N43-4**
 
 Ici, l'élève devra sélectionner une réponse dans un menu déroulant dont les différentes options sont définies, par le créateur de l'exercice, par la fonction `choixDeroulant()`.
 
-```js
-texte = 'Choisir une bonne réponse parmi ' + choixDeroulant(this, i, 0, [a, b, c, d]) // Si on veut avoir plusieurs menus déroulants dans la même question, il suffit d'incrémenter le troisième paramètre comme choixDeroulant(this, i, 1, [a, b, c, d]) (voir ex. 6N43-4)
-texteCorr = `Les bonnes réponses sont ${a} et ${d}.`
-setReponse(this, i, [a, d]) // S'il y a plusieurs menus déroulants, le troisième paramètre peut être une liste de listes comme setReponse(this, i, [[a, d], [c, d])
-```
+>>```js
+>>texte = 'Choisir une bonne réponse parmi ' + choixDeroulant(this, i, 0, [a, b, c, d]) // Si on veut avoir plusieurs menus déroulants dans la même question, il suffit d'incrémenter le troisième paramètre comme choixDeroulant(this, i, 1, [a, b, c, d]) (voir ex. 6N43-4)
+>>texteCorr = `Les bonnes réponses sont ${a} et ${d}.`
+>>setReponse(this, i, [a, d]) // S'il y a plusieurs menus déroulants, le troisième paramètre peut être une liste de listes comme setReponse(this, i, [[a, d], [c, d])
+>>```
 
 
 >>## <a id="13" href="#13"></a> [2. 6. `custom`](#13)
@@ -340,38 +349,57 @@ Le type `custom` est réservé aux concepteurs avertis. Il n'a pas de syntaxe pa
 
 ## <a id="14" href="#14"></a> [3. Compatibilité entre l'interactivité et un usage AMC](#14)
 
-Historiquement, la sortie des premiers exercices pour un usage AMC est plus précoce que la mise en place de l'interactivité dans les exercices. De ce fait, il existe un lien important entre ces deux améliorations d'exercices.
+Historiquement, la sortie des premiers [exercices pour un usage AMC](tutorial-Rendre_un_exercice_pour_usage_AMC.html) est plus précoce que la mise en place de l'interactivité dans les exercices. De ce fait, il existe un lien important entre ces deux compléments d'exercices bien qu'ils soient indépendants : on peut développer l'un sans l'autre.
 
-EE : On pourra se référer à telle doc pour AMC.
+Toutefois, en octobre 2021, il y a maintenant plus d'exercices interactifs que d'[exercices pour un usage AMC](tutorial-Rendre_un_exercice_pour_usage_AMC.html) mais il est probable que cet écart s'aménuise. De ce fait, lorsqu'on conçoit un exercice intertactif, il serait bien de penser immédiatement à son passage en AMC et de prendre la précaution suivante.
 
+>>```js
+>> // Il serait bon de remplacer tous les conditionnels de ce style :
+>> if (this.interactif) { // A EVITER
+>>    ........
+>> }
+>>
+>> // par ce code là :
+>> if (this.interactif && !context.isAmc) { // A RECOMMANDER
+>>    ........
+>> }
+>>
+>> // Cette remarque est d'ordre générale, il peut y avoir des cas particuliers, notamment pour les qcmNUM
+>>```
+
+
+
+>>## <a id="15" href="#15"></a> [3. 1. Avec `mathlive`](#15)
+
+L'utilisation de `mathlive` est propre à l'interactivité d'un exercice et non à un usage pour AMC.
+
+De ce fait, pour permettre une bonne cohabitation entre l'interactivité et l'usage pour AMC, il est important de faire attention au code suivant :
+
+>>```js
+>> // En interactif, il serait bon de ne jamais programmer ainsi :
+>> texte = propositionsQcm(......)              // A EVITER
+>> texte = ajouteChampTexteMathLive(......)     // A EVITER
+>>
+>> // mais plutôt comme ceci :
+>> if (this.interactif && !context.isAmc) {     // A RECOMMANDER
+>>      texte += propositionsQcm(......)             // Noter bien ici le +=
+>>      texte += ajouteChampTexteMathLive(......)     
+>> }
+>>
+>> // Si la prem
+>>```
+
+###### <a id="EE3" href="#EE3"></a>Questionnement EE3
+
+**EE3 : La partie ci-dessous (copier-coller de la source) n'a-t-elle n'a pas sa place plutôt dans la page AMC ? Moi, je pense que oui !**
+
+Si ~~Jean-Luc bricole~~ vous bricolez this.autoCorrection[i].reponse.valeur à la main pour AMC
 
 ---
 
 **Ci-dessous est un pense-bête. Inutile de relire, cela sera amené à être retravaillé.**
 
->>## <a id="15" href="#15"></a> [3. 1. Avec `mathlive`](#15)
 EE ; A mettre en forme 
-Pour une compatibilité entre les exercices interactifs en ligne et AMC,
-
-il ne faut pas faire :
-
-    texte = propositionsQcm() ;
-    texte = ajouteChampTexteMathLive().
-
-Mais il faut faire :
-
-    texte += propositionsQcm() ;
-    texte += ajouteChampTexteMathLive().
-
-La raison se trouve ci-dessous :
-
-Afin de ne pas se retrouver avec un code hors contexte, les fonctions propositionsQcm et ajouteChampTexteMathLive retournent des chaines vides lorsque le contexte est la sortie Latex ou le générateur AMC.
-
-Il convient donc de ne pas utiliser l'affectation texte = ... mais la concaténation texte += ...
-
-En effet, le texte initial de l'énoncé sert souvent tel quel pour les énoncés AMC. En cas d'affectation texte transmettrait une chaine vide comme énoncé pour AMC. Il en va de même pour l'utilisation de propositionsQcm() qui retourne un tableau avec deux chaines vides dans ce contexte de sortie AMC.
-
-Si vous bricolez this.autoCorrection[i].reponse.valeur à la main pour AMC
 
 Il faut intégrer que cette variable doit être un tableau dont on n'utilisera pour AMC que le premier élément.
 
