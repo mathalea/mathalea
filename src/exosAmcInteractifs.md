@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 306 
-- nombre d'exos interactifReady 395 
+- nombre d'exos interactifReady 394 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -219,11 +219,10 @@
 |betac3C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
-|betaCAN2Q23-01|Calcul avec racine carrée niveau 3|KO|KO|OK|mathLive|
-|betaCAN2Q23-02|Programme de calcul|KO|KO|OK|mathLive|
-|betaCAN2Q23-03|Calcul avec racine carrée niveau 2|KO|KO|OK|mathLive|
-|betaCAN2Q23-04|Calcul avec racine carrée niveau 1|KO|KO|OK|mathLive|
-|betaCAN2Q23-05|Simplifications de racines carrées|KO|KO|OK|mathLive|
+|betaCAN2Q23-01|Table de multiplication à trous|KO|KO|OK|mathLive|
+|betaCAN2Q23-02|Etendue|KO|KO|OK|mathLive|
+|betaCAN2Q23-03|Moyenne|KO|KO|OK|mathLive|
+|betaCAN2Q23-04|Médiane|KO|KO|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|

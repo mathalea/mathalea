@@ -3953,7 +3953,7 @@ export default {
     "name": "betaCan2G01"
   },
   "betaCAN2Q23-01": {
-    "titre": "Calcul avec racine carrée niveau 3",
+    "titre": "Table de multiplication à trous",
     "url": "/exercices/beta/betaCAN2Q23-01.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3961,7 +3961,7 @@ export default {
     "name": "betaCAN2Q23-01"
   },
   "betaCAN2Q23-02": {
-    "titre": "Programme de calcul",
+    "titre": "Etendue",
     "url": "/exercices/beta/betaCAN2Q23-02.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3969,7 +3969,7 @@ export default {
     "name": "betaCAN2Q23-02"
   },
   "betaCAN2Q23-03": {
-    "titre": "Calcul avec racine carrée niveau 2",
+    "titre": "Moyenne",
     "url": "/exercices/beta/betaCAN2Q23-03.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3977,20 +3977,12 @@ export default {
     "name": "betaCAN2Q23-03"
   },
   "betaCAN2Q23-04": {
-    "titre": "Calcul avec racine carrée niveau 1",
+    "titre": "Médiane",
     "url": "/exercices/beta/betaCAN2Q23-04.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "betaCAN2Q23-04"
-  },
-  "betaCAN2Q23-05": {
-    "titre": "Simplifications de racines carrées",
-    "url": "/exercices/beta/betaCAN2Q23-05.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q23-05"
   },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
