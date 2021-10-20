@@ -656,7 +656,6 @@ export function checkSum (...args) {
       checkString += args[0]
     }
   }
-  console.log(checkString)
   return checkString
 }
 /**
