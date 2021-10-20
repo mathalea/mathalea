@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 306 
-- nombre d'exos interactifReady 395 
+- nombre d'exos amcReady 307 
+- nombre d'exos interactifReady 393 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -184,7 +184,8 @@
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1)|KO|KO|OK|mathLive|
 |6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
 |6N22|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
-|6N23-0|Écrire un nombre décimal en chiffres ou en lettres|OK|AMCNum|KO|KO|
+|6N23-0|Écrire un nombre décimal en chiffres ou en lettres|OK|AMCNum|OK|mathLive|
+|6N23-1|Différentes écritures des nombres décimaux|OK|AMCHybride|KO|KO|
 |6N23-2|Lire des abscisses décimales sous trois formes|OK|AMCHybride|OK|mathLive|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
 |6N23|Donner l’écriture décimale d’une fraction décimale|OK|AMCNum|OK|mathLive|
@@ -219,11 +220,8 @@
 |betac3C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
-|betaCAN2Q23-01|Calcul avec racine carrée niveau 3|KO|KO|OK|mathLive|
-|betaCAN2Q23-02|Programme de calcul|KO|KO|OK|mathLive|
-|betaCAN2Q23-03|Calcul avec racine carrée niveau 2|KO|KO|OK|mathLive|
-|betaCAN2Q23-04|Calcul avec racine carrée niveau 1|KO|KO|OK|mathLive|
-|betaCAN2Q23-05|Simplifications de racines carrées|KO|KO|OK|mathLive|
+|betaCAN2Q25-01|Intervalles|KO|KO|OK|mathLive|
+|betaCAN2Q25-02|Solution d’une inéquation|KO|KO|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|

@@ -3387,13 +3387,17 @@ export default {
     "amcType": {
       "text": "AMCNum"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N23-0"
   },
   "6N23-1": {
     "titre": "Différentes écritures des nombres décimaux",
     "url": "/exercices/6e/6N23-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": false,
     "name": "6N23-1"
   },
@@ -3952,45 +3956,21 @@ export default {
     ],
     "name": "betaCan2G01"
   },
-  "betaCAN2Q23-01": {
-    "titre": "Calcul avec racine carrée niveau 3",
-    "url": "/exercices/beta/betaCAN2Q23-01.js",
+  "betaCAN2Q25-01": {
+    "titre": "Intervalles",
+    "url": "/exercices/beta/betaCAN2Q25-01.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCAN2Q23-01"
+    "name": "betaCAN2Q25-01"
   },
-  "betaCAN2Q23-02": {
-    "titre": "Programme de calcul",
-    "url": "/exercices/beta/betaCAN2Q23-02.js",
+  "betaCAN2Q25-02": {
+    "titre": "Solution d’une inéquation",
+    "url": "/exercices/beta/betaCAN2Q25-02.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCAN2Q23-02"
-  },
-  "betaCAN2Q23-03": {
-    "titre": "Calcul avec racine carrée niveau 2",
-    "url": "/exercices/beta/betaCAN2Q23-03.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q23-03"
-  },
-  "betaCAN2Q23-04": {
-    "titre": "Calcul avec racine carrée niveau 1",
-    "url": "/exercices/beta/betaCAN2Q23-04.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q23-04"
-  },
-  "betaCAN2Q23-05": {
-    "titre": "Simplifications de racines carrées",
-    "url": "/exercices/beta/betaCAN2Q23-05.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q23-05"
+    "name": "betaCAN2Q25-02"
   },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
