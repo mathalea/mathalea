@@ -1,5 +1,5 @@
 import { droiteGraduee2, mathalea2d } from '../../../modules/2d'
-import { randint, texNombre } from '../../../modules/outils'
+import { randint, texNombre, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Suite sur une droite graduée'
 export const interactifReady = true
@@ -40,7 +40,7 @@ export default function SuiteSurDroiteGraduee () {
       labelsPrincipaux: false
     })
     this.reponse = c + 3 * a
-    this.question = mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 2, scale: 0.5 }, d) + 'Quelle est l\'abscisse du point A ?'
-    this.correction = `L'abscisse du point $A$ est $${c + 3 * a}$`
+    this.question = mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 2, scale: 0.5 }, d) + 'Quelle est le nombre écrit sous le point A ?'
+    this.correction = `${texteEnCouleur('Comme les graduations vont de ' + a)} ${texteEnCouleur('en ' + a)} ${texteEnCouleur(', le nombre écrit sous le point $A$ correspond à ')} ${texteEnCouleur(c + 2 * a)} ${texteEnCouleur(' + ' + a)} ${texteEnCouleur('donc c\'est ' + texNombre(c + 3 * a) + '.')}`
   }
 }
