@@ -1257,6 +1257,8 @@ async function miseAJourDeLaListeDesExercices (preview) {
                 listeObjetsExercice[i][p] = dictionnaireDesExercices[id][p]
               }
             })
+            // On ajoute la propriété name pour pouvoir éventuellement récupérer la ref de l'exo
+            listeObjetsExercice[i].name = dictionnaireDesExercices[id].name
             if (listeObjetsExercice[i].typeExercice === 'XCas') {
               besoinXCas = true
             }
