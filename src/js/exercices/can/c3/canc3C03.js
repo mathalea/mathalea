@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, choice, miseEnEvidence } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, choice, miseEnEvidence } from '../../../modules/outils.js'
 export const titre = 'Table de multiplication à trous'
 export const interactifReady = true
 export const interactifType = 'mathLive'

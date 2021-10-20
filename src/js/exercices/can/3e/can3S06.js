@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, texFractionReduite, sp } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, texFractionReduite, sp } from '../../../modules/outils.js'
 export const titre = 'Médiane'
 export const interactifReady = true
 export const interactifType = 'mathLive'

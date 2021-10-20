@@ -3952,38 +3952,6 @@ export default {
     ],
     "name": "betaCan2G01"
   },
-  "betaCAN2Q23-01": {
-    "titre": "Table de multiplication à trous",
-    "url": "/exercices/beta/betaCAN2Q23-01.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q23-01"
-  },
-  "betaCAN2Q23-02": {
-    "titre": "Etendue",
-    "url": "/exercices/beta/betaCAN2Q23-02.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q23-02"
-  },
-  "betaCAN2Q23-03": {
-    "titre": "Moyenne",
-    "url": "/exercices/beta/betaCAN2Q23-03.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q23-03"
-  },
-  "betaCAN2Q23-04": {
-    "titre": "Médiane",
-    "url": "/exercices/beta/betaCAN2Q23-04.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q23-04"
-  },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
     "url": "/exercices/beta/betaCaNCM2.js",
@@ -4769,6 +4737,30 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3S03"
+  },
+  "can3S04": {
+    "titre": "Etendue",
+    "url": "/exercices/can/3e/can3S04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S04"
+  },
+  "can3S05": {
+    "titre": "Moyenne",
+    "url": "/exercices/can/3e/can3S05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S05"
+  },
+  "can3S06": {
+    "titre": "Médiane",
+    "url": "/exercices/can/3e/can3S06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S06"
   },
   "can4C01": {
     "titre": "Priorité opératoire et relatifs",
@@ -5843,6 +5835,14 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "canc3C02"
+  },
+  "canc3C03": {
+    "titre": "Table de multiplication à trous",
+    "url": "/exercices/can/c3/canc3C03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3C03"
   },
   "canc3N01": {
     "titre": "Écriture de nombre entier",

@@ -219,10 +219,6 @@
 |betac3C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
-|betaCAN2Q23-01|Table de multiplication à trous|KO|KO|OK|mathLive|
-|betaCAN2Q23-02|Etendue|KO|KO|OK|mathLive|
-|betaCAN2Q23-03|Moyenne|KO|KO|OK|mathLive|
-|betaCAN2Q23-04|Médiane|KO|KO|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
@@ -283,6 +279,9 @@
 |can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
 |can3S02|Probabilité de l’évènement contraire|KO|KO|OK|mathLive|
 |can3S03|Calculs de probabilités2|KO|KO|OK|mathLive|
+|can3S04|Etendue|KO|KO|OK|mathLive|
+|can3S05|Moyenne|KO|KO|OK|mathLive|
+|can3S06|Médiane|KO|KO|OK|mathLive|
 |can4C01|Priorité opératoire et relatifs|OK|AMCNum|OK|mathLive|
 |can4C02|Opposé de fraction|OK|AMCNum|OK|mathLive|
 |can4C03|Quotient d’entier qui va bien par fraction|OK|AMCNum|OK|mathLive|
@@ -385,6 +384,7 @@
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
 |canc3C01|Calculs automatiques|OK|AMCNum|OK|mathLive|
 |canc3C02|Composition de nombre entier|OK|AMCNum|OK|mathLive|
+|canc3C03|Table de multiplication à trous|KO|KO|OK|mathLive|
 |canc3N01|Écriture de nombre entier|OK|qcmMono|OK|qcm|
 |canc3N02|Suite sur une droite graduée|OK|AMCHybride|OK|mathLive|
 |canc3N03|Le plus grand nombre entier|OK|AMCNum|OK|mathLive|
