@@ -21,11 +21,11 @@ export default function PremierOuPasCriterePar7Par11 () {
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.'
-  // this.consigne += `<br>`;
+
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.nbQuestions = 7
-  // this.correctionDetailleeDisponible = true;
+
   this.nbCols = 2
   this.nbColsCorr = 1
   this.listePackages = 'bclogo'
@@ -39,7 +39,9 @@ export default function PremierOuPasCriterePar7Par11 () {
       this.boutonAide += modalVideo('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
     } else { // sortie LaTeX
     };
-
+    if (this.interactif) {
+      this.consigne = 'Les nombres suivants sont-ils premiers ? Penser aux critères de divisibilité.'
+    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
@@ -155,7 +157,7 @@ export default function PremierOuPasCriterePar7Par11 () {
                 evenSum += Number(N.toString().charAt(k))
               };
             };
-            texteCorr += ' = ' + evenSum + ' <br> '
+            texteCorr += ' = ' + evenSum + '. <br> '
           } else { // sinon N a un nombre impair de chiffres
             evenSum = Number(N.toString().charAt(0))
             texteCorr += N.toString().charAt(0)
@@ -165,9 +167,9 @@ export default function PremierOuPasCriterePar7Par11 () {
                 evenSum += Number(N.toString().charAt(m))
               };
             };
-            texteCorr += ' = ' + evenSum + '<br> '
+            texteCorr += ' = ' + evenSum + '. <br> '
           };
-          texteCorr += `d'autre part, la somme des chiffres de rang pair de ${nombreAvecEspace(N)} vaut `
+          texteCorr += `D'autre part, la somme des chiffres de rang pair de ${nombreAvecEspace(N)} vaut `
           if (Number(N.toString().length) % 2 === 0) { // si N a un nombre pair de chiffres
             oddSum = Number(N.toString().charAt(0))
             texteCorr += N.toString().charAt(0)
@@ -177,7 +179,7 @@ export default function PremierOuPasCriterePar7Par11 () {
                 oddSum += Number(N.toString().charAt(k))
               };
             };
-            texteCorr += ' = ' + oddSum + ' <br> '
+            texteCorr += ' = ' + oddSum + '. <br> '
           } else { // sinon N a un nombre impair de chiffres
             oddSum = Number(N.toString().charAt(1))
             texteCorr += N.toString().charAt(1)
@@ -187,15 +189,15 @@ export default function PremierOuPasCriterePar7Par11 () {
                 oddSum += Number(N.toString().charAt(m))
               };
             };
-            texteCorr += ' = ' + oddSum + '<br> '
+            texteCorr += ' = ' + oddSum + '. <br> '
           };
-          texteCorr += 'la différence entre la somme des chiffres de rangs pairs et celle des chiffres de rangs impairs vaut '
+          texteCorr += 'La différence entre la somme des chiffres de rangs pairs et celle des chiffres de rangs impairs vaut '
           if ((oddSum - evenSum) === 0) {
-            texteCorr += `${oddSum - evenSum}, `
+            texteCorr += `${oddSum - evenSum} `
           } else {
-            texteCorr += `${Math.abs(oddSum - evenSum)} qui est un multiple de 11, `
+            texteCorr += `${Math.abs(oddSum - evenSum)} `
           };
-          texteCorr += '<br>'
+          texteCorr += 'qui est un multiple de 11, <br>'
           texteCorr += ` cela signifie que ${nombreAvecEspace(N)} est divisible par 11, il admet donc au moins trois diviseurs qui sont 1, 11 et lui-même, `
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
           bonneReponse = 'non'
@@ -236,6 +238,7 @@ export default function PremierOuPasCriterePar7Par11 () {
           };
           texteCorr += '.'
           texteCorr += `<br> Aucun de ces nombres premiers ne divise ${N}, `
+          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
           bonneReponse = 'oui'
           break
       }

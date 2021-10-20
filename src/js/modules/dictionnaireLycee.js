@@ -95,39 +95,39 @@ export const dictionnaireLycee = {
     titre: 'Calculs utilisant les priorités opératoires et les puissances',
     url: '/exercices/4e/4C34.js'
   },
-  '2N42-1': {
+  '2N40-1': {
     titre: 'Traduire un programme de calcul par une expression littérale',
     url: '/exercices/5e/5L10-2.js'
   },
-  '2N42-2': {
+  '2N40-2': {
     titre: 'Calculer la valeur d\'une expression littérale.',
     url: '/exercices/5e/5L14.js'
   },
-  '2N42-3': {
+  '2N40-3': {
     titre: 'Écrire une expression littérale',
     url: '/exercices/5e/5L10.js'
   },
-  '2N42-4': {
+  '2N40-4': {
     titre: 'Utiliser la distributivité (simple ou double) et réduire',
     url: '/exercices/3e/3L11-3.js'
   },
-  '2N42-5': {
+  '2N40-5': {
     titre: 'Factoriser une expression',
     url: '/exercices/3e/3L11-4.js'
   },
-  '2N42-6': {
+  '2N40-6': {
     titre: 'Calcul mental et calcul littéral',
     url: '/exercices/3e/3L11-5.js'
   },
-  '2N43-1': {
+  '2N41-1': {
     titre: 'Factoriser une expression complexe',
     url: '/exercices/3e/3L11-6.js'
   },
-  '2N43-2': {
+  '2N41-2': {
     titre: 'Factoriser a²-b²',
     url: '/exercices/3e/3L12.js'
   },
-  '2N43-3': {
+  '2N41-3': {
     titre: 'Développer (a-b)(a+b)',
     url: '/exercices/3e/3L12-1.js'
   },
