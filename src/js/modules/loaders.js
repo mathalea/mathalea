@@ -205,6 +205,9 @@ export async function loadMathLive () {
       if (mf.classList.contains('largeur50')) {
         style += ' width: 50%;'
       }
+      if (mf.classList.contains('largeur75')) {
+        style += ' width: 75%;'
+      }
       mf.style = style
     }
   }

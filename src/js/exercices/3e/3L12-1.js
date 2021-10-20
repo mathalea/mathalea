@@ -52,7 +52,11 @@ export default function DevelopperIdentitesRemarquables3 () {
         texteCorr = `$${lettreDepuisChiffre(i + 1)} = \\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=${texFraction(ns * ns, ds * ds)}x^2-${a * a}$`
         reponse = `${texFraction(ns * ns, ds * ds)}x^2-${a * a}`
       }
-      texte += ajouteChampTexteMathLive(this, i)
+      if (this.interactif) {
+        texte += `<br>$${lettreDepuisChiffre(i + 1)}=$` + ajouteChampTexteMathLive(this, i, 'inline largeur75')
+        texte += '<br>'
+      }
+
       setReponse(this, i, reponse)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
