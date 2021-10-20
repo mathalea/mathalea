@@ -349,7 +349,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                       texte: texteCorr,
                       reponse: {
                         texte: 'a',
-                        valeur: u,
+                        valeur: calcul(u * 10 + d),
                         param: {
                           signe: false,
                           digits: 3,
@@ -367,7 +367,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                       texte: '',
                       reponse: {
                         texte: 'b',
-                        valeur: d,
+                        valeur: c,
                         param: {
                           signe: false,
                           digits: 1,
@@ -384,7 +384,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                       texte: '',
                       reponse: {
                         texte: 'c',
-                        valeur: c,
+                        valeur: 0,
                         param: {
                           signe: false,
                           digits: 1,
@@ -402,7 +402,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                       texte: '',
                       reponse: {
                         texte: 'd',
-                        valeur: calcul(u + d / 10 + c / 100),
+                        valeur: calcul(n / 10),
                         param: {
                           signe: false,
                           digits: 5,
