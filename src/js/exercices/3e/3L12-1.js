@@ -16,7 +16,7 @@ export default function DevelopperIdentitesRemarquables3 () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Développer les expressions suivantes.'
+  this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 3 : 2
