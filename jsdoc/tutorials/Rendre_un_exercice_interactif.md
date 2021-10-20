@@ -77,11 +77,11 @@ MathLive est la technologie qui permet de proposer à l'élève un champ de rép
 Pour rendre un exercice interactif en utilisant MathLive, il faut rajouter des lignes de codes spécifiques décrites [ci-dessous](#4). Ce fonctionnement suffit pour tout concepteur désireux d'introduire, a minima, une interactivité avec MathLive.
 
 Les concepteurs plus curieux, trouveront, aussi, dans ce chapitre :
->> - [comment comprendre, par des exemples, le détail de traitement de la comparaison entre la réponse saisie par l'élève et la réponse exacte attendue](#5),
->> - [comment gérer une réponse sous forme de texte, sous forme de fraction, sous forme de longueur ou d'aire (avec l'unité adéquate)](#6),
->> - [comment débugguer pourquoi une réponse correcte peut être pourtant considérée fausse](#7),
->> - [comment utiliser MathLive dans les exercices adaptés à la Course Aux Nombres](#8),
->> - [comment permettre plusieurs champs de réponse pour une même question](#9).
+>> - [comment comprendre, par des exemples, le détail de traitement de la comparaison entre la réponse saisie par l'élève et la réponse exacte attendue](#4bis),
+>> - [comment gérer une réponse sous forme de texte, sous forme de fraction, sous forme de longueur ou d'aire (avec l'unité adéquate)](#5),
+>> - [comment débugguer pourquoi une réponse correcte peut être pourtant considérée fausse](#6),
+>> - [comment utiliser MathLive dans les exercices adaptés à la Course Aux Nombres](#7),
+>> - [comment permettre plusieurs champs de réponse pour une même question](#8).
 
 >>>>## <a id="4" href="#4"></a> [2. 1. 1. Lignes de code spécifiques](#4)
 
@@ -219,7 +219,7 @@ Si le format de mathLive par défaut ne convient pas, on peut le changer. Pour c
 * `this.formatChampTexte = 'largeur10 inline'` pour personnaliser le champTexte (10 % de la largeur sans retour à la ligne, dans cet exemple).
 * `this.optionsChampTexte = { texte: 'l = ', texteApres: ' cm'}` permet d'avoir du texte avant et après le champTexte MathLive.
 
->>>>## <a id="7" href="#7"></a> [2. 1. 6. Permettre plusieurs champs de réponse pour une même question](#7)
+>>>>## <a id="8" href="#8"></a> [2. 1. 6. Permettre plusieurs champs de réponse pour une même question](#8)
 
 Exercice-témoin : **3F12-3**
 
@@ -249,7 +249,7 @@ Le souci, c'est que pour l'instant chaque question rapporte 1 point au niveau du
 Exercice-témoin : **5L10-2**
 
 Pour rendre un exercice interactif en utilisant `qcm` et en permettant, aux élèves, de choisir une bonne réponse parmi plusieurs propositions, il faut rajouter une nouvelle ligne de code et utiliser la fonction `propositionsQcm()`.
-
+**EE : A compléter**
 
 >>>>## <a id="91" href="#91"></a> [2. 2. 1. Ligne de code spécifique](#91)
 
