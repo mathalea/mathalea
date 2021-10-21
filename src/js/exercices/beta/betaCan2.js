@@ -114,35 +114,6 @@ export default function CourseAuxNombresSeconde () {
       objets = []
       // Boucle principale où i+1 correspond au numéro de la question
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
-        case 'q6':
-          switch (choice([1, 2, 3])) {
-            case 1:// pourcentage d'un multiple de 10
-              a = randint(2, 9) * 10
-              b = randint(2, 9, a) * 10
-              resultat = calcul(a * b / 100)
-              texte = `$${a}\\%$ de $${b}=$`
-              texteCorr = `$${a}\\%$ de $${b} =${texNombrec(a / 100)}\\times ${b}= ${texNombrec(resultat)}$`
-              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              break
-            case 2:// prende 10%
-              a = randint(1, 99)
-              resultat = calcul(a * 10 / 100)
-              texte = `$10\\%$ de $${a}=$`
-              texteCorr = `$10\\%$ de $${a} = 0,1\\times ${a}=${texNombrec(resultat)}$`
-              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              break
-
-            case 3:// prendre  20%, 30%, 40%......
-              a = randint(1, 9) * 10
-              p = randint(2, 9, 5) * 10
-              resultat = calcul(a * p / 100)
-              texte = `$${p}\\%$ de $${a}=$`
-              texteCorr = `$${p}\\%$ de $${a} = ${texNombrec(p / 100)}\\times ${a}=${texNombrec(resultat)}$`
-              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              break
-          }
-
-          break
         case 'q7':
           switch (choice([1, 2, 3])) {
             case 1:// multiplier par 10, 100 ou 1000
