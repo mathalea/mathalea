@@ -41,7 +41,7 @@ export default function CourseAuxNombresSeconde () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let a, b, c, d, N, xA, xB, yA, yB, x1, x2, y1, y2, A, B, C, D, k, u, p, q, ux, uy, vx, vy,
-      resultat, inconnue, objets, repere, fraction, den, r, e, f, m, n, somme, tA, tB, prenom1, prenom2, couplenm
+      resultat, inconnue, objets, repere, fraction, r, e, f, m, n, somme, tA, tB, prenom1, prenom2, couplenm
     let questions = []
 
     if (!this.sup) {
@@ -114,40 +114,6 @@ export default function CourseAuxNombresSeconde () {
       objets = []
       // Boucle principale où i+1 correspond au numéro de la question
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
-        case 'q7':
-          switch (choice([1, 2, 3])) {
-            case 1:// multiplier par 10, 100 ou 1000
-              a = choice([randint(11, 99), randint(100, 999)])
-              a = calcul(a / choice([10, 100, 1000, 10000]))
-              b = choice([10, 100, 1000])
-              resultat = calcul(a * b)
-              texte = `$${texNombrec(a)}\\times${texNombre(b)}=$`
-              texteCorr = `$${texNombrec(a)}\\times ${b} = ${resultat}$`
-              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              break
-            case 2:// multiplier par 0,1....
-              a = randint(10, 1000)
-              b = choice([0.1, 0.01, 0.001])
-              resultat = texNombrec(a * b)
-              texte = `$${texNombrec(a)}\\times${texNombre(b)}=$`
-              texteCorr = `$${texNombrec(a)}\\times ${texNombre(b)} = ${resultat}$`
-              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              break
-            case 3:// multiplier par 10, 100 et fractions /10, /100....
-              a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
-              den = choice([10, 100, 1000])
-              b = choice([10, 100, 1000])
-              resultat = calcul(a * b / den)
-              texte = `$${texFraction(a, den)}\\times${texNombre(b)}=$<br>
-                On donnera le résultat sous la forme décimale.`
-              texteCorr = `$${texFraction(a, den)} \\times ${texNombre(
-                    b)} = ${texFraction(a * b, den)} = ${texNombrec((a / den) * b)}$`
-              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              break
-          }
-
-          break
-
         case 'q8':
           switch (choice([1, 2, 3, 4, 5, 6, 7])) { //
             case 1:// droite graduée     /3
