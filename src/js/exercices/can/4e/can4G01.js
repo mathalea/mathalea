@@ -38,24 +38,24 @@ export default function LongueurPythagore () {
 
     const objets = []
     switch (randint(0, 2)) {
-      case 0:
+      case 0: // calcul du côté horizontal de l'angle droit
         objets.push(pol[0], pol[1], la, lb, codeAngle(A, B, C))
         this.question = mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 200 / b, scale: 8 / b }, objets) + '<br>'
         this.question += `Calculer la longueur $${nom[0]}${nom[1]}$.`
         this.correction = `$${nom[0]}${nom[1]}^2=${nom[0]}${nom[2]}^2-${nom[1]}${nom[2]}^2$, soit $${nom[0]}${nom[1]}^2=${c}^2-${a}^2=${c ** 2}-${a ** 2}=${c ** 2 - a ** 2}$.<br>On en déduit que $${nom[0]}${nom[1]}=${b}$ cm.`
         this.reponse = b
         break
-      case 1:
+      case 1: // calcul du côté vertical de l'angle droit
         objets.push(pol[0], pol[1], lc, lb, codeAngle(A, B, C))
         this.question = mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 200 / b, scale: 8 / b }, objets) + '<br>'
         this.question += `Calculer la longueur $${nom[1]}${nom[2]}$.`
         this.correction = `$${nom[1]}${nom[2]}^2=${nom[0]}${nom[2]}^2-${nom[0]}${nom[1]}^2$, soit $${nom[1]}${nom[2]}^2=${c}^2-${b}^2=${c ** 2}-${b ** 2}=${c ** 2 - b ** 2}$.<br>On en déduit que $${nom[0]}${nom[1]}=${a}$ cm.`
         this.reponse = a
         break
-      case 2:
+      case 2: // calcul de l'hypoténuse.
         objets.push(pol[0], pol[1], la, lc, codeAngle(A, B, C))
         this.question = mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 200 / b, scale: 8 / b }, objets) + '<br>'
-        this.question += `Calculer la longueur $${nom[1]}${nom[2]}$.`
+        this.question += `Calculer la longueur $${nom[0]}${nom[2]}$.`
         this.correction = `$${nom[0]}${nom[2]}^2=${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2$, soit $${nom[0]}${nom[2]}^2=${b}^2+${a}^2=${b ** 2}+${a ** 2}=${a ** 2 + b ** 2}$.<br>On en déduit que $${nom[0]}${nom[2]}=${c}$ cm.`
         this.reponse = c
         break
