@@ -156,7 +156,7 @@ export async function initDom () {
   }
   document.body.innerHTML = ''
   let section
-  if (vue === 'recto' || vue === 'verso') {
+  if (vue === 'recto' || vue === 'verso' || vue === 'exMoodle') {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     addElement(section, 'div', { id: 'containerErreur' })
@@ -184,7 +184,13 @@ export async function initDom () {
     document.addEventListener('exercicesAffiches', () => {
       // Envoi des informations à Anki
       hauteurCorrection = window.document.body.scrollHeight
-      window.parent.postMessage({ hauteur: Math.max(hauteurCorrection, hauteurIEP), reponse: 'A_COMPLETER' }, '*')
+      let tableauReponseEx1Q1
+      try {
+        tableauReponseEx1Q1 = context.listeObjetsExercice[0].autoCorrection[0].reponse.valeur
+      } catch (error) {
+        tableauReponseEx1Q1 = undefined
+      }
+      window.parent.postMessage({ hauteur: Math.max(hauteurCorrection, hauteurIEP), reponse: tableauReponseEx1Q1 }, '*')
     })
   } else if (vue === 'eval') {
     setOutputHtml()
@@ -369,7 +375,7 @@ export async function initDom () {
   // Le footer
   if (vue === 'recto' || vue === 'verso' || vue === 'embed' || vue === 'e' || vue === 'can') {
     await addFetchHtmlToParent('templates/footer1logo.html', document.body, 'footer')
-  } else {
+  } else if (vue !== 'exMoodle') {
     await addFetchHtmlToParent('templates/footer.html', document.body, 'footer')
   }
 

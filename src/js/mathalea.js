@@ -425,6 +425,7 @@ function miseAJourDuCode () {
   //    suppression d'un exercice, nouvelle donnée, changement de paramètre...)
   // C'est dans cette fonction que l'on va executer les this.nouvelleVersion des exercices.
   setUrl()
+  context.listeObjetsExercice = listeObjetsExercice
 
   // Active ou désactive l'icone de la course aux nombres
   let tousLesExercicesSontInteractifs = true
