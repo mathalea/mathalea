@@ -763,59 +763,6 @@ export default function CourseAuxNombresSeconde (numeroExercice) {
           }
 
           break
-
-        case 'q10':
-          switch (choice([1, 2, 3])) {
-            case 1:// simplification
-              fraction = choice(listeFractions)
-              n = fraction[0]
-              d = fraction[1]
-              a = randint(6, 9)
-              resultat = new Fraction(n, d)
-              texte = `Ecrire $${texFraction(n * a, d * a)}$ sous la forme d'une fraction irréductible.`
-              texteCorr = `$${texFraction(n * a, d * a)}=\\dfrac{${n}\\times ${a}}{${d}\\times ${a}} =${texFractionReduite(n, d)}$.`
-              setReponse(this, i, resultat, { formatInteractif: 'fraction' })
-              break
-
-            case 2:// racine carrée ()^2 ou rac(0,04) par ex
-              N = choice(['a', 'b'])
-              if (N === 'a') {
-                a = randint(2, 3)
-                b = choice([2, 5, 6, 7, 10])
-                resultat = a * a * b
-                texte = `$(${a}\\sqrt{${b}})^2=$`
-                texteCorr = `$(${a}\\sqrt{${b}})^2=${a}^2\\times (\\sqrt{${b}})^2=${a * a}\\times ${b}=${a * a * b}$.`
-                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              }
-              if (N === 'b') {
-                a = randint(1, 9) / 10
-
-                resultat = a
-                texte = `$\\sqrt{${texNombrec(a ** 2)}}=$`
-                texteCorr = `$\\sqrt{${texNombrec(a ** 2)}}=${texNombrec(a)}$.`
-                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              }
-              break
-
-            case 3:// somme racine carrée ()^2
-              a = randint(2, 10)
-              b = randint(2, 10, a)
-              resultat = (a - b) * (a - b)
-
-              if (a - b < 0) {
-                texte = `$(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2=$`
-                texteCorr = `$(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2=(${a}-${b})^2=(${a - b})^2=${(a - b) * (a - b)}$.`
-                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              } else {
-                texte = `$(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2=$`
-                texteCorr = `$(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2=(${a}-${b})^2=${a - b}^2=${(a - b) * (a - b)}$.`
-                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              }
-              break
-          }
-
-          break
-
         case 'q11':
           switch (choice([1, 2, 3, 4, 5])) { //
             case 1:// proportionnalité avec fruits
