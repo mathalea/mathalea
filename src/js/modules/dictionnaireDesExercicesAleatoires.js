@@ -5073,6 +5073,30 @@ export default {
     "interactifType": "mathLive",
     "name": "can3S03"
   },
+  "can3S04": {
+    "titre": "Etendue",
+    "url": "/exercices/can/3e/can3S04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S04"
+  },
+  "can3S05": {
+    "titre": "Moyenne",
+    "url": "/exercices/can/3e/can3S05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S05"
+  },
+  "can3S06": {
+    "titre": "Médiane",
+    "url": "/exercices/can/3e/can3S06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S06"
+  },
   "can4C01": {
     "titre": "Priorité opératoire et relatifs",
     "url": "/exercices/can/4e/can4C01.js",
@@ -6146,6 +6170,14 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "canc3C02"
+  },
+  "canc3C03": {
+    "titre": "Table de multiplication à trous",
+    "url": "/exercices/can/c3/canc3C03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3C03"
   },
   "canc3N01": {
     "titre": "Écriture de nombre entier",

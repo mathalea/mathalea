@@ -1164,7 +1164,16 @@ export default function Alea2iep () {
       }
     }
   }
-
+  /**
+   * Change la couleur d'un texte déjà créé dont on donne l'id retourné par this.textePoint ou this.textePosition
+   * Nécessité de redonner le texte car on réécrit le texte dans une autre couleur.
+   * @param {string} texte
+   * @param {number} id
+   * @param {string} couleur
+   */
+  this.texteChangeCouleur = function (texte, id, couleur) {
+    this.liste_script.push(`\n<action couleur="${couleur}" texte="${texte}" id="${id}" mouvement="ecrire" objet="texte" />`)
+  }
   /**
    * Met l'animation en pause forçant l'utilisateur à appuyer sur lecture pour voir la suite
    */
@@ -1457,7 +1466,7 @@ export default function Alea2iep () {
     this.crayonDeplacer(P3)
     this.regleRotation(alpha - 90)
     this.tracer(rotation(P3, H, 180))
-    if (description) this.textePosition('4. coder l\'angle droit.', 0, 7.9, { couleur: 'lightblue' })
+    if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.9, { couleur: 'lightblue' })
     this.regleMasquer()
     this.codageAngleDroit(A, H, P)
   }
@@ -1493,7 +1502,7 @@ export default function Alea2iep () {
     this.regleMontrer(P1)
     this.crayonDeplacer(P1)
     this.tracer(P2)
-    if (description) this.textePosition('4. coder l\'angle droit.', 0, 7.2, { couleur: 'lightblue' })
+    if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.2, { couleur: 'lightblue' })
     this.regleMasquer()
     this.codageAngleDroit(P1, A, B)
   }
@@ -1518,7 +1527,7 @@ export default function Alea2iep () {
     this.compasEcarter2Points(A, B)
     this.compasTracerArcCentrePoint(A, B, { couleur: 'lightgray', epaisseur: 1 })
     this.compasTracerArcCentrePoint(A, C, { couleur: 'lightgray', epaisseur: 1 })
-    this.pointsCreer(B, C, { label: true, tempo: 10 })
+    this.pointsCreer(B, C, { tempo: 10 })
     if (description) {
       this.textePosition('2. Choisir un écartement de compas supérieur à la longueur AB.', 0, 9.3, { couleur: 'lightblue' })
     }
@@ -1537,7 +1546,7 @@ export default function Alea2iep () {
     this.regleMontrer(P11)
     this.crayonMontrer(P11)
     this.tracer(P12)
-    if (description) this.textePosition('5. coder l\'angle droit.', 0, 6.5, { couleur: 'lightblue' })
+    if (description) this.textePosition('5. Coder l\'angle droit.', 0, 6.5, { couleur: 'lightblue' })
     this.regleMasquer()
     this.codageAngleDroit(P1, A, B)
   }
@@ -1579,7 +1588,7 @@ export default function Alea2iep () {
     this.regleMontrer(P1)
     this.crayonMontrer(P1)
     this.tracer(P2)
-    if (description) this.textePosition('5. coder l\'angle droit.', 0, 8.2, { couleur: 'lightblue', tempo: 20 })
+    if (description) this.textePosition('5. Coder l\'angle droit.', 0, 8.2, { couleur: 'lightblue', tempo: 20 })
     this.regleMasquer()
     this.codageAngleDroit(P1, H, B)
   }
