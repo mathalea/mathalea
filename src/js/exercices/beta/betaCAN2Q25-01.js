@@ -19,12 +19,12 @@ export default function Intervalles () {
   this.nouvelleVersion = function () {
     let a, b, c, N, d, e
 
-    switch (choice([1, 2])) {
+    switch (choice([1])) { //, 2
       case 1:
         a = randint(1, 4) * (-1)
         b = randint(1, 4)
         c = calcul(randint(-4, -1) + randint(-9, -1) / 10)
-        N = choice(['a', 'b', 'c', 'd', 'e'])//,
+        N = choice(['a'])//, , 'b', 'c', 'd', 'e'
         if (N === 'a') {
           this.question = `Combien y a-t-il d'entiers dans l'intervalle $\\left[${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right]$ ?`
           this.correction = ` Il y a $${b - a + 1}$ entiers dans l'intervalle $\\left[${a}${sp(1)}; ${sp(1)}${b}\\right]$.`
