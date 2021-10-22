@@ -745,6 +745,7 @@ export function exerciceMathLive (exercice) {
  * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
  * on vérifie la présence du bouton de validation d'id btnValidationEx{i} créé par listeQuestionsToContenu
  * et on y ajoute un listenner pour vérifier les réponses saisies dans les math-field
+ * Si le bouton n'existe pas on le crée
  * @param {object} exercice
  */
 export function exerciceNonInteractif (exercice) {
@@ -754,6 +755,14 @@ export function exerciceNonInteractif (exercice) {
     }
 
     const divAffichageExo = document.querySelector(`#exercice${exercice.numeroExercice}`)
+
+    let button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
+    if (!button) {
+      button = addElement(divAffichageExo, 'button', { className: 'ui button checkReponses', id: `#btnValidationEx${exercice.numeroExercice}-${exercice.id}` })
+    }
+    button.innerHTML = 'Voir la correction pour s\'auto-corriger'
+    button.style.margin = '1em'
+
     let divMsg = document.querySelector('#msgExNonIteractif')
     if (!divMsg) divMsg = addElement(divAffichageExo, 'div', { className: '', id: 'msgExNonIteractif' })
     divMsg.innerHTML = 'Cet exercice n’est pas interactif, faites-le au brouillon avant de vous auto-corriger'
@@ -762,8 +771,6 @@ export function exerciceNonInteractif (exercice) {
     divMsg.style.fontSize = 'x-large'
     divMsg.style.display = 'block'
     divMsg.style.margin = '1em'
-    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
-    button.innerHTML = 'Voir la correction pour s\'auto-corriger'
 
     if (button) {
       if (!button.hasMathaleaListener) {
