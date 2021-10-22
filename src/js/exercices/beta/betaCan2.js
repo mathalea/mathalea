@@ -114,106 +114,7 @@ export default function CourseAuxNombresSeconde () {
       objets = []
       // Boucle principale où i+1 correspond au numéro de la question
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
-        case 'q8':
-          switch (choice([1, 2, 3, 4, 5, 6, 7])) { //
-            case 1:// droite graduée     /3
-              a = choice([1, 2, 4, 5, 7, 8]) // numérateur
-              c = new Fraction(a, 3)
-              resultat = calcul(a / 3)
-              texte = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous la forme d\'une fraction irréductible.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
-                Unite: 3,
-                Min: 0,
-                Max: 3.2,
-                x: 0,
-                y: 0,
-                thickSecDist: 1 / 3,
-                thickSec: true,
-                thickoffset: 0,
-                axeStyle: '|->',
-                pointListe: [[a / 3, 'A']],
-                pointCouleur: 'blue',
-                pointStyle: 'x',
-                labelsPrincipaux: true,
-                step1: 1,
-                step2: 1
-              }))
-              texteCorr = `L'abscisse du point A est $\\dfrac{${a}}{${3}}$`
-              setReponse(this, i, [c.texFraction, resultat], { formatInteractif: 'calcul' })
-
-              break
-            case 2:// droite graduée     /4 resultat décimal
-              a = choice([1, 3, 5, 6, 7, 9, 10, 11]) // numérateur
-              resultat = calcul(a / 4)
-              texte = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
-                Unite: 3,
-                Min: 0,
-                Max: 3.2,
-                x: 0,
-                y: 0,
-                thickSecDist: 1 / 4,
-                thickSec: true,
-                thickoffset: 0,
-                axeStyle: '|->',
-                pointListe: [[a / 4, 'A']],
-                pointCouleur: 'blue',
-                pointStyle: 'x',
-                labelsPrincipaux: true,
-                step1: 1,
-                step2: 1
-              }))
-              texteCorr = `L'abscisse du point A est $\\dfrac{${a}}{${4}}=${texNombrec(resultat)}$`
-              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-
-              break
-            case 3:// droite graduée     /5 resultat décimal
-              a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
-              resultat = calcul(a / 5)
-              texte = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
-                Unite: 3,
-                Min: 0,
-                Max: 3.2,
-                x: 0,
-                y: 0,
-                thickSecDist: 1 / 5,
-                thickSec: true,
-                thickoffset: 0,
-                axeStyle: '|->',
-                pointListe: [[a / 5, 'A']],
-                pointCouleur: 'blue',
-                pointStyle: 'x',
-                labelsPrincipaux: true,
-                step1: 1,
-                step2: 1
-              }))
-              texteCorr = `L'abscisse du point A est $\\dfrac{${a}}{${5}}=${texNombrec(resultat)}$`
-              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-
-              break
-            case 4:// droite graduée     /5 b
-              a = choice([1, 2, 3, 4]) // numérateur
-              c = new Fraction(a, 5)
-              resultat = calcul(a / 5)
-              texte = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous la forme d\'une fraction irréductible.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
-                Unite: 6,
-                Min: 0,
-                Max: 1.2,
-                x: 0,
-                y: 0,
-                thickSecDist: 1 / 10,
-                thickSec: true,
-                thickoffset: 0,
-                axeStyle: '|->',
-                pointListe: [[a / 5, 'A']],
-                pointCouleur: 'blue',
-                pointStyle: 'x',
-                labelsPrincipaux: true,
-                step1: 1,
-                step2: 1
-              }))
-              texteCorr = `L'abscisse du point A est $\\dfrac{${a}}{${5}}$`
-              setReponse(this, i, [c.texFraction, resultat], { formatInteractif: 'calcul' })
-
-              break
+        /* case 'q8':
             case 5:// encadrement racine carrée
               a = randint(3, 99, [4, 9, 16, 25, 36, 49, 64, 81]) // numérateur
               resultat = Math.floor(Math.sqrt(a))
@@ -221,50 +122,9 @@ export default function CourseAuxNombresSeconde () {
               texteCorr = ` On cherche le carré parfait le plus proche de $${a}$ inférieur à $${a}$ : $${Math.floor(Math.sqrt(a))}^2$. Ainsi : $a=${Math.floor(Math.sqrt(a))}$`
               setReponse(this, i, resultat, { formatInteractif: 'calcul' })
               break
-
-            case 6:// Position des chiffres
-              a = randint(1, 2)
-              b = randint(1, 9, a)
-              c = randint(1, 9, [a, b])
-              d = randint(1, 9, [a, b, c])
-              e = randint(1, 9, [a, b, c, d])
-              f = randint(1, 9, [a, b, c, d, e])
-              m = choice(['dizaines', 'dixièmes', 'centièmes', 'millièmes'])
-              n = calcul(a * 100 + b * 10 + c + d * 0.1 + e * 0.01 + f * 0.001)
-              texte = `Dans $${texNombre(n)}$ quel est le chiffre des ${m} ? `
-              if (m === 'dizaines') {
-                texteCorr = `Le chiffre des ${m} est $${b}$.`
-                setReponse(this, i, b, { formatInteractif: 'calcul' })
-              } if (m === 'dixièmes') {
-                texteCorr = `Le chiffre des ${m} est $${d}$.`
-                setReponse(this, i, d, { formatInteractif: 'calcul' })
-              }
-              if (m === 'centièmes') {
-                texteCorr = `Le chiffre des ${m} est $${e}$.`
-                setReponse(this, i, e, { formatInteractif: 'calcul' })
-              }
-              if (m === 'millièmes') {
-                texteCorr = `Le chiffre des ${m} est $${f}$.`
-                setReponse(this, i, f, { formatInteractif: 'calcul' })
-              }
-
-              break
-            case 7:// suite logique
-              a = randint(1, 9) * 10 + randint(1, 9)
-              N = choice(['a', 'b'])
-
-              texte = ` Compléter la suite logique : <br>
- $${texNombrec(a + 0.6)}$ &nbsp ; &nbsp$${texNombrec(a + 0.7)}$ &nbsp ; &nbsp$${texNombrec(a + 0.8)}$ &nbsp ; &nbsp$${texNombrec(a + 0.9)}$ &nbsp ; &nbsp .....
-                                    `
-
-              texteCorr = `$${a + 1}$
-               `
-              setReponse(this, i, a + 1, { formatInteractif: 'calcul' })
-
-              break
           }
           break
-
+*/
         case 'q9':// petits problèmes avec division euclidienne, partage, de plus, de moins, rendu de monnaie......
           switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9])) {
             case 1:// de plus
