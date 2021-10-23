@@ -23,8 +23,6 @@ export function exerciceInteractif (exercice) {
     if (exercice.interactifType === 'mathLive') exerciceMathLive(exercice)
     if (exercice.interactifType === undefined) exerciceNonInteractif(exercice)
   }
-  const domExerciceInteractifReady = new window.Event('domExerciceInteractifReady', { bubbles: true })
-  document.dispatchEvent(domExerciceInteractifReady)
 }
 
 function mouseOverSvgEffect () {
@@ -767,7 +765,7 @@ export function exerciceNonInteractif (exercice) {
 
     let divMsg = document.querySelector('#msgExNonIteractif')
     if (!divMsg) divMsg = addElement(divAffichageExo, 'div', { className: '', id: 'msgExNonIteractif' })
-    divMsg.innerHTML = 'Cet exercice n’est pas interactif, faites-le au brouillon avant de vous auto-corriger'
+    divMsg.innerHTML = 'Cet exercice n’est pas interactif, faites-le au brouillon avant de vous auto-corriger.'
     divMsg.style.color = '#f15929'
     divMsg.style.fontWeight = 'bold'
     divMsg.style.fontSize = 'x-large'

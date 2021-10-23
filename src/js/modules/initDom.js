@@ -186,7 +186,8 @@ export async function initDom () {
       if (vue === 'exMoodle') {
         for (let i = 0; i < context.listeObjetsExercice[0].nbQuestions; i++) {
           if (document.getElementById(`champTexteEx0Q${i}`) && window.sessionStorage.getItem(`reponse${i}` + context.graine)) {
-            document.getElementById(`champTexteEx0Q${i}`).textContent = window.sessionStorage.getItem(`reponse${i}` + context.graine)
+            const valeurEnregistree = window.sessionStorage.getItem(`reponse${i}` + context.graine)
+            document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
           }
         }
         if (window.sessionStorage.getItem('isValide' + context.graine)) {

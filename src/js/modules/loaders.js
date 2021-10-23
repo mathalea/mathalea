@@ -216,6 +216,8 @@ export async function loadMathLive () {
   if (context.vue === 'exMoodle') {
     const hauteurExercice = window.document.querySelector('section').scrollHeight
     window.parent.postMessage({ hauteurExercice }, '*')
+    const domExerciceInteractifReady = new window.Event('domExerciceInteractifReady', { bubbles: true })
+    document.dispatchEvent(domExerciceInteractifReady)
   }
 }
 

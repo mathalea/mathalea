@@ -869,10 +869,11 @@ function miseAJourDuCode () {
         }
         const id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
         const nbQuestions = listeObjetsExercice[i].nbQuestions
+        const titre = listeObjetsExercice[i].titre
 
         codeMoodle += `<question type="shortanswer">
 <name>
-  <text>${id} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'}</text>
+  <text>${id} - ${titre} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'}</text>
 </name>
   <questiontext format="html">
     <text><![CDATA[
