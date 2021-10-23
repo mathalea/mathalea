@@ -40,7 +40,7 @@ export default function ModelisationProblemes () {
     switch (parseInt(this.sup2)) {
       case 1:
         this.nbQuestion = 3
-        typesDeQuestionsDisponibles = [1, choice([2, 3]), 4]
+        typesDeQuestionsDisponibles = [1, 2, 3, 4]
         colorA = 'black'
         lettres = shuffle(['A', 'B', 'C'])
         brouilleLesCartes = shuffle(range(2))
@@ -55,7 +55,7 @@ export default function ModelisationProblemes () {
         break
       case 3:
         this.nbQuestions = 7
-        typesDeQuestionsDisponibles = [1, choice([2, 3]), 4, 5, 6, 7, 8]
+        typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
         colorA = 'red'
         colorB = 'blue'
         lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
@@ -63,7 +63,7 @@ export default function ModelisationProblemes () {
         break
       default:
         this.nbQuestions = 7
-        typesDeQuestionsDisponibles = [1, choice([2, 3]), 4, 5, 6, 7, 8]
+        typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
         colorA = 'black'
         colorB = 'black'
         lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
@@ -86,7 +86,7 @@ export default function ModelisationProblemes () {
     }
     let A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8, C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8, n1, n2, n3, n4, n5, n6, n7, n8,
       p1, traitHorizontal1, traitVertical1, tb1, th1, th12,
-      p2, traitHorizontal2, traitVertical2, tb2, th2, th22,
+      p2, traitHorizontal2, traitVertical2, tb2, th2, th22, traitHorizontal22, traitVertical22, traitVertical23, th23, th24, th25,
       p3, traitHorizontal3, traitVertical3, tb3, th3, th32,
       p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45,
       p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55,
@@ -108,7 +108,6 @@ export default function ModelisationProblemes () {
             texte += `${prenomM()} a ${c1} ans de moins que sa soeur ${prenomF()}.`
             texte += `<br>Sachant qu'il a ${b1} ans, quel âge a sa soeur ?`
           }
-
           A1 = point(0, 0)
           B1 = point(12, 0)
           C1 = point(12, 4)
@@ -130,17 +129,16 @@ export default function ModelisationProblemes () {
           }
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
+
         case 2:
           if (o === 1) {
-            texte += `${prenomM()} achète ${b1} ${objetM()}.`
-            texte += `<br>Il en distribue ${c1} à ses amis qui ont oublié les leurs.`
-            texte += '<br>Combien lui en reste-t-il ?'
+            texte += `${prenomM()} achète ${b1*c1} ${objetM()} par paquets de ${b1}.`
+            texte += `<br>Combien a-t-il acheté de paquets ?`
           } else {
-            texte += `${prenomM()} possède déjà ${c1} ${objetF()}.`
-            texte += `<br>Il a besoin d'en avoir ${b1} en fin de semaine.`
-            texte += '<br>Combien doit-il encore en récupérer ?'
+            texte += `${prenomM()} a besoin de ${b1*c1} ${objetF()}.`
+            texte += `<br>Il en récupère ${b1} chaque jour.`
+            texte += '<br>Au bout de combien de temps aura-t-il le nécessaire ?'
           }
-
           A2 = point(0, 0)
           B2 = point(12, 0)
           C2 = point(12, 4)
@@ -148,14 +146,20 @@ export default function ModelisationProblemes () {
           p2 = polygone([A2, B2, C2, D2], colorA)
           p2.epaisseur = 3
           traitHorizontal2 = segment(point(0, 2), point(12, 2))
+          traitHorizontal22 = segment(point0, 4.5), point(12, 4.5)
+          traitHorizontal22.styleExtremites = '<->'
           traitVertical2 = segment(point(6, 2), point(6, 4))
-          tb2 = texteParPosition(b1, 6, 1)
-          th2 = texteParPosition(c1, 3, 3)
-          th22 = texteParPosition('?', 9, 3)
+          traitVertical22 = segment(point(8, 2), point(8, 4))
+          traitVertical23 = segment(point(14, 2), point(14, 4))
+          tb2 = texteParPosition(b1*c1, 6, 1)
+          th2 = texteParPosition(b1, 1, 3)
+          th22 = texteParPosition(b1, 3, 3)
+          th23 = texteParPosition('...', 7, 3)
+          th24 = texteParPosition(b1, 11, 3)
+          th25 = texteParPosition('?', 9, 3)
           n2 = texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p2, traitHorizontal2, traitVertical2, tb2, th2, th22, n2)
-
-          texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
+          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p2, traitHorizontal2, traitVertical2, tb2, th2, th22, traitHorizontal22, traitVertical22, traitVertical23, th23, th24, th25, n2)
+               texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
@@ -163,6 +167,7 @@ export default function ModelisationProblemes () {
           }
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
+
         case 3:
           if (o === 1) {
             texte += `${prenomF()} a ${b5} ans.`
@@ -193,6 +198,7 @@ export default function ModelisationProblemes () {
           }
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
+
         case 4:
           if (o === 1) {
             texte += `${prenomF()} a acheté ${c5} ${objetM()} à ${b5} € pièce.`
@@ -229,6 +235,7 @@ export default function ModelisationProblemes () {
           }
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
+
         case 5:
           if (o === 1) {
             texte += `J'ai ${d3} ${objetF()} dans mon sac et je souhaite les partager avec mes ${c3 - 1} amis.`
@@ -265,6 +272,7 @@ export default function ModelisationProblemes () {
           }
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
+
         case 6:
           if (o === 1) {
             texte += `${prenomF()} récupère ${b7} ${objet()} dans une salle, puis ${a7} dans une autre.`
@@ -294,6 +302,7 @@ export default function ModelisationProblemes () {
           }
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
+
         case 7:
           if (o === 1) {
             texte += `J'ai ${d3} ${objetM()} dans mon sac et je dois les regrouper par ${c3}.`
@@ -330,6 +339,7 @@ export default function ModelisationProblemes () {
           }
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
+
         case 8:
           if (o === 1) {
             texte += `Dans un sac, il y a ${a7} ${objetF()} et dans l'autre, il y en a ${b7}.`
