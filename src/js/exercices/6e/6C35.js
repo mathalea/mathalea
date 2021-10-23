@@ -132,10 +132,10 @@ export default function ModelisationProblemes () {
 
         case 2:
           if (o === 1) {
-            texte += `${prenomM()} achète ${b1*c1} ${objetM()} par paquets de ${b1}.`
-            texte += `<br>Combien a-t-il acheté de paquets ?`
+            texte += `${prenomM()} achète ${b1 * c1} ${objetM()} par paquets de ${b1}.`
+            texte += '<br>Combien a-t-il acheté de paquets ?'
           } else {
-            texte += `${prenomM()} a besoin de ${b1*c1} ${objetF()}.`
+            texte += `${prenomM()} a besoin de ${b1 * c1} ${objetF()}.`
             texte += `<br>Il en récupère ${b1} chaque jour.`
             texte += '<br>Au bout de combien de temps aura-t-il le nécessaire ?'
           }
@@ -146,12 +146,12 @@ export default function ModelisationProblemes () {
           p2 = polygone([A2, B2, C2, D2], colorA)
           p2.epaisseur = 3
           traitHorizontal2 = segment(point(0, 2), point(12, 2))
-          traitHorizontal22 = segment(point0, 4.5), point(12, 4.5)
+          traitHorizontal22 = segment(point(0, 4.5), point(12, 4.5))
           traitHorizontal22.styleExtremites = '<->'
           traitVertical2 = segment(point(6, 2), point(6, 4))
           traitVertical22 = segment(point(8, 2), point(8, 4))
           traitVertical23 = segment(point(14, 2), point(14, 4))
-          tb2 = texteParPosition(b1*c1, 6, 1)
+          tb2 = texteParPosition(b1 * c1, 6, 1)
           th2 = texteParPosition(b1, 1, 3)
           th22 = texteParPosition(b1, 3, 3)
           th23 = texteParPosition('...', 7, 3)
@@ -159,7 +159,7 @@ export default function ModelisationProblemes () {
           th25 = texteParPosition('?', 9, 3)
           n2 = texteParPosition(`${lettres[i]}.`, -1, 4)
           schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p2, traitHorizontal2, traitVertical2, tb2, th2, th22, traitHorizontal22, traitVertical22, traitVertical23, th23, th24, th25, n2)
-               texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
+          texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
