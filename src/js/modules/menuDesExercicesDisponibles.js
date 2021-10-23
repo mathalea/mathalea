@@ -72,7 +72,10 @@ function listeHtmlDesExercicesDUnTheme (theme) {
   // Appelée lorsqu'on fait la liste par niveau
   let liste = ''
   const dictionnaire = filtreDictionnaire(listeDesExercicesDisponibles, theme)
-  const filtre = getFilterFromUrl()
+  let filtre = getFilterFromUrl()
+  if (getVueFromUrl() === 'moodle') {
+    filtre = 'interactif'
+  }
   for (const id in dictionnaire) {
     if (filtre === 'interactif') {
       // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e

@@ -1,4 +1,4 @@
-import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
+import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex, setOutputMoodle } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
 import { getDureeFromUrl, getLogFromUrl, getTaillePoliceFromUrl, getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
@@ -360,6 +360,11 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/mathaleaLatex.html', document.body)
     setOutputLatex()
+  } else if (vue === 'moodle') {
+    await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
+    section = addElement(document.body, 'section', { class: 'ui container' })
+    await addFetchHtmlToParent('templates/mathaleaMoodle.html', document.body)
+    setOutputMoodle()
   } else if (vue === 'amc') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
     section = addElement(document.body, 'section', { class: 'ui container' })
