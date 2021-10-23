@@ -68,15 +68,6 @@ export default function CourseAuxNombresSeconde () {
       [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]
     ] // Couples de nombres premiers entre eux
 
-    const fruits = [
-      ['pêches', 3.5, 10, 30], ['Noix', 4.5, 4, 13], ['cerises', 5.5, 11, 20], ['pommes', 2.5, 20, 40],
-      ['framboises', 6.5, 1, 5], ['fraises', 4.5, 5, 10], ['citrons', 1.5, 15, 30], ['bananes', 2.5, 15, 25]
-    ]
-
-    const plat = [
-      ['nems'], ['samossas'], ['parts de quiches'], ['parts de pizzas'], ['beignets']
-    ]
-
     const typeQuestionsDisponibles = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20',
       'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']
     // 'q1',  produit d'entiers
@@ -114,96 +105,6 @@ export default function CourseAuxNombresSeconde () {
       objets = []
       // Boucle principale où i+1 correspond au numéro de la question
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
-        case 'q9':// petits problèmes avec division euclidienne, partage, de plus, de moins, rendu de monnaie......
-        
-          break
-        case 'q11':
-          switch (choice([1, 2, 3, 4, 5])) { //
-            case 1:// proportionnalité avec fruits
-              a = randint(0, 7) // index du fruit
-              b = calcul(fruits[a][1] + choice([-1, 1]))// prix au kg
-              c = randint(2, 8) // nombre de kg première valeur
-              d = randint(3, 6, c) // nombre de kg supplémentaires
-              resultat = calcul(d * b)
-              texte = `$${c}$ kg de ${fruits[a][0]} coûtent $${texPrix(c * b)}$ €.<br> $${c + d}$ kg de ces mêmes ${fruits[a][0]} coûtent $${texPrix((c + d) * b)}$ €.<br>Combien coûtent ${d} kg de ces ${fruits[a][0]} ?`
-              texteCorr = `$${texPrix((c + d) * b)} € - ${texPrix(c * b)} € =${texPrix(resultat)} €$`
-              setReponse(this, i, texPrix(resultat) + '€')
-              break
-            case 2:// proportionnalité débit
-              a = choice([50, 100])
-              b = choice([10, 20, 30])
-              c = choice([150, 250, 300, 350])
-
-              resultat = calcul((c / a) * b)
-              texte = `Le débit d’un robinet est de $${a}$ L en $${b}$ min. Combien de temps (en minutes) faut-il pour remplir un réservoir de $${c}$ L ?`
-              texteCorr = `$\\dfrac{${c}}{${a}}\\times ${b}=${resultat}$. Il faut donc $${resultat}$ minutes pour remplir le réservoir.`
-              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              break
-            case 3:// proportionnalité plats
-              c = randint(0, 4) // index du plat
-              b = randint(12, 15)
-              u = randint(2, 5)
-              n = randint(3, 6)
-              a = randint(2, 6)
-              resultat = calcul(n * u * a)
-              texte = `$${a}$ ${plat[c]} coûtent $${u * a}$ €, combien coûtent $${n * a}$ ${plat[c]} ?`
-              texteCorr = `$${n * a}$ ${plat[c]} coûtent $${u}\\times ${n * a}$ €, soit $${resultat}$ €.`
-              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              break
-
-            case 4:// proportionnalité 4ième proportionnelle
-              if (choice([true, false])) {
-                a = randint(1, 4) //
-                n = randint(3, 7)
-                c = a * n
-                b = randint(2, 5, a) * n
-                c = a * n
-                resultat = calcul(b / n)
-                texte = `Déterminer la valeur qui manque dans ce tableau de proportionnalité : <br>
-              $\\begin{array}{|l|c|}\n`
-                texte += '\\hline\n'
-                texte += `\\\\\n\\phantom{-5}? \\phantom{-5}& \\phantom{-5}${a} \\phantom{-5} \\\\\n \\\\\n`
-                texte += '\\hline\n'
-                texte += `\\\\\n\\phantom{-5}${b}\\phantom{-5} & \\phantom{-5}${c}\\phantom{-5}  \\\\\n \\\\\n`
-                texte += '\\hline\n'
-                texte += '\\end{array}\n$'
-
-                texteCorr = `On passe de la première ligne à la deuxième en multipliant par $${n}$, ainsi, ?$=\\dfrac{${b}}{${n}}=${calcul(b / n)}$`
-                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              } else {
-                a = randint(1, 9)
-                b = randint(1, 9, a)
-                n = randint(2, 9, 5) / 10
-                d = b * n
-                c = a * n
-
-                resultat = calcul(a + b)
-                texte = `Déterminer la valeur qui manque dans ce tableau de proportionnalité : <br>
-$\\begin{array}{|l|c|c|}\n`
-                texte += '\\hline\n'
-                texte += `\\\\\n\\phantom{-5}${texNombrec(a)} \\phantom{-5}& \\phantom{-5}${texNombrec(b)} \\phantom{-5}& \\phantom{-5}? \\phantom{-5} \\\\\n \\\\\n`
-                texte += '\\hline\n'
-                texte += `\\\\\n\\phantom{-5}${texNombrec(c)}\\phantom{-5} & \\phantom{-5}${texNombrec(d)}\\phantom{-5} & \\phantom{-5}${texNombrec(c + d)} \\phantom{-5} \\\\\n \\\\\n`
-                texte += '\\hline\n'
-                texte += '\\end{array}\n$'
-
-                texteCorr = `La valeur cherchée est donnée par la somme $${a}+${b}=${a + b}$.`
-                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              }
-              break
-            case 5:// proportionnalité 6iemJC
-              a = choice([2, 3, 4, 5]) // choix du coefficient
-              b = randint(3, 10) // donnée 1
-              c = randint(2, 10, b) // donnée 2
-              d = choice([['un train électrique', 'il'], ['une voiture électrique', 'elle'], ['un manège', 'il']])
-              texte = `En ${a * b} minutes, ${d[0]} fait ${a * c} tours.<br>En ${b} minutes ${d[1]} fait \\ldots tours.`
-              texteCorr = `En ${a} fois moins de temps, ${d[1]} fait ${a} fois moins de tours, soit : $${a * c} \\div ${a}=${c}$ tours.`
-              setReponse(this, i, c, { formatInteractif: 'calcul' })
-              break
-          }
-
-          break
-
         case 'q12':
           switch (choice([1, 2, 3, 4])) { // 1
             case 1:// petits problèmes avec quart, cinquième, ...
