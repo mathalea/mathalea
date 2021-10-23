@@ -1,15 +1,15 @@
 import Exercice from '../Exercice.js'
 import {
-  listeQuestionsToContenu, prenomF, prenomM, randint, ecritureParentheseSiNegatif,
+  listeQuestionsToContenu, randint, ecritureParentheseSiNegatif,
   ecritureAlgebrique,
-  calcul, texteEnCouleur, texteEnCouleurEtGras, pgcd, texNombrec, texFraction, signe, abs, texFractionReduite, choice, texNombre, printlatex,
-  texPrix, combinaisonListesSansChangerOrdre, range1, reduireAxPlusB, rienSi1, texRacineCarree, simplificationDeFractionAvecEtapes
+  calcul, pgcd, texNombrec, texFraction, signe, abs, texFractionReduite, choice, printlatex,
+  combinaisonListesSansChangerOrdre, range1, reduireAxPlusB, rienSi1, texRacineCarree, simplificationDeFractionAvecEtapes
 } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 import {
-  droiteGraduee2, mathalea2d, repere2, courbe2, tracePoint, point, codageAngleDroit, milieu, labelPoint, segment, latexParCoordonnees
+  mathalea2d, repere2, courbe2, tracePoint, point, codageAngleDroit, milieu, labelPoint, segment, latexParCoordonnees
 } from '../../modules/2d.js'
 
 export const titre = 'Course aux nombres seconde'
@@ -40,8 +40,8 @@ export default function CourseAuxNombresSeconde () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let a, b, c, d, N, xA, xB, yA, yB, x1, x2, y1, y2, A, B, C, D, k, u, p, q, ux, uy, vx, vy,
-      resultat, inconnue, objets, repere, fraction, r, e, f, m, n, somme, tA, tB, prenom1, prenom2, couplenm
+    let a, b, c, d, N, xA, xB, yA, yB, x1, x2, y1, y2, A, B, C, D, k, p, ux, uy, vx, vy,
+      resultat, inconnue, objets, repere, fraction, r, m, n, tA, tB, couplenm
     let questions = []
 
     if (!this.sup) {
@@ -105,166 +105,8 @@ export default function CourseAuxNombresSeconde () {
       objets = []
       // Boucle principale où i+1 correspond au numéro de la question
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
-        case 'q12':
-          switch (choice([1, 2, 3, 4])) { // 1
-            case 1:// petits problèmes avec quart, cinquième, ...
-              a = choice([12, 24, 36, 48])
-              b = choice([15, 20, 25, 30, 35, 40, 45])
-              N = choice(['quart', 'tiers', 'cinquième', 'sixième'])
-
-              if (N === 'cinquième') {
-                resultat = calcul(0.8 * b)
-                texte = `J'ai mangé le ${N} d'un paquet de gâteaux qui contenait $${b}$ gâteaux. <br>
-                Combien en reste-t-il ?`
-                texteCorr = `$\\dfrac{1}{5}\\times ${b}=${texNombrec(b / 5)}$.<br>
-                Il en reste donc $${b}-${texNombrec(b / 5)}=${resultat}$`
-                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              }
-              if (N === 'quart') {
-                resultat = calcul(0.75 * a)
-                texte = `J'ai mangé le ${N} d'un paquet de gâteaux qui contenait $${a}$ gâteaux. <br>
-                Combien en reste-t-il ?`
-                texteCorr = `$\\dfrac{1}{4}\\times ${a}=${texNombrec(a / 4)}$.<br>
-                Il en reste donc $${a}-${texNombrec(a / 4)}=${resultat}$`
-                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              }
-              if (N === 'tiers') {
-                resultat = calcul((2 * a) / 3)
-                texte = `J'ai mangé le ${N} d'un paquet de gâteaux qui contenait $${a}$ gâteaux. <br>
-                Combien en reste-t-il ?`
-                texteCorr = `$\\dfrac{1}{3}\\times ${a}=${texNombrec(a / 3)}$.<br>
-                Il en reste donc $${a}-${texNombrec(a / 5)}=${resultat}$`
-                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              }
-              if (N === 'sixième') {
-                resultat = calcul((5 * a) / 6)
-                texte = `J'ai mangé le ${N} d'un paquet de gâteaux qui contenait $${a}$ gâteaux. <br>
-                Combien en reste-t-il ?`
-                texteCorr = `$\\dfrac{1}{6}\\times ${a}=${texNombrec(a / 6)}$.<br>
-                Il en reste donc $${a}-${texNombrec(a / 6)}=${resultat}$`
-                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              }
-              break
-            case 2:// addition 1/a+1/b
-              a = randint(2, 7)
-              b = randint(2, 7, a)
-              if (choice([true, false])) {
-                resultat = new Fraction(b + a, a * b)
-                resultat = resultat.simplifie()
-                texte = `Calculer sous la fomre d'une fraction irréductible : $\\dfrac{1}{${a}}+\\dfrac{1}{${b}}$`
-                texteCorr = `$\\dfrac{1}{${a}}+\\dfrac{1}{${b}}=\\dfrac{${b}+${a}}{${a}\\times ${b}}=${texFractionReduite(b + a, a * b)}$`
-                setReponse(this, i, resultat, { formatInteractif: 'fraction' })
-              } else {
-                resultat = new Fraction(b - a, a * b)
-                resultat = resultat.simplifie()
-                texte = `Calculer sous la fomre d'une fraction irréductible : $\\dfrac{1}{${a}}-\\dfrac{1}{${b}}$`
-                texteCorr = `$\\dfrac{1}{${a}}-\\dfrac{1}{${b}}=\\dfrac{${b}-${a}}{${a}\\times ${b}}=${texFractionReduite(b - a, a * b)}$`
-                setReponse(this, i, resultat, { formatInteractif: 'fraction' })
-              }
-              break
-            case 3:// double/moitié
-              a = randint(1, 25)
-              texte = `Le double d'un nombre vaut ${2 * a}, combien vaut sa moitié ?`
-              texteCorr = `Le nombre est ${a}, sa moitié est ${texNombrec(a / 2)}.`
-              setReponse(this, i, calcul(a / 2), { formatInteractif: 'calcul' })
-              break
-
-            case 4:// on donne 2a calculer a+1
-              a = randint(11, 25, 20) / 10
-              resultat = calcul(a / 2 + 1)
-              texte = `On a  $2\\times a=${texNombrec(a)}$, combien vaut $a+1$ ?`
-              texteCorr = `Le nombre $a$ est égal à $${texNombrec(a)}\\div 2=${texNombrec(a / 2)}$, donc $a+1=${texNombrec(a / 2)}+1=${texNombrec(a / 2 + 1)}$.`
-              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
-              break
-          }
-
-          break
-
         case 'q13':
-          switch (choice([1, 2, 3, 4])) { //
-            case 1:// coefficient directeur droite
-              xA = randint(0, 7)
-              yA = randint(0, 7)
-              xB = randint(0, 7, xA)
-              yB = randint(0, 7)
-              n = yB - yA
-              d = xB - xA
-
-              texte = `Dans un repère du plan, on considère les points $A(${xA};${yA})$ et $B(${xB};${yB})$.<br>
-              Calculer le coefficient directeur de la droite $(AB)$.<br>
-              Donner le résultat sous la forme d'une fraction irréductible ou d'un entier le cas échéant.`
-              texteCorr = 'On observe que $ x_B\\neq x_A$.'
-              texteCorr += '<br>La droite $(AB)$ n\'est donc pas verticale.'
-              texteCorr += '<br>On peut donc calculer le coefficient directeur de la droite.'
-              texteCorr += '<br>On sait d\'après le cours : $m=\\dfrac{y_B-y_A}{x_B-x_A}$.'
-              texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${texFraction(n, d)}`
-              if ((pgcd(n, d) !== 1 || d === 1 || d < 0)) {
-                texteCorr += `=${texFractionReduite(n, d)}`
-              }
-              texteCorr += '$'
-              setReponse(this, i, texFractionReduite(n, d), { formatInteractif: 'calcul' })
-
-              break
-
-            case 2:// coefficient directeur droite
-              a = randint(-4, 4, 0)
-              b = randint(-4, 4, 0)
-              x1 = randint(-3, 3, [-1, 0])
-              y1 = calcule(a * x1 + b)
-              x2 = x1 + 1
-              y2 = calcule(b + a * x2)
-              tA = tracePoint(point(x1, y1))
-              tB = tracePoint(point(x2, y2))
-              tA.color = 'red'
-              tB.color = 'red'
-              repere = repere2({ xMin: -5, yMin: -5, xMax: 5, yMax: 5 })
-              texte = `Donner le coefficient directeur de la droite bleue.<br>
-          `
-              texte += `${mathalea2d({ xmin: -5, ymin: -5, xmax: 5, ymax: 5, pixelsParCm: 20, scale: 0.7 }, repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }))}`
-              texteCorr += `<br>Le coefficient directeur est $${a}$`
-              setReponse(this, i, a, { formatInteractif: 'calcul' })
-
-              break
-
-            case 3:// coefficient directeur droite a partir equ reduite
-              a = randint(-9, 9, 0)
-              b = randint(-9, 9, 0)
-              if (choice([true, false])) {
-                texte = `On considère la droite d'équation $y=${reduireAxPlusB(a, b)}$. <br>
-                Le coefficient directeur est :<br>
-            `
-                texteCorr = `Le coefficient directeur est $${a}$`
-                setReponse(this, i, a, { formatInteractif: 'calcul' })
-              } else {
-                if (a < 0) {
-                  texte = `On considère la droite d'équation $y=${b}${reduireAxPlusB(a, 0)}$. <br>
-              Le coefficient directeur est :<br>
-          `
-                  texteCorr = `Le coefficient directeur est $${a}$`
-                  setReponse(this, i, a, { formatInteractif: 'calcul' })
-                } else {
-                  texte = `On considère la droite d'équation $y=${b}+${reduireAxPlusB(a, 0)}$. <br>
-                Le coefficient directeur est :<br>
-            `
-                  texteCorr = `Le coefficient directeur est $${a}$`
-                  setReponse(this, i, a, { formatInteractif: 'calcul' })
-                }
-              }
-
-              break
-            case 4:// coefficient directeur fct linéaire
-              xA = randint(1, 10)
-              yA = randint(-10, 10, 0)
-
-              texte = `Le coefficient directeur d'une fonction linéaire passant par le point $A(${xA};${yA})$ est :<br>
-              On donnera le résultat sous la fomre d'une fraction irréductible ou d'un entier le cas échéant.`
-
-              texteCorr = `Le coefficient directeur de la droite est donné par : $m=\\dfrac{y_A}{x_A}=\\dfrac{${yA}}{${xA}}=${texFractionReduite(yA, xA)}$.`
-              setReponse(this, i, texFractionReduite(yA, xA), { formatInteractif: 'calcul' })
-
-              break
-          }
-
+       
           break
 
         case 'q14':

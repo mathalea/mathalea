@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, creerNomDePolygone } from '../../../modules/outils.js'
+import { randint, choice, creerNomDePolygone, texteEnCouleur, texNombrec } from '../../../modules/outils.js'
 import { afficheLongueurSegment, codeAngle, mathalea2d, point, pointAdistance, polygoneAvecNom } from '../../../modules/2d.js'
-export const titre = 'Calcul d’une longueur d’un côté avec Pythagore '
+export const titre = 'Calcul d’une longueur d’un côté avec le Théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -59,6 +59,12 @@ export default function LongueurPythagore () {
         this.correction = `$${nom[0]}${nom[2]}^2=${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2$, soit $${nom[0]}${nom[2]}^2=${b}^2+${a}^2=${b ** 2}+${a ** 2}=${a ** 2 + b ** 2}$.<br>On en déduit que $${nom[0]}${nom[2]}=${c}$ cm.`
         this.reponse = c
         break
+    }
+    if (triplet[0] === 3) {
+      this.correction += `${texteEnCouleur('<br>Mentalement, on peut remarquer que ce triangle est le triangle rectangle 3,4,5 qui correspond à un triplet pythagoricien bien connu.<br>')}`
+    } else {
+      this.correction += `${texteEnCouleur('<br>Mentalement, on peut remarquer que ce triangle est semblable au triangle rectangle 3,4,5 qui correspond à un triplet pythagoricien bien connu.<br>')}`
+      this.correction += `${texteEnCouleur('Pour obtenir ses longueurs, il suffit de multiplier les nombres 3,4 et 5 par ' + texNombrec(triplet[0] / 3))}`
     }
   }
 }
