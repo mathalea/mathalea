@@ -57,16 +57,16 @@ export default function ModelisationProblemes () {
         typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
         colorA = 'red'
         colorB = 'blue'
-        lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
-        brouilleLesCartes = shuffle(range(6))
+        lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'])
+        brouilleLesCartes = shuffle(range(7))
         break
       default:
         this.nbQuestions = 8
         typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
         colorA = 'black'
         colorB = 'black'
-        lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
-        brouilleLesCartes = shuffle(range(6))
+        lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'])
+        brouilleLesCartes = shuffle(range(7))
         break
     }
     const listeTypeDeQuestions = shuffle(typesDeQuestionsDisponibles)
@@ -375,7 +375,7 @@ export default function ModelisationProblemes () {
           texte += schemas[j]
         }
         texte += '<br>'
-        for (let j = 4; j < Math.min(7, listeTypeDeQuestions.length); j++) {
+        for (let j = 4; j < Math.min(8, listeTypeDeQuestions.length); j++) {
           texte += schemas[j]
         }
       }
@@ -386,5 +386,5 @@ export default function ModelisationProblemes () {
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Valeurs différentes suivant les exercices\n2 : Valeurs identiques dans tous les exercices']
-  this.besoinFormulaire2Numerique = ['Sélection de problèmes', 4, '1 : 3 problèmes basés sur les mêmes nombres\n2 : 4 problèmes basés sur les mêmes nombres\n3 : 7 problèmes avec distinction 2 couleurs\n4 : 7 problèmes mélangés.']
+  this.besoinFormulaire2Numerique = ['Sélection de problèmes', 4, '1 : 3 problèmes basés sur les mêmes nombres\n2 : 4 problèmes basés sur les mêmes nombres\n3 : 8 problèmes avec distinction 2 couleurs\n4 : 8 problèmes mélangés.']
 }
