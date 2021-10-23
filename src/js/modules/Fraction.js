@@ -1,4 +1,4 @@
-import { texFractionSigne, unSiPositifMoinsUnSinon, arrondi, fractionSimplifiee, obtenirListeFacteursPremiers, calcul, texFraction, quotientier, extraireRacineCarree } from './outils.js'
+import { unSiPositifMoinsUnSinon, arrondi, fractionSimplifiee, obtenirListeFacteursPremiers, calcul, texFraction, quotientier, extraireRacineCarree } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 
@@ -64,22 +64,38 @@ class Fraction {
       return pourcentage
     })
     /**
-     * le signe de la fraction : -1, 0 ou 1
+     * le signe de la fraction : -1 pour négatif , 0 ou 1 pour positif
      * @type {number}
      */
     this.signe = (this.num === 0) ? 0 : unSiPositifMoinsUnSinon(this.num * this.den)
+
     /**
-     * n/d si positif -n/d si négatif
-     * @property texFraction
+     * le signe de la fraction : '-' ou '+'
      * @type {string}
      */
     this.signeString = (this.signe === -1) ? '-' : (this.signe === 0) ? '' : '+'
 
+    /**
+     * num/den
+     * @property texFraction
+     * @type {string}
+     */
     let texFraction
     definePropRo(this, 'texFraction', () => {
-      if (!texFraction) texFraction = texFractionSigne(this.num, this.den)
+      if (!texFraction) texFraction = `\\dfrac{${this.num}}{${this.den}}`
       return texFraction
     })
+    /**
+     * num/den mais avec simplification des signes
+     * @property texFractionSigne
+     * @type {string}
+     */
+    let texFractionSigne
+    definePropRo(this, 'texFractionSigne', () => {
+      if (!texFractionSigne) texFractionSigne = den === -1 ? String(-num) : den === 1 ? String(num) : num * den > 0 ? `\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}` : num * den < 0 ? `-\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}` : '0'
+      return texFractionSigne
+    })
+
     /**
      * +n/d si positif, -n/d si négatif
      * @property texFractionSignee
@@ -117,7 +133,7 @@ class Fraction {
      */
     let ecritureAlgebrique
     definePropRo(this, 'ecritureAlgebrique', () => {
-      if (!ecritureAlgebrique) ecritureAlgebrique = this.signe === 1 ? '+' + this.texFraction : this.texFraction
+      if (!ecritureAlgebrique) ecritureAlgebrique = this.signe === 1 ? '+' + this.texFractionSigne : this.texFractionSigne
       return ecritureAlgebrique
     })
     /**
@@ -127,7 +143,7 @@ class Fraction {
      */
     let ecritureParentheseSiNegatif
     definePropRo(this, 'ecritureParentheseSiNegatif', () => {
-      if (!ecritureParentheseSiNegatif) ecritureParentheseSiNegatif = this.signe === 1 ? this.texFraction : '\\left(' + this.texFraction + '\\right)'
+      if (!ecritureParentheseSiNegatif) ecritureParentheseSiNegatif = this.signe === 1 ? this.texFractionSigne : '\\left(' + this.texFractionSigne + '\\right)'
       return ecritureParentheseSiNegatif
     })
 
