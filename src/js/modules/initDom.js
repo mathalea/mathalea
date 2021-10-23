@@ -1,4 +1,4 @@
-import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
+import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex, setOutputMoodle } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
 import { getDureeFromUrl, getLogFromUrl, getTaillePoliceFromUrl, getVueFromUrl } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
@@ -156,7 +156,7 @@ export async function initDom () {
   }
   document.body.innerHTML = ''
   let section
-  if (vue === 'recto' || vue === 'verso' || vue === 'exMoodle') {
+  if (vue === 'recto' || vue === 'verso' || vue === 'exMoodle' || vue === 'correctionMoodle') {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     addElement(section, 'div', { id: 'containerErreur' })
@@ -169,7 +169,7 @@ export async function initDom () {
     const divCorrection = get('corrections', false)
     divExercice.style.fontSize = '1.5em'
     divCorrection.style.fontSize = '1.5em'
-    if (context.vue === 'verso') {
+    if (context.vue === 'verso' || vue === 'correctionMoodle') {
       divExercice.style.display = 'none'
       document.body.appendChild(divCorrection)
     }
@@ -182,8 +182,30 @@ export async function initDom () {
       window.parent.postMessage({ hauteur: Math.max(hauteurCorrection, hauteurIEP), reponse: 'A_COMPLETER' }, '*')
     })
     document.addEventListener('exercicesAffiches', () => {
+      // Récupère la précédente saisie pour exMoodle et désactive le bouton
+      if (vue === 'exMoodle') {
+        for (let i = 0; i < context.listeObjetsExercice[0].nbQuestions; i++) {
+          if (document.getElementById(`champTexteEx0Q${i}`) && window.sessionStorage.getItem(`reponse${i}` + context.graine)) {
+            document.getElementById(`champTexteEx0Q${i}`).textContent = window.sessionStorage.getItem(`reponse${i}` + context.graine)
+          }
+        }
+        if (window.sessionStorage.getItem('isValide' + context.graine)) {
+          const exercice = context.listeObjetsExercice[0]
+          const bouton = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
+          document.addEventListener('domExerciceInteractifReady', () => {
+            bouton.click()
+            bouton.classList.add('disabled')
+          })
+        }
+      }
       // Envoi des informations à Anki
       hauteurCorrection = window.document.body.scrollHeight
+      if (vue === 'verso' || vue === 'correctionMoodle') {
+        if (document.getElementById('corrections')) {
+          const hauteurExerciceCorrection = window.document.body.scrollHeight + 20
+          window.parent.postMessage({ hauteurExerciceCorrection }, '*')
+        }
+      }
       let tableauReponseEx1Q1
       try {
         tableauReponseEx1Q1 = context.listeObjetsExercice[0].autoCorrection[0].reponse.valeur
@@ -338,6 +360,11 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/mathaleaLatex.html', document.body)
     setOutputLatex()
+  } else if (vue === 'moodle') {
+    await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
+    section = addElement(document.body, 'section', { class: 'ui container' })
+    await addFetchHtmlToParent('templates/mathaleaMoodle.html', document.body)
+    setOutputMoodle()
   } else if (vue === 'amc') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
     section = addElement(document.body, 'section', { class: 'ui container' })
@@ -375,7 +402,7 @@ export async function initDom () {
   // Le footer
   if (vue === 'recto' || vue === 'verso' || vue === 'embed' || vue === 'e' || vue === 'can') {
     await addFetchHtmlToParent('templates/footer1logo.html', document.body, 'footer')
-  } else if (vue !== 'exMoodle') {
+  } else if (vue !== 'exMoodle' && vue !== 'correctionMoodle') {
     await addFetchHtmlToParent('templates/footer.html', document.body, 'footer')
   }
 

@@ -23,6 +23,8 @@ export function exerciceInteractif (exercice) {
     if (exercice.interactifType === 'mathLive') exerciceMathLive(exercice)
     if (exercice.interactifType === undefined) exerciceNonInteractif(exercice)
   }
+  const domExerciceInteractifReady = new window.Event('domExerciceInteractifReady', { bubbles: true })
+  document.dispatchEvent(domExerciceInteractifReady)
 }
 
 function mouseOverSvgEffect () {
@@ -893,6 +895,18 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
 }
 
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
+  if (context.vue === 'exMoodle') {
+    const hauteurExercice = window.document.querySelector('section').scrollHeight + 20
+    window.parent.postMessage({ nbBonnesReponses, hauteurExercice }, '*')
+    try {
+      for (let i = 0; i < exercice.nbQuestions; i++) {
+        window.sessionStorage.setItem(`reponse${i}` + context.graine, document.getElementById(`champTexteEx0Q${i}`).value)
+      }
+      window.sessionStorage.setItem('isValide' + context.graine, true)
+    } catch (error) {
+      console.log('Réponse non sauvegardée')
+    }
+  }
   if (context.timer) {
     clearInterval(context.timer)
     // ToDo à sauvegarder dans les résultats
