@@ -18,7 +18,7 @@ export default function ModelisationProblemes () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = 'Associer chaque problème avec sa modélisation.'
-  this.nbQuestions = 7
+  this.nbQuestions = 8
   this.nbQuestionsModifiable = false
   this.sup = 2
   this.sup2 = 3
@@ -39,12 +39,11 @@ export default function ModelisationProblemes () {
     let typesDeQuestionsDisponibles
     switch (parseInt(this.sup2)) {
       case 1:
-        this.nbQuestion = 3
+        this.nbQuestion = 4
         typesDeQuestionsDisponibles = [1, 2, 3, 4]
         colorA = 'black'
         lettres = shuffle(['A', 'B', 'C'])
         brouilleLesCartes = shuffle(range(2))
-
         break
       case 2:
         this.nbQuestions = 4
@@ -54,7 +53,7 @@ export default function ModelisationProblemes () {
         brouilleLesCartes = shuffle(range(3))
         break
       case 3:
-        this.nbQuestions = 7
+        this.nbQuestions = 8
         typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
         colorA = 'red'
         colorB = 'blue'
@@ -62,7 +61,7 @@ export default function ModelisationProblemes () {
         brouilleLesCartes = shuffle(range(6))
         break
       default:
-        this.nbQuestions = 7
+        this.nbQuestions = 8
         typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
         colorA = 'black'
         colorB = 'black'
