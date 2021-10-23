@@ -863,44 +863,86 @@ function miseAJourDuCode () {
     codeMoodle = ''
     if (listeExercicesLength > 0) {
       for (let i = 0; i < listeExercicesLength; i++) {
-        listeObjetsExercice[i].id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
-        listeObjetsExercice[i].nouvelleVersion()
         if (listeObjetsExercice[i].pasDeVersionLatex) {
           // on affiche le pb mais on continue quand même
           errorHandler(getNoLatexError(listeObjetsExercice[i].id))
         }
-        if (listeObjetsExercice[i].typeExercice === 'simple') {
-          exerciceSimpleToContenu(listeObjetsExercice[i])
-        }
-        listeObjetsExercice[i].nouvelleVersion()
-        for (let numQuestion = 0; numQuestion < listeObjetsExercice[i].nbQuestions; numQuestion++) {
-          codeMoodle += `<question type="shortanswer">
+        const id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
+        const nbQuestions = listeObjetsExercice[i].nbQuestions
+
+        codeMoodle += `<question type="shortanswer">
 <name>
-  <text>${listeObjetsExercice[i].id}</text>
+  <text>${id} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'}</text>
 </name>
   <questiontext format="html">
-    <text><![CDATA[`
-          codeMoodle += listeObjetsExercice[i].introduction
-          codeMoodle += listeObjetsExercice[i].listeQuestions[numQuestion]
-          codeMoodle += `]]></text>
+    <text><![CDATA[
+      <iframe width="600" height="400" id="iframeMathAlea" src="" frameBorder="0"></iframe>
+
+<script type="module">
+  const champReponseMoodle = document.querySelector('[name$="_answer"]'); 
+  const idQuestion = champReponseMoodle.name;
+  const idInput = document.getElementById(idQuestion.replace('answer','-submit'))
+  if (idInput) {
+    idInput.style.visibility = 'hidden';
+  }
+  document.getElementById('iframeMathAlea').src=\`https://coopmaths.fr/mathalea.html?ex=${id},n=${nbQuestions},i=1&v=exMoodle&serie=\${idQuestion}\`;
+  window.addEventListener('message', (event) => { 
+    let hauteur = event.data.hauteurExercice + 50;
+    if (hauteur !== undefined) {
+      document.getElementById('iframeMathAlea').height = hauteur.toString();
+    } 
+    const labelReponse = document.querySelector('[for$="_answer"]');
+    champReponseMoodle.readOnly=true;
+    labelReponse.style.visibility = 'hidden';
+    if (event.data.nbBonnesReponses !== undefined) {
+      champReponseMoodle.value = event.data.nbBonnesReponses;
+      if (idInput) {
+        idInput.click();
+      }
+    }
+    });  
+</script>
+      `
+        codeMoodle += `]]></text>
   </questiontext>`
-          codeMoodle += '\n'
-          for (const reponseAcceptee of listeObjetsExercice[i].autoCorrection[numQuestion].reponse.valeur) {
-            codeMoodle += `  <answer fraction="100">
-      <text>${reponseAcceptee}</text>
-        <feedback><text>Bravo !</text></feedback>
-    </answer>`
-          }
-          codeMoodle += '</question>'
-          codeMoodle += '\n\n'
+        codeMoodle += '\n'
+        // Moodle n'accepte que certains scores
+        const scoreRetenu = (score) => {
+          const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
+          return scoreAcceptes.reduce((prev, curr) => {
+            return (Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev)
+          })
         }
+        for (let i = 1; i <= nbQuestions; i++) {
+          codeMoodle += `  <answer fraction="${scoreRetenu(i / nbQuestions * 100)}">
+      <text>${i}</text>
+        <feedback><text> </text></feedback>
+    </answer>`
+        }
+        codeMoodle += `\n<defaultgrade>${nbQuestions}</defaultgrade>`
+        codeMoodle += `\n<generalfeedback>\n<text><![CDATA[
+          <h4>Correction :</h4>
+          <iframe width="600" height="400" id="monIframeCorrection" src="" frameborder="0"></iframe>
+          
+          <script type="module">
+              const champReponseMoodle = document.querySelector('[name$="_answer"]');
+              const idQuestion = champReponseMoodle.name;
+              document.getElementById('monIframeCorrection').src = \`https://coopmaths.fr/mathalea.html?ex=${id},n=${nbQuestions}&v=correctionMoodle&serie=\${idQuestion}\`;
+                  window.addEventListener('message', (event) => { 
+                      if (event.data.hauteurExerciceCorrection !== undefined) {
+                          const hauteur = event.data.hauteurExerciceCorrection + 50;
+                          document.getElementById('monIframeCorrection').height = hauteur.toString();
+                      }
+                  });
+          </script> 
+          
+        ]]>\n</text>\n</generalfeedback>`
+        codeMoodle += '\n</question>'
+        codeMoodle += '\n\n'
       }
       $('#message_liste_exercice_vide').hide()
       copierExercicesFormVersAffichage(listeDesExercices)
       $('#cache').show()
-
-      // ToFix On double les dollars avec un mot intermédiaire à effacer
-      codeMoodle = codeMoodle.replace(/\$/g, '$tempAEffacer$').replace(/tempAEffacer/g, '')
       div.innerHTML = '<pre><code class="language-html"><xmp>' + codeMoodle + '</xmp></code></pre>'
       loadPrism()
         .then(() => {
