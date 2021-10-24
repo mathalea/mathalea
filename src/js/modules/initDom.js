@@ -189,6 +189,8 @@ export async function initDom () {
             const valeurEnregistree = window.sessionStorage.getItem(`reponse${i}` + context.graine)
             document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
           }
+          const hauteurExercice = window.document.querySelector('section').scrollHeight
+          window.parent.postMessage({ hauteurExercice }, '*')
         }
         if (window.sessionStorage.getItem('isValide' + context.graine)) {
           const exercice = context.listeObjetsExercice[0]

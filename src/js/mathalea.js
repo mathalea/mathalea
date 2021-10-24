@@ -878,7 +878,7 @@ function miseAJourDuCode () {
 </name>
   <questiontext format="html">
     <text><![CDATA[
-      <iframe width="600" height="400" id="iframeMathAlea" src="" frameBorder="0"></iframe>
+      <iframe width="600" height="400" id="iframeMathAlea" src="" frameBorder="0" allow="fullscreen"></iframe>
 
 <script type="module">
   const champReponseMoodle = document.querySelector('[name$="_answer"]'); 
