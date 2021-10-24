@@ -35,17 +35,18 @@ export default function LireElementsCarac () {
     for (let i = 0, texte, texteCorr, a, b, c, x1, x2, alpha, beta, f, r, svgYmin, svgYmax, F, orientation, signeA, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       fName.push(lettreMinusculeDepuisChiffre(i + 6))
       texteCorr = ''
-      a = randint(-2, 2, 0)
+      a = randint(-2, 2, 0) // On prend a au hasard quoi qu'il arrive
+      // Générons les coefficients du trinôme, la consigne, la correction
       switch (listeTypeDeQuestions[i]) {
         case 1: // Signe du coefficient dominant
           texte = 'Quel est le signe du coefficient dominant'
+          // On choisit 2 racines entières distinctes dans [-10;10]
           x1 = randint(-10, 10)
           x2 = randint(-10, 10, x1)// Flemme de coder la gestion d'une racine double
+          // On fabrique les coeffs à partir des racines
           b = -a * (x1 + x2)
           c = x1 * x2 * a
-          f = function (x) {
-            return calcule(a * x ** 2 + b * x + c)
-          }
+
           if (a < 0) {
             orientation = 'bas'
             signeA = 'négatif'
@@ -57,25 +58,24 @@ export default function LireElementsCarac () {
           break
         case 2: // Racines
           texte = 'Quelles sont les racines'
+          // On choisit 2 racines entières distinctes dans [-10;10]
           x1 = randint(-10, 10)
           x2 = randint(-10, 10, x1)// Flemme de coder la gestion d'une racine double
+          // On fabrique les coeffs à partir des racines
           b = -a * (x1 + x2)
           c = x1 * x2 * a
 
-          f = function (x) {
-            return calcule(a * x ** 2 + b * x + c)
-          }
           texteCorr = `La courbe de $\\mathscr{${fName[i]}}$ coupe l'axe horizontal aux points $(${x1};0)$ et $(${x2};0)$. Les deux racines sont donc $${x1}$ et $${x2}$.`
           break
         case 3: // Coordonnées du sommet
           texte = 'Quelles sont les coordonnées du sommet'
+          // On choisit le sommet au hasard
           alpha = randint(-9, 9)
           beta = randint(-9, 9)
+          // On fabrique les coefficients
           b = -2 * a * alpha
           c = a * alpha ** 2 + beta
-          f = function (x) {
-            return calcule(a * x ** 2 + b * x + c)
-          }
+
           if (a > 0) {
             orientation = 'bas' // la variable ne désigne plus l'orientation de la parabole, flemme d'en déclarer une autre.
           } else {
@@ -84,8 +84,18 @@ export default function LireElementsCarac () {
           texteCorr = `Le sommet, c'est-à-dire le point le plus ${orientation} de la parabole, a pour coordonnées $(${alpha};${beta})$.`
           break
       }
+      // Les coeffs sont générés, on peut donc créé la fonction
+      f = function (x) {
+        return calcule(a * x ** 2 + b * x + c)
+      }
       texte += ` de la fonction polynomiale $\\mathscr{${fName[i]}}$ du second degré représentée ci-dessous ?<br>`
-      // Génération du graphique
+      /** Génération du graphique
+       * a = randint(-2,2,0)
+       * Q1,Q2 :
+       *    deux racines dans [-9;9]
+       * Q3 :
+       *    le sommet dans le carré [-9;9]²
+      */
       if (a < 0) {
         Ymax = Math.ceil(f(-b / (2 * a)) + 2)
         Ymin = Math.min(f(x1), f(x2), f(-x1), f(0), f(-6), f(6))
