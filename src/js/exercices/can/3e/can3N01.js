@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { randint, choice, sp, texNombrec, texteEnCouleur, calcul } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, choice, sp, texNombrec, texteEnCouleur, calcul } from '../../../modules/outils.js'
 export const titre = 'Intervalles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -7,12 +7,13 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can3N01
+ * Date de publication 24/10/2021
 */
 export default function Intervalles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  this.date = 1635094684684
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'

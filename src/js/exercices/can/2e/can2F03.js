@@ -1,7 +1,7 @@
-import { fraction } from '../../modules/fractions'
-import Exercice from '../Exercice.js'
-import { randint, rienSi1, ecritureParentheseSiNegatif, choice, texteEnCouleur, reduireAxPlusB, sp, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { fraction } from '../../../modules/fractions'
+import Exercice from '../../Exercice.js'
+import { randint, rienSi1, ecritureParentheseSiNegatif, choice, texteEnCouleur, reduireAxPlusB, sp, listeQuestionsToContenuSansNumero } from '../../../modules/outils.js'
+import { propositionsQcm } from '../../../modules/gestionInteractif.js'
 export const titre = 'Signe d’une fonction affine (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -9,11 +9,12 @@ export const interactifType = 'qcm'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can2F03
+ * Date de publication 24/10/2021
 */
 export default function SigneFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
+  this.date = 1635094684684
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {

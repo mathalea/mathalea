@@ -1,6 +1,6 @@
-import Exercice from '../Exercice.js'
-import { randint, rienSi1, ecritureParentheseSiNegatif, sp, texteEnCouleur, choice, listeQuestionsToContenuSansNumero, ecritureAlgebrique } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import Exercice from '../../Exercice.js'
+import { randint, rienSi1, ecritureParentheseSiNegatif, sp, texteEnCouleur, choice, listeQuestionsToContenuSansNumero, ecritureAlgebrique } from '../../../modules/outils.js'
+import { propositionsQcm } from '../../../modules/gestionInteractif.js'
 export const titre = 'Solution d’une inéquation (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -8,14 +8,15 @@ export const interactifType = 'qcm'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can3L04
+ * Date de publication 24/10/2021
 */
 export default function SolutionInequation () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   let a, b, c, d
+  this.date = 1635094684684
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
