@@ -21,6 +21,7 @@ export function exerciceInteractif (exercice) {
     if (exercice.interactifType === 'custom') exerciceCustom(exercice)
     // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
     if (exercice.interactifType === 'mathLive') exerciceMathLive(exercice)
+    if (exercice.interactifType === undefined) exerciceNonInteractif(exercice)
   }
 }
 
@@ -740,6 +741,57 @@ export function exerciceMathLive (exercice) {
   })
 }
 
+/**
+ * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
+ * on vérifie la présence du bouton de validation d'id btnValidationEx{i} créé par listeQuestionsToContenu
+ * et on y ajoute un listenner pour vérifier les réponses saisies dans les math-field
+ * Si le bouton n'existe pas on le crée
+ * @param {object} exercice
+ */
+export function exerciceNonInteractif (exercice) {
+  document.addEventListener('exercicesAffiches', () => {
+    if (getVueFromUrl() === 'can') {
+      gestionCan(exercice)
+    }
+
+    const divAffichageExo = document.querySelector(`#exercice${exercice.numeroExercice}`)
+
+    let button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
+    if (!button) {
+      button = addElement(divAffichageExo, 'button', { className: 'ui button checkReponses', id: `#btnValidationEx${exercice.numeroExercice}-${exercice.id}` })
+    }
+    button.innerHTML = 'Voir la correction pour s\'auto-corriger'
+    button.style.margin = '1em'
+
+    let divMsg = document.querySelector('#msgExNonIteractif')
+    if (!divMsg) divMsg = addElement(divAffichageExo, 'div', { className: '', id: 'msgExNonIteractif' })
+    divMsg.innerHTML = 'Cet exercice n’est pas interactif, faites-le au brouillon avant de vous auto-corriger.'
+    divMsg.style.color = '#f15929'
+    divMsg.style.fontWeight = 'bold'
+    divMsg.style.fontSize = 'x-large'
+    divMsg.style.display = 'block'
+    divMsg.style.margin = '1em'
+
+    if (button) {
+      if (!button.hasMathaleaListener) {
+        button.addEventListener('click', event => {
+          // Ici on met 1 bonne réponse dans tous les cas car les exos ne sont pas interactifs
+          // Cela signifie que l'exo a été visualisé
+          // À améliorer pour l'enregistrement dans le fichier de scores
+          const nbBonnesReponses = 1
+          const nbMauvaisesReponses = 0
+          const besoinDe2eEssai = false
+          if (!besoinDe2eEssai) {
+            button.classList.add('disabled')
+            afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
+          }
+        })
+        button.hasMathaleaListener = true
+      }
+    }
+  })
+}
+
 // function neTientCompteQueDuDernierMembre (texte) {
 //   const i = texte.lastIndexOf('=')
 //   if (i > -1) {
@@ -841,6 +893,25 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
 }
 
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
+  if (context.vue === 'exMoodle') {
+    const hauteurExercice = window.document.querySelector('section').scrollHeight + 20
+    const scoreRetenu = (score) => {
+      const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
+      return scoreAcceptes.reduce((prev, curr) => {
+        return (Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev)
+      })
+    }
+    const score = scoreRetenu(nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100)
+    window.parent.postMessage({ score, hauteurExercice }, '*')
+    try {
+      for (let i = 0; i < exercice.nbQuestions; i++) {
+        window.sessionStorage.setItem(`reponse${i}` + context.graine, document.getElementById(`champTexteEx0Q${i}`).value)
+      }
+      window.sessionStorage.setItem('isValide' + context.graine, true)
+    } catch (error) {
+      console.log('Réponse non sauvegardée')
+    }
+  }
   if (context.timer) {
     clearInterval(context.timer)
     // ToDo à sauvegarder dans les résultats
@@ -856,6 +927,10 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   divScore.style.fontWeight = 'bold'
   divScore.style.fontSize = 'x-large'
   divScore.style.display = 'inline'
+  // Si l'exercice n'est pas interactif on n'affiche pas la div pour le score
+  if (exercice.interactifType === undefined) {
+    divScore.style.display = 'none'
+  }
   if (context.vue === 'eval') {
     const divCorr = get(`divexcorr${exercice.numeroExercice}`)
     divCorr.style.display = 'block'

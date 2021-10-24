@@ -1164,7 +1164,16 @@ export default function Alea2iep () {
       }
     }
   }
-
+  /**
+   * Change la couleur d'un texte déjà créé dont on donne l'id retourné par this.textePoint ou this.textePosition
+   * Nécessité de redonner le texte car on réécrit le texte dans une autre couleur.
+   * @param {string} texte
+   * @param {number} id
+   * @param {string} couleur
+   */
+  this.texteChangeCouleur = function (texte, id, couleur) {
+    this.liste_script.push(`\n<action couleur="${couleur}" texte="${texte}" id="${id}" mouvement="ecrire" objet="texte" />`)
+  }
   /**
    * Met l'animation en pause forçant l'utilisateur à appuyer sur lecture pour voir la suite
    */
@@ -1457,7 +1466,7 @@ export default function Alea2iep () {
     this.crayonDeplacer(P3)
     this.regleRotation(alpha - 90)
     this.tracer(rotation(P3, H, 180))
-    if (description) this.textePosition('4. coder l\'angle droit.', 0, 7.9, { couleur: 'lightblue' })
+    if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.9, { couleur: 'lightblue' })
     this.regleMasquer()
     this.codageAngleDroit(A, H, P)
   }
@@ -1493,7 +1502,7 @@ export default function Alea2iep () {
     this.regleMontrer(P1)
     this.crayonDeplacer(P1)
     this.tracer(P2)
-    if (description) this.textePosition('4. coder l\'angle droit.', 0, 7.2, { couleur: 'lightblue' })
+    if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.2, { couleur: 'lightblue' })
     this.regleMasquer()
     this.codageAngleDroit(P1, A, B)
   }
@@ -1518,7 +1527,7 @@ export default function Alea2iep () {
     this.compasEcarter2Points(A, B)
     this.compasTracerArcCentrePoint(A, B, { couleur: 'lightgray', epaisseur: 1 })
     this.compasTracerArcCentrePoint(A, C, { couleur: 'lightgray', epaisseur: 1 })
-    this.pointsCreer(B, C, { label: true, tempo: 10 })
+    this.pointsCreer(B, C, { tempo: 10 })
     if (description) {
       this.textePosition('2. Choisir un écartement de compas supérieur à la longueur AB.', 0, 9.3, { couleur: 'lightblue' })
     }
@@ -1537,7 +1546,7 @@ export default function Alea2iep () {
     this.regleMontrer(P11)
     this.crayonMontrer(P11)
     this.tracer(P12)
-    if (description) this.textePosition('5. coder l\'angle droit.', 0, 6.5, { couleur: 'lightblue' })
+    if (description) this.textePosition('5. Coder l\'angle droit.', 0, 6.5, { couleur: 'lightblue' })
     this.regleMasquer()
     this.codageAngleDroit(P1, A, B)
   }
@@ -1579,7 +1588,7 @@ export default function Alea2iep () {
     this.regleMontrer(P1)
     this.crayonMontrer(P1)
     this.tracer(P2)
-    if (description) this.textePosition('5. coder l\'angle droit.', 0, 8.2, { couleur: 'lightblue', tempo: 20 })
+    if (description) this.textePosition('5. Coder l\'angle droit.', 0, 8.2, { couleur: 'lightblue', tempo: 20 })
     this.regleMasquer()
     this.codageAngleDroit(P1, H, B)
   }
@@ -1688,8 +1697,8 @@ export default function Alea2iep () {
  *
  * @param {point} A
  * @param {point} B
- * @param {objet} options Défaut : {longueur1: 3, longueur2: 3, codage: 'X', couleurCodage : this.couleurCodage, couleurCompas: this.couleurCompas}
- * @return {array} [arc1, arc2, arc3, arc4, codage1, codage2, codageCarre]
+ * @param {objet} options Défaut : {longueur1: 3, longueur2: 3, codage: 'X', couleurCodage : this.couleurCodage, couleurCompas: this.couleurCompas, coderFigure: true}
+ * @return {array} [arc1, arc2, arc3, arc4, codage1?, codage2?, codageCarre?]
   */
   this.mediatriceAuCompas = function (A, B, options = {}) {
     if (options.longueur1 === undefined) {
@@ -1706,6 +1715,9 @@ export default function Alea2iep () {
     }
     if (options.couleurCompas === undefined) {
       options.couleurCompas = this.couleurCompas
+    }
+    if (options.coderFigure === undefined) {
+      options.coderFigure = true
     }
     const O = milieu(A, B)
     const O2 = rotation(A, O, -90)
@@ -1734,10 +1746,14 @@ export default function Alea2iep () {
       this.regleDroite(N, M, options)
     }
     this.regleMasquer()
-    const codage1 = this.segmentCodage(A, O, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
-    const codage2 = this.segmentCodage(O, B, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
-    const codageCarre = this.codageAngleDroit(A, O, O2, { couleur: options.couleurCodage, tempo: options.tempo, vitesse: options.vitesse })
-    return [arc1, arc2, arc3, arc4, codage1, codage2, codageCarre]
+    if (options.coderFigure) {
+      const codage1 = this.segmentCodage(A, O, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
+      const codage2 = this.segmentCodage(O, B, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
+      const codageCarre = this.codageAngleDroit(A, O, O2, { couleur: options.couleurCodage, tempo: options.tempo, vitesse: options.vitesse })
+      return [arc1, arc2, arc3, arc4, codage1, codage2, codageCarre]
+    } else {
+      return [arc1, arc2, arc3, arc4]
+    }
   }
   /**
    * Trace la médiatrice du segment [AB] avec la méthode Règle + équerre.

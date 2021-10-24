@@ -24,6 +24,12 @@ export function setOutputHtml () {
   context.isAmc = false
   context.isDiaporama = false
 }
+export function setOutputMoodle () {
+  context.isHtml = true
+  context.isAmc = false
+  context.isDiaporama = false
+  context.isMoodle = true
+}
 export function setOutputDiaporama () {
   context.isHtml = true
   context.isAmc = false

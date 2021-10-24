@@ -93,11 +93,11 @@ export default function DivisionsEuclidiennes () {
       a = b * q + r
       texte = `$${texNombre(a)}\\div${b}$`
       if (r === 0) {
-        texteCorr = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}$${texNombre(a)}\\div${b}=${q}$`
-        setReponse(this, i, [`${a}=${b}\\times${q}`, `${a}=${q}\\times${b}`])
+        texteCorr = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}$${texNombre(a)}\\div${b}=${texNombre(q)}$`
+        setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}`, `${a}=${texNombre(q)}\\times${b}`])
       } else {
-        texteCorr = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}$${texNombre(a)}=${b}\\times${q}+${r}$`
-        setReponse(this, i, [`${a}=${b}\\times${q}+${r}`, `${a}=${q}\\times${b}+${r}`])
+        texteCorr = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
+        setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}+${r}`, `${a}=${texNombre(q)}\\times${b}+${r}`])
       }
       texte += ajouteChampTexteMathLive(this, i)
       // Pour AMC question AmcOpen

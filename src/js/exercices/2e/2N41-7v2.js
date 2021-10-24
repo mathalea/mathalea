@@ -6,7 +6,7 @@ export const titre = 'Factoriser avec les identités remarquables'
 /**
  * Factoriser en utilisant les 3 identités remarquables
 * @author Jean-Claude Lhote
-* 2N43-7, ex 2L11
+* 2N41-7, ex 2L11
 */
 export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this) // Héritage de la classe Exercice()

@@ -36,7 +36,7 @@ export default function LireAbscisseDecimaleBis2d () {
     this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (parseInt(this.sup) === 5) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+    if (parseInt(this.sup) === 5) { typesDeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions) } else {
       typesDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions

@@ -6,10 +6,10 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
- * Modèle d'exercice très simple pour la course aux nombres
- * @author Jean-Claude Lhote
- * Créé pendant l'été 2021
- * Référence can4C08
+ * Calcul de puissances
+ * @author Gilles Mora
+ * Publié le 22/10/2021
+ * Référence can4C09
 */
 export default function PuissancesDe2345 () {
   Exercice.call(this)
