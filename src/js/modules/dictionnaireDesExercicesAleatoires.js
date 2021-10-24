@@ -4741,6 +4741,14 @@ export default {
     "interactifType": "mathLive",
     "name": "can2G05"
   },
+  "can2G06": {
+    "titre": "Calcul d’une distance dans un repère",
+    "url": "/exercices/can/2e/can2G06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G06"
+  },
   "can2L01": {
     "titre": "Nombre de solutions d’une équation se ramenant à $x^2=a$",
     "url": "/exercices/can/2e/can2L01.js",
@@ -4892,6 +4900,28 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3C10"
+  },
+  "can3C11": {
+    "titre": "Simplifications de fractions ou de racines carrées",
+    "url": "/exercices/can/3e/can3C11.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C11"
+  },
+  "can3C12": {
+    "titre": "Encadrement de racine carrée",
+    "url": "/exercices/can/3e/can3C12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C12"
   },
   "can3E01": {
     "titre": "Calcul de volume 3e",
@@ -5196,8 +5226,19 @@ export default {
     "interactifType": "mathLive",
     "name": "can4C09"
   },
+  "can4C10": {
+    "titre": "Somme ou différence de fractions égyptiennes",
+    "url": "/exercices/can/4e/can4C10.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4C10"
+  },
   "can4G01": {
-    "titre": "Calcul d’une longueur d’un côté avec Pythagore ",
+    "titre": "Calcul d’une longueur d’un côté avec le Théorème de Pythagore",
     "url": "/exercices/can/4e/can4G01.js",
     "amcReady": true,
     "amcType": {
@@ -5510,6 +5551,17 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C17"
   },
+  "can5C18": {
+    "titre": "Somme d'entier et fraction(s) vers nombre décimal",
+    "url": "/exercices/can/5e/can5C18.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C18"
+  },
   "can5D01": {
     "titre": "Conversion Heures minutes",
     "url": "/exercices/can/5e/can5D01.js",
@@ -5536,6 +5588,14 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can5G02"
+  },
+  "can5L01": {
+    "titre": "La moitié plus ou moins un",
+    "url": "/exercices/can/5e/can5L01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5L01"
   },
   "can5N01": {
     "titre": "Somme de nombres décimaux",
@@ -5569,6 +5629,17 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can5P02"
+  },
+  "can5P03": {
+    "titre": "Pourcentage (proportion) 2",
+    "url": "/exercices/can/5e/can5P03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5P03"
   },
   "canPredef5-1": {
     "titre": "Course aux nombres début de 5e",
@@ -5853,6 +5924,30 @@ export default {
     "interactifType": "mathLive",
     "name": "can6C25"
   },
+  "can6C26": {
+    "titre": "Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01",
+    "url": "/exercices/can/6e/can6C26.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C26"
+  },
+  "can6C27": {
+    "titre": "Petits problèmes d'arithmétique",
+    "url": "/exercices/can/6e/can6C27.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C27"
+  },
+  "can6C28": {
+    "titre": "Petit problème de fraction",
+    "url": "/exercices/can/6e/can6C28.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C28"
+  },
   "can6D01": {
     "titre": "Conversion Heures minutes",
     "url": "/exercices/can/6e/can6D01.js",
@@ -6082,6 +6177,39 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N06"
+  },
+  "can6N07": {
+    "titre": "Lire l'abscisse décimale d'un point repéré par une fraction",
+    "url": "/exercices/can/6e/can6N07.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N07"
+  },
+  "can6N08": {
+    "titre": "Position des chiffres",
+    "url": "/exercices/can/6e/can6N08.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N08"
+  },
+  "can6N09": {
+    "titre": "Suite décimale",
+    "url": "/exercices/can/6e/can6N09.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N09"
   },
   "can6P01": {
     "titre": "Proportionnalité simple",

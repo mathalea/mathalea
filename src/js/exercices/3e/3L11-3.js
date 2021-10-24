@@ -107,7 +107,7 @@ export default function DistributiviteSimpleDoubleReduction () {
       }
       if (!context.isAmc) {
         setReponse(this, i, reponse)
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' $=$' })
+        texte += `<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline')
       } else {
         this.autoCorrection[i] = {
           enonce: texte,

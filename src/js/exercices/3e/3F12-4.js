@@ -176,9 +176,9 @@ export default function ImageGraphique () {
         setReponse(this, 0, f(x1))
         setReponse(this, 1, f(x1))
       } else {
-        texte += `$f(${x1})=$` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
-        texte += `$f(${x2})=$` + ajouteChampTexteMathLive(this, 1, 'largeur25 inline')
-        texte += `$f(${x3})=$` + ajouteChampTexteMathLive(this, 2, 'largeur25 inline')
+        texte += `<br><br>$f(${x1})=$` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texte += `<br><br>$f(${x2})=$` + ajouteChampTexteMathLive(this, 1, 'largeur25 inline')
+        texte += `<br><br>$f(${x3})=$` + ajouteChampTexteMathLive(this, 2, 'largeur25 inline')
         setReponse(this, 0, f(x1))
         setReponse(this, 1, f(x2))
         setReponse(this, 2, f(x3))

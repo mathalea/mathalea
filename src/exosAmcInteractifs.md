@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 307 
-- nombre d'exos interactifReady 395 
+- nombre d'exos amcReady 315 
+- nombre d'exos interactifReady 408 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -266,6 +266,7 @@
 |can2G03|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
 |can2G04|Calculs des coordonnées du milieu|KO|KO|OK|mathLive|
 |can2G05|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
+|can2G06|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
 |can2L01|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Coordonnées point d’intersection axe des abscisses/droite|KO|KO|OK|mathLive|
@@ -282,6 +283,8 @@
 |can3C08|Programme de calcul|KO|KO|OK|mathLive|
 |can3C09|Calcul avec racine carrée niveau 1|KO|KO|OK|mathLive|
 |can3C10|Encadrement avec puissance de 10|KO|KO|OK|mathLive|
+|can3C11|Simplifications de fractions ou de racines carrées|OK|AMCNum|OK|mathLive|
+|can3C12|Encadrement de racine carrée|OK|AMCNum|OK|mathLive|
 |can3E01|Calcul de volume 3e|OK|AMCNum|OK|mathLive|
 |can3F01|Lecture graphique|OK|AMCNum|OK|mathLive|
 |can3F02|Calcul d’image par fonction linéaire|OK|AMCNum|OK|mathLive|
@@ -312,7 +315,8 @@
 |can4C07|Différence de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
 |can4C08|Somme de puissances de 10|OK|AMCNum|OK|mathLive|
 |can4C09|Puissances de 2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
-|can4G01|Calcul d’une longueur d’un côté avec Pythagore |OK|AMCNum|OK|mathLive|
+|can4C10|Somme ou différence de fractions égyptiennes|OK|AMCNum|OK|mathLive|
+|can4G01|Calcul d’une longueur d’un côté avec le Théorème de Pythagore|OK|AMCNum|OK|mathLive|
 |can4G02|Image de point par transformation 4e|KO|KO|OK|mathLive|
 |can4G03|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
 |can4G04|Calcul d’un côté avec Pythagore|KO|KO|OK|mathLive|
@@ -343,12 +347,15 @@
 |can5C15|Pourcentage (proportion) 1|OK|AMCNum|OK|mathLive|
 |can5C16|Recherche un nombre à ajouter|KO|KO|OK|mathLive|
 |can5C17|Calcul astucieux avec factorisation|KO|KO|OK|mathLive|
+|can5C18|Somme d'entier et fraction(s) vers nombre décimal|OK|AMCNum|OK|mathLive|
 |can5D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can5G01|Symétrique de point 5e|KO|KO|OK|mathLive|
 |can5G02|Angle dans un triangle isocèle|KO|KO|OK|mathLive|
+|can5L01|La moitié plus ou moins un|KO|KO|OK|mathLive|
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
 |can5P01|Pourcentage (évolution)|OK|AMCNum|OK|mathLive|
 |can5P02|Pourcentage (proportion) 2|OK|AMCNum|OK|mathLive|
+|can5P03|Pourcentage (proportion) 2|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |can6C01|Ordre de grandeur QCM|OK|qcmMono|OK|qcm|
 |can6C02|Multiplier nombre pair par 5|OK|AMCNum|OK|mathLive|
@@ -375,6 +382,9 @@
 |can6C23|Calcul avec +/-99 ou +/-999|OK|AMCNum|OK|mathLive|
 |can6C24|Multiplier par 0,1 ou 0,01 ou 0,001|OK|AMCNum|OK|mathLive|
 |can6C25|Recherche d’un prix unitaire|KO|KO|OK|mathLive|
+|can6C26|Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01|KO|KO|OK|mathLive|
+|can6C27|Petits problèmes d'arithmétique|KO|KO|OK|mathLive|
+|can6C28|Petit problème de fraction|KO|KO|OK|mathLive|
 |can6D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calcul de durée en minutes|OK|AMCNum|OK|mathLive|
@@ -397,6 +407,9 @@
 |can6N04|Abscisse fractionnaire|OK|AMCHybride|OK|mathLive|
 |can6N05|Chiffre des ...|OK|AMCHybride|OK|mathLive|
 |can6N06|Arrondi au dixième ou au centième|OK|AMCHybride|OK|mathLive|
+|can6N07|Lire l'abscisse décimale d'un point repéré par une fraction|OK|AMCNum|OK|mathLive|
+|can6N08|Position des chiffres|OK|AMCNum|OK|mathLive|
+|can6N09|Suite décimale|OK|AMCNum|OK|mathLive|
 |can6P01|Proportionnalité simple|OK|AMCNum|OK|mathLive|
 |can6P02|Proportionnalité compliquée|OK|AMCNum|OK|mathLive|
 |can6P03|Question de vitesse|OK|AMCNum|OK|mathLive|
