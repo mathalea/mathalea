@@ -38,7 +38,7 @@ export default function LireElementsCarac () {
       a = randint(-2, 2, 0)
       switch (listeTypeDeQuestions[i]) {
         case 1: // Signe du coefficient dominant
-          texte = `Quelle est le signe du coefficient dominant de la fonction polynomiale $\\mathscr{${fName[i]}}$ du second degré représentée ci-dessous ?<br>`
+          texte = 'Quel est le signe du coefficient dominant'
           x1 = randint(-10, 10)
           x2 = randint(-10, 10, x1)// Flemme de coder la gestion d'une racine double
           b = -a * (x1 + x2)
@@ -56,7 +56,7 @@ export default function LireElementsCarac () {
           texteCorr = `La parabole est orientée vers le ${orientation}, on en déduit que le coefficient dominant de $\\mathscr{${fName[i]}}$ est ${signeA}.`
           break
         case 2: // Racines
-          texte = `Quelles sont les racines de la fonction polynomiale $\\mathscr{${fName[i]}}$ du second degré représentée ci-dessous ?<br>`
+          texte = 'Quelles sont les racines'
           x1 = randint(-10, 10)
           x2 = randint(-10, 10, x1)// Flemme de coder la gestion d'une racine double
           b = -a * (x1 + x2)
@@ -68,7 +68,7 @@ export default function LireElementsCarac () {
           texteCorr = `La courbe de $\\mathscr{${fName[i]}}$ coupe l'axe horizontal aux points $(${x1};0)$ et $(${x2};0)$. Les deux racines sont donc $${x1}$ et $${x2}$.`
           break
         case 3: // Coordonnées du sommet
-          texte = `Quelle sont les coordonnées du sommet de la fonction polynomiale $\\mathscr{${fName[i]}}$ du second degré représentée ci-dessous ?<br>`
+          texte = 'Quelles sont les coordonnées du sommet'
           alpha = randint(-9, 9)
           beta = randint(-9, 9)
           b = -2 * a * alpha
@@ -84,6 +84,8 @@ export default function LireElementsCarac () {
           texteCorr = `Le sommet, c'est-à-dire le point le plus ${orientation} de la parabole, a pour coordonnées $(${alpha};${beta})$.`
           break
       }
+      texte += ` de la fonction polynomiale $\\mathscr{${fName[i]}}$ du second degré représentée ci-dessous ?<br>`
+      // Génération du graphique
       if (a < 0) {
         Ymax = Math.ceil(f(-b / (2 * a)) + 2)
         Ymin = Math.min(f(x1), f(x2), f(-x1), f(0), f(-6), f(6))
