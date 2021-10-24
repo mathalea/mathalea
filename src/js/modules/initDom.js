@@ -1,6 +1,6 @@
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex, setOutputMoodle } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
-import { getDureeFromUrl, getLogFromUrl, getTaillePoliceFromUrl, getVueFromUrl } from './gestionUrl'
+import { getDureeFromUrl, getLogFromUrl, getTaillePoliceFromUrl, getVueFromUrl, getUrlVars } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 
@@ -286,6 +286,27 @@ export async function initDom () {
         setStyles(ol, 'padding:0;')
       }
     })
+    // On récupère tous les paramètres de chaque exos dans un tableau d'objets
+    const paramsAllExos = Object.entries(getUrlVars())
+    // Un booléen pour recupérer le fait qu'il y a au moins un exo interactif dans la vue
+    let isAnyExInteractif = false
+    for (const obj of paramsAllExos) {
+      for (const [key, value] of Object.entries(obj[1])) {
+        if (key === 'i' && value === 1) {
+          isAnyExInteractif = true
+        }
+      }
+    }
+    if (!isAnyExInteractif) {
+      const divTop = document.querySelector('#boutonsConnexion')
+      const divTopScoreLogIn = document.querySelector('#scoresLogIn')
+      const divTopScoreLogOut = document.querySelector('#scoresLogOut')
+      const divTopUserIdDisplay = document.querySelector('#userIdDisplay')
+      divTop.removeChild(divTopScoreLogIn)
+      divTop.removeChild(divTopScoreLogOut)
+      divTop.removeChild(divTopUserIdDisplay)
+      // document.querySelector('#scoresLogIn').style.display = 'none'
+    }
   } else if (vue === 'multi') {
     setOutputHtml()
     section = addElement(document.body, 'section', { style: 'width: 100%' })
