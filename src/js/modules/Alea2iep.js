@@ -1697,8 +1697,8 @@ export default function Alea2iep () {
  *
  * @param {point} A
  * @param {point} B
- * @param {objet} options Défaut : {longueur1: 3, longueur2: 3, codage: 'X', couleurCodage : this.couleurCodage, couleurCompas: this.couleurCompas}
- * @return {array} [arc1, arc2, arc3, arc4, codage1, codage2, codageCarre]
+ * @param {objet} options Défaut : {longueur1: 3, longueur2: 3, codage: 'X', couleurCodage : this.couleurCodage, couleurCompas: this.couleurCompas, coderFigure: true}
+ * @return {array} [arc1, arc2, arc3, arc4, codage1?, codage2?, codageCarre?]
   */
   this.mediatriceAuCompas = function (A, B, options = {}) {
     if (options.longueur1 === undefined) {
@@ -1715,6 +1715,9 @@ export default function Alea2iep () {
     }
     if (options.couleurCompas === undefined) {
       options.couleurCompas = this.couleurCompas
+    }
+    if (options.coderFigure === undefined) {
+      options.coderFigure = true
     }
     const O = milieu(A, B)
     const O2 = rotation(A, O, -90)
@@ -1743,10 +1746,14 @@ export default function Alea2iep () {
       this.regleDroite(N, M, options)
     }
     this.regleMasquer()
-    const codage1 = this.segmentCodage(A, O, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
-    const codage2 = this.segmentCodage(O, B, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
-    const codageCarre = this.codageAngleDroit(A, O, O2, { couleur: options.couleurCodage, tempo: options.tempo, vitesse: options.vitesse })
-    return [arc1, arc2, arc3, arc4, codage1, codage2, codageCarre]
+    if (options.coderFigure) {
+      const codage1 = this.segmentCodage(A, O, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
+      const codage2 = this.segmentCodage(O, B, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
+      const codageCarre = this.codageAngleDroit(A, O, O2, { couleur: options.couleurCodage, tempo: options.tempo, vitesse: options.vitesse })
+      return [arc1, arc2, arc3, arc4, codage1, codage2, codageCarre]
+    } else {
+      return [arc1, arc2, arc3, arc4]
+    }
   }
   /**
    * Trace la médiatrice du segment [AB] avec la méthode Règle + équerre.
