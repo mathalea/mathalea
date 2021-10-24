@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint, choice, sp, texNombrec, texteEnCouleur, calcul, miseEnEvidence, texNombre } from '../../modules/outils.js'
+import { randint, choice, sp, texNombrec, texteEnCouleur, calcul } from '../../modules/outils.js'
 export const titre = 'Intervalles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,15 +19,16 @@ export default function Intervalles () {
   this.nouvelleVersion = function () {
     let a, b, c, N, d, e
 
-    switch (choice([1,2])) { //, 2
+    switch (choice([1, 2])) { //, 2, 2
       case 1:
         a = randint(1, 4) * (-1)
         b = randint(1, 4)
         c = calcul(randint(-4, -1) + randint(-9, -1) / 10)
-        N = choice(['a', 'b', 'c', 'd', 'e'])//, , 
+        N = choice(['a', 'b', 'c', 'd', 'e'])//, ${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}     Bigg[${a}  ${sp(2)} ; ${sp(2)} ${b}\\Bigg]$ <br><br>$\\left]${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right]$?<br>
         if (N === 'a') {
-          this.question = `Combien y a-t-il d'entiers dans l'intervalle $\\left[${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right]$ ?`
-          this.correction = ` Il y a $${b - a + 1}$ entiers dans l'intervalle $\\left[${a}${sp(1)}; ${sp(1)}${b}\\right]$.`
+          this.question = `Combien y a-t-il d'entiers dans l'intervalle  $\\bigg[${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg]$       
+                    `
+          this.correction = ` Il y a $${b - a + 1}$ entiers dans l'intervalle $\\bigg[${a}${sp(1)} ; ${sp(1)}${b}\\bigg]$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
   Comptez-les !<br> 
  Ou bien en calculant la différence des bornes et en ajoutant $1$ puisque les bornes de l'intervalles sont "comprises".<br>
@@ -36,8 +37,8 @@ export default function Intervalles () {
           this.reponse = b - a + 1
         }
         if (N === 'b') {
-          this.question = `Combien y a-t-il d'entiers dans l'intervalle $\\left]${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right]$ ?`
-          this.correction = ` Il y a $${b - a}$ entiers dans l'intervalle $\\left]${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right]$.`
+          this.question = `Combien y a-t-il d'entiers dans l'intervalle $\\bigg]${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg]$ ?`
+          this.correction = ` Il y a $${b - a}$ entiers dans l'intervalle $\\bigg]${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg]$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
   Comptez-les !<br> 
  Attention l'entier $${a}$ n'appartient pas à l'intervalle.
@@ -45,8 +46,8 @@ export default function Intervalles () {
           this.reponse = b - a
         }
         if (N === 'c') {
-          this.question = `Combien y a-t-il d'entiers dans l'intervalle $\\left]${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right[$ ?`
-          this.correction = ` Il y a $${b - a - 1}$ entiers dans l'intervalle $\\left]${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right[$.`
+          this.question = `Combien y a-t-il d'entiers dans l'intervalle $\\bigg]${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg[$ ?`
+          this.correction = ` Il y a $${b - a - 1}$ entiers dans l'intervalle $\\bigg]${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg[$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Comptez-les !<br> 
        Attention les entiers $${a}$ et $${b}$ n'appartiennent pas à l'intervalle.
@@ -54,16 +55,16 @@ export default function Intervalles () {
           this.reponse = b - a - 1
         }
         if (N === 'd') {
-          this.question = `Combien y a-t-il d'entiers dans l'intervalle $\\left[${miseEnEvidence(texNombre(c), 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right[$ ?`
-          this.correction = `Il y a $${b - Math.trunc(c)}$ entiers dans l'intervalle $\\left[${miseEnEvidence(texNombre(c), 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right[$.`
+          this.question = `Combien y a-t-il d'entiers dans l'intervalle $\\bigg[${texNombrec(c)}  ${sp(1)} ; ${sp(1)} ${b} \\bigg[$ ?`
+          this.correction = `Il y a $${b - Math.trunc(c)}$ entiers dans l'intervalle $\\bigg[${a}  ${sp(1)} ; ${sp(1)} ${texNombrec(c)}\\bigg[$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Comptez-les !<br> 
                 `)
           this.reponse = b - Math.trunc(c)
         }
         if (N === 'e') {
-          this.question = `Combien y a-t-il d'entiers dans l'intervalle $\\left[${miseEnEvidence(texNombre(c), 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right]$ ?`
-          this.correction = `Il y a $${b - Math.trunc(c) + 1}$ entiers dans l'intervalle $\\left[${miseEnEvidence(texNombre(c), 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right]$.`
+          this.question = `Combien y a-t-il d'entiers dans l'intervalle $\\bigg[${texNombrec(c)}  ${sp(1)} ; ${sp(1)} ${b}\\bigg]$ ?`
+          this.correction = `Il y a $${b - Math.trunc(c) + 1}$ entiers dans l'intervalle $\\bigg[${a}  ${sp(1)} ; ${sp(1)} ${texNombrec(c)}\\bigg]$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Comptez-les !<br> 
             `)
@@ -75,27 +76,31 @@ export default function Intervalles () {
         a = randint(1, 4) * (-1)
         b = randint(1, 4)
         c = calcul(randint(-9, -4) + randint(-9, -1) / 10)
-        d = calcul(c + randint(2, 3))
+        d = calcul(c + randint(2, 4))
         e = randint(-8, -1)
-        N = choice(['a', 'b', 'c', 'd'])//, ,,'d'
+        N = choice(['a', 'b', 'c', 'd'])//,
         if (N === 'a') {
-          this.question = `Quel est le plus petit entier appartenant à l'intervalle $\\left]${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right[$ ?`
+          this.question = `Quel est le plus petit entier appartenant à l'intervalle 
+          $\\bigg]${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg[$ ?`
           this.correction = `C'est le plus petit entier strictement supérieur à  $${a}$ : il s'agit de $${a + 1}$.`
           this.reponse = a + 1
         }
         if (N === 'b') {
-          this.question = `Quel est le plus petit entier appartenant à l'intervalle $\\left]${miseEnEvidence(texNombre(c), 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right[$ ?`
+          this.question = `Quel est le plus petit entier appartenant à l'intervalle 
+          $\\bigg]${texNombrec(c)}  ${sp(1)} ; ${sp(1)} ${b}\\bigg[$ ?`
           this.correction = `C'est le plus petit entier strictement supérieur à  $${texNombrec(c)}$ : il s'agit de $${Math.trunc(c)}$.`
           this.reponse = Math.trunc(c)
         }
         if (N === 'c') {
-          this.question = `Quel est le plus grand entier appartenant à l'intervalle $\\left]${miseEnEvidence(texNombre(c), 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(texNombre(d), 'black')}\\right[$ ?`
+          this.question = `Quel est le plus grand entier appartenant à l'intervalle 
+          $\\bigg]${texNombrec(c)}  ${sp(1)} ; ${sp(1)} ${texNombrec(d)}\\bigg[$ ?`
           this.correction = `C'est le plus grand entier strictement inférieur à  $${texNombrec(d)}$ : il s'agit de $${Math.trunc(d) - 1}$.`
           this.reponse = Math.trunc(d) - 1
         }
         if (N === 'd') {
-          this.question = `Quel est le plus grand entier appartenant à l'intervalle $\\left]${miseEnEvidence(texNombrec(c - 6))}${sp(1)} ; ${miseEnEvidence(e)}\\right[$ ?`
-          this.correction = `C'est le plus grand entier strictement inférieur à  $${e}$ : il s'agit de $${e - 1}$.`
+          this.question = `Quel est le plus grand entier appartenant à l'intervalle 
+          $\\bigg]${texNombrec(e - 4)}  ${sp(1)} ; ${sp(1)} ${texNombrec(e)}\\bigg[$ ?`
+          this.correction = `C'est le plus grand entier strictement inférieur à  $${texNombrec(e)}$ : il s'agit de $${e - 1}$.`
           this.reponse = e - 1
         }
         break

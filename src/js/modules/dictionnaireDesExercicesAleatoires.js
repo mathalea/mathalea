@@ -3965,12 +3965,28 @@ export default {
     "name": "betaCAN2Q25-01"
   },
   "betaCAN2Q25-02": {
-    "titre": "Solution d’une inéquation",
+    "titre": "Solution d’une inéquation (V/F)",
     "url": "/exercices/beta/betaCAN2Q25-02.js",
     "amcReady": false,
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "qcm",
     "name": "betaCAN2Q25-02"
+  },
+  "betaCAN2Q25-03": {
+    "titre": "Signe d’une fonction affine (V/F)",
+    "url": "/exercices/beta/betaCAN2Q25-03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "betaCAN2Q25-03"
+  },
+  "betaCAN2Q25-04": {
+    "titre": "Solution d’une inéquation (QCM)",
+    "url": "/exercices/beta/betaCAN2Q25-04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "betaCAN2Q25-04"
   },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
