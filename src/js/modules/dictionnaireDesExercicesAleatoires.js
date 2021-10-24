@@ -55,7 +55,7 @@ export default {
     "name": "1E11"
   },
   "1E12-1": {
-    "titre": "Lecture graphique d'éléments caractéristiques d' trinôme",
+    "titre": "Lecture graphique d'éléments caractéristiques d'un trinôme",
     "url": "/exercices/1e/1E12-1.js",
     "amcReady": false,
     "interactifReady": false,
