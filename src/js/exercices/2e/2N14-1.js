@@ -1,13 +1,16 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombrec, texNombre } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient'
 
 /**
  * 2N14-1, ex 2N20
- * @author Stéphane Guyon
+ * @author Stéphane Guyon (Exportable AMC par Eric Elter)
  */
 export default function EnsembleDeNombres () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -118,6 +121,9 @@ export default function EnsembleDeNombres () {
                     `
           setReponse(this, i, 'R', { formatInteractif: 'texte' })
           break
+      }
+      if (context.isAmc) {
+        this.autoCorrection[i].propositions = [{ texte: this.listeCorrections[i], statut: '1' }]
       }
       texte += ajouteChampTexte(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
