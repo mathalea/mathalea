@@ -40,7 +40,7 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
       nbOperations = parseInt(listeTypeDeQuestions[i])
       val1 = randint(2, 5)
       val2 = randint(6, 9)
-      // resultats=Choisir_expression_litteraleBis(nbOperations,decimal,val1,val2)
+      // resultats=ChoisirUneExpressionLitteraleBis(nbOperations,decimal,val1,val2)
       resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup)
       // expf = resultats[0]
       expn = resultats[1]
