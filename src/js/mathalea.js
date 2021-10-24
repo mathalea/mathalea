@@ -870,6 +870,7 @@ function miseAJourDuCode () {
         const id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
         const nbQuestions = listeObjetsExercice[i].nbQuestions
         const titre = listeObjetsExercice[i].titre
+        const video = listeObjetsExercice[i].video
 
         codeMoodle += `<question type="shortanswer">
 <name>
@@ -886,7 +887,7 @@ function miseAJourDuCode () {
   if (idInput) {
     idInput.style.visibility = 'hidden';
   }
-  document.getElementById('iframeMathAlea').src=\`https://coopmaths.fr/mathalea.html?ex=${id},n=${nbQuestions},i=1&v=exMoodle&serie=\${idQuestion}\`;
+  document.getElementById('iframeMathAlea').src=\`https://coopmaths.fr/mathalea.html?ex=${id},n=${nbQuestions},i=1${video ? ',video=' + video : ''}&v=exMoodle&serie=\${idQuestion}\`;
   window.addEventListener('message', (event) => { 
     let hauteur = event.data.hauteurExercice + 50;
     if (hauteur !== undefined) {
@@ -1629,7 +1630,7 @@ function parametresExercice (exercice) {
           i +
           '" type="number"  min="1" max="99"></div>'
       }
-      if (!context.isDiaporama && !context.isMoodle) {
+      if (!context.isDiaporama) {
         divParametresGeneraux.innerHTML +=
           '<div><label for="form_video' +
           i +
@@ -2149,7 +2150,7 @@ function parametresExercice (exercice) {
 
     // Gestion de la vidéo
     if (context.isHtml && !context.isDiaporama) {
-      if (formVideo[i]) {
+      if (document.getElementById('form_video' + i)) {
         formVideo[i] = document.getElementById('form_video' + i)
         formVideo[i].value = exercice[i].video // Rempli le formulaire
         formVideo[i].addEventListener('change', function (e) {
