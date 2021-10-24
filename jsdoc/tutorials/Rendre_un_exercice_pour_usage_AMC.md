@@ -1,3 +1,5 @@
+Si vous êtes sur cette page, c'est que vous souhaitez rajouter à votre exercice, un export AMC. Bonne idée, vous êtes sur la bonne page ! Tout le déroulé est décrit, sur cette page, étapes par étapes, selon vos envies. Si toutefois l'exercice est déjà interactif, il est possible que peu de lignes de code supplémentaires soient nécessaires pour le rendre exportable AMC et alors, il est préférable, avant de continuer, de consulter cette page sur la [compatibilité entre l'interactivité et un usage AMC](#tutorial-Rendre_un_exercice_interactif.html#EE3). Si l'offre n'est pas satisfaisante, alors revenez sur cett page.
+
 ---
 
 MathAlea permet de rendre un exercice utilisable avec AMC (pour [Auto Multiple Choice](https://www.auto-multiple-choice.net/exemples.fr)). C'est un document Latex pour enseignant qui est produit. Sur feuille, l'elève aura un document qui reprend toutes les questions de l'exercice mais sous forme de QCM, de réponses numériques à coder, de questions ouvertes ou bien encore un mélange de toutes ces possibilités. Les copies des élèves peuvent être scannées et corrigées automatiquement via AMC  et dont un guide se trouve dans le [panneau de gauche](https://coopmaths.fr/documentation/tutorial-Utiliser_AMC.html).
@@ -103,18 +105,16 @@ L'exemple ci-dessus est pour un exercice ne produisant qu'une seule zone de rép
 
 ```js
 this.autoCorrection[i] = {
-  enonce: 'ici la question est posée',
+  enonce: 'ici la question est posée', // Si vide, l'énoncé est celui de l'exercice.
   propositions: [
     {
-      texte: 'ce qui est affiché dans le corrigé AMC',
-      statut: nombreDeRéponsesNumériques,
-      feedback: ''
+      texte: 'ce qui est affiché dans le corrigé AMC' // Si vide, le texte est la correction de l'exercice.
       }
   ],
     reponse: {
-      texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
+      texte: 'le texte affiché au dessus du formulaire numerique dans AMC', // facultatif
       valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
-      alignement: 'flushleft' // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte pqui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
+      alignement: 'flushleft' // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
       param: {
         digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
         decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus

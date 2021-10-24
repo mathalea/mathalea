@@ -1,8 +1,12 @@
+Si vous êtes sur cette page, c'est que vous souhaitez rajouter à votre exercice de l'interactif. Bonne idée, vous êtes sur la bonne page ! Tant que vous y êtes, pensez aussi à rendre cet exercice exportable AMC même si vous n'utilisez pas AMC, certains seront ravis de découvrir cette opportunité dans votre exercice. Dans la plupart des cas, il y a très peu de codage à ajouter (parfois que deux lignes) pour rendre l'exercice exportable AMC. Pour cela, n'hésitez pas à lire le dernier chapitre : [Compatibilité entre l'interactivité et un export AMC](#14)
+
 ---
 
 MathAlea permet de rendre un exercice interactif. Directement sur l'interface Web, l'élève saisit une réponse (dans un champ, dans une liste déroulante, en cochant une case ou bien encore en cliquant sur une figure). Celle-ci est vérifiée automatiquement et le score de toutes les réponses à l'exercice peut éventuellement être récupéré par son professeur ([documentation de la gestion des scores](https://coopmaths.fr/mathalea.html?v=scores)).
 
 ---
+
+
 
  Les actions obligatoires à mener, pour permettre à un exercice d'être interactif, sont décrites ci-dessous et explicitées, plus bas, en détail.
 
@@ -23,7 +27,12 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
     1. [`cliqueFigure`](#11)
     1. [`listeDeroulante`](#12)
     1. [`custom`](#13)
-1. [Compatibilité entre l'interactivité et un usage AMC](#14)
+1. [Compatibilité entre l'interactivité et un export AMC](#14)
+    1. [L'export AMC codé en deux lignes de code](#14bis)
+        1. [Avec `formatInteractif : 'calcul'`](#141)
+        1. [Avec `formatInteractif : 'fraction'`](#142)
+        1. [Avec `formatInteractif : 'fractionPlusSimple'` ou `formatInteractif : 'fractionEgale'`](#143)
+        1. [Avec `formatInteractif : 'texte'`, `formatInteractif : 'ignorerCasse'` ou `formatInteractif : 'longueur'`](#144)
     1. [Avec `mathlive`](#15)
     1. [Avec `qcm`](#16)
     1. [Avec `cliqueFigure`](#17)
@@ -123,28 +132,18 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >>```
 >>Les 3 premiers paramètres sont obligatoires et désignent, respectivement, l'exercice appelant, le numéro de la question dans la programmation de l'exercice et la réponse attendue.
 
->>A cela, s'ajoutent toute sorte de paramètres optionnels dont la plupart servent uniquement afin de rendre un [exercice pour un usage AMC](tutorial-Rendre_un_exercice_pour_usage_AMC.html). Seul le dernier paramètre `formatInteractif` est pertinent ici et indique le type de réponses attendues. On verra son utilité au [prochain paragraphe](#5).
+>>A cela, s'ajoutent toute sorte de paramètres optionnels dont la plupart servent uniquement afin de rendre un [exercice exportable AMC](tutorial-Rendre_un_exercice_pour_usage_AMC.html). Seul le dernier paramètre `formatInteractif` est pertinent ici et indique le type de réponses attendues. On verra son utilité au [prochain paragraphe](#5).
 
-- Le fonctionnement, par défaut, de la fonction `setReponse()` est de comparer des expressions littérales ou des nombres, de façon intuitive. On remarque que `formatInteractif: 'calcul'` étant défini par défaut, on peut s'en passer.
+- Le fonctionnement, par défaut, de la fonction `setReponse()` est de comparer des expressions des nombres ou des résultats de calcul, de façon intuitive. On remarque que `formatInteractif: 'calcul'` étant défini par défaut, on peut s'en passer.
 
-###### <a id="EE1" href="#EE1"></a>Questionnement EE1
-
-**EE1 : Première question dans l'encadré noir ci-dessous. La seconde, dessous.**
 >>```js
 >>setReponse(this, i, 5.4)  // Pour comparer la réponse saisie avec le nombre 5.4
 >>                          // équivalent à setReponse(this, i, 5.4,{ formatInteractif: 'calcul' })
 >>
->>setReponse(this, i, '${reste}') // Pour comparer la réponse saisie avec le chaine de caractères 'reste'
->>                                // équivalent à setReponse(this, i, '${reste}',{ formatInteractif: 'calcul' })
->> EE : Pour l'exemple ci-dessus, s'il est vrai, quelle différence y a-t-il avec { formatInteractif: 'texte' } ? 
->>
->> setReponse(this, i, ['Non','non,'NON'])  // Pour comparer la réponse saisie avec le mot 'non' écrit sous trois formes différentes
->>                                          // équivalent à setReponse(this, i, ['Non','non,'NON'],{ formatInteractif: 'calcul' })
+>> setReponse(this, i, [2, 3, 7])  // Pour comparer la réponse saisie l'un de ces nombres
+>>                                 // équivalent à setReponse(this, i, [2, 3, 7],{ formatInteractif: 'calcul' })
 >>```
-**EE1 : Est-ce que quand la réponse est une chaine de caractères, la casse est importante ? Si oui, pourquoi est-ce nécessaire, ne peut-on pas recoder setReponse pour ne pas considérer la casse d'un texte significative ?**
 
-
-**EE1 : Voir questionnement EE2 plus bas.**
 
 - Parce que la conception d'un exercice  AMC ne gère pas tout à fait les réponses comme la conception d'un exercice en interactif, il est important (si on souhaite proposer une sortie AMC) de n'appeler `setReponse()` que lorqu'on n'est pas dans le contexte AMC :
 
@@ -162,6 +161,13 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >>```js
 >>setReponse(this, i, 'resultat', { formatInteractif: 'texte' }) // resultat doit être saisie sans les $ délimiteurs du LaTeX
 >>```
+
+- Pour comparer des **textes** sans respect de la casse, on code, comme dans l'exercice-témoin **6C11-2** :
+
+>>```js
+>>setReponse(this, i, 'resultat', { formatInteractif: 'ignorerCasse' }) // resultat doit être saisie sans les $ délimiteurs du LaTeX
+>>```
+
 - Pour comparer des **fractions**, il y a trois méthodes différentes pour coder.
  
 >>``` js
@@ -184,13 +190,6 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >>``` js
 >>setReponse(this, i, new Grandeur(resultat, 'cm'), { formatInteractif: 'longueur' }) // resultat est un nombre. On personnalisera le champ texte avec ajouteChampTexteMathLive(this, i, 'longueur')
 >>```
-###### <a id="EE2" href="#EE2"></a>Questionnement EE2
-
-**EE2 : Voici un copier-coller de la doc initiale :**
-
- Lien avec AMC : Si on a un setReponse(this,i, new Fraction(n,d),{formatInteractif: 'fraction'}), alors on peut mettre amcType = 'AMCNum' et ça passe automatiquement en un simili amcHybride avec 2 champs : un pour le numérateur, et un pour le dénominateur !
-
- **EE2 : Je ne comprends pas ce copier-coller. En mettant juste amcType, l'exercice devient AMC ? C'est quoi un simili-hybride ?**
 
 >>>>## <a id="6" href="#6"></a> [2. 1. 4. Comprendre pourquoi une réponse correcte est pourtant considérée fausse](#6)
 
@@ -248,8 +247,7 @@ Le souci, c'est que pour l'instant chaque question rapporte 1 point au niveau du
 
 Exercice-témoin : **5L10-2**
 
-Pour rendre un exercice interactif en utilisant `qcm` et en permettant, aux élèves, de choisir une bonne réponse parmi plusieurs propositions, il faut rajouter une nouvelle ligne de code et utiliser la fonction `propositionsQcm()`.
-**EE : A compléter**
+Pour rendre un exercice interactif en utilisant `qcm` et en permettant, aux élèves, de choisir une bonne réponse parmi plusieurs propositions, il faut rajouter une nouvelle ligne de code, construire les propositions de chaque question du QCM et avoir recours la fonction `propositionsQcm()` qui crée les cases à cocher.
 
 >>>>## <a id="91" href="#91"></a> [2. 2. 1. Ligne de code spécifique](#91)
 
@@ -298,7 +296,7 @@ Pour chaque question, un QCM sera créé et constitué de plusieurs cases à coc
 - L'appel de la fonction `propositionsQcm()` et l'usage de `texte` et `texteCorr` se font de la manière suivante :
 >>```js
 >>monQcm = propositionsQcm(this, i) // Les deux paramètres sont obligatoires et désignent, respectivement, l'exercice appelant, le numéro de la question dans la programmation de l'exercice.
->> if (!this.interactif) {
+>> if (this.interactif) {
 >>        enonce = enonce + monQcm.texte // enonce est l'énoncé global de l'exercice
 >>        texteCorr = monQcm.texteCorr // texteCorr est la correction globale de l'exercice
 >> }
@@ -308,7 +306,7 @@ Pour chaque question, un QCM sera créé et constitué de plusieurs cases à coc
 
 - Il est important, de **NE PAS REPRODUIRE** le code ci-dessous :
 >>```js 
->> if (!this.interactif) {
+>> if (this.interactif) {
 >>        enonce = enonce + propositionsQcm(this, i).texte  // MAUVAIS CODAGE VOLONTAIRE : NE PAS RECOPIER
 >>        texteCorr = propositionsQcm(this, i).texteCorr    // MAUVAIS CODAGE VOLONTAIRE : NE PAS RECOPIER
 >> }
@@ -349,9 +347,9 @@ Le type `custom` est réservé aux concepteurs avertis. Il n'a pas de syntaxe pa
 
 ## <a id="14" href="#14"></a> [3. Compatibilité entre l'interactivité et un usage AMC](#14)
 
-Historiquement, la sortie des premiers [exercices pour un usage AMC](tutorial-Rendre_un_exercice_pour_usage_AMC.html) est plus précoce que la mise en place de l'interactivité dans les exercices. De ce fait, il existe un lien important entre ces deux compléments d'exercices bien qu'ils soient indépendants : on peut développer l'un sans l'autre.
+Historiquement, la sortie des premiers [exercices exportables AMC](tutorial-Rendre_un_exercice_pour_usage_AMC.html) est plus précoce que la mise en place de l'interactivité dans les exercices. De ce fait, il existe un lien important entre ces deux compléments d'exercices bien qu'ils soient indépendants : on peut développer l'un sans l'autre.
 
-Toutefois, en octobre 2021, il y a maintenant plus d'exercices interactifs que d'[exercices pour un usage AMC](tutorial-Rendre_un_exercice_pour_usage_AMC.html) mais il est probable que cet écart s'aménuise. De ce fait, lorsqu'on conçoit un exercice intertactif, il serait bien de penser immédiatement à son passage en AMC et de prendre la précaution suivante.
+Toutefois, en octobre 2021, il y a maintenant plus d'exercices interactifs que d'[exercices exportables AMC](tutorial-Rendre_un_exercice_pour_usage_AMC.html) mais il est probable que cet écart s'aménuise. De ce fait, lorsqu'on conçoit un exercice intertactif, il serait bien de penser immédiatement à son passage en AMC et de prendre la précaution suivante.
 
 >>```js
 >> // Il serait bon de remplacer tous les conditionnels de ce style :
@@ -367,59 +365,178 @@ Toutefois, en octobre 2021, il y a maintenant plus d'exercices interactifs que d
 >> // Cette remarque est d'ordre générale, il peut y avoir des cas particuliers, notamment pour les qcmNUM
 >>```
 
+>>## <a id="14bis" href="#14bis"></a> [3. 1. L'export AMC codé en deux lignes de code](#14bis)
+
+Octobre 2021 : Des retours sont encore attendus en cas d'utilisation de cette méthode car on n'a pas assez d'expérience et il peut donc rester des bugs.
+
+L'export AMC par défaut, est réalisable en très peu d'ajout de lignes de code. En effet, grâce à la gestion anticipée de l'export AMC quand un exercice est rendu interactif, certaines informations programmées lorsqu'on rend un exercice interactif sont également données instantanément à l'export AMC. De ce fait, très peu d'informations sont à rajouter pour qu'un export AMC soit fonctionnel.
+Si le concepteur de l'exercice souhaite un export AMC plus personnalisé, il se reportera à .... EE.
 
 
->>## <a id="15" href="#15"></a> [3. 1. Avec `mathlive`](#15)
+>>>>## <a id="141" href="#141"></a> [3. 1. 1. Avec `formatInteractif : 'calcul'`](#14bis)
 
-L'utilisation de `mathlive` est propre à l'interactivité d'un exercice et non à un usage pour AMC.
+Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'un nombre avec `formatInteractif : calcul` (ou rien puisque c'est le format par défaut) et que vous utilisiez :
 
-De ce fait, pour permettre une bonne cohabitation entre l'interactivité et l'usage pour AMC, il est important de faire attention au code suivant :
+>>```js
+>>setReponse(this,i, reponse) // ou bien setReponse(this,i, reponse,{formatInteractif: 'calcul'})
+>>```
+
+Alors, rendre l'exercice exportable AMC, est instantané si on rajoute, avec les autres export/import, seulement ces deux lignes de code.
+>>```js
+>>export const amcReady = true // pour définir que l'exercice peut servir à AMC
+>>export const amcType = 'AMCNum'
+>>```
+
+L'export AMC possèdera un nombre à coder où le nombre de chiffres sera automatiquement détecté par la bonne réponse à fournir ainsi que le signe du nombre.
+
+Si toutefois, le concepteur de l'exercice trouve que donner le nombre de chiffres exact du nombre-solution et le signe est une aide trop importante pour l'élève, il pourra imposer lui-même le nombre de chiffres et le choix du signe de la façon suivante.
+
+**Remarque importante** : Si, en interactif, Mathlive gère sans problème, via `setReponse`, un tableau de bonnes réponses, l'export AMC automatique sera moins fonctionnel puisque AMC ne pouvant coder qu'une seule réponse, seule la première réponse du tableau sera considérée comme correcte dans AMC par ce procédé. Il faudra, soit changer la consigne pour l'export AMC, soit programmmer l'export AMC de façon plus personnalisée en suite telle doc... EE.
+
+
+>>```js
+>>setReponse(this,i, reponse, {digits: 6, decimals: 5, signe: true}) // ou bien setReponse(this,i, reponse,{digits: 6, decimals: 5, signe: true, formatInteractif: 'calcul'})
+>> // digits correspond au nombre TOTAL de chiffres du nombre à coder.
+>> // decimal correspond au nombre de chiffres de la partie décimale du nombre à coder.
+>> // signe correspond à la présence ou non du codage pour le signe positif ou négatif.
+>>```
+
+
+>>>>## <a id="142" href="#142"></a> [3. 1. 2. Avec `formatInteractif : 'fraction'`](#142)
+
+Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'une fraction avec le `formatInteractif` `fraction` et que vous utilisiez :
+
+>>```js
+>>setReponse(this,i, new Fraction(n, d), {formatInteractif: 'fraction'})
+>>```
+
+Alors, rendre l'exercice exportable AMC, est instantané si on rajoute, avec les autres export/import, seulement ces deux lignes de code.
+>>```js
+>>export const amcReady = true // pour définir que l'exercice peut servir à AMC
+>>export const amcType = 'AMCNum'
+>>```
+
+L'export AMC possèdera deux nombres à coder où le nombre de chiffres sera automatiquement détecté par la bonne réponse à fournir.
+
+Si toutefois, le concepteur de l'exercice trouve que donner le nombre de chiffres exact du numérateur et du dénominateur est une aide trop importante pour l'élève, il pourra imposer lui-même le nombre de chiffres (digits) de la façon suivante.
+Si on souhaite imposer le même nombre de chiffres au numérateur et au dénumérateur, on pourra agir de la même sorte qu'au paragraphe précédent :
+
+>>```js
+>>setReponse(this,i, reponse, {digits: 3, signe: true, formatInteractif: 'fraction'}) // Pour imposer 3 chiffres, ici, au numérateur et au dénominateur.
+>> // digits correspond au nombre TOTAL de chiffres du nombre à coder.
+>> // signe correspond à la présence ou non du codage pour le signe positif ou négatif.
+>>```
+
+Si on ne souhaite pas imposer le même nombre de chiffres au dénominateur et au numérateur, il ne faut pas agir sur `setReponse` mais coder de la façon suivante :
+
+EE : A tester
+
+>>```js
+>> if (context.isAmc) {
+>>      this.autoCorrection[j].reponse.valeur[0].num.digits = 4 // Pour que le numérateur soit codé sur 4 chiffres
+>>      this.autoCorrection[j].reponse.valeur[0].den.digits = 2 // Pour que le dénominateur soit codé sur 2 chiffres
+>> }
+>>```
+
+
+>>>>## <a id="143" href="#143"></a> [3. 1. 3. Avec `formatInteractif : 'fractionPlusSimple'` ou `formatInteractif : 'fractionEgale'`](#143)
+
+
+Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'une fraction avec `formatInteractif : 'fractionPlusSimple'` ou `formatInteractif : 'fractionEgale'` et que vous utilisiez :
+
+>>```js
+>> resultat = fraction(60,40)
+>> setReponse(this, i, resultat, {formatInteractif: 'fractionPlusSimple'}) // Plusieurs bonnes réponses sont possibles comme par exemple : 3/2, 6/4 ou 30/20
+>>
+>> // ou bien
+>>
+>> resultat = fraction(6,4)
+>> setReponse(this, i, resultat, {formatInteractif: 'fractionEgale'}) // Une infinité de bonnes réponses est possible comme par exemple : 3/2, 6/4, 30/20 ou 1.5
+>>```
+
+Alors, rendre l'exercice exportable AMC, doit commencer par l'ajout des deux lignes de code suivants, avec les autres export/import.
+>>```js
+>>export const amcReady = true // pour définir que l'exercice peut servir à AMC
+>>export const amcType = 'AMCNum'
+>>```
+
+L'export AMC possèdera deux nombres à coder où le nombre de chiffres sera automatiquement détecté par la bonne réponse à fournir.
+
+Ce rajout n'est toutefois pas suffisant, cette fois-ci, car, dans chaque cas ici, il n'existe pas de réponse unique et AMC ne sait tester qu'une réponse unique.
+Donc il faudra imposer à l'export AMC une unique solution (par exemple, la fraction irréductible) et changer éventuellement la consigne par rapport à l'énoncé (pour exiger, par exemple, une fraction irréductible). Le code ci-dessous décrit ce fonctionnement.
+
+>>```js
+>> if (context.isAmc) {
+>>      this.autoCorrection[i]reponse.valeur[0] = resultat.simplifie() // Il n'existe qu'une seule fraction irréductible égale à la bonne réponse.
+>> 
+>>      this.consigne = "Donner la réponse sous forme d'une fraction irréductible"
+>> }
+>>
+>>```
+
+Ce codage est parfaitement fonctionnel mais est tellement bien fait que si la bonne réponse attendue est 3/2, alors AMC proposera un dénominateur à un chiffre et un numérateur à un chiffre, ce qui peut être une aide pour les élèves et qu'on ne souhaite pas fournir.
+
+Si on souhaite imposer le même nombre de chiffres au numérateur et au dénumérateur, on pourra agir de la même sorte qu'au paragraphe précédent :
+
+>>```js
+>>setReponse(this, i, reponse, {digits: 3, signe: true, formatInteractif: 'fractionPlusSimple'}) // ou bien setReponse(this,i, reponse,{digits: 3, signe: true, formatInteractif: 'fractionEgale'}) 
+>> // digits correspond au nombre TOTAL de chiffres du nombre à coder.
+>> // signe correspond à la présence ou non du codage pour le signe positif ou négatif.
+>>```
+
+Si on ne souhaite pas imposer le même nombre de chiffres au dénominateur et au numérateur, il ne faut pas agir sur `setReponse` mais coder de la façon suivante :
+
+
+>>```js
+>>if (context.isAmc) {
+>>      this.autoCorrection[j].reponse.valeur[0].num.digits = 4 // Pour que le numérateur soit codé sur 4 chiffres
+>>      this.autoCorrection[j].reponse.valeur[0].den.digits = 2 // Pour que le dénominateur soit codé sur 2 chiffres
+>>}
+>>```
+
+>>>>## <a id="144" href="#144"></a> [3. 1. 4. Avec `formatInteractif : 'texte'`, `formatInteractif : 'ignorerCasse'` ou `formatInteractif : 'longueur'`](#144)
+
+**Exercice-témoin pour 'texte' : 2N14-1**
+**Exercice-témoin pour 'ignorerCasse' : 6C11-2**
+
+Alors, rendre l'exercice exportable AMC, est instantané si on rajoute, avec les autres export/import, seulement ces deux lignes de code.
+>>```js
+>>export const amcReady = true // pour définir que l'exercice peut servir à AMC
+>>export const amcType = 'AMCOpen'
+>>```
+
+
+L'export AMC possèdera une zone de texte que l'enseignant codera après correction
+
+Trois lignes sont, par défaut, définies pour chaque zone de texte. Si le concepteur de l'exercice souhaite avoir un nombre de lignes différent, il pourra coder ainsi, dans son exercice :
+>>```js
+>>if (context.isAmc) {
+>>        this.autoCorrection[i].propositions = [{ texte: this.listeCorrections[i], statut: '1' }] // Ici, une seule ligne pour chaque zone de texte
+>>}
+>>```
+
+
+
+>>## <a id="15" href="#15"></a> [3. 2. Avec `mathlive`](#15)
+
+L'utilisation de `mathlive` est propre à l'interactivité d'un exercice et non à un export pour AMC.
+
+De ce fait, pour permettre une bonne cohabitation entre l'interactivité et l'export pour AMC, il est important de faire attention au code suivant :
 
 >>```js
 >> // En interactif, il serait bon de ne jamais programmer ainsi :
->> texte = propositionsQcm(......)              // A EVITER
+>> texte = propositionsQcm(......).texte             // A EVITER
 >> texte = ajouteChampTexteMathLive(......)     // A EVITER
 >>
 >> // mais plutôt comme ceci :
 >> if (this.interactif && !context.isAmc) {     // A RECOMMANDER
->>      texte += propositionsQcm(......)             // Noter bien ici le +=
+>>      texte += propositionsQcm(......).texte            // Noter bien ici le +=
 >>      texte += ajouteChampTexteMathLive(......)     
 >> }
 >>
 >> // Si la prem
 >>```
 
-###### <a id="EE3" href="#EE3"></a>Questionnement EE3
-
-**EE3 : La partie ci-dessous (copier-coller de la source) n'a-t-elle n'a pas sa place plutôt dans la page AMC ? Moi, je pense que oui !**
-
-Si ~~Jean-Luc bricole~~ vous bricolez this.autoCorrection[i].reponse.valeur à la main pour AMC
-
----
-
-**Ci-dessous est un pense-bête. Inutile de relire, cela sera amené à être retravaillé.**
-
-EE ; A mettre en forme 
-
-Il faut intégrer que cette variable doit être un tableau dont on n'utilisera pour AMC que le premier élément.
-
-Donc vous devez renseigner :
-
-    this.autoCorrection[i]reponse.valeur[0] <- Notez bien le [0] qui indique que c'est un tableau
-    this.autoCorrection[i]reponse.param.digits
-    this.autoCorrection[i]reponse.param.decimals
-
-Sinon, vous pouvez laisser faire setReponse(this,i,reponses) en veillant à ce que le premier élément de réponses (ou le seul) soit un nombre décimal (6.543 par exemple). setReponse crée un tableau même si il n'y a qu'une valeur.
-
-setReponse(this,i,reponse) renseigne le this.autoCorrection[i] pour une réponse de type numérique ou une réponse avec plusieurs valeurs en affectant la variable this.autoCorrection[i].reponse.valeur.
-
-Cette variable est un tableau pour pouvoir en mode interactif tester plusieurs formes de réponse.
-
-En mode AMCNum, on récupère la valeur décimale contenue dans this.autoCorrection[i].reponse.valeur[0].
-
-Mais AMC a besoin de savoir combien de chiffres présenter au codage, combien de chiffres dans la partie décimale, si on le veut en notation scientifique, si il y a besoin d'un signe, si on tolère une marge d'erreur...
-
-setReponse() ne fixe ces paramètres qui sont dans this.autoCorrection[i].reponse.param que s'ils sont passés en argument (il faut donc y penser). un setReponse(this, i, reponse, {digits: 6, decimals: 5, signe: true, exposantNbChiffres: 2, exopsantSigne: true, approx:1, formatInteractif: 'calcul'}) règle AMCNum pour un nombre dont la mantisse comporte 6 chiffres dont 5 après la virgule avec case signe +/- avec un codage en notation scientifique avec signe pour l'exposant et avec 2 chiffres pour l'exposant, la tolérance est de 1 sur le dernier chiffre significatif (valeur approchée par défaut ou par excès acceptée). Exemple de résultat possible : -124.924 seront tolérés -124.923, -124.924 et -124.925 (je crois car je ne sais pas trop quel comportement aurait AMC si le nombre envoyé comme premier paramètre était -123,9247 en précisant 6 chiffres, mais il me semble que AMC provoquerait un warning disant qu'il n'y a pas assez de chiffres pour coder la réponse 'number is to large'...)
 
 >>## <a id="16" href="#16"></a> [3. 2. Avec `qcm`](#16)
 
