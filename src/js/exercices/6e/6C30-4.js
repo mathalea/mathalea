@@ -18,7 +18,7 @@ export default function PlacerLaVirgule () {
   'use strict'
   Exercice.call(this)
   this.titre = titre
-    this.interactifObligatoire = true
+  this.interactifObligatoire = true
   this.nbQuestions = 4 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX

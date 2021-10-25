@@ -64,7 +64,9 @@ function spanExercice (id, titre) {
   const filtre = getFilterFromUrl()
   const vue = getVueFromUrl()
   const iconeInteractifDisponible = (listeDesExercicesDisponibles[id].interactifReady && filtre !== 'interactif' && vue !== 'latex' && vue !== 'amc') ? `<span data-tooltip="Version interactive disponible."><a class="ui bouton lien_id_exercice" data-id_exercice="${id}" data-mode="interactif"><i id="${id}" class="keyboard outline icon orange" size="mini"></i></a></span>` : ''
-  return `<span class="id_exercice">${id}</span> - <a class="ui bouton lien_id_exercice" ${tooltip} data-id_exercice="${id}">${titreTronque} ${amcPrecisionType ? '-' + amcPrecisionType : ''}</a></a>${iconeInteractifDisponible}<span data-content="Prévisualiser l'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
+  const tagNew = (listeDesExercicesDisponibles[id].newEx !== undefined && listeDesExercicesDisponibles[id].newEx.isNew) ? listeDesExercicesDisponibles[id].newEx.tag : ''
+  const tagFeat = (listeDesExercicesDisponibles[id].updateEx !== undefined && listeDesExercicesDisponibles[id].updateEx.isNewFeat) ? listeDesExercicesDisponibles[id].updateEx.tag : ''
+  return `<span class="id_exercice">${id}</span> - ${tagNew} ${tagFeat} <a class="ui bouton lien_id_exercice" ${tooltip} data-id_exercice="${id}">${titreTronque} ${amcPrecisionType ? '-' + amcPrecisionType : ''}</a></a>${iconeInteractifDisponible}<span data-content="Prévisualiser l'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
 }
 
 function listeHtmlDesExercicesDUnTheme (theme) {
@@ -321,24 +323,25 @@ function ligneTableau (exercice) {
   const modeAmc = dictionnaireDesExercices[exercice].amcReady ? `AMC <b>${dictionnaireDesExercices[exercice].amcType.text}</b>` : ''
   // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
   const modeInteractif = dictionnaireDesExercices[exercice].interactifReady ? `<a class="ui bouton lien_id_exercice" data-id_exercice="${exercice}" data-mode="interactif"> Interactif </a>` : ''
+  const tagNew = (dictionnaireDesExercices[exercice].newEx !== undefined && dictionnaireDesExercices[exercice].newEx.isNew) ? dictionnaireDesExercices[exercice].newEx.tag : ''
+  const tagFeat = (dictionnaireDesExercices[exercice].updateEx !== undefined && dictionnaireDesExercices[exercice].updateEx.isNewFeat) ? dictionnaireDesExercices[exercice].updateEx.tag : ''
   if (dictionnaireDesExercices[exercice].titre) {
     if (context.isAmc) {
-      ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}
+      ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice} <br> ${tagNew} ${tagFeat}
       </span></td> <td> <a class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].titre}
       </a></td><td> ${modeAmc} <br> ${modeInteractif}
       </td><td data-tooltip="Prévisualiser l'exercice."><i id="${exercice}" class="eye icon icone_preview" ></td></tr>`
     } else {
-      ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}
+      ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice} <br> ${tagNew} ${tagFeat}
       </span></td> <td> <a class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].titre}
       </a></td><td> ${modeAmc} ${modeInteractif}
       </td><td data-tooltip="Prévisualiser l'exercice."><i id="${exercice}" class="eye icon icone_preview" ></td></tr>`
     }
   } else {
-    ligne = '<tr><td class="colonnecode"><span class="id_exercice">' +
-    exercice +
-    '</span></td> <td>' +
-    `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].annee} - ${exercice.substr(9, 2)} - ${dictionnaireDesExercices[exercice].lieu} - Ex ${dictionnaireDesExercices[exercice].numeroExercice}</a> ${listeHtmlDesTags(dictionnaireDesExercices[exercice])} </br>\n` +
-    '</td><td></td><td><i id=' + exercice + ' class="eye icon icone_preview"></i></td></tr>'
+    ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}<br>${tagNew}${tagFeat}
+    </span></td> <td><a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].annee} - ${exercice.substr(9, 2)} - ${dictionnaireDesExercices[exercice].lieu} - Ex ${dictionnaireDesExercices[exercice].numeroExercice}
+    </a> ${listeHtmlDesTags(dictionnaireDesExercices[exercice])} </br>\n
+    </td><td></td><td><i id=${exercice} class="eye icon icone_preview"></i></td></tr>`
   }
   return ligne
 }
