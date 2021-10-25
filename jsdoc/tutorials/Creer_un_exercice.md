@@ -63,8 +63,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9 // On décrit ensuite ce que fera notre exercice,
  * @author Rémi Angot                              // on précise l'auteur,
- * Référence CM005                                 // la référence de l'exercice,
- * 01/01/2021                                      // et la date de publication une fois l'exercice publié !
+ * Référence CM005                                 // la référence de l'exercice, 
 */
 export default function Ajouter9 () { // On clôture cette première partie par exporter la fonction par défaut qui contiendra le reste du code.
 ```
@@ -127,7 +126,6 @@ export const amcType = 'AMCNum'
  * Un nombre à 2 chiffres (non multiple de 10) + 9
  * @author Rémi Angot
  * Référence CM005
- * 01/01/2021
 */
 export default function Ajouter9 () {
   Exercice.call(this)
