@@ -106,7 +106,7 @@ export default function CourseAuxNombresSeconde () {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
         case 'q13':
-       
+
           break
 
         case 'q14':
