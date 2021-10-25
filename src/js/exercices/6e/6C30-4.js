@@ -9,12 +9,6 @@ export const interactifReady = true
 
 export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)'
 
-// Gestion de la date de publication initiale
-export const dateDePublication = '23/10/2021'
-
-// Gestion de la date de modification importante
-export const dateDeModifImportante = '25/10/2021'
-
 /**
  * @author Jean-claude Lhote
  * Publié le 20/02/2021
