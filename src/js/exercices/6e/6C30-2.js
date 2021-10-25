@@ -9,6 +9,12 @@ export const interactifType = 'numerique'
 export const amcType = 'AMCNum' // Question numérique
 export const titre = 'Calculer le produit de deux décimaux connaissant le produit de deux entiers'
 
+// Gestion de la date de publication initiale
+export const dateDePublication = '23/8/2021'
+
+// Gestion de la date de modification importante
+export const dateDeModifImportante = '25/10/2021'
+
 /**
  * * Calculer le produit de deux décimaux à partir d'un produit de deux entiers
  * * 6C30-2
@@ -17,6 +23,7 @@ export const titre = 'Calculer le produit de deux décimaux connaissant le produ
 
 export default function ProduitDeDecimauxAPartirProduitConnu () {
   Exercice.call(this) // Héritage de la classe Exercice()
+  this.dateDePublication = dateDePublication
   this.beta = false
   this.sup = 1
   if (this.beta) {

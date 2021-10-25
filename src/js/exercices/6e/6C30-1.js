@@ -9,6 +9,9 @@ export const interactifType = 'numerique'
 
 export const titre = 'Multiplier un nombre décimal par 10, 100 ou 1 000'
 
+// Gestion de la date de publication initiale
+export const dateDePublication = '23/10/2021'
+
 /**
  * Multiplication d'un nombre décimal dans différentes écritures par 10, 100, 1000
  *
