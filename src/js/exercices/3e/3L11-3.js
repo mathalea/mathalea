@@ -105,7 +105,7 @@ export default function DistributiviteSimpleDoubleReduction () {
           coeffc = e * b - d
           break
       }
-      if (!context.isAmc) {
+      if (!context.isAmc && this.interactif) {
         setReponse(this, i, reponse)
         texte += `<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline')
       } else {
