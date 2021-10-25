@@ -1,14 +1,14 @@
-import Exercice from '../Exercice.js'
-import { randint, choice } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Développer avec égalités remarquables'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '25/10/2021'
 
 /**
- * Modèle d'exercice très simple pour la course aux nombres
+ * utilisation des égalités remarquables pour développer
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can2L06
 */
 export default function DevelopperEgalitesRemarquables () {
   Exercice.call(this) // Héritage de la classe Exercice()

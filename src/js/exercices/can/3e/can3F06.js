@@ -1,15 +1,16 @@
-import Exercice from '../Exercice.js'
-import { randint, choice, ecritureParentheseSiNegatif, texFractionReduite, abs } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, choice, ecritureParentheseSiNegatif, texFractionReduite, abs } from '../../../modules/outils.js'
 export const titre = 'Déterminer le coefficient d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '25/10/2021'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can3F06
 */
+
 export default function CoefficientFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

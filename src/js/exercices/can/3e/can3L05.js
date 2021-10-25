@@ -1,13 +1,14 @@
-import Exercice from '../Exercice.js'
-import { randint, reduireAxPlusB, ecritureParentheseSiNegatif, sp } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, reduireAxPlusB, ecritureParentheseSiNegatif, sp } from '../../../modules/outils.js'
 export const titre = 'Proportionnalité sur expression algébrique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '25/10/2021'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+ * Référence can3L05
  * Date de publication
 */
 export default function ProportionnaliteExpressionAlgebrique () {

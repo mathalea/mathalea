@@ -1,14 +1,14 @@
-import Exercice from '../Exercice.js'
-import { randint, prenom, choice, texteEnCouleur, calcul } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { randint, prenom, choice, texteEnCouleur, calcul } from '../../../modules/outils.js'
 export const titre = 'Proportionnalité et notes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '25/10/2021'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
- * Date de publication
+ * Référence can4P04
 */
 export default function ProportionnaliteNotes () {
   Exercice.call(this) // Héritage de la classe Exercice()
