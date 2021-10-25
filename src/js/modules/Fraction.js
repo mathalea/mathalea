@@ -1,4 +1,4 @@
-import { unSiPositifMoinsUnSinon, arrondi, fractionSimplifiee, obtenirListeFacteursPremiers, calcul, texFraction, quotientier, extraireRacineCarree } from './outils.js'
+import { unSiPositifMoinsUnSinon, texFractionSigne, arrondi, fractionSimplifiee, obtenirListeFacteursPremiers, calcul, texFraction, quotientier, extraireRacineCarree } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 
@@ -87,13 +87,13 @@ class Fraction {
     })
     /**
      * num/den mais avec simplification des signes
-     * @property texFractionSigne
+     * @property texFractionSigneDevant
      * @type {string}
      */
-    let texFractionSigne
-    definePropRo(this, 'texFractionSigne', () => {
-      if (!texFractionSigne) texFractionSigne = den === -1 ? String(-num) : den === 1 ? String(num) : num * den > 0 ? `\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}` : num * den < 0 ? `-\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}` : '0'
-      return texFractionSigne
+    let texFractionSigneDevant
+    definePropRo(this, 'texFractionSigneDevant', () => {
+      if (!texFractionSigneDevant) texFractionSigneDevant = den === -1 ? String(-num) : den === 1 ? String(num) : num * den > 0 ? `\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}` : num * den < 0 ? `-\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}` : '0'
+      return texFractionSigneDevant
     })
 
     /**
@@ -133,7 +133,7 @@ class Fraction {
      */
     let ecritureAlgebrique
     definePropRo(this, 'ecritureAlgebrique', () => {
-      if (!ecritureAlgebrique) ecritureAlgebrique = this.signe === 1 ? '+' + this.texFractionSigne : this.texFractionSigne
+      if (!ecritureAlgebrique) ecritureAlgebrique = this.signe === 1 ? '+' + this.texFractionSigneDevant : this.texFractionSigneDevant
       return ecritureAlgebrique
     })
     /**
@@ -143,7 +143,7 @@ class Fraction {
      */
     let ecritureParentheseSiNegatif
     definePropRo(this, 'ecritureParentheseSiNegatif', () => {
-      if (!ecritureParentheseSiNegatif) ecritureParentheseSiNegatif = this.signe === 1 ? this.texFractionSigne : '\\left(' + this.texFractionSigne + '\\right)'
+      if (!ecritureParentheseSiNegatif) ecritureParentheseSiNegatif = this.signe === 1 ? this.texFractionSigneDevant : '\\left(' + this.texFractionSigneDevant + '\\right)'
       return ecritureParentheseSiNegatif
     })
 
