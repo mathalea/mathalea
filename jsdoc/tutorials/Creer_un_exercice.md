@@ -21,6 +21,7 @@ Les lignes de commande nécessitent des "anti-sèches" au début mais ont les av
 10. Une fois l'exercice terminé, faire un **Pull Request** via [github](https://github.com/mathalea/mathalea/branches) ou son interface graphique préférée (GitKraken ou GitHub Desktop).
 
 ## <a id="2" href="#2">#</a> Modèles présents dans le dossier`src/js/exercices/beta`
+- betaModele00_simple_Course_au_Nombres
 - betaModèle10_simple_question-reponse
 - betaModèle11_paramétrable (simple question-reponse paramétrable)
 - betaModèle20_plusieurs_types_de_questions
@@ -54,6 +55,10 @@ export const amcReady = true // Si on prévoit une sortie AMC (Auto Multiple Cho
 export const interactifReady = true // Si on prévoit que notre exercice soit interactiv, on écrit cette ligne
 export const interactifType = 'numerique' // On précise le type d'interactivité
 export const amcType = 'AMCNum' // Ainsi que le type d'AMC
+
+// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
+export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9 // On décrit ensuite ce que fera notre exercice,

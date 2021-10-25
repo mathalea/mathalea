@@ -568,7 +568,10 @@ export default {
   "2N14-1": {
     "titre": "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient",
     "url": "/exercices/2e/2N14-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "2N14-1",
@@ -4985,6 +4988,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
+  "6C11-2": {
+    "titre": "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne",
+    "url": "/exercices/6e/6C11-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6C11-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
   "6C11": {
     "titre": "Divisions euclidiennes",
     "url": "/exercices/6e/6C11.js",
@@ -5106,7 +5128,7 @@ export default {
     "interactifType": "numerique",
     "name": "6C30-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     },
     "updateEx": {
@@ -5129,7 +5151,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
@@ -5163,11 +5185,11 @@ export default {
     "interactifType": "qcm",
     "name": "6C30-4",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
@@ -5313,7 +5335,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
@@ -9038,6 +9060,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
+  "can2F03": {
+    "titre": "Signe d’une fonction affine (V/F)",
+    "url": "/exercices/can/2e/can2F03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2F03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
   "can2G01": {
     "titre": "Agrandissement/réduction avec fraction",
     "url": "/exercices/can/2e/can2G01.js",
@@ -9195,6 +9233,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2L04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2L05": {
+    "titre": "Solution d’une inéquation (QCM)",
+    "url": "/exercices/can/2e/can2L05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2L05",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
@@ -9709,6 +9763,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
+  "can3L04": {
+    "titre": "Solution d’une inéquation (V/F)",
+    "url": "/exercices/can/3e/can3L04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can3L04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
   "can3M01": {
     "titre": "Aire et carré",
     "url": "/exercices/can/3e/can3M01.js",
@@ -9719,6 +9789,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3M01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3N01": {
+    "titre": "Intervalles",
+    "url": "/exercices/can/3e/can3N01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3N01",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
@@ -10132,6 +10218,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
+  "can4G08": {
+    "titre": "Questions d'aires et de périmètres (niveau 2)",
+    "url": "/exercices/can/4e/can4G08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G08",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
   "can4L01": {
     "titre": "Résoudre une équation niveau 1",
     "url": "/exercices/can/4e/can4L01.js",
@@ -10208,6 +10310,44 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
+  "can4L05": {
+    "titre": "Développements (niveau 1)",
+    "url": "/exercices/can/4e/can4L05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4L05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can4L06": {
+    "titre": "Calcul d'expression (substitution)",
+    "url": "/exercices/can/4e/can4L06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4L06",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
   "can4P01": {
     "titre": "Problèmes de robinets",
     "url": "/exercices/can/4e/can4P01.js",
@@ -10256,6 +10396,25 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can4P03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can5A01": {
+    "titre": "Répétitions Scratch",
+    "url": "/exercices/can/5e/can5A01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5A01",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
