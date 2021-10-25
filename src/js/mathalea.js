@@ -896,8 +896,8 @@ function miseAJourDuCode () {
     const labelReponse = document.querySelector('[for$="_answer"]');
     champReponseMoodle.readOnly=true;
     labelReponse.style.visibility = 'hidden';
-    if (event.data.nbBonnesReponses !== undefined) {
-      champReponseMoodle.value = event.data.nbBonnesReponses;
+    if (event.data.score !== undefined) {
+      champReponseMoodle.value = event.data.score;
       if (idInput) {
         idInput.click();
       }
@@ -909,15 +909,10 @@ function miseAJourDuCode () {
   </questiontext>`
         codeMoodle += '\n'
         // Moodle n'accepte que certains scores
-        const scoreRetenu = (score) => {
-          const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
-          return scoreAcceptes.reduce((prev, curr) => {
-            return (Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev)
-          })
-        }
-        for (let i = 1; i <= nbQuestions; i++) {
-          codeMoodle += `  <answer fraction="${scoreRetenu(i / nbQuestions * 100)}">
-      <text>${i}</text>
+        const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
+        for (const score of scoreAcceptes) {
+          codeMoodle += `  <answer fraction="${score}">
+      <text>${score}</text>
         <feedback><text> </text></feedback>
     </answer>`
         }

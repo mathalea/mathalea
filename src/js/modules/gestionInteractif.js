@@ -108,10 +108,16 @@ function verifQuestionMathLive (exercice, i) {
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
       }
-      // Pour les exercices de simplifications de fraction
+      // Pour les exercices où la saisie du texte avec prise en compte de la casse
     } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'texte') {
       if (saisie === reponse) {
         resultat = 'OK'
+      }
+      // Pour les exercices où la saisie du texte sans prise en compte de la casse
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'ignorerCasse') {
+      if (saisie.toLowerCase() === reponse.toLowerCase()) {
+        resultat = 'OK'
+      // Pour les exercices de simplifications de fraction
       }
     } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionPlusSimple') {
       saisieParsee = parse(saisie)
@@ -425,7 +431,7 @@ export function propositionsQcm (exercice, i) {
     exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions)
   }
   if (elimineDoublons(exercice.autoCorrection[i].propositions)) {
-    console.log('doublons trouvés')
+    // console.log('doublons trouvés')
   }
   if (!context.isAmc) {
     if (context.isHtml) {
@@ -832,10 +838,10 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   if (context.duree) {
     // duree = getDureeFromUrl() // Pour quand ce sera fait
     duree = 'à venir'
-    console.log('context duree : ' + duree)
+    // console.log('context duree : ' + duree)
   } else {
     duree = 'à venir'
-    console.log('pas context duree : ' + duree)
+    // console.log('pas context duree : ' + duree)
   }
   // const str = window.location.href
   // const url = new URL(str)
@@ -895,7 +901,14 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   if (context.vue === 'exMoodle') {
     const hauteurExercice = window.document.querySelector('section').scrollHeight + 20
-    window.parent.postMessage({ nbBonnesReponses, hauteurExercice }, '*')
+    const scoreRetenu = (score) => {
+      const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
+      return scoreAcceptes.reduce((prev, curr) => {
+        return (Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev)
+      })
+    }
+    const score = scoreRetenu(nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100)
+    window.parent.postMessage({ score, hauteurExercice }, '*')
     try {
       for (let i = 0; i < exercice.nbQuestions; i++) {
         window.sessionStorage.setItem(`reponse${i}` + context.graine, document.getElementById(`champTexteEx0Q${i}`).value)

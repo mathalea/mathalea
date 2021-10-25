@@ -189,8 +189,13 @@ export async function initDom () {
             const valeurEnregistree = window.sessionStorage.getItem(`reponse${i}` + context.graine)
             document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
           }
-          const hauteurExercice = window.document.querySelector('section').scrollHeight
+          let hauteurExercice = window.document.querySelector('section').scrollHeight
           window.parent.postMessage({ hauteurExercice }, '*')
+          // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
+          setTimeout(() => {
+            hauteurExercice = window.document.querySelector('section').scrollHeight
+            window.parent.postMessage({ hauteurExercice }, '*')
+          }, 1000)
         }
         if (window.sessionStorage.getItem('isValide' + context.graine)) {
           const exercice = context.listeObjetsExercice[0]
