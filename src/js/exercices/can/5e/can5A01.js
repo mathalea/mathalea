@@ -59,34 +59,34 @@ export default function RepetitionScratch () {
         this.amcType = 'qcmMono'
         this.autoCorrection[0] = {
           enonce: this.listeQuestions[0],
-          options: { ordered: false },
+          options: { ordered: false, vertical: true, nbCols: 3 },
           propositions: [
             {
               texte: 'Triangle équilatéral',
               statut: b[1] === 'triangle équilatéral'
             },
             {
-              texte: 'carré',
+              texte: 'Carré',
               statut: b[1] === 'carré'
             },
             {
-              texte: 'pentagone régulier',
+              texte: 'Pentagone régulier',
               statut: b[1] === 'pentagone régulier'
             },
             {
-              texte: 'hexagone régulier',
+              texte: 'Hexagone régulier',
               statut: b[1] === 'hexagone régulier'
             },
             {
-              texte: 'octogone régulier',
+              texte: 'Octogone régulier',
               statut: b[1] === 'octogone régulier'
             },
             {
-              texte: 'énéagone régulier',
+              texte: 'Ennéagone régulier',
               statut: b[1] === 'énéagone régulier'
             },
             {
-              texte: 'décagone régulier',
+              texte: 'Décagone régulier',
               statut: b[1] === 'décagone régulier'
             }
           ]
