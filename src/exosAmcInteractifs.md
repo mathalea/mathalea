@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 315 
-- nombre d'exos interactifReady 415 
+- nombre d'exos amcReady 320 
+- nombre d'exos interactifReady 417 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -12,7 +12,7 @@
 |2F32|Lecture graphique|OK|AMCHybride|OK|mathLive|
 |2G31-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
 |2G36-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
-|2N14-1|Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient|KO|KO|OK|mathLive|
+|2N14-1|Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient|OK|AMCOpen|OK|mathLive|
 |2N32-4|Simplifier une somme de racines carrées|KO|KO|OK|mathLive|
 |2N41-1|Calculer avec les identités remarquables|KO|KO|OK|mathLive|
 |2N41-4|Développer (a+b)²|KO|KO|OK|mathLive|
@@ -129,6 +129,7 @@
 |6C10-5|Labyrinthe de multiples|OK|AMCOpen|KO|KO|
 |6C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCHybride|OK|mathLive|
 |6C11-1|Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité|OK|AMCOpenNum✖︎2|OK|mathLive|
+|6C11-2|Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne|OK|AMCOpen|OK|mathLive|
 |6C11|Divisions euclidiennes|OK|AMCOpen|OK|mathLive|
 |6C20|Additions et soustractions de nombres décimaux|OK|AMCNum|OK|numerique|
 |6C21|Divisions euclidiennes - Niveau 2|OK|AMCOpen|OK|mathLive|
@@ -248,6 +249,7 @@
 |can2C08|Calcul avec racine carrée niveau 3|KO|KO|OK|mathLive|
 |can2F01|Calcul d’une image second degré|KO|KO|OK|mathLive|
 |can2F02|Calcul d’une image avec un quotient|KO|KO|OK|mathLive|
+|can2F03|Signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
 |can2G01|Agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
 |can2G02|Calcul de d’un côté avec Pythagore|KO|KO|OK|mathLive|
 |can2G03|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
@@ -258,6 +260,7 @@
 |can2L02|Coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Coordonnées point d’intersection axe des abscisses/droite|KO|KO|OK|mathLive|
 |can2L04|Coordonnées point d’intersection axe des ordonnées/droite|KO|KO|OK|mathLive|
+|can2L05|Solution d’une inéquation (QCM)|KO|KO|OK|qcm|
 |can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
 |can2P02|Dénombrement|KO|KO|OK|mathLive|
 |can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
@@ -286,7 +289,9 @@
 |can3L01|Équation ax=b|OK|AMCNum|OK|mathLive|
 |can3L02|Équation ax+b=0|OK|AMCNum|OK|mathLive|
 |can3L03|Équation ax+b=c|OK|AMCNum|OK|mathLive|
+|can3L04|Solution d’une inéquation (V/F)|KO|KO|OK|qcm|
 |can3M01|Aire et carré|OK|AMCNum|OK|mathLive|
+|can3N01|Intervalles|KO|KO|OK|mathLive|
 |can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
 |can3S02|Probabilité de l’évènement contraire|KO|KO|OK|mathLive|
 |can3S03|Calculs de probabilités2|KO|KO|OK|mathLive|
@@ -310,13 +315,17 @@
 |can4G05|Calcul de la diagonale d’un carré|KO|KO|OK|mathLive|
 |can4G06|Calcul d’une longueur avec Thalès|KO|KO|OK|mathLive|
 |can4G07|Calcul d’une longueur avec Thalès (milieu)|KO|KO|OK|mathLive|
+|can4G08|Questions d'aires et de périmètres (niveau 2)|KO|KO|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
 |can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
 |can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
 |can4L04|Substitution négative|OK|AMCNum|OK|mathLive|
+|can4L05|Développements (niveau 1)|OK|AMCNum|OK|mathLive|
+|can4L06|Calcul d'expression (substitution)|OK|AMCNum|OK|mathLive|
 |can4P01|Problèmes de robinets|OK|AMCNum|OK|mathLive|
 |can4P02|Problèmes de vitesse|OK|AMCNum|OK|mathLive|
 |can4P03|Quatrième proportionnelle|OK|AMCNum|OK|mathLive|
+|can5A01|Répétitions Scratch|OK|AMCNum|OK|mathLive|
 |can5C01|Produit de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Somme de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C03|Différence de nombres entiers|OK|AMCNum|OK|mathLive|

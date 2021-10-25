@@ -9,6 +9,12 @@ export const titre = 'Modéliser des problèmes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
+// Gestion de la date de publication initiale
+export const dateDePublication = '24/4/2021'
+
+// Gestion de la date de modification importante
+export const dateDeModifImportante = '24/10/2021'
+
 /**
  * Associer huit problèmes à huit types de modélisation différents
  * @author Mireille Gain, 24 avril 2021

@@ -816,7 +816,7 @@ function cleExisteEtContient (v, val) {
 }
 
 /**
-* Concatène liste à elle même en changeant l'ordre à chaque cycle
+* Concatène liste à elle-même en changeant l'ordre à chaque cycle
 *
 *
 * @Example
@@ -832,6 +832,25 @@ export function combinaisonListes (liste, tailleMinimale) {
     l = l.concat(shuffle(liste))
   }
   return l
+}
+
+/**
+* Concatène liste à elle-même en imposant à la nouvelle liste de contenir au moins tous les élements
+* de la liste initiale mais sans gestion de nombre de doublons au final.
+* @Example
+* combinaisonListes2([A,B,C],7)
+* // [B,C,B,B,C,A,B]
+* combinaisonListes2([A,B,C,D],6)
+* // [B,C,D,B,C,A,B]
+* @author Eric Elter
+*/
+export function combinaisonListes2 (liste, tailleMinimale) {
+  if (liste.length === 0) return []
+  let l = liste
+  while (l.length < tailleMinimale) {
+    l = l.concat(choice(liste))
+  }
+  return shuffle(l)
 }
 
 export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
@@ -7226,6 +7245,12 @@ export function exportQcmAmc (exercice, idExo) {
         id++
         break
       case 'AMCOpen': // AMCOpen question ouverte corrigée par l'enseignant
+        if (autoCorrection[j].enonce === undefined) {
+          autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
+        if (autoCorrection[j].propositions === undefined) {
+          autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '3' }]
+        }
         texQr += `\\element{${ref}}{\n `
         texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `\t\t${autoCorrection[j].enonce} \n `
@@ -7237,7 +7262,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\n\t\\end{question}\n }\n'
         id++
         break
-      case 'AMCNum': // AMCOpen question ouverte avec encodage numérique de la réponse
+      case 'AMCNum': // AMCNum avec encodage numérique de la réponse
         /********************************************************************/
         // On pourra rajouter des options : les paramètres sont nommés.
         // {digits=0,decimals=0,vertical=false,signe=false,exposantNbChiffres=0,exposantSigne=false,approx=0}
@@ -7261,7 +7286,14 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].propositions !== undefined) {
             texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
           }
-          texQr += `Numérateur\n \\AMCnumericChoices{${autoCorrection[j].reponse.valeur[0].num}}{digits=${nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0].num)},decimals=0,sign=${autoCorrection[j].reponse.valeur[0].signe === -1},approx=0,`
+          texQr += `Numérateur\n \\AMCnumericChoices{${autoCorrection[j].reponse.valeur[0].num}}`
+          if (autoCorrection[j].reponse.valeur[0].num.digits === undefined) {
+            texQr += `{digits=${nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0].num)},`
+          } else {
+            texQr += `{digits=${autoCorrection[j].reponse.valeur[0].num.digits},`
+          }
+          texQr += `decimals=0,sign=${autoCorrection[j].reponse.valeur[0].signe === -1},approx=0,`
+
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n'
           texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 1}} \n `
@@ -7309,14 +7341,14 @@ export function exportQcmAmc (exercice, idExo) {
         }
         break
 
-      case 'AMCOpenNum': // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum': // AMCOpen + AMCnumeric Choices. (A ne plus utiliser au profit de AMCHybride)
         /********************************************************************/
         // On pourra rajouter des options : les paramètres sont nommés.
         // {digits=0,decimals=0,signe=false,exposantNbChiffres=0,exposantSigne=false,approx=0}
         // si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
         // signe et exposantSigne sont des booléens
         // approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
-        // La correction est dans tabQCM[1][0], la réponse numlérique est dans tabQCM[1][1] et le nombre de ligne pour le cadre dans tabQCM[1][2] et
+        // La correction est dans tabQCM[1][0], la réponse numérique est dans tabQCM[1][1] et le nombre de ligne pour le cadre dans tabQCM[1][2] et
         /********************************************************************/
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]

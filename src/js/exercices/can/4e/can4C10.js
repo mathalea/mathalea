@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { choice, randint } from '../../../modules/outils.js'
+import { choice, randint, texteEnCouleur, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
 export const titre = 'Somme ou différence de fractions égyptiennes'
 export const interactifReady = true
@@ -24,13 +24,25 @@ export default function SommeDifferenceFractionsEgyptiennes () {
     if (choice([true, false])) {
       this.reponse = fraction(b + a, a * b)
       this.reponse = this.reponse.simplifie()
-      this.question = `Calculer sous la fomre d'une fraction irréductible : $\\dfrac{1}{${a}}+\\dfrac{1}{${b}}$`
+      this.question = `Calculer sous la forme d'une fraction irréductible : $\\dfrac{1}{${a}}+\\dfrac{1}{${b}}$`
       this.correction = `$\\dfrac{1}{${a}}+\\dfrac{1}{${b}}=\\dfrac{${b}+${a}}{${a}\\times ${b}}=${this.reponse.texFraction}$`
+      this.correction += texteEnCouleur(`<br> Mentalement : <br>
+      Pour additionner des fractions, on les met au même dénominateur.<br>
+      On prend pour  dénominateur commun  le produit des deux dénominateurs $${a}\\times ${b}=${a * b}$.<br>
+      $\\dfrac{1}{${a}}=\\dfrac{${b}}{${a * b}}$ et $\\dfrac{1}{${b}}=\\dfrac{${a}}{${a * b}}$.<br>
+      On en déduit : $\\dfrac{1}{${a}}+\\dfrac{1}{${b}}=\\dfrac{${b}+${a}}{${a * b}}=\\dfrac{${a + b}}{${a * b}}${simplificationDeFractionAvecEtapes(a + b, a * b)}$.
+          `)
     } else {
       this.reponse = fraction(b - a, a * b)
       this.reponse = this.reponse.simplifie()
-      this.question = `Calculer sous la fomre d'une fraction irréductible : $\\dfrac{1}{${a}}-\\dfrac{1}{${b}}$`
-      this.correction = `$\\dfrac{1}{${a}}-\\dfrac{1}{${b}}=\\dfrac{${b}-${a}}{${a}\\times ${b}}=${this.reponse.texFraction}$`
+      this.question = `Calculer sous la forme d'une fraction irréductible : $\\dfrac{1}{${a}}-\\dfrac{1}{${b}}$`
+      this.correction = `$\\dfrac{1}{${a}}-\\dfrac{1}{${b}}=\\dfrac{${b}-${a}}{${a}\\times ${b}}=\\dfrac{${b - a}}{${a}\\times ${b}}=${this.reponse.texFraction}$`
+      this.correction += texteEnCouleur(`<br> Mentalement : <br>
+      Pour additionner des fractions, on les met au même dénominateur.<br>
+      On prend pour  dénominateur commun  le produit des deux dénominateurs $${a}\\times ${b}=${a * b}$.<br>
+      $\\dfrac{1}{${a}}=\\dfrac{${b}}{${a * b}}$ et $\\dfrac{1}{${b}}=\\dfrac{${a}}{${a * b}}$.<br>
+      On en déduit : $\\dfrac{1}{${a}}-\\dfrac{1}{${b}}=\\dfrac{${b}-${a}}{${a * b}}=\\dfrac{${b - a}}{${a * b}}${simplificationDeFractionAvecEtapes(b - a, a * b)}$.
+          `)
     }
   }
 }

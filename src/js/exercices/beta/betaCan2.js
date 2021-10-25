@@ -1,15 +1,12 @@
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu, randint, ecritureParentheseSiNegatif,
-  ecritureAlgebrique,
-  calcul, pgcd, texNombrec, texFraction, signe, abs, texFractionReduite, choice, printlatex,
+  texNombrec, abs, texFractionReduite, choice, printlatex,
   combinaisonListesSansChangerOrdre, range1, reduireAxPlusB, rienSi1, texRacineCarree, simplificationDeFractionAvecEtapes
 } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-import Fraction from '../../modules/Fraction.js'
-import { calcule } from '../../modules/fonctionsMaths.js'
 import {
-  mathalea2d, repere2, courbe2, tracePoint, point, codageAngleDroit, milieu, labelPoint, segment, latexParCoordonnees
+  mathalea2d, point, codageAngleDroit, milieu, labelPoint, segment, latexParCoordonnees
 } from '../../modules/2d.js'
 
 export const titre = 'Course aux nombres seconde'
@@ -40,8 +37,8 @@ export default function CourseAuxNombresSeconde () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let a, b, c, d, N, xA, xB, yA, yB, x1, x2, y1, y2, A, B, C, D, k, p, ux, uy, vx, vy,
-      resultat, inconnue, objets, repere, fraction, r, m, n, tA, tB, couplenm
+    let a, b, c, d, N, xA, xB, yA, yB, A, B, C, p, ux, uy, vx, vy,
+      inconnue, objets, fraction, r, m, n, couplenm
     let questions = []
 
     if (!this.sup) {
@@ -62,12 +59,6 @@ export default function CourseAuxNombresSeconde () {
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
     console.log(listeIndex)
-    const listeFractions = [
-      [1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6], [1, 7],
-      [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8], [1, 9], [2, 9],
-      [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]
-    ] // Couples de nombres premiers entre eux
-
     const typeQuestionsDisponibles = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20',
       'q21', 'q22', 'q23', 'q24', 'q25', 'q26', 'q27', 'q28', 'q29', 'q30']
     // 'q1',  produit d'entiers
