@@ -8162,12 +8162,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
-  "betaCaNCM2": {
-    "titre": "Course aux nombres CM2",
-    "url": "/exercices/beta/betaCaNCM2.js",
+  "betac3C12-1": {
+    "titre": "Résoudre des problèmes de masses",
+    "url": "/exercices/beta/betac3C12-1.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -8180,6 +8180,17 @@ export default {
       "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
+  },
+  "betac3C12": {
+    "titre": "Résoudre des problèmes de prix",
+    "url": "/exercices/beta/betac3C12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betac3C12"
   },
   "betaCan2": {
     "titre": "Course aux nombres seconde",
@@ -8221,6 +8232,73 @@ export default {
       "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
+  },
+  "betaCAN2Q26-01": {
+    "titre": "Déterminer le coefficient d’une fonction affine",
+    "url": "/exercices/beta/betaCAN2Q26-01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q26-01"
+  },
+  "betaCAN2Q26-02": {
+    "titre": "Proportionnalité sur expression algébrique",
+    "url": "/exercices/beta/betaCAN2Q26-02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q26-02"
+  },
+  "betaCAN2Q26-03": {
+    "titre": "Valeur interdite d’une fonction",
+    "url": "/exercices/beta/betaCAN2Q26-03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q26-03"
+  },
+  "betaCAN2Q26-04": {
+    "titre": "Proportionnalité et notes",
+    "url": "/exercices/beta/betaCAN2Q26-04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q26-04"
+  },
+  "betaCAN2Q26-05": {
+    "titre": "Développer avec égalités remarquables",
+    "url": "/exercices/beta/betaCAN2Q26-05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q26-05"
+  },
+  "betaCAN2Q26-06": {
+    "titre": "Factoriser",
+    "url": "/exercices/beta/betaCAN2Q26-06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q26-06"
+  },
+  "betaCAN2Q26-07": {
+    "titre": "Solutions équation produit nul",
+    "url": "/exercices/beta/betaCAN2Q26-07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2Q26-07"
+  },
+  "betaCaNCM2": {
+    "titre": "Course aux nombres CM2",
+    "url": "/exercices/beta/betaCaNCM2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCaNCM2"
   },
   "betaComplexes": {
     "titre": "Exercice exemple Nombres complexes",
@@ -8296,6 +8374,13 @@ export default {
       "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
+  },
+  "betaEquationsLog": {
+    "titre": "Equations avec logarithmes",
+    "url": "/exercices/beta/betaEquationsLog.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaEquationsLog"
   },
   "betaEqValAbs": {
     "titre": "Equation avec une valeur absolue",
@@ -8569,6 +8654,13 @@ export default {
       "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
+  },
+  "betarotation3d": {
+    "titre": "Rotation 3d de polygones",
+    "url": "/exercices/beta/betarotation3d.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betarotation3d"
   },
   "betaSpline": {
     "titre": "Nom de l'exercice",

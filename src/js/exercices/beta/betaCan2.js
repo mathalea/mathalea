@@ -96,6 +96,271 @@ export default function CourseAuxNombresSeconde () {
       objets = []
       // Boucle principale où i+1 correspond au numéro de la question
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
+        case 'q13':
+
+          break
+
+        case 'q14':
+          switch (choice([1, 2, 3, 4])) { //
+            case 1:// calcul pour une valeur
+              a = randint(-5, -1)
+              b = randint(1, 9)
+              d = randint(1, 9)
+              c = randint(1, 4)
+              if (c === 1) {
+                a = randint(-5, -1)
+                b = randint(1, 9)
+                d = randint(1, 9)
+                resultat = calcul(a ** 2 + b)
+                texte = `Calculer $x^2+${b}$ pour $x=${a}$ :`
+                texteCorr = `$(${a})^2+${b}=${a ** 2 + b}$.`
+                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              } if (c === 2) {
+                a = randint(2, 7)
+                b = randint(1, 9)
+                d = randint(1, 9)
+                resultat = calcul(-b + a ** 2)
+                texte = `Calculer $-${b}+x^2$ pour $x=${a}$ :`
+                texteCorr = `$-${b}+(${a})^2=${-b + a * a}$.`
+                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              }
+              if (c === 3) {
+                a = randint(2, 9)
+                b = randint(1, 9)
+                d = randint(1, 9)
+                resultat = calcul(a - a * a)
+                texte = `Calculer $x-x^2$ pour $x=${a}$ :`
+                texteCorr = `$${a}-${a}^2=${a - a ** 2}$.`
+                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              }
+              if (c === 4) {
+                a = randint(1, 6)
+                b = randint(1, 9)
+                d = randint(1, 9)
+                resultat = calcul(a ** 2 + a - d)
+                texte = `Calculer $x^2+x-${d}$ pour $x=${a}$ :`
+                texteCorr = `$(${a})^2+${a}-${d}=${a ** 2 + a - d}$.`
+                setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              }
+              break
+            case 2:// resolution de ax+b=c
+              a = randint(2, 9)
+              b = randint(1, 9)
+              c = randint(1, 9, b)
+
+              texte = `Donner la solution de l'équation $${reduireAxPlusB(a, b)}=${c}$.<br>
+                Donner le résultat sous la forme d'une fraction irréductible ou d'un entier le cas échéant.`
+              texteCorr = `En retranchant $${b}$ dans chaque membre, puis en divisant par $${a}$, on obtient la solution $${texFractionReduite(c - b, a)}$`
+              setReponse(this, i, [`${texFractionReduite(c - b, a)}`])
+
+              break
+            case 3:// developpement k*(a+b)
+              a = randint(1, 4)
+              b = randint(1, 9) * choice([-1, 1])
+              k = randint(2, 7) * choice([-1, 1])
+              inconnue = choice(['x', 'y'])
+              if (a === 1) {
+                // ne pas écrire 1x
+                texte = `Développer : $A=(${inconnue}${ecritureAlgebrique(
+        b
+      )})\\times${ecritureParentheseSiNegatif(k)}$`
+              } else {
+                texte = `Développer : $A=(${a}${inconnue}${ecritureAlgebrique(
+        b
+      )})\\times${ecritureParentheseSiNegatif(k)}$`
+              }
+
+              if (a === 1) {
+                // ne pas écrire 1x
+                texteCorr = `Développer : $A=(${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}=${k}\\times ${inconnue}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
+              } else {
+                texteCorr = `Développer : $A=(${a}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}=${k}\\times ${a}${inconnue}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
+              }
+              setReponse(this, i, [`${k * a}${inconnue}${ecritureAlgebrique(k * b)}`])
+
+              break
+
+            case 4:// developpement kx*(a+b)
+              a = randint(1, 4)
+              b = randint(1, 9) * choice([-1, 1])
+              k = randint(2, 7) * choice([-1, 1])
+              inconnue = choice(['x', 'y'])
+              if (a === 1) {
+                // ne pas écrire 1x
+                texte = `Développer : $A=${k}${inconnue}(${inconnue}${ecritureAlgebrique(b)})$`
+              } else {
+                texte = `Développer : $A=${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})$`
+              }
+
+              if (a === 1) {
+                // ne pas écrire 1x
+                texteCorr = `$A=${k}${inconnue}(${inconnue}${ecritureAlgebrique(
+                  b
+                )})=${k}${inconnue}\\times ${inconnue} ${signe(
+                  k * b
+                )}${k}${inconnue}\\times ${abs(b)}=${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}$`
+              } else {
+                if (k > 0) {
+                  texteCorr = `$A=${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(
+                    b
+                  )})=${k}${inconnue}\\times ${a}${inconnue} + ${k}${inconnue}\\times ${ecritureParentheseSiNegatif(
+                    b
+                  )}=${k * a}${inconnue}^2${ecritureAlgebrique(
+                    k * b
+                  )}${inconnue}$`
+                } else {
+                  texteCorr = `$A=${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(
+                    b
+                  )})=${k}${inconnue}\\times ${a}${inconnue} + (${k}${inconnue})\\times ${ecritureParentheseSiNegatif(
+                    b
+                  )}=${k * a}${inconnue}^2${ecritureAlgebrique(
+                    k * b
+                  )}${inconnue}$`
+                }
+              }
+
+              setReponse(this, i, [`${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`])
+
+              break
+          }
+
+          break
+
+        case 'q15':
+          switch (choice([1, 2, 3, 4, 5, 6, 7])) { // 1, 2, 3, 4, 5, 6, 7
+            case 1:// conversion fraction <->décimale cinquième et quart
+              a = randint(3, 9)
+              b = randint(0, 1)
+              texte = `Un carré de côté ${a} cm a le même périmètre qu'un rectangle de largeur ${a - b} cm et de longueur ${a + 1} cm ? (V ou F)`
+              if (b === 0) {
+                texteCorr = `Faux car $4\\times ${a}$ cm$\\neq 2\\times ${a}$ cm$ + 2\\times ${a + 1}$ cm.`
+                setReponse(this, i, 'F')
+              } else {
+                texteCorr = `Vrai car $4\\times ${a}$ cm = $2\\times ${a - 1}$ cm $ + 2\\times ${a + 1}$ cm$= ${4 * a}$ cm.`
+                setReponse(this, i, 'V')
+              }
+              break
+            case 2:// aire d'un carré connaissant son perimètre
+              a = randint(2, 10)
+              resultat = calcul(a * a)
+              texte = `Quelle est l'aire d'un carré en cm$^2$ dont le périmètre est $${4 * a}$ cm ? `
+              texteCorr = `Le côté du carré est $${4 * a}\\div 4=${a}$, donc son aire est : $${a}\\times ${a}=${a ** 2}$ cm$^2$.`
+              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+
+              break
+            case 3:// perimètre d'un carré connaissant son aire
+              a = randint(1, 10)
+              c = a * a
+              resultat = calcul(4 * a)
+              texte = `Déterminer le périmètre (en cm) d'un carré d'aire $${c}$ cm$^2$. `
+              texteCorr = `Le côté du carré est $\\sqrt{${c}}=${a}$. Son périmètre est donc $4\\times ${a}=${4 * a}$ cm.`
+              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+              break
+
+            case 4:// côté d'un carré connaissant son perimètre
+              a = randint(5, 20) * 4
+              resultat = calcul(a / 4)
+              texte = `Le périmètre d'un carré est $${a}$ cm. Quelle est la longueur (en cm) du côté du carré ? `
+              texteCorr = `Le côté du carré est $${a}\\div 4=${a / 4}$.`
+              setReponse(this, i, resultat, { formatInteractif: 'calcul' })
+
+              break
+            case 5:// périmètre d'une figure
+              a = randint(1, 3)//
+              b = randint(4, 7)//
+              n = randint(7, 12)
+              c = randint(1, 6) + randint(3, 9) / 10
+              d = n - c
+              A = point(0, 0, 'P')
+              B = point(7, 1, 'Q', 'below')
+              C = point(6.5, 4, 'R')
+              D = point(2, 5, 'R')
+
+              objets.push(segment(A, B), segment(B, C), segment(C, D), segment(D, A), tracePoint(A, B, C, D))
+              objets.push(latexParCoordonnees(`${texNombrec(b)}\\text{m}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'black', 20, 10, ''),
+                latexParCoordonnees(`${texNombrec(a)}\\text{m}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'black', 20, 10, ''),
+                latexParCoordonnees(`${texNombrec(c)}\\text{m}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'black', 20, 10, ''),
+                latexParCoordonnees(`${texNombrec(d)}\\text{m}`, milieu(C, D).x, milieu(C, D).y + 0.5, 'black', 20, 10, ''))
+
+              texte = `Quel est le périmètre de cette figure (en m) ?
+              `
+              texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 6, pixelsParCm: 30, mainlevee: true, amplitude: 0.5, scale: 0.7 }, objets)
+              texteCorr = ` Le périmètre est donné par : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)}+${texNombrec(d)}=${texNombrec(a + b + c + d)}$.
+          <br>`
+
+              setReponse(this, i, a + b + c + d, { formatInteractif: 'calcul' })
+
+              break
+            case 6:// agrandissement/réduction
+              N = choice(['a', 'b', 'c'])
+              if (N === 'a') {
+                a = randint(2, 7)// aire
+                c = randint(2, 4)// coefficient
+                texte = `Les longueurs d'un rectangle de $${a}$ cm$^2$  sont multipliées par $${c}$.<br>
+              Quelle est l'aire (en cm$^2$) du rectangle ainsi obtenu ?
+              `
+
+                texteCorr = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$, soit ici par $${c}^2=${c ** 2}$.<br>
+              Ainsi, l'aire du nouveau rectangle est : $${a}\\times ${c * c}=${a * c * c}$ cm $^2$.
+          <br>`
+
+                setReponse(this, i, a * c * c, { formatInteractif: 'calcul' })
+              }
+
+              if (N === 'b') {
+                fraction = choice(listeFractions)
+                n = fraction[0]
+                d = fraction[1]
+                texte = `Les longueurs d'un triangle sont multipliées par $\\dfrac{${n}}{${d}}$.<br>
+              Par combien est multipliée son aire  ?
+              `
+
+                texteCorr = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$.<br>
+              Ainsi, l'aire a été multipliée par : $\\left(\\dfrac{${n}}{${d}}\\right)^2=\\dfrac{${n * n}}{${d * d}}$.
+          <br>`
+
+                setReponse(this, i, new Fraction(n * n, d * d), { formatInteractif: 'fraction' })
+              }
+              if (N === 'c') {
+                fraction = choice(listeFractions)
+                n = fraction[0]
+                d = fraction[1]
+                texte = `L'aire d'un parallélogramme a été multipliée par $\\dfrac{${n * n}}{${d * d}}$.<br>
+              Par combien ont été multipliées les longueurs de ses côtés ?
+              `
+
+                texteCorr = ` Si les aires sont multiplées par $k$, les longueurs sont multipliées par $\\sqrt{k}$.<br>
+              Ainsi, les longueurs ont été multipliées par  : $\\sqrt{\\dfrac{${n * n}}{${d * d}}}=\\dfrac{${n}}{${d}}$.
+          <br>`
+
+                setReponse(this, i, new Fraction(n, d), { formatInteractif: 'fraction' })
+              }
+              break
+            case 7:// longueur à trouver à partir d'une aire triangle rectangle
+              a = randint(2, 10)//
+              b = randint(1, 5) * a
+              A = point(0, 0, 'A', 'below')
+              B = point(8, 0, 'B', 'below')
+              C = point(6, 3.46, 'C')
+
+              objets.push(segment(A, B), segment(B, C), segment(C, A), labelPoint(A, B, C), tracePoint(A, B, C), codageAngleDroit(A, C, B))
+              objets.push(latexParCoordonnees(`${texNombrec(a)}\\text{m}`, milieu(B, C).x + 0.5, milieu(B, C).y + 0.5, 'black', 20, 10, '')
+              )
+
+              texte = ` L'aire de ce triangle est $${b}$ m$^2$. Donner la longueur $AC$ (en m).
+              `
+              texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 9, ymax: 4.5, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+              texteCorr = ` L'aire de ce triangle rectangle est donnée par : $\\dfrac{BC\\times AC}{2}$.<br>
+              On cherche $AC$ telle que $\\dfrac{${a}\\times AC}{2}=${b}$. <br>
+              $AC=\\dfrac{2\\times ${b}}{${a}}=${texFractionReduite(2 * b, a)}$ m.
+          <br>`
+
+              setReponse(this, i, 2 * b / a, { formatInteractif: 'calcul' })
+
+              break
+          }
+
+          break
         case 'q26':
           switch (choice([1, 2, 3])) { // fonctions calculs VI
             case 1:// déterminer a pour fonction affine avec une valeur
