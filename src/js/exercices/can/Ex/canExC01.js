@@ -11,7 +11,7 @@ export const dateDePublication = '26/10/2021'
 /**
  * Question de can : calcul de la somme de deux nombres complexes
  * @author Jean-Claude Lhote
- * Référence can1C01
+ * Référence canExC01
 */
 export default function SommeDeComplexes () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -19,8 +19,6 @@ export default function SommeDeComplexes () {
   this.typeExercice = 'simple'
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const z1 = complex(randint(-5, 5), randint(-5, 5))
     const z2 = complex(randint(-5, 5), randint(-5, 5))
     this.question = `On donne $~~a = ${z1.toString()}~~$ et $~~b = ${z2.toString()}$.<br>Calcule $a + b$.`
