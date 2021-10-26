@@ -10,7 +10,6 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * Description didactique de l'exercice
  * @author
  * Référence
- * Date de publication
 */
 export default function NomExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()

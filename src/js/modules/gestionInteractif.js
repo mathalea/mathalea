@@ -416,6 +416,7 @@ export function propositionsQcm (exercice, i) {
   let texte = ''
   let texteCorr = ''
   let espace = ''
+  let nbCols = 1; let vertical = false
   if (context.isAmc) return { texte: '', texteCorr: '' }
   if (context.isHtml) {
     espace = '&emsp;'
@@ -424,6 +425,8 @@ export function propositionsQcm (exercice, i) {
   }
   // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
   if (exercice.autoCorrection[i].options !== undefined) {
+    vertical = exercice.autoCorrection[i].options.vertical // est-ce qu'on veut une présentation en colonnes ?
+    nbCols = exercice.autoCorrection[i].options.nbCols > 1 ? exercice.autoCorrection[i].options.nbCols : 1 // Nombre de colonnes avant de passer à la ligne
     if (!exercice.autoCorrection[i].options.ordered) {
       exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions, exercice.autoCorrection[i].options.lastChoice)
     }
@@ -433,37 +436,59 @@ export function propositionsQcm (exercice, i) {
   if (elimineDoublons(exercice.autoCorrection[i].propositions)) {
     // console.log('doublons trouvés')
   }
-  if (!context.isAmc) {
-    if (context.isHtml) {
-      texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
-    } else {
-      texte += '<br>'
+  if (context.isHtml) {
+    texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
+    texte += '<table>\n\t'
+    if (vertical) {
+      texte += '<tr>\n\t'
     }
-    for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
-      if (context.isHtml && exercice.interactif) {
+  } else {
+    texte += '<br>'
+    texte += `\\begin{multicols}{${nbCols}}\n\t`
+  }
+  for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
+    if (context.isHtml) {
+      if (vertical && (rep % nbCols === 0) && rep > 0) {
+        texte += '</tr>\n<tr>\n'
+      }
+      texte += '<td>\n'
+      if (exercice.interactif) {
         texte += `<div class="ui checkbox ex${exercice.numeroExercice} monQcm">
             <input type="checkbox" tabindex="0" class="hidden" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
             <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
           </div>`
       } else {
-        texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '</td>\n'
+        if (nbCols > 1 && vertical) {
+          texte += '\n\t'
+        }
       }
       if (exercice.autoCorrection[i].propositions[rep].statut) {
         texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
       } else {
         texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
       }
-      if (exercice.autoCorrection[i].options !== undefined) {
-        if (exercice.autoCorrection[i].options.vertical) {
-          texte += '<br>'
-          texteCorr += '<br>'
-        }
+    } else {
+      texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+      if (nbCols > 1 && vertical) {
+        texte += '\\\\\n\t'
+      }
+      if (exercice.autoCorrection[i].propositions[rep].statut) {
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+      } else {
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
       }
     }
-    if (context.isHtml) {
-      texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-      texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
+  }
+  if (context.isHtml) {
+    if (vertical) {
+      texte += '</tr>\n\t'
     }
+    texte += '</table>\n\t'
+    texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
+  } else {
+    texte += '\\end{multicols}'
   }
   return { texte: texte, texteCorr: texteCorr }
 }
@@ -982,7 +1007,6 @@ export function afficheScoreCan (exercice, nbBonnesReponses, nbMauvaisesReponses
   document.getElementById('btnMenuexercice0Q0').click()
   isUserIdOk(exercice, nbBonnesReponses, nbMauvaisesReponses)
 }
-
 const exercicesEvalRestants = () => document.querySelectorAll('[id ^= "btnEx"].circular.ui.button:not(.green):not(.red)')
 const exercicesCanRestants = () => document.querySelectorAll('[id ^= "btnMenuexercice"].circular.ui.button:not(.green):not(.red)')
 const exercicesCanDispoApres = () => {
