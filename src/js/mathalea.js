@@ -871,6 +871,7 @@ function miseAJourDuCode () {
         const nbQuestions = listeObjetsExercice[i].nbQuestions
         const titre = listeObjetsExercice[i].titre
         const video = listeObjetsExercice[i].video
+        const pointsParQuestions = listeObjetsExercice[i].pointsParQuestions
 
         codeMoodle += `<question type="shortanswer">
 <name>
@@ -916,7 +917,7 @@ function miseAJourDuCode () {
         <feedback><text> </text></feedback>
     </answer>`
         }
-        codeMoodle += `\n<defaultgrade>${nbQuestions}</defaultgrade>`
+        codeMoodle += `\n<defaultgrade>${nbQuestions * pointsParQuestions}</defaultgrade>`
         codeMoodle += `\n<generalfeedback>\n<text><![CDATA[
           <h4>Correction :</h4>
           <iframe width="600" height="400" id="monIframeCorrection" src="" frameborder="0"></iframe>
