@@ -1,10 +1,22 @@
-Si vous êtes sur cette page, c'est que vous souhaitez rajouter à votre exercice, un export AMC. Bonne idée, vous êtes sur la bonne page ! Tout le déroulé est décrit, sur cette page, étapes par étapes, selon vos envies. Si toutefois l'exercice est déjà interactif, il est possible que peu de lignes de code supplémentaires soient nécessaires pour le rendre exportable AMC et alors, il est préférable, avant de continuer, de consulter cette page sur la [compatibilité entre l'interactivité et un usage AMC](#tutorial-Rendre_un_exercice_interactif.html#EE3). Si l'offre n'est pas satisfaisante, alors revenez sur cett page.
+Si vous êtes sur cette page, c'est que vous souhaitez rajouter à votre exercice, un export AMC. Bonne idée, vous êtes sur la bonne page ! Tout le déroulé est décrit, sur cette page, étapes par étapes, selon vos envies. Si toutefois l'exercice est déjà interactif, il est possible que peu de lignes de code supplémentaires soient nécessaires pour le rendre exportable AMC et alors, il est préférable, avant de continuer, de consulter cette page sur la [compatibilité entre l'interactivité et un export AMC](#tutorial-Rendre_un_exercice_interactif.html#EE3). Si l'offre n'est pas satisfaisante, alors revenez sur cette page.
 
 ---
 
 MathAlea permet de rendre un exercice utilisable avec AMC (pour [Auto Multiple Choice](https://www.auto-multiple-choice.net/exemples.fr)). C'est un document Latex pour enseignant qui est produit. Sur feuille, l'elève aura un document qui reprend toutes les questions de l'exercice mais sous forme de QCM, de réponses numériques à coder, de questions ouvertes ou bien encore un mélange de toutes ces possibilités. Les copies des élèves peuvent être scannées et corrigées automatiquement via AMC  et dont un guide se trouve dans le [panneau de gauche](https://coopmaths.fr/documentation/tutorial-Utiliser_AMC.html).
  
  ---
+
+
+
+- Parce que la conception d'un exercice  AMC ne gère pas tout à fait les réponses comme la conception d'un exercice en interactif, il est important (si on souhaite proposer une sortie AMC) de n'appeler `setReponse()` que lorqu'on n'est pas dans le contexte AMC :
+
+>>```js
+>> if (this.interactif && !context.isAmc) {
+>>          setReponse(this, i, reponse)
+>> }
+>>```
+
+
 
  Les actions obligatoires à mener, pour permettre à un exercice d'être utilisable avec AMC, sont décrites ci-dessous et explicitées, plus bas, en détail.
 

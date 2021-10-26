@@ -20,7 +20,7 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
         1. [Dans les exercices de la Course Aux Nombres](#7)
         1. [Permettre plusieurs champs de réponse pour une même question](#8)
     1. [`qcm`](#9)
-        1. [Ligne de code spécifique](#91)
+        1. [Lignes de code spécifiques](#91)
         1. [Construction des propositions de chaque QCM](#92)
         1. [Usage indispensable de la fonction `propositionsQcm()`](#93)
     1. [`numerique`](#10)
@@ -28,7 +28,7 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
     1. [`listeDeroulante`](#12)
     1. [`custom`](#13)
 1. [Compatibilité entre l'interactivité et un export AMC](#14)
-    1. [L'export AMC codé en deux lignes de code](#14bis)
+    1. [L'export AMC automatisé](#14bis)
         1. [Avec `formatInteractif : 'calcul'`](#141)
         1. [Avec `formatInteractif : 'fraction'`](#142)
         1. [Avec `formatInteractif : 'fractionPlusSimple'` ou `formatInteractif : 'fractionEgale'`](#143)
@@ -57,11 +57,11 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
 |[`'listeDeroulante'`](#12)|pour proposer une liste déroulante avec la réponse et différents autres choix possibles|6N43-4|
 |[`'custom'`](#13)|pour proposer une réponse originale, différente des précédentes. |4G20-2|
 
-- Pour définir le mode dans lequel l'exercice va s'afficher par défaut (interactif ou pas), on initialisera le booléen `this.interactif = false` placé de la sorte :
+- Pour définir le mode dans lequel l'exercice va s'afficher par défaut (interactif ou pas), on initialisera le booléen `this.interactif` placé de la sorte :
 >> ```js
 >> Exercice.call(this)
 >> ..... // D'autres instructions
->> this.interactif = false // true ou false
+>> this.interactif = true // true : par défaut, l'exercice est interactif. false : par défaut, l'exercice n'est pas interactif
 >> ..... // D'autres instructions
 >> this.nouvelleVersion = function () {
 >> ```
@@ -77,11 +77,11 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
 
 ## <a id="2" href="#2"></a> [2. Configurer le `typeInteractivite` choisi](#2)
 
-Selon le `typeInteractivite` choisi, la programmation est différente. Les paragraphes suivant détaillent chacune des configurations.
+Selon le `typeInteractivite` choisi, la programmation est différente. Les paragraphes suivants détaillent chacune des configurations.
 
 >>## <a id="3" href="#3"></a> [2. 1. `mathLive`](#3)
 
-MathLive est la technologie qui permet de proposer à l'élève un champ de réponses avec un clavier virtuel (pratique sur les téléphones portables).
+MathLive est une technologie qui permet de proposer à l'élève un champ de réponses avec un clavier virtuel (pratique sur les téléphones portables).
 
 Pour rendre un exercice interactif en utilisant MathLive, il faut rajouter des lignes de codes spécifiques décrites [ci-dessous](#4). Ce fonctionnement suffit pour tout concepteur désireux d'introduire, a minima, une interactivité avec MathLive.
 
@@ -104,11 +104,13 @@ Les concepteurs plus curieux, trouveront, aussi, dans ce chapitre :
 >>```js 
 >>setReponse(this, i, resultat) 
 >>```
->>Par défaut, `resultat` est une chaîne de caractère LaTeX (de type `'${x1}'`), une valeur numérique (donc sans formatage avec `texNombre` par exemple) ou bien un tableau de bons résultats possibles. On verra, [plus bas](#5), que `resultat` peut être plus divers que cela et les modifications à apporter alors.
+>>Par défaut, `resultat` est une valeur numérique (donc sans formatage avec `texNombre` par exemple) ou bien un tableau de bons résultats possibles. On verra, [plus bas](#5), que `resultat` peut être plus divers que cela (un texte, une fraction, une grandeur avec son unité) et les modifications à apporter alors.
 
 3. Ajouter, pour chaque question, le champ de réponses avec le clavier virtuel après l'énoncé de la sorte :
 >>```js 
->>texte += ajouteChampTexteMathLive(this, i)
+>> if (this.interactif) {   // Si l'exercice est interactif
+>>      texte += ajouteChampTexteMathLive(this, i)
+>> }
 >>```
 >>`ajouteChampTexteMathLive` a le fonctionnement par défaut ci-dessus, mais possède les options suivantes :
 >>```js 
@@ -132,7 +134,7 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >>```
 >>Les 3 premiers paramètres sont obligatoires et désignent, respectivement, l'exercice appelant, le numéro de la question dans la programmation de l'exercice et la réponse attendue.
 
->>A cela, s'ajoutent toute sorte de paramètres optionnels dont la plupart servent uniquement afin de rendre un [exercice exportable AMC](tutorial-Rendre_un_exercice_pour_usage_AMC.html). Seul le dernier paramètre `formatInteractif` est pertinent ici et indique le type de réponses attendues. On verra son utilité au [prochain paragraphe](#5).
+>>A cela, s'ajoutent toute sorte de paramètres optionnels dont la plupart servent uniquement afin de rendre un exercice exportable AMC, soit de [façon automatisée](#14), soit de [façon autonome](tutorial-Rendre_un_exercice_pour_usage_AMC.html). Seul le dernier paramètre `formatInteractif` est pertinent ici et indique le type de réponses attendues. On verra son utilité au [prochain paragraphe](#5).
 
 - Le fonctionnement, par défaut, de la fonction `setReponse()` est de comparer des expressions des nombres ou des résultats de calcul, de façon intuitive. On remarque que `formatInteractif: 'calcul'` étant défini par défaut, on peut s'en passer.
 
@@ -140,32 +142,23 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >>setReponse(this, i, 5.4)  // Pour comparer la réponse saisie avec le nombre 5.4
 >>                          // équivalent à setReponse(this, i, 5.4,{ formatInteractif: 'calcul' })
 >>
->> setReponse(this, i, [2, 3, 7])  // Pour comparer la réponse saisie l'un de ces nombres
->>                                 // équivalent à setReponse(this, i, [2, 3, 7],{ formatInteractif: 'calcul' })
->>```
-
-
-- Parce que la conception d'un exercice  AMC ne gère pas tout à fait les réponses comme la conception d'un exercice en interactif, il est important (si on souhaite proposer une sortie AMC) de n'appeler `setReponse()` que lorqu'on n'est pas dans le contexte AMC :
-
->>```js
->> if (this.interactif && !context.isAmc) {
->>          setReponse(this, i, reponse)
->> }
+>> setReponse(this, i, [2, 3*6, 7/2])   // Pour comparer la réponse saisie avec tous ces nombres ou résultats de calcul
+>>                                      // équivalent à setReponse(this, i, [2, 3*6, 7/2],{ formatInteractif: 'calcul' })
 >>```
 
 >>>>## <a id="5" href="#5"></a> [2. 1. 3. Gestion des différents types de réponses attendues](#5)
 
 
-- Pour comparer des **textes** avec respect strict de la casse, on code, comme dans l'exercice-témoin **2N14-1** :
+- Pour comparer des **textes avec respect strict de la casse**, on code, comme dans l'exercice-témoin **2N14-1** :
 
 >>```js
->>setReponse(this, i, 'resultat', { formatInteractif: 'texte' }) // resultat doit être saisie sans les $ délimiteurs du LaTeX
+>>setReponse(this, i, 'resultat', { formatInteractif: 'texte' }) // resultat = 'KWh' par exemple
 >>```
 
-- Pour comparer des **textes** sans respect de la casse, on code, comme dans l'exercice-témoin **6C11-2** :
+- Pour comparer des **textes sans respect de la casse**, on code, comme dans l'exercice-témoin **6C11-2** :
 
 >>```js
->>setReponse(this, i, 'resultat', { formatInteractif: 'ignorerCasse' }) // resultat doit être saisie sans les $ délimiteurs du LaTeX
+>>setReponse(this, i, 'resultat', { formatInteractif: 'ignorerCasse' }) // resultat = 'Dividende' par exemple
 >>```
 
 - Pour comparer des **fractions**, il y a trois méthodes différentes pour coder.
@@ -186,7 +179,7 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >> // Si maFractionReponse est 1/2, l'élève peut toutefois fournir comme bonne réponse 2/4 ou bien 0.5.
 >>```
 
-- Pour comparer des **longueurs** (ou des **aires**), on code, comme dans l'exercice-témoin **6M11** :
+- Pour comparer des **grandeurs (avec des unités)**, on code, comme dans l'exercice-témoin **6M11** :
 >>``` js
 >>setReponse(this, i, new Grandeur(resultat, 'cm'), { formatInteractif: 'longueur' }) // resultat est un nombre. On personnalisera le champ texte avec ajouteChampTexteMathLive(this, i, 'longueur')
 >>```
@@ -195,7 +188,7 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 
 Le fonctionnement de MathLive peut parfois donner un résultat étonnant. Alors qu'on attend la réponse, "**1h45min**", `verifieQuestionMathLive` peut attendre "**1h45\\min**" par exemple.
 
-Si vous vous trouvez dans la situation où une réponse correcte est considérée fausse, voici la procédure à suivre :
+Si le concepteur de l'exercice se trouve dans la situation où une réponse correcte est considérée fausse, voici la procédure à suivre pour trouver la raison :
 * Ouvrir l'inspecteur (CTRL+MAJ+C sur Firefox et Chrome, Command+Option+I sur Safari).
 * Sur l'onglet débugueur, chercher dans l'onglet sources `webpack/src/js/modules/gestionInteractifs.js`.
 * Mettre un point d'arrêt sur la ligne 95 (numéro actuel de ligne mais sous réserve de non-rajout de code au-dessus évidemment) juste après le `let saisie = champTexte.value` (clic droit sur 95 puis sur Ajouter un point d'arrêt).
@@ -209,14 +202,14 @@ Exercice-témoin : **can6C15**
 
 Les exercices utilisables dans la Course Aux Nombres sont des exercices avec `this.typeExercice = 'simple'`.
 
-L'utilisation de mathLive au sein de ces exercices nécessitent ces actions :
+L'utilisation de MathLive au sein de ces exercices nécessitent ces actions :
 * Mettre l'énoncé dans `this.question`.
 * Mettre la correction dans `this.correction`.
 * Mettre la réponse attendue dans `this.reponse`.
-Si le format de mathLive par défaut ne convient pas, on peut le changer. Pour cela, il suffit de placer après `Exercice.call(this)` :
-* `this.formatInteractif = ` et de compléter avec un des formats vus <a href="#5">ci-dessus</a> : `'texte'`, `'fraction'`, `'fractionPlusSimple'`, `'fractionEgale'`, `'longueur'`, `'calcul'`.
-* `this.formatChampTexte = 'largeur10 inline'` pour personnaliser le champTexte (10 % de la largeur sans retour à la ligne, dans cet exemple).
-* `this.optionsChampTexte = { texte: 'l = ', texteApres: ' cm'}` permet d'avoir du texte avant et après le champTexte MathLive.
+Si le format de MathLive par défaut ne convient pas, on peut le changer. Pour cela, il suffit de placer après `Exercice.call(this)` :
+>>* `this.formatInteractif = ` et de compléter avec un des formats vus <a href="#5">ci-dessus</a>.
+>>* `this.formatChampTexte = 'largeur10 inline'` pour personnaliser le champ de réponse (10 % de la largeur sans retour à la ligne, dans cet exemple).
+>>* `this.optionsChampTexte = { texte: 'l = ', texteApres: ' cm'}` permet d'avoir du texte avant et après le champ de réponse.
 
 >>>>## <a id="8" href="#8"></a> [2. 1. 6. Permettre plusieurs champs de réponse pour une même question](#8)
 
@@ -247,9 +240,9 @@ Le souci, c'est que pour l'instant chaque question rapporte 1 point au niveau du
 
 Exercice-témoin : **5L10-2**
 
-Pour rendre un exercice interactif en utilisant `qcm` et en permettant, aux élèves, de choisir une bonne réponse parmi plusieurs propositions, il faut rajouter une nouvelle ligne de code, construire les propositions de chaque question du QCM et avoir recours la fonction `propositionsQcm()` qui crée les cases à cocher.
+Pour rendre un exercice interactif en utilisant `qcm` et en permettant, aux élèves, de choisir une bonne réponse parmi plusieurs propositions, il faut rajouter des nouvelles lignes de code, construire les propositions de chaque question du QCM et avoir recours à la fonction `propositionsQcm()` qui crée les cases à cocher.
 
->>>>## <a id="91" href="#91"></a> [2. 2. 1. Ligne de code spécifique](#91)
+>>>>## <a id="91" href="#91"></a> [2. 2. 1. Lignes de code spécifiques](#91)
 
 Rajouter un import dans l'en-tête comme ceci :
 >>```js
@@ -347,7 +340,10 @@ Le type `custom` est réservé aux concepteurs avertis. Il n'a pas de syntaxe pa
 
 ## <a id="14" href="#14"></a> [3. Compatibilité entre l'interactivité et un usage AMC](#14)
 
-Historiquement, la sortie des premiers [exercices exportables AMC](tutorial-Rendre_un_exercice_pour_usage_AMC.html) est plus précoce que la mise en place de l'interactivité dans les exercices. De ce fait, il existe un lien important entre ces deux compléments d'exercices bien qu'ils soient indépendants : on peut développer l'un sans l'autre.
+Historiquement, la sortie des premiers exercices exportables AMC est plus précoce que la mise en place de l'interactivité dans les exercices. De ce fait, il existe une documentation indépendante qui permet de rendre un [exercice exportable AMC](tutorial-Rendre_un_exercice_pour_usage_AMC.html).
+
+Toutefois, la création de l'interactivité dans un exercice permet de créer un export AMC automatisé par l'ajout de très peu de lignes de codes supplémentaires.
+il existe un lien important entre ces deux compléments d'exercices bien qu'ils soient indépendants : on peut développer l'un sans l'autre.
 
 Toutefois, en octobre 2021, il y a maintenant plus d'exercices interactifs que d'[exercices exportables AMC](tutorial-Rendre_un_exercice_pour_usage_AMC.html) mais il est probable que cet écart s'aménuise. De ce fait, lorsqu'on conçoit un exercice intertactif, il serait bien de penser immédiatement à son passage en AMC et de prendre la précaution suivante.
 
@@ -365,7 +361,7 @@ Toutefois, en octobre 2021, il y a maintenant plus d'exercices interactifs que d
 >> // Cette remarque est d'ordre générale, il peut y avoir des cas particuliers, notamment pour les qcmNUM
 >>```
 
->>## <a id="14bis" href="#14bis"></a> [3. 1. L'export AMC codé en deux lignes de code](#14bis)
+>>## <a id="14bis" href="#14bis"></a> [3. 1. L'export AMC automatisé](#14bis)
 
 Octobre 2021 : Des retours sont encore attendus en cas d'utilisation de cette méthode car on n'a pas assez d'expérience et il peut donc rester des bugs.
 
@@ -389,17 +385,19 @@ Alors, rendre l'exercice exportable AMC, est instantané si on rajoute, avec les
 
 L'export AMC possèdera un nombre à coder où le nombre de chiffres sera automatiquement détecté par la bonne réponse à fournir ainsi que le signe du nombre.
 
-Si toutefois, le concepteur de l'exercice trouve que donner le nombre de chiffres exact du nombre-solution et le signe est une aide trop importante pour l'élève, il pourra imposer lui-même le nombre de chiffres et le choix du signe de la façon suivante.
-
-**Remarque importante** : Si, en interactif, Mathlive gère sans problème, via `setReponse`, un tableau de bonnes réponses, l'export AMC automatique sera moins fonctionnel puisque AMC ne pouvant coder qu'une seule réponse, seule la première réponse du tableau sera considérée comme correcte dans AMC par ce procédé. Il faudra, soit changer la consigne pour l'export AMC, soit programmmer l'export AMC de façon plus personnalisée en suite telle doc... EE.
-
+Si toutefois, le concepteur de l'exercice trouve que donner le nombre exact de chiffres du nombre-solution et le signe est une aide trop importante pour l'élève, il pourra imposer lui-même le nombre de chiffres et le choix du signe de la façon suivante.
 
 >>```js
 >>setReponse(this,i, reponse, {digits: 6, decimals: 5, signe: true}) // ou bien setReponse(this,i, reponse,{digits: 6, decimals: 5, signe: true, formatInteractif: 'calcul'})
 >> // digits correspond au nombre TOTAL de chiffres du nombre à coder.
->> // decimal correspond au nombre de chiffres de la partie décimale du nombre à coder.
+>> // decimals correspond au nombre de chiffres de la partie décimale du nombre à coder.
 >> // signe correspond à la présence ou non du codage pour le signe positif ou négatif.
+>> // Chacun de ces paramètres est facultatif. Ne pas en mettre, c'est laisser la place à la valeur idéale.
 >>```
+
+Si digits et decimals sont mal renseignés (par exemple, digits=3 et decimals=1 pour coder le nombre 456,17), alors ces valeurs ne seront pas prises en compte et les valeurs, par défaut, seront utilisés (dans l'exemple ci-dessus, digits=5 et decimals=2).
+
+**Remarque importante** : Si, en interactif, MathLive gère sans problème, via `setReponse`, un tableau de bonnes réponses, l'export AMC automatique sera moins fonctionnel puisque AMC ne pouvant coder qu'une seule réponse, seule la première réponse du tableau sera considérée comme correcte dans AMC par ce procédé. Il faudra, soit changer la consigne pour l'export AMC, soit programmmer l'export AMC de façon plus personnalisée en suivant telle doc... EE.
 
 
 >>>>## <a id="142" href="#142"></a> [3. 1. 2. Avec `formatInteractif : 'fraction'`](#142)
@@ -427,17 +425,15 @@ Si on souhaite imposer le même nombre de chiffres au numérateur et au dénumé
 >> // signe correspond à la présence ou non du codage pour le signe positif ou négatif.
 >>```
 
-Si on ne souhaite pas imposer le même nombre de chiffres au dénominateur et au numérateur, il ne faut pas agir sur `setReponse` mais coder de la façon suivante :
-
-EE : A tester
+Si on ne souhaite pas imposer le même nombre de chiffres au dénominateur et au numérateur, il faut aussi agir sur `setReponse` mais coder de la façon suivante :
 
 >>```js
->> if (context.isAmc) {
->>      this.autoCorrection[j].reponse.valeur[0].num.digits = 4 // Pour que le numérateur soit codé sur 4 chiffres
->>      this.autoCorrection[j].reponse.valeur[0].den.digits = 2 // Pour que le dénominateur soit codé sur 2 chiffres
->> }
+>>setReponse(this,i, reponse, {digitsNum: 3, digitsDen: 2, signe: true, formatInteractif: 'fraction'}) // Pour imposer, ici, 3 chiffres au numérateur et 2 chiffres au dénominateur.
+>>// digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder.
+>>// digitsDen correspond au nombre TOTAL de chiffres du dénominateur à coder.
 >>```
 
+**Remarque** : Si le nombre choisi de chiffres est trop petit par rapport au nombre à coder (digits=2 alors que le nombre à coder est 236), alors ce nombre de chiffres sera automatiquement remis à la valeur minimale (3, dans l'exemple précédent).
 
 >>>>## <a id="143" href="#143"></a> [3. 1. 3. Avec `formatInteractif : 'fractionPlusSimple'` ou `formatInteractif : 'fractionEgale'`](#143)
 

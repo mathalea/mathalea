@@ -633,7 +633,37 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres 
  * @param {'numero de la question'} i
  * @param {'array || number'} a
  */
-export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, formatInteractif = 'calcul' } = {}) {
+
+export function setReponse (exercice, i, valeurs, { digits = 0, digitsNum, digitsDen, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, formatInteractif = 'calcul' } = {}) {
+  let reponses = []
+
+  if (Array.isArray(valeurs)) { // J'ai remis ici une condition non negative.
+    reponses = valeurs // reponses contient donc directement le tableau valeurs
+    // si valeur est un tableau ou prend le signe de la première valeur
+    if (valeurs[0].num === undefined) {
+      signe = valeurs[0] < 0 ? true : signe // on teste si elle est négative, si oui, on force la case signe pour AMC
+    } else {
+      signe = valeurs[0].signe === -1 ? true : signe // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
+    }
+  } else {
+    reponses = [valeurs] // ici, valeurs n'est pas un tableau mais on le met dans reponses sous forme de tableau
+    if (valeurs.num === undefined) {
+      signe = valeurs < 0 ? true : signe // on teste si elle est négative, si oui, on force la case signe pour AMC
+    } else {
+      signe = valeurs.signe === -1 ? true : signe // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
+    }
+  }
+  if (exercice.autoCorrection[i] === undefined) {
+    exercice.autoCorrection[i] = {}
+  }
+  if (exercice.autoCorrection[i].reponse === undefined) {
+    exercice.autoCorrection[i].reponse = {}
+  }
+  exercice.autoCorrection[i].reponse.param = { digits: digits, digitsNum: digitsNum, digitsDen: digitsDen, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx, formatInteractif: formatInteractif }
+  exercice.autoCorrection[i].reponse.valeur = reponses
+}
+
+export function setReponse2 (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, formatInteractif = 'calcul' } = {}) {
   let reponses = []
   console.log('le contenu de valeurs est : ')
   console.log(valeurs)

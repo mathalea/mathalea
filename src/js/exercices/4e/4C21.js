@@ -153,9 +153,10 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
             n = randint(1, 4) //
             a = n * b + randint(1, 9) // (n*b+?)/b-n>0
           }
-          texte = `$${texFraction(a, b)}${plusOuMoins}${ecritureParentheseSiNegatif(n)}=$`
+          texte = `$${texFraction(a, b)}${plusOuMoins}${ecritureParentheseSiNegatif(n)}=`
           texteCorr = texte
-          texteCorr += `$${texFraction(a, b)}${plusOuMoins}${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
+          texte += '$'
+          texteCorr += `${texFraction(a, b)}${plusOuMoins}${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
           texteCorr += `=${texFraction(a + plusOuMoins + ecritureParentheseSiNegatif(n * b), b)}`
           num = calcul(ecritureParentheseSiNegatif(a) + plusOuMoins + ecritureParentheseSiNegatif(n * b))
         }
@@ -168,8 +169,10 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
       }
-      reponse = fraction(num, den).simplifie()
-      setReponse(this, i, reponse, { digits: 4, signe: true, formatInteractif: 'fraction' })
+      // reponse = fraction(num, den).simplifie()
+      // setReponse(this, i, reponse, { digits: 4, digitsNum: 1, digitsDen: 10, formatInteractif: 'fraction' })
+      setReponse(this, i, -10.65, { digits: 7, decimals: 3, formatInteractif: 'calcul' })
+      // setReponse(this, i, 10, { formatInteractif: 'calcul' })
       // setReponse(this, i, [fraction(2, 1)], { formatInteractif: 'fraction' })
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
