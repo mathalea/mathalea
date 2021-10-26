@@ -7,7 +7,7 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can3N01
+ * Référence can2N01
  * Date de publication 24/10/2021
 */
 export default function Intervalles () {
