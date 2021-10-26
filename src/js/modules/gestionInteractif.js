@@ -438,39 +438,46 @@ export function propositionsQcm (exercice, i) {
   }
   if (context.isHtml) {
     texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
-  } else {
-    texte += '<br>'
-  }
-  if (context.isHtml) {
     texte += '<table>\n\t'
     if (vertical) {
       texte += '<tr>\n\t'
     }
   } else {
+    texte += '<br>'
     texte += `\\begin{multicols}{${nbCols}}\n\t`
   }
-
   for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
-    if (context.isHtml && exercice.interactif) {
+    if (context.isHtml) {
       if (vertical && (rep % nbCols === 0) && rep > 0) {
         texte += '</tr>\n<tr>\n'
       }
       texte += '<td>\n'
-      texte += `<div class="ui checkbox ex${exercice.numeroExercice} monQcm">
+      if (exercice.interactif) {
+        texte += `<div class="ui checkbox ex${exercice.numeroExercice} monQcm">
             <input type="checkbox" tabindex="0" class="hidden" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
             <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
           </div>`
-      texte += '</td>\n'
+      } else {
+        texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '</td>\n'
+        if (nbCols > 1 && vertical) {
+          texte += '\n\t'
+        }
+      }
+      if (exercice.autoCorrection[i].propositions[rep].statut) {
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+      } else {
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+      }
     } else {
       texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
-      if (nbCols > 1) {
+      if (nbCols > 1 && vertical) {
         texte += '\\\\\n\t'
       }
-    }
-    if (exercice.autoCorrection[i].propositions[rep].statut) {
-      texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
-    } else {
-      texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+      if (exercice.autoCorrection[i].propositions[rep].statut) {
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+      } else {
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+      }
     }
   }
   if (context.isHtml) {
