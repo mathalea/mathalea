@@ -1,7 +1,6 @@
 import AdditionsSoustractionsMultiplicationsPosees from '../6e/6C10.js'
 export const titre = 'Additions, soustractions et multiplications posées de nombres entiers'
 export { interactifReady, interactifType, amcReady, amcType } from '../6e/6C10.js'
-
 /**
  *Clone de 6C10 pour les CM1-CM2
  *
@@ -9,4 +8,5 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/6C10.j
  */
 export default function OperationsPosees () {
   AdditionsSoustractionsMultiplicationsPosees.call(this)
+  this.nbQuestions = 3
 }
