@@ -11,8 +11,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Rémi Angot
- * Référence
- * Date de publication
+ * Référence 
 */
 export default function NomExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
