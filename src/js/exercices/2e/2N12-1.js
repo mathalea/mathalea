@@ -1,9 +1,9 @@
 import EncadrerFractionEntre2Entiers from '../6e/6N20-1.js'
 export const titre = 'Encadrer une fraction entre deux nombres entiers'
 export { interactifReady, interactifType, amcType, amcReady } from '../6e/6N20-1.js'
-
+export const dateDePublication = '27/10/2021'
 /**
- * Clone de 6N30-1 pour les 2nde
+ * Clone de 6N20-1 pour les 2nde
  *
  * @author Jean-Claude Lhote
  */

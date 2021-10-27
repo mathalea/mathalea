@@ -1,8 +1,4 @@
 export const dictionnaireLycee = {
-  '2N13-1': {
-    titre: 'Arrondir une valeur',
-    url: '/exercices/6e/6N31-3.js'
-  },
   '2N20-1': {
     titre: 'Écrire la liste de tous les diviseurs d\'un entier',
     url: '/exercices/5e/5A10.js'
