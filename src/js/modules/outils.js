@@ -3376,6 +3376,15 @@ export function puissanceEnProduit (b, e) {
 /**
  * Fonction qui renvoie un tableau contenant la mantisse et l'exposant de l'écriture scientique d'un nombre donné en paramètres sous sa forme décimale.
  * @param nbDecimal
+ *
+ * @example
+ * // Renvoie [4.1276,1]
+ * range(decimalToScientifique,[41.276])
+ * // Renvoie [3.48,-2]
+ * range(decimalToScientifique,[0.0348])
+ * // Renvoie [-2.315,3]
+ * range(decimalToScientifique,[-2315])
+ *
  * @author Eric Elter
  * exemple...
  */
@@ -7382,15 +7391,13 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n\\end{multicols}\n\\end{minipage}\n}\n\n'
           id += 2
-        } else { // EE : Rajouter minipage dans hybride. Vérifier les puissances
+        } else {
           let nbChiffresExpo
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) {
-            // reponse = autoCorrection[j].reponse.valeur[0]
             nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(autoCorrection[j].reponse.valeur[0])[0]), autoCorrection[j].reponse.param.decimals)
             nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(autoCorrection[j].reponse.valeur[0])[0]), autoCorrection[j].reponse.param.digits - nbChiffresPd)
             nbChiffresExpo = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(autoCorrection[j].reponse.valeur[0])[1]), autoCorrection[j].reponse.param.exposantNbChiffres)
           } else {
-            // reponse = autoCorrection[j].reponse.valeur[0]
             nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(autoCorrection[j].reponse.valeur[0]), autoCorrection[j].reponse.param.decimals)
             nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0]), autoCorrection[j].reponse.param.digits - nbChiffresPd)
           }
@@ -7694,6 +7701,7 @@ export function exportQcmAmc (exercice, idExo) {
           break
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
+        texQr += '\\begin{minipage}{\\textwidth}\n'
         if (autoCorrection[j].enonceAvant === undefined) { // Dans une suite de questions, il se peut qu'il n'y ait pas d'énoncé général donc pas besoin de saut de ligne non plus.
           texQr += `${autoCorrection[j].enonce} \\\\\n `
         }
@@ -7860,7 +7868,7 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += '\\end{multicols}\n'
           }
         }
-        texQr += '}\n'
+        texQr += '\\end{minipage}\n}\n'
         break
     }
   }
