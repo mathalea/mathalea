@@ -375,7 +375,7 @@ export function menuDesExercicesDisponibles () {
   const listeThemesCan = [
     ['canc3', 'canc3 - Course aux nombres niveau CM1-CM2'], ['can6', 'can6 - Course aux nombres niveau 6e'], ['can5', 'can5 - Course aux nombres niveau 5e'], ['can4', 'can4 - Course aux nombres niveau 4e'],
     ['can3', 'can3 - Course aux nombres niveau 3e'], ['can2', 'can2 - Course aux nombres niveau 2e'], ['can1', 'can1 - Course aux nombres niveau 1e'],
-    ['canT', 'canT - Course aux nombres niveau Terminale'], ['canP', 'canPredef - Courses aux nombres clé en main']]
+    ['canT', 'canT - Course aux nombres niveau Terminale'], ['canEx', 'canExpert - Course aux nombres niveau Terminale expert'], ['canP', 'canPredef - Courses aux nombres clé en main']]
   const listeThemesC3 = [
     ['c3C1', 'c3C1 - Calculs niveau 1'], ['c3C2', 'c3C2 - Calculs niveau 2'], ['c3C3', 'c3C3 - Calculs niveau 3'],
     ['c3N1', 'c3N1 - Numération Niveau 1'], ['c3N2', 'c3N2 - Numération Niveau 2'], ['c3N3', 'c3N3 - Numération Niveau 3']]

@@ -1,8 +1,4 @@
 export const dictionnaireLycee = {
-  '2N10-1': {
-    titre: "Lire l'abscisse décimale d'un point repéré par une fraction",
-    url: '/exercices/6e/6N30-1.js'
-  },
   '2N10-2': {
     titre: "Placer un point d'abscisse décimale",
     url: '/exercices/6e/6N30-2.js'
