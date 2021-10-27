@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombrec, lettreDepuisChiffre, htmlConsigne, egal } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombrec, lettreDepuisChiffre, htmlConsigne, egal, calcul } from '../../modules/outils.js'
 import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
@@ -29,6 +29,7 @@ export default function PlacerPointsSurAxe () {
   }
 
   this.nouvelleVersion = function (numeroExercice) {
+    this.sup = parseInt(this.sup)
     // numeroExercice est 0 pour l'exercice 1
     const pointsSolutions = []
     const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
@@ -37,9 +38,11 @@ export default function PlacerPointsSurAxe () {
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (parseInt(this.sup) === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+    if (this.sup > 3) {
+      typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
+    } else {
       typesDeQuestions = combinaisonListes(
-        [parseInt(this.sup)],
+        [this.sup],
         this.nbQuestions
       )
     }
@@ -78,19 +81,19 @@ export default function PlacerPointsSurAxe () {
 
       switch (typesDeQuestions[i]) {
         case 1: // Placer un point sur un axe (1 décimale)
-          abs0 = randint(0, 9)
+          abs0 = this.sup > 4 ? randint(-5, 5) : randint(0, 9)
           pas1 = 1
           pas2 = 10
           break
 
         case 2: // Placer un point sur un axe (2 décimales)
-          abs0 = randint(0, 90) / 10
+          abs0 = this.sup > 4 ? calcul(randint(-50, 50) / 10) : calcul(randint(0, 90) / 10)
           pas1 = 10
           pas2 = 10
           break
 
         case 3: // Placer un point sur un axe (3 décimales)
-          abs0 = randint(0, 990) / 100
+          abs0 = this.sup > 4 ? calcul(randint(-500, 500) / 100) : calcul(randint(0, 990) / 100)
           pas1 = 100
           pas2 = 10
           break
