@@ -1,9 +1,9 @@
 import PlacerPointsSurAxe from '../6e/6N30-2.js'
 export const titre = 'Placer un point d’abscisse décimale'
 export { interactifReady, interactifType, amcReady, amcType } from '../6e/6N30-2.js'
-
+export const dateDePublication = '27/10/2021'
 /**
- * Clone de 6N30-1 pour les 2nde
+ * Clone de 6N30-2 pour les 2nde
  *
  * @author Jean-Claude Lhote
  */
