@@ -30,9 +30,11 @@ export default function LireElementsCarac () {
     let typesDeQuestionsDisponibles
     if (this.sup < 4) typesDeQuestionsDisponibles = [parseInt(this.sup)]
     else typesDeQuestionsDisponibles = [1, 2, 3]
-    const fName = []; let Ymin; let Yscale; let Ymax
+    const fName = []
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, a, b, c, x1, x2, alpha, beta, f, r, svgYmin, svgYmax, F, orientation, signeA, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    let Ymin; let Yscale; let Ymax
+    let Xmin; let Xmax
+    for (let i = 0, texte, texteCorr, a, b, c, x1, x2, alpha, beta, f, r, svgYmin, svgYmax, F, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       fName.push(lettreMinusculeDepuisChiffre(i + 6))
       texteCorr = ''
       a = randint(-2, 2, 0) // On prend a au hasard quoi qu'il arrive
@@ -47,14 +49,7 @@ export default function LireElementsCarac () {
           b = -a * (x1 + x2)
           c = x1 * x2 * a
 
-          if (a < 0) {
-            orientation = 'bas'
-            signeA = 'négatif'
-          } else {
-            orientation = 'haut'
-            signeA = 'positif'
-          }
-          texteCorr = `La parabole est orientée vers le ${orientation}, on en déduit que le coefficient dominant de $\\mathscr{${fName[i]}}$ est ${signeA}.`
+          texteCorr = `La parabole est orientée vers le ${a < 0 ? 'bas' : 'haut'}, on en déduit que le coefficient dominant de $\\mathscr{${fName[i]}}$ est ${a < 0 ? 'négatif' : 'positif'}.`
           break
         case 2: // Racines
           texte = 'Quelles sont les racines'
@@ -76,12 +71,7 @@ export default function LireElementsCarac () {
           b = -2 * a * alpha
           c = a * alpha ** 2 + beta
 
-          if (a > 0) {
-            orientation = 'bas' // la variable ne désigne plus l'orientation de la parabole, flemme d'en déclarer une autre.
-          } else {
-            orientation = 'haut'
-          }
-          texteCorr = `Le sommet, c'est-à-dire le point le plus ${orientation} de la parabole, a pour coordonnées $(${alpha};${beta})$.`
+          texteCorr = `Le sommet, c'est-à-dire le point le plus ${a > 0 ? 'bas' : 'haut'} de la parabole, a pour coordonnées $(${alpha};${beta})$.`
           break
       }
       // Les coeffs sont générés, on peut donc créé la fonction
@@ -96,21 +86,38 @@ export default function LireElementsCarac () {
        * Q3 :
        *    le sommet dans le carré [-9;9]²
       */
-      if (a < 0) {
-        Ymax = Math.ceil(f(-b / (2 * a)) + 2)
-        Ymin = Math.min(f(x1), f(x2), f(-x1), f(0), f(-6), f(6))
+      // if (a < 0) {
+      //   Ymax = Math.ceil(f(-b / (2 * a)) + 2)
+      //   Ymin = Math.min(f(x1), f(x2), f(-x1), f(0), f(-6), f(6))
+      // } else {
+      //   Ymin = Math.floor(f(-b / (2 * a)) - 2)
+      //   Ymax = Math.max(f(x1), f(x2), f(-x1), f(0), f(-6), f(6))
+      // }
+      if (listeTypeDeQuestions[i] === 3) {
+        Xmin = alpha - 5
+        Xmax = alpha + 5
+        Ymin = beta - 5
+        Ymax = beta + 5
       } else {
-        Ymin = Math.floor(f(-b / (2 * a)) - 2)
-        Ymax = Math.max(f(x1), f(x2), f(-x1), f(0), f(-6), f(6))
+        Xmin = Math.min(x1, x2) - 2
+        Xmax = Math.max(x1, x2) + 2
+        if (a < 0) {
+          Ymax = Math.ceil(f(-b / (2 * a)) + 2)
+          Ymin = f(Xmin)
+        } else {
+          Ymin = Math.floor(f(-b / (2 * a)) - 2)
+          Ymax = f(Xmax)
+        }
       }
 
       if (Ymax - Ymin < 10) Yscale = 2
       else Yscale = Math.max(1, calcule(Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5)) * 2
+
       r = repere({
-        xmin: -10,
+        xmin: Xmin,
         ymin: Ymin - Yscale,
         ymax: Ymax + Yscale,
-        xmax: 10,
+        xmax: Xmax,
         xscale: 1,
         yscale: Yscale,
         positionLabelY: -0.8
@@ -121,7 +128,15 @@ export default function LireElementsCarac () {
 
       F = x => a * x ** 2 + b * x + c
 
-      texte += mathalea2d({ xmin: -11, xmax: 11, ymin: svgYmin, ymax: svgYmax + 2, pixelsParCm: pixelsParCm, scale: 0.6 }, courbe(F, -10, 10, 'blue', 1.5, r), r)
+      texte += mathalea2d({
+        xmin: Xmin - 1,
+        xmax: Xmax + 1,
+        ymin: svgYmin,
+        ymax: svgYmax + 2,
+        pixelsParCm: pixelsParCm,
+        scale: 0.6
+      },
+      courbe(F, Xmin, Xmax, 'blue', 1.5, r), r)
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)
