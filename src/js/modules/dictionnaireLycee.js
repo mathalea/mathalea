@@ -1,12 +1,4 @@
 export const dictionnaireLycee = {
-  '2N12-1': {
-    titre: 'Encadrer une fraction entre deux nombres entiers',
-    url: '/exercices/6e/6N20-1.js'
-  },
-  '2N12-2': {
-    titre: 'Encadrer avec des puissances de 10',
-    url: '/exercices/4e/4C30-1.js'
-  },
   '2N13-1': {
     titre: 'Arrondir une valeur',
     url: '/exercices/6e/6N31-3.js'
