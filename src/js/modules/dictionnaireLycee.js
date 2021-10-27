@@ -1,12 +1,4 @@
 export const dictionnaireLycee = {
-  '2N10-2': {
-    titre: "Placer un point d'abscisse décimale",
-    url: '/exercices/6e/6N30-2.js'
-  },
-  '2N10-3': {
-    titre: 'Utiliser les abscisses fractionnaires',
-    url: '/exercices/6e/6N21.js'
-  },
   '2N12-1': {
     titre: 'Encadrer une fraction entre deux nombres entiers',
     url: '/exercices/6e/6N20-1.js'
