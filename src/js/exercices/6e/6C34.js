@@ -15,7 +15,7 @@ export const amcType = 'AMCNum' // Question numérique
 * 6C34
 */
 
-export default function dernierChiffre () {
+export default function DernierChiffre () {
   Exercice.call(this)
   this.sup = 3
   this.titre = titre

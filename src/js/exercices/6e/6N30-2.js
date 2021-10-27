@@ -24,8 +24,6 @@ export default function PlacerPointsSurAxe () {
   this.spacing = 1
   this.spacingCorr = 1
   this.sup = 1
-  this.typeExercice = 'SVGJS'
-  this.listePackages = 'tkz-euclide'
   const changeCoord = function (x, abs0, pas1) {
     return (abs0 + (x - abs0) * 3 * pas1)
   }
@@ -33,7 +31,6 @@ export default function PlacerPointsSurAxe () {
   this.nouvelleVersion = function (numeroExercice) {
     // numeroExercice est 0 pour l'exercice 1
     const pointsSolutions = []
-    let objets = []
     const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
     let typesDeQuestions
     this.listeQuestions = []
@@ -71,9 +68,10 @@ export default function PlacerPointsSurAxe () {
       i < this.nbQuestions;
       i++
     ) {
+      const objetsEnonce = []
+      const objetsCorr = []
       pointsNonSolutions[i] = []
       pointsSolutions[i] = []
-      objets = []
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
@@ -121,8 +119,8 @@ export default function PlacerPointsSurAxe () {
       if (this.interactif && !context.isAmc) {
         for (let indicePoint = 0, monPoint, dist; indicePoint < 70; indicePoint++) {
           dist = abs0 + indicePoint / pas1 / pas2
-          monPoint = pointCliquable(changeCoord(dist, abs0, pas1), 0, { size: 3, width: 2, color: 'blue', radius: 0.15 })
-          objets.push(monPoint)
+          monPoint = pointCliquable(changeCoord(dist, abs0, pas1), 0, { size: 6, width: 2, color: 'blue', radius: 0.15 })
+          objetsEnonce.push(monPoint)
           if (egal(dist, abs1) || egal(dist, abs2) || egal(dist, abs3)) {
             pointsSolutions[i].push(monPoint)
           } else {
@@ -131,7 +129,7 @@ export default function PlacerPointsSurAxe () {
         }
       }
 
-      objets.push(droiteGraduee2({
+      const droite = droiteGraduee2({
         Unite: 3 * pas1,
         Min: abs0,
         Max: abs0 + 6.9 / pas1,
@@ -141,17 +139,19 @@ export default function PlacerPointsSurAxe () {
         thickSec: true,
         labelsPrincipaux: true,
         thickDistance: 1 / pas1
-      }))
+      })
+      objetsEnonce.push(droite)
+      objetsCorr.push(droite)
 
       texte = `Placer les points : $${l1}(${texNombrec(abs1)}), ${l2}(${texNombrec(abs2)}), ${l3}(${texNombrec(abs3)})$<br>`
 
-      texte += mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
+      texte += mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75, pixelsParCm: 40 }, objetsEnonce)
       if (this.interactif && !context.isAmc) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
 
-      objets.push(labelPoint(A, B, C), tracePoint(A, B, C))
-      texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
+      objetsCorr.push(labelPoint(A, B, C), tracePoint(A, B, C))
+      texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75, pixelsParCm: 40 }, objetsCorr)
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
