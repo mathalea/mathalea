@@ -206,9 +206,5 @@ export const dictionnaireLycee = {
   '2S30-2': {
     titre: 'Calculer des probabilités dans une expérience aléatoire à une épreuve',
     url: '/exercices/5e/5S21.js'
-  },
-  '2S30-3': {
-    titre: 'Calculer des probabilités simples',
-    url: '/exercices/5e/5S21-1.js'
   }
 }
