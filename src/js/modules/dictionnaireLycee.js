@@ -202,9 +202,5 @@ export const dictionnaireLycee = {
   '2S20-4': {
     titre: 'Calculer des étendues',
     url: '/exercices/3e/3S15.js'
-  },
-  '2S30-2': {
-    titre: 'Calculer des probabilités dans une expérience aléatoire à une épreuve',
-    url: '/exercices/5e/5S21.js'
   }
 }
