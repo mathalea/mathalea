@@ -9,7 +9,7 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
  * @author Jean-Claude Lhote
  * 3S20
  */
-export default function fonctionsProbabilite2 () {
+export default function FonctionsProbabilite2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
