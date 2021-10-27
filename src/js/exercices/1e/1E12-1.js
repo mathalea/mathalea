@@ -14,7 +14,7 @@ export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un tr
  * - les 3 trucs précédents
  * référence 1E12-1
  */
-export default function LireElementsCarac () {
+export default function LireElementsCarac() {
   Exercice.call(this)
   this.consigne = 'Lecture graphique'
   this.nbQuestions = 5 // Nombre de questions par défaut
@@ -74,7 +74,7 @@ export default function LireElementsCarac () {
           texteCorr = `Le sommet, c'est-à-dire le point le plus ${a > 0 ? 'bas' : 'haut'} de la parabole, a pour coordonnées $(${alpha};${beta})$.`
           break
       }
-      // Les coeffs sont générés, on peut donc créé la fonction
+      // Les coeffs sont générés, on peut donc créer la fonction
       f = function (x) {
         return calcule(a * x ** 2 + b * x + c)
       }
@@ -86,13 +86,7 @@ export default function LireElementsCarac () {
        * Q3 :
        *    le sommet dans le carré [-9;9]²
       */
-      // if (a < 0) {
-      //   Ymax = Math.ceil(f(-b / (2 * a)) + 2)
-      //   Ymin = Math.min(f(x1), f(x2), f(-x1), f(0), f(-6), f(6))
-      // } else {
-      //   Ymin = Math.floor(f(-b / (2 * a)) - 2)
-      //   Ymax = Math.max(f(x1), f(x2), f(-x1), f(0), f(-6), f(6))
-      // }
+
       if (listeTypeDeQuestions[i] === 3) {
         Xmin = alpha - 5
         Xmax = alpha + 5
@@ -112,6 +106,10 @@ export default function LireElementsCarac () {
 
       if (Ymax - Ymin < 10) Yscale = 2
       else Yscale = Math.max(1, calcule(Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5)) * 2
+      if (listeTypeDeQuestions[i] === 3) {
+        // Nécessaire pour permettre la lecture graphique
+        Yscale = 1
+      }
 
       r = repere({
         xmin: Xmin,
