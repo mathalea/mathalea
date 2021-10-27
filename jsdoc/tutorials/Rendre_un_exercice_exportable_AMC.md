@@ -1,14 +1,10 @@
-Si vous êtes sur cette page, c'est que vous souhaitez rajouter à votre exercice, un export AMC. Bonne idée, vous êtes sur la bonne page ! Tout le déroulé est décrit, sur cette page, étapes par étapes, selon vos envies. Si toutefois l'exercice est déjà interactif, il est possible que peu de lignes de code supplémentaires soient nécessaires pour le rendre exportable AMC et alors, il est préférable, avant de continuer, de consulter cette page sur la [compatibilité entre l'interactivité et un export AMC](#tutorial-Rendre_un_exercice_interactif.html#EE3). Si l'offre n'est pas satisfaisante, alors revenez sur cette page.
+Si vous êtes sur cette page, c'est que vous souhaitez rajouter à votre exercice, un export AMC. Bonne idée, vous êtes sur la bonne page ! Tout le déroulé est décrit, sur cette page, étapes par étapes, selon vos envies. Si toutefois l'exercice est déjà interactif, il est possible que peu de lignes de code supplémentaires soient nécessaires pour le rendre exportable AMC et alors, il est préférable, avant de continuer, de consulter cette page sur la [compatibilité entre l'interactivité et un export AMC](tutorial-Rendre_un_exercice_interactif.html#compatibilite_interactivite_AMC). Si l'offre n'est pas satisfaisante, alors revenez sur cette page.
 
 ---
 
-MathAlea permet de rendre un exercice utilisable avec AMC (pour [Auto Multiple Choice](https://www.auto-multiple-choice.net/exemples.fr)). C'est un document Latex pour enseignant qui est produit. Sur feuille, l'elève aura un document qui reprend toutes les questions de l'exercice mais sous forme de QCM, de réponses numériques à coder, de questions ouvertes ou bien encore un mélange de toutes ces possibilités. Les copies des élèves peuvent être scannées et corrigées automatiquement via AMC  et dont un guide se trouve dans le [panneau de gauche](https://coopmaths.fr/documentation/tutorial-Utiliser_AMC.html).
+MathAlea permet de rendre un exercice utilisable avec AMC (pour [Auto Multiple Choice](https://www.auto-multiple-choice.net/exemples.fr)). C'est un document Latex pour enseignant qui est produit. Sur feuille, l'elève aura un document qui reprend toutes les questions de l'exercice mais sous forme de QCM, de réponses numériques à coder, de questions ouvertes ou bien encore un mélange de toutes ces possibilités. Les copies des élèves peuvent être scannées et corrigées automatiquement via AMC et dont un guide se trouve dans le [panneau de gauche](tutorial-Utiliser_AMC.html).
  
  ---
-
-
-
-- Parce que la conception d'un exercice  AMC ne gère pas tout à fait les réponses comme la conception d'un exercice en interactif, il est important (si on souhaite proposer une sortie AMC) de n'appeler `setReponse()` que lorqu'on n'est pas dans le contexte AMC :
 
 >>```js
 >> if (this.interactif && !context.isAmc) {
@@ -20,18 +16,18 @@ MathAlea permet de rendre un exercice utilisable avec AMC (pour [Auto Multiple C
 
  Les actions obligatoires à mener, pour permettre à un exercice d'être utilisable avec AMC, sont décrites ci-dessous et explicitées, plus bas, en détail.
 
-1. [Charger le code nécessaire](#1)
-1. [Définir la correction](#2)
-1. [Configurer le `typeAMC` choisi](#3)
-    1. [`qcmMono` et `qcmMult`](#4)
-    1. [`AMCOpen`](#5)
-    1. [`AMCNum`, `AMCOpenNum`, `AMCOpenNum✖︎2` et `AMCOpenNum✖︎3`](#6)
-    1. [`AMCHybride`](#7)
-1. [Plusieurs sorties AMC différentes dans un même exercice](#8)
+1. [Charger le code nécessaire](#code_necessaire)
+1. [Définir la correction](#definir_correction)
+1. [Configurer le `typeAMC` choisi](#configurer_typeAMC)
+    1. [`qcmMono` et `qcmMult`](#qcmMono_qcmMult)
+    1. [`AMCOpen`](#AMCOpen)
+    1. [`AMCNum`, `AMCOpenNum`, `AMCOpenNum✖︎2` et `AMCOpenNum✖︎3`](#AMCNum_AMCOpenNum)
+    1. [`AMCHybride`](#AMCHybride)
+1. [Plusieurs sorties AMC différentes dans un même exercice](#plusieurs_sorties)
 
     
 
-## <a id="1" href="#1"></a> 1. Charger le code nécessaire pour rendre un exercice utilisable avec AMC
+## <a id="code_necessaire" href="#code_necessaire"></a> [1. Charger le code nécessaire pour rendre un exercice utilisable avec AMC](#code_necessaire)
 Pour charger le code nécessaire pour rendre un exercice utilisable avec AMC, il faut ajouter ces deux lignes de code juste après les `import` de début du code de l'exercice :
 ```js
 export const amcReady = true // pour définir que l'exercice peut servir à AMC
@@ -39,16 +35,16 @@ export const amcType = 'typeAMC'
 ```
 |Choix de `'typeAMC'`|Description de ce choix|Exercices-témoins|
 |-----|-----|-----|
-|[`'qcmMono'`](#4)|qcm avec une seule bonne réponse|**6C10-2**|
-|[`'qcmMult'`](#4)|qcm avec possibilité de plusieurs bonnes réponses ou une unique ou bien aucune|**6N43-2**|
-|[`'AMCOpen'`](#5)|question ouverte, avec la possibilité d'afficher ou pas le cadre de saisie qui peut être inutile en géométrie.|**6C10-5** et **6G12-1**|
-|[`'AMCNum'`](#6)|réponse numérique à coder (AMCNumericChoice dans le langage AMC)|**6C10**|
-|[`'AMCOpenNum'`](#6)|mélange de `'AMCOpen'` et `'AMCNum'`, une question ouverte et une réponse numérique à coder. Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum` au profit de `AMCHybride`.|**3G30**|
-|[`'AMCOpenNum✖︎2'`](#6)|identique à `'AMCOpenNum'` avec deux réponses numériques (`reponse` et `reponse2`). Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum✖︎2` au profit de `AMCHybride`.|**4C21**|
-|[`'AMCOpenNum✖︎3'`](#6)|identique à `'AMCOpenNum'` avec trois réponses numériques (`reponse`, `reponse2` et `reponse3`). Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum✖︎3` au profit de `AMCHybride`.|**3L11-1**|
-|[`'AMCHybride'`](#7)|utilisation de plusieurs choix (exclusifs ou répétés) parmi `'qcmMono'`, `'qcmMult'`, `'AMCOpen'` et `'AMCNum'` |**2F10-2**|
+|[`'qcmMono'`](#qcmMono_qcmMult)|qcm avec une seule bonne réponse|**6C10-2**|
+|[`'qcmMult'`](#qcmMono_qcmMult)|qcm avec possibilité de plusieurs bonnes réponses ou une unique ou bien aucune|**6N43-2**|
+|[`'AMCOpen'`](#AMCOpen)|question ouverte, avec la possibilité d'afficher ou pas le cadre de saisie qui peut être inutile en géométrie.|**6C10-5** et **6G12-1**|
+|[`'AMCNum'`](#AMCNum_AMCOpenNum)|réponse numérique à coder (AMCNumericChoice dans le langage AMC)|**6C10**|
+|[`'AMCOpenNum'`](#AMCNum_AMCOpenNum)|mélange de `'AMCOpen'` et `'AMCNum'`, une question ouverte et une réponse numérique à coder. Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum` au profit de `AMCHybride`.|**3G30**|
+|[`'AMCOpenNum✖︎2'`](#AMCNum_AMCOpenNum)|identique à `'AMCOpenNum'` avec deux réponses numériques (`reponse` et `reponse2`). Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum✖︎2` au profit de `AMCHybride`.|**4C21**|
+|[`'AMCOpenNum✖︎3'`](#AMCNum_AMCOpenNum)|identique à `'AMCOpenNum'` avec trois réponses numériques (`reponse`, `reponse2` et `reponse3`). Octobre 2021 : il est préférable ne plus utiliser `AMCOpenNum✖︎3` au profit de `AMCHybride`.|**3L11-1**|
+|[`'AMCHybride'`](#AMCHybride)|utilisation de plusieurs choix (exclusifs ou répétés) parmi `'qcmMono'`, `'qcmMult'`, `'AMCOpen'` et `'AMCNum'` |**2F10-2**|
 
-## <a id="2" href="#2"></a> 2. Définir la correction
+## <a id="definir_correction" href="#definir_correction"></a> [2. Définir la correction](#definir_correction)
 
 La définition de la correction se fait via la variable `this.autoCorrection`.
 ```js
@@ -56,11 +52,11 @@ this.autoCorrection = [] // doit contenir un tableau d'objets avec autant d'él�
                         // this.autoCorrection[0] définira la première question
                         // this.autoCorrection[1] définira la deuxième question et ainsi de suite.
 ```
-## <a id="3" href="#3"></a> 3. Configurer le `typeAMC` choisi
+## <a id="configurer_typeAMC" href="#configurer_typeAMC"></a> 3. [Configurer le `typeAMC` choisi](#configurer_typeAMC)
 
 Il faut adapter `this.autoCorrection` en le configurant selon le type `AMCType` choisi, comme décrit dans les paragraphes ci-dessous.
 
->>## <a id="4" href="#4"></a> 3.1. `qcmMono` et `qcmMult`
+>>## <a id="qcmMono_qcmMult" href="#qcmMono_qcmMult"></a> 3.1. [`qcmMono` et `qcmMult`](#qcmMono_qcmMult)
 
 ```js
 this.autoCorrection[i] = {
@@ -88,7 +84,7 @@ this.autoCorrection[i] = {
 ```
 
 
->>## <a id="5" href="#5"></a> 3.2.`AMCOpen`
+>>## <a id="AMCOpen" href="#AMCOpen"></a> [3.2.`AMCOpen`](#AMCOpen)
 
 ```js
 this.autoCorrection = [
@@ -112,7 +108,7 @@ L'exemple ci-dessus est pour un exercice ne produisant qu'une seule zone de rép
 
 
 
->>## <a id="6" href="#6"></a> 3.3. `AMCNum`, `AMCOpenNum`, `AMCOpenNum✖︎2` et `AMCOpenNum✖︎3` 
+>>## <a id="AMCNum_AMCOpenNum" href="#AMCNum_AMCOpenNum"></a> [3.3. `AMCNum`, `AMCOpenNum`, `AMCOpenNum✖︎2` et `AMCOpenNum✖︎3`](#AMCNum_AMCOpenNum)
 
 
 ```js
@@ -154,7 +150,7 @@ Les types `AMCOpenNum`, `AMCOpenNum✖︎2` et `AMCOpenNum✖︎3` sont amenés 
 
 
 
->>## <a id="7" href="#7"></a> 3.4. `AMCHybride` 
+>>## <a id="AMCHybride" href="#AMCHybride"></a> [3.4. `AMCHybride`](#AMCHybride)
 
 
 Dans ce type, chaque question-réponse peut avoir un type différent. Il y a un seul énoncé, une seule correction et plusieurs champs question-réponse (il faudra donc numéroter les questions dans l'énoncé).
@@ -230,6 +226,6 @@ Pour le type `AMCHybride`, les possibilités étant si nombreuses qu'il ne faut 
 
 
 
-## <a id="8" href="#8"></a> 4. Plusieurs sorties AMC différentes dans un même exercice
+## <a id="plusieurs_sorties" href="#plusieurs_sorties"></a> [4. Plusieurs sorties AMC différentes dans un même exercice](#plusieurs_sorties)
 
 On peut aussi faire le choix de ne pas imposer à un utilisateur le choix d'un type AMC mais en proposer plusieurs. Un exercice-témoin de ce type est le **beta6C12** (à modifier qd plus béta) avec une sortie de type `AMCOpen`, une autre sortie de type `AMCNum` et enfin une dernière sortie de type `AMCHybride` avec un usage simple de `AMCOpen` et un usage simple de `AMCNum`.
