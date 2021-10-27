@@ -198,9 +198,5 @@ export const dictionnaireLycee = {
   '2S20-2': {
     titre: 'Calculer des médianes',
     url: '/exercices/4e/4S11.js'
-  },
-  '2S20-4': {
-    titre: 'Calculer des étendues',
-    url: '/exercices/3e/3S15.js'
   }
 }
