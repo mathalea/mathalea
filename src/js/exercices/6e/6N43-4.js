@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, texNombre, nombreAvecEspace } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import { context } from '../../modules/context.js'
 import { choixDeroulant, setReponse } from '../../modules/gestionInteractif.js'
@@ -37,7 +37,7 @@ export default function DivisibleDiviseurMultiple () {
       a = b * q
       a1 = b * q + r
     }
-    this.introduction = `À l'aide des calculs suivants, compléter les phrases suivantes avec les nombre $${a1}$, $${a}$, $${b}$ ou $${q}$.<br><br>`
+    this.introduction = `À l'aide des calculs suivants, compléter les phrases suivantes avec les nombres $${texNombre(a1)}$, $${texNombre(a)}$, $${texNombre(b)}$ ou $${texNombre(q)}$.<br><br>`
     if (randint(0, 1) === 0) {
       this.introduction += Operation({ operande1: a, operande2: b, type: 'divisionE' })
       if (!context.isHtml) this.introduction += '\\qquad'
@@ -56,50 +56,50 @@ export default function DivisibleDiviseurMultiple () {
         case 1:
           texte = '... est divisible par ...'
           if (this.interactif) {
-            texte = choixDeroulant(this, i, 0, [a1, a, b, q]) + 'est divisible par' + choixDeroulant(this, i, 1, [a1, a, b, q])
+            texte = choixDeroulant(this, i, 0, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'est divisible par' + choixDeroulant(this, i, 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
           }
-          texteCorr = `${a} est divisible par ${b} ou ${a} est divisible par ${q}.`
-          setReponse(this, i, [[a, b], [a, q]])
+          texteCorr = `$${texNombre(a)}$ est divisible par $${texNombre(b)}$ ou $${texNombre(a)}$ est divisible par $${texNombre(q)}$.`
+          setReponse(this, i, [[nombreAvecEspace(a), nombreAvecEspace(b)], [nombreAvecEspace(a), nombreAvecEspace(q)]])
           break
         case 2:
           texte = '... est un diviseur de ...'
           if (this.interactif) {
-            texte = choixDeroulant(this, i, 0, [a1, a, b, q]) + 'est un diviseur de' + choixDeroulant(this, i, 1, [a1, a, b, q])
+            texte = choixDeroulant(this, i, 0, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'est un diviseur de' + choixDeroulant(this, i, 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
           }
-          texteCorr = `${b} est un diviseur de ${a} ou ${q} est un diviseur de ${a}.`
-          setReponse(this, i, [[b, a], [q, a]])
+          texteCorr = `$${texNombre(b)}$ est un diviseur de $${texNombre(a)}$ ou $${texNombre(q)}$ est un diviseur de $${texNombre(a)}$.`
+          setReponse(this, i, [[nombreAvecEspace(b), nombreAvecEspace(a)], [nombreAvecEspace(q), nombreAvecEspace(a)]])
           break
         case 3:
           texte = '... est un multiple de ...'
           if (this.interactif) {
-            texte = choixDeroulant(this, i, 0, [a1, a, b, q]) + 'est un multiple de' + choixDeroulant(this, i, 1, [a1, a, b, q])
+            texte = choixDeroulant(this, i, 0, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'est un multiple de' + choixDeroulant(this, i, 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
           }
-          texteCorr = `${a} est un multiple de ${b} ou ${a} est un multiple de ${q}.`
-          setReponse(this, i, [[a, b], [a, q]])
+          texteCorr = `$${texNombre(a)}$ est un multiple de $${texNombre(b)}$ ou $${texNombre(a)}$ est un multiple de $${texNombre(q)}$.`
+          setReponse(this, i, [[nombreAvecEspace(a), nombreAvecEspace(b)], [nombreAvecEspace(a), nombreAvecEspace(q)]])
           break
         case 4:
           texte = '... n\'est pas divisible par ...'
           if (this.interactif) {
-            texte = choixDeroulant(this, i, 0, [a1, a, b, q]) + 'n\'est pas divisible par' + choixDeroulant(this, i, 1, [a1, a, b, q])
+            texte = choixDeroulant(this, i, 0, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'n\'est pas divisible par' + choixDeroulant(this, i, 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
           }
-          texteCorr = `${a1} n'est pas divisible par ${b} ou ${a1} n'est pas divisible par ${q}.`
-          setReponse(this, i, [[a1, b], [a1, q]])
+          texteCorr = `$${texNombre(a1)}$ n'est pas divisible par $${texNombre(b)}$ ou $${texNombre(a1)}$ n'est pas divisible par $${texNombre(q)}$.`
+          setReponse(this, i, [[nombreAvecEspace(a1), nombreAvecEspace(b)], [nombreAvecEspace(a1), nombreAvecEspace(q)]])
           break
         case 5:
           texte = '... n\'est pas un diviseur de ...'
           if (this.interactif) {
-            texte = choixDeroulant(this, i, 0, [a1, a, b, q]) + 'n\'est pas un diviseur de' + choixDeroulant(this, i, 1, [a1, a, b, q])
+            texte = choixDeroulant(this, i, 0, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'n\'est pas un diviseur de' + choixDeroulant(this, i, 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
           }
-          texteCorr = `${b} n'est pas un diviseur de ${a1} ou ${q} n'est pas un diviseur de ${a1}.`
-          setReponse(this, i, [[b, a1], [q, a1]])
+          texteCorr = `$${texNombre(b)}$ n'est pas un diviseur de $${texNombre(a1)}$ ou $${texNombre(q)}$ n'est pas un diviseur de $${texNombre(a1)}$.`
+          setReponse(this, i, [[nombreAvecEspace(b), nombreAvecEspace(a1)], [nombreAvecEspace(q), nombreAvecEspace(a1)]])
           break
         case 6:
           texte = '... n\'est pas un multiple de ...'
           if (this.interactif) {
-            texte = choixDeroulant(this, i, 0, [a1, a, b, q]) + 'n\'est pas un multiple de' + choixDeroulant(this, i, 1, [a1, a, b, q])
+            texte = choixDeroulant(this, i, 0, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'n\'est pas un multiple de' + choixDeroulant(this, i, 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
           }
-          texteCorr = `${a1} n'est pas un multiple de ${b} ou ${a1} est n'est pas un multiple de ${q}.`
-          setReponse(this, i, [[a1, b], [a1, q]])
+          texteCorr = `$${texNombre(a1)}$ n'est pas un multiple de $${texNombre(b)}$ ou $${texNombre(a1)}$ est n'est pas un multiple de $${texNombre(q)}$.`
+          setReponse(this, i, [[nombreAvecEspace(a1), nombreAvecEspace(b)], [nombreAvecEspace(a1), nombreAvecEspace(q)]])
           break
       }
 
