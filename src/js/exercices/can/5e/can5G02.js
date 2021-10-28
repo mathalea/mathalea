@@ -33,7 +33,6 @@ export default function AngleTriangleIsocele () {
         B = point(5, 0, nom[1])
         C = point(2.5, 2.5 * tan(a), nom[2])
         pol = polygoneAvecNom(A, B, C)
-        console.log('AB : ', longueur(A, B), '  BC : ', longueur(B, C), '  AC : ', longueur(A, C))
 
         objets = []
         if (a > 60) {

@@ -396,6 +396,7 @@ export function menuDesExercicesDisponibles () {
     ['5P1', '5P1 - Proportionnalité'], ['5R1', '5R1 - Relatifs niveau 1'], ['5R2', '5R2 - Relatifs niveau 2'],
     ['5S1', '5S1 - Statistiques'], ['5S2', '5S2 - Probabilités']]
   const listeThemes4 = [
+    ['4A1', '4A1 - Arithmétique'],
     ['4C1', '4C1 - Relatifs'], ['4C2', '4C2 - Fractions'], ['4C3', '4C3 - Puissances'],
     ['4F1', '4F1 - Notion de fonction'],
     ['4G1', '4G1 - Translation et rotation'], ['4G2', '4G2 - Théorème de Pythagore'], ['4G3', '4G3 - Théorème de Thalès'], ['4G4', "4G4 - Cosinus d'un angle"], ['4G5', '4G5 - Espace'],

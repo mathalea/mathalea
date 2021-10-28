@@ -194,7 +194,6 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
       }
       cpt++
     }
-    console.log(reponses)
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = [

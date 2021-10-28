@@ -63,7 +63,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
     const lutins = []
     const bonneReponse = randint(0, 3)
-    console.log(bonneReponse)
     const angleDepart = 90 // On choisit l'orientation de départ
     const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
     const yDepart = 0 // Mais on pourrait envisager de changer ça et de recadrer...
@@ -463,7 +462,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
 
     let ordreLutins = [0, 1, 2, 3]
     ordreLutins = shuffle(ordreLutins) // On mélange les emplacements pour éviter d'avoir la bonne réponse au même endroit-
-    console.log(ordreLutins)
 
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < lutins[i].listeTraces.length; j++) { // On recadre les traces des lutins...

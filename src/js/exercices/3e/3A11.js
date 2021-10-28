@@ -26,6 +26,7 @@ export default function PremierOuPas () {
   this.nbCols = 2
   this.nbColsCorr = 1
   this.sup = 1
+  this.sup2 = true
   this.nbQuestionsModifiable = false
   this.listePackages = 'bclogo'
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
@@ -62,7 +63,9 @@ export default function PremierOuPas () {
     };
     stringRappel += '.'
 
-    this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
+    if (this.sup2) {
+      this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
+    }
 
     for (let i = 0, texte, texteCorr, r1, r2, prime1, prime2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
@@ -292,4 +295,5 @@ export default function PremierOuPas () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans Calculatrice\n2 : Avec calculatrice']
+  this.besoinFormulaire2CaseACocher = ['Afficher la liste des nombres premiers inférieurs à 100']
 }

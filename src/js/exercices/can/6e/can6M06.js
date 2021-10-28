@@ -39,7 +39,6 @@ export default function Perimetre () {
     const xmax = Math.max(A.x, B.x, C.x, D.x) + 1
     const ymax = Math.max(A.y, B.y, C.y, D.y) + 1
     const pol = polygoneAvecNom(A, B, C, D) // polygoneAvecNom s'occupe du placement des noms des sommets
-    console.log('AB : ', c, '  BC : ', a, '  CD : ', d, '  AD : ', b, '  AC : ', longueur(A, C))
 
     objets.push(pol[0], pol[1], tracePoint(A, B, C, D)) // pol[0], c'est le tracé et pol[1] ce sont les labels
     objets.push(latexParCoordonnees(`${texNombrec(b)}\\text{m}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'black', 20, 10, ''),

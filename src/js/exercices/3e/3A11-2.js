@@ -19,7 +19,6 @@ export const titre = 'Décomposition en facteurs premiers d’un entier'
 export default function decompositionFacteursPremiers () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = 1
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
   // mais une différence selon que l'exo est affiché en interactif ou non
@@ -31,8 +30,9 @@ export default function decompositionFacteursPremiers () {
   // this.correctionDetailleeDisponible = true;
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = 1
   this.listePackages = 'bclogo'
+  this.besoinFormulaireCaseACocher = ['Afficher la liste des nombres premiers inférieurs à 100']
+  this.sup = true
 
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
@@ -66,7 +66,9 @@ export default function decompositionFacteursPremiers () {
     };
     stringRappel += '.'
 
-    this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
+    if (this.sup) {
+      this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
+    }
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]

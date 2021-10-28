@@ -66,7 +66,6 @@ export default function VariationEnPourcentages () {
       }
       if (context.isAmc) {
         setReponse(this, i, fReponse.valeurDecimale)
-        console.log(this.autoCorrection[i])
       } else {
         setReponse(this, i, [fReponse.texFraction, fReponse.texFractionSimplifiee, fReponse.valeurDecimale])
       }
