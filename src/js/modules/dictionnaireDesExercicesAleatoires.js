@@ -2126,6 +2126,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
+  "4A10": {
+    "titre": "Nombre premier ou pas",
+    "url": "/exercices/4e/4A10.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4A10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
   "4A11-0": {
     "titre": "Décomposer un nombre entier en produit de (petits) facteurs premiers",
     "url": "/exercices/4e/4A11-0.js",
@@ -2147,6 +2162,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "4A11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "4A11-2": {
+    "titre": "Fractions irréductibles",
+    "url": "/exercices/4e/4A11-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4A11-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
