@@ -174,9 +174,5 @@ export const dictionnaireLycee = {
   '2S20-1': {
     titre: 'Calculer des effectifs et des fréquences',
     url: '/exercices/3e/3S12.js'
-  },
-  '2S20-2': {
-    titre: 'Calculer des médianes',
-    url: '/exercices/4e/4S11.js'
   }
 }
