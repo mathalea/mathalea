@@ -57,8 +57,11 @@ export default function CalculPuissanceSimple () {
           }
           break
         case 'c' :
-          texte = ` $${a ** 2}\\times ${a}^{${b}}=$ <br>
-      Donner le résultat sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = ` $${a ** 2}\\times ${a}^{${b}}=$`
+          if (!context.isAmc) {
+            texte += `<br>Donner le résultat sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          }
+
           setReponse(this, i, [`${a}^{${b + 2}}`], { formatInteractif: 'texte' })
           texteCorr = ` Comme $${a ** 2}=${a}^2$, alors $${a ** 2}\\times ${a}^{${b}}=${a}^2\\times ${a}^{${b}}=${a}^{${b}+2}=${a}^{${miseEnEvidence(2 + b)}}$`
           if (context.isAmc) {
@@ -70,8 +73,11 @@ export default function CalculPuissanceSimple () {
           }
           break
         case 'd' :
-          texte = ` $${a}^{${b}}\\div ${a ** 2}=$ <br>
-        Donner le résultat sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = ` $${a}^{${b}}\\div ${a ** 2}=$`
+          if (!context.isAmc) {
+            texte += `<br>Donner le résultat sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          }
+
           setReponse(this, i, [`${a}^{${b - 2}}`], { formatInteractif: 'texte' })
           texteCorr = `Comme $${a ** 2}=${a}^2$, alors $${a}^{${b}}\\div ${a ** 2}=
         \\dfrac{${a}^{${b}}}{${a}^2}=${a}^{${b}-2}=${a}^{${miseEnEvidence(b - 2)}}$`
