@@ -245,10 +245,8 @@ export default function DeterminerDesMedianes () {
         let mediane
         if (notes.length % 2 === 0) { // attention les indices commencent à 0 !
           mediane = (notesRangees[notes.length / 2 - 1] + notesRangees[notes.length / 2]) / 2
-          // console.log('parité');
         } else {
           mediane = notesRangees[(notes.length - 1) / 2]
-          // console.log('imparité');
         }
 
         texteCorr = `Il y a $${notes.length}$ notes en tout. `

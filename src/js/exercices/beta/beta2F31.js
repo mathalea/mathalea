@@ -116,7 +116,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       graph = courbe2(f, { repere: r, step: 0.3 / coeff, xMin: x0, xMax: x1, color: 'red' })
       texteCorr += mathalea2d({ xmin: Math.min(-1, x0 * coeff - 1), ymin: Math.min(-1, coeff * Math.min(Math.floor(f(x0)), Math.floor(f(x1))) - 1), xmax: Math.max(0, coeff * x1 + 1), ymax: Math.max(0, 1 + coeff * Math.max(Math.ceil(f(x0)), Math.ceil(f(x1)))) }, r, graph)
       if (this.listeQuestions.indexOf(texte) === -1) {
-        console.log(texte)
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

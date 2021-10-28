@@ -128,7 +128,6 @@ export default function TransformationsDuPlanEtCoordonnees () {
       C = point(xC, yC, 'C')
       Cprime = point(punto[2][0], punto[2][1], "C'")
     }
-    console.log(compteur)
     // les puntos sont choisis, on écrit l'énoncé
     for (let i = 0; i < 3; i++) {
       switch (choixTransformation[i]) {
