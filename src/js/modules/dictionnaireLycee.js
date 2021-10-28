@@ -1,8 +1,4 @@
 export const dictionnaireLycee = {
-  '2N20-1': {
-    titre: 'Écrire la liste de tous les diviseurs d\'un entier',
-    url: '/exercices/5e/5A10.js'
-  },
   '2N20-2': {
     titre: 'Critères de divisibilité',
     url: '/exercices/5e/5A11.js'
