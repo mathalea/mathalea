@@ -38,7 +38,6 @@ export default function TraceCourbeInterpolee1 () {
     const xMax = xMin + liste.length * pas
     let yMin = 100
     let yMax = -100
-    console.log(ordonnees, xMin, pas)
 
     for (let i = 0; i < liste.length; i++) {
       yMin = Math.min(yMin, ordonnees[i])

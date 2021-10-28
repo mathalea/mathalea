@@ -175,8 +175,6 @@ export default function Thales2D () {
         texte += `$${nomC + nomB} = $`
         texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'longueur')
         setReponse(this, i * 2 + 1, new Grandeur(bc, 'cm'), { formatInteractif: 'longueur' })
-        console.log(this.autoCorrection)
-        console.log(new Grandeur(bc, 'cm'))
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

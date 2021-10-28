@@ -97,7 +97,6 @@ export default function ProblemeCourse () {
     // Pour tolérer l'écriture d'un somme avec des centimes, par exemple 54,1 € ou 54,10 €
     const reponse = arrondiVirgule(prixTotal)
     const reponses = [reponse, `${reponse}0`]
-    console.log(prixTotalAliment2, (prixTotal * 100 - Math.floor(prixTotal * 100) === 0.5) ? prixTotal + '!!!' : prixTotal, reponse)
     setReponse(this, 0, reponses)
     if (context.isAmc) {
       this.autoCorrection[0].reponse.valeur[0] = arrondi(prixTotal, 2)

@@ -42,7 +42,6 @@ export default function DistanceRepere () {
           this.correction += `=${this.reponse.simplifie().texFraction}`
         }
         this.correction += '$'
-        console.log(this.reponse, this.reponse.estIrreductible())
         break
       case 2:// coefficient directeur droite
         a = randint(-4, 4, 0)

@@ -47,7 +47,6 @@ export default function CourseAuxNombresCM (numeroExercice) {
       questions[i] = parseInt(questions[i]) - 1
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    console.log(listeIndex)
     const typeQuestionsDisponibles = [ // les dix premières sont communes à betaCaNCM1
       'q1', // Somme d'entiers\n
       'q2', // Différence d'entiers\n
