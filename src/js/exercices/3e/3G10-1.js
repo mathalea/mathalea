@@ -48,7 +48,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
     if (this.sup2) {
       listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6, 9, 10]]
     } else {
-      listeTypeDeQuestions = [[1, 2, 3, 4], [1, 2, 3, 4, 7], [1, 2, 3, 4, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]
+      listeTypeDeQuestions = [[1, 2, 3, 4], [3, 4, 7, 7], [1, 3, 7, 8, 7, 8], [1, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]]
     }
     const choixTransformation = combinaisonListes(listeTypeDeQuestions[transformation], 3)
     for (let j = 0; j < 3; j++) {

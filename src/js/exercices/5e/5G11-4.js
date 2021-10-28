@@ -11,4 +11,6 @@ export default function TransformationsDuPlanEtCoordonnees5e () {
   TransformationsDuPlanEtCoordonnees.call(this)
   this.sup = 2
   this.sup2 = true
+  this.besoinFormulaire = false
+  this.besoinFormulaire2 = false
 }
