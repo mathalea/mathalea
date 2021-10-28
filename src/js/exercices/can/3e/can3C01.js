@@ -21,16 +21,18 @@ export default function CalculPuissanceSimple () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    for (let i = 0, a, b, c, texte, texteCorr; i < this.nbQuestions; i++) {
+    const bases = [2, 3, 5, 7]
+    for (let i = 0, a, b, c, index, texte, texteCorr; i < this.nbQuestions; i++) {
       this.autoCorrection[i] = {}
-      a = choice([2, 3, 4, 5])
+      index = randint(0, 3)
+      a = bases[index]
       b = randint(20, 50)
-      c = [['Le double', 'La moitié'], ['Le triple', 'Le tiers'], ['Le quadruple', 'Le quart'], ['Le quintuple', 'Le cinquième']]
+      c = [['Le double', 'La moitié'], ['Le triple', 'Le tiers'], ['Le quintuple', 'Le cinquième'], ['Le septuple', 'Le septième']]
       switch (choice(['a', 'b', 'c', 'd'])) { // 'b', 'c'
         case 'a':
-          texte = `${c[a - 2][0]} de  $${a}^{${b}}$ est égal à : ` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `${c[index][0]} de  $${a}^{${b}}$ est égal à : ` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           setReponse(this, i, [`${a}^{${b + 1}}`], { formatInteractif: 'texte' })
-          texteCorr = `${c[a - 2][0]} de $${a}^{${b}}$ se calcule  par 
+          texteCorr = `${c[index][0]} de $${a}^{${b}}$ se calcule  par 
        : <br>
        $${a}\\times ${a}^{${b}}=${a}^{${b} + 1}=${a}^{${miseEnEvidence(b + 1)}}$`
           if (context.isAmc) {
@@ -42,9 +44,9 @@ export default function CalculPuissanceSimple () {
           }
           break
         case 'b':
-          texte = `${c[a - 2][1]} de $${a}^{${b}}$ est égal à : ` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `${c[index][1]} de $${a}^{${b}}$ est égal à : ` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           setReponse(this, i, [`${a}^{${b - 1}}`], { formatInteractif: 'texte' })
-          texteCorr = `${c[a - 2][1]} de $${a}^{${b}}$ se calcule  par 
+          texteCorr = `${c[index][1]} de $${a}^{${b}}$ se calcule  par 
       : <br> 
       
       $ ${a}^{${b}}\\div ${a}=\\dfrac{${a}^{${b}}}{${a}}=${a}^{${b} - 1}=${a}^{${miseEnEvidence(b - 1)}}$`
