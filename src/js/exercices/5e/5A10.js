@@ -38,8 +38,8 @@ export default function ListeDesDiviseurs5e () {
     this.contenuCorrection = '' // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = [1, 1, 2]
-    const nbChiffresMax = this.sup.split('-')
-    const nbDiviseursMax = this.sup2.split('-')
+    const nbChiffresMax = combinaisonListesSansChangerOrdre(this.sup.split('-'), this.nbQuestions)
+    const nbDiviseursMax = combinaisonListesSansChangerOrdre(this.sup2.split('-'), this.nbQuestions)
     this.sup3 = contraindreValeur(2, 16, parseFloat(this.sup3), 10)
 
     for (let i = 0; i < this.nbQuestions; i++) {
