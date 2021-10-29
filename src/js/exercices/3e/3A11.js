@@ -65,7 +65,7 @@ export default function PremierOuPas () {
 
     if (this.sup2) {
       this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
-    }
+    } else this.introduction = ''
 
     for (let i = 0, texte, texteCorr, r1, r2, prime1, prime2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]

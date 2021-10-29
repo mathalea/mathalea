@@ -1,8 +1,4 @@
 export const dictionnaireLycee = {
-  '2N20-4': {
-    titre: 'Primalité ou pas',
-    url: '/exercices/3e/3A11.js'
-  },
   '2N20-5': {
     titre: 'Décomposition en facteurs premiers',
     url: '/exercices/5e/5A13.js'
