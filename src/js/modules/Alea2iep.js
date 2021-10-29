@@ -1687,6 +1687,28 @@ export default function Alea2iep () {
   }
 
   /**
+   *
+   * @param {point} A
+   * @param {point} B
+   * @param {point} C
+   * @param {boolean} description
+   */
+  this.paralleleAuCompas = function (A, B, C) {
+    const D = translation2Points(C, A, B)
+    const N = homothetie(C, D, 1.5)
+    const P = homothetie(D, C, 1.5)
+    this.compasEcarter2Points(A, B)
+    this.compasTracerArcCentrePoint(C, D)
+    this.compasEcarter2Points(A, C)
+    this.compasTracerArcCentrePoint(B, D)
+    this.compasMasquer()
+    // this.pointCreer(D)
+    this.regleSegment(N, P)
+    this.regleMasquer()
+    this.crayonMasquer()
+  }
+
+  /**
  *****************************************
  ********* DROITES REMARQUABLES **********
  *****************************************
@@ -2469,6 +2491,37 @@ export default function Alea2iep () {
     this.pointCreer(C, { tempo: 0 })
     this.regleSegment(B, C)
     this.regleSegment(C, D)
+    this.regleMasquer()
+    this.crayonMasquer()
+  }
+  /**
+   * Macro pour placer le point M sur un segment [AB] tel que AM = n/d AB
+   * @param {} nom
+   * @param {*} A
+   * @param {*} c
+   * @returns
+   */
+  this.partageSegment = (A, B, n, d, { distance = 1, monAngle = 40 } = {}) => {
+    this.traitRapide(A, B)
+    this.regleMasquerGraduations()
+    this.regleMontrer(A)
+    const y = similitude(B, A, monAngle, (Math.max(n, d) + 1) * distance / longueur(A, B))
+    this.regleSegment(A, y)
+    this.regleMasquer()
+    this.crayonMasquer()
+    const Ax = [A]
+    for (let i = 1; i <= Math.max(n, d); i++) {
+      Ax.push(pointAdistance(A, distance * i, monAngle + droite(A, B).angleAvecHorizontale))
+      this.compasTracerArcCentrePoint(Ax[i - 1], Ax[i])
+    }
+    this.compasMasquer()
+    this.regleSegment(Ax[d], B)
+    this.regleMasquer()
+    this.crayonMasquer()
+    this.paralleleAuCompas(Ax[d], B, Ax[n])
+    const M = homothetie(B, A, n / d)
+    this.regleProlongerSegment(Ax[n], M)
+    this.regleSegment(A, M, { couleur: 'red', epaisseur: 3 })
     this.regleMasquer()
     this.crayonMasquer()
   }
