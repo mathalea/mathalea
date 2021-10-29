@@ -2725,6 +2725,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     }
   },
+  "4G10-1": {
+    "titre": "Trouver les coordonnée de l’image d’un point par une translation",
+    "url": "/exercices/4e/4G10-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4G10-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
   "4G10": {
     "titre": "Trouver l’image d’un point par une symétrie axiale ou centrale ou par une translation",
     "url": "/exercices/4e/4G10.js",
@@ -3645,6 +3664,44 @@ export default {
     "name": "5G11-3",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "5G11-4": {
+    "titre": "Trouver les coordonnée de l’image d’un point par une symétrie centrale",
+    "url": "/exercices/5e/5G11-4.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "5G11-4",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "5G11-5": {
+    "titre": "Trouver les coordonnée de l’image d’un point par une symétrie axiale ou centrale",
+    "url": "/exercices/5e/5G11-5.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "5G11-5",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     },
     "updateEx": {
@@ -7266,7 +7323,10 @@ export default {
   "6P13": {
     "titre": "Augmenter ou diminuer d’un pourcentage",
     "url": "/exercices/6e/6P13.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "6P13",
@@ -7789,7 +7849,7 @@ export default {
     "interactifReady": false,
     "name": "PEG21",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     },
     "updateEx": {

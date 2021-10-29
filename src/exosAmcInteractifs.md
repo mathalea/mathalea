@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 329 
-- nombre d'exos interactifReady 435 
+- nombre d'exos amcReady 335 
+- nombre d'exos interactifReady 445 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -14,6 +14,9 @@
 |2G36-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
 |2N10-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCHybride|OK|mathLive|
 |2N10-2|Placer un point d’abscisse décimale|OK|AMCOpen|OK|custom|
+|2N10-3|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
+|2N12-1|Encadrer une fraction entre deux nombres entiers|OK|AMCHybride|OK|mathLive|
+|2N13-1|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |2N14-1|Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient|OK|AMCOpen|OK|mathLive|
 |2N32-4|Simplifier une somme de racines carrées|KO|KO|OK|mathLive|
 |2N41-1|Calculer avec les identités remarquables|KO|KO|OK|mathLive|
@@ -97,6 +100,8 @@
 |4L20-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
 |4L20|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |4S11|Déterminer des médianes|KO|KO|OK|mathLive|
+|5A10|Écrire la liste de tous les diviseurs d’un entier|KO|KO|OK|mathLive|
+|5A11|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|OK|qcm|
 |5A12-1|Primalité ou pas|OK|qcmMono|OK|qcm|
 |5A13|Décomposition en facteurs premiers|KO|KO|OK|mathLive|
 |5C12-1|Traduire une phrase par une expression et la calculer|OK|AMCOpenNum|OK|mathLive|
@@ -212,7 +217,7 @@
 |6P11-2|Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité|KO|KO|OK|mathLive|
 |6P11|Résoudre des problèmes de proportionnalité en utilisant la linéarité simple|OK|AMCHybride|OK|mathLive|
 |6P12|Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple|OK|AMCNum|OK|mathLive|
-|6P13|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
+|6P13|Augmenter ou diminuer d’un pourcentage|OK|AMCNum|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
