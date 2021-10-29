@@ -229,7 +229,6 @@ export default function ExerciceConversions (niveau = 1) {
             '................................................'
           )
         }
-        console.log(texte)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

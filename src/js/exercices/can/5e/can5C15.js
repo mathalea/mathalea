@@ -19,7 +19,7 @@ export default function PoucentageP1 () {
   this.nouvelleVersion = function () {
     let b, caractere
 
-    switch (choice(['c'])) { // 'a', 'b', 'c', 'd', 'e', 'f'
+    switch (choice(['a', 'b', 'c', 'd', 'e', 'f'])) {
       case 'a':
         b = randint(3, 7) * 5
         caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])

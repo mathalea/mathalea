@@ -23,7 +23,6 @@ export default function ConversionHeuresMinutes (can = false) {
       texte = `Convertir $${d}$ minutes en heures(h) et minutes(min) :` +
      ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: sp(5), texteApres: ' h ' }) +
       ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: sp(5), texteApres: ' min ' })
-      console.log(can)
       if (can) {
         texteCorr = texteEnCouleur(`
     <br> Mentalement : <br>

@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 /**
  * Développer (a-b)²
 * @author Matthieu Devillers très très largement inspiré par Jean-Claude Lhote
-* 2N43-5, ex 2L12-3
+* 2N41-5, ex 2L12-3
 */
 export default function DevelopperIdentitesRemarquables4 () {
   'use strict'

@@ -68,6 +68,18 @@ for (const file of exercicesList) {
   // amcType est un objet avec une propriété num et une propriété text pour le type de question AMC
   // On avait un fonctionnement avec description cf commit 832f123
   let titre; let amcReady; const amcType = {}; let interactifReady; let interactifType
+  let dateDePublication; let dateDeModifImportante
+  const newEx = {
+    isNew: false,
+    tag: '<span class="ui mini orange label transition visible">new</span>'
+  }
+  const updateEx = {
+    isNewFeat: false,
+    tag: '<span class="ui mini orange label transition visible">feat</span>'
+  }
+  const timeOfDisplayTagNew = 2592000000 // 30 jours en millisecondes
+  const timeOfDisplayTagFeat = 2592000000 // 30 jours en millisecondes secondes
+
   try {
     if (dicoAlea[name]) throw Error(`${file} en doublon, on avait déjà un ${name}`)
     const module = requireImport(file)
@@ -78,6 +90,26 @@ for (const file of exercicesList) {
     titre = module.titre
     amcReady = Boolean(module.amcReady)
     interactifReady = Boolean(module.interactifReady)
+    if (module.dateDePublication) {
+      // On découpe la constante exportée dateDePublication
+      const anneePublication = module.dateDePublication.split('/')[2]
+      const moisPublication = module.dateDePublication.split('/')[1]
+      const jourPublication = module.dateDePublication.split('/')[0]
+      // Remarque notable : Les mois a passer au constructeur Date() sont numérotés de 0 à 11 !
+      dateDePublication = new Date(anneePublication, moisPublication - 1, jourPublication)
+      newEx.isNew = (Date.now() - dateDePublication.getTime() < timeOfDisplayTagNew)
+    }
+
+    if (module.dateDeModifImportante) {
+      // On découpe la constante exportée dateDePublication
+      const anneeModifImportante = module.dateDeModifImportante.split('/')[2]
+      const moisModifImportante = module.dateDeModifImportante.split('/')[1]
+      const jourModifImportante = module.dateDeModifImportante.split('/')[0]
+      // Remarque notable : Les mois a passer au constructeur Date() sont numérotés de 0 à 11 !
+      dateDeModifImportante = new Date(anneeModifImportante, moisModifImportante - 1, jourModifImportante)
+      updateEx.isNewFeat = (Date.now() - dateDeModifImportante.getTime() < timeOfDisplayTagFeat)
+    }
+
     // On avait un fonctionnement avec description cf commit 832f123
     // On verifie s'il y a une incohérence amcType amcReady et on affiche un warning au besoin
     if (amcReady && !module.amcType) {
@@ -206,15 +238,15 @@ for (const file of exercicesList) {
       }
       // On avait un fonctionnement avec description cf commit 832f123
       if (interactifReady) {
-        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, interactifType, name }
+        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, interactifType, name, newEx, updateEx }
       } else {
-        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, name }
+        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, name, newEx }
       }
     } else {
       if (interactifReady) {
-        dicoAlea[name] = { titre, url, amcReady, interactifReady, interactifType, name }
+        dicoAlea[name] = { titre, url, amcReady, interactifReady, interactifType, name, newEx, updateEx }
       } else {
-        dicoAlea[name] = { titre, url, amcReady, interactifReady, name }
+        dicoAlea[name] = { titre, url, amcReady, interactifReady, name, newEx, updateEx }
       }
     }
     // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e

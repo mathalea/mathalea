@@ -1,0 +1,89 @@
+<div class="ui hidden divider"></div>
+
+  <div class="ui hidden divider"></div>
+  <div id="containerErreur"></div>
+  <div class="ui two column centered grid" id="contenu">
+    <div id="gauche" class="column">
+      <div class="ui left aligned segment">
+        <h3 class="ui block header">Choix des exercices</h3>
+  
+        <div class="ui red message" id="message_liste_exercice_vide">
+          <p><strong>Commencer par saisir les numéros des exercices souhaités ci-dessous.</strong></p>
+        </div>     
+        <div class="ui fluid left icon input" data-tooltip='Nombres séparés par des virgules' data-inverted="">
+          <i class="edit icon"></i>
+          <input id='choix_des_exercices'  type='text' >
+        </div>
+        <div id="choix_exercices_div">
+          <div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"></span></div>
+        </div>
+        <div id='parametres_generaux'></div>
+      </div>
+    </div>
+  
+    <div id="droite" class="ui left aligned segment">
+      <div id="exercices_disponibles">
+        <h3 class="ui block header">Exercices disponibles 
+          <span class="mode_choix" id="mode_choix_liste"> Mode "Liste par niveau" </span>
+          <span class="mode_choix" id="mode_choix_tableau" > Mode "Tableau et recherche" </span>
+          <span class="replier" id="replier" > - </span>
+        </h3>
+      </div>
+      <div  class="popup"><span id="popup_preview" class="popuptext"></span></div>
+      <div id="liste_des_exercices">    
+      <!-- Liste mise à jour en JS -->
+      </div>
+      <div id="liste_des_exercices_tableau">
+      <!-- Liste mise à jour en JS -->
+      </div>
+
+      <div class="ui hidden divider"></div>
+      
+      <div class="segment" id="cache">
+        <h3 class="ui block header">Fichier Moodle XML</h3>
+        <!-- Bouton de mise à jour du code -->
+        <button class="btn ui  labeled icon button" id="btn_mise_a_jour_code"><i class="redo icon"></i>Nouvelles données</button> 
+        <!-- Bouton de copie du code -->
+        <button class="btn ui  labeled toggle icon button" id="btnCopieLatex" data-clipboard-action="copy" data-clipboard-target="#div_codeLatex"><i class="copy icon"></i>Copier code</button>
+        <!-- Bouton de téléchargement -->
+        <button class="btn ui labeled icon button" id="btn_telechargement"><i class="download icon"></i>Télécharger</button>
+        <button style="margin-top:10px" class="btn ui labeled button icon" onclick="window.location.href=window.location.href.replace('v=moodle','v=menu')" ><i class="eye icon"></i>Version HTML</button>
+          
+        <div class="ui hidden divider"></div>
+      </div>
+      
+  
+      <div class="ui hidden divider"></div>
+  
+  
+     
+           <div class="content">
+                  
+                  <form class="ui form">
+                  <div class="field">
+                    <label>Nom du fichier</label>
+                  </div>
+                  <div class="two fields">
+                      <div class="twelve wide field">
+                        <input type="text" id="nom_du_fichier" placeholder="Nom du fichier (sans extension)">
+                      </div>
+                  </div>
+                    
+                 
+                  </form>
+                  <div class="ui hidden divider"></div>
+                  
+          </div>
+      <!-- </div> -->
+  
+      <!-- Code LaTeX -->
+      <div id="div_codeLatex"></div>
+  </div> 
+
+        </div> <!-- Fin du div contenu -->
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>

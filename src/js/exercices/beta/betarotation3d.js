@@ -33,7 +33,6 @@ export default function betaRotation3d () {
     for (let a = 0; a <= 360; a += 10) {
       p.push(rotation3d(P, Axey, a, texcolors(a)))
     }
-    console.log(p[1].p2d)
     for (let k = 0; k < p.length; k++) {
       for (let j = 0; j < p[k].p2d.length; j++) {
         objets.push(p[k].p2d[j])

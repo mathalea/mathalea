@@ -2,8 +2,13 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { cube } from '../../modules/3d.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Représentation de solides'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcType = 'AMCNum'
+export const amcReady = true
 
 /**
 * Compter des cubes
@@ -54,12 +59,12 @@ export default function DenombrerCubes () {
       // deuxième ligne et suivantes
       for (let i = 0; i < larg; i++) {
         for (let j = 1; j < long; j++) {
-          tabHauteurs[i][j] = Math.min(tabHauteurs[i][j - 1] + randint(0, 2), hmax)
+          tabHauteurs[i][j] = Math.min(tabHauteurs[i][j - 1] + randint(1, 2), hmax)
         }
       }
       // Vérification Dernière Ligne : ne pas être vide.
       for (let i = 0; i < larg; i++) {
-        tabHauteurs[i][long - 1] = Math.max(1, tabHauteurs[i][long - 1])
+        tabHauteurs[i][long - 1] = Math.max(2, tabHauteurs[i][long - 1])
       }
       // Ajoute les cubes dans un tableau une dimension
       // il faut trier les cubes : x décroissant puis y décroissant, puis z croissant
@@ -82,7 +87,7 @@ export default function DenombrerCubes () {
       objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
       objetsCorrection = [] // Idem pour la correction
 
-      texte = 'Un empilement de cubes est représenté ci-dessous. <br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
+      texte = 'Un empilement de cubes est représenté ci-dessous sous deux angles différents. <br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
 
       let L, alpha, beta, cosa, cosb, sina, sinb
@@ -90,7 +95,7 @@ export default function DenombrerCubes () {
       // début de l'exercice
       switch (listeTypeDeQuestions[q]) {
         case 1:
-          texte += 'Combien de petits cubes contient cet empilement de cubes ? <br>'
+          texte += 'Combien de petits cubes contient cet empilement de cubes ?' + ajouteChampTexteMathLive(this, q, 'largeur10 inline')
           L = empilementCubes(longueur, largeur, hauteur) // crée un empilement aléatoire
           // dessin 1
           alpha = 30 // choix de la projection
@@ -110,9 +115,10 @@ export default function DenombrerCubes () {
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
             scale: 1,
-            mainlevee: false
+            mainlevee: false,
+            style: 'display: inline'
           }
-          texte += mathalea2d(paramsEnonce, objetsEnonce) + ' '
+          texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce) + ' '
           // dessin 2
           alpha = 15
           beta = -30
@@ -127,9 +133,10 @@ export default function DenombrerCubes () {
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
             scale: 1,
-            mainlevee: false
+            mainlevee: false,
+            style: 'display: inline'
           }
-          texte += mathalea2d(paramsEnonce, objetsEnonce) + ' <br>'
+          texte += mathalea2d(paramsEnonce, objetsEnonce)
           // correction :
           texteCorr += "On peut représenter l'empilement par tranches : <br>"
           alpha = 30
@@ -145,7 +152,8 @@ export default function DenombrerCubes () {
             ymax: -sina * sinb * 3 * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
             scale: 1,
-            mainlevee: false
+            mainlevee: false,
+            style: 'display: inline'
           }
           objetsCorrection = []
           for (let i = 0; i < L.length; i++) {
@@ -153,10 +161,11 @@ export default function DenombrerCubes () {
           }
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
           texteCorr += `Il y a au total ${L.length} cubes.`
+          setReponse(this, q, L.length)
           break
 
         case 2:
-          texte += `Combien de petits cubes manque-t-il pour reconstruire un grand cube de côté ${longueur} ? <br>`
+          texte += `Combien de petits cubes manque-t-il pour reconstruire un grand cube de côté ${longueur} ?` + ajouteChampTexteMathLive(this, q, 'largeur10 inline')
           L = empilementCubes(longueur, largeur, hauteur)
           // dessin 1
           alpha = 30
@@ -176,9 +185,10 @@ export default function DenombrerCubes () {
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
             scale: 1,
-            mainlevee: false
+            mainlevee: false,
+            style: 'display: inline'
           }
-          texte += mathalea2d(paramsEnonce, objetsEnonce) + ' '
+          texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce) + ' '
           // dessin 2
           alpha = 15
           beta = -30
@@ -197,7 +207,8 @@ export default function DenombrerCubes () {
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
             scale: 1,
-            mainlevee: false
+            mainlevee: false,
+            style: 'display: inline'
           }
           texte += mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
           // correction :
@@ -224,6 +235,7 @@ export default function DenombrerCubes () {
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
           texteCorr += `Il y a au total $${L.length}$ cubes. On en veut $${longueur}\\times ${largeur} \\times ${hauteur} = ${longueur * largeur * hauteur}$. <br>`
           texteCorr += `Il manque $${longueur * largeur * hauteur - L.length}$ cubes.`
+          setReponse(this, q, longueur * largeur * hauteur - L.length)
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -241,6 +253,6 @@ export default function DenombrerCubes () {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
   this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Compter les cubes\n2 : Compter les cubes manquants\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ["Taille de l'empilement (3 à 7)", 5]
+  this.besoinFormulaire2Numerique = ["Taille de l'empilement n + 2. Saisir n (1 à 5)", 5]
   // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
 } // Fin de l'exercice.

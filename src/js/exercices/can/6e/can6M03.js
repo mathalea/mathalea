@@ -21,5 +21,7 @@ export default function ConvertirEnM () {
     this.reponse = calcul(a / 100)
     this.question = `$${a}$ cm font combien de mètres ?`
     this.correction = `Comme $1$ cm $=0,01$ m, $${a}$ cm = $${texNombre(this.reponse)}$ m.`
+    this.formatChampTexte = 'largeur10 inline'
+    this.optionsChampTexte = { texteApres: ' m' }
   }
 }

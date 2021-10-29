@@ -39,7 +39,6 @@ export default function Perimetre () {
     const xmax = Math.max(A.x, B.x, C.x, D.x) + 1
     const ymax = Math.max(A.y, B.y, C.y, D.y) + 1
     const pol = polygoneAvecNom(A, B, C, D) // polygoneAvecNom s'occupe du placement des noms des sommets
-    console.log('AB : ', c, '  BC : ', a, '  CD : ', d, '  AD : ', b, '  AC : ', longueur(A, C))
 
     objets.push(pol[0], pol[1], tracePoint(A, B, C, D)) // pol[0], c'est le tracé et pol[1] ce sont les labels
     objets.push(latexParCoordonnees(`${texNombrec(b)}\\text{m}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'black', 20, 10, ''),
@@ -51,7 +50,7 @@ export default function Perimetre () {
      mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: true, amplitude: 0.5, scale: 0.7 }, objets)
     this.reponse = a + b + c + d
     this.correction = ` Le périmètre est : $${texNombrec(a + b + c + d)}$ m.`
-    this.optionsChampTexte = { texteApres: ' cm' }
+    this.optionsChampTexte = { texteApres: ' m' }
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
    On doit calculer la somme des valeurs. On regroupe pour faciliter le calcul : <br>
    $\\underbrace{${texNombrec(a)}+${texNombrec(b)}}_{${texNombrec(a + b)}}+\\underbrace{${texNombrec(c)}+${texNombrec(d)}}_{${texNombrec(c + d)}}=${texNombrec(a + b + c + d)}$ m.`)

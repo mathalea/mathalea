@@ -10,4 +10,5 @@ export default function Thales2D3e () {
   Thales2D.call(this)
   this.sup = 2
   this.video = 'j_zZOpLLl9k'
+  this.pointsParQuestions = 2
 }

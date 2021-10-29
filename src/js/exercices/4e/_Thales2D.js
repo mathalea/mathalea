@@ -175,8 +175,6 @@ export default function Thales2D () {
         texte += `$${nomC + nomB} = $`
         texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'longueur')
         setReponse(this, i * 2 + 1, new Grandeur(bc, 'cm'), { formatInteractif: 'longueur' })
-        console.log(this.autoCorrection)
-        console.log(new Grandeur(bc, 'cm'))
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -184,7 +182,7 @@ export default function Thales2D () {
           this.autoCorrection[i] = {
             enonce: texte,
             propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
-            reponse: { valeur: reponse, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)) + 1, decimals: 1, signe: false, exposantNbChiffres: 0 } }
+            reponse: { valeur: [reponse], param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)) + 1, decimals: 1, signe: false, exposantNbChiffres: 0 } }
           }
         }
         // Si la question n'a jamais été posée, on en créé une autre
