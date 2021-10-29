@@ -181,6 +181,12 @@ function verifQuestionMathLive (exercice, i) {
         resultat = 'essaieEncore'
       }
       // Pour les exercice où la saisie doit correspondre exactement à la réponse
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'intervalleStrict') {
+      const nombreSaisi = Number(saisie.replace(',', '.'))
+      if (saisie !== '' && nombreSaisi > exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi < exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'intervalle') {
+      const nombreSaisi = Number(saisie.replace(',', '.'))
+      if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
     } else { // Format texte
       if (saisie === reponse) {
         resultat = 'OK'
