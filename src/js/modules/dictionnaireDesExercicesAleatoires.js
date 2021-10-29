@@ -7778,7 +7778,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "PEG21": {
+    "titre": "Utiliser le théorème de la hauteur",
+    "url": "/exercices/PE/PEG21.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "PEG21",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },

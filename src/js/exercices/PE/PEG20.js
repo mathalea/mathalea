@@ -4,16 +4,15 @@ import { point, pointAdistance } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Partager un segment au compas et à la règle non graduée'
 
-// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '29/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '29/10/2021'
 
 /**
- * Modèle d'exercice très simple pour la course aux nombres
+ * Application du théorème de Thalès pour multiplier la longueur d'un segment par ue fraction
  * @author Rémi Angot
  * Référence PEG20
 */
 export default function PartageSegmentCompasRegle () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.typeExercice = 'IEP'
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
