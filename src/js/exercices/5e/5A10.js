@@ -1,26 +1,29 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, listeDiviseurs, texteOuPas, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, listeDiviseurs, texteOuPas, contraindreValeur, texNombre } from '../../modules/outils.js'
+
+import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+
 export const dateDeModifImportante = '28/10/2021'
 export const titre = 'Écrire la liste de tous les diviseurs d’un entier'
+
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * 5A10 - Division Euclidienne; diviseurs, multiples, critères de divisibilité
  * Exercice bilan
- * @author Sébastien Lozano
+ * @author Sébastien Lozano & Jean Claude Lhote
  */
 export default function ListeDesDiviseurs5e () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  // pas de différence entre la version html et la version latex pour la consigne
-  // this.consigne =`Écrire la liste de tous les diviseurs d'un entier.`;
   this.consigne = ''
   // this.consigne += `<br>`;
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.nbQuestions = 3
-  // this.correctionDetailleeDisponible = true;
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = '2-2-2'
@@ -29,20 +32,12 @@ export default function ListeDesDiviseurs5e () {
 
   this.nouvelleVersion = function () {
     let typesDeQuestions
-    if (context.isHtml) { // les boutons d'aide uniquement pour la version html
-      // this.boutonAide = '';
-      // this.boutonAide = modalPdf(numeroExercice,"assets/pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur la division euclidienne (Sébastien Lozano)","Aide mémoire")
-      // this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
-    } else { // sortie LaTeX
-    };
-
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = [1, 1, 2]
-    // let typesDeQuestionsDisponibles = [1];
     const nbChiffresMax = this.sup.split('-')
     const nbDiviseursMax = this.sup2.split('-')
     this.sup3 = contraindreValeur(2, 16, parseFloat(this.sup3), 10)
@@ -68,7 +63,12 @@ export default function ListeDesDiviseurs5e () {
 
       switch (typesDeQuestions) {
         case 1:
-          texte = `Compléter le tableau suivant et faire la liste de tous les diviseurs de ${M}`
+          texte = ''
+          if (this.interactif) {
+            texte += `À l'aide du tableau, écrire la liste de tous les diviseurs de $${texNombre(M)}$ <b>dans l'ordre croissant séparés par une virgule.</b>`
+          } else {
+            texte += `Compléter le tableau suivant et faire la liste de tous les diviseurs de ${texNombre(M)}`
+          }
           if (!context.isHtml) {
             texte += '$\\medskip$'
           };
@@ -95,7 +95,7 @@ export default function ListeDesDiviseurs5e () {
             texte += '\\hline\n'
           };
           texte += '\\end{array}\n$'
-
+          texte += '<br>'
           // correction
           texteCorr = `Le tableau suivant contient tous les couples de facteurs dont le produit vaut ${M}`
           if (!context.isHtml) {
@@ -136,8 +136,12 @@ export default function ListeDesDiviseurs5e () {
           texteCorr += '.'
           break
         case 2: // liste des diviseurs
-
-          texte = `Écrire la liste de tous les diviseurs de ${M}.`
+          texte = ''
+          if (this.interactif) {
+            texte += `Écrire la liste de tous les diviseurs de $${texNombre(M)}$ <b>dans l'ordre croissant séparés par une virgule.</b>`
+          } else {
+            texte += `Écrire la liste de tous les diviseurs de ${texNombre(M)}.`
+          }
           texteCorr = `Pour trouver la liste des diviseurs de ${M} on cherche tous les produits de deux facteurs qui donnent ${M}. En écrivant toujours le plus petit facteur en premier.<br>`
           texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${M}, par exemple ici, ${Math.trunc(Math.sqrt(M))}$\\times $${Math.trunc(Math.sqrt(M))} = ${Math.trunc(Math.sqrt(M)) * Math.trunc(Math.sqrt(M))}<${M}`
           texteCorr += ` et ${Math.trunc(Math.sqrt(M)) + 1}$\\times $${Math.trunc(Math.sqrt(M)) + 1} = ${(Math.trunc(Math.sqrt(M)) + 1) * (Math.trunc(Math.sqrt(M)) + 1)}>${M} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(M))}.`
@@ -161,6 +165,8 @@ export default function ListeDesDiviseurs5e () {
           texteCorr += '.'
           break
       };
+      setReponse(this, i, JSON.stringify(listeDiviseurs(M)).replace('[', '').replace(']', ''))
+      texte += ajouteChampTexteMathLive(this, i, 'largeur35 inline', { texte: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
