@@ -365,7 +365,7 @@ De ce fait, lorsqu'on conçoit un exercice interactif, il serait bien de penser 
 >>    ........
 >> }
 >>
->> // Cette remarque est d'ordre générale, il peut y avoir des cas particuliers, notamment pour les qcmNUM
+>> // Cette remarque est d'ordre générale, il peut y avoir des cas particuliers, notamment pour les AMCNum
 >>```
 
 Octobre 2021 : Des retours sont encore attendus en cas d'utilisation de cette méthode car on n'a pas assez d'expérience et il peut donc rester des bugs bien qu'on ait fait de nombreux tests.
@@ -582,7 +582,7 @@ A peu de choses près, la conception d'un QCM interactif est semblable à la con
 Rendre l'exercice exportable AMC, est **instantané** si on rajoute, avec les autres export/import, **seulement ces deux lignes** de code.
 >>```js
 >>export const amcReady = true // pour définir que l'exercice est exportable AMC
->>export const amcType = 'qcmMono'
+>>export const amcType = 'qcmMono' // ou 'qcmMult'
 >>```
 >>## <a id="export_AMC_automatise_cliqueFigure" href="#export_AMC_automatise_cliqueFigure"></a> [3. 3. L'export AMC automatisé avec `cliqueFigure`](#export_AMC_automatise_cliqueFigure)
 

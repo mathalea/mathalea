@@ -129,7 +129,9 @@ this.autoCorrection[i] = {
         signe: false, // (présence d'une case + ou - pour AMC)
         exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
         exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
-        approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance... voir plus bas pour un point technique non intuitif)
+        approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance... voir plus bas pour un point technique non intuitif)
+        vertical : false, // facultatif. Si true, les cases à cocher seront positionnées verticalement
+        nbCols : 4 // Ne fonctionne que si vertical est true. Indique le nb de colonnes dans lesquelles seront positionnées les cases à cocher.
       }
     }
 
@@ -178,6 +180,8 @@ this.autoCorrection[i] = {
               exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
               exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
               approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
+              vertical : false, // facultatif. Si true, les cases à cocher seront positionnées verticalement
+              nbCols : 4 // Ne fonctionne que si vertical est true. Indique le nb de colonnes dans lesquelles seront positionnées les cases à cocher.
             }
           },
           options: {ordered: false, lastChoice: false} // options pour Qcms
@@ -201,6 +205,8 @@ this.autoCorrection[i] = {
               exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
               exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
               approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
+              vertical : false, // facultatif. Si true, les cases à cocher seront positionnées verticalement
+              nbCols : 4 // Ne fonctionne que si vertical est true. Indique le nb de colonnes dans lesquelles seront positionnées les cases à cocher.
             }
           },
           options: {ordered: false, lastChoice: false} // options pour Qcms
