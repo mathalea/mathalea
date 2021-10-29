@@ -23,6 +23,7 @@ export default function TableauCriteresDeDivisibilite () {
   this.nbQuestions = 5
   this.nbColsCorr = 1
   this.nbCols = 1
+  this.sup = false
 
   this.nouvelleVersion = function () {
     this.modeQcm = this.interactif
@@ -131,7 +132,7 @@ export default function TableauCriteresDeDivisibilite () {
       this.autoCorrection[i].options = {}
       switch (listeDesTypesDeNombres[i]) {
         case 'div2':
-          tableauDeNombres[i] = 2 * choice(listeDeFacteurs)
+          tableauDeNombres[i] = 2 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
           )} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} & \\text{non} \\\\`
@@ -166,7 +167,7 @@ export default function TableauCriteresDeDivisibilite () {
 
           break
         case 'div3':
-          tableauDeNombres[i] = 3 * choice(listeDeFacteurs)
+          tableauDeNombres[i] = 3 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
           )} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} \\\\`
@@ -200,7 +201,7 @@ export default function TableauCriteresDeDivisibilite () {
           this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
           break
         case 'div39':
-          tableauDeNombres[i] = 9 * choice(listeDeFacteurs)
+          tableauDeNombres[i] = 9 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
           )} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} \\\\`
@@ -234,7 +235,7 @@ export default function TableauCriteresDeDivisibilite () {
           this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
           break
         case 'div5':
-          tableauDeNombres[i] = 5 * choice(listeDeFacteurs)
+          tableauDeNombres[i] = 5 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
           )} & \\text{non} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} \\\\`
@@ -268,7 +269,7 @@ export default function TableauCriteresDeDivisibilite () {
           this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
           break
         case 'div25':
-          tableauDeNombres[i] = 10 * choice(listeDeFacteurs)
+          tableauDeNombres[i] = 10 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
           )} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} \\\\`
@@ -302,7 +303,7 @@ export default function TableauCriteresDeDivisibilite () {
           this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
           break
         case 'div23':
-          tableauDeNombres[i] = 6 * choice(listeDeFacteurs)
+          tableauDeNombres[i] = 6 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
           )} & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} \\\\`
@@ -336,7 +337,7 @@ export default function TableauCriteresDeDivisibilite () {
           this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
           break
         case 'div239':
-          tableauDeNombres[i] = 18 * choice(listeDeFacteurs)
+          tableauDeNombres[i] = 18 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
           )} & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} \\\\`
@@ -370,7 +371,7 @@ export default function TableauCriteresDeDivisibilite () {
           this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
           break
         case 'div35':
-          tableauDeNombres[i] = 15 * choice(listeDeFacteurs)
+          tableauDeNombres[i] = 15 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
           )} & \\text{non} & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} \\\\`
@@ -404,7 +405,7 @@ export default function TableauCriteresDeDivisibilite () {
           this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
           break
         case 'div2359':
-          tableauDeNombres[i] = 90 * choice(listeDeFacteurs)
+          tableauDeNombres[i] = 90 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
           )} & \\color{blue} \\text{oui} & \\text{oui} & \\text{oui} & \\text{oui} \\\\`
@@ -438,7 +439,7 @@ export default function TableauCriteresDeDivisibilite () {
           this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
           break
         case 'divrien':
-          tableauDeNombres[i] = choice(listeDeFacteurs)
+          tableauDeNombres[i] = choice(listeDeFacteurs) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
           )} & \\text{non} & \\text{non} & \\text{non} & \\text{non} \\\\`
@@ -529,9 +530,5 @@ export default function TableauCriteresDeDivisibilite () {
       }
     }
   }
-  // if (this.interactif) {
-  //   this.besoinFormulaireNumerique = false
-  // } else {
-  //   this.besoinFormulaireNumerique = ['Affichage en mode non interactif', 2, '1 : En tableau\n2 : En QCM']
-  // }
+  this.besoinFormulaireCaseACocher = ['Gros nombres', false]
 }
