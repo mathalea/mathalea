@@ -1,8 +1,4 @@
 export const dictionnaireLycee = {
-  '2N20-3': {
-    titre: 'Division euclidienne - Diviseurs - Multiples',
-    url: '/exercices/3e/3A10.js'
-  },
   '2N20-4': {
     titre: 'Primalité ou pas',
     url: '/exercices/3e/3A11.js'
