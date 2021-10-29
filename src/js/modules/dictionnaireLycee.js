@@ -1,8 +1,4 @@
 export const dictionnaireLycee = {
-  '2N20-2': {
-    titre: 'Critères de divisibilité',
-    url: '/exercices/5e/5A11.js'
-  },
   '2N20-3': {
     titre: 'Division euclidienne - Diviseurs - Multiples',
     url: '/exercices/3e/3A10.js'
