@@ -7,7 +7,7 @@ export const titre = 'Engrenages'
 /**
  * 3A13 - ppcmEngrenages
  * les deux on besoin de la def partielle serie : stlX
- * pb dans la sortie LaTeX, revoir comment user de la fonction katexPopup2() pour affichage d'une note hors texte!
+ * pb dans la sortie LaTeX, revoir comment user de la fonction katexPopup2() pour affichage d'une note hors texte !
  * @author Sébastien Lozano
  */
 export default function ppcmEngrenages () {
@@ -50,11 +50,11 @@ export default function ppcmEngrenages () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     // let typesDeQuestionsDisponibles = [1];
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-    let txtIntro = 'Boîte de vitesse, transmission de vélo, de moto, perceuse electrique, tout ça fonctionne avec des engrenages! Mais au fait, comment ça marche, les engrenages?'
+    let txtIntro = 'Boîte de vitesse, transmission de vélo, de moto, perceuse electrique, tout ça fonctionne avec des engrenages ! Mais au fait, comment ça marche, les engrenages ?'
     if (context.isHtml) {
       const idUnique = `${numEx}_${Date.now()}`
       const idDivIntro = `divIntro${idUnique}`
-      txtIntro += warnMessage('Attention, les roues ci-dessous ne comportent pas le nombre de dents de l\'énoncé!', 'nombres', 'Coup de pouce')
+      txtIntro += warnMessage('Attention, les roues ci-dessous ne comportent pas le nombre de dents de l\'énoncé !', 'nombres', 'Coup de pouce')
       txtIntro += `<div id="${idDivIntro}" style="width: ${pourcentage}; height: 50px; display : table "></div>`
       svgEngrenages(idDivIntro, 200, 200)
     };
