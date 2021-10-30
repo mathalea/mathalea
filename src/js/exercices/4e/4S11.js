@@ -1,7 +1,13 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, prenom, tirerLesDes, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre, texteGras, lampeMessage, combinaisonListes } from '../../modules/outils.js'
 
+import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+
 export const titre = 'Déterminer des médianes'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+
+export const dateDeModifImportante = '28/10/2021'
 
 /**
  * Calculs de médianes dans des séries statistiques
@@ -121,6 +127,7 @@ export default function DeterminerDesMedianes () {
         };
         return sortie
       }
+      let repInteractive
       if (this.sup === 1) { // ici on lance des dés
         const solidName = (nbCot) => {
           switch (nbCot) {
@@ -195,6 +202,8 @@ export default function DeterminerDesMedianes () {
             texte: `Ìl y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
             couleur: 'nombres'
           })
+          // repInteractive = (scoresMedians[0] + scoresMedians[1]) / 2
+          repInteractive = scoresMedians
         } else { // Le nombre de lancers est impair ici
           texteCorr += `Le nombre de lancers est impair, les scores sont rangés dans l'odre croissant.<br>
           La valeur centrale est la $${(nombreTirages - 1) / 2 + 1}^{e}$ valeur.<br>
@@ -220,6 +229,7 @@ export default function DeterminerDesMedianes () {
             texte: `Ìl y a bien $${(nombreTirages - 1) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombreTirages - 1) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
             couleur: 'nombres'
           })
+          repInteractive = scoresMedians[0]
         }
       } else if (this.sup === 2) { // ici on trie des notes
         if (listePairOuImpair[i] === 'pair') {
@@ -245,10 +255,8 @@ export default function DeterminerDesMedianes () {
         let mediane
         if (notes.length % 2 === 0) { // attention les indices commencent à 0 !
           mediane = (notesRangees[notes.length / 2 - 1] + notesRangees[notes.length / 2]) / 2
-          // console.log('parité');
         } else {
           mediane = notesRangees[(notes.length - 1) / 2]
-          // console.log('imparité');
         }
 
         texteCorr = `Il y a $${notes.length}$ notes en tout. `
@@ -284,6 +292,7 @@ export default function DeterminerDesMedianes () {
             couleur: 'nombres'
           })
         }
+        repInteractive = mediane
       } else { // ici on relève des températures
         const annee = randint(1980, 2019)
         let listeMois
@@ -371,7 +380,15 @@ export default function DeterminerDesMedianes () {
             couleur: 'nombres'
           })
         }
+        repInteractive = mediane
       }
+      if (Array.isArray(repInteractive)) {
+        setReponse(this, i, repInteractive, { formatInteractif: 'intervalleStrict' })
+      } else {
+        setReponse(this, i, repInteractive)
+      }
+      texte += ajouteChampTexteMathLive(this, i, 'largeur20 inline')
+
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -29,7 +29,6 @@ export default function CalculCotePythagore () {
     const B = pointAdistance(A, a, 0, nom[1])
     const C = pointAdistance(B, Math.sqrt(b ** 2 - a ** 2), 90, nom[2])
     const pol = polygoneAvecNom(A, B, C) // polygoneAvecNom s'occupe du placement des noms des sommets
-    console.log('AB : ', a, '  BC : ', b, '  AC : ', longueur(A, C))
     const objets = []
     const xmin = Math.min(A.x, B.x, C.x) - 1
     const ymin = Math.min(A.y, B.y, C.y) - 1

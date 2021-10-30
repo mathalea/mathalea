@@ -30,15 +30,20 @@ export default function LireAbscisseDecimaleBis2d () {
 
   this.nouvelleVersion = function (numeroExercice) {
     // numeroExercice est 0 pour l'exercice 1
+    this.sup = parseInt(this.sup)
     let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (parseInt(this.sup) === 5) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+    if (this.sup === 5) {
+      typesDeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
+    } else if (this.sup === 6) {
+      typesDeQuestions = combinaisonListes([1, 2, 3, 4, 5], this.nbQuestions)
+    } else {
       typesDeQuestions = combinaisonListes(
-        [parseInt(this.sup)],
+        [this.sup],
         this.nbQuestions
       )
     }
@@ -53,24 +58,30 @@ export default function LireAbscisseDecimaleBis2d () {
       }
       switch (typesDeQuestions[i]) {
         case 3: // Placer des demis ou des quarts sur un axe
-          abs0 = 0
+          abs0 = this.sup > 5 ? randint(-4, 4) : 0
           pas1 = 1
           pas2 = choice([2, 4])
           break
 
         case 4: // Placer des cinquièmes
-          abs0 = 0
+          abs0 = this.sup > 5 ? randint(-4, 4) : 0
           pas1 = 1
           pas2 = 5
           break
 
+        case 5: // Placer des huitièmes
+          abs0 = this.sup > 5 ? randint(-4, 4) : 0
+          pas1 = 1
+          pas2 = 8
+          break
+
         case 1: // Placer des dixièmes
-          abs0 = randint(1, 5)
+          abs0 = this.sup > 5 ? randint(-4, 4) : randint(1, 5)
           pas1 = 1
           pas2 = 10
           break
         case 2: // Placer des centièmes
-          abs0 = calcul(randint(10, 50) / 10)
+          abs0 = this.sup > 5 ? calcul(randint(-40, 40) / 10) : calcul(randint(10, 50) / 10)
           pas1 = 10
           pas2 = 10
           break

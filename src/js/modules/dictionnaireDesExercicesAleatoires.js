@@ -4,7 +4,15 @@ export default {
     "url": "/exercices/1e/1E10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "1E10"
+    "name": "1E10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "1E11-1": {
     "titre": "calculer le discriminant d'un polynôme du second degré",
@@ -15,7 +23,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "1E11-1"
+    "name": "1E11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "1E11-2": {
     "titre": "Résoudre une équation du second degré",
@@ -23,7 +39,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "1E11-2"
+    "name": "1E11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "1E11-3": {
     "titre": "Déterminer la forme canonique d'un polynôme du second degré",
@@ -31,70 +55,150 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "1E11-3"
+    "name": "1E11-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "1E11-4": {
     "titre": "Résoudre une équation du second degré à partir de la forme canonique",
     "url": "/exercices/1e/1E11-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "1E11-4"
+    "name": "1E11-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "1E11-5": {
     "titre": "Résoudre une équation du second degré avec le discriminant.",
     "url": "/exercices/1e/1E11-5.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "1E11-5"
+    "name": "1E11-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "1E11": {
     "titre": "Résoudre une équation du second degré",
     "url": "/exercices/1e/1E11.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "1E11"
+    "name": "1E11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "1E12": {
     "titre": "Trouver l’équation d’une parabole",
     "url": "/exercices/1e/1E12.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "1E12"
+    "name": "1E12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "1E13": {
     "titre": "Factoriser, si possible, un polynôme du second degré",
     "url": "/exercices/1e/1E13.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "1E13"
+    "name": "1E13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "1E14": {
     "titre": "Factoriser un polynôme du second degré avec racines entières",
     "url": "/exercices/1e/1E14.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "1E14"
+    "name": "1E14",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "1F10": {
     "titre": "Calculs de dérivées",
     "url": "/exercices/1e/1F10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "1F10"
+    "name": "1F10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "1N10": {
     "titre": "Déterminer les termes d’une suite définie de façon explicite",
     "url": "/exercices/1e/1N10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "1N10"
+    "name": "1N10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "1N11": {
     "titre": "Déterminer les termes d’une suite définie par récurrence",
     "url": "/exercices/1e/1N11.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "1N11"
+    "name": "1N11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2F10-1": {
     "titre": "Reconnaître une fonction affine.",
@@ -105,7 +209,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "2F10-1"
+    "name": "2F10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2F10-2": {
     "titre": "Lecture graphique d’une fonction affine",
@@ -116,21 +228,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2F10-2"
+    "name": "2F10-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2F10-3": {
     "titre": "Représentation graphique d’une fonction affine",
     "url": "/exercices/2e/2F10-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2F10-3"
+    "name": "2F10-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2F10-4": {
     "titre": "Déterminer une fonction affine à partir de deux images.",
     "url": "/exercices/2e/2F10-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2F10-4"
+    "name": "2F10-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2F32": {
     "titre": "Lecture graphique",
@@ -141,63 +277,135 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2F32"
+    "name": "2F32",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G12-1": {
     "titre": "Utiliser la distance entre deux points dans un repère orthonormé",
     "url": "/exercices/2e/2G12-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G12-1"
+    "name": "2G12-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G12-2": {
     "titre": "Déterminer les coordonnées milieu d’un segment dans un repère",
     "url": "/exercices/2e/2G12-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G12-2"
+    "name": "2G12-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G12-3": {
     "titre": "Démontrer qu'un quadrilatère est ou non un parallélogramme",
     "url": "/exercices/2e/2G12-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G12-3"
+    "name": "2G12-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G12-4": {
     "titre": "Déterminer la nature d’un polygone",
     "url": "/exercices/2e/2G12-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G12-4"
+    "name": "2G12-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G22-1": {
     "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
     "url": "/exercices/2e/2G22-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G22-1"
+    "name": "2G22-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G23-1": {
     "titre": "Déterminer les coordonnées d’un vecteur.",
     "url": "/exercices/2e/2G23-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G23-1"
+    "name": "2G23-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G23-2": {
     "titre": "Coordonnées de vecteurs et translations.",
     "url": "/exercices/2e/2G23-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G23-2"
+    "name": "2G23-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G23": {
     "titre": "Somme de vecteurs",
     "url": "/exercices/2e/2G23.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G23"
+    "name": "2G23",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G31-1": {
     "titre": "Déterminer le coefficient directeur d'une droite.",
@@ -208,49 +416,105 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2G31-1"
+    "name": "2G31-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G31-2": {
     "titre": "Déterminer une équation réduite de droite",
     "url": "/exercices/2e/2G31-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-2"
+    "name": "2G31-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G31-3": {
     "titre": "Déterminer une équation cartésienne de droite à partir de deux points.",
     "url": "/exercices/2e/2G31-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-3"
+    "name": "2G31-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G31-4": {
     "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur.",
     "url": "/exercices/2e/2G31-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-4"
+    "name": "2G31-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G31-5": {
     "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
     "url": "/exercices/2e/2G31-5.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-5"
+    "name": "2G31-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G34-1": {
     "titre": "Alignement de 3 points.",
     "url": "/exercices/2e/2G34-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G34-1"
+    "name": "2G34-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G34-2": {
     "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
     "url": "/exercices/2e/2G34-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G34-2"
+    "name": "2G34-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2G36-7": {
     "titre": "Lecture graphique des coefficients d'une équation réduite ",
@@ -261,92 +525,345 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2G36-7"
+    "name": "2G36-7",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2N10-1": {
+    "titre": "Lire l’abscisse décimale d’un point repéré par une fraction",
+    "url": "/exercices/2e/2N10-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2N10-2": {
+    "titre": "Placer un point d’abscisse décimale",
+    "url": "/exercices/2e/2N10-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "2N10-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N11-1": {
     "titre": "Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée",
     "url": "/exercices/2e/2N11-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N11-1"
+    "name": "2N11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N11-2": {
     "titre": "Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$",
     "url": "/exercices/2e/2N11-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N11-2"
+    "name": "2N11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2N12-1": {
+    "titre": "Encadrer une fraction entre deux nombres entiers",
+    "url": "/exercices/2e/2N12-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N12-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2N13-1": {
+    "titre": "Arrondir une valeur",
+    "url": "/exercices/2e/2N13-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMult"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "2N13-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N14-1": {
     "titre": "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient",
     "url": "/exercices/2e/2N14-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2N14-1"
+    "name": "2N14-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N15-1": {
     "titre": "Utiliser la notion de valeur absolue d’une quantité",
     "url": "/exercices/2e/2N15-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N15-1"
+    "name": "2N15-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N15-2": {
     "titre": "Résoudre une équation avec des valeurs absolues",
     "url": "/exercices/2e/2N15-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N15-2"
+    "name": "2N15-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2N20-1": {
+    "titre": "Écrire la liste de tous les diviseurs d’un entier",
+    "url": "/exercices/2e/2N20-1.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N20-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2N20-2": {
+    "titre": "Critères de divisibilité (plusieurs possibles)",
+    "url": "/exercices/2e/2N20-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMult"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "2N20-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2N20-3": {
+    "titre": "Division Euclidienne - Diviseurs - Multiples",
+    "url": "/exercices/2e/2N20-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N20-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2N20-4": {
+    "titre": "Primalité ou pas",
+    "url": "/exercices/2e/2N20-4.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "2N20-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N20-8": {
     "titre": "Déterminer la parité d’une expression",
     "url": "/exercices/2e/2N20-8.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N20-8"
+    "name": "2N20-8",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N32-1": {
     "titre": "Existence d’une racine carrée",
     "url": "/exercices/2e/2N32-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N32-1"
+    "name": "2N32-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N32-2": {
     "titre": "Connaître les propriétés calculatoires des racines carrées",
     "url": "/exercices/2e/2N32-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N32-2"
+    "name": "2N32-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N32-3": {
     "titre": "Ecrire le nombre proposé sous la forme $a\\sqrt{b}$",
     "url": "/exercices/2e/2N32-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N32-3"
+    "name": "2N32-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N32-4": {
     "titre": "Simplifier une somme de racines carrées",
     "url": "/exercices/2e/2N32-4.js",
     "amcReady": false,
-    "interactifReady": false,
-    "name": "2N32-4"
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N32-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N32-5": {
     "titre": "Appliquer la double distributivité avec les racines carrées",
     "url": "/exercices/2e/2N32-5.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N32-5"
+    "name": "2N32-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N32-6": {
     "titre": "Développer les identités remarquables avec des racines carrées",
     "url": "/exercices/2e/2N32-6.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N32-6"
+    "name": "2N32-6",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N41-1": {
     "titre": "Calculer avec les identités remarquables",
@@ -354,93 +871,274 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2N41-1"
+    "name": "2N41-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2N41-4": {
+    "titre": "Développer (a+b)²",
+    "url": "/exercices/2e/2N41-4.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N41-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2N41-5": {
+    "titre": "Développer (a-b)²",
+    "url": "/exercices/2e/2N41-5.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N41-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2N41-6": {
+    "titre": "Développer avec les identités remarquables",
+    "url": "/exercices/2e/2N41-6.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N41-6",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N41-7": {
     "titre": "Factoriser avec les identités remarquables (niveau II)",
     "url": "/exercices/2e/2N41-7.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N41-7"
+    "name": "2N41-7",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
-  "2N43-4": {
-    "titre": "Développer (a+b)²",
-    "url": "/exercices/2e/2N43-4.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "2N43-4"
-  },
-  "2N43-5": {
-    "titre": "Développer (a-b)²",
-    "url": "/exercices/2e/2N43-5.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "2N43-5"
-  },
-  "2N43-6": {
-    "titre": "Développer avec les identités remarquables",
-    "url": "/exercices/2e/2N43-6.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2N43-6"
-  },
-  "2N43-7": {
+  "2N41-7v2": {
     "titre": "Factoriser avec les identités remarquables",
-    "url": "/exercices/2e/2N43-7.js",
+    "url": "/exercices/2e/2N41-7v2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N43-7"
+    "name": "2N41-7v2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N52-1": {
     "titre": "Résoudre les équations produit-nul",
     "url": "/exercices/2e/2N52-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N52-1"
+    "name": "2N52-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N52-2": {
     "titre": "Résoudre des équations carrées.",
     "url": "/exercices/2e/2N52-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N52-2"
+    "name": "2N52-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N52-4": {
     "titre": "Résoudre des équations se ramenant au produit-nul.",
     "url": "/exercices/2e/2N52-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N52-4"
+    "name": "2N52-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N60-4": {
     "titre": "Inéquation du premier degré",
     "url": "/exercices/2e/2N60-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N60-4"
+    "name": "2N60-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N61-2": {
     "titre": "Résoudre une inéquation produit",
     "url": "/exercices/2e/2N61-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N61-2"
+    "name": "2N61-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "2N61-4": {
     "titre": "Résoudre une inéquation quotient",
     "url": "/exercices/2e/2N61-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2N61-4"
+    "name": "2N61-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2S20-2": {
+    "titre": "Calculer des médianes",
+    "url": "/exercices/2e/2S20-2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2S20-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2S20-4": {
+    "titre": "Calculer des étendues",
+    "url": "/exercices/2e/2S20-4.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2S20-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2S30-2": {
+    "titre": "Calculer des probabilités dans une expérience aléatoire à une épreuve",
+    "url": "/exercices/2e/2S30-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2S30-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2S30-3": {
+    "titre": "Calculer des probabilités simples",
+    "url": "/exercices/2e/2S30-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2S30-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "2S30-4": {
+    "titre": "Calculer des probabilités dans une expérience aléatoire à deux épreuves",
+    "url": "/exercices/2e/2S30-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2S30-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3A10": {
     "titre": "Division Euclidienne - Diviseurs - Multiples",
     "url": "/exercices/3e/3A10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3A10"
+    "name": "3A10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3A11-1": {
     "titre": "Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11",
@@ -451,21 +1149,46 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "3A11-1"
+    "name": "3A11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3A11-2": {
     "titre": "Décomposition en facteurs premiers d’un entier",
     "url": "/exercices/3e/3A11-2.js",
     "amcReady": false,
-    "interactifReady": false,
-    "name": "3A11-2"
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3A11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3A11-3": {
     "titre": "Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers",
     "url": "/exercices/3e/3A11-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3A11-3"
+    "name": "3A11-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3A11": {
     "titre": "Primalité ou pas",
@@ -476,21 +1199,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "3A11"
+    "name": "3A11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3A12": {
     "titre": "Fractions irréductibles",
     "url": "/exercices/3e/3A12.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3A12"
+    "name": "3A12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3A13": {
     "titre": "Engrenages",
     "url": "/exercices/3e/3A13.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3A13"
+    "name": "3A13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3A14": {
     "titre": "Résoudre des problèmes avec recherche de diviseurs communs",
@@ -501,14 +1248,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3A14"
+    "name": "3A14",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F1-act": {
     "titre": "Fonctions : Notion et vocabulaire",
     "url": "/exercices/3e/3F1-act.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3F1-act"
+    "name": "3F1-act",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F10-1": {
     "titre": "Vocabulaire et notations des fonctions (généralités)",
@@ -519,7 +1282,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "3F10-1"
+    "name": "3F10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F10-2": {
     "titre": "Fonction : calculs d’images (et d’antécédents)",
@@ -530,7 +1301,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3F10-2"
+    "name": "3F10-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F10": {
     "titre": "Lectures d’images et d’antécédents depuis un tableau de valeurs",
@@ -538,7 +1317,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3F10"
+    "name": "3F10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F12-2": {
     "titre": "Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique",
@@ -546,7 +1333,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3F12-2"
+    "name": "3F12-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F12-3": {
     "titre": "Compléter un tableau de valeurs",
@@ -557,7 +1352,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3F12-3"
+    "name": "3F12-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F12-4": {
     "titre": "Lire l’image d’un nombre à partir d’un graphique",
@@ -568,14 +1371,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3F12-4"
+    "name": "3F12-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F12": {
     "titre": "Fonctions : Calculs d’images",
     "url": "/exercices/3e/3F12.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3F12"
+    "name": "3F12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F13-1": {
     "titre": "Lecture graphique d’images et d’antécédents",
@@ -583,7 +1402,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3F13-1"
+    "name": "3F13-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F13-2": {
     "titre": "Spécial escape game",
@@ -591,14 +1418,30 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3F13-2"
+    "name": "3F13-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F13": {
     "titre": "Lire les antécédents d’un nombre à partir d’un graphique",
     "url": "/exercices/3e/3F13.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3F13"
+    "name": "3F13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F21-1": {
     "titre": "Déterminer une fonction affine",
@@ -609,7 +1452,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3F21-1"
+    "name": "3F21-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F21-2": {
     "titre": "Déterminer une fonction affine par la donnée des images de deux nombres",
@@ -617,7 +1468,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3F21-2"
+    "name": "3F21-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F21-3": {
     "titre": "Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine",
@@ -625,14 +1484,30 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3F21-3"
+    "name": "3F21-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3F21": {
     "titre": "Déterminer une fonction linéaire",
     "url": "/exercices/3e/3F21.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3F21"
+    "name": "3F21",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G10-1": {
     "titre": "Trouver les coordonnées de l’image d’un point par une transformation du plan",
@@ -643,7 +1518,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3G10-1"
+    "name": "3G10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G10-2": {
     "titre": "Trouver l’image d’un point par une transformation choisie aléatoirement",
@@ -654,21 +1537,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3G10-2"
+    "name": "3G10-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G10-3": {
     "titre": "Construire l’image d’un point par une rotation avec cible auto-corrective",
     "url": "/exercices/3e/3G10-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G10-3"
+    "name": "3G10-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G11": {
     "titre": "Construire l’image d’un point par une homothetie avec cible auto-corrective",
     "url": "/exercices/3e/3G11.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G11"
+    "name": "3G11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G12-1": {
     "titre": "Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage",
@@ -679,21 +1586,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3G12-1"
+    "name": "3G12-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G12": {
     "titre": "Trouver l’image d’une figure par une rotation dans un pavage",
     "url": "/exercices/3e/3G12.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G12"
+    "name": "3G12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G20-1": {
     "titre": "Problèmes avec le théorème de Thalès",
     "url": "/exercices/3e/3G20-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G20-1"
+    "name": "3G20-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G20": {
     "titre": "Calculer des longueurs avec le théorème de Thalès",
@@ -704,38 +1635,74 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3G20"
+    "name": "3G20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G21": {
-    "titre": "Contrôler si deux droites sont parallèles",
+    "titre": "Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès",
     "url": "/exercices/3e/3G21.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCHybride"
     },
     "interactifReady": false,
-    "name": "3G21"
+    "name": "3G21",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    }
   },
   "3G22": {
     "titre": "Connaître les effets des agrandissements/réductions sur les aires et les volumes",
     "url": "/exercices/3e/3G22.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G22"
+    "name": "3G22",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G23": {
     "titre": "Reconnaître des triangles égaux dans différentes configurations",
     "url": "/exercices/3e/3G23.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G23"
+    "name": "3G23",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G30-1": {
     "titre": "Exprimer le cosinus, le sinus ou la tangente d’un angle en fonction des côtés du triangle",
     "url": "/exercices/3e/3G30-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G30-1"
+    "name": "3G30-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G30": {
     "titre": "Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie",
@@ -746,14 +1713,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3G30"
+    "name": "3G30",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G31-1": {
     "titre": "Calculer toutes les mesures d’angle d’une figure complexe",
     "url": "/exercices/3e/3G31-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G31-1"
+    "name": "3G31-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G31": {
     "titre": "Calculer un angle dans un triangle rectangle en utilisant la trigonométrie",
@@ -764,7 +1747,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3G31"
+    "name": "3G31",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G32-1": {
     "titre": "Calcul d’un parallèle terrestre",
@@ -775,49 +1766,105 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3G32-1"
+    "name": "3G32-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G32-2": {
     "titre": "Calculer la hauteur d’un objet vu sous un angle donné",
     "url": "/exercices/3e/3G32-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G32-2"
+    "name": "3G32-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G32-3": {
     "titre": "Calculer la hauteur d’une falaise",
     "url": "/exercices/3e/3G32-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G32-3"
+    "name": "3G32-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G32-4": {
     "titre": "Calculer la hauteur d’une montagne",
     "url": "/exercices/3e/3G32-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G32-4"
+    "name": "3G32-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G32-5": {
     "titre": "Problème trigonométrique - Triangle rectangle inscrit dans un triangle rectangle",
     "url": "/exercices/3e/3G32-5.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G32-5"
+    "name": "3G32-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G32": {
     "titre": "Calculer la largeur d’une rivière",
     "url": "/exercices/3e/3G32.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G32"
+    "name": "3G32",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G40": {
     "titre": "Repérage sur la sphère",
     "url": "/exercices/3e/3G40.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G40"
+    "name": "3G40",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G42": {
     "titre": "Volume d’une boule",
@@ -828,7 +1875,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3G42"
+    "name": "3G42",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3G43": {
     "titre": "Calculs de volumes",
@@ -842,35 +1897,75 @@ export default {
       "qcm",
       "mathLive"
     ],
-    "name": "3G43"
+    "name": "3G43",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3I1-1": {
     "titre": "Conjecture de Syracuse",
     "url": "/exercices/3e/3I1-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3I1-1"
+    "name": "3I1-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3I1": {
     "titre": "Instruction conditionelle (scratch)",
     "url": "/exercices/3e/3I1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3I1"
+    "name": "3I1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L10-1": {
     "titre": "Additionner ou soustraire une expression entre parenthèses",
     "url": "/exercices/3e/3L10-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3L10-1"
+    "name": "3L10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L10": {
     "titre": "Donner l’opposé d’une expression",
     "url": "/exercices/3e/3L10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3L10"
+    "name": "3L10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L11-1": {
     "titre": "Utiliser la double distributivité",
@@ -881,7 +1976,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3L11-1"
+    "name": "3L11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L11-2": {
     "titre": "Réduire une expression",
@@ -892,7 +1995,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3L11-2"
+    "name": "3L11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L11-3": {
     "titre": "Utiliser la distributivité (simple ou double) et réduire",
@@ -900,7 +2011,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3L11-3"
+    "name": "3L11-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L11-4": {
     "titre": "Factoriser une expression",
@@ -911,7 +2030,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3L11-4"
+    "name": "3L11-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L11-5": {
     "titre": "Calcul mental et calcul littéral",
@@ -919,7 +2046,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3L11-5"
+    "name": "3L11-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L11-6": {
     "titre": "Factoriser une expression complexe",
@@ -927,7 +2062,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3L11-6"
+    "name": "3L11-6",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L11": {
     "titre": "Utiliser la simple distributivité",
@@ -935,7 +2078,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3L11"
+    "name": "3L11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L12-1": {
     "titre": "Développer (a-b)(a+b)",
@@ -943,7 +2094,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3L12-1"
+    "name": "3L12-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L12": {
     "titre": "Factoriser a²-b²",
@@ -951,7 +2110,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3L12"
+    "name": "3L12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L13-0": {
     "titre": "Équation du premier degré à solutions entières",
@@ -962,7 +2129,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3L13-0"
+    "name": "3L13-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L13-1": {
     "titre": "Équation du premier degré (utilisant la distributivité)",
@@ -970,14 +2145,30 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3L13-1"
+    "name": "3L13-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L13-2": {
     "titre": "Equations résolvantes pour le théorème de Thalès",
     "url": "/exercices/3e/3L13-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3L13-2"
+    "name": "3L13-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L13": {
     "titre": "Équation du premier degré",
@@ -988,21 +2179,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3L13"
+    "name": "3L13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L14-1": {
     "titre": "Résoudre une équation produit nul (niveau 2)",
     "url": "/exercices/3e/3L14-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3L14-1"
+    "name": "3L14-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L14": {
     "titre": "Résoudre une équation produit nul",
     "url": "/exercices/3e/3L14.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3L14"
+    "name": "3L14",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L15-1": {
     "titre": "Résoudre une équation $x^2 = a$",
@@ -1010,14 +2225,30 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3L15-1"
+    "name": "3L15-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3L15": {
     "titre": "Équations du second degré se ramenant au premier degré",
     "url": "/exercices/3e/3L15.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3L15"
+    "name": "3L15",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3P10-1": {
     "titre": "Coefficient multiplicateur d’une variation en pourcentage",
@@ -1025,7 +2256,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3P10-1"
+    "name": "3P10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3P10": {
     "titre": "Variations en pourcentage",
@@ -1033,7 +2272,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3P10"
+    "name": "3P10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3S12": {
     "titre": "Calculer des effectifs et des fréquences",
@@ -1041,7 +2288,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3S12"
+    "name": "3S12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3S15": {
     "titre": "Calculer des étendues",
@@ -1049,14 +2304,90 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3S15"
+    "name": "3S15",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "3S20": {
     "titre": "Calculer des probabilités dans une expérience aléatoire à deux épreuves",
     "url": "/exercices/3e/3S20.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3S20"
+    "name": "3S20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "4A10": {
+    "titre": "Nombre premier ou pas",
+    "url": "/exercices/4e/4A10.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4A10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "4A11-0": {
+    "titre": "Décomposer un nombre entier en produit de (petits) facteurs premiers",
+    "url": "/exercices/4e/4A11-0.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4A11-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "4A11-1": {
+    "titre": "Décomposer un nombre entier en produit de facteurs premiers",
+    "url": "/exercices/4e/4A11-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4A11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "4A11-2": {
+    "titre": "Fractions irréductibles",
+    "url": "/exercices/4e/4A11-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4A11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4AI1-1": {
     "titre": "Tortue Scratch avec répétitions",
@@ -1067,7 +2398,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "cliqueFigure",
-    "name": "4AI1-1"
+    "name": "4AI1-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C10-0": {
     "titre": "Signe d’un produit ou d’un quotient de nombres relatifs",
@@ -1078,7 +2417,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "4C10-0"
+    "name": "4C10-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C10-1": {
     "titre": "Signe d’un produit de nombres relatifs",
@@ -1089,7 +2436,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "4C10-1"
+    "name": "4C10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C10-2": {
     "titre": "Signe d’un quotient de nombres relatifs",
@@ -1100,7 +2455,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "4C10-2"
+    "name": "4C10-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C10-3": {
     "titre": "Multiplication de deux entiers relatifs",
@@ -1108,7 +2471,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4C10-3"
+    "name": "4C10-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C10-4": {
     "titre": "Quotient de deux entiers relatifs",
@@ -1116,14 +2487,30 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4C10-4"
+    "name": "4C10-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C10-5": {
     "titre": "Multiplications de deux entiers relatifs dans un tableau à double entrée",
     "url": "/exercices/4e/4C10-5.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4C10-5"
+    "name": "4C10-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C10-6": {
     "titre": "Multiplications et quotients de relatifs : signe avec une lettre",
@@ -1134,7 +2521,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "4C10-6"
+    "name": "4C10-6",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C11": {
     "titre": "Calculs utilisant les priorités opératoires",
@@ -1142,14 +2537,30 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4C11"
+    "name": "4C11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C20-1": {
     "titre": "Comparer quatre fractions (dénominateurs multiples) et un nombre entier",
     "url": "/exercices/4e/4C20-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4C20-1"
+    "name": "4C20-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C20": {
     "titre": "Comparer deux fractions (dénominateurs multiples)",
@@ -1160,7 +2571,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "4C20"
+    "name": "4C20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C21-1": {
     "titre": "Additionner deux fractions",
@@ -1171,7 +2590,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4C21-1"
+    "name": "4C21-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C21": {
     "titre": "Additionner ou soustraire deux fractions",
@@ -1182,7 +2609,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4C21"
+    "name": "4C21",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C22-1": {
     "titre": "Trouver l’inverse d’un nombre",
@@ -1190,7 +2625,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4C22-1"
+    "name": "4C22-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C22-2": {
     "titre": "Diviser des fractions",
@@ -1201,7 +2644,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4C22-2"
+    "name": "4C22-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C22": {
     "titre": "Multiplier des fractions",
@@ -1212,7 +2663,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4C22"
+    "name": "4C22",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C23-1": {
     "titre": "Fractions et priorités opératoires",
@@ -1223,7 +2682,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4C23-1"
+    "name": "4C23-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C23": {
     "titre": "Somme, différence ou produit de fractions",
@@ -1231,42 +2698,90 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4C23"
+    "name": "4C23",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C25-0": {
     "titre": "Re-Problèmes additifs et de comparaison sur les rationnels",
     "url": "/exercices/4e/4C25-0.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4C25-0"
+    "name": "4C25-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C30-1": {
     "titre": "Encadrer avec des puissances de 10",
     "url": "/exercices/4e/4C30-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4C30-1"
+    "name": "4C30-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C30-2": {
     "titre": "Écriture décimale d’une puissance de 10",
     "url": "/exercices/4e/4C30-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4C30-2"
+    "name": "4C30-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C30-3": {
     "titre": "Écriture décimale d’une puissance",
     "url": "/exercices/4e/4C30-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4C30-3"
+    "name": "4C30-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C30": {
     "titre": "Puissances de 10 : Le sens des règles de calculs",
     "url": "/exercices/4e/4C30.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4C30"
+    "name": "4C30",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C32-1": {
     "titre": "Calcul avec les puissances de dix",
@@ -1277,21 +2792,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "4C32-1"
+    "name": "4C32-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C32-2": {
     "titre": "Puissances de 10 et préfixes kilo, méga, giga, téra",
     "url": "/exercices/4e/4C32-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4C32-2"
+    "name": "4C32-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C32-3": {
     "titre": "Problèmes avec des puissances de 10 et des conversions",
     "url": "/exercices/4e/4C32-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4C32-3"
+    "name": "4C32-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C32": {
     "titre": "Notation scientifique",
@@ -1302,21 +2841,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4C32"
+    "name": "4C32",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C33-1": {
     "titre": "Puissances : Le sens des règles de calculs",
     "url": "/exercices/4e/4C33-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4C33-1"
+    "name": "4C33-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C33-3": {
     "titre": "Puissances : Calculs automatisés et règles de calculs",
     "url": "/exercices/4e/4C33-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4C33-3"
+    "name": "4C33-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4C34": {
     "titre": "Calculs utilisant les priorités opératoires et les puissances",
@@ -1326,7 +2889,11 @@ export default {
       "text": "AMCOpenNum"
     },
     "interactifReady": false,
-    "name": "4C34"
+    "name": "4C34",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    }
   },
   "4F12": {
     "titre": "Problème s’appuyant sur la lecture d’une représentation graphique",
@@ -1336,7 +2903,30 @@ export default {
       "text": "AMCHybride"
     },
     "interactifReady": false,
-    "name": "4F12"
+    "name": "4F12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    }
+  },
+  "4G10-1": {
+    "titre": "Trouver les coordonnée de l’image d’un point par une translation",
+    "url": "/exercices/4e/4G10-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4G10-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G10": {
     "titre": "Trouver l’image d’un point par une symétrie axiale ou centrale ou par une translation",
@@ -1347,7 +2937,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4G10"
+    "name": "4G10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G11-1": {
     "titre": "Trouver l’image d’une figure par une translation dans un pavage",
@@ -1358,21 +2956,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4G11-1"
+    "name": "4G11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G11": {
     "titre": "Trouver l’image d’une figure par une translation dans un pavage",
     "url": "/exercices/4e/4G11.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4G11"
+    "name": "4G11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G15": {
     "titre": "Tranformations de triangle",
     "url": "/exercices/4e/4G15.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4G15"
+    "name": "4G15",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G20-1": {
     "titre": "Donner ou compléter une égalité de Pythagore",
@@ -1380,7 +3002,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4G20-1"
+    "name": "4G20-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G20-2": {
     "titre": "Déterminer la racine carrée d’un carré parfait (calcul mental)",
@@ -1391,7 +3021,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "4G20-2"
+    "name": "4G20-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G20-4": {
     "titre": "Arrondir une racine carrée",
@@ -1399,14 +3037,30 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4G20-4"
+    "name": "4G20-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G20-5": {
     "titre": "Trouver la valeur arrondie d’une racine carrée",
     "url": "/exercices/4e/4G20-5.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4G20-5"
+    "name": "4G20-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G20-6": {
     "titre": "Encadrer une racine carrée et en donner un arrondi",
@@ -1417,7 +3071,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4G20-6"
+    "name": "4G20-6",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G20": {
     "titre": "Calculer une longueur avec le théorème de Pythagore",
@@ -1428,7 +3090,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4G20"
+    "name": "4G20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G21": {
     "titre": "Déterminer si un triangle est rectangle ou pas",
@@ -1439,14 +3109,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "4G21"
+    "name": "4G21",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G22": {
     "titre": "Résoudre des problèmes utilisant le théorème de Pythagore",
     "url": "/exercices/4e/4G22.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4G22"
+    "name": "4G22",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G30": {
     "titre": "Calculer des longueurs avec le théorème de Thalès",
@@ -1457,35 +3143,75 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4G30"
+    "name": "4G30",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G31": {
     "titre": "Contrôler si deux droites sont parallèles",
     "url": "/exercices/4e/4G31.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4G31"
+    "name": "4G31",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G40-1": {
     "titre": "Encadrer puis arrondir une valeur comprenant un cosinus",
     "url": "/exercices/4e/4G40-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4G40-1"
+    "name": "4G40-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G40-2": {
     "titre": "Arrondir une valeur comprenant un cosinus",
     "url": "/exercices/4e/4G40-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4G40-2"
+    "name": "4G40-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G40-MG32": {
     "titre": "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle",
     "url": "/exercices/4e/4G40-MG32.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4G40-MG32"
+    "name": "4G40-MG32",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G40": {
     "titre": "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle",
@@ -1496,7 +3222,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4G40"
+    "name": "4G40",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G41": {
     "titre": "Utiliser le cosinus pour calculer la mesure d’un angle dans un triangle rectangle",
@@ -1507,21 +3241,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4G41"
+    "name": "4G41",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G51": {
     "titre": "Compléter une représentation en perspective cavalière",
     "url": "/exercices/4e/4G51.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4G51"
+    "name": "4G51",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G52": {
     "titre": "Exercice de repérage dans un pavé droit",
     "url": "/exercices/4e/4G52.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4G52"
+    "name": "4G52",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4G53": {
     "titre": "Calculs de volumes",
@@ -1535,21 +3293,45 @@ export default {
       "qcm",
       "mathLive"
     ],
-    "name": "4G53"
+    "name": "4G53",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4I1": {
     "titre": "Dessiner avec scratch",
     "url": "/exercices/4e/4I1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4I1"
+    "name": "4I1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4L10-1": {
     "titre": "Réduire, si possible, une expression littérale simple",
     "url": "/exercices/4e/4L10-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4L10-1"
+    "name": "4L10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4L10": {
     "titre": "Utiliser la simple distributivité",
@@ -1557,70 +3339,150 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4L10"
+    "name": "4L10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4L11": {
     "titre": "Factoriser une expression littérale",
     "url": "/exercices/4e/4L11.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4L11"
+    "name": "4L11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4L13-0": {
     "titre": "Mettre en équation un problème sans objectif de résolution",
     "url": "/exercices/4e/4L13-0.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4L13-0"
+    "name": "4L13-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4L13-1": {
     "titre": "Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue",
     "url": "/exercices/4e/4L13-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4L13-1"
+    "name": "4L13-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4L14-0": {
     "titre": "Tester si un nombre est solution d’une équation",
     "url": "/exercices/4e/4L14-0.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4L14-0"
+    "name": "4L14-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4L14-1": {
     "titre": "Tester si un nombre est solution d’une équation du premier degré",
     "url": "/exercices/4e/4L14-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4L14-1"
+    "name": "4L14-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4L14-2": {
     "titre": "Tester si un nombre est solution d'une équation du second degré",
     "url": "/exercices/4e/4L14-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4L14-2"
+    "name": "4L14-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4L15-0": {
     "titre": "Trouver l’erreur dans une résolution d’équation du premier degré",
     "url": "/exercices/4e/4L15-0.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4L15-0"
+    "name": "4L15-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4L15-1": {
     "titre": "Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$",
     "url": "/exercices/4e/4L15-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4L15-1"
+    "name": "4L15-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4L16": {
     "titre": "Déterminer si ces expressions sont des sommes, des différences, des produits ou des quotients",
     "url": "/exercices/4e/4L16.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4L16"
+    "name": "4L16",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4L20-0": {
     "titre": "Équation du premier degré à solutions entières",
@@ -1631,7 +3493,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4L20-0"
+    "name": "4L20-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4L20": {
     "titre": "Équation du premier degré",
@@ -1642,63 +3512,141 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "4L20"
+    "name": "4L20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4P10-1": {
     "titre": "Résoudre un problème de proportionnalité à l’aide d’un graphique",
     "url": "/exercices/4e/4P10-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4P10-1"
+    "name": "4P10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4P10-2": {
     "titre": "Déterminer une quatrième proportionnelle dans un tableau",
     "url": "/exercices/4e/4P10-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4P10-2"
+    "name": "4P10-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4P10": {
     "titre": "Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes",
     "url": "/exercices/4e/4P10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4P10"
+    "name": "4P10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4S10": {
     "titre": "Construire un diagramme",
     "url": "/exercices/4e/4S10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "4S10"
+    "name": "4S10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "4S11": {
     "titre": "Déterminer des médianes",
     "url": "/exercices/4e/4S11.js",
     "amcReady": false,
-    "interactifReady": false,
-    "name": "4S11"
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4S11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5A10": {
     "titre": "Écrire la liste de tous les diviseurs d’un entier",
     "url": "/exercices/5e/5A10.js",
     "amcReady": false,
-    "interactifReady": false,
-    "name": "5A10"
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "5A10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5A11-1": {
     "titre": "Labyrinthe de multiples basé sur les critères de divisibilité",
     "url": "/exercices/5e/5A11-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5A11-1"
+    "name": "5A11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5A11": {
-    "titre": "Critères de divisibilité",
+    "titre": "Critères de divisibilité (plusieurs possibles)",
     "url": "/exercices/5e/5A11.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "5A11"
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMult"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "5A11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5A12-1": {
     "titre": "Primalité ou pas",
@@ -1709,7 +3657,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "5A12-1"
+    "name": "5A12-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5A13": {
     "titre": "Décomposition en facteurs premiers",
@@ -1717,28 +3673,60 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5A13"
+    "name": "5A13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5C11-1": {
     "titre": "Traduire une expression par une phrase",
     "url": "/exercices/5e/5C11-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5C11-1"
+    "name": "5C11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5C11-2": {
     "titre": "Traduire une succession des opérations par une expression",
     "url": "/exercices/5e/5C11-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5C11-2"
+    "name": "5C11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5C11": {
     "titre": "Traduire une phrase par une expression",
     "url": "/exercices/5e/5C11.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5C11"
+    "name": "5C11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5C12-1": {
     "titre": "Traduire une phrase par une expression et la calculer",
@@ -1749,7 +3737,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5C12-1"
+    "name": "5C12-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5C12": {
     "titre": "Calculer une expression numérique en détaillant les calculs",
@@ -1760,21 +3756,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5C12"
+    "name": "5C12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G10-1": {
     "titre": "Construire le symétrique d’un point par rapport à une droite",
     "url": "/exercices/5e/5G10-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G10-1"
+    "name": "5G10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G10-2": {
     "titre": "Construire le symétrique d’une figure par rapport à une droite",
     "url": "/exercices/5e/5G10-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G10-2"
+    "name": "5G10-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G10": {
     "titre": "Trouver l’image d’un point par une symétrie axiale",
@@ -1785,28 +3805,98 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5G10"
+    "name": "5G10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G11-1": {
     "titre": "Construire le symétrique d’un point par symétrie centrale",
     "url": "/exercices/5e/5G11-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G11-1"
+    "name": "5G11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G11-2": {
     "titre": "Construire l’image d’une figure par symétrie centrale",
     "url": "/exercices/5e/5G11-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G11-2"
+    "name": "5G11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G11-3": {
     "titre": "Construire le symétrique d’un point avec cible auto-corrective",
     "url": "/exercices/5e/5G11-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G11-3"
+    "name": "5G11-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "5G11-4": {
+    "titre": "Trouver les coordonnée de l’image d’un point par une symétrie centrale",
+    "url": "/exercices/5e/5G11-4.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "5G11-4",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "5G11-5": {
+    "titre": "Trouver les coordonnée de l’image d’un point par une symétrie axiale ou centrale",
+    "url": "/exercices/5e/5G11-5.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "5G11-5",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G11": {
     "titre": "Trouver l’image d’un point par une symétrie axiale ou centrale",
@@ -1817,7 +3907,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5G11"
+    "name": "5G11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G12-1": {
     "titre": "Symétrique d’une figure dans un pavage",
@@ -1828,161 +3926,345 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5G12-1"
+    "name": "5G12-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G12": {
     "titre": "Trouver l’image d’une figure par symétrie centrale dans un pavage",
     "url": "/exercices/5e/5G12.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G12"
+    "name": "5G12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G13": {
     "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
     "url": "/exercices/5e/5G13.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G13"
+    "name": "5G13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G20-0": {
     "titre": "Construire un triangle aux instruments",
     "url": "/exercices/5e/5G20-0.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G20-0"
+    "name": "5G20-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G20-1": {
     "titre": "Vocabulaire des triangles",
     "url": "/exercices/5e/5G20-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G20-1"
+    "name": "5G20-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G20-2": {
     "titre": "Tracer un triangle dont on connait une longueur et 2 angles",
     "url": "/exercices/5e/5G20-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G20-2"
+    "name": "5G20-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G20": {
     "titre": "Construire un triangle avec cible auto-corrective",
     "url": "/exercices/5e/5G20.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G20"
+    "name": "5G20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G21-1": {
     "titre": "Constructibilité des triangles via les longueurs",
     "url": "/exercices/5e/5G21-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G21-1"
+    "name": "5G21-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G22-1": {
     "titre": "Utiliser les propriétés de la médiatrice",
     "url": "/exercices/5e/5G22-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G22-1"
+    "name": "5G22-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G22": {
     "titre": "Déterminer la nature d’une droite remarquable",
     "url": "/exercices/5e/5G22.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G22"
+    "name": "5G22",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G24-1": {
     "titre": "Triangles égaux et côtés homologues",
     "url": "/exercices/5e/5G24-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G24-1"
+    "name": "5G24-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G24-2": {
     "titre": "Justifier que deux triangles sont égaux",
     "url": "/exercices/5e/5G24-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G24-2"
+    "name": "5G24-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G30-1": {
     "titre": "Déterminer des angles en utilisant les cas d’égalité",
     "url": "/exercices/5e/5G30-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G30-1"
+    "name": "5G30-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G30": {
     "titre": "Utiliser le codage pour décrire une figure",
     "url": "/exercices/5e/5G30.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G30"
+    "name": "5G30",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G31-1": {
     "titre": "Constructibilité des triangles via les angles",
     "url": "/exercices/5e/5G31-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G31-1"
+    "name": "5G31-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G31": {
     "titre": "Somme des angles dans un triangle",
     "url": "/exercices/5e/5G31.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G31"
+    "name": "5G31",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G40-1": {
     "titre": "Citer les propriétés des parallélogrammes",
     "url": "/exercices/5e/5G40-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G40-1"
+    "name": "5G40-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G40-2": {
     "titre": "Reconnaitre un parallélogramme à partir du codage d’une figure",
     "url": "/exercices/5e/5G40-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G40-2"
+    "name": "5G40-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G40": {
     "titre": "Construire des parallélogrammes avec dispositif d’auto-correction",
     "url": "/exercices/5e/5G40.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G40"
+    "name": "5G40",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G41": {
     "titre": "Construire des quadrilatères particuliers",
     "url": "/exercices/5e/5G41.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G41"
+    "name": "5G41",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G42": {
     "titre": "Nature de parallélogrammes",
     "url": "/exercices/5e/5G42.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G42"
+    "name": "5G42",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5G51": {
     "titre": "Compléter une représentation en perspective cavalière",
     "url": "/exercices/5e/5G51.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5G51"
+    "name": "5G51",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L10-1": {
     "titre": "Traduire une phrase par une expression",
     "url": "/exercices/5e/5L10-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5L10-1"
+    "name": "5L10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L10-2": {
     "titre": "Traduire un programme de calcul par une expression littérale",
@@ -1993,21 +4275,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "5L10-2"
+    "name": "5L10-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L10-3": {
     "titre": "Traduire une expression par une phrase",
     "url": "/exercices/5e/5L10-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5L10-3"
+    "name": "5L10-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L10-4": {
     "titre": "Produire une formule à partir d’un tableau",
     "url": "/exercices/5e/5L10-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5L10-4"
+    "name": "5L10-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L10": {
     "titre": "Écrire une expression littérale",
@@ -2018,21 +4324,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "5L10"
+    "name": "5L10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L12-1": {
     "titre": "Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence",
     "url": "/exercices/5e/5L12-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5L12-1"
+    "name": "5L12-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L12": {
     "titre": "Réduire une expression littérale",
     "url": "/exercices/5e/5L12.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5L12"
+    "name": "5L12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L13": {
     "titre": "Réduire une expression de la forme $ax+bx$ ",
@@ -2040,14 +4370,30 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5L13"
+    "name": "5L13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L14-1": {
     "titre": "Calculer une expression littérale pour les valeurs données en détaillant les calculs",
     "url": "/exercices/5e/5L14-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5L14-1"
+    "name": "5L14-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L14-2": {
     "titre": "Substitution",
@@ -2058,35 +4404,75 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "5L14-2"
+    "name": "5L14-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L14-3": {
     "titre": "Traduire une phrase par une expression et la calculer",
     "url": "/exercices/5e/5L14-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5L14-3"
+    "name": "5L14-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L14-4": {
     "titre": "Déterminer la dernière opération à effectuer dans une expression littérale",
     "url": "/exercices/5e/5L14-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5L14-4"
+    "name": "5L14-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L14-5": {
     "titre": "Calculer la valeur d’une expression littérale de degré 1 à 1 inconnue",
     "url": "/exercices/5e/5L14-5.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5L14-5"
+    "name": "5L14-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L14-6": {
     "titre": "Déterminer la dernière opération à effectuer dans une expression numérique",
     "url": "/exercices/5e/5L14-6.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5L14-6"
+    "name": "5L14-6",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L14": {
     "titre": "Calculer la valeur d’une expression littérale",
@@ -2094,21 +4480,45 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5L14"
+    "name": "5L14",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5L15": {
     "titre": "Tester une égalité",
     "url": "/exercices/5e/5L15.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5L15"
+    "name": "5L15",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5M10": {
     "titre": "Aire du parallélogramme",
     "url": "/exercices/5e/5M10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5M10"
+    "name": "5M10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5M20": {
     "titre": "Calculs de volumes",
@@ -2122,35 +4532,75 @@ export default {
       "qcm",
       "mathLive"
     ],
-    "name": "5M20"
+    "name": "5M20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5N11-1": {
     "titre": "Tableaux et pourcentages - prix constant",
     "url": "/exercices/5e/5N11-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5N11-1"
+    "name": "5N11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5N11-2": {
     "titre": "Tableaux et pourcentages - pourcentage constant",
     "url": "/exercices/5e/5N11-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5N11-2"
+    "name": "5N11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5N11-3": {
     "titre": "Écrire une fraction sur 100 puis sous la forme d’un pourcentage",
     "url": "/exercices/5e/5N11-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5N11-3"
+    "name": "5N11-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5N11-4": {
     "titre": "Exprimer une fraction sous la forme d’une valeur approchée d’un pourcentage",
     "url": "/exercices/5e/5N11-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5N11-4"
+    "name": "5N11-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5N110": {
     "titre": "Variation en pourcentages",
@@ -2161,7 +4611,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5N110"
+    "name": "5N110",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5N13-2": {
     "titre": "Égalités entre fractions simples",
@@ -2172,7 +4630,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5N13-2"
+    "name": "5N13-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5N13": {
     "titre": "Simplification de fractions",
@@ -2183,14 +4649,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5N13"
+    "name": "5N13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5N14-2": {
     "titre": "Comparer quatre fractions (dénominateurs multiples) et un nombre entier",
     "url": "/exercices/5e/5N14-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5N14-2"
+    "name": "5N14-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5N14-3": {
     "titre": "Fractions égales et égalité des produits en croix",
@@ -2201,7 +4683,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "5N14-3"
+    "name": "5N14-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5N14": {
     "titre": "Comparer deux fractions (dénominateurs multiples)",
@@ -2212,21 +4702,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "5N14"
+    "name": "5N14",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5N15": {
     "titre": "Problèmes de ratio",
     "url": "/exercices/5e/5N15.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5N15"
+    "name": "5N15",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5N20-0": {
     "titre": "Résoudre un problème en utilisant des fractions",
     "url": "/exercices/5e/5N20-0.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5N20-0"
+    "name": "5N20-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5N20": {
     "titre": "Additionner ou soustraire deux fractions (dénominateurs multiples)",
@@ -2237,14 +4751,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5N20"
+    "name": "5N20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5P10": {
     "titre": "Reconnaître des tableaux de proportionnalité",
     "url": "/exercices/5e/5P10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5P10"
+    "name": "5P10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5P11-1": {
     "titre": "Problème de vitesse",
@@ -2252,28 +4782,60 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5P11-1"
+    "name": "5P11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5P12": {
     "titre": "Partager une quantité en deux ou trois parts selon un ratio donné",
     "url": "/exercices/5e/5P12.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5P12"
+    "name": "5P12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R10-0": {
     "titre": "Trouver l’opposé d’un nombre relatif",
     "url": "/exercices/5e/5R10-0.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5R10-0"
+    "name": "5R10-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R10-1": {
     "titre": "Deviner un nombre relatif",
     "url": "/exercices/5e/5R10-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5R10-1"
+    "name": "5R10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R10": {
     "titre": "Trouver le terme manquant d’une somme de nombres relatifs",
@@ -2284,7 +4846,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "5R10"
+    "name": "5R10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R11-2": {
     "titre": "Placer un point d’abscisse un nombre relatif",
@@ -2295,7 +4865,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "custom",
-    "name": "5R11-2"
+    "name": "5R11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R11": {
     "titre": "Lire l’abscisse relative d’un point",
@@ -2306,21 +4884,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5R11"
+    "name": "5R11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R12-2": {
     "titre": "Déterminer les coordonnées (relatives) d’un point",
     "url": "/exercices/5e/5R12-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5R12-2"
+    "name": "5R12-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R12": {
     "titre": "Déterminer les coordonnées (positives) d’un point",
     "url": "/exercices/5e/5R12.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5R12"
+    "name": "5R12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R20-2": {
     "titre": "Addition à trou de deux entiers relatifs",
@@ -2331,7 +4933,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "5R20-2"
+    "name": "5R20-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R20-3": {
     "titre": "Additions de 5 nombres relatifs",
@@ -2342,21 +4952,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5R20-3"
+    "name": "5R20-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R20-4": {
     "titre": "Résoudre un problème en utilisant une somme algébrique de relatifs",
     "url": "/exercices/5e/5R20-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5R20-4"
+    "name": "5R20-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R20-5": {
     "titre": "Additions de deux entiers relatifs dans un tableau à double entrée",
     "url": "/exercices/5e/5R20-5.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5R20-5"
+    "name": "5R20-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R20": {
     "titre": "Addition de deux entiers relatifs",
@@ -2370,7 +5004,15 @@ export default {
       "qcm",
       "mathlive"
     ],
-    "name": "5R20"
+    "name": "5R20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R21": {
     "titre": "Soustraction de deux entiers relatifs",
@@ -2381,14 +5023,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5R21"
+    "name": "5R21",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R22-2": {
     "titre": "Simplifier l’écriture d’une somme de 2 relatifs et calculer",
     "url": "/exercices/5e/5R22-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5R22-2"
+    "name": "5R22-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5R22": {
     "titre": "Additions et soustractions de nombres relatifs",
@@ -2399,70 +5057,150 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5R22"
+    "name": "5R22",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5S10": {
     "titre": "Organiser des données dans un tableau",
     "url": "/exercices/5e/5S10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5S10"
+    "name": "5S10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5S11": {
     "titre": "Lire un diagramme en barre",
     "url": "/exercices/5e/5S11.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5S11"
+    "name": "5S11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5S12": {
     "titre": "Représenter des données par un diagramme",
     "url": "/exercices/5e/5S12.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5S12"
+    "name": "5S12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5S13-1": {
     "titre": "Calculer des effectifs et des fréquences",
     "url": "/exercices/5e/5S13-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5S13-1"
+    "name": "5S13-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5S13": {
     "titre": "Calculer des fréquences",
     "url": "/exercices/5e/5S13.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5S13"
+    "name": "5S13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5S14": {
     "titre": "Calculer des moyennes",
     "url": "/exercices/5e/5S14.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5S14"
+    "name": "5S14",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5S20": {
     "titre": "Placer un événement sur une échelle de probabilités",
     "url": "/exercices/5e/5S20.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5S20"
+    "name": "5S20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5S21-1": {
     "titre": "Probabilités simples",
     "url": "/exercices/5e/5S21-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5S21-1"
+    "name": "5S21-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "5S21": {
     "titre": "Calculer des probabilités dans une expérience aléatoire à une épreuve",
     "url": "/exercices/5e/5S21.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "5S21"
+    "name": "5S21",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C10-1": {
     "titre": "Tables de multiplication",
@@ -2473,7 +5211,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6C10-1"
+    "name": "6C10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C10-2": {
     "titre": "Tables de multiplications et multiples de 10",
@@ -2487,7 +5233,15 @@ export default {
       "qcm",
       "mathLive"
     ],
-    "name": "6C10-2"
+    "name": "6C10-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C10-3": {
     "titre": "Tables de multiplications et nombres décimaux",
@@ -2498,7 +5252,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6C10-3"
+    "name": "6C10-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C10-4": {
     "titre": "Addition de deux entiers",
@@ -2509,7 +5271,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "6C10-4"
+    "name": "6C10-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C10-5": {
     "titre": "Labyrinthe de multiples",
@@ -2519,7 +5289,11 @@ export default {
       "text": "AMCOpen"
     },
     "interactifReady": false,
-    "name": "6C10-5"
+    "name": "6C10-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    }
   },
   "6C10": {
     "titre": "Additions, soustractions et multiplications posées de nombres entiers",
@@ -2530,7 +5304,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6C10"
+    "name": "6C10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C11-1": {
     "titre": "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité",
@@ -2541,7 +5323,34 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6C11-1"
+    "name": "6C11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "6C11-2": {
+    "titre": "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne",
+    "url": "/exercices/6e/6C11-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6C11-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C11": {
     "titre": "Divisions euclidiennes",
@@ -2552,14 +5361,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6C11"
+    "name": "6C11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C13": {
     "titre": "Traduire des phrases en calculs et réciproquement",
     "url": "/exercices/6e/6C13.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6C13"
+    "name": "6C13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C20": {
     "titre": "Additions et soustractions de nombres décimaux",
@@ -2570,7 +5395,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "6C20"
+    "name": "6C20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C21": {
     "titre": "Divisions euclidiennes - Niveau 2",
@@ -2579,8 +5412,17 @@ export default {
     "amcType": {
       "text": "AMCOpen"
     },
-    "interactifReady": false,
-    "name": "6C21"
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6C21",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C22": {
     "titre": "Problème - de plus de moins",
@@ -2591,7 +5433,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "6C22"
+    "name": "6C22",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C23": {
     "titre": "Additionner ou soustraire des fractions de même dénominateur",
@@ -2602,7 +5452,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6C23"
+    "name": "6C23",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C30-1": {
     "titre": "Multiplier un nombre décimal par 10, 100 ou 1 000",
@@ -2613,7 +5471,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "6C30-1"
+    "name": "6C30-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C30-2": {
     "titre": "Calculer le produit de deux décimaux connaissant le produit de deux entiers",
@@ -2624,7 +5490,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "6C30-2"
+    "name": "6C30-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C30-3": {
     "titre": "Opérations avec les nombres décimaux",
@@ -2635,7 +5509,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6C30-3"
+    "name": "6C30-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C30-4": {
     "titre": "Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)",
@@ -2646,7 +5528,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6C30-4"
+    "name": "6C30-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C30-5": {
     "titre": "Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)",
@@ -2657,7 +5547,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6C30-5"
+    "name": "6C30-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C30": {
     "titre": "Multiplications posées de nombres décimaux",
@@ -2668,7 +5566,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "6C30"
+    "name": "6C30",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C31-2": {
     "titre": "Donner des valeurs approchées d’un quotient décimal",
@@ -2676,7 +5582,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6C31-2"
+    "name": "6C31-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C31": {
     "titre": "Divisions décimales",
@@ -2687,14 +5601,34 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "6C31"
+    "name": "6C31",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C32": {
     "titre": "Problème - Les courses",
     "url": "/exercices/6e/6C32.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "6C32"
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6C32",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C33": {
     "titre": "Calculer en utilisant les priorités opératoires",
@@ -2705,7 +5639,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "6C33"
+    "name": "6C33",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C34": {
     "titre": "Dernier chiffre d’un calcul",
@@ -2716,21 +5658,46 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "6C34"
+    "name": "6C34",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6C35": {
     "titre": "Modéliser des problèmes",
     "url": "/exercices/6e/6C35.js",
     "amcReady": false,
-    "interactifReady": false,
-    "name": "6C35"
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6C35",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6D10": {
     "titre": "Convertir des durées",
     "url": "/exercices/6e/6D10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6D10"
+    "name": "6D10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6D101": {
     "titre": "Utiliser les heures décimales",
@@ -2741,21 +5708,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6D101"
+    "name": "6D101",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6D11": {
     "titre": "Additionner des durées",
     "url": "/exercices/6e/6D11.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6D11"
+    "name": "6D11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6D12": {
     "titre": "Calculer des durées ou déterminer un horaire",
     "url": "/exercices/6e/6D12.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6D12"
+    "name": "6D12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6D13": {
     "titre": "Conversion en heures et minutes",
@@ -2766,21 +5757,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6D13"
+    "name": "6D13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G10-1": {
     "titre": "Description et notation des droites, segments et demi-droites",
     "url": "/exercices/6e/6G10-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G10-1"
+    "name": "6G10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G10-2": {
     "titre": "Utiliser le codage pour décrire une figure",
     "url": "/exercices/6e/6G10-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G10-2"
+    "name": "6G10-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G10-3": {
     "titre": "Choisir la bonne figure",
@@ -2793,14 +5808,30 @@ export default {
     "interactifType": [
       "cliqueFigure"
     ],
-    "name": "6G10-3"
+    "name": "6G10-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G10": {
     "titre": "Notation des droites, segments et demi-droites",
     "url": "/exercices/6e/6G10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G10"
+    "name": "6G10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G11": {
     "titre": "Tracer des perpendiculaires",
@@ -2810,7 +5841,11 @@ export default {
       "text": "AMCOpen"
     },
     "interactifReady": false,
-    "name": "6G11"
+    "name": "6G11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    }
   },
   "6G12-1": {
     "titre": "Tracer des parallèles et des perpendiculaires",
@@ -2820,7 +5855,11 @@ export default {
       "text": "AMCOpen"
     },
     "interactifReady": false,
-    "name": "6G12-1"
+    "name": "6G12-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    }
   },
   "6G12": {
     "titre": "Tracer des parallèles",
@@ -2830,7 +5869,11 @@ export default {
       "text": "AMCOpen"
     },
     "interactifReady": false,
-    "name": "6G12"
+    "name": "6G12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    }
   },
   "6G14": {
     "titre": "Utiliser les propriétés des droites perpendiculaires",
@@ -2840,35 +5883,71 @@ export default {
       "text": "AMCOpen"
     },
     "interactifReady": false,
-    "name": "6G14"
+    "name": "6G14",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    }
   },
   "6G20-2": {
     "titre": "Vocabulaire des triangles",
     "url": "/exercices/6e/6G20-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G20-2"
+    "name": "6G20-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G20": {
     "titre": "Nommer et coder des polygones",
     "url": "/exercices/6e/6G20.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G20"
+    "name": "6G20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G21-1": {
     "titre": "Construire un triangle avec cible",
     "url": "/exercices/6e/6G21-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G21-1"
+    "name": "6G21-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G21": {
     "titre": "Construire un triangle aux instruments",
     "url": "/exercices/6e/6G21.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G21"
+    "name": "6G21",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G23-1": {
     "titre": "Mesurer un angle",
@@ -2879,42 +5958,90 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6G23-1"
+    "name": "6G23-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G23-2": {
     "titre": "Tracer un triangle dont on connait une longueur et 2 angles",
     "url": "/exercices/6e/6G23-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G23-2"
+    "name": "6G23-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G23": {
     "titre": "Construire un angle de mesure donnée",
     "url": "/exercices/6e/6G23.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G23"
+    "name": "6G23",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G24-1": {
     "titre": "Construire le symétrique d’un point par rapport à une droite (cas simples)",
     "url": "/exercices/6e/6G24-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G24-1"
+    "name": "6G24-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G24-2": {
     "titre": "Construire le symétrique d’une figure par rapport à une droite (cas simples)",
     "url": "/exercices/6e/6G24-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G24-2"
+    "name": "6G24-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G24-3": {
     "titre": "Construire le symétrique d’un point avec cible auto-corrective",
     "url": "/exercices/6e/6G24-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G24-3"
+    "name": "6G24-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G24": {
     "titre": "Trouver l’image d’un point par une symétrie axiale",
@@ -2925,7 +6052,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6G24"
+    "name": "6G24",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G25-1": {
     "titre": "Symétries axiales en pavage triangulaire",
@@ -2936,7 +6071,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6G25-1"
+    "name": "6G25-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G25-2": {
     "titre": "Trouver l’image d’une figure par une symétrie axiale dans un pavage carré",
@@ -2947,28 +6090,60 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6G25-2"
+    "name": "6G25-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G25-3": {
     "titre": "Trouver l’image d’une figure par une symétrie axiale dans un pavage",
     "url": "/exercices/6e/6G25-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G25-3"
+    "name": "6G25-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G25": {
     "titre": "Construire des médiatrices avec cible auto-corrective",
     "url": "/exercices/6e/6G25.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G25"
+    "name": "6G25",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G32-1": {
     "titre": "Propriétés de conservation de la symétrie axiale",
     "url": "/exercices/6e/6G32-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G32-1"
+    "name": "6G32-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G33": {
     "titre": "Reconnaitre un quadrilatère particulier à partir de ses propriétés",
@@ -2979,7 +6154,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6G33"
+    "name": "6G33",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G41": {
     "titre": "Compléter une représentation en perspective cavalière",
@@ -2989,35 +6172,75 @@ export default {
       "text": "AMCOpen"
     },
     "interactifReady": false,
-    "name": "6G41"
+    "name": "6G41",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    }
   },
   "6G42": {
     "titre": "Connaître les propriétés du cube et du pavé droit",
     "url": "/exercices/6e/6G42.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6G42"
+    "name": "6G42",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6G43": {
     "titre": "Représentation de solides",
     "url": "/exercices/6e/6G43.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "6G43"
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6G43",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6I10": {
     "titre": "Programmer des déplacements (scratch)",
     "url": "/exercices/6e/6I10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6I10"
+    "name": "6I10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6I11": {
     "titre": "Note la couleur (scratch)",
     "url": "/exercices/6e/6I11.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6I11"
+    "name": "6I11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6I12": {
     "titre": "Trouver le bon tracé avec scratch",
@@ -3028,7 +6251,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "custom",
-    "name": "6I12"
+    "name": "6I12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M10": {
     "titre": "Calculer des périmètres et des aires de figures usuelles",
@@ -3039,7 +6270,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6M10"
+    "name": "6M10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M11-1": {
     "titre": "Périmètres et aires de carrés, rectangles et triangles rectangles",
@@ -3050,14 +6289,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6M11-1"
+    "name": "6M11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M11-2": {
     "titre": "Périmètres et aires de figures composées",
     "url": "/exercices/6e/6M11-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6M11-2"
+    "name": "6M11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M11": {
     "titre": "Aires de carrés, rectangles et triangles rectangles",
@@ -3068,7 +6323,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6M11"
+    "name": "6M11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M12": {
     "titre": "Conversions de longueurs",
@@ -3079,7 +6342,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6M12"
+    "name": "6M12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M20": {
     "titre": "Aires de triangles",
@@ -3090,21 +6361,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6M20"
+    "name": "6M20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M22-1": {
     "titre": "Périmètres et aires de disques",
     "url": "/exercices/6e/6M22-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6M22-1"
+    "name": "6M22-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M22-2": {
     "titre": "Périmètres et aires de portions de cercles",
     "url": "/exercices/6e/6M22-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6M22-2"
+    "name": "6M22-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M22": {
     "titre": "Déterminer périmètres et aires de disques (à partir d’un texte)",
@@ -3115,7 +6410,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6M22"
+    "name": "6M22",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M23": {
     "titre": "Conversions d’aires",
@@ -3129,14 +6432,30 @@ export default {
       "qcm",
       "mathLive"
     ],
-    "name": "6M23"
+    "name": "6M23",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M25": {
     "titre": "Connaitre le cours sur le périmètre et l’aire",
     "url": "/exercices/6e/6M25.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6M25"
+    "name": "6M25",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M30-0": {
     "titre": "Volumes de pavés droit par dénombrement",
@@ -3147,7 +6466,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6M30-0"
+    "name": "6M30-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M30": {
     "titre": "Calculs de volumes",
@@ -3161,14 +6488,30 @@ export default {
       "qcm",
       "mathLive"
     ],
-    "name": "6M30"
+    "name": "6M30",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M31-2": {
     "titre": "Conversions avec des unités de volumes ou de capacités",
     "url": "/exercices/6e/6M31-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6M31-2"
+    "name": "6M31-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6M31": {
     "titre": "Conversions de volume",
@@ -3182,7 +6525,15 @@ export default {
       "qcm",
       "mathLive"
     ],
-    "name": "6M31"
+    "name": "6M31",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N10-0": {
     "titre": "Écrire un nombre en chiffres ou en lettres",
@@ -3190,7 +6541,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N10-0"
+    "name": "6N10-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N10-1": {
     "titre": "Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...",
@@ -3201,14 +6560,34 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N10-1"
+    "name": "6N10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N10-2": {
-    "titre": "Décomposer un nombre décimal (nombre de..., chiffre de...)",
+    "titre": "Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale)",
     "url": "/exercices/6e/6N10-2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "6N10-2"
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6N10-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N10-3": {
     "titre": "Chiffre des ... Nombre de ...",
@@ -3219,21 +6598,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N10-3"
+    "name": "6N10-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N10-4": {
     "titre": "Écrire correctement les grands nombres entiers",
     "url": "/exercices/6e/6N10-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N10-4"
+    "name": "6N10-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N10-5": {
     "titre": "Labyrinthe de numération décimale",
     "url": "/exercices/6e/6N10-5.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N10-5"
+    "name": "6N10-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N10": {
     "titre": "Écrire un nombre entier en chiffres ou en lettres",
@@ -3241,7 +6644,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N10"
+    "name": "6N10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N11-2": {
     "titre": "Placer un point d’abscisse entière (grands nombres)",
@@ -3252,21 +6663,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "custom",
-    "name": "6N11-2"
+    "name": "6N11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N11-3": {
     "titre": "Encadrer un entier entre deux entiers consécutifs",
     "url": "/exercices/6e/6N11-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N11-3"
+    "name": "6N11-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N11-4": {
     "titre": "Ranger une liste de nombres entiers dans l’ordre croissant ou décroissant",
     "url": "/exercices/6e/6N11-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N11-4"
+    "name": "6N11-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N11": {
     "titre": "Lire l’abscisse entière d’un point (grands nombres)",
@@ -3277,14 +6712,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N11"
+    "name": "6N11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N12": {
     "titre": "Multiplier un entier par 10, 100, 1 000...",
     "url": "/exercices/6e/6N12.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N12"
+    "name": "6N12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N13": {
     "titre": "Conversions de longueurs, masses, contenance, prix ou unités informatiques",
@@ -3295,14 +6746,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N13"
+    "name": "6N13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N14": {
     "titre": "Représenter des fractions",
     "url": "/exercices/6e/6N14.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N14"
+    "name": "6N14",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N20-1": {
     "titre": "Encadrer une fraction entre deux nombres entiers",
@@ -3313,7 +6780,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N20-1"
+    "name": "6N20-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N20-2": {
     "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale",
@@ -3321,7 +6796,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N20-2"
+    "name": "6N20-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N20": {
     "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1)",
@@ -3329,7 +6812,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N20"
+    "name": "6N20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N21": {
     "titre": "Utiliser les abscisses fractionnaires",
@@ -3337,21 +6828,45 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "custom",
-    "name": "6N21"
+    "name": "6N21",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N22-1": {
     "titre": "Rapport de deux longueurs sur un segment",
     "url": "/exercices/6e/6N22-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N22-1"
+    "name": "6N22-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N22-2": {
     "titre": "Mettre bout à bout des segments",
     "url": "/exercices/6e/6N22-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N22-2"
+    "name": "6N22-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N22": {
     "titre": "Recomposer un nombre décimal représenté par des fractions du cube unité",
@@ -3362,7 +6877,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N22"
+    "name": "6N22",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N23-0": {
     "titre": "Écrire un nombre décimal en chiffres ou en lettres",
@@ -3371,15 +6894,31 @@ export default {
     "amcType": {
       "text": "AMCNum"
     },
-    "interactifReady": false,
-    "name": "6N23-0"
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6N23-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N23-1": {
     "titre": "Différentes écritures des nombres décimaux",
     "url": "/exercices/6e/6N23-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": false,
-    "name": "6N23-1"
+    "name": "6N23-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    }
   },
   "6N23-2": {
     "titre": "Lire des abscisses décimales sous trois formes",
@@ -3390,21 +6929,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N23-2"
+    "name": "6N23-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N23-3": {
     "titre": "Lire une abscisse décimale grâce à des zooms successifs",
     "url": "/exercices/6e/6N23-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N23-3"
+    "name": "6N23-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N23-4": {
     "titre": "Donner l’écriture décimale d’un nombre à partir de différents textes",
     "url": "/exercices/6e/6N23-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N23-4"
+    "name": "6N23-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N23-5": {
     "titre": "Sens de l’écriture fractionnaire",
@@ -3415,7 +6978,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6N23-5"
+    "name": "6N23-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N23": {
     "titre": "Donner l’écriture décimale d’une fraction décimale",
@@ -3426,14 +6997,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N23"
+    "name": "6N23",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N24-1": {
     "titre": "Multiplier ou diviser un nombre entier par 10, 100 ou 1 000",
     "url": "/exercices/6e/6N24-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N24-1"
+    "name": "6N24-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N24": {
     "titre": "Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)",
@@ -3444,7 +7031,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N24"
+    "name": "6N24",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N30-1": {
     "titre": "Lire l’abscisse décimale d’un point repéré par une fraction",
@@ -3455,7 +7050,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N30-1"
+    "name": "6N30-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N30-2": {
     "titre": "Placer un point d’abscisse décimale",
@@ -3466,7 +7069,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "custom",
-    "name": "6N30-2"
+    "name": "6N30-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N30": {
     "titre": "Lire l’abscisse décimale d’un point",
@@ -3477,21 +7088,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N30"
+    "name": "6N30",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N31-1": {
     "titre": "Encadrer un décimal par deux entiers consécutifs",
     "url": "/exercices/6e/6N31-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N31-1"
+    "name": "6N31-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N31-2": {
     "titre": "Ordre de grandeur et opérations sur les décimaux",
     "url": "/exercices/6e/6N31-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N31-2"
+    "name": "6N31-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N31-3": {
     "titre": "Arrondir une valeur",
@@ -3502,35 +7137,76 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6N31-3"
+    "name": "6N31-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N31-4": {
     "titre": "Intercaler un nombre décimal entre deux nombres décimaux",
     "url": "/exercices/6e/6N31-4.js",
     "amcReady": false,
-    "interactifReady": false,
-    "name": "6N31-4"
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6N31-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N31": {
     "titre": "Comparer des nombres décimaux",
     "url": "/exercices/6e/6N31.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N31"
+    "name": "6N31",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N32": {
     "titre": "Représenter une fraction de l’unité",
     "url": "/exercices/6e/6N32.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N32"
+    "name": "6N32",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N33-0": {
     "titre": "Calculer la fraction d’une quantité",
     "url": "/exercices/6e/6N33-0.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N33-0"
+    "name": "6N33-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N33-1": {
     "titre": "Calculer le pourcentage d’un nombre de tête",
@@ -3541,21 +7217,45 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "6N33-1"
+    "name": "6N33-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N33-2": {
     "titre": "Problèmes de calcul de pourcentage par complément à 100%",
     "url": "/exercices/6e/6N33-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N33-2"
+    "name": "6N33-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N33-3": {
     "titre": "Problèmes avec des calculs de pourcentages",
     "url": "/exercices/6e/6N33-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N33-3"
+    "name": "6N33-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N33": {
     "titre": "Calculer la fraction d’un nombre",
@@ -3566,7 +7266,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N33"
+    "name": "6N33",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N34": {
     "titre": "Effectuer des conversions avec tous les préfixes de milli à tera",
@@ -3577,14 +7285,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N34"
+    "name": "6N34",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N41-1": {
     "titre": "Labyrinthe de fractions égales",
     "url": "/exercices/6e/6N41-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6N41-1"
+    "name": "6N41-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N41": {
     "titre": "Égalités entre fractions simples",
@@ -3595,7 +7319,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6N41"
+    "name": "6N41",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N43-2": {
     "titre": "Critères de divisibilité (plusieurs possibles)",
@@ -3606,7 +7338,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6N43-2"
+    "name": "6N43-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N43-3": {
     "titre": "Diviseur, multiple, divisible - Vrai ou faux",
@@ -3617,7 +7357,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6N43-3"
+    "name": "6N43-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N43-4": {
     "titre": "Faire des phrases avec les mots : divisible, diviseur et multiple",
@@ -3625,7 +7373,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "listeDeroulante",
-    "name": "6N43-4"
+    "name": "6N43-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6N43": {
     "titre": "Critères de divisibilité",
@@ -3636,7 +7392,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6N43"
+    "name": "6N43",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6P10": {
     "titre": "Reconnaître une situation de proportionnalité",
@@ -3647,7 +7411,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6P10"
+    "name": "6P10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6P11-1": {
     "titre": "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité",
@@ -3658,7 +7430,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6P11-1"
+    "name": "6P11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6P11-2": {
     "titre": "Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité",
@@ -3666,7 +7446,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6P11-2"
+    "name": "6P11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6P11": {
     "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
@@ -3677,7 +7465,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6P11"
+    "name": "6P11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6P12": {
     "titre": "Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple",
@@ -3688,22 +7484,49 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6P12"
+    "name": "6P12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6P13-1": {
     "titre": "Facture",
     "url": "/exercices/6e/6P13-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6P13-1"
+    "name": "6P13-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6P13": {
     "titre": "Augmenter ou diminuer d’un pourcentage",
     "url": "/exercices/6e/6P13.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6P13"
+    "name": "6P13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6S10-1": {
     "titre": "Représenter des données par un diagramme",
@@ -3714,7 +7537,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "6S10-1"
+    "name": "6S10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6S10": {
     "titre": "Lire un diagramme en barre",
@@ -3725,14 +7556,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "6S10"
+    "name": "6S10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "6S11": {
     "titre": "Organiser des données dans un tableau",
     "url": "/exercices/6e/6S11.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "6S11"
+    "name": "6S11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM000": {
     "titre": "Additions et de soustractions",
@@ -3743,7 +7590,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM000"
+    "name": "CM000",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM001": {
     "titre": "Tables de multiplication",
@@ -3754,7 +7609,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "CM001"
+    "name": "CM001",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM002": {
     "titre": "Tables de divisions",
@@ -3765,7 +7628,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM002"
+    "name": "CM002",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM003": {
     "titre": "Tables de multiplications et de divisions",
@@ -3776,7 +7647,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "CM003"
+    "name": "CM003",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM004": {
     "titre": "Les quatre opérations",
@@ -3787,7 +7666,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM004"
+    "name": "CM004",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM005": {
     "titre": "Ajouter 9",
@@ -3798,7 +7685,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM005"
+    "name": "CM005",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM006": {
     "titre": "Soustraire 9",
@@ -3809,7 +7704,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM006"
+    "name": "CM006",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM007": {
     "titre": "Ajouter 11",
@@ -3820,7 +7723,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM007"
+    "name": "CM007",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM008": {
     "titre": "Soustraire 11",
@@ -3831,7 +7742,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM008"
+    "name": "CM008",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM009": {
     "titre": "Moitié",
@@ -3842,7 +7761,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM009"
+    "name": "CM009",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM010": {
     "titre": "Tiers",
@@ -3853,7 +7780,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM010"
+    "name": "CM010",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM011": {
     "titre": "Quart",
@@ -3864,7 +7799,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM011"
+    "name": "CM011",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM012": {
     "titre": "Complément à 100",
@@ -3875,7 +7818,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM012"
+    "name": "CM012",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM013": {
     "titre": "Complément à une dizaine",
@@ -3886,7 +7837,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM013"
+    "name": "CM013",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM014": {
     "titre": "Double, moitié, tiers, triple",
@@ -3897,7 +7856,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM014"
+    "name": "CM014",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM015": {
     "titre": "Somme de deux nombres mariés",
@@ -3908,7 +7875,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM015"
+    "name": "CM015",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM016": {
     "titre": "Diviser un entier par 10, 100 ou 1000",
@@ -3919,7 +7894,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM016"
+    "name": "CM016",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM017": {
     "titre": "Diviser un nombre décimal par 10, 100 ou 1000",
@@ -3930,7 +7913,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM017"
+    "name": "CM017",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM018": {
     "titre": "Somme de deux nombres mariés et un entier",
@@ -3941,7 +7932,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "CM018"
+    "name": "CM018",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM019": {
     "titre": "Générateur de compte est bon",
@@ -3951,130 +7950,281 @@ export default {
       "text": "AMCOpen"
     },
     "interactifReady": false,
-    "name": "CM019"
+    "name": "CM019",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    }
   },
   "CM020": {
     "titre": "Générateur de compte est bon version semi-aléatoire",
     "url": "/exercices/CM/CM020.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "CM020"
+    "name": "CM020",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "CM021": {
     "titre": "Le compte est bon original",
     "url": "/exercices/CM/CM021.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "CM021"
+    "name": "CM021",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "PEA11-1": {
     "titre": "Passer de la base 12 ou 16 à la base 10 et inversement",
     "url": "/exercices/PE/PEA11-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "PEA11-1"
+    "name": "PEA11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "PEA11": {
     "titre": "Passer de la base 10 à une autre base et inversement",
     "url": "/exercices/PE/PEA11.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "PEA11"
+    "name": "PEA11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "PEG20": {
+    "titre": "Partager un segment au compas et à la règle non graduée",
+    "url": "/exercices/PE/PEG20.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "PEG20",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "PEG21": {
+    "titre": "Utiliser le théorème de la hauteur",
+    "url": "/exercices/PE/PEG21.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "PEG21",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "P003": {
     "titre": "Tracer des droites graduées",
     "url": "/exercices/Profs/P003.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "P003"
+    "name": "P003",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "P004": {
     "titre": "Droites graduées avec zoom",
     "url": "/exercices/Profs/P004.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "P004"
+    "name": "P004",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "P005": {
     "titre": "Grilles décimales",
     "url": "/exercices/Profs/P005.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "P005"
+    "name": "P005",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "P006": {
     "titre": "Placer un nombre décimal avec des zooms successifs",
     "url": "/exercices/Profs/P006.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "P006"
+    "name": "P006",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "P007": {
     "titre": "Fabriquer des pavages pour travailler les transformations",
     "url": "/exercices/Profs/P007.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "P007"
+    "name": "P007",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "P008": {
     "titre": "Opérations posées",
     "url": "/exercices/Profs/P008.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "P008"
+    "name": "P008",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "P009": {
     "titre": "Simulation d’expériences aléatoires",
     "url": "/exercices/Profs/P009.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "P009"
+    "name": "P009",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "P010": {
     "titre": "étude de fonction de degré 3",
     "url": "/exercices/Profs/P010.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "P010"
+    "name": "P010",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "P011": {
     "titre": "Construis mon triangle",
     "url": "/exercices/Profs/P011.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "P011"
+    "name": "P011",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "P012": {
     "titre": "Faire des camemberts pour travailler les fractions",
     "url": "/exercices/Profs/P012.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "P012"
+    "name": "P012",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "P013": {
     "titre": "interpolation cosinusoïdale",
     "url": "/exercices/Profs/P013.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "P013"
+    "name": "P013",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "P014": {
     "titre": "Interpollation de Catmull-Rom",
     "url": "/exercices/Profs/P014.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "P014"
-  },
-  "beta1N10_intercatif": {
-    "titre": "Nombre pair multiplié par 5",
-    "url": "/exercices/beta/beta1N10_intercatif.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
+    "name": "P014",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "beta1N10_intercatif"
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta240-1": {
     "titre": "Utiliser la distributivité (simple ou double) et réduire",
@@ -4082,84 +8232,218 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "beta240-1"
+    "name": "beta240-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta2F31": {
     "titre": "Exercice exemple",
     "url": "/exercices/beta/beta2F31.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta2F31"
+    "name": "beta2F31",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta2N60-X1": {
     "titre": "Modéliser une situation  à l'aide d'une équation",
     "url": "/exercices/beta/beta2N60-X1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta2N60-X1"
+    "name": "beta2N60-X1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta2N60-X2": {
     "titre": "Modéliser une situation géométrique à l'aide d'une équation",
     "url": "/exercices/beta/beta2N60-X2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta2N60-X2"
+    "name": "beta2N60-X2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta3F23": {
     "titre": "Déterminer un antécédent",
     "url": "/exercices/beta/beta3F23.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta3F23"
+    "name": "beta3F23",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta3G15": {
     "titre": "Utiliser toutes les transformations",
     "url": "/exercices/beta/beta3G15.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta3G15"
+    "name": "beta3G15",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta3G41": {
     "titre": "Représentation de solides",
     "url": "/exercices/beta/beta3G41.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta3G41"
+    "name": "beta3G41",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta3s21": {
     "titre": "Stabilisation des fréquences",
     "url": "/exercices/beta/beta3s21.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta3s21"
+    "name": "beta3s21",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta4C31": {
     "titre": "Puissances de 10",
     "url": "/exercices/beta/beta4C31.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta4C31"
+    "name": "beta4C31",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta4G20-3": {
     "titre": "Calculer une valeur manquante avec l’égalité de Pythagore",
     "url": "/exercices/beta/beta4G20-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta4G20-3"
+    "name": "beta4G20-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta4G20-4": {
     "titre": "Calculer la racine carrée de (x² +/- y²)",
     "url": "/exercices/beta/beta4G20-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta4G20-4"
+    "name": "beta4G20-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "beta6C12-1": {
+    "titre": "Résoudre des problèmes de masses",
+    "url": "/exercices/beta/beta6C12-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta6C12-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "beta6C12": {
+    "titre": "Résoudre des problèmes de prix",
+    "url": "/exercices/beta/beta6C12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta6C12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta6C33-1": {
     "titre": "Parenthèses manquantes",
     "url": "/exercices/beta/beta6C33-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta6C33-1"
+    "name": "beta6C33-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta6C38": {
     "titre": "Augmenter ou diminuer d’un pourcentage",
@@ -4167,7 +8451,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "beta6C38"
+    "name": "beta6C38",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta6N12-interactif": {
     "titre": "Multiplier un entier par 10, 100, 1 000...",
@@ -4175,39 +8467,98 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "beta6N12-interactif"
+    "name": "beta6N12-interactif",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta6test2": {
     "titre": "Mon test",
     "url": "/exercices/beta/beta6test2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta6test2"
+    "name": "beta6test2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "beta6test2021": {
     "titre": "Exercice exemple",
     "url": "/exercices/beta/beta6test2021.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "beta6test2021"
+    "name": "beta6test2021",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaAsymptotesObliques": {
     "titre": "Asymptote oblique",
     "url": "/exercices/beta/betaAsymptotesObliques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaAsymptotesObliques"
+    "name": "betaAsymptotesObliques",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
-  "betaCaNCM2": {
-    "titre": "Course aux nombres CM2",
-    "url": "/exercices/beta/betaCaNCM2.js",
+  "betac3C12-1": {
+    "titre": "Résoudre des problèmes de masses",
+    "url": "/exercices/beta/betac3C12-1.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCaNCM2"
+    "name": "betac3C12-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "betac3C12": {
+    "titre": "Résoudre des problèmes de prix",
+    "url": "/exercices/beta/betac3C12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betac3C12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaCan2": {
     "titre": "Course aux nombres seconde",
@@ -4218,7 +8569,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaCan2"
+    "name": "betaCan2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaCan2G01": {
     "titre": "Périmètres de carrés et de rectangles",
@@ -4232,70 +8591,154 @@ export default {
       "qcm",
       "mathLive"
     ],
-    "name": "betaCan2G01"
+    "name": "betaCan2G01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
-  "betaComplexes": {
-    "titre": "Exercice exemple Nombres complexes",
-    "url": "/exercices/beta/betaComplexes.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaComplexes"
+  "betaCaNCM2": {
+    "titre": "Course aux nombres CM2",
+    "url": "/exercices/beta/betaCaNCM2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCaNCM2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaDivisionsDePolynomes": {
     "titre": "Division de polynômes",
     "url": "/exercices/beta/betaDivisionsDePolynomes.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaDivisionsDePolynomes"
+    "name": "betaDivisionsDePolynomes",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaEq1erDegreDansC": {
     "titre": "Equation du premier degré dans C",
     "url": "/exercices/beta/betaEq1erDegreDansC.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaEq1erDegreDansC"
+    "name": "betaEq1erDegreDansC",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaEq2eDegAvecParam": {
     "titre": "Equation du second degré avec paramètre",
     "url": "/exercices/beta/betaEq2eDegAvecParam.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaEq2eDegAvecParam"
+    "name": "betaEq2eDegAvecParam",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaEqCarreDansC": {
     "titre": "Racine carrée nombre complexe",
     "url": "/exercices/beta/betaEqCarreDansC.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaEqCarreDansC"
-  },
-  "betaEqValAbs": {
-    "titre": "Equation avec une valeur absolue",
-    "url": "/exercices/beta/betaEqValAbs.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaEqValAbs"
+    "name": "betaEqCarreDansC",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaEquationsLog": {
     "titre": "Equations avec logarithmes",
     "url": "/exercices/beta/betaEquationsLog.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaEquationsLog"
+    "name": "betaEquationsLog",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "betaEqValAbs": {
+    "titre": "Equation avec une valeur absolue",
+    "url": "/exercices/beta/betaEqValAbs.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaEqValAbs",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaExo3d": {
     "titre": "Exo zéroMathalea2d3d",
     "url": "/exercices/beta/betaExo3d.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaExo3d"
+    "name": "betaExo3d",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaExoSimpleMatthieu": {
     "titre": "Ceci est le titre de l’exercice BetaExosimpleMatthieu",
     "url": "/exercices/beta/betaExoSimpleMatthieu.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaExoSimpleMatthieu"
+    "name": "betaExoSimpleMatthieu",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaLicence": {
     "titre": "QCM de positionnement",
@@ -4303,7 +8746,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "betaLicence"
+    "name": "betaLicence",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaModele00_simple_Course_au_Nombres": {
     "titre": "Somme de deux entier",
@@ -4311,49 +8762,105 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "betaModele00_simple_Course_au_Nombres"
+    "name": "betaModele00_simple_Course_au_Nombres",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaModele10_simple_question-reponse": {
     "titre": "Nom de l'exercice",
     "url": "/exercices/beta/betaModele10_simple_question-reponse.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele10_simple_question-reponse"
+    "name": "betaModele10_simple_question-reponse",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaModele11_parametrable": {
     "titre": "Nom de l'exercice",
     "url": "/exercices/beta/betaModele11_parametrable.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele11_parametrable"
+    "name": "betaModele11_parametrable",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaModele20_plusieurs_types_de_questions": {
     "titre": "Nom de l'exercice",
     "url": "/exercices/beta/betaModele20_plusieurs_types_de_questions.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele20_plusieurs_types_de_questions"
+    "name": "betaModele20_plusieurs_types_de_questions",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaModele21_parametrables": {
     "titre": "Nom de l'exercice",
     "url": "/exercices/beta/betaModele21_parametrables.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele21_parametrables"
+    "name": "betaModele21_parametrables",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
     "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques"
+    "name": "betaModele30_constructions_géométriques",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaModele31_parametrables": {
     "titre": "Nom de l'exercice",
     "url": "/exercices/beta/betaModele31_parametrables.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele31_parametrables"
+    "name": "betaModele31_parametrables",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaModele32_cliqueFigure": {
     "titre": "Choisir la bonne figure",
@@ -4361,91 +8868,195 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "cliqueFigure",
-    "name": "betaModele32_cliqueFigure"
+    "name": "betaModele32_cliqueFigure",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaModele40_tableau_proportionnalite": {
     "titre": "Nom de l'exercice",
     "url": "/exercices/beta/betaModele40_tableau_proportionnalite.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele40_tableau_proportionnalite"
+    "name": "betaModele40_tableau_proportionnalite",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaModele41_tableau_signes_variations": {
     "titre": "Nom de l'exercice",
     "url": "/exercices/beta/betaModele41_tableau_signes_variations.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele41_tableau_signes_variations"
+    "name": "betaModele41_tableau_signes_variations",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaProbaAouB": {
     "titre": "2S30-6",
     "url": "/exercices/beta/betaProbaAouB.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaProbaAouB"
+    "name": "betaProbaAouB",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaProbabilites": {
     "titre": "Probabilités simples",
     "url": "/exercices/beta/betaProbabilites.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaProbabilites"
+    "name": "betaProbabilites",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betaPuissances": {
     "titre": "Exercice exemple",
     "url": "/exercices/beta/betaPuissances.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaPuissances"
-  },
-  "betaSpline": {
-    "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaSpline.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaSpline"
-  },
-  "betaSys2x2CombLin": {
-    "titre": "2G35-3",
-    "url": "/exercices/beta/betaSys2x2CombLin.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaSys2x2CombLin"
-  },
-  "betaTracerParabole": {
-    "titre": "Etude d’une parabole",
-    "url": "/exercices/beta/betaTracerParabole.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaTracerParabole"
+    "name": "betaPuissances",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betarotation3d": {
     "titre": "Rotation 3d de polygones",
     "url": "/exercices/beta/betarotation3d.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betarotation3d"
+    "name": "betarotation3d",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "betaSpline": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaSpline.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaSpline",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "betaSys2x2CombLin": {
+    "titre": "2G35-3",
+    "url": "/exercices/beta/betaSys2x2CombLin.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaSys2x2CombLin",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "betaTracerParabole": {
+    "titre": "Etude d’une parabole",
+    "url": "/exercices/beta/betaTracerParabole.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaTracerParabole",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "betatrinome": {
     "titre": "Exercice exemple",
     "url": "/exercices/beta/betatrinome.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betatrinome"
+    "name": "betatrinome",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "moule_a_exo_mathalea": {
     "titre": "Exo zéro Mathalea",
     "url": "/exercices/beta/moule_a_exo_mathalea.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "moule_a_exo_mathalea"
+    "name": "moule_a_exo_mathalea",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "moule_a_exo_mathalea2d": {
     "titre": "Exo zéro Mathalea2d",
     "url": "/exercices/beta/moule_a_exo_mathalea2d.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "moule_a_exo_mathalea2d"
+    "name": "moule_a_exo_mathalea2d",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "c3C10-1": {
     "titre": "Tables de multiplications",
@@ -4456,14 +9067,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "c3C10-1"
+    "name": "c3C10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "c3C10-2": {
     "titre": "Labyrinthe de multiples",
     "url": "/exercices/c3/c3C10-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "c3C10-2"
+    "name": "c3C10-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "c3C10-4": {
     "titre": "Tables d’addition",
@@ -4474,7 +9101,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "numerique",
-    "name": "c3C10-4"
+    "name": "c3C10-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "c3C10": {
     "titre": "Additions, soustractions et multiplications posées de nombres entiers",
@@ -4485,7 +9120,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "c3C10"
+    "name": "c3C10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "c3C11": {
     "titre": "Divisions euclidiennes",
@@ -4496,7 +9139,91 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "c3C11"
+    "name": "c3C11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "c3C12": {
+    "titre": "Dernier chiffre d’un calcul",
+    "url": "/exercices/c3/c3C12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "c3C12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "c3C23": {
+    "titre": "Additionner des fractions simples",
+    "url": "/exercices/c3/c3C23.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "c3C23",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "c3C30": {
+    "titre": "Additions, soustractions et multiplications posées de nombres entiers",
+    "url": "/exercices/c3/c3C30.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "c3C30",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "c3C31": {
+    "titre": "Problème - Les courses",
+    "url": "/exercices/c3/c3C31.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "c3C31",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "c3C3CaN": {
     "titre": "Course aux nombres CM1",
@@ -4507,14 +9234,30 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "c3C3CaN"
+    "name": "c3C3CaN",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "c3N10": {
     "titre": "Écrire un nombre en chiffres ou en lettres",
     "url": "/exercices/c3/c3N10.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "c3N10"
+    "name": "c3N10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "c3N20": {
     "titre": "Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales",
@@ -4525,7 +9268,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "c3N20"
+    "name": "c3N20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "c3N22": {
     "titre": "Lire abscisse décimale sous trois formes",
@@ -4536,14 +9287,68 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "c3N22"
+    "name": "c3N22",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "c3N23": {
     "titre": "Lire abscisse décimale avec zoom",
     "url": "/exercices/c3/c3N23.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "c3N23"
+    "name": "c3N23",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "c3N30": {
+    "titre": "Conversion d'unités des préfixes k,h,da vers unité de référence",
+    "url": "/exercices/c3/c3N30.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "c3N30",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can1L01": {
+    "titre": "Discriminant",
+    "url": "/exercices/can/1e/can1L01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1L01",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2C01": {
     "titre": "Nombre de nombres entiers entre deux valeurs",
@@ -4554,7 +9359,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2C01"
+    "name": "can2C01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2C02": {
     "titre": "Calcul différence de deux carrés",
@@ -4565,7 +9378,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2C02"
+    "name": "can2C02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2C03": {
     "titre": "Calcul avec puissance",
@@ -4576,7 +9397,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2C03"
+    "name": "can2C03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2C04": {
     "titre": "Calculer avec les identités remarquables - simple",
@@ -4584,7 +9413,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2C04"
+    "name": "can2C04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2C05": {
     "titre": "Calculer avec les identités remarquables - Guidé",
@@ -4592,7 +9429,63 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2C05"
+    "name": "can2C05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2C06": {
+    "titre": "Simplifications de racines carrées",
+    "url": "/exercices/can/2e/can2C06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C06",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2C07": {
+    "titre": "Calcul avec racine carrée niveau 2",
+    "url": "/exercices/can/2e/can2C07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C07",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2C08": {
+    "titre": "Calcul avec racine carrée niveau 3",
+    "url": "/exercices/can/2e/can2C08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C08",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2F01": {
     "titre": "Calcul d’une image second degré",
@@ -4600,7 +9493,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2F01"
+    "name": "can2F01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2F02": {
     "titre": "Calcul d’une image avec un quotient",
@@ -4608,7 +9509,47 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2F02"
+    "name": "can2F02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2F03": {
+    "titre": "Signe d’une fonction affine (V/F)",
+    "url": "/exercices/can/2e/can2F03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2F03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2F04": {
+    "titre": "Valeur interdite d’une fonction",
+    "url": "/exercices/can/2e/can2F04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2F04",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2G01": {
     "titre": "Agrandissement/réduction avec fraction",
@@ -4619,7 +9560,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2G01"
+    "name": "can2G01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2G02": {
     "titre": "Calcul de d’un côté avec Pythagore",
@@ -4627,7 +9576,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2G02"
+    "name": "can2G02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2G03": {
     "titre": "Calcul de l’hypoténuse avec Pythagore",
@@ -4635,7 +9592,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2G03"
+    "name": "can2G03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2G04": {
     "titre": "Calculs des coordonnées du milieu",
@@ -4643,7 +9608,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2G04"
+    "name": "can2G04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2G05": {
     "titre": "Calcul d’une distance dans un repère",
@@ -4651,7 +9624,31 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2G05"
+    "name": "can2G05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2G06": {
+    "titre": "Calcul d’une distance dans un repère",
+    "url": "/exercices/can/2e/can2G06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G06",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2L01": {
     "titre": "Nombre de solutions d’une équation se ramenant à $x^2=a$",
@@ -4662,7 +9659,127 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2L01"
+    "name": "can2L01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2L02": {
+    "titre": "Coordonnées d’un point sur une droite",
+    "url": "/exercices/can/2e/can2L02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2L02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2L03": {
+    "titre": "Coordonnées point d’intersection axe des abscisses/droite",
+    "url": "/exercices/can/2e/can2L03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2L03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2L04": {
+    "titre": "Coordonnées point d’intersection axe des ordonnées/droite",
+    "url": "/exercices/can/2e/can2L04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2L04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2L05": {
+    "titre": "Solution d’une inéquation (QCM)",
+    "url": "/exercices/can/2e/can2L05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2L05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2L06": {
+    "titre": "Développer avec égalités remarquables",
+    "url": "/exercices/can/2e/can2L06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2L06",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2L07": {
+    "titre": "Factoriser",
+    "url": "/exercices/can/2e/can2L07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2L07",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2N01": {
+    "titre": "Intervalles",
+    "url": "/exercices/can/2e/can2N01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2N01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2P01": {
     "titre": "Calculs de probabilités",
@@ -4673,7 +9790,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2P01"
+    "name": "can2P01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can2P02": {
     "titre": "Dénombrement",
@@ -4681,7 +9806,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can2P02"
+    "name": "can2P02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3C01": {
     "titre": "Puissances de nombre entier",
@@ -4692,7 +9825,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3C01"
+    "name": "can3C01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3C02": {
     "titre": "Moyenne entière de trois décimaux",
@@ -4703,7 +9844,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3C02"
+    "name": "can3C02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3C03": {
     "titre": "Fraction irréductible",
@@ -4714,7 +9863,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3C03"
+    "name": "can3C03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3C04": {
     "titre": "Somme Entier et fraction à réduire",
@@ -4725,7 +9882,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3C04"
+    "name": "can3C04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3C05": {
     "titre": "Calcul avec puissance de 10",
@@ -4736,7 +9901,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3C05"
+    "name": "can3C05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3C06": {
     "titre": "Calcul divers avec carrés/priorité opératoire",
@@ -4747,7 +9920,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3C06"
+    "name": "can3C06",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3C07": {
     "titre": "milieu entre 1 et fraction avec graphique",
@@ -4755,7 +9936,101 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3C07"
+    "name": "can3C07",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3C08": {
+    "titre": "Programme de calcul",
+    "url": "/exercices/can/3e/can3C08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C08",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3C09": {
+    "titre": "Calcul avec racine carrée niveau 1",
+    "url": "/exercices/can/3e/can3C09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C09",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3C10": {
+    "titre": "Encadrement avec puissance de 10",
+    "url": "/exercices/can/3e/can3C10.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3C11": {
+    "titre": "Simplifications de fractions ou de racines carrées",
+    "url": "/exercices/can/3e/can3C11.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3C12": {
+    "titre": "Encadrement de racine carrée",
+    "url": "/exercices/can/3e/can3C12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3E01": {
     "titre": "Calcul de volume 3e",
@@ -4766,7 +10041,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3E01"
+    "name": "can3E01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3F01": {
     "titre": "Lecture graphique",
@@ -4777,10 +10060,18 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3F01"
+    "name": "can3F01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3F02": {
-    "titre": "Calcul d’image ou d’antécédent niveau 1",
+    "titre": "Calcul d’image par fonction linéaire",
     "url": "/exercices/can/3e/can3F02.js",
     "amcReady": true,
     "amcType": {
@@ -4788,10 +10079,18 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3F02"
+    "name": "can3F02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3F03": {
-    "titre": "Calcul d’image ou d’antécédent niveau 2",
+    "titre": "Calcul d’image par fonction affine",
     "url": "/exercices/can/3e/can3F03.js",
     "amcReady": true,
     "amcType": {
@@ -4799,10 +10098,18 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3F03"
+    "name": "can3F03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3F04": {
-    "titre": "Calcul d’image niveau 3",
+    "titre": "Calcul d’antécédent par fonction linéaire",
     "url": "/exercices/can/3e/can3F04.js",
     "amcReady": true,
     "amcType": {
@@ -4810,7 +10117,50 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3F04"
+    "name": "can3F04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3F05": {
+    "titre": "Calcul d’antécédent par fonction affine",
+    "url": "/exercices/can/3e/can3F05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3F06": {
+    "titre": "Déterminer le coefficient d’une fonction affine",
+    "url": "/exercices/can/3e/can3F06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F06",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3G01": {
     "titre": "Agrandissement/réduction",
@@ -4821,7 +10171,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3G01"
+    "name": "can3G01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3G02": {
     "titre": "Image de point par transformation 3e",
@@ -4829,7 +10187,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3G02"
+    "name": "can3G02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3G03": {
     "titre": "Calcul d’une longueur avec Thalès2",
@@ -4837,7 +10203,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3G03"
+    "name": "can3G03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3G04": {
     "titre": "Recherche valeur avec Pythagore",
@@ -4845,7 +10219,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3G04"
+    "name": "can3G04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3G05": {
     "titre": "Trigonométrie",
@@ -4853,7 +10235,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3G05"
+    "name": "can3G05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3L01": {
     "titre": "Équation ax=b",
@@ -4864,7 +10254,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3L01"
+    "name": "can3L01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3L02": {
     "titre": "Équation ax+b=0",
@@ -4875,7 +10273,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3L02"
+    "name": "can3L02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3L03": {
     "titre": "Équation ax+b=c",
@@ -4886,7 +10292,63 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3L03"
+    "name": "can3L03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3L04": {
+    "titre": "Solution d’une inéquation (V/F)",
+    "url": "/exercices/can/3e/can3L04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can3L04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3L05": {
+    "titre": "Proportionnalité sur expression algébrique",
+    "url": "/exercices/can/3e/can3L05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3L05",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3L06": {
+    "titre": "Solutions équation produit nul",
+    "url": "/exercices/can/3e/can3L06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3L06",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3M01": {
     "titre": "Aire et carré",
@@ -4897,7 +10359,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3M01"
+    "name": "can3M01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3S01": {
     "titre": "Calcul de probabilité simple",
@@ -4908,7 +10378,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3S01"
+    "name": "can3S01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3S02": {
     "titre": "Probabilité de l’évènement contraire",
@@ -4916,7 +10394,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3S02"
+    "name": "can3S02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can3S03": {
     "titre": "Calculs de probabilités2",
@@ -4924,7 +10410,63 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can3S03"
+    "name": "can3S03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3S04": {
+    "titre": "Etendue",
+    "url": "/exercices/can/3e/can3S04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3S05": {
+    "titre": "Moyenne",
+    "url": "/exercices/can/3e/can3S05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can3S06": {
+    "titre": "Médiane",
+    "url": "/exercices/can/3e/can3S06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3S06",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4C01": {
     "titre": "Priorité opératoire et relatifs",
@@ -4935,7 +10477,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4C01"
+    "name": "can4C01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4C02": {
     "titre": "Opposé de fraction",
@@ -4946,7 +10496,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4C02"
+    "name": "can4C02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4C03": {
     "titre": "Quotient d’entier qui va bien par fraction",
@@ -4957,7 +10515,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4C03"
+    "name": "can4C03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4C04": {
     "titre": "Règle des signes",
@@ -4968,7 +10534,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4C04"
+    "name": "can4C04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4C05": {
     "titre": "Somme de fractions à dénominateurs compatibles",
@@ -4979,7 +10553,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4C05"
+    "name": "can4C05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4C06": {
     "titre": "Nombre de nombres entiers entre deux valeurs",
@@ -4990,7 +10572,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4C06"
+    "name": "can4C06",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4C07": {
     "titre": "Différence de fractions à dénominateurs compatibles",
@@ -5001,7 +10591,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4C07"
+    "name": "can4C07",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4C08": {
     "titre": "Somme de puissances de 10",
@@ -5012,7 +10610,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4C08"
+    "name": "can4C08",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4C09": {
     "titre": "Puissances de 2, 3, 4 ou 5",
@@ -5023,10 +10629,37 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4C09"
+    "name": "can4C09",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can4C10": {
+    "titre": "Somme ou différence de fractions égyptiennes",
+    "url": "/exercices/can/4e/can4C10.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4C10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4G01": {
-    "titre": "Calcul d’une longueur d’un côté avec Pythagore ",
+    "titre": "Calcul d’une longueur d’un côté avec le Théorème de Pythagore",
     "url": "/exercices/can/4e/can4G01.js",
     "amcReady": true,
     "amcType": {
@@ -5034,7 +10667,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4G01"
+    "name": "can4G01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4G02": {
     "titre": "Image de point par transformation 4e",
@@ -5042,7 +10683,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4G02"
+    "name": "can4G02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4G03": {
     "titre": "Calcul de l’hypoténuse avec Pythagore",
@@ -5050,7 +10699,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4G03"
+    "name": "can4G03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4G04": {
     "titre": "Calcul d’un côté avec Pythagore",
@@ -5058,7 +10715,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4G04"
+    "name": "can4G04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4G05": {
     "titre": "Calcul de la diagonale d’un carré",
@@ -5066,7 +10731,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4G05"
+    "name": "can4G05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4G06": {
     "titre": "Calcul d’une longueur avec Thalès",
@@ -5074,7 +10747,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4G06"
+    "name": "can4G06",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4G07": {
     "titre": "Calcul d’une longueur avec Thalès (milieu)",
@@ -5082,7 +10763,31 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4G07"
+    "name": "can4G07",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can4G08": {
+    "titre": "Questions d'aires et de périmètres (niveau 2)",
+    "url": "/exercices/can/4e/can4G08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4G08",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4L01": {
     "titre": "Résoudre une équation niveau 1",
@@ -5093,7 +10798,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4L01"
+    "name": "can4L01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4L02": {
     "titre": "Résoudre une équation niveau 2",
@@ -5104,7 +10817,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4L02"
+    "name": "can4L02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4L03": {
     "titre": "Résoudre une équation niveau 3",
@@ -5115,7 +10836,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4L03"
+    "name": "can4L03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4L04": {
     "titre": "Substitution négative",
@@ -5126,7 +10855,53 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4L04"
+    "name": "can4L04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can4L05": {
+    "titre": "Développements (niveau 1)",
+    "url": "/exercices/can/4e/can4L05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4L05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can4L06": {
+    "titre": "Calcul d'expression (substitution)",
+    "url": "/exercices/can/4e/can4L06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4L06",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4P01": {
     "titre": "Problèmes de robinets",
@@ -5137,7 +10912,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4P01"
+    "name": "can4P01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4P02": {
     "titre": "Problèmes de vitesse",
@@ -5148,7 +10931,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4P02"
+    "name": "can4P02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can4P03": {
     "titre": "Quatrième proportionnelle",
@@ -5159,7 +10950,50 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can4P03"
+    "name": "can4P03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can4P04": {
+    "titre": "Proportionnalité et notes",
+    "url": "/exercices/can/4e/can4P04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4P04",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can5A01": {
+    "titre": "Répétitions Scratch",
+    "url": "/exercices/can/5e/can5A01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5A01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C01": {
     "titre": "Produit de nombres entiers",
@@ -5170,7 +11004,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C01"
+    "name": "can5C01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C02": {
     "titre": "Somme de nombres entiers",
@@ -5181,7 +11023,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C02"
+    "name": "can5C02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C03": {
     "titre": "Différence de nombres entiers",
@@ -5192,7 +11042,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C03"
+    "name": "can5C03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C04": {
     "titre": "Triple et moitié",
@@ -5203,7 +11061,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C04"
+    "name": "can5C04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C05": {
     "titre": "Quotient entier",
@@ -5214,7 +11080,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C05"
+    "name": "can5C05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C06": {
     "titre": "Reste de division euclidienne",
@@ -5225,7 +11099,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C06"
+    "name": "can5C06",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C07": {
     "titre": "Priorité opératoire",
@@ -5236,10 +11118,18 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C07"
+    "name": "can5C07",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C08": {
-    "titre": "Quart entier",
+    "titre": "Prochain multiple de 3 ou de 9",
     "url": "/exercices/can/5e/can5C08.js",
     "amcReady": true,
     "amcType": {
@@ -5247,10 +11137,18 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C08"
+    "name": "can5C08",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C09": {
-    "titre": "Multiplier par 5",
+    "titre": "Multiplier par les multiples de 101",
     "url": "/exercices/can/5e/can5C09.js",
     "amcReady": true,
     "amcType": {
@@ -5258,7 +11156,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C09"
+    "name": "can5C09",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C10": {
     "titre": "Décomposition en produit de facteurs premiers niveau 1",
@@ -5266,7 +11172,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C10"
+    "name": "can5C10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C11": {
     "titre": "Différence négative",
@@ -5277,7 +11191,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C11"
+    "name": "can5C11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C12": {
     "titre": "Fraction d’entier qui va bien",
@@ -5288,7 +11210,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C12"
+    "name": "can5C12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C13": {
     "titre": "Calcul astucieux avec 100 ou 10",
@@ -5299,7 +11229,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C13"
+    "name": "can5C13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C14": {
     "titre": "Division avec des décimaux",
@@ -5310,7 +11248,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C14"
+    "name": "can5C14",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5C15": {
     "titre": "Pourcentage (proportion) 1",
@@ -5321,7 +11267,66 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C15"
+    "name": "can5C15",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can5C16": {
+    "titre": "Recherche un nombre à ajouter",
+    "url": "/exercices/can/5e/can5C16.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C16",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can5C17": {
+    "titre": "Calcul astucieux avec factorisation",
+    "url": "/exercices/can/5e/can5C17.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C17",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can5C18": {
+    "titre": "Somme d'entier et fraction(s) vers nombre décimal",
+    "url": "/exercices/can/5e/can5C18.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C18",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5D01": {
     "titre": "Conversion Heures minutes",
@@ -5332,7 +11337,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5D01"
+    "name": "can5D01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5G01": {
     "titre": "Symétrique de point 5e",
@@ -5340,7 +11353,15 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5G01"
+    "name": "can5G01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5G02": {
     "titre": "Angle dans un triangle isocèle",
@@ -5348,7 +11369,31 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5G02"
+    "name": "can5G02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can5L01": {
+    "titre": "La moitié plus ou moins un",
+    "url": "/exercices/can/5e/can5L01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5L01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5N01": {
     "titre": "Somme de nombres décimaux",
@@ -5359,7 +11404,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5N01"
+    "name": "can5N01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5P01": {
     "titre": "Pourcentage (évolution)",
@@ -5370,7 +11423,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5P01"
+    "name": "can5P01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can5P02": {
     "titre": "Pourcentage (proportion) 2",
@@ -5381,7 +11442,34 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5P02"
+    "name": "can5P02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can5P03": {
+    "titre": "Pourcentage (proportion) 2",
+    "url": "/exercices/can/5e/can5P03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5P03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "canPredef5-1": {
     "titre": "Course aux nombres début de 5e",
@@ -5392,7 +11480,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "canPredef5-1"
+    "name": "canPredef5-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C01": {
     "titre": "Ordre de grandeur QCM",
@@ -5403,7 +11499,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "can6C01"
+    "name": "can6C01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C02": {
     "titre": "Multiplier nombre pair par 5",
@@ -5414,7 +11518,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C02"
+    "name": "can6C02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C03": {
     "titre": "Addition à trou",
@@ -5425,7 +11537,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C03"
+    "name": "can6C03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C04": {
     "titre": "Ajouter 10n + 9",
@@ -5436,7 +11556,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C04"
+    "name": "can6C04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C05": {
     "titre": "Multiplier astucieusement",
@@ -5447,7 +11575,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C05"
+    "name": "can6C05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C06": {
     "titre": "Diviser par 9",
@@ -5458,7 +11594,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C06"
+    "name": "can6C06",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C07": {
     "titre": "Reste de division par 3",
@@ -5469,7 +11613,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C07"
+    "name": "can6C07",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C08": {
     "titre": "Quart ou Tiers",
@@ -5480,7 +11632,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C08"
+    "name": "can6C08",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C09": {
     "titre": "Soustraire 10n+9",
@@ -5491,7 +11651,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C09"
+    "name": "can6C09",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C10": {
     "titre": "Tables de x du 5 au 9",
@@ -5502,7 +11670,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C10"
+    "name": "can6C10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C11": {
     "titre": "Double ou triple (décimal)",
@@ -5513,7 +11689,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C11"
+    "name": "can6C11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C12": {
     "titre": "Double ou triple",
@@ -5524,7 +11708,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C12"
+    "name": "can6C12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C13": {
     "titre": "Somme de deux décimaux",
@@ -5535,7 +11727,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C13"
+    "name": "can6C13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C14": {
     "titre": "Somme de quatre entiers qui se marient",
@@ -5546,7 +11746,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C14"
+    "name": "can6C14",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C15": {
     "titre": "Fraction comme facteur manquant",
@@ -5557,7 +11765,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C15"
+    "name": "can6C15",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C16": {
     "titre": "Double et moitié",
@@ -5568,7 +11784,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C16"
+    "name": "can6C16",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C17": {
     "titre": "Fraction simple de quantité",
@@ -5579,7 +11803,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C17"
+    "name": "can6C17",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C18": {
     "titre": "Reste de la division euclidienne",
@@ -5590,7 +11822,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C18"
+    "name": "can6C18",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C19": {
     "titre": "Complément à 100",
@@ -5601,7 +11841,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C19"
+    "name": "can6C19",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C20": {
     "titre": "Complément à 1",
@@ -5612,7 +11860,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C20"
+    "name": "can6C20",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C21": {
     "titre": "Complément à 1 Niveau 2",
@@ -5623,7 +11879,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C21"
+    "name": "can6C21",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C22": {
     "titre": "Valeurs décimales de fractions",
@@ -5634,7 +11898,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C22"
+    "name": "can6C22",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C23": {
     "titre": "Calcul avec +/-99 ou +/-999",
@@ -5645,7 +11917,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C23"
+    "name": "can6C23",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6C24": {
     "titre": "Multiplier par 0,1 ou 0,01 ou 0,001",
@@ -5656,7 +11936,79 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C24"
+    "name": "can6C24",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can6C25": {
+    "titre": "Recherche d’un prix unitaire",
+    "url": "/exercices/can/6e/can6C25.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C25",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can6C26": {
+    "titre": "Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01",
+    "url": "/exercices/can/6e/can6C26.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C26",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can6C27": {
+    "titre": "Petits problèmes d'arithmétique",
+    "url": "/exercices/can/6e/can6C27.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C27",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can6C28": {
+    "titre": "Petit problème de fraction",
+    "url": "/exercices/can/6e/can6C28.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C28",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6D01": {
     "titre": "Conversion Heures minutes",
@@ -5667,7 +12019,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6D01"
+    "name": "can6D01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6D02": {
     "titre": "Reste en minutes",
@@ -5678,7 +12038,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6D02"
+    "name": "can6D02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6D03": {
     "titre": "Calcul de durée en minutes",
@@ -5689,7 +12057,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6D03"
+    "name": "can6D03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6D04": {
     "titre": "Convertir minutes heures",
@@ -5700,7 +12076,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6D04"
+    "name": "can6D04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6G01": {
     "titre": "Symétrique de point 6e",
@@ -5708,7 +12092,47 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6G01"
+    "name": "can6G01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can6G02": {
+    "titre": "Compter les cubes",
+    "url": "/exercices/can/6e/can6G02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6G02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can6G03": {
+    "titre": "Compter les cubes manquants",
+    "url": "/exercices/can/6e/can6G03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6G03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6M01": {
     "titre": "Question de périmètres",
@@ -5719,7 +12143,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "can6M01"
+    "name": "can6M01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6M02": {
     "titre": "La bonne unité",
@@ -5730,7 +12162,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "can6M02"
+    "name": "can6M02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6M03": {
     "titre": "Convertir en mètres",
@@ -5741,7 +12181,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6M03"
+    "name": "can6M03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6M04": {
     "titre": "Conversions en tous sens",
@@ -5752,7 +12200,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6M04"
+    "name": "can6M04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6M05": {
     "titre": "Conversions m$^3$ et litres",
@@ -5763,7 +12219,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6M05"
+    "name": "can6M05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6M06": {
     "titre": "Périmètre d’une figure",
@@ -5774,7 +12238,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6M06"
+    "name": "can6M06",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6M07": {
     "titre": "Compléter un volume au litre",
@@ -5785,7 +12257,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6M07"
+    "name": "can6M07",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6M08": {
     "titre": "Question d'aires",
@@ -5796,7 +12276,31 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "can6M08"
+    "name": "can6M08",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can6M09": {
+    "titre": "Périmètre carré et rectangle",
+    "url": "/exercices/can/6e/can6M09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6M09",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6N01": {
     "titre": "Recomposer entier",
@@ -5807,7 +12311,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6N01"
+    "name": "can6N01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6N02": {
     "titre": "Recomposer entier simple",
@@ -5818,7 +12330,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6N02"
+    "name": "can6N02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6N03": {
     "titre": "Recomposer entier moins simple",
@@ -5829,7 +12349,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6N03"
+    "name": "can6N03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6N04": {
     "titre": "Abscisse fractionnaire",
@@ -5840,7 +12368,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6N04"
+    "name": "can6N04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6N05": {
     "titre": "Chiffre des ...",
@@ -5851,7 +12387,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6N05"
+    "name": "can6N05",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6N06": {
     "titre": "Arrondi au dixième ou au centième",
@@ -5862,7 +12406,72 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6N06"
+    "name": "can6N06",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can6N07": {
+    "titre": "Lire l'abscisse décimale d'un point repéré par une fraction",
+    "url": "/exercices/can/6e/can6N07.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N07",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can6N08": {
+    "titre": "Position des chiffres",
+    "url": "/exercices/can/6e/can6N08.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N08",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can6N09": {
+    "titre": "Suite décimale",
+    "url": "/exercices/can/6e/can6N09.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N09",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6P01": {
     "titre": "Proportionnalité simple",
@@ -5873,7 +12482,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6P01"
+    "name": "can6P01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6P02": {
     "titre": "Proportionnalité compliquée",
@@ -5884,7 +12501,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6P02"
+    "name": "can6P02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6P03": {
     "titre": "Question de vitesse",
@@ -5895,7 +12520,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6P03"
+    "name": "can6P03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6P04": {
     "titre": "Appliquer un pourcentage",
@@ -5906,7 +12539,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6P04"
+    "name": "can6P04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "can6S01": {
     "titre": "Lecture de diagramme en barres",
@@ -5917,7 +12558,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6S01"
+    "name": "can6S01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "canPredef6-3": {
     "titre": "Course aux nombres fin de 6e",
@@ -5928,7 +12577,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "canPredef6-3"
+    "name": "canPredef6-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "canc3C01": {
     "titre": "Calculs automatiques",
@@ -5939,7 +12596,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "canc3C01"
+    "name": "canc3C01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "canc3C02": {
     "titre": "Composition de nombre entier",
@@ -5950,7 +12615,31 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "canc3C02"
+    "name": "canc3C02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "canc3C03": {
+    "titre": "Table de multiplication à trous",
+    "url": "/exercices/can/c3/canc3C03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3C03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "canc3N01": {
     "titre": "Écriture de nombre entier",
@@ -5961,7 +12650,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "qcm",
-    "name": "canc3N01"
+    "name": "canc3N01",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "canc3N02": {
     "titre": "Suite sur une droite graduée",
@@ -5972,7 +12669,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "canc3N02"
+    "name": "canc3N02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "canc3N03": {
     "titre": "Le plus grand nombre entier",
@@ -5983,7 +12688,15 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "canc3N03"
+    "name": "canc3N03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   },
   "canc3N04": {
     "titre": "Arrondi à l'unité",
@@ -5994,6 +12707,667 @@ export default {
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "canc3N04"
+    "name": "canc3N04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "canExC01": {
+    "titre": "Somme de nombres complexes",
+    "url": "/exercices/can/Ex/canExC01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canExC01",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "canExC02": {
+    "titre": "produit de nombres complexes",
+    "url": "/exercices/can/Ex/canExC02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canExC02",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM000": {
+    "titre": "Additions et de soustractions",
+    "url": "/exercices/CM/CM000.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM000",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM001": {
+    "titre": "Tables de multiplication",
+    "url": "/exercices/CM/CM001.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "CM001",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM002": {
+    "titre": "Tables de divisions",
+    "url": "/exercices/CM/CM002.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM002",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM003": {
+    "titre": "Tables de multiplications et de divisions",
+    "url": "/exercices/CM/CM003.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "CM003",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM004": {
+    "titre": "Les quatre opérations",
+    "url": "/exercices/CM/CM004.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM004",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM005": {
+    "titre": "Ajouter 9",
+    "url": "/exercices/CM/CM005.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM005",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM006": {
+    "titre": "Soustraire 9",
+    "url": "/exercices/CM/CM006.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM006",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM007": {
+    "titre": "Ajouter 11",
+    "url": "/exercices/CM/CM007.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM007",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM008": {
+    "titre": "Soustraire 11",
+    "url": "/exercices/CM/CM008.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM008",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM009": {
+    "titre": "Moitié",
+    "url": "/exercices/CM/CM009.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM009",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM010": {
+    "titre": "Tiers",
+    "url": "/exercices/CM/CM010.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM010",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM011": {
+    "titre": "Quart",
+    "url": "/exercices/CM/CM011.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM011",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM012": {
+    "titre": "Complément à 100",
+    "url": "/exercices/CM/CM012.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM012",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM013": {
+    "titre": "Complément à une dizaine",
+    "url": "/exercices/CM/CM013.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM013",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM014": {
+    "titre": "Double, moitié, tiers, triple",
+    "url": "/exercices/CM/CM014.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM014",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM015": {
+    "titre": "Somme de deux nombres mariés",
+    "url": "/exercices/CM/CM015.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM015",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM016": {
+    "titre": "Diviser un entier par 10, 100 ou 1000",
+    "url": "/exercices/CM/CM016.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM016",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM017": {
+    "titre": "Diviser un nombre décimal par 10, 100 ou 1000",
+    "url": "/exercices/CM/CM017.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM017",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM018": {
+    "titre": "Somme de deux nombres mariés et un entier",
+    "url": "/exercices/CM/CM018.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "CM018",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM019": {
+    "titre": "Générateur de compte est bon",
+    "url": "/exercices/CM/CM019.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": false,
+    "name": "CM019",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    }
+  },
+  "CM020": {
+    "titre": "Générateur de compte est bon version semi-aléatoire",
+    "url": "/exercices/CM/CM020.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "CM020",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "CM021": {
+    "titre": "Le compte est bon original",
+    "url": "/exercices/CM/CM021.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "CM021",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "PEA11-1": {
+    "titre": "Passer de la base 12 ou 16 à la base 10 et inversement",
+    "url": "/exercices/PE/PEA11-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "PEA11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "PEA11": {
+    "titre": "Passer de la base 10 à une autre base et inversement",
+    "url": "/exercices/PE/PEA11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "PEA11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "P003": {
+    "titre": "Tracer des droites graduées",
+    "url": "/exercices/Profs/P003.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P003",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "P004": {
+    "titre": "Droites graduées avec zoom",
+    "url": "/exercices/Profs/P004.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P004",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "P005": {
+    "titre": "Grilles décimales",
+    "url": "/exercices/Profs/P005.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P005",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "P006": {
+    "titre": "Placer un nombre décimal avec des zooms successifs",
+    "url": "/exercices/Profs/P006.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P006",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "P007": {
+    "titre": "Fabriquer des pavages pour travailler les transformations",
+    "url": "/exercices/Profs/P007.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P007",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "P008": {
+    "titre": "Opérations posées",
+    "url": "/exercices/Profs/P008.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P008",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "P009": {
+    "titre": "Simulation d’expériences aléatoires",
+    "url": "/exercices/Profs/P009.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P009",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "P010": {
+    "titre": "étude de fonction de degré 3",
+    "url": "/exercices/Profs/P010.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P010",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "P011": {
+    "titre": "Construis mon triangle",
+    "url": "/exercices/Profs/P011.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P011",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "P012": {
+    "titre": "Faire des camemberts pour travailler les fractions",
+    "url": "/exercices/Profs/P012.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P012",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "P013": {
+    "titre": "interpolation cosinusoïdale",
+    "url": "/exercices/Profs/P013.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P013",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "P014": {
+    "titre": "Interpollation de Catmull-Rom",
+    "url": "/exercices/Profs/P014.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P014",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
   }
 }

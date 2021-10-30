@@ -6,12 +6,12 @@ export const titre = 'Développer avec les identités remarquables'
 /**
  * Développer avec les 3 identités remarquables
 * @author Jean-Claude Lhote
-* 2N43-6, ex 2L10
+* 2N41-6, ex 2L10
 */
 export default function DevelopperIdentitesRemarquables2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Développer les expressions suivantes.'
+  this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1

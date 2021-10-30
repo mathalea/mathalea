@@ -1,6 +1,6 @@
-import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex } from './context'
+import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex, setOutputMoodle } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
-import { getDureeFromUrl, getLogFromUrl, getTaillePoliceFromUrl, getVueFromUrl } from './gestionUrl'
+import { getDureeFromUrl, getLogFromUrl, getTaillePoliceFromUrl, getVueFromUrl, getUrlVars } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 
@@ -156,7 +156,7 @@ export async function initDom () {
   }
   document.body.innerHTML = ''
   let section
-  if (vue === 'recto' || vue === 'verso') {
+  if (vue === 'recto' || vue === 'verso' || vue === 'exMoodle' || vue === 'correctionMoodle') {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     addElement(section, 'div', { id: 'containerErreur' })
@@ -169,7 +169,7 @@ export async function initDom () {
     const divCorrection = get('corrections', false)
     divExercice.style.fontSize = '1.5em'
     divCorrection.style.fontSize = '1.5em'
-    if (context.vue === 'verso') {
+    if (context.vue === 'verso' || vue === 'correctionMoodle') {
       divExercice.style.display = 'none'
       document.body.appendChild(divCorrection)
     }
@@ -182,14 +182,52 @@ export async function initDom () {
       window.parent.postMessage({ hauteur: Math.max(hauteurCorrection, hauteurIEP), reponse: 'A_COMPLETER' }, '*')
     })
     document.addEventListener('exercicesAffiches', () => {
+      // Récupère la précédente saisie pour exMoodle et désactive le bouton
+      if (vue === 'exMoodle') {
+        for (let i = 0; i < context.listeObjetsExercice[0].nbQuestions; i++) {
+          if (document.getElementById(`champTexteEx0Q${i}`) && window.sessionStorage.getItem(`reponse${i}` + context.graine)) {
+            const valeurEnregistree = window.sessionStorage.getItem(`reponse${i}` + context.graine)
+            document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
+          }
+          let hauteurExercice = window.document.querySelector('section').scrollHeight
+          window.parent.postMessage({ hauteurExercice }, '*')
+          // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
+          setTimeout(() => {
+            hauteurExercice = window.document.querySelector('section').scrollHeight
+            window.parent.postMessage({ hauteurExercice }, '*')
+          }, 1000)
+        }
+        if (window.sessionStorage.getItem('isValide' + context.graine)) {
+          const exercice = context.listeObjetsExercice[0]
+          const bouton = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
+          document.addEventListener('domExerciceInteractifReady', () => {
+            bouton.click()
+            bouton.classList.add('disabled')
+          })
+        }
+      }
       // Envoi des informations à Anki
       hauteurCorrection = window.document.body.scrollHeight
-      window.parent.postMessage({ hauteur: Math.max(hauteurCorrection, hauteurIEP), reponse: 'A_COMPLETER' }, '*')
+      if (vue === 'verso' || vue === 'correctionMoodle') {
+        if (document.getElementById('corrections')) {
+          const hauteurExerciceCorrection = window.document.body.scrollHeight + 20
+          window.parent.postMessage({ hauteurExerciceCorrection }, '*')
+        }
+      }
+      let tableauReponseEx1Q1
+      try {
+        tableauReponseEx1Q1 = context.listeObjetsExercice[0].autoCorrection[0].reponse.valeur
+      } catch (error) {
+        tableauReponseEx1Q1 = undefined
+      }
+      window.parent.postMessage({ hauteur: Math.max(hauteurCorrection, hauteurIEP), reponse: tableauReponseEx1Q1 }, '*')
     })
   } else if (vue === 'eval') {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
+    // On ajoute temporairement le bouton "Nouvelles Données" à la vue eval en attendant la modale de paramétrage
+    document.getElementById('boutonsConnexion').appendChild(boutonMAJ())
     const menuEval = addElement(section, 'div', { id: 'menuEval' })
     addElement(section, 'div', { id: 'containerErreur' })
     addElement(section, 'div', { id: 'timer' })
@@ -255,6 +293,27 @@ export async function initDom () {
         setStyles(ol, 'padding:0;')
       }
     })
+    // On récupère tous les paramètres de chaque exos dans un tableau d'objets
+    const paramsAllExos = Object.entries(getUrlVars())
+    // Un booléen pour recupérer le fait qu'il y a au moins un exo interactif dans la vue
+    let isAnyExInteractif = false
+    for (const obj of paramsAllExos) {
+      for (const [key, value] of Object.entries(obj[1])) {
+        if (key === 'i' && value === 1) {
+          isAnyExInteractif = true
+        }
+      }
+    }
+    if (!isAnyExInteractif) {
+      const divTop = document.querySelector('#boutonsConnexion')
+      const divTopScoreLogIn = document.querySelector('#scoresLogIn')
+      const divTopScoreLogOut = document.querySelector('#scoresLogOut')
+      const divTopUserIdDisplay = document.querySelector('#userIdDisplay')
+      divTop.removeChild(divTopScoreLogIn)
+      divTop.removeChild(divTopScoreLogOut)
+      divTop.removeChild(divTopUserIdDisplay)
+      // document.querySelector('#scoresLogIn').style.display = 'none'
+    }
   } else if (vue === 'multi') {
     setOutputHtml()
     section = addElement(document.body, 'section', { style: 'width: 100%' })
@@ -289,6 +348,8 @@ export async function initDom () {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
+    // On ajoute temporairement le bouton "Nouvelles Données" à la vue can en attendant la modale de paramétrage
+    document.getElementById('boutonsConnexion').appendChild(boutonMAJ())
     const menuEval = addElement(section, 'div', { id: 'menuEval' })
     addElement(section, 'div', { id: 'containerErreur' })
     const divTimer = addElement(section, 'div', { id: 'timer' })
@@ -328,6 +389,11 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/mathaleaLatex.html', document.body)
     setOutputLatex()
+  } else if (vue === 'moodle') {
+    await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
+    section = addElement(document.body, 'section', { class: 'ui container' })
+    await addFetchHtmlToParent('templates/mathaleaMoodle.html', document.body)
+    setOutputMoodle()
   } else if (vue === 'amc') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
     section = addElement(document.body, 'section', { class: 'ui container' })
@@ -365,7 +431,7 @@ export async function initDom () {
   // Le footer
   if (vue === 'recto' || vue === 'verso' || vue === 'embed' || vue === 'e' || vue === 'can') {
     await addFetchHtmlToParent('templates/footer1logo.html', document.body, 'footer')
-  } else {
+  } else if (vue !== 'exMoodle' && vue !== 'correctionMoodle') {
     await addFetchHtmlToParent('templates/footer.html', document.body, 'footer')
   }
 

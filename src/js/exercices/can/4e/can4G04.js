@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
-import { randint, creerNomDePolygone, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
+import { randint, creerNomDePolygone, texNombrec, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, latexParCoordonnees, pointAdistance, longueur, polygoneAvecNom, milieu, codageAngleDroit
+  mathalea2d, point, pointAdistance, polygoneAvecNom, codageAngleDroit, latexParPoint, similitude
 } from '../../../modules/2d.js'
 export const titre = 'Calcul d’un côté avec Pythagore'
 export const interactifReady = true
@@ -23,43 +23,45 @@ export default function CalculCotePythagore () {
 
   this.nouvelleVersion = function () {
     const nom = creerNomDePolygone(3, ['Q'])
-    const a = randint(1, 5)//
+    const a = randint(2, 5)//
     const b = randint(6, 10)//
-
+    const c2 = b ** 2 - a ** 2
     const A = point(0, 0, nom[0])
-    const B = pointAdistance(A, a, 0, nom[1])
-    const C = pointAdistance(B, Math.sqrt(b ** 2 - a ** 2), 90, nom[2])
+    const B = pointAdistance(A, a, -90, nom[1])
+    const C = pointAdistance(B, Math.sqrt(c2), 0, nom[2])
     const pol = polygoneAvecNom(A, B, C) // polygoneAvecNom s'occupe du placement des noms des sommets
-    console.log('AB : ', a, '  BC : ', b, '  AC : ', longueur(A, C))
     const objets = []
     const xmin = Math.min(A.x, B.x, C.x) - 1
     const ymin = Math.min(A.y, B.y, C.y) - 1
     const xmax = Math.max(A.x, B.x, C.x) + 1
     const ymax = Math.max(A.y, B.y, C.y) + 1
 
+    const reduction = extraireRacineCarree(c2)
+    const reductible = (reduction[0] !== 1)
+
     objets.push(pol[0], pol[1], codageAngleDroit(A, B, C)) // pol[0], c'est le tracé et pol[1] ce sont les labels
-    objets.push(latexParCoordonnees(`${texNombrec(b)}`, milieu(A, C).x - 0.2, milieu(A, C).y + 0.3, 'black', 20, 10, ''),
-      latexParCoordonnees(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'black', 20, 10, '')
+    objets.push(latexParPoint(`${texNombrec(b)}`, similitude(C, A, 4, 0.5, '', 'center'), 'black', 20, 10, ''),
+      latexParPoint(`${texNombrec(a)}`, similitude(B, A, -10, 0.5, '', 'center'), 'black', 20, 10, '')
     )
     this.question = `Sur cette figure, déterminer la valeur exacte de $${nom[1]}${nom[2]}$.<br>`
     this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.7 }, objets)
     this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
       On obtient :<br>
-      $\\begin{aligned}
-        ${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2&=${nom[0]}${nom[2]}^2\\\\
-        ${nom[1]}${nom[2]}^2&=${nom[0]}${nom[2]}^2-${nom[0]}${nom[1]}^2\\\\
-        ${nom[1]}${nom[2]}^2&=${b}^2-${a}^2\\\\
-        ${nom[1]}${nom[2]}^2&=${b ** 2}-${a ** 2}\\\\
-        ${nom[1]}${nom[2]}^2&=${b ** 2 - a ** 2}\\\\
-        ${nom[1]}${nom[2]}&=\\sqrt{${b ** 2 - a ** 2}}
-        \\end{aligned}$
+      $\\begin{aligned}\n
+        ${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2&=${nom[0]}${nom[2]}^2\\\\\n
+        ${nom[1]}${nom[2]}^2&=${nom[0]}${nom[2]}^2-${nom[0]}${nom[1]}^2\\\\\n
+        ${nom[1]}${nom[2]}^2&=${b}^2-${a}^2\\\\\n
+        ${nom[1]}${nom[2]}^2&=${b ** 2}-${a ** 2}\\\\\n
+        ${nom[1]}${nom[2]}^2&=${c2}\\\\\n
+        ${nom[1]}${nom[2]}&=\\sqrt{${c2}}
+        ${reductible ? '\\\\\n' + nom[1] + nom[2] + '&=' + texRacineCarree(c2) : ''}
+        \n\\end{aligned}$
         `
     // this.reponse = calcul(b ** 2 - a ** 2)
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     La longueur $${nom[1]}${nom[2]}$ est donnée par la racine carrée de la différence des carrés de $${b}$ et de $${a}$.<br>
-    Cette différence vaut $${b ** 2}-${a ** 2}=${b ** 2 - a ** 2}$. <br>
-    La valeur cherchée est donc : $\\sqrt{${b ** 2 - a ** 2}}$.
-      `)
-    this.reponse = [`\\sqrt{${b ** 2 - a ** 2}}`, `${Math.sqrt(b ** 2 - a ** 2)}`]
+    Cette différence vaut $${b ** 2}-${a ** 2}=${c2}$. <br>
+    La valeur cherchée est donc : $\\sqrt{${c2}}${reductible ? '=' + texRacineCarree(c2) : ''}$.`)
+    this.reponse = [`\\sqrt{${c2}}`, `${Math.sqrt(c2)}`, texRacineCarree(c2)]
   }
 }

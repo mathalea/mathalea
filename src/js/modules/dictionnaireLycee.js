@@ -1,44 +1,4 @@
 export const dictionnaireLycee = {
-  '2N10-1': {
-    titre: "Lire l'abscisse décimale d'un point repéré par une fraction",
-    url: '/exercices/6e/6N30-1.js'
-  },
-  '2N10-2': {
-    titre: "Placer un point d'abscisse décimale",
-    url: '/exercices/6e/6N30-2.js'
-  },
-  '2N10-3': {
-    titre: 'Utiliser les abscisses fractionnaires',
-    url: '/exercices/6e/6N21.js'
-  },
-  '2N12-1': {
-    titre: 'Encadrer une fraction entre deux nombres entiers',
-    url: '/exercices/6e/6N20-1.js'
-  },
-  '2N12-2': {
-    titre: 'Encadrer avec des puissances de 10',
-    url: '/exercices/4e/4C30-1.js'
-  },
-  '2N13-1': {
-    titre: 'Arrondir une valeur',
-    url: '/exercices/6e/6N31-3.js'
-  },
-  '2N20-1': {
-    titre: 'Écrire la liste de tous les diviseurs d\'un entier',
-    url: '/exercices/5e/5A10.js'
-  },
-  '2N20-2': {
-    titre: 'Critères de divisibilité',
-    url: '/exercices/5e/5A11.js'
-  },
-  '2N20-3': {
-    titre: 'Division euclidienne - Diviseurs - Multiples',
-    url: '/exercices/3e/3A10.js'
-  },
-  '2N20-4': {
-    titre: 'Primalité ou pas',
-    url: '/exercices/3e/3A11.js'
-  },
   '2N20-5': {
     titre: 'Décomposition en facteurs premiers',
     url: '/exercices/5e/5A13.js'
@@ -95,39 +55,39 @@ export const dictionnaireLycee = {
     titre: 'Calculs utilisant les priorités opératoires et les puissances',
     url: '/exercices/4e/4C34.js'
   },
-  '2N42-1': {
+  '2N40-1': {
     titre: 'Traduire un programme de calcul par une expression littérale',
     url: '/exercices/5e/5L10-2.js'
   },
-  '2N42-2': {
+  '2N40-2': {
     titre: 'Calculer la valeur d\'une expression littérale.',
     url: '/exercices/5e/5L14.js'
   },
-  '2N42-3': {
+  '2N40-3': {
     titre: 'Écrire une expression littérale',
     url: '/exercices/5e/5L10.js'
   },
-  '2N42-4': {
+  '2N40-4': {
     titre: 'Utiliser la distributivité (simple ou double) et réduire',
     url: '/exercices/3e/3L11-3.js'
   },
-  '2N42-5': {
+  '2N40-5': {
     titre: 'Factoriser une expression',
     url: '/exercices/3e/3L11-4.js'
   },
-  '2N42-6': {
+  '2N40-6': {
     titre: 'Calcul mental et calcul littéral',
     url: '/exercices/3e/3L11-5.js'
   },
-  '2N43-1': {
+  '2N41-1': {
     titre: 'Factoriser une expression complexe',
     url: '/exercices/3e/3L11-6.js'
   },
-  '2N43-2': {
+  '2N41-2': {
     titre: 'Factoriser a²-b²',
     url: '/exercices/3e/3L12.js'
   },
-  '2N43-3': {
+  '2N41-3': {
     titre: 'Développer (a-b)(a+b)',
     url: '/exercices/3e/3L12-1.js'
   },
@@ -198,25 +158,5 @@ export const dictionnaireLycee = {
   '2S20-1': {
     titre: 'Calculer des effectifs et des fréquences',
     url: '/exercices/3e/3S12.js'
-  },
-  '2S20-2': {
-    titre: 'Calculer des médianes',
-    url: '/exercices/4e/4S11.js'
-  },
-  '2S20-4': {
-    titre: 'Calculer des étendues',
-    url: '/exercices/3e/3S15.js'
-  },
-  '2S30-2': {
-    titre: 'Calculer des probabilités dans une expérience aléatoire à une épreuve',
-    url: '/exercices/5e/5S21.js'
-  },
-  '2S30-3': {
-    titre: 'Calculer des probabilités simples',
-    url: '/exercices/5e/5S21-1.js'
-  },
-  '2S30-4': {
-    titre: 'Calculer des probabilités dans une expérience aléatoire à deux épreuves',
-    url: '/exercices/3e/3S20.js'
   }
 }

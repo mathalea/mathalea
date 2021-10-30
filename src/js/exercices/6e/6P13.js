@@ -1,9 +1,12 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, prenomF, prenomM, calcul, texPrix, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Augmenter ou diminuer d’un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * Description didactique de l'exercice
@@ -21,22 +24,25 @@ export default function AugmenterEtReduireDunPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 2
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-    this.interactifType = 'mathLive'
+  this.interactifType = 'mathLive'
+  this.listePackages = 'bclogo'
 
   this.nouvelleVersion = function () {
     const n = parseInt(this.sup) - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.introduction = lampeMessage({
-      titre: 'Calculatrice autorisée.',
-      texte: 'Ecrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
-      couleur: 'nombres'
-    })
+    this.introduction = (this.interactif && context.isHtml)
+      ? lampeMessage({
+        titre: 'Calculatrice autorisée.',
+        texte: 'Ecrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
+        couleur: 'nombres'
+      })
+      : ''
     const typeQuestionsDisponibles = ['augmentation', 'réduction'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
@@ -60,7 +66,7 @@ export default function AugmenterEtReduireDunPourcentage () {
       }
     }
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, repa, repb, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       prenom1 = prenomM()
       prenom2 = prenomF()
@@ -72,39 +78,90 @@ export default function AugmenterEtReduireDunPourcentage () {
           nombreDecimales(n)
           mr = calcul(pr * billet / 100)
           final1 = calcul(billet - mr)
-          texte = `<br> Un billet d'avion coûte ${billet}€. ${prenom1} bénéficie d'une réduction de ${pr} %.<br>`
-          texte += 'a) Le montant de la réduction est :'
-          texte += ajouteChampTexteMathLive(this, i)
-          setReponse(this, i, [mr, mr * 10], { formatInteractif: 'calcul' })
-          texte += `b) Finalement, ${prenom1} paiera son billet :`
-          texte += ajouteChampTexteMathLive(this, i + this.nbQuestions + 1)
-          texteCorr = `<br>a) Le montant de la réduction est :     $${billet}\\times ${pr} \\div 100 = ~ $`
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(mr)}€.$<br>`)
+          texte = `Un billet d'avion coûte ${billet}€. ${prenom1} bénéficie d'une réduction de $${pr} \\%$.<br>`
+          texte += (this.interactif && context.isHtml) ? 'a) Le montant de la réduction est :' : 'a) Calculer le montant de la réduction.'
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline') : ''
+          texte += '<br>'
+          if (!context.isAmc) setReponse(this, 2 * i, mr, { formatInteractif: 'calcul' })
+          texte += (this.interactif && context.isHtml) ? `b) Finalement, ${prenom1} paiera son billet :` : `b) Calculer le prix du billet de ${prenom1}.`
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline') : ''
+          texteCorr = `a) Le montant de la réduction est :     $${billet}\\times ${pr} \\div 100 = ~ $`
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(mr)}$€.<br>`)
           texteCorr += `b) Finalement, ${prenom1} paiera son billet : $${billet} - ${texPrix(mr)} = ~ $`
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)}€.$`)
-          setReponse(this, i + this.nbQuestions + 1, final1)
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)}$€.`)
+          if (!context.isAmc) setReponse(this, 2 * i + 1, final1)
+          repa = mr
+          repb = final1
           break
         case 'augmentation':
           nombreDecimales(n)
           calcul(ma = pa * loyer / 100)
           calcul(final2 = loyer + ma)
 
-          texte = `<br> Le loyer de l'appartement de ${prenom2} coûte ${loyer}€. Au 1er janvier, il augmente de ${pa} %.<br>`
-          texte += 'a) Le montant de l\'augmentation est :'
-          texte += ajouteChampTexteMathLive(this, i)
-          texte += `b) Finalement, ${prenom2} paiera son loyer :`
-          setReponse(this, i, ma)
-          texte += ajouteChampTexteMathLive(this, i + this.nbQuestions + 1)
-          setReponse(this, i + this.nbQuestions + 1, final2)
-          texteCorr = `<br>a) Le montant de l'augmentation est :     $${loyer}\\times ${pa} \\div 100 = ~ $`
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(ma)}€.$<br>`)
+          texte = `Le loyer de l'appartement de ${prenom2} coûte ${loyer}€. Au 1er janvier, il augmente de $${pa} \\%$.<br>`
+          texte += (this.interactif && context.isHtml) ? 'a) Le montant de l\'augmentation est :' : 'a) Calculer le montant de l\'augmentation.'
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline') : ''
+          texte += '<br>'
+          texte += (this.interactif && context.isHtml) ? `b) Finalement, ${prenom2} paiera son loyer :` : `b) Calculer le montant du loyer de ${prenom2}.`
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline') : ''
+          if (!context.isAmc) setReponse(this, 2 * i, ma)
+          if (!context.isAmc) setReponse(this, 2 * i + 1, final2)
+          texteCorr = `a) Le montant de l'augmentation est :     $${loyer}\\times ${pa} \\div 100 = ~ $`
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(ma)}$€.<br>`)
           texteCorr += `b) Finalement, ${prenom2} paiera son loyer : $${loyer} + ${texPrix(ma)} = ~ $`
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)}€.$`)
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)}$€.`)
+          repa = ma
+          repb = final2
           break
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [
+                  {
+                    texte: texteCorr,
+                    reponse: {
+                      texte: 'a)',
+                      valeur: [repa],
+                      param: {
+                        digits: 5,
+                        decimals: 2,
+                        signe: false,
+                        approx: 0,
+                        exposantNbChiffres: 0
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [
+                  {
+                    texte: '',
+                    reponse: {
+                      texte: 'b)',
+                      valeur: [repb],
+                      param: {
+                        digits: 5,
+                        decimals: 2,
+                        signe: false,
+                        approx: 0,
+                        exposantNbChiffres: 0
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

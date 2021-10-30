@@ -19,7 +19,6 @@ export default function PremierOuPas () {
   Exercice.call(this) // Héritage de la classe Exercice()
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.'
-  // context.isHtml ? this.spacing = 3 : this.spacing = 2;
   context.isHtml ? this.spacing = 1 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
 
@@ -27,13 +26,8 @@ export default function PremierOuPas () {
   this.nbCols = 2
   this.nbColsCorr = 1
   this.sup = 1
+  this.sup2 = true
   this.nbQuestionsModifiable = false
-  // console.log(Number(this.sup)==1);
-  // if (Number(this.sup)==1) {
-  // this.nbQuestions = 4;
-  // } else {
-  // this.nbQuestions = 5;
-  // }
   this.listePackages = 'bclogo'
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
 
@@ -61,7 +55,6 @@ export default function PremierOuPas () {
     }
     typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles) // on mélange l'ordre des questions
 
-    // let typesDeQuestionsDisponibles = [1];
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
     let stringRappel = 'Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>' + prems[0]
@@ -70,7 +63,9 @@ export default function PremierOuPas () {
     };
     stringRappel += '.'
 
-    this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
+    if (this.sup2) {
+      this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
+    } else this.introduction = ''
 
     for (let i = 0, texte, texteCorr, r1, r2, prime1, prime2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
@@ -230,17 +225,19 @@ export default function PremierOuPas () {
             tabPremiersATester.push(prems[r])
             r++
           }
-          // texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par les nombres `;
-          texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par les nombres `
-          texteCorr += tabPremiersATester[0]
-          for (let k = 1; k < tabPremiersATester.length; k++) {
-            texteCorr += ', ' + tabPremiersATester[k]
-          };
-          // texteCorr += `.`;
-          // texteCorr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
-          texteCorr += ', le reste n\'est jamais nul.'
-          // texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` est donc un nombre premier.`);
+          texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par `
+          if (N === 2 || N === 3) {
+            texteCorr += 'aucun nombre dans le cas présent, le reste n\'est jamais nul !'
+          } else {
+            texteCorr += 'les nombres '
+            texteCorr += tabPremiersATester[0]
+            for (let k = 1; k < tabPremiersATester.length; k++) {
+              texteCorr += ', ' + tabPremiersATester[k]
+            };
+            texteCorr += ', le reste n\'est jamais nul.'
+          }
           texteCorr += '<br>' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
+
           bonneReponse = 'oui'
           break
         case 8: // nombre premier inférieur à 100 pour permettre les tests de divisibilité sans calculatrice
@@ -254,16 +251,17 @@ export default function PremierOuPas () {
             tabPremiersATester.push(prems[r])
             r++
           }
-          // texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par les nombres `;
-          texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par les nombres `
-          texteCorr += tabPremiersATester[0]
-          for (let k = 1; k < tabPremiersATester.length; k++) {
-            texteCorr += ', ' + tabPremiersATester[k]
-          };
-          // texteCorr += `.`;
-          // texteCorr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
-          texteCorr += ', le reste n\'est jamais nul.'
-          // texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` est donc un nombre premier.`);
+          texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par `
+          if (N === 2 || N === 3) {
+            texteCorr += 'aucun nombre dans le cas présent, le reste n\'est jamais nul !'
+          } else {
+            texteCorr += 'les nombres '
+            texteCorr += tabPremiersATester[0]
+            for (let k = 1; k < tabPremiersATester.length; k++) {
+              texteCorr += ', ' + tabPremiersATester[k]
+            };
+            texteCorr += ', le reste n\'est jamais nul.'
+          }
           texteCorr += '<br>' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
           bonneReponse = 'oui'
           break
@@ -297,4 +295,5 @@ export default function PremierOuPas () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans Calculatrice\n2 : Avec calculatrice']
+  this.besoinFormulaire2CaseACocher = ['Afficher la liste des nombres premiers inférieurs à 100']
 }

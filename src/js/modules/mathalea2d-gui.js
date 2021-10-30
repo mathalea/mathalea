@@ -81,7 +81,7 @@ window.addEventListener('load', function () {
 
   const url = new URL(window.location.href)
   if (url.searchParams.get('url')) { // Si on spécifie une url
-    fetch(`/assets/m2d/${url.searchParams.get('url')}.m2d`)
+    window.fetch(`/assets/m2d/${url.searchParams.get('url')}.m2d`)
       .then(function (response) {
         if (response.ok) {
           return response.text()
@@ -120,7 +120,7 @@ window.addEventListener('load', function () {
       const mesObjetsCopie = context.objets2D.slice() // codeSVG va ajouter des objets supplémentaires donc on en garde une copie
       const codeSvgcomplet = window.codeSvg(context.fenetreMathalea2d, context.pixelsParCm, context.mainlevee, context.objets2D)
       divSvg.innerHTML = codeSvgcomplet
-      const exercicesAffiches = new Event('exercicesAffiches', { bubbles: true })
+      const exercicesAffiches = new window.Event('exercicesAffiches', { bubbles: true })
       document.dispatchEvent(exercicesAffiches)
       dragNReplace()
       myCodeMirrorSvg.setValue(codeSvgcomplet)

@@ -1,12 +1,13 @@
-import Tableau_criteres_de_divisibilite from '../6e/6N43-2.js'
-export const titre = 'Critères de divisibilité'
+import TableauCriteresDeDivisibilite from '../6e/6N43-2.js'
+export const titre = 'Critères de divisibilité (plusieurs possibles)'
+export { interactifReady, interactifType, amcReady, amcType } from '../6e/6N43-2.js'
 
 /**
- * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)
+ * Un nombre est-il divisible par 2, 3, 5, 9 ?
  * @author Rémi Angot
- * 5N13-2 et 6N41
+ * 5A11 (clone de 6N43-2)
  */
-export default function Tableau_criteres_de_divisibilite5e() {
-    Tableau_criteres_de_divisibilite.call(this)
-    this.titre = titre;
+export default function TableauCriteresDeDivisibilite5e () {
+  TableauCriteresDeDivisibilite.call(this)
+  this.sup = true
 }

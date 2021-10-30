@@ -1,10 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { modalTexteCourt, combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { modalTexteCourt, combinaisonListes, listeQuestionsToContenu, randint, rangeMinMax } from '../../modules/outils.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
 export const titre = 'Encadrer une fraction entre deux nombres entiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,14 +23,15 @@ export default function EncadrerFractionEntre2Entiers () {
   this.nbCols = 2
   this.nbColsCorr = 1
   this.correctionDetailleeDisponible = true
+  this.lycee = false
   context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.liste_de_denominateurs = combinaisonListes([2, 3, 4, 5, 10], this.nbQuestions)
-    this.liste_de_k = combinaisonListes([0, 1, 2, 3, 4, 5], this.nbQuestions)
-
+    this.liste_de_denominateurs = this.lycee ? combinaisonListes([2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions) : combinaisonListes([2, 3, 4, 5, 10], this.nbQuestions)
+    this.liste_de_k = this.lycee ? combinaisonListes(rangeMinMax(-5, 5), this.nbQuestions) : combinaisonListes([0, 1, 2, 3, 4, 5], this.nbQuestions)
+    console.log(this.lycee)
     for (let i = 0, texte, texteCorr, n, d, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       d = this.liste_de_denominateurs[i]
       k = this.liste_de_k[i]

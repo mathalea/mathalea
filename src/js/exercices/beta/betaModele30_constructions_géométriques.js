@@ -3,11 +3,14 @@ import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modul
 import { point, tracePoint, labelPoint, carre, rotation, mathalea2d, segmentAvecExtremites, pointAdistance, triangle2points2longueurs } from '../../modules/2d.js'
 export const titre = 'Nom de l\'exercice'
 
+// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
+export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+
 /**
  * Description didactique de l'exercice
  * @author
  * Référence
- * Date de publication
 */
 export default function NomExercice () {
   Exercice.call(this)

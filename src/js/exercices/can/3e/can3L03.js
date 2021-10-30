@@ -1,4 +1,4 @@
-import { ecritureAlgebrique, randint } from '../../../modules/outils'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Équation ax+b=c'
 export const interactifReady = true
@@ -29,7 +29,7 @@ export default function EquationAXPlusBEgalC () {
      $\\begin{aligned}
      ${a}x${ecritureAlgebrique(b)}&=${c}\\\\
     ${a}x&=${c}${ecritureAlgebrique(-b)}\\\\
-    x&=\\dfrac{${c - b}}{${a}}\\\\
+    x&=\\dfrac{${c - ecritureParentheseSiNegatif(b)}}{${a}}\\\\
     x&=${this.reponse}
     \\end{aligned}$
     `

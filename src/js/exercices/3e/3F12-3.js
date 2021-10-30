@@ -26,11 +26,11 @@ export default function TableauDeValeurs () {
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacing = 1
   this.sup = 5 // niveau de difficulté
   this.correctionDetailleeDisponible = true
 
   this.nouvelleVersion = function () {
+    this.spacing = this.interactif ? 3 : 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -287,9 +287,9 @@ export default function TableauDeValeurs () {
           ]
         }
       } else if (this.interactif) {
-        texte += `<br>$f(${listeDeX[i][0]}) = $` + ajouteChampTexteMathLive(this, i * 3, 'largeur10 inline')
-        texte += `<br>$f(${listeDeX[i][1]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 1, 'largeur10 inline')
-        texte += `<br>$f(${listeDeX[i][2]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 2, 'largeur10 inline')
+        texte += `<br><br>$f(${listeDeX[i][0]}) = $` + ajouteChampTexteMathLive(this, i * 3, 'largeur25 inline')
+        texte += `<br><br>$f(${listeDeX[i][1]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 1, 'largeur25 inline')
+        texte += `<br><br>$f(${listeDeX[i][2]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 2, 'largeur25 inline')
         setReponse(this, i * 3, f(listeDeX[i][0]), { formatInteractif: 'calcul' })
         setReponse(this, i * 3 + 1, f(listeDeX[i][1]), { formatInteractif: 'calcul' })
         setReponse(this, i * 3 + 2, f(listeDeX[i][2]), { formatInteractif: 'calcul' })

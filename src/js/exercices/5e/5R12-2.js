@@ -61,7 +61,6 @@ export default function ReperagePointDuPlan () {
     if (!X0) { points[0].x = 0 }
     if (!Y0) { points[1].y = 0 }
     shuffle2tableaux(points, nom)
-    console.log(points)
 
     texte = 'Déterminer les coordonnées des points'
     texteCorr = 'Les coordonnées des points sont :<br>'
