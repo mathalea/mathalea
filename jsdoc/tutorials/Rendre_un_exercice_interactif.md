@@ -283,7 +283,8 @@ Pour chaque question, un QCM sera créé et constitué de plusieurs cases à coc
 >>      lastChoice: index, // (en cas de mélange, l'index à partir duquel les propositions restent à leur place, souvent le dernier choix par défaut)
 >>                      // Cet index a tout son intérêt s'il existe une dernière proposition du genre "aucune des propositions n'est correcte".
 >>      vertical: true, // facultatif. true : si on veut une présentation en plusieurs colonnes. false : valeur par défaut, les cases à cocher sont à la suite, toutes sur une colonne. Exercice-témoin : can5A01
->>      nbCols: 4 // Le nb de colonnes si vertical est true. Sans effet si vertical est false.
+>>      nbCols: 4, // Le nb de colonnes si vertical est true. Sans effet si vertical est false.
+>>      vhead : 'descriptif#1', // Ne fonctionne que si vertical est true. Permet d'écrire au-dessus de la colonne de chaque série de cases à cocher un texte.             
 >>  }
 >>}
 >>```
