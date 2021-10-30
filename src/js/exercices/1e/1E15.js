@@ -4,11 +4,12 @@ import { xcas, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Equation du second degré avec paramètre'
+export const dateDePublication = '30/10/2021'
 
 /**
  * Description didactique de l'exercice
  * @author Eric Schrafstetter
- * Référence
+ * Référence 1E15
 */
 export default function equationDuSecondDegreAvecUnParametre () {
   Exercice.call(this) // Héritage de la classe Exercice()

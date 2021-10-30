@@ -155,6 +155,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
+  "1E15": {
+    "titre": "Equation du second degré avec paramètre",
+    "url": "/exercices/1e/1E15.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E15",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
   "1F10": {
     "titre": "Calculs de dérivées",
     "url": "/exercices/1e/1F10.js",
@@ -12003,14 +12018,14 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
-  "ExE100": {
+  "ExC100": {
     "titre": "Equation du premier degré dans C",
-    "url": "/exercices/Ex/ExE100.js",
+    "url": "/exercices/Ex/ExC100.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "ExE100",
+    "name": "ExC100",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     },
     "updateEx": {
@@ -12018,27 +12033,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
-  "ExE101": {
-    "titre": "Equation du second degré avec paramètre",
-    "url": "/exercices/Ex/ExE101.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "ExE101",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
-  "ExL100": {
+  "HPC100": {
     "titre": "Division de polynômes",
-    "url": "/exercices/Ex/ExL100.js",
+    "url": "/exercices/HP/HPC100.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "ExL100",
+    "name": "HPC100",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"

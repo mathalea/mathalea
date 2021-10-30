@@ -3,11 +3,12 @@ import { listeQuestionsToContenu, randint, fractionSimplifiee, abs, texFraction,
 import Exercice from '../Exercice.js'
 import { complex, multiply } from 'mathjs'
 export const titre = 'Equation du premier degré dans C'
+export const dateDePublication = '30/10/2021'
 
 /**
  * Description didactique de l'exercice
  * @author Eric Schrafstetter
- * Référence
+ * Référence ExC100
 */
 export default function EquationDuPremierDegreDansC () {
   Exercice.call(this) // Héritage de la classe Exercice()
