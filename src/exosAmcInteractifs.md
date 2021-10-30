@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 320 
-- nombre d'exos interactifReady 417 
+- nombre d'exos interactifReady 424 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -221,13 +221,6 @@
 |betac3C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
-|betaCAN2Q26-01|Déterminer le coefficient d’une fonction affine|KO|KO|OK|mathLive|
-|betaCAN2Q26-02|Proportionnalité sur expression algébrique|KO|KO|OK|mathLive|
-|betaCAN2Q26-03|Valeur interdite d’une fonction|KO|KO|OK|mathLive|
-|betaCAN2Q26-04|Proportionnalité et notes|KO|KO|OK|mathLive|
-|betaCAN2Q26-05|Développer avec égalités remarquables|KO|KO|OK|mathLive|
-|betaCAN2Q26-06|Factoriser|KO|KO|OK|mathLive|
-|betaCAN2Q26-07|Solutions équation produit nul|KO|KO|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
@@ -250,6 +243,7 @@
 |can2F01|Calcul d’une image second degré|KO|KO|OK|mathLive|
 |can2F02|Calcul d’une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
+|can2F04|Valeur interdite d’une fonction|KO|KO|OK|mathLive|
 |can2G01|Agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
 |can2G02|Calcul de d’un côté avec Pythagore|KO|KO|OK|mathLive|
 |can2G03|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
@@ -261,6 +255,8 @@
 |can2L03|Coordonnées point d’intersection axe des abscisses/droite|KO|KO|OK|mathLive|
 |can2L04|Coordonnées point d’intersection axe des ordonnées/droite|KO|KO|OK|mathLive|
 |can2L05|Solution d’une inéquation (QCM)|KO|KO|OK|qcm|
+|can2L06|Développer avec égalités remarquables|KO|KO|OK|mathLive|
+|can2L07|Factoriser|KO|KO|OK|mathLive|
 |can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
 |can2P02|Dénombrement|KO|KO|OK|mathLive|
 |can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
@@ -281,6 +277,7 @@
 |can3F03|Calcul d’image par fonction affine|OK|AMCNum|OK|mathLive|
 |can3F04|Calcul d’antécédent par fonction linéaire|OK|AMCNum|OK|mathLive|
 |can3F05|Calcul d’antécédent par fonction affine|OK|AMCNum|OK|mathLive|
+|can3F06|Déterminer le coefficient d’une fonction affine|KO|KO|OK|mathLive|
 |can3G01|Agrandissement/réduction|OK|AMCNum|OK|mathLive|
 |can3G02|Image de point par transformation 3e|KO|KO|OK|mathLive|
 |can3G03|Calcul d’une longueur avec Thalès2|KO|KO|OK|mathLive|
@@ -290,6 +287,8 @@
 |can3L02|Équation ax+b=0|OK|AMCNum|OK|mathLive|
 |can3L03|Équation ax+b=c|OK|AMCNum|OK|mathLive|
 |can3L04|Solution d’une inéquation (V/F)|KO|KO|OK|qcm|
+|can3L05|Proportionnalité sur expression algébrique|KO|KO|OK|mathLive|
+|can3L06|Solutions équation produit nul|KO|KO|OK|mathLive|
 |can3M01|Aire et carré|OK|AMCNum|OK|mathLive|
 |can3N01|Intervalles|KO|KO|OK|mathLive|
 |can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
@@ -325,6 +324,7 @@
 |can4P01|Problèmes de robinets|OK|AMCNum|OK|mathLive|
 |can4P02|Problèmes de vitesse|OK|AMCNum|OK|mathLive|
 |can4P03|Quatrième proportionnelle|OK|AMCNum|OK|mathLive|
+|can4P04|Proportionnalité et notes|KO|KO|OK|mathLive|
 |can5A01|Répétitions Scratch|OK|AMCNum|OK|mathLive|
 |can5C01|Produit de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Somme de nombres entiers|OK|AMCNum|OK|mathLive|

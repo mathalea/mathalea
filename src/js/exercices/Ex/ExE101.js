@@ -1,4 +1,6 @@
-import { xcas, listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+/* eslint-disable no-eval */
+/* eslint-disable no-unused-vars */
+import { xcas, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Equation du second degré avec paramètre'
@@ -23,9 +25,6 @@ export default function equationDuSecondDegreAvecUnParametre () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
-    const typesDeQuestionsDisponibles = ['type1'] // On créé 3 types de questions
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, texte, etape, texteCorr, a, a2, b2, c2, f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
@@ -113,14 +112,14 @@ export default function equationDuSecondDegreAvecUnParametre () {
             texteCorr += '<br>De plus le coefficient devant $m^2$ est positif, $\\Delta$ est donc une parabole avec ses branches dirigées vers le haut.'
             texteCorr += '<br>$\\Delta$ est donc positif à l\'extérieur des racines et négatif à l\'intérieur.'
             texteCorr += '<br>$\\underline{\\text{Conclusion}}$ :<br> - Si $m=m_1$ ou $m_2$, l\'équation admet une unique solution,'
-            texteCorr += '<br>- Si $m\\in \]m_1,m_2\[$, l\'équation n\'a pas de solution réelle,'
-            texteCorr += '<br>- Si $m\\in \]-\\infty,m_1\[\\cup\]m_2,+\\infty\[$, l\'équation admet 2 solutions réelles'
+            texteCorr += '<br>- Si $m\\in ]m_1,m_2[$, l\'équation n\'a pas de solution réelle,'
+            texteCorr += '<br>- Si $m\\in ]-\\infty,m_1[\\cup]m_2,+\\infty[$, l\'équation admet 2 solutions réelles'
           } else {
             texteCorr += '<br>De plus le coefficient devant $m^2$ est négatif, $\\Delta$ est donc une parabole avec ses branches dirigées vers le bas.'
             texteCorr += '<br>$\\Delta$ est donc négatif à l\'extérieur des racines et positif à l\'intérieur.'
             texteCorr += '<br>$\\underline{\\text{Conclusion}}$ :<br> - Si $m=m_1$ ou $m_2$, l\'équation admet une unique solution,'
-            texteCorr += '<br>- Si $m\\in \]m_1,m_2\[$, l\'équation admet 2 solutions réelles,'
-            texteCorr += '<br>- Si $m\\in \]-\\infty,m_1\[\\cup\]m_2,+\\infty\[$, l\'équation admet n\'a pas de solution réelle'
+            texteCorr += '<br>- Si $m\\in ]m_1,m_2[$, l\'équation admet 2 solutions réelles,'
+            texteCorr += '<br>- Si $m\\in ]-\\infty,m_1[\\cup]m_2,+\\infty[$, l\'équation admet n\'a pas de solution réelle'
           }
         }
       }

@@ -1,4 +1,4 @@
-import { listeQuestionsToContenu, randint, combinaisonListes, fractionSimplifiee, abs, texFraction, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, fractionSimplifiee, abs, texFraction, miseEnEvidence } from '../../modules/outils.js'
 
 import Exercice from '../Exercice.js'
 import { complex, multiply } from 'mathjs'
@@ -23,16 +23,14 @@ export default function EquationDuPremierDegreDansC () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typesDeQuestionsDisponibles = ['type1'] // On créé 2 types de questions
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, zsol, z2, z1, z1m, z2m, z2n, z1c, fr, fi, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, z2, z1, z1m, z2m, z2n, z1c, fr, fi, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
 
       z1 = complex(randint(-20, 20, 0), randint(-20, 20, 0)) // L'énoncé est du type z1 * z + z2 = 0
       z2 = complex(randint(-20, 20, 0), randint(-20, 20, 0))
       z2n = z2.neg() // - z2
       z1c = z1.conjugate() // conjugué de z1
-      zsol = multiply(z2.neg(), z1.inverse()) // la solution est - z2 / z1
+      // zsol = multiply(z2.neg(), z1.inverse()) // la solution est - z2 / z1
       z1m = multiply(z1c, z1)
       z2m = multiply(z1c, z2n)
       fr = fractionSimplifiee(z2m.re, z1m.re) // partie réelle de la solution sous forme de fraction simplifiée
