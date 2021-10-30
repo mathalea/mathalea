@@ -1,36 +1,4 @@
 export const dictionnaireLycee = {
-  '2N10-3': {
-    titre: 'Utiliser les abscisses fractionnaires',
-    url: '/exercices/6e/6N21.js'
-  },
-  '2N12-1': {
-    titre: 'Encadrer une fraction entre deux nombres entiers',
-    url: '/exercices/6e/6N20-1.js'
-  },
-  '2N12-2': {
-    titre: 'Encadrer avec des puissances de 10',
-    url: '/exercices/4e/4C30-1.js'
-  },
-  '2N13-1': {
-    titre: 'Arrondir une valeur',
-    url: '/exercices/6e/6N31-3.js'
-  },
-  '2N20-1': {
-    titre: 'Écrire la liste de tous les diviseurs d\'un entier',
-    url: '/exercices/5e/5A10.js'
-  },
-  '2N20-2': {
-    titre: 'Critères de divisibilité',
-    url: '/exercices/5e/5A11.js'
-  },
-  '2N20-3': {
-    titre: 'Division euclidienne - Diviseurs - Multiples',
-    url: '/exercices/3e/3A10.js'
-  },
-  '2N20-4': {
-    titre: 'Primalité ou pas',
-    url: '/exercices/3e/3A11.js'
-  },
   '2N20-5': {
     titre: 'Décomposition en facteurs premiers',
     url: '/exercices/5e/5A13.js'
@@ -190,25 +158,5 @@ export const dictionnaireLycee = {
   '2S20-1': {
     titre: 'Calculer des effectifs et des fréquences',
     url: '/exercices/3e/3S12.js'
-  },
-  '2S20-2': {
-    titre: 'Calculer des médianes',
-    url: '/exercices/4e/4S11.js'
-  },
-  '2S20-4': {
-    titre: 'Calculer des étendues',
-    url: '/exercices/3e/3S15.js'
-  },
-  '2S30-2': {
-    titre: 'Calculer des probabilités dans une expérience aléatoire à une épreuve',
-    url: '/exercices/5e/5S21.js'
-  },
-  '2S30-3': {
-    titre: 'Calculer des probabilités simples',
-    url: '/exercices/5e/5S21-1.js'
-  },
-  '2S30-4': {
-    titre: 'Calculer des probabilités dans une expérience aléatoire à deux épreuves',
-    url: '/exercices/3e/3S20.js'
   }
 }

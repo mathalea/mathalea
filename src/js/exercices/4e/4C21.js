@@ -5,7 +5,7 @@ import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInter
 import { fraction } from '../../modules/fractions.js'
 
 export const amcReady = true
-export const amcType = 'AMCOpenNum✖︎2' // type de question AMC
+export const amcType = 'AMCNum' // type de question AMC
 export const titre = 'Additionner ou soustraire deux fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -153,9 +153,10 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
             n = randint(1, 4) //
             a = n * b + randint(1, 9) // (n*b+?)/b-n>0
           }
-          texte = `$${texFraction(a, b)}${plusOuMoins}${ecritureParentheseSiNegatif(n)}=$`
+          texte = `$${texFraction(a, b)}${plusOuMoins}${ecritureParentheseSiNegatif(n)}=`
           texteCorr = texte
-          texteCorr += `$${texFraction(a, b)}${plusOuMoins}${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
+          texte += '$'
+          texteCorr += `${texFraction(a, b)}${plusOuMoins}${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
           texteCorr += `=${texFraction(a + plusOuMoins + ecritureParentheseSiNegatif(n * b), b)}`
           num = calcul(ecritureParentheseSiNegatif(a) + plusOuMoins + ecritureParentheseSiNegatif(n * b))
         }
@@ -165,46 +166,14 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
       // Pour l'instant pour tester je mets num et den dans reponse
 
-      if (context.isAmc) {
-        this.autoCorrection[i] = {
-          enonce: `Calculer $${texte.substring(1, texte.length - 2)}$ et donner le résultat sous forme irreductible`,
-          propositions: [
-            {
-              texte: texteCorr,
-              statut: 3,
-              feedback: ''
-            }
-          ],
-          reponse: {
-            texte: 'numérateur',
-            valeur: fractionSimplifiee(num, den)[0],
-            param: {
-              digits: 2,
-              decimals: 0,
-              exposantNbChiffres: 0,
-              exposantSigne: false,
-              signe: true,
-              approx: 0
-            }
-          },
-          reponse2: {
-            texte: 'dénominateur',
-            valeur: fractionSimplifiee(num, den)[1],
-            param: {
-              digits: 2,
-              decimals: 0,
-              exposantNbChiffres: 0,
-              exposantSigne: false,
-              signe: false,
-              approx: 0
-            }
-          }
-        }
-      } else {
-        reponse = fraction(num, den).simplifie()
+      if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-        setReponse(this, i, reponse, { formatInteractif: 'fraction' })
       }
+      // reponse = fraction(num, den).simplifie()
+      // setReponse(this, i, reponse, { digits: 4, digitsNum: 1, digitsDen: 10, formatInteractif: 'fraction' })
+      setReponse(this, i, -10.65, { digits: 7, decimals: 3, formatInteractif: 'calcul' })
+      // setReponse(this, i, 10, { formatInteractif: 'calcul' })
+      // setReponse(this, i, [fraction(2, 1)], { formatInteractif: 'fraction' })
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

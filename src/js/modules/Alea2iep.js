@@ -1706,6 +1706,7 @@ export default function Alea2iep () {
     this.regleSegment(N, P)
     this.regleMasquer()
     this.crayonMasquer()
+    return D
   }
 
   /**
@@ -2501,7 +2502,7 @@ export default function Alea2iep () {
    * @param {*} c
    * @returns
    */
-  this.partageSegment = (A, B, n, d, { distance = 1, monAngle = 40 } = {}) => {
+  this.partageSegment = (A, B, n, d, { distance = 1, monAngle = 40, nom = '', nommerGraduations = false } = {}) => {
     this.traitRapide(A, B)
     this.regleMasquerGraduations()
     this.regleMontrer(A)
@@ -2513,15 +2514,17 @@ export default function Alea2iep () {
     for (let i = 1; i <= Math.max(n, d); i++) {
       Ax.push(pointAdistance(A, distance * i, monAngle + droite(A, B).angleAvecHorizontale))
       this.compasTracerArcCentrePoint(Ax[i - 1], Ax[i])
+      if (nommerGraduations) this.pointCreer(Ax[i], { label: A.nom + '_' + i, dx: -1, dy: 0.5 })
     }
     this.compasMasquer()
     this.regleSegment(Ax[d], B)
     this.regleMasquer()
     this.crayonMasquer()
-    this.paralleleAuCompas(Ax[d], B, Ax[n])
+    const m = this.paralleleAuCompas(Ax[d], B, Ax[n])
     const M = homothetie(B, A, n / d)
-    this.regleProlongerSegment(Ax[n], M)
+    if (m.y > M.y) this.regleProlongerSegment(m, M, { longueur: 1 })
     this.regleSegment(A, M, { couleur: 'red', epaisseur: 3 })
+    if (nom) this.pointCreer(M, { label: nom })
     this.regleMasquer()
     this.crayonMasquer()
   }
