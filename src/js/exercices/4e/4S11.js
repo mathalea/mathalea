@@ -202,7 +202,8 @@ export default function DeterminerDesMedianes () {
             texte: `Ìl y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
             couleur: 'nombres'
           })
-          repInteractive = (scoresMedians[0] + scoresMedians[1]) / 2
+          // repInteractive = (scoresMedians[0] + scoresMedians[1]) / 2
+          repInteractive = scoresMedians
         } else { // Le nombre de lancers est impair ici
           texteCorr += `Le nombre de lancers est impair, les scores sont rangés dans l'odre croissant.<br>
           La valeur centrale est la $${(nombreTirages - 1) / 2 + 1}^{e}$ valeur.<br>
@@ -381,7 +382,11 @@ export default function DeterminerDesMedianes () {
         }
         repInteractive = mediane
       }
-      setReponse(this, i, repInteractive)
+      if (Array.isArray(repInteractive)) {
+        setReponse(this, i, repInteractive, { formatInteractif: 'intervalleStrict' })
+      } else {
+        setReponse(this, i, repInteractive)
+      }
       texte += ajouteChampTexteMathLive(this, i, 'largeur20 inline')
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
