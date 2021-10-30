@@ -1,13 +1,12 @@
-import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero, ecritureParentheseSiNegatif, sp } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import Exercice from '../../Exercice.js'
+import { randint, listeQuestionsToContenuSansNumero, ecritureParentheseSiNegatif, sp } from '../../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Coordonnées d’un vecteur 1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '30/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '30/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres

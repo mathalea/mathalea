@@ -224,12 +224,6 @@
 |betac3C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
-|betaCAN2Q28-01|Coordonnées d’un vecteur 1|KO|KO|OK|mathLive|
-|betaCAN2Q28-02|Coordonnées d’un vecteur 2|KO|KO|OK|mathLive|
-|betaCAN2Q28-03|Vecteurs colinéaires|KO|KO|OK|mathLive|
-|betaCAN2Q28-04|Relation de Chasles, réductions vectorielles (niveau 2) QCM|KO|KO|OK|qcm|
-|betaCAN2Q28-05|Relation de Chasles, réductions vectorielles (niveau 1) QCM|KO|KO|OK|qcm|
-|betaCAN2Q28-06|Vecteurs colinéaires (V/F)|KO|KO|OK|qcm|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
@@ -265,6 +259,12 @@
 |can2G04|Calculs des coordonnées du milieu|KO|KO|OK|mathLive|
 |can2G05|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
 |can2G06|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
+|can2G07|Coordonnées d’un vecteur 1|KO|KO|OK|mathLive|
+|can2G08|Coordonnées d’un vecteur 2|KO|KO|OK|mathLive|
+|can2G09|Vecteurs colinéaires|KO|KO|OK|mathLive|
+|can2G10|Relation de Chasles, réductions vectorielles (niveau 1) QCM|KO|KO|OK|qcm|
+|can2G11|Relation de Chasles, réductions vectorielles (niveau 2) QCM|KO|KO|OK|qcm|
+|can2G12|Vecteurs colinéaires (V/F)|KO|KO|OK|qcm|
 |can2L01|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Coordonnées point d’intersection axe des abscisses/droite|KO|KO|OK|mathLive|

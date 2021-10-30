@@ -7707,102 +7707,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
-  "betaCAN2Q28-01": {
-    "titre": "Coordonnées d’un vecteur 1",
-    "url": "/exercices/beta/betaCAN2Q28-01.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q28-01",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
-  "betaCAN2Q28-02": {
-    "titre": "Coordonnées d’un vecteur 2",
-    "url": "/exercices/beta/betaCAN2Q28-02.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q28-02",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
-  "betaCAN2Q28-03": {
-    "titre": "Vecteurs colinéaires",
-    "url": "/exercices/beta/betaCAN2Q28-03.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCAN2Q28-03",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
-  "betaCAN2Q28-04": {
-    "titre": "Relation de Chasles, réductions vectorielles (niveau 2) QCM",
-    "url": "/exercices/beta/betaCAN2Q28-04.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "qcm",
-    "name": "betaCAN2Q28-04",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
-  "betaCAN2Q28-05": {
-    "titre": "Relation de Chasles, réductions vectorielles (niveau 1) QCM",
-    "url": "/exercices/beta/betaCAN2Q28-05.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "qcm",
-    "name": "betaCAN2Q28-05",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
-  "betaCAN2Q28-06": {
-    "titre": "Vecteurs colinéaires (V/F)",
-    "url": "/exercices/beta/betaCAN2Q28-06.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "qcm",
-    "name": "betaCAN2Q28-06",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
     "url": "/exercices/beta/betaCaNCM2.js",
@@ -8845,6 +8749,102 @@ export default {
     "name": "can2G06",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2G07": {
+    "titre": "Coordonnées d’un vecteur 1",
+    "url": "/exercices/can/2e/can2G07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G07",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2G08": {
+    "titre": "Coordonnées d’un vecteur 2",
+    "url": "/exercices/can/2e/can2G08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G08",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2G09": {
+    "titre": "Vecteurs colinéaires",
+    "url": "/exercices/can/2e/can2G09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G09",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2G10": {
+    "titre": "Relation de Chasles, réductions vectorielles (niveau 1) QCM",
+    "url": "/exercices/can/2e/can2G10.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2G10",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2G11": {
+    "titre": "Relation de Chasles, réductions vectorielles (niveau 2) QCM",
+    "url": "/exercices/can/2e/can2G11.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2G11",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2G12": {
+    "titre": "Vecteurs colinéaires (V/F)",
+    "url": "/exercices/can/2e/can2G12.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2G12",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     },
     "updateEx": {
