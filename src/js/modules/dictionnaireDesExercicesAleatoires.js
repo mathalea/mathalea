@@ -8006,21 +8006,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
-  "betaComplexes": {
-    "titre": "Exercice exemple Nombres complexes",
-    "url": "/exercices/beta/betaComplexes.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaComplexes",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
   "betaEqCarreDansC": {
     "titre": "Racine carrée nombre complexe",
     "url": "/exercices/beta/betaEqCarreDansC.js",
@@ -12605,6 +12590,36 @@ export default {
     "name": "CM021",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "ExC100": {
+    "titre": "Equation du premier degré dans C",
+    "url": "/exercices/Ex/ExC100.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "ExC100",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "HPC100": {
+    "titre": "Division de polynômes",
+    "url": "/exercices/HP/HPC100.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "HPC100",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     },
     "updateEx": {
