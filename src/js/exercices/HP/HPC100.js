@@ -4,7 +4,7 @@
 import { xcas, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-
+export const dateDePublication = '30/10/2021'
 export const titre = 'Division de polynômes'
 
 /**
