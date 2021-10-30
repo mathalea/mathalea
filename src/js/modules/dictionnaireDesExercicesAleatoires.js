@@ -155,6 +155,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
+  "1E15": {
+    "titre": "Equation du second degré avec paramètre",
+    "url": "/exercices/1e/1E15.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E15",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
   "1F10": {
     "titre": "Calculs de dérivées",
     "url": "/exercices/1e/1F10.js",
@@ -7991,42 +8006,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
-  "betaDivisionsDePolynomes": {
-    "titre": "Division de polynômes",
-    "url": "/exercices/beta/betaDivisionsDePolynomes.js",
+  "betaComplexes": {
+    "titre": "Exercice exemple Nombres complexes",
+    "url": "/exercices/beta/betaComplexes.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaDivisionsDePolynomes",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
-  "betaEq1erDegreDansC": {
-    "titre": "Equation du premier degré dans C",
-    "url": "/exercices/beta/betaEq1erDegreDansC.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaEq1erDegreDansC",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
-  "betaEq2eDegAvecParam": {
-    "titre": "Equation du second degré avec paramètre",
-    "url": "/exercices/beta/betaEq2eDegAvecParam.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaEq2eDegAvecParam",
+    "name": "betaComplexes",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
