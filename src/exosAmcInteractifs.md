@@ -269,6 +269,12 @@
 |can2G04|Calculs des coordonnées du milieu|KO|KO|OK|mathLive|
 |can2G05|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
 |can2G06|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
+|can2G07|Coordonnées d’un vecteur 1|KO|KO|OK|mathLive|
+|can2G08|Coordonnées d’un vecteur 2|KO|KO|OK|mathLive|
+|can2G09|Vecteurs colinéaires|KO|KO|OK|mathLive|
+|can2G10|Relation de Chasles, réductions vectorielles (niveau 1) QCM|KO|KO|OK|qcm|
+|can2G11|Relation de Chasles, réductions vectorielles (niveau 2) QCM|KO|KO|OK|qcm|
+|can2G12|Vecteurs colinéaires (V/F)|KO|KO|OK|qcm|
 |can2L01|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Coordonnées point d’intersection axe des abscisses/droite|KO|KO|OK|mathLive|

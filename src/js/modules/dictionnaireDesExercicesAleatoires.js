@@ -573,6 +573,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
+  "2N10-2": {
+    "titre": "Placer un point d’abscisse décimale",
+    "url": "/exercices/2e/2N10-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "2N10-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
   "2N11-1": {
     "titre": "Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée",
     "url": "/exercices/2e/2N11-1.js",
@@ -9643,6 +9662,102 @@ export default {
     "name": "can2G06",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2G07": {
+    "titre": "Coordonnées d’un vecteur 1",
+    "url": "/exercices/can/2e/can2G07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G07",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2G08": {
+    "titre": "Coordonnées d’un vecteur 2",
+    "url": "/exercices/can/2e/can2G08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G08",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2G09": {
+    "titre": "Vecteurs colinéaires",
+    "url": "/exercices/can/2e/can2G09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G09",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2G10": {
+    "titre": "Relation de Chasles, réductions vectorielles (niveau 1) QCM",
+    "url": "/exercices/can/2e/can2G10.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2G10",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2G11": {
+    "titre": "Relation de Chasles, réductions vectorielles (niveau 2) QCM",
+    "url": "/exercices/can/2e/can2G11.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2G11",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "can2G12": {
+    "titre": "Vecteurs colinéaires (V/F)",
+    "url": "/exercices/can/2e/can2G12.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2G12",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     },
     "updateEx": {
