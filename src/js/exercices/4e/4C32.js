@@ -20,22 +20,10 @@ export default function NotationScientifique () {
   Exercice.call(this)
   this.sup = 1
   this.sup2 = 1
-  this.titre = titre
   this.nbCols = 1
   this.nbColsCorr = 1
   this.nbQuestions = 5
   this.interactif = false
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
-  this.amcReady = amcReady
-
-  /********************************************************************/
-  /** Type 4 : questionmultx avec AMCnumericChoices */
-  // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
-  // {int digits,int decimals,bool signe,int exposantNbChiffres,bool exposantSigne,int approx}
-  // La correction est dans tabQCM[1][0] et la réponse numlérique est dans tabQCM[1][1]
-  /********************************************************************/
 
   this.nouvelleVersion = function () {
     let reponse
@@ -125,12 +113,12 @@ export default function NotationScientifique () {
           setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), { formatInteractif: 'texte', strict: false, vertical: false, digits: 2 * Math.abs(exp) + 1, decimals: Math.abs(exp), signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 })
         }
         if (context.isAmc) {
-          reponse = calcul(mantisse * 10 ** exp)
+          this.autoCorrection[i].reponse.valeur = [calcul(mantisse * 10 ** exp)]
           if (parseInt(this.sup) === 1) {
-            this.amcType = 4
+            this.amcType = 'AMCNum'
             this.autoCorrection[i].enonce = "Donner l'écriture scientifique du nombre " + texte
           } else {
-            this.amcType = 1
+            this.amcType = 'qcmMono'
             this.autoCorrection[i].enonce = "Donner l'écriture décimale du nombre " + texte
             this.autoCorrection[i].options = {
               ordered: false,

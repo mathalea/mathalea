@@ -11,7 +11,7 @@ import { context } from './context.js'
  * @param {number} h hauteur du conteneur
  * @author Sébastien Lozano
  */
-export function SVG_engrenages (id_du_div, w, h) {
+export function svgEngrenages (id_du_div, w, h) {
   'use strict'
   if (context.isHtml) {
     if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
