@@ -189,7 +189,7 @@ export default function DeterminerDesMedianes () {
           // Pour cumuler les effectifs, tirages est un tableau 2D qui contient les couples [score,effectif]
           let effCumulCroiss = tirages[0][1]
           // On récupère le premier score médian
-          while (effCumulCroiss <= nombreTirages / 2) {
+          while (effCumulCroiss < nombreTirages / 2) {
             cpt += 1
             effCumulCroiss += tirages[cpt][1]
           };
@@ -197,7 +197,7 @@ export default function DeterminerDesMedianes () {
           // On récupère le second score médian
           cpt = 0
           effCumulCroiss = tirages[0][1]
-          while (effCumulCroiss <= nombreTirages / 2 + 1) {
+          while (effCumulCroiss < nombreTirages / 2 + 1) {
             cpt += 1
             effCumulCroiss += tirages[cpt][1]
           };
@@ -403,7 +403,7 @@ export default function DeterminerDesMedianes () {
 
       if (Array.isArray(repInteractive)) {
         // setReponse(this, i, repInteractive, { formatInteractif: 'intervalleStrict' })
-        setReponse(this, i, repInteractive, { milieuIntervalle: calcul((repInteractive[0] + repInteractive[1]) / 2), approx: calcul((repInteractive[1] - repInteractive[0]) / 2 - 0.00001), formatInteractif: 'intervalleStrict' })
+        setReponse(this, i, repInteractive, { decimals: 1, milieuIntervalle: calcul((repInteractive[0] + repInteractive[1]) / 2), approx: calcul((repInteractive[1] - repInteractive[0]) / 2 - 0.00001), formatInteractif: 'intervalleStrict' })
       } else {
         setReponse(this, i, repInteractive)
       }
