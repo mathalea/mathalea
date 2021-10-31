@@ -1,4 +1,4 @@
-import { ordreDeGrandeur, calcul } from './outils.js'
+import { ordreDeGrandeur, calcul, base10VersBaseN } from './outils.js'
 import { mathalea2d, texteParPosition, segment } from './2d.js'
 import { context } from './context.js'
 import { format } from 'mathjs'
@@ -11,7 +11,7 @@ const math = { format: format }
  * Le paramètre précision précise pour divisiond, le nombre de chiffres après la virgule dans le quotient.
  */
 
-export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0 }) { // precision est pour le quotient décimal
+export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0, base = 10 }) { // precision est pour le quotient décimal
   let Code
   const nombreDeChiffresApresLaVirgule = function (x) {
     const s = Number(x).toString()
@@ -184,21 +184,38 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     return code
   }
 
-  const SoustractionPosee3d = function (operande1, operande2) {
-    const dec1 = nombreDeChiffresApresLaVirgule(operande1)
-    const dec2 = nombreDeChiffresApresLaVirgule(operande2)
-    const decalage = Math.max(dec1, dec2)
-    operande1 = calcul(`${operande1}*10^${decalage}`)
-    operande2 = calcul(`${operande2}*10^${decalage}`)
-    let code = ''; let sop1; let sop2; const objets = []
-    if (operande1 < operande2) {
-      sop2 = Number(operande1).toString()
-      sop1 = Number(operande2).toString()
-    } else {
-      sop1 = Number(operande1).toString()
-      sop2 = Number(operande2).toString()
-    }
+  const SoustractionPosee3d = function (operande1, operande2, base) {
+    let code = ''
+    const objets = []
+    let sop1; let sop2
     let sresultat
+    let resultat
+    let lresultat
+    let decalage
+    if (base ? base === 10 : true) {
+      const dec1 = nombreDeChiffresApresLaVirgule(operande1)
+      const dec2 = nombreDeChiffresApresLaVirgule(operande2)
+      decalage = Math.max(dec1, dec2)
+      operande1 = calcul(`${operande1}*10^${decalage}`)
+      operande2 = calcul(`${operande2}*10^${decalage}`)
+      resultat = operande1 - operande2
+      sresultat = Number(resultat).toString()
+      lresultat = sresultat.length
+      if (operande1 < operande2) {
+        sop2 = Number(operande1).toString()
+        sop1 = Number(operande2).toString()
+      } else {
+        sop1 = Number(operande1).toString()
+        sop2 = Number(operande2).toString()
+      }
+    } else {
+      decalage = 0
+      sop1 = base10VersBaseN(operande1, base)
+      sop2 = base10VersBaseN(operande2, base)
+      resultat = operande1 - operande2
+      sresultat = base10VersBaseN(resultat, base)
+      lresultat = sresultat.length
+    }
     const lop1 = sop1.length
     const lop2 = sop2.length
     const longueuroperandes = lop1
@@ -220,9 +237,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     sop1 = ` ${sop1}`
     sop2 = `-${sop2}`
     retenues = `0${retenues}`
-    const resultat = operande1 - operande2
-    sresultat = Number(resultat).toString()
-    const lresultat = sresultat.length
+
     for (let i = 0; i < longueuroperandes + 1 - lresultat; i++) {
       sresultat = ` ${sresultat}`
     }
@@ -365,7 +380,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
 
       break
     case 'soustraction':
-      if (context.isHtml) { Code = SoustractionPosee3d(operande1, operande2) } else { Code = `$\\opsub[carrysub,lastcarry,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = SoustractionPosee3d(operande1, operande2, base) } else { Code = `$\\opsub[carrysub,lastcarry,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
       break
     case 'multiplication':
       if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2) } else { Code = `$\\opmul[displayshiftintermediary=all,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
