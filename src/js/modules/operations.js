@@ -226,14 +226,15 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     for (let i = 0; i < longueuroperandes + 1 - lresultat; i++) {
       sresultat = ` ${sresultat}`
     }
+    const offsetCarry = lop1 - lop2
     for (let i = 0; i < longueuroperandes + 1; i++) {
-      if (retenues[i] !== '0') objets.push(texteParPosition(retenues[i], i * 0.6 + 0.4, 4.1, 'milieu', 'red', 0.8, 'middle', false))
+      if (retenues[i] !== '0') objets.push(texteParPosition(retenues[i], i * 0.6 - 0.2 + 0.6 * offsetCarry, 4.1, 'milieu', 'red', 0.8, 'middle', false))
       if (sop1[i] !== ' ') objets.push(texteParPosition(sop1[i], i * 0.6, 4, 'milieu', 'black', 1.2, 'middle', false))
       if (sop2[i] !== ' ') objets.push(texteParPosition(sop2[i], i * 0.6, 3, 'milieu', 'black', 1.2, 'middle', false))
-      objets.push(segment(0, 2, (longueuroperandes + 1) * 0.6, 2))
-      if (retenues[i] !== '0') objets.push(texteParPosition(retenues[i], i * 0.6, 2.6, 'milieu', 'blue', 0.8, 'middle', false))
+      if (retenues[i] !== '0') objets.push(texteParPosition(retenues[i], i * 0.6 - 0.6 + 0.6 * offsetCarry, 2.6, 'milieu', 'blue', 0.8, 'middle', false))
       if (sresultat[i] !== ' ') objets.push(texteParPosition(sresultat[i], i * 0.6, 1, 'milieu', 'black', 1.2, 'middle', false))
     }
+    objets.push(segment(0, 2, (longueuroperandes + 1) * 0.6, 2))
     if (decalage !== 0) {
       objets.push(texteParPosition(',', 0.3 + 0.6 * (longueuroperandes - decalage), 4, 'milieu', 'black', 1.2, 'middle', false))
       objets.push(texteParPosition(',', 0.3 + 0.6 * (longueuroperandes - decalage), 3, 'milieu', 'black', 1.2, 'middle', false))
