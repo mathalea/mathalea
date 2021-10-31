@@ -161,11 +161,15 @@ export default function DeterminerDesMedianes () {
         } else {
           texte = `On a réalisé $${nombreTirages}$ lancers d'un dé à $${nombreFaces}$ faces.<br>`
         }
-        texte += lampeMessage({
-          titre: 'Vocabulaire',
-          texte: `Le solide qui correspond à ce type de dé s'appelle ${texteGras(solidName(nombreFaces))}.`,
-          couleur: 'nombres'
-        }) + '<br>'
+        if (context.isAmc) {
+          texte += `{\\bf Vocabulaire} : Le solide qui correspond à ce type de dé s'appelle ${texteGras(solidName(nombreFaces))}.<br>`
+        } else {
+          texte += lampeMessage({
+            titre: 'Vocabulaire',
+            texte: `Le solide qui correspond à ce type de dé s'appelle ${texteGras(solidName(nombreFaces))}.`,
+            couleur: 'nombres'
+          }) + '<br>'
+        }
         texte += 'Les résultats sont inscrits dans le tableau ci-dessous :<br><br>'
         texte += desTabEffCumul(tirages, false) + '<br>'
 
@@ -201,11 +205,15 @@ export default function DeterminerDesMedianes () {
           let medianeCorr // pour la correction statique
           scoresMedians[0] === scoresMedians[1] ? medianeCorr = scoresMedians[0] : medianeCorr = (scoresMedians[0] + scoresMedians[1]) / 2
           texteCorr += `D'où ${texteGras(`le score médian : ${texNombre(medianeCorr)}`)}<br>`
-          texteCorr += lampeMessage({
-            titre: 'Interprétation',
-            texte: `Ìl y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr)}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr)}$.`,
-            couleur: 'nombres'
-          })
+          if (context.isAmc) {
+            texteCorr += `{\\bf Interprétation} : Ìl y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr)}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr)}$.`
+          } else {
+            texteCorr += lampeMessage({
+              titre: 'Interprétation',
+              texte: `Ìl y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr)}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr)}$.`,
+              couleur: 'nombres'
+            })
+          }
           scoresMedians[0] === scoresMedians[1] ? repInteractive = scoresMedians[0] : repInteractive = scoresMedians
         } else { // Le nombre de lancers est impair ici
           texteCorr += `Le nombre de lancers est impair, les scores sont rangés dans l'odre croissant.<br>
@@ -227,11 +235,15 @@ export default function DeterminerDesMedianes () {
           };
           scoresMedians.push(tirages[cpt][0])
           texteCorr += `D'où ${texteGras(`le score médian : ${texNombre(scoresMedians[0])}`)}<br>`
-          texteCorr += lampeMessage({
-            titre: 'Interprétation',
-            texte: `Ìl y a bien $${(nombreTirages - 1) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombreTirages - 1) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
-            couleur: 'nombres'
-          })
+          if (context.isAmc) {
+            texteCorr += `{\\bf Interprétation} : Ìl y a bien $${(nombreTirages - 1) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombreTirages - 1) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`
+          } else {
+            texteCorr += lampeMessage({
+              titre: 'Interprétation',
+              texte: `Ìl y a bien $${(nombreTirages - 1) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombreTirages - 1) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
+              couleur: 'nombres'
+            })
+          }
           repInteractive = scoresMedians[0]
         }
       } else if (this.sup === 2) { // ici on trie des notes
@@ -276,17 +288,25 @@ export default function DeterminerDesMedianes () {
         Array.isArray(mediane) ? medianeCorr = (mediane[0] + mediane[1]) / 2 : medianeCorr = mediane
         texteCorr += `D'où ${texteGras(`la note médiane : ${texNombre(medianeCorr)}`)}<br>`
         if (notes.length % 2 === 0) {
-          texteCorr += lampeMessage({
-            titre: 'Interprétation',
-            texte: `Ìl y a bien $${notes.length / 2}$ notes inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${notes.length / 2}$ notes supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
-            couleur: 'nombres'
-          })
+          if (context.isAmc) {
+            texteCorr += `{\\bf Interprétation} : Ìl y a bien $${notes.length / 2}$ notes inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${notes.length / 2}$ notes supérieures ou égales à  $${texNombre(medianeCorr)}$.`
+          } else {
+            texteCorr += lampeMessage({
+              titre: 'Interprétation',
+              texte: `Ìl y a bien $${notes.length / 2}$ notes inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${notes.length / 2}$ notes supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
+              couleur: 'nombres'
+            })
+          }
         } else {
-          texteCorr += lampeMessage({
-            titre: 'Interprétation',
-            texte: `Ìl y a bien $${(notes.length - 1) / 2}$ notes inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${(notes.length - 1) / 2}$ notes supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
-            couleur: 'nombres'
-          })
+          if (context.isAmc) {
+            texteCorr += `{\\bf Interprétation} : Ìl y a bien $${(notes.length - 1) / 2}$ notes inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${(notes.length - 1) / 2}$ notes supérieures ou égales à  $${texNombre(medianeCorr)}$.`
+          } else {
+            texteCorr += lampeMessage({
+              titre: 'Interprétation',
+              texte: `Ìl y a bien $${(notes.length - 1) / 2}$ notes inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${(notes.length - 1) / 2}$ notes supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
+              couleur: 'nombres'
+            })
+          }
         }
         repInteractive = mediane
       } else { // ici on relève des températures
@@ -355,17 +375,25 @@ export default function DeterminerDesMedianes () {
         Array.isArray(mediane) ? medianeCorr = (mediane[0] + mediane[1]) / 2 : medianeCorr = mediane
         texteCorr += `D'où ${texteGras(`une temperature médiane : ${texNombre(medianeCorr)}`)}<br>`
         if (temperatures.length % 2 === 0) {
-          texteCorr += lampeMessage({
-            titre: 'Interprétation',
-            texte: `Ìl y a bien $${temperatures.length / 2}$ temperatures inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${temperatures.length / 2}$ temperatures supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
-            couleur: 'nombres'
-          })
+          if (context.isAmc) {
+            texteCorr += `{\\bf Interprétation} : Ìl y a bien $${temperatures.length / 2}$ temperatures inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${temperatures.length / 2}$ temperatures supérieures ou égales à  $${texNombre(medianeCorr)}$.`
+          } else {
+            texteCorr += lampeMessage({
+              titre: 'Interprétation',
+              texte: `Ìl y a bien $${temperatures.length / 2}$ temperatures inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${temperatures.length / 2}$ temperatures supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
+              couleur: 'nombres'
+            })
+          }
         } else {
-          texteCorr += lampeMessage({
-            titre: 'Interprétation',
-            texte: `Ìl y a bien $${(temperatures.length - 1) / 2}$ temperatures inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${(temperatures.length - 1) / 2}$ temperatures supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
-            couleur: 'nombres'
-          })
+          if (context.isAmc) {
+            texteCorr += `{\\bf Interprétation} : Ìl y a bien $${(temperatures.length - 1) / 2}$ temperatures inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${(temperatures.length - 1) / 2}$ temperatures supérieures ou égales à  $${texNombre(medianeCorr)}$.`
+          } else {
+            texteCorr += lampeMessage({
+              titre: 'Interprétation',
+              texte: `Ìl y a bien $${(temperatures.length - 1) / 2}$ temperatures inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${(temperatures.length - 1) / 2}$ temperatures supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
+              couleur: 'nombres'
+            })
+          }
         }
         repInteractive = mediane
       }
