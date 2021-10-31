@@ -127,17 +127,33 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     return code
   }
 
-  const AdditionPosee3d = function (operande1, operande2) {
+  const AdditionPosee3d = function (operande1, operande2, base) {
     const dec1 = nombreDeChiffresApresLaVirgule(operande1)
     const dec2 = nombreDeChiffresApresLaVirgule(operande2)
-    const decalage = Math.max(dec1, dec2)
-    operande1 = calcul(`${operande1}*10^${decalage}`)
-    operande2 = calcul(`${operande2}*10^${decalage}`)
-    let code = ''; const objets = []
-    let sop1 = Number(operande1).toString()
-    let sop2 = Number(operande2).toString()
-
+    let code = ''
+    const objets = []
+    let sop1; let sop2
     let sresultat
+    let resultat
+    let lresultat
+    let decalage
+    if (base ? base === 10 : true) {
+      decalage = Math.max(dec1, dec2)
+      operande1 = calcul(`${operande1}*10^${decalage}`)
+      operande2 = calcul(`${operande2}*10^${decalage}`)
+      sop1 = Number(operande1).toString()
+      sop2 = Number(operande2).toString()
+      resultat = operande1 + operande2
+      sresultat = Number(resultat).toString()
+      lresultat = sresultat.length
+    } else {
+      decalage = 0
+      sop1 = base10VersBaseN(operande1, base)
+      sop2 = base10VersBaseN(operande2, base)
+      resultat = operande1 + operande2
+      sresultat = base10VersBaseN(resultat, base)
+      lresultat = sresultat.length
+    }
     const lop1 = sop1.length
     const lop2 = sop2.length
     const longueuroperandes = Math.max(lop1, lop2)
@@ -153,7 +169,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     }
     // les deux operande ont le même nomre de chiffres
     for (let i = longueuroperandes - 1; i > 0; i--) { // on construit la chaine des retenues.
-      if (parseInt(sop1[i]) + parseInt(sop2[i]) > 9) {
+      if (parseInt(sop1[i]) + parseInt(sop2[i]) > base - 1) {
         retenues = `1${retenues}`
       } else {
         retenues = ` ${retenues}`
@@ -162,9 +178,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     retenues = ' ' + retenues
     sop1 = ` ${sop1}`
     sop2 = `+${sop2}`
-    const resultat = operande1 + operande2
-    sresultat = Number(resultat).toString()
-    const lresultat = sresultat.length
+
     for (let i = 0; i < longueuroperandes + 1 - lresultat; i++) {
       sresultat = ` ${sresultat}`
     }
@@ -376,7 +390,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
 
   switch (type) {
     case 'addition':
-      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2) } else { Code = `$\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2, base) } else { Code = `$\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
 
       break
     case 'soustraction':
