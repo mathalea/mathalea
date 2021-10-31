@@ -8,7 +8,7 @@ export const dateDePublication = '1/11/2021'
 
 /**
  * @author Rémi Angot
- * Référence PEG21
+ * Référence PEG22
 */
 export default function RacineCarrAvecTheoremePythagore () {
   Exercice.call(this)
