@@ -154,9 +154,5 @@ export const dictionnaireLycee = {
   '2S11-2': {
     titre: 'Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale',
     url: '/exercices/3e/3P10.js'
-  },
-  '2S20-1': {
-    titre: 'Calculer des effectifs et des fréquences',
-    url: '/exercices/3e/3S12.js'
   }
 }
