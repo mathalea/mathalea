@@ -1,6 +1,5 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, miseEnEvidence, texFraction, ppcm, fractionSimplifiee } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, miseEnEvidence, texFraction, ppcm } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
@@ -8,8 +7,7 @@ export const titre = 'Additionner deux fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCOpenNum✖︎2' // type de question AMC
-
+export const amcType = 'AMCNum' // type de question AMC
 /**
 * Effectuer la somme de deux fractions
 *
@@ -141,47 +139,9 @@ export default function ExerciceAdditionnerDesFractions () {
       }
       texteCorr += `=${texFraction(num, den)}`
       texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
-
-      if (context.isAmc) {
-        this.autoCorrection[i] = {
-          enonce: `Calculer $${texte.substring(1, texte.length - 2)}$ et donner le résultat sous forme irreductible`,
-          propositions: [
-            {
-              texte: texteCorr,
-              statut: 3,
-              feedback: ''
-            }
-          ],
-          reponse: {
-            texte: 'numérateur',
-            valeur: fractionSimplifiee(num, den)[0],
-            param: {
-              digits: 2,
-              decimals: 0,
-              exposantNbChiffres: 0,
-              exposantSigne: false,
-              signe: true,
-              approx: 0
-            }
-          },
-          reponse2: {
-            texte: 'dénominateur',
-            valeur: fractionSimplifiee(num, den)[1],
-            param: {
-              digits: 2,
-              decimals: 0,
-              exposantNbChiffres: 0,
-              exposantSigne: false,
-              signe: false,
-              approx: 0
-            }
-          }
-        }
-      } else {
-        reponse = fraction(num, den).simplifie()
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-        setReponse(this, i, reponse, { formatInteractif: 'fraction' })
-      }
+      reponse = fraction(num, den).simplifie()
+      texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+      setReponse(this, i, reponse, { formatInteractif: 'fraction', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
 
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
