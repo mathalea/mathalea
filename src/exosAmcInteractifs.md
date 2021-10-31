@@ -78,12 +78,12 @@
 |4C10-6|Multiplications et quotients de relatifs : signe avec une lettre|OK|qcmMono|OK|qcm|
 |4C11|Calculs utilisant les priorités opératoires|KO|KO|OK|mathLive|
 |4C20|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
-|4C21-1|Additionner deux fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C21-1|Additionner deux fractions|OK|AMCNum|OK|mathLive|
 |4C21|Additionner ou soustraire deux fractions|OK|AMCNum|OK|mathLive|
 |4C22-1|Trouver l’inverse d’un nombre|KO|KO|OK|mathLive|
-|4C22-2|Diviser des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
-|4C22|Multiplier des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
-|4C23-1|Fractions et priorités opératoires|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C22-2|Diviser des fractions|OK|AMCNum|OK|mathLive|
+|4C22|Multiplier des fractions|OK|AMCNum|OK|mathLive|
+|4C23-1|Fractions et priorités opératoires|OK|AMCNum|OK|mathLive|
 |4C23|Somme, différence ou produit de fractions|KO|KO|OK|mathLive|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|mathLive|
@@ -271,7 +271,7 @@
 |can2G03|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
 |can2G04|Calculs des coordonnées du milieu|KO|KO|OK|mathLive|
 |can2G05|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
-|can2G06|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
+|can2G06|Coefficient directeur d'une droite|KO|KO|OK|mathLive|
 |can2G07|Coordonnées d’un vecteur 1|KO|KO|OK|mathLive|
 |can2G08|Coordonnées d’un vecteur 2|KO|KO|OK|mathLive|
 |can2G09|Vecteurs colinéaires|KO|KO|OK|mathLive|
@@ -379,7 +379,7 @@
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
 |can5P01|Pourcentage (évolution)|OK|AMCNum|OK|mathLive|
 |can5P02|Pourcentage (proportion) 2|OK|AMCNum|OK|mathLive|
-|can5P03|Pourcentage (proportion) 2|OK|AMCNum|OK|mathLive|
+|can5P03|Problèmes de proportionnalité|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |can6C01|Ordre de grandeur QCM|OK|qcmMono|OK|qcm|
 |can6C02|Multiplier nombre pair par 5|OK|AMCNum|OK|mathLive|
