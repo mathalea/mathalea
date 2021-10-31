@@ -165,7 +165,7 @@ export default function DeterminerDesMedianes () {
         }) + '<br>'
         texte += 'Les résultats sont inscrits dans le tableau ci-dessous :<br><br>'
         texte += desTabEffCumul(tirages, false) + '<br>'
-        texte += '<br><br> Déterminer une médiane de cette série.'
+
         texteCorr = `On a réalisé $${nombreTirages}$ lancers en tout.<br>`
         if (nombreTirages % 2 === 0) {
           texteCorr += `Le nombre de lancers est pair, les scores sont rangés dans l'ordre croissant.<br>
@@ -187,7 +187,6 @@ export default function DeterminerDesMedianes () {
             effCumulCroiss += tirages[cpt][1]
           };
           scoresMedians.push(tirages[cpt][0])
-
           // On récupère le second score médian
           cpt = 0
           effCumulCroiss = tirages[0][1]
@@ -202,8 +201,7 @@ export default function DeterminerDesMedianes () {
             texte: `Ìl y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
             couleur: 'nombres'
           })
-          // repInteractive = (scoresMedians[0] + scoresMedians[1]) / 2
-          repInteractive = scoresMedians
+          scoresMedians[0] === scoresMedians[1] ? repInteractive = scoresMedians[0] : repInteractive = scoresMedians
         } else { // Le nombre de lancers est impair ici
           texteCorr += `Le nombre de lancers est impair, les scores sont rangés dans l'odre croissant.<br>
           La valeur centrale est la $${(nombreTirages - 1) / 2 + 1}^{e}$ valeur.<br>
@@ -239,26 +237,17 @@ export default function DeterminerDesMedianes () {
         }
         notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une liste de notes (série brute)
         indexValeur = randint(0, notes.length - 1) // on choisi une des notes au hasard
-        /*
-        frequence = 0
-        for (let j = 0; j < notes.length; j++) { // frequence va contenir l'effectif de la note choisie
-          if (notes[j] === notes[indexValeur]) { frequence++ }
-        }
-        */
         texte = `${prenom()} a obtenu ces notes ce trimestre-ci en mathématiques :<br>`
         texte += `$${notes[0]}$`
         for (let j = 1; j < nombreNotes - 1; j++) { texte += `; $${notes[j]}$ ` } // On liste les notes (série brute)
         texte += `et $${notes[nombreNotes - 1]}$.`
-
-        texte += '<br><br>Déterminer une médiane de cette série.'
         const notesRangees = notes.sort((a, b) => a - b)
         let mediane
         if (notes.length % 2 === 0) { // attention les indices commencent à 0 !
-          mediane = (notesRangees[notes.length / 2 - 1] + notesRangees[notes.length / 2]) / 2
+          notesRangees[notes.length / 2 - 1] === notesRangees[notes.length / 2] ? mediane = notesRangees[notes.length / 2 - 1] : mediane = [notesRangees[notes.length / 2 - 1], notesRangees[notes.length / 2]]
         } else {
           mediane = notesRangees[(notes.length - 1) / 2]
         }
-
         texteCorr = `Il y a $${notes.length}$ notes en tout. `
         if (notes.length % 2 === 0) {
           texteCorr += 'Le nombre de notes est pair.<br>'
@@ -311,14 +300,7 @@ export default function DeterminerDesMedianes () {
         nombreTemperatures = joursParMois(mois)
         temperatures = unMoisDeTemperature(temperaturesDeBase[mois - 1], mois, annee) // on récupère une série de température correspondant à 1 mois d'une année (série brute)
         indexValeur = randint(0, temperatures.length - 1) // on choisi l'index d'une valeur au hasard
-        /*
-        frequence = 0
-        for (let j = 0; j < temperatures.length; j++) {
-          if (temperatures[j] === temperatures[indexValeur]) { frequence++ } // frequence contient l'effectif de cette valeur
-        }
-        */
         texte = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes<br>`
-
         texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // On construit le tableau des températures
         texte += '|c'
         for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '|c' }
@@ -335,15 +317,11 @@ export default function DeterminerDesMedianes () {
         texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}'
         for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '&' + temperatures[j] }
         texte += '\\\\\\hline\\end{array}$'
-
-        texte += '<br><br>Déterminer une médiane de cette série.'
-        // texte += temperatures;
-        // texte += temperatures.length;
         texteCorr = ''
         const temperaturesRangees = temperatures.sort((a, b) => a - b)
         let mediane
         if (temperatures.length % 2 === 0) { // attention les indices commencent à 0 !
-          mediane = (temperaturesRangees[temperatures.length / 2 - 1] + temperaturesRangees[temperatures.length / 2]) / 2
+          temperaturesRangees[temperatures.length / 2 - 1] === temperaturesRangees[temperatures.length / 2] ? mediane = temperaturesRangees[temperatures.length / 2 - 1] : mediane = [temperaturesRangees[temperatures.length / 2 - 1], temperaturesRangees[temperatures.length / 2]]
         } else {
           mediane = temperaturesRangees[(temperatures.length - 1) / 2]
         };
@@ -382,13 +360,18 @@ export default function DeterminerDesMedianes () {
         }
         repInteractive = mediane
       }
+
+      // On factorise la question
+      this.interactif ? texte += '<br><br>Déterminer une médiane de cette série : ' : texte += '<br><br>Déterminer une médiane de cette série.'
+
       if (Array.isArray(repInteractive)) {
         setReponse(this, i, repInteractive, { formatInteractif: 'intervalleStrict' })
       } else {
         setReponse(this, i, repInteractive)
       }
-      texte += ajouteChampTexteMathLive(this, i, 'largeur20 inline')
-
+      if (this.interactif) {
+        texte += ajouteChampTexteMathLive(this, i, 'largeur20 inline')
+      }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
