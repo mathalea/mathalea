@@ -32,6 +32,7 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
         1. [Avec `formatInteractif : 'calcul'`](#export_AMC_automatise_mathLive_calcul)
         1. [Avec `formatInteractif : 'fraction'`](#export_AMC_automatise_mathLive_fraction)
         1. [Avec `formatInteractif : 'fractionPlusSimple'` ou `formatInteractif : 'fractionEgale'`](#export_AMC_automatise_mathLive_fractionEgale)
+        1. [Avec `formatInteractif : 'intervalle'` ou `formatInteractif : 'intervalleStrict'`](#export_AMC_automatise_mathLive_intervalle)
         1. [Avec `formatInteractif : 'texte'`, `formatInteractif : 'ignorerCasse'` ou `formatInteractif : 'longueur'`](#export_AMC_automatise_mathLive_texte)
     1. [L'export AMC automatisé avec `qcm`](#export_AMC_automatise_qcm)
     1. [L'export AMC automatisé avec `cliqueFigure`](#export_AMC_automatise_cliqueFigure)
@@ -188,6 +189,21 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 - Pour comparer des **grandeurs (avec des unités)**, on code, comme dans l'exercice-témoin **6M11** :
 >>``` js
 >>setReponse(this, i, new Grandeur(resultat, 'cm'), { formatInteractif: 'longueur' }) // resultat est un nombre. On personnalisera le champ texte avec ajouteChampTexteMathLive(this, i, 'longueur')
+>>```
+
+
+- Pour comparer un nombre au sein d'un **intervalle**, on code, comme dans l'exercice-témoin **4S11** :
+>>``` js
+>> // Si les bornes de l'intervalle sont incluses
+>>setReponse(this, i, [a, b], { formatInteractif: 'intervalle' }) 
+>> // a est la borne inférieure de l'intervalle
+>> // b est la borne supérieure de l'intervalle
+>> 
+>> // Si les bornes de l'intervalle sont exclues
+>>setReponse(this, i, [a, b], { formatInteractif: 'intervalleStrict' }) 
+>> // a est la borne inférieure de l'intervalle
+>> // b est la borne supérieure de l'intervalle
+>> 
 >>```
 
 >>>>## <a id="typeInteractivite_mathLive_debug" href="#typeInteractivite_mathLive_debug"></a> [2. 1. 4. Comprendre pourquoi une réponse correcte est pourtant considérée fausse](#typeInteractivite_mathLive_debug)
@@ -551,7 +567,42 @@ Ce codage ci-dessus est parfaitement fonctionnel mais est tellement bien fait qu
 >>// digitsDen correspond au nombre TOTAL de chiffres du dénominateur à coder.
 >>```
 
->>>>## <a id="export_AMC_automatise_mathLive_texte" href="#export_AMC_automatise_mathLive_texte"></a> [3. 1. 4. Avec `formatInteractif : 'texte'`, `formatInteractif : 'ignorerCasse'` ou `formatInteractif : 'longueur'`](#export_AMC_automatise_mathLive_texte)
+
+>>>>## <a id="export_AMC_automatise_mathLive_intervalle" href="#export_AMC_automatise_mathLive_intervalle"></a> [3. 1. 4. Avec `formatInteractif : 'intervalle'` ou `formatInteractif : 'intervalleStrict'`](#export_AMC_automatise_mathLive_intervalle)
+
+**Exercice-témoin pour 'texte' : 4S11**
+
+
+Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'un nombre compris dans un intervalle avec `formatInteractif : 'intervalle'` ou `formatInteractif : 'intervalleStrict'` et que vous utilisiez :
+
+>>```js
+>> setReponse(this, [-1, 3], resultat, {formatInteractif: 'intervalle'}) // Toute réponse entre -1 et 3, bornes incluses, est acceptée.
+>>
+>> // ou bien
+>>
+>> setReponse(this, [-1, 3], resultat, {formatInteractif: 'intervalleStrict'}) // Toute réponse entre -1 et 3, bornes exclues, est acceptée.
+>>```
+
+Alors, rendre l'exercice exportable AMC, doit commencer par l'ajout des deux lignes de code suivants, avec les autres export/import.
+>>```js
+>>export const amcReady = true // pour définir que l'exercice est exportable à AMC
+>>export const amcType = 'AMCNum'
+>>```
+
+L'export AMC possèdera un nombre à coder, correct dans l'intervalle voulu, où le nombre de chiffres, par défaut, sera celui de la valeur du milieu de l'intervalle.
+
+Cette fois-ci, **ce rajout de code n'est toutefois pas suffisant**, car, dans chaque cas ici, il n'existe pas de réponse unique et AMC ne sait tester qu'une réponse unique.
+Donc il faudra imposer à l'export AMC une unique solution (ce sera la valeur du milieu de l'intervalle) et préciser l'écart accepté entre la réponse fournie par l'élève et la valeur du milieu de l'intervalle (ce sera donc la demi-valeur de l'intervalle) . Le code ci-dessous décrit ce fonctionnement.
+
+>>```js
+>> // Pour le formatInteractif : 'intervalle'
+>> setReponse(this, i, [a,b], {milieuIntervalle: calcul((a+b)/2), approx:calcul((b-a)/2), formatInteractif: 'intervalle'})
+>>
+>> // Pour le formatInteractif : 'intervalleStrict'
+>> setReponse(this, i, [a,b], {milieuIntervalle: calcul((a+b)/2), approx:calcul((b-a)/2-0.00001), formatInteractif: 'intervalleStrict'})
+>>```
+
+>>>>## <a id="export_AMC_automatise_mathLive_texte" href="#export_AMC_automatise_mathLive_texte"></a> [3. 1. 5. Avec `formatInteractif : 'texte'`, `formatInteractif : 'ignorerCasse'` ou `formatInteractif : 'longueur'`](#export_AMC_automatise_mathLive_texte)
 
 **Exercice-témoin pour 'texte' : 2N14-1**
 
