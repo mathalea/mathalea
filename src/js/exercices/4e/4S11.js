@@ -195,13 +195,16 @@ export default function DeterminerDesMedianes () {
             effCumulCroiss += tirages[cpt][1]
           };
           scoresMedians.push(tirages[cpt][0])
-          texteCorr += `D'où ${texteGras(`le score médian : ${texNombre((scoresMedians[0] + scoresMedians[1]) / 2)}`)}<br>`
+          let medianeCorr // pour la correction statique
+          scoresMedians[0] === scoresMedians[1] ? medianeCorr = scoresMedians[0] : medianeCorr = (scoresMedians[0] + scoresMedians[1]) / 2
+          texteCorr += `D'où ${texteGras(`le score médian : ${texNombre(medianeCorr)}`)}<br>`
           texteCorr += lampeMessage({
             titre: 'Interprétation',
-            texte: `Ìl y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
+            texte: `Ìl y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr)}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr)}$.`,
             couleur: 'nombres'
           })
           scoresMedians[0] === scoresMedians[1] ? repInteractive = scoresMedians[0] : repInteractive = scoresMedians
+          texte += scoresMedians
         } else { // Le nombre de lancers est impair ici
           texteCorr += `Le nombre de lancers est impair, les scores sont rangés dans l'odre croissant.<br>
           La valeur centrale est la $${(nombreTirages - 1) / 2 + 1}^{e}$ valeur.<br>
@@ -267,17 +270,19 @@ export default function DeterminerDesMedianes () {
           En effet, ${underbraceMediane(notes.length)}<br>
           Une médiane est donc la $${(notes.length + 1) / 2}^{e}$ note, lorsque ces notes sont rangées.<br>`
         };
-        texteCorr += `D'où ${texteGras(`la note médiane : ${texNombre(mediane)}`)}<br>`
+        let medianeCorr // pour la correction statique
+        Array.isArray(mediane) ? medianeCorr = (mediane[0] + mediane[1]) / 2 : medianeCorr = mediane[0]
+        texteCorr += `D'où ${texteGras(`la note médiane : ${texNombre(medianeCorr)}`)}<br>`
         if (notes.length % 2 === 0) {
           texteCorr += lampeMessage({
             titre: 'Interprétation',
-            texte: `Ìl y a bien $${notes.length / 2}$ notes inférieures ou égales à  $${texNombre(mediane)}$ et $${notes.length / 2}$ notes supérieures ou égales à  $${texNombre(mediane)}$.`,
+            texte: `Ìl y a bien $${notes.length / 2}$ notes inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${notes.length / 2}$ notes supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
             couleur: 'nombres'
           })
         } else {
           texteCorr += lampeMessage({
             titre: 'Interprétation',
-            texte: `Ìl y a bien $${(notes.length - 1) / 2}$ notes inférieures ou égales à  $${texNombre(mediane)}$ et $${(notes.length - 1) / 2}$ notes supérieures ou égales à  $${texNombre(mediane)}$.`,
+            texte: `Ìl y a bien $${(notes.length - 1) / 2}$ notes inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${(notes.length - 1) / 2}$ notes supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
             couleur: 'nombres'
           })
         }
@@ -344,17 +349,19 @@ export default function DeterminerDesMedianes () {
           En effet, ${underbraceMediane(temperatures.length)}<br>
           Une médiane est donc la $${(temperatures.length + 1) / 2}^{e}$ temperature, lorsque ces temperatures sont rangées.<br>`
         };
-        texteCorr += `D'où ${texteGras(`la temperature médiane : ${texNombre(mediane)}`)}<br>`
+        let medianeCorr // pour la correction statique
+        Array.isArray(mediane) ? medianeCorr = (mediane[0] + mediane[1]) / 2 : medianeCorr = mediane[0]
+        texteCorr += `D'où ${texteGras(`une temperature médiane : ${texNombre(medianeCorr)}`)}<br>`
         if (temperatures.length % 2 === 0) {
           texteCorr += lampeMessage({
             titre: 'Interprétation',
-            texte: `Ìl y a bien $${temperatures.length / 2}$ temperatures inférieures ou égales à  $${texNombre(mediane)}$ et $${temperatures.length / 2}$ temperatures supérieures ou égales à  $${texNombre(mediane)}$.`,
+            texte: `Ìl y a bien $${temperatures.length / 2}$ temperatures inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${temperatures.length / 2}$ temperatures supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
             couleur: 'nombres'
           })
         } else {
           texteCorr += lampeMessage({
             titre: 'Interprétation',
-            texte: `Ìl y a bien $${(temperatures.length - 1) / 2}$ temperatures inférieures ou égales à  $${texNombre(mediane)}$ et $${(temperatures.length - 1) / 2}$ temperatures supérieures ou égales à  $${texNombre(mediane)}$.`,
+            texte: `Ìl y a bien $${(temperatures.length - 1) / 2}$ temperatures inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${(temperatures.length - 1) / 2}$ temperatures supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
             couleur: 'nombres'
           })
         }
