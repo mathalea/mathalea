@@ -96,7 +96,7 @@ export default function RepetitionScratch () {
         prog += `\\blockmove{tourner \\turnright{} de \\ovalnum{${angleRot}} degrés}\n`
         prog += '} \n'
         prog += '\\end{scratch}'
-        this.listeQuestions[0] = `${scratchblock(prog)}<br>Quel figure le lutin va-t-il tracer ?` + propositionsQcm(this, 0).texte
+        this.listeQuestions[0] = `${scratchblock(prog)}<br>Quelle figure le lutin va-t-il tracer ?` + propositionsQcm(this, 0).texte
         this.listeCorrections[0] = `Un ${b[1]} a ${nbRep} côtés ($${nbRep}\\times ${angleRot}=360\\degree$), il faut donc répéter ${nbRep} fois les instructions de la boucle.<br>`
         this.listeCorrections[0] += texteEnCouleur(`Mentalement, on divise $360$ par $${angleRot}$ : $\\dfrac{360}{${angleRot}}=${nbRep}$.`)
         break
