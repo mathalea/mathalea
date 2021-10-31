@@ -2647,7 +2647,7 @@ export default {
     "url": "/exercices/4e/4C21-1.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpenNum✖︎2"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -2701,7 +2701,7 @@ export default {
     "url": "/exercices/4e/4C22-2.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpenNum✖︎2"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -2720,7 +2720,7 @@ export default {
     "url": "/exercices/4e/4C22.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpenNum✖︎2"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -2739,7 +2739,7 @@ export default {
     "url": "/exercices/4e/4C23-1.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpenNum✖︎2"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -9006,7 +9006,7 @@ export default {
     }
   },
   "can2G06": {
-    "titre": "Calcul d’une distance dans un repère",
+    "titre": "Coefficient directeur d'une droite",
     "url": "/exercices/can/2e/can2G06.js",
     "amcReady": false,
     "interactifReady": true,
@@ -10920,7 +10920,7 @@ export default {
     }
   },
   "can5P03": {
-    "titre": "Pourcentage (proportion) 2",
+    "titre": "Problèmes de proportionnalité",
     "url": "/exercices/can/5e/can5P03.js",
     "amcReady": true,
     "amcType": {
@@ -10930,7 +10930,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5P03",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
     },
     "updateEx": {
@@ -12672,6 +12672,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
+  "PEA11-2": {
+    "titre": "Additions et soustractions dans d'autres bases",
+    "url": "/exercices/PE/PEA11-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "PEA11-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
   "PEA11": {
     "titre": "Passer de la base 10 à une autre base et inversement",
     "url": "/exercices/PE/PEA11.js",
@@ -12723,6 +12738,36 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "PEG22",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "PEG23": {
+    "titre": "Réaliser le produit de deux longueurs à la règle non graduée et au compas",
+    "url": "/exercices/PE/PEG23.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "PEG23",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "PEG24": {
+    "titre": "Réaliser le quotient de deux longueurs à la règle non graduée et au compas",
+    "url": "/exercices/PE/PEG24.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "PEG24",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
