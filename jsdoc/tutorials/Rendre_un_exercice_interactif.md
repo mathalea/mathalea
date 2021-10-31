@@ -595,8 +595,11 @@ Cette fois-ci, **ce rajout de code n'est toutefois pas suffisant**, car, dans ch
 Donc il faudra imposer à l'export AMC une unique solution (ce sera la valeur du milieu de l'intervalle) et préciser l'écart accepté entre la réponse fournie par l'élève et la valeur du milieu de l'intervalle (ce sera donc la demi-valeur de l'intervalle) . Le code ci-dessous décrit ce fonctionnement.
 
 >>```js
+>> // Pour le formatInteractif : 'intervalle'
+>> setReponse(this, i, [a,b], {milieuIntervalle: calcul((a+b)/2), approx:calcul((b-a)/2), formatInteractif: 'intervalle'})
 >>
->> setReponse(this, i, [a,b], {milieuIntervalle: calcul((a+b)/2), approx:calcul((b-a)/2), formatInteractif: 'intervalle'}) // ou bien setReponse(this, i, [a,b], {milieuIntervalle: calcul((a+b)/2), approx:calcul((b-a)/2), formatInteractif: 'intervalleStrict'})
+>> // Pour le formatInteractif : 'intervalleStrict'
+>> setReponse(this, i, [a,b], {milieuIntervalle: calcul((a+b)/2), approx:calcul((b-a)/2-0.00001), formatInteractif: 'intervalleStrict'})
 >>```
 
 >>>>## <a id="export_AMC_automatise_mathLive_texte" href="#export_AMC_automatise_mathLive_texte"></a> [3. 1. 5. Avec `formatInteractif : 'texte'`, `formatInteractif : 'ignorerCasse'` ou `formatInteractif : 'longueur'`](#export_AMC_automatise_mathLive_texte)

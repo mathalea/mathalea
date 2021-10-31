@@ -7218,6 +7218,7 @@ export function exportQcmAmc (exercice, idExo) {
         lastchoice = autoCorrection[j].options.lastChoice
       }
     }
+    let valeurAMCNum = autoCorrection[j].reponse.valeur[0]
     switch (type) {
       case 'qcmMono': // question QCM 1 bonne réponse
         if (elimineDoublons(autoCorrection[j].propositions)) {
@@ -7349,7 +7350,7 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n\\end{multicols}\n\\end{minipage}\n}\n\n'
           id += 2
-        } else if (autoCorrection[j].reponse.valeur[0].num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
+        } else if (valeurAMCNum.num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
           texQr += `\\element{${ref}}{\n`
           texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
           texQr += `${autoCorrection[j].enonce} \n`
@@ -7358,41 +7359,54 @@ export function exportQcmAmc (exercice, idExo) {
           }
           let digitsNum = 0
           if (autoCorrection[j].reponse.param.digitsNum !== undefined) {
-            digitsNum = max(autoCorrection[j].reponse.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0].num))
+            digitsNum = max(autoCorrection[j].reponse.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
           } else if (autoCorrection[j].reponse.param.digits !== undefined) {
-            digitsNum = max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0].num))
+            digitsNum = max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
           } else {
-            digitsNum = nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0].num)
+            digitsNum = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num)
           }
           let digitsDen = 0
           if (autoCorrection[j].reponse.param.digitsDen !== undefined) {
-            digitsDen = max(autoCorrection[j].reponse.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0].den))
+            digitsDen = max(autoCorrection[j].reponse.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
           } else if (autoCorrection[j].reponse.param.digits !== undefined) {
-            digitsDen = max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0].den))
+            digitsDen = max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
           } else {
-            digitsDen = nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0].den)
+            digitsDen = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)
           }
           let signeNum = true
           if (autoCorrection[j].reponse.param.signe !== undefined) {
             signeNum = autoCorrection[j].reponse.param.signe
           } else {
-            signeNum = autoCorrection[j].reponse.valeur[0].signe === -1
+            signeNum = valeurAMCNum.signe === -1
           }
-          const reponseF = calcul(autoCorrection[j].reponse.valeur[0].num + autoCorrection[j].reponse.valeur[0].den / (10 ** nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0].den)))
-          const reponseAlsoCorrect = calcul(autoCorrection[j].reponse.valeur[0].num + autoCorrection[j].reponse.valeur[0].den / (10 ** digitsDen))
+          let reponseF
+          let reponseAlsoCorrect
+          if (valeurAMCNum.num > 0) {
+            reponseF = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
+            reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
+          } else {
+            reponseF = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
+            reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
+          }
           texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
           texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
           texQr += '\\end{questionmultx}\n}\n\n'
           id += 2
         } else {
+          if (autoCorrection[j].reponse.param.milieuIntervalle !== undefined) {
+            valeurAMCNum = autoCorrection[j].reponse.param.milieuIntervalle
+            if (autoCorrection[j].reponse.param.approx === undefined) {
+              autoCorrection[j].reponse.param.approx = 0 // Seul milieuIntervalle sera accepté
+            }
+          }
           let nbChiffresExpo
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) {
-            nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(autoCorrection[j].reponse.valeur[0])[0]), autoCorrection[j].reponse.param.decimals)
-            nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(autoCorrection[j].reponse.valeur[0])[0]), autoCorrection[j].reponse.param.digits - nbChiffresPd)
-            nbChiffresExpo = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(autoCorrection[j].reponse.valeur[0])[1]), autoCorrection[j].reponse.param.exposantNbChiffres)
+            nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.decimals)
+            nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.digits - nbChiffresPd)
+            nbChiffresExpo = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[1]), autoCorrection[j].reponse.param.exposantNbChiffres)
           } else {
-            nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(autoCorrection[j].reponse.valeur[0]), autoCorrection[j].reponse.param.decimals)
-            nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0]), autoCorrection[j].reponse.param.digits - nbChiffresPd)
+            nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(valeurAMCNum), autoCorrection[j].reponse.param.decimals)
+            nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(valeurAMCNum), autoCorrection[j].reponse.param.digits - nbChiffresPd)
           }
           texQr += `\\element{${ref}}{\n `
           texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
@@ -7400,7 +7414,7 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].propositions !== undefined) {
             texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
           }
-          texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur[0]}}{digits=${nbChiffresPe + nbChiffresPd},decimals=${nbChiffresPd},sign=${autoCorrection[j].reponse.param.signe},`
+          texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${nbChiffresPe + nbChiffresPd},decimals=${nbChiffresPd},sign=${autoCorrection[j].reponse.param.signe},`
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
             texQr += `exponent=${nbChiffresExpo},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
           }
@@ -7421,7 +7435,6 @@ export function exportQcmAmc (exercice, idExo) {
           id++
         }
         break
-
       case 'AMCOpenNum': // AMCOpen + AMCnumeric Choices. (A ne plus utiliser au profit de AMCHybride)
         /********************************************************************/
         // On pourra rajouter des options : les paramètres sont nommés.
@@ -7451,11 +7464,11 @@ export function exportQcmAmc (exercice, idExo) {
         // texQr += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
-          reponse = autoCorrection[j].reponse.valeur[0]
+          // reponse = autoCorrection[j].reponse.valeur[0]
           if (autoCorrection[j].reponse.param.digits === 0) {
-            nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+            nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(valeurAMCNum)
             autoCorrection[j].reponse.param.decimals = nbChiffresPd
-            nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
+            nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum)
             autoCorrection[j].reponse.param.digits = nbChiffresPd + nbChiffresPe
           } else if (autoCorrection[j].reponse.param.decimals === undefined) {
             autoCorrection[j].reponse.param.decimals = 0
@@ -7470,7 +7483,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\begin{minipage}[b]{0.3 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
-        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur[0]}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
+        texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres === 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
         }
@@ -7519,7 +7532,7 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
-        reponse = autoCorrection[j].reponse.valeur[0]
+        reponse = valeurAMCNum
         if (autoCorrection[j].reponse.param.digits === 0) {
           nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
           autoCorrection[j].reponse.param.decimals = nbChiffresPd
@@ -7533,7 +7546,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
         texQr += `${autoCorrection[j].reponse.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
-        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur[0]}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
+        texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
         }
@@ -7602,7 +7615,7 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
-        reponse = autoCorrection[j].reponse.valeur[0]
+        reponse = valeurAMCNum
         if (autoCorrection[j].reponse.param.digits === 0) {
           nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
           autoCorrection[j].reponse.param.decimals = nbChiffresPd
@@ -7617,7 +7630,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
         if (autoCorrection[j].reponse.textePosition === 'top') texQr += `${autoCorrection[j].reponse.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
         else if (autoCorrection[j].reponse.textePosition === 'left') texQr += `${autoCorrection[j].reponse.texte} `
-        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur[0]}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
+        texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
         }
@@ -7859,8 +7872,15 @@ export function exportQcmAmc (exercice, idExo) {
                 } else {
                   signeNum = (rep.valeur[0] < 0)
                 }
-                const reponseF = calcul(rep.valeur[0] + rep.valeur[1] / (10 ** nombreDeChiffresDansLaPartieEntiere(rep.valeur[1])))
-                const reponseAlsoCorrect = calcul(rep.valeur[0] + rep.valeur[1] / (10 ** digitsDen))
+                let reponseF
+                let reponseAlsoCorrect
+                if (valeurAMCNum.num > 0) {
+                  reponseF = calcul(rep.valeur[0] + rep.valeur[1] / (10 ** nombreDeChiffresDansLaPartieEntiere(rep.valeur[1])))
+                  reponseAlsoCorrect = calcul(rep.valeur[0] - rep.valeur[1] / (10 ** digitsDen))
+                } else {
+                  reponseF = calcul(rep.valeur[0] - rep.valeur[1] / (10 ** nombreDeChiffresDansLaPartieEntiere(rep.valeur[1])))
+                  reponseAlsoCorrect = calcul(rep.valeur[0] - rep.valeur[1] / (10 ** digitsDen))
+                }
                 texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
                 texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
                 if (!(propositions[0].alignement === undefined)) {
@@ -7870,6 +7890,12 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += '\\end{questionmultx}\n'
                 id += 2
               } else {
+                if (rep.param.milieuIntervalle !== undefined) {
+                  rep.valeur[0] = rep.param.milieuIntervalle
+                  if (rep.param.approx === undefined) {
+                    rep.param.approx = 0 // Seul milieuIntervalle sera accepté
+                  }
+                }
                 let nbChiffresExpo
                 if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) {
                   nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(rep.valeur[0])[0]), rep.param.decimals)
