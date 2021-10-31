@@ -2498,7 +2498,7 @@ export default function Alea2iep () {
    * @param {} nom
    * @param {*} A
    * @param {*} c
-   * @returns
+   * @returns M
    */
   this.partageSegment = (A, B, n, d, { distance = 1, monAngle = 40, nom = '', nommerGraduations = false } = {}) => {
     this.traitRapide(A, B)
@@ -2525,6 +2525,7 @@ export default function Alea2iep () {
     if (nom) this.pointCreer(M, { label: nom })
     this.regleMasquer()
     this.crayonMasquer()
+    return M
   }
 
   /**
