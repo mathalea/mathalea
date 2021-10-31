@@ -1,11 +1,14 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, prenom, tirerLesDes, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre, texteGras, lampeMessage, combinaisonListes } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint, choice, prenom, tirerLesDes, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre, texteGras, lampeMessage, combinaisonListes, calcul } from '../../modules/outils.js'
 
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Déterminer des médianes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true // pour définir que l'exercice est exportable à AMC
+export const amcType = 'AMCNum'
 
 export const dateDeModifImportante = '28/10/2021'
 
@@ -204,7 +207,6 @@ export default function DeterminerDesMedianes () {
             couleur: 'nombres'
           })
           scoresMedians[0] === scoresMedians[1] ? repInteractive = scoresMedians[0] : repInteractive = scoresMedians
-          texte += scoresMedians
         } else { // Le nombre de lancers est impair ici
           texteCorr += `Le nombre de lancers est impair, les scores sont rangés dans l'odre croissant.<br>
           La valeur centrale est la $${(nombreTirages - 1) / 2 + 1}^{e}$ valeur.<br>
@@ -271,7 +273,7 @@ export default function DeterminerDesMedianes () {
           Une médiane est donc la $${(notes.length + 1) / 2}^{e}$ note, lorsque ces notes sont rangées.<br>`
         };
         let medianeCorr // pour la correction statique
-        Array.isArray(mediane) ? medianeCorr = (mediane[0] + mediane[1]) / 2 : medianeCorr = mediane[0]
+        Array.isArray(mediane) ? medianeCorr = (mediane[0] + mediane[1]) / 2 : medianeCorr = mediane
         texteCorr += `D'où ${texteGras(`la note médiane : ${texNombre(medianeCorr)}`)}<br>`
         if (notes.length % 2 === 0) {
           texteCorr += lampeMessage({
@@ -350,7 +352,7 @@ export default function DeterminerDesMedianes () {
           Une médiane est donc la $${(temperatures.length + 1) / 2}^{e}$ temperature, lorsque ces temperatures sont rangées.<br>`
         };
         let medianeCorr // pour la correction statique
-        Array.isArray(mediane) ? medianeCorr = (mediane[0] + mediane[1]) / 2 : medianeCorr = mediane[0]
+        Array.isArray(mediane) ? medianeCorr = (mediane[0] + mediane[1]) / 2 : medianeCorr = mediane
         texteCorr += `D'où ${texteGras(`une temperature médiane : ${texNombre(medianeCorr)}`)}<br>`
         if (temperatures.length % 2 === 0) {
           texteCorr += lampeMessage({
@@ -369,14 +371,15 @@ export default function DeterminerDesMedianes () {
       }
 
       // On factorise la question
-      this.interactif ? texte += '<br><br>Déterminer une médiane de cette série : ' : texte += '<br><br>Déterminer une médiane de cette série.'
+      (this.interactif && !context.isAmc) ? texte += '<br><br>Déterminer une médiane de cette série : ' : texte += '<br><br>Déterminer une médiane de cette série.'
 
       if (Array.isArray(repInteractive)) {
-        setReponse(this, i, repInteractive, { formatInteractif: 'intervalleStrict' })
+        // setReponse(this, i, repInteractive, { formatInteractif: 'intervalleStrict' })
+        setReponse(this, i, repInteractive, { milieuIntervalle: calcul((repInteractive[0] + repInteractive[1]) / 2), approx: calcul((repInteractive[1] - repInteractive[0]) / 2 - 0.00001), formatInteractif: 'intervalleStrict' })
       } else {
         setReponse(this, i, repInteractive)
       }
-      if (this.interactif) {
+      if (this.interactif && !context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur20 inline')
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
