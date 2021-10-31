@@ -29,10 +29,8 @@ export default function Resolutionavecformecanonique () {
       this.consigne += '<br> '
     }
     const listeTypeDeQuestions = combinaisonListes([true, true, false], this.nbQuestions)
-    for (let i = 0, texte, texteCorr, a, b, p, b1, b2, c1, x1String, x2String, stringX1, stringX2, x1, x2, c, delta, alpha, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, b, p, b2, x1String, x2String, stringX1, stringX2, x1, x2, c, delta, alpha, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       [a, b, c] = choisiDelta(listeTypeDeQuestions[i])
-      c1 = fraction(c, a)
-      b1 = fraction(b, a)
       alpha = fraction(b, 2 * a)
       delta = b * b - 4 * a * c
       b2 = fraction(delta, 4 * a * a).simplifie() // terme b² dans l'expression a²-b²

@@ -7355,10 +7355,8 @@ export function exportQcmAmc (exercice, idExo) {
           id += 2
         } else if (autoCorrection[j].reponse.valeur[0].num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
           texQr += `\\element{${ref}}{\n`
-          texQr += '\\begin{minipage}{\\textwidth}\n'
-          texQr += '\\begin{multicols}{2}\n'
           texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-          texQr += `${autoCorrection[j].enonce} \n \\vspace{0.25cm} \n`
+          texQr += `${autoCorrection[j].enonce} \n`
           if (autoCorrection[j].propositions !== undefined) {
             texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
           }
@@ -7384,16 +7382,11 @@ export function exportQcmAmc (exercice, idExo) {
           } else {
             signeNum = autoCorrection[j].reponse.valeur[0].signe === -1
           }
-          texQr += '\n'
-          texQr += `Numérateur\n \\AMCnumericChoices{${autoCorrection[j].reponse.valeur[0].num}}{digits=${digitsNum},decimals=0,sign=${signeNum},approx=0,`
-          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
-          texQr += '\\end{questionmultx}\n'
-          texQr += '\\AMCquestionNumberfalse\\def\\AMCbeginQuestion#1#2{}'
-          texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 1}} \n `
-          texQr += '\\vspace{1cm}'
-          texQr += `Dénominateur\n \\AMCnumericChoices{${autoCorrection[j].reponse.valeur[0].den}}{digits=${digitsDen},decimals=0,sign=false,approx=0,`
-          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
-          texQr += '\\end{questionmultx}\n\\end{multicols}\n\\end{minipage}\n}\n\n'
+          const reponseF = calcul(autoCorrection[j].reponse.valeur[0].num + autoCorrection[j].reponse.valeur[0].den / (10 ** nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.valeur[0].den)))
+          const reponseAlsoCorrect = calcul(autoCorrection[j].reponse.valeur[0].num + autoCorrection[j].reponse.valeur[0].den / (10 ** digitsDen))
+          texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
+          texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
+          texQr += '\\end{questionmultx}\n}\n\n'
           id += 2
         } else {
           let nbChiffresExpo
@@ -7705,7 +7698,6 @@ export function exportQcmAmc (exercice, idExo) {
           break
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
-        texQr += '\\begin{minipage}{\\textwidth}\n'
         if (autoCorrection[j].enonceAvant === undefined) { // Dans une suite de questions, il se peut qu'il n'y ait pas d'énoncé général donc pas besoin de saut de ligne non plus.
           texQr += `${autoCorrection[j].enonce} \\\\\n `
         }
@@ -7738,7 +7730,6 @@ export function exportQcmAmc (exercice, idExo) {
                   lastchoice = prop.options.lastChoice
                 }
               }
-              // texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
               texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
               if (propositions[0].reponse !== undefined) {
                 if (propositions[0].reponse.texte) {
@@ -7781,7 +7772,6 @@ export function exportQcmAmc (exercice, idExo) {
                   lastchoice = prop.options.lastChoice
                 }
               }
-              // texQr += `\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
               texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
               texQr += `\t\\begin{${horizontalite}}`
               if (ordered) {
@@ -7804,53 +7794,128 @@ export function exportQcmAmc (exercice, idExo) {
               break
             case 'AMCNum':
               rep = prop.propositions[0].reponse
-              if (!Array.isArray(rep.valeur)) {
+              if (!Array.isArray(rep.valeur)) { // rep.valeur est un tableau si la réponse est une fraction
                 rep.valeur = [rep.valeur]
               }
-              if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres === 0) {
-                reponse = rep.valeur[0]
-                if (rep.param.digits === 0) {
-                  nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
-                  rep.param.decimals = nbChiffresPd
-                  nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
-                  rep.param.digits = nbChiffresPd + nbChiffresPe
-                } else if (rep.param.decimals === undefined) {
-                  rep.param.decimals = 0
+              if (rep.param.basePuissance !== undefined) {
+                if (rep.param.exposantPuissance === undefined) {
+                  rep.param.exposantPuissance = 1000 // Nb volontairement grand pour faire comprendre à l'utilisateur AMC qu'il y a eu une erreur de programmation lors de la conception de l'exercice.
                 }
+                texQr += '\\begin{minipage}{\\textwidth}\n'
+                texQr += '\\begin{multicols}{2}\n'
+                texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+                if (propositions !== undefined) {
+                  texQr += `\\explain{${propositions[0].texte}}\n`
+                }
+                texQr += `${rep.texte}\n \\vspace{0.25cm} \n`
+                let digitsBase = 0
+                if (rep.param.baseNbChiffres !== undefined) {
+                  digitsBase = max(rep.param.baseNbChiffres, nombreDeChiffresDansLaPartieEntiere(rep.param.basePuissance))
+                } else {
+                  digitsBase = nombreDeChiffresDansLaPartieEntiere(rep.param.basePuissance)
+                }
+                let digitsExposant = 0
+                if (rep.param.exposantNbChiffres !== undefined) {
+                  digitsExposant = max(rep.param.exposantNbChiffres, nombreDeChiffresDansLaPartieEntiere(rep.param.exposantPuissance))
+                } else {
+                  digitsExposant = nombreDeChiffresDansLaPartieEntiere(rep.param.exposantPuissance)
+                }
+                texQr += '\n'
+                texQr += `Base\n \\AMCnumericChoices{${rep.param.basePuissance}}{digits=${digitsBase},decimals=0,sign=false,approx=0,`
+                texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+                texQr += '\\end{questionmultx}\n'
+                texQr += '\\AMCquestionNumberfalse\\def\\AMCbeginQuestion#1#2{}'
+                texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 1}} \n `
+                texQr += '\\vspace{18pt}'
+                texQr += `Exposant\n \\AMCnumericChoices{${rep.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=false,approx=0,`
+                texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+                texQr += '\\end{questionmultx}\\end{multicols}\n\\end{minipage}\n\n'
+                id += 2
+              } else if (rep.valeur.length === 2) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
+                texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+                if (!(propositions[0].alignement === undefined)) {
+                  texQr += '\\begin{'
+                  texQr += `${propositions[0].alignement}}`
+                }
+                if (propositions !== undefined) {
+                  texQr += `\\explain{${propositions[0].texte}}\n`
+                }
+                texQr += `${rep.texte}\n`
+                let digitsNum = 0
+                if (rep.param.digitsNum !== undefined) {
+                  digitsNum = max(rep.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(rep.valeur[0]))
+                } else if (rep.param.digits !== undefined) {
+                  digitsNum = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(rep.valeur[0]))
+                } else {
+                  digitsNum = nombreDeChiffresDansLaPartieEntiere(rep.valeur[0].num)
+                }
+                let digitsDen = 0
+                if (rep.param.digitsDen !== undefined) {
+                  digitsDen = max(rep.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(rep.valeur[1]))
+                } else if (rep.param.digits !== undefined) {
+                  digitsDen = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(rep.valeur[1]))
+                } else {
+                  digitsDen = nombreDeChiffresDansLaPartieEntiere(rep.valeur[1])
+                }
+                let signeNum = true
+                if (rep.param.signe !== undefined) {
+                  signeNum = rep.param.signe
+                } else {
+                  signeNum = (rep.valeur[0] < 0)
+                }
+                const reponseF = calcul(rep.valeur[0] + rep.valeur[1] / (10 ** nombreDeChiffresDansLaPartieEntiere(rep.valeur[1])))
+                const reponseAlsoCorrect = calcul(rep.valeur[0] + rep.valeur[1] / (10 ** digitsDen))
+                texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
+                texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
+                if (!(propositions[0].alignement === undefined)) {
+                  texQr += '\\end{'
+                  texQr += `${propositions[0].alignement}}`
+                }
+                texQr += '\\end{questionmultx}\n'
+                id += 2
+              } else {
+                let nbChiffresExpo
+                if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) {
+                  nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(rep.valeur[0])[0]), rep.param.decimals)
+                  nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[0]), rep.param.digits - nbChiffresPd)
+                  nbChiffresExpo = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[1]), rep.param.exposantNbChiffres)
+                } else {
+                  nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(rep.valeur[0]), rep.param.decimals)
+                  nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(rep.valeur[0]), rep.param.digits - nbChiffresPd)
+                }
+                texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+                if (propositions !== undefined) {
+                  texQr += `\\explain{${propositions[0].texte}}\n`
+                }
+                texQr += `${rep.texte}\n`
+                if (!(propositions[0].alignement === undefined)) {
+                  texQr += '\\begin{'
+                  texQr += `${propositions[0].alignement}}`
+                }
+                texQr += `\\AMCnumericChoices{${rep.valeur[0]}}{digits=${nbChiffresPe + nbChiffresPd},decimals=${nbChiffresPd},sign=${rep.param.signe},`
+                if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+                  texQr += `exponent=${nbChiffresExpo},exposign=${rep.param.exposantSigne},`
+                }
+                if (rep.param.approx !== undefined && rep.param.approx !== 0) {
+                  texQr += `approx=${rep.param.approx},`
+                }
+                if (rep.param.vertical !== undefined && rep.param.vertical) {
+                  texQr += `vertical=${rep.param.vertical},`
+                }
+                if (rep.param.strict !== undefined && rep.param.strict) {
+                  texQr += `strict=${rep.param.strict},`
+                }
+                if (rep.param.vhead !== undefined && rep.param.vhead) {
+                  texQr += `vhead=${rep.param.vhead},`
+                }
+                texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+                if (!(propositions[0].alignement === undefined)) {
+                  texQr += '\\end{'
+                  texQr += `${propositions[0].alignement}}`
+                }
+                texQr += '\\end{questionmultx}\n'
+                id++
               }
-              // texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-              texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-              if (propositions !== undefined) {
-                texQr += `\\explain{${propositions[0].texte}}\n`
-              }
-              texQr += `${rep.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
-              if (!(propositions[0].alignement === undefined)) {
-                texQr += '\\begin{'
-                texQr += `${propositions[0].alignement}}`
-              }
-              texQr += `\\AMCnumericChoices{${rep.valeur[0]}}{digits=${rep.param.digits},decimals=${rep.param.decimals},sign=${rep.param.signe},`
-              if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
-                texQr += `exponent=${rep.param.exposantNbChiffres},exposign=${rep.param.exposantSigne},`
-              }
-              if (rep.param.approx !== undefined && rep.param.approx !== 0) {
-                texQr += `approx=${rep.param.approx},`
-              }
-              if (rep.param.vertical !== undefined && rep.param.vertical) {
-                texQr += `vertical=${rep.param.vertical},`
-              }
-              if (rep.param.strict !== undefined && rep.param.strict) {
-                texQr += `strict=${rep.param.strict},`
-              }
-              if (rep.param.vhead !== undefined && rep.param.vhead) {
-                texQr += `vhead=${rep.param.vhead},`
-              }
-              texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
-              if (!(propositions[0].alignement === undefined)) {
-                texQr += '\\end{'
-                texQr += `${propositions[0].alignement}}`
-              }
-              texQr += '\\end{questionmultx}\n'
-              id++
               break
             case 'AMCOpen':
               // texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
@@ -7872,7 +7937,7 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += '\\end{multicols}\n'
           }
         }
-        texQr += '\\end{minipage}\n}\n'
+        texQr += '}\n'
         break
     }
   }
