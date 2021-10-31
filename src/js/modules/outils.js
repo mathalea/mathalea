@@ -1954,22 +1954,26 @@ export function objet () {
  * le 14/03/2021
  */
 class Personne {
-  constructor ({ prenom = '', genre = '', pronom = '' } = {}) {
+  constructor ({ prenom = '', genre = '', pronom = '', Pronom = '' } = {}) {
     let choix
     this.prenom = ''
     this.genre = ''
     this.pronom = ''
+    this.Pronom = ''
     if (prenom === '' || ((typeof prenom) === 'undefined')) { // On le/la baptise
       choix = prenomPronom()
       this.prenom = choix[0]
       this.pronom = choix[1]
     } else if (pronom === '') { // le pronom n'est pas précisé
       this.pronom = 'on'
+      this.Pronom = 'On'
     }
     if (genre === '') {
       if (this.pronom === 'il') {
+        this.Pronom = 'Il'
         this.genre = 'masculin'
       } else if (this.pronom === 'elle') {
+        this.Pronom = 'Elle'
         this.genre = 'féminin'
       } else this.genre = 'neutre'
     }

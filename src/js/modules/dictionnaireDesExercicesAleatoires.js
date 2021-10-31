@@ -1240,6 +1240,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
+  "3A12-2": {
+    "titre": "Problèmes d'évenements récurrents",
+    "url": "/exercices/3e/3A12-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3A12-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
   "3A12": {
     "titre": "Fractions irréductibles",
     "url": "/exercices/3e/3A12.js",
@@ -2411,6 +2426,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "4A11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "4A12": {
+    "titre": "Problèmes d'évenements récurrents",
+    "url": "/exercices/4e/4A12.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4A12",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
@@ -12673,11 +12703,26 @@ export default {
     }
   },
   "PEG21": {
-    "titre": "Utiliser le théorème de la hauteur",
+    "titre": "Tracer une racine au compas et à la règle non graduée à l'aide du théorème de la hauteur",
     "url": "/exercices/PE/PEG21.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "PEG21",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "PEG22": {
+    "titre": "Tracer une racine au compas et à la règle non graduée à l'aide du théorème de Pythagore",
+    "url": "/exercices/PE/PEG22.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "PEG22",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
