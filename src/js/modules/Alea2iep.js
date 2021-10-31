@@ -1704,8 +1704,6 @@ export default function Alea2iep () {
     this.compasMasquer()
     // this.pointCreer(D)
     this.regleSegment(N, P)
-    this.regleMasquer()
-    this.crayonMasquer()
     return D
   }
 
