@@ -1,11 +1,14 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, prenom, tirerLesDes, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre, texteGras, lampeMessage, combinaisonListes } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint, choice, prenom, tirerLesDes, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre, texteGras, lampeMessage, combinaisonListes, calcul } from '../../modules/outils.js'
 
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Déterminer des médianes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true // pour définir que l'exercice est exportable à AMC
+export const amcType = 'AMCNum'
 
 export const dateDeModifImportante = '28/10/2021'
 
@@ -152,7 +155,7 @@ export default function DeterminerDesMedianes () {
         }
         tirages = tirerLesDes(nombreTirages, nombreFaces, nombreDes) // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
         do { indexValeur = randint(0, tirages.length - 1) }
-        while (tirages[indexValeur][1] === 0) // on choisi au hasard l'index d'une valeur dont l'effectif est différent de 0.
+        while (tirages[indexValeur][1] === 0) // on choisit au hasard l'index d'une valeur dont l'effectif est différent de 0.
         if (nombreDes > 1) {
           texte = `On a réalisé $${nombreTirages}$ lancers de $${nombreDes}$ dés à $${nombreFaces}$ faces.<br>`
         } else {
@@ -182,7 +185,7 @@ export default function DeterminerDesMedianes () {
           // Pour cumuler les effectifs, tirages est un tableau 2D qui contient les couples [score,effectif]
           let effCumulCroiss = tirages[0][1]
           // On récupère le premier score médian
-          while (effCumulCroiss <= nombreTirages / 2) {
+          while (effCumulCroiss < nombreTirages / 2) {
             cpt += 1
             effCumulCroiss += tirages[cpt][1]
           };
@@ -190,15 +193,17 @@ export default function DeterminerDesMedianes () {
           // On récupère le second score médian
           cpt = 0
           effCumulCroiss = tirages[0][1]
-          while (effCumulCroiss <= nombreTirages / 2 + 1) {
+          while (effCumulCroiss < nombreTirages / 2 + 1) {
             cpt += 1
             effCumulCroiss += tirages[cpt][1]
           };
           scoresMedians.push(tirages[cpt][0])
-          texteCorr += `D'où ${texteGras(`le score médian : ${texNombre((scoresMedians[0] + scoresMedians[1]) / 2)}`)}<br>`
+          let medianeCorr // pour la correction statique
+          scoresMedians[0] === scoresMedians[1] ? medianeCorr = scoresMedians[0] : medianeCorr = (scoresMedians[0] + scoresMedians[1]) / 2
+          texteCorr += `D'où ${texteGras(`le score médian : ${texNombre(medianeCorr)}`)}<br>`
           texteCorr += lampeMessage({
             titre: 'Interprétation',
-            texte: `Ìl y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
+            texte: `Ìl y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr)}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr)}$.`,
             couleur: 'nombres'
           })
           scoresMedians[0] === scoresMedians[1] ? repInteractive = scoresMedians[0] : repInteractive = scoresMedians
@@ -267,17 +272,19 @@ export default function DeterminerDesMedianes () {
           En effet, ${underbraceMediane(notes.length)}<br>
           Une médiane est donc la $${(notes.length + 1) / 2}^{e}$ note, lorsque ces notes sont rangées.<br>`
         };
-        texteCorr += `D'où ${texteGras(`la note médiane : ${texNombre(mediane)}`)}<br>`
+        let medianeCorr // pour la correction statique
+        Array.isArray(mediane) ? medianeCorr = (mediane[0] + mediane[1]) / 2 : medianeCorr = mediane
+        texteCorr += `D'où ${texteGras(`la note médiane : ${texNombre(medianeCorr)}`)}<br>`
         if (notes.length % 2 === 0) {
           texteCorr += lampeMessage({
             titre: 'Interprétation',
-            texte: `Ìl y a bien $${notes.length / 2}$ notes inférieures ou égales à  $${texNombre(mediane)}$ et $${notes.length / 2}$ notes supérieures ou égales à  $${texNombre(mediane)}$.`,
+            texte: `Ìl y a bien $${notes.length / 2}$ notes inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${notes.length / 2}$ notes supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
             couleur: 'nombres'
           })
         } else {
           texteCorr += lampeMessage({
             titre: 'Interprétation',
-            texte: `Ìl y a bien $${(notes.length - 1) / 2}$ notes inférieures ou égales à  $${texNombre(mediane)}$ et $${(notes.length - 1) / 2}$ notes supérieures ou égales à  $${texNombre(mediane)}$.`,
+            texte: `Ìl y a bien $${(notes.length - 1) / 2}$ notes inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${(notes.length - 1) / 2}$ notes supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
             couleur: 'nombres'
           })
         }
@@ -344,17 +351,19 @@ export default function DeterminerDesMedianes () {
           En effet, ${underbraceMediane(temperatures.length)}<br>
           Une médiane est donc la $${(temperatures.length + 1) / 2}^{e}$ temperature, lorsque ces temperatures sont rangées.<br>`
         };
-        texteCorr += `D'où ${texteGras(`la temperature médiane : ${texNombre(mediane)}`)}<br>`
+        let medianeCorr // pour la correction statique
+        Array.isArray(mediane) ? medianeCorr = (mediane[0] + mediane[1]) / 2 : medianeCorr = mediane
+        texteCorr += `D'où ${texteGras(`une temperature médiane : ${texNombre(medianeCorr)}`)}<br>`
         if (temperatures.length % 2 === 0) {
           texteCorr += lampeMessage({
             titre: 'Interprétation',
-            texte: `Ìl y a bien $${temperatures.length / 2}$ temperatures inférieures ou égales à  $${texNombre(mediane)}$ et $${temperatures.length / 2}$ temperatures supérieures ou égales à  $${texNombre(mediane)}$.`,
+            texte: `Ìl y a bien $${temperatures.length / 2}$ temperatures inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${temperatures.length / 2}$ temperatures supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
             couleur: 'nombres'
           })
         } else {
           texteCorr += lampeMessage({
             titre: 'Interprétation',
-            texte: `Ìl y a bien $${(temperatures.length - 1) / 2}$ temperatures inférieures ou égales à  $${texNombre(mediane)}$ et $${(temperatures.length - 1) / 2}$ temperatures supérieures ou égales à  $${texNombre(mediane)}$.`,
+            texte: `Ìl y a bien $${(temperatures.length - 1) / 2}$ temperatures inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${(temperatures.length - 1) / 2}$ temperatures supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
             couleur: 'nombres'
           })
         }
@@ -362,14 +371,14 @@ export default function DeterminerDesMedianes () {
       }
 
       // On factorise la question
-      this.interactif ? texte += '<br><br>Déterminer une médiane de cette série : ' : texte += '<br><br>Déterminer une médiane de cette série.'
+      (this.interactif && !context.isAmc) ? texte += '<br><br>Déterminer une médiane de cette série : ' : texte += '<br>Déterminer une médiane de cette série.'
 
       if (Array.isArray(repInteractive)) {
-        setReponse(this, i, repInteractive, { formatInteractif: 'intervalleStrict' })
+        setReponse(this, i, repInteractive, { decimals: 1, milieuIntervalle: calcul((repInteractive[0] + repInteractive[1]) / 2), approx: 'intervalleStrict', formatInteractif: 'intervalleStrict' })
       } else {
         setReponse(this, i, repInteractive)
       }
-      if (this.interactif) {
+      if (this.interactif && !context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur20 inline')
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

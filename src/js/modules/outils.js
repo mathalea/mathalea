@@ -4304,6 +4304,10 @@ export function lampeMessage ({ titre, texte, couleur }) {
       </div>
       </div>
     `
+  } else if (context.isAmc) {
+    return `
+    {\\bf ${titre}} : ${texte}
+    `
   } else {
     return `
     \\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf ' + titre + `}
@@ -7447,12 +7451,6 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += '\\end{questionmultx}\n}\n\n'
           id += 2
         } else {
-          if (autoCorrection[j].reponse.param.milieuIntervalle !== undefined) {
-            valeurAMCNum = autoCorrection[j].reponse.param.milieuIntervalle
-            if (autoCorrection[j].reponse.param.approx === undefined) {
-              autoCorrection[j].reponse.param.approx = 0 // Seul milieuIntervalle sera accepté
-            }
-          }
           let nbChiffresExpo
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) {
             nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.decimals)
@@ -7461,6 +7459,12 @@ export function exportQcmAmc (exercice, idExo) {
           } else {
             nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(valeurAMCNum), autoCorrection[j].reponse.param.decimals)
             nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(valeurAMCNum), autoCorrection[j].reponse.param.digits - nbChiffresPd)
+          }
+          if (autoCorrection[j].reponse.param.milieuIntervalle !== undefined) {
+            const demiMediane = autoCorrection[j].reponse.param.milieuIntervalle - valeurAMCNum
+            nbChiffresPd = max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
+            valeurAMCNum = autoCorrection[j].reponse.param.milieuIntervalle
+            autoCorrection[j].reponse.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? calcul(demiMediane * 10 ** nbChiffresPd - 1) : calcul(demiMediane * 10 ** nbChiffresPd)
           }
           texQr += `\\element{${ref}}{\n `
           texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
@@ -7474,6 +7478,7 @@ export function exportQcmAmc (exercice, idExo) {
           }
           if (autoCorrection[j].reponse.param.approx !== undefined && autoCorrection[j].reponse.param.approx !== 0) {
             texQr += `approx=${autoCorrection[j].reponse.param.approx},`
+            texQr += 'scoreapprox=1,'
           }
           if (autoCorrection[j].reponse.param.vertical !== undefined && autoCorrection[j].reponse.param.vertical) {
             texQr += `vertical=${autoCorrection[j].reponse.param.vertical},`
@@ -7484,7 +7489,7 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
             texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
           }
-          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n }\n\n'
           id++
         }
@@ -7944,12 +7949,6 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += '\\end{questionmultx}\n'
                 id += 2
               } else {
-                if (rep.param.milieuIntervalle !== undefined) {
-                  rep.valeur[0] = rep.param.milieuIntervalle
-                  if (rep.param.approx === undefined) {
-                    rep.param.approx = 0 // Seul milieuIntervalle sera accepté
-                  }
-                }
                 let nbChiffresExpo
                 if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) {
                   nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(rep.valeur[0])[0]), rep.param.decimals)
@@ -7958,6 +7957,12 @@ export function exportQcmAmc (exercice, idExo) {
                 } else {
                   nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(rep.valeur[0]), rep.param.decimals)
                   nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(rep.valeur[0]), rep.param.digits - nbChiffresPd)
+                }
+                if (rep.param.milieuIntervalle !== undefined) {
+                  const demiMediane = rep.param.milieuIntervalle - valeurAMCNum
+                  nbChiffresPd = max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
+                  valeurAMCNum = rep.param.milieuIntervalle
+                  rep.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? calcul(demiMediane * 10 ** nbChiffresPd - 1) : calcul(demiMediane * 10 ** nbChiffresPd)
                 }
                 texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
                 if (propositions !== undefined) {
@@ -7974,6 +7979,7 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 if (rep.param.approx !== undefined && rep.param.approx !== 0) {
                   texQr += `approx=${rep.param.approx},`
+                  texQr += 'scoreapprox=1,'
                 }
                 if (rep.param.vertical !== undefined && rep.param.vertical) {
                   texQr += `vertical=${rep.param.vertical},`
@@ -7984,7 +7990,7 @@ export function exportQcmAmc (exercice, idExo) {
                 if (rep.param.vhead !== undefined && rep.param.vhead) {
                   texQr += `vhead=${rep.param.vhead},`
                 }
-                texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+                texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={,}}\n'
                 if (!(propositions[0].alignement === undefined)) {
                   texQr += '\\end{'
                   texQr += `${propositions[0].alignement}}`
