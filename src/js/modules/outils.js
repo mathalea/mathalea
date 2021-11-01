@@ -7460,7 +7460,6 @@ export function exportQcmAmc (exercice, idExo) {
           }
           if (autoCorrection[j].reponse.param.milieuIntervalle !== undefined) {
             const demiMediane = autoCorrection[j].reponse.param.milieuIntervalle - valeurAMCNum
-            console.log('demi-mediane : ' + autoCorrection[j].reponse.param.approx)
             nbChiffresPd = max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
             valeurAMCNum = autoCorrection[j].reponse.param.milieuIntervalle
             autoCorrection[j].reponse.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? calcul(demiMediane * 10 ** nbChiffresPd - 1) : calcul(demiMediane * 10 ** nbChiffresPd)
