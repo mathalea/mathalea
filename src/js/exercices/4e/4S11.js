@@ -155,7 +155,7 @@ export default function DeterminerDesMedianes () {
         }
         tirages = tirerLesDes(nombreTirages, nombreFaces, nombreDes) // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
         do { indexValeur = randint(0, tirages.length - 1) }
-        while (tirages[indexValeur][1] === 0) // on choisi au hasard l'index d'une valeur dont l'effectif est différent de 0.
+        while (tirages[indexValeur][1] === 0) // on choisit au hasard l'index d'une valeur dont l'effectif est différent de 0.
         if (nombreDes > 1) {
           texte = `On a réalisé $${nombreTirages}$ lancers de $${nombreDes}$ dés à $${nombreFaces}$ faces.<br>`
         } else {
@@ -371,10 +371,10 @@ export default function DeterminerDesMedianes () {
       }
 
       // On factorise la question
-      (this.interactif && !context.isAmc) ? texte += '<br><br>Déterminer une médiane de cette série : ' : texte += '<br><br>Déterminer une médiane de cette série.'
+      (this.interactif && !context.isAmc) ? texte += '<br><br>Déterminer une médiane de cette série : ' : texte += '<br>Déterminer une médiane de cette série.'
 
       if (Array.isArray(repInteractive)) {
-        setReponse(this, i, repInteractive, { decimals: 1, milieuIntervalle: calcul((repInteractive[0] + repInteractive[1]) / 2), formatInteractif: 'intervalleStrict' })
+        setReponse(this, i, repInteractive, { decimals: 1, milieuIntervalle: calcul((repInteractive[0] + repInteractive[1]) / 2), approx: 'intervalleStrict', formatInteractif: 'intervalleStrict' })
       } else {
         setReponse(this, i, repInteractive)
       }
