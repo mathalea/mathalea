@@ -1,8 +1,12 @@
 import Exercice from '../Exercice.js'
 import { combinaisonListes, listeNombresPremiersStrictJusqua, listeQuestionsToContenu, nombreAvecEspace, randint, texteEnCouleurEtGras, personne, warnMessage } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import { svgEngrenages } from '../../modules/macroSvgJs.js'
 import { context } from '../../modules/context.js'
+export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
+export const interactifType = 'mathLive'
+export const amcReady = true // pour définir que l'exercice est exportable AMC
+export const amcType = 'AMCNum'
 
 export const titre = 'Problèmes d\'évenements récurrents'
 
@@ -18,6 +22,7 @@ export default function ProblemesEvenementsRecurrents () {
   this.sup = 1
   this.besoinFormulaireNumerique = ['Difficulté', 3, '1 : 1 facteur commun, 1 facteur spécifique\n2 : 2 facteurs communs, 1 facteur spécifique\n3 : 2 facteurs communs, 2 facteurs spécifiques']
   this.correctionDetailleeDisponible = true
+  this.interactif = false
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
@@ -65,7 +70,7 @@ export default function ProblemesEvenementsRecurrents () {
           break
       }
       let unite, phenomene1, phenomene2, texte1, texte2, texte3, texte4, cycles
-      saveurs[i] = 'engrenages'
+      const variableEngrenages = randint(1, 3)
       const Robert = personne()
       switch (saveurs[i]) {
         case 'guirlande':
@@ -137,9 +142,25 @@ export default function ProblemesEvenementsRecurrents () {
             this.introduction = txtIntro
           }
           texte = `Une première roue possède ${nombreAvecEspace(Commun * A)} dents et une seconde en possède ${nombreAvecEspace(Commun * B)}.<br>
-          Elles tournent jusqu'à revenir (pour la première fois) en position initiale<br>
-          De combien de dents chaque roue aura tourné ?
-          Combien de tours aura effectué chaque roue ?`
+          Elles tournent jusqu'à revenir (pour la première fois) en position initiale<br>`
+          if (this.interactif) {
+            switch (variableEngrenages) {
+              case 1:
+                texte += 'De combien de dents chaque roue aura tourné ?'
+                break
+              case 2:
+                texte += 'Combien de tours aura fait la première roue ?'
+                break
+              case 3:
+                texte += 'Combien de tours aura fait la deuxième roue ?'
+                break
+              default:
+                break
+            }
+          } else {
+            texte += `De combien de dents chaque roue aura tourné ?<br>
+            Combien de tours aura effectué chaque roue ?`
+          }
           unite = 'dents'
           phenomene1 = 'la première roue'
           phenomene2 = 'la deuxième roue'
@@ -183,7 +204,6 @@ export default function ProblemesEvenementsRecurrents () {
         Un moyen d'y arriver est de décomposer les nombres de ${unite} en produits de facteurs premiers et d'identifier les différences entre les décompositions :<br>`
       }
       if (this.sup === 3) {
-        console.log(indicesFacteursCommuns[1])
         if (indicesFacteursA[0] >= indicesFacteursCommuns[1]) {
           texteCorr += `${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} = ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[0]], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[1]], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursA[0]], 'red')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursA[1]], 'red')} <br>`
         } else if (indicesFacteursA[0] >= indicesFacteursCommuns[0] && indicesFacteursA[0] < indicesFacteursCommuns[1]) {
@@ -219,8 +239,30 @@ export default function ProblemesEvenementsRecurrents () {
          (${decompositionCommun} $\\times$ ${decompositionB}) $\\times$ ${decompositionA} =
          ${texteEnCouleurEtGras(nombreAvecEspace(Commun * B), 'green')} $\\times$ ${texteEnCouleurEtGras(nombreAvecEspace(A), 'red')}<br>`
       }
-      setReponse(this, i, 9)
-      if (this.interactif) texte += ajouteChampTexte(this, i)
+      if (saveurs[i] === 'engrenages') {
+        switch (variableEngrenages) {
+          case 1:
+            setReponse(this, i, Commun * A * B)
+            break
+          case 2:
+            setReponse(this, i, B)
+            break
+          case 3:
+            setReponse(this, i, A)
+            break
+          default:
+            break
+        }
+      } else {
+        setReponse(this, i, Commun * A * B)
+      }
+      if (this.interactif && !context.isAmc) { // Si l'exercice est interactif
+        if (saveurs[i] === 'engrenages' && variableEngrenages > 1) {
+          texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' tours' })
+        } else {
+          texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' ' + unite })
+        }
+      }
       if (this.questionJamaisPosee(Commun, A, B)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
