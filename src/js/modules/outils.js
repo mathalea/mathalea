@@ -1070,24 +1070,26 @@ export function baseNVersBase10 (stringNombre, b) {
 }
 
 export function base10VersBaseN (nombre, b) {
-  let puissanceMax = 0
-  let chiffre
-  let valeur
-  let code = ''
-  while (b ** (puissanceMax + 1) < nombre) {
-    puissanceMax++
-  }
-  for (let i = puissanceMax; i >= 0; i--) {
-    chiffre = 0
-    do {
-      valeur = chiffre * b ** i
-      chiffre++
-    } while (valeur + b ** i <= nombre)
-    chiffre--
-    code += baseValeur(chiffre)
-    nombre -= chiffre * b ** i
-  }
-  return code
+  // let puissanceMax = 0
+  // let chiffre
+  // let valeur
+  // let code = ''
+  // while (b ** (puissanceMax + 1) < nombre) {
+  //   puissanceMax++
+  // }
+  // for (let i = puissanceMax; i >= 0; i--) {
+  //   chiffre = 0
+  //   do {
+  //     valeur = chiffre * b ** i
+  //     chiffre++
+  //   } while (valeur + b ** i <= nombre)
+  //   chiffre--
+  //   code += baseValeur(chiffre)
+  //   nombre -= chiffre * b ** i
+  // }
+  // return code
+  return nombre.toString(b).toUpperCase()
+  // Il y avait un probleme avec 3 = (3)_3
 }
 
 /**

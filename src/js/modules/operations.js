@@ -169,7 +169,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     }
     // les deux operande ont le même nomre de chiffres
     for (let i = longueuroperandes - 1; i > 0; i--) { // on construit la chaine des retenues.
-      if (parseInt(sop1[i]) + parseInt(sop2[i]) > base - 1) {
+      if (parseInt(sop1[i], base) + parseInt(sop2[i], base) + parseInt(retenues[0] > 0 ? retenues[0] : 0) > base - 1) {
         retenues = `1${retenues}`
       } else {
         retenues = ` ${retenues}`
