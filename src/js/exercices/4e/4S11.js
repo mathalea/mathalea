@@ -374,8 +374,7 @@ export default function DeterminerDesMedianes () {
       (this.interactif && !context.isAmc) ? texte += '<br><br>Déterminer une médiane de cette série : ' : texte += '<br><br>Déterminer une médiane de cette série.'
 
       if (Array.isArray(repInteractive)) {
-        // setReponse(this, i, repInteractive, { formatInteractif: 'intervalleStrict' })
-        setReponse(this, i, repInteractive, { decimals: 1, milieuIntervalle: calcul((repInteractive[0] + repInteractive[1]) / 2), approx: calcul((repInteractive[1] - repInteractive[0]) / 2 - 0.00001), formatInteractif: 'intervalleStrict' })
+        setReponse(this, i, repInteractive, { decimals: 1, milieuIntervalle: calcul((repInteractive[0] + repInteractive[1]) / 2), formatInteractif: 'intervalleStrict' })
       } else {
         setReponse(this, i, repInteractive)
       }
