@@ -1,18 +1,17 @@
-import Exercice from '../Exercice.js'
-import { fraction } from '../../modules/fractions'
-import { randint, calcul, miseEnEvidence } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { fraction } from '../../../modules/fractions'
+import { randint, calcul, miseEnEvidence } from '../../../modules/outils.js'
 export const titre = 'Antécédent avec fonction racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '1/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Modèle d'exercice très simple pour la course aux nombres
+ * Retrouver l'ancédédent (un carré parfait) d'un nombre par une fonction avec racine carrée
  * @author Gilles Mora
- * Référence
+ * Référence can2F05
 */
 export default function AntecedentFonctionRacine () {
   Exercice.call(this) // Héritage de la classe Exercice()
