@@ -16,7 +16,6 @@ export const amcType = 'qcmMono'
  */
 export default function ProportionnalitePasProportionnalite () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Répondre aux questions posées en justifiant.'
   context.isHtml ? this.spacing = 2 : this.spacing = 1.4
   context.isHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1
   this.nbQuestions = 5
@@ -29,6 +28,8 @@ export default function ProportionnalitePasProportionnalite () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let bonneReponse
+
+    this.nbQuestions > 1 ? this.consigne = 'Répondre aux questions posées en justifiant.' : this.consigne = 'Répondre à la question posée en justifiant.'
     const listeIndexDisponibles = [0, 1, 2, 3, 4]
     const listeIndex = combinaisonListes(
       listeIndexDisponibles,
@@ -168,26 +169,11 @@ export default function ProportionnalitePasProportionnalite () {
             z = calcul(p * pu, 2)
             texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}.<br>`
             // texte += parseInt('p')
-            texte += `Elle  repart avec ${y} ${objet} pour $${texPrix(
-            somme
-          )}$€.<br> ${prenoms[1]
-            } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
-              z
-            )}$€.<br>`
+            texte += `Elle  repart avec ${y} ${objet} pour $${texPrix(somme)}$€.<br> ${prenoms[1]} achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(z)}$€.<br>`
             texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
-            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
-            texPrix(somme),
-            'blue'
-          )}$€.<br>`
-            texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
-            texNombre(p / y)
-          )}$ fois la quantité des ${objet} achetée par ${prenoms[0]
-            } pour $${miseEnEvidence(
-              texPrix(somme),
-              'blue'
-            )}$€.<br>Il a payé $${texPrix(z)}$€ $=${miseEnEvidence(
-              texNombrec(p / y)
-            )}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
+            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
+            texteCorr += `${prenoms[1]} a acheté  $${miseEnEvidence(texNombre(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]} pour $${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
+            texteCorr += `Il a payé $${texPrix(z)}$€ $=${miseEnEvidence(texNombrec(p / y))}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
             texteCorr += `À l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`
             bonneReponse = 'oui'
           } else {
@@ -204,26 +190,11 @@ export default function ProportionnalitePasProportionnalite () {
             p = y * randint(2, 5)
             z = calcul(p * pu, 2)
             texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}.<br>`
-            texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}$€.<br> ${prenoms[1]
-            } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
-              z
-            )}$€.<br>`
+            texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}$€.<br> ${prenoms[1]} achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(z)}$€.<br>`
             texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
-            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
-            texPrix(somme),
-            'blue'
-          )}$€.<br>`
-            texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
-            texNombrec(p / y)
-          )}$ fois la quantité des ${objet} achetée par ${prenoms[0]
-            } pour $${miseEnEvidence(
-              texPrix(somme),
-              'blue'
-            )}$€.<br>Il a payé $${texPrix(z)}$€.<br>Mais $${miseEnEvidence(
-              texNombrec(p / y)
-            )}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€ $=${texPrix(
-              calcul((p * somme) / y)
-            )}$€.<br>`
+            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
+            texteCorr += `${prenoms[1]} a acheté  $${miseEnEvidence(texNombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]} pour $${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
+            texteCorr += `Il a payé $${texPrix(z)}$€.<br>Mais $${miseEnEvidence(texNombrec(p / y))}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€ $=${texPrix(calcul((p * somme) / y))}$€.<br>`
             texteCorr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`
             bonneReponse = 'non'
           }
@@ -241,15 +212,13 @@ export default function ProportionnalitePasProportionnalite () {
 
           texte = `${prenoms[0]} habite à $${texNombre(x)}$ m du collège. Elle met ${n} minutes pour s'y rendre depuis chez elle.<br>`
           texte += `${prenoms[1]}, lui, habite à $${texNombre(y)}$ m du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`
-          texte += 'Le temps mis pour venir au collège est-il proportionnel à la distance du foyer au collège ?<br>'
-          texteCorr = `${prenoms[0]} parcourt chaque minute environ $${texNombrec(arrondi(index1, 1))}$ m.<br>`
-          texteCorr += `${prenoms[1]
-            } parcourt chaque minute environ $${texNombrec(arrondi(index2, 1))}$ m.<br>`
+          texte += 'Les durées de trajet pour venir au collège sont-elles proportionnelles aux distances parcoures ?<br>'
+          texteCorr = `${prenoms[0]} parcourt ${x} m en ${n} minutes soit environ $\\dfrac{${x}\\text{ m}}{${n}\\text{ min}} ${arrondi(index1, 1) === index1 ? '=' : '\\approx'} ${texNombrec(arrondi(index1, 1))}\\text{ m}/_{\\text{ min}}$`
+          texteCorr += ` et ${prenoms[1]} parcourt ${y} m en ${p} minutes soit environ $\\dfrac{${y}\\text{ m}}{${p}\\text{ min}} ${arrondi(index2, 1) === index2 ? '=' : '\\approx'} ${texNombrec(arrondi(index2, 1))}\\text{ m}/_{\\text{ min}}$.<br>`
           if (index1 === index2) {
-            texteCorr += 'Pour ces deux élèves, le temps mis et la distance parcourue sont proportionnelles (si l\'on compare leur vitesse moyenne)'
-            bonneReponse = 'oui'
+            texteCorr += 'Pour ces deux élèves, le temps mis et la distance parcourue sont proportionnelles (si l\'on compare leur vitesse moyenne).'
           } else {
-            texteCorr += 'Pour ces deux élèves, le temps mis et la distance parcourue ne sont pas proportionnelles (si l\'on compare leur vitesse moyenne).<br>'
+            texteCorr += 'La distance parcourue en une minute (vitesse moyenne) n\'est pas la même dans ces deux situations, il n\'y a donc pas proportionnalité.<br>'
             bonneReponse = 'non'
           }
           break
@@ -261,12 +230,11 @@ export default function ProportionnalitePasProportionnalite () {
           texte += `L'âge de son père est-il proportionnel à l'âge de ${prenoms[0]} ?<br>`
           texteCorr = `Aujourd'hui, la différence d'âge entre ${prenoms[0]
             } et ${prenoms[1]} est de ${y - x} ans.<br>`
-          texteCorr += `Dans ${x} années, ${prenoms[0]} aura ${2 * x
-            } ans, c'est-à-dire le double d'aujourd'hui.<br>`
-          texteCorr += `Son père ${prenoms[1]} aura ${x + y
-            } ans cette année-là.<br>Quand l'âge de ${prenoms[0]
-            } double, l'âge de ${prenoms[1]} ne double pas, donc l'âge de ${prenoms[0]
-            } et l'âge de son père ne sont pas propotionnels.<br>`
+          texteCorr += `${prenoms[0]} a ${x} ans aujourd'hui. Dans ${x} années, ${prenoms[0]} aura ${2 * x
+            } ans (${x} + ${x}), c'est-à-dire le double d'aujourd'hui.<br>`
+          texteCorr += `Son père ${prenoms[1]} qui a actuellement ${y} ans aura ${x + y} ans cette année-là (${y}+${x}).<br>`
+          texteCorr += `Quand l'âge de ${prenoms[0]} double, l'âge de ${prenoms[1]} ne double pas, donc l'âge de ${prenoms[0]} et l'âge de son père ne sont pas propotionnels.<br>`
+          texteCorr += `Dans ${x} années, la différence d'âge restera la même : ${x + y} - ${2 * x} = ${y - x}.`
           bonneReponse = 'non'
           break
         case 4: // Épidémie
@@ -277,12 +245,8 @@ export default function ProportionnalitePasProportionnalite () {
             } jours.<br>`
           texte += `Le nombre de malades est-il proportionnel au nombre de${getVueFromUrl() === 'multi' ? '<br>' : ' '}`
           texte += 'jours passés depuis le début de l\'épidémie ?<br>'
-          texteCorr = `Admettons qu'il y ait 10 malades le premier jour. Le ${1 + 2 + index2
-            }ème jour il y aura $10 \\times ${index2 + 2} = ${10 * (index2 + 2)
-            }$ malades.<br>`
-          texteCorr += `Entre le premier jour et le ${3 + index2
-            }ème jour, le nombre de malades est multiplié par ${index2 + 2
-            } mais le nombre de jours est multiplié par ${3 + index2}.<br>`
+          texteCorr = `Admettons qu'il y ait 10 malades le 1er jour. Le ${1 + 2 + index2}e jour il y aura $10 \\times ${index2 + 2} = ${10 * (index2 + 2)}$ malades.<br>`
+          texteCorr += `Entre le 1er jour et le ${3 + index2}e jour, le nombre de malades est multiplié par ${index2 + 2} mais le nombre de jours est multiplié par ${3 + index2}.<br>`
           texteCorr += 'Donc le nombre de malades n\'est pas proportionnel au nombre de jours passés.<br>'
           bonneReponse = 'non'
           break
@@ -313,22 +277,17 @@ export default function ProportionnalitePasProportionnalite () {
           for (let j = 0; j < tirages.length; j++) { texte += `&${texPrix(arrondi(tirages[j][1], 2))}` }
           texte += '\\\\\\hline\\end{array}$<br> <br>'
           texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée ?<br>`
-          texteCorr = `Il faut calculer le prix unitaire des ${objet} dans chaque cas de figure :<br><br>`
+          texteCorr = `On peut calculer le prix unitaire des ${objet} dans chaque cas de figure :<br><br>`
           if (met) index3 = range(3)
           else index3 = range(3, [p])
           texteCorr += '$'
           for (let j = 0; j < index3.length; j++) {
-            texteCorr += `\\dfrac{${texPrix(
-              arrondi(tirages[index3[j]][1], 2)
-            )}}{${tirages[index3[j]][0]}}=`
+            texteCorr += `\\dfrac{${texPrix(arrondi(tirages[index3[j]][1], 2))}\\text{ €}}{${tirages[index3[j]][0]}\\text{ ${objet}}}=`
           }
-          texteCorr += `${texPrix(pu)}$<br><br>`
+          texteCorr += `${texPrix(pu)}\\text{ €}/_{\\text{${objet.substring(0, objet.length - 1)}}}$<br><br>`
           if (!met) {
-            texteCorr += `Mais $\\dfrac{${texPrix(
-              arrondi(tirages[p][1], 2)
-            )}}{${tirages[p][0]}}=${texPrix(
-              arrondi(calcul(tirages[p][1] / tirages[p][0]), 2)
-            )}$€/${objet.substring(0, objet.length - 1)}.<br>`
+            texteCorr += `Mais $\\dfrac{${texPrix(arrondi(tirages[p][1], 2))}\\text{ €}}{${tirages[p][0]}\\text{ ${objet}}}
+            =${texPrix(arrondi(calcul(tirages[p][1] / tirages[p][0]), 2))}\\text{ €}/_{\\text{${objet.substring(0, objet.length - 1)}}}$.<br>`
             texteCorr += `Le prix des ${objet} n'est pas proportionnel à leur nombre.<br>`
             bonneReponse = 'non'
           } else {
