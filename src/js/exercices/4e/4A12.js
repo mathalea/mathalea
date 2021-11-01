@@ -27,43 +27,40 @@ export default function ProblemesEvenementsRecurrents () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
+    const listePremiers = listeNombresPremiersStrictJusqua(12)
     const saveurs = combinaisonListes(['guirlande', 'voiture', 'fusée', 'restau-ciné', 'engrenages'], this.nbQuestions)
-    for (let i = 0, texte, texteCorr, listePremiers, indicesFacteursCommuns, indicesFacteursA, indicesFacteursB, Commun, A, B, decompositionCommun, decompositionA, decompositionB, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, indicesFacteursCommuns, indicesFacteursA, indicesFacteursB, Commun, A, B, decompositionCommun, decompositionA, decompositionB, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (this.sup) {
         case 1:
-          listePremiers = listeNombresPremiersStrictJusqua(20)
           indicesFacteursCommuns = [randint(0, 2)]
-          indicesFacteursA = [randint(0, listePremiers.length - 1, [indicesFacteursCommuns[0]])]
-          indicesFacteursB = [randint(0, listePremiers.length - 1, [indicesFacteursCommuns[0], indicesFacteursA[0]])]
+          indicesFacteursA = [randint(0, listePremiers.length - 1, indicesFacteursCommuns)]
+          indicesFacteursB = [randint(0, listePremiers.length - 1, indicesFacteursCommuns.concat(indicesFacteursA))]
           Commun = listePremiers[indicesFacteursCommuns[0]]
           A = listePremiers[indicesFacteursA[0]]
           B = listePremiers[indicesFacteursB[0]]
           break
         case 2:
-          listePremiers = listeNombresPremiersStrictJusqua(20)
           indicesFacteursCommuns = [randint(0, 2), randint(0, 2)]
           indicesFacteursCommuns = indicesFacteursCommuns.sort()
-          indicesFacteursA = [randint(3, listePremiers.length - 1, [indicesFacteursCommuns[0], indicesFacteursCommuns[1]])]
-          indicesFacteursB = [randint(3, listePremiers.length - 1, [indicesFacteursCommuns[0], indicesFacteursCommuns[1], indicesFacteursA[0]])]
+          indicesFacteursA = [randint(3, listePremiers.length - 1, indicesFacteursCommuns)]
+          indicesFacteursB = [randint(3, listePremiers.length - 1, indicesFacteursCommuns.concat(indicesFacteursA))]
           Commun = listePremiers[indicesFacteursCommuns[0]] * listePremiers[indicesFacteursCommuns[1]]
           A = listePremiers[indicesFacteursA[0]]
           B = listePremiers[indicesFacteursB[0]]
           break
         case 3:
-          listePremiers = listeNombresPremiersStrictJusqua(20)
           indicesFacteursCommuns = [randint(0, 2), randint(0, 2)]
           indicesFacteursCommuns = indicesFacteursCommuns.sort((a, b) => a - b)
-          indicesFacteursA = [randint(0, 2), randint(3, listePremiers.length - 1, [indicesFacteursCommuns[0], indicesFacteursCommuns[1]])]
-          indicesFacteursB = [randint(0, 2, [indicesFacteursA[0], indicesFacteursA[1]]), randint(3, listePremiers.length - 1, [indicesFacteursCommuns[0], indicesFacteursCommuns[1], indicesFacteursA[0], indicesFacteursA[1]])]
+          indicesFacteursA = [randint(0, 2), randint(3, listePremiers.length - 1, indicesFacteursCommuns)]
+          indicesFacteursB = [randint(0, 2, indicesFacteursA), randint(3, listePremiers.length - 1, indicesFacteursCommuns.concat(indicesFacteursA))]
           Commun = listePremiers[indicesFacteursCommuns[0]] * listePremiers[indicesFacteursCommuns[1]]
           A = listePremiers[indicesFacteursA[0]] * listePremiers[indicesFacteursA[1]]
           B = listePremiers[indicesFacteursB[0]] * listePremiers[indicesFacteursB[1]]
           break
         default: // identique au cas 1
-          listePremiers = listeNombresPremiersStrictJusqua(20)
           indicesFacteursCommuns = [randint(0, 2)]
-          indicesFacteursA = [randint(0, listePremiers.length - 1, [indicesFacteursCommuns[0]])]
-          indicesFacteursB = [randint(0, listePremiers.length - 1, [indicesFacteursCommuns[0], indicesFacteursA[0]])]
+          indicesFacteursA = [randint(0, listePremiers.length - 1, indicesFacteursCommuns)]
+          indicesFacteursB = [randint(0, listePremiers.length - 1, indicesFacteursCommuns.concat(indicesFacteursA))]
           Commun = listePremiers[indicesFacteursCommuns[0]]
           A = listePremiers[indicesFacteursA[0]]
           B = listePremiers[indicesFacteursB[0]]
