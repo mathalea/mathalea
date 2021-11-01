@@ -4302,6 +4302,10 @@ export function lampeMessage ({ titre, texte, couleur }) {
       </div>
       </div>
     `
+  } else if (context.isAmc) {
+    return `
+    {\\bf ${titre}} : ${texte}
+    `
   } else {
     return `
     \\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf ' + titre + `}
