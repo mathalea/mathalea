@@ -2,9 +2,10 @@ import Exercice from '../../Exercice.js'
 import { randint, choice, ecritureParentheseSiNegatif, calcul, reduireAxPlusB } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
 import { courbe2, mathalea2d, point, repere2, tracePoint } from '../../../modules/2d.js'
-export const titre = 'Calcul d’une distance dans un repère'
+export const titre = 'Coefficient directeur d\'une droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '30/09/2021'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -12,7 +13,7 @@ export const interactifType = 'mathLive'
  * Référence can2G05
  * Date de publication sptembre 2021
 */
-export default function DistanceRepere () {
+export default function CoeffDirecteurDroite () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1

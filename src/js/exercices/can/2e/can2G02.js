@@ -1,9 +1,9 @@
 import Exercice from '../../Exercice.js'
 import { randint, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, latexParCoordonnees, pointAdistance, longueur, polygoneAvecNom, milieu, codageAngleDroit
+  mathalea2d, point, latexParCoordonnees, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit
 } from '../../../modules/2d.js'
-export const titre = 'Calcul de d’un côté avec Pythagore'
+export const titre = 'Calcul d’un côté avec Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

@@ -1458,7 +1458,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
         if (typeof urlVars[i].s !== 'undefined') {
           // Si le string peut être convertit en int alors on le fait
           if (isNumeric(urlVars[i].s)) {
-            listeObjetsExercice[i].sup = parseInt(urlVars[i].s)
+            listeObjetsExercice[i].sup = Number(urlVars[i].s)
           } else {
             listeObjetsExercice[i].sup = urlVars[i].s
           }
@@ -1473,7 +1473,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
         }
         if (typeof urlVars[i].s2 !== 'undefined') {
           if (isNumeric(urlVars[i].s2)) {
-            listeObjetsExercice[i].sup2 = parseInt(urlVars[i].s2)
+            listeObjetsExercice[i].sup2 = Number(urlVars[i].s2)
           } else {
             listeObjetsExercice[i].sup2 = urlVars[i].s2
           }
@@ -1487,7 +1487,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
         }
         if (typeof urlVars[i].s3 !== 'undefined') {
           if (isNumeric(urlVars[i].s3)) {
-            listeObjetsExercice[i].sup3 = parseInt(urlVars[i].s3)
+            listeObjetsExercice[i].sup3 = Number(urlVars[i].s3)
           } else {
             listeObjetsExercice[i].sup3 = urlVars[i].s3
           }
@@ -1503,7 +1503,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
         }
         if (typeof urlVars[i].s4 !== 'undefined') {
           if (isNumeric(urlVars[i].s4)) {
-            listeObjetsExercice[i].sup4 = parseInt(urlVars[i].s4)
+            listeObjetsExercice[i].sup4 = Number(urlVars[i].s4)
           } else {
             listeObjetsExercice[i].sup4 = urlVars[i].s4
           }
@@ -2233,7 +2233,7 @@ function parametresExercice (exercice) {
       formSup[i].value = exercice[i].sup // Rempli le formulaire avec le paramètre supplémentaire
       formSup[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup = parseInt(e.target.value)
+        exercice[i].sup = Number(e.target.value)
         miseAJourDuCode()
       })
     }
@@ -2263,7 +2263,7 @@ function parametresExercice (exercice) {
       formSup2[i].value = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
       formSup2[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup2 = parseInt(e.target.value)
+        exercice[i].sup2 = Number(e.target.value)
         miseAJourDuCode()
       })
     }
@@ -2300,7 +2300,7 @@ function parametresExercice (exercice) {
       formSup3[i].value = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
       formSup3[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup3 = parseInt(e.target.value)
+        exercice[i].sup3 = Number(e.target.value)
         miseAJourDuCode()
       })
     }
@@ -2337,7 +2337,7 @@ function parametresExercice (exercice) {
       formSup4[i].value = exercice[i].sup4 // Rempli le formulaire avec le paramètre supplémentaire
       formSup4[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup4 = parseInt(e.target.value)
+        exercice[i].sup4 = Number(e.target.value)
         miseAJourDuCode()
       })
     }

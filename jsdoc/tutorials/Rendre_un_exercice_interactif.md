@@ -30,8 +30,10 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
 1. [Compatibilité entre l'interactivité et un export AMC](#compatibilite_interactivite_AMC)
     1. [L'export AMC automatisé avec `mathLive`](#export_AMC_automatise_mathLive)
         1. [Avec `formatInteractif : 'calcul'`](#export_AMC_automatise_mathLive_calcul)
+        1. [Avec `formatInteractif: 'ecritureScientifique'`](#export_AMC_automatise_mathLive_ecritureScientifique)
         1. [Avec `formatInteractif : 'fraction'`](#export_AMC_automatise_mathLive_fraction)
         1. [Avec `formatInteractif : 'fractionPlusSimple'` ou `formatInteractif : 'fractionEgale'`](#export_AMC_automatise_mathLive_fractionEgale)
+        1. [Avec `formatInteractif : 'intervalle'` ou `formatInteractif : 'intervalleStrict'`](#export_AMC_automatise_mathLive_intervalle)
         1. [Avec `formatInteractif : 'texte'`, `formatInteractif : 'ignorerCasse'` ou `formatInteractif : 'longueur'`](#export_AMC_automatise_mathLive_texte)
     1. [L'export AMC automatisé avec `qcm`](#export_AMC_automatise_qcm)
     1. [L'export AMC automatisé avec `cliqueFigure`](#export_AMC_automatise_cliqueFigure)
@@ -88,7 +90,7 @@ Pour rendre un exercice interactif en utilisant MathLive, il faut rajouter des l
 
 Les concepteurs plus curieux, trouveront, aussi, dans ce chapitre :
 >> - [comment comprendre, par des exemples, le détail de traitement de la comparaison entre la réponse saisie par l'élève et la réponse exacte attendue](#typeInteractivite_mathLive_fonction_setReponse),
->> - [comment gérer une réponse sous forme de texte, sous forme de fraction, sous forme de longueur ou d'aire (avec l'unité adéquate)](#typeInteractivite_mathLive_types_reponses),
+>> - [comment gérer une réponse sous forme de texte, sous forme d'une écriture scientifique, sous forme de fraction, sous forme d'intervalle, sous forme de longueur ou d'aire (avec l'unité adéquate)](#typeInteractivite_mathLive_types_reponses),
 >> - [comment débugguer pourquoi une réponse correcte peut être pourtant considérée fausse](#typeInteractivite_mathLive_debug),
 >> - [comment utiliser MathLive dans les exercices adaptés à la Course Aux Nombres](#typeInteractivite_mathLive_CAN),
 >> - [comment permettre plusieurs champs de réponse pour une même question](#typeInteractivite_mathLive_plusieurs_champs).
@@ -152,8 +154,14 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >>>>## <a id="typeInteractivite_mathLive_types_reponses" href="#typeInteractivite_mathLive_types_reponses"></a> [2. 1. 3. Gestion des différents types de réponses attendues](#typeInteractivite_mathLive_types_reponses)
 
 
-- Pour comparer des **valeurs numériques**, on utilise la version par défaut `formatInteractif: 'calcul'`, présentée ci-dessus. Toutefois, si le résultat est attendu sous forme d'une écriture en notation scientifique, on utilisera plutôt `formatInteractif: 'texte'` présentée ci-dessous, comme dans l'exercice-témoin **4C32**.
+- Pour comparer des **valeurs numériques**, on utilise la version par défaut `formatInteractif: 'calcul'`, présentée ci-dessus. Toutefois, si le résultat est attendu sous forme d'une écriture en notation scientifique, on utilisera plutôt `formatInteractif: 'ecritureScientifique'` présentée ci-dessous.
 
+
+- Pour comparer des **nombres avec leur écriture scientifique**, on code, comme dans l'exercice-témoin **4C32** :
+
+>>```js
+>>setReponse(this, i, 'resultat', { formatInteractif: 'ecritureScientifique' }) // resultat = 3700 par exemple mais la réponse saisie devra être 3,7*10^3
+>>```
 
 - Pour comparer des **textes avec respect strict de la casse**, on code, comme dans l'exercice-témoin **2N14-1** :
 
@@ -188,6 +196,21 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 - Pour comparer des **grandeurs (avec des unités)**, on code, comme dans l'exercice-témoin **6M11** :
 >>``` js
 >>setReponse(this, i, new Grandeur(resultat, 'cm'), { formatInteractif: 'longueur' }) // resultat est un nombre. On personnalisera le champ texte avec ajouteChampTexteMathLive(this, i, 'longueur')
+>>```
+
+
+- Pour comparer un nombre au sein d'un **intervalle**, on code, comme dans l'exercice-témoin **4S11** :
+>>``` js
+>> // Si les bornes de l'intervalle sont incluses
+>>setReponse(this, i, [a, b], { formatInteractif: 'intervalle' }) 
+>> // a est la borne inférieure de l'intervalle
+>> // b est la borne supérieure de l'intervalle
+>> 
+>> // Si les bornes de l'intervalle sont exclues
+>>setReponse(this, i, [a, b], { formatInteractif: 'intervalleStrict' }) 
+>> // a est la borne inférieure de l'intervalle
+>> // b est la borne supérieure de l'intervalle
+>> 
 >>```
 
 >>>>## <a id="typeInteractivite_mathLive_debug" href="#typeInteractivite_mathLive_debug"></a> [2. 1. 4. Comprendre pourquoi une réponse correcte est pourtant considérée fausse](#typeInteractivite_mathLive_debug)
@@ -283,7 +306,8 @@ Pour chaque question, un QCM sera créé et constitué de plusieurs cases à coc
 >>      lastChoice: index, // (en cas de mélange, l'index à partir duquel les propositions restent à leur place, souvent le dernier choix par défaut)
 >>                      // Cet index a tout son intérêt s'il existe une dernière proposition du genre "aucune des propositions n'est correcte".
 >>      vertical: true, // facultatif. true : si on veut une présentation en plusieurs colonnes. false : valeur par défaut, les cases à cocher sont à la suite, toutes sur une colonne. Exercice-témoin : can5A01
->>      nbCols: 4 // Le nb de colonnes si vertical est true. Sans effet si vertical est false.
+>>      nbCols: 4, // Le nb de colonnes si vertical est true. Sans effet si vertical est false.
+>>      vhead : 'descriptif#1', // Ne fonctionne que si vertical est true. Permet d'écrire au-dessus de la colonne de chaque série de cases à cocher un texte.             
 >>  }
 >>}
 >>```
@@ -392,7 +416,7 @@ De ce fait, pour permettre une bonne cohabitation entre l'interactivité avec Ma
 >> }
 >>```
 
->>>>## <a id="export_AMC_automatise_mathLive_calcul" href="#export_AMC_automatise_mathLive_calcul"></a> [3. 1. 1. Avec `formatInteractif : 'calcul'`](#export_AMC_automatise_mathLive_calcul)
+>>>>## <a id="export_AMC_automatise_mathLive_calcul" href="#export_AMC_automatise_mathLive_calcul"></a> [3. 1. 1. Avec `formatInteractif : 'calcul'` ou `formatInteractif: 'ecritureScientifique'`](#export_AMC_automatise_mathLive_calcul)
 
 Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'un nombre avec `formatInteractif : 'calcul'` (ou rien puisque c'est le format par défaut) et que vous utilisiez :
 
@@ -435,12 +459,30 @@ Dans le cas où le concepteur souhaite que, sur AMC, la réponse numérique soit
 >> //   Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur par défaut (ici 2).
 >>```
 
-Dans le cas où le concepteur souhaite que, sur AMC, la réponse numérique soit donnée en **notation scientifique**, alors on doit préciser à AMC qu'il faut coder à la fois la mantisse et à la fois l'exposant, sans avoir besoin de rajouter ces informations. Il suffira, pour cela, de **rajouter** à `setReponse()` des paramètres comme dans le code de l'exemple suivant.
+
+>>>>## <a id="export_AMC_automatise_mathLive_ecritureScientifique" href="#export_AMC_automatise_mathLive_ecritureScientifique"></a> [3. 1. 2. Avec `formatInteractif : 'ecritureScientifique'`](#export_AMC_automatise_mathLive_ecritureScientifique)
+
+
+Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'un nombre en écriture scientifique avec `formatInteractif : 'ecritureScientifique'` et que vous utilisiez :
+
+>>```js
+>>setReponse(this, i, reponse, {formatInteractif: 'ecritureScientifique'})
+>>```
+
+
+Alors, rendre l'exercice exportable AMC, doit commencer par l'ajout des deux lignes de code suivants, avec les autres export/import.
+>>```js
+>>export const amcReady = true // pour définir que l'exercice est exportable à AMC
+>>export const amcType = 'AMCNum'
+>>```
+
+
+Ensuite, on doit préciser à AMC qu'il faut coder à la fois la mantisse et à la fois l'exposant, sans avoir besoin de rajouter ces informations. Il suffira, pour cela, de **rajouter** à `setReponse()` des paramètres comme dans le code de l'exemple suivant.
 
 
 >>```js
 >> reponse = 87.46 // Ceci est un exemple pour illustrer le code ci-dessous.
->> setReponse(this, i, reponse, { digits: 3, decimal: 4, signe: false, exposantNbChiffres: 2, exposantSigne:true})
+>> setReponse(this, i, reponse, { digits: 3, decimal: 4, signe: false, exposantNbChiffres: 2, exposantSigne: true, formatInteractif: 'ecritureScientifique'})
 >> // digits est facultatif et correspond au nombre total de chiffres sur lequel on veut que AMC code la mantisse.
 >> //   Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur par défaut (sur l'exemple, 4).
 >> // decimal est facultatif et correspond au nombre de chiffres de la partie décimale sur lequel on veut que AMC code la mantisse.
@@ -451,7 +493,9 @@ Dans le cas où le concepteur souhaite que, sur AMC, la réponse numérique soit
 >> // exposantsigne est facultatif et vaut true ou false selon que l'on veut que sur AMC, la case à cocher du signe de l'exposant apparaisse ou pas.
 >>```
 
->>>>## <a id="export_AMC_automatise_mathLive_fraction" href="#export_AMC_automatise_mathLive_fraction"></a> [3. 1. 2. Avec `formatInteractif : 'fraction'`](#export_AMC_automatise_mathLive_fraction)
+On pourrait très bien souhaiter une réponse AMC en notation scientifique, dans `formatInteractif: 'calcul'`. Alors, il suffirait alors d'insérer le code ci-dessus en supprimant `formatInteractif: 'ecritureScientifique'`.
+
+>>>>## <a id="export_AMC_automatise_mathLive_fraction" href="#export_AMC_automatise_mathLive_fraction"></a> [3. 1. 3. Avec `formatInteractif : 'fraction'`](#export_AMC_automatise_mathLive_fraction)
 
 Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'une fraction avec `formatInteractif : 'fraction'` et que vous utilisiez :
 
@@ -487,7 +531,7 @@ Si toutefois, le concepteur de l'exercice trouve que, dans AMC, donner le nombre
 
 **Remarque** : Si le nombre choisi de chiffres est trop petit par rapport au nombre à coder (digits=2 alors que le nombre à coder est 236), alors ce nombre de chiffres sera automatiquement remis à la valeur minimale (3, dans l'exemple précédent).
 
->>>>## <a id="export_AMC_automatise_mathLive_fractionEgale" href="#export_AMC_automatise_mathLive_fractionEgale"></a> [3. 1. 3. Avec `formatInteractif : 'fractionPlusSimple'` ou `formatInteractif : 'fractionEgale'`](#export_AMC_automatise_mathLive_fractionEgale)
+>>>>## <a id="export_AMC_automatise_mathLive_fractionEgale" href="#export_AMC_automatise_mathLive_fractionEgale"></a> [3. 1. 4. Avec `formatInteractif : 'fractionPlusSimple'` ou `formatInteractif : 'fractionEgale'`](#export_AMC_automatise_mathLive_fractionEgale)
 
 
 Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'une fraction avec `formatInteractif : 'fractionPlusSimple'` ou `formatInteractif : 'fractionEgale'` et que vous utilisiez :
@@ -550,7 +594,59 @@ Ce codage ci-dessus est parfaitement fonctionnel mais est tellement bien fait qu
 >>// digitsDen correspond au nombre TOTAL de chiffres du dénominateur à coder.
 >>```
 
->>>>## <a id="export_AMC_automatise_mathLive_texte" href="#export_AMC_automatise_mathLive_texte"></a> [3. 1. 4. Avec `formatInteractif : 'texte'`, `formatInteractif : 'ignorerCasse'` ou `formatInteractif : 'longueur'`](#export_AMC_automatise_mathLive_texte)
+
+>>>>## <a id="export_AMC_automatise_mathLive_intervalle" href="#export_AMC_automatise_mathLive_intervalle"></a> [3. 1. 5. Avec `formatInteractif : 'intervalle'` ou `formatInteractif : 'intervalleStrict'`](#export_AMC_automatise_mathLive_intervalle)
+
+**Exercice-témoin pour 'texte' : 4S11**
+
+
+Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'un nombre compris dans un intervalle avec `formatInteractif : 'intervalle'` ou `formatInteractif : 'intervalleStrict'` et que vous utilisiez :
+
+>>```js
+>> setReponse(this, i, [-1, 3], {formatInteractif: 'intervalle'}) // Toute réponse entre -1 et 3, bornes incluses, est acceptée.
+>>
+>> // ou bien
+>>
+>> setReponse(this, i, [-1, 3], {formatInteractif: 'intervalleStrict'}) // Toute réponse entre -1 et 3, bornes exclues, est acceptée.
+>>```
+
+Alors, rendre l'exercice exportable AMC, doit commencer par l'ajout des deux lignes de code suivants, avec les autres export/import.
+>>```js
+>>export const amcReady = true // pour définir que l'exercice est exportable à AMC
+>>export const amcType = 'AMCNum'
+>>```
+
+L'export AMC possèdera un nombre à coder, correct dans l'intervalle voulu, où le nombre de chiffres, par défaut, sera celui de la valeur du milieu de l'intervalle.
+
+Cette fois-ci, **ce rajout de code n'est toutefois pas suffisant**, car, dans chaque cas ici, il n'existe pas de réponse unique et AMC ne sait tester qu'une réponse unique.
+Donc il faudra imposer à l'export AMC une unique solution (ce sera la valeur du milieu de l'intervalle) et préciser l'écart accepté entre la réponse fournie par l'élève et la valeur du milieu de l'intervalle (ce sera donc la demi-valeur de l'intervalle) . Le code ci-dessous décrit ce fonctionnement.
+
+>>```js
+>> // Pour le formatInteractif : 'intervalle'
+>> setReponse(this, i, [a,b], {milieuIntervalle: calcul((a+b)/2), approx:calcul((b-a)/2), formatInteractif: 'intervalle'})
+>>
+>> // Pour le formatInteractif : 'intervalleStrict'
+>> setReponse(this, i, [a,b], {milieuIntervalle: calcul((a+b)/2), approx:calcul((b-a)/2-0.00001), formatInteractif: 'intervalleStrict'})
+>>```
+
+Si on souhaite imposer le nombre de chiffres à coder dans la partie entière et dans la partie décimale, on codera de la façon suivante.
+
+>>```js
+>> // Pour le formatInteractif : 'intervalle'
+>> setReponse(this, i, [a,b], {digits: 5, decimals: 3, milieuIntervalle: calcul((a+b)/2), formatInteractif: 'intervalle'})
+>> // Dans cet exemple, il y a aura au minimum 3 décimales pour 5 chiffres en tout (donc 2 pour la partie entière)
+>> // digits est facultatif et est le nombre minimal de chiffre total du nombre à coder.
+>> // decimals est facultatif et est le nombre minimal de chiffre de la partie décimale du nombre à coder.
+>>
+>> // Pour le formatInteractif : 'intervalleStrict'
+>> setReponse(this, i, [a,b], {digits: 5, decimals: 3, milieuIntervalle: calcul((a+b)/2), approx: 'intervalleStrict', formatInteractif: 'intervalle'})
+>> // Dans cet exemple, il y a aura au minimum 3 décimales pour 5 chiffres en tout (donc 2 pour la partie entière)
+>> // digits est facultatif et est le nombre minimal de chiffre total du nombre à coder.
+>> // decimals est facultatif et est le nombre minimal de chiffre de la partie décimale du nombre à coder.
+>> // approx: 'intervalleStrict' est obligatoire si on ne souhaite pas inclure les bornes de l'intervalle
+>>```
+
+>>>>## <a id="export_AMC_automatise_mathLive_texte" href="#export_AMC_automatise_mathLive_texte"></a> [3. 1. 6. Avec `formatInteractif : 'texte'`, `formatInteractif : 'ignorerCasse'` ou `formatInteractif : 'longueur'`](#export_AMC_automatise_mathLive_texte)
 
 **Exercice-témoin pour 'texte' : 2N14-1**
 

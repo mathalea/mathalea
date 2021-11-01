@@ -95,7 +95,7 @@ export default function NotationScientifique () {
           })
         }
       } else {
-        reponse = decimalstring
+        reponse = mantisse * 10 ** exp
         texteCorr = `$${scientifiquestring} = ${decimalstring}$`
         texte = `$${scientifiquestring}$`
         if (this.interactif) {
@@ -110,7 +110,7 @@ export default function NotationScientifique () {
         if (parseInt(this.sup) === 1) {
           setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), { formatInteractif: 'texte', digits: listeTypeDeQuestions[i] + 1, decimals: listeTypeDeQuestions[i], signe: false, exposantNbChiffres: 1, exposantSigne: true, approx: 0 })
         } else {
-          setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), { formatInteractif: 'texte', strict: false, vertical: false, digits: 2 * Math.abs(exp) + 1, decimals: Math.abs(exp), signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 })
+          setReponse(this, i, reponse, { formatInteractif: 'calcul' })
         }
         if (context.isAmc) {
           this.autoCorrection[i].reponse.valeur = [calcul(mantisse * 10 ** exp)]

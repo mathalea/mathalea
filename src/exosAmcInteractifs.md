@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 338 
-- nombre d'exos interactifReady 453 
+- nombre d'exos amcReady 339 
+- nombre d'exos interactifReady 454 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -78,12 +78,12 @@
 |4C10-6|Multiplications et quotients de relatifs : signe avec une lettre|OK|qcmMono|OK|qcm|
 |4C11|Calculs utilisant les priorités opératoires|KO|KO|OK|mathLive|
 |4C20|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
-|4C21-1|Additionner deux fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C21-1|Additionner deux fractions|OK|AMCNum|OK|mathLive|
 |4C21|Additionner ou soustraire deux fractions|OK|AMCNum|OK|mathLive|
 |4C22-1|Trouver l’inverse d’un nombre|KO|KO|OK|mathLive|
-|4C22-2|Diviser des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
-|4C22|Multiplier des fractions|OK|AMCOpenNum✖︎2|OK|mathLive|
-|4C23-1|Fractions et priorités opératoires|OK|AMCOpenNum✖︎2|OK|mathLive|
+|4C22-2|Diviser des fractions|OK|AMCNum|OK|mathLive|
+|4C22|Multiplier des fractions|OK|AMCNum|OK|mathLive|
+|4C23-1|Fractions et priorités opératoires|OK|AMCNum|OK|mathLive|
 |4C23|Somme, différence ou produit de fractions|KO|KO|OK|mathLive|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|mathLive|
@@ -105,7 +105,7 @@
 |4L10|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |4L20-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
 |4L20|Équation du premier degré|OK|AMCHybride|OK|mathLive|
-|4S11|Déterminer des médianes|KO|KO|OK|mathLive|
+|4S11|Déterminer des médianes|OK|AMCNum|OK|mathLive|
 |5A10|Écrire la liste de tous les diviseurs d’un entier|KO|KO|OK|mathLive|
 |5A11|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|OK|qcm|
 |5A12-1|Primalité ou pas|OK|qcmMono|OK|qcm|
@@ -228,24 +228,39 @@
 |6P13|Augmenter ou diminuer d’un pourcentage|OK|AMCHybride|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
+|CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
+|CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
+|CM002|Tables de divisions|OK|AMCNum|OK|numerique|
+|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
+|CM004|Les quatre opérations|OK|AMCNum|OK|numerique|
+|CM005|Ajouter 9|OK|AMCNum|OK|numerique|
+|CM006|Soustraire 9|OK|AMCNum|OK|numerique|
+|CM007|Ajouter 11|OK|AMCNum|OK|numerique|
+|CM008|Soustraire 11|OK|AMCNum|OK|numerique|
+|CM009|Moitié|OK|AMCNum|OK|numerique|
+|CM010|Tiers|OK|AMCNum|OK|numerique|
+|CM011|Quart|OK|AMCNum|OK|numerique|
+|CM012|Complément à 100|OK|AMCNum|OK|numerique|
+|CM013|Complément à une dizaine|OK|AMCNum|OK|numerique|
+|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|numerique|
+|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|numerique|
+|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
+|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
+|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
+|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C12-1|Résoudre des problèmes de masses|OK|AMCHybride|OK|mathLive|
 |beta6C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
-|betac3C12-1|Résoudre des problèmes de masses|OK|AMCHybride|OK|mathLive|
-|betac3C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
+|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
-|betaCAN2Q30-01|Partage|KO|KO|OK|mathLive|
-|betaCAN2Q30-02|Antécédent avec fonction racine carrée|KO|KO|OK|mathLive|
-|betaCAN2Q30-03|Nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
-|betaCAN2Q30-04|Coordonnées sommet parabole|KO|KO|OK|mathLive|
-|betaCAN2Q30-05|Second degré et variations|KO|KO|OK|mathLive|
-|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
+|betac3C12-1|Résoudre des problèmes de masses|OK|AMCHybride|OK|mathLive|
+|betac3C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|mathLive|
 |c3C10-4|Tables d’addition|OK|AMCNum|OK|numerique|
 |c3C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCHybride|OK|mathLive|
@@ -276,7 +291,13 @@
 |can2G03|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
 |can2G04|Calculs des coordonnées du milieu|KO|KO|OK|mathLive|
 |can2G05|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
-|can2G06|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
+|can2G06|Coefficient directeur d'une droite|KO|KO|OK|mathLive|
+|can2G07|Coordonnées d’un vecteur 1|KO|KO|OK|mathLive|
+|can2G08|Coordonnées d’un vecteur 2|KO|KO|OK|mathLive|
+|can2G09|Vecteurs colinéaires|KO|KO|OK|mathLive|
+|can2G10|Relation de Chasles, réductions vectorielles (niveau 1) QCM|KO|KO|OK|qcm|
+|can2G11|Relation de Chasles, réductions vectorielles (niveau 2) QCM|KO|KO|OK|qcm|
+|can2G12|Vecteurs colinéaires (V/F)|KO|KO|OK|qcm|
 |can2L01|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Coordonnées point d’intersection axe des abscisses/droite|KO|KO|OK|mathLive|
@@ -378,7 +399,7 @@
 |can5N01|Somme de nombres décimaux|OK|AMCNum|OK|mathLive|
 |can5P01|Pourcentage (évolution)|OK|AMCNum|OK|mathLive|
 |can5P02|Pourcentage (proportion) 2|OK|AMCNum|OK|mathLive|
-|can5P03|Pourcentage (proportion) 2|OK|AMCNum|OK|mathLive|
+|can5P03|Problèmes de proportionnalité|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |can6C01|Ordre de grandeur QCM|OK|qcmMono|OK|qcm|
 |can6C02|Multiplier nombre pair par 5|OK|AMCNum|OK|mathLive|
@@ -439,6 +460,8 @@
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |can6S01|Lecture de diagramme en barres|OK|AMCNum|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
+|canExC01|Somme de nombres complexes|OK|AMCHybride|OK|mathLive|
+|canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|
 |canc3C01|Calculs automatiques|OK|AMCNum|OK|mathLive|
 |canc3C02|Composition de nombre entier|OK|AMCNum|OK|mathLive|
 |canc3C03|Table de multiplication à trous|KO|KO|OK|mathLive|
@@ -446,25 +469,3 @@
 |canc3N02|Suite sur une droite graduée|OK|AMCHybride|OK|mathLive|
 |canc3N03|Le plus grand nombre entier|OK|AMCNum|OK|mathLive|
 |canc3N04|Arrondi à l'unité|OK|AMCHybride|OK|mathLive|
-|canExC01|Somme de nombres complexes|OK|AMCHybride|OK|mathLive|
-|canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|
-|CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
-|CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
-|CM002|Tables de divisions|OK|AMCNum|OK|numerique|
-|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
-|CM004|Les quatre opérations|OK|AMCNum|OK|numerique|
-|CM005|Ajouter 9|OK|AMCNum|OK|numerique|
-|CM006|Soustraire 9|OK|AMCNum|OK|numerique|
-|CM007|Ajouter 11|OK|AMCNum|OK|numerique|
-|CM008|Soustraire 11|OK|AMCNum|OK|numerique|
-|CM009|Moitié|OK|AMCNum|OK|numerique|
-|CM010|Tiers|OK|AMCNum|OK|numerique|
-|CM011|Quart|OK|AMCNum|OK|numerique|
-|CM012|Complément à 100|OK|AMCNum|OK|numerique|
-|CM013|Complément à une dizaine|OK|AMCNum|OK|numerique|
-|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|numerique|
-|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|numerique|
-|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
-|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
-|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
-|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|

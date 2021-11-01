@@ -1,11 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, produitDeDeuxFractions, simplificationDeFractionAvecEtapes, miseEnEvidence, texFractionSigne, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, texFraction, ppcm, nombreDeChiffresDansLaPartieEntiere, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, produitDeDeuxFractions, simplificationDeFractionAvecEtapes, miseEnEvidence, texFractionSigne, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, texFraction, ppcm, lettreDepuisChiffre } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Fractions et priorités opératoires'
 export const amcReady = true
-export const amcType = 'AMCOpenNum✖︎2' // type de question AMC
+export const amcType = 'AMCNum' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
@@ -52,9 +52,9 @@ export default function ExerciceAdditionnerFractionProduit () {
     )
     for (
       let i = 0,
-        ab,
-        cd,
-        ef,
+        ab = [],
+        cd = [],
+        ef = [],
         a,
         b,
         c,
@@ -429,58 +429,21 @@ export default function ExerciceAdditionnerFractionProduit () {
       }
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
-        if (context.isAmc) {
-          this.autoCorrection[i] = {
-            enonce: `Calculer $${texte.substring(1, texte.length - 1)}$ et donner le résultat sous forme irreductible`,
-            propositions: [
-              {
-                texte: texteCorr,
-                statut: 3,
-                feedback: ''
-              }
-            ],
-            reponse: {
-              texte: 'numérateur',
-              valeur: reponse.signe * Math.abs(reponse.num),
-              param: {
-                digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.num)),
-                decimals: 0,
-                exposantNbChiffres: 0,
-                exposantSigne: false,
-                signe: reponse.signe === -1,
-                approx: 0
-              }
-            },
-            reponse2: {
-              texte: 'dénominateur',
-              valeur: Math.abs(reponse.den),
-              param: {
-                digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.den)),
-                decimals: 0,
-                exposantNbChiffres: 0,
-                exposantSigne: false,
-                signe: false,
-                approx: 0
-              }
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        setReponse(this, i, reponse, { formatInteractif: 'fraction', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
+        if (this.sup2) {
+          texte = `${lettreDepuisChiffre(i + 1)} = ${texte}`
+          // On découpe
+          const etapes = texteCorr.split('=')
+          texteCorr = ''
+          etapes.forEach(function (etape) {
+            // etape = etape.replace('$', '')
+            etape = etape.split('$').join('')
+            if (context.isHtml) {
+              texteCorr += '<br>'
             }
-          }
-        } else {
-          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-          setReponse(this, i, reponse, { formatInteractif: 'fraction' })
-          if (this.sup2) {
-            texte = `${lettreDepuisChiffre(i + 1)} = ${texte}`
-            // On découpe
-            const etapes = texteCorr.split('=')
-            texteCorr = ''
-            etapes.forEach(function (etape) {
-              // etape = etape.replace('$', '')
-              etape = etape.split('$').join('')
-              if (context.isHtml) {
-                texteCorr += '<br>'
-              }
-              texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
-            })
-          }
+            texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
+          })
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -2,12 +2,11 @@ import Exercice from '../Exercice.js'
 import { choice, listeQuestionsToContenu, texteGras } from '../../modules/outils.js'
 import { cercle, droite, longueur, milieu, point, pointAdistance, pointIntersectionLC } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
-export const titre = 'Utiliser le théorème de la hauteur'
+export const titre = 'Tracer une racine au compas et à la règle non graduée à l\'aide du théorème de la hauteur'
 
 export const dateDePublication = '1/11/2021'
 
 /**
- * Modèle d'exercice très simple pour la course aux nombres
  * @author Rémi Angot
  * Référence PEG21
 */
@@ -92,10 +91,5 @@ export default function RacineCarrAvecTheoremeHauteur () {
     this.listeQuestions = [texte]
     this.listeCorrections = [texteCorr]
     listeQuestionsToContenu(this)
-
-    this.reponse = ''
-    // this.listeQuestions.push(this.question)
-    // this.listeCorrections.push()
-    // listeQuestionsToContenu(this)
   }
 }

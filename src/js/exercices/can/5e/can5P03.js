@@ -1,14 +1,16 @@
 import Exercice from '../../Exercice.js'
 import { calcul, choice, texNombrec, randint, texPrix } from '../../../modules/outils.js'
-export const titre = 'Pourcentage (proportion) 2'
+export const titre = 'Problèmes de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDePublication = '28/10/2021'
+
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+ * Référence can5P03
  * Date de publication
 */
 export default function PoucentageP2 () {
