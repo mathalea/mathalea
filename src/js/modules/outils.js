@@ -2,7 +2,7 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate, isPrime, max } from 'mathjs'
+import { format, evaluate, isPrime, max, gcd } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { elimineDoublons, setReponse } from './gestionInteractif.js'
@@ -1340,8 +1340,8 @@ export function arrondiVirgule (nombre, precision = 2) { //
 * Renvoie le PGCD de deux nombres
 * @author Rémi Angot
 */
-export function pgcd (a, b) {
-  return parseInt(Algebrite.run(`gcd(${a},${b})`))
+export function pgcd (...args) {
+  return gcd(...args)
 }
 
 /**
