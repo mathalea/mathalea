@@ -89,6 +89,34 @@ export default function AdditionSoustractionBaseN () {
         nb = base10VersBaseN(n, base)
         texte = `$(${mb})_{${base}} - (${nb})_{${base}}$`
         texteCorr = `En base ${base} :<br>` + Operation({ operande1: m, operande2: n, type: 'soustraction', base: base })
+        const retenue = []
+        for (let rang = 0; rang < Math.max(mb.length, nb.length); rang++) {
+          let difference = parseInt(mb[mb.length - 1 - rang] || 0, base) - (parseInt(nb[nb.length - 1 - rang] || 0, base) + parseInt(retenue[rang - 1] || 0, base))
+          if (difference < 0) difference += base
+          if (retenue[rang - 1]) {
+            texteCorr += `<br> Au rang des $${base}^${rang}$ :  $${mb[mb.length - 1 - rang] || 0} - (${nb[nb.length - 1 - rang] || 0} + 1)`
+          } else {
+            texteCorr += `<br> Au rang des $${base}^${rang}$ :  $${mb[mb.length - 1 - rang] || 0} - ${nb[nb.length - 1 - rang] || 0}`
+          }
+          if (parseInt(mb[mb.length - 1 - rang] || 0, base) > 9 || parseInt(nb[nb.length - 1 - rang] || 0, base) > 9) {
+            // Si un chiffre est un lettre
+            if (retenue[rang - 1]) {
+              texteCorr += ` = ${parseInt(mb[mb.length - 1 - rang] || 0, base)} - (${parseInt(nb[nb.length - 1 - rang] || 0, base)} + 1)`
+            } else {
+              texteCorr += ` = ${parseInt(mb[mb.length - 1 - rang] || 0, base)} - ${parseInt(nb[nb.length - 1 - rang] || 0, base)}`
+            }
+          }
+          if (parseInt(mb[mb.length - 1 - rang] || 0, base) < parseInt(nb[nb.length - 1 - rang] || 0, base)) {
+            texteCorr += `$ la soustraction est impossible donc on récupère un paquet de ${base} au rang supérieur.`
+            if (retenue[rang - 1]) {
+              texteCorr += `<br> $${base} + ${parseInt(mb[mb.length - 1 - rang] || 0, base)} - (${parseInt(nb[nb.length - 1 - rang] || 0, base)} + 1)`
+            } else {
+              texteCorr += `<br> $${base} + ${parseInt(mb[mb.length - 1 - rang] || 0, base)} - ${parseInt(nb[nb.length - 1 - rang] || 0, base)}`
+            }
+            retenue[rang] = 1
+          }
+          texteCorr += `= ${difference}$`
+        }
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
