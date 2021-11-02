@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, prenomF, prenomM, calcul, texPrix, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, prenomF, prenomM, calcul, texPrix, texteEnCouleurEtGras, numAlpha, nombreDeChiffresDansLaPartieDecimale, sp } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Augmenter ou diminuer d’un pourcentage'
@@ -19,6 +19,7 @@ export const amcType = 'AMCHybride'
  * @author Laurence CANDILLE
  * Référence 6P13
  * Date de Publication : 23/07/2021
+ * Relecture : Novembre 2021 par EE
 */
 export default function AugmenterEtReduireDunPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -78,17 +79,18 @@ export default function AugmenterEtReduireDunPourcentage () {
           nombreDecimales(n)
           mr = calcul(pr * billet / 100)
           final1 = calcul(billet - mr)
-          texte = `Un billet d'avion coûte ${billet}€. ${prenom1} bénéficie d'une réduction de $${pr} \\%$.<br>`
-          texte += (this.interactif && context.isHtml) ? 'a) Le montant de la réduction est :' : 'a) Calculer le montant de la réduction.'
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline') : ''
+          texte = `Un billet d'avion coûte ${billet} €. ${prenom1} bénéficie d'une réduction de $${pr} \\%$.<br>`
+          texte += (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de la réduction est :` : `${numAlpha(0)} Calculer le montant de la réduction.`
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: ' €' }) : ''
           texte += '<br>'
           if (!context.isAmc) setReponse(this, 2 * i, mr, { formatInteractif: 'calcul' })
-          texte += (this.interactif && context.isHtml) ? `b) Finalement, ${prenom1} paiera son billet :` : `b) Calculer le prix du billet de ${prenom1}.`
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline') : ''
-          texteCorr = `a) Le montant de la réduction est :     $${billet}\\times ${pr} \\div 100 = ~ $`
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(mr)}$€.<br>`)
-          texteCorr += `b) Finalement, ${prenom1} paiera son billet : $${billet} - ${texPrix(mr)} = ~ $`
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)}$€.`)
+          texte += (this.interactif && context.isHtml) ? `${numAlpha(1)} Finalement, ${prenom1} paiera son billet :` : `${numAlpha(1)} Calculer le prix du billet de ${prenom1}.`
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteApres: ' €' }) : ''
+          texteCorr = `${numAlpha(0)} Le montant de la réduction est :     $${billet} € \\times ${pr} \\div 100$` + sp(1)
+          texteCorr += nombreDeChiffresDansLaPartieDecimale(mr) < 3 ? '$ =$' : '$ \\approx$'
+          texteCorr += texteEnCouleurEtGras(` $${texPrix(mr)}$ €.<br>`)
+          texteCorr += `${numAlpha(1)} Finalement, ${prenom1} paiera son billet : $${billet} € - ${texPrix(mr)} € =$` + sp(1)
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)}$ €.`)
           if (!context.isAmc) setReponse(this, 2 * i + 1, final1)
           repa = mr
           repb = final1
@@ -98,18 +100,19 @@ export default function AugmenterEtReduireDunPourcentage () {
           calcul(ma = pa * loyer / 100)
           calcul(final2 = loyer + ma)
 
-          texte = `Le loyer de l'appartement de ${prenom2} coûte ${loyer}€. Au 1er janvier, il augmente de $${pa} \\%$.<br>`
-          texte += (this.interactif && context.isHtml) ? 'a) Le montant de l\'augmentation est :' : 'a) Calculer le montant de l\'augmentation.'
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline') : ''
+          texte = `Le loyer de l'appartement de ${prenom2} coûte ${loyer} €. Au 1er janvier, il augmente de $${pa} \\%$.<br>`
+          texte += (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de l'augmentation est :` : `${numAlpha(0)} Calculer le montant de l'augmentation.`
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: ' €' }) : ''
           texte += '<br>'
-          texte += (this.interactif && context.isHtml) ? `b) Finalement, ${prenom2} paiera son loyer :` : `b) Calculer le montant du loyer de ${prenom2}.`
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline') : ''
+          texte += (this.interactif && context.isHtml) ? `${numAlpha(1)} Finalement, ${prenom2} paiera son loyer :` : `${numAlpha(1)} Calculer le montant du loyer de ${prenom2}.`
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteApres: ' €' }) : ''
           if (!context.isAmc) setReponse(this, 2 * i, ma)
           if (!context.isAmc) setReponse(this, 2 * i + 1, final2)
-          texteCorr = `a) Le montant de l'augmentation est :     $${loyer}\\times ${pa} \\div 100 = ~ $`
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(ma)}$€.<br>`)
-          texteCorr += `b) Finalement, ${prenom2} paiera son loyer : $${loyer} + ${texPrix(ma)} = ~ $`
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)}$€.`)
+          texteCorr = `${numAlpha(0)} Le montant de l'augmentation est :     $${loyer} € \\times ${pa} \\div 100$` + sp(1)
+          texteCorr += nombreDeChiffresDansLaPartieDecimale(ma) < 3 ? '$ =$' : '$ \\approx$'
+          texteCorr += texteEnCouleurEtGras(` $${texPrix(ma)}$ €.<br>`)
+          texteCorr += `${numAlpha(1)} Finalement, ${prenom2} paiera son loyer : $${loyer} € + ${texPrix(ma)} € =$` + sp(1)
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)}$ €.`)
           repa = ma
           repb = final2
           break

@@ -196,6 +196,7 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 - Pour comparer des **grandeurs (avec des unités)**, on code, comme dans l'exercice-témoin **6M11** :
 >>``` js
 >>setReponse(this, i, new Grandeur(resultat, 'cm'), { formatInteractif: 'longueur' }) // resultat est un nombre. On personnalisera le champ texte avec ajouteChampTexteMathLive(this, i, 'longueur')
+>> // Pour utiliser Grandeur, il faudra penser à rajouter dans l'en-tête du fichier : import Grandeur from '../../modules/Grandeur.js'
 >>```
 
 
@@ -603,11 +604,11 @@ Ce codage ci-dessus est parfaitement fonctionnel mais est tellement bien fait qu
 Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'un nombre compris dans un intervalle avec `formatInteractif : 'intervalle'` ou `formatInteractif : 'intervalleStrict'` et que vous utilisiez :
 
 >>```js
->> setReponse(this, [-1, 3], resultat, {formatInteractif: 'intervalle'}) // Toute réponse entre -1 et 3, bornes incluses, est acceptée.
+>> setReponse(this, i, [-1, 3], {formatInteractif: 'intervalle'}) // Toute réponse entre -1 et 3, bornes incluses, est acceptée.
 >>
 >> // ou bien
 >>
->> setReponse(this, [-1, 3], resultat, {formatInteractif: 'intervalleStrict'}) // Toute réponse entre -1 et 3, bornes exclues, est acceptée.
+>> setReponse(this, i, [-1, 3], {formatInteractif: 'intervalleStrict'}) // Toute réponse entre -1 et 3, bornes exclues, est acceptée.
 >>```
 
 Alors, rendre l'exercice exportable AMC, doit commencer par l'ajout des deux lignes de code suivants, avec les autres export/import.
@@ -627,6 +628,23 @@ Donc il faudra imposer à l'export AMC une unique solution (ce sera la valeur du
 >>
 >> // Pour le formatInteractif : 'intervalleStrict'
 >> setReponse(this, i, [a,b], {milieuIntervalle: calcul((a+b)/2), approx:calcul((b-a)/2-0.00001), formatInteractif: 'intervalleStrict'})
+>>```
+
+Si on souhaite imposer le nombre de chiffres à coder dans la partie entière et dans la partie décimale, on codera de la façon suivante.
+
+>>```js
+>> // Pour le formatInteractif : 'intervalle'
+>> setReponse(this, i, [a,b], {digits: 5, decimals: 3, milieuIntervalle: calcul((a+b)/2), formatInteractif: 'intervalle'})
+>> // Dans cet exemple, il y a aura au minimum 3 décimales pour 5 chiffres en tout (donc 2 pour la partie entière)
+>> // digits est facultatif et est le nombre minimal de chiffre total du nombre à coder.
+>> // decimals est facultatif et est le nombre minimal de chiffre de la partie décimale du nombre à coder.
+>>
+>> // Pour le formatInteractif : 'intervalleStrict'
+>> setReponse(this, i, [a,b], {digits: 5, decimals: 3, milieuIntervalle: calcul((a+b)/2), approx: 'intervalleStrict', formatInteractif: 'intervalle'})
+>> // Dans cet exemple, il y a aura au minimum 3 décimales pour 5 chiffres en tout (donc 2 pour la partie entière)
+>> // digits est facultatif et est le nombre minimal de chiffre total du nombre à coder.
+>> // decimals est facultatif et est le nombre minimal de chiffre de la partie décimale du nombre à coder.
+>> // approx: 'intervalleStrict' est obligatoire si on ne souhaite pas inclure les bornes de l'intervalle
 >>```
 
 >>>>## <a id="export_AMC_automatise_mathLive_texte" href="#export_AMC_automatise_mathLive_texte"></a> [3. 1. 6. Avec `formatInteractif : 'texte'`, `formatInteractif : 'ignorerCasse'` ou `formatInteractif : 'longueur'`](#export_AMC_automatise_mathLive_texte)

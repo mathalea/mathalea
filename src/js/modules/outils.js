@@ -1642,6 +1642,31 @@ export function factorisation (n) {
 }
 /**
  *
+ * @param {number} n
+ * @param {boolean} puissancesOn
+ * @returns
+ */
+export function texFactorisation (n, puissancesOn = true) {
+  let texFacto = ''
+  let facto = []
+  if (puissancesOn) {
+    facto = factorisation(n)
+    for (let i = 0; i < facto.length - 1; i++) {
+      texFacto += `${facto[i][0]}${facto[i][1] > 1 ? '^{' + facto[i][1] + '}\\times ' : '\\times '}`
+    }
+    texFacto += `${facto[facto.length - 1][0]}${facto[facto.length - 1][1] > 1 ? '^{' + facto[facto.length - 1][1] + '}' : ''}`
+  } else {
+    facto = obtenirListeFacteursPremiers(n)
+    for (let i = 0; i < facto.length - 1; i++) {
+      texFacto += `${facto[i][0]}\\times `
+    }
+    texFacto += `${facto[facto.length - 1][0]}`
+  }
+  return texFacto
+}
+
+/**
+ *
  * @param {Entier} n
  * Extrait le plus grand nombre possible de la racine carrée de n
  * retourne le résulat [a,b] pour a²b=n
@@ -4303,6 +4328,10 @@ export function lampeMessage ({ titre, texte, couleur }) {
           <p>` + texte + `</p>
       </div>
       </div>
+    `
+  } else if (context.isAmc) {
+    return `
+    {\\bf ${titre}} : ${texte}
     `
   } else {
     return `
@@ -7447,12 +7476,6 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += '\\end{questionmultx}\n}\n\n'
           id += 2
         } else {
-          if (autoCorrection[j].reponse.param.milieuIntervalle !== undefined) {
-            valeurAMCNum = autoCorrection[j].reponse.param.milieuIntervalle
-            if (autoCorrection[j].reponse.param.approx === undefined) {
-              autoCorrection[j].reponse.param.approx = 0 // Seul milieuIntervalle sera accepté
-            }
-          }
           let nbChiffresExpo
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) {
             nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.decimals)
@@ -7461,6 +7484,12 @@ export function exportQcmAmc (exercice, idExo) {
           } else {
             nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(valeurAMCNum), autoCorrection[j].reponse.param.decimals)
             nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(valeurAMCNum), autoCorrection[j].reponse.param.digits - nbChiffresPd)
+          }
+          if (autoCorrection[j].reponse.param.milieuIntervalle !== undefined) {
+            const demiMediane = autoCorrection[j].reponse.param.milieuIntervalle - valeurAMCNum
+            nbChiffresPd = max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
+            valeurAMCNum = autoCorrection[j].reponse.param.milieuIntervalle
+            autoCorrection[j].reponse.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? calcul(demiMediane * 10 ** nbChiffresPd - 1) : calcul(demiMediane * 10 ** nbChiffresPd)
           }
           texQr += `\\element{${ref}}{\n `
           texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
@@ -7474,6 +7503,7 @@ export function exportQcmAmc (exercice, idExo) {
           }
           if (autoCorrection[j].reponse.param.approx !== undefined && autoCorrection[j].reponse.param.approx !== 0) {
             texQr += `approx=${autoCorrection[j].reponse.param.approx},`
+            texQr += 'scoreapprox=1,'
           }
           if (autoCorrection[j].reponse.param.vertical !== undefined && autoCorrection[j].reponse.param.vertical) {
             texQr += `vertical=${autoCorrection[j].reponse.param.vertical},`
@@ -7484,7 +7514,7 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
             texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
           }
-          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n }\n\n'
           id++
         }
@@ -7944,12 +7974,6 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += '\\end{questionmultx}\n'
                 id += 2
               } else {
-                if (rep.param.milieuIntervalle !== undefined) {
-                  rep.valeur[0] = rep.param.milieuIntervalle
-                  if (rep.param.approx === undefined) {
-                    rep.param.approx = 0 // Seul milieuIntervalle sera accepté
-                  }
-                }
                 let nbChiffresExpo
                 if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) {
                   nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(rep.valeur[0])[0]), rep.param.decimals)
@@ -7958,6 +7982,12 @@ export function exportQcmAmc (exercice, idExo) {
                 } else {
                   nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(rep.valeur[0]), rep.param.decimals)
                   nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(rep.valeur[0]), rep.param.digits - nbChiffresPd)
+                }
+                if (rep.param.milieuIntervalle !== undefined) {
+                  const demiMediane = rep.param.milieuIntervalle - valeurAMCNum
+                  nbChiffresPd = max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
+                  valeurAMCNum = rep.param.milieuIntervalle
+                  rep.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? calcul(demiMediane * 10 ** nbChiffresPd - 1) : calcul(demiMediane * 10 ** nbChiffresPd)
                 }
                 texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
                 if (propositions !== undefined) {
@@ -7974,6 +8004,7 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 if (rep.param.approx !== undefined && rep.param.approx !== 0) {
                   texQr += `approx=${rep.param.approx},`
+                  texQr += 'scoreapprox=1,'
                 }
                 if (rep.param.vertical !== undefined && rep.param.vertical) {
                   texQr += `vertical=${rep.param.vertical},`
@@ -7984,7 +8015,7 @@ export function exportQcmAmc (exercice, idExo) {
                 if (rep.param.vhead !== undefined && rep.param.vhead) {
                   texQr += `vhead=${rep.param.vhead},`
                 }
-                texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+                texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={,}}\n'
                 if (!(propositions[0].alignement === undefined)) {
                   texQr += '\\end{'
                   texQr += `${propositions[0].alignement}}`

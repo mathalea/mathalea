@@ -8,6 +8,9 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
+// Gestion de la date de publication initiale
+export const dateDePublication = '02/11/2021'
+
 /**
  * Description didactique de l'exercice
  * A partir d'un prix, proposer différentes questions qui permettent de répondre, selon les questions,

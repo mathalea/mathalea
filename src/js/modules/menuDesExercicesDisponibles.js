@@ -285,7 +285,7 @@ export function apparenceExerciceActif () {
         }
       }
       if (!elemListe.hasClass('exerciceactif')) {
-        elemListe.after(`<span data-tooltip="Supprimer le dernière occurence de l'exercice." class="delexercice"><i class="minus square icon delexercice" id="del¤${listeExercicesSelectionnes[i]}" ></i></span>`)
+        elemListe.after(`<span data-tooltip="Supprimer la dernière occurence de l'exercice." class="delexercice"><i class="minus square icon delexercice" id="del¤${listeExercicesSelectionnes[i]}" ></i></span>`)
       }
       elemListe.addClass('exerciceactif')
     }
@@ -829,7 +829,7 @@ export function menuDesExercicesDisponibles () {
       fixedHeader: true,
       language: {
         sEmptyTable: 'Aucune donnée disponible dans le tableau',
-        sInfo: "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+        sInfo: "Affichage de l'élément _START_ à _END_ sur _TOTAL_ élément(s)",
         sInfoEmpty: "Affichage de l'élément 0 à 0 sur 0 élément",
         sInfoFiltered: '(filtré à partir de _MAX_ éléments au total)',
         sInfoThousands: ',',
