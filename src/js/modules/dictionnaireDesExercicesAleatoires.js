@@ -7,7 +7,7 @@ export default {
     "name": "1E10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -26,7 +26,7 @@ export default {
     "name": "1E11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -42,7 +42,7 @@ export default {
     "name": "1E11-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -58,7 +58,7 @@ export default {
     "name": "1E11-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -73,7 +73,7 @@ export default {
     "name": "1E11-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -88,7 +88,7 @@ export default {
     "name": "1E11-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -103,7 +103,7 @@ export default {
     "name": "1E11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -118,7 +118,7 @@ export default {
     "name": "1E12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -133,7 +133,7 @@ export default {
     "name": "1E13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -148,7 +148,7 @@ export default {
     "name": "1E14",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -163,7 +163,7 @@ export default {
     "name": "1E15",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -178,7 +178,7 @@ export default {
     "name": "1F10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -193,7 +193,7 @@ export default {
     "name": "1N10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -208,7 +208,7 @@ export default {
     "name": "1N11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -227,7 +227,7 @@ export default {
     "name": "2F10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -246,7 +246,7 @@ export default {
     "name": "2F10-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -261,7 +261,7 @@ export default {
     "name": "2F10-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -276,7 +276,7 @@ export default {
     "name": "2F10-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -295,7 +295,7 @@ export default {
     "name": "2F32",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -310,7 +310,7 @@ export default {
     "name": "2G12-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -325,7 +325,7 @@ export default {
     "name": "2G12-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -340,7 +340,7 @@ export default {
     "name": "2G12-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -355,7 +355,7 @@ export default {
     "name": "2G12-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -370,7 +370,7 @@ export default {
     "name": "2G22-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -385,7 +385,7 @@ export default {
     "name": "2G23-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -400,7 +400,7 @@ export default {
     "name": "2G23-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -415,7 +415,7 @@ export default {
     "name": "2G23",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -434,7 +434,7 @@ export default {
     "name": "2G31-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -449,7 +449,7 @@ export default {
     "name": "2G31-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -464,7 +464,7 @@ export default {
     "name": "2G31-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -479,7 +479,7 @@ export default {
     "name": "2G31-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -494,7 +494,7 @@ export default {
     "name": "2G31-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -509,7 +509,7 @@ export default {
     "name": "2G34-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -524,7 +524,7 @@ export default {
     "name": "2G34-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -543,7 +543,7 @@ export default {
     "name": "2G36-7",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -562,7 +562,7 @@ export default {
     "name": "2N10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -581,7 +581,7 @@ export default {
     "name": "2N10-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -597,7 +597,7 @@ export default {
     "name": "2N10-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -612,7 +612,7 @@ export default {
     "name": "2N11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -627,7 +627,7 @@ export default {
     "name": "2N11-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -646,7 +646,7 @@ export default {
     "name": "2N12-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -665,7 +665,7 @@ export default {
     "name": "2N13-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -684,7 +684,7 @@ export default {
     "name": "2N14-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -699,7 +699,7 @@ export default {
     "name": "2N15-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -714,7 +714,7 @@ export default {
     "name": "2N15-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -730,7 +730,7 @@ export default {
     "name": "2N20-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -749,7 +749,7 @@ export default {
     "name": "2N20-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -764,7 +764,7 @@ export default {
     "name": "2N20-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -783,7 +783,7 @@ export default {
     "name": "2N20-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -799,7 +799,7 @@ export default {
     "name": "2N20-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -814,7 +814,7 @@ export default {
     "name": "2N20-8",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -829,7 +829,7 @@ export default {
     "name": "2N32-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -844,7 +844,7 @@ export default {
     "name": "2N32-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -859,7 +859,7 @@ export default {
     "name": "2N32-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -875,7 +875,7 @@ export default {
     "name": "2N32-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -890,7 +890,7 @@ export default {
     "name": "2N32-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -905,7 +905,7 @@ export default {
     "name": "2N32-6",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -921,7 +921,7 @@ export default {
     "name": "2N41-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -937,7 +937,7 @@ export default {
     "name": "2N41-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -953,7 +953,7 @@ export default {
     "name": "2N41-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -968,7 +968,7 @@ export default {
     "name": "2N41-6",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -983,7 +983,7 @@ export default {
     "name": "2N41-7",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -998,7 +998,7 @@ export default {
     "name": "2N41-7v2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1013,7 +1013,7 @@ export default {
     "name": "2N52-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1028,7 +1028,7 @@ export default {
     "name": "2N52-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1043,7 +1043,7 @@ export default {
     "name": "2N52-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1058,7 +1058,7 @@ export default {
     "name": "2N60-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1073,7 +1073,7 @@ export default {
     "name": "2N61-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1088,7 +1088,7 @@ export default {
     "name": "2N61-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1104,7 +1104,7 @@ export default {
     "name": "2S20-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1120,7 +1120,7 @@ export default {
     "name": "2S20-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1136,7 +1136,7 @@ export default {
     "name": "2S20-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1151,7 +1151,7 @@ export default {
     "name": "2S30-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1166,7 +1166,7 @@ export default {
     "name": "2S30-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1181,7 +1181,7 @@ export default {
     "name": "2S30-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1196,7 +1196,7 @@ export default {
     "name": "3A10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1215,7 +1215,7 @@ export default {
     "name": "3A11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1231,7 +1231,7 @@ export default {
     "name": "3A11-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1246,7 +1246,7 @@ export default {
     "name": "3A11-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1265,7 +1265,7 @@ export default {
     "name": "3A11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1280,7 +1280,7 @@ export default {
     "name": "3A12-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1295,7 +1295,7 @@ export default {
     "name": "3A12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1310,7 +1310,7 @@ export default {
     "name": "3A13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1329,7 +1329,7 @@ export default {
     "name": "3A14",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1344,7 +1344,7 @@ export default {
     "name": "3F1-act",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1363,7 +1363,7 @@ export default {
     "name": "3F10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1382,7 +1382,7 @@ export default {
     "name": "3F10-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1398,7 +1398,7 @@ export default {
     "name": "3F10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1414,7 +1414,7 @@ export default {
     "name": "3F12-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1433,7 +1433,7 @@ export default {
     "name": "3F12-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1452,7 +1452,7 @@ export default {
     "name": "3F12-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1467,7 +1467,7 @@ export default {
     "name": "3F12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1483,7 +1483,7 @@ export default {
     "name": "3F13-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1499,7 +1499,7 @@ export default {
     "name": "3F13-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1514,7 +1514,7 @@ export default {
     "name": "3F13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1533,7 +1533,7 @@ export default {
     "name": "3F21-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1549,7 +1549,7 @@ export default {
     "name": "3F21-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1565,7 +1565,7 @@ export default {
     "name": "3F21-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1580,7 +1580,7 @@ export default {
     "name": "3F21",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1599,7 +1599,7 @@ export default {
     "name": "3G10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1618,7 +1618,7 @@ export default {
     "name": "3G10-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1633,7 +1633,7 @@ export default {
     "name": "3G10-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1648,7 +1648,7 @@ export default {
     "name": "3G11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1667,7 +1667,7 @@ export default {
     "name": "3G12-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1682,7 +1682,7 @@ export default {
     "name": "3G12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1697,7 +1697,7 @@ export default {
     "name": "3G20-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1716,7 +1716,7 @@ export default {
     "name": "3G20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1734,7 +1734,7 @@ export default {
     "name": "3G21",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
   "3G22": {
@@ -1745,7 +1745,7 @@ export default {
     "name": "3G22",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1760,7 +1760,7 @@ export default {
     "name": "3G23",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1775,7 +1775,7 @@ export default {
     "name": "3G30-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1794,7 +1794,7 @@ export default {
     "name": "3G30",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1809,7 +1809,7 @@ export default {
     "name": "3G31-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1828,7 +1828,7 @@ export default {
     "name": "3G31",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1847,7 +1847,7 @@ export default {
     "name": "3G32-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1862,7 +1862,7 @@ export default {
     "name": "3G32-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1877,7 +1877,7 @@ export default {
     "name": "3G32-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1892,7 +1892,7 @@ export default {
     "name": "3G32-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1907,7 +1907,7 @@ export default {
     "name": "3G32-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1922,7 +1922,7 @@ export default {
     "name": "3G32",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1937,7 +1937,7 @@ export default {
     "name": "3G40",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1956,7 +1956,7 @@ export default {
     "name": "3G42",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1978,7 +1978,7 @@ export default {
     "name": "3G43",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -1993,7 +1993,7 @@ export default {
     "name": "3I1-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2008,7 +2008,7 @@ export default {
     "name": "3I1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2023,7 +2023,7 @@ export default {
     "name": "3L10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2038,7 +2038,7 @@ export default {
     "name": "3L10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2057,7 +2057,7 @@ export default {
     "name": "3L11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2076,7 +2076,7 @@ export default {
     "name": "3L11-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2092,7 +2092,7 @@ export default {
     "name": "3L11-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2111,7 +2111,7 @@ export default {
     "name": "3L11-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2127,7 +2127,7 @@ export default {
     "name": "3L11-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2143,7 +2143,7 @@ export default {
     "name": "3L11-6",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2159,7 +2159,7 @@ export default {
     "name": "3L11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2175,7 +2175,7 @@ export default {
     "name": "3L12-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2191,7 +2191,7 @@ export default {
     "name": "3L12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2210,7 +2210,7 @@ export default {
     "name": "3L13-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2226,7 +2226,7 @@ export default {
     "name": "3L13-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2241,7 +2241,7 @@ export default {
     "name": "3L13-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2260,7 +2260,7 @@ export default {
     "name": "3L13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2275,7 +2275,7 @@ export default {
     "name": "3L14-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2290,7 +2290,7 @@ export default {
     "name": "3L14",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2306,7 +2306,7 @@ export default {
     "name": "3L15-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2321,7 +2321,7 @@ export default {
     "name": "3L15",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2337,7 +2337,7 @@ export default {
     "name": "3P10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2353,7 +2353,7 @@ export default {
     "name": "3P10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2369,7 +2369,7 @@ export default {
     "name": "3S12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2385,7 +2385,7 @@ export default {
     "name": "3S15",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2400,7 +2400,7 @@ export default {
     "name": "3S20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2415,7 +2415,7 @@ export default {
     "name": "4A10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2431,7 +2431,7 @@ export default {
     "name": "4A11-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -2446,7 +2446,7 @@ export default {
     "name": "4A11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2461,7 +2461,7 @@ export default {
     "name": "4A11-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2480,7 +2480,7 @@ export default {
     "name": "4A12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2499,7 +2499,7 @@ export default {
     "name": "4AI1-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2518,7 +2518,7 @@ export default {
     "name": "4C10-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2537,7 +2537,7 @@ export default {
     "name": "4C10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2556,7 +2556,7 @@ export default {
     "name": "4C10-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2572,7 +2572,7 @@ export default {
     "name": "4C10-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2588,7 +2588,7 @@ export default {
     "name": "4C10-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2603,7 +2603,7 @@ export default {
     "name": "4C10-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2622,7 +2622,7 @@ export default {
     "name": "4C10-6",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2638,7 +2638,7 @@ export default {
     "name": "4C11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2653,7 +2653,7 @@ export default {
     "name": "4C20-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2672,7 +2672,7 @@ export default {
     "name": "4C20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2691,7 +2691,7 @@ export default {
     "name": "4C21-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2710,7 +2710,7 @@ export default {
     "name": "4C21",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2726,7 +2726,7 @@ export default {
     "name": "4C22-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2745,7 +2745,7 @@ export default {
     "name": "4C22-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2764,7 +2764,7 @@ export default {
     "name": "4C22",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2783,7 +2783,7 @@ export default {
     "name": "4C23-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2799,7 +2799,7 @@ export default {
     "name": "4C23",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2814,7 +2814,7 @@ export default {
     "name": "4C25-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2829,7 +2829,7 @@ export default {
     "name": "4C30-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2844,7 +2844,7 @@ export default {
     "name": "4C30-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2859,7 +2859,7 @@ export default {
     "name": "4C30-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2874,7 +2874,7 @@ export default {
     "name": "4C30",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2893,7 +2893,7 @@ export default {
     "name": "4C32-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2908,7 +2908,7 @@ export default {
     "name": "4C32-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2923,7 +2923,7 @@ export default {
     "name": "4C32-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2942,7 +2942,7 @@ export default {
     "name": "4C32",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2957,7 +2957,7 @@ export default {
     "name": "4C33-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2972,7 +2972,7 @@ export default {
     "name": "4C33-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -2990,7 +2990,7 @@ export default {
     "name": "4C34",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
   "4F12": {
@@ -3004,7 +3004,7 @@ export default {
     "name": "4F12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
   "4G10-1": {
@@ -3019,7 +3019,7 @@ export default {
     "name": "4G10-1",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3038,7 +3038,7 @@ export default {
     "name": "4G10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3057,7 +3057,7 @@ export default {
     "name": "4G11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3072,7 +3072,7 @@ export default {
     "name": "4G11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3087,7 +3087,7 @@ export default {
     "name": "4G15",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3103,7 +3103,7 @@ export default {
     "name": "4G20-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3122,7 +3122,7 @@ export default {
     "name": "4G20-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3138,7 +3138,7 @@ export default {
     "name": "4G20-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3153,7 +3153,7 @@ export default {
     "name": "4G20-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3172,7 +3172,7 @@ export default {
     "name": "4G20-6",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3191,7 +3191,7 @@ export default {
     "name": "4G20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3210,7 +3210,7 @@ export default {
     "name": "4G21",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3225,7 +3225,7 @@ export default {
     "name": "4G22",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3244,7 +3244,7 @@ export default {
     "name": "4G30",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3259,7 +3259,7 @@ export default {
     "name": "4G31",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3274,7 +3274,7 @@ export default {
     "name": "4G40-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3289,7 +3289,7 @@ export default {
     "name": "4G40-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3304,7 +3304,7 @@ export default {
     "name": "4G40-MG32",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3323,7 +3323,7 @@ export default {
     "name": "4G40",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3342,7 +3342,7 @@ export default {
     "name": "4G41",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3357,7 +3357,7 @@ export default {
     "name": "4G51",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3372,7 +3372,7 @@ export default {
     "name": "4G52",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3394,7 +3394,7 @@ export default {
     "name": "4G53",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3409,7 +3409,7 @@ export default {
     "name": "4I1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3424,7 +3424,7 @@ export default {
     "name": "4L10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3440,7 +3440,7 @@ export default {
     "name": "4L10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3455,7 +3455,7 @@ export default {
     "name": "4L11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3470,7 +3470,7 @@ export default {
     "name": "4L13-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3485,7 +3485,7 @@ export default {
     "name": "4L13-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3500,7 +3500,7 @@ export default {
     "name": "4L14-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3515,7 +3515,7 @@ export default {
     "name": "4L14-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3530,7 +3530,7 @@ export default {
     "name": "4L14-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3545,7 +3545,7 @@ export default {
     "name": "4L15-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3560,7 +3560,7 @@ export default {
     "name": "4L15-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3575,7 +3575,7 @@ export default {
     "name": "4L16",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3594,7 +3594,7 @@ export default {
     "name": "4L20-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3613,7 +3613,7 @@ export default {
     "name": "4L20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3628,7 +3628,7 @@ export default {
     "name": "4P10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3643,7 +3643,7 @@ export default {
     "name": "4P10-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3658,7 +3658,7 @@ export default {
     "name": "4P10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3673,7 +3673,7 @@ export default {
     "name": "4S10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3692,7 +3692,7 @@ export default {
     "name": "4S11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -3708,7 +3708,7 @@ export default {
     "name": "5A10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -3723,7 +3723,7 @@ export default {
     "name": "5A11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3742,7 +3742,7 @@ export default {
     "name": "5A11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3761,7 +3761,7 @@ export default {
     "name": "5A12-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3777,7 +3777,7 @@ export default {
     "name": "5A13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3792,7 +3792,7 @@ export default {
     "name": "5C11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3807,7 +3807,7 @@ export default {
     "name": "5C11-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3822,7 +3822,7 @@ export default {
     "name": "5C11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3841,7 +3841,7 @@ export default {
     "name": "5C12-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3860,7 +3860,7 @@ export default {
     "name": "5C12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3875,7 +3875,7 @@ export default {
     "name": "5G10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3890,7 +3890,7 @@ export default {
     "name": "5G10-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3909,7 +3909,7 @@ export default {
     "name": "5G10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3924,7 +3924,7 @@ export default {
     "name": "5G11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3939,7 +3939,7 @@ export default {
     "name": "5G11-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3954,7 +3954,7 @@ export default {
     "name": "5G11-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3973,7 +3973,7 @@ export default {
     "name": "5G11-4",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -3992,7 +3992,7 @@ export default {
     "name": "5G11-5",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4011,7 +4011,7 @@ export default {
     "name": "5G11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4030,7 +4030,7 @@ export default {
     "name": "5G12-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4045,7 +4045,7 @@ export default {
     "name": "5G12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4060,7 +4060,7 @@ export default {
     "name": "5G13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4075,7 +4075,7 @@ export default {
     "name": "5G20-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4090,7 +4090,7 @@ export default {
     "name": "5G20-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4105,7 +4105,7 @@ export default {
     "name": "5G20-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4120,7 +4120,7 @@ export default {
     "name": "5G20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4135,7 +4135,7 @@ export default {
     "name": "5G21-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4150,7 +4150,7 @@ export default {
     "name": "5G22-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4165,7 +4165,7 @@ export default {
     "name": "5G22",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4180,7 +4180,7 @@ export default {
     "name": "5G24-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4195,7 +4195,7 @@ export default {
     "name": "5G24-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4210,7 +4210,7 @@ export default {
     "name": "5G30-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4225,7 +4225,7 @@ export default {
     "name": "5G30",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4240,7 +4240,7 @@ export default {
     "name": "5G31-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4255,7 +4255,7 @@ export default {
     "name": "5G31",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4270,7 +4270,7 @@ export default {
     "name": "5G40-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4285,7 +4285,7 @@ export default {
     "name": "5G40-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4300,7 +4300,7 @@ export default {
     "name": "5G40",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4315,7 +4315,7 @@ export default {
     "name": "5G41",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4330,7 +4330,7 @@ export default {
     "name": "5G42",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4345,7 +4345,7 @@ export default {
     "name": "5G51",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4360,7 +4360,7 @@ export default {
     "name": "5L10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4379,7 +4379,7 @@ export default {
     "name": "5L10-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4394,7 +4394,7 @@ export default {
     "name": "5L10-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4409,7 +4409,7 @@ export default {
     "name": "5L10-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4428,7 +4428,7 @@ export default {
     "name": "5L10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4443,7 +4443,7 @@ export default {
     "name": "5L12-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4458,7 +4458,7 @@ export default {
     "name": "5L12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4474,7 +4474,7 @@ export default {
     "name": "5L13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4489,7 +4489,7 @@ export default {
     "name": "5L14-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4508,7 +4508,7 @@ export default {
     "name": "5L14-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4523,7 +4523,7 @@ export default {
     "name": "5L14-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4538,7 +4538,7 @@ export default {
     "name": "5L14-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4553,7 +4553,7 @@ export default {
     "name": "5L14-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4568,7 +4568,7 @@ export default {
     "name": "5L14-6",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4584,7 +4584,7 @@ export default {
     "name": "5L14",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4599,7 +4599,7 @@ export default {
     "name": "5L15",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4614,7 +4614,7 @@ export default {
     "name": "5M10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4636,7 +4636,7 @@ export default {
     "name": "5M20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4651,7 +4651,7 @@ export default {
     "name": "5N11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4666,7 +4666,7 @@ export default {
     "name": "5N11-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4681,7 +4681,7 @@ export default {
     "name": "5N11-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4696,7 +4696,7 @@ export default {
     "name": "5N11-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4715,7 +4715,7 @@ export default {
     "name": "5N110",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4734,7 +4734,7 @@ export default {
     "name": "5N13-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4753,7 +4753,7 @@ export default {
     "name": "5N13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4768,7 +4768,7 @@ export default {
     "name": "5N14-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4787,7 +4787,7 @@ export default {
     "name": "5N14-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4806,7 +4806,7 @@ export default {
     "name": "5N14",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4821,7 +4821,7 @@ export default {
     "name": "5N15",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4836,7 +4836,7 @@ export default {
     "name": "5N20-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4855,7 +4855,7 @@ export default {
     "name": "5N20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4870,7 +4870,7 @@ export default {
     "name": "5P10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4886,7 +4886,7 @@ export default {
     "name": "5P11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4901,7 +4901,7 @@ export default {
     "name": "5P12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4916,7 +4916,7 @@ export default {
     "name": "5R10-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4931,7 +4931,7 @@ export default {
     "name": "5R10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4950,7 +4950,7 @@ export default {
     "name": "5R10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4969,7 +4969,7 @@ export default {
     "name": "5R11-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -4988,7 +4988,7 @@ export default {
     "name": "5R11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5003,7 +5003,7 @@ export default {
     "name": "5R12-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5018,7 +5018,7 @@ export default {
     "name": "5R12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5037,7 +5037,7 @@ export default {
     "name": "5R20-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5056,7 +5056,7 @@ export default {
     "name": "5R20-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5071,7 +5071,7 @@ export default {
     "name": "5R20-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5086,7 +5086,7 @@ export default {
     "name": "5R20-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5108,7 +5108,7 @@ export default {
     "name": "5R20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5127,7 +5127,7 @@ export default {
     "name": "5R21",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5142,7 +5142,7 @@ export default {
     "name": "5R22-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5161,7 +5161,7 @@ export default {
     "name": "5R22",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5176,7 +5176,7 @@ export default {
     "name": "5S10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5191,7 +5191,7 @@ export default {
     "name": "5S11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5206,7 +5206,7 @@ export default {
     "name": "5S12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5221,7 +5221,7 @@ export default {
     "name": "5S13-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5236,7 +5236,7 @@ export default {
     "name": "5S13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5251,7 +5251,7 @@ export default {
     "name": "5S14",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5266,7 +5266,7 @@ export default {
     "name": "5S20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5281,7 +5281,7 @@ export default {
     "name": "5S21-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5296,7 +5296,7 @@ export default {
     "name": "5S21",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5315,7 +5315,7 @@ export default {
     "name": "6C10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5337,7 +5337,7 @@ export default {
     "name": "6C10-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5356,7 +5356,7 @@ export default {
     "name": "6C10-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5375,7 +5375,7 @@ export default {
     "name": "6C10-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5393,7 +5393,7 @@ export default {
     "name": "6C10-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
   "6C10": {
@@ -5408,7 +5408,7 @@ export default {
     "name": "6C10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5427,7 +5427,7 @@ export default {
     "name": "6C11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5446,7 +5446,7 @@ export default {
     "name": "6C11-2",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5465,7 +5465,7 @@ export default {
     "name": "6C11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5484,7 +5484,7 @@ export default {
     "name": "6C12-1",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5503,7 +5503,7 @@ export default {
     "name": "6C12",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5518,7 +5518,7 @@ export default {
     "name": "6C13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5537,7 +5537,7 @@ export default {
     "name": "6C20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5556,7 +5556,7 @@ export default {
     "name": "6C21",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5575,7 +5575,7 @@ export default {
     "name": "6C22",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5594,7 +5594,7 @@ export default {
     "name": "6C23",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5613,7 +5613,7 @@ export default {
     "name": "6C30-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5632,7 +5632,7 @@ export default {
     "name": "6C30-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5651,7 +5651,7 @@ export default {
     "name": "6C30-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5670,7 +5670,7 @@ export default {
     "name": "6C30-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5689,7 +5689,7 @@ export default {
     "name": "6C30-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5708,7 +5708,7 @@ export default {
     "name": "6C30",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5724,7 +5724,7 @@ export default {
     "name": "6C31-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5743,7 +5743,7 @@ export default {
     "name": "6C31",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5762,7 +5762,7 @@ export default {
     "name": "6C32",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5781,7 +5781,7 @@ export default {
     "name": "6C33",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5800,7 +5800,7 @@ export default {
     "name": "6C34",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5816,7 +5816,7 @@ export default {
     "name": "6C35",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -5831,7 +5831,7 @@ export default {
     "name": "6D10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5850,7 +5850,7 @@ export default {
     "name": "6D101",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5865,7 +5865,7 @@ export default {
     "name": "6D11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5880,7 +5880,7 @@ export default {
     "name": "6D12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5899,7 +5899,7 @@ export default {
     "name": "6D13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5914,7 +5914,7 @@ export default {
     "name": "6G10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5929,7 +5929,7 @@ export default {
     "name": "6G10-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5950,7 +5950,7 @@ export default {
     "name": "6G10-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5965,7 +5965,7 @@ export default {
     "name": "6G10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -5983,7 +5983,7 @@ export default {
     "name": "6G11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
   "6G12-1": {
@@ -5997,7 +5997,7 @@ export default {
     "name": "6G12-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
   "6G12": {
@@ -6011,7 +6011,7 @@ export default {
     "name": "6G12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
   "6G14": {
@@ -6025,7 +6025,7 @@ export default {
     "name": "6G14",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
   "6G20-2": {
@@ -6036,7 +6036,7 @@ export default {
     "name": "6G20-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6051,7 +6051,7 @@ export default {
     "name": "6G20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6066,7 +6066,7 @@ export default {
     "name": "6G21-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6081,7 +6081,7 @@ export default {
     "name": "6G21",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6100,7 +6100,7 @@ export default {
     "name": "6G23-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6115,7 +6115,7 @@ export default {
     "name": "6G23-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6130,7 +6130,7 @@ export default {
     "name": "6G23",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6145,7 +6145,7 @@ export default {
     "name": "6G24-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6160,7 +6160,7 @@ export default {
     "name": "6G24-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6175,7 +6175,7 @@ export default {
     "name": "6G24-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6194,7 +6194,7 @@ export default {
     "name": "6G24",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6213,7 +6213,7 @@ export default {
     "name": "6G25-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6232,7 +6232,7 @@ export default {
     "name": "6G25-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6247,7 +6247,7 @@ export default {
     "name": "6G25-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6262,7 +6262,7 @@ export default {
     "name": "6G25",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6277,7 +6277,7 @@ export default {
     "name": "6G32-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6296,7 +6296,7 @@ export default {
     "name": "6G33",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6314,7 +6314,7 @@ export default {
     "name": "6G41",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
   "6G42": {
@@ -6325,7 +6325,7 @@ export default {
     "name": "6G42",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6344,7 +6344,7 @@ export default {
     "name": "6G43",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6359,7 +6359,7 @@ export default {
     "name": "6I10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6374,7 +6374,7 @@ export default {
     "name": "6I11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6393,7 +6393,7 @@ export default {
     "name": "6I12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6412,7 +6412,7 @@ export default {
     "name": "6M10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6431,7 +6431,7 @@ export default {
     "name": "6M11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6446,7 +6446,7 @@ export default {
     "name": "6M11-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6465,7 +6465,7 @@ export default {
     "name": "6M11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6484,7 +6484,7 @@ export default {
     "name": "6M12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6503,7 +6503,7 @@ export default {
     "name": "6M20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6518,7 +6518,7 @@ export default {
     "name": "6M22-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6533,7 +6533,7 @@ export default {
     "name": "6M22-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6552,7 +6552,7 @@ export default {
     "name": "6M22",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6574,7 +6574,7 @@ export default {
     "name": "6M23",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6589,7 +6589,7 @@ export default {
     "name": "6M25",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6608,7 +6608,7 @@ export default {
     "name": "6M30-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6630,7 +6630,7 @@ export default {
     "name": "6M30",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6645,7 +6645,7 @@ export default {
     "name": "6M31-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6667,7 +6667,7 @@ export default {
     "name": "6M31",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6683,7 +6683,7 @@ export default {
     "name": "6N10-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6702,7 +6702,7 @@ export default {
     "name": "6N10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6721,7 +6721,7 @@ export default {
     "name": "6N10-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6740,7 +6740,7 @@ export default {
     "name": "6N10-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6755,7 +6755,7 @@ export default {
     "name": "6N10-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6770,7 +6770,7 @@ export default {
     "name": "6N10-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6786,7 +6786,7 @@ export default {
     "name": "6N10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6805,7 +6805,7 @@ export default {
     "name": "6N11-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6820,7 +6820,7 @@ export default {
     "name": "6N11-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6835,7 +6835,7 @@ export default {
     "name": "6N11-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6854,7 +6854,7 @@ export default {
     "name": "6N11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6869,7 +6869,7 @@ export default {
     "name": "6N12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6888,7 +6888,7 @@ export default {
     "name": "6N13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6903,7 +6903,7 @@ export default {
     "name": "6N14",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6922,7 +6922,7 @@ export default {
     "name": "6N20-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6938,7 +6938,7 @@ export default {
     "name": "6N20-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6954,7 +6954,7 @@ export default {
     "name": "6N20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6970,7 +6970,7 @@ export default {
     "name": "6N21",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -6985,7 +6985,7 @@ export default {
     "name": "6N22-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7000,7 +7000,7 @@ export default {
     "name": "6N22-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7019,7 +7019,7 @@ export default {
     "name": "6N22",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7038,7 +7038,7 @@ export default {
     "name": "6N23-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7056,7 +7056,7 @@ export default {
     "name": "6N23-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
   "6N23-2": {
@@ -7071,7 +7071,7 @@ export default {
     "name": "6N23-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7086,7 +7086,7 @@ export default {
     "name": "6N23-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7101,7 +7101,7 @@ export default {
     "name": "6N23-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7120,7 +7120,7 @@ export default {
     "name": "6N23-5",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7139,7 +7139,7 @@ export default {
     "name": "6N23",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7154,7 +7154,7 @@ export default {
     "name": "6N24-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7173,7 +7173,7 @@ export default {
     "name": "6N24",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7192,7 +7192,7 @@ export default {
     "name": "6N30-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7211,7 +7211,7 @@ export default {
     "name": "6N30-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7230,7 +7230,7 @@ export default {
     "name": "6N30",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7245,7 +7245,7 @@ export default {
     "name": "6N31-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7260,7 +7260,7 @@ export default {
     "name": "6N31-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7279,7 +7279,7 @@ export default {
     "name": "6N31-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7295,7 +7295,7 @@ export default {
     "name": "6N31-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -7310,7 +7310,7 @@ export default {
     "name": "6N31",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7325,7 +7325,7 @@ export default {
     "name": "6N32",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7340,7 +7340,7 @@ export default {
     "name": "6N33-0",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7359,7 +7359,7 @@ export default {
     "name": "6N33-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7374,7 +7374,7 @@ export default {
     "name": "6N33-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7389,7 +7389,7 @@ export default {
     "name": "6N33-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7408,7 +7408,7 @@ export default {
     "name": "6N33",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7427,7 +7427,7 @@ export default {
     "name": "6N34",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7442,7 +7442,7 @@ export default {
     "name": "6N41-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7461,7 +7461,7 @@ export default {
     "name": "6N41",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7480,7 +7480,7 @@ export default {
     "name": "6N43-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7499,7 +7499,7 @@ export default {
     "name": "6N43-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7515,7 +7515,7 @@ export default {
     "name": "6N43-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7534,7 +7534,7 @@ export default {
     "name": "6N43",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7553,7 +7553,7 @@ export default {
     "name": "6P10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7572,7 +7572,7 @@ export default {
     "name": "6P11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7588,7 +7588,7 @@ export default {
     "name": "6P11-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7607,7 +7607,7 @@ export default {
     "name": "6P11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7626,7 +7626,7 @@ export default {
     "name": "6P12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7641,7 +7641,7 @@ export default {
     "name": "6P13-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7660,7 +7660,7 @@ export default {
     "name": "6P13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7679,7 +7679,7 @@ export default {
     "name": "6S10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7698,7 +7698,7 @@ export default {
     "name": "6S10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7713,7 +7713,7 @@ export default {
     "name": "6S11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7732,7 +7732,7 @@ export default {
     "name": "CM000",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7751,7 +7751,7 @@ export default {
     "name": "CM001",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7770,7 +7770,7 @@ export default {
     "name": "CM002",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7789,7 +7789,7 @@ export default {
     "name": "CM003",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7808,7 +7808,7 @@ export default {
     "name": "CM004",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7827,7 +7827,7 @@ export default {
     "name": "CM005",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7846,7 +7846,7 @@ export default {
     "name": "CM006",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7865,7 +7865,7 @@ export default {
     "name": "CM007",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7884,7 +7884,7 @@ export default {
     "name": "CM008",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7903,7 +7903,7 @@ export default {
     "name": "CM009",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7922,7 +7922,7 @@ export default {
     "name": "CM010",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7941,7 +7941,7 @@ export default {
     "name": "CM011",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7960,7 +7960,7 @@ export default {
     "name": "CM012",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7979,7 +7979,7 @@ export default {
     "name": "CM013",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -7998,7 +7998,7 @@ export default {
     "name": "CM014",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8017,7 +8017,7 @@ export default {
     "name": "CM015",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8036,7 +8036,7 @@ export default {
     "name": "CM016",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8055,7 +8055,7 @@ export default {
     "name": "CM017",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8074,7 +8074,7 @@ export default {
     "name": "CM018",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8092,7 +8092,7 @@ export default {
     "name": "CM019",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
   "CM020": {
@@ -8103,7 +8103,7 @@ export default {
     "name": "CM020",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8118,7 +8118,7 @@ export default {
     "name": "CM021",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8133,7 +8133,7 @@ export default {
     "name": "ExC100",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8148,7 +8148,7 @@ export default {
     "name": "HPC100",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8163,7 +8163,7 @@ export default {
     "name": "PEA11-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8178,7 +8178,7 @@ export default {
     "name": "PEA11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8193,7 +8193,7 @@ export default {
     "name": "PEA12",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8208,7 +8208,7 @@ export default {
     "name": "PEA13",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8223,7 +8223,7 @@ export default {
     "name": "PEG20",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8238,7 +8238,7 @@ export default {
     "name": "PEG21",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8253,7 +8253,7 @@ export default {
     "name": "PEG22",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8268,7 +8268,7 @@ export default {
     "name": "PEG23",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8283,7 +8283,7 @@ export default {
     "name": "PEG24",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8298,7 +8298,7 @@ export default {
     "name": "P003",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8313,7 +8313,7 @@ export default {
     "name": "P004",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8328,7 +8328,7 @@ export default {
     "name": "P005",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8343,7 +8343,7 @@ export default {
     "name": "P006",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8358,7 +8358,7 @@ export default {
     "name": "P007",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8373,7 +8373,7 @@ export default {
     "name": "P008",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8388,7 +8388,7 @@ export default {
     "name": "P009",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8403,7 +8403,7 @@ export default {
     "name": "P010",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8418,7 +8418,7 @@ export default {
     "name": "P011",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8433,7 +8433,7 @@ export default {
     "name": "P012",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8448,7 +8448,7 @@ export default {
     "name": "P013",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8463,7 +8463,7 @@ export default {
     "name": "P014",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8479,7 +8479,7 @@ export default {
     "name": "beta240-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8494,7 +8494,7 @@ export default {
     "name": "beta2F31",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8509,7 +8509,7 @@ export default {
     "name": "beta2N60-X1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8524,7 +8524,7 @@ export default {
     "name": "beta2N60-X2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8539,7 +8539,7 @@ export default {
     "name": "beta3F23",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8554,7 +8554,7 @@ export default {
     "name": "beta3G15",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8569,7 +8569,7 @@ export default {
     "name": "beta3G41",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8584,7 +8584,7 @@ export default {
     "name": "beta3s21",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8599,7 +8599,7 @@ export default {
     "name": "beta4C31",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8614,7 +8614,7 @@ export default {
     "name": "beta4G20-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8629,7 +8629,7 @@ export default {
     "name": "beta4G20-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8644,7 +8644,7 @@ export default {
     "name": "beta6C33-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8660,7 +8660,7 @@ export default {
     "name": "beta6C38",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8676,7 +8676,7 @@ export default {
     "name": "beta6N12-interactif",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8691,7 +8691,7 @@ export default {
     "name": "beta6test2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8706,7 +8706,7 @@ export default {
     "name": "beta6test2021",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8721,7 +8721,7 @@ export default {
     "name": "betaAsymptotesObliques",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8740,7 +8740,7 @@ export default {
     "name": "betaCaNCM2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8759,7 +8759,7 @@ export default {
     "name": "betaCan2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8781,7 +8781,7 @@ export default {
     "name": "betaCan2G01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8796,7 +8796,7 @@ export default {
     "name": "betaEqCarreDansC",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8811,7 +8811,7 @@ export default {
     "name": "betaEqValAbs",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8826,7 +8826,7 @@ export default {
     "name": "betaEquationsLog",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8841,7 +8841,7 @@ export default {
     "name": "betaExo3d",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8856,7 +8856,7 @@ export default {
     "name": "betaExoSimpleMatthieu",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8872,7 +8872,7 @@ export default {
     "name": "betaLicence",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -8888,7 +8888,7 @@ export default {
     "name": "betaModele00_simple_Course_au_Nombres",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -8903,7 +8903,7 @@ export default {
     "name": "betaModele10_simple_question-reponse",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -8918,7 +8918,7 @@ export default {
     "name": "betaModele11_parametrable",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -8933,7 +8933,7 @@ export default {
     "name": "betaModele20_plusieurs_types_de_questions",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -8948,7 +8948,7 @@ export default {
     "name": "betaModele21_parametrables",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -8963,7 +8963,7 @@ export default {
     "name": "betaModele30_constructions_géométriques",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -8978,7 +8978,7 @@ export default {
     "name": "betaModele31_parametrables",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -8994,7 +8994,7 @@ export default {
     "name": "betaModele32_cliqueFigure",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -9009,7 +9009,7 @@ export default {
     "name": "betaModele40_tableau_proportionnalite",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -9024,7 +9024,7 @@ export default {
     "name": "betaModele41_tableau_signes_variations",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": true,
@@ -9039,7 +9039,7 @@ export default {
     "name": "betaProbaAouB",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9054,7 +9054,7 @@ export default {
     "name": "betaProbabilites",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9069,7 +9069,7 @@ export default {
     "name": "betaPuissances",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9084,7 +9084,7 @@ export default {
     "name": "betaSpline",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9099,7 +9099,7 @@ export default {
     "name": "betaSys2x2CombLin",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9114,7 +9114,7 @@ export default {
     "name": "betaTracerParabole",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9129,7 +9129,7 @@ export default {
     "name": "betarotation3d",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9144,7 +9144,7 @@ export default {
     "name": "betatrinome",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9159,7 +9159,7 @@ export default {
     "name": "moule_a_exo_mathalea",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9174,7 +9174,7 @@ export default {
     "name": "moule_a_exo_mathalea2d",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9193,7 +9193,7 @@ export default {
     "name": "c3C10-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9208,7 +9208,7 @@ export default {
     "name": "c3C10-2",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9227,7 +9227,7 @@ export default {
     "name": "c3C10-4",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9246,7 +9246,7 @@ export default {
     "name": "c3C10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9265,7 +9265,7 @@ export default {
     "name": "c3C11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9284,7 +9284,7 @@ export default {
     "name": "c3C12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9303,7 +9303,7 @@ export default {
     "name": "c3C13-1",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9322,7 +9322,7 @@ export default {
     "name": "c3C13",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9341,7 +9341,7 @@ export default {
     "name": "c3C23",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9360,7 +9360,7 @@ export default {
     "name": "c3C30",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9379,7 +9379,7 @@ export default {
     "name": "c3C31",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9398,7 +9398,7 @@ export default {
     "name": "c3C3CaN",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9413,7 +9413,7 @@ export default {
     "name": "c3N10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9432,7 +9432,7 @@ export default {
     "name": "c3N20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9451,7 +9451,7 @@ export default {
     "name": "c3N22",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9466,7 +9466,7 @@ export default {
     "name": "c3N23",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9485,7 +9485,7 @@ export default {
     "name": "c3N30",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9501,7 +9501,7 @@ export default {
     "name": "can1F01",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9517,7 +9517,7 @@ export default {
     "name": "can1F02",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9536,7 +9536,7 @@ export default {
     "name": "can1L01",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9552,7 +9552,7 @@ export default {
     "name": "can1L02",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9571,7 +9571,7 @@ export default {
     "name": "can2C01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9590,7 +9590,7 @@ export default {
     "name": "can2C02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9609,7 +9609,7 @@ export default {
     "name": "can2C03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9625,7 +9625,7 @@ export default {
     "name": "can2C04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9641,7 +9641,7 @@ export default {
     "name": "can2C05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9657,7 +9657,7 @@ export default {
     "name": "can2C06",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9673,7 +9673,7 @@ export default {
     "name": "can2C07",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9689,7 +9689,7 @@ export default {
     "name": "can2C08",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9705,7 +9705,7 @@ export default {
     "name": "can2F01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9721,7 +9721,7 @@ export default {
     "name": "can2F02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9737,7 +9737,7 @@ export default {
     "name": "can2F03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9753,7 +9753,7 @@ export default {
     "name": "can2F04",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9769,7 +9769,7 @@ export default {
     "name": "can2F05",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9788,7 +9788,7 @@ export default {
     "name": "can2G01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9804,7 +9804,7 @@ export default {
     "name": "can2G02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9820,7 +9820,7 @@ export default {
     "name": "can2G03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9836,7 +9836,7 @@ export default {
     "name": "can2G04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9852,7 +9852,7 @@ export default {
     "name": "can2G05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9868,7 +9868,7 @@ export default {
     "name": "can2G06",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9884,7 +9884,7 @@ export default {
     "name": "can2G07",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9900,7 +9900,7 @@ export default {
     "name": "can2G08",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9916,7 +9916,7 @@ export default {
     "name": "can2G09",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9932,7 +9932,7 @@ export default {
     "name": "can2G10",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9948,7 +9948,7 @@ export default {
     "name": "can2G11",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9964,7 +9964,7 @@ export default {
     "name": "can2G12",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9983,7 +9983,7 @@ export default {
     "name": "can2L01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -9999,7 +9999,7 @@ export default {
     "name": "can2L02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10015,7 +10015,7 @@ export default {
     "name": "can2L03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10031,7 +10031,7 @@ export default {
     "name": "can2L04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10047,7 +10047,7 @@ export default {
     "name": "can2L05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10063,7 +10063,7 @@ export default {
     "name": "can2L06",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10079,7 +10079,7 @@ export default {
     "name": "can2L07",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10095,7 +10095,7 @@ export default {
     "name": "can2N01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10114,7 +10114,7 @@ export default {
     "name": "can2P01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10130,7 +10130,7 @@ export default {
     "name": "can2P02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10149,7 +10149,7 @@ export default {
     "name": "can3C01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10168,7 +10168,7 @@ export default {
     "name": "can3C02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10187,7 +10187,7 @@ export default {
     "name": "can3C03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10206,7 +10206,7 @@ export default {
     "name": "can3C04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10225,7 +10225,7 @@ export default {
     "name": "can3C05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10244,7 +10244,7 @@ export default {
     "name": "can3C06",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10260,7 +10260,7 @@ export default {
     "name": "can3C07",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10276,7 +10276,7 @@ export default {
     "name": "can3C08",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10292,7 +10292,7 @@ export default {
     "name": "can3C09",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10308,7 +10308,7 @@ export default {
     "name": "can3C10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10327,7 +10327,7 @@ export default {
     "name": "can3C11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10346,7 +10346,7 @@ export default {
     "name": "can3C12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10365,7 +10365,7 @@ export default {
     "name": "can3E01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10384,7 +10384,7 @@ export default {
     "name": "can3F01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10403,7 +10403,7 @@ export default {
     "name": "can3F02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10422,7 +10422,7 @@ export default {
     "name": "can3F03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10441,7 +10441,7 @@ export default {
     "name": "can3F04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10460,7 +10460,7 @@ export default {
     "name": "can3F05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10476,7 +10476,7 @@ export default {
     "name": "can3F06",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10495,7 +10495,7 @@ export default {
     "name": "can3G01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10511,7 +10511,7 @@ export default {
     "name": "can3G02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10527,7 +10527,7 @@ export default {
     "name": "can3G03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10543,7 +10543,7 @@ export default {
     "name": "can3G04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10559,7 +10559,7 @@ export default {
     "name": "can3G05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10578,7 +10578,7 @@ export default {
     "name": "can3L01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10597,7 +10597,7 @@ export default {
     "name": "can3L02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10616,7 +10616,7 @@ export default {
     "name": "can3L03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10632,7 +10632,7 @@ export default {
     "name": "can3L04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10648,7 +10648,7 @@ export default {
     "name": "can3L05",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10664,7 +10664,7 @@ export default {
     "name": "can3L06",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10683,7 +10683,7 @@ export default {
     "name": "can3M01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10702,7 +10702,7 @@ export default {
     "name": "can3S01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10718,7 +10718,7 @@ export default {
     "name": "can3S02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10734,7 +10734,7 @@ export default {
     "name": "can3S03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10750,7 +10750,7 @@ export default {
     "name": "can3S04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10766,7 +10766,7 @@ export default {
     "name": "can3S05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10782,7 +10782,7 @@ export default {
     "name": "can3S06",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10801,7 +10801,7 @@ export default {
     "name": "can4C01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10820,7 +10820,7 @@ export default {
     "name": "can4C02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10839,7 +10839,7 @@ export default {
     "name": "can4C03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10858,7 +10858,7 @@ export default {
     "name": "can4C04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10877,7 +10877,7 @@ export default {
     "name": "can4C05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10896,7 +10896,7 @@ export default {
     "name": "can4C06",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10915,7 +10915,7 @@ export default {
     "name": "can4C07",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10934,7 +10934,7 @@ export default {
     "name": "can4C08",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10953,7 +10953,7 @@ export default {
     "name": "can4C09",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10972,7 +10972,7 @@ export default {
     "name": "can4C10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -10991,7 +10991,7 @@ export default {
     "name": "can4G01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11007,7 +11007,7 @@ export default {
     "name": "can4G02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11023,7 +11023,7 @@ export default {
     "name": "can4G03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11039,7 +11039,7 @@ export default {
     "name": "can4G04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11055,7 +11055,7 @@ export default {
     "name": "can4G05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11071,7 +11071,7 @@ export default {
     "name": "can4G06",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11087,7 +11087,7 @@ export default {
     "name": "can4G07",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11103,7 +11103,7 @@ export default {
     "name": "can4G08",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11122,7 +11122,7 @@ export default {
     "name": "can4L01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11141,7 +11141,7 @@ export default {
     "name": "can4L02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11160,7 +11160,7 @@ export default {
     "name": "can4L03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11179,7 +11179,7 @@ export default {
     "name": "can4L04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11198,7 +11198,7 @@ export default {
     "name": "can4L05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11217,7 +11217,7 @@ export default {
     "name": "can4L06",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11236,7 +11236,7 @@ export default {
     "name": "can4P01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11255,7 +11255,7 @@ export default {
     "name": "can4P02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11274,7 +11274,7 @@ export default {
     "name": "can4P03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11290,7 +11290,7 @@ export default {
     "name": "can4P04",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11309,7 +11309,7 @@ export default {
     "name": "can5A01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11328,7 +11328,7 @@ export default {
     "name": "can5C01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11347,7 +11347,7 @@ export default {
     "name": "can5C02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11366,7 +11366,7 @@ export default {
     "name": "can5C03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11385,7 +11385,7 @@ export default {
     "name": "can5C04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11404,7 +11404,7 @@ export default {
     "name": "can5C05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11423,7 +11423,7 @@ export default {
     "name": "can5C06",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11442,7 +11442,7 @@ export default {
     "name": "can5C07",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11461,7 +11461,7 @@ export default {
     "name": "can5C08",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11480,7 +11480,7 @@ export default {
     "name": "can5C09",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11496,7 +11496,7 @@ export default {
     "name": "can5C10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11515,7 +11515,7 @@ export default {
     "name": "can5C11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11534,7 +11534,7 @@ export default {
     "name": "can5C12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11553,7 +11553,7 @@ export default {
     "name": "can5C13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11572,7 +11572,7 @@ export default {
     "name": "can5C14",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11591,7 +11591,7 @@ export default {
     "name": "can5C15",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11607,7 +11607,7 @@ export default {
     "name": "can5C16",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11623,7 +11623,7 @@ export default {
     "name": "can5C17",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11642,7 +11642,7 @@ export default {
     "name": "can5C18",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11661,7 +11661,7 @@ export default {
     "name": "can5D01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11677,7 +11677,7 @@ export default {
     "name": "can5G01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11693,7 +11693,7 @@ export default {
     "name": "can5G02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11709,7 +11709,7 @@ export default {
     "name": "can5L01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11728,7 +11728,7 @@ export default {
     "name": "can5N01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11747,7 +11747,7 @@ export default {
     "name": "can5P01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11766,7 +11766,7 @@ export default {
     "name": "can5P02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11785,7 +11785,7 @@ export default {
     "name": "can5P03",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11804,7 +11804,7 @@ export default {
     "name": "canPredef5-1",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11823,7 +11823,7 @@ export default {
     "name": "can6C01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11842,7 +11842,7 @@ export default {
     "name": "can6C02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11861,7 +11861,7 @@ export default {
     "name": "can6C03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11880,7 +11880,7 @@ export default {
     "name": "can6C04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11899,7 +11899,7 @@ export default {
     "name": "can6C05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11918,7 +11918,7 @@ export default {
     "name": "can6C06",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11937,7 +11937,7 @@ export default {
     "name": "can6C07",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11956,7 +11956,7 @@ export default {
     "name": "can6C08",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11975,7 +11975,7 @@ export default {
     "name": "can6C09",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -11994,7 +11994,7 @@ export default {
     "name": "can6C10",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12013,7 +12013,7 @@ export default {
     "name": "can6C11",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12032,7 +12032,7 @@ export default {
     "name": "can6C12",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12051,7 +12051,7 @@ export default {
     "name": "can6C13",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12070,7 +12070,7 @@ export default {
     "name": "can6C14",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12089,7 +12089,7 @@ export default {
     "name": "can6C15",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12108,7 +12108,7 @@ export default {
     "name": "can6C16",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12127,7 +12127,7 @@ export default {
     "name": "can6C17",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12146,7 +12146,7 @@ export default {
     "name": "can6C18",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12165,7 +12165,7 @@ export default {
     "name": "can6C19",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12184,7 +12184,7 @@ export default {
     "name": "can6C20",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12203,7 +12203,7 @@ export default {
     "name": "can6C21",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12222,7 +12222,7 @@ export default {
     "name": "can6C22",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12241,7 +12241,7 @@ export default {
     "name": "can6C23",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12260,7 +12260,7 @@ export default {
     "name": "can6C24",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12276,7 +12276,7 @@ export default {
     "name": "can6C25",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12292,7 +12292,7 @@ export default {
     "name": "can6C26",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12308,7 +12308,7 @@ export default {
     "name": "can6C27",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12324,7 +12324,7 @@ export default {
     "name": "can6C28",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12340,7 +12340,7 @@ export default {
     "name": "can6C29",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12359,7 +12359,7 @@ export default {
     "name": "can6D01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12378,7 +12378,7 @@ export default {
     "name": "can6D02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12397,7 +12397,7 @@ export default {
     "name": "can6D03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12416,7 +12416,7 @@ export default {
     "name": "can6D04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12432,7 +12432,7 @@ export default {
     "name": "can6G01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12448,7 +12448,7 @@ export default {
     "name": "can6G02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12464,7 +12464,7 @@ export default {
     "name": "can6G03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12483,7 +12483,7 @@ export default {
     "name": "can6M01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12502,7 +12502,7 @@ export default {
     "name": "can6M02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12521,7 +12521,7 @@ export default {
     "name": "can6M03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12540,7 +12540,7 @@ export default {
     "name": "can6M04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12559,7 +12559,7 @@ export default {
     "name": "can6M05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12578,7 +12578,7 @@ export default {
     "name": "can6M06",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12597,7 +12597,7 @@ export default {
     "name": "can6M07",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12616,7 +12616,7 @@ export default {
     "name": "can6M08",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12632,7 +12632,7 @@ export default {
     "name": "can6M09",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12651,7 +12651,7 @@ export default {
     "name": "can6N01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12670,7 +12670,7 @@ export default {
     "name": "can6N02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12689,7 +12689,7 @@ export default {
     "name": "can6N03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12708,7 +12708,7 @@ export default {
     "name": "can6N04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12727,7 +12727,7 @@ export default {
     "name": "can6N05",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12746,7 +12746,7 @@ export default {
     "name": "can6N06",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12765,7 +12765,7 @@ export default {
     "name": "can6N07",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12784,7 +12784,7 @@ export default {
     "name": "can6N08",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12803,7 +12803,7 @@ export default {
     "name": "can6N09",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12822,7 +12822,7 @@ export default {
     "name": "can6P01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12841,7 +12841,7 @@ export default {
     "name": "can6P02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12860,7 +12860,7 @@ export default {
     "name": "can6P03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12879,7 +12879,7 @@ export default {
     "name": "can6P04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12898,7 +12898,7 @@ export default {
     "name": "can6S01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12917,7 +12917,7 @@ export default {
     "name": "canPredef6-3",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12936,7 +12936,7 @@ export default {
     "name": "canExC01",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12955,7 +12955,7 @@ export default {
     "name": "canExC02",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12974,7 +12974,7 @@ export default {
     "name": "canc3C01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -12993,7 +12993,7 @@ export default {
     "name": "canc3C02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -13009,7 +13009,7 @@ export default {
     "name": "canc3C03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -13028,7 +13028,7 @@ export default {
     "name": "canc3N01",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -13047,7 +13047,7 @@ export default {
     "name": "canc3N02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -13066,7 +13066,7 @@ export default {
     "name": "canc3N03",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,
@@ -13085,7 +13085,7 @@ export default {
     "name": "canc3N04",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
       "isNewFeat": false,

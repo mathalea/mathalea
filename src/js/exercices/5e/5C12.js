@@ -91,9 +91,9 @@ export default function CalculerUneExpressionNumerique () {
       }
       reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
       if (this.questionJamaisPosee(i, expn, expf)) { // Si la question n'a jamais été posée, on en créé une autre
-        if (!context.isAmc) {
+        if (this.interactif) {
           texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' Résultat : ' })
-        } else {
+        } else if (context.isAmc) {
           texte += '<br>Détailler les calculs dans le cadre et coder le résultat.<br>'
         }
         setReponse(this, i, reponse)
