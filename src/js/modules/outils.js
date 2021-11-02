@@ -1592,6 +1592,31 @@ export function factorisation (n) {
 }
 /**
  *
+ * @param {number} n
+ * @param {boolean} puissancesOn
+ * @returns
+ */
+export function texFactorisation (n, puissancesOn = true) {
+  let texFacto = ''
+  let facto = []
+  if (puissancesOn) {
+    facto = factorisation(n)
+    for (let i = 0; i < facto.length - 1; i++) {
+      texFacto += `${facto[i][0]}${facto[i][1] > 1 ? '^{' + facto[i][1] + '}\\times ' : '\\times '}`
+    }
+    texFacto += `${facto[facto.length - 1][0]}${facto[facto.length - 1][1] > 1 ? '^{' + facto[facto.length - 1][1] + '}' : ''}`
+  } else {
+    facto = obtenirListeFacteursPremiers(n)
+    for (let i = 0; i < facto.length - 1; i++) {
+      texFacto += `${facto[i][0]}\\times `
+    }
+    texFacto += `${facto[facto.length - 1][0]}`
+  }
+  return texFacto
+}
+
+/**
+ *
  * @param {Entier} n
  * Extrait le plus grand nombre possible de la racine carrée de n
  * retourne le résulat [a,b] pour a²b=n

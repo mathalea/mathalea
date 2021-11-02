@@ -11,4 +11,5 @@ export default function ExerciceDecomposerEnFacteursPremiers4e () {
   this.nbQuestions = 4
   this.sup = 3 // 5 facteurs par défaut
   this.sup2 = true // une multiplication par 100 une fois sur quatre
+  this.besoinFormulaire4CaseACocher = ['Décomposition avec des puissances', false]
 }
