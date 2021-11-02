@@ -14,7 +14,7 @@ export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un tr
  * - les 3 trucs précédents
  * référence 1E12-1
  */
-export default function LireElementsCarac() {
+export default function LireElementsCarac () {
   Exercice.call(this)
   this.consigne = 'Lecture graphique'
   this.nbQuestions = 5 // Nombre de questions par défaut
@@ -60,7 +60,7 @@ export default function LireElementsCarac() {
           b = -a * (x1 + x2)
           c = x1 * x2 * a
 
-          texteCorr = `La courbe de $\\mathscr{${fName[i]}}$ coupe l'axe horizontal aux points $(${x1};0)$ et $(${x2};0)$. Les deux racines sont donc $${x1}$ et $${x2}$.`
+          texteCorr = `La courbe de $\\mathscr{${fName[i]}}$ coupe l'axe horizontal aux points $(${Math.min(x1, x2)};0)$ et $(${Math.max(x1, x2)};0)$. Les deux racines sont donc $${Math.min(x1, x2)}$ et $${Math.max(x1, x2)}$.`
           break
         case 3: // Coordonnées du sommet
           texte = 'Quelles sont les coordonnées du sommet'
