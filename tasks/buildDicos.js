@@ -75,7 +75,7 @@ for (const file of exercicesList) {
   }
   const updateEx = {
     isNewFeat: false,
-    tag: '<span class="ui mini orange label transition visible">feat</span>'
+    tag: '<span class="ui mini orange label transition visible">MAJ</span>'
   }
   const timeOfDisplayTagNew = 2592000000 // 30 jours en millisecondes
   const timeOfDisplayTagFeat = 2592000000 // 30 jours en millisecondes secondes
