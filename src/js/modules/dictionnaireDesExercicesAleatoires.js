@@ -7983,6 +7983,38 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
     }
   },
+  "betaCAN-FA-01": {
+    "titre": "Lecture graphique fonction affine",
+    "url": "/exercices/beta/betaCAN-FA-01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN-FA-01",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "betaCAN-FA-02": {
+    "titre": "Reconnaître une fonction affine",
+    "url": "/exercices/beta/betaCAN-FA-02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN-FA-02",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
   "betaCan2": {
     "titre": "Course aux nombres seconde",
     "url": "/exercices/beta/betaCan2.js",
