@@ -4,8 +4,9 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAl
 export const titre = 'Développer les identités remarquables avec des racines carrées'
 
 /**
- * 2N12-1
+ * 2N32-6
  * @author Stéphane Guyon
+ * Relecture : Novembre 2021 par EE
  */
 export default function IdentitesRemarquablesEtRacineCarree () {
   Exercice.call(this) // Héritage de la classe Exercice()
