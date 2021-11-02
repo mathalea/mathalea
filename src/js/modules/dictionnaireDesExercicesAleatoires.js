@@ -11,7 +11,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "1E11-1": {
@@ -30,7 +30,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "1E11-2": {
@@ -46,7 +46,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "1E11-3": {
@@ -62,7 +62,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "1E11-4": {
@@ -77,7 +77,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "1E11-5": {
@@ -92,7 +92,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "1E11": {
@@ -107,7 +107,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "1E12": {
@@ -122,7 +122,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "1E13": {
@@ -137,7 +137,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "1E14": {
@@ -152,7 +152,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "1E15": {
@@ -167,7 +167,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "1F10": {
@@ -182,7 +182,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "1N10": {
@@ -197,7 +197,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "1N11": {
@@ -212,7 +212,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2F10-1": {
@@ -231,7 +231,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2F10-2": {
@@ -250,7 +250,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2F10-3": {
@@ -265,7 +265,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2F10-4": {
@@ -280,7 +280,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2F32": {
@@ -299,7 +299,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G12-1": {
@@ -314,7 +314,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G12-2": {
@@ -329,7 +329,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G12-3": {
@@ -344,7 +344,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G12-4": {
@@ -359,7 +359,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G22-1": {
@@ -374,7 +374,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G23-1": {
@@ -389,7 +389,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G23-2": {
@@ -404,7 +404,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G23": {
@@ -419,7 +419,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G31-1": {
@@ -438,7 +438,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G31-2": {
@@ -453,7 +453,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G31-3": {
@@ -468,7 +468,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G31-4": {
@@ -483,7 +483,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G31-5": {
@@ -498,7 +498,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G34-1": {
@@ -513,7 +513,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G34-2": {
@@ -528,7 +528,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2G36-7": {
@@ -547,7 +547,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N10-1": {
@@ -566,7 +566,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N10-2": {
@@ -585,7 +585,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N10-3": {
@@ -601,7 +601,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N11-1": {
@@ -616,7 +616,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N11-2": {
@@ -631,7 +631,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N12-1": {
@@ -650,7 +650,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N13-1": {
@@ -669,7 +669,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N14-1": {
@@ -688,7 +688,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N15-1": {
@@ -703,7 +703,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N15-2": {
@@ -718,7 +718,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N20-1": {
@@ -734,7 +734,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N20-2": {
@@ -753,7 +753,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N20-3": {
@@ -768,7 +768,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N20-4": {
@@ -787,7 +787,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N20-5": {
@@ -803,7 +803,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N20-8": {
@@ -818,7 +818,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N32-1": {
@@ -833,7 +833,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N32-2": {
@@ -848,7 +848,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N32-3": {
@@ -863,7 +863,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N32-4": {
@@ -879,7 +879,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N32-5": {
@@ -894,7 +894,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N32-6": {
@@ -909,7 +909,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N41-1": {
@@ -925,7 +925,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N41-4": {
@@ -941,7 +941,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N41-5": {
@@ -957,7 +957,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N41-6": {
@@ -972,7 +972,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N41-7": {
@@ -987,7 +987,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N41-7v2": {
@@ -1002,7 +1002,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N52-1": {
@@ -1017,7 +1017,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N52-2": {
@@ -1032,7 +1032,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N52-4": {
@@ -1047,7 +1047,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N60-4": {
@@ -1062,7 +1062,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N61-2": {
@@ -1077,7 +1077,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2N61-4": {
@@ -1092,7 +1092,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2S20-1": {
@@ -1108,7 +1108,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2S20-2": {
@@ -1124,7 +1124,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2S20-4": {
@@ -1140,7 +1140,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2S30-2": {
@@ -1155,7 +1155,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2S30-3": {
@@ -1170,7 +1170,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "2S30-4": {
@@ -1185,7 +1185,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3A10": {
@@ -1200,7 +1200,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3A11-1": {
@@ -1219,7 +1219,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3A11-2": {
@@ -1235,7 +1235,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3A11-3": {
@@ -1250,7 +1250,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3A11": {
@@ -1269,7 +1269,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3A12-2": {
@@ -1284,7 +1284,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3A12": {
@@ -1299,7 +1299,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3A13": {
@@ -1314,7 +1314,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3A14": {
@@ -1333,7 +1333,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F1-act": {
@@ -1348,7 +1348,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F10-1": {
@@ -1367,7 +1367,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F10-2": {
@@ -1386,7 +1386,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F10": {
@@ -1402,7 +1402,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F12-2": {
@@ -1418,7 +1418,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F12-3": {
@@ -1437,7 +1437,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F12-4": {
@@ -1456,7 +1456,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F12": {
@@ -1471,7 +1471,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F13-1": {
@@ -1487,7 +1487,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F13-2": {
@@ -1503,7 +1503,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F13": {
@@ -1518,7 +1518,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F21-1": {
@@ -1537,7 +1537,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F21-2": {
@@ -1553,7 +1553,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F21-3": {
@@ -1569,7 +1569,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3F21": {
@@ -1584,7 +1584,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G10-1": {
@@ -1603,7 +1603,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G10-2": {
@@ -1622,7 +1622,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G10-3": {
@@ -1637,7 +1637,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G11": {
@@ -1652,7 +1652,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G12-1": {
@@ -1671,7 +1671,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G12": {
@@ -1686,7 +1686,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G20-1": {
@@ -1701,7 +1701,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G20": {
@@ -1720,7 +1720,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G21": {
@@ -1749,7 +1749,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G23": {
@@ -1764,7 +1764,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G30-1": {
@@ -1779,7 +1779,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G30": {
@@ -1798,7 +1798,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G31-1": {
@@ -1813,7 +1813,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G31": {
@@ -1832,7 +1832,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G32-1": {
@@ -1851,7 +1851,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G32-2": {
@@ -1866,7 +1866,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G32-3": {
@@ -1881,7 +1881,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G32-4": {
@@ -1896,7 +1896,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G32-5": {
@@ -1911,7 +1911,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G32": {
@@ -1926,7 +1926,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G40": {
@@ -1941,7 +1941,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G42": {
@@ -1960,7 +1960,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G43": {
@@ -1982,7 +1982,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3I1-1": {
@@ -1997,7 +1997,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3I1": {
@@ -2012,7 +2012,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L10-1": {
@@ -2027,7 +2027,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L10": {
@@ -2042,7 +2042,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L11-1": {
@@ -2061,7 +2061,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L11-2": {
@@ -2080,7 +2080,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L11-3": {
@@ -2096,7 +2096,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L11-4": {
@@ -2115,7 +2115,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L11-5": {
@@ -2131,7 +2131,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L11-6": {
@@ -2147,7 +2147,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L11": {
@@ -2163,7 +2163,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L12-1": {
@@ -2179,7 +2179,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L12": {
@@ -2195,7 +2195,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L13-0": {
@@ -2214,7 +2214,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L13-1": {
@@ -2230,7 +2230,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L13-2": {
@@ -2245,7 +2245,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L13": {
@@ -2264,7 +2264,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L14-1": {
@@ -2279,7 +2279,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L14": {
@@ -2294,7 +2294,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L15-1": {
@@ -2310,7 +2310,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L15": {
@@ -2325,7 +2325,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3P10-1": {
@@ -2341,7 +2341,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3P10": {
@@ -2357,7 +2357,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3S12": {
@@ -2373,7 +2373,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3S15": {
@@ -2389,7 +2389,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3S20": {
@@ -2404,7 +2404,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4A10": {
@@ -2419,7 +2419,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4A11-0": {
@@ -2435,7 +2435,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4A11-1": {
@@ -2450,7 +2450,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4A11-2": {
@@ -2465,7 +2465,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4A12": {
@@ -2484,7 +2484,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4AI1-1": {
@@ -2503,7 +2503,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C10-0": {
@@ -2522,7 +2522,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C10-1": {
@@ -2541,7 +2541,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C10-2": {
@@ -2560,7 +2560,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C10-3": {
@@ -2576,7 +2576,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C10-4": {
@@ -2592,7 +2592,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C10-5": {
@@ -2607,7 +2607,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C10-6": {
@@ -2626,7 +2626,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C11": {
@@ -2642,7 +2642,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C20-1": {
@@ -2657,7 +2657,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C20": {
@@ -2676,7 +2676,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C21-1": {
@@ -2695,7 +2695,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C21": {
@@ -2714,7 +2714,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C22-1": {
@@ -2730,7 +2730,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C22-2": {
@@ -2749,7 +2749,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C22": {
@@ -2768,7 +2768,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C23-1": {
@@ -2787,7 +2787,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C23": {
@@ -2803,7 +2803,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C25-0": {
@@ -2818,7 +2818,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C30-1": {
@@ -2833,7 +2833,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C30-2": {
@@ -2848,7 +2848,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C30-3": {
@@ -2863,7 +2863,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C30": {
@@ -2878,7 +2878,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C32-1": {
@@ -2897,7 +2897,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C32-2": {
@@ -2912,7 +2912,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C32-3": {
@@ -2927,7 +2927,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C32": {
@@ -2946,7 +2946,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C33-1": {
@@ -2961,7 +2961,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C33-3": {
@@ -2976,7 +2976,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4C34": {
@@ -3023,7 +3023,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G10": {
@@ -3042,7 +3042,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G11-1": {
@@ -3061,7 +3061,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G11": {
@@ -3076,7 +3076,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G15": {
@@ -3091,7 +3091,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G20-1": {
@@ -3107,7 +3107,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G20-2": {
@@ -3126,7 +3126,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G20-4": {
@@ -3142,7 +3142,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G20-5": {
@@ -3157,7 +3157,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G20-6": {
@@ -3176,7 +3176,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G20": {
@@ -3195,7 +3195,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G21": {
@@ -3214,7 +3214,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G22": {
@@ -3229,7 +3229,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G30": {
@@ -3248,7 +3248,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G31": {
@@ -3263,7 +3263,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G40-1": {
@@ -3278,7 +3278,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G40-2": {
@@ -3293,7 +3293,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G40-MG32": {
@@ -3308,7 +3308,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G40": {
@@ -3327,7 +3327,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G41": {
@@ -3346,7 +3346,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G51": {
@@ -3361,7 +3361,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G52": {
@@ -3376,7 +3376,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4G53": {
@@ -3398,7 +3398,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4I1": {
@@ -3413,7 +3413,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4L10-1": {
@@ -3428,7 +3428,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4L10": {
@@ -3444,7 +3444,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4L11": {
@@ -3459,7 +3459,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4L13-0": {
@@ -3474,7 +3474,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4L13-1": {
@@ -3489,7 +3489,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4L14-0": {
@@ -3504,7 +3504,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4L14-1": {
@@ -3519,7 +3519,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4L14-2": {
@@ -3534,7 +3534,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4L15-0": {
@@ -3549,7 +3549,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4L15-1": {
@@ -3564,7 +3564,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4L16": {
@@ -3579,7 +3579,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4L20-0": {
@@ -3598,7 +3598,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4L20": {
@@ -3617,7 +3617,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4P10-1": {
@@ -3632,7 +3632,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4P10-2": {
@@ -3647,7 +3647,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4P10": {
@@ -3662,7 +3662,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4S10": {
@@ -3677,7 +3677,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4S11": {
@@ -3696,7 +3696,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5A10": {
@@ -3712,7 +3712,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5A11-1": {
@@ -3727,7 +3727,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5A11": {
@@ -3746,7 +3746,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5A12-1": {
@@ -3765,7 +3765,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5A13": {
@@ -3781,7 +3781,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5C11-1": {
@@ -3796,7 +3796,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5C11-2": {
@@ -3811,7 +3811,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5C11": {
@@ -3826,7 +3826,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5C12-1": {
@@ -3845,7 +3845,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5C12": {
@@ -3864,7 +3864,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G10-1": {
@@ -3879,7 +3879,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G10-2": {
@@ -3894,7 +3894,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G10": {
@@ -3913,7 +3913,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G11-1": {
@@ -3928,7 +3928,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G11-2": {
@@ -3943,7 +3943,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G11-3": {
@@ -3958,7 +3958,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G11-4": {
@@ -3977,7 +3977,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G11-5": {
@@ -3996,7 +3996,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G11": {
@@ -4015,7 +4015,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G12-1": {
@@ -4034,7 +4034,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G12": {
@@ -4049,7 +4049,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G13": {
@@ -4064,7 +4064,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G20-0": {
@@ -4079,7 +4079,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G20-1": {
@@ -4094,7 +4094,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G20-2": {
@@ -4109,7 +4109,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G20": {
@@ -4124,7 +4124,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G21-1": {
@@ -4139,7 +4139,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G22-1": {
@@ -4154,7 +4154,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G22": {
@@ -4169,7 +4169,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G24-1": {
@@ -4184,7 +4184,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G24-2": {
@@ -4199,7 +4199,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G30-1": {
@@ -4214,7 +4214,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G30": {
@@ -4229,7 +4229,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G31-1": {
@@ -4244,7 +4244,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G31": {
@@ -4259,7 +4259,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G40-1": {
@@ -4274,7 +4274,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G40-2": {
@@ -4289,7 +4289,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G40": {
@@ -4304,7 +4304,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G41": {
@@ -4319,7 +4319,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G42": {
@@ -4334,7 +4334,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G51": {
@@ -4349,7 +4349,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L10-1": {
@@ -4364,7 +4364,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L10-2": {
@@ -4383,7 +4383,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L10-3": {
@@ -4398,7 +4398,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L10-4": {
@@ -4413,7 +4413,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L10": {
@@ -4432,7 +4432,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L12-1": {
@@ -4447,7 +4447,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L12": {
@@ -4462,7 +4462,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L13": {
@@ -4478,7 +4478,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L14-1": {
@@ -4493,7 +4493,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L14-2": {
@@ -4512,7 +4512,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L14-3": {
@@ -4527,7 +4527,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L14-4": {
@@ -4542,7 +4542,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L14-5": {
@@ -4557,7 +4557,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L14-6": {
@@ -4572,7 +4572,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L14": {
@@ -4588,7 +4588,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5L15": {
@@ -4603,7 +4603,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5M10": {
@@ -4618,7 +4618,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5M20": {
@@ -4640,7 +4640,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5N11-1": {
@@ -4655,7 +4655,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5N11-2": {
@@ -4670,7 +4670,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5N11-3": {
@@ -4685,7 +4685,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5N11-4": {
@@ -4700,7 +4700,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5N110": {
@@ -4719,7 +4719,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5N13-2": {
@@ -4738,7 +4738,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5N13": {
@@ -4757,7 +4757,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5N14-2": {
@@ -4772,7 +4772,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5N14-3": {
@@ -4791,7 +4791,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5N14": {
@@ -4810,7 +4810,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5N15": {
@@ -4825,7 +4825,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5N20-0": {
@@ -4840,7 +4840,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5N20": {
@@ -4859,7 +4859,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5P10": {
@@ -4874,7 +4874,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5P11-1": {
@@ -4890,7 +4890,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5P12": {
@@ -4905,7 +4905,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R10-0": {
@@ -4920,7 +4920,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R10-1": {
@@ -4935,7 +4935,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R10": {
@@ -4954,7 +4954,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R11-2": {
@@ -4973,7 +4973,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R11": {
@@ -4992,7 +4992,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R12-2": {
@@ -5007,7 +5007,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R12": {
@@ -5022,7 +5022,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R20-2": {
@@ -5041,7 +5041,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R20-3": {
@@ -5060,7 +5060,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R20-4": {
@@ -5075,7 +5075,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R20-5": {
@@ -5090,7 +5090,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R20": {
@@ -5112,7 +5112,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R21": {
@@ -5131,7 +5131,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R22-2": {
@@ -5146,7 +5146,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5R22": {
@@ -5165,7 +5165,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5S10": {
@@ -5180,7 +5180,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5S11": {
@@ -5195,7 +5195,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5S12": {
@@ -5210,7 +5210,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5S13-1": {
@@ -5225,7 +5225,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5S13": {
@@ -5240,7 +5240,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5S14": {
@@ -5255,7 +5255,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5S20": {
@@ -5270,7 +5270,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5S21-1": {
@@ -5285,7 +5285,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5S21": {
@@ -5300,7 +5300,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C10-1": {
@@ -5319,7 +5319,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C10-2": {
@@ -5341,7 +5341,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C10-3": {
@@ -5360,7 +5360,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C10-4": {
@@ -5379,7 +5379,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C10-5": {
@@ -5412,7 +5412,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C11-1": {
@@ -5431,7 +5431,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C11-2": {
@@ -5450,7 +5450,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C11": {
@@ -5469,7 +5469,45 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6C12-1": {
+    "titre": "Résoudre des problèmes de masses",
+    "url": "/exercices/6e/6C12-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6C12-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6C12": {
+    "titre": "Résoudre des problèmes de prix",
+    "url": "/exercices/6e/6C12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6C12",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C13": {
@@ -5484,7 +5522,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C20": {
@@ -5503,7 +5541,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C21": {
@@ -5522,7 +5560,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C22": {
@@ -5541,7 +5579,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C23": {
@@ -5560,7 +5598,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C30-1": {
@@ -5579,7 +5617,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C30-2": {
@@ -5598,7 +5636,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C30-3": {
@@ -5617,7 +5655,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C30-4": {
@@ -5636,7 +5674,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C30-5": {
@@ -5655,7 +5693,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C30": {
@@ -5674,7 +5712,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C31-2": {
@@ -5690,7 +5728,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C31": {
@@ -5709,7 +5747,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C32": {
@@ -5728,7 +5766,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C33": {
@@ -5747,7 +5785,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C34": {
@@ -5766,7 +5804,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6C35": {
@@ -5782,7 +5820,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6D10": {
@@ -5797,7 +5835,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6D101": {
@@ -5816,7 +5854,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6D11": {
@@ -5831,7 +5869,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6D12": {
@@ -5846,7 +5884,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6D13": {
@@ -5865,7 +5903,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G10-1": {
@@ -5880,7 +5918,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G10-2": {
@@ -5895,7 +5933,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G10-3": {
@@ -5916,7 +5954,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G10": {
@@ -5931,7 +5969,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G11": {
@@ -6002,7 +6040,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G20": {
@@ -6017,7 +6055,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G21-1": {
@@ -6032,7 +6070,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G21": {
@@ -6047,7 +6085,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G23-1": {
@@ -6066,7 +6104,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G23-2": {
@@ -6081,7 +6119,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G23": {
@@ -6096,7 +6134,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G24-1": {
@@ -6111,7 +6149,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G24-2": {
@@ -6126,7 +6164,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G24-3": {
@@ -6141,7 +6179,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G24": {
@@ -6160,7 +6198,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G25-1": {
@@ -6179,7 +6217,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G25-2": {
@@ -6198,7 +6236,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G25-3": {
@@ -6213,7 +6251,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G25": {
@@ -6228,7 +6266,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G32-1": {
@@ -6243,7 +6281,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G33": {
@@ -6262,7 +6300,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G41": {
@@ -6291,7 +6329,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G43": {
@@ -6310,7 +6348,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6I10": {
@@ -6325,7 +6363,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6I11": {
@@ -6340,7 +6378,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6I12": {
@@ -6359,7 +6397,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M10": {
@@ -6378,7 +6416,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M11-1": {
@@ -6397,7 +6435,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M11-2": {
@@ -6412,7 +6450,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M11": {
@@ -6431,7 +6469,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M12": {
@@ -6450,7 +6488,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M20": {
@@ -6469,7 +6507,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M22-1": {
@@ -6484,7 +6522,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M22-2": {
@@ -6499,7 +6537,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M22": {
@@ -6518,7 +6556,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M23": {
@@ -6540,7 +6578,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M25": {
@@ -6555,7 +6593,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M30-0": {
@@ -6574,7 +6612,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M30": {
@@ -6596,7 +6634,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M31-2": {
@@ -6611,7 +6649,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6M31": {
@@ -6633,7 +6671,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N10-0": {
@@ -6649,7 +6687,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N10-1": {
@@ -6668,7 +6706,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N10-2": {
@@ -6687,7 +6725,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N10-3": {
@@ -6706,7 +6744,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N10-4": {
@@ -6721,7 +6759,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N10-5": {
@@ -6736,7 +6774,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N10": {
@@ -6752,7 +6790,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N11-2": {
@@ -6771,7 +6809,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N11-3": {
@@ -6786,7 +6824,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N11-4": {
@@ -6801,7 +6839,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N11": {
@@ -6820,7 +6858,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N12": {
@@ -6835,7 +6873,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N13": {
@@ -6854,7 +6892,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N14": {
@@ -6869,7 +6907,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N20-1": {
@@ -6888,7 +6926,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N20-2": {
@@ -6904,7 +6942,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N20": {
@@ -6920,7 +6958,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N21": {
@@ -6936,7 +6974,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N22-1": {
@@ -6951,7 +6989,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N22-2": {
@@ -6966,7 +7004,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N22": {
@@ -6985,7 +7023,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N23-0": {
@@ -7004,7 +7042,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N23-1": {
@@ -7037,7 +7075,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N23-3": {
@@ -7052,7 +7090,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N23-4": {
@@ -7067,7 +7105,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N23-5": {
@@ -7086,7 +7124,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N23": {
@@ -7105,7 +7143,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N24-1": {
@@ -7120,7 +7158,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N24": {
@@ -7139,7 +7177,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N30-1": {
@@ -7158,7 +7196,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N30-2": {
@@ -7177,7 +7215,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N30": {
@@ -7196,7 +7234,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N31-1": {
@@ -7211,7 +7249,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N31-2": {
@@ -7226,7 +7264,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N31-3": {
@@ -7245,7 +7283,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N31-4": {
@@ -7261,7 +7299,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N31": {
@@ -7276,7 +7314,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N32": {
@@ -7291,7 +7329,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N33-0": {
@@ -7306,7 +7344,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N33-1": {
@@ -7325,7 +7363,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N33-2": {
@@ -7340,7 +7378,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N33-3": {
@@ -7355,7 +7393,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N33": {
@@ -7374,7 +7412,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N34": {
@@ -7393,7 +7431,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N41-1": {
@@ -7408,7 +7446,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N41": {
@@ -7427,7 +7465,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N43-2": {
@@ -7446,7 +7484,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N43-3": {
@@ -7465,7 +7503,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N43-4": {
@@ -7481,7 +7519,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N43": {
@@ -7500,7 +7538,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6P10": {
@@ -7519,7 +7557,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6P11-1": {
@@ -7538,7 +7576,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6P11-2": {
@@ -7554,7 +7592,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6P11": {
@@ -7573,7 +7611,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6P12": {
@@ -7592,7 +7630,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6P13-1": {
@@ -7607,7 +7645,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6P13": {
@@ -7626,7 +7664,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6S10-1": {
@@ -7645,7 +7683,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6S10": {
@@ -7664,7 +7702,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6S11": {
@@ -7679,7 +7717,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM000": {
@@ -7698,7 +7736,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM001": {
@@ -7717,7 +7755,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM002": {
@@ -7736,7 +7774,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM003": {
@@ -7755,7 +7793,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM004": {
@@ -7774,7 +7812,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM005": {
@@ -7793,7 +7831,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM006": {
@@ -7812,7 +7850,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM007": {
@@ -7831,7 +7869,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM008": {
@@ -7850,7 +7888,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM009": {
@@ -7869,7 +7907,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM010": {
@@ -7888,7 +7926,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM011": {
@@ -7907,7 +7945,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM012": {
@@ -7926,7 +7964,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM013": {
@@ -7945,7 +7983,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM014": {
@@ -7964,7 +8002,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM015": {
@@ -7983,7 +8021,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM016": {
@@ -8002,7 +8040,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM017": {
@@ -8021,7 +8059,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM018": {
@@ -8040,7 +8078,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM019": {
@@ -8069,7 +8107,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "CM021": {
@@ -8084,7 +8122,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "ExC100": {
@@ -8099,7 +8137,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "HPC100": {
@@ -8114,7 +8152,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "PEA11-1": {
@@ -8129,7 +8167,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "PEA11": {
@@ -8144,7 +8182,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "PEA12": {
@@ -8159,7 +8197,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "PEA13": {
@@ -8174,7 +8212,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "PEG20": {
@@ -8189,7 +8227,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "PEG21": {
@@ -8204,7 +8242,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "PEG22": {
@@ -8219,7 +8257,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "PEG23": {
@@ -8234,7 +8272,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "PEG24": {
@@ -8249,7 +8287,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "P003": {
@@ -8264,7 +8302,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "P004": {
@@ -8279,7 +8317,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "P005": {
@@ -8294,7 +8332,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "P006": {
@@ -8309,7 +8347,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "P007": {
@@ -8324,7 +8362,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "P008": {
@@ -8339,7 +8377,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "P009": {
@@ -8354,7 +8392,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "P010": {
@@ -8369,7 +8407,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "P011": {
@@ -8384,7 +8422,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "P012": {
@@ -8399,7 +8437,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "P013": {
@@ -8414,7 +8452,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "P014": {
@@ -8429,7 +8467,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta240-1": {
@@ -8445,7 +8483,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta2F31": {
@@ -8460,7 +8498,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta2N60-X1": {
@@ -8475,7 +8513,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta2N60-X2": {
@@ -8490,7 +8528,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta3F23": {
@@ -8505,7 +8543,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta3G15": {
@@ -8520,7 +8558,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta3G41": {
@@ -8535,7 +8573,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta3s21": {
@@ -8550,7 +8588,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta4C31": {
@@ -8565,7 +8603,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta4G20-3": {
@@ -8580,7 +8618,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta4G20-4": {
@@ -8595,45 +8633,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
-  "beta6C12-1": {
-    "titre": "Résoudre des problèmes de masses",
-    "url": "/exercices/beta/beta6C12-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "beta6C12-1",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
-  "beta6C12": {
-    "titre": "Résoudre des problèmes de prix",
-    "url": "/exercices/beta/beta6C12.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "beta6C12",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta6C33-1": {
@@ -8648,7 +8648,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta6C38": {
@@ -8664,7 +8664,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta6N12-interactif": {
@@ -8680,7 +8680,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta6test2": {
@@ -8695,7 +8695,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "beta6test2021": {
@@ -8710,7 +8710,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaAsymptotesObliques": {
@@ -8725,7 +8725,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaCaNCM2": {
@@ -8744,7 +8744,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaCan2": {
@@ -8763,7 +8763,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaCan2G01": {
@@ -8785,7 +8785,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaEqCarreDansC": {
@@ -8800,7 +8800,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaEqValAbs": {
@@ -8815,7 +8815,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaEquationsLog": {
@@ -8830,7 +8830,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaExo3d": {
@@ -8845,7 +8845,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaExoSimpleMatthieu": {
@@ -8860,7 +8860,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaLicence": {
@@ -8876,7 +8876,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaModele00_simple_Course_au_Nombres": {
@@ -8892,7 +8892,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaModele10_simple_question-reponse": {
@@ -8907,7 +8907,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaModele11_parametrable": {
@@ -8922,7 +8922,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaModele20_plusieurs_types_de_questions": {
@@ -8937,7 +8937,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaModele21_parametrables": {
@@ -8952,7 +8952,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaModele30_constructions_géométriques": {
@@ -8967,7 +8967,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaModele31_parametrables": {
@@ -8982,7 +8982,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaModele32_cliqueFigure": {
@@ -8998,7 +8998,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaModele40_tableau_proportionnalite": {
@@ -9013,7 +9013,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaModele41_tableau_signes_variations": {
@@ -9028,7 +9028,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaProbaAouB": {
@@ -9043,7 +9043,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaProbabilites": {
@@ -9058,7 +9058,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaPuissances": {
@@ -9073,7 +9073,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaSpline": {
@@ -9088,7 +9088,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaSys2x2CombLin": {
@@ -9103,7 +9103,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betaTracerParabole": {
@@ -9118,45 +9118,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
-  "betac3C12-1": {
-    "titre": "Résoudre des problèmes de masses",
-    "url": "/exercices/beta/betac3C12-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betac3C12-1",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
-    }
-  },
-  "betac3C12": {
-    "titre": "Résoudre des problèmes de prix",
-    "url": "/exercices/beta/betac3C12.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betac3C12",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betarotation3d": {
@@ -9171,7 +9133,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "betatrinome": {
@@ -9186,7 +9148,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "moule_a_exo_mathalea": {
@@ -9201,7 +9163,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "moule_a_exo_mathalea2d": {
@@ -9216,7 +9178,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3C10-1": {
@@ -9235,7 +9197,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3C10-2": {
@@ -9250,7 +9212,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3C10-4": {
@@ -9269,7 +9231,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3C10": {
@@ -9288,7 +9250,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3C11": {
@@ -9307,7 +9269,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3C12": {
@@ -9326,7 +9288,45 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "c3C13-1": {
+    "titre": "Résoudre des problèmes de masses",
+    "url": "/exercices/c3/c3C13-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "c3C13-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "c3C13": {
+    "titre": "Résoudre des problèmes de prix",
+    "url": "/exercices/c3/c3C13.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "c3C13",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3C23": {
@@ -9345,7 +9345,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3C30": {
@@ -9364,7 +9364,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3C31": {
@@ -9383,7 +9383,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3C3CaN": {
@@ -9402,7 +9402,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3N10": {
@@ -9417,7 +9417,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3N20": {
@@ -9436,7 +9436,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3N22": {
@@ -9455,7 +9455,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3N23": {
@@ -9470,7 +9470,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "c3N30": {
@@ -9489,7 +9489,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can1F01": {
@@ -9505,7 +9505,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can1F02": {
@@ -9521,7 +9521,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can1L01": {
@@ -9540,7 +9540,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can1L02": {
@@ -9556,7 +9556,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2C01": {
@@ -9575,7 +9575,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2C02": {
@@ -9594,7 +9594,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2C03": {
@@ -9613,7 +9613,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2C04": {
@@ -9629,7 +9629,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2C05": {
@@ -9645,7 +9645,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2C06": {
@@ -9661,7 +9661,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2C07": {
@@ -9677,7 +9677,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2C08": {
@@ -9693,7 +9693,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2F01": {
@@ -9709,7 +9709,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2F02": {
@@ -9725,7 +9725,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2F03": {
@@ -9741,7 +9741,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2F04": {
@@ -9757,7 +9757,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2F05": {
@@ -9773,7 +9773,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G01": {
@@ -9792,7 +9792,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G02": {
@@ -9808,7 +9808,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G03": {
@@ -9824,7 +9824,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G04": {
@@ -9840,7 +9840,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G05": {
@@ -9856,7 +9856,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G06": {
@@ -9872,7 +9872,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G07": {
@@ -9888,7 +9888,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G08": {
@@ -9904,7 +9904,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G09": {
@@ -9920,7 +9920,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G10": {
@@ -9936,7 +9936,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G11": {
@@ -9952,7 +9952,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G12": {
@@ -9968,7 +9968,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2L01": {
@@ -9987,7 +9987,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2L02": {
@@ -10003,7 +10003,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2L03": {
@@ -10019,7 +10019,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2L04": {
@@ -10035,7 +10035,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2L05": {
@@ -10051,7 +10051,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2L06": {
@@ -10067,7 +10067,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2L07": {
@@ -10083,7 +10083,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2N01": {
@@ -10099,7 +10099,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2P01": {
@@ -10118,7 +10118,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2P02": {
@@ -10134,7 +10134,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3C01": {
@@ -10153,7 +10153,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3C02": {
@@ -10172,7 +10172,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3C03": {
@@ -10191,7 +10191,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3C04": {
@@ -10210,7 +10210,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3C05": {
@@ -10229,7 +10229,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3C06": {
@@ -10248,7 +10248,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3C07": {
@@ -10264,7 +10264,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3C08": {
@@ -10280,7 +10280,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3C09": {
@@ -10296,7 +10296,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3C10": {
@@ -10312,7 +10312,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3C11": {
@@ -10331,7 +10331,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3C12": {
@@ -10350,7 +10350,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3E01": {
@@ -10369,7 +10369,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3F01": {
@@ -10388,7 +10388,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3F02": {
@@ -10407,7 +10407,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3F03": {
@@ -10426,7 +10426,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3F04": {
@@ -10445,7 +10445,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3F05": {
@@ -10464,7 +10464,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3F06": {
@@ -10480,7 +10480,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3G01": {
@@ -10499,7 +10499,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3G02": {
@@ -10515,7 +10515,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3G03": {
@@ -10531,7 +10531,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3G04": {
@@ -10547,7 +10547,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3G05": {
@@ -10563,7 +10563,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3L01": {
@@ -10582,7 +10582,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3L02": {
@@ -10601,7 +10601,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3L03": {
@@ -10620,7 +10620,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3L04": {
@@ -10636,7 +10636,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3L05": {
@@ -10652,7 +10652,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3L06": {
@@ -10668,7 +10668,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3M01": {
@@ -10687,7 +10687,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3S01": {
@@ -10706,7 +10706,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3S02": {
@@ -10722,7 +10722,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3S03": {
@@ -10738,7 +10738,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3S04": {
@@ -10754,7 +10754,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3S05": {
@@ -10770,7 +10770,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can3S06": {
@@ -10786,7 +10786,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4C01": {
@@ -10805,7 +10805,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4C02": {
@@ -10824,7 +10824,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4C03": {
@@ -10843,7 +10843,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4C04": {
@@ -10862,7 +10862,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4C05": {
@@ -10881,7 +10881,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4C06": {
@@ -10900,7 +10900,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4C07": {
@@ -10919,7 +10919,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4C08": {
@@ -10938,7 +10938,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4C09": {
@@ -10957,7 +10957,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4C10": {
@@ -10976,7 +10976,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4G01": {
@@ -10995,7 +10995,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4G02": {
@@ -11011,7 +11011,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4G03": {
@@ -11027,7 +11027,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4G04": {
@@ -11043,7 +11043,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4G05": {
@@ -11059,7 +11059,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4G06": {
@@ -11075,7 +11075,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4G07": {
@@ -11091,7 +11091,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4G08": {
@@ -11107,7 +11107,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4L01": {
@@ -11126,7 +11126,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4L02": {
@@ -11145,7 +11145,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4L03": {
@@ -11164,7 +11164,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4L04": {
@@ -11183,7 +11183,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4L05": {
@@ -11202,7 +11202,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4L06": {
@@ -11221,7 +11221,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4P01": {
@@ -11240,7 +11240,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4P02": {
@@ -11259,7 +11259,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4P03": {
@@ -11278,7 +11278,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4P04": {
@@ -11294,7 +11294,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5A01": {
@@ -11313,7 +11313,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C01": {
@@ -11332,7 +11332,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C02": {
@@ -11351,7 +11351,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C03": {
@@ -11370,7 +11370,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C04": {
@@ -11389,7 +11389,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C05": {
@@ -11408,7 +11408,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C06": {
@@ -11427,7 +11427,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C07": {
@@ -11446,7 +11446,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C08": {
@@ -11465,7 +11465,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C09": {
@@ -11484,7 +11484,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C10": {
@@ -11500,7 +11500,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C11": {
@@ -11519,7 +11519,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C12": {
@@ -11538,7 +11538,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C13": {
@@ -11557,7 +11557,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C14": {
@@ -11576,7 +11576,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C15": {
@@ -11595,7 +11595,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C16": {
@@ -11611,7 +11611,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C17": {
@@ -11627,7 +11627,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5C18": {
@@ -11646,7 +11646,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5D01": {
@@ -11665,7 +11665,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5G01": {
@@ -11681,7 +11681,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5G02": {
@@ -11697,7 +11697,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5L01": {
@@ -11713,7 +11713,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5N01": {
@@ -11732,7 +11732,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5P01": {
@@ -11751,7 +11751,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5P02": {
@@ -11770,7 +11770,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can5P03": {
@@ -11789,7 +11789,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "canPredef5-1": {
@@ -11808,7 +11808,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C01": {
@@ -11827,7 +11827,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C02": {
@@ -11846,7 +11846,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C03": {
@@ -11865,7 +11865,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C04": {
@@ -11884,7 +11884,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C05": {
@@ -11903,7 +11903,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C06": {
@@ -11922,7 +11922,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C07": {
@@ -11941,7 +11941,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C08": {
@@ -11960,7 +11960,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C09": {
@@ -11979,7 +11979,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C10": {
@@ -11998,7 +11998,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C11": {
@@ -12017,7 +12017,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C12": {
@@ -12036,7 +12036,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C13": {
@@ -12055,7 +12055,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C14": {
@@ -12074,7 +12074,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C15": {
@@ -12093,7 +12093,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C16": {
@@ -12112,7 +12112,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C17": {
@@ -12131,7 +12131,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C18": {
@@ -12150,7 +12150,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C19": {
@@ -12169,7 +12169,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C20": {
@@ -12188,7 +12188,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C21": {
@@ -12207,7 +12207,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C22": {
@@ -12226,7 +12226,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C23": {
@@ -12245,7 +12245,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C24": {
@@ -12264,7 +12264,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C25": {
@@ -12280,7 +12280,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C26": {
@@ -12296,7 +12296,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C27": {
@@ -12312,7 +12312,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C28": {
@@ -12328,7 +12328,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6C29": {
@@ -12344,7 +12344,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6D01": {
@@ -12363,7 +12363,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6D02": {
@@ -12382,7 +12382,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6D03": {
@@ -12401,7 +12401,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6D04": {
@@ -12420,7 +12420,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6G01": {
@@ -12436,7 +12436,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6G02": {
@@ -12452,7 +12452,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6G03": {
@@ -12468,7 +12468,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6M01": {
@@ -12487,7 +12487,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6M02": {
@@ -12506,7 +12506,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6M03": {
@@ -12525,7 +12525,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6M04": {
@@ -12544,7 +12544,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6M05": {
@@ -12563,7 +12563,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6M06": {
@@ -12582,7 +12582,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6M07": {
@@ -12601,7 +12601,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6M08": {
@@ -12620,7 +12620,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6M09": {
@@ -12636,7 +12636,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6N01": {
@@ -12655,7 +12655,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6N02": {
@@ -12674,7 +12674,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6N03": {
@@ -12693,7 +12693,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6N04": {
@@ -12712,7 +12712,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6N05": {
@@ -12731,7 +12731,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6N06": {
@@ -12750,7 +12750,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6N07": {
@@ -12769,7 +12769,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6N08": {
@@ -12788,7 +12788,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6N09": {
@@ -12807,7 +12807,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6P01": {
@@ -12826,7 +12826,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6P02": {
@@ -12845,7 +12845,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6P03": {
@@ -12864,7 +12864,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6P04": {
@@ -12883,7 +12883,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can6S01": {
@@ -12902,7 +12902,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "canPredef6-3": {
@@ -12921,7 +12921,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "canExC01": {
@@ -12940,7 +12940,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "canExC02": {
@@ -12959,7 +12959,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "canc3C01": {
@@ -12978,7 +12978,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "canc3C02": {
@@ -12997,7 +12997,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "canc3C03": {
@@ -13013,7 +13013,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "canc3N01": {
@@ -13032,7 +13032,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "canc3N02": {
@@ -13051,7 +13051,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "canc3N03": {
@@ -13070,7 +13070,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "canc3N04": {
@@ -13089,7 +13089,7 @@ export default {
     },
     "updateEx": {
       "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   }
 }
