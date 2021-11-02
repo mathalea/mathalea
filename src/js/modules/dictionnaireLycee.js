@@ -1,8 +1,4 @@
 export const dictionnaireLycee = {
-  '2N20-5': {
-    titre: 'Décomposition en facteurs premiers',
-    url: '/exercices/5e/5A13.js'
-  },
   '2N20-6': {
     titre: 'Compter/lister les diviseurs d\'un entier à partir de sa décomposition',
     url: '/exercices/3e/3A11-3.js'
@@ -154,9 +150,5 @@ export const dictionnaireLycee = {
   '2S11-2': {
     titre: 'Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale',
     url: '/exercices/3e/3P10.js'
-  },
-  '2S20-1': {
-    titre: 'Calculer des effectifs et des fréquences',
-    url: '/exercices/3e/3S12.js'
   }
 }
