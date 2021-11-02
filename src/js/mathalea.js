@@ -1841,7 +1841,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaireCaseACocher) {
       // Création d'un formulaire texte
       divParametresGeneraux.innerHTML +=
-        "<div style='display: inline'><label for='form_sup" +
+        "<div><label for='form_sup" +
         i +
         "'>" +
         exercice[i].besoinFormulaireCaseACocher[0] +
