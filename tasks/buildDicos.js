@@ -71,7 +71,7 @@ for (const file of exercicesList) {
   let dateDePublication; let dateDeModifImportante
   const newEx = {
     isNew: false,
-    tag: '<span class="ui mini orange label transition visible">new</span>'
+    tag: '<span class="ui mini orange label transition visible">NEW</span>'
   }
   const updateEx = {
     isNewFeat: false,
