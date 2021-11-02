@@ -52,19 +52,19 @@ export default function MultiplicationsBaseN () {
       for (let ligne = nb.length - 1; ligne > -1; ligne--) {
         const retenue = []
         texteCorr += `Calcul de $${nb[ligne]}\\times${mb} :$ <br>`
-        for (let colone = 0; colone < mb.length; colone++) {
+        for (let colonne = 0; colonne < mb.length; colonne++) {
           const a = nb[ligne]
-          const b = mb[mb.length - 1 - colone]
+          const b = mb[mb.length - 1 - colonne]
           let abEnBaseN = base10VersBaseN(a * b, base)
-          if (retenue[colone - 1]) {
-            abEnBaseN = base10VersBaseN(parseInt(a) * parseInt(b) + parseInt(retenue[colone - 1]), base)
-            texteCorr += `$\\qquad ${a} \\times ${b} + ${retenue[colone - 1]} = ${parseInt(a) * parseInt(b) + parseInt(retenue[colone - 1])} = (${abEnBaseN})_{${base}}  $`
+          if (retenue[colonne - 1]) {
+            abEnBaseN = base10VersBaseN(parseInt(a) * parseInt(b) + parseInt(retenue[colonne - 1]), base)
+            texteCorr += `$\\qquad ${a} \\times ${b} + ${retenue[colonne - 1]} = ${parseInt(a) * parseInt(b) + parseInt(retenue[colonne - 1])} = (${abEnBaseN})_{${base}}  $`
           } else {
             texteCorr += `$\\qquad ${a} \\times ${b} = ${a * b} = (${abEnBaseN})_{${base}}  $`
           }
           if (a * b >= base) {
             texteCorr += `$\\quad$ On écrit ${abEnBaseN[abEnBaseN.length - 1]} et on retient ${abEnBaseN.slice(0, -1)}.<br>`
-            retenue[colone] = abEnBaseN.slice(0, -1).toString()
+            retenue[colonne] = abEnBaseN.slice(0, -1).toString()
           } else {
             texteCorr += '<br>'
           }

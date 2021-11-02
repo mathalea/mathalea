@@ -52,7 +52,7 @@ export default function CompleterUneFacture () {
           texte = '$\\begin{array}{|c|c|c|c|}\n'
         }
         texte += '\\hline\n'
-        texte += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n'
+        texte += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texte += '\\hline\n'
         texte += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & \\ldots\\ldots \\\\ \n`
         texte += '\\hline\n'
@@ -74,7 +74,7 @@ export default function CompleterUneFacture () {
           texteCorr = '$\\begin{array}{|c|c|c|c|}\n'
         }
         texteCorr += '\\hline\n'
-        texteCorr += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n'
+        texteCorr += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texteCorr += '\\hline\n'
         texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(calcul(p1 * q1))} \\\\ \n`
         texteCorr += '\\hline\n'
@@ -99,7 +99,7 @@ export default function CompleterUneFacture () {
           texte = '$\\begin{array}{|c|c|c|c|}\n'
         }
         texte += '\\hline\n'
-        texte += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n'
+        texte += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texte += '\\hline\n'
         texte += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & \\ldots\\ldots \\\\ \n`
         texte += '\\hline\n'
@@ -125,7 +125,7 @@ export default function CompleterUneFacture () {
           texteCorr = '$\\begin{array}{|c|c|c|c|}\n'
         }
         texteCorr += '\\hline\n'
-        texteCorr += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n'
+        texteCorr += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texteCorr += '\\hline\n'
         texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(calcul(p1 * q1))} \\\\ \n`
         texteCorr += '\\hline\n'
