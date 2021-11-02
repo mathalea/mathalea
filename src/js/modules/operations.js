@@ -272,7 +272,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     code += mathalea2d({ xmin: -0.5, ymin: 0, xmax: longueuroperandes, ymax: 5, pixelsParCm: 20, scale: 0.8 }, objets)
     return code
   }
-  const MultiplicationPosee3d = function (operande1, operande2) {
+  const MultiplicationPosee3d = function (operande1, operande2, base) {
     let sop1; let sop2; const objets = []; let operandex; let lignesinutiles = 0
 
     const produits = []; let strprod; const sommes = []
@@ -281,12 +281,20 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       operande1 = operande2
       operande2 = operandex
     }
-    const dec1 = nombreDeChiffresApresLaVirgule(operande1)
-    const dec2 = nombreDeChiffresApresLaVirgule(operande2)
-    operande1 = calcul(`${operande1}*10^${dec1}`)
-    operande2 = calcul(`${operande2}*10^${dec2}`)
-    sop1 = Number(operande1).toString()
-    sop2 = Number(operande2).toString()
+    let dec1, dec2
+    if (base ? base === 10 : true) {
+      dec1 = nombreDeChiffresApresLaVirgule(operande1)
+      dec2 = nombreDeChiffresApresLaVirgule(operande2)
+      operande1 = calcul(`${operande1}*10^${dec1}`)
+      operande2 = calcul(`${operande2}*10^${dec2}`)
+      sop1 = Number(operande1).toString()
+      sop2 = Number(operande2).toString()
+    } else {
+      dec1 = 0
+      dec2 = 0
+      sop1 = base10VersBaseN(operande1, base)
+      sop2 = base10VersBaseN(operande2, base)
+    }
     let sresultat
     const lop1 = sop1.length
     const lop2 = sop2.length
@@ -301,9 +309,15 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       }
       if (sop2[lop2 - i - 1] !== '0') {
         for (let j = 0; j < sop1.length; j++) {
-          strprod = parseInt(sop1[lop1 - j - 1] * parseInt(sop2[lop2 - i - 1])) + parseInt(retenues[i][0])
-          retenues[i] = `${Number(Math.floor(strprod / 10)).toString()}${retenues[i]}`
-          produits[i] = `${Number(strprod % 10).toString()}${produits[i]}`
+          if (base ? base === 10 : true) {
+            strprod = parseInt(sop1[lop1 - j - 1] * parseInt(sop2[lop2 - i - 1])) + parseInt(retenues[i][0])
+            retenues[i] = `${Number(Math.floor(strprod / 10)).toString()}${retenues[i]}`
+            produits[i] = `${Number(strprod % 10).toString()}${produits[i]}`
+          } else {
+            strprod = parseInt(sop1[lop1 - j - 1], base) * parseInt(sop2[lop2 - i - 1], base) + parseInt(retenues[i][0], base)
+            retenues[i] = `${Number(Math.floor(strprod / base)).toString()}${retenues[i]}`
+            produits[i] = `${Number(strprod % base).toString()}${produits[i]}`
+          }
         }
         produits[i] = `${retenues[i][0]}${produits[i]}`
       } else {
@@ -325,7 +339,12 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
         retenues[i] = `0${retenues[i]}`
       }
     }
-    const resultat = calcul(`${operande1}*${operande2}`)
+    let resultat
+    if (base ? base === 10 : true) {
+      resultat = calcul(`${operande1}*${operande2}`)
+    } else {
+      resultat = base10VersBaseN(operande1 * operande2, base)
+    }
     sresultat = Number(resultat).toString()
     const lresultat = sresultat.length
     for (let i = 0; i < lop2; i++) {
@@ -397,7 +416,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       if (context.isHtml) { Code = SoustractionPosee3d(operande1, operande2, base) } else { Code = `$\\opsub[carrysub,lastcarry,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
       break
     case 'multiplication':
-      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2) } else { Code = `$\\opmul[displayshiftintermediary=all,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2, base) } else { Code = `$\\opmul[displayshiftintermediary=all,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
       break
     case 'division':
       if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, precision) } else { Code = `$\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}$` }
