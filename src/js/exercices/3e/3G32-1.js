@@ -46,20 +46,20 @@ export default function CalculsTrigonometriques1 () {
       Axe = arete3d(PoleSud, PoleNord)
       normalV = vecteur3d(0, 0, 1)
       M = rotationV3d(M, normalV, context.anglePerspective)
-      M.p2d.nom = 'M'
+      M.c2d.nom = 'M'
       normalH = rotationV3d(R, normalV, 90)
       P = rotationV3d(M, normalH, -alpha)
-      P.p2d.nom = 'P'
+      P.c2d.nom = 'P'
       H = point3d(0, 0, P.z, false)
       R2 = vecteur3d(H, P)
-      H.p2d.nom = 'H'
+      H.c2d.nom = 'H'
       Sph = sphere3d(O, 5, 1, 3)
       HP = arete3d(H, P)
       OP = arete3d(O, P)
-      objets.push(Sph, Axe.p2d, HP.p2d, OP.p2d, codageAngleDroit(P.p2d, H.p2d, O.p2d), tracePoint(H.p2d, P.p2d, O.p2d, M.p2d), labelPoint(H.p2d, P.p2d, O.p2d, M.p2d))
+      objets.push(Sph, Axe.c2d, HP.c2d, OP.c2d, codageAngleDroit(P.c2d, H.c2d, O.c2d), tracePoint(H.c2d, P.c2d, O.c2d, M.c2d), labelPoint(H.c2d, P.c2d, O.c2d, M.c2d))
       objets.push(demicercle3d(H, normalV, R2, 'caché', 'red', 0), demicercle3d(H, normalV, R2, 'visible', 'red', 0))
-      objets.push(arete3d(O, M).p2d)
-      objets.push(afficheMesureAngle(M.p2d, O.p2d, P.p2d, 'black', 1.5, `${alpha}`))
+      objets.push(arete3d(O, M).c2d)
+      objets.push(afficheMesureAngle(M.c2d, O.c2d, P.c2d, 'black', 1.5, `${alpha}`))
       texte = mathalea2d({ xmin: -8, ymin: -6, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 0.5 }, objets) + '<br>'
       texte += `Quelle est la longueur du $${alpha}$e parallèle Nord au kilomètre près ?`
       texteCorr = mathalea2d({ xmin: -8, ymin: -6, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 0.5 }, objets) + '<br>'

@@ -26,7 +26,7 @@ export default function CalculsTrigonometriques2 () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const objet = [['arbre', 'un', ''], ['immeuble', 'un', ''], ['éolienne', 'une', 'te'], ['coline', 'une', 'te']]
-    let distance; let hauteur; let alfa; let baita; let beta; let alpha; let teta; let taille; let index; let A; let B; let O; let H; let S; let C; let M; let R; let R2; let Axe; let normalV; let normalH; let P; let HP; let Sph; let OP; let PoleNord; let PoleSud; let objets = []; let p
+    let distance; let hauteur; let alfa; let baita; let beta; let alpha; let teta; let taille; let index; let A; let B; let O; let H; let S; let objets = []; let p
     if (context.isHtml) {
       alfa = 'α'
       baita = 'β'

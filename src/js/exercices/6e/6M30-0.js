@@ -38,21 +38,21 @@ export default function VolumesPavesParDenombrement () {
       barres = []
       plaques = []
 
-      texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: l + 0.9 * p, ymax: h + 0.6 * p }, ...monPave.p2d)
+      texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: l + 0.9 * p, ymax: h + 0.6 * p }, ...monPave.c2d)
       if (!context.isAmc) texte += ajouteChampTexteMathLive(this, q, 'largeur25')
       for (let i = 0; i < h - 1; i++) {
-        pavesCorr.push(...plaque3d(0, 0, i * 1.5, 1, l, p, 'black').p2d)
-        plaques.push(...plaque3d(0, 0, i * 1.5, 1, l, p).p2d)
+        pavesCorr.push(...plaque3d(0, 0, i * 1.5, 1, l, p, 'black').c2d)
+        plaques.push(...plaque3d(0, 0, i * 1.5, 1, l, p).c2d)
       }
-      plaques.push(...plaque3d(0, 0, (h - 1) * 1.5, 1, l, p).p2d)
+      plaques.push(...plaque3d(0, 0, (h - 1) * 1.5, 1, l, p).c2d)
       for (let i = p - 1; i > 0; i--) {
-        pavesCorr.push(...barre3d(0, i * 1.5, h * 1.5 - 1.5, 1, l, 'black').p2d)
-        barres.push(...barre3d(0, i * 1.5, 0, 1, l).p2d)
+        pavesCorr.push(...barre3d(0, i * 1.5, h * 1.5 - 1.5, 1, l, 'black').c2d)
+        barres.push(...barre3d(0, i * 1.5, 0, 1, l).c2d)
       }
-      barres.push(...barre3d(0, 0, 0, 1, l).p2d)
+      barres.push(...barre3d(0, 0, 0, 1, l).c2d)
       for (let i = 0; i < l; i++) {
-        pavesCorr.push(...cube3d(i * 1.2 - 0.06 * l, 0, h * 1.5 - 1.5, 1, 'black').p2d)
-        cubes.push(...cube3d(1.5 * i - 0.06 * l, 0, 0, 1).p2d)
+        pavesCorr.push(...cube3d(i * 1.2 - 0.06 * l, 0, h * 1.5 - 1.5, 1, 'black').c2d)
+        cubes.push(...cube3d(1.5 * i - 0.06 * l, 0, 0, 1).c2d)
       }
       if (this.correctionDetaillee) {
         texteCorr = `Il y a ${l} cubes par barre :<br>`
