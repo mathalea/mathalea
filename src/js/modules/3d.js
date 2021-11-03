@@ -584,12 +584,7 @@ class Cube3d {
     faceAV.couleurDeRemplissage = 'lightgray'
     faceTOP.couleurDeRemplissage = 'white'
     faceDr.couleurDeRemplissage = 'darkgray'
-    this.svg = function (coeff) {
-      return faceAV.svg(coeff) + '\n' + faceTOP.svg(coeff) + '\n' + faceDr.svg(coeff)
-    }
-    this.tikz = function () {
-      return faceAV.tikz() + '\n' + faceTOP.tikz() + '\n' + faceDr.tikz()
-    }
+    this.p2d = [faceAV, faceDr, faceTOP]
   }
 }
 export function cube3d (x, y, z, c) {
@@ -628,22 +623,7 @@ class Barre3d {
     const faceD = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
     faceD.couleurDeRemplissage = 'darkgray'
     objets.push(faceD)
-
-    this.svg = function (coeff) {
-      let code = ''
-      for (const objet of objets) {
-        code += objet.svg(coeff) + '\n'
-      }
-      code = `<g id="${this.id}">${code}</g>`
-      return code
-    }
-    this.tikz = function () {
-      let code = ''
-      for (const objet of objets) {
-        code += objet.tikz() + '\n'
-      }
-      return code
-    }
+    this.p2d = objets
   }
 }
 
@@ -688,22 +668,7 @@ class Plaque3d {
         objets.push(faceTop)
       }
     }
-
-    this.svg = function (coeff) {
-      let code = ''
-      for (const objet of objets) {
-        code += objet.svg(coeff) + '\n'
-      }
-      code = `<g id="${this.id}">${code}</g>`
-      return code
-    }
-    this.tikz = function () {
-      let code = ''
-      for (const objet of objets) {
-        code += objet.tikz() + '\n'
-      }
-      return code
-    }
+    this.p2d = objets
   }
 }
 
@@ -748,22 +713,7 @@ class PaveLPH3d {
         }
       }
     }
-
-    this.svg = function (coeff) {
-      let code = ''
-      for (const objet of objets) {
-        code += objet.svg(coeff) + '\n'
-      }
-      code = `<g id="${this.id}">${code}</g>`
-      return code
-    }
-    this.tikz = function () {
-      let code = ''
-      for (const objet of objets) {
-        code += objet.tikz() + '\n'
-      }
-      return code
-    }
+    this.p2d = objets
   }
 }
 
@@ -821,36 +771,7 @@ class Cube {
     p.couleurDeRemplissage = this.colorT
     p.opaciteDeRemplissage = 1
     this.lstPolygone.push(p)
-
-    this.svg = function (coeff) {
-      let code = ''
-      for (let i = 0; i < 3; i++) {
-        code += '\n\t' + this.lstPolygone[i].svg(coeff)
-      }
-      code = `<g id="${this.id}">${code}</g>`
-      return code
-    }
-    this.tikz = function () {
-      let code = ''
-      for (let i = 0; i < 3; i++) {
-        code += '\n\t' + this.lstPolygone[i].tikz()
-      }
-      return code
-    }
-    this.svgml = function (coeff, amp) {
-      let code = ''
-      for (let i = 0; i < 3; i++) {
-        code += '\n\t' + this.lstPolygone[i].svgml(coeff, amp)
-      }
-      return code
-    }
-    this.tikzml = function (amp) {
-      let code = ''
-      for (let i = 0; i < 3; i++) {
-        code += '\n\t' + this.lstPolygone[i].tikzml(amp)
-      }
-      return code
-    }
+    this.p2d = this.lstPolygone
   }
 }
 export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, { colorD = 'green', colorT = 'white', colorG = 'gray' } = {}) {

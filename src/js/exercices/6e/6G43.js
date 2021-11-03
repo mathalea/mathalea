@@ -102,7 +102,7 @@ export default function DenombrerCubes () {
           beta = -25 // choix de la projection
           objetsEnonce = []
           for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).p2d)
           }
           cosa = Math.cos(alpha * Math.PI / 180)
           sina = Math.sin(alpha * Math.PI / 180)

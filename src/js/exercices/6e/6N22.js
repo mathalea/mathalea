@@ -22,7 +22,7 @@ export default function RecompositionDecimale () {
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
@@ -39,30 +39,30 @@ export default function RecompositionDecimale () {
       xDecal = 0
 
       texte = 'Voici un cube représentant une unité, une plaque représentant $\\dfrac{1}{10}$, une barre représentant $\\dfrac{1}{100}$ et un petit cube représentant $\\dfrac{1}{1000}$.<br>'
-      objets.push(cubeUnite, plaque3d(9, 0, 0, 0.5, 10, 10), barre3d(9, 0, 3, 0.5, 10), cube3d(12, 0, 5, 0.5))
+      objets.push(...cubeUnite.p2d, ...plaque3d(9, 0, 0, 0.5, 10, 10).p2d, ...barre3d(9, 0, 3, 0.5, 10).p2d, ...cube3d(12, 0, 5, 0.5).p2d)
       texte += mathalea2d({ scale: 0.5, xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 9 }, objets)
       texteCorr = ''
       texte += '<br>Quel est le nombre décimal représenté par cet ensemble de solides ?<br>'
       objets = []
       if (e === 1) {
-        objets.push(cubeUnite)
+        objets.push(...cubeUnite.p2d)
         xDecal += 7
       }
       if (d !== 0) {
         for (let i = 0; i < d; i++) {
-          objets.push(plaque3d(xDecal, 0, i * 0.6, 0.5, 10, 10, 'black'))
+          objets.push(...plaque3d(xDecal, 0, i * 0.6, 0.5, 10, 10, 'black').p2d)
         }
         xDecal += 6.5
       }
       if (c !== 0) {
         for (let i = c - 1; i >= 0; i--) {
-          objets.push(barre3d(xDecal, i * 0.75, 0, 0.5, 10, 'black'))
+          objets.push(...barre3d(xDecal, i * 0.75, 0, 0.5, 10, 'black').p2d)
         }
         xDecal += 6 + c * 0.2
       }
       if (m !== 0) {
         for (let i = 0; i < m; i++) {
-          objets.push(cube3d(xDecal + i * 0.8, 0, 0, 0.5, 'black'))
+          objets.push(...cube3d(xDecal + i * 0.8, 0, 0, 0.5, 'black').p2d)
         }
       }
       xDecal += m * 0.8

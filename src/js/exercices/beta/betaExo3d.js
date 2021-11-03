@@ -24,12 +24,12 @@ export default function ExerciceZeroMathalea2d3d () {
     const h = randint(3, 6)
     const monPave = paveLPH3d(0, 0, 0, 1, l, p, h, 'black') // Objet 3d possédant une méthode svg et une méthode tikz pour mathalea2d
     const pavesCorr = []
-    const texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 10 }, monPave)
+    const texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 10 }, ...monPave.p2d)
     for (let i = 0; i < h - 1; i++) {
-      pavesCorr.push(plaque3d(0, 0, i * 1.5, 1, l, p, 'black')) // autres objets 3d possédant des méthode svg et tikz.
+      pavesCorr.push(...plaque3d(0, 0, i * 1.5, 1, l, p, 'black').p2d) // autres objets 3d possédant des méthode svg et tikz.
     }
     for (let i = p - 1; i > 0; i--) {
-      pavesCorr.push(barre3d(0, i * 1.5, h * 1.5 - 1.5, 1, l, 'black'))
+      pavesCorr.push(...barre3d(0, i * 1.5, h * 1.5 - 1.5, 1, l, 'black').p2d)
     }
     for (let i = 0; i < l; i++) {
       pavesCorr.push(cube3d(i * 1.2, 0, h * 1.5 - 1.5, 1, 'black'))
