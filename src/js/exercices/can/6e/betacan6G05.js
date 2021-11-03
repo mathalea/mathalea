@@ -1,7 +1,7 @@
 import { codeSegments, droite, labelPoint, mathalea2d, point, segment, segmentAvecExtremites, texteSurSegment, tracePointSurDroite } from '../../../modules/2d.js'
 import { calcul, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-export const titre = 'Problèmes de longueurs'
+export const titre = 'Problèmes de longueurs (inverse)'
 export const dateDePublication = '2/11/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * Créé le 2/11/2021
  * Référence can6G04
  */
-export default function ProblemesDeLongueurs () {
+export default function ProblemesDeLongueursInverse () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default function ProblemesDeLongueurs () {
     const pointsSurAB = []
     const b = randint(2, 5)
     const a = randint(2, 8 - b)
-    const c = randint(3, 8)
+    const c = randint(2, 9)
     const A = point(0, 0, 'A', 'below')
     const B = point(16, 0, 'B', 'below')
     const AB = segmentAvecExtremites(A, B)
@@ -55,9 +55,11 @@ export default function ProblemesDeLongueurs () {
     s1.color = 'green'
     s2.pointilles = 2
     s2.color = 'green'
+    const abc = calcul(a * b * c)
+    const ac = calcul(a * c)
     objets.push(texteSurSegment(c, F, E), labelPoint(F), codeSegments('O', 'blue', D, ...pointsSurDE, E), s1, s2)
     this.question = `Sachant que $AB=${calcul(a * b * c)}$ cm et que $CB=DE$, détermine $FE$.<br>` + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 16.5, ymax: 3.5, scale: 0.5 }, objets)
     this.reponse = c
-    this.correction = `Commme $CB=\\dfrac{AB}{${b}}$ alors $CB=\\dfrac{${calcul(a * b * c)}\\text{ cm}}{${b}}=${calcul(a * c)}$ cm.<br><br>Comme $DE=CB=${calcul(a * c)}$ cm et $FE=\\dfrac{DE}{${a}}$ alors $FE=\\dfrac{${calcul(a * c)}\\text{ cm}}{${a}}=${c}$ cm.`
+    this.correction = `Commme $CB=\\dfrac{AB}{${b}}$, alors $CB=\\dfrac{${abc}\\text{ cm}}{${b}}=${ac}$ cm.<br><br>Comme $DE=CB=${ac}$ cm et $FE=\\dfrac{DE}{${a}}$, alors $FE=\\dfrac{${ac}\\text{ cm}}{${a}}=${c}$ cm.`
   }
 }

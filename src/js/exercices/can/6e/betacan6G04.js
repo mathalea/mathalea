@@ -1,5 +1,5 @@
 import { codeSegments, droite, labelPoint, mathalea2d, point, segment, segmentAvecExtremites, texteSurSegment, tracePointSurDroite } from '../../../modules/2d.js'
-import { randint } from '../../../modules/outils.js'
+import { calcul, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Problèmes de longueurs'
 export const dateDePublication = '2/11/2021'
@@ -24,7 +24,7 @@ export default function ProblemesDeLongueurs () {
     const pointsSurAB = []
     const b = randint(2, 5)
     const a = randint(2, 8 - b)
-    const c = randint(3, 8)
+    const c = randint(2, 9)
     const A = point(0, 0, 'A', 'below')
     const B = point(16, 0, 'B', 'below')
     const AB = segmentAvecExtremites(A, B)
@@ -57,8 +57,7 @@ export default function ProblemesDeLongueurs () {
     s2.color = 'green'
     objets.push(texteSurSegment(c, F, E), labelPoint(F), codeSegments('O', 'blue', D, ...pointsSurDE, E), s1, s2)
     this.question = `Sachant que $FE=${c}$ cm et que $CB=DE$, détermine $AB$.<br>` + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 16.5, ymax: 3.5, scale: 0.5 }, objets)
-    this.reponse = a * b * c
-    console.log(this.reponse)
-    this.correction = `Commme $AB=${b}\\times DE$ et comme $DE=${a}\\times FE$ alors $AB=${b}\\times${a}\\times ${c} \\text{ cm} =${a * b * c}$ cm`
+    this.reponse = calcul(a * b * c)
+    this.correction = `Commme $AB=${b}\\times DE$ et $DE=${a}\\times FE$, alors $AB=${b}\\times${a}\\times ${c} \\text{ cm} =${this.reponse}$ cm`
   }
 }
