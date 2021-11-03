@@ -7,8 +7,9 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Trans
  * @author Jean-Claude Lhote
  * référence 6G24
  * Pas de version LaTeX
+ * Relecture : Novembre 2021 par EE
  */
-export default function Transformations_6e () {
+export default function Transformations6e () {
   Transformations.call(this)
   this.sup = 1
   this.titre = titre
