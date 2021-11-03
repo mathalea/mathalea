@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { fraction } from '../../modules/fractions'
-import { randint, texFraction, miseEnEvidence, abs, ecritureAlgebrique, texFractionReduite } from '../../modules/outils.js'
+import { randint, texFraction, miseEnEvidence, abs, ecritureAlgebrique, texFractionReduite, egal, calcul } from '../../modules/outils.js'
 import { mathalea2d, repere2, texteParPosition, segment, droite } from '../../modules/2d.js'
 export const titre = 'Lecture graphique fonction affine niveau 2'
 export const interactifReady = true
@@ -43,6 +43,10 @@ export default function LectureGraphiqueFonctionAffine2 () {
         }, r, c, o)}<br>Compléter : $f(x)=$`// On trace le graphique
 
     this.reponse = [`${texFractionReduite(a, d)}x${ecritureAlgebrique(b)}`]
+    if (egal(a * 1000 / d, Math.round(a * 1000 / d))) {
+      this.reponse.push(`${calcul(a / d)}x${ecritureAlgebrique(b)}`)
+    }
+    console.log(this.reponse)
     this.correction = `<br>$f$ est une fonction affine. On en déduit que son écriture algébrique est de la forme 
     $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale) et $b$ l'ordonnée à l'origine.<br>L'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées) est $b=${b}$.<br>Le coefficient directeur de la droite est donné  par $a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=
     ${texFraction(miseEnEvidence(a, 'red'), miseEnEvidence(d, 'green'))}$.<br>  `

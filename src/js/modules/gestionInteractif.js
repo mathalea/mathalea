@@ -105,10 +105,12 @@ function verifQuestionMathLive (exercice, i) {
       // saisie = neTientCompteQueDuDernierMembre(saisie)
       }
       // Pour le calcul numérique, on transforme la saisie en nombre décimal
-      if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
+      console.log(saisie)
+      if (typeof reponse === 'number' || typeof reponse === 'string') saisie = saisie.toString().replace(',', '.')
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
       }
+      console.log(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))
       // Pour les exercices où la saisie du texte avec prise en compte de la casse
     } if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'ecritureScientifique') { // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
       if (typeof reponse === 'string') saisie = saisie.toString().replace(',', '.')
