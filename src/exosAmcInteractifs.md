@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 340 
-- nombre d'exos interactifReady 462 
+- nombre d'exos interactifReady 463 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -236,8 +236,9 @@
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
 |betac3C12-1|Résoudre des problèmes de masses|OK|AMCHybride|OK|mathLive|
 |betac3C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
-|betaCAN-FA-01|Lecture graphique fonction affine|KO|KO|OK|mathLive|
-|betaCAN-FA-02|Reconnaître une fonction affine|KO|KO|OK|mathLive|
+|betaCAN-FA-01|Lecture graphique fonction affine niveau 1|KO|KO|OK|mathLive|
+|betaCAN-FA-02|Lecture graphique fonction affine niveau 2|KO|KO|OK|mathLive|
+|betaCAN-FA-03|Reconnaître une fonction affine|KO|KO|OK|mathLive|
 |betaCan2|Course aux nombres seconde|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|

@@ -7984,7 +7984,7 @@ export default {
     }
   },
   "betaCAN-FA-01": {
-    "titre": "Lecture graphique fonction affine",
+    "titre": "Lecture graphique fonction affine niveau 1",
     "url": "/exercices/beta/betaCAN-FA-01.js",
     "amcReady": false,
     "interactifReady": true,
@@ -8000,12 +8000,28 @@ export default {
     }
   },
   "betaCAN-FA-02": {
-    "titre": "Reconnaître une fonction affine",
+    "titre": "Lecture graphique fonction affine niveau 2",
     "url": "/exercices/beta/betaCAN-FA-02.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "betaCAN-FA-02",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">feat</span>"
+    }
+  },
+  "betaCAN-FA-03": {
+    "titre": "Reconnaître une fonction affine",
+    "url": "/exercices/beta/betaCAN-FA-03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN-FA-03",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">new</span>"
