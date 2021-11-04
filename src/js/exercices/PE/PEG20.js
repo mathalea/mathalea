@@ -23,13 +23,13 @@ export default function PartageSegmentCompasRegle () {
     if (d === 4) n = randint(1, d + 2, [2, 4, 6])
     else n = randint(1, d + 2, d)
     const anim = new Alea2iep()
-    const A = point(1, 0, 'A')
+    const A = point(1, -2, 'A')
     const B = pointAdistance(A, randint(4, 7), randint(-10, 20))
     B.nom = 'B'
     anim.traitRapide(A, B)
     anim.pointCreer(A)
     anim.pointCreer(B)
-    anim.partageSegment(A, B, n, d, { nom: 'M', nommerGraduations: true })
+    anim.partageSegment(A, B, n, d, { nom: 'M', nommerGraduations: true, distance: 2 })
     const texte = `Tracer un segment $[AB]$ puis placer le point $M$ sur $[AB ${(n < d) ? ']' : ')'}$ tel que $AM=${texFraction(n, d)}AB$ en utilisant uniquement le compas et la règle non graduée.`
     let texteCorr = texteGras('Programme de construction :')
     texteCorr += '<br>On trace une demi-droite $[Ax)$.'

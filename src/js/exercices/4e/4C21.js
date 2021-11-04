@@ -1,6 +1,5 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureNombreRelatif, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm, fractionSimplifiee } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureNombreRelatif, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 
@@ -169,11 +168,8 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
       }
-      // reponse = fraction(num, den).simplifie()
-      // setReponse(this, i, reponse, { digits: 4, digitsNum: 1, digitsDen: 10, formatInteractif: 'fraction' })
-      setReponse(this, i, -10.65, { digits: 7, decimals: 3, formatInteractif: 'calcul' })
-      // setReponse(this, i, 10, { formatInteractif: 'calcul' })
-      // setReponse(this, i, [fraction(2, 1)], { formatInteractif: 'fraction' })
+      reponse = fraction(num, den).simplifie()
+      setReponse(this, i, reponse, { digits: 4, digitsNum: 2, digitsDen: 2, formatInteractif: 'fraction' })
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

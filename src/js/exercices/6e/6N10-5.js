@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texNombrec2, miseEnEvidence, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, miseEnEvidence, texteEnCouleurEtGras, calcul } from '../../modules/outils.js'
 import { mathalea2d, labyrinthe } from '../../modules/2d.js'
 export const titre = 'Labyrinthe de numération décimale'
 
@@ -171,7 +171,7 @@ export default function ExerciceLabyrintheNumeration () {
             break
         }
       }
-      nombretemp = texNombrec2(`${Dm}*10000+${Um}*1000+${C}*100+${D}*10+${U}+${d}*0.1+${c}*0.01+${m}*0.001+${dm}*0.0001`, 8)
+      nombretemp = calcul(Dm * 10000 + Um * 1000 + C * 100 + D * 10 + U + d * 0.1 + c * 0.01 + m * 0.001 + dm * 0.0001)
       listeNombresOK.push(nombretemp)
     }
     for (let a = 1; a < 7; a++) {

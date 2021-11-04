@@ -7,6 +7,7 @@ import { ComputeEngine, parse } from '@cortex-js/math-json'
 import Fraction from './Fraction.js'
 import Grandeur from './Grandeur.js'
 import { getUserIdFromUrl, getVueFromUrl } from './gestionUrl.js'
+import { number } from 'mathjs'
 
 export function exerciceInteractif (exercice) {
   // passage amsType num à string cf commit 385b5ea
@@ -108,6 +109,15 @@ function verifQuestionMathLive (exercice, i) {
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
       }
+      console.log(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)), resultat)
+
+      // Pour les exercices où la saisie du texte avec prise en compte de la casse
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'ecritureScientifique') { // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
+      if (typeof reponse === 'string') saisie = saisie.toString().replace(',', '.')
+      if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
+        saisie = saisie.split('\\times')
+        if (number(saisie[0]) >= 1 & number(saisie[0]) < 10) { resultat = 'OK' }
+      }
       // Pour les exercices où la saisie du texte avec prise en compte de la casse
     } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'texte') {
       if (saisie === reponse) {
@@ -180,16 +190,24 @@ function verifQuestionMathLive (exercice, i) {
       } else {
         resultat = 'essaieEncore'
       }
-      // Pour les exercice où la saisie doit correspondre exactement à la réponse
+      // Pour les exercice où la saisie doit être dans un intervalle
     } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'intervalleStrict') {
       const nombreSaisi = Number(saisie.replace(',', '.'))
       if (saisie !== '' && nombreSaisi > exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi < exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
     } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'intervalle') {
       const nombreSaisi = Number(saisie.replace(',', '.'))
       if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
-    } else { // Format texte
-      if (saisie === reponse) {
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'puissance') {
+      const nombreSaisi = saisie.split('^')
+      const mantisseSaisie = nombreSaisi[0]
+      const expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : ''
+      const nombreAttendu = reponse.split('^')
+      const mantisseReponse = nombreAttendu[0]
+      const expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
+      if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
         resultat = 'OK'
+      } else {
+        resultat = 'KO'
       }
     }
   }
@@ -672,7 +690,7 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres 
  * @param {'array || number'} a
  */
 
-export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, digitsNum, digitsDen, basePuissance, exposantPuissance, baseNbChiffres, formatInteractif = 'calcul' } = {}) {
+export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, digitsNum, digitsDen, basePuissance, exposantPuissance, baseNbChiffres, milieuIntervalle, formatInteractif = 'calcul' } = {}) {
   let reponses = []
 
   if (Array.isArray(valeurs)) { // J'ai remis ici une condition non negative.
@@ -697,7 +715,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   if (exercice.autoCorrection[i].reponse === undefined) {
     exercice.autoCorrection[i].reponse = {}
   }
-  exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx, digitsNum: digitsNum, digitsDen: digitsDen, basePuissance: basePuissance, exposantPuissance: exposantPuissance, baseNbChiffres: baseNbChiffres, formatInteractif: formatInteractif }
+  exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx, digitsNum: digitsNum, digitsDen: digitsDen, basePuissance: basePuissance, exposantPuissance: exposantPuissance, milieuIntervalle: milieuIntervalle, baseNbChiffres: baseNbChiffres, formatInteractif: formatInteractif }
   exercice.autoCorrection[i].reponse.valeur = reponses
 }
 

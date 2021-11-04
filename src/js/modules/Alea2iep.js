@@ -1704,8 +1704,6 @@ export default function Alea2iep () {
     this.compasMasquer()
     // this.pointCreer(D)
     this.regleSegment(N, P)
-    this.regleMasquer()
-    this.crayonMasquer()
     return D
   }
 
@@ -1753,8 +1751,8 @@ export default function Alea2iep () {
       this.compasEcarter(longueur(A, M), { vitesse: options.vitesse, sens: options.vitesse })
       arc1 = this.compasTracerArcCentrePoint(A, M, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
       arc2 = this.compasTracerArcCentrePoint(A, N, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-      arc3 = this.compasTracerArcCentrePoint(B, M, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
       arc4 = this.compasTracerArcCentrePoint(B, N, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
+      arc3 = this.compasTracerArcCentrePoint(B, M, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
     } else {
       this.compasEcarter(longueur(A, M), options)
       arc1 = this.compasTracerArcCentrePoint(A, M, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
@@ -2497,10 +2495,12 @@ export default function Alea2iep () {
   }
   /**
    * Macro pour placer le point M sur un segment [AB] tel que AM = n/d AB
-   * @param {} nom
-   * @param {*} A
-   * @param {*} c
-   * @returns
+   * @param {point} A
+   * @param {point} B
+   * @param {int} n numérateur
+   * @param {int} d dénominateur
+   * @param {object} options { distance: 1, monAngle: 40, nom: '', nommerGraduations: false }
+   * @returns M
    */
   this.partageSegment = (A, B, n, d, { distance = 1, monAngle = 40, nom = '', nommerGraduations = false } = {}) => {
     this.traitRapide(A, B)
@@ -2527,6 +2527,7 @@ export default function Alea2iep () {
     if (nom) this.pointCreer(M, { label: nom })
     this.regleMasquer()
     this.crayonMasquer()
+    return M
   }
 
   /**

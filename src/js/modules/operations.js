@@ -1,4 +1,4 @@
-import { ordreDeGrandeur, calcul } from './outils.js'
+import { ordreDeGrandeur, calcul, base10VersBaseN } from './outils.js'
 import { mathalea2d, texteParPosition, segment } from './2d.js'
 import { context } from './context.js'
 import { format } from 'mathjs'
@@ -11,7 +11,7 @@ const math = { format: format }
  * Le paramètre précision précise pour divisiond, le nombre de chiffres après la virgule dans le quotient.
  */
 
-export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0 }) { // precision est pour le quotient décimal
+export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0, base = 10 }) { // precision est pour le quotient décimal
   let Code
   const nombreDeChiffresApresLaVirgule = function (x) {
     const s = Number(x).toString()
@@ -127,17 +127,33 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     return code
   }
 
-  const AdditionPosee3d = function (operande1, operande2) {
+  const AdditionPosee3d = function (operande1, operande2, base) {
     const dec1 = nombreDeChiffresApresLaVirgule(operande1)
     const dec2 = nombreDeChiffresApresLaVirgule(operande2)
-    const decalage = Math.max(dec1, dec2)
-    operande1 = calcul(`${operande1}*10^${decalage}`)
-    operande2 = calcul(`${operande2}*10^${decalage}`)
-    let code = ''; const objets = []
-    let sop1 = Number(operande1).toString()
-    let sop2 = Number(operande2).toString()
-
+    let code = ''
+    const objets = []
+    let sop1; let sop2
     let sresultat
+    let resultat
+    let lresultat
+    let decalage
+    if (base ? base === 10 : true) {
+      decalage = Math.max(dec1, dec2)
+      operande1 = calcul(`${operande1}*10^${decalage}`)
+      operande2 = calcul(`${operande2}*10^${decalage}`)
+      sop1 = Number(operande1).toString()
+      sop2 = Number(operande2).toString()
+      resultat = operande1 + operande2
+      sresultat = Number(resultat).toString()
+      lresultat = sresultat.length
+    } else {
+      decalage = 0
+      sop1 = base10VersBaseN(operande1, base)
+      sop2 = base10VersBaseN(operande2, base)
+      resultat = operande1 + operande2
+      sresultat = base10VersBaseN(resultat, base)
+      lresultat = sresultat.length
+    }
     const lop1 = sop1.length
     const lop2 = sop2.length
     const longueuroperandes = Math.max(lop1, lop2)
@@ -153,7 +169,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     }
     // les deux operande ont le même nomre de chiffres
     for (let i = longueuroperandes - 1; i > 0; i--) { // on construit la chaine des retenues.
-      if (parseInt(sop1[i]) + parseInt(sop2[i]) > 9) {
+      if (parseInt(sop1[i], base) + parseInt(sop2[i], base) + parseInt(retenues[0] > 0 ? retenues[0] : 0) > base - 1) {
         retenues = `1${retenues}`
       } else {
         retenues = ` ${retenues}`
@@ -162,9 +178,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     retenues = ' ' + retenues
     sop1 = ` ${sop1}`
     sop2 = `+${sop2}`
-    const resultat = operande1 + operande2
-    sresultat = Number(resultat).toString()
-    const lresultat = sresultat.length
+
     for (let i = 0; i < longueuroperandes + 1 - lresultat; i++) {
       sresultat = ` ${sresultat}`
     }
@@ -184,21 +198,38 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     return code
   }
 
-  const SoustractionPosee3d = function (operande1, operande2) {
-    const dec1 = nombreDeChiffresApresLaVirgule(operande1)
-    const dec2 = nombreDeChiffresApresLaVirgule(operande2)
-    const decalage = Math.max(dec1, dec2)
-    operande1 = calcul(`${operande1}*10^${decalage}`)
-    operande2 = calcul(`${operande2}*10^${decalage}`)
-    let code = ''; let sop1; let sop2; const objets = []
-    if (operande1 < operande2) {
-      sop2 = Number(operande1).toString()
-      sop1 = Number(operande2).toString()
-    } else {
-      sop1 = Number(operande1).toString()
-      sop2 = Number(operande2).toString()
-    }
+  const SoustractionPosee3d = function (operande1, operande2, base) {
+    let code = ''
+    const objets = []
+    let sop1; let sop2
     let sresultat
+    let resultat
+    let lresultat
+    let decalage
+    if (base ? base === 10 : true) {
+      const dec1 = nombreDeChiffresApresLaVirgule(operande1)
+      const dec2 = nombreDeChiffresApresLaVirgule(operande2)
+      decalage = Math.max(dec1, dec2)
+      operande1 = calcul(`${operande1}*10^${decalage}`)
+      operande2 = calcul(`${operande2}*10^${decalage}`)
+      resultat = operande1 - operande2
+      sresultat = Number(resultat).toString()
+      lresultat = sresultat.length
+      if (operande1 < operande2) {
+        sop2 = Number(operande1).toString()
+        sop1 = Number(operande2).toString()
+      } else {
+        sop1 = Number(operande1).toString()
+        sop2 = Number(operande2).toString()
+      }
+    } else {
+      decalage = 0
+      sop1 = base10VersBaseN(operande1, base)
+      sop2 = base10VersBaseN(operande2, base)
+      resultat = operande1 - operande2
+      sresultat = base10VersBaseN(resultat, base)
+      lresultat = sresultat.length
+    }
     const lop1 = sop1.length
     const lop2 = sop2.length
     const longueuroperandes = lop1
@@ -211,7 +242,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
 
     // les deux operande ont le même nomre de chiffres
     for (let i = longueuroperandes - 1; i >= lop1 - lop2; i--) { // on construit la chaine des retenues.
-      if (parseInt(sop1[i]) < (parseInt(sop2[i]) + parseInt(retenues.charAt(0)))) {
+      if (parseInt(sop1[i], base) < (parseInt(sop2[i], base) + parseInt(retenues.charAt(0), base))) {
         retenues = `1${retenues}`
       } else {
         retenues = `0${retenues}`
@@ -220,20 +251,19 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     sop1 = ` ${sop1}`
     sop2 = `-${sop2}`
     retenues = `0${retenues}`
-    const resultat = operande1 - operande2
-    sresultat = Number(resultat).toString()
-    const lresultat = sresultat.length
+
     for (let i = 0; i < longueuroperandes + 1 - lresultat; i++) {
       sresultat = ` ${sresultat}`
     }
+    const offsetCarry = lop1 - lop2
     for (let i = 0; i < longueuroperandes + 1; i++) {
-      if (retenues[i] !== '0') objets.push(texteParPosition(retenues[i], i * 0.6 + 0.4, 4.1, 'milieu', 'red', 0.8, 'middle', false))
+      if (retenues[i] !== '0') objets.push(texteParPosition(retenues[i], i * 0.6 - 0.2 + 0.6 * offsetCarry, 4.1, 'milieu', 'red', 0.8, 'middle', false))
       if (sop1[i] !== ' ') objets.push(texteParPosition(sop1[i], i * 0.6, 4, 'milieu', 'black', 1.2, 'middle', false))
       if (sop2[i] !== ' ') objets.push(texteParPosition(sop2[i], i * 0.6, 3, 'milieu', 'black', 1.2, 'middle', false))
-      objets.push(segment(0, 2, (longueuroperandes + 1) * 0.6, 2))
-      if (retenues[i] !== '0') objets.push(texteParPosition(retenues[i], i * 0.6, 2.6, 'milieu', 'blue', 0.8, 'middle', false))
+      if (retenues[i] !== '0') objets.push(texteParPosition(retenues[i], i * 0.6 - 0.6 + 0.6 * offsetCarry, 2.6, 'milieu', 'blue', 0.8, 'middle', false))
       if (sresultat[i] !== ' ') objets.push(texteParPosition(sresultat[i], i * 0.6, 1, 'milieu', 'black', 1.2, 'middle', false))
     }
+    objets.push(segment(0, 2, (longueuroperandes + 1) * 0.6, 2))
     if (decalage !== 0) {
       objets.push(texteParPosition(',', 0.3 + 0.6 * (longueuroperandes - decalage), 4, 'milieu', 'black', 1.2, 'middle', false))
       objets.push(texteParPosition(',', 0.3 + 0.6 * (longueuroperandes - decalage), 3, 'milieu', 'black', 1.2, 'middle', false))
@@ -242,7 +272,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     code += mathalea2d({ xmin: -0.5, ymin: 0, xmax: longueuroperandes, ymax: 5, pixelsParCm: 20, scale: 0.8 }, objets)
     return code
   }
-  const MultiplicationPosee3d = function (operande1, operande2) {
+  const MultiplicationPosee3d = function (operande1, operande2, base) {
     let sop1; let sop2; const objets = []; let operandex; let lignesinutiles = 0
 
     const produits = []; let strprod; const sommes = []
@@ -251,12 +281,20 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       operande1 = operande2
       operande2 = operandex
     }
-    const dec1 = nombreDeChiffresApresLaVirgule(operande1)
-    const dec2 = nombreDeChiffresApresLaVirgule(operande2)
-    operande1 = calcul(`${operande1}*10^${dec1}`)
-    operande2 = calcul(`${operande2}*10^${dec2}`)
-    sop1 = Number(operande1).toString()
-    sop2 = Number(operande2).toString()
+    let dec1, dec2
+    if (base ? base === 10 : true) {
+      dec1 = nombreDeChiffresApresLaVirgule(operande1)
+      dec2 = nombreDeChiffresApresLaVirgule(operande2)
+      operande1 = calcul(`${operande1}*10^${dec1}`)
+      operande2 = calcul(`${operande2}*10^${dec2}`)
+      sop1 = Number(operande1).toString()
+      sop2 = Number(operande2).toString()
+    } else {
+      dec1 = 0
+      dec2 = 0
+      sop1 = base10VersBaseN(operande1, base)
+      sop2 = base10VersBaseN(operande2, base)
+    }
     let sresultat
     const lop1 = sop1.length
     const lop2 = sop2.length
@@ -271,9 +309,15 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       }
       if (sop2[lop2 - i - 1] !== '0') {
         for (let j = 0; j < sop1.length; j++) {
-          strprod = parseInt(sop1[lop1 - j - 1] * parseInt(sop2[lop2 - i - 1])) + parseInt(retenues[i][0])
-          retenues[i] = `${Number(Math.floor(strprod / 10)).toString()}${retenues[i]}`
-          produits[i] = `${Number(strprod % 10).toString()}${produits[i]}`
+          if (base ? base === 10 : true) {
+            strprod = parseInt(sop1[lop1 - j - 1] * parseInt(sop2[lop2 - i - 1])) + parseInt(retenues[i][0])
+            retenues[i] = `${Number(Math.floor(strprod / 10)).toString()}${retenues[i]}`
+            produits[i] = `${Number(strprod % 10).toString()}${produits[i]}`
+          } else {
+            strprod = parseInt(sop1[lop1 - j - 1], base) * parseInt(sop2[lop2 - i - 1], base) + parseInt(retenues[i][0], base)
+            retenues[i] = `${Number(Math.floor(strprod / base)).toString()}${retenues[i]}`
+            produits[i] = `${Number(strprod % base).toString()}${produits[i]}`
+          }
         }
         produits[i] = `${retenues[i][0]}${produits[i]}`
       } else {
@@ -295,7 +339,12 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
         retenues[i] = `0${retenues[i]}`
       }
     }
-    const resultat = calcul(`${operande1}*${operande2}`)
+    let resultat
+    if (base ? base === 10 : true) {
+      resultat = calcul(`${operande1}*${operande2}`)
+    } else {
+      resultat = base10VersBaseN(operande1 * operande2, base)
+    }
     sresultat = Number(resultat).toString()
     const lresultat = sresultat.length
     for (let i = 0; i < lop2; i++) {
@@ -360,14 +409,14 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
 
   switch (type) {
     case 'addition':
-      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2) } else { Code = `$\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2, base) } else { Code = `$\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
 
       break
     case 'soustraction':
-      if (context.isHtml) { Code = SoustractionPosee3d(operande1, operande2) } else { Code = `$\\opsub[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = SoustractionPosee3d(operande1, operande2, base) } else { Code = `$\\opsub[carrysub,lastcarry,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
       break
     case 'multiplication':
-      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2) } else { Code = `$\\opmul[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2, base) } else { Code = `$\\opmul[displayshiftintermediary=all,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
       break
     case 'division':
       if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, precision) } else { Code = `$\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}$` }
