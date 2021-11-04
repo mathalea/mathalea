@@ -23,6 +23,7 @@ export default function DiviserUnNombreParPuissanceDeDix () {
   this.consigne = ''
   this.sup = false
   this.sup2 = true
+  this.listePackages = 'bclogo'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
@@ -54,21 +55,21 @@ export default function DiviserUnNombreParPuissanceDeDix () {
       const centieme = ((randint(0, 1) !== 0) || (this.sup)) ? 0 : choice(rangeMinMax(0, 9), [centaine, dizaine, unite, dixieme])
       const exemple = calcul(centaine * 100 + dizaine * 10 + unite + dixieme / 10 + centieme / 100)
       if (this.sup2 & !this.interactif) {
-        texte = `Voici un nombre : $${texNombre3(exemple)}$.</br>`
-        texte += `${numAlpha(0)} Entourer le chiffre des unités de ce nombre.</br>`
-        texte += `${numAlpha(1)} Compléter les phrases suivantes.</br>`
-        texte += `Diviser $${texNombre3(exemple)}$ par $${texNombre3(calcul(10 ** (3 - choixAlea)))}$, c’est trouver le nombre ........... fois plus ............. que $${texNombre3(exemple)}$.</br>`
-        texte += `Le chiffre des unités de $${texNombre3(exemple)}$ devient, alors, le chiffre des ................ et donc $${texNombre3(exemple)} \\div ${texNombre3(calcul(10 ** (3 - choixAlea)))} =$ ...............</br>`
+        texte = `Voici un nombre : $${texNombre3(exemple)}$.<br>`
+        texte += `${numAlpha(0)} Entourer le chiffre des unités de ce nombre.<br>`
+        texte += `${numAlpha(1)} Compléter les phrases suivantes.<br>`
+        texte += `Diviser $${texNombre3(exemple)}$ par $${texNombre3(calcul(10 ** (3 - choixAlea)))}$, c’est trouver le nombre $\\ldots\\ldots\\ldots$ fois plus $\\ldots\\ldots\\ldots$ que $${texNombre3(exemple)}$.<br>`
+        texte += `Le chiffre des unités de $${texNombre3(exemple)}$ devient, alors, le chiffre des $\\ldots\\ldots\\ldots\\ldots\\ldots$ et donc $${texNombre3(exemple)} \\div ${texNombre3(calcul(10 ** (3 - choixAlea)))} =\\ldots\\ldots\\ldots\\ldots$<br>`
 
-        texteCorr = `${numAlpha(0)} $${unite}$ est le chiffre des unités de $${texNombre3(exemple)}$.</br>`
+        texteCorr = `${numAlpha(0)} $${unite}$ est le chiffre des unités de $${texNombre3(exemple)}$.<br>`
         texteCorr += `${numAlpha(1)} Diviser $${texNombre3(exemple)}$ par $${texNombre3(calcul(10 ** (3 - choixAlea)))}$, c’est trouver le nombre ${texteEnCouleurEtGras(texNombre3(calcul(10 ** (3 - choixAlea))))} fois plus ${texteEnCouleurEtGras('petit')} `
-        texteCorr += `que $${texNombre3(exemple)}$.</br>`
-        texteCorr += `Le chiffre des unités de $${texNombre3(exemple)}$ devient, alors, le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])} et donc $${texNombre3(exemple)} \\div ${texNombre3(calcul(10 ** (3 - choixAlea)))} =$ ${texteEnCouleurEtGras(texNombre3(exemple * calcul(10 ** (choixAlea - 3))))}.</br>`
+        texteCorr += `que $${texNombre3(exemple)}$.<br>`
+        texteCorr += `Le chiffre des unités de $${texNombre3(exemple)}$ devient, alors, le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])} et donc $${texNombre3(exemple)} \\div ${texNombre3(calcul(10 ** (3 - choixAlea)))} =$ ${texteEnCouleurEtGras(texNombre3(exemple * calcul(10 ** (choixAlea - 3))))}.<br>`
       } else {
         texte = `Par combien diviser un nombre pour que tous ses chiffres changent de position et que le chiffre des unités devienne le chiffre des ${choixUnites[choixAlea]} ?`
 
-        texteCorr = `Prenons un exemple : ${texNombre3(exemple)}.</br>`
-        texteCorr += `$${texNombre3(exemple)} \\div ${texNombre3(calcul(10 ** (3 - choixAlea)))} = ${texNombre3(exemple * calcul(10 ** (choixAlea - 3)))}$</br>`
+        texteCorr = `Prenons un exemple : ${texNombre3(exemple)}.<br>`
+        texteCorr += `$${texNombre3(exemple)} \\div ${texNombre3(calcul(10 ** (3 - choixAlea)))} = ${texNombre3(exemple * calcul(10 ** (choixAlea - 3)))}$<br>`
         texteCorr += `Si on veut que son chiffre des ${texteEnCouleurEtGras('unités')} devienne le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])}, on doit diviser le nombre par ${texteEnCouleurEtGras(texNombre3(calcul(10 ** (3 - choixAlea))))}.`
         const aleaFaux = range(6, [3, choixAlea])
         enleveElement(aleaFaux)
