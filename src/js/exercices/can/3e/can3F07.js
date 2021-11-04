@@ -1,18 +1,17 @@
-import Exercice from '../Exercice.js'
-import { randint, calcul, texFraction, miseEnEvidence, reduireAxPlusB } from '../../modules/outils.js'
-import { courbe2, mathalea2d, point, repere2, tracePoint, texteParPosition, segment } from '../../modules/2d.js'
+import Exercice from '../../Exercice.js'
+import { randint, calcul, texFraction, miseEnEvidence, reduireAxPlusB } from '../../../modules/outils.js'
+import { courbe2, mathalea2d, point, repere2, tracePoint, texteParPosition, segment } from '../../../modules/2d.js'
 export const titre = 'Lecture graphique fonction affine niveau 1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora (2F10-02)
- * Référence
+ * Référence can3F07
 */
 export default function LectureGraphiqueFonctionAffine1 () {
   Exercice.call(this) // Héritage de la classe Exercice()

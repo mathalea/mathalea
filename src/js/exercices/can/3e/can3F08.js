@@ -1,14 +1,13 @@
-import Exercice from '../Exercice.js'
-import { fraction } from '../../modules/fractions'
-import { randint, texFraction, miseEnEvidence, abs, ecritureAlgebrique, texFractionReduite, egal, calcul } from '../../modules/outils.js'
-import { mathalea2d, repere2, texteParPosition, segment, droite } from '../../modules/2d.js'
+import Exercice from '../../Exercice.js'
+import { fraction } from '../../../modules/fractions'
+import { randint, texFraction, miseEnEvidence, abs, ecritureAlgebrique, texFractionReduite, egal, calcul } from '../../../modules/outils.js'
+import { mathalea2d, repere2, texteParPosition, segment, droite } from '../../../modules/2d.js'
 export const titre = 'Lecture graphique fonction affine niveau 2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -46,7 +45,6 @@ export default function LectureGraphiqueFonctionAffine2 () {
     if (egal(a * 1000 / d, Math.round(a * 1000 / d))) {
       this.reponse.push(`${calcul(a / d)}x${ecritureAlgebrique(b)}`)
     }
-    console.log(this.reponse)
     this.correction = `<br>$f$ est une fonction affine. On en déduit que son écriture algébrique est de la forme 
     $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale) et $b$ l'ordonnée à l'origine.<br>L'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées) est $b=${b}$.<br>Le coefficient directeur de la droite est donné  par $a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=
     ${texFraction(miseEnEvidence(a, 'red'), miseEnEvidence(d, 'green'))}$.<br>  `
