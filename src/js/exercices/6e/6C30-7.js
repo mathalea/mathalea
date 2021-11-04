@@ -26,7 +26,7 @@ export default function DiviserUnNombre () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
-    const choixUnites = ['millièmes', 'centièmes', 'dizièmes']
+    const choixUnites = ['millièmes', 'centièmes', 'dixièmes']
     let listeChoixAlea = range(2)
     this.nbQuestions = min(this.nbQuestions, 3)
     listeChoixAlea = combinaisonListes(listeChoixAlea, this.nbQuestions)
