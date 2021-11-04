@@ -8343,7 +8343,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
     if (typeof (orientation) === 'number') {
       code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
-      )}" text-anchor = ${ancrageDeRotation} dominant-baseline = "central" fill="${this.color
+      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color
         }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
         )})" id="${this.id}" >${texte}</text>\n `
@@ -8419,7 +8419,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
     if (typeof (orientation) === 'number') {
       code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
-      )}" text-anchor = ${ancrageDeRotation} dominant-baseline = "central" fill="${this.color
+      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color
         }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
         )})" id="${this.id}" >${texte}</text>\n `

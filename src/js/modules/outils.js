@@ -2648,6 +2648,20 @@ export function stringNombre (nb) {
   return result
 }
 /**
+* Centre un texte
+*
+* @author Rémi Angot
+*/
+export function texteCentre (texte) {
+  if (context.isHtml) {
+    return `<p style="text-align: center">${texte}</p>`
+  } else {
+    return `\\begin{center}
+${texte}
+\\end{center}`
+  }
+}
+/**
 * Met en couleur et en gras
 *
 * @author Rémi Angot

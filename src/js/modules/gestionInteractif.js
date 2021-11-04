@@ -467,8 +467,7 @@ export function propositionsQcm (exercice, i) {
       texte += '<tr>\n\t'
     }
   } else {
-    texte += '<br>'
-    texte += `\\begin{multicols}{${nbCols}}\n\t`
+    texte += `\n\n\\begin{multicols}{${nbCols}}\n\t`
   }
   for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
     if (context.isHtml) {
