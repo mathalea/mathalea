@@ -5,7 +5,7 @@ export const titre = 'Compter les cubes'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can5C10
+ * Référence can6G02
  */
 export default function CompterLesCubesManquant () {
   DenombrerCubes.call(this)
