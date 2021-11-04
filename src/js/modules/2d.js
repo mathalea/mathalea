@@ -342,6 +342,10 @@ export function tracePointSurDroite (A, O) {
   return new TracePointSurDroite(A, O)
 }
 
+export function traceMilieuSegment (A, B) {
+  return new TracePointSurDroite(milieu(A, B), droite(A, B))
+}
+
 /**
  * M = milieu(A,B) //M est le milieu de [AB]
  * M = milieu(A,B,'M') //M est le milieu [AB] et se nomme M

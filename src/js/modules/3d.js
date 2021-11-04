@@ -535,26 +535,53 @@ class Prisme3d {
       s = arete3d(this.base1.listePoints[i], this.base2.listePoints[i], this.color)
       objets.push(s.p2d)
     }
-
-    this.svg = function (coeff) {
-      let code = ''
-      for (const objet of objets) {
-        code += '\n\t' + objet.svg(coeff)
-      }
-      return code
-    }
-    this.tikz = function () {
-      let code = ''
-      for (const objet of objets) {
-        code += '\n\t' + objet.tikz()
-      }
-      return code
-    }
+    this.p2d = objets
   }
 }
 
 export function prisme3d (base, vecteur, color = 'black') {
   return new Prisme3d(base, vecteur, color)
+}
+/**
+   * LE PRISME
+   *
+   * @author Jean-Claude Lhote
+   * Crée un prisme à partir du base Polygone3d et d'un vecteur3d d'extrusion (on peut faire des prismes droits ou non droits)
+   */
+class Pyramide3d {
+  constructor (base, sommet, color) {
+    ObjetMathalea2D.call(this)
+
+    this.color = color
+    base.color = color
+    this.base = base
+    this.aretes = []
+    this.sommet = sommet
+    const objets = []; let s
+    for (let i = 0; i < this.base.listePoints.length; i++) {
+      s = this.base.p2d[i]
+      if (this.base.listePoints[i].visible) {
+        s.pointilles = false
+      } else {
+        s.pointilles = 2
+      }
+      objets.push(s)
+    }
+    for (let i = 0; i < this.base.listePoints.length; i++) {
+      s = arete3d(this.base.listePoints[i], this.sommet, this.color, true)
+      if (this.base.listePoints[i].visible) {
+        s.p2d.pointilles = false
+      } else {
+        s.p2d.pointilles = 2
+      }
+      objets.push(s.p2d)
+    }
+    this.p2d = objets
+  }
+}
+
+export function pyramide3d (base, vecteur, color = 'black') {
+  return new Pyramide3d(base, vecteur, color)
 }
 
 /**
@@ -1060,13 +1087,13 @@ export function homothetie3d (point3D, centre, rapport, color) {
     V = vecteur3d(centre, point3D)
     V.x *= rapport
     V.y *= rapport
-    V.y *= rapport
+    V.z *= rapport
     return translation3d(centre, V)
   } else if (point3D.constructor === Vecteur3d) {
-    V = point3D
+    V = vecteur3d(point3D.x, point3D.y, point3D.z)
     V.x *= rapport
     V.y *= rapport
-    V.y *= rapport
+    V.z *= rapport
     return V
   } else if (point3D.constructor === Polygone3d) {
     for (let i = 0; i < point3D.listePoints.length; i++) {

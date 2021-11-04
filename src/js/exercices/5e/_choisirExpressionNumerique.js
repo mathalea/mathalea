@@ -26,13 +26,13 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
       souscas = randint(0, 3)
       switch (souscas) {
         case 0: // somme de deux nombres
-          expf = `La somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)}`
+          expf = `La somme de ${nombreAvecEspace(a)} et de ${nombreAvecEspace(b)}`
           expn = `$${texNombrec(a)}+${texNombrec(b)}$`
           expc = `$${texNombrec(a)}+${texNombrec(b)} = ${texNombrec(a + b)}$`
           break
         case 1: // différence de deux nombres
           if (a < b) { a = a + b }
-          expf = `La différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)}`
+          expf = `La différence de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)}`
           expn = `$${texNombrec(a)}-${texNombrec(b)}$`
           expc = `$${texNombrec(a)}-${texNombrec(b)} = ${texNombrec(a - b)}$`
           break
