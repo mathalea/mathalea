@@ -5,7 +5,7 @@ export const titre = 'Symétrique de point 6e'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can5C10
+ * Référence can6G01
  */
 export default function SymetriqueD1Point () {
   Transformations.call(this)

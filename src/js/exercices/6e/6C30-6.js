@@ -27,7 +27,7 @@ export default function MultiplierUnNombre () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
-    const choixUnites = ['millièmes', 'centièmes', 'dizièmes', '', 'dizaines', 'centaines', 'milliers']
+    const choixUnites = ['millièmes', 'centièmes', 'dixièmes', '', 'dizaines', 'centaines', 'milliers']
     let listeChoixAlea = range(6, [3])
     this.nbQuestions = min(this.nbQuestions, 6)
     if (parseInt(this.sup2) === 1) {
