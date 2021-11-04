@@ -1841,7 +1841,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaireCaseACocher) {
       // Création d'un formulaire texte
       divParametresGeneraux.innerHTML +=
-        "<div style='display: inline'><label for='form_sup" +
+        "<div><label for='form_sup" +
         i +
         "'>" +
         exercice[i].besoinFormulaireCaseACocher[0] +
@@ -2038,7 +2038,7 @@ function parametresExercice (exercice) {
         })
       }
 
-      // Gestion du nombre de colones
+      // Gestion du nombre de colonnes
       if (exercice[i].nbColsModifiable) {
         formNbCols[i] = document.getElementById('form_nbCols' + i)
         formNbCols[i].value = exercice[i].nbCols // Rempli le formulaire avec le nombre de colonnes
@@ -2049,7 +2049,7 @@ function parametresExercice (exercice) {
         })
       }
 
-      // Gestion du nombre de colones dans la correction
+      // Gestion du nombre de colonnes dans la correction
       if (exercice[i].nbColsCorrModifiable) {
         formNbColsCorr[i] = document.getElementById('form_nbColsCorr' + i)
         formNbColsCorr[i].value = exercice[i].nbColsCorr // Rempli le formulaire avec le nombre de colonnes de la correction

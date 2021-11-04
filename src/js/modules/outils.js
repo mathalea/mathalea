@@ -39,6 +39,8 @@ export function listeQuestionsToContenu (exercice) {
       }
     }
     exercice.contenuCorrection = texConsigne('') + texIntroduction(exercice.consigneCorrection) + texMulticols(texEnumerate(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
+    exercice.contenuCorrection = exercice.contenuCorrection.replace(/\\\\\n*/g, '\\\\\n')
+    exercice.contenu = exercice.contenu.replace(/\\\\\n*/g, '\\\\\n')
   }
 }
 
@@ -142,21 +144,21 @@ export function listeQuestionsToContenuSansNumeroEtSansConsigne (exercice) {
  * @param {string} cont2
  * @return {string}
  */
-export function deuxColonnes (cont1, cont2) {
+export function deuxColonnes (cont1, cont2, largeur1 = 50) {
   if (context.isHtml) {
     return `
-    <div style="float:left;min-width: fit-content;max-width : 35%;margin-right: 30px">
+    <div style="float:left;max-width: ${largeur1}%;margin-right: 30px">
     ${cont1}
    </div>
-   <div style="float:left;min-width: fit-content; max-width : 45%">
+   <div style="float:left; max-width: ${90 - largeur1}%">
     ${cont2}
    </div>
    <div style="clear:both"></div>`
   } else {
-    return `\\begin{minipage}{.5\\linewidth}
+    return `\\begin{minipage}{${calcul(largeur1 / 100)}\\linewidth}
     ${cont1}
     \\end{minipage}
-    \\begin{minipage}{.5\\linewidth}
+    \\begin{minipage}{${calcul((100 - largeur1) / 100)}\\linewidth}
     ${cont2}
     \\end{minipage}
     `
@@ -1642,6 +1644,31 @@ export function factorisation (n) {
 }
 /**
  *
+ * @param {number} n
+ * @param {boolean} puissancesOn
+ * @returns {string} texFacto
+ */
+export function texFactorisation (n, puissancesOn = true) {
+  let texFacto = ''
+  let facto = []
+  if (puissancesOn) {
+    facto = factorisation(n)
+    for (let i = 0; i < facto.length - 1; i++) {
+      texFacto += `${facto[i][0]}${facto[i][1] > 1 ? '^{' + facto[i][1] + '}\\times ' : '\\times '}`
+    }
+    texFacto += `${facto[facto.length - 1][0]}${facto[facto.length - 1][1] > 1 ? '^{' + facto[facto.length - 1][1] + '}' : ''}`
+  } else {
+    facto = obtenirListeFacteursPremiers(n)
+    for (let i = 0; i < facto.length - 1; i++) {
+      texFacto += `${facto[i][0]}\\times `
+    }
+    texFacto += `${facto[facto.length - 1][0]}`
+  }
+  return texFacto
+}
+
+/**
+ *
  * @param {Entier} n
  * Extrait le plus grand nombre possible de la racine carrée de n
  * retourne le résulat [a,b] pour a²b=n
@@ -2287,7 +2314,7 @@ export function htmlEnumerate (liste, spacing, classe = 'question', id = '') {
     // Pour garder la même hiérarchie avec une ou plusieurs questions
     // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
     // Utile pour la vue can
-    (spacing > 1) ? result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''} style="line-height: ${spacing};">` : result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''}>`
+    (spacing > 1) ? result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''} style="line-height: ${spacing}; margin-bottom: 20px">` : result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''}>`
     result += liste[0].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     result += '</div></div>'
   }

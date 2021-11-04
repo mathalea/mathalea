@@ -17,6 +17,7 @@ export const dateDePublication = '31/10/2021'
 export default function AdditionSoustractionBaseN () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Poser et effectuer les calculs suivants :'
+  this.video = '-bIvS95dmYw'
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1

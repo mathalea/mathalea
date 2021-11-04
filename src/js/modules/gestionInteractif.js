@@ -110,8 +110,10 @@ function verifQuestionMathLive (exercice, i) {
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
       }
+      console.log(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)), resultat)
+
       // Pour les exercices où la saisie du texte avec prise en compte de la casse
-    } if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'ecritureScientifique') { // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'ecritureScientifique') { // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
       if (typeof reponse === 'string') saisie = saisie.toString().replace(',', '.')
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         saisie = saisie.split('\\times')
@@ -196,6 +198,18 @@ function verifQuestionMathLive (exercice, i) {
     } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'intervalle') {
       const nombreSaisi = Number(saisie.replace(',', '.'))
       if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
+    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'puissance') {
+      const nombreSaisi = saisie.split('^')
+      const mantisseSaisie = nombreSaisi[0]
+      const expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : ''
+      const nombreAttendu = reponse.split('^')
+      const mantisseReponse = nombreAttendu[0]
+      const expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
+      if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
+        resultat = 'OK'
+      } else {
+        resultat = 'KO'
+      }
     }
   }
   if (resultat === 'OK') {

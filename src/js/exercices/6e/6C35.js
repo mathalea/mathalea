@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
 
 import Exercice from '../Exercice.js'
-import { choice, randint, objet, jour, listeQuestionsToContenu, prenomF, prenomM, objetF, objetM, sp, shuffle, range } from '../../modules/outils.js'
+import { choice, randint, objet, jour, listeQuestionsToContenu, prenomF, prenomM, objetF, objetM, sp, shuffle, range, deuxColonnes } from '../../modules/outils.js'
 import { point, polygone, segment, mathalea2d, texteParPosition } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Modéliser des problèmes'
 export const interactifReady = true
@@ -13,7 +14,8 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '24/4/2021'
 
 // Gestion de la date de modification importante
-export const dateDeModifImportante = '24/10/2021'
+export const dateDeModifImportante = '02/11/2021'
+// Passage sur 2 colonnes en sortie HTML
 
 /**
  * Associer huit problèmes à huit types de modélisation différents
@@ -99,19 +101,19 @@ export default function ModelisationProblemes () {
       p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
       p8, traitHorizontal8, traitVertical8, tb8, th8, th82
 
-    for (let i = 0, texte, texteCorr; i < listeTypeDeQuestions.length; i++) {
-      texte = ''
+    for (let i = 0, colonne1, texteCorr; i < listeTypeDeQuestions.length; i++) {
+      colonne1 = ''
       texteCorr = ''
 
       switch (listeTypeDeQuestions[i]) {
         case 1:
           if (o === 1) {
-            texte += `${prenomF()} avait ${b1} ${objetM()} ${jour()}. `
-            texte += `<br>Le lendemain, elle en a trouvé ${c1} autres.`
-            texte += '<br>Combien cela lui en fait-il ?'
+            colonne1 += `${prenomF()} avait ${b1} ${objetM()} ${jour()}. `
+            colonne1 += `<br>Le lendemain, elle en a trouvé ${c1} autres.`
+            colonne1 += '<br>Combien cela lui en fait-il ?'
           } else {
-            texte += `${prenomM()} a ${c1} ans de moins que sa soeur ${prenomF()}.`
-            texte += `<br>Sachant qu'il a ${b1} ans, quel âge a sa soeur ?`
+            colonne1 += `${prenomM()} a ${c1} ans de moins que sa soeur ${prenomF()}.`
+            colonne1 += `<br>Sachant qu'il a ${b1} ans, quel âge a sa soeur ?`
           }
           A1 = point(0, 0)
           B1 = point(12, 0)
@@ -130,19 +132,19 @@ export default function ModelisationProblemes () {
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
-            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
 
         case 2:
           if (o === 1) {
-            texte += `${prenomM()} achète ${b1 * c1} ${objetM()} par paquets de ${b1}.`
-            texte += '<br>Combien a-t-il acheté de paquets ?'
+            colonne1 += `${prenomM()} achète ${b1 * c1} ${objetM()} par paquets de ${b1}.`
+            colonne1 += '<br>Combien a-t-il acheté de paquets ?'
           } else {
-            texte += `${prenomM()} a besoin de ${b1 * c1} ${objetF()}.`
-            texte += `<br>Il en récupère ${b1} chaque jour.`
-            texte += '<br>Au bout de combien de temps aura-t-il le nécessaire ?'
+            colonne1 += `${prenomM()} a besoin de ${b1 * c1} ${objetF()}.`
+            colonne1 += `<br>Il en récupère ${b1} chaque jour.`
+            colonne1 += '<br>Au bout de combien de temps aura-t-il le nécessaire ?'
           }
           A2 = point(0, 0)
           B2 = point(12, 0)
@@ -168,19 +170,19 @@ export default function ModelisationProblemes () {
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
-            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
 
         case 3:
           if (o === 1) {
-            texte += `${prenomF()} a ${b5} ans.`
-            texte += `<br>Sachant qu'elle a ${c5} ans de plus que son frère, quel âge a celui-ci ?`
+            colonne1 += `${prenomF()} a ${b5} ans.`
+            colonne1 += `<br>Sachant qu'elle a ${c5} ans de plus que son frère, quel âge a celui-ci ?`
           } else {
-            texte += `${prenomF()} a acheté ${b5} ${objetM()} pour les donner à ses amis.`
-            texte += `<br>Il lui en reste encore ${c5} à donner.`
-            texte += '<br>Combien en a-t-elle déjà distribué ?'
+            colonne1 += `${prenomF()} a acheté ${b5} ${objetM()} pour les donner à ses amis.`
+            colonne1 += `<br>Il lui en reste encore ${c5} à donner.`
+            colonne1 += '<br>Combien en a-t-elle déjà distribué ?'
           }
           A3 = point(0, 0)
           B3 = point(12, 0)
@@ -199,18 +201,18 @@ export default function ModelisationProblemes () {
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
-            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
 
         case 4:
           if (o === 1) {
-            texte += `${prenomF()} a acheté ${c5} ${objetM()} à ${b5} € pièce.`
-            texte += '<br>Combien a-t-elle payé ?'
+            colonne1 += `${prenomF()} a acheté ${c5} ${objetM()} à ${b5} € pièce.`
+            colonne1 += '<br>Combien a-t-elle payé ?'
           } else {
-            texte += `${prenomF()} récupère ${c5} paquets de ${b5} ${objetM()} chacun.`
-            texte += '<br>Combien en a-t-elle en tout ?'
+            colonne1 += `${prenomF()} récupère ${c5} paquets de ${b5} ${objetM()} chacun.`
+            colonne1 += '<br>Combien en a-t-elle en tout ?'
           }
           A4 = point(0, 0)
           B4 = point(12, 0)
@@ -236,18 +238,18 @@ export default function ModelisationProblemes () {
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
-            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
 
         case 5:
           if (o === 1) {
-            texte += `J'ai ${d3} ${objetF()} dans mon sac et je souhaite les partager avec mes ${c3 - 1} amis.`
-            texte += '<br>Quelle sera la part de chacun ?'
+            colonne1 += `J'ai ${d3} ${objetF()} dans mon sac et je souhaite les partager avec mes ${c3 - 1} amis.`
+            colonne1 += '<br>Quelle sera la part de chacun ?'
           } else {
-            texte += `${c3} ${objetF()} identiques coûtent ${d3} €.`
-            texte += '<br>Quel est le prix d\'une d\'entre elles ?'
+            colonne1 += `${c3} ${objetF()} identiques coûtent ${d3} €.`
+            colonne1 += '<br>Quel est le prix d\'une d\'entre elles ?'
           }
           A5 = point(0, 0)
           B5 = point(12, 0)
@@ -273,18 +275,18 @@ export default function ModelisationProblemes () {
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
-            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
 
         case 6:
           if (o === 1) {
-            texte += `${prenomF()} récupère ${b7} ${objet()} dans une salle, puis ${a7} dans une autre.`
-            texte += '<br>Combien en a-t-elle en tout ?'
+            colonne1 += `${prenomF()} récupère ${b7} ${objet()} dans une salle, puis ${a7} dans une autre.`
+            colonne1 += '<br>Combien en a-t-elle en tout ?'
           } else {
-            texte += `Un lot de ${objetM()} coûte ${b7} € et un lot de ${objetF()} coûte ${a7} €.`
-            texte += '<br>Combien coûte l\'ensemble ?'
+            colonne1 += `Un lot de ${objetM()} coûte ${b7} € et un lot de ${objetF()} coûte ${a7} €.`
+            colonne1 += '<br>Combien coûte l\'ensemble ?'
           }
           A6 = point(0, 0)
           B6 = point(12, 0)
@@ -303,18 +305,18 @@ export default function ModelisationProblemes () {
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
-            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
 
         case 7:
           if (o === 1) {
-            texte += `J'ai ${d3} ${objetM()} dans mon sac et je dois les regrouper par ${c3}.`
-            texte += '<br>Combien puis-je faire de tas ?'
+            colonne1 += `J'ai ${d3} ${objetM()} dans mon sac et je dois les regrouper par ${c3}.`
+            colonne1 += '<br>Combien puis-je faire de tas ?'
           } else {
-            texte += `J'ai payé ${d3} € pour des ${objetM()} coûtant ${c3} € chacun.`
-            texte += '<br>Combien en ai-je acheté ?'
+            colonne1 += `J'ai payé ${d3} € pour des ${objetM()} coûtant ${c3} € chacun.`
+            colonne1 += '<br>Combien en ai-je acheté ?'
           }
           A7 = point(0, 0)
           B7 = point(12, 0)
@@ -340,18 +342,18 @@ export default function ModelisationProblemes () {
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
-            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
 
         case 8:
           if (o === 1) {
-            texte += `Dans un sac, il y a ${a7} ${objetF()} et dans l'autre, il y en a ${b7}.`
-            texte += '<br>Combien y en a-t-il de plus dans ce sac ?'
+            colonne1 += `Dans un sac, il y a ${a7} ${objetF()} et dans l'autre, il y en a ${b7}.`
+            colonne1 += '<br>Combien y en a-t-il de plus dans ce sac ?'
           } else {
-            texte += `${prenomF()} a trouvé ${b7} ${objetF()} et ${prenomM()} en a trouvé ${a7}`
-            texte += '<br>Combien en a-t-il de moins qu\'elle ?'
+            colonne1 += `${prenomF()} a trouvé ${b7} ${objetF()} et ${prenomM()} en a trouvé ${a7}`
+            colonne1 += '<br>Combien en a-t-il de moins qu\'elle ?'
           }
           A8 = point(0, 0)
           B8 = point(12, 0)
@@ -370,26 +372,30 @@ export default function ModelisationProblemes () {
           setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
           if (this.correctionDetaillee) {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
-            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
           break
       }
-      if (i === listeTypeDeQuestions.length - 1) {
-        texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>'
-        for (let j = 0; j < Math.min(4, listeTypeDeQuestions.length); j++) {
-          texte += schemas[j]
-        }
-        texte += '<br>'
-        for (let j = 4; j < Math.min(8, listeTypeDeQuestions.length); j++) {
-          texte += schemas[j]
-        }
-      }
-      this.listeQuestions.push(texte)
+      this.listeQuestions.push(colonne1)
       this.listeCorrections.push(texteCorr)
     }
 
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    let colonne2
+    colonne2 = 'Les schémas à associer à chacun des énoncés sont : <br>'
+    for (let j = 0; j < Math.min(4, listeTypeDeQuestions.length); j++) {
+      colonne2 += schemas[j]
+    }
+    colonne2 += '<br>'
+    for (let j = 4; j < Math.min(8, listeTypeDeQuestions.length); j++) {
+      colonne2 += schemas[j]
+    }
+    if (context.isHtml) {
+      this.contenu = deuxColonnes(this.contenu, colonne2, 35)
+    } else {
+      this.contenu += colonne2
+    }
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Valeurs différentes suivant les exercices\n2 : Valeurs identiques dans tous les exercices']
   this.besoinFormulaire2Numerique = ['Sélection de problèmes', 4, '1 : 3 problèmes basés sur les mêmes nombres\n2 : 4 problèmes basés sur les mêmes nombres\n3 : 8 problèmes avec distinction 2 couleurs\n4 : 8 problèmes mélangés.']

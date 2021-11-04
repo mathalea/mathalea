@@ -100,7 +100,6 @@ export default function ProportionnaliteParLineariteBis () {
         enonce: `
           À ${situation.lieu}, ${situation.prenom1} achète $${situation.n1}$ ${pluriel(situation.n1, situation)} et paie $${texPrix(situation.pu * situation.n1)}$ €.
           <br>${situation.prenom2} achète $${situation.n2}$ ${pluriel(situation.n2, situation)} et paie $${texPrix(situation.pu * situation.n2)}$ €.
-          <br>
           <br>${numAlpha(k++)} Combien paiera ${situation.prenom3} pour $${situation.n3}$ ${pluriel(situation.n3, situation)} ? ${ajouteChampTexteMathLive(this, 3 * i, 'largeur25 inline')}
           <br>${numAlpha(k++)} Combien paiera ${situation.prenom4} pour $${situation.n4}$ ${pluriel(situation.n4, situation)} ? ${ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur25 inline')}
           <br>${numAlpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${situation.prenom_max} peut acheter avec $${texPrix(situation.pu * situation.nMax)}$ € ? ${ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur25 inline')}

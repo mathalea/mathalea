@@ -94,16 +94,23 @@ export default function Exercice () {
   // this.typeExercice = 'MG32' // Pour charger MathGraph32.
   this.mg32Editable = false // Les figures MG32 ne sont pas interactives par défaut.
   // this.dimensionsDivMg32 = [500, 450] // Dimensions du SVG créé par MathGraph32.
+
   // this.typeExercice = 'Scratch' // Pour charger Scratchblocks.
   // this.typeExercice = 'IEP' // Pour charger InstrumEnPoche.
   // this.typeExercice = 'dnb' // Ce n’est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
   // this.typeExercice = 'XCas' // Pour charger le JavaScript de XCas qui provient de https://www-fourier.ujf-grenoble.fr/~parisse/giac_fr.html
-  this.listeArguments = []
+  // this.typeExercice = 'simple' // Pour les exercices plus simples destinés aux courses aux nombres
 
+  this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
+
+  /**
+   * Fonction qui est appellée pour chaque exercice
+   * @param {number} numeroExercice numéro de l'exercice utilisé pour avoir des identifiants uniques pour associer un champ avec le bon exercice (pour l'interactivité par exemple)
+   */
   this.nouvelleVersion = function (numeroExercice) {}
 
   /**
-   *
+   * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
    * @param {int} i indice de la question
    * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
    * @returns {boolean} true si la question n'a jamais été posée
