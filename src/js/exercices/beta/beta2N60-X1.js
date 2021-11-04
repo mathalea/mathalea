@@ -203,7 +203,7 @@ export default function modeliserEquations () {
           texte = ' <b> Voici un programme de calcul :</b><br>'
           texte += itemize(['Choisir un nombre', `Multiplier ce nombre par $${a}$`, `Ajouter $${b}$`, `Multiplier le résultat par $${c}$`])
           texte += `Quel nombre doit-on choisir au départ pour obtenir $0$ comme résultat final ?<br>
-               On donnera le résultat sous la forme d\'une fraction irréductible ou d\'un nombre entier le cas échéant.`
+               On donnera le résultat sous la forme d'une fraction irréductible ou d'un nombre entier le cas échéant.`
 
           texteCorr = `En notant $x$ le nombre choisi au départ, on obtient  :<br>
           $\\bullet$ Multiplier ce nombre par $${a}$ : &nbsp;&nbsp; &nbsp;&nbsp;$${a}\\times x=${a}x$ ;<br>
@@ -275,11 +275,11 @@ export default function modeliserEquations () {
                  `
           texte += itemize(['Choisir un nombre', `Ajouter $${a}$`, 'Prendre le carré du résultat'])
 
-          texte += `<br></br>
+          texte += `<br><br>
                  <b> Programme 2 :</b><br>
                       `
           texte += itemize(['Choisir un nombre', `Multiplier par $${texNombrec(2 * a)}$ `, `Ajouter $${b}$`])
-          texte += '<br>Déterminer les nombres éventuels que l\'on peut entrer dans ces deux programmes pour qu\'au final ils donnent le même résultat.<br></br>'
+          texte += '<br>Déterminer les nombres éventuels que l\'on peut entrer dans ces deux programmes pour qu\'au final ils donnent le même résultat.<br><br>'
           texteCorr = `En notant $x$ le nombre choisi au départ : <br>
                  
                  On obtient avec le <b> programme 1 </b> :<br>
@@ -307,7 +307,7 @@ export default function modeliserEquations () {
            L'équation n'a pas de solution car $${texNombrec(b - a * a)}<0$. <br>Par conséquent il n'existe pas de nombre qui donne le même résultat avec les deux programmes.
                   `
           } else {
-            if (b == a * a) {
+            if (b === a * a) {
               texteCorr += `$x=-${b}$<br>
            $x=0$.<br>
            Quand on entre $0$, les deux programmes donnent le même résultat.
@@ -337,12 +337,12 @@ export default function modeliserEquations () {
                    `
           texte += itemize(['Choisir un nombre', 'Prendre l\'opposé de ce nombre', `Multiplier par $${b}$`, `Ajouter $${a}$`])
 
-          texte += `<br></br>
+          texte += `<br><br>
                    <b> Programme 2 :</b><br>
                         `
           texte += itemize(['Choisir un nombre', `Multiplier par $${c}$ `, `Ajouter $${d}$`])
           texte += `<br>On entre le même nombre dans chacun des deux programmes de calcul et on effectue le produit de ces deux nombres. <br>
-              Quel(s) nombre(s) doit-on entrer pour que ce produit soit nul ?.<br></br>`
+              Quel(s) nombre(s) doit-on entrer pour que ce produit soit nul ?.<br><br>`
           texteCorr = `En notant $x$ le nombre choisi au départ : <br>
                    
                    On obtient avec le <b> programme 1 </b> :<br>
