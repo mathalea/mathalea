@@ -14,6 +14,7 @@ export const amcType = 'AMCOpen'
  * Lire l'abscisse entière d'un point
  * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N11
+ * Relecture : Novembre 2021 par EE
  */
 export default function LireAbscisseEntiere2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -109,9 +110,9 @@ export default function LireAbscisseEntiere2d () {
         setReponse(this, 3 * i, calcul(x1 / pas1 + abs0))
         setReponse(this, 3 * i + 1, calcul(x2 / pas1 + abs0))
         setReponse(this, 3 * i + 2, calcul(x3 / pas1 + abs0))
-        texte += l1 + ajouteChampTexteMathLive(this, 3 * i)
-        texte += l2 + ajouteChampTexteMathLive(this, 3 * i + 1)
-        texte += l3 + ajouteChampTexteMathLive(this, 3 * i + 2)
+        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur75', { texte: l1 })
+        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur75', { texte: l2 })
+        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur75', { texte: l3 })
       } else {
         if (context.isAmc) {
           this.autoCorrection[i].enonce = texte

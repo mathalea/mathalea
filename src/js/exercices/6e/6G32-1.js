@@ -3,10 +3,14 @@ import { listeQuestionsToContenuSansNumero, randint, shuffle, combinaisonListes,
 import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, codeAngle, texteParPosition, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Propriétés de conservation de la symétrie axiale'
 
+// Gestion de la date de publication initiale
+export const dateDePublication = '26/10/2020'
+
 /**
  * Ref 6G32-1
  * Publié le 26/10/2020
  * @author Jean-Claude Lhote
+ * Relecture : Novembre 2021 par EE
  */
 export default function SymetrieAxialeConservation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -133,7 +137,7 @@ export default function SymetrieAxialeConservation1 () {
           break
         case '1/2droite':
           choix = randint(0, 10) + randint(0, 1) * 12
-          texte = numAlpha(i) + `Quel est la symétrique de la demi-droite $[${noms[index(choix)]}${noms[index(choix + 1)]})$ ?`
+          texte = numAlpha(i) + `Quel est le symétrique de la demi-droite $[${noms[index(choix)]}${noms[index(choix + 1)]})$ ?`
           texteCorr = numAlpha(i) + `Le symétrique de la demi-droite $[${noms[index(choix)]}${noms[index(choix + 1)]})$ est la demi-droite $[${noms[index(choix + 12)]}${noms[index(choix + 13)]})$.`
           objetsCorrection.push(demiDroite(points[index(choix)], points[index(choix + 1)], texcolors(i * 3 + 2)))
           objetsCorrection.push(demiDroite(points[index(choix + 12)], points[index(choix + 13)], texcolors(i * 3 + 2)))
