@@ -2495,9 +2495,11 @@ export default function Alea2iep () {
   }
   /**
    * Macro pour placer le point M sur un segment [AB] tel que AM = n/d AB
-   * @param {} nom
-   * @param {*} A
-   * @param {*} c
+   * @param {point} A
+   * @param {point} B
+   * @param {int} n numérateur
+   * @param {int} d dénominateur
+   * @param {object} options { distance: 1, monAngle: 40, nom: '', nommerGraduations: false }
    * @returns M
    */
   this.partageSegment = (A, B, n, d, { distance = 1, monAngle = 40, nom = '', nommerGraduations = false } = {}) => {
