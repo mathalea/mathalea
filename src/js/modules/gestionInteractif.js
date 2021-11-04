@@ -110,7 +110,6 @@ function verifQuestionMathLive (exercice, i) {
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
       }
-      console.log(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))
       // Pour les exercices où la saisie du texte avec prise en compte de la casse
     } if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'ecritureScientifique') { // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
       if (typeof reponse === 'string') saisie = saisie.toString().replace(',', '.')
