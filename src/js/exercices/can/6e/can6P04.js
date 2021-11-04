@@ -23,8 +23,9 @@ export default function AppliquerUnPourcentage () {
         a = randint(2, 99)
         this.reponse = calcul(a / 10)
         this.question = `$10\\%$ de $${a}=$`
-        this.correction = `$10\\%$ de $${a} = 0,1 \\times ${a}=${texNombre(this.reponse)}$<br>` + texteEnCouleur(`Mentalement : <br>
-        Prendre $10$ % d'une quantité revient à la diviser par $10$.<br>
+        this.correction = `$10\\%$ de $${a} = 0,1 \\times ${a}=${texNombre(this.reponse)}$`
+        this.correction += texteEnCouleur(`<br> Mentalement : <br>
+        Prendre $10\\%$  d'une quantité revient à la diviser par $10$.<br>
         Ainsi, $10\\%$ de $${a} = \\dfrac{${a}}{10}=${texNombre(this.reponse)}$.`)
         break
 
@@ -33,9 +34,10 @@ export default function AppliquerUnPourcentage () {
         p = randint(2, 9, 5) * 10
         this.reponse = calcul(a * p / 100)
         this.question = `$${p}\\%$ de $${a}=$`
-        this.correction = `$${p}\\%$ de $${a} = ${texNombre(this.reponse)}$<br>` + texteEnCouleur(`<br> Mentalement : <br>
-        Prendre $${p}$ % de $${a}$ revient à prendre $${p / 10}\\times 10$ % de $${a}$.<br>
-        Comme $10$ % de $${a}$ vaut $${a / 10}$ (pour prendre $10$ % d'une quantité, on la divise par $10$), alors 
+        this.correction = `$${p}\\%$ de $${a} = ${texNombre(this.reponse)}$`
+        this.correction += texteEnCouleur(`<br> Mentalement : <br>
+        Prendre $${p}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\%$  de $${a}$.<br>
+        Comme $10\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors 
         $${p}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${this.reponse}$.
        `)
         break
@@ -45,15 +47,15 @@ export default function AppliquerUnPourcentage () {
         this.reponse = calcul(a * b / 100)
         this.question = `$${a}\\%$ de $${b}=$`
         if (a === 50) {
-          this.correction = `$50$ % de $${b} = ${this.reponse}$.`
+          this.correction = `$50\\%$  de $${b} = ${this.reponse}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-            Prendre $50$ % d'une quantité revient à la diviser par $2$.<br>
+            Prendre $50\\%$  d'une quantité revient à la diviser par $2$.<br>
             Ainsi, $${a}\\%$ de $${b} = ${b}\\div 2=${this.reponse}$.`)
         } else {
           this.correction = `$${a}\\%$ de $${b} = ${this.reponse}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Prendre $${a}$ % de $${b}$ revient à prendre $${a / 10}\\times 10$ % de $${b}$.<br>
-          Comme $10$ % de $${b}$ vaut $${b / 10}$ (pour prendre $10$ % d'une quantité, on la divise par $10$), alors 
+          Prendre $${a}\\%$  de $${b}$ revient à prendre $${a / 10}\\times 10\\%$  de $${b}$.<br>
+          Comme $10\\%$  de $${b}$ vaut $${b / 10}$ (pour prendre $10\\%$ d'une quantité, on la divise par $10$), alors 
           $${a}\\%$ de $${b}=${a / 10}\\times ${b / 10}=${this.reponse}$.
          `)
         }
