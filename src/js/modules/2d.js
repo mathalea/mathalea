@@ -10835,11 +10835,16 @@ export function GlisseNombre (nombre = '', decalage = 0) {
     texte2.gras = true
     objets.push(texte1)
     objets.push(texte2)
+  } else if (decalage < 0) { // pas de partie décimale mais une division alors virgule pour le 2e nombre
+    const texte2 = texteParPosition(',', A.x + 6.9 * largeurColonne, A.y - 1.3 * hauteurLigne - hauteurPremiereLigne, 'milieu', '#f15929', 3)
+    texte2.isVisible = false
+    texte2.gras = true
+    objets.push(apparitionAnimee(texte2, 6, 0.2))
   }
   const chiffresQuiGlissent = translationAnimee(chiffresADecaler, vecteur(-decalage * largeurColonne, 0), 'id="op" dur="1s" begin="0s;op.end+5s" fill="freeze"')
   chiffresQuiGlissent.isVisible = false
   objets.push(chiffresQuiGlissent)
-  const nombreDeZeroPartieEntiere = decalage - partieDecimale.length
+  const nombreDeZeroPartieEntiere = partieDecimale ? decalage - partieDecimale.length : decalage
   const nombreDeZeroPartieDecimale = -partieEntiere.length - decalage + 1
   const zerosAAjouter = []
   for (let i = 0; i < nombreDeZeroPartieEntiere; i++) {
