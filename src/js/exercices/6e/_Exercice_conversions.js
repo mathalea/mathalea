@@ -17,6 +17,7 @@ export const amcType = 'AMCNum'
  * * 5 : Un mélange de toutes les conversions
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
  * @author Rémi Angot
+ * Relecture : Novembre 2021 par EE
  */
 export default function ExerciceConversions (niveau = 1) {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -27,7 +28,7 @@ export default function ExerciceConversions (niveau = 1) {
   this.consigne = 'Compléter : '
   this.spacing = 2
   this.correction_avec_des_fractions = false
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -106,7 +107,7 @@ export default function ExerciceConversions (niveau = 1) {
           unite = 'o'
         }
         resultat = calcul(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-        texte = '$ ' + texNombre(a) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : `\\dotfill ${texTexte(unite)}$`)
+        texte = '$ ' + texNombre(a) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : `\\dotfill ${texTexte(unite)}$`)
 
         texteCorr =
           '$ ' +
