@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 345 
-- nombre d'exos interactifReady 470 
+- nombre d'exos interactifReady 473 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -339,6 +339,9 @@
 |can3F04|Calcul d’antécédent par fonction linéaire|OK|AMCNum|OK|mathLive|
 |can3F05|Calcul d’antécédent par fonction affine|OK|AMCNum|OK|mathLive|
 |can3F06|Déterminer le coefficient d’une fonction affine|KO|KO|OK|mathLive|
+|can3F07|Lecture graphique fonction affine niveau 1|KO|KO|OK|mathLive|
+|can3F08|Lecture graphique fonction affine niveau 2|KO|KO|OK|mathLive|
+|can3F09|Reconnaître une fonction affine|KO|KO|OK|mathLive|
 |can3G01|Agrandissement/réduction|OK|AMCNum|OK|mathLive|
 |can3G02|Image de point par transformation 3e|KO|KO|OK|mathLive|
 |can3G03|Calcul d’une longueur avec Thalès2|KO|KO|OK|mathLive|

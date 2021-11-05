@@ -67,5 +67,4 @@ export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 ()
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
 }
