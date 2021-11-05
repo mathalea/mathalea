@@ -4369,7 +4369,11 @@ export function affiniteOrthoAnimee (...args) {
  *
  */
 export function montrerParDiv (id) {
-  document.getElementById(id).style.visibility = 'visible'
+  if (document.getElementById(id)) {
+    document.getElementById(id).style.visibility = 'visible'
+  } else {
+    console.log(id + ' n\'existe pas et ne peut pas être rendu visible.')
+  }
 }
 
 /**
@@ -4380,7 +4384,11 @@ export function montrerParDiv (id) {
  *
  */
 export function cacherParDiv (id) {
-  document.getElementById(id).style.visibility = 'hidden'
+  if (document.getElementById(id)) {
+    document.getElementById(id).style.visibility = 'hidden'
+  } else {
+    console.log(id + ' n\'existe pas et ne peut pas être caché.')
+  }
 }
 
 /**
