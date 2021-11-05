@@ -41,7 +41,7 @@ export default function ResoudreEquationDegre2 () {
         a = k
         b = -k * x1 - k * x2
         c = k * x1 * x2
-       
+
         texte = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
         texte += '<br>Donner si possible une écriture factorisée de $P(x).$'
 

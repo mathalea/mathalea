@@ -24,7 +24,7 @@ export default function VariationEnPourcentages () {
   this.spacingCorr = 2
   this.nbColsCorr = 1
   this.nbCols = 1
-    this.interactifType = 'mathLive'
+  this.interactifType = 'mathLive'
 
   this.nouvelleVersion = function () {
     let fReponse
