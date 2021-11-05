@@ -72,7 +72,7 @@ export default function PerimetreAireDisques (pa = 3) {
     }
 
     this.consigne +=
-      '</br>Donner la valeur exacte et une valeur approchée au dixième près.'
+      '<br>Donner la valeur exacte et une valeur approchée au dixième près.'
 
     let texteCorr = ''
     if (this.sup === 1 || this.sup === '1') {

@@ -116,10 +116,10 @@ export default function NotationScientifique () {
           this.autoCorrection[i].reponse.valeur = [calcul(mantisse * 10 ** exp)]
           if (parseInt(this.sup) === 1) {
             this.amcType = 'AMCNum'
-            this.autoCorrection[i].enonce = "Donner l'écriture scientifique du nombre " + texte
+            this.autoCorrection[i].enonce = "Donner l'écriture scientifique du nombre " + texte + '.'
           } else {
             this.amcType = 'qcmMono'
-            this.autoCorrection[i].enonce = "Donner l'écriture décimale du nombre " + texte
+            this.autoCorrection[i].enonce = "Donner l'écriture décimale du nombre " + texte + '.'
             this.autoCorrection[i].options = {
               ordered: false,
               lastChoice: 5

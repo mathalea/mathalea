@@ -7,6 +7,7 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Pavag
  * Exercice en html seulement. Symétrie axiale dans un pavage.
  * @author Jean-Claude Lhote
  * référence 6G25-2
+ * Relecture : Novembre 2021 par EE
  */
 export default function PavagesEtSymetries () {
   PavagesEtTransformations.call(this)

@@ -1,17 +1,21 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenuSansNumero, randint, shuffle, combinaisonListes, lettreDepuisChiffre, texcolors, texteGras } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, shuffle, combinaisonListes, lettreDepuisChiffre, texcolors, texteGras, numAlpha } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, codeAngle, texteParPosition, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Propriétés de conservation de la symétrie axiale'
+
+// Gestion de la date de publication initiale
+export const dateDePublication = '26/10/2020'
 
 /**
  * Ref 6G32-1
  * Publié le 26/10/2020
  * @author Jean-Claude Lhote
+ * Relecture : Novembre 2021 par EE
  */
 export default function SymetrieAxialeConservation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Dans la symétrie d\'axe (d)...'
+  this.consigne = 'Dans la symétrie d\'axe (d), répondre aux questions suivantes.'
   this.spacing = 2
   this.nbQuestions = 4
   this.nbCols = 1
@@ -29,7 +33,7 @@ export default function SymetrieAxialeConservation1 () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.listeQuestions.push(' ')
-    this.listeCorrections.push(`${texteGras('Dans la symétrie d\'axe (d)...')}`)
+    this.listeCorrections.push(`${texteGras('Dans la symétrie d\'axe (d), on observe les choses suivantes.')}`)
     // On prépare la figure...
     let axe = parseInt(this.sup)
     let d; let nonchoisi; const coords = []; let x; let y; const objetsEnonce = []; const objetsCorrection = []; let nomd; let labelPos
@@ -116,8 +120,8 @@ export default function SymetrieAxialeConservation1 () {
       switch (listeTypeDeQuestions[i]) {
         case 'Segment':
           choix = randint(0, 10) + randint(0, 1) * 12
-          texte = `Quel est le symétrique du segment $[${noms[index(choix)]}${noms[index(choix + 1)]}]$ ?`
-          texteCorr = `Le symétrique du segment $[${noms[index(choix)]}${noms[index(choix + 1)]}]$ est le segment $[${noms[index(choix + 12)]}${noms[index(choix + 13)]}]$.`
+          texte = numAlpha(i) + `Quel est le symétrique du segment $[${noms[index(choix)]}${noms[index(choix + 1)]}]$ ?`
+          texteCorr = numAlpha(i) + `Le symétrique du segment $[${noms[index(choix)]}${noms[index(choix + 1)]}]$ est le segment $[${noms[index(choix + 12)]}${noms[index(choix + 13)]}]$.`
           s1 = segment(points[index(choix)], points[index(choix + 1)], texcolors(i * 3 + 2))
           s2 = segment(points[index(choix + 12)], points[index(choix + 13)], texcolors(i * 3 + 2))
           s1.epaisseur = 2
@@ -126,29 +130,29 @@ export default function SymetrieAxialeConservation1 () {
           break
         case 'Droite':
           choix = randint(0, 10) + randint(0, 1) * 12
-          texte = `Quelle est la symétrique de la droite $(${noms[index(choix)]}${noms[index(choix + 1)]})$ ?`
-          texteCorr = `La symétrique de la droite $(${noms[index(choix)]}${noms[index(choix + 1)]})$ est la droite $(${noms[index(choix + 12)]}${noms[index(choix + 13)]})$.`
+          texte = numAlpha(i) + `Quel est le symétrique de la droite $(${noms[index(choix)]}${noms[index(choix + 1)]})$ ?`
+          texteCorr = numAlpha(i) + `Le symétrique de la droite $(${noms[index(choix)]}${noms[index(choix + 1)]})$ est la droite $(${noms[index(choix + 12)]}${noms[index(choix + 13)]})$.`
           objetsCorrection.push(droite(points[index(choix)], points[index(choix + 1)], '', texcolors(i * 3 + 2)))
           objetsCorrection.push(droite(points[index(choix + 12)], points[index(choix + 13)], '', texcolors(i * 3 + 2)))
           break
         case '1/2droite':
           choix = randint(0, 10) + randint(0, 1) * 12
-          texte = `Quelle est la symétrique de la demi-droite $[${noms[index(choix)]}${noms[index(choix + 1)]})$ ?`
-          texteCorr = `La symétrique de la demi-droite $[${noms[index(choix)]}${noms[index(choix + 1)]})$ est la demi-droite $[${noms[index(choix + 12)]}${noms[index(choix + 13)]})$`
+          texte = numAlpha(i) + `Quel est le symétrique de la demi-droite $[${noms[index(choix)]}${noms[index(choix + 1)]})$ ?`
+          texteCorr = numAlpha(i) + `Le symétrique de la demi-droite $[${noms[index(choix)]}${noms[index(choix + 1)]})$ est la demi-droite $[${noms[index(choix + 12)]}${noms[index(choix + 13)]})$.`
           objetsCorrection.push(demiDroite(points[index(choix)], points[index(choix + 1)], texcolors(i * 3 + 2)))
           objetsCorrection.push(demiDroite(points[index(choix + 12)], points[index(choix + 13)], texcolors(i * 3 + 2)))
           break
         case 'Triangle':
           choix = randint(0, 9) + randint(0, 1) * 12
-          texte = `Quel est le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ ?`
-          texteCorr = `Le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ est le triangle $${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}$.`
+          texte = numAlpha(i) + `Quel est le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ ?`
+          texteCorr = numAlpha(i) + `Le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ est le triangle $${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}$.`
           objetsCorrection.push(polygone([points[index(choix)], points[index(choix + 1)], points[index(choix + 2)]], texcolors(i * 3 + 2)))
           objetsCorrection.push(polygone([points[index(choix + 12)], points[index(choix + 13)], points[index(choix + 14)]], texcolors(i * 3 + 2)))
           break
         case 'Angle':
           choix = randint(0, 9) + randint(0, 1) * 12
-          texte = `Quel est le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}}$ ?`
-          texteCorr = `Le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}}$ est l'angle $\\widehat{${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}}$.`
+          texte = numAlpha(i) + `Quel est le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}}$ ?`
+          texteCorr = numAlpha(i) + `Le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}}$ est l'angle $\\widehat{${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}}$.`
           objetsCorrection.push(codeAngle(points[index(choix)], points[index(choix + 1)], points[index(choix + 2)], 2, '', texcolors(i * 3 + 2), 2, 0.5, texcolors(i * 3 + 2), 0.2))
           objetsCorrection.push(codeAngle(points[index(choix + 12)], points[index(choix + 13)], points[index(choix + 14)], 2, '', texcolors(i * 3 + 2), 2, 0.5, texcolors(i * 3 + 2), 0.2))
           objetsCorrection.push(segment(points[index(choix)], points[index(choix + 1)], texcolors(i * 3 + 2)))

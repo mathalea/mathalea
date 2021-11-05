@@ -30,7 +30,7 @@ export default function ResoudreEquationDegre2 () {
     if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres', 'pasDeSolution'], this.nbQuestions)
     }
-   
+
     for (let i = 0, texte, texteCorr, a, b, c, x1, x2, y1, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (listeTypeDeQuestions[i] === 'solutionsEntieres') {
         // k(x-x1)(x-x2)

@@ -105,7 +105,8 @@ function verifQuestionMathLive (exercice, i) {
       // saisie = neTientCompteQueDuDernierMembre(saisie)
       }
       // Pour le calcul numérique, on transforme la saisie en nombre décimal
-      if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
+      console.log(saisie)
+      if (typeof reponse === 'number' || typeof reponse === 'string') saisie = saisie.toString().replace(',', '.')
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
       }
@@ -467,8 +468,7 @@ export function propositionsQcm (exercice, i) {
       texte += '<tr>\n\t'
     }
   } else {
-    texte += '<br>'
-    texte += `\\begin{multicols}{${nbCols}}\n\t`
+    texte += `\n\n\\begin{multicols}{${nbCols}}\n\t`
   }
   for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
     if (context.isHtml) {

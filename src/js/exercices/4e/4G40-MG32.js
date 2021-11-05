@@ -5,10 +5,10 @@ export const titre = 'Utiliser le cosinus pour calculer une longueur dans un tri
  * @author Jean-Claude Lhote
  * 4G40
  */
-export default function Exercice_Trigo_longueurs_4e() {
-  Exercice_Trigo_longueurs.call(this);
-  this.typeExercice="MG32"
-  this.titre = titre;
-  this.quatrieme = true;
-  this.sup=1
+export default function Exercice_Trigo_longueurs_4e () {
+  Exercice_Trigo_longueurs.call(this)
+  this.typeExercice = 'MG32'
+  this.titre = titre
+  this.quatrieme = true
+  this.sup = 1
 }

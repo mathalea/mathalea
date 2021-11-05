@@ -30,12 +30,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       switch (listeTypeDeQuestions[i]) {
         case 'type1':
           a = randint(-5, 5, 0)
-        
+
           etape = `${xcas('f:=(2*randint(0,1)-1) * randint(4) * x + randint(10) + (2*randint(0,1)-1) * randint(10) / randpoly(1)')}` // f
           // Numérateur, Dénominateur, Quotient, Reste
           etape = [
-            'N:=numer(f)','D:=denom(f)','Q:=quo(N,D)','R:=rem(N,D)'
-          ].forEach(e => `${xcas(e)}`) 
+            'N:=numer(f)', 'D:=denom(f)', 'Q:=quo(N,D)', 'R:=rem(N,D)'
+          ].forEach(e => `${xcas(e)}`)
 
           etape = `${xcas('P:=piecewise(numer(f-Q)>0,\'dessus\',\'dessous\')')}` // par le dessus ou le dessous
           signe = `${xcas('P')}`.includes('dessus') ? '+' : '-'
@@ -78,9 +78,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     }
     listeQuestionsToContenu(this)
   }
-  //this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
+  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
 
-
 // python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
-
