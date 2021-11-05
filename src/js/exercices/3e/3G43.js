@@ -15,7 +15,7 @@ export default function CalculDeVolumes3e () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
-  this.interactifType=interactifType
+  this.interactifType = interactifType
   this.sup = 1
   this.classe = 3
 }
