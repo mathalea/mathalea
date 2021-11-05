@@ -3,6 +3,7 @@ import { calcul, listeQuestionsToContenu, combinaisonListes, choice, range, rang
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 import { min } from 'mathjs'
 import { context } from '../../modules/context.js'
+import { glisseNombre, mathalea2d } from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -124,6 +125,7 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
       if (this.interactif) {
         texte += '<br>' + propositionsQcm(this, i).texte
       }
+      if (context.isHtml) texteCorr += mathalea2d({ xmin: 2.5, xmax: 27.5, ymin: -5, ymax: 5.5 }, glisseNombre(exemple, choixAlea - 3))
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
