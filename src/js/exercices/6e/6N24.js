@@ -4,8 +4,8 @@ export { interactifReady, interactifType, amcReady, amcType } from './_Exercice_
 
 /**
  * @author Rémi Angot
- * référence 6N14
- *
+ * référence 6N24
+ * Relecture : Novembre 2021 par EE
  */
 export default function Exercice6N24 () {
   ExerciceConversions.call(this)
