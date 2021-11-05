@@ -13,6 +13,7 @@ export const amcType = 'AMCOpen'
  * Placer un point d'abscisse entière
  * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N11-2
+ * Relecture : Novembre 2021 par EE
  */
 export default function PlacerUnPointAbscisseEntiere2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
