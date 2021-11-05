@@ -1,0 +1,191 @@
+ <style>
+ .exoSelectionne {
+  border :  thick double black !important;
+ }
+ </style>
+ <i id="exo_plein_ecran" class="angle double left icon"></i>
+ <!---->
+  <div class="ui input"><button class="ui  button " id="btn1Question" data-tooltip="Charger une évaluation" data-position="bas"> Charger une évaluation
+  </button><input type="file" id="chargerALC" style="display:none"></div>
+<h3 class="ui block header">
+  <span><i id="paramVisu" class="angle double up icon"></i></span><span id="Params">Paramètres</span>
+</h3>
+<div>
+<div id="parametresExercice">
+  <div class="content" id="parametres_generaux"></div>
+    <button class="ui  button " id="ajoutetiquette" data-tooltip="Création d'une étiquette d'exercice" data-position="top left"> Créer l'étiquette
+    </button>
+    <button class="ui  button " id="ajoutetiquettecoche" data-tooltip="Création d'une étiquette d'exercice et ajout" data-position="top left"> Ajouter l'exercice aux lignes cochées
+    </button>
+  </div>
+</div>
+<h3 class="ui block header">
+  <span id="Exos">Liste des exercices</span>
+</h3>
+<div>
+  <h4>Exercices disponibles</h4>
+  <div id="choix_exercices_dispos" style="width:70%" >
+      <div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br></span></div>
+  </div>
+  <h4>Les évaluations</h4>
+  <button id="ajoutligne" style="margin: 10px" class="btn ui button icon" data-tooltip="Ajouter une ligne" data-position="top left">
+    <i class="plus icon"></i>
+  </button>
+  <div class="eval">
+    <h5 class="description evalelem ui dividing header">
+        <span><input id="alcSelectLignes" type="checkbox" data-tooltip="Tout sélectionner" data-position="top left"></span>
+        <span data-tooltip="Ajouter aux lignes sélectionnées" data-position="top left"><i id="ajoutexoselection" class="sign-in icon " ></i></span>
+        <span style="display:inline-block;width:70px">Nom </span><span>Liste des exercices</span>
+    </h5>
+    <div id="listeEval">  
+      <div class="evalelem">
+        <input type="checkbox" class="checkeval"><i class="sign-in icon ajoutexoligne"></i>
+        <input type="text" style="width:70px" data-tooltip="Nom qui apparaitra sur la copie." data-position="top left">
+        <div id="choix_exercices_div" style="width:65%" data-tooltip="Identifiants des exercices" data-position="top left">
+          <div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br></span></div>
+        </div>
+        <i class="trash alternate outline icon supprexoligne"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ui hidden divider"></div>
+<a id="dnl" href="#" style="display:none" class="download-link" ></a>
+<div>
+  
+
+</div>
+
+<div id="ModalQRcode" class="ui basic modal"></div>
+<div id="ModalEmbed" class="ui modal"></div>
+
+<div class="ui hidden divider"></div>
+
+<div id="tableau eval">
+  
+</div>
+<div>
+  <button class="ui  button " id="enregistrer" data-tooltip="Télécharger un csv de l'évaluation" data-position="top left"> Sauvegarder
+  </button>
+  <button class="ui  button " id="valider" data-tooltip="Edition de l'évaluation" data-position="top left"> Valider
+  </button>
+</div>
+<div class="ui hidden divider"></div>
+<textarea style="display:none" id="textareaIdItems"></textarea>
+<div id="reglages_sortie_LaTeX">
+  <!-- Affichage du code LaTeX -->
+  <div class="ui form">
+    <div class="fields">
+      <div class="field">
+        <div id="overleaf">
+          <form method="POST" action="https://www.overleaf.com/docs" target="_blank">
+            <div class="form-group text-center">
+              <input type="hidden" name="encoded_snip" value="" autocomplete="off">
+              <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off">
+              <button class="btn-success btn btn-smclass ui labeled icon button" id="btn_overleaf" type="submit">
+                <i class="cogs icon"></i>Compiler avec Overleaf</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="field">
+        <!-- Bouton de téléchargement -->
+        <button class="btn ui labeled icon button" id="btn_telechargement"><i
+            class="download icon"></i>Télécharger</button>
+      </div>
+      <div class="field">
+        <!-- Bouton de copie du code -->
+        <button class="btn ui  labeled icon button" data-clipboard-action="copy"
+          data-clipboard-target="#div_codeLatex"><i class="copy icon"></i>Copier code LaTeX</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui hidden divider"></div>
+
+  <div class="content">
+
+    <form class="ui form">
+      <div class="field">
+        <label>Nom du fichier</label>
+        <input type="text" id="nom_du_fichier" placeholder="Nom du fichier (sans extension)">
+      </div>
+      <div class="field" id="options_style_classique">
+        <label>Entête</label>
+        <input type="text" id="entete_du_fichier" placeholder="Évaluation à la carte">
+      </div>
+      <div class="field" id="options_style_classique">
+        <label>Entête droit</label>
+        <input type="text" id="entete_droit_du_fichier" placeholder="2019-2020">
+      </div>
+
+      <div class="inline fields">
+        <label>Style :</label>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="style" id="style_classique" checked="" tabindex="0" class="hidden">
+            <label>Classique</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="style" id="style_CoopMaths" tabindex="0" class="hidden">
+            <label>CoopMaths</label>
+          </div>
+        </div>
+      </div>
+
+      <div id="options_style_CoopMaths">
+        <div class="inline fields">
+          <label>Thème :</label>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="theme" id="theme_nombres" value="nombres" checked="" tabindex="0"
+                class="hidden">
+              <label>Nombres</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="theme" id="theme_geo" value="geo" tabindex="0" class="hidden">
+              <label>Géo</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="theme" id="theme_grandeurs" value="grandeurs" tabindex="0" class="hidden">
+              <label>Grandeurs</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="theme" id="theme_gestion" value="gestion" tabindex="0" class="hidden">
+              <label>Gestion</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="theme" id="theme_algo" value="algo" tabindex="0" class="hidden">
+              <label>Algo</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div>
+      <a href="assets/fichiers/preambule.tex" class="lien_preambule"><button class="ui compact basic icon button"
+          tabindex="0"><i class="download icon"></i> Préambule</button></a>
+      <a href="assets/fichiers/images.zip" class="lien_images"><button class="ui compact basic icon button"
+          tabindex="0"><i class="download icon"></i> Images</button></a>
+    </div>
+    <div class="ui checkbox">
+      <input type="checkbox" tabindex="0" id="supprimer_reference" class="hidden">
+      <label>Cacher les identifiants des exercices</label>
+    </div>
+  </div>
+
+</div>
+  
+  <!-- Code LaTeX -->
+<div id="div_codeLatex"></div>
+  <!-- Fin d'affichage du code LaTeX -->
