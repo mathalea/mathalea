@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
+  // eslint-disable-next-line no-unused-vars
   mathalea2d, point, afficheMesureAngle, codeSegments, longueur, polygoneAvecNom
 } from '../../../modules/2d.js'
 import { tan } from '../../../modules/fonctionsMaths.js'

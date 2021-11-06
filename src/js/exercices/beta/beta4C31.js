@@ -19,7 +19,7 @@ export const titre = 'Puissances de 10'
  * date : 15/11/2020
  * 4C30-4
  */
-export default function Comparer_puissance10 () {
+export default function ComparerPuissance10 () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -50,7 +50,6 @@ export default function Comparer_puissance10 () {
       let nbA2 = 0 // valeur numérique du nombre 2
       this.listeQuestions = [] // tableau contenant la liste des questions
       this.listeCorrections = []
-      const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5] // tableau à compléter par valeurs possibles des types de questions
       const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
       switch (listeTypeDeQuestions[i]) {
         case 1:
@@ -94,10 +93,10 @@ export default function Comparer_puissance10 () {
       // début correction détaillée
       texteCorr += numAlpha(i) + ' '
       if (this.correctionDetaillee) {
-        if (nbA1 == nbA2) {
+        if (nbA1 === nbA2) {
           texteCorr += 'Les deux nombres ont la même écriture, ils sont donc égaux. <br>'
         } else {
-          if (a1 * a2 == 0) {
+          if (a1 * a2 === 0) {
             texteCorr += 'L\'un des deux nombres est nul. Il suffit de regarder le signe de l\'autre. <br>'
           } else {
             if (a1 * a2 < 0) { // a1 et a2 de signes opposés
@@ -108,7 +107,7 @@ export default function Comparer_puissance10 () {
                 if (n1 > n2) {
                   texteCorr += `$${n1} > ${n2}$. <br>`
                 }
-                if (n1 == n2) {
+                if (n1 === n2) {
                   texteCorr += `Les exposants sont égaux. On compare ${texNombre(a1)} et ${texNombre(a2)} : `
                   if (a1 < a2) {
                     texteCorr += `$${texNombre(a1)} < ${texNombre(a2)}$. <br>`
@@ -126,7 +125,7 @@ export default function Comparer_puissance10 () {
                 if (n1 > n2) {
                   texteCorr += `$${n1} > ${n2}$. Donc ${ecriturePuissance(-a1, 10, n1)} $>$ ${ecriturePuissance(-a2, 10, n2)}. <br>`
                 }
-                if (n1 == n2) {
+                if (n1 === n2) {
                   texteCorr += `les exposants sont égaux. On compare ${texNombre(a1)} et ${texNombre(a2)} : `
                   if (a1 < a2) {
                     texteCorr += `$${texNombre(a1)} < ${texNombre(a2)}$. Donc ${ecriturePuissance(-a1, 10, n1)} $<$ ${ecriturePuissance(-a2, 10, n2)}. <br><br>`
@@ -147,7 +146,7 @@ export default function Comparer_puissance10 () {
       if (nbA1 > nbA2) {
         texteCorr += texteEnCouleurEtGras(` ${ecriturePuissance(a1, 10, n1)} $>$ ${ecriturePuissance(a2, 10, n2)} <br>`)
       } else {
-        if (nbA1 == nbA2) {
+        if (nbA1 === nbA2) {
           texteCorr += texteEnCouleurEtGras(` ${ecriturePuissance(a1, 10, n1)} $=$ ${ecriturePuissance(a2, 10, n2)} <br>`)
         } else {
           texteCorr += texteEnCouleurEtGras(` ${ecriturePuissance(a1, 10, n1)} $<$ ${ecriturePuissance(a2, 10, n2)} <br>`)
