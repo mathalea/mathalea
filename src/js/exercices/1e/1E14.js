@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, arrondiVirgule, texFractionReduite, texFractionSigne, texFraction, pgcd } from '../../modules/outils.js'
-import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
-import { courbeSpline } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+// import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+// import { courbeSpline } from '../../modules/2d.js'
 // export const interactifReady = true
 // export const interactifType = 'mathLive'
 export const titre = 'Factoriser un polynôme du second degré avec racines entières'
@@ -22,6 +22,7 @@ export default function ResoudreEquationDegre2 () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
+    this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions

@@ -19,25 +19,24 @@ export default function CalculsDeDerives () {
   this.sup = 1
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
   const reglesDeSimplifications = math.simplify.rules.slice()
-  reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l == 'n1*n2 + n2'), 1)
-  reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l == 'n1*n3 + n2*n3'), 1)
+  reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
+  reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
   //    reglesDeSimplifications.push({l:"-(n1*v^2)",r:"-n1*v^2"})
   this.nouvelleVersion = function () {
+    this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
-    let listeTypeDeQuestions_disponibles
-    if (this.sup == 1) {
-      listeTypeDeQuestions_disponibles = ['ax+b', 'a', 'ax2+bx+c', 'xn', 'xn+xm', '1/x', 'xn+1/x', '1/xn', 'xn+1/xm', 'racine(x)']
+    let listeTypeDeQuestionsDisponibles
+    if (this.sup === 1) {
+      listeTypeDeQuestionsDisponibles = ['ax+b', 'a', 'ax2+bx+c', 'xn', 'xn+xm', '1/x', 'xn+1/x', '1/xn', 'xn+1/xm', 'racine(x)']
+    } else if (this.sup === 2) {
+      listeTypeDeQuestionsDisponibles = ['ax+b', 'axn', 'a/x', 'a/xn', 'racine(ax)']
+    } else {
+      listeTypeDeQuestionsDisponibles = ['ax+b', 'axn', 'a/x', 'a/xn', 'racine(ax)']
     }
-    if (this.sup == 2) {
-      listeTypeDeQuestions_disponibles = ['ax+b', 'axn', 'a/x', 'a/xn', 'racine(ax)']
-    }
-    if (this.sup == 3) {
-      listeTypeDeQuestions_disponibles = ['ax+b', 'axn', 'a/x', 'a/xn', 'racine(ax)']
-    }
-    const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions_disponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
 
     for (let i = 0, texte, texteCorr, a, b, c, n, m, expression, ensembleDerivation, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
@@ -124,7 +123,7 @@ export default function CalculsDeDerives () {
       texte = texte.replaceAll('frac', 'dfrac')
       texteCorr = texteCorr.replaceAll('frac', 'dfrac')
 
-      if (this.liste_valeurs.indexOf(expression) == -1) {
+      if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
