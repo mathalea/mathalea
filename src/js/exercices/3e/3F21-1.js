@@ -57,7 +57,7 @@ export default function LectureExpressionFonctionsAffines () {
     pente.push(randint(-3 * k, 3 * k, [pente[0], pente[1], pente[2], pente[3], 0]))
     const d = []
     for (let i = 0; i < 5; i++) {
-      if (this.lineaire) { OrdX0 = 0 } else { OrdX0 = randint(-1 + pente[i] / k, 1 + pente[i] / k, [pente[i],0]) }
+      if (this.lineaire) { OrdX0 = 0 } else { OrdX0 = randint(-1 + pente[i] / k, 1 + pente[i] / k, [pente[i], 0]) }
       listeDroites.push([OrdX0, pente[i] / k])
     }
     d[0] = droiteParPointEtPente(point(0, listeDroites[0][0]), listeDroites[0][1], '(d_1)', 'blue')
@@ -95,10 +95,10 @@ export default function LectureExpressionFonctionsAffines () {
     }
     if (context.isAmc) {
       this.autoCorrection[0] = {
-        enonce: "Déterminer l'expression  de la fonction représentée ci dessous : <br>" + mathalea2d({ xmin: -5.5, ymin: -5.5, xmax: 5.5, ymax: 5.5, pixelsParCm: 30, scale: 0.5 }, objets2d)+'<br>',
+        enonce: "Déterminer l'expression  de la fonction représentée ci dessous : <br>" + mathalea2d({ xmin: -5.5, ymin: -5.5, xmax: 5.5, ymax: 5.5, pixelsParCm: 30, scale: 0.5 }, objets2d) + '<br>',
         propositions: [{ texte: explain, statut: 2 }],
-        reponse: {texte: 'coefficient', valeur: pente[0], param: {digits: 1, decimals:0, signe: true, exposantNbChiffres:0, exposantSigne:false, approx: 0}},
-        reponse2: {texte: "ordonnée \\\\\nà l'origine", valeur: listeDroites[0][0], param: {digits: 1, decimals:0, signe: true, exposantNbChiffres:0, exposantSigne:false, approx: 0}},
+        reponse: { texte: 'coefficient', valeur: pente[0], param: { digits: 1, decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false, approx: 0 } },
+        reponse2: { texte: "ordonnée \\\\\nà l'origine", valeur: listeDroites[0][0], param: { digits: 1, decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false, approx: 0 } }
       }
     }
   }

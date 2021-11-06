@@ -5,6 +5,7 @@ export { interactifReady, interactifType, amcReady, amcType } from './_Exercice_
 /**
  * @author Rémi Angot
  * référence 6N34
+ * Relecture : Novembre 2021 par EE
  */
 
 export default function Reglages6N34 () {

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,combinaisonListes,texNombre,texNombre2,puissanceEnProduit} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texNombre2, puissanceEnProduit } from '../../modules/outils.js'
 export const titre = 'Écriture décimale d’une puissance de 10'
 
 /**
@@ -8,67 +8,64 @@ export const titre = 'Écriture décimale d’une puissance de 10'
  * @author Rémi Angot
 * Référence 4C30-2
  */
-export default function EcritureDecimalePuissanceDe10() {
-  Exercice.call(this);
-  this.titre = titre;
-  this.consigne = "Donner l'écriture décimale.";
-  this.nbQuestions = 8;
-  this.nbCols = 1;
-  this.nbColsCorr = 1;
-  this.sup = 3; // exposants positifs et négatifs par défaut
+export default function EcritureDecimalePuissanceDe10 () {
+  Exercice.call(this)
+  this.titre = titre
+  this.consigne = "Donner l'écriture décimale."
+  this.nbQuestions = 8
+  this.nbCols = 1
+  this.nbColsCorr = 1
+  this.sup = 3 // exposants positifs et négatifs par défaut
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []; // Liste de questions
-    this.listeCorrections = []; // Liste de questions corrigées
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
 
     let listeTypeDeQuestions
     if (this.sup == 1) {
-      listeTypeDeQuestions = combinaisonListes(['+'], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(['+'], this.nbQuestions)
     }
     if (this.sup == 2) {
-      listeTypeDeQuestions = combinaisonListes(['-'], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(['-'], this.nbQuestions)
     }
     if (this.sup == 3) {
-      listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions)
     }
     for (let i = 0, texte, texteCorr, n, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case '+':
           n = randint(0, 10)
-          texte = `$10^{${n}}$`;
+          texte = `$10^{${n}}$`
           if (n < 2) {
             texteCorr = `$10^${n}=${10 ** n}$`
           } else {
-            if (context.isHtml){
-              texteCorr = `$10^{${n}}=${puissanceEnProduit(10, n)}=${texNombre(10 ** n)}$`;
+            if (context.isHtml) {
+              texteCorr = `$10^{${n}}=${puissanceEnProduit(10, n)}=${texNombre(10 ** n)}$`
             } else {
-              texteCorr = `$10^{${n}}=${texNombre(10 ** n)}$`;
+              texteCorr = `$10^{${n}}=${texNombre(10 ** n)}$`
             }
           }
-          break;
+          break
         case '-':
           n = randint(1, 10)
-          texte = `$10^{${-n}}$`;
-          if (context.isHtml){
-            texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n)}}=${texNombre2(1 / 10 ** n)}$`;
+          texte = `$10^{${-n}}$`
+          if (context.isHtml) {
+            texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n)}}=${texNombre2(1 / 10 ** n)}$`
           } else {
-            texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${texNombre(10 ** n)}}=${texNombre2(1 / 10 ** n)}$`;
+            texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${texNombre(10 ** n)}}=${texNombre2(1 / 10 ** n)}$`
           }
-          break;
-
+          break
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte);
-        this.listeCorrections.push(texteCorr);
-        i++;
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
       }
-      cpt++;
+      cpt++
     }
-    listeQuestionsToContenu(this);
-  };
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Exposants positifs\n2 : Exposants négatifs\n3 : Mélange'];
+    listeQuestionsToContenu(this)
+  }
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Exposants positifs\n2 : Exposants négatifs\n3 : Mélange']
 }
-
-

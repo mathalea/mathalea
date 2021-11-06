@@ -45,3 +45,9 @@ export function setOutputAmc () {
   context.isAmc = true
   context.isDiaporama = false
 }
+export function setOutputAlc () {
+  context.isHtml = false
+  context.isAmc = false
+  context.isDiaporama = false
+  context.isAlc = true
+}

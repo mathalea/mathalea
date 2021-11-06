@@ -79,11 +79,11 @@ export default function PoucentageP1 () {
       case 'e':
         b = randint(3, 7) * 5
         caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
-        this.question = `$20$ % des élèves d'une classe de $${b}$ élèves ont ${caractere}.<br>
+        this.question = `$20 \\%$  des élèves d'une classe de $${b}$ élèves ont ${caractere}.<br>
               Quel est le nombre d'élèves n'en ayant pas ?`
-        this.correction = `On calcule d'abord $20$ % de $${b}$ .<br>
-             Prendre $20$ % d'une quantité revient à en prendre le cinquième, c'est-à-dire à la diviser par $5$.<br>
-              $20$ % de $${b}$ est égal à $\\dfrac{${b}}{5}=${texNombrec(b / 5)}$.<br>
+        this.correction = `On calcule d'abord $20 \\%$  de $${b}$ .<br>
+             Prendre $20 \\%$  d'une quantité revient à en prendre le cinquième, c'est-à-dire à la diviser par $5$.<br>
+              $20\\%$  de $${b}$ est égal à $\\dfrac{${b}}{5}=${texNombrec(b / 5)}$.<br>
                             $${texNombrec(b / 5)}$ élèves ont ${caractere} .<br>
                 Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 5)}=${texNombrec(b - b / 5)}$`
         this.reponse = calcul(8 * b / 10)
@@ -91,11 +91,11 @@ export default function PoucentageP1 () {
       case 'f':
         b = randint(3, 9) * 4
         caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
-        this.question = `$25$ % des élèves d'une classe de $${b}$ élèves ont ${caractere}.<br>
+        this.question = `$25\\%$  des élèves d'une classe de $${b}$ élèves ont ${caractere}.<br>
                   Quel est le nombre d'élèves n'en ayant pas ?`
-        this.correction = `On calcule d'abord $25$ % de $${b}$ .<br>
-                  Prendre $25$ % d'une quantité revient à en prendre le quart, c'est-à-dire à la diviser par $4$.<br>
-                   $25$ % de $${b}$ est égal à $\\dfrac{${b}}{4}=${texNombrec(b / 4)}$.<br>
+        this.correction = `On calcule d'abord $25 \\%$  de $${b}$ .<br>
+                  Prendre $25 \\%$  d'une quantité revient à en prendre le quart, c'est-à-dire à la diviser par $4$.<br>
+                   $25 \\%$  de $${b}$ est égal à $\\dfrac{${b}}{4}=${texNombrec(b / 4)}$.<br>
                                  $${texNombrec(b / 4)}$ élèves ont ${caractere} .<br>
                      Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 4)}=${texNombrec(b - b / 4)}$`
         this.reponse = calcul(b - 0.25 * b)

@@ -24,12 +24,12 @@ export default function PremierEscapeGameMathalea () {
   this.sup = 1
   // this.sup2 = ''
   this.pasDeVersionLatex = false
-    this.nouvelleVersion = function () {
+  this.nouvelleVersion = function () {
     const lettres = []; const mots = ['BMDF', 'OGNQ', 'BUQP', 'BAUP', 'BXGE', 'BDUJ', 'MZSXQE', 'BDUEYQ', 'BMDFUQ', 'HMXQGD', 'OAGBXQ', 'PDAUFQ', 'DQXMFUAZ', 'BMDMNAXQ', 'MPPUFUAZ', 'QJBAEMZF', 'RAZOFUAZ', 'OAYBXQJQ']
     let alphabet = []
     this.listeQuestions = []
     this.listeCorrections = []
-        let texte = ''; let texteCorr = ''; let f1; let f2; let f3; let f4; let p
+    let texte = ''; let texteCorr = ''; let f1; let f2; let f3; let f4; let p
     // Initialisation des tableaux
     for (let i = 0; i < 26; i++) {
       alphabet.push(String.fromCharCode(65 + i))

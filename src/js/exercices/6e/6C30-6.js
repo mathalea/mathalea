@@ -3,6 +3,7 @@ import { calcul, listeQuestionsToContenu, combinaisonListes, choice, range, rang
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 import { min } from 'mathjs'
 import { context } from '../../modules/context.js'
+import { glisseNombre, mathalea2d } from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -124,6 +125,7 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
       if (this.interactif) {
         texte += '<br>' + propositionsQcm(this, i).texte
       }
+      if (context.isHtml) texteCorr += mathalea2d({ xmin: 2.5, xmax: 27.5, ymin: -5, ymax: 5.5 }, glisseNombre(exemple, choixAlea - 3))
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
@@ -135,7 +137,7 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Dans la correction, les nombres-exemples sont entiers', false]
+  this.besoinFormulaireCaseACocher = ['Les nombres-exemples sont entiers', false]
   this.besoinFormulaire2CaseACocher = ['Exercice avec un raisonnement associé', true]
   this.besoinFormulaire3Numerique = ['Type de questions', 3, ' 1 : Dizaines, centaines, milliers\n 2 : Dixièmes, centièmes, millièmes\n 3 : Mélange']
 }
