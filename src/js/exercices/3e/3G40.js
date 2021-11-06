@@ -62,7 +62,7 @@ export default function ReperageSurLaSphere () {
     greenwitch.opacite = 1
     equateur1.epaisseur = 3
     equateur2.epaisseur = 3
-    const objetsEnonce = []; let paramsEnonce; const objetsCorrection = []// on initialise les tableaux des objets Mathalea2d
+    const objetsEnonce = []; const objetsCorrection = []// on initialise les tableaux des objets Mathalea2d
     const latitudes = []; const longitudes = []; const P = []; const EstouOuest = []; const NordouSud = []; let nom = []
     const E = labelPoint(point3d(13.2, 0, 0, true, 'E').c2d)
     E.taille = 3
