@@ -153,7 +153,9 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
    <div style="float:left; max-width: ${90 - largeur1}%">
     ${cont2}
    </div>
-   <div style="clear:both"></div>`
+   <div style="clear:both"></div>
+   <div class="ui hidden divider"></div>
+`
   } else {
     return `\\begin{minipage}{${calcul(largeur1 / 100)}\\linewidth}
     ${cont1}
