@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, ecritureParentheseSiNegatif, texNombrec, reduireAxPlusB, listeQuestionsToContenuSansNumero, sp } from '../../../modules/outils.js'
+import { randint, ecritureParentheseSiNegatif, texNombrec, reduireAxPlusB, texteCentre, listeQuestionsToContenuSansNumero, sp } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Coordonnées d’un point sur une droite'
 export const interactifReady = true
@@ -23,9 +23,9 @@ export default function CoordonneesPointDroite () {
     const c = randint(-10, 10, 0)
 
     this.listeQuestions = [` Les coordonnées du point de la droite 
-    d'équation $y=${reduireAxPlusB(a, b)}$ dont l'abscisse est $${c}$  sont : <br><br>
-    <center>$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(20)} ;
-    ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(20)} $\\Bigg)$`]
+    d'équation $y=${reduireAxPlusB(a, b)}$ dont l'abscisse est $${c}$  sont : 
+    ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)} ;
+ ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`]
     if (a === 1) {
       this.listeCorrections = [`Puisque $${c}$ est l'abscisse de ce point, son ordonnée est donnée par :<br>
         $y= ${c}+${ecritureParentheseSiNegatif(b)}=${a * c + b}$.<br>

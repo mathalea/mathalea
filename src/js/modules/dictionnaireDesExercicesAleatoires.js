@@ -10538,6 +10538,54 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can3F07": {
+    "titre": "Lecture graphique fonction affine niveau 1",
+    "url": "/exercices/can/3e/can3F07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F07",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can3F08": {
+    "titre": "Lecture graphique fonction affine niveau 2",
+    "url": "/exercices/can/3e/can3F08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F08",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can3F09": {
+    "titre": "Reconnaître une fonction affine",
+    "url": "/exercices/can/3e/can3F09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F09",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can3G01": {
     "titre": "Agrandissement/réduction",
     "url": "/exercices/can/3e/can3G01.js",

@@ -236,8 +236,8 @@ function addExercice (e) {
     $('#exoModeInteractif').remove()
   }
   const numero = $(e.target).attr('data-id_exercice') ? $(e.target).attr('data-id_exercice') : $(e.target).parents('a.lien_id_exercice').attr('data-id_exercice')
-  if ($('#choix_des_exercices').val() === '') {
-    $('#choix_des_exercices').val($('#choix_des_exercices').val() + numero)
+  if ($('#choix_des_exercices').val() === '' || context.vue=='alc') { //Pour a la carte on ne selectionne qu'un seul exercice pour choisir ses paramètres.
+    $('#choix_des_exercices').val(numero)
   } else {
     $('#choix_des_exercices').val(
       $('#choix_des_exercices').val() + ',' + numero

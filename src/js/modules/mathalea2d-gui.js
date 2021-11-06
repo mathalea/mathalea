@@ -108,6 +108,14 @@ window.addEventListener('load', function () {
   })
   if (buttonSubmit) {
     buttonSubmit.onclick = function () {
+      // To Fix
+      // AfficherTempo() créé trop d'interval
+      // On cherche l'id le plus grand en pensant que les id sont des int données par ordre croissant
+      const interval_id = window.setInterval(function () {}, Number.MAX_SAFE_INTEGER)
+      // On efface tous les intervalles
+      for (let i = 1; i < interval_id; i++) {
+        window.clearInterval(i)
+      }
       window.numId = 0
       window.localStorage.setItem('Script Mathalea 2D', myCodeMirror.getValue()) // On sauvegarde dans le navigateur le code du script
       if (buttonTelecharger) {

@@ -153,7 +153,9 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
    <div style="float:left; max-width: ${90 - largeur1}%">
     ${cont2}
    </div>
-   <div style="clear:both"></div>`
+   <div style="clear:both"></div>
+   <div class="ui hidden divider"></div>
+`
   } else {
     return `\\begin{minipage}{${calcul(largeur1 / 100)}\\linewidth}
     ${cont1}
@@ -2648,8 +2650,25 @@ export function stringNombre (nb) {
   return result
 }
 /**
+* Centre un texte
+*
+* @author Rémi Angot
+*/
+export function texteCentre (texte) {
+  if (context.isHtml) {
+    return `<p style="text-align: center">${texte}</p>`
+  } else {
+    return `\\begin{center}
+${texte}
+\\end{center}`
+  }
+}
+/**
 * Met en couleur et en gras
 *
+* Met en couleur et gras un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
+* @param {string} texte à mettre en couleur
+* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
 * @author Rémi Angot
 */
 export function miseEnEvidence (texte, couleur = '#f15929') {
@@ -2683,7 +2702,7 @@ export function texteEnCouleur (texte, couleur = '#f15929') {
 }
 
 /**
-* Met en couleur et gras un texte
+* Met en couleur et gras un texte. JCL dit : "Ne fonctionne qu'en dehors de $....$"
 * @param {string} texte à mettre en couleur
 * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
 * @author Rémi Angot
@@ -7303,7 +7322,8 @@ export function exportQcmAmc (exercice, idExo) {
         lastchoice = autoCorrection[j].options.lastChoice
       }
     }
-    let valeurAMCNum = autoCorrection[j].reponse.valeur[0]
+    let valeurAMCNum = 0
+    if (autoCorrection[j].reponse !== undefined) { valeurAMCNum = autoCorrection[j].reponse.valeur[0] }
     switch (type) {
       case 'qcmMono': // question QCM 1 bonne réponse
         if (elimineDoublons(autoCorrection[j].propositions)) {

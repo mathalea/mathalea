@@ -24,14 +24,13 @@ export default function MilieuEntre1EtFraction () {
       [10, 3], [5, 4], [7, 4], [10, 7], [11, 7], [12, 7], [9, 7], [13, 7], [11, 8], [11, 9], [7, 6], [12, 11], [4, 3],
       [7, 5], [13, 7], [13, 9], [13, 11], [13, 12], [14, 11]
     ] // Couples de nombres premiers entre eux >1
-    let objets
     const fraction = choice(listeFractions1)
     const n = fraction[0]
     const d = fraction[1]
     const A = point(0, 0, '1', 'below')
     const B = point(4, 0, 'I', 'below')
     const C = point(8, 0)
-    objets = []
+    const objets = []
     objets.push(segmentAvecExtremites(A, B), segmentAvecExtremites(B, C), labelPoint(B), codeSegments('||', 'blue', A, B, B, C))
     objets.push(latexParCoordonnees('1', 0, -0.5, 'black', 20, 10, ''),
       latexParCoordonnees(`${texFraction(n, d)}`, 8, -0.6, 'black', 20, 10, ''))

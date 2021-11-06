@@ -97,6 +97,16 @@ export async function gestionVue (vue) {
       demasqueMenuDesExercices()
       if (btnEdit) btnEdit.style.display = 'none'
     }
+    if (context.vue === 'alcexEtChoix') { // Affichage des seuls exercices
+      masqueMenuDesExercices()
+      if (btnEdit) btnEdit.style.display = 'inline'
+      context.vue = 'alc'
+    }
+    if (context.vue === 'alcmenu') { // Affichage des seuls exercices
+      demasqueMenuDesExercices()
+      if (btnEdit) btnEdit.style.display = 'none'
+      context.vue = 'alc'
+    }
     // Met à jour l'URL avec notamment la nouvelle vue
     setUrl()
   }

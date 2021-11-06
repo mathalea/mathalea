@@ -8,8 +8,8 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Trans
  * référence 5G11
  * Pas de version LaTeX
  */
-export default function Transformations_5e() {
-  Transformations.call(this);
-  this.sup = 2;
-  this.titre = titre;
+export default function Transformations_5e () {
+  Transformations.call(this)
+  this.sup = 2
+  this.titre = titre
 }
