@@ -1,7 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texNombrec, texFraction, texTexte, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texNombrec, texFraction, texTexte, calcul, texNombre2 } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { format, evaluate } from 'mathjs'
+
+const math = { format: format, evaluate: evaluate }
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -126,7 +129,7 @@ export default function ExerciceConversions (niveau = 1) {
         typesDeQuestions < 4 &&
         this.correction_avec_des_fractions) {
         unite = choice(['m', 'L', 'g'])
-        resultat = calcul(a / prefixeDiv[k][1]).toString() // Attention aux notations scientifiques pour 10e-8
+        resultat = math.evaluate(a / prefixeDiv[k][1])
         texte =
           '$ ' +
           texNombre(a) +
@@ -140,12 +143,12 @@ export default function ExerciceConversions (niveau = 1) {
           texFraction(texNombre(a), texNombre(prefixeDiv[k][1])) +
           texTexte(unite) +
           ' = ' +
-          texNombre(resultat) +
+          texNombre2(resultat) +
           texTexte(unite) +
           '$'
       } else if (div && typesDeQuestions < 4) {
         unite = choice(['m', 'L', 'g'])
-        resultat = calcul(a / prefixeDiv[k][1]).toString() // Attention aux notations scientifiques pour 10e-8
+        resultat = math.evaluate(a / prefixeDiv[k][1])
         texte =
           '$ ' +
           texNombre(a) +
@@ -161,7 +164,7 @@ export default function ExerciceConversions (niveau = 1) {
           texNombre(prefixeDiv[k][1]) +
           texTexte(unite) +
           ' = ' +
-          texNombrec(resultat) +
+          texNombre2(resultat) +
           texTexte(unite) +
           '$'
       } else {
@@ -194,7 +197,7 @@ export default function ExerciceConversions (niveau = 1) {
             texTexte(unite) +
             '$'
         } else {
-          resultat = calcul(a / Math.pow(10, 3 * ecart))
+          resultat = math.evaluate(a / Math.pow(10, 3 * ecart))
           unite = listeUniteInfo[unite2]
           texte =
             '$ ' +
@@ -203,7 +206,7 @@ export default function ExerciceConversions (niveau = 1) {
             ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
           texteCorr =
             '$ ' +
-            texNombre(a) +
+          texNombre(a) +
             texTexte(listeUniteInfo[unite1]) +
             ' =  ' +
             texNombre(a) +
@@ -211,7 +214,7 @@ export default function ExerciceConversions (niveau = 1) {
             texNombre(Math.pow(10, 3 * ecart)) +
             texTexte(unite) +
             ' = ' +
-            texNombrec(resultat) +
+            texNombre2(resultat) +
             texTexte(unite) +
             '$'
         }
