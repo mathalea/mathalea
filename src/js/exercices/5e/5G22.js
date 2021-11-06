@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, Triangles } from '../../modules/outils.js'
 import { point, mediatrice, codageMediatrice, constructionMediatrice, bissectrice, codageBissectrice, constructionBissectrice, polygone, nommePolygone, rotation, similitude, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Déterminer la nature d’une droite remarquable'
@@ -21,14 +20,25 @@ export default function DroiteRemarquableDuTriangle () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const triangles = []; const sommets = [[]]; const A = []; const B = []; const C = []; const t = []; const d = []; const n = []; const c = []; const objets = []; let A0; let B0; let C0; let tri; let G
-    let typesDeQuestionsDisponibles, listeTypeDeQuestions
+    const triangles = []
+    const sommets = [[]]
+    const A = []
+    const B = []
+    const C = []
+    const t = []
+    const d = []
+    const n = []
+    const c = []
+    const objets = []
+    let A0, B0, C0, G
+    let typesDeQuestionsDisponibles
     if (this.sup === 1) typesDeQuestionsDisponibles = [1, 2]
     if (this.sup === 2) typesDeQuestionsDisponibles = [3, 4]
     if (this.sup === 3) typesDeQuestionsDisponibles = [1, 2, 3, 4]
-    listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, angle, rapport, texte, texteCorr; i < this.nbQuestions; i++) { // this.nbQuestions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       triangles[i] = new Triangles()
       sommets[i] = triangles[i].getSommets(false)
@@ -38,7 +48,6 @@ export default function DroiteRemarquableDuTriangle () {
       angle = choice([50, 60, 70, 75, 80, 100, 110, 120])
       rapport = randint(7, 13) / 10
       C0 = similitude(B0, A0, angle, rapport)
-      tri = polygone(A0, B0, C0)
       G = centreGraviteTriangle(A0, B0, C0)
       a = randint(0, 30) * 12 - 180
       A[i] = rotation(A0, G, a, sommets[i][0], 'below left')

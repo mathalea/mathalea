@@ -21,7 +21,7 @@ export const titre = 'Somme des angles dans un triangle'
 * @author Jean-Claude Lhote
 * Référence 5G31
 */
-export default function Exercice_angles_triangles () {
+export default function ExerciceAnglesTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
   this.titre = titre
@@ -35,14 +35,15 @@ export default function Exercice_angles_triangles () {
   this.nbColsCorr = 1
 
   let typesDeQuestionsDisponibles
-  const troisieme_angle = function (a1, a2) {
+  const troisiemeAngle = function (a1, a2) {
     if (a1 + a2 <= 180) { return 180 - (a1 + a2) } else { return -1 }
   }
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    if (this.sup == 1) { typesDeQuestionsDisponibles = [1, 2, 4, 5, 9] } else if (this.sup == 2) { typesDeQuestionsDisponibles = [3, 6, 7, 8, 10, 11, 12] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
+    if (this.sup === 1) { typesDeQuestionsDisponibles = [1, 2, 4, 5, 9] } else if (this.sup === 2) { typesDeQuestionsDisponibles = [3, 6, 7, 8, 10, 11, 12] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     this.consigne = 'Calculer l\'angle demandé dans les triangles suivants :'
@@ -64,8 +65,8 @@ export default function Exercice_angles_triangles () {
             texteCorr += `$\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s3 + s1}} + \\widehat{${s2 + s1 + s3}}=180\\degree$<br>`
             texteCorr += `Donc $\\widehat{${s2 + s3 + s1}}=180- \\left(\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s1 + s3}}\\right)$.<br>D'où `
           }
-          texteCorr += `$\\widehat{${s2 + s3 + s1}}$= $180\\degree-\\left(${angle1}\\degree+${angle2}\\degree\\right)=180\\degree-${angle1 + angle2}\\degree=${troisieme_angle(angle1, angle2)}\\degree$.<br>`
-          texteCorr += `L'angle $\\widehat{${s2 + s3 + s1}}$ mesure $${troisieme_angle(angle1, angle2)}\\degree$.`
+          texteCorr += `$\\widehat{${s2 + s3 + s1}}$= $180\\degree-\\left(${angle1}\\degree+${angle2}\\degree\\right)=180\\degree-${angle1 + angle2}\\degree=${troisiemeAngle(angle1, angle2)}\\degree$.<br>`
+          texteCorr += `L'angle $\\widehat{${s2 + s3 + s1}}$ mesure $${troisiemeAngle(angle1, angle2)}\\degree$.`
           break
         case 2: // Triangle rectangle Un angle aigu connu
           angle1 = 90

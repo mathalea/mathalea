@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { mathalea2d, labyrinthe } from '../../modules/2d.js'
 
@@ -11,7 +10,7 @@ export const titre = 'Labyrinthe de multiples basé sur les critères de divisib
  * Ref 5A11-1
  * Sortir du labyrinthe en utilisant les critères de divisibilité.
  */
-export default function Exercice_labyrinthe_divisibilite () {
+export default function ExerciceLabyrintheDivisibilite () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = ''
@@ -24,7 +23,7 @@ export default function Exercice_labyrinthe_divisibilite () {
   this.pas_de_version_HMTL = false
   this.sup3 = 3
   this.sup = 9
-  if (this.niveau = 'CM') {
+  if (this.niveau === 'CM') {
     this.sup2 = 1
     this.sup3 = 3
   } else {
@@ -33,39 +32,43 @@ export default function Exercice_labyrinthe_divisibilite () {
   }
   // this.consigne=`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
   this.nouvelleVersion = function () {
+    this.sup = Number(this.sup)
+    this.sup2 = Number(this.sup2)
+    this.sup3 = Number(this.sup3)
+
     this.listeCorrections = []
     this.listeQuestions = []
-    let params, texte, texteCorr, trouve
+    let texte, texteCorr, trouve
     const laby = labyrinthe()
-    laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
+    laby.niveau = this.sup3 // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
     laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
     laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
     laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
     const monchemin = laby.chemin
-    let table = parseInt(this.sup)
-    if (this.sup2 == 2) {
-      if (table % 2 != 0) {
+    let table = this.sup
+    if (this.sup2 === 2) {
+      if (table % 2 !== 0) {
         table = table * 2
       }
-    } else if (this.sup2 == 3) {
-      if (table % 3 != 0) {
+    } else if (this.sup2 === 3) {
+      if (table % 3 !== 0) {
         table = table * 3
       }
-    } else if (this.sup2 == 4) {
-      if (table % 4 != 0) {
-        if (table % 2 != 0) {
+    } else if (this.sup2 === 4) {
+      if (table % 4 !== 0) {
+        if (table % 2 !== 0) {
           table = table * 4
         } else {
           table = table * 2
         }
       }
-    } else if (this.sup2 == 5) {
-      if (table % 5 != 0) {
+    } else if (this.sup2 === 5) {
+      if (table % 5 !== 0) {
         table = table * 5
       }
-    } else if (this.sup2 == 6) {
-      if (table % 9 != 0) {
-        if (table % 3 != 0) {
+    } else if (this.sup2 === 6) {
+      if (table % 9 !== 0) {
+        if (table % 3 !== 0) {
           table = table * 9
         }
       } else {
@@ -87,7 +90,7 @@ export default function Exercice_labyrinthe_divisibilite () {
       for (let b = 0; b < 3; b++) {
         trouve = false
         for (let k = 0; k < monchemin.length; k++) {
-          if (monchemin[k][0] == a && monchemin[k][1] == b) { trouve = true }
+          if (monchemin[k][0] === a && monchemin[k][1] === b) { trouve = true }
         }
         if (!trouve) {
           laby.nombres[a - 1][b] = randint(200, 5000) * table + randint(1, table - 1)
@@ -98,7 +101,7 @@ export default function Exercice_labyrinthe_divisibilite () {
       }
     } // Le tableau de nombre étant fait, on place les objets nombres.
     laby.nombres2d = laby.placeNombres(laby.nombres, 1)
-    params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
+    const params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
     this.listeQuestions.push(texte)

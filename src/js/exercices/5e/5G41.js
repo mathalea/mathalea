@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { texNombrec, choice, texteGras, listeQuestionsToContenu, randint, arrondi, calcul, choisitLettresDifferentes, lettreDepuisChiffre, texNombre, miseEnEvidence } from '../../modules/outils.js'
 import { cercle, demiDroite, droite, cercleCentrePoint, pointIntersectionDD, codeSegments, texteParPosition, pointAdistance, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment, point, labelPoint, similitude, polygoneAvecNom, tracePoint, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d, milieu, pointIntersectionCC } from '../../modules/2d.js'
 
@@ -11,7 +10,7 @@ export const titre = 'Construire des quadrilatères particuliers'
  * @author Jean-Claude Lhote
  * Publié le 3/02/2020
  */
-export default function Constructions_parallelogrammes_particuliers () {
+export default function ConstructionsParallelogrammesParticuliers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -23,6 +22,7 @@ export default function Constructions_parallelogrammes_particuliers () {
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let texte = ''; let texteCorr = ''
@@ -34,16 +34,16 @@ export default function Constructions_parallelogrammes_particuliers () {
     // On prépare la figure...
     const noms = choisitLettresDifferentes(5, 'QO', true) // on choisit 5 lettres, les 4 premières sont les sommets, la 5e est le centre
     const nom = `$${noms[0] + noms[1] + noms[2] + noms[3]}$`
-    let A, B, C, D, O, p, d1, d2, c1, c2, c3, c4, dd1, dd2, dd3, dd4, alpha, tri, t1, t2, t3, t4, t5
-    const objetsEnonce = []; const objetsCorrection = []; let result2; let result1; let cible1; let cible2; let cible3; let cellule1; let cellule2; let cellule3; let result3
-    let type_de_question, typesDeQuestionsDisponibles
-    let xMin, yMin, xMax, yMax, xm, ym, xM, yM
-    if (this.sup == 1) typesDeQuestionsDisponibles = [1, 2, 3]
-    else if (this.sup == 2) typesDeQuestionsDisponibles = [4, 5, 6, 7]
+    let A, B, C, D, O, d1, d2, c1, c2, c3, c4, alpha, tri, t1, t2, t3, t4, t5, dd1, dd2
+    const objetsEnonce = []; const objetsCorrection = []
+    let typesDeQuestionsDisponibles
+    let xm, ym, xM, yM
+    if (this.sup === 1) typesDeQuestionsDisponibles = [1, 2, 3]
+    else if (this.sup === 2) typesDeQuestionsDisponibles = [4, 5, 6, 7]
     else typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
 
-    type_de_question = choice(typesDeQuestionsDisponibles)
-    switch (type_de_question) {
+    const typeDeQuestion = choice(typesDeQuestionsDisponibles)
+    switch (typeDeQuestion) {
       case 1:
         A = point(0, 0, noms[0])
         c1 = randint(20, 25) * 2 // AB
@@ -65,7 +65,7 @@ export default function Constructions_parallelogrammes_particuliers () {
           texteCorr += `Soit $${noms[4]}$ le milieu de $[${noms[1] + noms[3]}]$. $${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.`
           texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[3]}$.<br>Puis $${noms[4]}$, le milieu de $[${noms[1] + noms[3]}]$ et enfin le point $${noms[2]}$.<br>`
         }
-        if (longueur(B, D) != longueur(A, C)) {
+        if (longueur(B, D) !== longueur(A, C)) {
           texteCorr += `Comme $${noms[0] + noms[3]}\\ne ${noms[0] + noms[1]}$ et que $${noms[0] + noms[2]}\\ne ${noms[3] + noms[1]}$, le paralélogramme ${nom} n'est ni un losange, ni un rectangle.<br>`
           texteCorr += `${nom} ${texteGras('est un simple paraléllogramme')}.<br>`
         } else {
@@ -224,13 +224,13 @@ export default function Constructions_parallelogrammes_particuliers () {
           texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[4]}$.<br>`
           texteCorr += `Puis les points $${noms[2]}$ et $${noms[3]}$ symétriques respectifs de $${noms[0]}$ et $${noms[1]}$ par rapport à $${noms[4]}$.<br>`
         }
-        if (c1 * c1 != (c2 * c2 + c3 * c3)) {
+        if (c1 * c1 !== (c2 * c2 + c3 * c3)) {
           texteCorr += `le triangle $${noms[0] + noms[1] + noms[4]}$ n'est pas un triangle rectangle, donc les diagonales ne sont pas perpendiculaires.<br>`
-          if (c2 == c3) texteCorr += `Les diagonales ont la même longueur. ${nom} est un parallélogramme dont les diagonales sont de même longueur, ${texteGras('c\'est donc un rectangle')}.<br>`
+          if (c2 === c3) texteCorr += `Les diagonales ont la même longueur. ${nom} est un parallélogramme dont les diagonales sont de même longueur, ${texteGras('c\'est donc un rectangle')}.<br>`
           else texteCorr += `De plus elles n'ont pas la même longueur, donc ${nom} ${texteGras('est un simple parallélogramme')}.<br>`
         } else {
           texteCorr += `Le triangle $${noms[0] + noms[1] + noms[4]}$ est un triangle rectangle, donc les diagonales sont perpendiculaires.<br>`
-          if (c2 == c3) texteCorr += `de plus les diagonales ont même longueur. ${nom} est un parallélogramme dont les diagonales sont perpendiculaires et de même longueur, ${texteGras('c\'est donc un carré')}.<br>`
+          if (c2 === c3) texteCorr += `de plus les diagonales ont même longueur. ${nom} est un parallélogramme dont les diagonales sont perpendiculaires et de même longueur, ${texteGras('c\'est donc un carré')}.<br>`
         }
         t1 = traceCompas(A, O, 20)
         t2 = traceCompas(B, O, 20)
@@ -285,37 +285,37 @@ export default function Constructions_parallelogrammes_particuliers () {
         yM = Math.max(A.y, B.y, C.y) + 0.8
         break
     }
-    p = polygoneAvecNom(A, B, C, D)
+    const p = polygoneAvecNom(A, B, C, D)
 
-    xMin = Math.min(A.x, B.x, C.x, D.x) - 2
-    yMin = Math.min(A.y, B.y, C.y, D.y) - 2
-    xMax = Math.max(A.x, B.x, C.x, D.x) + 2
-    yMax = Math.max(A.y, B.y, C.y, D.y) + 2
+    const xMin = Math.min(A.x, B.x, C.x, D.x) - 2
+    const yMin = Math.min(A.y, B.y, C.y, D.y) - 2
+    const xMax = Math.max(A.x, B.x, C.x, D.x) + 2
+    const yMax = Math.max(A.y, B.y, C.y, D.y) + 2
 
-    cellule1 = celluleAlea(5)
-    cellule2 = celluleAlea(5)
-    cellule3 = celluleAlea(5)
-    result1 = dansLaCibleCarree(B.x, B.y, 5, 0.3, cellule3)
-    result2 = dansLaCibleCarree(C.x, C.y, 5, 0.3, cellule1)
-    result3 = dansLaCibleCarree(D.x, D.y, 5, 0.3, cellule2)
-    cible1 = cibleCarree({ x: result1[0], y: result1[1], rang: 5, num: '', taille: 0.4 })
+    const cellule1 = celluleAlea(5)
+    const cellule2 = celluleAlea(5)
+    const cellule3 = celluleAlea(5)
+    const result1 = dansLaCibleCarree(B.x, B.y, 5, 0.3, cellule3)
+    const result2 = dansLaCibleCarree(C.x, C.y, 5, 0.3, cellule1)
+    const result3 = dansLaCibleCarree(D.x, D.y, 5, 0.3, cellule2)
+    const cible1 = cibleCarree({ x: result1[0], y: result1[1], rang: 5, num: '', taille: 0.4 })
     cible1.taille = 0.3
     cible1.color = 'gray'
     cible1.opacite = 0.7
-    cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: '', taille: 0.4 })
+    const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: '', taille: 0.4 })
     cible2.taille = 0.3
     cible2.color = 'gray'
     cible2.opacite = 0.7
-    cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: '', taille: 0.4 })
+    const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: '', taille: 0.4 })
     cible3.taille = 0.3
     cible3.color = 'gray'
     cible3.opacite = 0.7
     dd1 = segment(O, A)
     dd2 = segment(O, B)
-    dd3 = segment(O, C)
-    dd4 = segment(O, D)
+    const dd3 = segment(O, C)
+    const dd4 = segment(O, D)
 
-    switch (type_de_question) {
+    switch (typeDeQuestion) {
       case 1:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, t1, t2, tri[0], tri[1], afficheLongueurSegment(D, B)) + '<br>'
         objetsEnonce.push(cible3, cible2)
