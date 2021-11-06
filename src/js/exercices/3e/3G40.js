@@ -1,4 +1,3 @@
-/* global mathalea */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { numAlpha, combinaisonListes, randint, choisitLettresDifferentes, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
@@ -63,8 +62,14 @@ export default function ReperageSurLaSphere () {
     greenwitch.opacite = 1
     equateur1.epaisseur = 3
     equateur2.epaisseur = 3
-    const objetsEnonce = []; let paramsEnonce; const objetsCorrection = []// on initialise les tableaux des objets Mathalea2d
-    const latitudes = []; const longitudes = []; const P = []; const EstouOuest = []; const NordouSud = []; let nom = []
+    const objetsEnonce = []
+    const objetsCorrection = []
+    const latitudes = []
+    const longitudes = []
+    const P = []
+    const EstouOuest = []
+    const NordouSud = []
+    let nom = []
     const E = labelPoint(point3d(13.2, 0, 0, true, 'E').p2d)
     E.taille = 3
     E.color = 'brown'
@@ -85,7 +90,7 @@ export default function ReperageSurLaSphere () {
     for (let i = 0, latitude, longitude, M, lab, croix; i < this.nbQuestions;) {
       latitude = randint(-3, 6, 0) * 10
       longitude = randint(-6, 4) * 10
-      while (latitudes.indexOf(latitude) != -1 && longitudes.indexOf(longitude) != -1) {
+      while (latitudes.indexOf(latitude) !== -1 && longitudes.indexOf(longitude) !== -1) {
         latitude = randint(-3, 6, 0) * 10
         longitude = randint(-6, 4) * 10
       }
@@ -127,7 +132,7 @@ export default function ReperageSurLaSphere () {
     // paramètres pour la perspective
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
-    paramsEnonce = { xmin: -13, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 0.3, mainlevee: false }
+    const paramsEnonce = { xmin: -13, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 0.3, mainlevee: false }
 
     // texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)

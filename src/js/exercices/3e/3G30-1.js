@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { mathalea2d, point, similitude, longueur, polygone, rotation, codageAngleDroit, nommePolygone, segment, codeAngle, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle } from '../../modules/2d.js'
+import { mathalea2d, point, similitude, longueur, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
 
 export const titre = 'Exprimer le cosinus, le sinus ou la tangente d’un angle en fonction des côtés du triangle'
@@ -15,7 +15,7 @@ export const titre = 'Exprimer le cosinus, le sinus ou la tangente d’un angle 
  *
  * janvier 2021
  */
-export default function Mon_Exercice () {
+export default function ExprimerCosSinTan () {
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1
@@ -34,8 +34,8 @@ export default function Mon_Exercice () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-
-    let texte = ''; let texteCorr = ''; const objetsEnonce = []; const objetsCorrection = []; let choix_rapport_trigo
+    this.sup = Number(this.sup)
+    let texte = ''; let texteCorr = ''; const objetsEnonce = []; const objetsCorrection = []; let choixRapportTrigo
 
     const a = point(0, 0)
     const b = point(randint(3, 7), 0)
@@ -48,7 +48,9 @@ export default function Mon_Exercice () {
     const C = p2.listePoints[2]
     const codage = codageAngleDroit(B, A, C)
     const nom = creerNomDePolygone(4)
-    A.nom = nom[0], B.nom = nom[1], C.nom = nom[2]
+    A.nom = nom[0]
+    B.nom = nom[1]
+    C.nom = nom[2]
     const nomme = nommePolygone(p2, nom)
     const t1 = texteSurSegment('hypoténuse', C, B)
     let t2, t3, t22, t32, codageAngle, codageAngle2
@@ -81,7 +83,6 @@ export default function Mon_Exercice () {
     H.nom = nom[3]
     const t4 = texteParPoint(H.nom, pointNomH)
     const sAH = segment(A, H)
-    const sAB = segment(A, B)
     const t13 = texteSurSegment('hypoténuse', B, A)
     let t23
     let t33
@@ -99,7 +100,7 @@ export default function Mon_Exercice () {
     objetsEnonce.push(p2, codage, nomme)
     objetsCorrection.push(p2, codage, nomme, t1, t2, t3, hypo, codageAngle)
 
-    if (this.sup == 3) {
+    if (this.sup === 3) {
       objetsEnonce.push(sAH, t4, codage2)
     }
 
@@ -113,47 +114,47 @@ export default function Mon_Exercice () {
       texte += '\n\\end{minipage}\n'
       texte += '\\begin{minipage}{.6\\linewidth}\n'
     }
-    if (this.sup == 1) {
+    if (this.sup === 1) {
       texte += `Compléter à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$, $${B.nom + C.nom}$ : `
       texte += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
       texte += `<br>$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
       texte += `<br>$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
     }
-    if (this.sup == 2) {
+    if (this.sup === 2) {
       texte += 'Écrire les 6 rapports trigonométriques pour ce triangle.'
     }
-    if (this.sup == 3) {
-      choix_rapport_trigo = choice(['cosinus', 'sinus', 'tangente'])
-      texte += `Exprimer le ${choix_rapport_trigo} de $\\widehat{${A.nom + B.nom + C.nom}}$ de deux manières différentes.`
+    if (this.sup === 3) {
+      choixRapportTrigo = choice(['cosinus', 'sinus', 'tangente'])
+      texte += `Exprimer le ${choixRapportTrigo} de $\\widehat{${A.nom + B.nom + C.nom}}$ de deux manières différentes.`
     }
     if (!context.isHtml) {
       texte += '\n\\end{minipage}\n'
     }
-    if (this.sup == 1 || this.sup == 2 || this.sup == 3) {
+    if (this.sup === 1 || this.sup === 2 || this.sup === 3) {
       texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     }
-    if (this.sup == 2) {
+    if (this.sup === 2) {
       const objetsCorrection2 = [p2, codage, nomme, t1, t22, t32, hypo, codageAngle2]
       texteCorr += mathalea2d(paramsCorrection, objetsCorrection2)
     }
-    if (this.sup == 3) {
+    if (this.sup === 3) {
       const objetsCorrection3 = [p2, codage2, nomme, t13, t23, t33, t4, hypo3, codageAngle, sAH]
       texteCorr += mathalea2d(paramsCorrection, objetsCorrection3)
     }
 
-    if (this.sup == 1 || this.sup == 2) {
+    if (this.sup === 1 || this.sup === 2) {
       texteCorr += `<br>$${A.nom + B.nom + C.nom}$ est rectangle en $${A.nom}$ donc :`
       texteCorr += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${A.nom + B.nom}}{${B.nom + C.nom}}$ ;`
       texteCorr += `<br>$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${A.nom + C.nom}}{${B.nom + C.nom}}$ ;`
       texteCorr += `<br>$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${A.nom + C.nom}}{${A.nom + B.nom}}$.`
     }
-    if (this.sup == 2) {
+    if (this.sup === 2) {
       texteCorr += `<br>$\\cos\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${A.nom + C.nom}}{${B.nom + C.nom}}$ ;`
       texteCorr += `<br>$\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${A.nom + B.nom}}{${B.nom + C.nom}}$ ;`
       texteCorr += `<br>$\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${A.nom + B.nom}}{${A.nom + C.nom}}$.`
     }
-    if (this.sup == 3) {
-      if (choix_rapport_trigo == 'cosinus') {
+    if (this.sup === 3) {
+      if (choixRapportTrigo === 'cosinus') {
         texteCorr += `<br>$${A.nom + B.nom + C.nom}$ est rectangle en $${A.nom}$ donc `
         if (!context.isHtml) {
           texteCorr += '<br>'
@@ -162,7 +163,7 @@ export default function Mon_Exercice () {
         texteCorr += `<br>$${A.nom + B.nom + H.nom}$ est rectangle en $${H.nom}$ donc `
         texteCorr += `$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${B.nom + H.nom}}{${A.nom + B.nom}}$.`
       }
-      if (choix_rapport_trigo == 'sinus') {
+      if (choixRapportTrigo === 'sinus') {
         texteCorr += `<br>$${A.nom + B.nom + C.nom}$ est rectangle en $${A.nom}$ donc `
         if (!context.isHtml) {
           texteCorr += '<br>'
@@ -171,7 +172,7 @@ export default function Mon_Exercice () {
         texteCorr += `<br>$${A.nom + B.nom + H.nom}$ est rectangle en $${H.nom}$ donc `
         texteCorr += `$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${A.nom + H.nom}}{${A.nom + B.nom}}$.`
       }
-      if (choix_rapport_trigo == 'tangente') {
+      if (choixRapportTrigo === 'tangente') {
         texteCorr += `<br>$${A.nom + B.nom + C.nom}$ est rectangle en $${A.nom}$ donc `
         if (!context.isHtml) {
           texteCorr += '<br>'

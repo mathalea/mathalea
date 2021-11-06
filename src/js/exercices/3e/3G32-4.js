@@ -1,8 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, numAlpha, arrondi, calcul, texNombre, texNombrec, arrondiVirgule } from '../../modules/outils.js'
-import { texteSurSegment, tracePoint, labelPoint, projectionOrtho, pointAdistance, droite, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js'
-import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d, homothetie3d } from '../../modules/3d.js'
+import { listeQuestionsToContenu, randint, numAlpha, texNombre } from '../../modules/outils.js'
+import { texteSurSegment, projectionOrtho, pointAdistance, droite, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Calculer la hauteur d’une montagne'
 
 /**
@@ -10,7 +9,7 @@ export const titre = 'Calculer la hauteur d’une montagne'
  * @author Jean-Claude Lhote
  * Référence 3G32-4
 */
-export default function Calculs_trigonometriques4 () {
+export default function CalculsTrigonometriques4 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -26,8 +25,7 @@ export default function Calculs_trigonometriques4 () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let distance; let hauteur; let alfa; let baita; let beta; let alpha; let teta; let taille; let index; let A; let B; let O; let H; let S; let C; let M; let R; let R2; let Axe; let normalV; let normalH; let P; let HP; let Sph; let OP; let PoleNord; let PoleSud; let objets = []; let p
-    let typesDeQuestionsDisponibles
+    let distance; let alfa; let baita; let beta; let alpha; let taille; let A; let B; let H; let S; let C; let objets = []; let p
     if (context.isHtml) {
       alfa = 'α'
       baita = 'β'
