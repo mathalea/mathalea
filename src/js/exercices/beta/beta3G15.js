@@ -5,7 +5,7 @@ import { mathalea2d, droite, tracePointSurDroite, labelPoint, tracePoint, rotati
 
 export const titre = 'Utiliser toutes les transformations'
 
-export default function Exercice_zero_mathalea2d () {
+export default function ExerciceZeroMathalea2d () {
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1 // Ici le nombre de questions

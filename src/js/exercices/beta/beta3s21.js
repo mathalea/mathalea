@@ -13,7 +13,7 @@ export const titre = 'Stabilisation des fréquences'
 * L’élève interprète les résultats en les comparant aux probabilités théoriques.
 */
 
-export default function Stabilisation_frequence () {
+export default function StabilisationFrequence () {
   'use strict'
   Exercice.call(this)
   this.titre = titre
@@ -49,11 +49,11 @@ export default function Stabilisation_frequence () {
       const nbFaces = 2 * randint(1, 4) + 2 // nombre de faces du dé : 4, 6, 8, ou 10. Avec 12, le tableau devient trop grand....
       const nbLancers = 10000 // nombre de lancers
       const tabcoul = ['rouges', 'vertes', 'bleues', 'noires']
-      let tabEff = new Array()// tableau d'effectifs temporaires - une dimension [eff]
-      let tabEffModif = new Array()// tableau d'effectifs temporaires après modification - une dimension [eff]
+      let tabEff = [] // tableau d'effectifs temporaires - une dimension [eff]
+      let tabEffModif = [] // tableau d'effectifs temporaires après modification - une dimension [eff]
       let S1 = 0; let S2 = 0 // effectif total
-      const tabRes = new Array() // tableau des fréquences observées - deux dimensions [val, freq]
-      const tabProba = new Array() // tableau des proba théoriques, à comparer à tabRes
+      const tabRes = [] // tableau des fréquences observées - deux dimensions [val, freq]
+      const tabProba = [] // tableau des proba théoriques, à comparer à tabRes
       const tabValeur = [] // numéro de la face du dé
       let titreligne = 'Numéro de la face' // ou "couleur de la boule"
       let tabtitrecolonne = tabValeur // ou tabcoul
@@ -104,7 +104,7 @@ export default function Stabilisation_frequence () {
           face = randint(1, nbFaces) // on choisit une face au hasard. Elle aura une fréquence déséquilibrée.
           for (let i = 0; i < nbFaces; i++) {
             tabValeur[i] = i + 1
-            if (i == face) {
+            if (i === face) {
               tabEff[i] = [2 * randint(90, 110)]
             } else {
               tabEff[i] = [randint(90, 110)]

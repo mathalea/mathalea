@@ -1,4 +1,5 @@
-import { xcas, listeQuestionsToContenu, randint, combinaisonListes, texFraction } from '../../modules/outils.js'
+/* eslint-disable no-unused-vars */
+import { xcas, listeQuestionsToContenu, combinaisonListes, texFraction } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Asymptote oblique'
@@ -25,12 +26,10 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     const typesDeQuestionsDisponibles = ['type1'] // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, etape, signe, texteCorr, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, etape, signe, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeDeQuestions[i]) {
         case 'type1':
-          a = randint(-5, 5, 0)
-
           etape = `${xcas('f:=(2*randint(0,1)-1) * randint(4) * x + randint(10) + (2*randint(0,1)-1) * randint(10) / randpoly(1)')}` // f
           // Numérateur, Dénominateur, Quotient, Reste
           etape = [

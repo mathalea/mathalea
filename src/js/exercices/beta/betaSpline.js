@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { splineCatmullRom } from '../../modules/fonctionsMaths.js'
-import { courbe2, courbeSpline, mathalea2d, repere2 } from '../../modules/2d.js'
+import { courbe2, mathalea2d, repere2 } from '../../modules/2d.js'
 export const titre = 'Nom de l\'exercice'
 
 /**
