@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
 export const titre = 'Nom de l\'exercice'
 
@@ -25,6 +25,10 @@ export default function NomExercice () {
     this.listeQuestions = []
     this.listeCorrections = []
     for (let i = 0, texte, texteCorr, ligne1, ligne2, ligne3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const a = randint(1, 2) // On définit les variables aléatoires de l'exo...
+      const b = randint(2, 3) // Ici ça ne sert à rien, c'est juste pour la fonction questionJamaisPosee()
+      const c = randint(13, 54)
+      const d = randint(24, 39)
       // Cet exercice montre juste comment fonctionne la fonction tableauDeVariation
       // Pour le voir appliqué en conditions réelles, voir 2N61-2 pour des tableaux de signes et P010 pour des tableaux de variations
 

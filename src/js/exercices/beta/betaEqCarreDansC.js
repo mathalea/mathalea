@@ -1,7 +1,7 @@
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureParentheseSiNegatif, signe, abs, calcule } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
-import { complex, neg } from 'mathjs'
+import { complex } from 'mathjs'
 export const titre = 'Racine carrée nombre complexe'
 
 /**
@@ -23,8 +23,6 @@ export default function ResoudreDesEquationsCarreeDansC () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typesDeQuestionsDisponibles = ['type1'] // On créé 2 types de questions
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, a, b, z, zr, s, zx, zsol, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
 

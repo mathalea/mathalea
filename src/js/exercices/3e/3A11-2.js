@@ -68,6 +68,8 @@ export default function decompositionFacteursPremiers () {
 
     if (this.sup) {
       this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
+    } else {
+      this.introduction = ''
     }
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -230,5 +232,5 @@ export default function decompositionFacteursPremiers () {
 
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"];
+  this.besoinFormulaireCaseACocher = ['Afficher la liste des nombres premiers inférieurs à 100']
 }

@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 export const titre = 'Parenthèses manquantes'
 
@@ -11,7 +10,7 @@ export const titre = 'Parenthèses manquantes'
 export default function Priorites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = "Si besoin, ajoute des parenthèses pour rendre l'égalité correcte. <br\> S'il y a plusieurs fois la même égalité trouve des solutions différentes."
+  this.consigne = "Si besoin, ajoute des parenthèses pour rendre l'égalité correcte. <br> S'il y a plusieurs fois la même égalité trouve des solutions différentes."
   this.nbQuestions = 2
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -21,7 +20,7 @@ export default function Priorites () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const listeQuestions_disponibles = []; let listeTypeDeQuestions; let texte; let texteCorr; let a; let b; let c; let d; let i; let e
+    let texte; let texteCorr; let a; let b; let c; let d; let i; let e
     let m; let n; let f; let l; let g; let k; let p; let prevchoice; let choice; let cpt = 0 //
     texte = ''
     texteCorr = ''
@@ -45,32 +44,32 @@ export default function Priorites () {
         prevchoice.push(choice)
         switch (choice) {
           case 0:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + b / c + (d / e + f) * g)} $ <br\> `
-            texteCorr += `$${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + b / c + (d / e + f) * g)} $<br\>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + b / c + (d / e + f) * g)} $ <br> `
+            texteCorr += `$${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + b / c + (d / e + f) * g)} $<br>`
             break
           case 1:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul((a + b) / c + d / e + f * g)}  $<br\>`
-            texteCorr += `$ (${a} + ${b}) \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul((a + b) / c + d / e + f * g)} $<br\>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul((a + b) / c + d / e + f * g)}  $<br>`
+            texteCorr += `$ (${a} + ${b}) \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul((a + b) / c + d / e + f * g)} $<br>`
             break
           case 2:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul((a + b / c + d / e + f) * g)} $<br\>`
-            texteCorr += `$ ( ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} ) \\times ${g} = ${calcul((a + b / c + d / e + f) * g)} $<br\>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul((a + b / c + d / e + f) * g)} $<br>`
+            texteCorr += `$ ( ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} ) \\times ${g} = ${calcul((a + b / c + d / e + f) * g)} $<br>`
             break
           case 3:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul((a + b / c + d) / e + f * g)} $<br\>`
-            texteCorr += `$ (${a} + ${b} \\div ${c} + ${d}) \\div ${e} + ${f} \\times ${g} = ${calcul((a + b / c + d) / e + f * g)} $<br\>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul((a + b / c + d) / e + f * g)} $<br>`
+            texteCorr += `$ (${a} + ${b} \\div ${c} + ${d}) \\div ${e} + ${f} \\times ${g} = ${calcul((a + b / c + d) / e + f * g)} $<br>`
             break
           case 4:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(((a + b) / c + d / e + f) * g)} $<br\>`
-            texteCorr += `$ ((${a} + ${b}) \\div ${c} + ${d} \\div ${e} + ${f}) \\times ${g} = ${calcul(((a + b) / c + d / e + f) * g)} $<br\>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(((a + b) / c + d / e + f) * g)} $<br>`
+            texteCorr += `$ ((${a} + ${b}) \\div ${c} + ${d} \\div ${e} + ${f}) \\times ${g} = ${calcul(((a + b) / c + d / e + f) * g)} $<br>`
             break
           case 5:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + (b / c + d) / e + f * g)} $<br\>`
-            texteCorr += `$ ${a} + ( ${b} \\div ${c} + ${d} ) \\div ${e} + ${f} \\times ${g} = ${calcul(a + (b / c + d) / e + f * g)} $<br\>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + (b / c + d) / e + f * g)} $<br>`
+            texteCorr += `$ ${a} + ( ${b} \\div ${c} + ${d} ) \\div ${e} + ${f} \\times ${g} = ${calcul(a + (b / c + d) / e + f * g)} $<br>`
             break
           case 6:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + b / c + d / e + f * g)} $ <br\> `
-            texteCorr += `$${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + b / c + d / e + f * g)} $<br\>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + b / c + d / e + f * g)} $ <br> `
+            texteCorr += `$${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + b / c + d / e + f * g)} $<br>`
             break
         }
       }

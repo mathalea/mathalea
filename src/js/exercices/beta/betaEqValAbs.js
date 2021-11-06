@@ -1,4 +1,4 @@
-import { xcas, listeQuestionsToContenu, randint, combinaisonListes, texMasse } from '../../modules/outils.js'
+import { xcas, listeQuestionsToContenu, randint, texMasse } from '../../modules/outils.js'
 import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
@@ -26,8 +26,6 @@ export default function EquationAvecUneValeurAbsolue () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typesDeQuestionsDisponibles = ['type1'] // On créé 2 types de questions
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, etape, texteCorr, a, b, pente, signe, entier, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       a = randint(-5, 5, 0) + '*x+' + randint(-20, 20)
@@ -53,7 +51,7 @@ export default function EquationAvecUneValeurAbsolue () {
       texte = `$${xcas('abs(a)')}=${xcas('b')}$`
       // Corrigé
       texteCorr = 'Pour supprimer la valeur absolue, on cherche la valeur remarquable qui annule l\'expression entre les $\\mid.\\mid$'
-      entier = (1e3 * +`${xcas('approx(x1,4)')}`) % 1 == 0 ? '' : `\\simeq${xcas('approx(x1,4)')}`
+      entier = (1e3 * +`${xcas('approx(x1,4)')}`) % 1 === 0 ? '' : `\\simeq${xcas('approx(x1,4)')}`
       texteCorr += `<br>On aura $${xcas('a')}=0$ lorsque $x=${xcas('x1')}${entier}$`
       texteCorr += `<br>De plus la droite $y=${xcas('a')}$ est ${pente}, ce qui permet d'obtenir le tableau des signes suivant :`
 
@@ -83,12 +81,12 @@ export default function EquationAvecUneValeurAbsolue () {
       texteCorr += `<br>$\\underline{\\text{Cas 1}}$ : On cherche $x\\in ]-\\infty,${xcas('x1')}]$ tels que : $${xcas('cas1')}=${xcas('b')}$`
       texteCorr += `<br>Ce qui donne $${xcas('simplify(cas1-b)')}=0$ d'où `
 
-      if (`${xcas('xcas1')}` == 'i') {
+      if (`${xcas('xcas1')}` === 'i') {
         texteCorr += 'une impossibilité.'
       } else {
         texteCorr += `$x=${xcas('xcas1')}$`
         // On teste si on doit afficher la valeur approchée du résultat
-        entier = (1e3 * +`${xcas('approx(xcas1,4)')}`) % 1 == 0 ? '' : `\\simeq${texMasse(`${xcas('approx(xcas1,4)')}`)}`
+        entier = (1e3 * +`${xcas('approx(xcas1,4)')}`) % 1 === 0 ? '' : `\\simeq${texMasse(`${xcas('approx(xcas1,4)')}`)}`
         if (`${xcas('xcas1<=x1')}`.includes('true')) {
           texteCorr += `<br>Cette solution $\\textbf{convient}$ car $x=${xcas('xcas1')}${entier}\\in ]-\\infty,${xcas('x1')}]$`
         } else {
@@ -98,12 +96,13 @@ export default function EquationAvecUneValeurAbsolue () {
       texteCorr += `<br>$\\underline{\\text{Cas 2}}$ : On cherche $x\\in [${xcas('x1')},+\\infty[$ tels que : $${xcas('cas2')}=${xcas('b')}$`
       texteCorr += `<br>Ce qui donne $${xcas('simplify(cas2-b)')}=0$ d'où `
 
-      if (`${xcas('xcas2')}` == 'i') {
+      if (`${xcas('xcas2')}` === 'i') {
         texteCorr += 'une impossibilité.'
       } else {
         texteCorr += `$x=${xcas('xcas2')}$`
-        entier = (1e3 * +`${xcas('approx(xcas2,4)')}`) % 1 == 0 ? '' : `\\simeq${xcas('approx(xcas2,4)')}`
+        entier = (1e3 * +`${xcas('approx(xcas2,4)')}`) % 1 === 0 ? '' : `\\simeq${xcas('approx(xcas2,4)')}`
         if (`${xcas('xcas2>=x1')}`.includes('true')) {
+          // eslint-disable-next-line no-unused-vars
           etape = `$x=${xcas('xcas2')}\\simeq${xcas('approx(xcas2,4)')}$`
           texteCorr += `<br>Cette solution $\\textbf{convient}$ car $x=${xcas('xcas2')}${entier}\\in [${xcas('x1')},+\\infty[$`
         } else {

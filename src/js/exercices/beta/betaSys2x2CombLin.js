@@ -1,5 +1,5 @@
-import { not, simplify } from 'mathjs'
-import { listeQuestionsToContenu, randint, combinaisonListes, matriceCarree, abs, ppcm, ecritureParentheseSiNegatif, rienSi1, ecritureAlgebriqueSauf1, ecritureAlgebrique } from '../../modules/outils.js'
+import { simplify } from 'mathjs'
+import { listeQuestionsToContenu, randint, matriceCarree, abs, ppcm, ecritureParentheseSiNegatif, rienSi1, ecritureAlgebriqueSauf1, ecritureAlgebrique } from '../../modules/outils.js'
 
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
@@ -7,7 +7,7 @@ export const titre = '2G35-3' // Résoudre un système 2x2 par combinaisons lin�
 
 // Représentation d'un système 2x2
 
-const axby = (a, b, niveau) => niveau == 1
+const axby = (a, b, niveau) => niveau === 1
   ? rienSi1(a) + 'x' + ecritureAlgebriqueSauf1(b) + 'y' // Ecriture simple (niveau 1)
   : simplify(a + '*x+' + b + '*y').toString().replaceAll('*', '') // Ecriture avec factorisation ou parenthèse (niveau 2)
 
@@ -34,8 +34,6 @@ export default function Systeme2x2parCombinaisonLineaire () {
     const niveau = +this.sup // Niveau 1 = écriture ax+by = c ; Niveau 2 = parenthèses ou factorisation
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const typesDeQuestionsDisponibles = ['1']
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, texte, texteCorr, sys, varSol, varCoeff, coeff, droit, mat, equationX, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
@@ -43,9 +41,9 @@ export default function Systeme2x2parCombinaisonLineaire () {
       varSol = ['xS', 'yS'] // Noms des variables pour la solution
       varCoeff = ['a11', 'a12', 'a21', 'a22'] // Noms des coefficients de la matrice
       do {
-        varSol.concat(varCoeff).forEach(v => sys[v] = randint(-10, 10, 0)) // Affectation des 6 valeurs
+        varSol.concat(varCoeff).forEach(v => (sys[v] = randint(-10, 10, 0))) // Affectation des 6 valeurs
         coeff = matriceCarree([[sys.a11, sys.a12], [sys.a21, sys.a22]]) // Création de la matrice
-      } while (coeff.determinant == 0) // On veut une unique solution
+      } while (coeff.determinant === 0) // On veut une unique solution
       droit = coeff.multiplieVecteur([sys.xS, sys.yS]) // Vecteur à droite du système
       mat = dessSysteme(sys, droit, niveau) // Représentation du système
       equationX = rienSi1(sys.a11) + 'x' + ecritureAlgebrique(sys.a12 * sys.yS) + '=' + droit[0] // Equation finale en x
@@ -58,11 +56,11 @@ export default function Systeme2x2parCombinaisonLineaire () {
       const m = ppcm(abs(sys.a11), abs(sys.a21)) // ppcm entre les coefficients en x
       const c1 = m / sys.a11 // coeff multiplicateur
       const c2 = m / sys.a21
-      if (c1 != 1 || c2 != 1) {
+      if (c1 !== 1 || c2 !== 1) {
         texteCorr += 'Faisons apparaître le même coefficient devant $x$ pour les 2 lignes :<br>'
         texteCorr += `Le plus petit multiple commun entre les coefficients ${sys.a11} et ${sys.a21} est ${m}, pour cela :<br>`
-        if (c1 != 1) { texteCorr += `- Multiplions la ligne $L_1$ par ${c1}<br>` }
-        if (c2 != 1) { texteCorr += `- Multiplions la ligne $L_2$ par ${c2}<br>` }
+        if (c1 !== 1) { texteCorr += `- Multiplions la ligne $L_1$ par ${c1}<br>` }
+        if (c2 !== 1) { texteCorr += `- Multiplions la ligne $L_2$ par ${c2}<br>` }
         sys.a11 *= c1 // Màj des coeff de la matrice
         sys.a12 *= c1
         sys.a21 *= c2
@@ -71,9 +69,9 @@ export default function Systeme2x2parCombinaisonLineaire () {
         droit = coeff.multiplieVecteur([sys.xS, sys.yS]) // Terme à droite de l'égalité
         mat = dessSysteme(sys, droit, niveau)
         texteCorr += 'On obtient alors le système :<br>$\\begin{array}{r}'
-        if (c1 != 1) { texteCorr += `${ecritureParentheseSiNegatif(c1)}\\times ` } // on n'affiche pas les "1 *
+        if (c1 !== 1) { texteCorr += `${ecritureParentheseSiNegatif(c1)}\\times ` } // on n'affiche pas les "1 *
         texteCorr += 'L_1 \\\\'
-        if (c2 != 1) { texteCorr += `${ecritureParentheseSiNegatif(c2)}\\times ` }
+        if (c2 !== 1) { texteCorr += `${ecritureParentheseSiNegatif(c2)}\\times ` }
         texteCorr += `L_2 \\end{array}${mat}$<br>`
       }
       texteCorr += 'Soustrayons les lignes pour éliminer les $x$ : <br>'

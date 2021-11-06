@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
-import { afficheLongueurSegment, barycentre, carre, codageAngleDroit, latexParPoint, mathalea2d, point, polygone, rotation } from '../../modules/2d.js'
+import { afficheLongueurSegment, barycentre, carre, latexParPoint, mathalea2d, point, polygone, rotation } from '../../modules/2d.js'
 
 export const titre = 'Calculer une valeur manquante avec l’égalité de Pythagore'
 
@@ -32,7 +33,6 @@ export default function CalculerValeurManquanteVisuelPythagore () {
     const a = p2.listePoints[0]
     const b = p2.listePoints[1]
     const c = p2.listePoints[2]
-    const codage = codageAngleDroit(a, c, b)
     const car1 = carre(b, a)
     car1.couleurDeRemplissage = 'red'
     const bar1 = barycentre(car1)
