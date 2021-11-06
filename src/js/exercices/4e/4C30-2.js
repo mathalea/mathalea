@@ -18,17 +18,18 @@ export default function EcritureDecimalePuissanceDe10 () {
   this.sup = 3 // exposants positifs et négatifs par défaut
 
   this.nouvelleVersion = function () {
+    this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
     let listeTypeDeQuestions
-    if (this.sup == 1) {
+    if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(['+'], this.nbQuestions)
     }
-    if (this.sup == 2) {
+    if (this.sup === 2) {
       listeTypeDeQuestions = combinaisonListes(['-'], this.nbQuestions)
     }
-    if (this.sup == 3) {
+    if (this.sup === 3) {
       listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions)
     }
     for (let i = 0, texte, texteCorr, n, cpt = 0; i < this.nbQuestions && cpt < 50;) {

@@ -10,7 +10,7 @@ export const titre = 'Trouver l’image d’une figure par une translation dans 
  * Réf : 4G11
  * Trouver une figure image dans un pavage par une translation. 6 pavages différents.
  */
-export default function Pavage_et_translation2d () {
+export default function PavageEtTranslation2d () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -26,10 +26,12 @@ export default function Pavage_et_translation2d () {
   this.sup3 = 7
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   this.nouvelleVersion = function () {
+    this.sup = Number(this.sup)
+    this.sup3 = Number(this.sup3)
     const videcouples = function (tableau) {
       for (let k = 0; k < tableau.length; k++) {
         for (let j = k + 1; j < tableau.length; j++) {
-          if (tableau[k][1] == tableau[j][0]) {
+          if (tableau[k][1] === tableau[j][0]) {
             tableau.splice(j, 1)
           }
         }
@@ -42,7 +44,7 @@ export default function Pavage_et_translation2d () {
       } else { return false }
     }
     const comparenbsommets = function (poly1, poly2) {
-      if (poly1.listePoints.length == poly2.listePoints.length) {
+      if (poly1.listePoints.length === poly2.listePoints.length) {
         return true
       } else return false
     }
@@ -71,7 +73,7 @@ export default function Pavage_et_translation2d () {
           if (trouves < 0) { break }
         }
       }
-      if (trouves == poly1.listePoints.length) { return true } else return false
+      if (trouves === poly1.listePoints.length) { return true } else return false
     }
 
     const translacion = function (pavage, v, numero) { // retourne le numero du polygone image ou -1 si il n'existe pas
@@ -87,8 +89,11 @@ export default function Pavage_et_translation2d () {
       return result
     }
 
-    const objets = []; const objetsCorrection = []; let P1; let P2; let P3; let t
-    let taillePavage = parseInt(this.sup)
+    const objets = []
+    const objetsCorrection = []
+    let P1, P2, P3, t
+    let taillePavage = this.sup
+    let couples
     if (taillePavage < 1 || taillePavage > 2) {
       taillePavage = 1
     }
@@ -97,22 +102,25 @@ export default function Pavage_et_translation2d () {
     }
     this.listeCorrections = []
     this.listeQuestions = []
-    let Nx; let Ny; let index1; let index2; let A; let B; let d; let image; let couples = []; let tailles = []; let monpavage; let fenetre
-    let texte = ''; let texteCorr = ''; let type_de_pavage = parseInt(this.sup)
+    let Nx, Ny, index1, index2, A, B, d, image
+    let monpavage, fenetre
+    let texte = ''
+    let texteCorr = ''
+    let typeDePavage = this.sup
     let nombreTentatives; let nombrePavageTestes = 1; let v
     monpavage = pavage()
-    if (this.sup3 == 8) {
-      type_de_pavage = randint(1, 7)
+    if (this.sup3 === 8) {
+      typeDePavage = randint(1, 7)
     } else {
-      type_de_pavage = parseInt(this.sup3)
+      typeDePavage = parseInt(this.sup3)
     }
     while (couples.length < this.nbQuestions && nombrePavageTestes < 6) {
       nombreTentatives = 0
       monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
-      tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2], [3, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2], [5, 3]]]
-      Nx = tailles[taillePavage - 1][type_de_pavage - 1][0]
-      Ny = tailles[taillePavage - 1][type_de_pavage - 1][1]
-      monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
+      const tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2], [3, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2], [5, 3]]]
+      Nx = tailles[taillePavage - 1][typeDePavage - 1][0]
+      Ny = tailles[taillePavage - 1][typeDePavage - 1][1]
+      monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
       fenetre = monpavage.fenetre
       while (couples.length < this.nbQuestions + 2 && nombreTentatives < 3) { // On cherche d pour avoir suffisamment de couples
         couples = [] // On vide la liste des couples pour une nouvelle recherche
@@ -139,7 +147,7 @@ export default function Pavage_et_translation2d () {
         d.epaisseur = 3
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
           image = translacion(monpavage, v, i)
-          if (image != -1) { // si l'image du polygone i existe, on ajoute le couple à la liste
+          if (image !== -1) { // si l'image du polygone i existe, on ajoute le couple à la liste
             couples.push([i, image])
           }
         }
@@ -147,8 +155,8 @@ export default function Pavage_et_translation2d () {
         nombreTentatives++
       }
       if (couples.length < this.nbQuestions) {
-        if (this.sup3 == 7) {
-          type_de_pavage = (type_de_pavage + 1) % 5 + 1
+        if (this.sup3 === 7) {
+          typeDePavage = (typeDePavage + 1) % 5 + 1
         }
         nombrePavageTestes++
       }
