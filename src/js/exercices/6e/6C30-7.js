@@ -2,6 +2,8 @@ import Exercice from '../Exercice.js'
 import { calcul, listeQuestionsToContenu, combinaisonListes, choice, range, rangeMinMax, texNombre3, texteEnCouleurEtGras, enleveElement, numAlpha, randint, lampeMessage } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 import { min } from 'mathjs'
+import { context } from '../../modules/context.js'
+import { glisseNombre, mathalea2d } from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -101,6 +103,7 @@ export default function DiviserUnNombreParPuissanceDeDix () {
       if (this.interactif) {
         texte += '<br>' + propositionsQcm(this, i).texte
       }
+      if (context.isHtml) texteCorr += mathalea2d({ xmin: 2.5, xmax: 27.5, ymin: -5, ymax: 5.5 }, glisseNombre(exemple, choixAlea - 3))
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
@@ -112,6 +115,6 @@ export default function DiviserUnNombreParPuissanceDeDix () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Dans la correction, les nombres-exemples sont entiers', false]
+  this.besoinFormulaireCaseACocher = ['Les nombres-exemples sont entiers', false]
   this.besoinFormulaire2CaseACocher = ['Exercice avec un raisonnement associé', true]
 }

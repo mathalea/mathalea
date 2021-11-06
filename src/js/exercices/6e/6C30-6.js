@@ -137,7 +137,7 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Dans la correction, les nombres-exemples sont entiers', false]
+  this.besoinFormulaireCaseACocher = ['Les nombres-exemples sont entiers', false]
   this.besoinFormulaire2CaseACocher = ['Exercice avec un raisonnement associé', true]
   this.besoinFormulaire3Numerique = ['Type de questions', 3, ' 1 : Dizaines, centaines, milliers\n 2 : Dixièmes, centièmes, millièmes\n 3 : Mélange']
 }
