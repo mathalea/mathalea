@@ -15,10 +15,12 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 */
 export default function ReconnaitreFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
+  this.formatInteractif = 'calcul'
   this.nouvelleVersion = function () {
+    this.listeCorrections = []
+    this.listeQuestions = []
     let a, b, c
     switch (choice([1, 2, 3])) { //
       case 1 :// b+ax
