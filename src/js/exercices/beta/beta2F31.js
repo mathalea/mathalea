@@ -1,14 +1,14 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint } from '../../modules/outils.js'
 import { courbe2, droite, mathalea2d, repere2 } from '../../modules/2d.js'
-export const titre = 'Exercice exemple'
+export const titre = 'Croissance de fonction ?'
 
 /**
  * Description didactique de l'exercice
  * @author
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function CroissanceDeFonction () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 3
@@ -24,7 +24,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     const typeFonctionsDisponibles = ['affine', 'carré', 'inverse', 'cube', 'racine carrée'] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeFonctionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, a, b, x0, x1, coeff, y1, f, r, graph, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, b, x0, x1, coeff, f, r, graph, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       r = repere2({ xMin: -10, yMin: -10, xMax: 10, yMax: 10 })
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent

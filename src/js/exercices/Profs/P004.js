@@ -10,7 +10,7 @@ export const titre = 'Droites graduées avec zoom'
  * ref P004
  * @author Jean-Claude Lhote
  */
-export default function Feuille_de_zooms () {
+export default function FeuilleDeZooms () {
   Exercice.call(this)
   this.nbCols = 1
   this.sup = 1
@@ -18,22 +18,22 @@ export default function Feuille_de_zooms () {
 
   this.nouvelleVersion = function () {
     this.contenu = ''
-    let d1; let d2; let d3; let texte = ''; let extremite; let extreme; let noms = []; let xmin; let origine; let xmax
-    let x1 = 0; let x2 = 0; let x3 = 0; let x21; let x31; const objets = []; let fenetre; let thickOff = 0; let pA1; let pA2; let pB2; let pB1; let pC1; let pC2; let pD1; let pD2; let sA; let sB; let sC; let sD
+    let texte = ''
+    const noms = choisitLettresDifferentes(5, 'QFN')
+    let xmin, origine, xmax, x1, x2, x3, x21, x31, pA1, pA2, pB1, pB2, pC1, pC2, pD1, pD2, sA, sB, sC, sD, extremite, fenetre
+    const objets = []
     for (let n = 0; n < 8 / parseInt(this.sup); n++) {
-      noms = choisitLettresDifferentes(5, 'QFN')
       objets.length = 0
-      if (this.sup == 1) {
+      if (parseInt(this.sup) === 1) {
         xmin = randint(5, 10) - 0.2
         origine = Math.round(xmin + 0.2)
-        extreme = calcul(origine + 9)
-        thickOff = 0.1
+        const thickOff = 0.1
         xmax = origine + 9.2
 
         x1 = calcul(xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10)
         extremite = '->'
 
-        d1 = droiteGraduee2({
+        const d1 = droiteGraduee2({
           x: 0,
           y: 3,
           Min: xmin,
@@ -56,7 +56,7 @@ export default function Feuille_de_zooms () {
           pointEpaisseur: 2,
           axeStyle: extremite
         })
-        d2 = droiteGraduee2({
+        const d2 = droiteGraduee2({
           x: Math.floor(x1) - xmin + 1.5,
           y: 0,
           Min: Math.floor(x1),
@@ -99,10 +99,10 @@ export default function Feuille_de_zooms () {
         x31 = calcul(x21 + 0.01)
         xmin = Math.floor(x2)
         xmax = xmin + 1
-        thickOff = 0.001
+        const thickOff = 0.001
 
         extremite = '->'
-        d1 = droiteGraduee2({
+        const d1 = droiteGraduee2({
           x: 0,
           y: 6,
           Min: xmin,
@@ -127,7 +127,7 @@ export default function Feuille_de_zooms () {
           pointEpaisseur: 3,
           axeStyle: extremite
         })
-        d2 = droiteGraduee2({
+        const d2 = droiteGraduee2({
           x: 6.5,
           y: 3,
           Min: x2,
@@ -152,7 +152,7 @@ export default function Feuille_de_zooms () {
           pointEpaisseur: 2,
           axeStyle: extremite
         })
-        d3 = droiteGraduee2({
+        const d3 = droiteGraduee2({
           x: 6.5,
           y: 0,
           Min: x21,
@@ -194,8 +194,6 @@ export default function Feuille_de_zooms () {
         sD.pointilles = true
         fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm: 25, scale: 0.5 }
         objets.push(d1, d2, d3, sA, sB, sC, sD)
-
-        const partent = Math.floor(x1)
       }
       texte = mathalea2d(fenetre, objets)
 

@@ -1,8 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, numAlpha, arrondi, calcul, texNombre, texNombrec, arrondiVirgule } from '../../modules/outils.js'
-import { texteSurSegment, tracePoint, labelPoint, projectionOrtho, pointAdistance, droite, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js'
-import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d, homothetie3d } from '../../modules/3d.js'
+import { listeQuestionsToContenu, randint, arrondi, calcul, texNombre, texNombrec, arrondiVirgule } from '../../modules/outils.js'
+import { texteSurSegment, pointAdistance, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Calculer la hauteur d’un objet vu sous un angle donné'
 
 /**
@@ -10,7 +9,7 @@ export const titre = 'Calculer la hauteur d’un objet vu sous un angle donné'
  * @author Jean-Claude Lhote
  * Référence 3G32-2
 */
-export default function Calculs_trigonometriques2 () {
+export default function CalculsTrigonometriques2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -27,7 +26,7 @@ export default function Calculs_trigonometriques2 () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const objet = [['arbre', 'un', ''], ['immeuble', 'un', ''], ['éolienne', 'une', 'te'], ['coline', 'une', 'te']]
-    let distance; let hauteur; let alfa; let baita; let beta; let alpha; let teta; let taille; let index; let A; let B; let O; let H; let S; let C; let M; let R; let R2; let Axe; let normalV; let normalH; let P; let HP; let Sph; let OP; let PoleNord; let PoleSud; let objets = []; let p
+    let distance; let hauteur; let alfa; let baita; let beta; let alpha; let teta; let taille; let index; let A; let B; let O; let H; let S; let objets = []; let p
     if (context.isHtml) {
       alfa = 'α'
       baita = 'β'
@@ -36,7 +35,7 @@ export default function Calculs_trigonometriques2 () {
       baita = '\\beta'
     }
 
-    for (let i = 0, texte, texteCorr, j, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
 
       objets = []

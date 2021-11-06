@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, texNombre, puissanceEnProduit } from '../../modules/outils.js'
 export const titre = 'Écriture décimale d’une puissance'
 
@@ -18,27 +17,28 @@ export default function EcritureDecimalePuissance () {
   this.sup = 3 // exposants positifs et négatifs par défaut
 
   this.nouvelleVersion = function () {
+    this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const liste_de_calculs = combinaisonListes([[2, 2], [2, 3], [2, 4], [2, 5], [2, 6], [3, 2], [3, 3], [3, 4], [4, 2], [4, 3], [5, 2], [5, 3], [6, 2], [6, 3], [7, 2], [7, 3], [8, 2], [8, 3], [9, 2], [9, 3]], this.nbQuestions)
+    const listeDeCalculs = combinaisonListes([[2, 2], [2, 3], [2, 4], [2, 5], [2, 6], [3, 2], [3, 3], [3, 4], [4, 2], [4, 3], [5, 2], [5, 3], [6, 2], [6, 3], [7, 2], [7, 3], [8, 2], [8, 3], [9, 2], [9, 3]], this.nbQuestions)
 
     let listeTypeDeQuestions
-    if (this.sup == 1) {
+    if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(['+'], this.nbQuestions)
       this.consigne = "Donner l'écriture sous la forme d'un nombre entier."
     }
-    if (this.sup == 2) {
+    if (this.sup === 2) {
       listeTypeDeQuestions = combinaisonListes(['-'], this.nbQuestions)
     }
-    if (this.sup == 3) {
+    if (this.sup === 3) {
       listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions)
     }
     for (let i = 0, texte, texteCorr, a, n, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case '+':
-          a = liste_de_calculs[i][0]
-          n = liste_de_calculs[i][1]
+          a = listeDeCalculs[i][0]
+          n = listeDeCalculs[i][1]
           texte = `$${a}^{${n}}$`
           if (n < 2) {
             texteCorr = `${a}^${n}=$${a}**n}$`
@@ -47,8 +47,8 @@ export default function EcritureDecimalePuissance () {
           }
           break
         case '-':
-          a = liste_de_calculs[i][0]
-          n = liste_de_calculs[i][1]
+          a = listeDeCalculs[i][0]
+          n = listeDeCalculs[i][1]
           texte = `$${a}^{${-n}}$`
           texteCorr = `$${a}^{${-n}}=\\dfrac{1}{${a}^{${n}}}=\\dfrac{1}{${puissanceEnProduit(a, n)}}=\\dfrac{1}{${texNombre(a ** n)}}$`
           break

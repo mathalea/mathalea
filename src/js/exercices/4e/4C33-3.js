@@ -12,10 +12,9 @@ export const titre = 'Puissances : Calculs automatisés et règles de calculs'
  * @author Sébastien Lozano
  * 4C33-3
  */
-export default function Puissances_d_un_relatif_2 () {
+export default function PuissancesDUnRelatif2 () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
-  // this.sup = 1;
   this.titre = titre
   context.isHtml
     ? (this.consigne = 'Écrire sous la forme $\\mathbf{a^n}$.')
@@ -64,8 +63,8 @@ export default function Puissances_d_un_relatif_2 () {
           texteCorr += ` = ${base}^{${exp[0] + 2}-${exp[1] + exp[2]}}`
           texteCorr += ` = ${base}^{${exp[0] + 2 - exp[1] - exp[2]}}`
           if (
-            exp[0] + 2 - exp[1] - exp[2] == 0 ||
-            exp[0] + 2 - exp[1] - exp[2] == 1
+            exp[0] + 2 - exp[1] - exp[2] === 0 ||
+            exp[0] + 2 - exp[1] - exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(base, exp[0] + 2 - exp[1] - exp[2])
@@ -85,7 +84,7 @@ export default function Puissances_d_un_relatif_2 () {
             }}`
           texteCorr += ` = ${base}^{${exp[0] + 3}-${exp[1]}}`
           texteCorr += ` = ${base}^{${exp[0] + 3 - exp[1]}}`
-          if (exp[0] + 3 - exp[1] == 0 || exp[0] + 3 - exp[1] == 1) {
+          if (exp[0] + 3 - exp[1] === 0 || exp[0] + 3 - exp[1] === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(base, exp[0] + 3 - exp[1])
           }
@@ -95,7 +94,7 @@ export default function Puissances_d_un_relatif_2 () {
           base = 5 // on travaille sur cette base mais on pourrait rendre la base aléatoire
           exp = [randint(1, 7, [1]), randint(1, 2)] // on a besoin de 2 exposants distincts
           // le second exposant ne peut valoir que 1 ou 2 la fonction testExp ne convient pas à l'affichage ici
-          if (exp[1] == 2) {
+          if (exp[1] === 2) {
             texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2}^${exp[1]
               }}$`
             texteCorr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2
@@ -112,7 +111,7 @@ export default function Puissances_d_un_relatif_2 () {
           }
           texteCorr += `=${base}^{${1 + exp[0]}-${2 * exp[1]}}`
           texteCorr += `=${base}^{${1 + exp[0] - 2 * exp[1]}}`
-          if (1 + exp[0] - 2 * exp[1] == 0 || 1 + exp[0] - 2 * exp[1] == 1) {
+          if (1 + exp[0] - 2 * exp[1] === 0 || 1 + exp[0] - 2 * exp[1] === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(base, 1 + exp[0] - 2 * exp[1])
           }
@@ -130,7 +129,7 @@ export default function Puissances_d_un_relatif_2 () {
           texteCorr += `=\\dfrac{${base}^{${1 + exp[0]}}}{${base}^{${2 + 2}}}`
           texteCorr += `=${base}^{${1 + exp[0]}-${2 + 2}}`
           texteCorr += `=${base}^{${1 + exp[0] - 2 - 2}}`
-          if (1 + exp[0] - 2 - 2 == 0 || 1 + exp[0] - 2 - 2 == 1) {
+          if (1 + exp[0] - 2 - 2 === 0 || 1 + exp[0] - 2 - 2 === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(base, 1 + exp[0] - 2 - 2)
           }
@@ -181,8 +180,8 @@ export default function Puissances_d_un_relatif_2 () {
           texteCorr += `=${base}^{${exp[0] + exp[1] + 1}-${2 * exp[2]}}`
           texteCorr += `=${base}^{${exp[0] + exp[1] + 1 - 2 * exp[2]}}`
           if (
-            exp[0] + exp[1] + 1 - 2 * exp[2] == 0 ||
-            exp[0] + exp[1] + 1 - 2 * exp[2] == 1
+            exp[0] + exp[1] + 1 - 2 * exp[2] === 0 ||
+            exp[0] + exp[1] + 1 - 2 * exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
             texteCorr += '=' + simpExp(base, exp[0] + exp[1] + 1 - 2 * exp[2])
@@ -201,7 +200,7 @@ export default function Puissances_d_un_relatif_2 () {
           texteCorr += `=\\dfrac{${base}^{4}}{${base}^{${2 * exp[0]}}}`
           texteCorr += `=${base}^{4-${2 * exp[0]}}`
           texteCorr += `=${base}^{${3 + 1 - 2 * exp[0]}}`
-          if (3 + 1 - 2 * exp[0] == 0 || 3 + 1 - 2 * exp[0] == 1) {
+          if (3 + 1 - 2 * exp[0] === 0 || 3 + 1 - 2 * exp[0] === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
             texteCorr += '=' + simpExp(base, 3 + 1 - 2 * exp[0])
           }

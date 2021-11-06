@@ -10,7 +10,7 @@ export const titre = 'Trouver l’image d’une figure par une rotation dans un 
  * Trouver l'image par sune rotation d'une figure dans un pavage
  * Ref 3G12
  */
-export default function Pavage_et_rotation2d () {
+export default function PavageEtRotation2D () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -26,13 +26,17 @@ export default function Pavage_et_rotation2d () {
   this.sup3 = 7
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   this.nouvelleVersion = function () {
+    this.sup = Number(this.sup)
+    this.sup3 = Number(this.sup3)
     const videcouples = function (tableau) {
       for (let k = 0; k < tableau.length; k++) {
-        if (tableau[k][0] == tableau[k][1]) {
+        if (tableau[k][0] === tableau[k][1]) {
           tableau.splice(k, 1)
         }
         for (let j = k + 1; j < tableau.length; j++) {
-          if (tableau[k][1] == tableau[j][0]) {
+          // eslint-disable-next-line no-empty
+          if (tableau[k][1] === tableau[j][0]) {
+
           }
         }
       }
@@ -44,7 +48,7 @@ export default function Pavage_et_rotation2d () {
       } else { return false }
     }
     const comparenbsommets = function (poly1, poly2) {
-      if (poly1.listePoints.length == poly2.listePoints.length) {
+      if (poly1.listePoints.length === poly2.listePoints.length) {
         return true
       } else { return false }
     }
@@ -73,7 +77,7 @@ export default function Pavage_et_rotation2d () {
           if (trouves < 0) { break }
         }
       }
-      if (trouves == poly1.listePoints.length) { return true } else { return false }
+      if (trouves === poly1.listePoints.length) { return true } else { return false }
     }
 
     const rotaccion = function (pavage, A, angle, numero) {
@@ -101,23 +105,23 @@ export default function Pavage_et_rotation2d () {
     this.listeCorrections = []
     this.listeQuestions = []
     let Nx; let Ny; let index1; let A; let image; let couples = []; let tailles = []; let monpavage; let fenetre
-    let texte = ''; let texteCorr = ''; let type_de_pavage = parseInt(this.sup)
+    let texte = ''; let texteCorr = ''; let typeDePavage = parseInt(this.sup)
     let nombreTentatives; let nombrePavageTestes = 1
     let sensdirect, M, N, trace, label, P1, P2, P3, t
     const alphas = [[60, 120, 180], [90, 180], [60, 120, 180], [60, 120, 180, 90], [45, 90, 135, 180], [60, 120, 180], [60, 120, 180]]; let alpha
-    if (this.sup3 == 8) {
-      type_de_pavage = randint(1, 7)
+    if (this.sup3 === 8) {
+      typeDePavage = randint(1, 7)
     } else {
-      type_de_pavage = parseInt(this.sup3)
+      typeDePavage = parseInt(this.sup3)
     }
     while (couples.length < this.nbQuestions && nombrePavageTestes < 6) {
       nombreTentatives = 0
       monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
       tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2], [3, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2], [5, 3]]]
 
-      Nx = tailles[taillePavage - 1][type_de_pavage - 1][0]
-      Ny = tailles[taillePavage - 1][type_de_pavage - 1][1]
-      monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
+      Nx = tailles[taillePavage - 1][typeDePavage - 1][0]
+      Ny = tailles[taillePavage - 1][typeDePavage - 1][1]
+      monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
       fenetre = monpavage.fenetre
       // fenetreMathalea2d = [fenetre.xmin, fenetre.ymin, fenetre.xmax, fenetre.ymax];
       while (couples.length < this.nbQuestions + 2 && nombreTentatives < 3) { // On cherche d pour avoir suffisamment de couples
@@ -144,11 +148,11 @@ export default function Pavage_et_rotation2d () {
         trace.epaisseur = 3
         trace.taille = 4
         trace.color = 'red'
-        alpha = alphas[type_de_pavage - 1][randint(0, alphas[type_de_pavage - 1].length - 1)]
+        alpha = alphas[typeDePavage - 1][randint(0, alphas[typeDePavage - 1].length - 1)]
         sensdirect = choice([1, -1])
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
           image = rotaccion(monpavage, A, alpha * sensdirect, i)
-          if (image != -1) { // si l'image du polygone i existe, on ajoute le couple à la liste
+          if (image !== -1) { // si l'image du polygone i existe, on ajoute le couple à la liste
             couples.push([i, image])
           }
         }
@@ -156,8 +160,8 @@ export default function Pavage_et_rotation2d () {
         nombreTentatives++
       }
       if (couples.length < this.nbQuestions) {
-        if (this.sup3 == 7) {
-          type_de_pavage = (type_de_pavage + 1) % 5 + 1
+        if (this.sup3 === 7) {
+          typeDePavage = (typeDePavage + 1) % 5 + 1
         }
         nombrePavageTestes++
       }
@@ -182,14 +186,14 @@ export default function Pavage_et_rotation2d () {
       objets.push(monpavage.polygones[i])
     }
     texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
-    texte += `<br>Soit la rotation de centre $A$ et d\'angle ${alpha}° dans le sens `
-    if (sensdirect == 1) {
+    texte += `<br>Soit la rotation de centre $A$ et d'angle ${alpha}° dans le sens `
+    if (sensdirect === 1) {
       texte += 'inverse des aiguilles d\'une montre.<br>'
     } else {
       texte += 'des aiguilles d\'une montre.<br>'
     }
-    texteCorr += `Soit la rotation de centre $A$ et d\'angle ${alpha}° dans le sens `
-    if (sensdirect == 1) {
+    texteCorr += `Soit la rotation de centre $A$ et d'angle ${alpha}° dans le sens `
+    if (sensdirect === 1) {
       texteCorr += 'inverse des aiguilles d\'une montre. <br>'
     } else {
       texteCorr += 'des aiguilles d\'une montre. <br>'

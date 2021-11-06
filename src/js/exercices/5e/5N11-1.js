@@ -1,4 +1,4 @@
-import Tableaux_et_pourcentages from './_Tableaux_et_pourcentages.js'
+import TableauxEtPourcentages from './_Tableaux_et_pourcentages.js'
 
 export const titre = 'Tableaux et pourcentages - prix constant'
 
@@ -9,8 +9,8 @@ export const titre = 'Tableaux et pourcentages - prix constant'
  * @author Sébastien Lozano
  */
 
-export default function Tableaux_et_pourcentages_prix_constant () {
+export default function TableauxEtPourcentagesPrixConstant () {
   this.exo = '5N11-1'
   this.titre = titre
-  Tableaux_et_pourcentages.call(this)
+  TableauxEtPourcentages.call(this)
 };

@@ -1,7 +1,6 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, choice } from '../../modules/outils.js'
-import { cercleCentrePoint, cercle, codeSegments, pointAdistance, pointIntersectionLC, texteParPosition, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, homothetie, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d } from '../../modules/2d.js'
+import { cercleCentrePoint, cercle, codeSegments, pointAdistance, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Construire des parallélogrammes avec dispositif d’auto-correction'
@@ -12,7 +11,7 @@ export const titre = 'Construire des parallélogrammes avec dispositif d’auto-
  * @author Jean-Claude Lhote (exercice) et Rémi Angot (animations)
  * Publié le 30/11/2020
  */
-export default function Constructions_parallelogrammes () {
+export default function ConstructionsParallelogrammes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -36,9 +35,9 @@ export default function Constructions_parallelogrammes () {
     }
     // On prépare la figure...
     const noms = choisitLettresDifferentes(5, 'QO', true) // on choisit 5 lettres, les 4 premières sont les sommets, la 5e est le centre
-    let type_de_question
-    if (this.sup < 5) type_de_question = parseInt(this.sup)
-    else type_de_question = randint(1, 4)
+    let typeDeQuestion
+    if (this.sup < 5) typeDeQuestion = parseInt(this.sup)
+    else typeDeQuestion = randint(1, 4)
     const nom = `${noms[0] + noms[1] + noms[2] + noms[3]}`
     const objetsEnonce = []
     const objetsCorrection = []
@@ -54,8 +53,6 @@ export default function Constructions_parallelogrammes () {
     const d3 = segment(O, C)
     const d4 = segment(O, D)
     const c1 = segment(A, B)
-    const c2 = segment(B, C)
-    const c3 = segment(C, D)
     const c4 = segment(D, A)
     const dd1 = droite(A, B)
     const dd2 = droite(A, D)
@@ -87,7 +84,7 @@ export default function Constructions_parallelogrammes () {
     const animIEP = new Alea2iep()
     animIEP.recadre(xMin, yMax) // Il faut recadrer en première étape pour bien calculer les coordonnées des points
 
-    switch (type_de_question) {
+    switch (typeDeQuestion) {
       case 1: // deux côtés consécutifs
         this.consigne = `Construire le parallélogramme $${nom}$.`
         texteCorr = 'Plusieurs constructions sont possibles :<br>'

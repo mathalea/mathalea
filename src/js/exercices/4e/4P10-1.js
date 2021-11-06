@@ -8,7 +8,7 @@ export const titre = 'Résoudre un problème de proportionnalité à l’aide d�
  * fork de 4P10-1 par Jean-Claude Lhote
  */
 
-export default function Graphiques_et_proportionnalite2 () {
+export default function GraphiquesEtProportionnalite2 () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
@@ -46,12 +46,12 @@ export default function Graphiques_et_proportionnalite2 () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on prévoit un peu d'aléatoire pour les prix unitaires
-      const pu_oranges = choice([1.2, 1.4, 1.6, 1.8])
-      const pu_baguettes = choice([0.6, 0.8, 1.2])
+      const prixUnitaireOranges = choice([1.2, 1.4, 1.6, 1.8])
+      const prixUnitaireBaguettes = choice([0.6, 0.8, 1.2])
       // on prévoit un tableau avec des situations
       const situations = [
-        { lieu: 'l\'épicerie', prenom: prenom(), articles: 'oranges', art_articles: 'd\'oranges', prix_unitaire: pu_oranges, qte: 'poids', qte_max: 10, qte2: 3, unite: 'kg d\'', legendeX: 'poids en kg', legendeY: 'prix en €', fig: {}, fig_corr: {} },
-        { lieu: 'la boulangerie', prenom: prenom(), articles: 'baguettes', art_articles: 'de baguettes', prix_unitaire: pu_baguettes, qte: 'nombre', qte_max: 10, qte2: 3, unite: '', legendeX: 'quantité', legendeY: 'prix en €', fig: {}, fig_corr: {} }
+        { lieu: 'l\'épicerie', prenom: prenom(), articles: 'oranges', art_articles: 'd\'oranges', prix_unitaire: prixUnitaireOranges, qte: 'poids', qte_max: 10, qte2: 3, unite: 'kg d\'', legendeX: 'poids en kg', legendeY: 'prix en €', fig: {}, figureCorr: {} },
+        { lieu: 'la boulangerie', prenom: prenom(), articles: 'baguettes', art_articles: 'de baguettes', prix_unitaire: prixUnitaireBaguettes, qte: 'nombre', qte_max: 10, qte2: 3, unite: '', legendeX: 'quantité', legendeY: 'prix en €', fig: {}, figureCorr: {} }
       ]
       // on en choisit une
       const situation = situations[randint(0, situations.length - 1)]
@@ -60,7 +60,7 @@ export default function Graphiques_et_proportionnalite2 () {
       const yscale = choice([1, 2, 5])
       // pour aléatoiriser un peu le pas sur l'axe des prix
       let stepAxeSecondaire
-      if (yscale == 1) stepAxeSecondaire = choice([0.5, 0.2, 0.25])
+      if (yscale === 1) stepAxeSecondaire = choice([0.5, 0.2, 0.25])
       // on finit les appels
       const mesAppels = [
         r = repere({
@@ -93,7 +93,7 @@ export default function Graphiques_et_proportionnalite2 () {
       situation.fig = fig
 
       // on prépare les appels supplémentaires pour la correction
-      const mesAppels_corr = mesAppels
+      const mesAppelsCorr = mesAppels
       const A = point(situation.qte_max, 0)
       const B = point(situation.qte_max, calcul(situation.qte_max * situation.prix_unitaire / yscale))
       const s1 = segment(A, B, 'red')
@@ -119,7 +119,7 @@ export default function Graphiques_et_proportionnalite2 () {
       s4.styleExtremites = '->'
 
       // on ajoute les appels pour la correction
-      mesAppels_corr.push(
+      mesAppelsCorr.push(
         s1,
         s2,
         s3,
@@ -127,7 +127,7 @@ export default function Graphiques_et_proportionnalite2 () {
       )
 
       // on prépare l'objet figure correction
-      const fig_corr = mathalea2d(
+      const figureCorr = mathalea2d(
         {
           xmin: -xscale,
           ymin: -yscale,
@@ -135,13 +135,13 @@ export default function Graphiques_et_proportionnalite2 () {
           ymax: (situation.qte_max * situation.prix_unitaire + 4) / 2 + 1,
           pixelsParCm: 40
         },
-        mesAppels_corr
+        mesAppelsCorr
       )
-      situation.fig_corr = fig_corr
+      situation.figureCorr = figureCorr
 
       // un compteur pour les sous-questions
       let k = 0
-      let k_corr = 0
+      let kCorr = 0
 
       const enonces = []
       enonces.push({
@@ -154,12 +154,12 @@ export default function Graphiques_et_proportionnalite2 () {
           `,
         // question:``,
         correction: `
-        <br> ${numAlpha(k_corr++)} Ce graphique est une droite qui passe par l'origine.
+        <br> ${numAlpha(kCorr++)} Ce graphique est une droite qui passe par l'origine.
         <br> ${texteEnCouleur('C\'est donc bien le graphique d\'une situation de proportionnalité.')}
 
-        <br> ${numAlpha(k_corr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texteEnCouleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ €.`)}
-        <br> ${situation.fig_corr}
-        <br> ${numAlpha(k_corr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
+        <br> ${numAlpha(kCorr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texteEnCouleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ €.`)}
+        <br> ${situation.figureCorr}
+        <br> ${numAlpha(kCorr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
         <br><br> ${texteGras('Première méthode par lecture graphique :')} 
         <br> Il faut prendre en compte que chaque petit carreau représente $${texPrix(stepAxeSecondaire * yscale)}$ € et utiliser les pointillés bleus.
         <br><br> ${texteGras('Seconde méthode en calculant une quatrième proportionnelle :')}

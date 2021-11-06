@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
-import { symetrieAnimee, rotationAnimee, translationAnimee, polygone, pointIntersectionDD, mathalea2d, point, milieu, pointSurSegment, droite, mediatrice, translation, similitude, rotation, pointAdistance, longueur, symetrieAxiale, vecteur, latexParPoint, tracePoint, labelPoint, polygoneAvecNom, renommePolygone, nommePolygone } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { symetrieAnimee, rotationAnimee, translationAnimee, polygone, mathalea2d, point, milieu, pointSurSegment, droite, mediatrice, translation, similitude, rotation, pointAdistance, longueur, symetrieAxiale, vecteur, latexParPoint, tracePoint, labelPoint, polygoneAvecNom, renommePolygone, nommePolygone } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Tranformations de triangle'
@@ -38,16 +38,14 @@ export default function LeNomDeLaFonctionExercice () {
     // boucle pour fabriquer les nbQuestions questions en s'assurant que si il n'y a pas nbQuestions différentes
     // La boucle s'arrête après 50 tentatives.
 
-    let objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection
-
-    objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-    objetsCorrection = [] // Idem pour la correction
+    const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
+    const objetsCorrection = [] // Idem pour la correction
 
     let texteCorr = '' // Idem pour le texte de la correction.
     let largeur = 20; let hauteur = 20
-    let A, B, C, triangle, triangle0, O, M, X, Y, triangle1, A1, B1, C1, d1, AA1, triangle2, med, nomd, D, F, triangle3, triangle4, triangle5, traces, labels
+    let A, B, C, triangle, triangle0, O, M, X, Y, triangle1, A1, B1, C1, d1, triangle2, med, D, F, triangle3, triangle4, triangle5, traces, labels
     let xMin, xMax, yMin, yMax
-    let bordure, alpha, beta
+    let alpha, beta
     const anim = new Alea2iep()
     /***************************************/
     /** ******Ici on définit les objets 2d */
@@ -73,7 +71,6 @@ export default function LeNomDeLaFonctionExercice () {
       renommePolygone(triangle1, ['A_1', 'B_1', 'C_1'])
       M = milieu(A, A1)
       d1 = droite(A1, B1)
-      AA1 = droite(A, A1)
       triangle2 = symetrieAxiale(triangle1, d1)
       renommePolygone(triangle2, ['A_1', 'B_1', 'C_1'])
       med = mediatrice(A, A1)
@@ -110,8 +107,7 @@ export default function LeNomDeLaFonctionExercice () {
     texte += '$A_3B_3C_3$ le triangle translaté de $A_2B_2C_2$ tel que $D$ soit transformé en $F$;<br>'
     texte += `$A_4B_4C_4$ le triangle obtenu par la rotation de $A_3B_3C_3$ de centre $F$ et d'angle $${Math.abs(alpha)}\\degree$ dans le sens des aiguilles d'une montre.<br>`
 
-    bordure = droite(point(xMin, yMin + 2), point(xMax, yMin + 2))
-    nomd = latexParPoint('(d)', translation(milieu(B, B1), vecteur(1, 0)), 'black', 30, 12, '')
+    const nomd = latexParPoint('(d)', translation(milieu(B, B1), vecteur(1, 0)), 'black', 30, 12, '')
     const triangle2a = symetrieAnimee(triangle0, med, `id='anim${numeroExercice}A' begin="0s" dur ="2s" repeatcount="1" fill="freeze"`)
     const triangle3a = rotationAnimee(triangle2, D, 180, `id='anim${numeroExercice}B' begin="2s" dur ="2s" repeatcount="1" fill="freeze"`)
     const triangle4a = translationAnimee(triangle3, vecteur(D, F), `id='anim${numeroExercice}C' begin="4s" dur ="2s" repeatcount="1" fill="freeze"`)
@@ -137,9 +133,9 @@ export default function LeNomDeLaFonctionExercice () {
     // paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
     //    paramsEnonceml = { xmin: Math.min(objetsEnonceml.x), ymin: Math.min(objetsEnonceml.y), xmax: Math.max(objetsEnonceml.x), ymax: Math.max(objetsEnonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
     // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-    paramsEnonce = { xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1, mainlevee: false }
+    const paramsEnonce = { xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1, mainlevee: false }
     // paramètres de la fenêtre Mathalea2d pour la correction
-    paramsCorrection = { xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }
+    const paramsCorrection = { xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }
     // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
     texte += mathalea2d(paramsEnonce, objetsEnonce)
     // On ajoute au texte de la correction, la figure de la correction
@@ -159,7 +155,7 @@ export default function LeNomDeLaFonctionExercice () {
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
-  //	this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+  // this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
   //  this.besoinFormulaire2Numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
   // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
 } // Fin de l'exercice.

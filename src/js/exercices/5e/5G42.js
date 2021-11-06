@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, choisitLettresDifferentes } from '../../modules/outils.js'
 import { mathalea2d, point, rotation, codeSegments, segment, polygoneAvecNom, codageAngleDroit, labelPoint, similitude } from '../../modules/2d.js'
 export const titre = 'Nature de parallélogrammes'
@@ -7,9 +6,9 @@ export const titre = 'Nature de parallélogrammes'
 /**
  * Description didactique de l'exercice
  * @author
- * Référence
+ * Référence 5G42
 */
-export default function demonstrations_parallelogrammes () {
+export default function demonstrationsParallelogrammes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -25,10 +24,9 @@ export default function demonstrations_parallelogrammes () {
 
     const typesDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7'] // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, objets, O, A, B, C, D, p, t1, t2, t3, t4, s1, s2, s3, s4, d1, d2, texte, texteCorr, noms, nom, prop1, prop2, type, def, centre, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, objets, O, A, B, C, D, p, t1, t2, t3, t4, s1, s2, s3, s4, d1, d2, texte, texteCorr, noms, nom, prop1, prop2, type, def, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       noms = choisitLettresDifferentes(5, 'Q')
       nom = `$${noms[0] + noms[1] + noms[2] + noms[3]}$`
-      centre = `$${noms[4]}$`
       objets = []
       O = point(0, 0, noms[4], 'above left')
       A = rotation(point(3, 0), O, randint(0, 90), noms[0])

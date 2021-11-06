@@ -48,6 +48,7 @@ export default function EvolutionsEnPourcentage () {
     const situationsDisponibles = ['prix', 'etablissement', 'facture', 'population']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const typesDeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let date, cetteAnnee, anneeDerniere, etablissement, facture, nb
     for (let i = 0, texte, texteCorr, depart, arrive, taux, coeff, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typesDeSituations[i]) {
         case 'prix':
@@ -123,10 +124,10 @@ export default function EvolutionsEnPourcentage () {
           }
           arrive = calcul(depart * (1 + taux / 100))
           coeff = texNombrec(1 + taux / 100)
-          const date = new Date()
-          const cetteAnnee = date.getFullYear()
-          const anneeDerniere = cetteAnnee - 1
-          const etablissement = choice(['collège', 'lycée'])
+          date = new Date()
+          cetteAnnee = date.getFullYear()
+          anneeDerniere = cetteAnnee - 1
+          etablissement = choice(['collège', 'lycée'])
           switch (listeTypeDeQuestions[i]) {
             case 'finale':
               if (taux > 0) {
@@ -179,7 +180,7 @@ export default function EvolutionsEnPourcentage () {
           taux *= choice([-1, 1])
           coeff = texNombrec(1 + taux / 100)
           arrive = calcul(depart * (1 + taux / 100))
-          const facture = choice(["ma facture annuelle d'électricité", 'ma facture annuelle de gaz', "ma taxe d'habitation", 'mon ordinateur', 'mon vélo électrique'])
+          facture = choice(["ma facture annuelle d'électricité", 'ma facture annuelle de gaz', "ma taxe d'habitation", 'mon ordinateur', 'mon vélo électrique'])
           switch (listeTypeDeQuestions[i]) {
             case 'finale':
               if (taux > 0) {
@@ -232,7 +233,7 @@ export default function EvolutionsEnPourcentage () {
           taux *= choice([-1, 1])
           coeff = texNombrec(1 + taux / 100)
           arrive = calcul(depart * (1 + taux / 100))
-          const nb = randint(5, 15)
+          nb = randint(5, 15)
           switch (listeTypeDeQuestions[i]) {
             case 'finale':
               if (taux > 0) {

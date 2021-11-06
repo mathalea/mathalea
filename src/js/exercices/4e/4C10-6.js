@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu, randint, combinaisonListes,
   Relatif, lettreDepuisChiffre, ecritureNombreRelatif,

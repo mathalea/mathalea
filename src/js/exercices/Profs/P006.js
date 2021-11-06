@@ -10,7 +10,7 @@ export const titre = 'Placer un nombre décimal avec des zooms successifs'
  * ref P006
  * @author Jean-Claude Lhote
  */
-export default function Nombre_a_placer () {
+export default function NombreAPlacer () {
   Exercice.call(this)
   this.nbCols = 1
   this.nbQuestions = 1
@@ -22,9 +22,12 @@ export default function Nombre_a_placer () {
 
   this.nouvelleVersion = function () {
     this.contenu = ''
-    let d1; let d2; let d3; let texte = ''; let extremite; let noms = []
-    let x1 = 0; let x2 = 0; let x3 = 0; const objets = []; let fenetre; let thickOff = 0
-    noms = choisitLettresDifferentes(5, 'QFN')
+    let texte = ''
+    const noms = choisitLettresDifferentes(5, 'QFN')
+    let x1 = 0
+    let x2 = 0
+    let x3 = 0
+    const objets = []
     objets.length = 0
     x1 = parseFloat(this.sup2)
     x1 = arrondi(x1, 4)
@@ -34,10 +37,10 @@ export default function Nombre_a_placer () {
     const x31 = calcul(x21 + 0.01)
     const xmin = Math.floor(x2)
     const xmax = xmin + 1
-    thickOff = 0.0001
+    const thickOff = 0.0001
 
-    extremite = '->'
-    d1 = droiteGraduee2({
+    const extremite = '->'
+    const d1 = droiteGraduee2({
       x: 0,
       y: 6,
       Min: xmin,
@@ -62,7 +65,7 @@ export default function Nombre_a_placer () {
       pointEpaisseur: 3,
       axeStyle: extremite
     })
-    d2 = droiteGraduee2({
+    const d2 = droiteGraduee2({
       x: 6.5,
       y: 3,
       Min: x2,
@@ -87,7 +90,7 @@ export default function Nombre_a_placer () {
       pointEpaisseur: 2,
       axeStyle: extremite
     })
-    d3 = droiteGraduee2({
+    const d3 = droiteGraduee2({
       x: 6.5,
       y: 0,
       Min: x21,
@@ -128,8 +131,8 @@ export default function Nombre_a_placer () {
     const sD = segment(pD1, pD2)
     sC.pointilles = true
     sD.pointilles = true
-    fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm: 25, scale: 0.5 }
-    if (this.sup == 3) { objets.push(d1, d2, d3, sA, sB, sC, sD) } else if (this.sup == 2) { objets.push(d1, d2, sA, sB) } else { objets.push(d1) }
+    const fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm: 25, scale: 0.5 }
+    if (this.sup === 3) { objets.push(d1, d2, d3, sA, sB, sC, sD) } else if (this.sup === 2) { objets.push(d1, d2, sA, sB) } else { objets.push(d1) }
 
     texte = mathalea2d(fenetre, objets)
     this.contenu += texte

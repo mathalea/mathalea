@@ -9,7 +9,7 @@ export const titre = 'Equations résolvantes pour le théorème de Thalès'
  * * modification le 11/01/2021
  * @author Sébastien Lozano
  */
-export default function Eq_resolvantes_Thales () {
+export default function EqResolvantesThales () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -37,11 +37,11 @@ export default function Eq_resolvantes_Thales () {
       let sortie
       let texte = ''
       if (bool) {
-        if (b == c) {
+        if (b === c) {
           texte = `Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${a}$ !`
           sortie = warnMessage(texte, 'nombres', 'Keep Cool Guy !')
         };
-        if (c == a) {
+        if (c === a) {
           texte = `Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${b}$ !`
           sortie = warnMessage(texte, 'nombres', 'Keep Cool Guy !')
         }
@@ -65,59 +65,59 @@ export default function Eq_resolvantes_Thales () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on a besoin d'un coeff pour le type de nombres
-      let coeff
-      let nb_alea = [1, 1, 1]
-      let c_temp_case_3
-      while (c_temp_case_3 % 2 != 0 || c_temp_case_3 % 5 != 0) {
-        c_temp_case_3 = randint(11, 99)
+      let coeff, masterChoix
+      let nbAlea = [1, 1, 1]
+      let cTempCase3
+      while (cTempCase3 % 2 !== 0 || cTempCase3 % 5 !== 0) {
+        cTempCase3 = randint(11, 99)
       };
 
       this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
       switch (this.sup) {
         case 1: // entiers
           coeff = [1, 1, 1]
-          nb_alea[0] = randint(2, 9)
-          nb_alea[1] = randint(2, 9, nb_alea[0])
-          nb_alea[2] = choice([2, 4, 5, 8], [nb_alea[0], nb_alea[1]])
+          nbAlea[0] = randint(2, 9)
+          nbAlea[1] = randint(2, 9, nbAlea[0])
+          nbAlea[2] = choice([2, 4, 5, 8], [nbAlea[0], nbAlea[1]])
           break
         case 2: // relatifs
           coeff = [choice([1, -1]), choice([1, -1]), choice([1, -1])]
-          nb_alea[0] = randint(2, 9)
-          nb_alea[1] = randint(2, 9, nb_alea[0])
-          nb_alea[2] = choice([2, 4, 5, 8], [nb_alea[0], nb_alea[1]])
+          nbAlea[0] = randint(2, 9)
+          nbAlea[1] = randint(2, 9, nbAlea[0])
+          nbAlea[2] = choice([2, 4, 5, 8], [nbAlea[0], nbAlea[1]])
           break
         case 3: // décimaux
           coeff = [0.1, 0.1, 0.1]
-          nb_alea[0] = randint(2, 9)
-          nb_alea[1] = randint(2, 9, nb_alea[0])
-          nb_alea[2] = c_temp_case_3
+          nbAlea[0] = randint(2, 9)
+          nbAlea[1] = randint(2, 9, nbAlea[0])
+          nbAlea[2] = cTempCase3
           break
         case 4: // mélange
-          nb_alea[0] = randint(2, 9)
-          nb_alea[1] = randint(2, 9, nb_alea[0])
-          nb_alea[2] = choice([2, 4, 5, 8], [nb_alea[0], nb_alea[1]])
-          const masterChoix = choice([
-            { c: [1, 1, 1], na: [nb_alea[0], nb_alea[1], nb_alea[2]] },
-            { c: [choice([1, -1]), choice([1, -1]), choice([1, -1])], na: [nb_alea[0], nb_alea[1], nb_alea[2]] },
-            { c: [0.1, 0.1, 0.1], na: [randint(11, 99), randint(11, 99), c_temp_case_3] }
+          nbAlea[0] = randint(2, 9)
+          nbAlea[1] = randint(2, 9, nbAlea[0])
+          nbAlea[2] = choice([2, 4, 5, 8], [nbAlea[0], nbAlea[1]])
+          masterChoix = choice([
+            { c: [1, 1, 1], na: [nbAlea[0], nbAlea[1], nbAlea[2]] },
+            { c: [choice([1, -1]), choice([1, -1]), choice([1, -1])], na: [nbAlea[0], nbAlea[1], nbAlea[2]] },
+            { c: [0.1, 0.1, 0.1], na: [randint(11, 99), randint(11, 99), cTempCase3] }
           ])
           coeff = masterChoix.c
-          nb_alea = masterChoix.na
+          nbAlea = masterChoix.na
       };
 
       let inc
-      if (this.exo == '4L15-1') {
+      if (this.exo === '4L15-1') {
         inc = choice(['r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
-      } else if (this.exo == '4P10-2') {
+      } else if (this.exo === '4P10-2') {
         inc = ['?']
       } else {
         inc = choice(['x', 'y', 'GO', 'AB', 'z', 'GA', 'BU', 'ZO', 'ME'])
       };
 
       const params = {
-        a: calcul(nb_alea[0] * coeff[0]),
-        b: calcul(nb_alea[1] * coeff[1]),
-        c: calcul(nb_alea[2] * coeff[2]),
+        a: calcul(nbAlea[0] * coeff[0]),
+        b: calcul(nbAlea[1] * coeff[1]),
+        c: calcul(nbAlea[2] * coeff[2]),
         inc: inc
       }
 
@@ -130,7 +130,7 @@ export default function Eq_resolvantes_Thales () {
           b: params.b,
           c: params.c,
           inc: params.inc,
-          trivial: (params.b == params.c) || (params.c == params.a)
+          trivial: (params.b === params.c) || (params.c === params.a)
         },
         {
           eq: `\\dfrac{${texNombre(params.a)}}{${texNombre(params.c)}}=\\dfrac{${params.inc}}{${texNombre(params.b)}}`,
@@ -139,7 +139,7 @@ export default function Eq_resolvantes_Thales () {
           b: params.b,
           c: params.c,
           inc: params.inc,
-          trivial: (params.b == params.c) || (params.c == params.a)
+          trivial: (params.b === params.c) || (params.c === params.a)
         },
         {
           eq: `\\dfrac{${texNombre(params.b)}}{${params.inc}}=\\dfrac{${texNombre(params.c)}}{${texNombre(params.a)}}`,
@@ -148,7 +148,7 @@ export default function Eq_resolvantes_Thales () {
           b: params.b,
           c: params.c,
           inc: params.inc,
-          trivial: (params.b == params.c) || (params.c == params.a)
+          trivial: (params.b === params.c) || (params.c === params.a)
         },
         {
           eq: `\\dfrac{${texNombre(params.c)}}{${texNombre(params.a)}}=\\dfrac{${texNombre(params.b)}}{${params.inc}}`,
@@ -157,7 +157,7 @@ export default function Eq_resolvantes_Thales () {
           b: params.b,
           c: params.c,
           inc: params.inc,
-          trivial: (params.b == params.c) || (params.c == params.a)
+          trivial: (params.b === params.c) || (params.c === params.a)
         }
       ]
 
@@ -166,7 +166,7 @@ export default function Eq_resolvantes_Thales () {
 
       const enonces = []
       for (let k = 0; k < situations.length; k++) {
-        if (this.exo == '4P10-2') {
+        if (this.exo === '4P10-2') {
           enoncePlus = `${situations[k].tab}`
           corrPlusPremiereLigne = `${situations[k].tab} <br> Le tableau ci-dessus est un tableau de proportionnalité, pour déterminer la quatrième proportionnelle il suffit par exemple de résoudre l'équation suivante : <br>`
         } else {
@@ -177,15 +177,15 @@ export default function Eq_resolvantes_Thales () {
           enonce: enoncePlus,
           question: '',
           correction: `${corrPlusPremiereLigne}
-						$${situations[k].eq}$<br>
-						${texteEnCouleurEtGras('Les produits en croix sont égaux.')}<br>
-						$${texNombre(situations[k].c)}\\times ${situations[k].inc} = ${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}$<br>
-						${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(situations[k].c)}`)}.<br>
-						$\\dfrac{${texNombre(situations[k].c)}\\times ${situations[k].inc}}{${texNombre(situations[k].c)}}= \\dfrac{${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}}{${texNombre(situations[k].c)}}$<br>
-						${texteEnCouleurEtGras('On simplifie et on calcule.')}<br>
-						$${situations[k].inc}=${texNombre(calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c)))}$
-						${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situations[k].b), texNombre(situations[k].c), situations[k].inc)}
-					`
+$${situations[k].eq}$<br>
+${texteEnCouleurEtGras('Les produits en croix sont égaux.')}<br>
+$${texNombre(situations[k].c)}\\times ${situations[k].inc} = ${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}$<br>
+${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(situations[k].c)}`)}.<br>
+$\\dfrac{${texNombre(situations[k].c)}\\times ${situations[k].inc}}{${texNombre(situations[k].c)}}= \\dfrac{${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}}{${texNombre(situations[k].c)}}$<br>
+${texteEnCouleurEtGras('On simplifie et on calcule.')}<br>
+$${situations[k].inc}=${texNombre(calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c)))}$
+${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situations[k].b), texNombre(situations[k].c), situations[k].inc)}
+`
         })
       };
 

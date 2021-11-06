@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, texNombrec, obtenirListeFacteursPremiers, choice, combinaisonListes } from '../../modules/outils.js'
 
 export const titre = 'Deviner un nombre relatif'
@@ -10,7 +9,7 @@ export const titre = 'Deviner un nombre relatif'
  *  @author Jean-Claude Lhote à partir de CM000 de Rémi Angot
  * Référence 5R10
  */
-export default function Deviner_nombre_relatif () {
+export default function DevinerNombreRelatif () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -23,7 +22,7 @@ export default function Deviner_nombre_relatif () {
     const typesDeQuestionsDisponibles = [1, 2, 3]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let dixieme; let signe; let centieme; let unite; let somme; let produit; let facteurs; const type = ['négatif', 'nul', 'positif']
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions & cpt < 50;) {
       signe = choice([-1, 1])
       switch (listeTypeDeQuestions[i]) {
         case 1:
