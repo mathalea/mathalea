@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, prenom, texteEnCouleur } from '../../modules/outils.js'
 export const titre = 'Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue'
 
@@ -8,7 +7,7 @@ export const titre = 'Produire une forme littérale en introduisant une lettre p
  * * 4L13-1
  * @author Sébastien Lozano
  */
-export default function Forme_litterale_introduire_une_lettre () {
+export default function FormeLitteraleIntroduireUneLettre () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
@@ -55,7 +54,7 @@ export default function Forme_litterale_introduire_une_lettre () {
 
       // une fonction pour gérer la chaine de sortie et supprimer le coeff 1 !
       function sliceUn (n) {
-        if (n == 1) {
+        if (n === 1) {
           return ''
         } else {
           return `${n}`
@@ -76,7 +75,7 @@ export default function Forme_litterale_introduire_une_lettre () {
       const situation = situations[randint(0, situations.length - 1)]
       enonces.push({
         enonce: `${situation.prenom} veut acheter ${n} ${pluriel(n, situation.elt1)} et ${p} ${pluriel(p, situation.elt2)}.
-				<br>On note $${situation.elt1.lettre}$	le prix d'${situation.elt1.article} ${situation.elt1.sing} et $${situation.elt2.lettre}$	le prix d'${situation.elt2.article} ${situation.elt2.sing}.`,
+<br>On note $${situation.elt1.lettre}$ le prix d'${situation.elt1.article} ${situation.elt1.sing} et $${situation.elt2.lettre}$ le prix d'${situation.elt2.article} ${situation.elt2.sing}.`,
         question: '',
         correction: `
         ${situation.prenom} va payer $${n}$ fois le prix d'${situation.elt1.article} ${situation.elt1.sing} et $${p}$ fois le prix d'${situation.elt2.article} ${situation.elt2.sing}.
