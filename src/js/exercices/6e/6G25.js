@@ -10,7 +10,7 @@ export const titre = 'Construire des médiatrices avec cible auto-corrective'
  * @author Jean-Claude Lhote
  * Publié le 30/11/2020
  */
-export default function Construire_mediatrices_6e () {
+export default function ConstruireMediatrices6e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -21,7 +21,9 @@ export default function Construire_mediatrices_6e () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let result = [0, 0]; let texteCorr = ''; let texte = ''; let num1; let num2
+    let result = [0, 0]
+    let texteCorr = ''
+    let texte = ''
 
     const celluleAlea = function (rang) {
       const lettre = lettreDepuisChiffre(randint(1, rang))
@@ -36,7 +38,8 @@ export default function Construire_mediatrices_6e () {
     const I = point(0, 0, 'I')
     const A = pointAdistance(I, randint(3, 6))
     const B = similitude(A, I, randint(65, 150), randint(8, 15) / 10)
-    const medA = droite(I, A, '(d_1)'); const medB = droite(I, B, '(d_2)')
+    const medA = droite(I, A, '(d_1)')
+    const medB = droite(I, B, '(d_2)')
 
     const dA = droiteParPointEtPerpendiculaire(A, medA)
     const dB = droiteParPointEtPerpendiculaire(B, medB)
@@ -53,16 +56,16 @@ export default function Construire_mediatrices_6e () {
     sA.color = 'black'
     sB.color = 'black'
 
-    let cible; const objetsEnonce = []; const objetsCorrection = []; let cellule
-    let xMin, yMin, xMax, yMax
+    const objetsEnonce = []
+    const objetsCorrection = []
     const nomA1 = texteParPoint(noms[0], homothetie(A1, A2, 1.1), 'milieu', 'black', 1, '', true)
     const nomA2 = texteParPoint(noms[1], homothetie(A2, A1, 1.1), 'milieu', 'black', 1, '', true)
     const nomB1 = texteParPoint(noms[2], homothetie(B1, B2, 1.1), 'milieu', 'black', 1, '', true)
     const nomB2 = texteParPoint(noms[3], homothetie(B2, B1, 1.1), 'milieu', 'black', 1, '', true)
 
-    cellule = celluleAlea(6)
+    const cellule = celluleAlea(6)
     result = dansLaCibleCarree(I.x, I.y, 6, 0.6, cellule)
-    cible = cibleCarree({ x: result[0], y: result[1], rang: 6, taille: 0.6 })
+    const cible = cibleCarree({ x: result[0], y: result[1], rang: 6, taille: 0.6 })
     cible.taille = 0.6
     cible.color = 'orange'
     cible.opacite = 0.7
@@ -74,10 +77,10 @@ export default function Construire_mediatrices_6e () {
     //      objetsCorrection.push(segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i]))
     //      objetsCorrection.push(traceCompas(A1,N[i],20),traceCompas(B,N[i],20))
     texteCorr += `Le point $I$ d'intersection des deux médiatrices est dans la case ${cellule} de la grille.<br>`
-    xMin = Math.min(A1.x - 1, A2.x - 1, B1.x - 1, B2.x - 1, I.x - 4)
-    yMin = Math.min(A1.y - 1, A2.y - 1, B1.y - 1, B2.y - 1, I.y - 4)
-    xMax = Math.max(A1.x + 1, A2.x + 1, B1.x + 1, B2.x + 1, I.x + 4)
-    yMax = Math.max(A1.y + 1, A2.y + 1, B1.y + 1, B2.y + 1, I.y + 4)
+    const xMin = Math.min(A1.x - 1, A2.x - 1, B1.x - 1, B2.x - 1, I.x - 4)
+    const yMin = Math.min(A1.y - 1, A2.y - 1, B1.y - 1, B2.y - 1, I.y - 4)
+    const xMax = Math.max(A1.x + 1, A2.x + 1, B1.x + 1, B2.x + 1, I.x + 4)
+    const yMax = Math.max(A1.y + 1, A2.y + 1, B1.y + 1, B2.y + 1, I.y + 4)
 
     context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
 
