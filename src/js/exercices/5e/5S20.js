@@ -12,7 +12,7 @@ export const titre = 'Placer un événement sur une échelle de probabilités'
  * Référence 5S20
  */
 // Source : https://pedagogie.ac-guadeloupe.fr/sites/default/files/File/flouvet/ra16_c4_math_probabilite_flash_pdf_69131.pdf
-export default function Placer_probabilites () {
+export default function PlacerProbabilites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -26,7 +26,7 @@ export default function Placer_probabilites () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const lstEvenenementA = [] // liste des évènements disponibles : p == 0 ou p == 1
+    const lstEvenenementA = [] // liste des évènements disponibles : p === 0 ou p === 1
     const lstEvenenementB = [] // liste des évènements disponibles : p < 0.5
     const lstEvenenementC = [] // liste des évènements disponibles : p = 0.5
     const lstEvenenementD = [] // liste des évènements disponibles : p > 0.5
@@ -84,7 +84,7 @@ export default function Placer_probabilites () {
 
     // choix des évènements :
     let lstEvenenementExo = []
-    lstEvenenementExo.push(choice(lstEvenenementA, lstEvenenementExo)) // p == 0 ou p == 1
+    lstEvenenementExo.push(choice(lstEvenenementA, lstEvenenementExo)) // p === 0 ou p === 1
     lstEvenenementExo.push(choice(lstEvenenementB, lstEvenenementExo)) // p < 0.5
     lstEvenenementExo.push(choice(lstEvenenementC, lstEvenenementExo)) // p = 0.5
     lstEvenenementExo.push(choice(lstEvenenementD, lstEvenenementExo)) // p > 0.5
@@ -149,7 +149,7 @@ export default function Placer_probabilites () {
     }
     for (let i = 0; i < nbEvenement; i++) {
       p = lstEvenenementExo[i][1]
-      if (p == 0) { parrondi = 0 } else if (p < 0.25) { parrondi = 1 } else if (p < 0.5) { parrondi = 2 } else if (p == 0.5) { parrondi = 3 } else if (p < 0.75) { parrondi = 4 } else if (p < 1) { parrondi = 5 } else if (p == 1) { parrondi = 6 };
+      if (p === 0) { parrondi = 0 } else if (p < 0.25) { parrondi = 1 } else if (p < 0.5) { parrondi = 2 } else if (p === 0.5) { parrondi = 3 } else if (p < 0.75) { parrondi = 4 } else if (p < 1) { parrondi = 5 } else if (p === 1) { parrondi = 6 };
       texteCorr += String.fromCharCode(65 + i) + ' : ' + lstEvenenementExo[i][0] + '. ' + texteEnCouleurEtGras(lstEchelle[parrondi][0]) + '.<br>'
     }
     if (context.isHtml) {

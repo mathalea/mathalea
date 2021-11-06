@@ -9,7 +9,7 @@ export const titre = 'Résoudre un problème en utilisant une somme algébrique 
  * @author Sébastien Lozano
  */
 
-export default function Problemes_additifs_relatifs_5e () {
+export default function ProblemesAdditifsRelatifs5e () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
@@ -48,28 +48,28 @@ export default function Problemes_additifs_relatifs_5e () {
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let g_p_u // pour le gain/perte unitaire
-      let g_m // pour le gain multiple
+      let gainPerteUnitaire // pour le gain/perte unitaire
+      let gainMultiple // pour le gain multiple
       // on veut des multiples de 5 pour n'avoir que des demis entiers ou des entiers
       do {
-        g_p_u = randint(10, 30)
-        g_m = randint(10, 30)
-      } while (g_p_u % 5 != 0 || g_m % 5 != 0 || g_m <= g_p_u)
+        gainPerteUnitaire = randint(10, 30)
+        gainMultiple = randint(10, 30)
+      } while (gainPerteUnitaire % 5 !== 0 || gainMultiple % 5 !== 0 || gainMultiple <= gainPerteUnitaire)
 
-      const n_tot = randint(10, 15) // nombre totale de lancers
-      let n_g_u // nb de gains untitaires
-      let n_p // nb de pertes
+      const nombreTotalDeLancers = randint(10, 15) // nombre totale de lancers
+      let nombreDeGainsUnitaires // nb de gains untitaires
+      let nombreDePertes // nb de pertes
       do {
-        n_g_u = randint(2, 10)
-        n_p = randint(2, 10)
-      } while (n_g_u + n_p >= n_tot)
+        nombreDeGainsUnitaires = randint(2, 10)
+        nombreDePertes = randint(2, 10)
+      } while (nombreDeGainsUnitaires + nombreDePertes >= nombreTotalDeLancers)
 
       // on échange parfois le nombre de gain unitaire et le nombre de perte pour avoir un bilan négatif plus souvent
-      if (n_p < n_g_u) {
-        if (randint(0, 1) == 0) {
-          const temp = n_p
-          n_p = n_g_u
-          n_g_u = temp
+      if (nombreDePertes < nombreDeGainsUnitaires) {
+        if (randint(0, 1) === 0) {
+          const temp = nombreDePertes
+          nombreDePertes = nombreDeGainsUnitaires
+          nombreDeGainsUnitaires = temp
         };
       };
 
@@ -106,21 +106,21 @@ export default function Problemes_additifs_relatifs_5e () {
       };
 
       let bilan
-      if (isBilanPositif(calcul((n_tot - n_g_u - n_p) * calcul(g_m / 10)) + calcul(n_g_u * calcul(g_p_u / 10)) - calcul(n_p * calcul(g_p_u / 10)))) {
-        bilan = ['Globalement, le montant des gains', 'est supérieur au montant des pertes', `${texteEnCouleur('Le bilan est donc positif.')}`, 'a gagné', texPrix(calcul((n_tot - n_g_u - n_p) * calcul(g_m / 10)) + calcul(n_g_u * calcul(g_p_u / 10)) - calcul(n_p * calcul(g_p_u / 10)))]
+      if (isBilanPositif(calcul((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * calcul(gainMultiple / 10)) + calcul(nombreDeGainsUnitaires * calcul(gainPerteUnitaire / 10)) - calcul(nombreDePertes * calcul(gainPerteUnitaire / 10)))) {
+        bilan = ['Globalement, le montant des gains', 'est supérieur au montant des pertes', `${texteEnCouleur('Le bilan est donc positif.')}`, 'a gagné', texPrix(calcul((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * calcul(gainMultiple / 10)) + calcul(nombreDeGainsUnitaires * calcul(gainPerteUnitaire / 10)) - calcul(nombreDePertes * calcul(gainPerteUnitaire / 10)))]
       } else {
-        bilan = ['Globalement, le montant des gains', 'est inférieur au montant des pertes', `${texteEnCouleur('Le bilan est donc négatif.')}`, 'a perdu', texPrix((-1) * (calcul((n_tot - n_g_u - n_p) * calcul(g_m / 10)) + calcul(n_g_u * calcul(g_p_u / 10)) - calcul(n_p * calcul(g_p_u / 10))))]
+        bilan = ['Globalement, le montant des gains', 'est inférieur au montant des pertes', `${texteEnCouleur('Le bilan est donc négatif.')}`, 'a perdu', texPrix((-1) * (calcul((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * calcul(gainMultiple / 10)) + calcul(nombreDeGainsUnitaires * calcul(gainPerteUnitaire / 10)) - calcul(nombreDePertes * calcul(gainPerteUnitaire / 10))))]
       }
       // pour les situations
       const situations = [
         { // case 0 --> les quilles
-          nb_tot_lancers: n_tot,
-          nb_gains_unitaires: n_g_u,
-          nb_pertes: n_p,
-          nb_gains: n_tot - n_g_u - n_p,
-          perte: calcul(g_p_u / 10),
-          gain_unitaire: calcul(g_p_u / 10),
-          gain_multiple: calcul(g_m / 10),
+          nb_tot_lancers: nombreTotalDeLancers,
+          nb_gains_unitaires: nombreDeGainsUnitaires,
+          nb_pertes: nombreDePertes,
+          nb_gains: nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes,
+          perte: calcul(gainPerteUnitaire / 10),
+          gain_unitaire: calcul(gainPerteUnitaire / 10),
+          gain_multiple: calcul(gainMultiple / 10),
           enonce_1: 'lancer une balle sur des quilles.',
           enonce_2: '- Si la balle touche plusieurs quilles, le joueur gagne ',
           enonce_3: '- Si la balle ne touche qu\'une quille, le joueur gagne ',
@@ -137,46 +137,46 @@ export default function Problemes_additifs_relatifs_5e () {
       ]
 
       const enonces = []
-      let i_sous_question
-      let i_sous_question_corr
+      let indexSousQuestion
+      let indexSousQuestionCorr
       for (let k = 0; k < situations.length; k++) {
-        i_sous_question = 0
-        i_sous_question_corr = 0
+        indexSousQuestion = 0
+        indexSousQuestionCorr = 0
         enonces.push({
           enonce: `
-					Un jeu consiste à ${situations[k].enonce_1}
-					<br>${situations[0].enonce_2} $${texPrix(situations[0].gain_multiple)}$€.				
-					<br>${situations[0].enonce_3} $${texPrix(situations[0].gain_unitaire)}$€.
-					<br>${situations[0].enonce_4} $${texPrix(situations[0].perte)}$€.
-					<br>${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_6}.
-					${situations[k].pronomMaj} a perdu de l'argent $${situations[k].nb_pertes}$ fois et a gagné $${situations[k].nb_gains_unitaires}$ fois $${texPrix(situations[k].gain_unitaire)}$€.
-					<br> ${numAlpha(i_sous_question++)} A-t-${situations[k].pronomMin} globalement gagné ou perdu de l'argent ?
-					<br> ${numAlpha(i_sous_question++)} Combien a-t-${situations[k].pronomMin} globalement gagné ou perdu ?
-					`,
+Un jeu consiste à ${situations[k].enonce_1}
+<br>${situations[0].enonce_2} $${texPrix(situations[0].gain_multiple)}$€.
+<br>${situations[0].enonce_3} $${texPrix(situations[0].gain_unitaire)}$€.
+<br>${situations[0].enonce_4} $${texPrix(situations[0].perte)}$€.
+<br>${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_6}.
+${situations[k].pronomMaj} a perdu de l'argent $${situations[k].nb_pertes}$ fois et a gagné $${situations[k].nb_gains_unitaires}$ fois $${texPrix(situations[k].gain_unitaire)}$€.
+<br> ${numAlpha(indexSousQuestion++)} A-t-${situations[k].pronomMin} globalement gagné ou perdu de l'argent ?
+<br> ${numAlpha(indexSousQuestion++)} Combien a-t-${situations[k].pronomMin} globalement gagné ou perdu ?
+`,
           question: '',
           correction: `
-					${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_6},
-					sur les $${situations[k].nb_tot_lancers}$ lancers, on sait combien de fois ${situations[k].pronomMin} a perdu de l'argent et combien de fois ${situations[k].pronomMin} a gagné $${texPrix(situations[k].gain_unitaire)}$€, les autres lancers correspondent donc au nombre de fois où ${situations[k].pronomMin} a ${situations[k].correction_1} et qu'${situations[k].pronomMin} a gagné $${texPrix(situations[k].gain_multiple)}$€ 
-					<br> $${situations[k].nb_tot_lancers}-${situations[k].nb_pertes}-${situations[k].nb_gains_unitaires} = ${situations[k].nb_tot_lancers - situations[k].nb_pertes - situations[k].nb_gains_unitaires}$,
-					${situations[k].pronomMin} a donc ${situations[k].correction_1} $${situations[k].nb_gains}$ fois.
+${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_6},
+sur les $${situations[k].nb_tot_lancers}$ lancers, on sait combien de fois ${situations[k].pronomMin} a perdu de l'argent et combien de fois ${situations[k].pronomMin} a gagné $${texPrix(situations[k].gain_unitaire)}$€, les autres lancers correspondent donc au nombre de fois où ${situations[k].pronomMin} a ${situations[k].correction_1} et qu'${situations[k].pronomMin} a gagné $${texPrix(situations[k].gain_multiple)}$€ 
+<br> $${situations[k].nb_tot_lancers}-${situations[k].nb_pertes}-${situations[k].nb_gains_unitaires} = ${situations[k].nb_tot_lancers - situations[k].nb_pertes - situations[k].nb_gains_unitaires}$,
+${situations[k].pronomMin} a donc ${situations[k].correction_1} $${situations[k].nb_gains}$ fois.
 
-					<br>${texteGras(`Gains lorsqu'${situations[k].pronomMin} a ${situations[k].correction_1} :`)}
-					<br>$${myGainPerteString(situations[k].nb_gains, 'gain', situations[k].gain_multiple)} = ${situations[k].nb_gains}\\times (+${texPrix(situations[k].gain_multiple)}$€$) = +${texPrix(situations[k].nb_gains * situations[k].gain_multiple)}$€
+<br>${texteGras(`Gains lorsqu'${situations[k].pronomMin} a ${situations[k].correction_1} :`)}
+<br>$${myGainPerteString(situations[k].nb_gains, 'gain', situations[k].gain_multiple)} = ${situations[k].nb_gains}\\times (+${texPrix(situations[k].gain_multiple)}$€$) = +${texPrix(situations[k].nb_gains * situations[k].gain_multiple)}$€
 
-					<br>${texteGras(`Gains lorsqu'${situations[k].pronomMin} n'a ${situations[k].correction_2} :`)}
-					<br>$${myGainPerteString(situations[k].nb_gains_unitaires, 'gain', situations[k].gain_unitaire)} = ${situations[k].nb_gains_unitaires}\\times (+${texPrix(situations[k].gain_unitaire)}$€$) = +${texPrix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}$€
+<br>${texteGras(`Gains lorsqu'${situations[k].pronomMin} n'a ${situations[k].correction_2} :`)}
+<br>$${myGainPerteString(situations[k].nb_gains_unitaires, 'gain', situations[k].gain_unitaire)} = ${situations[k].nb_gains_unitaires}\\times (+${texPrix(situations[k].gain_unitaire)}$€$) = +${texPrix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}$€
 
-					<br>${texteGras('Pertes :')}
-					<br>$${myGainPerteString(situations[k].nb_pertes, 'perte', situations[k].perte)} = ${situations[k].nb_pertes}\\times (-${texPrix(situations[k].perte)}$€$) = -${texPrix(situations[k].nb_pertes * situations[k].perte)}$€
+<br>${texteGras('Pertes :')}
+<br>$${myGainPerteString(situations[k].nb_pertes, 'perte', situations[k].perte)} = ${situations[k].nb_pertes}\\times (-${texPrix(situations[k].perte)}$€$) = -${texPrix(situations[k].nb_pertes * situations[k].perte)}$€
 
-					<br>${numAlpha(i_sous_question_corr++)} ${situations[k].bilan[0]}, $(+${texPrix(situations[k].nb_gains * situations[k].gain_multiple)}$€$)$ et $(+${texPrix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}$€$)$, ${situations[k].bilan[1]}, $(-${texPrix(situations[k].nb_pertes * situations[k].perte)}$€$)$.
-					<br> ${situations[k].bilan[2]}   
+<br>${numAlpha(indexSousQuestionCorr++)} ${situations[k].bilan[0]}, $(+${texPrix(situations[k].nb_gains * situations[k].gain_multiple)}$€$)$ et $(+${texPrix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}$€$)$, ${situations[k].bilan[1]}, $(-${texPrix(situations[k].nb_pertes * situations[k].perte)}$€$)$.
+<br> ${situations[k].bilan[2]}   
 
-					<br>${numAlpha(i_sous_question_corr++)} 
-					$(+${texPrix(situations[k].nb_gains * situations[k].gain_multiple)}$€$)+(+${texPrix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}$€$)+(-${texPrix(situations[k].nb_pertes * situations[k].perte)}$€$) = (${texPrix(situations[k].nb_gains * situations[k].gain_multiple + situations[k].nb_gains_unitaires * situations[k].gain_unitaire - situations[k].nb_pertes * situations[k].perte)}$€$)$
-					<br>${texteEnCouleur(`Globalement ${situations[k].prenom} ${situations[k].bilan[3]} $${situations[k].bilan[4]}$€`)} 
+<br>${numAlpha(indexSousQuestionCorr++)} 
+$(+${texPrix(situations[k].nb_gains * situations[k].gain_multiple)}$€$)+(+${texPrix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}$€$)+(-${texPrix(situations[k].nb_pertes * situations[k].perte)}$€$) = (${texPrix(situations[k].nb_gains * situations[k].gain_multiple + situations[k].nb_gains_unitaires * situations[k].gain_unitaire - situations[k].nb_pertes * situations[k].perte)}$€$)$
+<br>${texteEnCouleur(`Globalement ${situations[k].prenom} ${situations[k].bilan[3]} $${situations[k].bilan[4]}$€`)} 
 
-					`
+`
         })
       };
 
