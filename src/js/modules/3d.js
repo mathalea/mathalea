@@ -445,7 +445,8 @@ function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
   this.rayon1 = rayon1
   this.rayon2 = rayon2
   this.color = color
-  const objets = []; let s; let color1; let color2
+  this.p2d = []
+  let s, color1, color2
   const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon1.matrice))
   const prodscal = math.dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice)
   let cote1, cote2
@@ -475,7 +476,7 @@ function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
     } else {
       s.color = this.color
     }
-    objets.push(s)
+    this.p2d.push(s)
   }
   for (let i = 0; i < c2.listePoints.length; i += 2) {
     s = segment(c4.listePoints[i], c2.listePoints[i])
@@ -486,23 +487,9 @@ function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
     } else {
       s.color = this.color
     }
-    objets.push(s)
+    this.p2d.push(s)
   }
-  objets.push(c1, c2, c3, c4)
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
-    }
-    return code
-  }
+  this.p2d.push(c1, c2, c3, c4)
 }
 export function cylindre3d (centrebase1, centrebase2, normal, rayon, rayon2, color = 'black') {
   return new Cylindre3d(centrebase1, centrebase2, normal, rayon, rayon2, color)
