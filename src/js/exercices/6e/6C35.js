@@ -21,6 +21,7 @@ export const dateDeModifImportante = '02/11/2021'
  * Associer huit problèmes à huit types de modélisation différents
  * @author Mireille Gain, 24 avril 2021
  * Référence 6C35
+ * Relecture : Novembre 2021 par EE
 */
 export default function ModelisationProblemes () {
   Exercice.call(this)
@@ -134,7 +135,7 @@ export default function ModelisationProblemes () {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: sp(5) + '<br>Sxchéma :' })
           break
 
         case 2:
@@ -172,7 +173,7 @@ export default function ModelisationProblemes () {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: sp(5) + '<br>Schéma :' })
           break
 
         case 3:
@@ -203,7 +204,7 @@ export default function ModelisationProblemes () {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: sp(5) + '<br>Schéma :' })
           break
 
         case 4:
@@ -240,7 +241,7 @@ export default function ModelisationProblemes () {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: sp(5) + '<br>Schéma :' })
           break
 
         case 5:
@@ -277,7 +278,7 @@ export default function ModelisationProblemes () {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: sp(5) + '<br>Schéma :' })
           break
 
         case 6:
@@ -307,7 +308,7 @@ export default function ModelisationProblemes () {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: sp(5) + '<br>Schéma :' })
           break
 
         case 7:
@@ -344,7 +345,7 @@ export default function ModelisationProblemes () {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: sp(5) + '<br>Schéma :' })
           break
 
         case 8:
@@ -374,7 +375,7 @@ export default function ModelisationProblemes () {
             texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
             texteCorr += "<br> (L'énoncé était :<br> " + colonne1 + ')'
           }
-          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) + ' Schéma :' })
+          colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: sp(5) + '<br>Schéma :' })
           break
       }
       this.listeQuestions.push(colonne1)

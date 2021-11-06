@@ -13,6 +13,7 @@ export const amcType = 'AMCOpen'
  * Placer un point d'abscisse entière
  * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N11-2
+ * Relecture : Novembre 2021 par EE
  */
 export default function PlacerUnPointAbscisseEntiere2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -105,9 +106,9 @@ export default function PlacerUnPointAbscisseEntiere2d () {
       })
       const mesObjets = [d[2 * i]]
       if (this.interactif) {
-        texte = `Placer le point $${l1}\\left(${abscisse[0][1]}\\right).$`
+        texte = `Placer le point $${l1}\\left(${texNombre(abscisse[0][1])}\\right).$`
       } else {
-        texte = `Placer les points $${l1}\\left(${abscisse[0][1]}\\right)$, $~${l2}\\left(${abscisse[1][1]}\\right)$ et $~${l3}\\left(${abscisse[2][1]}\\right)$.`
+        texte = `Placer les points $${l1}\\left(${texNombre(abscisse[0][1])}\\right)$, $~${l2}\\left(${texNombre(abscisse[1][1])}\\right)$ et $~${l3}\\left(${texNombre(abscisse[2][1])}\\right)$.`
       }
       pointsNonSolutions[i] = []
       if (this.interactif) {
@@ -121,7 +122,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
           }
         }
       }
-      texte += mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i], mesObjets)
+      texte += mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i])
       if (this.interactif) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }

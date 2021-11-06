@@ -88,7 +88,7 @@ export default function VocabulaireEtOperations () {
           texteCorr += `${expc}`
           break
       }
-      texte += this.nbQuestions - 1 === i ? '</br>' : ''
+      texte += this.nbQuestions - 1 === i ? '<br>' : ''
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

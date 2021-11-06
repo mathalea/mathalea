@@ -5,8 +5,8 @@ export const titre = 'Contrôler si deux droites sont parallèles'
  * @author Jean-Claude Lhote
  * référence 4G31
  */
-export default function Reciproque_Thales_4eme() {
-  Reciproque_Thales.call(this);
-  this.quatrieme = true;
-  this.titre = titre;
+export default function Reciproque_Thales_4eme () {
+  Reciproque_Thales.call(this)
+  this.quatrieme = true
+  this.titre = titre
 }
