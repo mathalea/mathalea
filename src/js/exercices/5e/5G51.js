@@ -10,7 +10,7 @@ export const titre = 'Compléter une représentation en perspective cavalière'
  * référence : 6G41
  * @author Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
  */
-export default function Representer_un_solide5e () {
+export default function RepresenterUnSolide5e () {
   Exercice.call(this) // Héritage de la classe Exercice ()
   this.titre = titre
   this.nbQuestions = 1
@@ -21,8 +21,8 @@ export default function Representer_un_solide5e () {
   this.classe = 5
   this.nouvelleVersion = function () {
     let typesDeQuestionsDisponibles
-
-    if (this.sup == 3) { typesDeQuestionsDisponibles = [1, 2] } else if (this.sup == 5) { typesDeQuestionsDisponibles = [1, 2, 4] } else if (this.sup == 7) { typesDeQuestionsDisponibles = [1, 2, 4, 6] } else { typesDeQuestionsDisponibles = [parseInt(this.sup)] }
+    this.sup = parseInt(this.sup)
+    if (this.sup === 3) { typesDeQuestionsDisponibles = [1, 2] } else if (this.sup === 5) { typesDeQuestionsDisponibles = [1, 2, 4] } else if (this.sup === 7) { typesDeQuestionsDisponibles = [1, 2, 4, 6] } else { typesDeQuestionsDisponibles = [parseInt(this.sup)] }
 
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -33,15 +33,13 @@ export default function Representer_un_solide5e () {
     this.listeCorrections = [] // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc, sc
 
-    if (this.classe == 6) { typesDeQuestionsDisponibles = [1, 2] }
-
-    // sixième : cube et pavé droit
-    else if (this.classe == 5) { typesDeQuestionsDisponibles = [1, 2, 4] }
-
-    // cinquième : on ajoute le prisme
-    else if (this.classe == 4) { typesDeQuestionsDisponibles = [1, 2, 4, 6] }
+    if (this.classe === 6) { // sixième : cube et pavé droit
+      typesDeQuestionsDisponibles = [1, 2]
+    } else if (this.classe === 5) { // cinquième : on ajoute le prisme
+      typesDeQuestionsDisponibles = [1, 2, 4]
+    } else if (this.classe === 4) { typesDeQuestionsDisponibles = [1, 2, 4, 6] }
     // Quatrième : on ajoute la pyramide
-    if (this.sup2 == 1) { sc = 0.5 } else { sc = 0.8 }
+    if (this.sup2 === 1) { sc = 0.5 } else { sc = 0.8 }
 
     let A; let B; let C; let D; let E; let F; let G; let H; let I
     let AB; let BC; let CD; let DA; let EF; let FG; let GH; let HE; let AE; let BF; let CG; let DH; let IA; let IB; let IE; let IF; let BD; let FH
@@ -55,7 +53,7 @@ export default function Representer_un_solide5e () {
     for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nom = creerNomDePolygone(8, 'PQ')
       const anglepersp = choice([30, 45, -30, -45, 150, 135, -150, -135])
-      if (anglepersp % 10 == 0) { coeffpersp = 0.6 } else { coeffpersp = 0.4 }
+      if (anglepersp % 10 === 0) { coeffpersp = 0.6 } else { coeffpersp = 0.4 }
       objetsCorrection = []
       objetsEnonce = []
 
@@ -218,7 +216,7 @@ export default function Representer_un_solide5e () {
       ppc = 20
 
       if (this.sup2 < 3) { g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7) } else { g = '' }
-      if (this.sup2 == 2) { carreaux = seyes(Xmin, Ymin, Xmax, Ymax); sc = 0.8 } else { carreaux = ''; sc = 0.5 }
+      if (this.sup2 === 2) { carreaux = seyes(Xmin, Ymin, Xmax, Ymax); sc = 0.8 } else { carreaux = ''; sc = 0.5 }
 
       const params = {
         xmin: Xmin,
@@ -229,28 +227,28 @@ export default function Representer_un_solide5e () {
         scale: sc
       }
 
-      if (listeTypeDeQuestions[i] == 1) {
+      if (listeTypeDeQuestions[i] === 1) {
         objetsEnonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
           g,
           carreaux
         )
       }
 
-      if (listeTypeDeQuestions[i] == 2) {
+      if (listeTypeDeQuestions[i] === 2) {
         objetsEnonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
           g,
           carreaux
         )
       }
 
-      if (listeTypeDeQuestions[i] == 4) {
+      if (listeTypeDeQuestions[i] === 4) {
         objetsEnonce.push(AB, DA, BD, AE,
           g,
           carreaux
         )
       }
 
-      if (listeTypeDeQuestions[i] == 6) {
+      if (listeTypeDeQuestions[i] === 6) {
         objetsEnonce.push(AB, BF, tracePoint(I, 0.5, 'red'), labelPoint(I),
           g,
           carreaux
@@ -258,7 +256,7 @@ export default function Representer_un_solide5e () {
       }
 
       enonce += mathalea2d(params, objetsEnonce)
-      if (listeTypeDeQuestions[i] == 1) {
+      if (listeTypeDeQuestions[i] === 1) {
         AB.color = 'green'
         BC.color = 'red'
         CD.color = 'green'
@@ -277,7 +275,7 @@ export default function Representer_un_solide5e () {
         )
       }
 
-      if (listeTypeDeQuestions[i] == 2) {
+      if (listeTypeDeQuestions[i] === 2) {
         AB.color = 'green'
         BC.color = 'red'
         CD.color = 'green'
@@ -296,7 +294,7 @@ export default function Representer_un_solide5e () {
         )
       }
 
-      if (listeTypeDeQuestions[i] == 4) {
+      if (listeTypeDeQuestions[i] === 4) {
         AB.color = 'green'
         BC.color = 'red'
         CD.color = 'green'
@@ -315,7 +313,7 @@ export default function Representer_un_solide5e () {
         )
       }
 
-      if (listeTypeDeQuestions[i] == 6) {
+      if (listeTypeDeQuestions[i] === 6) {
         AB.color = 'green'
         BC.color = 'red'
         CD.color = 'green'
