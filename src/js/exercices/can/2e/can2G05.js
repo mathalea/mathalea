@@ -33,7 +33,7 @@ export default function DistanceRepere () {
           this.correction = `$${nom[0]}${nom[1]}=\\sqrt{(x_${nom[1]}-x_${nom[0]})^2+(y_${nom[1]}-y_${nom[0]})^2}=
           \\sqrt{(${c}-${ecritureParentheseSiNegatif(a)})^2+(${d}-${ecritureParentheseSiNegatif(b)})^2}=
           \\sqrt{${(c - a) ** 2}+${(d - b) ** 2}}=\\sqrt{${(c - a) ** 2 + (d - b) ** 2}}=
-          ${Math.sqrt((c - a) ** 2 + (d - b) ** 2)}$</br>`
+          ${Math.sqrt((c - a) ** 2 + (d - b) ** 2)}$<br>`
           this.correction += texteEnCouleur(` Mentalement : <br>
           On calcule  $(${c}-${a})^2$ et $(${d}-${b})^2$, ce qui donne $${(c - a) ** 2}$ et $${(d - b) ** 2}$. <br>
           Puis on calcule la somme de ces nombres soit $${(c - a) ** 2}+${(d - b) ** 2}=${(c - a) ** 2 + (d - b) ** 2}$.<br>
@@ -49,7 +49,7 @@ export default function DistanceRepere () {
           this.correction = `$${nom[0]}${nom[1]}=
           \\sqrt{(x_${nom[1]}-x_${nom[0]})^2+(y_${nom[1]}-y_${nom[0]})^2}=
           \\sqrt{(${c}-${ecritureParentheseSiNegatif(a)})^2+(${d}-${ecritureParentheseSiNegatif(b)})^2}=
-          \\sqrt{${(c - a) ** 2}+${(d - b) ** 2}}=\\sqrt{${(c - a) ** 2 + (d - b) ** 2}}$</br>`
+          \\sqrt{${(c - a) ** 2}+${(d - b) ** 2}}=\\sqrt{${(c - a) ** 2 + (d - b) ** 2}}$<br>`
           this.correction += texteEnCouleur(` Mentalement : <br>
           On calcule  $(${c}-${a})^2$ et $(${d}-${b})^2$, ce qui donne $${(c - a) ** 2}$ et $${(d - b) ** 2}$. <br>
           Puis on calcule la somme de ces nombres soit $${(c - a) ** 2}+${(d - b) ** 2}=${(c - a) ** 2 + (d - b) ** 2}$.<br>

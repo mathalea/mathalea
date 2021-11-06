@@ -21,51 +21,52 @@ export default function ExistenceDUneRacineCarree () {
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    let a; let b; let c; let d; let e; let f; let g; let h; let j; let k = 0
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
         case 1:
-          const a = randint(2, 9)
+          a = randint(2, 9)
           texte = `$\\sqrt{\\sqrt{${a}}}$`
           texteCorr = `$\\sqrt{${a}}$ existe car ${a} est un nombre positif.<br>
                     $\\sqrt{${a}}$ est un réel positif donc $\\sqrt{\\sqrt{${a}}}$ existe bien.`
           break
         case 2:
-          const b = randint(2, 9) * (-1)
+          b = randint(2, 9) * (-1)
           texte = `$\\sqrt{${b}}$`
           texteCorr = `$\\sqrt{${b}}$ n'existe pas car $${b}$ est un nombre négatif. La racine carrée n'est définie que pour les réels positifs ou nul. `
           break
         case 3:
-          const c = randint(2, 9) * (-1)
-          const d = c * c
+          c = randint(2, 9) * (-1)
+          d = c * c
           texte = `$\\sqrt{\\left(${c}\\right)^{2}}$`
           texteCorr = `$\\sqrt{\\left(${c}\\right)^{2}}$ existe pas car $\\left(${c}\\right)^{2}=${d}$ est un nombre positif.`
           break
         case 4:
-          const e = randint(2, 9)
+          e = randint(2, 9)
           texte = `$-\\sqrt{${e}}$`
           texteCorr = `$-\\sqrt{${e}}$ existe car ${e} est un nombre positif. Le signe - est placé devant le symbole radical, le nombre $-\\sqrt{${e}}$ est donc négatif. `
           break
         case 5:
-          const f = randint(2, 9) * (-1)
-          const g = f * f
+          f = randint(2, 9) * (-1)
+          g = f * f
           texte = `$\\sqrt{-\\left(${f}\\right)^{2}}$`
           texteCorr = `$\\sqrt{-\\left(${f}\\right)^{2}}$ n'existe pas car $-\\left(${f}\\right)^{2}=-${g}$  est un nombre négatif. La racine carrée n'est définie que pour les réels positifs ou nul. . `
           break
         case 6:
-          const h = randint(2, 3)
+          h = randint(2, 3)
           texte = `$\\sqrt{${h}-\\pi}$`
           texteCorr = `$\\sqrt{${h}-\\pi}$ n'existe pas car $\\pi>3$ donc $${h}-\\pi$  est un nombre négatif. La racine carrée n'est définie que pour les réels positifs ou nul. . `
           break
         case 7:
-          const i = randint(4, 5)
-          texte = `$\\sqrt{${i}-\\pi}$`
-          texteCorr = `$\\sqrt{${i}-\\pi}$ existe car $\\pi\\approx 3,14$ donc $${i}-\\pi$  est un nombre positif.`
+          k = randint(4, 5)
+          texte = `$\\sqrt{${k}-\\pi}$`
+          texteCorr = `$\\sqrt{${k}-\\pi}$ existe car $\\pi\\approx 3,14$ donc $${k}-\\pi$  est un nombre positif.`
           break
         case 8:
-          const j = randint(2, 12)
+          j = randint(2, 12)
           texte = `$\\sqrt{-${j}^{2}}$`
           texteCorr = `$-${j}^{2}=-${j * j}$ est un réel négatif donc sa racine carrée n'est pas définie.`
           break

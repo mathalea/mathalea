@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, texNombrec, creerNomDePolygone, texNombre, creerBoutonMathalea2d, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, texNombrec, creerNomDePolygone, texNombre, creerBoutonMathalea2d, nombreDeChiffresDansLaPartieEntiere, texteGras } from '../../modules/outils.js'
 import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longueurs, homothetie, similitude, texteParPoint, longueur, angle, angleOriente, mathalea2d } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Grandeur from '../../modules/Grandeur'
+
 export const amcReady = true
 export const amcType = 'AMCOpenNum'
 export const interactifReady = true
@@ -24,6 +25,9 @@ export default function Thales2D () {
   this.nbColsCorr = 1
   this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
   this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
+
+  this.correctionDetailleeDisponible = true
+  this.correctionDetaillee = false
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
@@ -142,9 +146,9 @@ export default function Thales2D () {
 
       if (k > 0) {
         texteCorr = `Dans le triangle $${nomA + nomB + nomC}$ :
-       <br> - $${nomM}\\in${'[' + nomC + nomA + ']'}$,
-       <br> - $${nomN}\\in${'[' + nomC + nomB + ']'}$,
-       <br> -  $(${nomA + nomB})//(${nomM + nomN})$,
+       <br> $\\leadsto$ $${nomM}\\in${'[' + nomC + nomA + ']'}$,
+       <br> $\\leadsto$ $${nomN}\\in${'[' + nomC + nomB + ']'}$,
+       <br> $\\leadsto$  $(${nomA + nomB})//(${nomM + nomN})$,
        <br> donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
       } else {
         texteCorr = `Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$ et $(${nomA + nomB})//(${nomM + nomN})$ <br> donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
@@ -159,8 +163,32 @@ export default function Thales2D () {
       texteCorr += '<br><br>'
       texteCorr += `$\\dfrac{${texNombrec(Math.abs(k) * ac)}}{${texNombre(ac)}}=\\dfrac{${texNombrec(Math.abs(k) * bc)}}{${nomC + nomB}}=\\dfrac{${nomM + nomN}}{${texNombre(ab)}}$`
       texteCorr += '<br><br>'
+      if (this.correctionDetaillee) {
+        texteCorr += texteGras(`Calcul de ${nomM + nomN} : `)
+        texteCorr += '<br><br>'
+        texteCorr += `On utilise l'égalité $\\dfrac{${texNombrec(Math.abs(k) * ac)}}{${texNombre(ac)}}=\\dfrac{${nomM + nomN}}{${texNombre(ab)}}$.`
+        texteCorr += '<br><br>'
+        texteCorr += 'Les produits en croix sont égaux,'
+        texteCorr += '<br><br>'
+        texteCorr += `donc $${texNombrec(Math.abs(k) * ac)}\\times ${texNombre(ab)}=${nomM + nomN}\\times ${texNombre(ac)}$.`
+        texteCorr += '<br><br>'
+        texteCorr += `On divise les deux membres par ${texNombre(ac)}.`
+        texteCorr += '<br><br>'
+      }
       texteCorr += `$${nomM + nomN}=\\dfrac{${texNombrec(Math.abs(k) * ac)}\\times${texNombre(ab)}}{${texNombre(ac)}}=${texNombrec(Math.abs(k) * ab)}$ cm`
       texteCorr += '<br><br>'
+      if (this.correctionDetaillee) {
+        texteCorr += texteGras(`Calcul de ${nomC + nomB} : `)
+        texteCorr += '<br><br>'
+        texteCorr += `On utilise l'égalité $\\dfrac{${texNombrec(Math.abs(k) * bc)}}{${nomC + nomB}}=\\dfrac{${texNombrec(Math.abs(k) * ac)}}{${texNombre(ac)}}$.`
+        texteCorr += '<br><br>'
+        texteCorr += 'Les produits en croix sont égaux,'
+        texteCorr += '<br><br>'
+        texteCorr += `donc $${texNombrec(Math.abs(k) * ac)}\\times ${nomC + nomB}=${texNombre(ac)}\\times ${texNombrec(Math.abs(k) * bc)}$.`
+        texteCorr += '<br><br>'
+        texteCorr += `On divise les deux membres par ${texNombrec(Math.abs(k) * ac)}.`
+        texteCorr += '<br><br>'
+      }
       texteCorr += `$${nomC + nomB}=\\dfrac{${texNombrec(Math.abs(k) * bc)}\\times${texNombre(ac)}}{${texNombrec(Math.abs(k) * ac)}}=${texNombrec(bc)}$ cm`
       reponse = bc
       if (context.isHtml) {

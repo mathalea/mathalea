@@ -103,11 +103,11 @@ export function listeDeChosesAImprimer (exercice) {
  */
 export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = true) {
   if (context.isHtml) {
-    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing, retourCharriot)
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing)
     if (exercice.interactif) {
       exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
-    exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr)
+    exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr, 'correction')
   } else {
     if (document.getElementById('supprimer_reference').checked === true) {
       exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
@@ -153,7 +153,9 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
    <div style="float:left; max-width: ${90 - largeur1}%">
     ${cont2}
    </div>
-   <div style="clear:both"></div>`
+   <div style="clear:both"></div>
+   <div class="ui hidden divider"></div>
+`
   } else {
     return `\\begin{minipage}{${calcul(largeur1 / 100)}\\linewidth}
     ${cont1}
@@ -1646,7 +1648,7 @@ export function factorisation (n) {
  *
  * @param {number} n
  * @param {boolean} puissancesOn
- * @returns
+ * @returns {string} texFacto
  */
 export function texFactorisation (n, puissancesOn = true) {
   let texFacto = ''
@@ -2314,7 +2316,7 @@ export function htmlEnumerate (liste, spacing, classe = 'question', id = '') {
     // Pour garder la même hiérarchie avec une ou plusieurs questions
     // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
     // Utile pour la vue can
-    (spacing > 1) ? result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''} style="line-height: ${spacing};">` : result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''}>`
+    (spacing > 1) ? result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''} style="line-height: ${spacing}; margin-bottom: 20px">` : result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''}>`
     result += liste[0].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     result += '</div></div>'
   }
@@ -2381,18 +2383,21 @@ export function htmlParagraphe (texte, retourCharriot) {
 * @param spacing interligne (line-height en css)
 * @author Rémi Angot
 */
-export function htmlLigne (liste, spacing) {
+export function htmlLigne (liste, spacing, classe = 'question') {
   let result = ''
   if (spacing > 1) {
-    result = `<div style="line-height: ${spacing};">\n`
+    // Pour garder la même hiérarchie avec listeDeQuestionsToContenu
+    // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
+    // Utile pour la vue can
+    result = `<div><div style="line-height: ${spacing};" class="${classe}">\n`
   } else {
-    result = '<div>\n'
+    result = `<div><div class="${classe}">\n`
   }
   for (const i in liste) {
     result += '\t' + liste[i].replace(/\\dotfill/g, '...') + '<br>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     // .replace(/\\\\/g,'<br>') abandonné pour supporter les array
   }
-  result += '</div>\n'
+  result += '</div></div>\n'
 
   return result
 }
@@ -2417,7 +2422,8 @@ export function texMulticols (texte, nbCols = 2) {
 * @author Rémi Angot
 */
 export function htmlConsigne (consigne) {
-  return '<h4>' + consigne + '</h4>\n\n'
+  if (consigne) return '<h4>' + consigne + '</h4>\n\n'
+  else return ''
 }
 
 /**
@@ -2648,8 +2654,25 @@ export function stringNombre (nb) {
   return result
 }
 /**
+* Centre un texte
+*
+* @author Rémi Angot
+*/
+export function texteCentre (texte) {
+  if (context.isHtml) {
+    return `<p style="text-align: center">${texte}</p>`
+  } else {
+    return `\\begin{center}
+${texte}
+\\end{center}`
+  }
+}
+/**
 * Met en couleur et en gras
 *
+* Met en couleur et gras un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
+* @param {string} texte à mettre en couleur
+* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
 * @author Rémi Angot
 */
 export function miseEnEvidence (texte, couleur = '#f15929') {
@@ -2683,7 +2706,7 @@ export function texteEnCouleur (texte, couleur = '#f15929') {
 }
 
 /**
-* Met en couleur et gras un texte
+* Met en couleur et gras un texte. JCL dit : "Ne fonctionne qu'en dehors de $....$"
 * @param {string} texte à mettre en couleur
 * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
 * @author Rémi Angot
@@ -7303,7 +7326,8 @@ export function exportQcmAmc (exercice, idExo) {
         lastchoice = autoCorrection[j].options.lastChoice
       }
     }
-    let valeurAMCNum = autoCorrection[j].reponse.valeur[0]
+    let valeurAMCNum = 0
+    if (autoCorrection[j].reponse !== undefined) { valeurAMCNum = autoCorrection[j].reponse.valeur[0] }
     switch (type) {
       case 'qcmMono': // question QCM 1 bonne réponse
         if (elimineDoublons(autoCorrection[j].propositions)) {

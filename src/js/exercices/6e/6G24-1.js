@@ -4,6 +4,7 @@ export const titre = 'Construire le symétrique d’un point par rapport à une 
 /**
  * Référence 6G24-1
  * @author Jean-Claude Lhote
+ * Relecture : Novembre 2021 par EE
  */
 export default function SymetrieAxialePoint6e () {
   ConstruireParSymetrie.call(this)

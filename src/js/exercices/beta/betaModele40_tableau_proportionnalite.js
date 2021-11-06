@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { mathalea2d, tableau } from '../../modules/2d.js'
 export const titre = 'Nom de l\'exercice'
 
@@ -24,7 +24,14 @@ export default function NomExercice () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
+    let a, b, c, d // On définit les variables aléatoires de l'exo...
+
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      a = randint(1, 2) // Ici ça ne sert à rien, c'est juste pour la fonction questionJamaisPosee()
+      b = randint(2, 3) // A adapter selon les besoins de l'exo
+      c = randint(13, 54)
+      d = randint(24, 39)
+
       const monTableau = tableau({
         ligne1: ['\\text{Masse (en g)}', 150, 450, 600, '4~500'], // Contenu des cases de la première ligne
         ligne2: ['\\text{Prix (en euros)}', 3], // Contenu des cases de la deuxième ligne

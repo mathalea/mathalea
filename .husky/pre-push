@@ -1,20 +1,48 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# cette commande sera lancé par chaque `git push`, juste avant de faire le push
-# si elle échoue le push ne se fera pas, on peut le forcer en ajoutant l'option --no-verify
-# => `git push --no-verify`
-# mais c'est pas conseillé, si le build plante pas la peine de pusher ça (sauf pour montrer le code à qqun d'autre)
+# ce script doit être posix shell compliant ;-)
+# cf https://steinbaugh.com/posts/posix.html
 
-echo 'Lancement d’un build de dev avant chaque push, pour au moins vérifier qu’il n’est pas cassé'
+# 1) La commande
+# git status -uno -s |awk '$NF ~ /\.js$/ { printf("%s ", $NF) }' |xargs --no-run-if-empty eslint --fix
+# sort tous les fichiers modifiés, pas seulement ceux qui seront inclus dans le commit
+# et plante sur les fichiers supprimés, ce qui est bizarre car par ex pour une ligne
+# ^RM path/to/deleted/file.js -> path/to/new/file.js
+# awk devrait ne passer à xargs que le dernier fichier
+# ça pose aussi pb en cas d'espace dans le nom du fichier (ça n'envoie que le dernier morceau à eslint)
 
-if npm run build:dev; then
-  exit 0
-fi
+# 2)
+# git diff --name-only --cached …
+# c'est mieux (les fichiers modifiés de l'index, --staged est un alias),
+# mais faut ajouter --diff-filter sinon ça plante sur les fichiers supprimés
 
-echo '
-Le build plante, probablement plus prudent de ne pas envoyer ce code.
-Si vous voulez l’envoyer quand même (pour le partager avec qqun d’autre par ex), il faut relancer la commande git push avec l’option --no-verify
-'
+# 3)
+# git diff --name-only --cached --diff-filter=AMR|awk '$NF ~ /\.js$/ { printf("'%s' ", $0) }' | command xargs --no-run-if-empty ./node_modules/.bin/eslint --fix
+# mais
+# - pas sûr que l'option --no-run-if-empty soit POSIX (ajout GNU)
+# - ça plante si y'a un ' dans un nom de fichier (c'est arrivé sinon je ne le saurais pas), ce qui n’est finalement pas plus mal…
+# - eslint peut planter si y'a des centaines de fichiers => on ajoute un --max-args
+# mais cette commande plante sous mac
+# git diff --name-only --cached --diff-filter=AMR|awk '$NF ~ /\.js$/ { printf("'%s' ", $0) }' | command xargs --no-run-if-empty --max-args 50 ./node_modules/.bin/eslint --fix
+# On décompose en essàyant d'être davantage posix
+list="$(git diff --name-only --cached --diff-filter=AMR|grep '\.js$'|head -50)"
+[ -z "$list" ] && exit 0
 
-exit 1
+# on peut pas encore mettre ça tant qu'il y a des alert légitimes (à remplacer par des j3pShowError)
+#echo $list|while read f; do
+#  grep -q 'alert(' $f && echo "$f : Il ne faut jamais de alert() dans les fichiers js, passez par la console (trop risqué d'envoyer ça en prod en ayant oublié de l'enlever)" && exit 1
+#done
+
+# on ne peut pas mettre le `|tr '\n' ' '` dans le list ci-dessus sinon $list est pris comme un argument unique par zsh
+# (ce qui semble logique, même si les autres shells ne le font pas)
+./node_modules/.bin/eslint --fix $(echo $list|tr '\n' ' ')
+
+exit $?
+
+# 4)
+# on pourrait passer par un read pour lancer eslint fichier par fichier, mais ce serait plus long mais surtout on a pas de regex en shell posix
+git diff --name-only --cached --diff-filter=AMR| while read -r file; do
+  [[ "$file" =~ .js$ ]] && [[ ! -f "$file" ]] || continue
+  ./node_modules/.bin/eslint --fix "$file"
+done

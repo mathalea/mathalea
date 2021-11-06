@@ -10,4 +10,4 @@ export default function Reglages6M10 () {
   ExercicePerimetresEtAires.call(this)
   this.titre = titre
   this.sup = 1
-  }
+}

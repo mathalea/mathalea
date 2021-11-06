@@ -20,7 +20,8 @@ Si vous ne voulez pas d'un truc trop lourd et voulez apporter votre contribution
     1. [Gestion de la sortie autre que LateX](#attributs_sortie_autre_que_latex)
     1. [Paramètres](#attributs_parametres)
     1. [Exercice avec des dépendances particulières](#dependances_particulieres)
-# <a id="les_10_etapes_pour_creer_un_exercice" href="#les_10_etapes_pour_creer_un_exercice">1. Les 10 étapes pour créer un exercice</a>
+1. [Liste exhaustive des fonctions des exercices](#liste_exhaustive_fonctions)
+## <a id="les_10_etapes_pour_creer_un_exercice" href="#les_10_etapes_pour_creer_un_exercice">1. Les 10 étapes pour créer un exercice</a>
 Toutes les commandes qui commencent par `git` peuvent aussi être faites par une interface graphique (VSC, GitKraken ou GitHub Desktop).
 Il n'y a pas d'interférence entre eux donc vous pouvez sans problème faire certaines étapes en lignes de commande et d'autres avec une interface graphique c'est comme vous préférez.
 
@@ -330,4 +331,23 @@ export default function ConstruireUnDiagramme4e () {
   // this.typeExercice = 'IEP' // Pour charger InstrumEnPoche.
   // this.typeExercice = 'dnb' // Ce n’est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
   // this.typeExercice = 'XCas' // Pour charger le JavaScript de XCas qui provient de https://www-fourier.ujf-grenoble.fr/~parisse/giac_fr.html
+  // this.typeExercice = 'simple' // Pour les exercices plus simples destinés aux courses aux nombres
+
+  this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
+```
+## <a id="liste_exhaustive_fonctions" href="#liste_exhaustive_fonctions">6. Liste exhaustive des fonctions des exercices</a>
+``` javascript
+  /**
+   * Fonction qui est appellée pour chaque exercice
+   * @param {number} numeroExercice numéro de l'exercice utilisé pour avoir des identifiants uniques pour associer un champ avec le bon exercice (pour l'interactivité par exemple)
+   */
+  this.nouvelleVersion = function (numeroExercice) {}
+
+  /**
+   * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
+   * @param {int} i indice de la question
+   * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
+   * @returns {boolean} true si la question n'a jamais été posée
+   */
+  this.questionJamaisPosee = function (i, ...args) {}
 ```

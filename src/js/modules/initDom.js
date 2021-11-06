@@ -1,4 +1,4 @@
-import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex, setOutputMoodle } from './context'
+import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
 import { getDureeFromUrl, getLogFromUrl, getTaillePoliceFromUrl, getVueFromUrl, getUrlVars } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
@@ -292,6 +292,7 @@ export async function initDom () {
       for (const ol of ols) {
         setStyles(ol, 'padding:0;')
       }
+      window.parent.postMessage({ url: window.location.href }, '*')
     })
     // On récupère tous les paramètres de chaque exos dans un tableau d'objets
     const paramsAllExos = Object.entries(getUrlVars())
@@ -410,6 +411,23 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     section.append(espaceVertical())
     await addFetchHtmlToParent('templates/scores.html', document.body)
+  } else if (vue === 'alc') {
+    await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
+    section = addElement(document.body, 'section', { class: 'ui container' })
+    section.append(espaceVertical())
+    await addFetchHtmlToParent('templates/mathaleaEnteteChoixDesExercices.html', section, 'div', { id: 'choix_exercices_menu' })
+    addElement(section, 'div', { id: 'containerErreur' })
+    section.append(espaceVertical())
+    const doubleColonne = addElement(section, 'div', { class: 'ui stackable two column grid', dir: 'ltr', id: 'mathaleaContainer' })
+    const colonneGauche = addElement(doubleColonne, 'div', { id: 'left', class: 'column', style: 'height:80vh;' })
+    const colonneDroite = addElement(doubleColonne, 'div', { id: 'right', class: 'column', style: 'height:80vh; overflowY: auto;' })
+    await fetchHtmlToElement('templates/mathaleaGauche.html', colonneGauche)
+    await fetchHtmlToElement('templates/alacarteDroite.html', colonneDroite)
+    $('#reglages_sortie_LaTeX').hide()
+    $('#choix_exercices_menu').hide()
+    section.append(espaceVertical())
+    section.append(espaceVertical())
+    setOutputAlc()
   } else { // menuEtEx
     setOutputHtml()
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')

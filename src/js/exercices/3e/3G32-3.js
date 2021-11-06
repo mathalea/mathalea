@@ -9,7 +9,7 @@ export const titre = 'Calculer la hauteur d’une falaise'
  * @author Jean-Claude Lhote
  * Référence 3G32-3
 */
-export default function Calculs_trigonometriques3 () {
+export default function CalculsTrigonometriques3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

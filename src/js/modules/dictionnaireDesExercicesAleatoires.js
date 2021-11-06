@@ -653,6 +653,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2N12-2": {
+    "titre": "Décomposition en facteurs premiers",
+    "url": "/exercices/2e/2N12-2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N12-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2N13-1": {
     "titre": "Arrondir une valeur",
     "url": "/exercices/2e/2N13-1.js",
@@ -2825,7 +2841,8 @@ export default {
     "titre": "Encadrer avec des puissances de 10",
     "url": "/exercices/4e/4C30-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C30-1",
     "newEx": {
       "isNew": false,
@@ -5659,7 +5676,7 @@ export default {
     }
   },
   "6C30-4": {
-    "titre": "Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)",
+    "titre": "Multiplication par 0,1 ; 0,01 ; 0,001 (placer la virgule)",
     "url": "/exercices/6e/6C30-4.js",
     "amcReady": true,
     "amcType": {
@@ -5689,6 +5706,44 @@ export default {
     "name": "6C30-5",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6C30-6": {
+    "titre": "Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ...",
+    "url": "/exercices/6e/6C30-6.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "6C30-6",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6C30-7": {
+    "titre": "Par combien diviser un nombre pour que le chiffre des unités devienne le chiffre des ...",
+    "url": "/exercices/6e/6C30-7.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "6C30-7",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10483,6 +10538,54 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can3F07": {
+    "titre": "Lecture graphique fonction affine niveau 1",
+    "url": "/exercices/can/3e/can3F07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F07",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can3F08": {
+    "titre": "Lecture graphique fonction affine niveau 2",
+    "url": "/exercices/can/3e/can3F08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F08",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can3F09": {
+    "titre": "Reconnaître une fonction affine",
+    "url": "/exercices/can/3e/can3F09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3F09",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can3G01": {
     "titre": "Agrandissement/réduction",
     "url": "/exercices/can/3e/can3G01.js",
@@ -11804,6 +11907,63 @@ export default {
     "name": "canPredef5-1",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betacan6G04": {
+    "titre": "Problèmes de longueurs",
+    "url": "/exercices/can/6e/betacan6G04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betacan6G04",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betacan6G05": {
+    "titre": "Problèmes de longueurs (inverse)",
+    "url": "/exercices/can/6e/betacan6G05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betacan6G05",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betacan6G06": {
+    "titre": "Nombre de faces ou d'arêtes",
+    "url": "/exercices/can/6e/betacan6G06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betacan6G06",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

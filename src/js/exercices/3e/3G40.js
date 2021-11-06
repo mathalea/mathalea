@@ -1,4 +1,3 @@
-/* global mathalea */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { numAlpha, combinaisonListes, randint, choisitLettresDifferentes, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
@@ -85,7 +84,7 @@ export default function ReperageSurLaSphere () {
     for (let i = 0, latitude, longitude, M, lab, croix; i < this.nbQuestions;) {
       latitude = randint(-3, 6, 0) * 10
       longitude = randint(-6, 4) * 10
-      while (latitudes.indexOf(latitude) != -1 && longitudes.indexOf(longitude) != -1) {
+      while (latitudes.indexOf(latitude) !== -1 && longitudes.indexOf(longitude) !== -1) {
         latitude = randint(-3, 6, 0) * 10
         longitude = randint(-6, 4) * 10
       }
@@ -127,7 +126,7 @@ export default function ReperageSurLaSphere () {
     // paramètres pour la perspective
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
-    paramsEnonce = { xmin: -13, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 0.3, mainlevee: false }
+    const paramsEnonce = { xmin: -13, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 0.3, mainlevee: false }
 
     // texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)

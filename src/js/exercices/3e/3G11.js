@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel, texNombre } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, segment, dansLaCibleCarree, cibleCarree, homothetie, longueur, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Construire l’image d’un point par une homothetie avec cible auto-corrective'
 
 /**
@@ -11,7 +11,7 @@ export const titre = 'Construire l’image d’un point par une homothetie avec 
 * @author Jean-Claude Lhote
 * Publié le 30/11/2020
 */
-export default function Construire_homothetie_point_3e () {
+export default function ConstruireHomothetiePoint3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -37,18 +37,18 @@ export default function Construire_homothetie_point_3e () {
     // On prépare la figure...
     const O = point(0, 0, 'O')
     const noms = choisitLettresDifferentes(nbpoints, 'QO', true)
-    this.consigne = `Construire l\'image des points $${noms[0]}$`
+    this.consigne = `Construire l'image des points $${noms[0]}$`
     for (let i = 1; i < nbpoints - 1; i++) {
       this.consigne += `, $${noms[i]}$`
     }
-    this.consigne += ` et $${noms[nbpoints - 1]}$ par l\'homothétie de centre $O$`
+    this.consigne += ` et $${noms[nbpoints - 1]}$ par l'homothétie de centre $O$`
     this.consigne += ` et de rapport $${texNombre(k)}$.`
     const cibles = []; const M = []; const N = []; const objetsEnonce = []; const objetsCorrection = [] // cibles, M point marqués, N symétrique de M
     const cellules = []
     let xMin, yMin, xMax, yMax;
     [xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
     for (let i = 0; i < nbpoints; i++) { // On place les cibles.
-      N.push(point(calcul(randint(-60, 60, 0) / 10), calcul(randint(-60, 60, 0) / 10), noms[i] + "\'"))
+      N.push(point(calcul(randint(-60, 60, 0) / 10), calcul(randint(-60, 60, 0) / 10), noms[i] + "'"))
       nontrouve = true
       while (longueur(N[i], O) < 3 || nontrouve) {
         nontrouve = true
@@ -60,7 +60,7 @@ export default function Construire_homothetie_point_3e () {
           for (let j = 0; j < i; j++) {
             if (longueur(N[i], N[j]) < 4.5) { assezloin = false }
           }
-          if (assezloin == false) { // éloigner les points donc les grilles
+          if (assezloin === false) { // éloigner les points donc les grilles
             N[i].x = calcul(randint(-60, 60, 0) / 10)
             N[i].y = calcul(randint(-60, 60, 0) / 10)
           } else { nontrouve = false }
@@ -96,7 +96,7 @@ export default function Construire_homothetie_point_3e () {
       }
       s.color = arcenciel(i)
       objetsCorrection.push(s)
-      texteCorr += `$${noms[i]}\'$, l\'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
+      texteCorr += `$${noms[i]}'$, l'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
     }
 
     for (let i = 0; i < nbpoints; i++) {
@@ -105,7 +105,7 @@ export default function Construire_homothetie_point_3e () {
       xMax = Math.max(xMax, N[i].x + 3, M[i].x + 3)
       yMax = Math.max(yMax, N[i].y + 3, M[i].y + 3)
     }
-    const fenetreMathalea2d = [xMin, yMin, xMax, yMax]
+    context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
     anim.xMin = xMin
     anim.xMax = xMax
     anim.yMin = yMin
