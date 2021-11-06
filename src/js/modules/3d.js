@@ -301,13 +301,12 @@ function Sphere3d (centre, rayon, nbParalleles, nbMeridiens, color) {
   this.color = color
   this.nbMeridiens = nbMeridiens
   this.nbParalleles = nbParalleles
-  const objets = []; let c1; let c2; let c3; let c4; let C; let D
+  this.c2d = []; let c1; let c2; let c3; let c4; let C; let D
   const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon.matrice))
   const rayon2 = vecteur3d(math.cross(this.rayon.matrice, math.multiply(prodvec.matrice, 1 / math.norm(prodvec.matrice))))
   const R = rayon
   const cote1 = 'caché'
   const cote2 = 'visible'
-  // objets.push(cercle3d(this.centre,rotationV3d(prodvec,this.normal,context.anglePerspective),rotationV3d(this.rayon,this.normal,context.anglePerspective),true,this.color))
   for (let k = 0, rayon3; k < 1; k += 1 / (this.nbParalleles + 1)) {
     C = point3d(centre.x, centre.y, centre.z + R * Math.sin(k * Math.PI / 2))
     D = point3d(centre.x, centre.y, centre.z + R * Math.sin(-k * Math.PI / 2))
@@ -316,7 +315,7 @@ function Sphere3d (centre, rayon, nbParalleles, nbMeridiens, color) {
     c2 = demicercle3d(C, this.normal, rayon3, cote2, this.color, context.anglePerspective)
     c3 = demicercle3d(D, this.normal, rayon3, cote1, this.color, context.anglePerspective)
     c4 = demicercle3d(D, this.normal, rayon3, cote2, this.color, context.anglePerspective)
-    objets.push(c1, c2, c3, c4)
+    this.c2d.push(c1, c2, c3, c4)
   }
   for (let k = 0, V, W; k < 1; k += 1 / this.nbMeridiens) {
     V = rotationV3d(prodvec, this.normal, 90 + context.anglePerspective + k * 90)
@@ -325,22 +324,7 @@ function Sphere3d (centre, rayon, nbParalleles, nbMeridiens, color) {
     c2 = demicercle3d(this.centre, V, rayon2, cote1, this.color, 0)
     c3 = demicercle3d(this.centre, W, rayon2, cote2, this.color, 0)
     c4 = demicercle3d(this.centre, W, rayon2, cote1, this.color, 0)
-    objets.push(c1, c2, c3, c4)
-  }
-
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
-    }
-    return code
+    this.c2d.push(c1, c2, c3, c4)
   }
 }
 export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'black') {
@@ -363,7 +347,8 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
   this.centrebase = centrebase
   this.normal = normal
   this.rayon = vecteur3d(rayon, 0, 0)
-  const objets = []; let s; let color1; let color2
+  this.c2d = []
+  let s, color1, color2
   const prodvec = vecteur3d(math.cross(normal.matrice, this.rayon.matrice))
   const prodscal = math.dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice)
   let cote1, cote2
@@ -390,7 +375,7 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
       } else {
         s.color = 'black'
       }
-      objets.push(s)
+      this.c2d.push(s)
     }
   }
   for (let i = 0; i < c2.listePoints.length; i++) {
@@ -402,24 +387,10 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
       } else {
         s.color = 'black'
       }
-      objets.push(s)
+      this.c2d.push(s)
     }
   }
-  objets.push(c1, c2)
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
-    }
-    return code
-  }
+  this.c2d.push(c1, c2)
 }
 export function cone3d (centre, sommet, normal, rayon, generatrices = 18) {
   return new Cone3d(centre, sommet, normal, rayon, generatrices)
@@ -445,7 +416,7 @@ function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
   this.rayon1 = rayon1
   this.rayon2 = rayon2
   this.color = color
-  this.p2d = []
+  this.c2d = []
   let s, color1, color2
   const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon1.matrice))
   const prodscal = math.dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice)
@@ -476,7 +447,7 @@ function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
     } else {
       s.color = this.color
     }
-    this.p2d.push(s)
+    this.c2d.push(s)
   }
   for (let i = 0; i < c2.listePoints.length; i += 2) {
     s = segment(c4.listePoints[i], c2.listePoints[i])
@@ -487,9 +458,9 @@ function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
     } else {
       s.color = this.color
     }
-    this.p2d.push(s)
+    this.c2d.push(s)
   }
-  this.p2d.push(c1, c2, c3, c4)
+  this.c2d.push(c1, c2, c3, c4)
 }
 export function cylindre3d (centrebase1, centrebase2, normal, rayon, rayon2, color = 'black') {
   return new Cylindre3d(centrebase1, centrebase2, normal, rayon, rayon2, color)
@@ -511,18 +482,17 @@ class Prisme3d {
     this.base2 = translation3d(base, vecteur)
     this.base2.color = this.base1.color
     this.aretes = []
-    const objets = []; let s
+    this.c2d = []; let s
     for (let i = 0; i < this.base1.listePoints.length; i++) {
-      objets.push(this.base1.c2d[i])
+      this.c2d.push(this.base1.c2d[i])
     }
     for (let i = 0; i < this.base2.listePoints.length; i++) {
-      objets.push(this.base2.c2d[i])
+      this.c2d.push(this.base2.c2d[i])
     }
     for (let i = 0; i < this.base1.listePoints.length; i++) {
       s = arete3d(this.base1.listePoints[i], this.base2.listePoints[i], this.color)
-      objets.push(s.c2d)
+      this.c2d.push(s.c2d)
     }
-    this.p2d = objets
   }
 }
 
@@ -530,10 +500,10 @@ export function prisme3d (base, vecteur, color = 'black') {
   return new Prisme3d(base, vecteur, color)
 }
 /**
-   * LE PRISME
+   * La pyramide
    *
    * @author Jean-Claude Lhote
-   * Crée un prisme à partir du base Polygone3d et d'un vecteur3d d'extrusion (on peut faire des prismes droits ou non droits)
+   * Crée une pyramide à partir d'une base Polygone3d et d'un sommet
    */
 class Pyramide3d {
   constructor (base, sommet, color) {
@@ -544,26 +514,25 @@ class Pyramide3d {
     this.base = base
     this.aretes = []
     this.sommet = sommet
-    const objets = []; let s
+    this.c2d = []; let s
     for (let i = 0; i < this.base.listePoints.length; i++) {
-      s = this.base.p2d[i]
+      s = this.base.c2d[i]
       if (this.base.listePoints[i].visible) {
         s.pointilles = false
       } else {
         s.pointilles = 2
       }
-      objets.push(s)
+      this.c2d.push(s)
     }
     for (let i = 0; i < this.base.listePoints.length; i++) {
       s = arete3d(this.base.listePoints[i], this.sommet, this.color, true)
       if (this.base.listePoints[i].visible) {
-        s.p2d.pointilles = false
+        s.c2d.pointilles = false
       } else {
-        s.p2d.pointilles = 2
+        s.c2d.pointilles = 2
       }
-      objets.push(s.p2d)
+      this.c2d.push(s.c2d)
     }
-    this.p2d = objets
   }
 }
 
@@ -571,6 +540,42 @@ export function pyramide3d (base, vecteur, color = 'black') {
   return new Pyramide3d(base, vecteur, color)
 }
 
+/**
+   * La pyramide tronquée
+   *
+   * @author Jean-Claude Lhote
+   * Crée une pyramide à partir d'une base Polygone3d d'un sommet et d'un coefficient compris entre 0 et 1
+   * un coefficient de 0.5 coupera la pyramide à mi-hauteur (valeur par défaut).
+   */
+class PyramideTronquee3d {
+  constructor (base, sommet, coeff = 0.5, color = 'black') {
+    ObjetMathalea2D.call(this)
+
+    this.color = color
+    base.color = color
+    this.base = base
+    this.coeff = coeff
+    this.aretes = []
+    this.sommet = sommet
+    this.c2d = []
+    const sommetsBase2 = []
+    for (let i = 0, pointSection; i < this.base.listePoints.length; i++) {
+      pointSection = homothetie3d(sommet, base.listePoints[i], coeff)
+      pointSection.visible = true
+      sommetsBase2.push(pointSection)
+    }
+    this.base2 = polygone3d(...sommetsBase2)
+    this.c2d.push(...this.base.c2d)
+    for (let i = 0; i < base.listePoints.length; i++) {
+      this.aretes.push(arete3d(base.listePoints[i], this.base2.listePoints[i], color, base.listePoints[i].visible))
+      this.c2d.push(this.aretes[i].c2d)
+    }
+    this.c2d.push(...this.base2.c2d)
+  }
+}
+export function pyramideTronquee3d (base, sommet, coeff = 0.5, color = 'black') {
+  return new PyramideTronquee3d(base, sommet, coeff, color)
+}
 /**
    * LE cube
    * @author Jean-Claude Lhote
@@ -613,7 +618,7 @@ class Barre3d {
   constructor (x, y, z, c, l, color = 'black') {
     ObjetMathalea2D.call(this)
     let B, C, D, E, F, G, H, faceAv, faceTop
-    const objets = []
+    this.c2d = []
     const vx = vecteur3d(c, 0, 0)
     const vy = vecteur3d(0, c, 0)
     const vz = vecteur3d(0, 0, c)
@@ -631,13 +636,12 @@ class Barre3d {
       faceTop = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
       faceAv.couleurDeRemplissage = 'lightgray'
       faceTop.couleurDeRemplissage = 'white'
-      objets.push(faceAv, faceTop)
+      this.c2d.push(faceAv, faceTop)
       A = translation3d(A, vx)
     }
     const faceD = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
     faceD.couleurDeRemplissage = 'darkgray'
-    objets.push(faceD)
-    this.c2d = objets
+    this.c2d.push(faceD)
   }
 }
 
@@ -653,7 +657,7 @@ class Plaque3d {
   constructor (x, y, z, c, l, p, color = 'black') {
     ObjetMathalea2D.call(this)
     let A, B, C, D, F, G, H, faceAv, faceTop, faceD
-    const objets = []
+    this.c2d = []
     const vx = vecteur3d(c, 0, 0)
     const vy = vecteur3d(0, c, 0)
     const vz = vecteur3d(0, 0, c)
@@ -670,19 +674,18 @@ class Plaque3d {
         if (j === 0) {
           faceAv = polygone([A.c2d, B.c2d, C.c2d, D.c2d], color)
           faceAv.couleurDeRemplissage = 'lightgray'
-          objets.push(faceAv)
+          this.c2d.push(faceAv)
         }
         if (i === l - 1) {
           faceD = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
           faceD.couleurDeRemplissage = 'darkgray'
-          objets.push(faceD)
+          this.c2d.push(faceD)
         }
         faceTop = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
         faceTop.couleurDeRemplissage = 'white'
-        objets.push(faceTop)
+        this.c2d.push(faceTop)
       }
     }
-    this.c2d = objets
   }
 }
 
@@ -694,7 +697,7 @@ class PaveLPH3d {
   constructor (x, y, z, c, l, p, h, color = 'black') {
     ObjetMathalea2D.call(this)
     let A, B, C, D, F, G, H, faceAv, faceTop, faceD
-    const objets = []
+    this.c2d = []
     const vx = vecteur3d(c, 0, 0)
     const vy = vecteur3d(0, c, 0)
     const vz = vecteur3d(0, 0, c)
@@ -712,22 +715,21 @@ class PaveLPH3d {
           if (j === 0) {
             faceAv = polygone([A.c2d, B.c2d, C.c2d, D.c2d], color)
             faceAv.couleurDeRemplissage = 'lightgray'
-            objets.push(faceAv)
+            this.c2d.push(faceAv)
           }
           if (i === l - 1) {
             faceD = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
             faceD.couleurDeRemplissage = 'darkgray'
-            objets.push(faceD)
+            this.c2d.push(faceD)
           }
           if (k === h - 1) {
             faceTop = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
             faceTop.couleurDeRemplissage = 'white'
-            objets.push(faceTop)
+            this.c2d.push(faceTop)
           }
         }
       }
     }
-    this.c2d = objets
   }
 }
 
@@ -812,23 +814,14 @@ class Pave3d {
     this.color = color
     this.base = polygone3d([A, B, F, E])
     this.hauteur = v3
+    this.c2d = []
     this.aretes = [arete3d(A, B, color), arete3d(A, D, color), arete3d(A, E, color), arete3d(C, B, color), arete3d(F, B, color), arete3d(C, D, color), arete3d(C, G, color), arete3d(F, G, color), arete3d(F, E, color), arete3d(H, G, color), arete3d(H, E, color), arete3d(H, D, color)]
-    this.svg = function (coeff) {
-      let code = ''
-      for (const arete of this.aretes) {
-        code += '\n\t' + arete.c2d.svg(coeff)
-      }
-      return code
-    }
-    this.tikz = function () {
-      let code = ''
-      for (const arete of this.aretes) {
-        code += '\n\t' + arete.c2d.tikz()
-      }
-      return code
+    for (const arete of this.aretes) {
+      this.c2d.push(arete.c2d)
     }
   }
 }
+
 export function pave3d (A, B, C, E, color = 'black') {
   return new Pave3d(A, B, C, E, color)
 }
@@ -915,46 +908,33 @@ function SensDeRotation3d (axe, rayon, angle, epaisseur, color) {
   ObjetMathalea2D.call(this)
   this.epaisseur = epaisseur
   this.color = color
-  let M; let N; let s; const objets = []
+  this.c2d = []
+  let M; let N; let s
   M = translation3d(axe.origine, rayon)
   for (let i = 0; i < angle; i += 5) {
     N = rotation3d(M, axe, 5)
     s = segment(M.c2d, N.c2d)
     s.color = this.color
     s.epaisseur = this.epaisseur
-    objets.push(s)
+    this.c2d.push(s)
     M = N
   }
   N = rotation3d(M, axe, 5)
   s = segment(M.c2d, N.c2d)
   s.color = this.color
   s.epaisseur = this.epaisseur
-  objets.push(s)
+  this.c2d.push(s)
   const d = droite3d(N, axe.directeur)
   const A = rotation3d(M, d, 30)
   const B = rotation3d(M, d, -30)
   s = segment(N.c2d, A.c2d)
   s.color = this.color
   s.epaisseur = this.epaisseur
-  objets.push(s)
+  this.c2d.push(s)
   s = segment(N.c2d, B.c2d)
   s.color = this.color
   s.epaisseur = this.epaisseur
-  objets.push(s)
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
-    }
-    return code
-  }
+  this.c2d.push(s)
 }
 export function sensDeRotation3d (axe, rayon, angle, epaisseur, color) {
   return new SensDeRotation3d(axe, rayon, angle, epaisseur, color)

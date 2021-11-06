@@ -70,8 +70,8 @@ export default function ReperageSurLaSphere () {
     const W = labelPoint(point3d(-12, 0, 0, true, 'O').c2d)
     W.taille = 3
     W.color = 'brown'
-    objetsEnonce.push(Sph, Axe.c2d, equateur1, equateur2, greenwitch, Pn, Ps, rotationTerre, E, W)
-    objetsCorrection.push(Sph, Axe.c2d, equateur1, equateur2, greenwitch, Pn, Ps, rotationTerre, E, W)
+    objetsEnonce.push(...Sph.c2d, Axe.c2d, equateur1, equateur2, greenwitch, Pn, Ps, ...rotationTerre.c2d, E, W)
+    objetsCorrection.push(...Sph.c2d, Axe.c2d, equateur1, equateur2, greenwitch, Pn, Ps, ...rotationTerre.c2d, E, W)
     for (let i = 0; i < this.nbQuestions; i++) {
       latitudes.push(0)
       longitudes.push(0)

@@ -56,7 +56,7 @@ export default function CalculsTrigonometriques1 () {
       Sph = sphere3d(O, 5, 1, 3)
       HP = arete3d(H, P)
       OP = arete3d(O, P)
-      objets.push(Sph, Axe.c2d, HP.c2d, OP.c2d, codageAngleDroit(P.c2d, H.c2d, O.c2d), tracePoint(H.c2d, P.c2d, O.c2d, M.c2d), labelPoint(H.c2d, P.c2d, O.c2d, M.c2d))
+      objets.push(...Sph.c2d, Axe.c2d, HP.c2d, OP.c2d, codageAngleDroit(P.c2d, H.c2d, O.c2d), tracePoint(H.c2d, P.c2d, O.c2d, M.c2d), labelPoint(H.c2d, P.c2d, O.c2d, M.c2d))
       objets.push(demicercle3d(H, normalV, R2, 'caché', 'red', 0), demicercle3d(H, normalV, R2, 'visible', 'red', 0))
       objets.push(arete3d(O, M).c2d)
       objets.push(afficheMesureAngle(M.c2d, O.c2d, P.c2d, 'black', 1.5, `${alpha}`))

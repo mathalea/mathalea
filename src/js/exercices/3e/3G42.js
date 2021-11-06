@@ -106,7 +106,7 @@ export default function VolumeBoule () {
           s = sphere3d(o, 2.5, 5, 5, 'blue')
           c = cylindre3d(O, OO, normal, R, R, 'black')
           // context.anglePerspective=20;
-          texteCorr += '<br>' + mathalea2d({ xmin: -5, max: 9, ymin: -1.5, ymax: 6, scale: 0.8 }, s, c) + '<br>'
+          texteCorr += '<br>' + mathalea2d({ xmin: -5, max: 9, ymin: -1.5, ymax: 6, scale: 0.8 }, ...s.c2d, ...c.c2d) + '<br>'
           texteCorr += 'Méthode : on calcule le volume du cylindre auquel on va retrancher le volume de la boule. <br>'
           texteCorr += 'Le volume du cylindre est : $V_c = \\pi r^2 h$ ; et celui de la boule est : $V_b = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `Le rayon du cylindre est la moitié de son diamètre, soit ${diam} cm, et sa hauteur est ${2 * diam} cm. <br>`
