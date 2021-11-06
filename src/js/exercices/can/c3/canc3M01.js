@@ -1,15 +1,15 @@
-import { calcul, choice, randint, texNombrec } from '../../../modules/outils.js'
+import { choice, randint, texNombrec } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-export const titre = 'Lire l\'heure'
-export const dateDePublication = '4/11/2021'
+export const titre = 'Trouver la bonne unité'
+export const dateDePublication = '5/11/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /*!
  * @author Jean-Claude Lhote
  * Créé le 4/11/2021
- * Référence canc3D01
+ * Référence canc3M01
  */
-export default function LireHeure () {
+export default function TrouverLaBonneUnite () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.typeExercice = 'simple'
@@ -17,7 +17,7 @@ export default function LireHeure () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const prefixes = [[10, 'd'], [100, 'c'], [1000, 'm'], [10, 'da'], [100, 'h'], [1000, 'k']]
-    const unite = choice(['g', 'm'])
+    const unite = choice(['g', 'm', 'L'])
     const typeDeQuestion = randint(0, 5)
     const a = randint(1, 9)
     switch (typeDeQuestion) {
