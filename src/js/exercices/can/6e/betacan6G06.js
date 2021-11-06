@@ -1,7 +1,7 @@
 import { mathalea2d } from '../../../modules/2d.js'
 import { homothetie3d, point3d, polygone3d, prisme3d, pyramide3d, pyramideTronquee3d, translation3d, vecteur3d } from '../../../modules/3d.js'
 import { context } from '../../../modules/context.js'
-import { choice, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Nombre de faces ou d\'arêtes'
 export const dateDePublication = '2/11/2021'
@@ -20,7 +20,7 @@ export default function NombreDeFacesEtDAretes () {
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    const choix = choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    const choix = randint(1, 14)
     context.anglePerspective = 20
     const objets = []
     const points3D = []
@@ -33,6 +33,7 @@ export default function NombreDeFacesEtDAretes () {
     const s1 = translation3d(O, k1)
     const s2 = translation3d(O, k2)
     const alpha = Math.PI * 2 / n
+    const coeff = randint(5, 7) / 10
     console.log('k', k, 'k1', k1, 'k2', k2, 's1', s1, 's2', s2)
     for (let i = 0; i < n; i++) {
       points3D.push(point3d(rayon * Math.cos(alpha * i + (n > 5 ? 0.5 : 0)), rayon * Math.sin(alpha * i + (n > 5 ? 0.5 : 0)), 0, !(i > 0 && i <= (n / 2 - 0.1))))
@@ -43,8 +44,8 @@ export default function NombreDeFacesEtDAretes () {
     for (let i = 0; i < base2.c2d.length; i++) {
       base2.c2d[i].pointilles = 2 // !(i > 0 && i <= (n / 2 - 0.1)) ? false : 2
     }
-    const chapeau1 = choix < 7 ? pyramide3d(base2, s1) : choix < 9 ? pyramide3d(base, s1) : pyramideTronquee3d(base, s1)
-    const chapeau2 = choix < 9 ? pyramide3d(base, s2) : pyramideTronquee3d(base, s2)
+    const chapeau1 = choix < 7 ? pyramide3d(base2, s1) : choix < 9 ? pyramide3d(base, s1) : choix < 13 ? pyramideTronquee3d(base, s1, coeff) : pyramide3d(base, s1)
+    const chapeau2 = choix < 9 ? pyramide3d(base, s2) : choix < 11 ? pyramideTronquee3d(base, s2, coeff) : choix < 13 ? pyramide3d(base, s2) : pyramideTronquee3d(base, s2, coeff)
 
     for (let i = 0; i < n; i++) {
       if (i >= 0 && i < n / 2) {
@@ -63,8 +64,18 @@ export default function NombreDeFacesEtDAretes () {
         if (i !== 0) {
           corps.c2d[i + 2 * n].pointilles = 2
         }
-        if (choix > 8) {
+        if ((choix > 8 && choix < 11) || choix > 12) {
           chapeau2.c2d[i + 2 * n].pointilles = 2
+        }
+        if (choix > 10 && choix < 13) {
+          if (i !== 0) {
+            chapeau2.c2d[i + n].pointilles = 2
+          }
+        }
+        if (choix > 12) {
+          if (i !== 0) {
+            chapeau1.c2d[i + n].pointilles = 2
+          }
         }
       }
     }
@@ -134,7 +145,34 @@ export default function NombreDeFacesEtDAretes () {
         this.reponse = 5 * n
         this.correction = `Les deux pyramides tronquées ont une base commune à $${n}$ sommets.<br>Donc elles ont aussi $${n}$ arêtes latérales chacune.<br>Il faut ajouter les $${n}$ arêtes de la base commune aux deux pyramides.<br>Enfin on ajoute les ${n} arêtes de la face du dessus et les ${n} arêtes de la face du dessous.<br>Au total, il y a $5\\times ${n}$ arêtes soit $${5 * n}$ arêtes.`
         break
+      case 11: // 1 tronc de pyramides au dessus et 1 pyramide en dessous -> faces ?
+        objets.push(...chapeau1.c2d, ...chapeau2.c2d)
+        this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5 }, objets)
+        this.reponse = 2 * n + 1
+        this.correction = `Le solide est composé d'une pyramide à $${n}$ faces latérales et d'un tronc de pyramide<br>qui possède autant de faces latérales plus une face au dessus<br>Ce solide est donc constitué de $2\\times ${n}+1$ faces soit $${2 * n + 1}$ faces.`
+
+        break
+      case 12: // 1 tronc de pyramide au dessus et 1 pyramide en dessous -> arêtes ?
+        objets.push(...chapeau1.c2d, ...chapeau2.c2d)
+        this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5 }, objets)
+        this.reponse = 4 * n
+        this.correction = `Le solide est composé d'une pyramide à $${n}$ arêtes latérales et d'un tronc de pyramide<br>qui possède aussi $${n}$ arêtes latérales.<br>Il faut ajouter les $${n}$ arêtes de chacune des bases du tronc de pyramide.<br>Au total, il y a $4\\times ${n}$ arêtes soit $${4 * n}$ arêtes.`
+        break
+      case 13: // 1 tronc de pyramides en dessous et 1 pyramide au dessus -> faces ?
+        objets.push(...chapeau1.c2d, ...chapeau2.c2d)
+        this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5 }, objets)
+        this.reponse = 2 * n + 1
+        this.correction = `Le solide est composé d'une pyramide à $${n}$ faces latérales et d'un tronc de pyramide<br>qui possède autant de faces latérales plus une face au dessus<br>Ce solide est donc constitué de $2\\times ${n}+1$ faces soit $${2 * n + 1}$ faces.`
+
+        break
+      case 14: // 1 tronc de pyramide en dessous et 1 pyramide au dessus -> arêtes ?
+        objets.push(...chapeau1.c2d, ...chapeau2.c2d)
+        this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5 }, objets)
+        this.reponse = 4 * n
+        this.correction = `Le solide est composé d'une pyramide à $${n}$ arêtes latérales et d'un tronc de pyramide<br>qui possède aussi $${n}$ arêtes latérales.<br>Il faut ajouter les $${n}$ arêtes de chacune des bases du tronc de pyramide.<br>Au total, il y a $4\\times ${n}$ arêtes soit $${4 * n}$ arêtes.`
+        break
     }
+    console.log(choix)
     if (choix % 2 === 1) {
       this.question += 'Quel est le nombre de faces de ce solide ?'
     } else {
