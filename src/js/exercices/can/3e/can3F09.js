@@ -18,6 +18,7 @@ export default function ReconnaitreFonctionAffine () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'calcul'
+  this.nbQuestions = 1
   this.nouvelleVersion = function () {
     this.listeCorrections = []
     this.listeQuestions = []
