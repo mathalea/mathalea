@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenuSansNumero, randint, shuffle, combinaisonListes, lettreDepuisChiffre, texcolors, texteGras, numAlpha } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, codeAngle, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, codeAngle, texteParPosition, mathalea2d, appartientDroite } from '../../modules/2d.js'
 export const titre = 'Propriétés de conservation de la symétrie axiale'
 
 // Gestion de la date de publication initiale
@@ -144,13 +144,19 @@ export default function SymetrieAxialeConservation1 () {
           break
         case 'Triangle':
           choix = randint(0, 9) + randint(0, 1) * 12
-          texte = numAlpha(i) + `Quel est le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ ?`
+          while (appartientDroite(points[index(choix)], points[index(choix + 1)], points[index(choix + 2)])) {
+            choix = randint(0, 9) + randint(0, 1) * 12
+          }
+          texte += numAlpha(i) + `Quel est le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ ?`
           texteCorr = numAlpha(i) + `Le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ est le triangle $${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}$.`
           objetsCorrection.push(polygone([points[index(choix)], points[index(choix + 1)], points[index(choix + 2)]], texcolors(i * 3 + 2)))
           objetsCorrection.push(polygone([points[index(choix + 12)], points[index(choix + 13)], points[index(choix + 14)]], texcolors(i * 3 + 2)))
           break
         case 'Angle':
           choix = randint(0, 9) + randint(0, 1) * 12
+          while (appartientDroite(points[index(choix)], points[index(choix + 1)], points[index(choix + 2)])) {
+            choix = randint(0, 9) + randint(0, 1) * 12
+          }
           texte = numAlpha(i) + `Quel est le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}}$ ?`
           texteCorr = numAlpha(i) + `Le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}}$ est l'angle $\\widehat{${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}}$.`
           objetsCorrection.push(codeAngle(points[index(choix)], points[index(choix + 1)], points[index(choix + 2)], 2, '', texcolors(i * 3 + 2), 2, 0.5, texcolors(i * 3 + 2), 0.2))
