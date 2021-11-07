@@ -12,6 +12,7 @@ export const amcType = 'AMCNum'
  *
  * 2 fois sur 5 il y a chevauchement entre les classes
  * @author Rémi Angot
+ * Relecture : Novembre 2021 par EE
  * 6N10-1
  */
 export default function ExerciceNumerationEntier () {
@@ -54,7 +55,7 @@ export default function ExerciceNumerationEntier () {
 
       texte = `$\\text{${b}  ${rangs[rangB]} et ${a} ${rangs[rangA]}}$`
       texteCorr = `$${b} \\text{ ${rangs[rangB]} et }${a} \\text{ ${rangs[rangA]
-        } : } ${texNombre(b * Math.pow(10, rangB))} + ${a * texNombre(Math.pow(10, rangA))} =${texNombre(
+        } : } ${texNombre(b * Math.pow(10, rangB))} + ${texNombre(a * (Math.pow(10, rangA)))} =${texNombre(
           b * Math.pow(10, rangB) + a * Math.pow(10, rangA)
         )}$`
 
@@ -70,5 +71,4 @@ export default function ExerciceNumerationEntier () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }
