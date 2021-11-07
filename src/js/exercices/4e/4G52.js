@@ -79,7 +79,7 @@ export default function ReperagePaveDroit () {
         } else {
           s = arete3d(M, N, 'black', false)
         }
-        objetsAtracer.push(s.p2d)
+        objetsAtracer.push(s.c2d)
       }
     }
     for (let i = 0; i <= nbgraduationx; i++) {
@@ -91,7 +91,7 @@ export default function ReperagePaveDroit () {
         } else {
           s = arete3d(M, N, 'black', false)
         }
-        objetsAtracer.push(s.p2d)
+        objetsAtracer.push(s.c2d)
       }
     }
 
@@ -99,7 +99,7 @@ export default function ReperagePaveDroit () {
       M = point3d(i * deltax, 0, 0)
       N = point3d(i * deltax, 0, hauteur)
       s = arete3d(M, N, 'black', true)
-      objetsAtracer.push(s.p2d)
+      objetsAtracer.push(s.c2d)
       M = point3d(i * deltax, profondeur, 0)
       N = point3d(i * deltax, profondeur, hauteur)
       if (i < nbgraduationx) {
@@ -107,17 +107,17 @@ export default function ReperagePaveDroit () {
       } else {
         s = arete3d(M, N, 'black', true)
       }
-      objetsAtracer.push(s.p2d)
+      objetsAtracer.push(s.c2d)
     }
     for (let i = 1, M, N, s; i < nbgraduationy; i++) {
       M = point3d(0, i * deltay, 0)
       N = point3d(0, i * deltay, hauteur)
       s = arete3d(M, N, 'black', false)
-      objetsAtracer.push(s.p2d)
+      objetsAtracer.push(s.c2d)
       M = point3d(largeur, i * deltay, 0)
       N = point3d(largeur, i * deltay, hauteur)
       s = arete3d(M, N, 'black', true)
-      objetsAtracer.push(s.p2d)
+      objetsAtracer.push(s.c2d)
     }
 
     for (let i = 0, texte, texteCorr, cpt = 0, pointCoord, s1, s2, s3, x, y, z, t, pointAplacer, objetsAtracerCorr; i < this.nbQuestions && cpt < 50;) {
@@ -136,14 +136,14 @@ export default function ReperagePaveDroit () {
       s1 = arete3d(A, point3d(pointAplacer.x, 0, 0), 'blue', true)
       s2 = arete3d(point3d(pointAplacer.x, 0, 0), point3d(pointAplacer.x, pointAplacer.y, 0), 'orange', true)
       s3 = arete3d(point3d(pointAplacer.x, pointAplacer.y, 0), pointAplacer, 'red', true)
-      s1.p2d.epaisseur = 3
-      s2.p2d.epaisseur = 3
-      s3.p2d.epaisseur = 3
+      s1.c2d.epaisseur = 3
+      s2.c2d.epaisseur = 3
+      s3.c2d.epaisseur = 3
       t = tracePoint(pointAplacer)
       t.epaisseur = 2
       t.color = 'red'
       t.taille = 6
-      objetsAtracerCorr = [s1.p2d, s2.p2d, s3.p2d, t, labelPoint(pointAplacer)].concat(objetsAtracer)
+      objetsAtracerCorr = [s1.c2d, s2.c2d, s3.c2d, t, labelPoint(pointAplacer)].concat(objetsAtracer)
       texteCorr = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * sin(context.anglePerspective), style: 'display: block; margin-top:20px;' }, objetsAtracerCorr)
       texteCorr += `<br>$${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], 'orange')};${miseEnEvidence(pointCoord[2], 'red')})$.`
 

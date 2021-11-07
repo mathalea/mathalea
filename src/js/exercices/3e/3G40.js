@@ -36,18 +36,18 @@ export default function ReperageSurLaSphere () {
     let M = point3d(10, 0, 0, true, 'M')
     const PoleNord = point3d(0, 0, 11, false, 'N')
     const PoleSud = point3d(0, 0, -11, false, 'S')
-    PoleNord.p2d.positionLabel = 'above'
-    const Pn = labelPoint(PoleNord.p2d)
-    PoleSud.p2d.positionLabel = 'below'
-    const Ps = labelPoint(PoleSud.p2d)
+    PoleNord.c2d.positionLabel = 'above'
+    const Pn = labelPoint(PoleNord.c2d)
+    PoleSud.c2d.positionLabel = 'below'
+    const Ps = labelPoint(PoleSud.c2d)
     Pn.taille = 3
     Ps.taille = 3
     Pn.color = 'brown'
     Ps.color = 'brown'
 
     const Axe = arete3d(PoleSud, PoleNord)
-    Axe.p2d.epaisseur = 2
-    Axe.p2d.color = 'blue'
+    Axe.c2d.epaisseur = 2
+    Axe.c2d.color = 'blue'
     const normalV = vecteur3d(0, 0, 1)
     M = rotationV3d(M, normalV, context.anglePerspective)
     const R = vecteur3d(O, M)
@@ -62,22 +62,16 @@ export default function ReperageSurLaSphere () {
     greenwitch.opacite = 1
     equateur1.epaisseur = 3
     equateur2.epaisseur = 3
-    const objetsEnonce = []
-    const objetsCorrection = []
-    const latitudes = []
-    const longitudes = []
-    const P = []
-    const EstouOuest = []
-    const NordouSud = []
-    let nom = []
-    const E = labelPoint(point3d(13.2, 0, 0, true, 'E').p2d)
+    const objetsEnonce = []; const objetsCorrection = []// on initialise les tableaux des objets Mathalea2d
+    const latitudes = []; const longitudes = []; const P = []; const EstouOuest = []; const NordouSud = []; let nom = []
+    const E = labelPoint(point3d(13.2, 0, 0, true, 'E').c2d)
     E.taille = 3
     E.color = 'brown'
-    const W = labelPoint(point3d(-12, 0, 0, true, 'O').p2d)
+    const W = labelPoint(point3d(-12, 0, 0, true, 'O').c2d)
     W.taille = 3
     W.color = 'brown'
-    objetsEnonce.push(Sph, Axe.p2d, equateur1, equateur2, greenwitch, Pn, Ps, rotationTerre, E, W)
-    objetsCorrection.push(Sph, Axe.p2d, equateur1, equateur2, greenwitch, Pn, Ps, rotationTerre, E, W)
+    objetsEnonce.push(...Sph.c2d, Axe.c2d, equateur1, equateur2, greenwitch, Pn, Ps, ...rotationTerre.c2d, E, W)
+    objetsCorrection.push(...Sph.c2d, Axe.c2d, equateur1, equateur2, greenwitch, Pn, Ps, ...rotationTerre.c2d, E, W)
     for (let i = 0; i < this.nbQuestions; i++) {
       latitudes.push(0)
       longitudes.push(0)
@@ -103,12 +97,12 @@ export default function ReperageSurLaSphere () {
       M = rotation3d(origine, droite3d(O, normalH), -latitudes[i])
       P[i] = rotation3d(M, droite3d(O, normalV), longitudes[i])
       P[i].visible = true
-      P[i].p2d.nom = `${nom[i]}`
-      P[i].p2d.positionLabel = 'above left'
-      lab = labelPoint(P[i].p2d)
+      P[i].c2d.nom = `${nom[i]}`
+      P[i].c2d.positionLabel = 'above left'
+      lab = labelPoint(P[i].c2d)
       lab.color = 'blue'
       lab.taille = 2
-      croix = tracePoint(P[i].p2d)
+      croix = tracePoint(P[i].c2d)
       croix.taille = 2.5
       croix.epaisseur = 2
       croix.color = 'blue'
