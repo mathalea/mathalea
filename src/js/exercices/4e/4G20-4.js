@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeNombresPremiersStrictJusqua, choice, listeQuestionsToContenu, randint, texNombre, arrondi } from '../../modules/outils.js'
+import { choice, listeQuestionsToContenu, randint, texNombre, arrondi } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { cos } from '../../modules/fonctionsMaths.js'
 
@@ -40,7 +40,7 @@ export default function ArrondirUneValeur () {
       this.autoCorrection[3 * i + 1] = {}
       this.autoCorrection[3 * i + 2] = {}
       if (this.sup === 1) {
-        rac = randint(2, 300, [listeNombresPremiersStrictJusqua(300)])
+        rac = randint(2, 300, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289])
         n = Math.sqrt(rac)
         nb = `\\sqrt{${rac}}`
       } else if (this.sup === 2) {
