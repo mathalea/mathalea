@@ -38,7 +38,7 @@ export default function VolumeBoule () {
   this.nouvelleVersion = function () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
-
+    this.sup = Number(this.sup)
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     let typesDeQuestionsDisponibles = [] // tableau à compléter par valeurs possibles des types de questions
@@ -46,7 +46,7 @@ export default function VolumeBoule () {
     let listeTypeDeQuestions = []
     typesDeQuestionsDisponibles.splice(this.sup, 5 - parseInt(this.sup))
     listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-
+    let r, d, A, rayon, diam, O, B, OO, o, R, s, c, normal, dia1
     // boucle pour fabriquer les nbQuestions questions en s'assurant que si il n'y a pas nbQuestions différentes
     // La boucle s'arrête après 50 tentatives.
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -57,7 +57,7 @@ export default function VolumeBoule () {
 
       switch (typesDeQuestions) {
         case 1:
-          const r = randint(2, 30)
+          r = randint(2, 30)
           texte += `Calculer le volume d'une boule de rayon ${r} cm. `
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${r} \\text{ cm})^3$. <br>`
@@ -66,7 +66,7 @@ export default function VolumeBoule () {
           break
 
         case 2:
-          const d = randint(2, 30)
+          d = randint(2, 30)
           texte += `Calculer le volume d'une boule de diamètre ${2 * d} cm. `
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `Le rayon de la boule est la moitié de son diamètre soit : ${d} cm. <br>`
@@ -76,7 +76,7 @@ export default function VolumeBoule () {
           break
 
         case 3:
-          const A = randint(2, 30)
+          A = randint(2, 30)
           texte += `Calculer le volume d'une boule d'aire ${A} cm². `
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += 'Il faut donc trouver le rayon de la boule. <br>'
@@ -84,7 +84,7 @@ export default function VolumeBoule () {
           texteCorr += `On a donc l'égalité : $${A} = 4\\pi r^2$. `
           texteCorr += `On en déduit : $r^2 = \\dfrac{${A}}{4\\pi}$. <br>`
           texteCorr += `Et, comme $r$ est positif : $r=\\sqrt{\\dfrac{${A}}{4\\pi}}$. <br>`
-          const rayon = calcul(Math.sqrt(A / (4 * Math.PI)))
+          rayon = calcul(Math.sqrt(A / (4 * Math.PI)))
           texteCorr += 'On obtient donc une valeur approchée de $r$ : $r \\approx ' + nombreDecimal(rayon) + '$. <br>'
           texteCorr += 'On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (' + nombreDecimal(rayon) + ' \\text{ cm})^3$. <br>'
           texteCorr += texteGras('Le volume de la boule est donc environ : ' + nombreDecimal(4 / 3 * Math.PI * rayon * rayon * rayon, 4) + ' cm' + exposant(3) + '. <br>')
@@ -92,21 +92,21 @@ export default function VolumeBoule () {
           break
 
         case 4:
-          const diam = randint(2, 30)
+          diam = randint(2, 30)
           texte += `Un boîte cylindrique de ${2 * diam} cm de diamètre et de ${2 * diam} cm de hauteur contient une boule de diamètre ${2 * diam} cm. <br>`
           texte += 'Calculer le volume dans la boîte laissée libre par la boule. '
 
           texteCorr += 'Représentons la situation par un petit schéma : <br>'
-          const O = point3d(0, 0, 0)
-          const B = point3d(2.5, 0, 0)
-          const OO = point3d(0, 0, 5)
-          const o = point3d(0, 0, 2.5)
-          const R = vecteur3d(O, B)
-          const normal = vecteur3d(0, 0, 1)
-          const s = sphere3d(o, 2.5, 5, 5, 'blue')
-          const c = cylindre3d(O, OO, normal, R, R, 'black')
+          O = point3d(0, 0, 0)
+          B = point3d(2.5, 0, 0)
+          OO = point3d(0, 0, 5)
+          o = point3d(0, 0, 2.5)
+          R = vecteur3d(O, B)
+          normal = vecteur3d(0, 0, 1)
+          s = sphere3d(o, 2.5, 5, 5, 'blue')
+          c = cylindre3d(O, OO, normal, R, R, 'black')
           // context.anglePerspective=20;
-          texteCorr += '<br>' + mathalea2d({ xmin: -5, max: 9, ymin: -1.5, ymax: 6, scale: 0.8 }, s, c) + '<br>'
+          texteCorr += '<br>' + mathalea2d({ xmin: -5, max: 9, ymin: -1.5, ymax: 6, scale: 0.8 }, ...s.c2d, ...c.c2d) + '<br>'
           texteCorr += 'Méthode : on calcule le volume du cylindre auquel on va retrancher le volume de la boule. <br>'
           texteCorr += 'Le volume du cylindre est : $V_c = \\pi r^2 h$ ; et celui de la boule est : $V_b = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `Le rayon du cylindre est la moitié de son diamètre, soit ${diam} cm, et sa hauteur est ${2 * diam} cm. <br>`

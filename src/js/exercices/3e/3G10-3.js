@@ -10,7 +10,7 @@ export const titre = 'Construire l’image d’un point par une rotation avec ci
  * @author Jean-Claude Lhote
  * Publié le 30/11/2020
  */
-export default function Construire_rotation_point_3e () {
+export default function ConstruireRotationPoint3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -38,14 +38,14 @@ export default function Construire_rotation_point_3e () {
       this.consigne += `, $${noms[i]}$`
     }
     this.consigne += ` et $${noms[nbpoints - 1]}$ par la rotation de centre $O$`
-    this.consigne += ` et d\'angle $${Math.abs(angle)}\\degree$`
+    this.consigne += ` et d'angle $${Math.abs(angle)}\\degree$`
     if (angle < 0) { this.consigne += ' dans le sens des aiguilles d\'une montre.' } else { this.consigne += ' dans le sens contraire des aiguilles d\'une montre.' }
     const cibles = []; const M = []; const N = []; const objetsEnonce = []; const objetsCorrection = [] // cibles, M point marqués, N symétrique de M
     const cellules = []
     let xMin, yMin, xMax, yMax;
     [xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
     for (let i = 0; i < nbpoints; i++) { // On place les cibles.
-      N.push(point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[i] + "\'"))
+      N.push(point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[i] + "'"))
       nontrouve = true
       while (longueur(N[i], O) < 3 || nontrouve) {
         nontrouve = true
@@ -57,7 +57,7 @@ export default function Construire_rotation_point_3e () {
           for (let j = 0; j < i; j++) {
             if (longueur(N[i], N[j]) < 4.5) { assezloin = false }
           }
-          if (assezloin == false) { // éloigner les points donc les grilles
+          if (assezloin === false) { // éloigner les points donc les grilles
             N[i].x = calcul(randint(-80, 80, 0) / 10)
             N[i].y = calcul(randint(-80, 80, 0) / 10)
           } else { nontrouve = false }
@@ -82,7 +82,7 @@ export default function Construire_rotation_point_3e () {
       objetsEnonce.push(tracePoint(M[i]), labelPoint(M[i]), cibles[i])
       objetsCorrection.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i])
       objetsCorrection.push(arcPointPointAngle(M[i], N[i], angle, true, arcenciel(i), 'gray', 0.2))
-      texteCorr += `$${noms[i]}\'$, l\'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
+      texteCorr += `$${noms[i]}'$, l'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
     }
 
     for (let i = 0; i < nbpoints; i++) {
@@ -92,7 +92,7 @@ export default function Construire_rotation_point_3e () {
       yMax = Math.max(yMax, N[i].y + 3, M[i].y + 3)
     }
 
-    const fenetreMathalea2d = [xMin, yMin, xMax, yMax]
+    context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
 
     this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }, objetsEnonce))
     this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsCorrection))

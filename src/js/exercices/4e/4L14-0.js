@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, calcul, texteEnCouleur } from '../../modules/outils.js'
 
 export const titre = 'Tester si un nombre est solution d’une équation'
@@ -10,7 +9,7 @@ export const titre = 'Tester si un nombre est solution d’une équation'
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
-export default function Tester_si_un_nombre_est_solution_d_une_equation () {
+export default function TesterSiUnNombreEstSolutionDUneEquation () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -19,9 +18,9 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation () {
   this.nbColsCorr = 1
   this.sup = 1
   // this.sup2=false;
-  if (this.exo == '4L14-1') {
+  if (this.exo === '4L14-1') {
     this.nbQuestions = 4
-  } else if (this.exo == '4L14-2') {
+  } else if (this.exo === '4L14-2') {
     this.nbQuestions = 3
   } else {
     this.nbQuestions = 9
@@ -30,12 +29,12 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
+    this.sup = Number(this.sup)
     let typesDeQuestionsDisponibles
-    if (this.exo == '4L14-1') {
+    if (this.exo === '4L14-1') {
       // typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 8];
       typesDeQuestionsDisponibles = [choice([1, 2]), 3, choice([4, 5]), 8]
-    } else if (this.exo == '4L14-2') {
+    } else if (this.exo === '4L14-2') {
       typesDeQuestionsDisponibles = [9, 6, 7]
     } else {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 8, 6, 7, 9]
@@ -52,7 +51,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation () {
       let a, b, c, d, x1, x2, x3
       switch (listeTypeDeQuestions[i]) {
         case 1: // 3x-a=2x+b   x=a+b
-          if (this.sup == 1) {
+          if (this.sup === 1) {
             a = randint(1, 6)
             b = randint(1, 6, [a])
             x2 = a + b
@@ -103,7 +102,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation () {
           )}`
           break
         case 2: // 3x+a=5x-b   x=(a+b)/2 donc a et b impairs pour une solution entière
-          if (this.sup == 1) {
+          if (this.sup === 1) {
             a = randint(1, 9)
             b = randint(0, 4) * 2 + (a % 2)
             x1 = parseInt(calcul((a + b) / 2))
@@ -154,7 +153,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation () {
           )}`
           break
         case 3: // 10(x-a)=4(2x+b) x=(10a+4b)/2
-          if (this.sup == 1) {
+          if (this.sup === 1) {
             a = randint(1, 3)
             b = randint(1, 3)
             x2 = parseInt(calcul((10 * a + 4 * b) / 2))
@@ -205,7 +204,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation () {
           )}`
           break
         case 4: // ax+b=(a+1)x-c x=b+c
-          if (this.sup == 1) {
+          if (this.sup === 1) {
             a = randint(2, 9)
             b = randint(2, 9)
             c = randint(1, 3)
@@ -258,7 +257,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation () {
           )}<br><br>`
           break
         case 5: // a-2x=b+2x x=(a-b)/4
-          if (this.sup == 1) {
+          if (this.sup === 1) {
             x1 = randint(1, 9)
             b = randint(1, 9)
             a = b + 4 * x1
@@ -293,7 +292,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation () {
           )}<br><br>`
           break
         case 6: // ax-ab=x²-bx (a-x)(x-b)=0 solutions a et b.
-          if (this.sup == 1) {
+          if (this.sup === 1) {
             b = randint(2, 9)
             a = randint(2, 9, [b])
             x3 = b
@@ -363,7 +362,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation () {
           )}`
           break
         case 7: // adx-bd=acx²-bcx  --- (ax-b)(d-cx)=0 solutions b/a et d/c.
-          if (this.sup == 1) {
+          if (this.sup === 1) {
             c = randint(2, 5)
             a = randint(2, 5)
             x2 = randint(2, 6)
@@ -421,7 +420,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation () {
           )}`
           break
         case 8: // 12x-4a=4(2x+b) x=(4a+4b)/4
-          if (this.sup == 1) {
+          if (this.sup === 1) {
             a = randint(1, 3)
             b = randint(1, 3)
             x2 = parseInt(calcul((4 * a + 4 * b) / 4))
@@ -472,7 +471,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation () {
           )}<br><br>`
           break
         case 9: // x²-bx-ax+ab=0 (a-x)(x-b)=0 solutions a et b.
-          if (this.sup == 1) {
+          if (this.sup === 1) {
             b = randint(2, 9)
             a = randint(2, 9)
             x3 = b
@@ -485,7 +484,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation () {
               x1 = a
               x3 = b
               x2 = randint(-9, 9, [x1, x3])
-            } while (a + b == 0 || a + b == 1)
+            } while (a + b === 0 || a + b === 1)
           }
           texte = `$x^2-${ecritureParentheseSiNegatif(
             b + a

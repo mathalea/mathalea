@@ -75,7 +75,7 @@ export default function TrouverSolutionMathador (
   ]
   eureka = false
   const nbDetermines = arguments.length - 2
-  while (eureka == false) {
+  while (eureka === false) {
     tirage = []
 
     if (nbDetermines < 1) { a = parseInt(choice(listeChoix)) } else { a = A }
@@ -119,19 +119,19 @@ export default function TrouverSolutionMathador (
       part1d = expressionEnCoursD.pop()
 
       op = operationsRestantes.pop()
-      if (op == '\\times') {
+      if (op === '\\times') {
         c = a * b
         expressionEnCoursF.push(`${part1f}${op}${part2f}`)
         expressionEnCoursD.push(`${part1d}${op}${part2d}`)
         nombresRestants.push(c)
-      } else if (op == '\\div') {
-        if (a % b == 0) {
+      } else if (op === '\\div') {
+        if (a % b === 0) {
           c = a / b
-          if (part1f[0] == '\\') {
+          if (part1f[0] === '\\') {
             part1f = part1f.substring(6, part1f.length)
             part1f = part1f.substring(0, part1f.length - 7)
           }
-          if (part2f[0] == '\\') {
+          if (part2f[0] === '\\') {
             part2f = part2f.substring(6, part2f.length)
             part2f = part2f.substring(0, part2f.length - 7)
           }
@@ -139,7 +139,7 @@ export default function TrouverSolutionMathador (
           expressionEnCoursD.push(`${part1d}${op}${part2d}`)
           nombresRestants.push(c)
         } else { break }
-      } else if (op == '-') {
+      } else if (op === '-') {
         if (a > b) {
           c = a - b
           expressionEnCoursF.push(
@@ -150,14 +150,14 @@ export default function TrouverSolutionMathador (
           )
           nombresRestants.push(c)
         } else { break }
-      } else if (op == '+') {
+      } else if (op === '+') {
         c = a + b
-        if (part2f.substring(0, 2) == '\\l') {
+        if (part2f.substring(0, 2) === '\\l') {
           part2f = part2f.substring(6, part2f.length)
           part2f = part2f.substring(0, part2f.length - 7)
         }
         expressionEnCoursF.push(`\\left(${part1f}${op}${part2f}\\right)`)
-        if (part2d.substring(0, 2) == '\\l') {
+        if (part2d.substring(0, 2) === '\\l') {
           part2d = part2d.substring(6, part2d.length)
           part2d = part2d.substring(0, part2d.length - 7)
         }
@@ -167,12 +167,12 @@ export default function TrouverSolutionMathador (
       operationsSuccessives.push(`${a}` + op + `${b}=${c}`)
     }
 
-    if (nombresRestants.length == 1 && operationsRestantes.length == 0) {
+    if (nombresRestants.length === 1 && operationsRestantes.length === 0) {
       solution = nombresRestants[0]
       if (solution >= min && solution <= max) {
         eureka = true
-        if (expressionEnCoursF[0][0] == '\\' &&
-          expressionEnCoursF[0][1] == 'l') {
+        if (expressionEnCoursF[0][0] === '\\' &&
+          expressionEnCoursF[0][1] === 'l') {
           expressionEnCoursF[0] = expressionEnCoursF[0].substring(
             6,
             expressionEnCoursF[0].length
@@ -182,8 +182,8 @@ export default function TrouverSolutionMathador (
             expressionEnCoursF[0].length - 7
           )
         }
-        if (expressionEnCoursD[0][0] == '\\' &&
-          expressionEnCoursD[0][1] == 'l') {
+        if (expressionEnCoursD[0][0] === '\\' &&
+          expressionEnCoursD[0][1] === 'l') {
           expressionEnCoursD[0] = expressionEnCoursD[0].substring(
             6,
             expressionEnCoursD[0].length

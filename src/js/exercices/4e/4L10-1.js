@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureParentheseSiMoins, lettreDepuisChiffre } from '../../modules/outils.js'
 export const titre = 'Réduire, si possible, une expression littérale simple'
 
@@ -24,7 +23,7 @@ export const titre = 'Réduire, si possible, une expression littérale simple'
  * @author Rémi Angot
  * 4L10-1
  */
-export default function Reductions_pieges_classiques () {
+export default function ReductionsPiegesClassiques () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Réduire, si possible, les expressions suivantes'

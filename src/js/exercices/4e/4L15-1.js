@@ -1,4 +1,4 @@
-import Eq_resolvantes_Thales from '../3e/3L13-2.js'
+import EqResolvantesThales from '../3e/3L13-2.js'
 
 export const titre = 'Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$'
 
@@ -9,8 +9,8 @@ export const titre = 'Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$'
  * * modification le jj/mm/aaaa pour ....
  * @author Sébastien Lozano
  */
-export default function Equations_fractions () {
-  Eq_resolvantes_Thales.call(this)
+export default function EquationsFractions () {
+  EqResolvantesThales.call(this)
   this.exo = '4L15-1'
   this.titre = titre
   this.sup = 1

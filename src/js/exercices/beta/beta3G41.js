@@ -77,10 +77,10 @@ export default function VuesEmpilementCubes () {
 
       let L, alpha, beta, cosa, cosb, sina, sinb
 
-      // cube(x,y,z,0,-90) : vue de haut
-      // cube(x,y,z,90,0) : vue de gauche
-      // cube(x,y,z,0,0) : vue de droite
-      // cube(x,y,z,45,-35) : vue isométrique
+      // ...cube(x,y,z,0,-90) : vue de haut
+      // ...cube(x,y,z,90,0) : vue de gauche
+      // ...cube(x,y,z,0,0) : vue de droite
+      // ...cube(x,y,z,45,-35) : vue isométrique
 
       switch (listeTypeDeQuestions[q]) {
         case 1:
@@ -91,7 +91,7 @@ export default function VuesEmpilementCubes () {
           L = empilementCubes(longueur, largeur, hauteur)
           objetsEnonce = []
           for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           cosa = Math.cos(alpha * Math.PI / 180)
           sina = Math.sin(alpha * Math.PI / 180)
@@ -126,7 +126,7 @@ export default function VuesEmpilementCubes () {
           }
           objetsCorrection = []
           for (let i = 0; i < L.length; i++) {
-            objetsCorrection.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsCorrection.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
 
@@ -135,7 +135,7 @@ export default function VuesEmpilementCubes () {
           L = empilementCubes(longueur, largeur, hauteur)
           objetsEnonce = []
           for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           alpha = 15
           beta = -30
@@ -172,7 +172,7 @@ export default function VuesEmpilementCubes () {
           }
           objetsCorrection = []
           for (let i = 0; i < L.length; i++) {
-            objetsCorrection.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsCorrection.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
 
@@ -183,7 +183,7 @@ export default function VuesEmpilementCubes () {
           beta = -30
           objetsEnonce = []
           for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           alpha = 15
           beta = -30
@@ -220,7 +220,7 @@ export default function VuesEmpilementCubes () {
           }
           objetsCorrection = []
           for (let i = 0; i < L.length; i++) {
-            objetsCorrection.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsCorrection.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
           break
@@ -232,7 +232,7 @@ export default function VuesEmpilementCubes () {
           beta = -30
           objetsEnonce = []
           for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           cosa = Math.cos(alpha * Math.PI / 180)
           sina = Math.sin(alpha * Math.PI / 180)
@@ -252,7 +252,7 @@ export default function VuesEmpilementCubes () {
           beta = -25
           objetsEnonce = []
           for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           cosa = Math.cos(alpha * Math.PI / 180)
           sina = Math.sin(alpha * Math.PI / 180)
@@ -288,7 +288,7 @@ export default function VuesEmpilementCubes () {
           }
           objetsCorrection = []
           for (let i = 0; i < L.length; i++) {
-            objetsCorrection.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsCorrection.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
 
@@ -310,7 +310,7 @@ export default function VuesEmpilementCubes () {
           }
           objetsCorrection = []
           for (let i = 0; i < L.length; i++) {
-            objetsCorrection.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsCorrection.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
 
@@ -332,7 +332,7 @@ export default function VuesEmpilementCubes () {
           }
           objetsCorrection = []
           for (let i = 0; i < L.length; i++) {
-            objetsCorrection.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsCorrection.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
           break

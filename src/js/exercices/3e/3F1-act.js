@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, nombreAvecEspace, modalPdf, modalVideo, listeDiviseurs, tikzMachineMaths, tikzMachineDiag, katexPopup, numAlpha, machineMathsVideo, infoMessage, lampeMessage } from '../../modules/outils.js'
-import { SVG_machine_diag_3F1_act_mono, SVG_machine_diag_3F12 } from '../../modules/macroSvgJs.js'
+import { SvgMachineDiag3F1ActMono, SvgMachineDiag3F12 } from '../../modules/macroSvgJs.js'
 export const titre = 'Fonctions : Notion et vocabulaire'
 
 /**
@@ -13,7 +13,7 @@ export const titre = 'Fonctions : Notion et vocabulaire'
  * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
  * @author Sébastien Lozano
  */
-export default function fonction_notion_vocabulaire () {
+export default function fonctionNotionVocabulaire () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
@@ -30,15 +30,15 @@ export default function fonction_notion_vocabulaire () {
   this.sup = 5
   this.listePackages = 'bclogo'
 
-  const num_ex = '3F1-act' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
-
+  const numEx = '3F1-act' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+  let pourcentage
   if (context.isHtml) {
-    var pourcentage = '100%' // pour l'affichage des svg. On a besoin d'une variable globale
+    pourcentage = '100%' // pour l'affichage des svg. On a besoin d'une variable globale
   } else { // sortie LaTeX
   };
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
-
+    let j, idDuDivDiag, idDuDivCorr
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
@@ -74,9 +74,9 @@ export default function fonction_notion_vocabulaire () {
     this.introduction = lampeMessage({
       titre: 'Introduction',
       texte: `Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique, celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>
-				On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre qu'on trouve à la sortie.<br>
-				Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$
-				<br>`,
+On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre qu'on trouve à la sortie.<br>
+Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$
+<br>`,
       couleur: 'nombres'
     })
 
@@ -91,15 +91,15 @@ export default function fonction_notion_vocabulaire () {
       typesDeQuestions = listeTypeDeQuestions[i]
 
       if (context.isHtml) {
-        const id_unique = `${num_ex}_${i}_${Date.now()}`
-        var id_du_div_diag = `div_svg_diag${numeroExercice}${id_unique}`
-        var id_du_div_corr = `div_svg_corr${numeroExercice}${id_unique}`
+        const idUnique = `${numEx}_${i}_${Date.now()}`
+        idDuDivDiag = `div_svg_diag${numeroExercice}${idUnique}`
+        idDuDivCorr = `div_svg_corr${numeroExercice}${idUnique}`
       }
-      let txt_info
+      let txtInfo
 
       switch (typesDeQuestions) {
         case 1: // périmètre d'un carré de côté x
-          var j = 0 // pour la sous-numérotation
+          j = 0 // pour la sous-numérotation
 
           // question
           if (context.isHtml) {
@@ -124,7 +124,7 @@ export default function fonction_notion_vocabulaire () {
             j++ // incrémente la sous question
           } else { // sortie LaTeX
             texte += '\\begin{enumerate}[itemsep=1em]'
-            texte += `\\item Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse avec le mot \\textbf{image} \\footnote{\\textbf{Image :} La valeur du périmètre est l\'image de la valeur du côté}`
+            texte += `\\item Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse avec le mot \\textbf{image} \\footnote{\\textbf{Image :} La valeur du périmètre est l'image de la valeur du côté}`
             texteCorr = '\\begin{enumerate}[itemsep=1em]'
             texteCorr += `\\item Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est-à-dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4 * x}$ cm.<br>`
             texteCorr += `On dit que ${4 * x} est l'image de ${x} par la fonction f.`
@@ -139,7 +139,7 @@ export default function fonction_notion_vocabulaire () {
             texteCorr += `On dit que ${y} est <b>un</b> antécédent de ${4 * y} par la fonction f.<br>`
             j++ // incrémente la sous question
           } else { // sortie LaTeX
-            texte += `\\item Combien vaut le côté si la machine renvoie  ${4 * y} cm ? Formuler la réponse avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent de la valeur d\'un périmètre est une valeur du côté qui a pour image ce périmètre}`
+            texte += `\\item Combien vaut le côté si la machine renvoie  ${4 * y} cm ? Formuler la réponse avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent de la valeur d'un périmètre est une valeur du côté qui a pour image ce périmètre}`
             texteCorr += `\\item Si la machine renvoie un périmètre de ${4 * y} cm alors le côté du carré vaut $${4 * y}\\div 4 = ${y}$ cm.<br>`
             texteCorr += `On dit que ${y} est \\textbf{un} antécédent de ${4 * y} par la fonction f.`
           };
@@ -154,8 +154,8 @@ export default function fonction_notion_vocabulaire () {
             texteCorr += numAlpha(j) + ` L'image de ${z} par la fonction f vaut $f(${z})=4\\times ${z}=${4 * z}$.<br>`
             j++ // incrémente la sous question
           } else { // sortie LaTeX
-            texte += `\\item Quelle est l'image de ${z} par la \\textbf{fonction f} \\footnote{\\textbf{Vocabulaire :} \\textit{fonction} est le nom que l\'on donne à ces machines mathématiques}`
-            texte += ` ? \\'{E}crire la réponse sous la forme $\\mathbf{f(${z})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f(4)=16}$}`
+            texte += `\\item Quelle est l'image de ${z} par la \\textbf{fonction f} \\footnote{\\textbf{Vocabulaire :} \\textit{fonction} est le nom que l'on donne à ces machines mathématiques}`
+            texte += ` ? \\'{E}crire la réponse sous la forme $\\mathbf{f(${z})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s'écrire $\\mathbf{f(4)=16}$}`
             texteCorr += `\\item L'image de ${z} par la fonction f vaut $f(${z})=4\\times ${z}=${4 * z}$.`
           };
 
@@ -175,24 +175,24 @@ export default function fonction_notion_vocabulaire () {
           };
 
           // sous question e/
-          txt_info = 'Voici le diagramme d\'une machine qui triple '
+          txtInfo = 'Voici le diagramme d\'une machine qui triple '
           if (context.isHtml) {
             texte += numAlpha(j) + ' Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>'
-            txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
-            SVG_machine_diag_3F1_act_mono(id_du_div_diag, 800, 100, 't', 'x', [['3', '3x']])
+            txtInfo += `<div id="${idDuDivDiag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
+            SvgMachineDiag3F1ActMono(idDuDivDiag, 800, 100, 't', 'x', [['3', '3x']])
             texteCorr += numAlpha(j) + ' C\'est une machine qui quadruple, donc sous forme de diagramme.<br>'
-            texteCorr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
-            SVG_machine_diag_3F1_act_mono(id_du_div_corr, 800, 100, 'f', 'x', [['4', '4x']])
+            texteCorr += `<div id="${idDuDivCorr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
+            SvgMachineDiag3F1ActMono(idDuDivCorr, 800, 100, 'f', 'x', [['4', '4x']])
             j++ // incrémente la sous question
           } else { // sortie LaTeX
             texte += '\\item   Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>'
-            txt_info += '<br>' + tikzMachineDiag('t', 'x', [['\\times 3', '3x']])
+            txtInfo += '<br>' + tikzMachineDiag('t', 'x', [['\\times 3', '3x']])
             texteCorr += '\\item  C\'est une machine qui quadruple, donc sous forme de diagramme.<br>'
             texteCorr += tikzMachineDiag('f', 'x', [['\\times 4', '4x']])
           };
           texte += infoMessage({
             titre: 'Exemple',
-            texte: txt_info,
+            texte: txtInfo,
             couleur: 'nombres'
           })
 
@@ -211,7 +211,7 @@ export default function fonction_notion_vocabulaire () {
           };
           break
         case 2: // aire d'un carré de côté x
-          var j = 0 // pour la sous-numérotation
+          j = 0 // pour la sous-numérotation
           if (context.isHtml) {
             texte = 'La $\\textbf{machine\\,g}$ renvoie ' + katexPopup('l\'aire', 'Rappel', 'L\'aire d\'un carré est égale au produit de la longueur de son côté par lui-même.') + ' d\'un carré de côté $x$'
           } else {
@@ -269,7 +269,7 @@ export default function fonction_notion_vocabulaire () {
             texte += `\\item  Quelle est l'image de ${z} par la `
             texte += '\\textbf{fonction g} \\footnote{\\textbf{Vocabulaire :} \\textit{fonction} est le nom que l\'on donne à ces machines mathématiques.}'
             texte += ' ? \\\'{E}crire la réponse sous la forme '
-            texte += `$\\mathbf{g(${z})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction g peut s\'écrire \\textbf{g(4)=16}}`
+            texte += `$\\mathbf{g(${z})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction g peut s'écrire \\textbf{g(4)=16}}`
             texteCorr += `\\item L'image de ${z} par la fonction g vaut $g(${z})=${z}\\times ${z}=${texNombre(z * z)}$.`
           };
 
@@ -289,24 +289,24 @@ export default function fonction_notion_vocabulaire () {
           };
 
           // sous question e/
-          txt_info = 'Voici le diagramme d\'une machine qui double '
+          txtInfo = 'Voici le diagramme d\'une machine qui double '
           if (context.isHtml) {
             texte += numAlpha(j) + ' Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{g}$.<br>'
-            txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
-            SVG_machine_diag_3F1_act_mono(id_du_div_diag, 800, 100, 'g', 'x', [['2', '2x']])
+            txtInfo += `<div id="${idDuDivDiag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
+            SvgMachineDiag3F1ActMono(idDuDivDiag, 800, 100, 'g', 'x', [['2', '2x']])
             texteCorr += numAlpha(j) + ' C\'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>'
-            texteCorr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
-            SVG_machine_diag_3F1_act_mono(id_du_div_corr, 800, 100, 'g', 'x', [['x', 'x²']])
+            texteCorr += `<div id="${idDuDivCorr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
+            SvgMachineDiag3F1ActMono(idDuDivCorr, 800, 100, 'g', 'x', [['x', 'x²']])
             j++ // incrémente la sous question
           } else {
             texte += '\\item  Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{g}$.<br>'
-            txt_info += '<br>' + tikzMachineDiag('g', 'x', [['\\times 2', '2x']])
+            txtInfo += '<br>' + tikzMachineDiag('g', 'x', [['\\times 2', '2x']])
             texteCorr += '\\item C\'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>'
             texteCorr += tikzMachineDiag('g', 'x', [['\\times x', 'x^2']])
           };
           texte += infoMessage({
             titre: 'Exemple',
-            texte: txt_info,
+            texte: txtInfo,
             couleur: 'nombres'
           })
 
@@ -325,7 +325,7 @@ export default function fonction_notion_vocabulaire () {
           };
           break
         case 3: // somme de 1 et du triple de x
-          var j = 0 // pour la sous-numérotation
+          j = 0 // pour la sous-numérotation
 
           // consigne
           if (!context.isHtml) {
@@ -387,7 +387,7 @@ export default function fonction_notion_vocabulaire () {
             texte += `\\item  Quelle est l'image de ${-z} par la `
             texte += '\\textbf{fonction h} \\footnote{\\textbf{Vocabulaire :} \\textit{fonction} est le nom que l\'on donne à ces machines mathématiques}'
             texte += ' ? \\\'{E}crire la réponse sous la forme '
-            texte += `$\\mathbf{h(${-z})=\\ldots}$ \\footnote{\\textbf{Notation : } 4 a pour image 16 par la fonction h peut s\'écrire \\textbf{h(4)=16}}`
+            texte += `$\\mathbf{h(${-z})=\\ldots}$ \\footnote{\\textbf{Notation : } 4 a pour image 16 par la fonction h peut s'écrire \\textbf{h(4)=16}}`
             texteCorr += `\\item L'image de ${-z} par la fonction h vaut $h(${-z})=3\\times (${-z})+1=${-3 * z + 1}$.`
           };
 
@@ -409,24 +409,24 @@ export default function fonction_notion_vocabulaire () {
           };
 
           // sous question e/
-          txt_info = 'Voici le diagramme d\'une machine qui double puis qui ajoute 5 '
+          txtInfo = 'Voici le diagramme d\'une machine qui double puis qui ajoute 5 '
           if (context.isHtml) {
             texte += numAlpha(j) + ' Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{h}$.<br>'
-            txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
-            SVG_machine_diag_3F12(id_du_div_diag, 800, 100, 'h', 'x', [['2', '2x'], ['5', '2x+5']])
+            txtInfo += `<div id="${idDuDivDiag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
+            SvgMachineDiag3F12(idDuDivDiag, 800, 100, 'h', 'x', [['2', '2x'], ['5', '2x+5']])
             texteCorr += numAlpha(j) + ' C\'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>'
-            texteCorr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
-            SVG_machine_diag_3F12(id_du_div_corr, 800, 100, 'h', 'x', [['3', '3x'], ['1', '3x+1']])
+            texteCorr += `<div id="${idDuDivCorr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
+            SvgMachineDiag3F12(idDuDivCorr, 800, 100, 'h', 'x', [['3', '3x'], ['1', '3x+1']])
             j++ // incrémente la sous question
           } else {
             texte += '\\item  Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{h}$.<br>'
-            txt_info += '<br>' + tikzMachineDiag('h', 'x', [['\\times 2', '2x'], ['+5', '2x+5']])
+            txtInfo += '<br>' + tikzMachineDiag('h', 'x', [['\\times 2', '2x'], ['+5', '2x+5']])
             texteCorr += '\\item C\'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>'
             texteCorr += tikzMachineDiag('h', 'x', [['\\times 3', '3x'], ['+1', '3x+1']])
           };
           texte += infoMessage({
             titre: 'Exemple',
-            texte: txt_info,
+            texte: txtInfo,
             couleur: 'nombres'
           })
 
@@ -445,7 +445,7 @@ export default function fonction_notion_vocabulaire () {
           };
           break
         case 4: // nombre de diviseurs de x entier
-          var j = 0 // pour la sous-numérotation
+          j = 0 // pour la sous-numérotation
 
           // consigne
           if (!context.isHtml) {
@@ -475,7 +475,7 @@ export default function fonction_notion_vocabulaire () {
             texteCorr = '\\begin{enumerate}[itemsep=1em]'
             texteCorr += `\\item Pour trouver la liste des diviseurs de ${x} on cherche tous les produits de deux facteurs qui donnent ${x}<br>`
           };
-          if (listeDiviseurs(x).length % 2 == 0) { // si il y a un nombre pair de diviseurs
+          if (listeDiviseurs(x).length % 2 === 0) { // si il y a un nombre pair de diviseurs
             for (let m = 0; m < (listeDiviseurs(x).length / 2); m++) {
               texteCorr += '$' + listeDiviseurs(x)[m] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - m - 1)] + '$<br>'
             };
@@ -529,7 +529,7 @@ export default function fonction_notion_vocabulaire () {
             texte += '$\\mathbf{d(' + (x) + ')=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction d peut s\'écrire \\textbf{d(4)=16}}'
             texteCorr += `\\item Pour trouver l'image de ${x} on peut par exemple chercher tous ses diviseurs et les compter<br>`
           };
-          if (listeDiviseurs(x).length % 2 == 0) { // si il y a un nombre pair de diviseurs
+          if (listeDiviseurs(x).length % 2 === 0) { // si il y a un nombre pair de diviseurs
             for (let m = 0; m < (listeDiviseurs(x).length / 2); m++) {
               texteCorr += '$' + listeDiviseurs(x)[m] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - m - 1)] + '$<br>'
             };

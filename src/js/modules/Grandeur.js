@@ -27,14 +27,18 @@ class Grandeur {
     if (unite2Parsee.puissanceUnite === this.puissanceUnite && unite2Parsee.uniteDeReference === this.uniteDeReference) {
       return new Grandeur(calcul(this.mesure * 10 ** ((this.puissancePrefixe - unite2Parsee.puissancePrefixe) * this.puissanceUnite)), unite2)
     } else {
-      console.error('Conversion impossible')
+      console.log('Conversion impossible')
     }
   }
 
   estEgal (unite2) {
     const u1 = this.convertirEn(this.uniteDeReference)
     const u2 = unite2.convertirEn(this.uniteDeReference)
-    return u1.mesure === u2.mesure
+    if (u1 && u2) {
+      return u1.mesure === u2.mesure
+    } else {
+      return false
+    }
   }
 }
 

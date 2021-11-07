@@ -17,7 +17,7 @@ export const titre = 'Déterminer un antécédent'
 * f(x) = a(bx + c) + dx + e  avec a, b, c, d petits relatifs
 */
 
-export default function antecedent_par_calcul () {
+export default function antecedentParCalcul () {
   'use strict'
   Exercice.call(this)
   this.titre = titre
@@ -61,7 +61,7 @@ export default function antecedent_par_calcul () {
           texteCorr += '$\\begin{aligned} '
           texteCorr += `${a}x ${ecritureAlgebrique(b)} &= ${m} \\\\ `
           texteCorr += `${a}x &= ${m} ${ecritureAlgebrique(-b)} \\\\ `
-          if (pgcd(m - b, a) == 1 && m - b > 0 && a > 0) { // teste si la fraction est simplifiable
+          if (pgcd(m - b, a) === 1 && m - b > 0 && a > 0) { // teste si la fraction est simplifiable
             texteCorr += `x &= ${texFraction(m - b, a)} \\\\`
           } else {
             texteCorr += `x &= ${texFraction(m - b, a)} = ${texFractionReduite(m - b, a)}\\\\ `
@@ -81,7 +81,7 @@ export default function antecedent_par_calcul () {
           texteCorr += '$\\begin{aligned} '
           texteCorr += ` ${a}x ${ecritureAlgebrique(b)}&= ${m} \\\\ `
           texteCorr += ` ${a}x &= ${m} ${ecritureAlgebrique(-b)}\\\\ `
-          if (pgcd(m - b, a) == 1 && m - b > 0 && a > 0) { // teste si la fraction est simplifiable
+          if (pgcd(m - b, a) === 1 && m - b > 0 && a > 0) { // teste si la fraction est simplifiable
             texteCorr += `x &= ${texFraction(m - b, a)}\\\\`
           } else {
             texteCorr += `x &= ${texFraction(m - b, a)} = ${texFractionReduite(m - b, a)}\\\\`
@@ -105,7 +105,7 @@ export default function antecedent_par_calcul () {
           texteCorr += `${a}x ${ecritureAlgebrique(a * b)}${ecritureAlgebrique(c)} &= ${m}\\\\`
           texteCorr += `${a}x ${ecritureAlgebrique(a * b + c)} &= ${m}\\\\`
           texteCorr += `${a}x &= ${m} ${ecritureAlgebrique(-a * b - c)}\\\\`
-          if (pgcd(m - a * b - c, a) == 1 && m - a * b - c > 0 && a > 0) { // teste si la fraction est simplifiable
+          if (pgcd(m - a * b - c, a) === 1 && m - a * b - c > 0 && a > 0) { // teste si la fraction est simplifiable
             texteCorr += `x &= ${texFraction(m - a * b - c, a)}\\\\`
           } else {
             texteCorr += `x &= ${texFraction(m - a * b - c, a)} = ${texFractionReduite(m - a * b - c, a)}\\\\`
@@ -132,7 +132,7 @@ export default function antecedent_par_calcul () {
           texteCorr += `${a * b + d}x ${ecritureAlgebrique(a * c + e)} &= ${m}\\\\`
           texteCorr += `${a * b + d}x  &= ${m}${ecritureAlgebrique(-a * c - e)}\\\\`
           texteCorr += `${a * b + d}x &= ${m - a * c - e}\\\\`
-          if (pgcd(m - a * c - e, a * b + d) == 1 && m - a * c - e > 0 && a * b + d > 0) { // teste si la fraction est simplifiable
+          if (pgcd(m - a * c - e, a * b + d) === 1 && m - a * c - e > 0 && a * b + d > 0) { // teste si la fraction est simplifiable
             texteCorr += `x &= ${texFraction(m - a * c - e, a * b + d)}\\\\`
           } else {
             texteCorr += `x &= ${texFraction(m - a * c - e, a * b + d)} = ${texFractionReduite(m - a * c - e, a * b + d)}\\\\`
@@ -141,8 +141,7 @@ export default function antecedent_par_calcul () {
 
           break
       }
-
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b, c, d, m, e)) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -152,11 +151,4 @@ export default function antecedent_par_calcul () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
-  // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
-  // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-
-  //	this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
-  //  this.besoinFormulaire2Numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
-  // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
-} // Fin de l'exercice.
+}

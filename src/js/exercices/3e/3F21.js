@@ -1,4 +1,4 @@
-import Lecture_expression_fonctions_affines from './3F21-1.js'
+import LectureExpressionFonctionsAffines from './3F21-1.js'
 export const titre = 'Déterminer une fonction linéaire'
 
 /**
@@ -7,7 +7,7 @@ export const titre = 'Déterminer une fonction linéaire'
  * Référence : 3F21-1
  */
 export default function LectureExpressionFonctionsLineaires () {
-  Lecture_expression_fonctions_affines.call(this)
+  LectureExpressionFonctionsAffines.call(this)
   this.titre = titre
   this.lineaire = true
 }

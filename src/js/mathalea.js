@@ -2653,30 +2653,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     })
     
     $('#ajoutetiquette').on('click', function (e) {
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams (queryString);
-      const ex = urlParams.get('ex')
-      const tooltip = $('.exercice0').html().substr(15)
-      let tagexercices = `<div class="choix_exo sortable" data-tooltip="${tooltip}"><span contenteditable="true" class="choix_exercices valide">${ex}</span></div>`
-      $('#choix_exercices_dispos span.choix_exercices:last-child:last').before(tagexercices)
-      ajoutHandlersEtiquetteExo()
-      })
+      if ($('.exercice0').html()) {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams (queryString);
+        const ex = urlParams.get('ex')
+        const tooltip = $('.exercice0').html().substr(15)
+        let tagexercices = `<div class="choix_exo sortable" data-tooltip="${tooltip}"><span contenteditable="true" class="choix_exercices valide">${ex}</span></div>`
+        $('#choix_exercices_dispos span.choix_exercices:last-child:last').before(tagexercices)
+        ajoutHandlersEtiquetteExo()
+      }
+    })
     
     $('#ajoutetiquettecoche').on('click', function (e) {
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams (queryString);
-      const ex = urlParams.get('ex')
-      const tooltip = $('.exercice0').html().substr(15)
-      let tagexercices = `<div class="choix_exo sortable" data-tooltip="${tooltip}"><span contenteditable="true" class="choix_exercices valide">${ex}</span></div>`
-      const checkboxes = $('.checkeval');
-      for (let i=0; i<checkboxes.length;i++) {
-        if ($(checkboxes[i]).is(':checked')) {
-          $(checkboxes[i]).next().next().next().children().last().before(tagexercices)
+      if ($('.exercice0').html()) {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams (queryString);
+        const ex = urlParams.get('ex')
+        const tooltip = $('.exercice0').html().substr(15)
+        let tagexercices = `<div class="choix_exo sortable" data-tooltip="${tooltip}"><span contenteditable="true" class="choix_exercices valide">${ex}</span></div>`
+        const checkboxes = $('.checkeval');
+        for (let i=0; i<checkboxes.length;i++) {
+          if ($(checkboxes[i]).is(':checked')) {
+            $(checkboxes[i]).next().next().next().children().last().before(tagexercices)
+          }
         }
+        $('#choix_exercices_dispos span.choix_exercices:last-child:last').before(tagexercices)
+        ajoutHandlersEtiquetteExo()
       }
-      $('#choix_exercices_dispos span.choix_exercices:last-child:last').before(tagexercices)
-      ajoutHandlersEtiquetteExo()
-      })
+    })
     
     function ajoutHandlersTrash() {
       $('.supprexoligne').off('click')
@@ -2732,6 +2736,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       $('#listeEval').append(ligneExercices())
       handlerAjoutDansLigne()
       ajoutHandlersEtiquetteExo()
+      ajoutHandlersTrash()
     })
     
     handlerAjoutDansLigne()
@@ -3185,7 +3190,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Gestion de l'évènement sur le click sur les flèches pour basculer les exercices en plein écran.
   $('#exo_plein_ecran').click(function (e) {
-    if (context.vue.substring(0,3) ==='alc') {
+    if (context.vue && context.vue.substring(0,3) ==='alc') {
       if ($('#exo_plein_ecran').hasClass('left')) {
         gestionVue('alcexEtChoix')
       } else {

@@ -1,11 +1,10 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, numAlpha, calcul, randint } from '../../modules/outils.js'
 import { mathalea2d, droite, tracePointSurDroite, labelPoint, tracePoint, rotation, translation2Points, homothetie, symetrieAxiale, point } from '../../modules/2d.js'
-
+import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Utiliser toutes les transformations'
 
-export default function ExerciceZeroMathalea2d () {
+export default function ConstructionsDeTransformes () {
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1 // Ici le nombre de questions
@@ -21,7 +20,7 @@ export default function ExerciceZeroMathalea2d () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
 
-    let objetsEnonce, objetsEnonceml, objetsCorrection, paramsEnonce, paramsCorrection
+    let objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = `${numAlpha(0)} $M_1$ symétrique de $M$ par rapport à $(AB)$.` // Nous utilisons souvent cette variable pour construire le texte de la question.

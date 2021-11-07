@@ -157,7 +157,7 @@ function TracePoint (...points) {
     const objetssvg = []; let s1; let s2; let p1; let p2; let c, A
     for (const unPoint of points) {
       if (unPoint.typeObjet === 'point3d') {
-        A = unPoint.p2d
+        A = unPoint.c2d
       } else {
         A = unPoint
       }
@@ -224,7 +224,7 @@ function TracePoint (...points) {
     const tailletikz = this.taille * context.scale / 20
     for (const unPoint of points) {
       if (unPoint.typeObjet === 'point3d') {
-        A = unPoint.p2d
+        A = unPoint.c2d
       } else {
         A = unPoint
       }
@@ -505,7 +505,7 @@ function LabelPoint (...points) {
     }
     for (const unPoint of this.listePoints) {
       if (unPoint.typeObjet === 'point3d') {
-        A = unPoint.p2d
+        A = unPoint.c2d
       } else {
         A = unPoint
       }
@@ -549,7 +549,7 @@ function LabelPoint (...points) {
     }
     for (const unPoint of points) {
       if (unPoint.typeObjet === 'point3d') {
-        A = unPoint.p2d
+        A = unPoint.c2d
       } else {
         A = unPoint
       }

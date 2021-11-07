@@ -8,7 +8,7 @@ export const titre = 'Puissances de 10 : Le sens des règles de calculs'
  * * Travailler des résultats automatisés
  * @author Sébastien Lozano
  */
-export default function Puissances_de_dix () {
+export default function PuissancesDeDix () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
@@ -23,6 +23,7 @@ export default function Puissances_de_dix () {
   this.nbColsCorr = 1
   this.sup = 1
   this.nouvelleVersion = function (numeroExercice) {
+    this.sup = Number(this.sup)
     let typesDeQuestions
     this.boutonAide = modalPdf(
       numeroExercice,
@@ -35,11 +36,11 @@ export default function Puissances_de_dix () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     let typesDeQuestionsDisponibles = []
-    if (this.sup == 1) {
+    if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3] // produit, quotient et exponentiation de puissances de 10
-    } else if (this.sup == 2) {
+    } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [4, 5, 6, 7, 8, 9, 10, 11] // calculs première série
-    } else if (this.sup == 3) {
+    } else if (this.sup === 3) {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] // calculs deuxième série
     }
     const listeTypeDeQuestions = combinaisonListes(
@@ -56,8 +57,8 @@ export default function Puissances_de_dix () {
         exp0,
         exp1,
         exp,
-        coul_exp0,
-        coul_exp1,
+        couleurExp0,
+        couleurExp1,
         lettre,
         texte,
         texteCorr,
@@ -92,7 +93,7 @@ export default function Puissances_de_dix () {
             }}`
           // attention la base est de type str alors que la fonction switch sur un type number
           // if (simpNotPuissance(10, exp[0] + exp[1]) != ` `) {
-          if ((exp[1] + exp[0]) % 2 == 0) {
+          if ((exp[1] + exp[0]) % 2 === 0) {
             texteCorr += `=${simpNotPuissance(10, exp[0] + exp[1])}`
           }
           texteCorr += '$'
@@ -100,12 +101,12 @@ export default function Puissances_de_dix () {
           break
         case 2: // quotient de puissances de même base
           // Pour que la couleur de la 10 associée à l'exposant max soit toujours rouge.
-          if (Math.max(exp[0], exp[1]) == exp[0]) {
-            coul_exp0 = coul0
-            coul_exp1 = coul1
+          if (Math.max(exp[0], exp[1]) === exp[0]) {
+            couleurExp0 = coul0
+            couleurExp1 = coul1
           } else {
-            coul_exp0 = coul1
-            coul_exp1 = coul0
+            couleurExp0 = coul1
+            couleurExp1 = coul0
           }
 
           texte = `$${lettre}=\\dfrac{10^${exp[0]}}{10^${exp[1]}}$`
@@ -116,8 +117,8 @@ export default function Puissances_de_dix () {
             texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(
               10,
               exp[0],
-              coul_exp0
-            )}}{${eclatePuissance(10, exp[1], coul_exp1)}}$`
+              couleurExp0
+            )}}{${eclatePuissance(10, exp[1], couleurExp1)}}$`
           }
           texteCorr += '<br><br>'
           texteCorr += `Il y a donc $\\mathbf{\\color{${coul1}}{${Math.min(
@@ -127,13 +128,13 @@ export default function Puissances_de_dix () {
           if (this.correctionDetaillee) {
             texteCorr += '<br><br>'
           }
-          if (exp[0] - exp[1] == 0) {
+          if (exp[0] - exp[1] === 0) {
             if (this.correctionDetaillee) {
               texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(
                 '\\cancel{10}',
                 exp[0],
-                coul_exp0
-              )}}{${eclatePuissance('\\cancel{10}', exp[0], coul_exp1)}}$`
+                couleurExp0
+              )}}{${eclatePuissance('\\cancel{10}', exp[0], couleurExp1)}}$`
             }
             texteCorr += '<br><br>'
             texteCorr += `$${lettre}=1`
@@ -142,18 +143,18 @@ export default function Puissances_de_dix () {
               texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(
                 '\\cancel{10}',
                 exp[0],
-                coul_exp0
+                couleurExp0
               )}}{${eclatePuissance(
                 '\\cancel{10}',
                 exp[0],
-                coul_exp1
-              )}\\times${eclatePuissance(10, exp[1] - exp[0], coul_exp1)}}$`
+                couleurExp1
+              )}\\times${eclatePuissance(10, exp[1] - exp[0], couleurExp1)}}$`
             }
             texteCorr += '<br><br>'
             texteCorr += `$${lettre}=\\dfrac{1}{10^{${exp[1]}-${exp[0]
               }}}=\\dfrac{1}{10^{${exp[1] - exp[0]}}}`
             // if (simpNotPuissance(10, exp[1] - exp[0]) != ` `) {
-            if ((exp[1] - exp[0]) % 2 == 0) {
+            if ((exp[1] - exp[0]) % 2 === 0) {
               texteCorr += `=\\dfrac{1}{${simpNotPuissance(
                 10,
                 exp[1] - exp[0]
@@ -166,12 +167,12 @@ export default function Puissances_de_dix () {
               texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(
                 '\\cancel{10}',
                 exp[1],
-                coul_exp0
+                couleurExp0
               )}\\times${eclatePuissance(
                 10,
                 exp[0] - exp[1],
-                coul_exp0
-              )}}{${eclatePuissance('\\cancel{10}', exp[1], coul_exp1)}}$`
+                couleurExp0
+              )}}{${eclatePuissance('\\cancel{10}', exp[1], couleurExp1)}}$`
             }
             texteCorr += '<br><br>'
             texteCorr += `$${lettre}=10^{${exp[0]}-${exp[1]}}=10^{${exp[0] - exp[1]
@@ -231,8 +232,8 @@ export default function Puissances_de_dix () {
           texteCorr += ` = 10^{${exp[0] + 2}-${exp[1] + exp[2]}}`
           texteCorr += ` = 10^{${exp[0] + 2 - exp[1] - exp[2]}}`
           if (
-            exp[0] + 2 - exp[1] - exp[2] == 0 ||
-            exp[0] + 2 - exp[1] - exp[2] == 1
+            exp[0] + 2 - exp[1] - exp[2] === 0 ||
+            exp[0] + 2 - exp[1] - exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(10, exp[0] + 2 - exp[1] - exp[2])
@@ -248,7 +249,7 @@ export default function Puissances_de_dix () {
           texteCorr += ` = \\dfrac{10^{${exp[0] + 3}}}{10^${exp[1]}}`
           texteCorr += ` = 10^{${exp[0] + 3}-${exp[1]}}`
           texteCorr += ` = 10^{${exp[0] + 3 - exp[1]}}`
-          if (exp[0] + 3 - exp[1] == 0 || exp[0] + 3 - exp[1] == 1) {
+          if (exp[0] + 3 - exp[1] === 0 || exp[0] + 3 - exp[1] === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(10, exp[0] + 3 - exp[1])
           }
@@ -257,7 +258,7 @@ export default function Puissances_de_dix () {
         case 6:
           exp = [randint(1, 7, [1]), randint(1, 2)] // on a besoin de 2 exposants distincts
           // le second exposant ne peut valoir que 1 ou 2 la fonction testExp ne convient pas à l'affichage ici
-          if (exp[1] == 2) {
+          if (exp[1] === 2) {
             texte = `$\\dfrac{10\\times 10^${exp[0]}}{100^${exp[1]}}$`
             texteCorr = `$\\dfrac{10\\times 10^${exp[0]}}{100^${exp[1]}}`
             texteCorr += `=\\dfrac{10^{1+${exp[0]}}}{(10^2)^${exp[1]}}`
@@ -270,7 +271,7 @@ export default function Puissances_de_dix () {
           }
           texteCorr += `=10^{${1 + exp[0]}-${2 * exp[1]}}`
           texteCorr += `=10^{${1 + exp[0] - 2 * exp[1]}}`
-          if (1 + exp[0] - 2 * exp[1] == 0 || 1 + exp[0] - 2 * exp[1] == 1) {
+          if (1 + exp[0] - 2 * exp[1] === 0 || 1 + exp[0] - 2 * exp[1] === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(10, 1 + exp[0] - 2 * exp[1])
           }
@@ -285,7 +286,7 @@ export default function Puissances_de_dix () {
           texteCorr += `=\\dfrac{10^{${1 + exp[0]}}}{10^{${2 + 2}}}`
           texteCorr += `=10^{${1 + exp[0]}-${2 + 2}}`
           texteCorr += `=10^{${1 + exp[0] - 2 - 2}}`
-          if (1 + exp[0] - 2 - 2 == 0 || 1 + exp[0] - 2 - 2 == 1) {
+          if (1 + exp[0] - 2 - 2 === 0 || 1 + exp[0] - 2 - 2 === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(10, 1 + exp[0] - 2 - 2)
           }
@@ -331,8 +332,8 @@ export default function Puissances_de_dix () {
           texteCorr += `=10^{${exp[0] + exp[1] + 1}-${2 * exp[2]}}`
           texteCorr += `=10^{${exp[0] + exp[1] + 1 - 2 * exp[2]}}`
           if (
-            exp[0] + exp[1] + 1 - 2 * exp[2] == 0 ||
-            exp[0] + exp[1] + 1 - 2 * exp[2] == 1
+            exp[0] + exp[1] + 1 - 2 * exp[2] === 0 ||
+            exp[0] + exp[1] + 1 - 2 * exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
             texteCorr += '=' + simpExp(10, exp[0] + exp[1] + 1 - 2 * exp[2])
@@ -348,7 +349,7 @@ export default function Puissances_de_dix () {
           texteCorr += `=\\dfrac{10^{4}}{10^{${2 * exp[0]}}}`
           texteCorr += `=10^{4-${2 * exp[0]}}`
           texteCorr += `=10^{${3 + 1 - 2 * exp[0]}}`
-          if (3 + 1 - 2 * exp[0] == 0 || 3 + 1 - 2 * exp[0] == 1) {
+          if (3 + 1 - 2 * exp[0] === 0 || 3 + 1 - 2 * exp[0] === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
             texteCorr += '=' + simpExp(10, 3 + 1 - 2 * exp[0])
           }

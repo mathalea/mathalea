@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, prenom, texteEnCouleur } from '../../modules/outils.js'
 import { point, segment, codageCarre, polygoneRegulierParCentreEtRayon, nommePolygone, afficheCoteSegment, codeSegments, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Mettre en équation un problème sans objectif de résolution'
@@ -10,7 +9,7 @@ export const titre = 'Mettre en équation un problème sans objectif de résolut
  * * 4L13-0
  * @author Sébastien Lozano
  */
-export default function Mettre_en_equation_sans_resoudre () {
+export default function MettreEnEquationSansResoudre () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
@@ -107,7 +106,7 @@ export default function Mettre_en_equation_sans_resoudre () {
       s.styleExtremites = '<->'
       // on fait un test pour coder les angles droits du carré
       let anglesDroitsIfIsCarre
-      if (n == 4) {
+      if (n === 4) {
         anglesDroitsIfIsCarre = codageCarre(po)
       } else {
         anglesDroitsIfIsCarre = {}

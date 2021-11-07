@@ -1,6 +1,5 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { texFractionReduite, choice, texNombre, calcul, listeQuestionsToContenu, combinaisonListes, randint, arrondi, creerNomDePolygone } from '../../modules/outils.js'
+import { texFractionReduite, choice, texNombre, listeQuestionsToContenu, randint, arrondi, creerNomDePolygone } from '../../modules/outils.js'
 import { mathalea2d, angle, point, droite, droiteVerticaleParPoint, cercle, pointIntersectionLC, polygone, projectionOrtho, segment, codageAngleDroit, labelPoint, longueur } from '../../modules/2d.js'
 
 export const titre = 'Problème trigonométrique - Triangle rectangle inscrit dans un triangle rectangle'
@@ -24,7 +23,7 @@ export default function CalculsTrigo () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
 
-    let objetsEnonce = []; let objetsCorrection = []; let paramsEnonce = {}; let paramsCorrection = {}; let texte = ''; let texteCorr = ''
+    let objetsEnonce = []; let paramsEnonce = {}; let texte = ''; let texteCorr = ''
     const AD = randint(5, 9)
     const AE = randint(AD + 1, AD + 4)
     const AC = randint(3, AD - 1)
@@ -62,13 +61,10 @@ export default function CalculsTrigo () {
     const sBC = segment(B, C)
 
     objetsEnonce = [p, sBC, codage1, codage2, labels]
-    objetsCorrection = [p, sBC, codage1, codage2, labels]
     paramsEnonce = { xmin: -10, ymin: -1, xmax: 10, ymax: E.y + 1.5, pixelsParCm: 20, scale: 1, mainlevee: false }
-    paramsCorrection = { xmin: -1, ymin: -1, xmax: D.x + 1.5, ymax: E.y + 1.5, pixelsParCm: 20, scale: 1, mainlevee: false }
     texte += mathalea2d(paramsEnonce, objetsEnonce)
     texte += `<br><br> $${A.nom + E.nom} = ${AE}~\\text{cm}$, $${A.nom + D.nom} = ${AD}~\\text{cm}$ et $${A.nom + C.nom} = ${AC}~\\text{cm}$.`
     texte += `<br> Calculer la longueur $${A.nom + B.nom}$ et donner une valeur approchée au millimètre près.`
-    // texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     texteCorr += `Dans le triangle $${A.nom + D.nom + E.nom}$ rectangle en $${D.nom}$ : `
     texteCorr += `<br>$\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${A.nom + D.nom}}{${A.nom + E.nom}}\\quad$ soit $\\quad\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${AD}}{${AE}}$,`
     texteCorr += `<br> d'où $\\widehat{${D.nom + A.nom + E.nom}}=\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\approx${texNombre(arrondi(angle(D, A, E), 1))}\\degree$.`

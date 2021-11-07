@@ -292,6 +292,7 @@ export async function initDom () {
       for (const ol of ols) {
         setStyles(ol, 'padding:0;')
       }
+      window.parent.postMessage({ url: window.location.href, graine: context.graine }, '*')
     })
     // On récupère tous les paramètres de chaque exos dans un tableau d'objets
     const paramsAllExos = Object.entries(getUrlVars())

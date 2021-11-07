@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, calcul, texNombre, miseEnEvidence, texteEnCouleur, tableauColonneLigne } from '../../modules/outils.js'
 export const titre = 'Trouver l’opposé d’un nombre relatif'
 
@@ -8,7 +7,7 @@ export const titre = 'Trouver l’opposé d’un nombre relatif'
 * * 5R10-0
 * @author Sébastien Lozano
 */
-export default function Trouver_oppose () {
+export default function TrouverOppose () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
@@ -47,43 +46,39 @@ export default function Trouver_oppose () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour générer un relatif et son opposé
-      function nbRel_et_son_oppose () {
-        const nb_num = calcul(randint(-9, 9) + calcul(randint(-9, 9) / 10))
+      function nbRelatifEtSonOppose () {
+        const nbNum = calcul(randint(-9, 9) + calcul(randint(-9, 9) / 10))
 
         return {
-          nb: texNombre(nb_num),
-          opp: texNombre(-nb_num)
+          nb: texNombre(nbNum),
+          opp: texNombre(-nbNum)
         }
       }
-      const nb_ligne_nombres = ['\\text{Nombre}']
-      const nb_ligne_nombres_corr = ['\\text{Nombre}']
-      const nb_ligne_nombres_opp = []
-      const nb_ligne_nombres_opp_corr = []
+      const nbLigneNombres = ['\\text{Nombre}']
+      const nbLigneNombresCorr = ['\\text{Nombre}']
+      const nbLigneNombresOpp = []
+      const nbLigneNombresOppCorr = []
       let nb
       for (let k = 0; k < 6; k++) {
-        nb = nbRel_et_son_oppose()
-        if (randint(0, 1) == 1) {
-          nb_ligne_nombres[k + 1] = ''
-          nb_ligne_nombres_corr[k + 1] = miseEnEvidence(nb.nb)
-          nb_ligne_nombres_opp.push(nb.opp)
-          nb_ligne_nombres_opp_corr.push(nb.opp)
+        nb = nbRelatifEtSonOppose()
+        if (randint(0, 1) === 1) {
+          nbLigneNombres[k + 1] = ''
+          nbLigneNombresCorr[k + 1] = miseEnEvidence(nb.nb)
+          nbLigneNombresOpp.push(nb.opp)
+          nbLigneNombresOppCorr.push(nb.opp)
         } else {
-          nb_ligne_nombres.push(nb.nb)
-          nb_ligne_nombres_corr.push(nb.nb)
-          nb_ligne_nombres_opp[k] = ''
-          nb_ligne_nombres_opp_corr[k] = miseEnEvidence(nb.opp)
+          nbLigneNombres.push(nb.nb)
+          nbLigneNombresCorr.push(nb.nb)
+          nbLigneNombresOpp[k] = ''
+          nbLigneNombresOppCorr[k] = miseEnEvidence(nb.opp)
         }
       };
 
       const enonces = []
       enonces.push({
-        enonce: `								
-				${tableauColonneLigne(nb_ligne_nombres, ['\\text{Opposé du nombre}'], nb_ligne_nombres_opp)}
-				`,
+        enonce: `${tableauColonneLigne(nbLigneNombres, ['\\text{Opposé du nombre}'], nbLigneNombresOpp)}`,
         question: '',
-        correction: `
-				${tableauColonneLigne(nb_ligne_nombres_corr, ['\\text{Opposé du nombre}'], nb_ligne_nombres_opp_corr)}				
-				`
+        correction: `${tableauColonneLigne(nbLigneNombresCorr, ['\\text{Opposé du nombre}'], nbLigneNombresOppCorr)}`
       })
       enonces.push({
         enonce: 'énoncé type 2',

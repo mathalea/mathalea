@@ -10,7 +10,7 @@ export const titre = 'Construire le symétrique d’un point avec cible auto-cor
  * @author Jean-Claude Lhote
  * Publié le 30/11/2020
  */
-export default function Construire_symetrique_point_6e () {
+export default function ConstruireSymetriquePoint6e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -45,7 +45,7 @@ export default function Construire_symetrique_point_6e () {
     let xMin, yMin, xMax, yMax
     [xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
     for (let i = 0; i < nbpoints; i++) { // On place les cibles.
-      N.push(point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[i] + "\'"))
+      N.push(point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[i] + "'"))
       nontrouve = true
       while (distancePointDroite(N[i], d) < 3 || nontrouve) {
         nontrouve = true
@@ -57,7 +57,7 @@ export default function Construire_symetrique_point_6e () {
           for (let j = 0; j < i; j++) {
             if (longueur(N[i], N[j]) < 4.5) assezloin = false
           }
-          if (assezloin == false) { // éloigner les points donc les grilles
+          if (assezloin === false) { // éloigner les points donc les grilles
             N[i].x = calcul(randint(-80, 80, 0) / 10)
             N[i].y = calcul(randint(-80, 80, 0) / 10)
           } else nontrouve = false
@@ -83,7 +83,7 @@ export default function Construire_symetrique_point_6e () {
       objetsCorrection.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i])
       objetsCorrection.push(segment(M[i], N[i], arcenciel(i)), codageMediatrice(M[i], N[i], arcenciel(i + 5), marks[i]))
       objetsCorrection.push(traceCompas(A, N[i], 20), traceCompas(B, N[i], 20))
-      texteCorr += `$${noms[i]}\'$, le symétrique du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
+      texteCorr += `$${noms[i]}'$, le symétrique du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
     }
 
     for (let i = 0; i < nbpoints; i++) {

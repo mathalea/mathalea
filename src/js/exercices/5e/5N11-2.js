@@ -1,4 +1,4 @@
-import Tableaux_et_pourcentages from './_Tableaux_et_pourcentages.js'
+import TableauxEtPourcentages from './_Tableaux_et_pourcentages.js'
 
 export const titre = 'Tableaux et pourcentages - pourcentage constant'
 
@@ -8,8 +8,8 @@ export const titre = 'Tableaux et pourcentages - pourcentage constant'
  * * publication initiale le 28/11/2020
  * @author Sébastien Lozano
  */
-export default function Tableaux_et_pourcentages_pourcent_constant () {
+export default function TableauxEtPourcentagesPourcentConstant () {
   this.exo = '5N11-2'
   this.titre = titre
-  Tableaux_et_pourcentages.call(this)
+  TableauxEtPourcentages.call(this)
 };

@@ -103,11 +103,11 @@ export function listeDeChosesAImprimer (exercice) {
  */
 export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = true) {
   if (context.isHtml) {
-    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing, retourCharriot)
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing)
     if (exercice.interactif) {
       exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
-    exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr)
+    exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr, 'correction')
   } else {
     if (document.getElementById('supprimer_reference').checked === true) {
       exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
@@ -2383,18 +2383,21 @@ export function htmlParagraphe (texte, retourCharriot) {
 * @param spacing interligne (line-height en css)
 * @author Rémi Angot
 */
-export function htmlLigne (liste, spacing) {
+export function htmlLigne (liste, spacing, classe = 'question') {
   let result = ''
   if (spacing > 1) {
-    result = `<div style="line-height: ${spacing};">\n`
+    // Pour garder la même hiérarchie avec listeDeQuestionsToContenu
+    // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
+    // Utile pour la vue can
+    result = `<div><div style="line-height: ${spacing};" class="${classe}">\n`
   } else {
-    result = '<div>\n'
+    result = `<div><div class="${classe}">\n`
   }
   for (const i in liste) {
     result += '\t' + liste[i].replace(/\\dotfill/g, '...') + '<br>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     // .replace(/\\\\/g,'<br>') abandonné pour supporter les array
   }
-  result += '</div>\n'
+  result += '</div></div>\n'
 
   return result
 }
@@ -2419,7 +2422,8 @@ export function texMulticols (texte, nbCols = 2) {
 * @author Rémi Angot
 */
 export function htmlConsigne (consigne) {
-  return '<h4>' + consigne + '</h4>\n\n'
+  if (consigne) return '<h4>' + consigne + '</h4>\n\n'
+  else return ''
 }
 
 /**

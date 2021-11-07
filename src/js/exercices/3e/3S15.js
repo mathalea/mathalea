@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, prenom, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, prenom, listeDeNotes, unMoisDeTemperature, nomDuMois, texNombre } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Calculer des étendues'
@@ -29,7 +29,7 @@ export default function CalculerEtendues () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    for (let i = 0, nombreNotes, notes, min, max, temperatures, nombreTemperatures, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, nombreNotes, notes, min, max, temperatures, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (this.sup === 1) { // ici on trie des notes
         nombreNotes = randint(8, 12)
         notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une série de notes (série brute)
@@ -50,7 +50,6 @@ export default function CalculerEtendues () {
         const mois = randint(1, 12)
         const annee = randint(1980, 2019)
         const temperaturesDeBase = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5]
-        nombreTemperatures = joursParMois(mois)
         temperatures = unMoisDeTemperature(temperaturesDeBase[mois - 1], mois, annee) // série brute de un mois de température
         max = 0
         min = 20
