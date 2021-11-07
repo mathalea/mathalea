@@ -8,6 +8,7 @@ export const interactifType = 'mathLive'
 /**
  * @author Rémi Angot
  * 6N20
+ * Relecture : Novembre 2021 par EE
  */
 export default function ExerciceFractionsDecomposer () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -78,8 +79,8 @@ export default function ExerciceFractionsDecomposer () {
       texte =
         '$ ' +
         texFraction(a, b) +
-        ' = \\phantom{0000} + ' +
-        texFraction('\\phantom{00000000}', '') +
+        ' = \\ldots\\ldots + ' +
+        texFraction('\\ldots\\ldots', '\\ldots\\ldots') +
         ' $'
       texteCorr =
         '$ ' + texFraction(a, b) + ' = ' + n + '+' + texFraction(c, b) + ' $'
@@ -93,6 +94,6 @@ export default function ExerciceFractionsDecomposer () {
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
-    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
+    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque question.
   }
 }

@@ -11,9 +11,10 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
- * Une fraction avec pour dénominateur 2, 3, 4, 5, 10 à encadredr entre 2 entiers
+ * Une fraction avec pour dénominateur 2, 3, 4, 5, 10 à encadrer entre 2 entiers
  * @author Rémi Angot
  * Référence 6N20-1
+ * Relecture : Novembre 2021 par EE
 */
 export default function EncadrerFractionEntre2Entiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
