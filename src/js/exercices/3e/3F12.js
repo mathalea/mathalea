@@ -38,7 +38,7 @@ export default function fonctionsCalculsDImages () {
     let typesDeQuestions
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       // this.boutonAide = modalPdf(numeroExercice,"assets/pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")
-      // this.boutonAide += modalVideo('videoTest','/videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
+      // this.boutonAide += modalVideo('videoTest','https://coopmaths.fr/videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
     }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
