@@ -1,5 +1,5 @@
 import DenombrerCubes from '../../6e/6G43.js'
-export { interactifReady, interactifType } from '../../6e/6G43.js'
+export { interactifReady, interactifType, amcReady, amcType } from '../../6e/6G43.js'
 export const titre = 'Compter les cubes'
 
 /*!

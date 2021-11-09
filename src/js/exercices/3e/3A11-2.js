@@ -39,7 +39,7 @@ export default function decompositionFacteursPremiers () {
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       // this.boutonAide = '';
       this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A11.pdf', 'Aide mémoire sur les nombres premiers (Sébastien Lozano)', 'Aide mémoire')
-      this.boutonAide += modalVideo('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
+      this.boutonAide += modalVideo('conteMathsNombresPremiers', 'https://coopmaths.fr/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
     } else { // sortie LaTeX
     };
 

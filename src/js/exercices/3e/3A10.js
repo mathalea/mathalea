@@ -28,8 +28,8 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   this.sup3 = 13
 
   this.nouvelleVersion = function (numeroExercice) {
-    const nbChiffresMax = combinaisonListesSansChangerOrdre(this.sup.split('-'), this.nbQuestions)
-    const nbDiviseursMax = combinaisonListesSansChangerOrdre(this.sup2.split('-'), this.nbQuestions)
+    const nbChiffresMax = combinaisonListesSansChangerOrdre(this.sup.toString().split('-'), this.nbQuestions)
+    const nbDiviseursMax = combinaisonListesSansChangerOrdre(this.sup2.toString().split('-'), this.nbQuestions)
     this.sup3 = contraindreValeur(2, 16, parseFloat(this.sup3), 10)
 
     for (let i = 0; i < this.nbQuestions; i++) {
@@ -42,7 +42,7 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       // this.boutonAide = '';
       this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A10.pdf', 'Aide mémoire sur la division euclidienne (Sébastien Lozano)', 'Aide mémoire')
-      // this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+      // this.boutonAide += modalVideo('conteMathsNombresPremiers','https://coopmaths.fr/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
     } else { // sortie LaTeX
     };
 
@@ -171,8 +171,8 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
           texteCorr += '<br>'
           break
         case 5:
-          if (nbDiviseursMax[i] > 10) {
-            nbChiffresMax[i] = Math.min(nbChiffresMax[i], 3)
+          if (nbDiviseursMax[i] > 10) { // les nombres de 2 chiffres ayant plus de 10 diviseurs étant peu nombreux, on force au moins 3 chiffres.
+            nbChiffresMax[i] = Math.max(nbChiffresMax[i], 3)
           }
           do {
             M = randint(10 ** (nbChiffresMax[i] - 1), 10 ** nbChiffresMax[i] - 1)

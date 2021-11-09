@@ -15,10 +15,13 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 */
 export default function ReconnaitreFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
+  this.formatInteractif = 'calcul'
+  this.nbQuestions = 1
   this.nouvelleVersion = function () {
+    this.listeCorrections = []
+    this.listeQuestions = []
     let a, b, c
     switch (choice([1, 2, 3])) { //
       case 1 :// b+ax
@@ -26,32 +29,32 @@ export default function ReconnaitreFonctionAffine () {
         b = randint(-9, 9)
         if (a === 1) {
           if (b === 0) {
-            this.listeQuestions = [`Soit $f(x)=x$.<br>
+            this.listeQuestions.push(`Soit $f(x)=x$.<br>
           La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>    Les valeurs de $a$ et de $b$ sont  :<br> $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
-            ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `]
-            this.listeCorrections = [`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$ (attention, $x=1x$) et la valeur de $b$ est la constante. <br>
-            $f(x)=\\underbrace{${a}}_{a}x$`]
+            ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
+            this.listeCorrections.push(`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$ (attention, $x=1x$) et la valeur de $b$ est la constante. <br>
+            $f(x)=\\underbrace{${a}}_{a}x$`)
           } else {
-            this.listeQuestions = [`Soit $f(x)=${b}+x$.<br>
+            this.listeQuestions.push(`Soit $f(x)=${b}+x$.<br>
         La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>   Les valeurs de $a$ et de $b$ sont  :<br> $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
-          ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `]
-            this.listeCorrections = [`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$ (attention, $x=1x$) et la valeur de $b$ est la constante. <br>
-          $f(x)=${b}+${a}x=\\underbrace{${a}}_{a}x+\\underbrace{${ecritureParentheseSiNegatif(b)}}_{b}$`]
+          ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
+            this.listeCorrections.push(`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$ (attention, $x=1x$) et la valeur de $b$ est la constante. <br>
+          $f(x)=${b}+${a}x=\\underbrace{${a}}_{a}x+\\underbrace{${ecritureParentheseSiNegatif(b)}}_{b}$`)
           }
         } else {
           if (b === 0) {
-            this.listeQuestions = [`Soit $f(x)=x$.<br>
+            this.listeQuestions.push(`Soit $f(x)=x$.<br>
                 La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>       Les valeurs de $a$ et de $b$ sont  :<br>       $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
-                  ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `]
-            this.listeCorrections = [`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$ (attention, $x=1x$) et la valeur de $b$ est la constante. <br>
-                  $f(x)=\\underbrace{${a}}_{a}x$`]
+                  ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
+            this.listeCorrections.push(`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$ (attention, $x=1x$) et la valeur de $b$ est la constante. <br>
+                  $f(x)=\\underbrace{${a}}_{a}x$`)
           } else {
-            this.listeQuestions = [`Soit $f(x)=${b}+${a}x$.<br>
+            this.listeQuestions.push(`Soit $f(x)=${b}+${a}x$.<br>
             La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>  Les valeurs de $a$ et de $b$ sont  :<br>
        $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
-         ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `]
-            this.listeCorrections = [`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$ (attention, $x=1x$) et la valeur de $b$ est la constante. <br>
-        $f(x)=${b}+${a}x=\\underbrace{${a}}_{a}x+\\underbrace{${ecritureParentheseSiNegatif(b)}}_{b}$`]
+         ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
+            this.listeCorrections.push(`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$ (attention, $x=1x$) et la valeur de $b$ est la constante. <br>
+        $f(x)=${b}+${a}x=\\underbrace{${a}}_{a}x+\\underbrace{${ecritureParentheseSiNegatif(b)}}_{b}$`)
           }
         }
         setReponse(this, 0, a)
@@ -64,20 +67,18 @@ export default function ReconnaitreFonctionAffine () {
         c = randint(-9, 9, 0)
         while (pgcd(a, b) !== 1) { a = randint(-5, 5, 0) }
         if (a === -1) {
-          this.listeQuestions = [`Soit $f(x)=\\dfrac{-x}{${b}}${ecritureAlgebrique(c)}$.<br>
+          this.listeQuestions.push(`Soit $f(x)=\\dfrac{-x}{${b}}${ecritureAlgebrique(c)}$.<br>
         La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>   Les valeurs de $a$ et de $b$ sont  :<br>  $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
-          ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `]
+          ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
         } else {
-          this.listeQuestions = [`Soit $f(x)=\\dfrac{${rienSi1(a)}x}{${b}}${ecritureAlgebrique(c)}$.<br>
+          this.listeQuestions.push(`Soit $f(x)=\\dfrac{${rienSi1(a)}x}{${b}}${ecritureAlgebrique(c)}$.<br>
             La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>Les valeurs de $a$ et de $b$ sont  :<br>   $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
-         ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `]
+         ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
         }
         setReponse(this, 0, [`${texFraction(a, b)}`, `${texFraction(-a, -b)}`, calcul(a / b), calcul(-a / (-b))])
         setReponse(this, 1, c)
-
-        this.listeCorrections = [`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$ (attention, $\\dfrac{ax}{b}=\\dfrac{a}{b}x$) et la valeur de $b$ est la constante.<br>
-        $f(x)=\\dfrac{${rienSi1(a)}x}{${b}}=\\underbrace{\\dfrac{${a}}{${b}}}_{a}x+\\underbrace{${ecritureParentheseSiNegatif(c)}}_{b}$`]
-
+        this.listeCorrections.push(`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$ (attention, $\\dfrac{ax}{b}=\\dfrac{a}{b}x$) et la valeur de $b$ est la constante.<br>
+        $f(x)=\\dfrac{${rienSi1(a)}x}{${b}}=\\underbrace{\\dfrac{${a}}{${b}}}_{a}x+\\underbrace{${ecritureParentheseSiNegatif(c)}}_{b}$`)
         break
 
       case 3 :// (ax+c)/b)
@@ -90,13 +91,13 @@ export default function ReconnaitreFonctionAffine () {
           b = randint(2, 10)
         }
         if (a === -1) {
-          this.listeQuestions = [`Soit $f(x)=\\dfrac{-x${ecritureAlgebrique(c)}}{${b}}$.<br>
+          this.listeQuestions.push(`Soit $f(x)=\\dfrac{-x${ecritureAlgebrique(c)}}{${b}}$.<br>
         La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>   Les valeurs de $a$ et de $b$ sont  :<br>  $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
-          ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `]
+          ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
         } else {
-          this.listeQuestions = [`Soit $f(x)=\\dfrac{${rienSi1(a)}x${ecritureAlgebrique(c)}}{${b}}$.<br>
+          this.listeQuestions.push(`Soit $f(x)=\\dfrac{${rienSi1(a)}x${ecritureAlgebrique(c)}}{${b}}$.<br>
             La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>      Les valeurs de $a$ et de $b$ sont  :<br>$a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
-         ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `]
+         ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
         }
         setReponse(this, 0, [`${texFraction(a, b)}`, `${texFraction(-a, -b)}`, calcul(a / b), calcul(-a / (-b))])
         setReponse(this, 1, [`${texFraction(c, b)}`, `${texFraction(-c, -b)}`, calcul(c / b), calcul(-c / (-b))])
