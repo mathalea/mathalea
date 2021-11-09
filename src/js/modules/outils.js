@@ -7950,7 +7950,8 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
                 texQr += '\\end{questionmultx}\\end{multicols}\n\\end{minipage}\n\n'
                 id += 2
-              } else if (rep.valeur.length === 2) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
+              } else if (rep.valeur[0].num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
+                valeurAMCNum = rep.valeur[0]
                 texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
                 if (!(propositions[0].alignement === undefined)) {
                   texQr += '\\begin{'
@@ -7962,34 +7963,34 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `${rep.texte}\n`
                 let digitsNum = 0
                 if (rep.param.digitsNum !== undefined) {
-                  digitsNum = max(rep.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(rep.valeur[0]))
+                  digitsNum = max(rep.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
                 } else if (rep.param.digits !== undefined) {
-                  digitsNum = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(rep.valeur[0]))
+                  digitsNum = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
                 } else {
-                  digitsNum = nombreDeChiffresDansLaPartieEntiere(rep.valeur[0].num)
+                  digitsNum = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num)
                 }
                 let digitsDen = 0
                 if (rep.param.digitsDen !== undefined) {
-                  digitsDen = max(rep.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(rep.valeur[1]))
+                  digitsDen = max(rep.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
                 } else if (rep.param.digits !== undefined) {
-                  digitsDen = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(rep.valeur[1]))
+                  digitsDen = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
                 } else {
-                  digitsDen = nombreDeChiffresDansLaPartieEntiere(rep.valeur[1])
+                  digitsDen = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)
                 }
                 let signeNum = true
                 if (rep.param.signe !== undefined) {
                   signeNum = rep.param.signe
                 } else {
-                  signeNum = (rep.valeur[0] < 0)
+                  signeNum = (valeurAMCNum.num * valeurAMCNum.den < 0)
                 }
                 let reponseF
                 let reponseAlsoCorrect
                 if (valeurAMCNum.num > 0) {
-                  reponseF = calcul(rep.valeur[0] + rep.valeur[1] / (10 ** nombreDeChiffresDansLaPartieEntiere(rep.valeur[1])))
-                  reponseAlsoCorrect = calcul(rep.valeur[0] - rep.valeur[1] / (10 ** digitsDen))
+                  reponseF = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
+                  reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
                 } else {
-                  reponseF = calcul(rep.valeur[0] - rep.valeur[1] / (10 ** nombreDeChiffresDansLaPartieEntiere(rep.valeur[1])))
-                  reponseAlsoCorrect = calcul(rep.valeur[0] - rep.valeur[1] / (10 ** digitsDen))
+                  reponseF = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
+                  reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
                 }
                 texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
                 texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
