@@ -39,11 +39,13 @@ export default function ExerciceEquation1 () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.introduction = lampeMessage({
-      titre: 'Calculatrice autorisée.',
-      texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> Pour une solution comme 0,333... seule une fraction (par ex : $${texFraction(1, 3)})$ est correcte`,
-      couleur: 'nombres'
-    })
+    if (this.interactif) {
+      this.introduction = lampeMessage({
+        titre: 'Calculatrice autorisée.',
+        texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> Pour une solution comme 0,333... seule une fraction (par ex : $${texFraction(1, 3)})$ est correcte`,
+        couleur: 'nombres'
+      })
+    }
     let listeTypeDeQuestions
     switch (this.sup2.toString()) {
       case '1':
