@@ -142,13 +142,5 @@ export const dictionnaireLycee = {
   '2G10-2': {
     titre: 'Natures de parallélogrammes',
     url: '/exercices/5e/5G42.js'
-  },
-  '2S11-1': {
-    titre: 'Calculer un CM à partir d\'un taux d\'évolution et inversement',
-    url: '/exercices/3e/3P10-1.js'
-  },
-  '2S11-2': {
-    titre: 'Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale',
-    url: '/exercices/3e/3P10.js'
   }
 }
