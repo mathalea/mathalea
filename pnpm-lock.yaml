@@ -4,7 +4,7 @@ specifiers:
   '@babel/core': ^7.15.8
   '@babel/plugin-syntax-dynamic-import': ^7.8.3
   '@babel/preset-modules': ^0.1.4
-  '@bugsnag/js': ^7.13.2
+  '@bugsnag/js': ^7.13.3
   '@cortex-js/math-json': ^0.1.1
   '@svgdotjs/svg.js': ^3.1.1
   algebrite: ^1.4.0
@@ -13,7 +13,7 @@ specifiers:
   clipboard: ^2.0.8
   codemirror: ^5.63.3
   copy-webpack-plugin: ^8.1.1
-  core-js: ^3.18.3
+  core-js: ^3.19.1
   css-loader: ^5.2.7
   datatables.net: ^1.11.3
   datatables.net-dt: ^1.11.3
@@ -32,10 +32,10 @@ specifiers:
   jquery-ui: ^1.13.0
   jsdoc: ^3.6.7
   json-loader: ^0.5.7
-  katex: ^0.13.18
+  katex: ^0.13.24
   loadjs: ^4.2.0
-  mathjs: ^9.5.1
-  mathlive: ^0.69.7
+  mathjs: ^9.5.2
+  mathlive: ^0.69.8
   mini-css-extract-plugin: ^1.6.2
   minimist: ^1.2.5
   playwright: ^1.15.2
@@ -51,20 +51,20 @@ specifiers:
   webpack-dev-server: ^3.11.2
 
 dependencies:
-  '@bugsnag/js': 7.13.2
+  '@bugsnag/js': 7.13.3
   '@cortex-js/math-json': 0.1.1
   '@svgdotjs/svg.js': 3.1.1
   algebrite: 1.4.0
   clipboard: 2.0.8
   codemirror: 5.63.3
-  core-js: 3.18.3
+  core-js: 3.19.1
   instrumenpoche: framagit.org/Sesamath/instrumenpoche/b7176a91ba82ecc28b0a5b30d8f972b37a021988
   jquery: 3.6.0
   jquery-ui: 1.13.0
-  katex: 0.13.18
+  katex: 0.13.24
   loadjs: 4.2.0
-  mathjs: 9.5.1
-  mathlive: 0.69.7
+  mathjs: 9.5.2
+  mathlive: 0.69.8
   qrcode: 1.4.4
   regenerator-runtime: 0.13.9
   seedrandom: 3.0.5
@@ -356,8 +356,8 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /@babel/runtime/7.15.4:
-    resolution: {integrity: sha512-99catp6bHCaxr4sJ/DbTGgHS4+Rs2RVd2g7iOap6SLGPDknRK9ztKNsE/Fg6QhSeh1FGE5f6gHGQmvvn3I3xhw==}
+  /@babel/runtime/7.16.3:
+    resolution: {integrity: sha512-WBwekcqacdY2e9AF/Q7WLFUWmdJGJTkbjqTjoMDgXkVZ3ZRUvOPsLb5KdwISoQVsbP+DQzVZW4Zhci0DvpbNTQ==}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.9
@@ -397,8 +397,8 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@bugsnag/browser/7.13.2:
-    resolution: {integrity: sha512-TNt6QhJxIqxvZ6wviLfwHu31V48EW+VnySxki0J2s4F++AF/lxCQ2o4ygFSQjOAHRMRChPI5jFM8OKDkx2q7mA==}
+  /@bugsnag/browser/7.13.3:
+    resolution: {integrity: sha512-nxYb0AtyER3zSk7xoZnFVRQwhRJ0To/quhqrRqwESMrFEIKEkwkU6FMR4esr2rKY0uE3ugZ2eXdQOf3/ttso5w==}
     dependencies:
       '@bugsnag/core': 7.13.2
     dev: false
@@ -417,10 +417,10 @@ packages:
     resolution: {integrity: sha512-LOt8aaBI+KvOQGneBtpuCz3YqzyEAehd1f3nC5yr9TIYW1+IzYKa2xWS4EiMz5pPOnRPHkyyS5t/wmSmN51Gjg==}
     dev: false
 
-  /@bugsnag/js/7.13.2:
-    resolution: {integrity: sha512-yXEhiVAiHgpzlP/luA3lDTo+pLgxa3TDl6cSXJtUTOvVqcgzA30k+SHG8h0KwSjXQ0MJWiQFwzPPVENdLAB5nA==}
+  /@bugsnag/js/7.13.3:
+    resolution: {integrity: sha512-V4r1Vt0SUslaz7dafU3bmKjUW6fak7CIrkWUz/aUKevQZM4kLARCnBXw9BfQrCejgyWyN9u1iysSIHVGkqsulA==}
     dependencies:
-      '@bugsnag/browser': 7.13.2
+      '@bugsnag/browser': 7.13.3
       '@bugsnag/node': 7.13.2
     dev: false
 
@@ -801,7 +801,7 @@ packages:
   /algebrite/1.4.0:
     resolution: {integrity: sha512-YPqD1baZOjuRnvR6xwyGYDJ9OvcqkPLLuxFAxnTGYVnKadzA5PyoMXm8mA1pYCE2xloMSgcZkTL1cXkK5C87cg==}
     dependencies:
-      big-integer: 1.6.50
+      big-integer: 1.6.51
     dev: false
 
   /ansi-colors/3.2.3:
@@ -1007,8 +1007,8 @@ packages:
     resolution: {integrity: sha1-3DQxT05nkxgJP8dgJyUl+UvyXBY=}
     dev: true
 
-  /big-integer/1.6.50:
-    resolution: {integrity: sha512-+O2uoQWFRo8ysZNo/rjtri2jIwjr3XfeAgRjAUADRqGG+ZITvyn8J1kvXLTaKVr3hhGXk+f23tKfdzmklVM9vQ==}
+  /big-integer/1.6.51:
+    resolution: {integrity: sha512-GPEid2Y9QU1Exl1rpO9B2IPJGHPSupF5GnVIP0blYvNOMer2bTvSWs1jGOUg04hTmu67nmLsQ9TBo1puaotBHg==}
     engines: {node: '>=0.6'}
     dev: false
 
@@ -1344,6 +1344,7 @@ packages:
   /commander/6.2.1:
     resolution: {integrity: sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==}
     engines: {node: '>= 6'}
+    dev: true
 
   /commander/7.2.0:
     resolution: {integrity: sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==}
@@ -1354,6 +1355,11 @@ packages:
     resolution: {integrity: sha512-LLKxDvHeL91/8MIyTAD5BFMNtoIwztGPMiM/7Bl8rIPmHCZXRxmSWr91h57dpOpnQ6jIUqEWdXE/uBYMfiVZDA==}
     engines: {node: '>= 12'}
     dev: true
+
+  /commander/8.3.0:
+    resolution: {integrity: sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==}
+    engines: {node: '>= 12'}
+    dev: false
 
   /commondir/1.0.1:
     resolution: {integrity: sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=}
@@ -1443,8 +1449,8 @@ packages:
       webpack: 5.58.2_webpack-cli@4.9.0
     dev: true
 
-  /core-js/3.18.3:
-    resolution: {integrity: sha512-tReEhtMReZaPFVw7dajMx0vlsz3oOb8ajgPoHVYGxr8ErnZ6PcYEvvmjGmXlfpnxpkYSdOQttjB+MvVbCGfvLw==}
+  /core-js/3.19.1:
+    resolution: {integrity: sha512-Tnc7E9iKd/b/ff7GFbhwPVzJzPztGrChB8X8GLqoYGdEOG8IpLnK1xPyo3ZoO3HsK6TodJS58VGPOxA+hLHQMg==}
     requiresBuild: true
     dev: false
 
@@ -3278,11 +3284,11 @@ packages:
       minimist: 1.2.5
     dev: true
 
-  /katex/0.13.18:
-    resolution: {integrity: sha512-a3dC4NSVSDU3O1WZbTnOiA8rVNJ2lSiomOl0kmckCIGObccIHXof7gAseIY0o1gjEspe+34ZeSEX2D1ChFKIvA==}
+  /katex/0.13.24:
+    resolution: {integrity: sha512-jZxYuKCma3VS5UuxOx/rFV1QyGSl3Uy/i0kTJF3HgQ5xMinCQVF8Zd4bMY/9aI9b9A2pjIBOsjSSm68ykTAr8w==}
     hasBin: true
     dependencies:
-      commander: 6.2.1
+      commander: 8.3.0
     dev: false
 
   /killable/1.0.1:
@@ -3470,12 +3476,12 @@ packages:
     hasBin: true
     dev: true
 
-  /mathjs/9.5.1:
-    resolution: {integrity: sha512-yYu67sdmrLrQeRyN+DPH0aRQphdmI/gz4oNXFx4YR43NKifOiNTfXT30+ACsNIWaqJ1KihhVDD+X1kwfI2/X9g==}
+  /mathjs/9.5.2:
+    resolution: {integrity: sha512-c0erTq0GP503/Ch2OtDOAn50GIOsuxTMjmE00NI/vKJFSWrDaQHRjx6ai+16xYv70yBSnnpUgHZGNf9FR9IwmA==}
     engines: {node: '>= 12'}
     hasBin: true
     dependencies:
-      '@babel/runtime': 7.15.4
+      '@babel/runtime': 7.16.3
       complex.js: 2.0.15
       decimal.js: 10.3.1
       escape-latex: 1.2.0
@@ -3486,8 +3492,8 @@ packages:
       typed-function: 2.0.0
     dev: false
 
-  /mathlive/0.69.7:
-    resolution: {integrity: sha512-kU7IT5W6VWryiKwrYm+6ZX2YjLcLLkAxYGH0VUaO1/WtrM0fWBnmUs2L2k/9tFOwosrm+jrDLPylfUkA8rAeZQ==}
+  /mathlive/0.69.8:
+    resolution: {integrity: sha512-/wVBBynB2gixG3mAOLgwt5ci/dqPVFwUlqEuOEfA+Cqr80hp9gL/qCqJcv/XTqcsqeTnLeP6knNlUPYyI70krA==}
     engines: {node: '>=12.0.0', npm: '>=6.14.8'}
     dependencies:
       '@cortex-js/compute-engine': 0.4.2
@@ -5717,7 +5723,7 @@ packages:
     version: 2.4.5
     engines: {node: '>8.0.0'}
     dependencies:
-      core-js: 3.18.3
+      core-js: 3.19.1
       docdash: 1.2.0
       sesajstools: framagit.org/Sesamath/sesajstools/ac6283ba39b63def7e316a1f1c813915656c401e
       whatwg-fetch: 3.6.2
