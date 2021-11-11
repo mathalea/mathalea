@@ -1,6 +1,19 @@
 import { context } from './context'
 
 /**
+ * @param {string} param
+ * @param {string} newval
+ * @param {string} search
+ * @returns string
+ */
+export function replaceQueryParam (param, newval, search = window.location.search) {
+  const regex = new RegExp('([?;&])' + param + '[^&;]*[;&]?')
+  const query = search.replace(regex, '$1').replace(/&$/, '')
+
+  return (query.length > 2 ? query + '&' : '?') + (newval ? param + '=' + newval : '')
+}
+
+/**
  *
  * @returns {string} Filtre depuis l'URL
  */
