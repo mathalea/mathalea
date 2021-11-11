@@ -1,4 +1,4 @@
-/* global $ fetch Event ActiveXObject XMLHttpRequest JSZip saveAs */
+/* global $ jQuery JSZip saveAs */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGoTab, setUrlAndGo } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
@@ -88,7 +88,7 @@ function copierVersExerciceForm () {
     }
   }
   document.getElementById('choix_des_exercices').value = texteCode
-  const evenement = new Event('change')
+  const evenement = new window.Event('change')
   document.getElementById('choix_des_exercices').dispatchEvent(evenement)
 }
 
@@ -120,7 +120,7 @@ function ajoutHandlersEtiquetteExo () {
       if ((e.which === 8 || e.which === 46) && (e.target.innerText === '' || e.target.innerText === '\n')) {
         // suppression de l'étiquette.
         copierVersExerciceForm()
-        $('.exoSelectionne').removeClass('exoSelectionne') //pour alc
+        $('.exoSelectionne').removeClass('exoSelectionne') // pour alc
         $('.choix_exercices:last').focus()
       }
     })
@@ -137,9 +137,9 @@ function ajoutHandlersEtiquetteExo () {
       // nécessaire car le sortable ne permet plus la sélection des contenteditable une fois activé
       this.focus()
       if (context.isAlc) {
-        $(this).addClass('exoSelectionne'); 
+        $(this).addClass('exoSelectionne')
       } else {
-      selectionnerCode(this)
+        selectionnerCode(this)
       }
     })
 }
@@ -252,7 +252,7 @@ async function gestionModules (isdiaporama, listeObjetsExercice) {
         await loadIep(element, xml)
       }
       // On prévient Anki qu'il faut une plus grande fenêtre
-      const IEPAffiche = new Event('IEPAffiche', { bubbles: true })
+      const IEPAffiche = new window.Event('IEPAffiche', { bubbles: true })
       document.dispatchEvent(IEPAffiche)
     }
   } catch (error) {
@@ -714,7 +714,7 @@ function miseAJourDuCode () {
     }
     document.getElementById('corrections').innerHTML = contenuDesCorrections
     gestionModules(false, listeObjetsExercice)
-    const exercicesAffiches = new Event('exercicesAffiches', { bubbles: true })
+    const exercicesAffiches = new window.Event('exercicesAffiches', { bubbles: true })
     document.dispatchEvent(exercicesAffiches)
     // En cas de clic sur la correction, on désactive les exercices interactifs
     const bntCorrection = document.getElementById('btnCorrection')
@@ -800,10 +800,10 @@ function miseAJourDuCode () {
 
           if (window.XMLHttpRequest) {
             // Firefox
-            request = new XMLHttpRequest()
+            request = new window.XMLHttpRequest()
           } else if (window.ActiveXObject) {
             // IE
-            request = new ActiveXObject('Microsoft.XMLHTTP')
+            request = new window.ActiveXObject('Microsoft.XMLHTTP')
           } else {
             return // Non supporte
           }
@@ -983,7 +983,7 @@ function miseAJourDuCode () {
       })
   }
 
-  if (!context.isHtml && !context.isAmc  && !context.isAlc) {
+  if (!context.isHtml && !context.isAmc && !context.isAlc) {
     // Sortie LaTeX
     // code pour la sortie LaTeX
     let codeEnonces = ''
@@ -1347,7 +1347,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
       if (dictionnaireDesExercices[id].typeExercice === 'dnb') {
         listeObjetsExercice[i] = dictionnaireDesExercices[id]
         promises.push(
-          fetch(url)
+          window.fetch(url)
             .then((response) => response.text())
             .then((data) => {
               listeObjetsExercice[i].nbQuestionsModifiable = false
@@ -1357,7 +1357,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
             })
         )
         promises.push(
-          fetch(dictionnaireDesExercices[id].urlcor)
+          window.fetch(dictionnaireDesExercices[id].urlcor)
             .then((response) => response.text())
             .then((data) => {
               listeObjetsExercice[i].contenuCorrection = data
@@ -1720,7 +1720,7 @@ function parametresExercice (exercice) {
         })
       }
     } else if (context.isAlc) {
-      divParametresGeneraux.innerHTML += '<h4 class="ui dividing header exercice'+i+'">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
+      divParametresGeneraux.innerHTML += '<h4 class="ui dividing header exercice' + i + '">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
 
       if (exercice[i].consigneModifiable) {
         divParametresGeneraux.innerHTML +=
@@ -1748,7 +1748,7 @@ function parametresExercice (exercice) {
         divParametresGeneraux.innerHTML +=
           '<div><label for="formInteractif' + i + '">QCM : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
       }
-      
+
       // Si le nombre de versions changent
       $('#nombre_de_versions').change(function () {
         miseAJourDuCode()
@@ -2053,7 +2053,7 @@ function parametresExercice (exercice) {
   }
 
   for (let i = 0; i < exercice.length; i++) {
-    if (!context.isHtml && !context.isAmc &&!context.isAlc) {
+    if (!context.isHtml && !context.isAmc && !context.isAlc) {
       // Les paramètres à ne gérer que pour la version LaTeX
       // Gestion de la consigne
       if (exercice[i].consigneModifiable) {
@@ -2630,7 +2630,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       miseAJourDuCode()
     })
   }
-  
+
   if (context.isAlc) {
     $('#alcSelectLignes').on('click', function (e) {
       if ($(e.target).is(':checked')) {
@@ -2639,7 +2639,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         $('.checkeval').prop('checked', false)
       }
     })
-    
+
     $('#paramVisu').on('click', function () {
       if ($('#paramVisu').hasClass('up')) {
         $('#parametresExercice').hide()
@@ -2651,28 +2651,28 @@ document.addEventListener('DOMContentLoaded', async () => {
         $('#paramVisu').addClass('up')
       }
     })
-    
+
     $('#ajoutetiquette').on('click', function (e) {
       if ($('.exercice0').html()) {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams (queryString);
+        const queryString = window.location.search
+        const urlParams = new URLSearchParams(queryString)
         const ex = urlParams.get('ex')
         const tooltip = $('.exercice0').html().substr(15)
-        let tagexercices = `<div class="choix_exo sortable" data-tooltip="${tooltip}"><span contenteditable="true" class="choix_exercices valide">${ex}</span></div>`
+        const tagexercices = `<div class="choix_exo sortable" data-tooltip="${tooltip}"><span contenteditable="true" class="choix_exercices valide">${ex}</span></div>`
         $('#choix_exercices_dispos span.choix_exercices:last-child:last').before(tagexercices)
         ajoutHandlersEtiquetteExo()
       }
     })
-    
+
     $('#ajoutetiquettecoche').on('click', function (e) {
       if ($('.exercice0').html()) {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams (queryString);
+        const queryString = window.location.search
+        const urlParams = new URLSearchParams(queryString)
         const ex = urlParams.get('ex')
         const tooltip = $('.exercice0').html().substr(15)
-        let tagexercices = `<div class="choix_exo sortable" data-tooltip="${tooltip}"><span contenteditable="true" class="choix_exercices valide">${ex}</span></div>`
-        const checkboxes = $('.checkeval');
-        for (let i=0; i<checkboxes.length;i++) {
+        const tagexercices = `<div class="choix_exo sortable" data-tooltip="${tooltip}"><span contenteditable="true" class="choix_exercices valide">${ex}</span></div>`
+        const checkboxes = $('.checkeval')
+        for (let i = 0; i < checkboxes.length; i++) {
           if ($(checkboxes[i]).is(':checked')) {
             $(checkboxes[i]).next().next().next().children().last().before(tagexercices)
           }
@@ -2681,29 +2681,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         ajoutHandlersEtiquetteExo()
       }
     })
-    
-    function ajoutHandlersTrash() {
+
+    function ajoutHandlersTrash () {
       $('.supprexoligne').off('click')
-      .on('click', function (e) {
-        $(e.target).parent().remove();
-      })
+        .on('click', function (e) {
+          $(e.target).parent().remove()
+        })
     }
-    
-    function handlerAjoutDansLigne() {
+
+    function handlerAjoutDansLigne () {
       $('.ajoutexoligne').off('click')
-      .on('click', function (e) {
-        let tagexercices = $('.exoSelectionne').parent().html()
-        $(this).next().next().children().last().before(tagexercices)
-        $('.exoSelectionne').removeClass('exoSelectionne')
-        ajoutHandlersTrash()
-        ajoutHandlersEtiquetteExo()        
-      })
+        .on('click', function (e) {
+          const tagexercices = $('.exoSelectionne').parent().html()
+          $(this).next().next().children().last().before(tagexercices)
+          $('.exoSelectionne').removeClass('exoSelectionne')
+          ajoutHandlersTrash()
+          ajoutHandlersEtiquetteExo()
+        })
     }
-    
-    $("#ajoutexoselection").on('click', function (e) {
-      let tagexercices = $('.exoSelectionne').parent().html();
-      const checkboxes = $('.checkeval');
-      for (let i=0; i<checkboxes.length;i++) {
+
+    $('#ajoutexoselection').on('click', function (e) {
+      const tagexercices = $('.exoSelectionne').parent().html()
+      const checkboxes = $('.checkeval')
+      for (let i = 0; i < checkboxes.length; i++) {
         if ($(checkboxes[i]).is(':checked')) {
           $(checkboxes[i]).next().next().next().children().last().before(tagexercices)
         }
@@ -2711,40 +2711,39 @@ document.addEventListener('DOMContentLoaded', async () => {
       $('.exoSelectionne').removeClass('exoSelectionne')
       ajoutHandlersEtiquetteExo()
     })
-    
-    function ligneExercices(objligne) {
+
+    function ligneExercices (objligne) {
       const nomCopie = objligne && objligne.nomCopie ? objligne.nomCopie : ''
-      let items = ''      
+      let items = ''
       if (objligne && objligne.items) {
-        let listeItems = objligne.items.split(';')
-        for (let i=0; i<listeItems.length ; i++) {
+        const listeItems = objligne.items.split(';')
+        for (let i = 0; i < listeItems.length; i++) {
           if (i === listeItems.length - 1) {
-            items +=  `<span contenteditable="true" class="choix_exercices valide">${listeItems[i]}</span><span contenteditable="true" class="choix_exercices"><br></span>` 
+            items += `<span contenteditable="true" class="choix_exercices valide">${listeItems[i]}</span><span contenteditable="true" class="choix_exercices"><br></span>`
           } else {
-            items +=  `<span contenteditable="true" class="choix_exercices valide">${listeItems[i]}</span>`
+            items += `<span contenteditable="true" class="choix_exercices valide">${listeItems[i]}</span>`
           }
         }
       } else {
-        items = `<span contenteditable="true" class="choix_exercices"><br></span>`
+        items = '<span contenteditable="true" class="choix_exercices"><br></span>'
       }
       return `<div class="evalelem"><input type="checkbox" class="checkeval"><i class="sign-in icon ajoutexoligne"></i><input type="text" style="width:70px" data-tooltip="Nom qui apparaitra sur la copie." value="${nomCopie}">
       <div id="choix_exercices_div" style="width:65%" data-tooltip="Identifiants des exercices" ><div class="choix_exo sortable">${items}</div></div><i class="trash alternate outline icon supprexoligne"></i></div>`
     }
-    
-    
+
     $('#ajoutligne').on('click', function (e) {
       $('#listeEval').append(ligneExercices())
       handlerAjoutDansLigne()
       ajoutHandlersEtiquetteExo()
       ajoutHandlersTrash()
     })
-    
+
     handlerAjoutDansLigne()
     ajoutHandlersTrash()
-    
+
     let codeLatex; let codeLatexCorr; let tableauDeDemandes; const objetContenu = []; const objetContenuCorrection = []
     const listeDesExercicesDemandes = []; let contenuFichier = ''; const listeObjetsExercice = {}; let messageErreur = ''
-      
+
     /**
     * Récupère le texte saisi pour le transformer en tableau de tableaux.
     * Premier séparateur le saut de ligne ; deuxième séparateur le point-virgule.
@@ -2760,7 +2759,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       })
       return tableau
     }
-    
+
     /**
     * Transforme le texte saisi par l'utilisateur en un dictionnaire avec l'id des exercices et les éventuels paramètres (sup, sup2, nbQuestions)
     *
@@ -2785,10 +2784,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             ObjetParametres[CleValeur[i][0]] = CleValeur[i][1]
           }
         }
-      }  
+      }
       return ObjetParametres
     }
-    
+
     /**
     * Met à jour le code LaTeX à partir de l'identifiant d'un exercice.
     *
@@ -2834,13 +2833,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         codeLatex += `\n\n%%% ${e} : Exercice aléatoire - ${exerciceAleatoire.titre}%%%\n\n`
         codeLatex += exerciceAleatoire.contenu + '\n\n'
         codeLatexCorr += exerciceAleatoire.contenuCorrection + '\n\n'
-    
+
         if (typeof exerciceAleatoire.listePackages === 'string') {
           listePackages.add(exerciceAleatoire.listePackages)
         } else { // si c'est un tableau
           exerciceAleatoire.listePackages.forEach(listePackages.add, listePackages)
         }
-    
+
         // Sinon un exercice statique si le nom de l'item est inclus dans le nom du répertoire
       } else {
         // Si l'identifiant de l'exercice n'est disponible ni sur MathALEA ni dans la liste statique des url tableauUrlTex
@@ -2848,7 +2847,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateMessageErreur(`Pas d'exercice disponible pour ${e}.\n`)
       }
     }
-    
+
     /**
     * Met à jour le message d'erreur en évitant les doublons.
     *
@@ -2859,47 +2858,47 @@ document.addEventListener('DOMContentLoaded', async () => {
         messageErreur += text
       }
     }
-    
+
     jQuery.ajaxSetup({ async: false }) // Tout le traitement se fait de manière synchrone.
     // On attend le résultat des requetes url vers les fichiers statiques pour bien avoir les exercices dans l'ordre
     $('.ui.checkbox').checkbox()
     $('.ui.radio.checkbox').checkbox() // active les boutons radio (pour le style)
     $('#reglages_sortie_LaTeX').hide()
-  
-    //On garde le système avec textarea, cela permet de rester compatible avec les anciens formats et avec ce qui provient de sacoche.
-    //Pour éviter deux traitemets (un depuis la sauvegarde et un second depuis l'interface, création de deux fonctions qui permettent de
-    //synchroniser un textarea caché et l'affichage.
-    
-    function affichageVersTextarea() {
-      let lignesExos = $('.evalelem')
+
+    // On garde le système avec textarea, cela permet de rester compatible avec les anciens formats et avec ce qui provient de sacoche.
+    // Pour éviter deux traitemets (un depuis la sauvegarde et un second depuis l'interface, création de deux fonctions qui permettent de
+    // synchroniser un textarea caché et l'affichage.
+
+    function affichageVersTextarea () {
+      const lignesExos = $('.evalelem')
       let textareaContent = ''
-      for (let i=1; i<lignesExos.length;i++) {
-        let listeExosLigne = $(lignesExos[i]).find('span.valide')
+      for (let i = 1; i < lignesExos.length; i++) {
+        const listeExosLigne = $(lignesExos[i]).find('span.valide')
         let ligne = $(lignesExos[i]).find('input')[1].value + ';'
-        for (let j=0; j<listeExosLigne.length;j++) {
+        for (let j = 0; j < listeExosLigne.length; j++) {
           if (j === listeExosLigne.length - 1) {
             ligne += listeExosLigne[j].innerText
           } else {
             ligne += listeExosLigne[j].innerText + ';'
           }
         }
-        if (i === lignesExos.length-1) {
+        if (i === lignesExos.length - 1) {
           textareaContent += ligne
         } else {
           textareaContent += ligne + '\n'
         }
       }
-      $('#textareaIdItems').val(textareaContent)     
+      $('#textareaIdItems').val(textareaContent)
     }
-    
-    function TextareaVersAffichage(fileContent) { //Fonction utilisée au chargement d'un fichier et pour l'interface avec SACoche.
-      //Cas particuliers à gérer : 
+
+    function TextareaVersAffichage (fileContent) { // Fonction utilisée au chargement d'un fichier et pour l'interface avec SACoche.
+      // Cas particuliers à gérer :
       //  anciens fichiers : formats (nom;prenom;items) ou (nom;items) ou (items)
       //  venant de SACoche
       //  uniquement des noms d'élèves
-      let listeExos = fileContent ? fileContent : document.getElementById('textareaIdItems').value    
+      let listeExos = fileContent || document.getElementById('textareaIdItems').value
       listeExos = listeExos.replace('MATHS', '').replace(/\./g, '').replace(/ /g, '')
-        // Pour faire la correspondance entre SACoche et MathALEA, on supprime 'MATHS' et tous les points dans les noms des id
+      // Pour faire la correspondance entre SACoche et MathALEA, on supprime 'MATHS' et tous les points dans les noms des id
       let listeLignes = []
       if (listeExos.indexOf('\r\n') >= 0) {
         listeLignes = listeExos.split('\r\n')
@@ -2911,28 +2910,28 @@ document.addEventListener('DOMContentLoaded', async () => {
       let casFormat = 2
       let items = ''
       let nomCopie = ''
-      for (let i=0; i < listeLignes.length ; i++) {
+      for (let i = 0; i < listeLignes.length; i++) {
         itemListe = listeLignes[i].split(';')
-        let itemId =[]
-        if (i===0) { 
-          for (let j=0; j < 2 ; j++) {
+        let itemId = []
+        if (i === 0) {
+          for (let j = 0; j < 2; j++) {
           // Pour la première ligne on regarde si l'item0 ; item1 ou item2 est un exercice valide, sinon on suppose que c'est un nom élève.
             if (itemListe.length > 1) {
               if (itemListe[j]) {
                 itemId = itemListe[j].split(',')[0]
                 if (listeCodesExercices.indexOf(itemId[0]) < 0) {
-                    casFormat = j;
+                  casFormat = j
                 }
               }
             }
           }
         }
         if (casFormat === 0) {
-          ligneExercices({items:itemListe})
+          ligneExercices({ items: itemListe })
         } else {
           items = ''
-          for (let j=casFormat ; j < itemListe.length ; j++ ) {
-            if (j === itemListe.length-1) {
+          for (let j = casFormat; j < itemListe.length; j++) {
+            if (j === itemListe.length - 1) {
               items += itemListe[j]
             } else {
               items += itemListe[j] + ';'
@@ -2942,47 +2941,49 @@ document.addEventListener('DOMContentLoaded', async () => {
             nomCopie = itemListe[0]
           } else {
             nomCopie = itemListe[0] + ' ' + itemListe[1]
-          }          
-          $('#listeEval').append(ligneExercices({nomCopie:nomCopie,
-            items:items}))
-        }      
+          }
+          $('#listeEval').append(ligneExercices({
+            nomCopie: nomCopie,
+            items: items
+          }))
+        }
       }
     }
-    
+
     $('#enregistrer').click(function () {
-      affichageVersTextarea();
-      const blob = new Blob([$('#textareaIdItems').val()], {type: "application/octet-stream"});
-      const url  = URL.createObjectURL(blob);
-      let link = $(".download-link");
-      link.attr("href", url);
-      link.attr("download", 'alacarte.csv');
-      link.get(0).click();
+      affichageVersTextarea()
+      const blob = new window.Blob([$('#textareaIdItems').val()], { type: 'application/octet-stream' })
+      const url = URL.createObjectURL(blob)
+      const link = $('.download-link')
+      link.attr('href', url)
+      link.attr('download', 'alacarte.csv')
+      link.get(0).click()
     })
-    
-    let fileReader = new FileReader();
-    fileReader.onload = function(event) {
+
+    const fileReader = new window.FileReader()
+    fileReader.onload = function (event) {
       TextareaVersAffichage(fileReader.result)
       handlerAjoutDansLigne()
       ajoutHandlersTrash()
-    };
-    
-    document.getElementById('chargerALC').onchange = function(event) {
-        fileReader.readAsText(event.target.files[0]);
     }
-    
-    $('#btn1Question').click(function() {
+
+    document.getElementById('chargerALC').onchange = function (event) {
+      fileReader.readAsText(event.target.files[0])
+    }
+
+    $('#btn1Question').click(function () {
       $('#listeEval').html('')
-      $('#chargerALC').click();
+      $('#chargerALC').click()
     })
-    
+
     $('#valider').click(function () {
-      //Affichage des paramètres pour créer le pdf via overleaf.
+      // Affichage des paramètres pour créer le pdf via overleaf.
       $('#div_codeLatex').html(' ')
       codeLatex = ''
       codeLatexCorr = ''
       messageErreur = ''
-      affichageVersTextarea();
-      tableauDeDemandes = textareaToArray($('#textareaIdItems')) 
+      affichageVersTextarea()
+      tableauDeDemandes = textareaToArray($('#textareaIdItems'))
       const listeCodesExercices = Object.keys(dictionnaireDesExercices)
       tableauDeDemandes.forEach(function (ligne, numeroDeLigne) {
         // On créé un tableau pour chaque élève
@@ -2994,13 +2995,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             objetContenuCorrection[numeroDeLigne][i] = enteteEleve(ligne[0])
           }
           if (i > 0) {
-            if (e.replace(/ /g, '').length > 2) {            
+            if (e.replace(/ /g, '').length > 2) {
               objetContenu[numeroDeLigne][i] = e
               objetContenuCorrection[numeroDeLigne][i] = e
               e = e.replace(/ /g, '')
               e = e.split(',')[0]
               e = e.replace('MATHS', '').replace(/\./g, '').replace(/ /g, '')
-              if (listeCodesExercices.indexOf(e)>0) { 
+              if (listeCodesExercices.indexOf(e) > 0) {
                 if (listeDesExercicesDemandes.indexOf(e) < 0) {
                   listeDesExercicesDemandes.push(e)
                 }
@@ -3009,7 +3010,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           }
         })
       })
-  
+
       const promises = []
       for (let i = 0, id; i < listeDesExercicesDemandes.length; i++) {
         id = listeDesExercicesDemandes[i]
@@ -3040,9 +3041,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         .then(() => {
           tableauDeDemandes.forEach(function (ligne) {
             ligne.forEach(function (e, i) {
-              if (i === 0) { 
+              if (i === 0) {
                 codeLatex += enteteEleve(ligne[0])
-                codeLatexCorr += enteteEleve(ligne[0]) 
+                codeLatexCorr += enteteEleve(ligne[0])
               }
               if (i > 0) {
                 if (e.replace(/ /g, '').length > 2) {
@@ -3051,36 +3052,35 @@ document.addEventListener('DOMContentLoaded', async () => {
               }
             })
           })
-  
+
           if (messageErreur.length > 1) {
             window.alert(messageErreur)
           }
           // Affiche les boutons de compilation
-            $('#reglages_sortie_LaTeX').show()
+          $('#reglages_sortie_LaTeX').show()
           // Affiche le code LaTeX
           $('#div_codeLatex').html('<pre><code class="language-latex">' + codeLatex + introCorrection +
                       codeLatexCorr + '</code></pre>')
         })
         .then(loadPrism)
         .then(() => {
-          /* global Prism */
           const div = document.getElementById('div_codeLatex')
           Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
         })
     })
-  
+
     // Gestion du téléchargement
-  
+
     $('#btn_telechargement').click(function () {
       creerFichier()
-  
+
       if ($('#nom_du_fichier').val()) {
         telechargeFichier(contenuFichier, $('#nom_du_fichier').val() + '.tex')
       } else {
         telechargeFichier(contenuFichier, 'mathalea.tex')
       }
     })
-  
+
     $('#btn_overleaf').click(function () {
       creerFichier()
       // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
@@ -3089,9 +3089,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         $('input[name=snip_name]').val($('#nom_du_fichier').val()) // nomme le projet sur Overleaf
       }
     })
-  
+
     // Gestion des paramètres du fichier LaTeX
-  
+
     $('#options_style_CoopMaths').hide() // par défaut le style est classique donc on
     $('a.lien_images').hide() // cache les options du style Coop
     $(function () {
@@ -3107,7 +3107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
       })
     })
-    
+
     function creerFichier () {
       // Gestion du style pour l'entête du fichier
       if ($('#style_classique:checked').val()) {
@@ -3119,16 +3119,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 codeLatexCorr + '\n\n\\end{document}'
       }
     }
-    
+
     // Gestion des en-têtes
-    
+
     let counter = 'section'
     let enteteCorrection = ''
     if ($('#style_classique:checked').val()) {
       counter = 'exo'
       enteteCorrection = '\\fancyhead[C]{Correction}\n'
     }
-    
+
     function enteteEleve (prenom = '', nom = '') {
       return `\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n
@@ -3137,10 +3137,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     \\bigskip
     `
     }
-    
+
     const introCorrection = '\n%%%%%%%%%%%%%%%%\n%%%CORRECTION%%%\n%%%%%%%%%%%%%%%%' +
         `\n\n\\newpage\n${enteteCorrection}\\setcounter{${counter}}{0}\n\n`
-    
+
     function macroNomCopie (style = 'classique') {
       if (style === 'classique') {
         return `\\newcommand\\NomCopie[1]{\\fancyhead[L]{#1}
@@ -3153,9 +3153,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }\n\n`
       }
     }
-
   }
-  
+
   // handlers pour la prévisualisation des exercices cg 04-20201
   function afficherPopup (exoId) {
     // lors du clic sur l'oeil, si la popup est affichée on la cache, sinon on ouvre la prévisulisation.
@@ -3190,18 +3189,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Gestion de l'évènement sur le click sur les flèches pour basculer les exercices en plein écran.
   $('#exo_plein_ecran').click(function (e) {
-    if (context.vue && context.vue.substring(0,3) ==='alc') {
+    if (context.vue && context.vue.substring(0, 3) === 'alc') {
       if ($('#exo_plein_ecran').hasClass('left')) {
         gestionVue('alcexEtChoix')
       } else {
-        gestionVue('alcmenu') 
+        gestionVue('alcmenu')
       }
     } else {
-    if ($('#exo_plein_ecran').hasClass('left')) {
-      gestionVue('exEtChoix')
-    } else {
-      gestionVue('menu')
-    }
+      if ($('#exo_plein_ecran').hasClass('left')) {
+        gestionVue('exEtChoix')
+      } else {
+        gestionVue('menu')
+      }
     }
   })
 

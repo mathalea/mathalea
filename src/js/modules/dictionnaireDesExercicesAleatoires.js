@@ -3313,21 +3313,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "4G40-MG32": {
-    "titre": "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle",
-    "url": "/exercices/4e/4G40-MG32.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "4G40-MG32",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "4G40": {
     "titre": "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle",
     "url": "/exercices/4e/4G40.js",
@@ -6760,7 +6745,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6909,6 +6894,25 @@ export default {
     "name": "6N11",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6N12-1": {
+    "titre": "Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ...",
+    "url": "/exercices/6e/6N12-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6N12-1",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8542,7 +8546,7 @@ export default {
     }
   },
   "beta2F31": {
-    "titre": "Exercice exemple",
+    "titre": "Croissance de fonction ?",
     "url": "/exercices/beta/beta2F31.js",
     "amcReady": false,
     "interactifReady": false,
@@ -8793,25 +8797,6 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "betaCaNCM2",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "betaCan2": {
-    "titre": "Course aux nombres seconde",
-    "url": "/exercices/beta/betaCan2.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaCan2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -9182,21 +9167,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betarotation3d",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "betatrinome": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betatrinome.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betatrinome",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -13169,6 +13139,54 @@ export default {
     "name": "canc3C03",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "canc3D01": {
+    "titre": "Lire l'heure",
+    "url": "/exercices/can/c3/canc3D01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3D01",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "canc3D02": {
+    "titre": "Lire une durée",
+    "url": "/exercices/can/c3/canc3D02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3D02",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "canc3M01": {
+    "titre": "Trouver la bonne unité",
+    "url": "/exercices/can/c3/canc3M01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3M01",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
