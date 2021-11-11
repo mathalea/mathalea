@@ -84,10 +84,25 @@ function verifQuestionCliqueFigure (exercice, i) {
 function verifQuestionMathLive (exercice, i) {
   // Au commit 917faac, il y avait un retour console
   const engine = new ComputeEngine()
-  let saisieParsee, signeF
+  let saisieParsee, signeF, num, den, fSaisie
+  const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
-  const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+  let champTexte
+  switch (formatInteractif) {
+    case 'Num':
+      champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`)
+      break
+    case 'Den':
+      champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Den`)
+      break
+    case 'NumDen':
+      champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`)
+      break
+    default :
+      champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+      break
+  }
   let reponses = []
   if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
     reponses = [exercice.autoCorrection[i].reponse.valeur]
@@ -97,7 +112,28 @@ function verifQuestionMathLive (exercice, i) {
   let resultat = 'KO'
   let saisie = champTexte.value
   for (let reponse of reponses) {
-    if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') { // Le format par défaut
+    if (formatInteractif === 'NumDen') {
+      num = parseInt(document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`).value)
+      den = parseInt(document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Den`).value)
+      fSaisie = new Fraction(num, den)
+      if (fSaisie.egal(reponse)) {
+        resultat = 'OK'
+      }
+    } else if (formatInteractif === 'Num') {
+      num = parseInt(champTexte.value)
+      den = reponse.den
+      fSaisie = new Fraction(num, den)
+      if (fSaisie.egal(reponse)) {
+        resultat = 'OK'
+      }
+    } else if (formatInteractif === 'Den') {
+      den = parseInt(champTexte.value)
+      num = reponse.num
+      fSaisie = new Fraction(num, den)
+      if (fSaisie.egal(reponse)) {
+        resultat = 'OK'
+      }
+    } else if (formatInteractif === 'calcul') { // Le format par défaut
       // Pour le calcul littéral on remplace dfrac en frac
       if (typeof reponse === 'string') {
         reponse = reponse.replaceAll('dfrac', 'frac')
@@ -110,24 +146,24 @@ function verifQuestionMathLive (exercice, i) {
         resultat = 'OK'
       }
       // Pour les exercices où la saisie du texte avec prise en compte de la casse
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'ecritureScientifique') { // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
+    } else if (formatInteractif === 'ecritureScientifique') { // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
       if (typeof reponse === 'string') saisie = saisie.toString().replace(',', '.')
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         saisie = saisie.split('\\times')
         if (number(saisie[0]) >= 1 & number(saisie[0]) < 10) { resultat = 'OK' }
       }
       // Pour les exercices où la saisie du texte avec prise en compte de la casse
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'texte') {
+    } else if (formatInteractif === 'texte') {
       if (saisie === reponse) {
         resultat = 'OK'
       }
       // Pour les exercices où la saisie du texte sans prise en compte de la casse
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'ignorerCasse') {
+    } else if (formatInteractif === 'ignorerCasse') {
       if (saisie.toLowerCase() === reponse.toLowerCase()) {
         resultat = 'OK'
       // Pour les exercices de simplifications de fraction
       }
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionPlusSimple') {
+    } else if (formatInteractif === 'fractionPlusSimple') {
       saisieParsee = parse(saisie)
       if (saisieParsee) {
         if (saisieParsee[0] === 'Negate') {
@@ -142,7 +178,7 @@ function verifQuestionMathLive (exercice, i) {
         }
       }
       // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionEgale') {
+    } else if (formatInteractif === 'fractionEgale') {
       // Si l'utilisateur entre un entier n, on transforme en n/1
       if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
         saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
@@ -157,12 +193,12 @@ function verifQuestionMathLive (exercice, i) {
           signeF = 1
         }
         if (saisieParsee[1].num && saisieParsee[2].num) {
-          const fSaisie = new Fraction(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+          fSaisie = new Fraction(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
           if (fSaisie.egal(reponse)) resultat = 'OK'
         }
       }
       // Pour les exercices où l'on attend un écriture donnée d'une fraction
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fraction') {
+    } else if (formatInteractif === 'fraction') {
       if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
         saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
       } else {
@@ -181,7 +217,7 @@ function verifQuestionMathLive (exercice, i) {
         }
       }
       // Pour les exercices où l'on attend une mesure avec une unité au choix
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'longueur') {
+    } else if (formatInteractif === 'longueur') {
       const grandeurSaisie = saisieToGrandeur(saisie)
       if (grandeurSaisie) {
         if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
@@ -189,13 +225,13 @@ function verifQuestionMathLive (exercice, i) {
         resultat = 'essaieEncore'
       }
       // Pour les exercice où la saisie doit être dans un intervalle
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'intervalleStrict') {
+    } else if (formatInteractif === 'intervalleStrict') {
       const nombreSaisi = Number(saisie.replace(',', '.'))
       if (saisie !== '' && nombreSaisi > exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi < exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'intervalle') {
+    } else if (formatInteractif === 'intervalle') {
       const nombreSaisi = Number(saisie.replace(',', '.'))
       if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'puissance') {
+    } else if (formatInteractif === 'puissance') {
       const nombreSaisi = saisie.split('^')
       const mantisseSaisie = nombreSaisi[0]
       const expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : ''
@@ -680,6 +716,27 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres 
   }
 }
 
+export function ajouteChampFractionMathLive (exercice, i, numerateur = false, denominateur = 100, style = '', { texte = '', texteApres = '' } = {}) {
+  let code = ''
+  if (context.isHtml && exercice.interactif) {
+    code += `<label>${texte}</label><table style="border-collapse:collapse;text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;"><tr><td style="padding:0px 0px 5px;margin:0px;border-bottom:1px solid #000;">`
+    if (!numerateur) {
+      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}Num"></math-field></span>`
+    } else {
+      code += `${numerateur} `
+    }
+    code += '</td></tr><tr><td style="padding:0px;margin:0px;">'
+    if (!denominateur) {
+      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}Den"></math-field>`
+    } else {
+      code += `${denominateur}`
+    }
+    code += `</td></tr></table> ${texteApres ? '<span>' + texteApres + '</span>' : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    return code
+  } else {
+    return ''
+  }
+}
 /**
  * Précise la réponse attendue
  * @param {'objet exercice'} exercice
