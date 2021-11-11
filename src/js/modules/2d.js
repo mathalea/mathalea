@@ -8473,7 +8473,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   } else {
     this.svg = function (coeff) {
       let code = ''; let style = ''
-      if (mathOn) style = ' font-family= "KaTeX_Math" ' // désactivé par Jean-Claude Lhote
+      if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" ' // désactivé par Jean-Claude Lhote
       if (this.contour) style += ` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
       else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {

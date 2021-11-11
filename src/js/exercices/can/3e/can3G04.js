@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texNombrec, creerNomDePolygone } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, segment, latexParCoordonnees, milieu, polygoneAvecNom
+  mathalea2d, point, segment, milieu, polygoneAvecNom, texteParPosition
 } from '../../../modules/2d.js'
 export const titre = 'Recherche valeur avec Pythagore'
 export const interactifReady = true
@@ -35,9 +35,9 @@ export default function RechercheValeurPythagore () {
         objets = []
         objets.push(segment(A, B), segment(B, C), segment(A, C))
         objets.push(pol[0], pol[1])
-        objets.push(latexParCoordonnees(`${texNombrec(a)}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 'black', 20, 10, ''),
-          latexParCoordonnees('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'black', 20, 10, ''),
-          latexParCoordonnees('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'black', 20, 10, ''))
+        objets.push(texteParPosition(`${texNombrec(a)}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true))
         this.question = `Déterminer $x$ pour que le triangle soit rectangle.<br>
       (donner le résultat sous la forme $\\sqrt{a}$)`
         this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 6, ymax: 5, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
@@ -58,9 +58,9 @@ export default function RechercheValeurPythagore () {
         objets = []
         objets.push(pol[0], pol[1])
         objets.push(segment(A, B), segment(B, C), segment(A, C))
-        objets.push(latexParCoordonnees(`\\sqrt{${a}}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 'black', 20, 10, ''),
-          latexParCoordonnees('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'black', 20, 10, ''),
-          latexParCoordonnees('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'black', 20, 10, ''))
+        objets.push(texteParPosition(`\\sqrt{${a}}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true))
 
         this.question = 'Déterminer $x$ pour que le triangle soit rectangle.'
         this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 6, ymax: 5, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
