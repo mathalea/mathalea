@@ -25,8 +25,8 @@ export default function QuartOuTiers () {
       this.question = `Quel est le quart de $${b}$ ?`
       this.correction = `Le quart de $${b}$ est $${a * 2}.$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
-      Prendre le quart d'une quantité revient à la diviser par $4$.<br>
-      Ainsi, le quart de $${b}$ est égal à $${b}\\div 4=${a * 2}$.
+      Prendre le quart d'une quantité revient à la diviser deux fois par $2$.<br>
+      Ainsi, le quart de $${b}$ est égal à $${b}\\div 2 \\div 2=${a * 4}\\div 2=${a * 2}$.
          `)
     } else {
       b = a * 6
