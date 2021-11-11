@@ -8465,6 +8465,9 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   this.contour = false
   this.taille = 10 * scale
   this.opacite = 1
+  if (typeof texte !== 'string') {
+    texte = String(texte)
+  }
   if (texte.charAt(0) === '$') {
     A.positionLabel = 'centre'
     this.svg = function (coeff) {
