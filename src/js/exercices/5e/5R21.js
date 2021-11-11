@@ -8,6 +8,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDeModifImportante = '11/11/2021'
 
 /**
 * Effectuer la soustraction de  2 nombres relatifs.
