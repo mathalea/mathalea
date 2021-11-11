@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { randint, texNombrec, miseEnEvidence, listeQuestionsToContenu, combinaisonListes, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
-import { texteSurSegment, codeSegments, codageAngleDroit, segmentAvecExtremites, milieu, labelPoint, point, segment, latexParCoordonnees, mathalea2d } from '../../modules/2d.js'
+import { texteSurSegment, codeSegments, codageAngleDroit, segmentAvecExtremites, milieu, labelPoint, point, segment, texteParPosition, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Modéliser une situation géométrique à l\'aide d\'une équation'
 
 /**
@@ -41,8 +41,8 @@ export default function modeliserEquationsGeometrie () {
           D = point(0, 6, 'D')
 
           objets.push(segment(A, B), segment(B, C), segment(D, A), segment(C, D), labelPoint(A, B, C, D))
-          objets.push(latexParCoordonnees(`x+${texNombrec(a)}`, milieu(C, D).x + 0, milieu(C, D).y + 0.7, 'black', 20, 10, ''),
-            latexParCoordonnees(`${texNombrec(d)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'black', 20, 10, ''))
+          objets.push(texteParPosition(`x+${texNombrec(a)}`, milieu(C, D).x + 0, milieu(C, D).y + 0.7, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${texNombrec(d)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true))
 
           texte = ` Un rectangle a pour largeur $${d}$ cm et pour longueur $x$ cm.<br>
             En ajoutant $${a}$ cm à la longueur de ce rectangle, on obtient un nouveau rectangle dont le périmètre est $${b}$ cm.<br>
@@ -80,8 +80,8 @@ export default function modeliserEquationsGeometrie () {
           D = point(0, 6, 'D')
 
           objets.push(segment(A, B), segment(B, C), segment(D, A), segment(C, D), labelPoint(A, B, C, D))
-          objets.push(latexParCoordonnees(`x+${texNombrec(a)}`, milieu(C, D).x + 0, milieu(C, D).y + 0.7, 'black', 20, 10, ''),
-            latexParCoordonnees(`${texNombrec(d)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'black', 20, 10, ''))
+          objets.push(texteParPosition(`x+${texNombrec(a)}`, milieu(C, D).x + 0, milieu(C, D).y + 0.7, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${texNombrec(d)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true))
           texte = ` Un rectangle a pour largeur $${d}$ cm et pour longueur $x$ cm.<br>
              En ajoutant $${a}$ cm à la longueur de ce rectangle, on obtient un nouveau rectangle dont l'aire est ${b} cm$^2$.<br>
               Quelle est la longueur $x$ du rectangle initial ? <br>
@@ -117,8 +117,8 @@ export default function modeliserEquationsGeometrie () {
           C = point(0, 6, 'C')
 
           objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C), codageAngleDroit(B, A, C))
-          objets.push(latexParCoordonnees(`${texNombrec(a)}`, milieu(A, B).x + 0, milieu(A, B).y - 0.5, 'black', 20, 10, ''),
-            latexParCoordonnees('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'black', 20, 10, ''))
+          objets.push(texteParPosition(`${texNombrec(a)}`, milieu(A, B).x + 0, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true))
           texte = ` Un triangle $ABC$ est rectangle en $A$. On a $AB= ${a}$ cm  et $AC= x$ cm.<br>
          Sachant que le carré de son hypoténuse est $${b}$, déterminer la valeur exacte de $x$. `
           texteCorr = ' On réalise une petite figure à main levée pour visualiser la situation :<br>'
@@ -157,10 +157,10 @@ export default function modeliserEquationsGeometrie () {
           P = point(0, 6, 'P')
 
           objets.push(segment(M, N), segment(N, P), segment(M, P), labelPoint(M, N, P), codageAngleDroit(N, M, P))
-          objets.push(latexParCoordonnees(`${texNombrec(a)}`, milieu(M, P).x - 0.5, milieu(M, P).y, 'black', 20, 10, ''),
-            latexParCoordonnees('x', milieu(M, N).x + 0, milieu(M, N).y - 0.5, 'black', 20, 10, ''),
+          objets.push(texteParPosition(`${texNombrec(a)}`, milieu(M, P).x - 0.5, milieu(M, P).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('x', milieu(M, N).x + 0, milieu(M, N).y - 0.5, 'milieu', 'black', 1, 'middle', true),
             texteSurSegment(`$x+${texNombrec(b)}$`, P, N, 'black', 0.5))
-          // latexParCoordonnees(`$$x+$$${texNombrec(b)}`, milieu(P, N).x + 1, milieu(P, N).y, 0, 'black', 2, 'middle', true))
+          // texteParPosition(`$$x+$$${texNombrec(b)}`, milieu(P, N).x + 1, milieu(P, N).y, 0, 'black', 2, 'middle', true))
           texte = ` Un triangle $MNP$ est rectangle en $M$. On a $MP= ${a}$ cm  et $MN= x$ cm.<br>
              L'hypoténuse du triangle $MNP$ mesure  $${b}$ cm de plus que le côté $[MN]$.<br>
              Déterminer la valeur de $x$ sous la forme d'une fraction irréductible ou d'un nombre entier le cas échéant. `
@@ -237,7 +237,7 @@ export default function modeliserEquationsGeometrie () {
           F = point(15, -1, 'F')
 
           objets.push(segment(A, D), segmentAvecExtremites(E, F), segment(A, B), segment(B, C), segment(D, C), segment(D, H), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), labelPoint(A, H, D, B, C), codageAngleDroit(B, H, D))
-          objets.push(texteSurSegment(`${texNombre(b)} cm`, D, C, 'black', +0.5), texteSurSegment(`${texNombre(a)} cm`, E, F, 'black', -0.5), latexParCoordonnees('x', milieu(B, C).x + 0.5, milieu(B, C).y, 'black', 20, 10, ''))
+          objets.push(texteSurSegment(`${texNombre(b)} cm`, D, C, 'black', +0.5), texteSurSegment(`${texNombre(a)} cm`, E, F, 'black', -0.5), texteParPosition('x', milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true))
 
           texte = ' $ABCD$ est un trapèze rectangle.<br> '
 
@@ -283,9 +283,9 @@ export default function modeliserEquationsGeometrie () {
           E = point(5, 10, 'E')
 
           objets.push(segment(A, B), segment(B, C), segment(C, D), segment(A, D), segment(E, C), segment(E, D), segment(E, H), codageAngleDroit(E, H, C), labelPoint(A, H, D, B, C, E), codeSegments('//', 'blue', D, E, E, C))
-          objets.push(latexParCoordonnees(`${texNombrec(a)}`, milieu(B, C).x + 0.4, milieu(B, C).y, 'black', 20, 10, ''),
-            latexParCoordonnees(`${texNombrec(b)}`, milieu(E, H).x + 0.4, milieu(E, H).y, 'black', 20, 10, ''),
-            latexParCoordonnees(`x + ${texNombrec(c)}`, milieu(A, B).x + 0.4, milieu(A, B).y - 0.4, 'black', 20, 10, ''))
+          objets.push(texteParPosition(`${texNombrec(a)}`, milieu(B, C).x + 0.4, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${texNombrec(b)}`, milieu(E, H).x + 0.4, milieu(E, H).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`x + ${texNombrec(c)}`, milieu(A, B).x + 0.4, milieu(A, B).y - 0.4, 'milieu', 'black', 1, 'middle', true))
 
           texte = ` La figure ci-dessous (qui n'est pas à l'échelle) est composée d'un rectangle $ABCD$ et d'un triangle isocèle $DEC$. <br>
         L'unité est le mètre.<br> ` +
@@ -330,7 +330,7 @@ export default function modeliserEquationsGeometrie () {
           L = point(0, -1, 'L')
 
           objets.push(segment(A, B), segment(A, E), segmentAvecExtremites(K, L), segment(E, M), segment(M, D), segment(B, C), segment(D, C), codageAngleDroit(B, M, D), codageAngleDroit(M, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, M), labelPoint(A, M, B, C, D, E), codeSegments('//', 'blue', A, E, E, M, A, M), codeSegments('/', 'blue', M, B, B, C, C, D, D, M))
-          objets.push(latexParCoordonnees('$$x$$', milieu(A, M).x, milieu(A, M).y - 0.3, 0, 'black', 2, 'middle', true), latexParCoordonnees(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y - 1.5, 'black', 20, 10, ''))
+          objets.push(texteParPosition('$$x$$', milieu(A, M).x, milieu(A, M).y - 0.3, 0, 'black', 2, 'middle', true), texteParPosition(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y - 1.5, 'milieu', 'black', 1, 'middle', true))
 
           texte = `$[AB]$ est un segment de longueur $${a}$ et $M$ est un point de ce segment.<br>
       Du même côté du segment $[AB]$, on trace le triangle équilatéral $AME$ et le carré $MBCD$.<br>
