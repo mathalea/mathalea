@@ -17,6 +17,7 @@ export const amcType = 'AMCNum'
 * @author Rémi Angot
 * 5R21
 * Rendu les différentes situations équiprobables le 16/10/2021 par Guillaume Valmont
+* Ajout possibilité correction non détaillée le 11/11/2021 par Mireille Gain
 */
 export default function ExerciceSoustractionsRelatifs (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
