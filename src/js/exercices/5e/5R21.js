@@ -29,6 +29,8 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
   this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
+  this.correctionDetailleeDisponible = true
+  this.correctionDetaillee = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -49,14 +51,20 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
         if (b > 0) {
           texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a - b} $`
         } else {
-          texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a} ${ecritureAlgebrique(-b)} = ${a - b}$`
+          if (this.correctionDetaillee) {
+            texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a} ${ecritureAlgebrique(-b)} = ${a - b}$`
+          } else { texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a - b}$` }
         }
       } else {
         texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = \\dotfill $'
         if (this.interactif && !context.isAmc) {
           texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = $' + ajouteChampTexteMathLive(this, i, { texte: '' })
         }
-        texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(-1 * b) + ' = ' + ecritureNombreRelatifc(a - b) + ' $'
+        if (this.correctionDetaillee) {
+          texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(-1 * b) + ' = ' + ecritureNombreRelatifc(a - b) + ' $'
+        } else {
+          texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a - b) + ' $'
+        }
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
