@@ -2535,8 +2535,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       $('.monQcm').css('line-height', `${lineHeight}px`)
       $('#affichage_exercices').find('h3').css('font-size', `${taille}px`)
       $('#affichage_exercices').find('h4').css('font-size', `${taille}px`)
-      $('.mathalea2d').css('width', parseFloat($('.mathalea2d').css('width')) * 1.2)
-      $('.mathalea2d').css('height', parseFloat($('.mathalea2d').css('height')) * 1.2)
+      const figures = document.querySelectorAll('.mathalea2d')
+      for (const figure of figures) {
+        console.log(figure.getAttribute('height'))
+        figure.setAttribute('height', parseFloat(figure.getAttribute('height')) * 1.2)
+        figure.setAttribute('width', parseFloat(figure.getAttribute('width')) * 1.2)
+      }
     })
     $('#btn_zoom_moins').click(function () {
       if (parseInt(taille) > 10) {
@@ -2549,8 +2553,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       $('.monQcm').css('line-height', `${lineHeight}px`)
       $('#affichage_exercices').find('h3').css('font-size', `${taille}px`)
       $('#affichage_exercices').find('h4').css('font-size', `${taille}px`)
-      $('.mathalea2d').css('width', parseFloat($('.mathalea2d').css('width')) * 0.8)
-      $('.mathalea2d').css('height', parseFloat($('.mathalea2d').css('height')) * 0.8)
+      const figures = document.querySelectorAll('.mathalea2d')
+      for (const figure of figures) {
+        console.log(figure.getAttribute('height'))
+        figure.setAttribute('height', parseFloat(figure.getAttribute('height')) * 0.8)
+        figure.setAttribute('width', parseFloat(figure.getAttribute('width')) * 0.8)
+      }
     })
   }
 
