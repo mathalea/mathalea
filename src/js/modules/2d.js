@@ -8542,8 +8542,8 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
     return code
   }
 }
-export function texteParPoint (...args) {
-  return new TexteParPoint(...args)
+export function texteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
+  return new TexteParPoint(texte, A, orientation, color, scale, ancrageDeRotation, mathOn)
 }
 
 function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
