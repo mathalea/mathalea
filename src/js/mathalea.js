@@ -2527,8 +2527,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     let taille = parseInt($('#affichage_exercices').css('font-size'))
     let lineHeight = parseInt($('#affichage_exercices').css('line-height'))
     $('#btn_zoom_plus').click(function () {
-      taille *= 1.2
-      lineHeight *= 1.2
+      taille *= 1.25
+      lineHeight *= 1.25
       $('#affichage_exercices').css('font-size', `${taille}px`)
       $('.monQcm').css('font-size', `${taille}px`)
       $('#affichage_exercices').css('line-height', `${lineHeight}px`)
@@ -2538,8 +2538,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const figures = document.querySelectorAll('.mathalea2d')
       for (const figure of figures) {
         console.log(figure.getAttribute('height'))
-        figure.setAttribute('height', parseFloat(figure.getAttribute('height')) * 1.2)
-        figure.setAttribute('width', parseFloat(figure.getAttribute('width')) * 1.2)
+        figure.setAttribute('height', parseFloat(figure.getAttribute('height')) * 1.25)
+        figure.setAttribute('width', parseFloat(figure.getAttribute('width')) * 1.25)
       }
     })
     $('#btn_zoom_moins').click(function () {
