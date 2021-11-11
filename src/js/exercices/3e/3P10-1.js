@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 3P10-1
 */
-export default function Coefficient_evolution () {
+export default function CoefficientEvolution () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
