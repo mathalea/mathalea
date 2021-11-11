@@ -74,8 +74,8 @@ export default function ExerciceLabyrintheMultiples () {
         }
       }
     } // Le tableau de nombre étant fait, on place les objets nombres.
-    laby.nombres2d = laby.placeNombres(laby.nombres, 1.5)
-    const params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
+    laby.nombres2d = laby.placeNombres(laby.nombres, 1)
+    const params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.5 }
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
 

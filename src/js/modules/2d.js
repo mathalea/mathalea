@@ -9747,6 +9747,13 @@ export function mathalea2d (
   }
   return code
 }
+/**
+ *
+ * @param {number} index Choix du motif
+ * le nom du motif sert dans la fonction pattern
+ * @author Jean-Claude Lhote
+ * @returns
+ */
 export function motifs (index) {
   switch (index) {
     case 0: return 'north east lines'
@@ -9763,7 +9770,13 @@ export function motifs (index) {
     default: return 'north east lines'
   }
 }
-
+/**
+ *
+ * @param {object} param0 paramètres de définition du motif de remplissage
+ * définit un motif de remplissage pour les polygones, les rectangles... ou tout élément SVG qui se remplit.
+ * @author Jean-Claude Lhote
+ * @returns
+ */
 function pattern ({
   motif = 'north east lines',
   id,
@@ -9948,7 +9961,7 @@ function pattern ({
  * Fonction créant un labyrinthe de nombres
  * Le tableau de nombres doit être de format [6][3]
  * Le niveau doit être un entier entre 1 et 6 inclus
- * @author Jean-Claude
+ * @author Jean-Claude Lhote
  * Publié le 6/12/2020
  */
 function Labyrinthe () {
@@ -10064,7 +10077,7 @@ function Labyrinthe () {
       s1 = segment(point(-3, 4), point(0, 4), 'green')
       s1.epaisseur = 3
       objets.push(s1)
-      objets.push(texteParPoint('Départ', point(-1.5, 2.5), 'milieu', 'blue', 1.5, 0, false))
+      objets.push(texteParPoint('Départ', point(-1.5, 2.5), 'milieu', 'blue', 1, 0, false))
     } else {
       // bord gauche
       s1 = segment(point(0, 1), point(0, 8))
@@ -10081,7 +10094,7 @@ function Labyrinthe () {
       s1 = segment(point(-3, 7), point(0, 7), 'green')
       s1.epaisseur = 3
       objets.push(s1)
-      objets.push(texteParPoint('Départ', point(-1.5, 8.5), 'milieu', 'blue', 1.5, 0, false))
+      objets.push(texteParPoint('Départ', point(-1.5, 8.5), 'milieu', 'blue', 1, 0, false))
     }
 
     // les croix centrales communes à A et B
@@ -10135,7 +10148,7 @@ function Labyrinthe () {
       objets.push(s1, s2, s3, s4, s5)
     }
     for (let i = 1; i <= 3; i++) {
-      objets.push(texteParPoint(`Sortie ${i}`, point(19.5, 11.5 - 3 * i), 'milieu', 'blue', 1.5, 0, false))
+      objets.push(texteParPoint(`Sortie ${i}`, point(19.5, 11.5 - 3 * i), 'milieu', 'blue', 1, 0, false))
     }
     s1 = segment(point(18, 9), point(20, 9))
     s1.epaisseur = 3
