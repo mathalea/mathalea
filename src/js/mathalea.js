@@ -1,6 +1,6 @@
 /* global $ jQuery JSZip saveAs */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGoTab, setUrlAndGo } from './modules/gestionUrl.js'
+import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGoTab, setUrlAndGo, replaceQueryParam } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -3276,18 +3276,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   })
 
-  // Gestion des boutons QRcode et copie du lien
-  if (document.getElementById('btnQRcode')) {
-    document.getElementById('btnQRcode').addEventListener('click', function () {
-      $('#ModalQRcode').html('<canvas width="800" height="800" id="canvasQRCode"></canvas>')
-      const canvas = document.getElementById('canvasQRCode')
-      QRCode.toCanvas(canvas, window.location.href, {
-        width: Math.min(window.innerHeight, window.innerWidth) * 0.9,
-        height: Math.min(window.innerHeight, window.innerWidth) * 0.9
-      })
-      $('#ModalQRcode').modal('show')
-    })
-  }
+  // Gestion du bonton de copie du lien
   if (document.getElementById('btnEmbed')) {
     document.getElementById('btnEmbed').addEventListener('click', function () {
       $('#ModalEmbed').html(`<div class="content"><p><pre><code>&lt;iframe width="660"
@@ -3303,6 +3292,70 @@ document.addEventListener('DOMContentLoaded', async () => {
       })
       clipboard.on('success', function (e) {
         console.info(e.text + ' copié dans le presse-papier.')
+      })
+      $('.ui.button.toggle').state() // initialise le bouton
+      $('#ModalEmbed').modal('show')
+    })
+  }
+  if (document.getElementById('buttonOptions')) {
+    document.getElementById('buttonOptions').addEventListener('click', function () {
+      const div = document.getElementById('ModalEmbed')
+      div.innerHTML = `
+      <div class="content">
+      <h3 class="ui dividing header">Affichage</h3>
+      <div class="ui link relaxed list">
+        <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'l')}" target="_blank"><i class="expand icon"></i>Simplifié (sans le menu de coopmaths.fr)</a></div>
+        <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'multi')}" target="_blank"><i class="tablet alternate icon"></i>En colonnes</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'embed')}" target="_blank"><i class="map outline icon"></i>Optimisé pour les smartphones</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'can')}" target="_blank"><i class="flag checkered icon"></i>Course aux nombres (interactif et une question à la fois)</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'eval')}" target="_blank"><i class="tasks icon"></i>Exercice par exercice (interactif et un exercice à la fois)</a></div>
+      </div>
+      <h3 class="ui dividing header">Code d'intégration</h3>
+      <div class="content"><p><pre><code>&lt;iframe width="660"
+        height="315" 
+        src="https://coopmaths.fr/mathalea.html${replaceQueryParam('v', 'e')}"
+        frameborder="0" >
+&lt;/iframe></code><pre></p>
+        <button id="btnEmbedCode" style="margin:10px" class="btn ui toggle button labeled icon url"
+        data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le code HTML</button></div>
+
+        <h3 class="ui dividing header">Imposer un temps</h3>
+        <div class="ui left icon input" id="formTimer" style="margin: 10px" data-tooltip='Temps en secondes'>
+          <i class="hourglass start icon"></i>
+          <input id='inputTimer' type='number' min='2' max='999' ${context.duree ? 'value="' + context.duree + '"' : ''} >
+        </div>
+
+        <h3 class="ui dividing header">QR-Code</h3>
+        <div class="ui center aligned container">
+        <button id="btnQRcode" style="margin: 10px" class="btn ui huge button icon" data-tooltip="Afficher le QR-Code"><i class="qrcode icon"></i></button>
+        </div>
+        </div>
+      `
+      if (document.getElementById('btnQRcode')) {
+        document.getElementById('btnQRcode').addEventListener('click', function () {
+          $('#ModalQRcode').html('<canvas width="800" height="800" id="canvasQRCode"></canvas>')
+          const canvas = document.getElementById('canvasQRCode')
+          QRCode.toCanvas(canvas, window.location.href, {
+            width: Math.min(window.innerHeight, window.innerWidth) * 0.9,
+            height: Math.min(window.innerHeight, window.innerWidth) * 0.9
+          })
+          $('#ModalQRcode').modal('show')
+        })
+      }
+      const clipboard = new Clipboard('#btnEmbedCode', {
+        text: () =>
+          `<iframe\n\t width="660" height="315"\n\t src="${window.location.href + '&v=e'}"\n\tframeborder="0" >\n</iframe>`
+      })
+      clipboard.on('success', function (e) {
+        console.info(e.text + ' copié dans le presse-papier.')
+      })
+      document.getElementById('inputTimer').addEventListener('change', () => {
+        context.duree = document.getElementById('inputTimer').value
+        const mesLiens = document.querySelectorAll('.mesLiensModaux')
+        for (const lien of mesLiens) {
+          lien.href = replaceQueryParam('duree', context.duree, lien.href)
+        }
+        setUrl()
       })
       $('.ui.button.toggle').state() // initialise le bouton
       $('#ModalEmbed').modal('show')
