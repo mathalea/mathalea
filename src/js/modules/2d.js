@@ -513,28 +513,28 @@ function LabelPoint (...points) {
       y = A.y
       switch (A.positionLabel) {
         case 'left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'below':
-          code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'above':
-          code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'above right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'below left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'below right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         default:
-          code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
       }
     }
