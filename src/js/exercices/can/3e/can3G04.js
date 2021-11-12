@@ -58,7 +58,7 @@ export default function RechercheValeurPythagore () {
         objets = []
         objets.push(pol[0], pol[1])
         objets.push(segment(A, B), segment(B, C), segment(A, C))
-        objets.push(texteParPosition(`\\sqrt{${a}}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+        objets.push(texteParPosition(`$\\sqrt{${a}}$`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
           texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
           texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true))
 
