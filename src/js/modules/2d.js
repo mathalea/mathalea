@@ -513,28 +513,28 @@ function LabelPoint (...points) {
       y = A.y
       switch (A.positionLabel) {
         case 'left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'below':
-          code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'above':
-          code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'above right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'below left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'below right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         default:
-          code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
       }
     }
@@ -8465,6 +8465,9 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   this.contour = false
   this.taille = 10 * scale
   this.opacite = 1
+  if (typeof texte !== 'string') {
+    texte = String(texte)
+  }
   if (texte.charAt(0) === '$') {
     A.positionLabel = 'centre'
     this.svg = function (coeff) {
@@ -8473,7 +8476,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   } else {
     this.svg = function (coeff) {
       let code = ''; let style = ''
-      if (mathOn) style = ' font-family= "KaTeX_Math" ' // désactivé par Jean-Claude Lhote
+      if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" ' // désactivé par Jean-Claude Lhote
       if (this.contour) style += ` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
       else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
@@ -8539,8 +8542,8 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
     return code
   }
 }
-export function texteParPoint (...args) {
-  return new TexteParPoint(...args)
+export function texteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
+  return new TexteParPoint(texte, A, orientation, color, scale, ancrageDeRotation, mathOn)
 }
 
 function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
@@ -9744,6 +9747,13 @@ export function mathalea2d (
   }
   return code
 }
+/**
+ *
+ * @param {number} index Choix du motif
+ * le nom du motif sert dans la fonction pattern
+ * @author Jean-Claude Lhote
+ * @returns
+ */
 export function motifs (index) {
   switch (index) {
     case 0: return 'north east lines'
@@ -9760,7 +9770,13 @@ export function motifs (index) {
     default: return 'north east lines'
   }
 }
-
+/**
+ *
+ * @param {object} param0 paramètres de définition du motif de remplissage
+ * définit un motif de remplissage pour les polygones, les rectangles... ou tout élément SVG qui se remplit.
+ * @author Jean-Claude Lhote
+ * @returns
+ */
 function pattern ({
   motif = 'north east lines',
   id,
@@ -9945,7 +9961,7 @@ function pattern ({
  * Fonction créant un labyrinthe de nombres
  * Le tableau de nombres doit être de format [6][3]
  * Le niveau doit être un entier entre 1 et 6 inclus
- * @author Jean-Claude
+ * @author Jean-Claude Lhote
  * Publié le 6/12/2020
  */
 function Labyrinthe () {
@@ -10061,7 +10077,7 @@ function Labyrinthe () {
       s1 = segment(point(-3, 4), point(0, 4), 'green')
       s1.epaisseur = 3
       objets.push(s1)
-      objets.push(texteParPoint('Départ', point(-1.5, 2.5), 'milieu', 'blue', 1.5, 0, false))
+      objets.push(texteParPoint('Départ', point(-1.5, 2.5), 'milieu', 'blue', 1, 0, false))
     } else {
       // bord gauche
       s1 = segment(point(0, 1), point(0, 8))
@@ -10078,7 +10094,7 @@ function Labyrinthe () {
       s1 = segment(point(-3, 7), point(0, 7), 'green')
       s1.epaisseur = 3
       objets.push(s1)
-      objets.push(texteParPoint('Départ', point(-1.5, 8.5), 'milieu', 'blue', 1.5, 0, false))
+      objets.push(texteParPoint('Départ', point(-1.5, 8.5), 'milieu', 'blue', 1, 0, false))
     }
 
     // les croix centrales communes à A et B
@@ -10132,7 +10148,7 @@ function Labyrinthe () {
       objets.push(s1, s2, s3, s4, s5)
     }
     for (let i = 1; i <= 3; i++) {
-      objets.push(texteParPoint(`Sortie ${i}`, point(19.5, 11.5 - 3 * i), 'milieu', 'blue', 1.5, 0, false))
+      objets.push(texteParPoint(`Sortie ${i}`, point(19.5, 11.5 - 3 * i), 'milieu', 'blue', 1, 0, false))
     }
     s1 = segment(point(18, 9), point(20, 9))
     s1.epaisseur = 3

@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, latexParCoordonnees, pointAdistance, polygoneAvecNom, labelPoint, segmentAvecExtremites, droite, segment, milieu
+  mathalea2d, point, pointAdistance, polygoneAvecNom, labelPoint, segmentAvecExtremites, droite, segment, milieu, texteParPosition
 } from '../../../modules/2d.js'
 export const titre = 'Calcul d’une longueur avec Thalès'
 export const interactifReady = true
@@ -45,8 +45,8 @@ export default function CalculLongueurThales () {
       objets = []
       objets.push(pol[0]) //, pol[1]
       objets.push(droite(A, B), segment(B, E), droite(A, C), segment(D, C), segmentAvecExtremites(G, H), labelPoint(A, B, C, D, E))
-      objets.push(latexParCoordonnees(`${texNombrec(a)}`, milieu(G, H).x, milieu(G, H).y + 0.75, 'black', 20, 10, ''),
-        latexParCoordonnees(`${texNombrec(b)}`, milieu(A, B).x, milieu(A, B).y + 0.25, 'black', 20, 10, ''), latexParCoordonnees(`${texNombrec(c)}`, milieu(B, E).x, milieu(B, E).y + 0.2, 'black', 20, 10, ''))
+      objets.push(texteParPosition(`${texNombrec(a)}`, milieu(G, H).x, milieu(G, H).y + 0.75, 'milieu', 'black', 1, 'middle', true),
+        texteParPosition(`${texNombrec(b)}`, milieu(A, B).x, milieu(A, B).y + 0.25, 'milieu', 'black', 1, 'middle', true), texteParPosition(`${texNombrec(c)}`, milieu(B, E).x, milieu(B, E).y + 0.2, 'milieu', 'black', 1, 'middle', true))
       this.question = `Sur cette figure les droites $(${nom[1]}${nom[4]})$ et $(${nom[3]}${nom[2]})$ sont parallèles.<br>
         Calculer $${nom[3]}${nom[2]}$.`
       this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 2 }, objets)
@@ -75,9 +75,9 @@ export default function CalculLongueurThales () {
       objets = []
       objets.push(pol[0]) //, pol[1]
       objets.push(droite(A, B), segment(B, E), droite(A, C), segment(D, C), labelPoint(A, B, C, D, E))
-      objets.push(latexParCoordonnees(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y + 0.25, 'black', 20, 10, ''),
-        latexParCoordonnees(`${texNombrec(k * b)}`, milieu(D, C).x + 0.5, milieu(D, C).y, 'black', 20, 10, ''),
-        latexParCoordonnees(`${texNombrec(b)}`, milieu(B, E).x + 0.5, milieu(B, E).y, 'black', 20, 10, ''))
+      objets.push(texteParPosition(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y + 0.25, 'milieu', 'black', 1, 'middle', true),
+        texteParPosition(`${texNombrec(k * b)}`, milieu(D, C).x + 0.5, milieu(D, C).y, 'milieu', 'black', 1, 'middle', true),
+        texteParPosition(`${texNombrec(b)}`, milieu(B, E).x + 0.5, milieu(B, E).y, 'milieu', 'black', 1, 'middle', true))
       this.question = `Sur cette figure les droites $(${nom[1]}${nom[4]})$ et $(${nom[3]}${nom[2]})$ sont parallèles.<br>
        Calculer $${nom[0]}${nom[3]}$.`
       this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 2 }, objets)
