@@ -3305,10 +3305,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       <h3 class="ui dividing header">Affichage</h3>
       <div class="ui link relaxed list">
         <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'l')}" target="_blank"><i class="expand icon"></i>Simplifié (sans le menu de coopmaths.fr)</a></div>
-        <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'multi')}" target="_blank"><i class="tablet alternate icon"></i>En colonnes</a></div>
-        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'embed')}" target="_blank"><i class="map outline icon"></i>Optimisé pour les smartphones</a></div>
+        <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'multi')}" target="_blank"><i class="map outline icon"></i>En colonnes</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'embed')}" target="_blank"><i class="tablet alternate icon"></i>Optimisé pour les smartphones</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'can')}" target="_blank"><i class="flag checkered icon"></i>Course aux nombres (interactif et une question à la fois)</a></div>
-        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'eval')}" target="_blank"><i class="tasks icon"></i>Exercice par exercice (interactif et un exercice à la fois)</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'eval')}" target="_blank"><i class="tasks icon"></i>Interactif et un exercice par page</a></div>
       </div>
       <h3 class="ui dividing header">Code d'intégration</h3>
       <div class="content"><p><pre><code>&lt;iframe width="660"
