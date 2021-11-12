@@ -385,6 +385,86 @@ export async function initDom () {
     document.getElementById('btnCorrection').addEventListener('click', () => {
       document.getElementById('corrections').style.display = 'block'
     })
+    const divExercice = get('exercices', false)
+    const divCorrection = get('corrections', false)
+    divExercice.style.fontSize = context.taillePolice + 'em'
+    divCorrection.style.fontSize = context.taillePolice + 'em'
+    divExercice.style.lineHeight = 'normal'
+    divCorrection.style.lineHeight = 'normal'
+    if (context.diaporama) {
+      document.addEventListener('exercicesAffiches', () => {
+        const figures = document.querySelectorAll('.mathalea2d')
+        for (const figure of figures) {
+          figure.setAttribute('height', parseFloat(figure.getAttribute('height')) * context.taillePolice)
+          figure.setAttribute('width', parseFloat(figure.getAttribute('width')) * context.taillePolice)
+        }
+        const enonces = document.querySelectorAll('#affichage_exercices h4') // Pour les énoncés
+        for (const enonce of enonces) {
+          enonce.style.fontSize = '1em'
+        }
+        const tables = document.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
+        for (const table of tables) {
+          table.style.fontSize = context.taillePolice + 'em'
+        }
+      })
+    }
+  } else if (vue === 'diap') {
+    context.taillePolice = getTaillePoliceFromUrl() || 3
+    context.duree = parseInt(getDureeFromUrl())
+    setOutputHtml()
+    section = addElement(document.body, 'section', { class: 'ui container' })
+    const menuEval = addElement(section, 'div', { id: 'menuEval' })
+    addElement(section, 'div', { id: 'containerErreur' })
+    const divTimer = addElement(section, 'div', { id: 'timer' })
+    await addFetchHtmlToParent('templates/mathaleaBasique.html', section)
+    document.addEventListener('exercicesAffiches', () => {
+      liToDiv()
+      document.querySelectorAll('h3').forEach(e => { e.style.display = 'none' })
+      document.querySelectorAll('[id^=btnValidationEx]').forEach(e => { e.style.display = 'none' })
+      document.getElementById('btnCorrection').style.display = 'none'
+      affichageUniquementExercice()
+      affichageUniquementQuestion(0)
+      document.querySelectorAll('ol').forEach(ol => {
+        setStyles(ol, 'padding:0;')
+      })
+      menuEval.innerHTML = ''
+      const questions = document.querySelectorAll('div.question')
+      for (let i = 0, element; i < questions.length; i++) {
+        element = addElement(menuEval, 'button', { id: 'btnMenu' + questions[i].id, style: 'margin: 5px', class: 'circular ui button' })
+        element.textContent = `${i + 1}`
+        if (!element.hasListenner) {
+          element.addEventListener('click', () => {
+            affichageUniquementQuestion(i)
+            element.classList.add('blue')
+            context.questionCanEnCours = element.textContent
+          }, false)
+          element.hasListenner = true
+        }
+        gestionTimer(divTimer)
+      }
+    })
+    const divExercice = get('exercices', false)
+    const divCorrection = get('corrections', false)
+    divExercice.style.fontSize = context.taillePolice + 'em'
+    divCorrection.style.fontSize = context.taillePolice + 'em'
+    divExercice.style.lineHeight = 'normal'
+    divCorrection.style.lineHeight = 'normal'
+    document.addEventListener('exercicesAffiches', () => {
+      const figures = document.querySelectorAll('.mathalea2d')
+      for (const figure of figures) {
+        figure.setAttribute('height', parseFloat(figure.getAttribute('height')) * context.taillePolice)
+        figure.setAttribute('width', parseFloat(figure.getAttribute('width')) * context.taillePolice)
+      }
+      const enonces = document.querySelectorAll('#affichage_exercices h4') // Pour les énoncés
+      console.log(enonces)
+      for (const enonce of enonces) {
+        enonce.style.fontSize = '1em'
+      }
+      const tables = document.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
+      for (const table of tables) {
+        table.style.fontSize = context.taillePolice + 'em'
+      }
+    })
   } else if (vue === 'latex') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
     section = addElement(document.body, 'section', { class: 'ui container' })

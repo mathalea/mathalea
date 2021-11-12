@@ -2537,7 +2537,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       $('#affichage_exercices').find('h4').css('font-size', `${taille}px`)
       const figures = document.querySelectorAll('.mathalea2d')
       for (const figure of figures) {
-        console.log(figure.getAttribute('height'))
         figure.setAttribute('height', parseFloat(figure.getAttribute('height')) * 1.25)
         figure.setAttribute('width', parseFloat(figure.getAttribute('width')) * 1.25)
       }
@@ -3212,6 +3211,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   })
 
+  const buttonDiap = document.getElementById('buttonDiap')
+  if (buttonDiap !== null) {
+    buttonDiap.addEventListener('click', () => {
+      context.vue = 'diap'
+      setUrlAndGoTab()
+    })
+  }
   const btnPleinEcran = document.getElementById('buttonFullScreen')
   if (btnPleinEcran !== null) {
     btnPleinEcran.addEventListener('click', () => {
