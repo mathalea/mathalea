@@ -1,8 +1,10 @@
+/* global $ */
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
-import { getDureeFromUrl, getLogFromUrl, getTaillePoliceFromUrl, getVueFromUrl, getUrlVars } from './gestionUrl'
+import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
+import { zoomAffichage } from './zoom'
 
 const boutonMAJ = () => {
   const btn = create('button', { class: 'btn mini ui labeled icon button', id: 'btn_mise_a_jour_code' })
@@ -150,15 +152,16 @@ export async function initDom () {
   if (vue) {
     context.vue = vue
   }
-  const taillePolice = getTaillePoliceFromUrl()
-  if (taillePolice) {
-    context.taillePolice = taillePolice
+  const zoom = getZoomFromUrl()
+  if (zoom) {
+    context.zoom = zoom
   }
   document.body.innerHTML = ''
   let section
-  if (vue === 'recto' || vue === 'verso' || vue === 'exMoodle' || vue === 'correctionMoodle') {
+  if (vue === 'recto' || vue === 'verso' || vue === 'exMoodle' || vue === 'correctionMoodle' || vue === 'diapCorr') {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
+    if (vue === 'diapCorr') await addFetchHtmlToParent('templates/boutonsZoom.html', section)
     addElement(section, 'div', { id: 'containerErreur' })
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
     const accordions = document.getElementsByClassName('ui fluid accordion')
@@ -169,7 +172,7 @@ export async function initDom () {
     const divCorrection = get('corrections', false)
     divExercice.style.fontSize = '1.5em'
     divCorrection.style.fontSize = '1.5em'
-    if (context.vue === 'verso' || vue === 'correctionMoodle') {
+    if (context.vue === 'verso' || vue === 'correctionMoodle' || vue === 'diapCorr') {
       divExercice.style.display = 'none'
       document.body.appendChild(divCorrection)
     }
@@ -261,8 +264,8 @@ export async function initDom () {
     addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
   } else if (vue === 'embed' || vue === 'e') {
-    if (!context.taillePolice) {
-      context.taillePolice = 1.5
+    if (!context.zoom) {
+      context.zoom = 1.5
     }
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
@@ -271,10 +274,6 @@ export async function initDom () {
     await addFetchHtmlToParent('templates/boutonsConnexion.html', section)
     document.getElementById('boutonsConnexion').appendChild(boutonMAJ())
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
-    const divExercice = get('exercices', false)
-    const divCorrection = get('corrections', false)
-    divExercice.style.fontSize = context.taillePolice + 'em'
-    divCorrection.style.fontSize = context.taillePolice + 'em'
     document.addEventListener('exercicesAffiches', () => {
       gestionTimer()
       document.querySelector('#accordeon_parametres').style.display = 'none'
@@ -385,31 +384,8 @@ export async function initDom () {
     document.getElementById('btnCorrection').addEventListener('click', () => {
       document.getElementById('corrections').style.display = 'block'
     })
-    const divExercice = get('exercices', false)
-    const divCorrection = get('corrections', false)
-    divExercice.style.fontSize = context.taillePolice + 'em'
-    divCorrection.style.fontSize = context.taillePolice + 'em'
-    divExercice.style.lineHeight = 'normal'
-    divCorrection.style.lineHeight = 'normal'
-    if (context.diaporama) {
-      document.addEventListener('exercicesAffiches', () => {
-        const figures = document.querySelectorAll('.mathalea2d')
-        for (const figure of figures) {
-          figure.setAttribute('height', parseFloat(figure.getAttribute('height')) * context.taillePolice)
-          figure.setAttribute('width', parseFloat(figure.getAttribute('width')) * context.taillePolice)
-        }
-        const enonces = document.querySelectorAll('#affichage_exercices h4') // Pour les énoncés
-        for (const enonce of enonces) {
-          enonce.style.fontSize = '1em'
-        }
-        const tables = document.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
-        for (const table of tables) {
-          table.style.fontSize = context.taillePolice + 'em'
-        }
-      })
-    }
   } else if (vue === 'diap') {
-    context.taillePolice = getTaillePoliceFromUrl() || 3
+    context.zoom = getZoomFromUrl() || 3
     context.duree = parseInt(getDureeFromUrl())
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
@@ -417,6 +393,11 @@ export async function initDom () {
     addElement(section, 'div', { id: 'containerErreur' })
     const divTimer = addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/mathaleaBasique.html', section)
+    await addFetchHtmlToParent('templates/boutonsCorrectionEtZoom.html', section)
+    const btnLienCorrection = document.getElementById('boutonLienCorrectionExterne')
+    btnLienCorrection.addEventListener('click', () => {
+      goTabVue('diapCorr')
+    })
     document.addEventListener('exercicesAffiches', () => {
       liToDiv()
       document.querySelectorAll('h3').forEach(e => { e.style.display = 'none' })
@@ -441,28 +422,6 @@ export async function initDom () {
           element.hasListenner = true
         }
         gestionTimer(divTimer)
-      }
-    })
-    const divExercice = get('exercices', false)
-    const divCorrection = get('corrections', false)
-    divExercice.style.fontSize = context.taillePolice + 'em'
-    divCorrection.style.fontSize = context.taillePolice + 'em'
-    divExercice.style.lineHeight = 'normal'
-    divCorrection.style.lineHeight = 'normal'
-    document.addEventListener('exercicesAffiches', () => {
-      const figures = document.querySelectorAll('.mathalea2d')
-      for (const figure of figures) {
-        figure.setAttribute('height', parseFloat(figure.getAttribute('height')) * context.taillePolice)
-        figure.setAttribute('width', parseFloat(figure.getAttribute('width')) * context.taillePolice)
-      }
-      const enonces = document.querySelectorAll('#affichage_exercices h4') // Pour les énoncés
-      console.log(enonces)
-      for (const enonce of enonces) {
-        enonce.style.fontSize = '1em'
-      }
-      const tables = document.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
-      for (const table of tables) {
-        table.style.fontSize = context.taillePolice + 'em'
       }
     })
   } else if (vue === 'latex') {
@@ -537,6 +496,12 @@ export async function initDom () {
   initialiseBoutonsConnexion()
   if (getLogFromUrl()) {
     modalLog()
+  }
+  // Gestion de la taille de l'affichage
+  if (context.vue !== 'latex' && context.vue !== 'menu' && context.zoom) {
+    document.addEventListener('exercicesAffiches', () => {
+      zoomAffichage(context.zoom)
+    })
   }
 }
 

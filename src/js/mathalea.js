@@ -1,6 +1,6 @@
 /* global $ jQuery JSZip saveAs */
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan } from './modules/outils.js'
-import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGoTab, setUrlAndGo, replaceQueryParam } from './modules/gestionUrl.js'
+import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGo, replaceQueryParam, goTabVue } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -26,6 +26,7 @@ import { gestionVue } from './modules/gestionVue.js'
 import { initDom } from './modules/initDom.js'
 import gestionScores from './modules/gestionScores.js'
 import { modalTimer } from './modules/modalTimer.js'
+import { zoomAffichage } from './modules/zoom.js'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
 function isNumeric (n) {
@@ -576,8 +577,8 @@ function miseAJourDuCode () {
       if (context.vue) {
         finUrl += `&v=${context.vue}`
       }
-      if (context.taillePolice) {
-        finUrl += `&p=${context.taillePolice}`
+      if (context.zoom) {
+        finUrl += `&p=${context.zoom}`
       }
       try {
         if (context.userId) {
@@ -2524,40 +2525,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (context.isHtml && !context.isDiaporama) {
     // gestion du bouton de zoom
-    let taille = parseInt($('#affichage_exercices').css('font-size'))
-    let lineHeight = parseInt($('#affichage_exercices').css('line-height'))
+    // let lineHeight = parseInt($('#affichage_exercices').css('line-height'))
     $('#btn_zoom_plus').click(function () {
-      taille *= 1.25
-      lineHeight *= 1.25
-      $('#affichage_exercices').css('font-size', `${taille}px`)
-      $('.monQcm').css('font-size', `${taille}px`)
-      $('#affichage_exercices').css('line-height', `${lineHeight}px`)
-      $('.monQcm').css('line-height', `${lineHeight}px`)
-      $('#affichage_exercices').find('h3').css('font-size', `${taille}px`)
-      $('#affichage_exercices').find('h4').css('font-size', `${taille}px`)
-      const figures = document.querySelectorAll('.mathalea2d')
-      for (const figure of figures) {
-        figure.setAttribute('height', parseFloat(figure.getAttribute('height')) * 1.25)
-        figure.setAttribute('width', parseFloat(figure.getAttribute('width')) * 1.25)
-      }
+      context.zoom *= 1.25
+      console.log(context.zoom)
+      zoomAffichage(context.zoom)
+      replaceQueryParam('p', context.zoom)
     })
     $('#btn_zoom_moins').click(function () {
-      if (parseInt(taille) > 10) {
-        taille *= 0.8
-        lineHeight *= 0.8
-      }
-      $('#affichage_exercices').css('font-size', `${taille}px`)
-      $('#affichage_exercices').css('line-height', `${lineHeight}px`)
-      $('.monQcm').css('font-size', `${taille}px`)
-      $('.monQcm').css('line-height', `${lineHeight}px`)
-      $('#affichage_exercices').find('h3').css('font-size', `${taille}px`)
-      $('#affichage_exercices').find('h4').css('font-size', `${taille}px`)
-      const figures = document.querySelectorAll('.mathalea2d')
-      for (const figure of figures) {
-        console.log(figure.getAttribute('height'))
-        figure.setAttribute('height', parseFloat(figure.getAttribute('height')) * 0.8)
-        figure.setAttribute('width', parseFloat(figure.getAttribute('width')) * 0.8)
-      }
+      context.zoom *= 0.8
+      zoomAffichage(context.zoom)
+      replaceQueryParam('p', context.zoom)
     })
   }
 
@@ -3214,15 +3192,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   const buttonDiap = document.getElementById('buttonDiap')
   if (buttonDiap !== null) {
     buttonDiap.addEventListener('click', () => {
-      context.vue = 'diap'
-      setUrlAndGoTab()
+      goTabVue('diap')
     })
   }
   const btnPleinEcran = document.getElementById('buttonFullScreen')
   if (btnPleinEcran !== null) {
     btnPleinEcran.addEventListener('click', () => {
-      context.vue = 'light'
-      setUrlAndGoTab()
+      goTabVue('light')
     })
   }
   const btnPleinEcran2 = document.getElementById('buttonFullScreen2')
@@ -3249,29 +3225,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnMulti = document.getElementById('btnMulti')
   if (btnMulti !== null) {
     btnMulti.addEventListener('click', () => {
-      context.vue = 'multi'
-      setUrlAndGoTab()
+      goTabVue('multi')
     })
   }
   const btnVueEmbed = document.getElementById('btnVueEmbed')
   if (btnVueEmbed !== null) {
     btnVueEmbed.addEventListener('click', () => {
-      context.vue = 'embed'
-      setUrlAndGoTab()
+      goTabVue('embed')
     })
   }
   const btnCan = document.getElementById('btnCan')
   if (btnCan !== null) {
     btnCan.addEventListener('click', () => {
-      context.vue = 'can'
-      setUrlAndGoTab()
+      goTabVue('can')
     })
   }
   const btnEval = document.getElementById('btnEval')
   if (btnEval !== null) {
     btnEval.addEventListener('click', () => {
-      context.vue = 'eval'
-      setUrlAndGoTab()
+      goTabVue('eval')
     })
   }
 

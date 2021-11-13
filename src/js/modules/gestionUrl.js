@@ -36,7 +36,7 @@ export function getVueFromUrl () {
  *
  * @returns {string} Vue depuis l'URL
  */
-export function getTaillePoliceFromUrl () {
+export function getZoomFromUrl () {
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
   return urlParams.get('p')
@@ -169,7 +169,7 @@ export function getUrlSearch () {
   const urlParams = new URLSearchParams(queryString)
   if (context.userId) urlParams.set('userId', context.userId)
   if (context.vue) urlParams.set('v', context.vue)
-  if (context.taillePolice) urlParams.set('p', context.taillePolice)
+  if (context.zoom) urlParams.set('p', context.zoom)
   if (context.duree) urlParams.set('duree', context.duree)
   // On finit la réécriture de l'url
   const entries = urlParams.entries()
@@ -205,4 +205,10 @@ export function setUrlAndGo () {
 export function setUrlAndGoTab () {
   window.history.pushState('', '', getUrlSearch())
   window.open(document.location)
+}
+/**
+ * Met à jour l'URL avec la vue et le userId s'ils sont connus et go
+ */
+export function goTabVue (vue) {
+  window.open(window.location.protocol + '//' + window.location.host + window.location.pathname + replaceQueryParam('v', vue))
 }
