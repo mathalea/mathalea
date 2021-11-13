@@ -118,37 +118,5 @@ export const dictionnaireLycee = {
   '2N51-5': {
     titre: 'Équations du premier degré (utilisant la distributivité)',
     url: '/exercices/3e/3L13-1.js'
-  },
-  '2G11-1': {
-    titre: 'Problèmes utilisant le théorème de Pythagore',
-    url: '/exercices/4e/4G22.js'
-  },
-  '2G11-2': {
-    titre: 'Problèmes utilisant le théorème de Thalès',
-    url: '/exercices/3e/3G20-1.js'
-  },
-  '2G11-3': {
-    titre: 'Problèmes utilisant la trigonométrie',
-    url: '/exercices/3e/3G31-1.js'
-  },
-  '2G11-5': {
-    titre: 'Calculs de volumes',
-    url: '/exercices/3e/3G43.js'
-  },
-  '2G10-1': {
-    titre: 'Déterminer des angles en utilisant les cas d\'égalité',
-    url: '/exercices/5e/5G30-1.js'
-  },
-  '2G10-2': {
-    titre: 'Natures de parallélogrammes',
-    url: '/exercices/5e/5G42.js'
-  },
-  '2S11-1': {
-    titre: 'Calculer un CM à partir d\'un taux d\'évolution et inversement',
-    url: '/exercices/3e/3P10-1.js'
-  },
-  '2S11-2': {
-    titre: 'Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale',
-    url: '/exercices/3e/3P10.js'
   }
 }

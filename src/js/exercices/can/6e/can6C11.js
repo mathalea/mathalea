@@ -35,7 +35,7 @@ export default function DoubleOuTripleDecimal () {
     } else {
       this.reponse = calcul(2 * c)
       this.question = `Quel est le double de $${texNombre(c)}$ ?`
-      this.correction = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${calcul(2 * c)}$.`
+      this.correction = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${texNombrec(2 * c)}$.`
       this.correction += texteEnCouleur(`
       <br> Mentalement : <br>
   On décompose $${texNombrec(a * 10 + b + d * 0.1)}$ en $${texNombrec(a * 10 + b)}+${texNombrec(d * 0.1)}$. <br>

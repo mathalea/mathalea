@@ -16,37 +16,46 @@
 </h3>
 
 <div>
-  <button class="btn ui labeled icon button" id="btn_mise_a_jour_code" style="margin: 10px"><i class="redo icon"></i>Nouvelles données</button>
-  <div class="ui buttons" style="margin: 10px">
-    <button class="btn ui right labeled icon button" id="btn_zoom_plus">Zoom<i class="plus icon"></i></button>
-    <button class="btn ui icon button" id="btn_zoom_moins"><i class="minus icon"></i></button>
+  <button class="btn small ui labeled icon button" id="btn_mise_a_jour_code" style="margin: 10px"><i class="redo icon"></i>Nouvelles données</button>
+  <div class="small icon ui buttons">
+    <button class="btn ui icon button" id="btn_zoom_plus"><i class="zoom-in icon"></i></button>
+    <button class="btn ui icon button" id="btn_zoom_moins"><i class="zoom-out icon"></i></button>
+    <button id="buttonFullScreen2" class="btn ui button icon" data-tooltip="Plein écran">
+      <i class="expand icon"></i>
+    </button>
+    <button
+      id="btnCopieURL"
+      class="btn ui toggle button icon url"
+      data-clipboard-action="copy"
+      data-tooltip="Copier le lien vers les exercices paramétrés"
+      data-clipboard-text="url_courant()"
+    >
+      <i class="copy icon"></i>
+    </button>
+    <button id="btnLaTeX"  class="btn ui button icon" data-tooltip="Créer un fichier LaTeX puis PDF"><i class="cogs icon"></i></button>
+    <button class="btn ui button icon" id="btnTousInteractifs" data-tooltip="Exercices interactifs"><i class="keyboard icon"></i></buton>
+    <button id="buttonEdit" class="btn ui button icon" data-tooltip="Modifier les exercices">
+      <i class="pencil icon"></i>
+    </button>
+    <button id="buttonDiap" class="btn ui button icon" data-tooltip="Diaporama">
+      <i class="play icon"></i>
+    </button>
+    <button id="buttonOptions" class="btn ui button icon" data-tooltip="Plus d'options">
+      <i class="ellipsis horizontal icon"></i>
+    </button>
+
   </div>
-  <button
-    id="btnCopieURL"
-    style="margin: 10px"
-    class="btn ui toggle button labeled icon url"
-    data-clipboard-action="copy"
-    data-tooltip="Copier le lien vers les exercices paramétrés"
-    data-clipboard-text="url_courant()"
-  >
-    <i class="copy icon"></i>Lien
-  </button>
-  <button id="btnLaTeX" style="margin: 10px" class="btn ui button labeled icon"><i class="edit icon"></i> LaTeX / PDF</button>
-  <button id="btnEmbed" style="margin: 10px" class="btn ui button icon" data-tooltip="Code HTML pour intégrer les exercices dans votre site">
+  <!-- <button id="btnEmbed" style="margin: 10px" class="btn ui button icon" data-tooltip="Code HTML pour intégrer les exercices dans votre site">
     <i class="code icon"></i>
   </button>
-  <button id="btnQRcode" style="margin: 10px" class="btn ui button icon" data-tooltip="QRCode de lien vers les exercices"><i class="qrcode icon"></i></button>
-  <button id="buttonFullScreen2" style="margin: 10px" class="btn ui button icon" data-tooltip="Exercices et menu">
-    <i class="expand icon"></i>
-  </button>
-  <button id="buttonFullScreen" style="margin: 10px" class="btn ui button icon" data-tooltip="Exercices en plein écran">
+  <button id="btnQRcode" style="margin: 10px" class="btn ui button icon" data-tooltip="QRCode de lien vers les exercices"><i class="qrcode icon"></i></button> -->
+  
+  <!-- <button id="buttonFullScreen" style="margin: 10px" class="btn ui button icon" data-tooltip="Exercices en plein écran">
     <i class="external alternate icon"></i>
-  </button>
-  <button id="buttonEdit" style="margin: 10px" class="btn ui button icon" data-tooltip="Modifier les exercices">
-    <i class="pencil icon"></i>
-  </button>
+  </button> -->
+  
 </div>
-<div>
+<!-- <div>
   <button id="btnMulti" style="margin: 10px" class="btn ui button icon" data-tooltip="En colonnes">
     <i class="map outline icon"></i>
   </button>
@@ -63,9 +72,9 @@
     <i class="stopwatch icon"></i>
   </button>
   <button class="ui  button " id="btn1Question" data-tooltip="Une seule question par exercice">1</buton>
-  <button class="btn ui button icon" id="btnTousInteractifs" data-tooltip="Exercices interactifs"><i class="keyboard icon"></i></buton>
+  
 
-</div>
+</div> -->
 
 <div id="ModalQRcode" class="ui basic modal"></div>
 <div id="ModalEmbed" class="ui modal"></div>

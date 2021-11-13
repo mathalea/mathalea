@@ -220,6 +220,10 @@ export default function ConstruireParSymetrie () {
           if (k < 2) d = droiteParPointEtPente(A, k)
           else d = droiteVerticaleParPoint(A)
           B = pointSurDroite(d, 6, `${p1nom[1]}`, 'above')
+          if (k === 2) {
+            A.positionLabel = 'left'
+            B.positionLabel = 'left'
+          }
           d.isVisible = true
           d.epaisseur = 1
           C = point(randint(2, 3), randint(3, 4), `${p1nom[2]}`, 'above left')

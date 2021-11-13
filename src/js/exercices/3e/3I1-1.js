@@ -2,7 +2,7 @@ import { texteEnCouleurEtGras, listeQuestionsToContenu, combinaisonListesSansCha
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 
-import { mathalea2d, repere2, traceGraphiqueCartesien, point, segment, latexParCoordonnees } from '../../modules/2d.js'
+import { mathalea2d, repere2, traceGraphiqueCartesien, point, segment, texteParPosition } from '../../modules/2d.js'
 
 export const titre = 'Conjecture de Syracuse'
 
@@ -188,14 +188,13 @@ export default function ConjectureDeSyracuse () {
       const B = point(syracuse({ N: entier }).tempsDeVol() / xCoeff, syracuse({ N: entier }).suiteDeSyracuse()[0] / yCoeff)
       const s = segment(A, B, 'red')
       // let t = texteParPoint('mon texte',B);
-      const t = latexParCoordonnees(
-        '\\text{Altitude initiale}',
+      const t = texteParPosition(
+        'Altitude initiale',
         syracuse({ N: entier }).tempsDeVol() / xCoeff,
-        syracuse({ N: entier }).suiteDeSyracuse()[0] / yCoeff,
-        'red',
-        200,
-        25,
-        'white'
+        syracuse({ N: entier }).suiteDeSyracuse()[0] / yCoeff + 0.2, 'milieu',
+        'red', 1,
+        'middle',
+        true
       )
 
       objetsCorrectionPlus.push(r2, g, s, t)
