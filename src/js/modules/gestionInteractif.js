@@ -211,7 +211,7 @@ function verifQuestionMathLive (exercice, i) {
   }
   if (resultat === 'OK') {
     // Envoie un message post pour prévenir que la réponse est correcte
-    window.parent.postMessage({ reponseOK: true }, '*')
+    window.parent.postMessage({ url: window.location.href, graine: context.graine, reponseOK: true }, '*')
     spanReponseLigne.innerHTML = '😎'
     spanReponseLigne.style.fontSize = 'large'
   } else if (resultat === 'essaieEncore') {
@@ -220,7 +220,7 @@ function verifQuestionMathLive (exercice, i) {
     spanReponseLigne.style.fontWeight = 'bold'
   } else {
     // Envoie un message post pour prévenir que la réponse est incorrecte
-    window.parent.postMessage({ reponseOK: false }, '*')
+    window.parent.postMessage({ url: window.location.href, graine: context.graine, reponseOK: false }, '*')
     spanReponseLigne.innerHTML = '☹️'
     spanReponseLigne.style.fontSize = 'large'
   }
