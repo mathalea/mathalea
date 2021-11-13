@@ -264,7 +264,7 @@ export async function initDom () {
     addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
   } else if (vue === 'embed' || vue === 'e') {
-    if (!context.zoom) {
+    if (context.zoom < 1.5) {
       context.zoom = 1.5
     }
     setOutputHtml()
@@ -385,7 +385,7 @@ export async function initDom () {
       document.getElementById('corrections').style.display = 'block'
     })
   } else if (vue === 'diap') {
-    context.zoom = getZoomFromUrl() || 3
+    context.zoom = 3
     context.duree = parseInt(getDureeFromUrl())
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
@@ -498,7 +498,7 @@ export async function initDom () {
     modalLog()
   }
   // Gestion de la taille de l'affichage
-  if (context.vue !== 'latex' && context.vue !== 'menu' && context.zoom) {
+  if (context.vue !== 'latex') {
     document.addEventListener('exercicesAffiches', () => {
       zoomAffichage(context.zoom)
     })

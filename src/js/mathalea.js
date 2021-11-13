@@ -1,5 +1,5 @@
 /* global $ jQuery JSZip saveAs */
-import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan } from './modules/outils.js'
+import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGo, replaceQueryParam, goTabVue } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
@@ -578,7 +578,7 @@ function miseAJourDuCode () {
         finUrl += `&v=${context.vue}`
       }
       if (context.zoom) {
-        finUrl += `&p=${context.zoom}`
+        finUrl += `&z=${context.zoom}`
       }
       try {
         if (context.userId) {
@@ -2525,17 +2525,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (context.isHtml && !context.isDiaporama) {
     // gestion du bouton de zoom
-    // let lineHeight = parseInt($('#affichage_exercices').css('line-height'))
     $('#btn_zoom_plus').click(function () {
-      context.zoom *= 1.25
-      console.log(context.zoom)
+      context.zoom = arrondi(Number(context.zoom) + 0.5)
       zoomAffichage(context.zoom)
-      replaceQueryParam('p', context.zoom)
+      window.history.pushState('', '', getUrlSearch())
     })
     $('#btn_zoom_moins').click(function () {
-      context.zoom *= 0.8
-      zoomAffichage(context.zoom)
-      replaceQueryParam('p', context.zoom)
+      if (Number(context.zoom > 0.5)) {
+        context.zoom = arrondi(Number(context.zoom) - 0.5)
+        zoomAffichage(context.zoom)
+        window.history.pushState('', '', getUrlSearch())
+      }
     })
   }
 
@@ -3289,11 +3289,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'eval')}" target="_blank"><i class="tasks icon"></i>Interactif et un exercice par page</a></div>
       </div>
       <h3 class="ui dividing header">Code d'intégration</h3>
-      <div class="content"><p><pre><code>&lt;iframe width="660"
+      <div class="content"><p><div style="white-space: pre-wrap;">&lt;iframe width="660"
         height="315" 
         src="https://coopmaths.fr/mathalea.html${replaceQueryParam('v', 'e')}"
         frameborder="0" >
-&lt;/iframe></code><pre></p>
+&lt;/iframe><div></p>
         <button id="btnEmbedCode" style="margin:10px" class="btn ui toggle button labeled icon url"
         data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le code HTML</button></div>
 

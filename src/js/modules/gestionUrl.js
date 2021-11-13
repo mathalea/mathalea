@@ -39,7 +39,7 @@ export function getVueFromUrl () {
 export function getZoomFromUrl () {
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
-  return urlParams.get('p')
+  return urlParams.get('z')
 }
 
 /**
@@ -169,7 +169,7 @@ export function getUrlSearch () {
   const urlParams = new URLSearchParams(queryString)
   if (context.userId) urlParams.set('userId', context.userId)
   if (context.vue) urlParams.set('v', context.vue)
-  if (context.zoom) urlParams.set('p', context.zoom)
+  if (context.zoom) urlParams.set('z', context.zoom)
   if (context.duree) urlParams.set('duree', context.duree)
   // On finit la réécriture de l'url
   const entries = urlParams.entries()
