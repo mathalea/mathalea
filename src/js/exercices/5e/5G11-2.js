@@ -9,7 +9,8 @@ export const titre = 'Construire l’image d’une figure par symétrie centrale
  */
 export default function ConstruireParSymetrieCentraleFigure () {
   ConstruireParSymetrie.call(this)
-  this.sup = 2
+  this.sup = 5
   this.sup2 = 1
   this.figure = true
+  this.besoinFormulaireNumerique = false
 }

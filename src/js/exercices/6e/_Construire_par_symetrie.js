@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone, numAlpha } from '../../modules/outils.js'
-import { point, tracePoint, pointSurDroite, pointIntersectionDD, labelPoint, droite, droiteVerticaleParPoint, droiteParPointEtPente, codageMediatrice, codageMilieu, segment, polygone, nommePolygone, rotation, symetrieAxiale, grille, seyes, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, pointSurDroite, pointIntersectionDD, labelPoint, droite, droiteVerticaleParPoint, droiteParPointEtPente, codageMediatrice, codageMilieu, segment, polygone, nommePolygone, rotation, symetrieAxiale, grille, seyes, mathalea2d, droiteHorizontaleParPoint, dessousDessus } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 
 /**
@@ -17,18 +17,76 @@ export default function ConstruireParSymetrie () {
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = 2
+  this.sup = 1
   this.sup2 = 1
+  this.sup3 = 1
   this.figure = false
+  const choisi3Points = function (d, lieu = ['dessus', 'dessous', 'sur']) {
+    let A, B, C
+    do {
+      A = point(randint(-8, 8), randint(-8, 8))
+    } while (dessousDessus(d, A) !== lieu[0])
+    do {
+      if (lieu[1] === 'sur') B = pointSurDroite(d, randint(-8, 8, [6, 0]))
+      else B = point(randint(-8, 8, A.x), randint(-8, 8, A.y))
+    } while (dessousDessus(d, B) !== lieu[1])
+    do {
+      if (lieu[2] === 'sur') C = pointSurDroite(d, randint(-8, 8, [0, 6]))
+      C = point(randint(-8, 8, [A.x, B.x]), randint(-8, 8, [A.y, B.y]))
+    } while (dessousDessus(d, C) !== lieu[2])
+    return [A, B, C]
+  }
   this.nouvelleVersion = function () {
+    let lieux
     this.sup = parseInt(this.sup)
-    let typesDeQuestionsDisponibles
-    if (this.sup === 3) { // Symétrie axiale ou centrale
-      if (this.figure === false) typesDeQuestionsDisponibles = [0, 1, 2] // points
-      else typesDeQuestionsDisponibles = [3, 4, 5]
-    } else { // triangle
-      if (this.figure === false) typesDeQuestionsDisponibles = [parseInt(this.sup)] // Le choix 1 ou 2 : points
-      else typesDeQuestionsDisponibles = [parseInt(this.sup) + 3] // figures
+    this.sup3 = Number(this.sup3)
+    if (this.sup3 === 1) lieux = choice([['dessus', 'dessus', 'dessus'], ['dessous', 'dessous', 'dessous']])
+    else if (this.sup3 === 2) lieux = choice([['dessus', 'sur', 'dessus'], ['dessous', 'sur', 'dessus']])
+    else lieux = choice([['dessus', 'dessous', 'dessus'], ['dessus', 'dessus', 'dessous']])
+    let typesDeQuestionsDisponibles = []
+    switch (this.sup) {
+      case 1:
+        if (this.figure) {
+          typesDeQuestionsDisponibles = [4]
+        } else {
+          typesDeQuestionsDisponibles = [0]
+        }
+        break
+      case 2:
+        if (this.figure) {
+          typesDeQuestionsDisponibles = [5]
+        } else {
+          typesDeQuestionsDisponibles = [1]
+        }
+        break
+      case 3:
+        if (this.figure) {
+          typesDeQuestionsDisponibles = [6]
+        } else {
+          typesDeQuestionsDisponibles = [2]
+        }
+        break
+      case 4:
+        if (this.figure) {
+          typesDeQuestionsDisponibles = [3, 4, 5]
+        } else {
+          typesDeQuestionsDisponibles = [0, 1, 2]
+        }
+        break
+      case 5:
+        if (this.figure) {
+          typesDeQuestionsDisponibles = [6]
+        } else {
+          typesDeQuestionsDisponibles = [7]
+        }
+        break
+      case 6:
+        if (this.figure) {
+          typesDeQuestionsDisponibles = [3, 4, 5, 7]
+        } else {
+          typesDeQuestionsDisponibles = [0, 1, 2, 6]
+        }
+        break
     }
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -62,12 +120,11 @@ export default function ConstruireParSymetrie () {
       objetsEnonce.length = 0
       objetsCorrection.length = 0
       switch (listeTypeDeQuestions[i]) {
-        case 0: // 3 symétries axiales simples de points (6ème)
+        case 0: // symétrie d'axe horizontal ou vertical de points
           p1nom = creerNomDePolygone(5, 'PQ')
+          k = choice([0, 2])
           A = point(0, 0, `${p1nom[0]}`, 'above')
-          k = choice([-1, 0, 1, 2])
-
-          if (k < 2) d = droiteParPointEtPente(A, k)
+          if (k === 0) d = droiteHorizontaleParPoint(A)
           else d = droiteVerticaleParPoint(A)
           B = pointSurDroite(d, 6, `${p1nom[1]}`, 'above')
           d.isVisible = true
@@ -76,23 +133,27 @@ export default function ConstruireParSymetrie () {
             A.positionLabel = 'left'
             B.positionLabel = 'left'
           }
-          C = point(randint(2, 3), randint(3, 4), `${p1nom[2]}`, 'above left')
-          D = point(randint(3, 5), randint(-4, -3), `${p1nom[3]}`, 'below right')
-          // dB = droiteParPointEtPerpendiculaire(B, d);
-          E = point(randint(6, 7), randint(5, 6), `${p1nom[4]}`, 'left')
-          // F = point(E.x+1,5-B.y,'F','above left');
+          if (k === 2) {
+            if (this.sup3 === 1) lieux = choice([['gauche', 'gauche', 'gauche'], ['droite', 'droite', 'droite']])
+            else if (this.sup3 === 2) lieux = choice([['gauche', 'sur', 'gauche'], ['droite', 'droite', 'sur']])
+            else lieux = choice([['gauche', 'desssous', 'gauche'], ['droite', 'gauche', 'droite']])
+          }
+          [C, D, E] = choisi3Points(d, lieux)
+          C.nom = p1nom[2]
+          C.positionLabel = 'above left'
+          D.nom = p1nom[3]
+          D.positionLabel = 'below right'
+          E.nom = p1nom[4]
+          E.positionLabel = 'left'
           CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'below left')
           DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above right')
           EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'left')
-          // FF=symetrieAxiale(F,d,'F'','below left')
           cC = codageMediatrice(C, CC, 'red', '|')
           cD = codageMediatrice(D, DD, 'blue', 'X')
           cE = codageMediatrice(E, EE, 'green', 'O')
-          // cF=codageMediatrice(F,FF,'purple','V')
           sC = segment(C, CC)
           sD = segment(D, DD)
           sE = segment(E, EE)
-          // sF=segment(F,FF)
           sCE = droite(CC, EE, '', 'gray')
           sCE.pointilles = true
           sED = droite(EE, D, '', 'gray')
@@ -123,30 +184,82 @@ export default function ConstruireParSymetrie () {
           correction = `Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
 
           break
-        case 1: // 3 symétries axiales de points
-          p1nom = creerNomDePolygone(5)
-          A = point(0, randint(-1, 1), `${p1nom[0]}`, 'above')
-          B = point(6, randint(-1, 1, A.y), `${p1nom[1]}`, 'above')
-          d = droite(A, B)
+        case 1: // symétries axiales d'axes à 45° de points (6ème)
+          p1nom = creerNomDePolygone(5, 'PQ')
+          A = point(0, 0, `${p1nom[0]}`, 'above')
+          k = choice([-1, 1])
+          d = droiteParPointEtPente(A, k)
+          B = pointSurDroite(d, 6, `${p1nom[1]}`, 'above')
           d.isVisible = true
-          d.epaisseur = 1
-          C = point(randint(2, 3), randint(3, 4), `${p1nom[2]}`, 'above left')
-          D = point(randint(10, 13), randint(-4, -3), `${p1nom[3]}`, 'below right')
-          // dB = droiteParPointEtPerpendiculaire(B, d);
-          E = point(randint(6, 8), randint(-8, -5), `${p1nom[4]}`, 'left')
-          // F = point(E.x+1,5-B.y,'F','above left');
+          d.epaisseur = 1;
+          [C, D, E] = choisi3Points(d, lieux)
+          C.nom = p1nom[2]
+          C.positionLabel = 'above left'
+          D.nom = p1nom[3]
+          D.positionLabel = 'below right'
+          E.nom = p1nom[4]
+          E.positionLabel = 'left'
           CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'below left')
           DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above right')
           EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'left')
-          // FF=symetrieAxiale(F,d,'F'','below left')
           cC = codageMediatrice(C, CC, 'red', '|')
           cD = codageMediatrice(D, DD, 'blue', 'X')
           cE = codageMediatrice(E, EE, 'green', 'O')
-          // cF=codageMediatrice(F,FF,'purple','V')
           sC = segment(C, CC)
           sD = segment(D, DD)
           sE = segment(E, EE)
-          // sF=segment(F,FF)
+          sCE = droite(CC, EE, '', 'gray')
+          sCE.pointilles = true
+          sED = droite(EE, D, '', 'gray')
+          sED.pointilles = true
+          sDE = droite(DD, E, '', 'gray')
+          sDE.pointilles = true
+          sEC = droite(C, E, '', 'gray')
+          sEC.pointilles = true
+          objetsCorrection.push(d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), cC, cD, cE, sC, sD, sE, sED, sDE, sCE, sEC)
+          objetsEnonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d)
+          if (context.isHtml) {
+            numQuestion = 0
+            enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'
+          } else {
+            numQuestion = -1
+            enonce = ''
+          }
+          enonce += numAlpha(numQuestion + 1) + ` Construire le point $${p1nom[2]}'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+          enonce += numAlpha(numQuestion + 2) + ` Construire le point $${p1nom[3]}'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+          enonce += numAlpha(numQuestion + 3) + ` Construire le point $${p1nom[4]}'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+          enonce += numAlpha(numQuestion + 4) + ' Coder la figure.<br>'
+          Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) - 1)
+          Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) + 1)
+          Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, EE.y, CC.y, DD.y) - 1)
+          Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, EE.y, CC.y, DD.y) + 1)
+
+          correction = `Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+
+          break
+        case 2: // Axe de symétrie légèrement penché (utilisation du quadrillage plus complexe)
+          p1nom = creerNomDePolygone(5)
+          A = point(0, randint(-1, 1), `${p1nom[0]}`, 'above')
+          B = point(6, choice([-1, 1], A.y), `${p1nom[1]}`, 'above')
+          d = droite(A, B)
+          d.isVisible = true
+          d.epaisseur = 1;
+          [C, D, E] = choisi3Points(d, lieux)
+          C.nom = p1nom[2]
+          C.positionLabel = 'above left'
+          D.nom = p1nom[3]
+          D.positionLabel = 'below right'
+          E.nom = p1nom[4]
+          E.positionLabel = 'left'
+          CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'below left')
+          DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above right')
+          EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'left')
+          cC = codageMediatrice(C, CC, 'red', '|')
+          cD = codageMediatrice(D, DD, 'blue', 'X')
+          cE = codageMediatrice(E, EE, 'green', 'O')
+          sC = segment(C, CC)
+          sD = segment(D, DD)
+          sE = segment(E, EE)
           sCE = segment(CC, EE, 'gray')
           sCE.pointilles = true
           sED = segment(EE, D, 'gray')
@@ -176,7 +289,7 @@ export default function ConstruireParSymetrie () {
 
           correction = `Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
           break
-        case 2: // 3 symétries centrales de points
+        case 3: // 3 symétries centrales de points
           p1nom = creerNomDePolygone(4)
           A = point(0, randint(-1, 4), `${p1nom[0]}`, 'left')
           B = point(7, randint(-1, 1, A.y), `${p1nom[1]}`, 'above')
@@ -212,12 +325,12 @@ export default function ConstruireParSymetrie () {
           correction = ''
           break
 
-        case 3: // symétrie axiale simple d'un triangle
+        case 4: // symétrie axiale (Axe vertical ou horizontal) d'un triangle
           p1nom = creerNomDePolygone(5, 'PQ')
           A = point(0, 0, `${p1nom[0]}`, 'above')
-          k = choice([-1, 0, 1, 2])
+          k = choice([0, 2])
 
-          if (k < 2) d = droiteParPointEtPente(A, k)
+          if (k === 0) d = droiteHorizontaleParPoint(A)
           else d = droiteVerticaleParPoint(A)
           B = pointSurDroite(d, 6, `${p1nom[1]}`, 'above')
           if (k === 2) {
@@ -225,11 +338,14 @@ export default function ConstruireParSymetrie () {
             B.positionLabel = 'left'
           }
           d.isVisible = true
-          d.epaisseur = 1
-          C = point(randint(2, 3), randint(3, 4), `${p1nom[2]}`, 'above left')
-          D = point(randint(3, 5), randint(-4, -3), `${p1nom[3]}`, 'below right')
-          // dB = droiteParPointEtPerpendiculaire(B, d);
-          E = point(randint(6, 7), randint(5, 6), `${p1nom[4]}`, 'left')
+          d.epaisseur = 1;
+          [C, D, E] = choisi3Points(d, lieux)
+          C.nom = p1nom[2]
+          C.positionLabel = 'above left'
+          D.nom = p1nom[3]
+          D.positionLabel = 'below right'
+          E.nom = p1nom[4]
+          E.positionLabel = 'left'
           p1 = polygone(C, D, E)
           p2 = symetrieAxiale(p1, d)
           p2.listePoints[0].nom = `${p1nom[2]}'`
@@ -265,17 +381,74 @@ export default function ConstruireParSymetrie () {
           correction = ''
 
           break
-        case 4: // symetrie axiale d'un triangle
-          p1nom = creerNomDePolygone(5)
+        case 5: // symetrie axiale (Axe à 45°) d'un triangle
+          p1nom = creerNomDePolygone(5, 'PQ')
+          A = point(0, 0, `${p1nom[0]}`, 'above')
+          k = choice([-1, 1])
 
+          d = droiteParPointEtPente(A, k)
+          B = pointSurDroite(d, 6, `${p1nom[1]}`, 'above')
+          if (k === 2) {
+            A.positionLabel = 'left'
+            B.positionLabel = 'left'
+          }
+          d.isVisible = true
+          d.epaisseur = 1;
+          [C, D, E] = choisi3Points(d, lieux)
+          C.nom = p1nom[2]
+          C.positionLabel = 'above left'
+          D.nom = p1nom[3]
+          D.positionLabel = 'below right'
+          E.nom = p1nom[4]
+          E.positionLabel = 'left'
+          p1 = polygone(C, D, E)
+          p2 = symetrieAxiale(p1, d)
+          p2.listePoints[0].nom = `${p1nom[2]}'`
+          p2.listePoints[1].nom = `${p1nom[3]}'`
+          p2.listePoints[2].nom = `${p1nom[4]}'`
+          CC = nommePolygone(p1)
+          DD = nommePolygone(p2)
+          cC = codageMediatrice(p1.listePoints[0], p2.listePoints[0], 'red', '|')
+          cD = codageMediatrice(p1.listePoints[1], p2.listePoints[1], 'blue', 'X')
+          cE = codageMediatrice(p1.listePoints[2], p2.listePoints[2], 'green', 'O')
+          sC = segment(p1.listePoints[0], p2.listePoints[0], 'red')
+          sD = segment(p1.listePoints[1], p2.listePoints[1], 'blue')
+          sE = segment(p1.listePoints[2], p2.listePoints[2], 'green')
+          sCE = droite(p1.listePoints[2], p1.listePoints[1], '', 'gray')
+          sCE.pointilles = true
+          sED = droite(p2.listePoints[2], p2.listePoints[1], '', 'gray')
+          sED.pointilles = true
+          objetsCorrection.push(d, tracePoint(A, B), labelPoint(A, B), cC, cD, cE, sC, sD, sE, CC, DD, p1, p1.sommets, p2, p2.sommets, sCE, sED)
+          objetsEnonce.push(d, tracePoint(A, B), labelPoint(A, B), CC, p1)
+          if (context.isHtml) {
+            numQuestion = 0
+            enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'
+          } else {
+            numQuestion = -1
+            enonce = ''
+          }
+          enonce += numAlpha(numQuestion + 1) + ` Construire le triangle  $${p1nom[2]}'${p1nom[3]}'${p1nom[4]}'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+          enonce += numAlpha(numQuestion + 2) + ' Coder la figure.<br>'
+          Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) - 1)
+          Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) + 1)
+          Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) - 1)
+          Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) + 1)
+          correction = ''
+          break
+        case 6: // symetrie axiale Axe légèrement penché
+          p1nom = creerNomDePolygone(5)
           A = point(0, randint(-1, 1), `${p1nom[0]}`, 'above')
-          B = point(6, randint(-1, 1, A.y), `${p1nom[1]}`, 'above')
+          B = point(6, choice([-1, 1]), `${p1nom[1]}`, 'above')
           d = droite(A, B)
           d.isVisible = true
-          d.epaisseur = 1
-          C = point(randint(2, 3), randint(3, 4), `${p1nom[2]}`, 'above left')
-          D = point(randint(10, 13), randint(-4, -2), `${p1nom[3]}`, 'below right')
-          E = point(randint(6, 8), randint(-8, -6), `${p1nom[4]}`, 'left')
+          d.epaisseur = 1;
+          [C, D, E] = choisi3Points(d, lieux)
+          C.nom = p1nom[2]
+          C.positionLabel = 'above left'
+          D.nom = p1nom[3]
+          D.positionLabel = 'below right'
+          E.nom = p1nom[4]
+          E.positionLabel = 'left'
           p1 = polygone(C, D, E)
           p2 = symetrieAxiale(p1, d)
           p2.listePoints[0].nom = `${p1nom[2]}'`
@@ -312,7 +485,7 @@ export default function ConstruireParSymetrie () {
 
           correction = `Contrôler la figure en vérifiant que les côtés des deux triangles se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
           break
-        case 5:
+        case 7: // Symétrie centrale de triangle
           p1nom = creerNomDePolygone(4)
           A = point(0, randint(-1, 4), `${p1nom[0]}`, 'left')
           B = point(7, randint(-1, 1, A.y), `${p1nom[1]}`, 'above')
@@ -350,6 +523,7 @@ export default function ConstruireParSymetrie () {
           correction = ''
           break
       }
+      console.log(p1nom[2], dessousDessus(d, C), p1nom[3], dessousDessus(d, D), p1nom[4], dessousDessus(d, E))
 
       const params = {
         xmin: Xmin,
@@ -389,10 +563,11 @@ export default function ConstruireParSymetrie () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 4, ' 0 : Symétrie axiale simple\n 1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Mélange']
+  this.besoinFormulaireNumerique = ['Type de questions', 6, '1 : Axe horizontal ou vertical\n2 : Axe oblique à 45°\n3 : Axe avec une légère pente\n4 : Toutes les symétries axiales\n5 : Symétrie centrale\n6 : Mélange']
   this.besoinFormulaire2Numerique = [
     'Type de cahier',
     3,
     ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
   ]
+  this.besoinFormulaire3Numerique = ['Niveau de difficulté pour la symétrie Axiale', 3, '1 : Tous les points du même côté de l\'axe\n2 : Deux points du même côté et le troisième sur l\'axe\n3 : Deux points d\'un côté de l\'axe et le troisième de l\'autre côté']
 }
