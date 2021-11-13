@@ -9964,7 +9964,12 @@ function pattern ({
  * @author Jean-Claude Lhote
  * Publié le 6/12/2020
  */
-function Labyrinthe () {
+function Labyrinthe (
+  {
+    taille = 1,
+    format = 'texte'
+  }
+) {
   this.murs2d = []
   this.chemin2d = []
   this.nombres2d = []
@@ -10077,7 +10082,7 @@ function Labyrinthe () {
       s1 = segment(point(-3, 4), point(0, 4), 'green')
       s1.epaisseur = 3
       objets.push(s1)
-      objets.push(texteParPoint('Départ', point(-1.5, 2.5), 'milieu', 'blue', 1, 0, false))
+      objets.push(texteParPoint('Départ', point(-1.5, 2.5), 'milieu', 'blue', taille, 0, false))
     } else {
       // bord gauche
       s1 = segment(point(0, 1), point(0, 8))
@@ -10094,7 +10099,7 @@ function Labyrinthe () {
       s1 = segment(point(-3, 7), point(0, 7), 'green')
       s1.epaisseur = 3
       objets.push(s1)
-      objets.push(texteParPoint('Départ', point(-1.5, 8.5), 'milieu', 'blue', 1, 0, false))
+      objets.push(texteParPoint('Départ', point(-1.5, 8.5), 'milieu', 'blue', taille, 0, false))
     }
 
     // les croix centrales communes à A et B
@@ -10148,7 +10153,7 @@ function Labyrinthe () {
       objets.push(s1, s2, s3, s4, s5)
     }
     for (let i = 1; i <= 3; i++) {
-      objets.push(texteParPoint(`Sortie ${i}`, point(19.5, 11.5 - 3 * i), 'milieu', 'blue', 1, 0, false))
+      objets.push(texteParPoint(`Sortie ${i}`, point(19.5, 11.5 - 3 * i), 'milieu', 'blue', taille, 0, false))
     }
     s1 = segment(point(18, 9), point(20, 9))
     s1.epaisseur = 3
@@ -10199,8 +10204,8 @@ function Labyrinthe () {
     return objets
   }
 } // fin de la classe labyrinthe
-export function labyrinthe () {
-  return new Labyrinthe()
+export function labyrinthe ({ taille = 1, format = 'texte' }) {
+  return new Labyrinthe({ taille: taille, format: format })
 }
 
 /**
