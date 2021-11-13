@@ -14,7 +14,6 @@ export const amcType = 'AMCNum'
 export default function EquationAXEgalB () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.interactif = true
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.nouvelleVersion = function () {

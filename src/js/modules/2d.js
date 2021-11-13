@@ -9752,7 +9752,6 @@ export function mathalea2d (
  * @param {number} index Choix du motif
  * le nom du motif sert dans la fonction pattern
  * @author Jean-Claude Lhote
- * @returns
  */
 export function motifs (index) {
   switch (index) {
@@ -9775,7 +9774,6 @@ export function motifs (index) {
  * @param {object} param0 paramètres de définition du motif de remplissage
  * définit un motif de remplissage pour les polygones, les rectangles... ou tout élément SVG qui se remplit.
  * @author Jean-Claude Lhote
- * @returns
  */
 function pattern ({
   motif = 'north east lines',

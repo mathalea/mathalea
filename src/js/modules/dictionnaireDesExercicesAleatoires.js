@@ -302,6 +302,103 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2G10-1": {
+    "titre": "Déterminer des angles en utilisant les cas d'égalité",
+    "url": "/exercices/2e/2G10-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2G10-2": {
+    "titre": "Natures de parallélogrammes",
+    "url": "/exercices/2e/2G10-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G10-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2G11-1": {
+    "titre": "Problèmes utilisant le théorème de Pythagore",
+    "url": "/exercices/2e/2G11-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2G11-2": {
+    "titre": "Problèmes utilisant le théorème de Thalès",
+    "url": "/exercices/2e/2G11-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2G11-3": {
+    "titre": "Problèmes utilisant la trigonométrie",
+    "url": "/exercices/2e/2G11-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G11-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2G11-5": {
+    "titre": "Calculs de volumes",
+    "url": "/exercices/2e/2G11-5.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
+    "name": "2G11-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2G12-1": {
     "titre": "Utiliser la distance entre deux points dans un repère orthonormé",
     "url": "/exercices/2e/2G12-1.js",
@@ -1102,6 +1199,38 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "2N61-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2S11-1": {
+    "titre": "Calculer un CM à partir d'un taux d'évolution et inversement",
+    "url": "/exercices/2e/2S11-1.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2S11-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2S11-2": {
+    "titre": "Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale",
+    "url": "/exercices/2e/2S11-2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2S11-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -2423,6 +2552,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "MG32_3F13": {
+    "titre": "Lire les antécédents d’un nombre à partir d’un graphique",
+    "url": "/exercices/3e/MG32_3F13.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "MG32_3F13",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4A10": {
     "titre": "Nombre premier ou pas",
     "url": "/exercices/4e/4A10.js",
@@ -2856,8 +3000,12 @@ export default {
   "4C30-2": {
     "titre": "Écriture décimale d’une puissance de 10",
     "url": "/exercices/4e/4C30-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C30-2",
     "newEx": {
       "isNew": false,
@@ -2887,7 +3035,8 @@ export default {
     "titre": "Puissances de 10 : Le sens des règles de calculs",
     "url": "/exercices/4e/4C30.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C30",
     "newEx": {
       "isNew": false,
@@ -5132,7 +5281,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6391,6 +6540,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6G44": {
+    "titre": "Compter les arêtes et les faces",
+    "url": "/exercices/6e/6G44.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6G44",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6I10": {
     "titre": "Programmer des déplacements (scratch)",
     "url": "/exercices/6e/6I10.js",
@@ -6906,10 +7074,10 @@ export default {
     "url": "/exercices/6e/6N12-1.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "qcm",
     "name": "6N12-1",
     "newEx": {
       "isNew": true,
@@ -11884,63 +12052,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betacan6G04": {
-    "titre": "Problèmes de longueurs",
-    "url": "/exercices/can/6e/betacan6G04.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betacan6G04",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "betacan6G05": {
-    "titre": "Problèmes de longueurs (inverse)",
-    "url": "/exercices/can/6e/betacan6G05.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betacan6G05",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "betacan6G06": {
-    "titre": "Nombre de faces ou d'arêtes",
-    "url": "/exercices/can/6e/betacan6G06.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betacan6G06",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "can6C01": {
     "titre": "Ordre de grandeur QCM",
     "url": "/exercices/can/6e/can6C01.js",
@@ -12556,7 +12667,10 @@ export default {
   "can6G01": {
     "titre": "Symétrique de point 6e",
     "url": "/exercices/can/6e/can6G01.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6G01",
@@ -12572,7 +12686,10 @@ export default {
   "can6G02": {
     "titre": "Compter les cubes",
     "url": "/exercices/can/6e/can6G02.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6G02",
@@ -12588,12 +12705,72 @@ export default {
   "can6G03": {
     "titre": "Compter les cubes manquants",
     "url": "/exercices/can/6e/can6G03.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6G03",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6G04": {
+    "titre": "Problèmes de longueurs",
+    "url": "/exercices/can/6e/can6G04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6G04",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6G05": {
+    "titre": "Problèmes de longueurs (inverse)",
+    "url": "/exercices/can/6e/can6G05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6G05",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6G06": {
+    "titre": "Nombre de faces ou d'arêtes",
+    "url": "/exercices/can/6e/can6G06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6G06",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13016,6 +13193,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can6P05": {
+    "titre": "Appliquer un pourcentage (bis)",
+    "url": "/exercices/can/6e/can6P05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6P05",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can6S01": {
     "titre": "Lecture de diagramme en barres",
     "url": "/exercices/can/6e/can6S01.js",
@@ -13218,7 +13414,7 @@ export default {
     "url": "/exercices/can/c3/canc3N02.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCHybride"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
