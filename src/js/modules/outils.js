@@ -500,6 +500,9 @@ export function enleveElementNoBis (array, index) {
 */
 export function choice (liste, listeAEviter = []) {
   // copie la liste pour ne pas y toucher (ce n'est pas le but de choice)
+  if (!Number(listeAEviter).isNan) {
+    listeAEviter = [listeAEviter]
+  }
   const listebis = liste.slice()
   // Supprime les éléments de liste à éviter
   for (let i = 0; i < listeAEviter.length; i++) {

@@ -35,11 +35,12 @@ export default function ExerciceLabyrintheDivisibilite () {
     this.sup = Number(this.sup)
     this.sup2 = Number(this.sup2)
     this.sup3 = Number(this.sup3)
+    const tailleChiffre = 0.8
 
     this.listeCorrections = []
     this.listeQuestions = []
     let texte, texteCorr, trouve
-    const laby = labyrinthe()
+    const laby = labyrinthe({ taille: tailleChiffre })
     laby.niveau = this.sup3 // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
     laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
     laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
@@ -100,7 +101,7 @@ export default function ExerciceLabyrintheDivisibilite () {
         }
       }
     } // Le tableau de nombre étant fait, on place les objets nombres.
-    laby.nombres2d = laby.placeNombres(laby.nombres, 1)
+    laby.nombres2d = laby.placeNombres(laby.nombres, tailleChiffre)
     const params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
