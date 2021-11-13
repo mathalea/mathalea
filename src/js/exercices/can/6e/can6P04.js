@@ -83,14 +83,14 @@ export default function AppliquerUnPourcentage () {
        `)
         } else if (p === 75) {
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Prendre $75\\%$  de $${a}$ revient à diviser $${a}$ par 4 et à multiplier le résultat par $4$.<br>
+          Prendre $75\\%$  de $${a}$ revient à diviser $${a}$ par 4 et à multiplier le résultat par $3$.<br>
           Comme $25\\%$  de $${a}$ vaut $${calcul(a / 4)}$, alors 
-          $75\\%$ de $${a}=3\\times ${calcul(a / 4)}=${this.reponse}$.
+          $75\\%$ de $${a}=${calcul(a / 4)}\\times 3=${this.reponse}$.
          `)
         } else {
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Prendre $50\\%$  d'une quantité revient à la diviser par $2$.<br>
-          Ainsi, $${a}\\%$ de $${b} = \\dfrac{${b}}{2}=${this.reponse}$.`)
+          Ainsi, $50\\%$ de $${a} = \\dfrac{${a}}{2}=${this.reponse}$.`)
         }
         break
       case 6:
