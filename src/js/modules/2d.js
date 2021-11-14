@@ -957,6 +957,22 @@ function Droite (arg1, arg2, arg3, arg4) {
 export function droite (...args) {
   return new Droite(...args)
 }
+/**
+ * fonction qui analyse si le point A est au-dessus ou en dessous de la droite d
+ * retourne 'sur', 'dessus', 'dessous' ou 'gauche' ou 'droite" si la droite est verticale.
+ * @param {droite} d
+ * @param {point} A
+ */
+export function dessousDessus (d, A) {
+  if (calcul(d.a * A.x + d.b * A.y + d.c) === 0) return 'sur'
+  if (d.b === 0) {
+    if (A.x < -d.c / d.a) return 'gauche'
+    else return 'droite'
+  } else {
+    if (calcul(d.a * A.x + d.b * A.y + d.c) < 0) return 'dessous'
+    else return 'dessus'
+  }
+}
 
 /**
  * d = droiteParPointEtVecteur(A,v,'d1',red') //Droite passant par A, de vecteur directeur v et de couleur rouge
@@ -10202,7 +10218,7 @@ function Labyrinthe (
     return objets
   }
 } // fin de la classe labyrinthe
-export function labyrinthe ({ taille = 1, format = 'texte' }) {
+export function labyrinthe ({ taille = 1, format = 'texte' } = {}) {
   return new Labyrinthe({ taille: taille, format: format })
 }
 
