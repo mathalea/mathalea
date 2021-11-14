@@ -522,10 +522,12 @@ function navigationAvecLesFleches () {
       case 'ArrowLeft':
         btn = document.querySelector(`button[data-num="${parseInt(context.questionCanEnCours) - 1}"]`)
         if (btn) btn.click()
+        event.preventDefault()
         break
       case 'ArrowRight':
         btn = document.querySelector(`button[data-num="${parseInt(context.questionCanEnCours) + 1}"]`)
         if (btn) btn.click()
+        event.preventDefault()
         break
     }
   }, true)
