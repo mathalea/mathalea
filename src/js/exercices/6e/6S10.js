@@ -97,6 +97,8 @@ export default function LectureDiagrammeBarre () {
       case 2:
         if (!context.isAmc) {
           texte += numAlpha(2) + ' Donner un encadrement à la centaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
+          texte += ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texte: sp(5) }) + sp(10) + `< nombre de ${lstAnimauxExo[numAnimal]} < `
+          texte += ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { texte: sp(5) })
         } else {
           texte += '3)  Donner un encadrement à la centaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
         }
