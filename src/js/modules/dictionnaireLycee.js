@@ -1,12 +1,4 @@
 export const dictionnaireLycee = {
-  '2N20-6': {
-    titre: 'Compter/lister les diviseurs d\'un entier à partir de sa décomposition',
-    url: '/exercices/3e/3A11-3.js'
-  },
-  '2N20-7': {
-    titre: 'Engrenages',
-    url: '/exercices/3e/3A13.js'
-  },
   '2N30-1': {
     titre: 'Décomposer une fraction (partie entière +fraction inférieure à 1) puis donner l\'écriture décimale',
     url: '/exercices/6e/6N20-2.js'
