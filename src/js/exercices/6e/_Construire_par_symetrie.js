@@ -67,7 +67,7 @@ export default function ConstruireParSymetrie () {
       lAC = longueur(pA, pC)
       lBC = longueur(pB, pC)
       count3++
-    } while ((lAB < 2 || lAC < 2 || lBC < 2) && count3 < 20)
+    } while ((lAB < 2 || lAC < 2 || lBC < 2 || aireTriangle(polygone(A, B, C)) < 15) && count3 < 20)
     if (count3 === 20) {
       probleme = true
       console.log('trop de contraintes')
@@ -183,9 +183,7 @@ export default function ConstruireParSymetrie () {
             else if (this.sup3 === 3) lieux = choice([['sur', 'gauche', 'droite'], ['gauche', 'sur', 'droite']])
             else lieux = choice([['gauche', 'desssous', 'gauche'], ['droite', 'gauche', 'droite']])
           }
-          do {
-            [C, D, E] = choisi3Points(d, lieux)
-          } while (aireTriangle(polygone(C, D, E)) < 15)
+          [C, D, E] = choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -232,16 +230,14 @@ export default function ConstruireParSymetrie () {
 
           break
         case 1: // symétries axiales d'axes à 45° de points (6ème)
-          p1nom = creerNomDePolygone(5, 'PQ')
+          p1nom = creerNomDePolygone(5, 'PQX')
           A = point(0, 0, `${p1nom[0]}`, 'above')
           k = choice([-1, 1])
           d = droiteParPointEtPente(A, k)
           B = pointSurDroite(d, 6, `${p1nom[1]}`, 'above')
           d.isVisible = true
-          d.epaisseur = 1
-          do {
-            [C, D, E] = choisi3Points(d, lieux)
-          } while (aireTriangle(polygone(C, D, E)) < 15)
+          d.epaisseur = 1;
+          [C, D, E] = choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -287,15 +283,13 @@ export default function ConstruireParSymetrie () {
 
           break
         case 2: // Axe de symétrie légèrement penché (utilisation du quadrillage plus complexe)
-          p1nom = creerNomDePolygone(5)
+          p1nom = creerNomDePolygone(5, 'PQX')
           A = point(0, randint(-1, 1), `${p1nom[0]}`, 'above')
           B = point(6, choice([-1, 1], A.y), `${p1nom[1]}`, 'above')
           d = droite(A, B)
           d.isVisible = true
-          d.epaisseur = 1
-          do {
-            [C, D, E] = choisi3Points(d, lieux)
-          } while (aireTriangle(polygone(C, D, E)) < 15)
+          d.epaisseur = 1;
+          [C, D, E] = choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -342,7 +336,7 @@ export default function ConstruireParSymetrie () {
           break
 
         case 3: // symétrie axiale (Axe vertical ou horizontal) d'un triangle
-          p1nom = creerNomDePolygone(5, 'PQ')
+          p1nom = creerNomDePolygone(5, 'PQX')
           A = point(0, 0, `${p1nom[0]}`, 'above')
           k = choice([0, 2])
 
@@ -360,10 +354,8 @@ export default function ConstruireParSymetrie () {
             else lieux = choice([['gauche', 'desssous', 'gauche'], ['droite', 'gauche', 'droite']])
           }
           d.isVisible = true
-          d.epaisseur = 1
-          do {
-            [C, D, E] = choisi3Points(d, lieux)
-          } while (aireTriangle(polygone(C, D, E)) < 15)
+          d.epaisseur = 1;
+          [C, D, E] = choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -406,7 +398,7 @@ export default function ConstruireParSymetrie () {
 
           break
         case 4: // symetrie axiale (Axe à 45°) d'un triangle
-          p1nom = creerNomDePolygone(5, 'PQ')
+          p1nom = creerNomDePolygone(5, 'PQX')
           A = point(0, 0, `${p1nom[0]}`, 'above')
           k = choice([-1, 1])
 
@@ -417,10 +409,8 @@ export default function ConstruireParSymetrie () {
             B.positionLabel = 'above'
           }
           d.isVisible = true
-          d.epaisseur = 1
-          do {
-            [C, D, E] = choisi3Points(d, lieux)
-          } while (aireTriangle(polygone(C, D, E)) < 15)
+          d.epaisseur = 1;
+          [C, D, E] = choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -462,15 +452,13 @@ export default function ConstruireParSymetrie () {
           correction = `Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$.<br><br>`
           break
         case 5: // symetrie axiale Axe légèrement penché
-          p1nom = creerNomDePolygone(5)
+          p1nom = creerNomDePolygone(5, 'PQX')
           A = point(0, randint(-1, 1), `${p1nom[0]}`, 'above')
           B = point(6, choice([-1, 1]), `${p1nom[1]}`, 'above')
           d = droite(A, B)
           d.isVisible = true
-          d.epaisseur = 1
-          do {
-            [C, D, E] = choisi3Points(d, lieux)
-          } while (aireTriangle(polygone(C, D, E)) < 15)
+          d.epaisseur = 1;
+          [C, D, E] = choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -514,11 +502,16 @@ export default function ConstruireParSymetrie () {
           correction = `Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$.<br><br>`
           break
         case 6: // 3 symétries centrales de points
-          p1nom = creerNomDePolygone(4)
-          A = point(0, randint(-1, 4), `${p1nom[0]}`, 'above')
-          B = point(7, randint(-1, 1, A.y), `${p1nom[1]}`, 'above')
-          C = point(randint(2, 3), randint(-4, -2), `${p1nom[2]}`, 'above')
-          D = point(randint(10, 13), randint(-6, -5), `${p1nom[3]}`, 'above')
+          p1nom = creerNomDePolygone(4, 'PQX')
+          B = point(7, randint(-1, 1), `${p1nom[1]}`, 'above')
+          d = droiteParPointEtPente(B, randint(-2, 2));
+          [A, C, D] = choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
+          A.nom = p1nom[0]
+          A.positionLabel = 'above'
+          C.nom = p1nom[2]
+          C.positionLabel = 'above'
+          D.nom = p1nom[3]
+          D.positionLabel = 'above'
           CC = rotation(C, B, 180, `${p1nom[2]}'`, 'above')
           DD = rotation(D, B, 180, `${p1nom[3]}'`, 'above')
           AA = rotation(A, B, 180, `${p1nom[0]}'`, 'above')
@@ -549,11 +542,16 @@ export default function ConstruireParSymetrie () {
           correction = ''
           break
         case 7: // Symétrie centrale de triangle
-          p1nom = creerNomDePolygone(4)
-          A = point(0, randint(-1, 4), `${p1nom[0]}`, 'above')
-          B = point(7, randint(-1, 1, A.y), `${p1nom[1]}`, 'above')
-          C = point(randint(2, 3), randint(-6, -4), `${p1nom[2]}`, 'above')
-          D = point(randint(10, 13), randint(-6, -5), `${p1nom[3]}`, 'above')
+          p1nom = creerNomDePolygone(4, 'PQX')
+          B = point(7, randint(-1, 1), `${p1nom[1]}`, 'above')
+          d = droiteParPointEtPente(B, randint(-2, 2));
+          [A, C, D] = choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
+          A.nom = p1nom[0]
+          A.positionLabel = 'above'
+          C.nom = p1nom[2]
+          C.positionLabel = 'above'
+          D.nom = p1nom[3]
+          D.positionLabel = 'above'
           p1 = polygone(A, C, D)
           p2 = rotation(p1, B, 180)
           p2.listePoints[0].nom = `${p1nom[0]}'`
@@ -585,10 +583,6 @@ export default function ConstruireParSymetrie () {
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) + 1)
           correction = ''
           break
-      }
-      console.log('La droite : ', d, 'le type de question : ', listeTypeDeQuestions[i])
-      if (listeTypeDeQuestions[i] !== 3 && listeTypeDeQuestions !== 7) {
-        console.log(p1nom[2], dessousDessus(d, C), p1nom[3], dessousDessus(d, D), p1nom[4], dessousDessus(d, E))
       }
       const params = {
         xmin: Xmin,
