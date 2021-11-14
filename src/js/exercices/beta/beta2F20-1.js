@@ -39,17 +39,18 @@ export default function PointSurCourbe () {
         typesDeQuestionsDisponibles = ['a/x+b']
         break
       case 4:
-        typesDeQuestionsDisponibles = ['affine', 'polynome', 'a/x+b']
+        typesDeQuestionsDisponibles = ['affine', 'polynôme', 'a/x+b']
         break
 
        //
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    console.log(listeTypeDeQuestions)
     let sousChoix
     if (parseInt(this.sup2) === 1) {
       sousChoix = combinaisonListes([0], this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
     } else if (parseInt(this.sup2) === 2) {
-      sousChoix = combinaisonListes([1, 2], this.nbQuestions)
+      sousChoix = combinaisonListes([1], this.nbQuestions)
     } else {
       sousChoix = combinaisonListes([0, 1], this.nbQuestions)
     }
@@ -241,53 +242,6 @@ export default function PointSurCourbe () {
                 }
               }
 
-              break
-            case 2: // ax^2+c
-              a = randint(-2, 2, 0)
-              c = randint(-3, 3, 0)
-              f = choice(obtenirListeFractionsIrreductiblesFaciles())
-              f1 = fraction(a * f.num ** 2 + c * f.den ** 2, f.den ** 2)// ordonnée de A
-              f2 = fraction(a * f.num ** 2 + c * f.den ** 2 - 1, f.den ** 2)
-              fc = choice([f1, f2])
-              fractionc = fraction(c * f.den ** 2, f.den ** 2)
-              enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
-              ${texteCentre(`$f(x)=${reduirePolynomeDegre3(0, a, 0, c)}$`)}  
-              On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
-              Le point $A\\left(${f.texFraction}; ${fc.texFractionSimplifiee}\\right)$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
-              correction = `Un point de coordonnées $(x;y)$ est sur la courbe représentative d'une fonction $f$ si et seulement si :<br>
-              $\\bullet$  $x$ appartient à l'ensemble de définition de $f$ <br>
-              et <br>
-              $\\bullet$ l'ordonnée $y$ du point est l'image de son abscisse, c'est à dire $y=f(x)$.<br>
-              $${f.texFraction}$ est bien dans l'ensemble de définition de $f$ et  
-              $f\\left(${f.texFraction}\\right)=$`
-              if (a !== 1) {
-                correction += `$${a}\\times \\left(${f.texFraction}\\right)^2${ecritureAlgebrique(c)} 
-                =\\dfrac{${a}\\times ${f.num ** 2}}{${f.den ** 2}}${ecritureAlgebrique(c)}
-                =\\dfrac{${a * f.num ** 2}}{${f.den ** 2}}${fractionc.ecritureAlgebrique}
-                =\\dfrac{${a * f.num ** 2 + fractionc.num}}{${f.den ** 2}}
-                ${simplificationDeFractionAvecEtapes(a * f.num ** 2 + fractionc.num, f.den ** 2)}$`
-                if (fc === f1) {
-                  correction += `$=y_A$.<br>
-                  L'image de $${f.texFraction}$ est bien l'ordonnée du point $A$, donc le point $A$ est sur $\\mathscr{C}_f$.`
-                } else {
-                  correction += `$\\neq${fc.texFractionSimplifiee}$.<br>
-                                 L'image de $${f.texFraction}$ n'est pas l'ordonnée du point $A$, donc le point $A$ n'est pas sur $\\mathscr{C}_f$`
-                }
-              } else {
-                correction += `$ \\left(${f.texFraction}\\right)^2${ecritureAlgebrique(c)}
-                =\\dfrac{ ${f.num ** 2}}{${f.den ** 2}}${ecritureAlgebrique(c)}
-                =\\dfrac{${a * f.num ** 2}}{${f.den ** 2}}${fractionc.ecritureAlgebrique}
-                =\\dfrac{${a * f.num ** 2 + fractionc.num}}{${f.den ** 2}}
-                ${simplificationDeFractionAvecEtapes(a * f.num ** 2 + fractionc.num, f.den ** 2)}$
-                  `
-                if (fc === f1) {
-                  correction += `$=y_A$.<br>
-                  L'image de $${f.texFraction}$ est bien l'ordonnée du point $A$, donc le point $A$ est sur $\\mathscr{C}_f$.`
-                } else {
-                  correction += `$\\neq${fc.texFractionSimplifiee}$.<br>
-                                 L'image de $${f.texFraction}$ n'est pas l'ordonnée du point $A$, donc le point $A$ n'est pas sur $\\mathscr{C}_f$`
-                }
-              }
               break
           }
           break
