@@ -15,7 +15,7 @@ export const titre = 'Montrer qu’un point appartient ou non à une courbe'
 export default function PointSurCourbe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2
-  this.sup2 = false
+  this.sup2 = 3
   this.consigne = ''
   this.correctionDetailleeDisponible = false
   this.correctionDetaillee = false
@@ -49,9 +49,9 @@ export default function PointSurCourbe () {
     if (parseInt(this.sup2) === 1) {
       sousChoix = combinaisonListes([0], this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
     } else if (parseInt(this.sup2) === 2) {
-      sousChoix = combinaisonListes([1], this.nbQuestions)
+      sousChoix = combinaisonListes([1, 2], this.nbQuestions)
     } else {
-      sousChoix = combinaisonListes([0, 1, 2], this.nbQuestions)
+      sousChoix = combinaisonListes([0, 1], this.nbQuestions)
     }
     for (let i = 0, texte, texteCorr, x, y, a, b, c, abs, f, ord, fc, f1, f2, fa, fb, fractionb, fractionb2, fractionc, enonce, correction, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on ne choisit que des nombres compris entre 1 et 20
