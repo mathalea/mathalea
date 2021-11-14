@@ -5337,8 +5337,12 @@ export default {
   "5S11": {
     "titre": "Lire un diagramme en barre",
     "url": "/exercices/5e/5S11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5S11",
     "newEx": {
       "isNew": false,
@@ -6327,7 +6331,7 @@ export default {
     }
   },
   "6G24-1": {
-    "titre": "Construire le symétrique d’un point par rapport à une droite (cas simples)",
+    "titre": "Construire le symétrique d’un point par rapport à une droite",
     "url": "/exercices/6e/6G24-1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -8704,6 +8708,21 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "beta240-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta2F20-1": {
+    "titre": "Montrer qu’un point appartient ou non à une courbe",
+    "url": "/exercices/beta/beta2F20-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F20-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
