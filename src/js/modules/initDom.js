@@ -370,6 +370,7 @@ export async function initDom () {
       for (let i = 0, element; i < questions.length; i++) {
         element = addElement(menuEval, 'button', { id: 'btnMenu' + questions[i].id, style: 'margin: 5px', class: 'circular ui button' })
         element.textContent = `${i + 1}`
+        element.dataset.num = i + 1
         if (!element.hasListenner) {
           element.addEventListener('click', () => {
             affichageUniquementQuestion(i)
@@ -380,11 +381,13 @@ export async function initDom () {
         }
         gestionTimer(divTimer)
       }
+      document.querySelector('button[data-num="1"]').classList.add('blue')
     })
     document.getElementById('btnCorrection').addEventListener('click', () => {
       document.getElementById('corrections').style.display = 'block'
     })
   } else if (vue === 'diap') {
+    navigationAvecLesFleches()
     context.zoom = 3
     context.duree = parseInt(getDureeFromUrl())
     setOutputHtml()
@@ -413,6 +416,7 @@ export async function initDom () {
       for (let i = 0, element; i < questions.length; i++) {
         element = addElement(menuEval, 'button', { id: 'btnMenu' + questions[i].id, style: 'margin: 5px', class: 'circular ui button' })
         element.textContent = `${i + 1}`
+        element.dataset.num = i + 1
         if (!element.hasListenner) {
           element.addEventListener('click', () => {
             affichageUniquementQuestion(i)
@@ -423,6 +427,7 @@ export async function initDom () {
         }
         gestionTimer(divTimer)
       }
+      document.querySelector('button[data-num="1"]').classList.add('blue')
     })
   } else if (vue === 'latex') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
@@ -508,4 +513,22 @@ export async function initDom () {
 function espaceVertical () {
   const espace = create('div', { class: 'ui hidden divider' })
   return espace
+}
+
+function navigationAvecLesFleches () {
+  window.addEventListener('keydown', function (event) {
+    let btn
+    switch (event.code) {
+      case 'ArrowLeft':
+        btn = document.querySelector(`button[data-num="${parseInt(context.questionCanEnCours) - 1}"]`)
+        if (btn) btn.click()
+        event.preventDefault()
+        break
+      case 'ArrowRight':
+        btn = document.querySelector(`button[data-num="${parseInt(context.questionCanEnCours) + 1}"]`)
+        if (btn) btn.click()
+        event.preventDefault()
+        break
+    }
+  }, true)
 }

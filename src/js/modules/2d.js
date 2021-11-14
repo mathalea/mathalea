@@ -957,6 +957,22 @@ function Droite (arg1, arg2, arg3, arg4) {
 export function droite (...args) {
   return new Droite(...args)
 }
+/**
+ * fonction qui analyse si le point A est au-dessus ou en dessous de la droite d
+ * retourne 'sur', 'dessus', 'dessous' ou 'gauche' ou 'droite" si la droite est verticale.
+ * @param {droite} d
+ * @param {point} A
+ */
+export function dessousDessus (d, A) {
+  if (calcul(d.a * A.x + d.b * A.y + d.c) === 0) return 'sur'
+  if (d.b === 0) {
+    if (A.x < -d.c / d.a) return 'gauche'
+    else return 'droite'
+  } else {
+    if (calcul(d.a * A.x + d.b * A.y + d.c) < 0) return 'dessous'
+    else return 'dessus'
+  }
+}
 
 /**
  * d = droiteParPointEtVecteur(A,v,'d1',red') //Droite passant par A, de vecteur directeur v et de couleur rouge
@@ -9752,7 +9768,6 @@ export function mathalea2d (
  * @param {number} index Choix du motif
  * le nom du motif sert dans la fonction pattern
  * @author Jean-Claude Lhote
- * @returns
  */
 export function motifs (index) {
   switch (index) {
@@ -9775,7 +9790,6 @@ export function motifs (index) {
  * @param {object} param0 paramètres de définition du motif de remplissage
  * définit un motif de remplissage pour les polygones, les rectangles... ou tout élément SVG qui se remplit.
  * @author Jean-Claude Lhote
- * @returns
  */
 function pattern ({
   motif = 'north east lines',
@@ -10204,7 +10218,7 @@ function Labyrinthe (
     return objets
   }
 } // fin de la classe labyrinthe
-export function labyrinthe ({ taille = 1, format = 'texte' }) {
+export function labyrinthe ({ taille = 1, format = 'texte' } = {}) {
   return new Labyrinthe({ taille: taille, format: format })
 }
 

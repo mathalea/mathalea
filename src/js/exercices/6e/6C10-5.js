@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, choice, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, choice, contraindreValeur, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 import { mathalea2d, labyrinthe } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true
@@ -47,7 +47,7 @@ export default function ExerciceLabyrintheMultiples () {
     } else if (this.sup === 3) {
       table = combinaisonListes([4, 6, 8], this.nbQuestions)
     } else {
-      table = combinaisonListes([choice([2, 5, 10]), choice([3, 9]), choice([4, 6, 7, 8]), 2, 3, 4, 5, 6, 7, 8, 9])
+      table = combinaisonListesSansChangerOrdre([choice([2, 5, 10]), choice([3, 9]), choice([4, 6, 7, 8]), 2, 3, 4, 5, 6, 7, 8, 9])
     }
     const tailleChiffre = 0.8
     const maximum = parseInt(this.sup2)

@@ -17,7 +17,6 @@ export default function MilieuEntre1EtFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const listeFractions1 = [

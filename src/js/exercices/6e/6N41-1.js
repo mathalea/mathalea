@@ -30,12 +30,13 @@ export default function ExerciceLabyrintheFractionsEgales () {
     this.sup = 13
     this.sup2 = 4
   }
+  const tailleChiffre = 0.7
   this.nouvelleVersion = function () {
     this.listeCorrections = []
     this.listeQuestions = []
     const mesfractions = []
     let texte, texteCorr, trouve
-    const laby = labyrinthe()
+    const laby = labyrinthe({ taille: tailleChiffre })
     laby.niveau = parseInt(this.sup2) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
     laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
     laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
@@ -88,7 +89,7 @@ export default function ExerciceLabyrintheFractionsEgales () {
         }
       }
     } // Le tableau de nombre étant fait, on place les objets nombres.
-    laby.nombres2d = laby.placeNombres(laby.nombres, 1.5)
+    laby.nombres2d = laby.placeNombres(laby.nombres, tailleChiffre)
     const params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)

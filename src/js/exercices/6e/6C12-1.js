@@ -138,7 +138,7 @@ export default function QuestionsMasses () {
             correctionAMC += `Le prix de $${NbArticles}$ kilogrammes de ${ArticlePluriel} serait de ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             break
           case 3:
-            enonceAMC += `Si ${quidame} achetait un kilogramme de ${ArticlePluriel} ainsi que d'autres articles pour $${texNombre3(AutrePrix)}$${sp()}€, quel serait le prix final${sp()}?<br><br>`
+            enonceAMC += `Si ${quidame} achetait un kilogramme de ${ArticlePluriel} à $${texNombre3(PrixUnitaire)}$${sp()}€ le kilogramme puis d'autres articles pour $${texNombre3(AutrePrix)}$${sp()}€, quel serait le prix final${sp()}?<br><br>`
             reponseAMC = arrondi(PrixUnitaire + AutrePrix)
             correctionAMC += ` $${texNombre3(PrixUnitaire)} + ${texNombre3(AutrePrix)} = ${texNombre3(reponseAMC)}$<br>`
             correctionAMC += `Si ${quidame} achetait un kilogramme de ${ArticlePluriel} ainsi que d'autres articles pour $${texNombre3(AutrePrix)}$${sp()}€, `
@@ -151,7 +151,7 @@ export default function QuestionsMasses () {
             correctionAMC += `Grâce à son bon de réduction, ${quidame} ne paierait que ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             break
           case 5:
-            enonceAMC += `Si ${quidame} achetait $${NbArticles2}$ kilogrammes de ${ArticlePluriel} et son ${Personnage1} en achetait $${NbArticles3}$ kilogrammes de plus, quelle somme d'argent paierait-ils à eux deux${sp()}?<br><br>`
+            enonceAMC += `Si ${quidame} achetait $${NbArticles2}$ kilogrammes de ${ArticlePluriel} et son ${Personnage1} en achetait également $${NbArticles3}$ kilogrammes, quelle somme d'argent paierait-ils à eux deux${sp()}?<br><br>`
             reponseAMC = arrondi((NbArticles2 + NbArticles3) * PrixUnitaire)
             correctionAMC += ` $${NbArticles2} + ${NbArticles3} = ${NbArticles2 + NbArticles3}$<br>`
             correctionAMC += `${quidame} et son ${Personnage1} achèteraient $${NbArticles2 + NbArticles3}$ ${ArticlePluriel}.<br>`
