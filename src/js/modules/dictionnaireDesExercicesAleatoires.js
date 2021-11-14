@@ -1118,6 +1118,131 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2N50-1": {
+    "titre": "Mettre en équation un problème sans objectif de résolution",
+    "url": "/exercices/2e/2N50-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N50-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N50-2": {
+    "titre": "Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue",
+    "url": "/exercices/2e/2N50-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N50-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N51-1": {
+    "titre": "Tester si un nombre est solution d'une équation",
+    "url": "/exercices/2e/2N51-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N51-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N51-2": {
+    "titre": "Trouver l'erreur dans une résolution d'équation du premier degré",
+    "url": "/exercices/2e/2N51-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N51-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N51-3": {
+    "titre": "Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$",
+    "url": "/exercices/2e/2N51-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N51-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N51-3v2": {
+    "titre": "Équations du type x/a=b/c (v2)",
+    "url": "/exercices/2e/2N51-3v2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N51-3v2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N51-4": {
+    "titre": "Équations du premier degré",
+    "url": "/exercices/2e/2N51-4.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N51-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N51-5": {
+    "titre": "Équations du premier degré (utilisant la distributivité)",
+    "url": "/exercices/2e/2N51-5.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N51-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2N52-1": {
     "titre": "Résoudre les équations produit-nul",
     "url": "/exercices/2e/2N52-1.js",
@@ -3877,7 +4002,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -7283,11 +7408,16 @@ export default {
     "amcType": {
       "text": "AMCHybride"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N23-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N23-2": {
