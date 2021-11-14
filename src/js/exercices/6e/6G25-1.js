@@ -13,7 +13,7 @@ export const amcType = 'qcmMono'
 * Relecture : Novembre 2021 par EE
 */
 
-export default function betaExoPavage6e () {
+export default function SymetrieAxialePavageTriangulaire () {
   'use strict'
   Exercice.call(this)
   this.titre = 'Symétrie axiale dans un pavage de triangles équilatéraux'
@@ -360,7 +360,7 @@ export default function betaExoPavage6e () {
         case 3: // axe parallèle à [BC]
           M = triAngles[axes[listeTypesDeQuestions[i]][choix][0]].tri.listePoints[0]
           N = triAngles[axes[listeTypesDeQuestions[i]][choix][1]].tri.listePoints[0]
-          d[i] = droite(M, N, `(d_${i + 1})`, couleurs[i])
+          d[i] = droite(M, N, `$(d_${i + 1})$`, couleurs[i])
           d[i].epaisseur = 3
           d[i].opacite = 0.6
           break
@@ -369,7 +369,7 @@ export default function betaExoPavage6e () {
         case 5: // axe perpendicualire à [AC]
           M = triAngles[axes[listeTypesDeQuestions[i]][choix][0]].gra
           N = triAngles[axes[listeTypesDeQuestions[i]][choix][1]].gra
-          d[i] = droite(M, N, `(d_${i + 1})`, couleurs[i])
+          d[i] = droite(M, N, `$(d_${i + 1})$`, couleurs[i])
           d[i].epaisseur = 3
           d[i].opacite = 0.6
           break

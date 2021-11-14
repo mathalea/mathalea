@@ -505,6 +505,95 @@ function LabelPoint (...points) {
     }
     for (const unPoint of this.listePoints) {
       if (unPoint.typeObjet === 'point3d') {
+        A = unPoint.p2d
+      } else {
+        A = unPoint
+      }
+      x = A.x
+      y = A.y
+      switch (A.positionLabel) {
+        case 'left':
+          code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          break
+        case 'right':
+          code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          break
+        case 'below':
+          code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          break
+        case 'above':
+          code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          break
+        case 'above right':
+          code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          break
+        case 'below left':
+          code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          break
+        case 'below right':
+          code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          break
+        default:
+          code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          break
+      }
+    }
+    code = `<g id="${this.id}">${code}</g>`
+    return code
+  }
+  this.tikz = function () {
+    let code = ''; let A
+    let style = ''
+    if (this.color !== 'black') {
+      style = `,${this.color}`
+    }
+    for (const unPoint of points) {
+      if (unPoint.typeObjet === 'point3d') {
+        A = unPoint.p2d
+      } else {
+        A = unPoint
+      }
+      code += `\t\\draw (${A.x},${A.y}) node[${A.positionLabel}${style}] {$${A.nom}$};\n`
+    }
+    return code
+  }
+}
+/**
+ * Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
+ * @param  {...any} args Points
+ * @returns {LabelPoint} LabelPoint
+ * @author Rémi Angot
+ */
+export function labelPoint (...args) {
+  return new LabelPoint(...args)
+}
+/**
+ * labelPoint(A,B) pour nommer les points A et B
+ * Le nombre d'arguments n'est pas limité
+ * Ici on utilise LatexParCoordonnees() qui permet des labels Latex, mais qui ne réagit pas bien au zoom Mathalea (note de Jean-Claude Lhote)
+ * A utiliser par exemple si le label est A_1
+ * @author Rémi Angot & Jean-Claude Lhote
+ */
+function LabelLatexPoint (...points) {
+  ObjetMathalea2D.call(this)
+  if (!this.taille) this.taille = 10
+  if (!this.largeur) this.largeur = 10
+  if (typeof points[points.length - 1] === 'string') {
+    this.color = points[points.length - 1]
+    points.length--
+  } else {
+    this.color = 'black'
+  }
+  this.svg = function (coeff) {
+    let code = ''; let x; let y, A
+    if (Array.isArray(points[0])) {
+      // Si le premier argument est un tableau
+      this.listePoints = points[0]
+    } else {
+      this.listePoints = points
+    }
+    for (const unPoint of this.listePoints) {
+      if (unPoint.typeObjet === 'point3d') {
         A = unPoint.c2d
       } else {
         A = unPoint
@@ -561,12 +650,13 @@ function LabelPoint (...points) {
 /**
  * Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
  * @param  {...any} args Points
- * @returns {LabelPoint} LabelPoint
- * @author Rémi Angot
+ * @returns {LabelLatexPoint} LabelLatexPoint
+ * @author Rémi Angot & Jean-Claude Lhote
  */
-export function labelPoint (...args) {
-  return new LabelPoint(...args)
+export function labelLatexPoint (...args) {
+  return new LabelLatexPoint(...args)
 }
+
 /**
  * P = barycentre(p,'P','below') Crée le point P barycentre du polygone p, son nom 'P' sera placé sous le point si il est tracé et labelisé.
  * @param {Polygone} p
@@ -749,7 +839,7 @@ function Droite (arg1, arg2, arg3, arg4) {
     }
     absNom = arrondi(absNom, 2)
     ordNom = arrondi(ordNom, 2)
-    leNom = latexParCoordonnees(this.nom, absNom, ordNom, this.color, 20, 12, '')
+    leNom = texteParPosition(this.nom, absNom, ordNom, 'milieu', this.color, 1, 'middle', true)
   }
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
@@ -866,6 +956,22 @@ function Droite (arg1, arg2, arg3, arg4) {
  */
 export function droite (...args) {
   return new Droite(...args)
+}
+/**
+ * fonction qui analyse si le point A est au-dessus ou en dessous de la droite d
+ * retourne 'sur', 'dessus', 'dessous' ou 'gauche' ou 'droite" si la droite est verticale.
+ * @param {droite} d
+ * @param {point} A
+ */
+export function dessousDessus (d, A) {
+  if (calcul(d.a * A.x + d.b * A.y + d.c) === 0) return 'sur'
+  if (d.b === 0) {
+    if (A.x < -d.c / d.a) return 'gauche'
+    else return 'droite'
+  } else {
+    if (calcul(d.a * A.x + d.b * A.y + d.c) < 0) return 'dessous'
+    else return 'dessus'
+  }
 }
 
 /**
@@ -2351,7 +2457,7 @@ function NommePolygone (p, nom = '', k = 0.5) {
     for (let i = 0; i < p.listePoints.length; i++) {
       P = pointSurSegment(G, p.listePoints[i], longueur(G, p.listePoints[i]) + d * 20 / coeff)
       P.positionLabel = 'center'
-      code += '\n\t' + latexParPoint(p.listePoints[i].nom, P, 'black', 12, 12, '').svg(coeff)
+      code += '\n\t' + texteParPoint(p.listePoints[i].nom, P, 'milieu', 'black', 1, 'middle', true).svg(coeff)
     }
     return code
   }
@@ -4782,7 +4888,7 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
     } else {
       angle = 180 - s.angleAvecHorizontale
     }
-    return texteParPoint(`${l}${unite !== '' ? ' ' + unite : ''}`, N, angle, this.color).svg(coeff)
+    return texteParPoint(`${l}${unite !== '' ? ' ' + unite : ''}`, N, angle, this.color, 1, 'middle', false).svg(coeff)
   }
 
   this.tikz = function () {
@@ -4798,7 +4904,7 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
     } else {
       angle = 180 - s.angleAvecHorizontale
     }
-    return texteParPoint(l + ' cm', N, angle, this.color).tikz()
+    return texteParPoint(`${l}${unite !== '' ? ' ' + unite : ''}`, N, angle, this.color, 1, 'middle', false).tikz()
   }
 }
 /**
@@ -4852,7 +4958,7 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
       angle = 180 - s.angleAvecHorizontale
     }
     if (this.texte.charAt(0) === '$') {
-      return latexParPoint(this.texte.substr(1, this.texte.length - 2), N, this.color).svg(coeff)
+      return latexParPoint(this.texte.substr(1, this.texte.length - 2), N, this.color, this.texte * 8, 12, '').svg(coeff)
     } else {
       return texteParPoint(this.texte, N, angle, this.color).svg(coeff)
     }
@@ -4901,34 +5007,28 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
   this.svg = function (coeff) {
     // let d = bissectrice(A, B, C);
     // d.isVisible = false;
-    let sizelabel
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
     const N = rotation(pointSurSegment(this.sommet, M, this.distance + 10 / coeff), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2, '', 'center')
     let mesureAngle
     if (label !== '') {
       mesureAngle = label
-      sizelabel = 20
     } else {
       mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
-      sizelabel = 20
     }
-    return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, 12, '').svg(coeff) + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff)
+    return '\n' + texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true).svg(coeff) + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff)
   }
   this.tikz = function () {
     // let d = bissectrice(A, B, C);
     // d.isVisible = false;
-    let sizelabel
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
     const N = rotation(pointSurSegment(this.sommet, M, this.distance + 0.5), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2, '', 'center')
     let mesureAngle
     if (label !== '') {
       mesureAngle = label
-      sizelabel = 30
     } else {
       mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
-      sizelabel = 20
     }
-    return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, 10, '').tikz() + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz()
+    return '\n' + texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true).tikz() + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz()
   }
 }
 /**
@@ -8371,7 +8471,8 @@ export function intervalle (A, B, color = 'blue', h = 0) {
  * texteParPoint('mon texte',A,'gauche') // Écrit 'mon texte' à gauche de A (qui sera la fin du texte)
  * texteParPoint('mon texte',A,'droite') // Écrit 'mon texte' à droite de A (qui sera le début du texte)
  * texteParPoint('mon texte',A,45) // Écrit 'mon texte' à centré sur A avec une rotation de 45°
- * Le mode Math (implémenté par Jean-Claude Lhote) n'est plus fonctionnel en html (il l'est toujours en latex) : un soucis de polices de substitution rendait les caractères 'dansant'
+ * Si mathOn est true, la chaine est traitée par texteParPoint mais avec une police se rapprochant de la police Katex (quelques soucis d'alignement des caractères sur certains navigateurs)
+ * Si le texte commence et fini par des $ la chaine est traitée par latexParPoint
  * @author Rémi Angot
  */
 function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
@@ -8380,46 +8481,57 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   this.contour = false
   this.taille = 10 * scale
   this.opacite = 1
-  this.svg = function (coeff) {
-    let code = ''; let style = ''
-    // if (mathOn) style = ' font-family= "KaTeX_Math" ' désactivé par Jean-Claude Lhote
-    if (this.contour) style += ` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
-    else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
-    if (typeof (orientation) === 'number') {
-      code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+  if (typeof texte !== 'string') {
+    texte = String(texte)
+  }
+  if (texte.charAt(0) === '$') {
+    A.positionLabel = 'centre'
+    this.svg = function (coeff) {
+      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '').svg(coeff)
+    }
+  } else {
+    this.svg = function (coeff) {
+      let code = ''; let style = ''
+      if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" ' // désactivé par Jean-Claude Lhote
+      if (this.contour) style += ` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
+      else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
+      if (typeof (orientation) === 'number') {
+        code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
       )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color
         }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
         )})" id="${this.id}" >${texte}</text>\n `
-    } else {
-      switch (orientation) {
-        case 'milieu':
-          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+      } else {
+        switch (orientation) {
+          case 'milieu':
+            code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="middle" dominant-baseline="central" fill="${this.color
             }" id="${this.id}" >${texte}</text>\n `
-          break
-        case 'gauche':
-          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+            break
+          case 'gauche':
+            code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="end" dominant-baseline="central" fill="${this.color
             }" id="${this.id}" >${texte}</text>\n `
-          break
-        case 'droite':
-          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+            break
+          case 'droite':
+            code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="start" dominant-baseline="central" fill="${this.color
             }" id="${this.id}" >${texte}</text>\n `
-          break
+            break
+        }
       }
+      return code
     }
-
-    return code
   }
   this.tikz = function () {
     let code = ''
-    if (mathOn) texte = '$' + texte + '$' // on le laisse en Latex, parce que ça fonctionne !
+    if (texte.charAt(0) !== '$') {
+      if (mathOn) texte = '$' + texte + '$'
+    } // on le laisse en Latex, parce que ça fonctionne !
     if (typeof orientation === 'number') {
       let anchor = 'center'
       if (ancrageDeRotation === 'gauche') {
@@ -8446,8 +8558,8 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
     return code
   }
 }
-export function texteParPoint (...args) {
-  return new TexteParPoint(...args)
+export function texteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
+  return new TexteParPoint(texte, A, orientation, color, scale, ancrageDeRotation, mathOn)
 }
 
 function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
@@ -9651,6 +9763,12 @@ export function mathalea2d (
   }
   return code
 }
+/**
+ *
+ * @param {number} index Choix du motif
+ * le nom du motif sert dans la fonction pattern
+ * @author Jean-Claude Lhote
+ */
 export function motifs (index) {
   switch (index) {
     case 0: return 'north east lines'
@@ -9667,7 +9785,12 @@ export function motifs (index) {
     default: return 'north east lines'
   }
 }
-
+/**
+ *
+ * @param {object} param0 paramètres de définition du motif de remplissage
+ * définit un motif de remplissage pour les polygones, les rectangles... ou tout élément SVG qui se remplit.
+ * @author Jean-Claude Lhote
+ */
 function pattern ({
   motif = 'north east lines',
   id,
@@ -9852,10 +9975,15 @@ function pattern ({
  * Fonction créant un labyrinthe de nombres
  * Le tableau de nombres doit être de format [6][3]
  * Le niveau doit être un entier entre 1 et 6 inclus
- * @author Jean-Claude
+ * @author Jean-Claude Lhote
  * Publié le 6/12/2020
  */
-function Labyrinthe () {
+function Labyrinthe (
+  {
+    taille = 1,
+    format = 'texte'
+  }
+) {
   this.murs2d = []
   this.chemin2d = []
   this.nombres2d = []
@@ -9968,7 +10096,7 @@ function Labyrinthe () {
       s1 = segment(point(-3, 4), point(0, 4), 'green')
       s1.epaisseur = 3
       objets.push(s1)
-      objets.push(texteParPoint('Départ', point(-1.5, 2.5), 'milieu', 'blue', 1.5, 0, false))
+      objets.push(texteParPoint('Départ', point(-1.5, 2.5), 'milieu', 'blue', taille, 0, false))
     } else {
       // bord gauche
       s1 = segment(point(0, 1), point(0, 8))
@@ -9985,7 +10113,7 @@ function Labyrinthe () {
       s1 = segment(point(-3, 7), point(0, 7), 'green')
       s1.epaisseur = 3
       objets.push(s1)
-      objets.push(texteParPoint('Départ', point(-1.5, 8.5), 'milieu', 'blue', 1.5, 0, false))
+      objets.push(texteParPoint('Départ', point(-1.5, 8.5), 'milieu', 'blue', taille, 0, false))
     }
 
     // les croix centrales communes à A et B
@@ -10039,7 +10167,7 @@ function Labyrinthe () {
       objets.push(s1, s2, s3, s4, s5)
     }
     for (let i = 1; i <= 3; i++) {
-      objets.push(texteParPoint(`Sortie ${i}`, point(19.5, 11.5 - 3 * i), 'milieu', 'blue', 1.5, 0, false))
+      objets.push(texteParPoint(`Sortie ${i}`, point(19.5, 11.5 - 3 * i), 'milieu', 'blue', taille, 0, false))
     }
     s1 = segment(point(18, 9), point(20, 9))
     s1.epaisseur = 3
@@ -10090,8 +10218,8 @@ function Labyrinthe () {
     return objets
   }
 } // fin de la classe labyrinthe
-export function labyrinthe () {
-  return new Labyrinthe()
+export function labyrinthe ({ taille = 1, format = 'texte' } = {}) {
+  return new Labyrinthe({ taille: taille, format: format })
 }
 
 /**
@@ -10619,9 +10747,9 @@ function flecheH (D, A, texte, h = 1) {
   let t
   if (texte) {
     if (h > 0) {
-      t = latexParCoordonnees(texte, M.x, M.y + 0.5)
+      t = texteParPosition('$' + texte + '$', M.x, M.y + 0.5)
     } else {
-      t = latexParCoordonnees(texte, M.x, M.y - 0.8)
+      t = texteParPosition('$' + texte + '$', M.x, M.y - 0.8)
     }
     objets.push(t)
   }
@@ -10637,7 +10765,7 @@ function flecheV (D, A, texte, h = 1) {
   const M = milieu(D1, A1)
   const objets = [fleche, eFleche]
   if (texte) {
-    objets.push(latexParPoint(texte, point(M.x + h, M.y - 0.6)))
+    objets.push(texteParPoint(texte, point(M.x + h, M.y - 0.6), 'milieu', 'black', 'middle', true))
   }
   return objets
 }

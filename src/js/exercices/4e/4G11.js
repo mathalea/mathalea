@@ -93,7 +93,7 @@ export default function PavageEtTranslation2d () {
     const objetsCorrection = []
     let P1, P2, P3, t
     let taillePavage = this.sup
-    let couples
+    let couples = []
     if (taillePavage < 1 || taillePavage > 2) {
       taillePavage = 1
     }

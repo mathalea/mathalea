@@ -185,7 +185,7 @@ export default function ProprietesParallelesPerpendiculaires () {
           textetemp += '\\perp'
           couleurd.push((couleurd[j] + 1) % 6)
         }
-        textetemp += `(d_${numDroites[code[j][1] - 1]})$`
+        textetemp += `$(d_${numDroites[code[j][1] - 1]})$`
         phrases.push(textetemp)
       }
       // phrases=shuffle(phrases)
@@ -202,7 +202,7 @@ export default function ProprietesParallelesPerpendiculaires () {
       // construction de la figure
 
       P.push(point(0, 0))
-      droiteP = droiteParPointEtPente(P[0], randint(-1, 1, 0) / 10, `(d_${numDroites[code[0][0] - 1]})`, droitecolor(couleurd[0]))
+      droiteP = droiteParPointEtPente(P[0], randint(-1, 1, 0) / 10, `$(d_${numDroites[code[0][0] - 1]})$`, droitecolor(couleurd[0]))
       droiteP.epaisseur = 2
       droite.pointilles = false
       d.push(droiteP)
@@ -210,13 +210,13 @@ export default function ProprietesParallelesPerpendiculaires () {
       for (let x = 0; x < code.length; x++) {
         if (code[x][2] === 1) {
           P.push(point((x + 1) * 2, (x + 1) * 2))
-          droiteP = droiteParPointEtParallele(P[x + 1], d[x], `(d_${numDroites[code[x][1] - 1]})`, droitecolor(couleurd[x + 1]))
+          droiteP = droiteParPointEtParallele(P[x + 1], d[x], `$(d_${numDroites[code[x][1] - 1]})$`, droitecolor(couleurd[x + 1]))
           droiteP.epaisseur = 2
           droiteP.pointilles = d[x].pointilles
           d.push(droiteP)
         } else {
           P.push(point((x + 1) * 2, (x + 1) * 2))
-          droiteP = droiteParPointEtPerpendiculaire(P[x + 1], d[x], `(d_${numDroites[code[x][1] - 1]})`, droitecolor(couleurd[x + 1]))
+          droiteP = droiteParPointEtPerpendiculaire(P[x + 1], d[x], `$(d_${numDroites[code[x][1] - 1]})$`, droitecolor(couleurd[x + 1]))
           droiteP.epaisseur = 2
           droiteP.pointilles = x % 3 + 1
           Inter = pointIntersectionDD(d[x], droiteP)
@@ -239,11 +239,11 @@ export default function ProprietesParallelesPerpendiculaires () {
         texteCorr += `$(d_${numDroites[code[j][0] - 1]})`
         if (code[j][2] === 1) texteCorr += '//'
         else texteCorr += '\\perp'
-        texteCorr += `(d_${numDroites[code[j][1] - 1]})$ et `
+        texteCorr += `$(d_${numDroites[code[j][1] - 1]})$ et `
         texteCorr += `$(d_${numDroites[code[j + 1][0] - 1]})`
         if (code[j + 1][2] === 1) texteCorr += '//'
         else texteCorr += '\\perp'
-        texteCorr += `(d_${numDroites[code[j + 1][1] - 1]})$`
+        texteCorr += `$(d_${numDroites[code[j + 1][1] - 1]})$`
         // quelle propriété ?
         if (code[j][2] * code[j + 1][2] === -1) { // Une parallèle et une perpendiculaire
           if (this.correctionDetaillee) texteCorr += '.<br> Or «Si deux droites sont parallèles alors toute droite perpendiculaire à l\'une est aussi perpendiculaire à l\'autre».<br>Donc'

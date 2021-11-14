@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { choice, texFraction, texFractionReduite, simplificationDeFractionAvecEtapes, texteEnCouleur } from '../../../modules/outils.js'
 import {
   mathalea2d, point, segmentAvecExtremites,
-  codeSegments, labelPoint, latexParCoordonnees
+  codeSegments, labelPoint, texteParPosition
 } from '../../../modules/2d.js'
 export const titre = 'milieu entre 1 et fraction avec graphique'
 export const interactifReady = true
@@ -17,7 +17,6 @@ export default function MilieuEntre1EtFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const listeFractions1 = [
@@ -32,8 +31,8 @@ export default function MilieuEntre1EtFraction () {
     const C = point(8, 0)
     const objets = []
     objets.push(segmentAvecExtremites(A, B), segmentAvecExtremites(B, C), labelPoint(B), codeSegments('||', 'blue', A, B, B, C))
-    objets.push(latexParCoordonnees('1', 0, -0.5, 'black', 20, 10, ''),
-      latexParCoordonnees(`${texFraction(n, d)}`, 8, -0.6, 'black', 20, 10, ''))
+    objets.push(texteParPosition('1', 0, -0.5, 'milieu', 'black', 1, 'middle', true),
+      texteParPosition(`${texFraction(n, d)}`, 8, -0.6, 'milieu', 'black', 1, 'middle', true))
     this.question = 'Quelle est l\'abscisse du point $I$ sous forme de fraction irréductible ?<br>'
     this.question += mathalea2d({ xmin: -1, ymin: -2, xmax: 10, ymax: 1, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
     this.correction = `On calcule la moyenne de $1$ et $${texFraction(n, d)}$ :<br>  

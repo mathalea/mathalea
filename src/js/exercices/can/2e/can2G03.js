@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, latexParCoordonnees, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude
+  mathalea2d, point, texteParPosition, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude
 } from '../../../modules/2d.js'
 export const titre = 'Calcul de l’hypoténuse avec Pythagore'
 export const interactifReady = true
@@ -16,7 +16,6 @@ export const interactifType = 'mathLive'
 export default function CalculHypotenusePythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
-  this.interactif = true
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -37,9 +36,9 @@ export default function CalculHypotenusePythagore () {
     switch (choice(['a', 'b'])) {
       case 'a':
         objets.push(pol[0], pol[1], codageAngleDroit(A, B, C)) // pol[0], c'est le tracé et pol[1] ce sont les labels
-        objets.push(latexParCoordonnees('x', milieu(A, C).x, milieu(A, C).y + 0.3, 'black', 20, 10, ''),
-          latexParCoordonnees(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y + 0.2, 'black', 20, 10, ''),
-          latexParCoordonnees(`${texNombrec(b)}`, milieu(B, C).x + 0.2, milieu(B, C).y, 'black', 20, 10, '')
+        objets.push(texteParPosition('x', milieu(A, C).x, milieu(A, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y + 0.2, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition(`${texNombrec(b)}`, milieu(B, C).x + 0.2, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true)
         )
         this.question = 'Sur cette figure $x=\\sqrt{a}$ avec $a=$<br>'
         this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.7 }, objets)

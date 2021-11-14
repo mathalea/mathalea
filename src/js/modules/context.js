@@ -16,7 +16,8 @@ export const context = {
   graine: '',
   // duree: 10,
   nbBonnesReponses: 0,
-  nbMauvaisesReponses: 0
+  nbMauvaisesReponses: 0,
+  zoom: 1
 }
 
 export function setOutputHtml () {

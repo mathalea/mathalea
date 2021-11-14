@@ -72,12 +72,12 @@ export default function Thales2D () {
       MNC.id = `M2D_${numeroExercice}_${i}_2`
       const m = pointSurSegment(M, N, -0.5)
       const n = pointSurSegment(N, M, -0.5)
-      const marqueNomM = texteParPoint(nomM, m)
-      const marqueNomN = texteParPoint(nomN, n)
+      const marqueNomM = texteParPoint(nomM, m, 'milieu', 'black', 1, 'middle', true)
+      const marqueNomN = texteParPoint(nomN, n, 'milieu', 'black', 1, 'middle', true)
       const a = pointSurSegment(A, B, -0.5)
       const b = pointSurSegment(B, A, -0.5)
-      const marqueNomA = texteParPoint(nomA, a)
-      const marqueNomB = texteParPoint(nomB, b)
+      const marqueNomA = texteParPoint(nomA, a, 'milieu', 'black', 1, 'middle', true)
+      const marqueNomB = texteParPoint(nomB, b, 'milieu', 'black', 1, 'middle', true)
       let c
       if (k < 0) {
         if (angle(A, C, N) < angle(N, C, A)) {
@@ -88,7 +88,7 @@ export default function Thales2D () {
       } else {
         c = similitude(A, C, -180 + angleOriente(A, C, B) / 2, 1 / longueur(A, C) * 0.5)
       }
-      const marqueNomC = texteParPoint(nomC, c)
+      const marqueNomC = texteParPoint(nomC, c, 'milieu', 'black', 1, 'middle', true)
 
       if (!context.isHtml) {
         texte = '\\begin{minipage}{.5\\linewidth}\n'

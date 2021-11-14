@@ -16,7 +16,6 @@ export const interactifType = 'mathLive'
 export default function Trigo () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
-  this.interactif = true
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -42,9 +41,6 @@ export default function Trigo () {
     const objets = []
     objets.push(segment(A, B), segment(B, C), segment(A, C), codageAngleDroit(A, B, C))
     objets.push(afficheLongueurSegment(A, B, 'black', 0.5, ''), afficheLongueurSegment(B, C, 'black', 0.5, ''), afficheLongueurSegment(C, A, 'black', 0.5, ''))
-    //    objets.push(latexParCoordonnees(`${texNombrec(b)}`, milieu(B, C).x, milieu(B, C).y + 0.25, 'black', 20, 10, ''),
-    //    latexParCoordonnees(`${texNombrec(c)}`, milieu(A, C).x + 0.5, milieu(A, C).y, 'black', 20, 10, ''),
-    //  latexParCoordonnees(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'black', 20, 10, ''))
     objets.push(pol[0], pol[1])
     switch (choice(['a', 'b', 'c', 'd', 'e', 'f'])) { //, 'b'
       case 'a':

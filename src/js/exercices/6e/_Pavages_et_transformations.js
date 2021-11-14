@@ -135,7 +135,7 @@ export default function PavagesEtTransformations () {
               num1 = tabfigA[j][2]
               xa = tabfigA[indexA][0]
               ya = tabfigA[indexA][1]
-              mediatrice1 = mediatrice(point(xa, ya), point(punto[0], punto[1]), '(d_1)')
+              mediatrice1 = mediatrice(point(xa, ya), point(punto[0], punto[1]), '$(d_1)$')
               mediatrice1.color = 'green'
               mediatrice1.epaisseur = 2
               mediatrice1.isVisible = true
@@ -171,7 +171,7 @@ export default function PavagesEtTransformations () {
               xb = tabfigD[indexD][0]
               yb = tabfigD[indexD][1] - 4
               objetsEnonce.push(tracePoint(point(xb, yb), point(punto[0], punto[1])))
-              mediatrice2 = mediatrice(point(xb, yb + 4), point(punto[0], punto[1]), '(d_2)')
+              mediatrice2 = mediatrice(point(xb, yb + 4), point(punto[0], punto[1]), '$(d_2)$')
               mediatrice2.color = 'red'
               mediatrice2.epaisseur = 2
               mediatrice2.isVisible = true
@@ -207,7 +207,7 @@ export default function PavagesEtTransformations () {
               num3 = tabfigB[j][2]
               xc = tabfigC[indexC][0]
               yc = tabfigC[indexC][1]
-              mediatrice3 = mediatrice(point(xc, yc), point(punto[0], punto[1]), '(d_3)')
+              mediatrice3 = mediatrice(point(xc, yc), point(punto[0], punto[1]), '$(d_3)$')
               mediatrice3.color = 'blue'
               mediatrice3.epaisseur = 2
               mediatrice3.isVisible = true

@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondiVirgule, texNombre } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, mathalea2d, symetrieAxiale, translation, vecteur, triangle2points2longueurs, droite, pointAdistance, rotation, afficheLongueurSegment, segment, afficheMesureAngle, longueur, droiteParPointEtParallele, angle, polygoneAvecNom } from '../../modules/2d.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles'
 
 /**
@@ -23,6 +24,7 @@ export default function ConservationSymetrie () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function (numeroExercice) {
+    context.fenetreMathalea2d = [-6, -6, 6, 6]
     this.listeQuestions = []
     this.listeCorrections = []
     this.sup = parseInt(this.sup)
@@ -55,7 +57,7 @@ export default function ConservationSymetrie () {
       switch (listeTypeDeQuestions[i]) {
         case 'parallelisme':
           objetsEnonceEtCorr.push(tracePoint(A, B, C))
-          d1 = droiteParPointEtParallele(C, droite(A, B), '(d_1)')
+          d1 = droiteParPointEtParallele(C, droite(A, B), '$(d_1)$')
           objetsEnonceEtCorr.push(d1)
           texte = 'La droite $(d_1)$ est parallèle au segment [$AB$] et passe par le point $C$.<br>'
           texteCorr = texte
@@ -75,7 +77,7 @@ export default function ConservationSymetrie () {
           texteCorr += `Donc le segment [B'C'] mesure lui aussi $${texNombre(longueur(B, C, 1))}$ cm.<br>`
           break
       }
-      texte += `Compléter le symétrique de la figure en utilisant les propriétés de${getVueFromUrl() === 'multi' ? '<br>' : ' '}conservation de la symétrie et en justifiant ses démarches.<br>`
+      texte += `Compléter le symétrique de la figure par rapport à $(d)$ en utilisant les propriétés de${getVueFromUrl() === 'multi' ? '<br>' : ' '}conservation de la symétrie et en justifiant ses démarches.<br>`
       // On applique prépare la transformation
       if (this.sup === 1) { // Symétrie axiale
         d = droite(translation(A, vecteur(-randint(30, 40) / 10, 0)), translation(C, vecteur(-randint(30, 40) / 10, 0)), '(d)')
@@ -84,7 +86,7 @@ export default function ConservationSymetrie () {
         imageA = symetrieAxiale(A, d, 'A\'')
         imageB = symetrieAxiale(B, d, 'B\'')
         imageC = symetrieAxiale(C, d, 'C\'')
-        objetsCorrectionOnly.push(droite(symetrieAxiale(point(d1.x1, d1.y1), d), symetrieAxiale(point(d1.x2, d1.y2), d), '(d_1\')'))
+        objetsCorrectionOnly.push(droite(symetrieAxiale(point(d1.x1, d1.y1), d), symetrieAxiale(point(d1.x2, d1.y2), d), '$(d_1\')$'))
         figureRetournee = false
       } else if (this.sup === 2) { // Symétrie centrale
         O = point(randint(30, 40) / 10, randint(40, 60) / 10, 'O')

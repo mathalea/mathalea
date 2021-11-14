@@ -17,7 +17,6 @@ export default function CoeffDirecteurDroite () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.interactif = true
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let xA, yA, xB, yB, n, d, a, b, tA, tB, repere
