@@ -9,6 +9,6 @@ export const titre = 'Construire le symétrique d’un point par rapport à une 
 export default function SymetrieAxialePoint6e () {
   ConstruireParSymetrie.call(this)
   this.figure = false
-  this.sup = 3
+  this.sup = 4
   this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Axe horizontal ou vertical\n2 : Axe oblique à 45°\n3 : Axe avec une légère pente\n4 : Toutes les symétries axiales']
 }

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone, numAlpha } from '../../modules/outils.js'
-import { point, tracePoint, pointSurDroite, pointIntersectionDD, labelPoint, droite, droiteVerticaleParPoint, droiteParPointEtPente, codageMediatrice, codageMilieu, segment, polygone, nommePolygone, rotation, symetrieAxiale, grille, seyes, mathalea2d, droiteHorizontaleParPoint, dessousDessus } from '../../modules/2d.js'
+import { point, tracePoint, pointSurDroite, pointIntersectionDD, labelPoint, droite, droiteVerticaleParPoint, droiteParPointEtPente, codageMediatrice, codageMilieu, segment, polygone, nommePolygone, rotation, symetrieAxiale, grille, seyes, mathalea2d, droiteHorizontaleParPoint, dessousDessus, aireTriangle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 
 /**
@@ -23,18 +23,41 @@ export default function ConstruireParSymetrie () {
   this.figure = false
   const choisi3Points = function (d, lieu = ['dessus', 'dessous', 'sur']) {
     let A, B, C
+    let count = 0; let probleme = false
     do {
       A = point(randint(-8, 8), randint(-8, 8))
-    } while (dessousDessus(d, A) !== lieu[0])
+      count++
+    } while (dessousDessus(d, A) !== lieu[0] && count < 50)
+    if (count === 50) {
+      console.log('A pas trouvé', lieu[0])
+      probleme = true
+    }
+    count = 0
     do {
       if (lieu[1] === 'sur') B = pointSurDroite(d, randint(-8, 8, [6, 0]))
       else B = point(randint(-8, 8, A.x), randint(-8, 8, A.y))
-    } while (dessousDessus(d, B) !== lieu[1])
+      count++
+    } while (dessousDessus(d, B) !== lieu[1] && count < 50)
+    if (count === 50) {
+      console.log('B pas trouvé', lieu[1])
+      probleme = true
+    }
+    count = 0
     do {
       if (lieu[2] === 'sur') C = pointSurDroite(d, randint(-8, 8, [0, 6]))
       C = point(randint(-8, 8, [A.x, B.x]), randint(-8, 8, [A.y, B.y]))
-    } while (dessousDessus(d, C) !== lieu[2])
-    return [A, B, C]
+      count++
+    } while (dessousDessus(d, C) !== lieu[2] && count < 50)
+    if (count === 50) {
+      console.log('C pas trouvé', lieu[2])
+      probleme = true
+    }
+    if (!probleme) {
+      return [A, B, C]
+    } else {
+      console.log(d)
+      return false
+    }
   }
   this.nouvelleVersion = function () {
     let lieux
@@ -75,9 +98,9 @@ export default function ConstruireParSymetrie () {
         break
       case 5:
         if (this.figure) {
-          typesDeQuestionsDisponibles = [6]
-        } else {
           typesDeQuestionsDisponibles = [7]
+        } else {
+          typesDeQuestionsDisponibles = [6]
         }
         break
       case 6:
@@ -138,7 +161,9 @@ export default function ConstruireParSymetrie () {
             else if (this.sup3 === 2) lieux = choice([['gauche', 'sur', 'gauche'], ['droite', 'droite', 'sur']])
             else lieux = choice([['gauche', 'desssous', 'gauche'], ['droite', 'gauche', 'droite']])
           }
-          [C, D, E] = choisi3Points(d, lieux)
+          do {
+            [C, D, E] = choisi3Points(d, lieux)
+          } while (aireTriangle(polygone(C, D, E)) < 7)
           C.nom = p1nom[2]
           C.positionLabel = 'above left'
           D.nom = p1nom[3]
@@ -191,8 +216,10 @@ export default function ConstruireParSymetrie () {
           d = droiteParPointEtPente(A, k)
           B = pointSurDroite(d, 6, `${p1nom[1]}`, 'above')
           d.isVisible = true
-          d.epaisseur = 1;
-          [C, D, E] = choisi3Points(d, lieux)
+          d.epaisseur = 1
+          do {
+            [C, D, E] = choisi3Points(d, lieux)
+          } while (aireTriangle(polygone(C, D, E)) < 7)
           C.nom = p1nom[2]
           C.positionLabel = 'above left'
           D.nom = p1nom[3]
@@ -243,8 +270,10 @@ export default function ConstruireParSymetrie () {
           B = point(6, choice([-1, 1], A.y), `${p1nom[1]}`, 'above')
           d = droite(A, B)
           d.isVisible = true
-          d.epaisseur = 1;
-          [C, D, E] = choisi3Points(d, lieux)
+          d.epaisseur = 1
+          do {
+            [C, D, E] = choisi3Points(d, lieux)
+          } while (aireTriangle(polygone(C, D, E)) < 7)
           C.nom = p1nom[2]
           C.positionLabel = 'above left'
           D.nom = p1nom[3]
@@ -289,43 +318,8 @@ export default function ConstruireParSymetrie () {
 
           correction = `Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
           break
-        case 3: // 3 symétries centrales de points
-          p1nom = creerNomDePolygone(4)
-          A = point(0, randint(-1, 4), `${p1nom[0]}`, 'left')
-          B = point(7, randint(-1, 1, A.y), `${p1nom[1]}`, 'above')
-          C = point(randint(2, 3), randint(-4, -2), `${p1nom[2]}`, 'left')
-          D = point(randint(10, 13), randint(-6, -5), `${p1nom[3]}`, 'below right')
-          CC = rotation(C, B, 180, `${p1nom[2]}'`, 'right')
-          DD = rotation(D, B, 180, `${p1nom[3]}'`, 'above left')
-          AA = rotation(A, B, 180, `${p1nom[0]}'`, 'right')
-          cC = codageMilieu(C, CC, 'red', '|', false)
-          cD = codageMilieu(D, DD, 'blue', '||', false)
-          cA = codageMilieu(A, AA, 'green', '|||', false)
-          sC = segment(C, CC)
-          sD = segment(D, DD)
-          sA = segment(A, AA)
 
-          objetsCorrection.push(tracePoint(A, C, D, CC, DD, AA), labelPoint(A, B, C, D, CC, DD, AA), cC, cD, cA, sC, sD, sA)
-          objetsEnonce.push(tracePoint(A, B, C, D), labelPoint(A, B, C, D))
-          if (context.isHtml) {
-            numQuestion = 0
-            enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'
-          } else {
-            numQuestion = -1
-            enonce = ''
-          }
-          enonce += numAlpha(numQuestion + 1) + ` Construire le point $${p1nom[2]}'$ symétrique de $${p1nom[2]}$ par rapport au point $${p1nom[1]}$.<br>`
-          enonce += numAlpha(numQuestion + 2) + ` Construire le point $${p1nom[3]}'$ symétrique de $${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
-          enonce += numAlpha(numQuestion + 3) + ` Construire le point $${p1nom[0]}'$ symétrique de $${p1nom[0]}$ par rapport au point $${p1nom[1]}$.<br>`
-          enonce += numAlpha(numQuestion + 4) + ' Coder la figure.<br>'
-          Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, AA.x, CC.x, DD.x) - 1)
-          Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, AA.x, CC.x, DD.x) + 1)
-          Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, AA.y, CC.y, DD.y) - 1)
-          Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, AA.y, CC.y, DD.y) + 1)
-          correction = ''
-          break
-
-        case 4: // symétrie axiale (Axe vertical ou horizontal) d'un triangle
+        case 3: // symétrie axiale (Axe vertical ou horizontal) d'un triangle
           p1nom = creerNomDePolygone(5, 'PQ')
           A = point(0, 0, `${p1nom[0]}`, 'above')
           k = choice([0, 2])
@@ -337,9 +331,16 @@ export default function ConstruireParSymetrie () {
             A.positionLabel = 'left'
             B.positionLabel = 'left'
           }
+          if (k === 2) {
+            if (this.sup3 === 1) lieux = choice([['gauche', 'gauche', 'gauche'], ['droite', 'droite', 'droite']])
+            else if (this.sup3 === 2) lieux = choice([['gauche', 'sur', 'gauche'], ['droite', 'droite', 'sur']])
+            else lieux = choice([['gauche', 'desssous', 'gauche'], ['droite', 'gauche', 'droite']])
+          }
           d.isVisible = true
-          d.epaisseur = 1;
-          [C, D, E] = choisi3Points(d, lieux)
+          d.epaisseur = 1
+          do {
+            [C, D, E] = choisi3Points(d, lieux)
+          } while (aireTriangle(polygone(C, D, E)) < 7)
           C.nom = p1nom[2]
           C.positionLabel = 'above left'
           D.nom = p1nom[3]
@@ -381,7 +382,7 @@ export default function ConstruireParSymetrie () {
           correction = ''
 
           break
-        case 5: // symetrie axiale (Axe à 45°) d'un triangle
+        case 4: // symetrie axiale (Axe à 45°) d'un triangle
           p1nom = creerNomDePolygone(5, 'PQ')
           A = point(0, 0, `${p1nom[0]}`, 'above')
           k = choice([-1, 1])
@@ -393,8 +394,10 @@ export default function ConstruireParSymetrie () {
             B.positionLabel = 'left'
           }
           d.isVisible = true
-          d.epaisseur = 1;
-          [C, D, E] = choisi3Points(d, lieux)
+          d.epaisseur = 1
+          do {
+            [C, D, E] = choisi3Points(d, lieux)
+          } while (aireTriangle(polygone(C, D, E)) < 7)
           C.nom = p1nom[2]
           C.positionLabel = 'above left'
           D.nom = p1nom[3]
@@ -435,14 +438,16 @@ export default function ConstruireParSymetrie () {
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) + 1)
           correction = ''
           break
-        case 6: // symetrie axiale Axe légèrement penché
+        case 5: // symetrie axiale Axe légèrement penché
           p1nom = creerNomDePolygone(5)
           A = point(0, randint(-1, 1), `${p1nom[0]}`, 'above')
           B = point(6, choice([-1, 1]), `${p1nom[1]}`, 'above')
           d = droite(A, B)
           d.isVisible = true
-          d.epaisseur = 1;
-          [C, D, E] = choisi3Points(d, lieux)
+          d.epaisseur = 1
+          do {
+            [C, D, E] = choisi3Points(d, lieux)
+          } while (aireTriangle(polygone(C, D, E)) < 7)
           C.nom = p1nom[2]
           C.positionLabel = 'above left'
           D.nom = p1nom[3]
@@ -478,12 +483,47 @@ export default function ConstruireParSymetrie () {
           }
           enonce += numAlpha(numQuestion + 1) + ` Construire le triangle  $${p1nom[2]}'${p1nom[3]}'${p1nom[4]}'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
           enonce += numAlpha(numQuestion + 2) + ' Coder la figure.<br>'
-          Xmin = Math.floor(Math.min(inter.x, A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) - 1)
-          Xmax = Math.ceil(Math.max(inter.x, A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) + 1)
-          Ymin = Math.floor(Math.min(inter.y, A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) - 1)
-          Ymax = Math.ceil(Math.max(inter.y, A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) + 1)
+          Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) - 1)
+          Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) + 1)
+          Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) - 1)
+          Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) + 1)
 
-          correction = `Contrôler la figure en vérifiant que les côtés des deux triangles se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+          correction = ''
+          break
+        case 6: // 3 symétries centrales de points
+          p1nom = creerNomDePolygone(4)
+          A = point(0, randint(-1, 4), `${p1nom[0]}`, 'left')
+          B = point(7, randint(-1, 1, A.y), `${p1nom[1]}`, 'above')
+          C = point(randint(2, 3), randint(-4, -2), `${p1nom[2]}`, 'left')
+          D = point(randint(10, 13), randint(-6, -5), `${p1nom[3]}`, 'below right')
+          CC = rotation(C, B, 180, `${p1nom[2]}'`, 'right')
+          DD = rotation(D, B, 180, `${p1nom[3]}'`, 'above left')
+          AA = rotation(A, B, 180, `${p1nom[0]}'`, 'right')
+          cC = codageMilieu(C, CC, 'red', '|', false)
+          cD = codageMilieu(D, DD, 'blue', '||', false)
+          cA = codageMilieu(A, AA, 'green', '|||', false)
+          sC = segment(C, CC)
+          sD = segment(D, DD)
+          sA = segment(A, AA)
+
+          objetsCorrection.push(tracePoint(A, C, D, CC, DD, AA), labelPoint(A, B, C, D, CC, DD, AA), cC, cD, cA, sC, sD, sA)
+          objetsEnonce.push(tracePoint(A, B, C, D), labelPoint(A, B, C, D))
+          if (context.isHtml) {
+            numQuestion = 0
+            enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'
+          } else {
+            numQuestion = -1
+            enonce = ''
+          }
+          enonce += numAlpha(numQuestion + 1) + ` Construire le point $${p1nom[2]}'$ symétrique de $${p1nom[2]}$ par rapport au point $${p1nom[1]}$.<br>`
+          enonce += numAlpha(numQuestion + 2) + ` Construire le point $${p1nom[3]}'$ symétrique de $${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
+          enonce += numAlpha(numQuestion + 3) + ` Construire le point $${p1nom[0]}'$ symétrique de $${p1nom[0]}$ par rapport au point $${p1nom[1]}$.<br>`
+          enonce += numAlpha(numQuestion + 4) + ' Coder la figure.<br>'
+          Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, AA.x, CC.x, DD.x) - 1)
+          Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, AA.x, CC.x, DD.x) + 1)
+          Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, AA.y, CC.y, DD.y) - 1)
+          Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, AA.y, CC.y, DD.y) + 1)
+          correction = ''
           break
         case 7: // Symétrie centrale de triangle
           p1nom = creerNomDePolygone(4)
@@ -523,8 +563,10 @@ export default function ConstruireParSymetrie () {
           correction = ''
           break
       }
-      console.log(p1nom[2], dessousDessus(d, C), p1nom[3], dessousDessus(d, D), p1nom[4], dessousDessus(d, E))
-
+      console.log('La droite : ', d, 'le type de question : ', listeTypeDeQuestions[i])
+      if (listeTypeDeQuestions[i] !== 3 && listeTypeDeQuestions !== 7) {
+        console.log(p1nom[2], dessousDessus(d, C), p1nom[3], dessousDessus(d, D), p1nom[4], dessousDessus(d, E))
+      }
       const params = {
         xmin: Xmin,
         ymin: Ymin,
