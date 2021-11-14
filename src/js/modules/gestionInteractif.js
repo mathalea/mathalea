@@ -971,7 +971,7 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
     }
   } else {
     // Envoie un message post avec le nombre de réponses correctes
-    window.parent.postMessage({ url: window.location.href, graine: context.graine, nbBonnesReponses: nbBonnesReponses, nbMauvaisesReponses: nbMauvaisesReponses }, '*')
+    window.parent.postMessage({ url: window.location.href, graine: context.graine, exercice: exercice, nbBonnesReponses: nbBonnesReponses, nbMauvaisesReponses: nbMauvaisesReponses }, '*')
   }
   if (context.timer) {
     clearInterval(context.timer)
