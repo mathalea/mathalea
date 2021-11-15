@@ -62,9 +62,5 @@ export const dictionnaireLycee = {
   '2N40-5': {
     titre: 'Factoriser une expression',
     url: '/exercices/3e/3L11-4.js'
-  },
-  '2N40-6': {
-    titre: 'Calcul mental et calcul littéral',
-    url: '/exercices/3e/3L11-5.js'
   }
 }
