@@ -39,20 +39,22 @@ export default function ExerciceLabyrintheDivisibilite () {
     this.listeCorrections = []
     this.listeQuestions = []
     let texte, texteCorr, trouve
-    const laby = labyrinthe({ taille: tailleChiffre })
-    laby.niveau = this.sup3 // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
-    laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
-    laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
-    laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
-    const monchemin = laby.chemin
+    let laby
+    let monChemin
     const tables = combinaisonListesSansChangerOrdre(this.sup.split('-'), this.nbQuestions)
     for (let i = 0; i < this.nbQuestions; i++) {
       tables[i] = contraindreValeur(2, 50, parseInt(tables[i]), 5)
     }
     for (let q = 0; q < this.nbQuestions;) {
+      laby = labyrinthe({ taille: tailleChiffre })
+      laby.niveau = this.sup3 // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
+      laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
+      laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
+      laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
+      monChemin = laby.chemin
       texte = `${texteEnCouleurEtGras('Trouve la sortie en ne passant que par les cases contenant un nombre divisible par ', 'black')}$${tables[q]}$.<br>`
-      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
-      // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
+      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
+      // Zone de construction du tableau de nombres : Si ils sont sur monChemin et seulement si, ils doivent vérifier la consigne
       let listeMultiples = []; let index = 0
       for (let i = 200; i <= 12000; i += randint(1, 100)) {
         listeMultiples.push(tables[q] * i)
@@ -64,8 +66,8 @@ export default function ExerciceLabyrintheDivisibilite () {
       for (let a = 1; a < 7; a++) {
         for (let b = 0; b < 3; b++) {
           trouve = false
-          for (let k = 0; k < monchemin.length; k++) {
-            if (monchemin[k][0] === a && monchemin[k][1] === b) { trouve = true }
+          for (let k = 0; k < monChemin.length; k++) {
+            if (monChemin[k][0] === a && monChemin[k][1] === b) { trouve = true }
           }
           if (!trouve) {
             laby.nombres[a - 1][b] = randint(200, 5000) * tables[q] + randint(1, tables[q] - 1)
