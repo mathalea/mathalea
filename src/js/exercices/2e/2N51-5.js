@@ -1,7 +1,7 @@
 import ExerciceEquation1Tiret2 from '../3e/3L13-1.js'
 export const titre = 'Équations du premier degré (utilisant la distributivité)'
 export { interactifReady, interactifType } from '../3e/3L13-1.js'
-export { amcReady } from '../3e/3L13-1.js'
+// export { amcReady, amcType } from '../3e/3L13-1.js'
 
 /**
  * Clone de 3L13-1 pour les 2nde
