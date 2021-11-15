@@ -66,17 +66,5 @@ export const dictionnaireLycee = {
   '2N40-6': {
     titre: 'Calcul mental et calcul littéral',
     url: '/exercices/3e/3L11-5.js'
-  },
-  '2N41-1': {
-    titre: 'Factoriser une expression complexe',
-    url: '/exercices/3e/3L11-6.js'
-  },
-  '2N41-2': {
-    titre: 'Factoriser a²-b²',
-    url: '/exercices/3e/3L12.js'
-  },
-  '2N41-3': {
-    titre: 'Développer (a-b)(a+b)',
-    url: '/exercices/3e/3L12-1.js'
   }
 }

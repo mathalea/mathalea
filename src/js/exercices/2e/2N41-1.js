@@ -1,17 +1,13 @@
-import identitesCalculs from '../3e/3L11-5.js'
-export { interactifReady, interactifType } from '../3e/3L11-5.js'
+import FactoriserUneExpression3e from '../3e/3L11-6.js'
+export const titre = 'Factoriser une expression complexe'
+export { interactifReady, interactifType } from '../3e/3L11-6.js'
+// export { amcReady, amcType } from '../3e/3L11-6.js'
 
 /**
- * * Calcul mental autour des identités remarquables
- * * Clone de 3L11-5
- * * numéro de l'exo ex : 2N41-1
- * * publié le  7/10/2021
- * @author Sébastien Lozano
+ * Clone de 3L11-6 pour les 2nde
+ *
+ * @author Sébastien LOZANO
  */
-
-export const titre = 'Calculer avec les identités remarquables'
-
-export default function identitesCalculs2e () {
-  identitesCalculs.call(this)
-  this.sup = 4
+export default function FactoriserUneExpression3e2nde () {
+  FactoriserUneExpression3e.call(this)
 }
