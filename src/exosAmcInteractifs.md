@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 354 
-- nombre d'exos interactifReady 487 
+- nombre d'exos interactifReady 490 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -25,7 +25,10 @@
 |2N20-4|Primalité ou pas|OK|qcmMono|OK|qcm|
 |2N20-5|Décomposition en facteurs premiers|KO|KO|OK|mathLive|
 |2N32-4|Simplifier une somme de racines carrées|KO|KO|OK|mathLive|
-|2N41-1|Calculer avec les identités remarquables|KO|KO|OK|mathLive|
+|2N40-6|Calcul mental et calcul littéral|KO|KO|OK|mathLive|
+|2N41-1|Factoriser une expression complexe|KO|KO|OK|mathLive|
+|2N41-2|Factoriser a²-b²|KO|KO|OK|mathLive|
+|2N41-3|Développer (a-b)(a+b)|KO|KO|OK|mathLive|
 |2N41-4|Développer (a+b)²|KO|KO|OK|mathLive|
 |2N41-5|Développer (a-b)²|KO|KO|OK|mathLive|
 |2N51-4|Équations du premier degré|OK|AMCHybride|OK|mathLive|

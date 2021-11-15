@@ -283,6 +283,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F20-1": {
+    "titre": "Montrer qu’un point appartient ou non à une courbe",
+    "url": "/exercices/2e/2F20-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F20-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F32": {
     "titre": "Lecture graphique",
     "url": "/exercices/2e/2F32.js",
@@ -919,6 +934,36 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2N20-6": {
+    "titre": "Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers",
+    "url": "/exercices/2e/2N20-6.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N20-6",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N20-7": {
+    "titre": "Engrenages",
+    "url": "/exercices/2e/2N20-7.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N20-7",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2N20-8": {
     "titre": "Déterminer la parité d’une expression",
     "url": "/exercices/2e/2N20-8.js",
@@ -1025,13 +1070,61 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2N40-6": {
+    "titre": "Calcul mental et calcul littéral",
+    "url": "/exercices/2e/2N40-6.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N40-6",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2N41-1": {
-    "titre": "Calculer avec les identités remarquables",
+    "titre": "Factoriser une expression complexe",
     "url": "/exercices/2e/2N41-1.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "2N41-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N41-2": {
+    "titre": "Factoriser a²-b²",
+    "url": "/exercices/2e/2N41-2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N41-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N41-3": {
+    "titre": "Développer (a-b)(a+b)",
+    "url": "/exercices/2e/2N41-3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N41-3",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -8838,21 +8931,6 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "beta240-1",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "beta2F20-1": {
-    "titre": "Montrer qu’un point appartient ou non à une courbe",
-    "url": "/exercices/beta/beta2F20-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F20-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
