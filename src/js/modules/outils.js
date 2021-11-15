@@ -2485,7 +2485,7 @@ export function texNombre2 (nb) {
   if (partieDecimale === '') {
     nombre = partieEntiere
   } else {
-    nombre = partieEntiere + '{,}' + partieDecimale
+    nombre = partieEntiere + ',' + partieDecimale
   }
   return nombre
 }
@@ -2527,7 +2527,7 @@ export function texNombre3 (nb) {
   if (partieDecimale === '') {
     nombre = partieEntiere
   } else {
-    nombre = partieEntiere + '{,}' + partieDecimale
+    nombre = partieEntiere + ',' + partieDecimale
   }
   return nombre
 }
