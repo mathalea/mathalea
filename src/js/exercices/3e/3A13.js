@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, decompositionFacteursPremiers, modalPdf, katexPopup2, numAlpha, warnMessage, lampeMessage, ppcm } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, decompositionFacteursPremiers, modalPdf, katexPopup2, numAlpha, warnMessage, lampeMessage, ppcm, choice } from '../../modules/outils.js'
 import { svgEngrenages } from '../../modules/macroSvgJs.js'
 export const titre = 'Engrenages'
 
@@ -13,7 +13,6 @@ export const titre = 'Engrenages'
 export default function ppcmEngrenages () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = 1
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = ''
@@ -23,8 +22,8 @@ export default function ppcmEngrenages () {
   // this.correctionDetailleeDisponible = true;
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = 1
   this.listePackages = 'bclogo'
+  this.sup = false
 
   const numEx = '3A13' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
@@ -65,7 +64,7 @@ export default function ppcmEngrenages () {
       couleur: 'nombres'
     })
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
       let nbDentsr1
@@ -161,8 +160,14 @@ export default function ppcmEngrenages () {
           }
           break
         case 2: // avec de plus grands nombre, c'est mieux de décomposer en facteurs premiers
-          nbDentsr1 = randint(31, 80)
-          nbDentsr2 = randint(31, 80, nbDentsr1)
+          if (this.sup) {
+            nbDentsr1 = randint(51, 100)
+            nbDentsr2 = randint(51, 100, nbDentsr1)
+          } else {
+            nbDentsr1 = randint(31, 80)
+            nbDentsr2 = randint(31, 80, nbDentsr1)
+          }
+
           texte = `La roue n$\\degree$1 possède $${nbDentsr1}$ dents et la roue n$\\degree$2 a $${nbDentsr2}$ dents.`
           texte += '<br>' + numAlpha(0) + ` Décomposer $${nbDentsr1}$ et $${nbDentsr2}$ en produit de facteurs premiers.`
           if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
@@ -207,8 +212,12 @@ export default function ppcmEngrenages () {
           texteCorr += 'pour la roue n$\\degree$2.'
           break
         case 3: // déterminer le nombre de dents d'une roue connaissant l'autre et le nombre de tours necessaires à la re-synchro
-          nbDentsr1 = randint(5, 80)
+          if (this.sup) k = choice([2, 3, 4, 5, 6])
+          else k = choice([2, 3])
+          nbDentsr1 = randint(5, 15)
           nbDentsr2 = randint(5, 80, nbDentsr1)
+          nbDentsr1 *= k
+          nbDentsr2 *= k
           texte = `La roue n$\\degree$2 a maintenant $${nbDentsr2}$ dents.`
           texte += ` Déterminer le nombre de dents de la roue n$\\degree$1 qui ferait $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$ `
           if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
@@ -252,5 +261,4 @@ export default function ppcmEngrenages () {
 
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"];
 }
