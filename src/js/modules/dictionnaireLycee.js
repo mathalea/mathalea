@@ -86,37 +86,5 @@ export const dictionnaireLycee = {
   '2N41-3': {
     titre: 'Développer (a-b)(a+b)',
     url: '/exercices/3e/3L12-1.js'
-  },
-  '2N50-1': {
-    titre: 'Mettre en équation un problème sans objectif de résolution',
-    url: '/exercices/4e/4L13-0.js'
-  },
-  '2N50-2': {
-    titre: 'Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue',
-    url: '/exercices/4e/4L13-1.js'
-  },
-  '2N51-1': {
-    titre: 'Tester si un nombre est solution d\'une équation',
-    url: '/exercices/4e/4L14-0.js'
-  },
-  '2N51-2': {
-    titre: 'Trouver l\'erreur dans une résolution d\'équation du premier degré',
-    url: '/exercices/4e/4L15-0.js'
-  },
-  '2N51-3': {
-    titre: 'Équations du type x/a=b/c',
-    url: '/exercices/4e/4L15-1.js'
-  },
-  '2N51-3v2': {
-    titre: 'Équations du type x/a=b/c (v2)',
-    url: '/exercices/3e/3L13-2.js'
-  },
-  '2N51-4': {
-    titre: 'Équations du premier degré',
-    url: '/exercices/3e/3L13.js'
-  },
-  '2N51-5': {
-    titre: 'Équations du premier degré (utilisant la distributivité)',
-    url: '/exercices/3e/3L13-1.js'
   }
 }

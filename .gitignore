@@ -45,3 +45,5 @@ src/json/scoresCodesVipSebSeul.json
 
 # Dossier avec les fichiers utiles pour l'hebergement de tests php SebLOZ
 src/slozano54
+.husky/.gitignore
+.pnpm-debug.log
