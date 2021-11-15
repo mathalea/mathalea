@@ -58,14 +58,14 @@ export default function CoefficientEvolution () {
           break
         case 'taux+':
           coeff = texNombrec(1 + taux / 100)
-          texte = `Multiplier par ${coeff} revient à...`
-          texteCorr = `Multiplier par ${coeff} revient à augmenter de $${taux}~\\%$ car $${coeff} = ${100 + taux}~\\% = 100~\\% + ${taux}~\\%$.`
+          texte = `Multiplier par $${coeff}$ revient à...`
+          texteCorr = `Multiplier par $${coeff}$ revient à augmenter de $${taux}~\\%$ car $${coeff} = ${100 + taux}~\\% = 100~\\% + ${taux}~\\%$.`
           reponse = taux
           break
         case 'taux-':
           coeff = texNombrec(1 - taux / 100)
-          texte = `Multiplier par ${coeff} revient à...`
-          texteCorr = `Multiplier par ${coeff} revient à diminuer de $${taux}~\\%$ car $${coeff} = ${100 - taux}~\\% = 100~\\% - ${taux}~\\%$.`
+          texte = `Multiplier par $${coeff}$ revient à...`
+          texteCorr = `Multiplier par $${coeff}$ revient à diminuer de $${taux}~\\%$ car $${coeff} = ${100 - taux}~\\% = 100~\\% - ${taux}~\\%$.`
           reponse = taux
           break
       }
