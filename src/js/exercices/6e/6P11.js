@@ -377,9 +377,10 @@ function questionDillution (exo, i) { // questions de mélange de volumes
   }
   const volumeFinalAff = texNombrec(volumeFinal) // pour affichage avec bon séparateur.
   const volumeInitialAff = texNombrec(volumeInitial) // pour affichage avec bon séparateur.
-  const texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} ${getVueFromUrl() === 'multi' ? '<br>' : ' '} qu'il faut ` +
-` ${texNombrec(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour ${volumeInitialAff} ${liste[alea1].unite_solvant[0]} d'eau.<br> ` +
-`On veut utiliser ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau.` +
+  let texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} ${getVueFromUrl() === 'multi' ? '<br>' : ' '} qu'il faut ` +
+` $${texNombrec(quantite)}$ ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour $${volumeInitialAff}$ `
+  texte += volumeInitialAff < 2 ? `${liste[alea1].unite_solvant[0]} d'eau.<br> ` : `${liste[alea1].unite_solvant[1]} d'eau.<br> `
+  texte += `On veut utiliser $${volumeFinalAff}$ ${uniteSolvantVolumeFinal} d'eau.` +
 `<br> Quel volume de ${liste[alea1].solute} doit-on prévoir ? ` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' ' + liste[alea1].unite_solute })
   const texteCorr = `Le volume de ${liste[alea1].solute} est proportionnel au volume d'eau. <br> ` +
 ` ${texteEnCouleur(volumeFinalAff)} ${uniteSolvantVolumeFinal} d'eau, c'est ${texteEnCouleur(texNombrec(volumeFinal / volumeInitial))} fois ${volumeInitialAff} ${liste[alea1].unite_solvant[0]} d'eau. <br> ` +
