@@ -73,7 +73,7 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
 
         texteCorr = `${numAlpha(0)} $${unite}$ est le chiffre des unités de $${texNombre3(exemple)}$.<br>`
         texteCorr += `${numAlpha(1)} Multiplier $${texNombre3(exemple)}$ par $${texNombre3(calcul(10 ** (choixAlea - 3)))}$, c’est trouver le nombre ${texteEnCouleurEtGras(texNombre3(calcul(10 ** abs(choixAlea - 3))))} fois plus `
-        texteCorr += choixAlea - 3 > 1 ? `${texteEnCouleurEtGras('grand')} ` : `${texteEnCouleurEtGras('petit')} `
+        texteCorr += choixAlea - 3 > 0 ? `${texteEnCouleurEtGras('grand')} ` : `${texteEnCouleurEtGras('petit')} `
         texteCorr += `que $${texNombre3(exemple)}$.<br>`
         texteCorr += `Le chiffre des unités de $${texNombre3(exemple)}$ devient, alors, le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])} et donc $${texNombre3(exemple)} \\times ${texNombre3(calcul(10 ** (choixAlea - 3)))} =$ ${texteEnCouleurEtGras(texNombre3(exemple * calcul(10 ** (choixAlea - 3))))}.<br>`
       } else {
