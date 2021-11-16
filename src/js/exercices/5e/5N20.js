@@ -30,8 +30,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
   this.interactifType = interactifType
   this.sup = max // Correspond au facteur commun
   this.sup2 = false // Si true alors il n'y aura que des soustractions
+  this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée
   this.titre = titre
-  this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
+  this.consigne = 'Calculer :'
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 5
@@ -136,9 +137,11 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           texteCorr += `${texFraction(c + '+' + a * k, d)}=${texFraction(a * k + c, d)}$`
         }
         // Est-ce que le résultat est simplifiable ?
-        const s = pgcd(a * k + c, d)
-        if (s !== 1) {
-          texteCorr += `$=${texFraction(calcul((a * k + c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k + c) / s), calcul(d / s))}$`
+        if (this.sup3) {
+          const s = pgcd(a * k + c, d)
+          if (s !== 1) {
+            texteCorr += `$=${texFraction(calcul((a * k + c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k + c) / s), calcul(d / s))}$`
+          }
         }
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
           texte += '<br>' + propositionsQcm(this, i).texte
@@ -198,12 +201,14 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           texteCorr += `${texFraction(c - a * k, d)}$`
         }
         // Est-ce que le résultat est simplifiable ?
-        const s = pgcd(a * k - c, d)
-        if (!this.modeQcm) {
-          if (abs(a * k - c) % d === 0) { // si la fraction peut-être un nombre entier
-            texteCorr += `$=${calcul((abs(a * k - c)) / d)}$`
-          } else if (s !== 1) {
-            texteCorr += `$=${texFraction(calcul((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((abs(a * k - c)) / s), calcul(d / s))}$`
+        if (this.sup3) {
+          const s = pgcd(a * k - c, d)
+          if (!this.modeQcm) {
+            if (abs(a * k - c) % d === 0) { // si la fraction peut-être un nombre entier
+              texteCorr += `$=${calcul((abs(a * k - c)) / d)}$`
+            } else if (s !== 1) {
+              texteCorr += `$=${texFraction(calcul((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((abs(a * k - c)) / s), calcul(d / s))}$`
+            }
           }
         }
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
@@ -227,4 +232,5 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
 
   this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
   this.besoinFormulaire2Numerique = ['Type de calculs', 3, '1 : Additions\n2 : Soustractions\n3 : Mélange']
+  this.besoinFormulaire3CaseACocher = ['Avec l\'écriture simplifiée de la fraction résultat']
 }
