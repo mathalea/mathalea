@@ -38,9 +38,5 @@ export const dictionnaireLycee = {
   '2N31-3': {
     titre: 'Puissances : Calculs automatisés et règles de calculs',
     url: '/exercices/4e/4C33-3.js'
-  },
-  '2N31-4': {
-    titre: 'Calculs utilisant les priorités opératoires et les puissances',
-    url: '/exercices/4e/4C34.js'
   }
 }
