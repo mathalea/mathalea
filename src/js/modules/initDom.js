@@ -1,7 +1,7 @@
 /* global $ */
 import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
-import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue } from './gestionUrl'
+import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue, replaceQueryParam } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 import { zoomAffichage } from './zoom'
@@ -138,6 +138,32 @@ const gestionTimer = () => {
           const listeBoutonsValider = document.querySelectorAll('[id^=boutonVerifex]:not(.disabled), [id^=btnValidationEx]:not(.disabled)')
           for (const bouton of listeBoutonsValider) {
             bouton.click()
+          }
+        }
+      }, 1000)
+      divTimer.hasMathaleaTimer = true
+    }
+  }
+}
+const gestionTimerDiap = (pause = false) => {
+  const divTimer = document.getElementById('timer')
+  if (Number.isInteger(parseInt(context.duree)) && divTimer) {
+    if (!pause) context.tempsRestant = context.duree
+    divTimer.textContent = context.tempsRestant
+    if (!divTimer.hasMathaleaTimer) {
+      context.timer = setInterval(() => {
+        context.tempsRestant--
+        divTimer.textContent = context.tempsRestant
+        if (parseInt(context.tempsRestant) === 0) {
+          clearInterval(context.timer)
+          divTimer.textContent = ''
+          const btn = document.querySelector(`button[data-num="${parseInt(context.questionCanEnCours) + 1}"]`)
+          if (btn) {
+            btn.click()
+            divTimer.hasMathaleaTimer = false
+            gestionTimerDiap()
+          } else {
+            document.getElementById('affichage_exercices').style.visibility = 'hidden'
           }
         }
       }, 1000)
@@ -391,10 +417,11 @@ export async function initDom () {
     context.zoom = 3
     context.duree = parseInt(getDureeFromUrl())
     setOutputHtml()
-    section = addElement(document.body, 'section', { class: 'ui container' })
+    section = addElement(document.body, 'section', { class: 'ui container', id: 'sectionPrincipale', style: 'display: none' })
+    // setStyles(section, 'visibility: hidden')
     const menuEval = addElement(section, 'div', { id: 'menuEval' })
     addElement(section, 'div', { id: 'containerErreur' })
-    const divTimer = addElement(section, 'div', { id: 'timer' })
+    addElement(section, 'div', { id: 'timer' })
     await addFetchHtmlToParent('templates/mathaleaBasique.html', section)
     await addFetchHtmlToParent('templates/boutonsCorrectionEtZoom.html', section)
     const btnLienCorrection = document.getElementById('boutonLienCorrectionExterne')
@@ -425,9 +452,21 @@ export async function initDom () {
           }, false)
           element.hasListenner = true
         }
-        gestionTimer(divTimer)
       }
       document.querySelector('button[data-num="1"]').classList.add('blue')
+    })
+    // Gestion du pré-show
+    const sectionTemp = addElement(document.body, 'section', { class: 'ui center aligned container', id: 'sectionTemporaire', style: 'margin: 300px' })
+    const btnReady = addElement(sectionTemp, 'button', { class: 'massive ui button' }, 'Prêt ?')
+    btnReady.addEventListener('click', () => {
+      sectionTemp.remove()
+      setStyles(section, 'display: block')
+      gestionTimerDiap()
+    }, { once: true })
+    // Gestion du bouton nouvelles données
+    document.getElementById('btnRedo').addEventListener('click', () => {
+      window.history.pushState('', '', window.location.protocol + '//' + window.location.host + window.location.pathname + replaceQueryParam('serie', ''))
+      document.location.reload()
     })
   } else if (vue === 'latex') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
@@ -523,12 +562,39 @@ function navigationAvecLesFleches () {
         btn = document.querySelector(`button[data-num="${parseInt(context.questionCanEnCours) - 1}"]`)
         if (btn) btn.click()
         event.preventDefault()
+        if (document.getElementById('affichage_exercices').style.visibility === 'hidden') {
+          document.getElementById('affichage_exercices').style.visibility = 'visible'
+        }
+        context.tempsRestant = context.duree
+        arreteLeTimer()
         break
       case 'ArrowRight':
         btn = document.querySelector(`button[data-num="${parseInt(context.questionCanEnCours) + 1}"]`)
         if (btn) btn.click()
         event.preventDefault()
+        context.tempsRestant = context.duree
+        arreteLeTimer()
+        break
+      case 'Space':
+        pauseLeTimer()
         break
     }
   }, true)
+}
+
+function arreteLeTimer () {
+  document.getElementById('timer').innerHTML = ''
+  clearInterval(context.timer)
+  const divTimer = document.getElementById('timer')
+  divTimer.hasMathaleaTimer = false
+}
+
+function pauseLeTimer () {
+  const divTimer = document.getElementById('timer')
+  if (divTimer.hasMathaleaTimer) {
+    clearInterval(context.timer)
+    divTimer.hasMathaleaTimer = false
+  } else {
+    gestionTimerDiap(true)
+  }
 }
