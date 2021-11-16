@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 354 
-- nombre d'exos interactifReady 490 
+- nombre d'exos amcReady 361 
+- nombre d'exos interactifReady 498 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -24,7 +24,14 @@
 |2N20-2|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|OK|qcm|
 |2N20-4|Primalité ou pas|OK|qcmMono|OK|qcm|
 |2N20-5|Décomposition en facteurs premiers|KO|KO|OK|mathLive|
+|2N31-1|Notation scientifique|OK|AMCNum|OK|mathLive|
+|2N31-4|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
 |2N32-4|Simplifier une somme de racines carrées|KO|KO|OK|mathLive|
+|2N40-1|Traduire un programme de calcul par une expression littérale|OK|qcmMono|OK|qcm|
+|2N40-2|Calculer la valeur d'une expression littérale.|KO|KO|OK|mathLive|
+|2N40-3|Écrire une expression littérale|OK|qcmMult|OK|qcm|
+|2N40-4|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
+|2N40-5|Factoriser une expression|OK|AMCOpen|OK|mathLive|
 |2N40-6|Calcul mental et calcul littéral|KO|KO|OK|mathLive|
 |2N41-1|Factoriser une expression complexe|KO|KO|OK|mathLive|
 |2N41-2|Factoriser a²-b²|KO|KO|OK|mathLive|
@@ -185,7 +192,7 @@
 |6C34|Dernier chiffre d’un calcul|OK|AMCNum|OK|numerique|
 |6C35|Modéliser des problèmes|KO|KO|OK|mathLive|
 |6D101|Utiliser les heures décimales|OK|AMCHybride|OK|mathLive|
-|6D13|Conversion en heures et minutes|OK|AMCHybride|OK|mathLive|
+|6D13|Conversion min->h et min ou s->min et s|OK|AMCHybride|OK|mathLive|
 |6G10-3|Choisir la bonne figure|OK|qcmMono|OK|cliqueFigure|
 |6G11|Tracer des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12-1|Tracer des parallèles et des perpendiculaires|OK|AMCOpen|KO|KO|
@@ -457,10 +464,10 @@
 |can6C27|Petits problèmes d'arithmétique|KO|KO|OK|mathLive|
 |can6C28|Petit problème de fraction|KO|KO|OK|mathLive|
 |can6C29|Partage|KO|KO|OK|mathLive|
-|can6D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
+|can6D01|Conversion Heures et minutes vers minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calcul de durée en minutes|OK|AMCNum|OK|mathLive|
-|can6D04|Convertir minutes heures|OK|AMCHybride|OK|mathLive|
+|can6D04|Convertir minutes->heures ou secondes->minutes|OK|AMCHybride|OK|mathLive|
 |can6G01|Symétrique de point 6e|OK|AMCHybride|OK|mathLive|
 |can6G02|Compter les cubes|OK|AMCNum|OK|mathLive|
 |can6G03|Compter les cubes manquants|OK|AMCNum|OK|mathLive|
@@ -497,6 +504,7 @@
 |canc3C01|Calculs automatiques|OK|AMCNum|OK|mathLive|
 |canc3C02|Composition de nombre entier|OK|AMCNum|OK|mathLive|
 |canc3C03|Table de multiplication à trous|KO|KO|OK|mathLive|
+|canc3C04|Double ou moitié|OK|AMCNum|OK|mathLive|
 |canc3D01|Lire l'heure|KO|KO|OK|mathLive|
 |canc3D02|Lire une durée|KO|KO|OK|mathLive|
 |canc3M01|Trouver la bonne unité|KO|KO|OK|mathLive|
@@ -504,3 +512,4 @@
 |canc3N02|Suite sur une droite graduée|OK|AMCNum|OK|mathLive|
 |canc3N03|Le plus grand nombre entier|OK|AMCNum|OK|mathLive|
 |canc3N04|Arrondi à l'unité|OK|AMCHybride|OK|mathLive|
+|canc3N05|Composition de nombre décimal|OK|AMCNum|OK|mathLive|

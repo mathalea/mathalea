@@ -979,6 +979,69 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2N31-1": {
+    "titre": "Notation scientifique",
+    "url": "/exercices/2e/2N31-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N31-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N31-2": {
+    "titre": "Puissances : le sens des règles de calculs",
+    "url": "/exercices/2e/2N31-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N31-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N31-3": {
+    "titre": "Puissances : Calculs automatisés et règles de calculs",
+    "url": "/exercices/2e/2N31-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N31-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N31-4": {
+    "titre": "Calculs utilisant les priorités opératoires et les puissances",
+    "url": "/exercices/2e/2N31-4.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum"
+    },
+    "interactifReady": false,
+    "name": "2N31-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    }
+  },
   "2N32-1": {
     "titre": "Existence d’une racine carrée",
     "url": "/exercices/2e/2N32-1.js",
@@ -1061,6 +1124,95 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "2N32-6",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N40-1": {
+    "titre": "Traduire un programme de calcul par une expression littérale",
+    "url": "/exercices/2e/2N40-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "2N40-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N40-2": {
+    "titre": "Calculer la valeur d'une expression littérale.",
+    "url": "/exercices/2e/2N40-2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N40-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N40-3": {
+    "titre": "Écrire une expression littérale",
+    "url": "/exercices/2e/2N40-3.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMult"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "2N40-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N40-4": {
+    "titre": "Utiliser la distributivité (simple ou double) et réduire",
+    "url": "/exercices/2e/2N40-4.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N40-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N40-5": {
+    "titre": "Factoriser une expression",
+    "url": "/exercices/2e/2N40-5.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N40-5",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -6299,7 +6451,7 @@ export default {
     }
   },
   "6D13": {
-    "titre": "Conversion en heures et minutes",
+    "titre": "Conversion min->h et min ou s->min et s",
     "url": "/exercices/6e/6D13.js",
     "amcReady": true,
     "amcType": {
@@ -12816,7 +12968,7 @@ export default {
     }
   },
   "can6D01": {
-    "titre": "Conversion Heures minutes",
+    "titre": "Conversion Heures et minutes vers minutes",
     "url": "/exercices/can/6e/can6D01.js",
     "amcReady": true,
     "amcType": {
@@ -12873,7 +13025,7 @@ export default {
     }
   },
   "can6D04": {
-    "titre": "Convertir minutes heures",
+    "titre": "Convertir minutes->heures ou secondes->minutes",
     "url": "/exercices/can/6e/can6D04.js",
     "amcReady": true,
     "amcType": {
@@ -13569,6 +13721,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "canc3C04": {
+    "titre": "Double ou moitié",
+    "url": "/exercices/can/c3/canc3C04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3C04",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "canc3D01": {
     "titre": "Lire l'heure",
     "url": "/exercices/can/c3/canc3D01.js",
@@ -13686,6 +13857,25 @@ export default {
     "name": "canc3N04",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "canc3N05": {
+    "titre": "Composition de nombre décimal",
+    "url": "/exercices/can/c3/canc3N05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3N05",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
