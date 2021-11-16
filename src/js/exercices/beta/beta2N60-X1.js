@@ -1,21 +1,23 @@
+import { fraction } from '../../modules/fractions'
 import Exercice from '../Exercice.js'
-import { randint, texNombrec, miseEnEvidence, prenom, itemize, texteEnCouleur, listeQuestionsToContenu, texFraction, combinaisonListes, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
+import { randint, texNombrec, miseEnEvidence, sp, prenom, itemize, texteEnCouleur, numAlpha, listeQuestionsToContenu, texFraction, combinaisonListes, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
 
 export const titre = 'Modéliser une situation  à l\'aide d\'une équation'
 
 /**
  * Description didactique de l'exercice
- * @author GillesM
+ * @author Gilles Mora
  * Référence
  * A DEPLACER EN 2N50-3 !!!!!!!!!!!!!!!!!
 */
 export default function modeliserEquations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
-  this.nbQuestions = 10
+  this.nbQuestions = 1
+  // this.nbQuestionsModifiable = false
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
+  this.sup = false
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
@@ -23,9 +25,9 @@ export default function modeliserEquations () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7', 'typeE8'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['typeE2'] // 'typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7', 'typeE8'
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, a, b, c, d, e, N, f, j, t, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, b, c, d, e, N, f, j, t, taux, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
 
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -35,44 +37,46 @@ export default function modeliserEquations () {
           b = randint(6, 9) * 10
           a = f - j + b// augmentation
           t = randint(3, 6)
-
+          taux = fraction(t, 100)
           texte = `  Le salaire mensuel d'un commercial est composé d'un salaire fixe auquel
                   s'ajoute une prime suivant ses objectifs.<br>
                    Au mois de janvier, son salaire fixe est $x$ € et sa prime a été de $${j}$ €.  <br>
                   Au mois de février son salaire fixe a augmenté de $${t}$ % et il reçoit une prime de $${f}$ €. <br>
                   Globalement, son salaire au mois
                   de février a augmenté de $${a}$ € par rapport à celui du mois de janvier. <br>
-                             Exprimer en fonction de $x$ son salaire au mois de janvier, puis celui du mois de février.<br>
-                  Déterminer le salaire du commercial au mois de janvier (arrondir à l'euro près).<br>
+                  ${numAlpha(0)} Exprimer en fonction de $x$ son salaire au mois de janvier, puis celui du mois de février.<br>
+                  ${numAlpha(1)} Déterminer le salaire du commercial au mois de janvier (arrondir à l'euro près).<br>
               `
 
           texteCorr = `Le salaire du mois de janvier en fonction de $x$ est : $x+${j}$.<br>
-            Le salaire du mois de février en fonction de $x$ est : $\\left(1+${texFraction(t, 100)}\\right)x+${f}$.<br>
-            Le salaire au mois de janvier augmenté de $${a}$ € est donc égal au salaire du mois de février.<br>
-            Ainsi, $(x+${j})+${a}=\\left(1+${texFraction(t, 100)}\\right)x+${f}$<br>
-            <br>
-            $x+${texNombrec(j + a)}=(1+${texNombrec(t / 100)})x+${f}$<br>
-            <br>
-            $x+${texNombrec(j + a)}=${texNombrec(1 + t / 100)}x+${f}$<br>
-            <br>
-            $x+${texNombrec(j + a)}-${miseEnEvidence(texNombrec(j + a))}=${texNombrec(1 + t / 100)}x+${f}-${miseEnEvidence(texNombrec(j + a))}$<br>
-            <br>
-            $x=${texNombrec(1 + t / 100)}x${texNombrec(f - j - a)}$<br>
-            <br>
-            $x-${texNombrec(1 + t / 100)}x=${texNombrec(1 + t / 100)}x${texNombrec(f - j - a)}-${texNombrec(1 + t / 100)}x$<br>
-            <br>
-            $\\dfrac{${texNombrec(-t / 100)}x}{${miseEnEvidence(texNombrec(-t / 100))}}=\\dfrac{${texNombrec(f - j - a)}}{${miseEnEvidence(texNombrec(-t / 100))}}$<br>
-            <br>
-            $x=\\dfrac{${texNombrec(f - j - a)}}{${texNombrec(-t / 100)}}$<br>
-            <br>
-            $x\\simeq ${Math.round((f - j - a) / (-t / 100))}$<br>
-            <br>
-      Puisque le salaire est composé du fixe et de la prime, le salaire de ce commercial au mois de janvier a été de :
-      $${Math.round((f - j - a) / (-t / 100))}+${j}$ €, soit  $${Math.round((f - j - a) / (-t / 100) + j)}$ €.
-      
-      
-      
-        `
+            Le salaire du mois de février en fonction de $x$ est : $\\left(1+${taux.texFraction}\\right)x+${f}=${texNombrec(1 + t / 100)}x+${f}$.<br>
+            Globalement, le salaire au mois
+                  de février a augmenté de $${a}$ € par rapport à celui du mois de janvier, cela signifie que le salaire du
+                   mois de janvier augmenté de $${a}$ € est donc égal au salaire du mois de février.<br>
+            Ainsi, $(x+${j})+${a}=${texNombrec(1 + t / 100)}x+${f}$<br>
+            On résout l'équation :<br>
+          ${sp(8)} $ \\begin{aligned}
+                        x+${texNombrec(j + a)}&=(1+${texNombrec(t / 100)})x+${f}\\\\
+                       x+${texNombrec(j + a)}&=${texNombrec(1 + t / 100)}x+${f}\\\\
+                       x+${texNombrec(j + a)}-${miseEnEvidence(texNombrec(j + a))}&=${texNombrec(1 + t / 100)}x+${f}-${miseEnEvidence(texNombrec(j + a))}\\\\
+            x&=${texNombrec(1 + t / 100)}x${texNombrec(f - j - a)}\\\\
+            x-${miseEnEvidence(texNombrec(1 + t / 100))}${miseEnEvidence('x')}&=${texNombrec(1 + t / 100)}x${texNombrec(f - j - a)}-${miseEnEvidence(texNombrec(1 + t / 100))}${miseEnEvidence('x')}\\\\
+            \\dfrac{${texNombrec(-t / 100)}x}{${miseEnEvidence(texNombrec(-t / 100))}}&=\\dfrac{${texNombrec(f - j - a)}}{${miseEnEvidence(texNombrec(-t / 100))}}\\\\
+            x&=\\dfrac{${texNombrec(f - j - a)}}{${texNombrec(-t / 100)}}
+            \\end{aligned}$<br>`
+          if (Math.round((f - j - a) / (-t / 100)) === (f - j - a) / (-t / 100)) {
+            texteCorr += ` ${sp(40)}$ \\begin{aligned}
+            x&= ${Math.round((f - j - a) / (-t / 100))}
+            \\end{aligned}$<br>`
+          } else {
+            texteCorr += ` ${sp(40)}$ \\begin{aligned}
+            x&\\simeq ${Math.round((f - j - a) / (-t / 100))}
+            \\end{aligned}$<br>`
+          }
+
+          texteCorr += `Puisque le salaire est composé du fixe et de la prime, le salaire de ce commercial au mois de janvier a été de :
+      $${Math.round((f - j - a) / (-t / 100))}+${j}$ €, soit  $${Math.round((f - j - a) / (-t / 100) + j)}$ €.`
+
           break
         case 'typeE2':
 
@@ -94,27 +98,29 @@ export default function modeliserEquations () {
                 $\\bullet$ Avec le tarif A, le prix à payer est : $${reduireAxPlusB(c, a)}$ ;<br>
                 $\\bullet$  Avec le tarif B, le prix à payer est : $${reduireAxPlusB(d, b)}$ ;<br>
           
-                Les deux tarifs sont identiques lorsque : $${reduireAxPlusB(c, a)}=${reduireAxPlusB(d, b)}$.<br><br>
-          
-                $${texNombrec(c)}x+${a}=${texNombrec(d)}x+${b}$.<br>
-                <br>
-                $${texNombrec(c)}x-${miseEnEvidence(texNombrec(d))}${miseEnEvidence('x')}+${a}=${texNombrec(d)}x+${b}-${miseEnEvidence(texNombrec(d))}${miseEnEvidence('x')}$.<br>
-                <br>
-                $${texNombrec(c - d)}x+${a}=${b}$.<br>
-                <br>
-                $${texNombrec(c - d)}x+${a}-${miseEnEvidence(texNombrec(a))}=${b}-${a}$.<br>
-                <br>
-                $${texNombrec(c - d)}x=${b - a}$.<br>
-                <br>
-                $\\dfrac{${texNombrec(c - d)}x}{${miseEnEvidence(texNombrec(c - d))}}=\\dfrac{${b - a}}{${miseEnEvidence(texNombrec(c - d))}}$.<br>
-                <br>
-                $x\\simeq${Math.round((b - a) / (c - d))}$<br>
-          
-                <br>
+                Les deux tarifs sont identiques lorsque : $${reduireAxPlusB(c, a)}=${reduireAxPlusB(d, b)}$.<br>
+                On résout l'équation :<br>
+
+                $\\begin{aligned}
+                ${texNombrec(c)}x+${a}&=${texNombrec(d)}x+${b}\\\\
+                 ${texNombrec(c)}x-${miseEnEvidence(texNombrec(d))}${miseEnEvidence('x')}+${a}&=${texNombrec(d)}x+${b}-${miseEnEvidence(texNombrec(d))}${miseEnEvidence('x')}\\\\
+                       ${texNombrec(c - d)}x+${a}&=${b}\\\\
+                ${texNombrec(c - d)}x+${a}-${miseEnEvidence(texNombrec(a))}&=${b}-${a}\\\\
+                ${texNombrec(c - d)}x&=${b - a}\\\\
+        \\dfrac{${texNombrec(c - d)}x}{${miseEnEvidence(texNombrec(c - d))}}&=\\dfrac{${b - a}}{${miseEnEvidence(texNombrec(c - d))}}\\\\
+        \\end{aligned}$<br>`
+     if (Math.round((b - a) / (c - d)) ===(b - a) / (c - d)) {
+                            texteCorr += ` ${sp(40)}$ \\begin{aligned}
+                            x&= ${Math.round((b - a) / (c - d))}
+                            \\end{aligned}$<br>`
+                          } else {
+                            texteCorr += ` ${sp(40)}$ \\begin{aligned}
+                            x&\\simeq ${Math.round((b - a) / (c - d))}
+                            \\end{aligned}$<br>`
+                          }
+                                          texteCorr += `     
                 C'est pour une distance de $${Math.round((b - a) / (c - d))}$ km que les deux tarifs sont identiques.
-          
-          
-            `
+                                `
 
           break
         case 'typeE3':
