@@ -1,5 +1,5 @@
-import ConversionHeuresMinutes from '../../6e/6D13.js'
-export const titre = 'Convertir minutes heures'
+import ConversionHeuresMinutesOuMinutesEtSecondes from '../../6e/6D13.js'
+export const titre = 'Convertir minutes->heures ou secondes->minutes'
 export { interactifReady, interactifType, amcReady, amcType } from '../../6e/6D13.js'
 
 /*!
@@ -9,7 +9,7 @@ export { interactifReady, interactifType, amcReady, amcType } from '../../6e/6D1
  * Référence can6D04
  */
 export default function ConvertirMinutesHeures () {
-  ConversionHeuresMinutes.call(this, true)
+  ConversionHeuresMinutesOuMinutesEtSecondes.call(this, true)
   this.nbQuestions = 1
   this.correctionDetaillee = true
 }
