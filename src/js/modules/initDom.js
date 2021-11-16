@@ -58,6 +58,8 @@ const liToDiv = () => {
  * @param {int} i
  */
 const affichageUniquementQuestion = (i) => {
+  const texteExerciceTermine = document.getElementById('divExerciceTermine')
+  if (texteExerciceTermine) texteExerciceTermine.remove()
   const listeBoutonsDuMenu = document.querySelectorAll('[id^=btnMenu]')
   for (const bouton of listeBoutonsDuMenu) {
     bouton.classList.remove('blue')
@@ -147,9 +149,9 @@ const gestionTimer = () => {
 }
 const gestionTimerDiap = (pause = false) => {
   const btnPause = document.getElementById('btnPause')
-  btnPause.innerHTML = '<i class="pause icon"></i>'
   const divTimer = document.getElementById('timer')
   if (Number.isInteger(parseInt(context.duree)) && divTimer) {
+    btnPause.style.display = 'visible'
     if (!pause) context.tempsRestant = context.duree
     divTimer.textContent = context.tempsRestant
     if (!divTimer.hasMathaleaTimer) {
@@ -167,11 +169,17 @@ const gestionTimerDiap = (pause = false) => {
           } else {
             document.getElementById('affichage_exercices').style.visibility = 'hidden'
             arreteLeTimer()
+            document.querySelector(`button[data-num="${context.questionCanEnCours}"]`).classList.remove('blue')
+            const menuEval = document.getElementById('menuEval')
+            addElement(menuEval, 'h1', { id: 'divExerciceTermine' }, 'Exercice terminé')
+            document.getElementById('btnCorrectionQuestion').classList.remove('blue')
           }
         }
       }, 1000)
       divTimer.hasMathaleaTimer = true
     }
+  } else {
+    btnPause.style.display = 'none'
   }
 }
 
@@ -450,9 +458,11 @@ export async function initDom () {
     titreCorrections.style.display = 'none'
     addElement(titreCorrections, 'div', { class: 'ui dividing header', style: 'fontSize: 18pt' }, 'Correction')
     const btnLienCorrection = document.getElementById('boutonLienCorrectionExterne')
-    btnLienCorrection.addEventListener('click', () => {
-      goTabVue('diapCorr')
-    })
+    if (btnLienCorrection) {
+      btnLienCorrection.addEventListener('click', () => {
+        goTabVue('diapCorr')
+      })
+    }
     const btnPause = document.getElementById('btnPause')
     btnPause.addEventListener('click', () => {
       pauseLeTimer()
@@ -665,6 +675,11 @@ function pauseLeTimer () {
 
 function affichageCorrection () {
   masquerCorrection()
+  if (document.getElementById('affichage_exercices').style.visibility === 'hidden') {
+    document.getElementById('affichage_exercices').style.visibility = 'visible'
+  }
+  const texteExerciceTermine = document.getElementById('divExerciceTermine')
+  if (texteExerciceTermine) texteExerciceTermine.remove()
   document.getElementById('titreCorrections').style.display = 'block'
   document.getElementById('corrections').style.display = 'block'
   const corrections = document.querySelectorAll('div.correction')
