@@ -26,21 +26,5 @@ export const dictionnaireLycee = {
   '2N30-7': {
     titre: 'Problèmes additifs et de comparaison sur les rationnels',
     url: '/exercices/4e/4C25-0.js'
-  },
-  '2N31-1': {
-    titre: 'Notation scientifique',
-    url: '/exercices/4e/4C32.js'
-  },
-  '2N31-2': {
-    titre: 'Puissances : le sens des règles de calculs',
-    url: '/exercices/4e/4C33-1.js'
-  },
-  '2N31-3': {
-    titre: 'Puissances : Calculs automatisés et règles de calculs',
-    url: '/exercices/4e/4C33-3.js'
-  },
-  '2N31-4': {
-    titre: 'Calculs utilisant les priorités opératoires et les puissances',
-    url: '/exercices/4e/4C34.js'
   }
 }
