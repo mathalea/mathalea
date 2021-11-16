@@ -146,13 +146,15 @@ const gestionTimer = () => {
   }
 }
 const gestionTimerDiap = (pause = false) => {
+  const btnPause = document.getElementById('btnPause')
+  btnPause.innerHTML = '<i class="pause icon"></i>'
   const divTimer = document.getElementById('timer')
   if (Number.isInteger(parseInt(context.duree)) && divTimer) {
     if (!pause) context.tempsRestant = context.duree
     divTimer.textContent = context.tempsRestant
     if (!divTimer.hasMathaleaTimer) {
       context.timer = setInterval(() => {
-        context.tempsRestant--
+        if (context.tempsRestant > 0) context.tempsRestant--
         divTimer.textContent = context.tempsRestant
         if (parseInt(context.tempsRestant) === 0) {
           clearInterval(context.timer)
@@ -164,6 +166,7 @@ const gestionTimerDiap = (pause = false) => {
             gestionTimerDiap()
           } else {
             document.getElementById('affichage_exercices').style.visibility = 'hidden'
+            arreteLeTimer()
           }
         }
       }, 1000)
@@ -204,7 +207,8 @@ export async function initDom () {
     }
     // Le titre de l'exercice ne peut être masqué qu'après l'affichage
     document.addEventListener('exercicesAffiches', masqueTitreExerciceEtEspaces)
-    let hauteurIEP = 0; let hauteurCorrection = 0
+    let hauteurIEP = 0
+    let hauteurCorrection = 0
     document.addEventListener('IEPAffiche', () => {
       // Envoi des informations à Anki
       hauteurIEP = window.document.body.scrollHeight + window.document.body.scrollWidth * 0.75 + 60
@@ -276,7 +280,13 @@ export async function initDom () {
         element = addElement(menuEval, 'button', { id: `btnEx${i + 1}`, style: 'margin: 5px', class: 'circular ui button' })
         element.textContent = `Ex. ${i + 1}`
         if (!element.hasListenner) {
-          element.addEventListener('click', () => { affichageUniquementExercice(i) }, false)
+          element.addEventListener(
+            'click',
+            () => {
+              affichageUniquementExercice(i)
+            },
+            false
+          )
           element.hasListenner = true
         }
       }
@@ -304,8 +314,11 @@ export async function initDom () {
       gestionTimer()
       document.querySelector('#accordeon_parametres').style.display = 'none'
       const listeH3 = document.querySelectorAll('h3')
-      if (listeH3.length === 2) { // Un seul exercice on cache son titre
-        listeH3.forEach(e => { e.style.display = 'none' })
+      if (listeH3.length === 2) {
+        // Un seul exercice on cache son titre
+        listeH3.forEach((e) => {
+          e.style.display = 'none'
+        })
       } else {
         for (const e of listeH3) {
           setStyles(e, 'color: white; backgroundColor: #f15929;  borderRadius: 5px; padding: 5px 10px;')
@@ -357,10 +370,10 @@ export async function initDom () {
     parentCorrections.style.flexWrap = 'wrap'
     parentCorrections.style.justifyContent = 'center'
     document.addEventListener('exercicesAffiches', () => {
-      document.querySelectorAll('.titreExercice').forEach(ex => {
+      document.querySelectorAll('.titreExercice').forEach((ex) => {
         setStyles(ex, 'margin: 30px')
       })
-      document.querySelectorAll('ol').forEach(ol => {
+      document.querySelectorAll('ol').forEach((ol) => {
         setStyles(ol, 'padding:0;')
       })
       gestionTimer()
@@ -383,12 +396,16 @@ export async function initDom () {
     document.addEventListener('exercicesAffiches', () => {
       liToDiv()
       ajouteBoutonsVerifQuestions()
-      document.querySelectorAll('h3').forEach(e => { e.style.display = 'none' })
-      document.querySelectorAll('[id^=btnValidationEx]').forEach(e => { e.style.display = 'none' })
+      document.querySelectorAll('h3').forEach((e) => {
+        e.style.display = 'none'
+      })
+      document.querySelectorAll('[id^=btnValidationEx]').forEach((e) => {
+        e.style.display = 'none'
+      })
       document.getElementById('btnCorrection').style.display = 'none'
       affichageUniquementExercice()
       affichageUniquementQuestion(0)
-      document.querySelectorAll('ol').forEach(ol => {
+      document.querySelectorAll('ol').forEach((ol) => {
         setStyles(ol, 'padding:0;')
       })
       menuEval.innerHTML = ''
@@ -398,11 +415,15 @@ export async function initDom () {
         element.textContent = `${i + 1}`
         element.dataset.num = i + 1
         if (!element.hasListenner) {
-          element.addEventListener('click', () => {
-            affichageUniquementQuestion(i)
-            element.classList.add('blue')
-            context.questionCanEnCours = element.textContent
-          }, false)
+          element.addEventListener(
+            'click',
+            () => {
+              affichageUniquementQuestion(i)
+              element.classList.add('blue')
+              context.questionCanEnCours = element.textContent
+            },
+            false
+          )
           element.hasListenner = true
         }
         gestionTimer(divTimer)
@@ -418,24 +439,42 @@ export async function initDom () {
     context.duree = parseInt(getDureeFromUrl())
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container', id: 'sectionPrincipale', style: 'display: none' })
-    // setStyles(section, 'visibility: hidden')
+    await addFetchHtmlToParent('templates/boutonsDiap.html', section)
+    addElement(section, 'div', { class: 'ui hidden divider' })
     const menuEval = addElement(section, 'div', { id: 'menuEval' })
+    addElement(section, 'div', { class: 'ui hidden divider' })
     addElement(section, 'div', { id: 'containerErreur' })
-    addElement(section, 'div', { id: 'timer' })
+    addElement(section, 'div', { id: 'timer', style: 'position: absolute; top: 20px; right: 30px' })
     await addFetchHtmlToParent('templates/mathaleaBasique.html', section)
-    await addFetchHtmlToParent('templates/boutonsCorrectionEtZoom.html', section)
+    const titreCorrections = document.getElementById('titreCorrections')
+    titreCorrections.style.display = 'none'
+    addElement(titreCorrections, 'div', { class: 'ui dividing header', style: 'fontSize: 18pt' }, 'Correction')
     const btnLienCorrection = document.getElementById('boutonLienCorrectionExterne')
     btnLienCorrection.addEventListener('click', () => {
       goTabVue('diapCorr')
     })
+    const btnPause = document.getElementById('btnPause')
+    btnPause.addEventListener('click', () => {
+      pauseLeTimer()
+    })
+    document.getElementById('btnNext').addEventListener('click', () => {
+      questionSuivante()
+    })
+    document.getElementById('btnPrev').addEventListener('click', () => {
+      questionPrecedente()
+    })
     document.addEventListener('exercicesAffiches', () => {
       liToDiv()
-      document.querySelectorAll('h3').forEach(e => { e.style.display = 'none' })
-      document.querySelectorAll('[id^=btnValidationEx]').forEach(e => { e.style.display = 'none' })
+      document.querySelectorAll('h3').forEach((e) => {
+        e.style.display = 'none'
+      })
+      document.querySelectorAll('[id^=btnValidationEx]').forEach((e) => {
+        e.style.display = 'none'
+      })
       document.getElementById('btnCorrection').style.display = 'none'
       affichageUniquementExercice()
       affichageUniquementQuestion(0)
-      document.querySelectorAll('ol').forEach(ol => {
+      document.querySelectorAll('ol').forEach((ol) => {
         setStyles(ol, 'padding:0;')
       })
       menuEval.innerHTML = ''
@@ -445,11 +484,23 @@ export async function initDom () {
         element.textContent = `${i + 1}`
         element.dataset.num = i + 1
         if (!element.hasListenner) {
-          element.addEventListener('click', () => {
-            affichageUniquementQuestion(i)
-            element.classList.add('blue')
-            context.questionCanEnCours = element.textContent
-          }, false)
+          element.addEventListener(
+            'click',
+            () => {
+              affichageUniquementQuestion(i)
+              element.classList.add('blue')
+              context.questionCanEnCours = element.textContent
+              if (document.getElementById('affichage_exercices').style.visibility === 'hidden') {
+                document.getElementById('affichage_exercices').style.visibility = 'visible'
+              }
+              context.tempsRestant = context.duree
+              arreteLeTimer()
+              if (document.getElementById('btnCorrectionQuestion').classList.contains('blue')) {
+                affichageCorrection()
+              }
+            },
+            false
+          )
           element.hasListenner = true
         }
       }
@@ -458,15 +509,29 @@ export async function initDom () {
     // Gestion du pré-show
     const sectionTemp = addElement(document.body, 'section', { class: 'ui center aligned container', id: 'sectionTemporaire', style: 'margin: 300px' })
     const btnReady = addElement(sectionTemp, 'button', { class: 'massive ui button' }, 'Prêt ?')
-    btnReady.addEventListener('click', () => {
-      sectionTemp.remove()
-      setStyles(section, 'display: block')
-      gestionTimerDiap()
-    }, { once: true })
+    btnReady.addEventListener(
+      'click',
+      () => {
+        sectionTemp.remove()
+        setStyles(section, 'display: block')
+        gestionTimerDiap()
+      },
+      { once: true }
+    )
     // Gestion du bouton nouvelles données
     document.getElementById('btnRedo').addEventListener('click', () => {
       window.history.pushState('', '', window.location.protocol + '//' + window.location.host + window.location.pathname + replaceQueryParam('serie', ''))
       document.location.reload()
+    })
+    // Affichage de la correction
+    document.getElementById('btnCorrectionQuestion').addEventListener('click', () => {
+      if (document.getElementById('btnCorrectionQuestion').classList.contains('blue')) {
+        masquerCorrection()
+        document.getElementById('btnCorrectionQuestion').classList.remove('blue')
+      } else {
+        affichageCorrection()
+        document.getElementById('btnCorrectionQuestion').classList.add('blue')
+      }
     })
   } else if (vue === 'latex') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
@@ -511,7 +576,8 @@ export async function initDom () {
     section.append(espaceVertical())
     section.append(espaceVertical())
     setOutputAlc()
-  } else { // menuEtEx
+  } else {
+    // menuEtEx
     setOutputHtml()
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
     section = addElement(document.body, 'section', { class: 'ui container' })
@@ -555,31 +621,25 @@ function espaceVertical () {
 }
 
 function navigationAvecLesFleches () {
-  window.addEventListener('keydown', function (event) {
-    let btn
-    switch (event.code) {
-      case 'ArrowLeft':
-        btn = document.querySelector(`button[data-num="${parseInt(context.questionCanEnCours) - 1}"]`)
-        if (btn) btn.click()
-        event.preventDefault()
-        if (document.getElementById('affichage_exercices').style.visibility === 'hidden') {
-          document.getElementById('affichage_exercices').style.visibility = 'visible'
-        }
-        context.tempsRestant = context.duree
-        arreteLeTimer()
-        break
-      case 'ArrowRight':
-        btn = document.querySelector(`button[data-num="${parseInt(context.questionCanEnCours) + 1}"]`)
-        if (btn) btn.click()
-        event.preventDefault()
-        context.tempsRestant = context.duree
-        arreteLeTimer()
-        break
-      case 'Space':
-        pauseLeTimer()
-        break
-    }
-  }, true)
+  window.addEventListener(
+    'keydown',
+    function (event) {
+      switch (event.code) {
+        case 'ArrowLeft':
+          questionPrecedente()
+          event.preventDefault()
+          break
+        case 'ArrowRight':
+          questionSuivante()
+          break
+        case 'Space':
+          pauseLeTimer()
+          event.preventDefault()
+          break
+      }
+    },
+    true
+  )
 }
 
 function arreteLeTimer () {
@@ -587,14 +647,55 @@ function arreteLeTimer () {
   clearInterval(context.timer)
   const divTimer = document.getElementById('timer')
   divTimer.hasMathaleaTimer = false
+  const btnPause = document.getElementById('btnPause')
+  btnPause.innerHTML = '<i class="play icon"></i>'
 }
 
 function pauseLeTimer () {
   const divTimer = document.getElementById('timer')
+  const btnPause = document.getElementById('btnPause')
   if (divTimer.hasMathaleaTimer) {
     clearInterval(context.timer)
     divTimer.hasMathaleaTimer = false
+    btnPause.innerHTML = '<i class="play icon"></i>'
   } else {
     gestionTimerDiap(true)
   }
+}
+
+function affichageCorrection () {
+  masquerCorrection()
+  document.getElementById('titreCorrections').style.display = 'block'
+  document.getElementById('corrections').style.display = 'block'
+  const corrections = document.querySelectorAll('div.correction')
+  const i = context.questionCanEnCours - 1
+  corrections[i].style.display = 'block'
+  const correction = corrections[i].parentElement.parentElement
+  correction.style.display = 'block'
+}
+
+function masquerCorrection () {
+  document.getElementById('titreCorrections').style.display = 'none'
+  document.getElementById('corrections').style.display = 'none'
+  const corrections = document.querySelectorAll('div.correction')
+  for (const correction of corrections) {
+    correction.style.display = 'none'
+  }
+}
+
+function questionPrecedente () {
+  const btn = document.querySelector(`button[data-num="${parseInt(context.questionCanEnCours) - 1}"]`)
+  if (btn) btn.click()
+  if (document.getElementById('affichage_exercices').style.visibility === 'hidden') {
+    document.getElementById('affichage_exercices').style.visibility = 'visible'
+  }
+  context.tempsRestant = context.duree
+  arreteLeTimer()
+}
+
+function questionSuivante () {
+  const btn = document.querySelector(`button[data-num="${parseInt(context.questionCanEnCours) + 1}"]`)
+  if (btn) btn.click()
+  context.tempsRestant = context.duree
+  arreteLeTimer()
 }

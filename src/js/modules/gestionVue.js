@@ -95,7 +95,6 @@ export async function gestionVue (vue) {
       if (btnEdit) btnEdit.style.display = 'inline'
       if (buttonFullScreen) buttonFullScreen.style.display = 'inline'
     }
-    console.log(context.vue)
     if (context.vue === 'menu') { // Affichage des seuls exercices
       demasqueMenuDesExercices()
       if (btnEdit) btnEdit.style.display = 'none'
