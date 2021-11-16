@@ -171,7 +171,7 @@ const gestionTimerDiap = (pause = false) => {
             arreteLeTimer()
             document.querySelector(`button[data-num="${context.questionCanEnCours}"]`).classList.remove('blue')
             const menuEval = document.getElementById('menuEval')
-            addElement(menuEval, 'h1', { id: 'divExerciceTermine' }, 'Exercice terminé')
+            addElement(menuEval, 'h1', { id: 'divExerciceTermine', class: 'ui center aligned container', style: 'marginTop: 200px' }, 'Diaporama terminé')
             document.getElementById('btnCorrectionQuestion').classList.remove('blue')
           }
         }
