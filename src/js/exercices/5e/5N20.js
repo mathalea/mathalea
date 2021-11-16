@@ -148,7 +148,11 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           texte += '<br>' + propositionsQcm(this, i).texte
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
-          setReponse(this, i, new Fraction(a * d + c * b, b * d), { formatInteractif: 'fractionEgale' })
+          if (this.sup3) {
+            setReponse(this, i, new Fraction(a * d + c * b, b * d).simplifie(), { formatInteractif: 'fraction' })
+          } else {
+            setReponse(this, i, new Fraction(a * d + c * b, b * d).simplifie(), { formatInteractif: 'fractionEgale' })
+          }
         }
       } else { // une soustraction
         /** ***************** Choix des réponses du QCM ***********************************/
@@ -212,10 +216,10 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           }
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
-          if (this.sup) {
-            setReponse(this, i, new Fraction(Math.abs(a * d - c * b), b * d), { formatInteractif: 'fraction' })
+          if (this.sup3) {
+            setReponse(this, i, new Fraction(Math.abs(a * d - c * b), b * d).simplifie(), { formatInteractif: 'fraction' })
           } else {
-            setReponse(this, i, new Fraction(Math.abs(a * d - c * b), b * d), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, new Fraction(Math.abs(a * d - c * b), b * d).simplifie(), { formatInteractif: 'fractionEgale' })
           }
         }
       }
