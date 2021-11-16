@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
  * * Calcul mental autour des identités remarquables
  * * numéro de l'exo ex : 3L11-5
  * * publié le  14/11/2020
- * * décliné en 2N41-1 => 07/10/2021
+ * * décliné en 2N40-6 => 07/10/2021
  * * décliné en can2C04 => 08/10/2021
  * * décliné en can2C05 => 10/10/2021
  * @author Sébastien Lozano
