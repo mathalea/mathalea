@@ -42,25 +42,5 @@ export const dictionnaireLycee = {
   '2N31-4': {
     titre: 'Calculs utilisant les priorités opératoires et les puissances',
     url: '/exercices/4e/4C34.js'
-  },
-  '2N40-1': {
-    titre: 'Traduire un programme de calcul par une expression littérale',
-    url: '/exercices/5e/5L10-2.js'
-  },
-  '2N40-2': {
-    titre: 'Calculer la valeur d\'une expression littérale.',
-    url: '/exercices/5e/5L14.js'
-  },
-  '2N40-3': {
-    titre: 'Écrire une expression littérale',
-    url: '/exercices/5e/5L10.js'
-  },
-  '2N40-4': {
-    titre: 'Utiliser la distributivité (simple ou double) et réduire',
-    url: '/exercices/3e/3L11-3.js'
-  },
-  '2N40-5': {
-    titre: 'Factoriser une expression',
-    url: '/exercices/3e/3L11-4.js'
   }
 }
