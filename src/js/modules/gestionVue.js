@@ -95,6 +95,7 @@ export async function gestionVue (vue) {
       if (btnEdit) btnEdit.style.display = 'inline'
       if (buttonFullScreen) buttonFullScreen.style.display = 'inline'
     }
+    console.log(context.vue)
     if (context.vue === 'menu') { // Affichage des seuls exercices
       demasqueMenuDesExercices()
       if (btnEdit) btnEdit.style.display = 'none'
@@ -112,4 +113,5 @@ export async function gestionVue (vue) {
     // Met à jour l'URL avec notamment la nouvelle vue
     setUrl()
   }
+  if (document.getElementById('buttonEdit')) document.getElementById('buttonEdit').style.display = 'none'
 }
