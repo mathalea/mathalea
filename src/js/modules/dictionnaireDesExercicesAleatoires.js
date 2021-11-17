@@ -4251,6 +4251,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "5A11-2": {
+    "titre": "Labyrinthe de multiples avec critères choisis équilibrés ",
+    "url": "/exercices/5e/5A11-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5A11-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "5A11": {
     "titre": "Critères de divisibilité (plusieurs possibles)",
     "url": "/exercices/5e/5A11.js",
