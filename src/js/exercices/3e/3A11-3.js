@@ -10,7 +10,7 @@ export const titre = 'Compter/lister les diviseurs d’un entier à partir de sa
 export default function listerDiviseursParDecompositionFacteursPremiers () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = 1
+  this.sup = false
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Sans la calculatrice, compter/lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers.'
@@ -21,7 +21,6 @@ export default function listerDiviseursParDecompositionFacteursPremiers () {
   // this.correctionDetailleeDisponible = true;
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = 1
 
   this.nouvelleVersion = function (numeroExercice) {
     // let typesDeQuestions
@@ -49,9 +48,11 @@ export default function listerDiviseursParDecompositionFacteursPremiers () {
       texte = 'Lister/compter les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
       // let premiers_dispos = premiersEntreBornes(2,11);
       // on fixe le nombre de facteurs premier à 3
-      const nbDePremiersb = randint(3, 3)
+      const nbDePremiersb = 3
       // on fixe la limite pour le choix des premiers
-      const maxPremierb = 11
+      let maxPremierb
+      if (this.sup) maxPremierb = 13
+      else maxPremierb = 11
       // on fixe le rang max pour le choix des premiers
       const rgMaxb = cribleEratostheneN(maxPremierb).length - 1
       // on choisit les rangs pour les nombres premiers
@@ -75,7 +76,7 @@ export default function listerDiviseursParDecompositionFacteursPremiers () {
       // on choisit les multiplicités
       const tabMultiplicitesb = []
       for (let k = 0; k < tabRangsb.length; k++) {
-        tabMultiplicitesb[k] = randint(1, 2)
+        tabMultiplicitesb[k] = randint(1, this.sup ? 4 : 2)
       };
       texte = ''
       let nombreADecomposerb = 1

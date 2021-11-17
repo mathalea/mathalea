@@ -36,7 +36,7 @@ export default function CalculsAutomatiques () {
           break
       }
     } else {
-      this.question = `La moitié de ${a} est égal à `
+      this.question = `La moitié de ${a} est égale à `
       this.reponse = a >> 1
       this.correction = `$${a}\\div 2 = ${a >> 1}$`
     }

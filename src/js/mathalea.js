@@ -3282,12 +3282,21 @@ document.addEventListener('DOMContentLoaded', async () => {
       <div class="content">
       <h3 class="ui dividing header">Affichage</h3>
       <div class="ui link relaxed list">
+        <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'diap')}" target="_blank"><i class="play icon"></i>Diaporama (navigation avec les flèches, pause avec la barre espace)</a></div>
         <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'l')}" target="_blank"><i class="expand icon"></i>Simplifié (sans le menu de coopmaths.fr)</a></div>
         <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'multi')}" target="_blank"><i class="map outline icon"></i>En colonnes</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'embed')}" target="_blank"><i class="tablet alternate icon"></i>Optimisé pour les smartphones</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'can')}" target="_blank"><i class="flag checkered icon"></i>Course aux nombres (interactif et une question à la fois)</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'eval')}" target="_blank"><i class="tasks icon"></i>Interactif et un exercice par page</a></div>
       </div>
+
+      <h3 class="ui dividing header">Imposer un temps</h3>
+        <div class="ui left icon input" id="formTimer" style="margin: 10px" data-tooltip='Temps en secondes'>
+          <i class="hourglass start icon"></i>
+          <input id='inputTimer' type='number' min='2' max='999' ${context.duree ? 'value="' + context.duree + '"' : ''} >
+        </div>
+
+        
       <h3 class="ui dividing header">Code d'intégration</h3>
       <div class="content"><p><div style="white-space: pre-wrap;">&lt;iframe width="660"
         height="315" 
@@ -3297,11 +3306,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <button id="btnEmbedCode" style="margin:10px" class="btn ui toggle button labeled icon url"
         data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le code HTML</button></div>
 
-        <h3 class="ui dividing header">Imposer un temps</h3>
-        <div class="ui left icon input" id="formTimer" style="margin: 10px" data-tooltip='Temps en secondes'>
-          <i class="hourglass start icon"></i>
-          <input id='inputTimer' type='number' min='2' max='999' ${context.duree ? 'value="' + context.duree + '"' : ''} >
-        </div>
+        
 
         <h3 class="ui dividing header">QR-Code</h3>
         <div class="ui center aligned container">

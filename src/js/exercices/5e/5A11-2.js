@@ -1,14 +1,13 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, contraindreValeur, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, shuffle, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 import { mathalea2d, labyrinthe } from '../../modules/2d.js'
-export const dateDeModifImportante = '14/11/2021'
-
-export const titre = 'Labyrinthe de multiples basé sur les critères de divisibilité'
+export const dateDePublication = '16/11/2021'
+export const titre = 'Labyrinthe de multiples avec critères choisis équilibrés '
 
 /**
  * @author Jean-Claude Lhote
- * Publié le 7/12/2020
- * Ref 5A11-1
+ * Publié le 16/11/2021
+ * Ref 5A11-2 (clône de 5A11-1 qui datait du 7/12/2020)
  * Sortir du labyrinthe en utilisant les critères de divisibilité.
  */
 export default function ExerciceLabyrintheDivisibilite () {
@@ -16,38 +15,29 @@ export default function ExerciceLabyrintheDivisibilite () {
   this.titre = titre
   this.consigne = ''
   this.niveau = '6e'
-  this.nbQuestions = 5
+  this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
-  this.sup3 = 3
-  this.sup = '2-5-10'
-  if (this.niveau === 'CM') {
-    this.sup2 = 1
-    this.sup3 = 3
-  } else {
-    this.sup2 = 2
-    this.sup3 = 4
-  }
+  this.sup = 6
+
   // this.consigne=`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
   this.nouvelleVersion = function () {
-    this.sup2 = Number(this.sup2)
-    this.sup3 = Number(this.sup3)
+    this.sup = Number(this.sup)
     const tailleChiffre = 0.8
-
     this.listeCorrections = []
     this.listeQuestions = []
-    let texte, texteCorr, trouve
-    let laby
-    let monChemin
-    const tables = combinaisonListesSansChangerOrdre(this.sup.split('-'), this.nbQuestions)
-    for (let i = 0; i < this.nbQuestions; i++) {
-      tables[i] = contraindreValeur(2, 50, parseInt(tables[i]), 5)
+    let texte, texteCorr, trouve, laby, monChemin
+    const listeCouples = shuffle([[2, 3], [2, 9], [5, 3], [5, 9], [10, 3], [10, 9]])
+    let tables = []
+    for (const couple of listeCouples) {
+      tables.push(couple[0], couple[1])
     }
+    tables = combinaisonListesSansChangerOrdre(tables, this.nbQuestions)
     for (let q = 0; q < this.nbQuestions;) {
       laby = labyrinthe({ taille: tailleChiffre })
-      laby.niveau = this.sup3 // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
+      laby.niveau = this.sup // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
       laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
       laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
@@ -89,6 +79,5 @@ export default function ExerciceLabyrintheDivisibilite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Critère de divisibilité séparés par des tirets (exemple : 3-5-10) ', '2-5-10']
-  this.besoinFormulaire3Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
+  this.besoinFormulaireNumerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
 } // Fin de l'exercice.

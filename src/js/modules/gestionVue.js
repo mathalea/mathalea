@@ -112,4 +112,5 @@ export async function gestionVue (vue) {
     // Met à jour l'URL avec notamment la nouvelle vue
     setUrl()
   }
+  if (document.getElementById('buttonEdit')) document.getElementById('buttonEdit').style.display = 'none'
 }
