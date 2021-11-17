@@ -47,6 +47,8 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         this.consigne = 'Calculer'
       } else if (context.isAmc) {
         this.consigne = 'Calculer et choisir parmi les réponses proposées la bonne réponse'
+      } else if (!this.sup3) {
+        this.consigne = 'Calculer :'
       }
     }
     this.sup = parseInt(this.sup)
