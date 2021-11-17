@@ -33,6 +33,7 @@ export default function DiviserUnNombreParPuissanceDeDix () {
     const choixUnites = ['millièmes', 'centièmes', 'dixièmes']
     let listeChoixAlea = range(2)
     if (!this.sup2 || this.interactif) { this.nbQuestions = min(this.nbQuestions, 3) }
+    if (context.isAmc) { this.sup2 = false }
     if (this.interactif) {
       this.introduction = lampeMessage({
         titre: 'Aucun raisonnement écrit ne vous est demandé.',
