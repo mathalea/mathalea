@@ -108,7 +108,7 @@ export default function NotationScientifique () {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         if (parseInt(this.sup) === 1) {
-          setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), { formatInteractif: 'texte', digits: listeTypeDeQuestions[i] + 1, decimals: listeTypeDeQuestions[i], signe: false, exposantNbChiffres: 1, exposantSigne: true, approx: 0 })
+          setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), { formatInteractif: 'ecritureScientifique', digits: listeTypeDeQuestions[i] + 1, decimals: listeTypeDeQuestions[i], signe: false, exposantNbChiffres: 1, exposantSigne: true, approx: 0 })
         } else {
           setReponse(this, i, reponse, { formatInteractif: 'calcul' })
         }
