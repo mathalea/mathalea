@@ -67,11 +67,11 @@ export default function FactoriserParNombreOux () {
           if (n > 0) {
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${-k}a+${k}\\times${n}b$`
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${printlatex(`-a+${n}*b`)})$`
-            reponse = printlatex(`-a+${n}*b`)
+            reponse = `${k}(${printlatex(`-a+(${n})*b`)})`
           } else {
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${-k}a+(${-k})\\times${-n}b$`
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${-k}(${printlatex(`a+(${-n})*b`)})$`
-            reponse = printlatex(`a+(${-n})*b`)
+            reponse = `${-k}(${printlatex(`a+(${-n})*b`)})`
           }
           break
         case 'nka+mkb':
