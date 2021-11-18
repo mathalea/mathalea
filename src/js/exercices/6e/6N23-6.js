@@ -8,6 +8,7 @@ export const interactifReady = true
 export const interactifType = 'numerique'
 export const amcType = 'AMCNum' // Question numérique
 export const titre = 'Valeur décimale d\'une fraction'
+export const dateDePublication = '18/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Calculer la valeur décimale des fractions suivantes.
