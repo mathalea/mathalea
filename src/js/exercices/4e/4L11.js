@@ -1,5 +1,6 @@
 import FactoriserParNombreOux from '../3e/3L11-4.js'
 export const titre = 'Factoriser une expression littérale'
+export { interactifReady, interactifType, amcReady, amcType } from '../3e/3L11-4.js'
 
 /**
  * @author Guillaume Valmont

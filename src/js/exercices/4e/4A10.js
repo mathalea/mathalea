@@ -1,5 +1,6 @@
 import PremierOuPas from '../3e/3A11.js'
 export const titre = 'Nombre premier ou pas'
+export { interactifReady, interactifType, amcReady, amcType } from '../3e/3A11.js'
 
 /**
  * @author Guillaume Valmont
