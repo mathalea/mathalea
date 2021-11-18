@@ -1,9 +1,6 @@
 import PremierOuPas from '../3e/3A11.js'
 export const titre = 'Nombre premier ou pas'
-export const interactifReady = true
-export const interactifType = 'qcm'
-export const amcReady = true
-export const amcType = 'qcmMono'
+export { interactifReady, interactifType, amcReady, amcType } from '../3e/3A11.js'
 
 /**
  * @author Guillaume Valmont

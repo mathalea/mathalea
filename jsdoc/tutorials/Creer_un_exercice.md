@@ -225,16 +225,11 @@ Un booléen `context.isHtml` est défini sur chaque page qui utilise MathALEA ca
 ## <a id="variante" href="#variante">5. Variante des exercices</a>
 Afin de pouvoir appeler un exercice avec une modification (de son niveau de difficulté, de son titre...), on peut en définir une variante.
 
-Le code ci-dessous permet par exemple d'intégrer l'exercice 3A11 en 4ème sous la référence 4A10 avec le paramètres `sup2 = false`.
+Le code ci-dessous permet par exemple d'intégrer l'exercice 3A11 en 4ème sous la référence 4A10 avec le paramètres `sup2 = false` et en conservant l'interactivité et l'exportabilité AMC.
 ```js
 import PremierOuPas from '../3e/3A11.js'
 export const titre = 'Nombre premier ou pas'
-
-// Si l'exercice n'est pas interactif ni exportable AMC, il ne faut pas copier les quatre lignes ci-dessous
-export const interactifReady = true // Si l'exercice original est interactif, il ne faut pas oublier de réexporter ces constantes !
-export const interactifType = 'qcm'
-export const amcReady = true // idem s'il est exportable AMC !
-export const amcType = 'qcmMono'
+export { interactifReady, interactifType, amcReady, amcType } from '../3e/3A11.js'
 
 /**
  * @author Guillaume Valmont
