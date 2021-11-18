@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, lettreMinusculeDepuisChiffre } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+import { fraction } from '../../modules/fractions.js'
 
 export const titre = 'Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique'
 export const interactifReady = true
@@ -123,7 +124,7 @@ export default function ImageFonctionAlgebrique () {
           }
           expression = `\\dfrac{${a}}{${c}x+${d}}`
           texteCorr = `$${nomdef}(${x})=\\dfrac{${a}}{${c}\\times${ecritureParentheseSiNegatif(x)}+${d}}=\\dfrac{${a}}{${c * x}+${d}}=\\dfrac{${a}}{${c * x + d}}=${texFractionReduite(a, c * x + d)}$`
-          setReponse(this, i, texFractionReduite(a, c * x + d))
+          setReponse(this, i, fraction(a, c * x + d), { formatInteractif: 'fractionEgale' })
           break
         case 'ax+b/cx+d':
           d = randint(1, 11)
@@ -135,7 +136,7 @@ export default function ImageFonctionAlgebrique () {
           }
           expression = `\\dfrac{${a}x+${b}}{${c}x+${d}}`
           texteCorr = `$${nomdef}(${x})=\\dfrac{${a}\\times${ecritureParentheseSiNegatif(x)}+${b}}{${c}\\times${ecritureParentheseSiNegatif(x)}+${d}}=\\dfrac{${a * x}+${b}}{${c * x}+${d}}=\\dfrac{${a * x + b}}{${c * x + d}}=${texFractionReduite(a * x + b, c * x + d)}$`
-          setReponse(this, i, texFractionReduite(a * x + b, c * x + d))
+          setReponse(this, i, fraction(a * x + b, c * x + d), { formatInteractif: 'fractionEgale' })
           break
         case '(ax+b)(cx+d)':
           a = randint(-4, 4, [0, 1, -1])

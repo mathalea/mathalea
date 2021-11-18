@@ -182,7 +182,7 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
     } else if (formatInteractif === 'fractionEgale') {
-      // Si l'utilisateur entre un entier n, on transforme en n/1
+      // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
       if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
         saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
       } else {
