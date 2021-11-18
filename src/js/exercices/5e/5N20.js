@@ -24,12 +24,8 @@ export const titre = 'Additionner ou soustraire deux fractions (dénominateurs m
 */
 export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.sup = max // Correspond au facteur commun
-  this.sup2 = false // Si true alors il n'y aura que des soustractions
+  this.sup2 = 1 // Si 1 alors il n'y aura pas de soustraction
   this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée
   this.titre = titre
   this.consigne = 'Calculer :'
@@ -52,20 +48,21 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
       }
     }
     this.sup = parseInt(this.sup)
+    this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let listeTypeDeQuestions
-    if (parseInt(this.sup2) === 1) {
+    if (this.sup2 === 1) {
       listeTypeDeQuestions = combinaisonListes(['+'], this.nbQuestions)
     }
-    if (parseInt(this.sup2) === 2) {
+    if (this.sup2 === 2) {
       listeTypeDeQuestions = combinaisonListes(['-'], this.nbQuestions)
     }
-    if (parseInt(this.sup2) === 3) {
+    if (this.sup2 === 3) {
       listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions)
     }
-    for (let i = 0, a, b, c, d, k, texte, texteCorr; i < this.nbQuestions; i++) {
+    for (let i = 0, a, b, c, d, k, s, ordreDesFractions, texte, texteCorr; i < this.nbQuestions;) {
       this.autoCorrection[i] = {}
       texte = ''
       texteCorr = ''
@@ -78,7 +75,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
       } else k = 1
       d = b * k
       if (listeTypeDeQuestions[i] === '-') {
-        c = choice([randint(1, b * k, d), randint(b * k, 9 * k, d)])
+        c = choice([randint(1, b * k), randint(b * k, 9 * k)])
       } else {
         c = randint(1, 19, d)
       }
@@ -112,7 +109,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           this.autoCorrection[i].propositions[0].texte = `$${texFraction(a + c, b)}$`
         }
         /*************************************************************************/
-        const ordreDesFractions = randint(1, 2)
+        ordreDesFractions = randint(1, 2)
         if (ordreDesFractions === 1) {
           texte = `$${texFraction(a, b)}+${texFraction(c, d)}=$`
           /** ****************** AMC question/questionmult ********************************/
@@ -141,7 +138,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         }
         // Est-ce que le résultat est simplifiable ?
         if (this.sup3) {
-          const s = pgcd(a * k + c, d)
+          s = pgcd(a * k + c, d)
           if (s !== 1) {
             texteCorr += `$=${texFraction(calcul((a * k + c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k + c) / s), calcul(d / s))}$`
           }
@@ -210,7 +207,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         }
         // Est-ce que le résultat est simplifiable ?
         if (this.sup3) {
-          const s = pgcd(a * k - c, d)
+          s = pgcd(Math.abs(a * k - c), d)
           if (abs(a * k - c) % d === 0) { // si la fraction peut-être un nombre entier
             texteCorr += `$=${calcul((abs(a * k - c)) / d)}$`
           } else if (s !== 1) {
@@ -231,8 +228,12 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
       }
-      this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
+
+      if (this.questionJamaisPosee(i, a, k, b, c)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
