@@ -150,7 +150,11 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour les exercices où la saisie du texte avec prise en compte de la casse
     } else if (formatInteractif === 'ecritureScientifique') { // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
-      if (typeof reponse === 'string') saisie = saisie.toString().replace(',', '.')
+      if (typeof reponse === 'string') {
+        saisie = saisie.toString().replace(',', '.')
+        reponse = reponse.replace(',', '.')
+      }
+      console.log(saisie, engine.canonical(parse(saisie)), reponse, engine.canonical(parse(reponse)))
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         saisie = saisie.split('\\times')
         if (number(saisie[0]) >= 1 & number(saisie[0]) < 10) { resultat = 'OK' }
