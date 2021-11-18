@@ -57,28 +57,28 @@ export default function CalculAstucieux1 () {
         $2,5 \\times ${texNombre(d)}\\times 4 =\\underbrace{2,5\\times 4}_{10} \\times ${texNombre(d)} = ${texNombrec(10 * d)}$ `)
         break
       case 'e':
-        this.question = `$${texNombre(e)} \\times ${texNombre(d)}+${texNombre(10 - e)}\\times ${texNombre(d)}$`
-        this.correction = `$${texNombre(e)} \\times ${texNombre(d)}+${texNombre(10 - e)}\\times ${texNombre(d)}=${texNombre(d)}\\times 10=${texNombrec(10 * d)}$`
+        this.question = `$${texNombre(e)} \\times ${texNombre(d)}+${texNombrec(10 - e)}\\times ${texNombre(d)}$`
+        this.correction = `$${texNombre(e)} \\times ${texNombre(d)}+${texNombrec(10 - e)}\\times ${texNombre(d)}=${texNombre(d)}\\times 10=${texNombrec(10 * d)}$`
         this.reponse = calcul(10 * d)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         On remarque une factorisation possible par le facteur commun $${texNombre(d)}$ qui permet de simplifier le calcul :<br>
-        $${texNombre(e)} \\times ${texNombre(d)}+${texNombre(10 - e)}\\times ${texNombre(d)}=${texNombre(d)}\\times(\\underbrace{${texNombre(e)}+${texNombre(10 - e)}}_{10})=${texNombre(d)}\\times 10=${texNombrec(10 * d)}$  `)
+        $${texNombre(e)} \\times ${texNombre(d)}+${texNombrec(10 - e)}\\times ${texNombre(d)}=${texNombre(d)}\\times(\\underbrace{${texNombre(e)}+${texNombrec(10 - e)}}_{10})=${texNombre(d)}\\times 10=${texNombrec(10 * d)}$  `)
         break
       case 'f':
-        this.question = `$${texNombre(f)} \\times ${texNombre(d)}+${texNombre(10 - f)}\\times ${texNombre(d)}$`
-        this.correction = `$${texNombre(f)} \\times ${texNombre(d)}+${texNombre(10 - f)}\\times ${texNombre(d)}=${texNombrec(10 * d)}$`
+        this.question = `$${texNombre(f)} \\times ${texNombre(d)}+${texNombrec(10 - f)}\\times ${texNombre(d)}$`
+        this.correction = `$${texNombre(f)} \\times ${texNombre(d)}+${texNombrec(10 - f)}\\times ${texNombre(d)}=${texNombrec(10 * d)}$`
         this.reponse = calcul(10 * d)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         On remarque une factorisation possible par le facteur commun $${texNombre(d)}$ qui permet de simplifier le calcul :<br>
-        $${texNombre(f)} \\times ${texNombre(d)}+${texNombre(10 - f)}\\times ${texNombre(d)}=${texNombre(d)}\\times(\\underbrace{${texNombre(f)}+${texNombre(10 - f)}}_{10})=${texNombre(d)}\\times 10=${texNombrec(10 * d)}$. `)
+        $${texNombre(f)} \\times ${texNombre(d)}+${texNombrec(10 - f)}\\times ${texNombre(d)}=${texNombre(d)}\\times(\\underbrace{${texNombre(f)}+${texNombrec(10 - f)}}_{10})=${texNombre(d)}\\times 10=${texNombrec(10 * d)}$. `)
         break
       case 'g':
-        this.question = `$${texNombre(g)} \\times ${texNombre(d)}+${texNombre(100 - g)}\\times ${texNombre(d)}$`
-        this.correction = `$${g} \\times ${texNombre(d)}+${texNombre(100 - g)}\\times ${texNombre(d)}=${texNombrec(100 * d)}$`
+        this.question = `$${texNombre(g)} \\times ${texNombre(d)}+${texNombrec(100 - g)}\\times ${texNombre(d)}$`
+        this.correction = `$${g} \\times ${texNombre(d)}+${texNombrec(100 - g)}\\times ${texNombre(d)}=${texNombrec(100 * d)}$`
         this.reponse = calcul(100 * d)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         On remarque une factorisation possible par le facteur commun $${texNombre(d)}$ qui permet de simplifier le calcul :<br>
-        $${g} \\times ${texNombre(d)}+${texNombre(100 - g)}\\times ${texNombre(d)}=${texNombre(d)}\\times(\\underbrace{${texNombre(g)}+${texNombre(100 - g)}}_{100})=${texNombre(d)}\\times 100=${texNombrec(100 * d)}$  `)
+        $${g} \\times ${texNombre(d)}+${texNombrec(100 - g)}\\times ${texNombre(d)}=${texNombre(d)}\\times(\\underbrace{${texNombre(g)}+${texNombrec(100 - g)}}_{100})=${texNombre(d)}\\times 100=${texNombrec(100 * d)}$  `)
         break
     }
   }
