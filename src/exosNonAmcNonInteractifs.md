@@ -51,7 +51,7 @@
 |6P13-1|5N11-4|||2N52-1|||betaModele11_parametrable|
 |6S11|5N14-2|||2N52-2|||betaModele20_plusieurs_types_de_questions|
 ||5N15|||2N52-4|||betaModele21_parametrables|
-||5N20-0|||2N60-4|||betaModele30_constructions_géométriques|
+||5N20-0|||2N60-4|||betaModele30_constructions_géométriques|
 ||5P10|||2N61-2|||betaModele31_parametrables|
 ||5P12|||2N61-4|||betaModele40_tableau_proportionnalite|
 ||5R10-0|||2S30-2|||betaModele41_tableau_signes_variations|
