@@ -4,6 +4,7 @@ Si vous ne voulez pas d'un truc trop lourd et voulez apporter votre contribution
 
 1. [Les 10 étapes pour créer un exercice](#les_10_etapes_pour_creer_un_exercice)
 1. [Modèles présents dans le dossier`src/js/exercices/beta`](#modeles)
+1. [Syntaxe des commit](#syntaxe_commit)
 1. [Programmer un exercice](#programmer_un_exercice)
     1. [L'en-ête](#en-tete)
     1. [Le paramétrage des valeurs par défaut](#parametrage_valeurs_par_defaut)
@@ -36,7 +37,7 @@ Les lignes de commande nécessitent des "anti-sèches" au début mais ont les av
 5. Modifier les informations servant au référencement (dans les premières lignes du fichier, de l'export du titre à l'export de la fonction)
 6. Enregistrer puis lancer `pnpm build:dicos` dans un terminal pour ajouter son exercice à la liste des exercices (il faudra le refaire si vous changez le nom du fichier, le titre ou l'un de ces paramètres : amcReady, amcType, interactifReady, interactifType)
 7. Le [programmer](#programmer_un_exercice) et le tester en lançant dans un terminal `pnpm start` (Attention à ne pas oublier de modifier la ligne `if (this.questionJamaisPosee(i, a, b, c, d)` à la fin du fichier en fonction des données de l'énoncé, sinon le `pnpm start` ne fonctionnera pas).
-8. Enregistrer régulièrement son travail et faire un **commit** à chaque étape du projet : faire `git add .` la première fois pour ajouter le nouveau fichier aux fichiers suivis puis **commit** à chaque étape avec `git commit -am "Premier niveau de difficulté"`
+8. Enregistrer régulièrement son travail et faire un **commit** à chaque étape du projet en [respectant la syntaxe](#syntaxe_commit) : faire `git add .` la première fois pour ajouter le nouveau fichier aux fichiers suivis puis **commit** à chaque étape avec `git commit -am "ex: Ajout de 4A10 Reconnaitre un nombre premier"`
 9. Le partager avec les autres : `git push origin nomDeLaBranche`
 10. Une fois l'exercice terminé, faire un **Pull Request** via [github](https://github.com/mathalea/mathalea/branches) ou son interface graphique préférée (GitKraken ou GitHub Desktop).
 
@@ -52,7 +53,23 @@ Les lignes de commande nécessitent des "anti-sèches" au début mais ont les av
 - betaModèle40_tableau_proportionnalite
 - betaModèle41_tableau_signes_variations
 Pour rentre un des modèles interactif, consulter le guide [Rendre_un_exercice_interactif_simple](https://coopmaths.fr/documentation/tutorial-Rendre_un_exercice_interactif_simple.html) dans le panneau de gauche
-## <a id="programmer_un_exercice" href="#programmer_un_exercice">3. Programmer un exercice</a> 
+
+## <a id="syntaxe_commit" href="#syntaxe_commit">3. Syntaxe des commit à respecter</a>
+Afin d'avoir un changelog (notes de mises à jour) généré automatiquement, chaque **commit** doit être correctement préfixé.
+
+Le nom de chaque **commit** doit commencer par un mot clé suivi immédiatement par deux points (sans espace).
+
+Les mots clés sont les suivants :
+- `ex:` pour signaler l'ajout d’un exercice
+- `fix:` pour signaler la réparation d’un bug
+- `feat:` pour signaler l'ajout d’une fonctionnalité
+- `chore:` pour signaler une modification du moteur
+- `docs:` pour signaler une mise à jour de la documentation
+- `lint:` pour signaler une amélioration “esthétique” du code
+- `perf:` pour signaler une amélioration des performances
+- `style:` pour signaler une amélioration visuelle ou typographique
+
+## <a id="programmer_un_exercice" href="#programmer_un_exercice">4. Programmer un exercice</a> 
 Un exercice est un objet de la classe Exercice (d'où le `import Exercice` en début de fichier et le `Exercice.call` au début de la fonction exportée).
 Il a plusieurs [attributs](#11) (son titre, son énoncé, sa correction...) et a une fonction `nouvelleVersion()` qui crée un énoncé aléatoire.
 
@@ -63,7 +80,7 @@ On peut partager le code en 3 parties :
 
 ![](img/Structure-exo.png)
 
-### <a id="en-tete" href="#en-tete">3. 1. L'en-tête</a>
+### <a id="en-tete" href="#en-tete">4. 1. L'en-tête</a>
 ```javascript
 import Exercice from '../Exercice.js' // Un exercice commence toujours pas cette ligne. Elle sert à importer la classe Exercice avec tous ses attributs qu'on modifiera dans la deuxième partie
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js' // On peut ensuite importer d'autres choses. outils.js regorge de fonctions très utiles déjà créées par d'autres avant vous ! Si vous avez besoin de faire quelque chose, jetez-y un oeil ! Quelqu'un l'a déjà probablement fait pour vous !
@@ -87,7 +104,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 */
 export default function Ajouter9 () { // On clôture cette première partie par exporter la fonction par défaut qui contiendra le reste du code.
 ```
-### <a id="parametrage_valeurs_par_defaut" href="#parametrage_valeurs_par_defaut">3. 2. Le paramétrage des valeurs par défaut</a>
+### <a id="parametrage_valeurs_par_defaut" href="#parametrage_valeurs_par_defaut">4. 2. Le paramétrage des valeurs par défaut</a>
 ``` javascript
   Exercice.call(this) // La deuxième partie commence toujours par cette ligne pour récupérer toutes les propriétés de la classe Exercice.
   this.consigne = 'Calculer' // On définit alors les valeurs par défaut de notre exercice comme la consigne,
@@ -96,7 +113,7 @@ export default function Ajouter9 () { // On clôture cette première partie par 
 
   this.nouvelleVersion = function (numeroExercice) { // Le paramétrage des valeurs par défaut se termine par cette ligne qui signe le début de la programmation de l'exercice en lui-même !
 ```
-### <a id="code_de_lexercice" href="#code_de_lexercice">3. 3. Le code de l'exercice en lui-même</a>
+### <a id="code_de_lexercice" href="#code_de_lexercice">4. 3. Le code de l'exercice en lui-même</a>
 ``` javascript
     this.listeQuestions = []   // On commence par créer les emplacements qui vont contenir toutes les questions,
     this.listeCorrections = [] // et les corrections.
@@ -129,7 +146,7 @@ export default function Ajouter9 () { // On clôture cette première partie par 
 **Remarque :**
 L'extension ESLint permet de repérer les erreurs et améliorer la mise en forme de votre document (avec les règles de [StandardJS](https://standardjs.com)). Voir Affichages > Problèmes pour une description des erreurs et `CTRL+MAJ+P` ou `CMD+MAJ+P` puis `ESLint: Fix all auto-fixable Problems` pour améliorer la typographie et le style de votre code.
 
-### <a id="exercice_complet" href="#exercice_complet">3. 4. L'exercice complet dont le résultat est visible sur [http://coopmaths.fr/exCM005](http://coopmaths.fr/exCM005)</a>
+### <a id="exercice_complet" href="#exercice_complet">4. 4. L'exercice complet dont le résultat est visible sur [http://coopmaths.fr/exCM005](http://coopmaths.fr/exCM005)</a>
 Essayez de voir si vous le comprenez ! En cas de besoin, vous pouvez remonter pour voir les commentaires ;)
 ```js
 import Exercice from '../Exercice.js'
@@ -174,7 +191,7 @@ export default function Ajouter9 () {
 }
 ```
 
-### <a id="exercice_plusieurs_questions" href="#exercice_plusieurs_questions">3. 5. Exemple d'un exercice avec plusieurs types de questions visible sur [http://coopmaths.fr/ex6C30](http://coopmaths.fr/ex6C30)</a>
+### <a id="exercice_plusieurs_questions" href="#exercice_plusieurs_questions">4. 5. Exemple d'un exercice avec plusieurs types de questions visible sur [http://coopmaths.fr/ex6C30](http://coopmaths.fr/ex6C30)</a>
 ```js
 this.nouvelleVersion = function(){
   this.listeQuestions = []
@@ -217,12 +234,12 @@ this.nouvelleVersion = function(){
 }
 ```
 
-## <a id="latex_ou_html" href="#latex_ou_html">4. Exercice LaTeX ou exercice HTML ?</a>
+## <a id="latex_ou_html" href="#latex_ou_html">5. Exercice LaTeX ou exercice HTML ?</a>
 Les exercices peuvent être affichés dans le navigateur sous forme classique [https://coopmaths.fr/mathalea.html](https://coopmaths.fr/mathalea.html) ou en diaporama chronométré [https://coopmaths.fr/mathalea.html?v=cm](https://coopmaths.fr/mathalea.html?v=cm) ou compilés en pdf à partir des sources en LaTeX [https://coopmaths.fr/mathalea.html?v=latex](https://coopmaths.fr/mathalea.html?v=latex).
 
 Un booléen `context.isHtml` est défini sur chaque page qui utilise MathALEA car tous les codes LaTeX ne peuvent pas être affichés dans les navigateurs par KaTeX (voir les [limitations](https://katex.org/docs/supported.html)). Suivant la valeur de ce booléen le code LaTeX pourra être différent.
 
-## <a id="variante" href="#variante">5. Variante des exercices</a>
+## <a id="variante" href="#variante">6. Variante des exercices</a>
 Afin de pouvoir appeler un exercice avec une modification (de son niveau de difficulté, de son titre...), on peut en définir une variante.
 
 Le code ci-dessous permet par exemple d'intégrer l'exercice 5S12 en 4ème sous la référence 4S10 avec les paramètres `sup = 3`, `sup2 = 2` et `sup3 = 1`.
@@ -244,8 +261,8 @@ export default function ConstruireUnDiagramme4e () {
 
 ```
 
-## <a id="liste_exhaustive_attributs" href="#liste_exhaustive_attributs">6. Liste exhaustive des attributs des exercices</a>
-#### <a id="attributs_autour_de_lexercice" href="#attributs_autour_de_lexercice">6. 1. Autour de l'exercice</a>
+## <a id="liste_exhaustive_attributs" href="#liste_exhaustive_attributs">7. Liste exhaustive des attributs des exercices</a>
+#### <a id="attributs_autour_de_lexercice" href="#attributs_autour_de_lexercice">7. 1. Autour de l'exercice</a>
 ``` javascript
   this.titre = '' // Chaîne de caractère sans point à la fin. C'est le titre de l'exercice qui sera affiché avec la référence dans le générateur d'exercices.
   this.boutonAide = false // Bouton en haut à droite des questions permettant d'afficher un pdf, texte, image, vidéo, contenu d'un autre site en "pop-up" via les fonctions modalXXXXXXX de outils.js.
@@ -259,7 +276,7 @@ export default function ConstruireUnDiagramme4e () {
   // this.boutonAide = modalVideo(numeroExercice, urlVideo, titre, labelBouton, icone)
   // this.boutonAide = modalYoutube(numeroExercice, idYoutube, titre, labelBouton = 'Aide - Vidéo', icone = 'youtube')
 ```
-#### <a id="attributs_construction_de_lexercice" href="#attributs_construction_de_lexercice">6. 2. Construction de l'exercice</a>
+#### <a id="attributs_construction_de_lexercice" href="#attributs_construction_de_lexercice">7. 2. Construction de l'exercice</a>
 ``` javascript
   this.consigne = '' // Chaîne de caractère qui apparaît en gras au-dessus des questions de préférence à l'infinitif et sans point à la fin.
   this.consigneCorrection = '' // Chaîne de caractère en général vide qui apparaît au-dessus des corrections.
@@ -271,12 +288,12 @@ export default function ConstruireUnDiagramme4e () {
   this.autoCorrection = [] // Liste des objets par question pour correction interactive || export AMC.
   this.tableauSolutionsDuQcm = [] // Pour sauvegarder les solutions des QCM.
 ```
-#### <a id="attributs_mise_en_forme_de_lexercice" href="#attributs_mise_en_forme_de_lexercice">6. 3. Mise en forme de l'exercice</a>
+#### <a id="attributs_mise_en_forme_de_lexercice" href="#attributs_mise_en_forme_de_lexercice">7. 3. Mise en forme de l'exercice</a>
 ``` javascript
   this.spacing = 1 // Interligne des questions
   this.spacingCorr = 1 // Interligne des réponses
 ```
-#### <a id="attributs_sortie_latex" href="#attributs_sortie_latex">6. 4. Gestion de la sortie LateX</a>
+#### <a id="attributs_sortie_latex" href="#attributs_sortie_latex">7. 4. Gestion de la sortie LateX</a>
 ``` javascript
   this.pasDeVersionLatex = false // booléen qui indique qu'une sortie LateX est impossible.
   this.listePackages = [] // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule.
@@ -290,12 +307,12 @@ export default function ConstruireUnDiagramme4e () {
   this.spacingCorrModifiable = true // booléen pour déterminer si l'espacement est modifiable en ligne dans la sortie LaTeX. (&v=latex)
   // this.vspace = -1 //Ajoute un \vspace{-1cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
 ```
-#### <a id="attributs_sortie_autre_que_latex" href="#attributs_sortie_autre_que_latex">6. 5. Gestion de la sortie autre que LateX</a>
+#### <a id="attributs_sortie_autre_que_latex" href="#attributs_sortie_autre_que_latex">7. 5. Gestion de la sortie autre que LateX</a>
 ``` javascript
   this.beamer = false // booléen pour savoir si la sortie devra être un diaporama beamer
   this.tailleDiaporama = 50 // Taille en pixels pour le calcul chronométré.
 ```
-#### <a id="attributs_parametres" href="#attributs_parametres">6. 6. Paramètres</a>
+#### <a id="attributs_parametres" href="#attributs_parametres">7. 6. Paramètres</a>
 ``` javascript
   this.nbQuestions = 10 // Nombre de questions par défaut (récupéré dans l'url avec le paramètre `,n=`)
   this.correctionDetailleeDisponible = false // booléen qui indique si une correction détaillée est disponible.
@@ -322,7 +339,7 @@ export default function ConstruireUnDiagramme4e () {
   this.besoinFormulaire4CaseACocher = false // Sinon this.besoinFormulaire4CaseACocher = [texte]
 
 ```
-#### <a id="dependances_particulieres" href="#dependances_particulieres">6. 7. Exercice avec des dépendances particulières</a>
+#### <a id="dependances_particulieres" href="#dependances_particulieres">7. 7. Exercice avec des dépendances particulières</a>
 ``` javascript
   // this.typeExercice = 'MG32' // Pour charger MathGraph32.
   this.mg32Editable = false // Les figures MG32 ne sont pas interactives par défaut.
@@ -335,7 +352,7 @@ export default function ConstruireUnDiagramme4e () {
 
   this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
 ```
-## <a id="liste_exhaustive_fonctions" href="#liste_exhaustive_fonctions">6. Liste exhaustive des fonctions des exercices</a>
+## <a id="liste_exhaustive_fonctions" href="#liste_exhaustive_fonctions">8. Liste exhaustive des fonctions des exercices</a>
 ``` javascript
   /**
    * Fonction qui est appellée pour chaque exercice
