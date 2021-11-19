@@ -2288,10 +2288,11 @@ export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
  * tailleTexte : comme son nom l'indique la taille du texte (1 par défaut)
  * texteColor : sa couleur
  * textMath : un booléen qui détermine la police (true -> Book Antiqua Italic)
+ * echelleFigure : pour passer la valeur de scale de tikzPicture (valeur scale de la commande mathalea) afin d'adapter la taille du texte dans la boite à la résolution
  * @author Jean-Claude Lhote
  */
 class Boite {
-  constructor ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteMath = false } = {}) {
+  constructor ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteMath = false, echelleFigure = 1 } = {}) {
     ObjetMathalea2D.call(this)
     this.forme = polygone([point(Xmin, Ymin), point(Xmax, Ymin), point(Xmax, Ymax), point(Xmin, Ymax)], color)
     if (colorFill) {
@@ -2299,7 +2300,7 @@ class Boite {
       this.forme.opaciteDeRemplissage = opaciteDeRemplissage
     }
     if (texteIn !== '') {
-      this.texte = texteParPositionEchelle(texteIn, (Xmin + Xmax) / 2, (Ymin + Ymax) / 2, 'milieu', texteColor, tailleTexte, 'middle', texteMath)
+      this.texte = texteParPositionEchelle(texteIn, (Xmin + Xmax) / 2, (Ymin + Ymax) / 2, 'milieu', texteColor, tailleTexte, 'middle', texteMath, echelleFigure)
       this.texte.opacite = 0.5
     } else {
       this.texte = false
@@ -2313,12 +2314,12 @@ class Boite {
   }
 }
 
-export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteMath = false }) {
-  return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor, texteMath: texteMath })
+export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteMath = false, echelleFigure = 1 } = {}) {
+  return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor, texteMath: texteMath, echelleFigure: echelleFigure })
 }
 
 class Plateau2dNLC {
-  constructor (type = 1, melange = false) {
+  constructor (type = 1, melange = false, scale = 0.5) {
     ObjetMathalea2D.call(this)
     const plateauNLC = [
       ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
@@ -2428,35 +2429,35 @@ class Plateau2dNLC {
       for (let Y = 0; Y < 12; Y++) {
         switch (type) {
           case 1:
-            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(plateauNLC[11 - Y][X]) })
+            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(plateauNLC[11 - Y][X]), echelleFigure: scale })
             b.opacite = 0.5
             break
           case 2:
-            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(plateauNLC[11 - Y][X]), tailleTexte: 0.8, texteIn: this.traducNum(plateauNLC[11 - Y][X]) })
+            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(plateauNLC[11 - Y][X]), tailleTexte: 1.2, texteIn: this.traducNum(plateauNLC[11 - Y][X]), echelleFigure: scale })
             b.opacite = 0.5
             break
           case 3:
-            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 0.6, texteIn: this.traducLettres(plateauNLC[11 - Y][X]) })
+            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 0.8, texteIn: this.traducLettres(plateauNLC[11 - Y][X]), echelleFigure: scale })
             b.opacite = 0.5
             break
           case 4:
-            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 0.8, texteIn: this.traducNum(plateauNLC[11 - Y][X]) })
+            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 1.2, texteIn: this.traducNum(plateauNLC[11 - Y][X]), echelleFigure: scale })
             b.opacite = 0.5
             break
         }
         plateau2d.push(b)
       }
     }
-    plateau2d.push(texteParPositionEchelle('-30', -1.6, -0.3, 'milieu', 'black', 0.8, 'middle', true))
-    plateau2d.push(texteParPositionEchelle('30', 1.5, -0.3, 'milieu', 'black', 0.8, 'middle', true))
-    plateau2d.push(texteParPositionEchelle('-30', -0.6, -1.6, 'milieu', 'black', 0.8, 'middle', true))
-    plateau2d.push(texteParPositionEchelle('30', -0.4, 1.6, 'milieu', 'black', 0.8, 'middle', true))
-    plateau2d.push(texteParPositionEchelle('x', 11.5, 0.3, 'milieu', 'purple', 0.8, 'middle', true))
-    plateau2d.push(texteParPositionEchelle('y', -0.3, 8.5, 'milieu', 'purple', 0.8, 'middle', true))
-    plateau2d.push(texteParPositionEchelle('+', 12.5, 0, 'milieu', 'purple', 0.8, 'middle', true))
-    plateau2d.push(texteParPositionEchelle('-', -12.5, 0.2, 'milieu', 'purple', 0.8, 'middle', true))
-    plateau2d.push(texteParPositionEchelle('+', 0, 9.5, 'milieu', 'purple', 0.8, 'middle', true))
-    plateau2d.push(texteParPositionEchelle('-', 0, -9.3, 'milieu', 'purple', 0.8, 'middle', true))
+    plateau2d.push(texteParPositionEchelle('-30', -1.6, -0.3, 'milieu', 'black', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('30', 1.5, -0.3, 'milieu', 'black', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('-30', -0.6, -1.6, 'milieu', 'black', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('30', -0.4, 1.6, 'milieu', 'black', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('x', 11.5, 0.3, 'milieu', 'purple', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('y', -0.3, 8.5, 'milieu', 'purple', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('+', 12.5, 0, 'milieu', 'purple', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('-', -12.5, 0.2, 'milieu', 'purple', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('+', 0, 9.5, 'milieu', 'purple', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('-', 0, -9.3, 'milieu', 'purple', 1.2, 'middle', true, scale))
     plateau2d.push(segment(0, -9, 0, 9, 'purple'))
     plateau2d.push(segment(-12, 0, 12, 0, 'purple'))
 
@@ -2477,8 +2478,8 @@ class Plateau2dNLC {
   }
 }
 
-export function plateau2dNLC (type = 1, melange = false) {
-  return new Plateau2dNLC(type, melange)
+export function plateau2dNLC (type = 1, melange = false, scale = 0.5) {
+  return new Plateau2dNLC(type, melange, scale)
 }
 /*********************************************/
 /** ***************Triangles ******************/
@@ -8781,9 +8782,9 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
           anchor = `node[anchor = center,scale=${scale}]`
         }
         if (mathOn) {
-          code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {$${texte}$};`
+          code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {$${texte}$};`
         } else {
-          code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`
+          code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
         }
       }
       return code
@@ -8794,7 +8795,7 @@ export function texteParPoint (texte, A, orientation = 'milieu', color = 'black'
   return new TexteParPoint(texte, A, orientation, color, scale, ancrageDeRotation, mathOn)
 }
 
-function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
+function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, scaleFigure) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.contour = false
@@ -8839,7 +8840,6 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
   }
   this.tikz = function () {
     let code = ''
-    const scaleFigure = context.scale
     if (mathOn) texte = '$' + texte + '$'
     if (typeof orientation === 'number') {
       let anchor = 'center'
@@ -8850,28 +8850,28 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         anchor = 'east'
       }
       code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y
-        }) node[anchor = ${anchor},scale=${scale * scaleFigure}, rotate = ${-orientation}] {${texte}};`
+        }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
     } else {
       let anchor = ''
       if (orientation === 'gauche') {
-        anchor = `node[anchor = east,scale=${scale * scaleFigure}]`
+        anchor = `node[anchor = east,scale=${scale * scaleFigure * 1.25}]`
       }
       if (orientation === 'droite') {
-        anchor = `node[anchor = west,scale=${scale * scaleFigure}]`
+        anchor = `node[anchor = west,scale=${scale * scaleFigure * 1.25}]`
       }
       if (orientation === 'milieu') {
-        anchor = `node[anchor = center,scale=${scale * scaleFigure}]`
+        anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
       }
       code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
     }
     return code
   }
 }
-export function texteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
-  return new TexteParPointEchelle(texte, A, orientation, color, scale, ancrageDeRotation, mathOn)
+export function texteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, scaleFigure = 1) {
+  return new TexteParPointEchelle(texte, A, orientation, color, scale, ancrageDeRotation, mathOn, scaleFigure)
 }
-export function texteParPositionEchelle (texte, x, y, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
-  return texteParPointEchelle(texte, point(x, y), orientation, color, scale, ancrageDeRotation, mathOn)
+export function texteParPositionEchelle (texte, x, y, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, scaleFigure = 1) {
+  return texteParPointEchelle(texte, point(x, y), orientation, color, scale, ancrageDeRotation, mathOn, scaleFigure)
 }
 /**
  * texteParPoint('mon texte',x,y) // Écrit 'mon texte' avec le point de coordonnées (x,y) au centre du texte
