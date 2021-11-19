@@ -2276,6 +2276,197 @@ export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
   }
   return polygone(p, color)
 }
+
+class Boite {
+  constructor ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteMath = false } = {}) {
+    ObjetMathalea2D.call(this)
+    this.forme = polygone([point(Xmin, Ymin), point(Xmax, Ymin), point(Xmax, Ymax), point(Xmin, Ymax)], color)
+    if (colorFill) {
+      this.forme.couleurDeRemplissage = colorFill
+      this.forme.opaciteDeRemplissage = opaciteDeRemplissage
+    }
+    if (texteIn !== '') {
+      this.texte = texteParPositionEchelle(texteIn, (Xmin + Xmax) / 2, (Ymin + Ymax) / 2, 'milieu', texteColor, tailleTexte, 'middle', texteMath)
+      this.texte.opacite = 0.5
+    } else {
+      this.texte = false
+    }
+    this.svg = function (coeff) {
+      return this.texte ? this.forme.svg(coeff) + this.texte.svg(coeff) : this.forme.svg(coeff)
+    }
+    this.tikz = function () {
+      return this.texte ? this.forme.tikz() + this.texte.tikz() : this.forme.tikz()
+    }
+  }
+}
+
+export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteMath = false }) {
+  return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor, texteMath: texteMath })
+}
+
+class Plateau2dNLC {
+  constructor (type = 1, melange = false) {
+    ObjetMathalea2D.call(this)
+    const plateauNLC = [
+      ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
+      ['Blanc', 'Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir', 'Jaune', 'Blanc'],
+      ['Blanc', 'Rouge', 'Bleu', 'Orange', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Bleu', 'Rouge', 'Gris', 'Rouge', 'Blanc'],
+      ['Blanc', 'Rose', 'Vert', 'Gris', 'Rouge', 'Noir', 'Bleu', 'Vert', 'Noir', 'Vert', 'Bleu', 'Rose', 'Gris', 'Vert', 'Orange', 'Blanc'],
+      ['Blanc', 'Vert', 'Bleu', 'Rose', 'Vert', 'Bleu', 'Orange', 'Gris', 'Rouge', 'Orange', 'Jaune', 'Gris', 'Rouge', 'Rose', 'Bleu', 'Blanc'],
+      ['Blanc', 'Noir', 'Orange', 'Rouge', 'Orange', 'Jaune', 'Rouge', 'Blanc', 'Blanc', 'Noir', 'Gris', 'Orange', 'Noir', 'Jaune', 'Rose', 'Blanc'],
+      ['Blanc', 'Rose', 'Gris', 'Noir', 'Bleu', 'Vert', 'Bleu', 'Blanc', 'Blanc', 'Rouge', 'Bleu', 'Gris', 'Vert', 'Rouge', 'Noir', 'Blanc'],
+      ['Blanc', 'Noir', 'Rouge', 'Rose', 'Vert', 'Orange', 'Rose', 'Noir', 'Orange', 'Vert', 'Jaune', 'Rose', 'Noir', 'Rose', 'Vert', 'Blanc'],
+      ['Blanc', 'Orange', 'Gris', 'Rouge', 'Jaune', 'Noir', 'Vert', 'Rouge', 'Rose', 'Noir', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Gris', 'Blanc'],
+      ['Blanc', 'Bleu', 'Jaune', 'Orange', 'Vert', 'Gris', 'Jaune', 'Gris', 'Orange', 'Gris', 'Rose', 'Bleu', 'Rouge', 'Bleu', 'Orange', 'Blanc'],
+      ['Blanc', 'Rose', 'Bleu', 'Jaune', 'Rose', 'Orange', 'Rouge', 'Bleu', 'Noir', 'Jaune', 'Gris', 'Vert', 'Jaune', 'Noir', 'Rouge', 'Blanc'],
+      ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc']
+    ]
+    if (melange) {
+      for (let i = 0, x1, x2, y1, y2, kase; i < 20; i++) {
+        y1 = randint(1, 10)
+        y2 = randint(1, 10, y1)
+        if (y1 === 5 || y1 === 6) {
+          x1 = randint(1, 14, [7, 8])
+        } else {
+          x1 = randint(1, 14)
+        }
+        if (y2 === 5 || y2 === 6) {
+          x2 = randint(1, 14, [7, 8])
+        } else {
+          x2 = randint(1, 14)
+        }
+        kase = plateauNLC[y1][x1] // case est un mot réservé
+        console.log(plateauNLC[y1][x1], plateauNLC[y2][x2])
+        plateauNLC[y1][x1] = plateauNLC[y2][x2]
+        plateauNLC[y2][x2] = kase
+        console.log(plateauNLC[y1][x1], plateauNLC[y2][x2])
+      }
+    }
+    function traducColor (couleur) {
+      switch (couleur) {
+        case 'Blanc':
+          return 'white'
+        case 'Bleu':
+          return 'blue'
+        case 'Noir':
+          return 'black'
+        case 'Rouge':
+          return 'red'
+        case 'Jaune':
+          return 'yellow'
+        case 'Rose':
+          return 'pink'
+        case 'Vert':
+          return 'green'
+        case 'Orange':
+          return 'orange'
+        case 'Gris':
+          return 'gray'
+      }
+    }
+    function traducNum (couleur) {
+      switch (couleur) {
+        case 'Blanc':
+          return '0'
+        case 'Bleu':
+          return '3'
+        case 'Noir':
+          return '1'
+        case 'Rouge':
+          return '2'
+        case 'Jaune':
+          return '6'
+        case 'Rose':
+          return '5'
+        case 'Vert':
+          return '7'
+        case 'Orange':
+          return '4'
+        case 'Gris':
+          return '8'
+      }
+    }
+    function traducLettres (couleur) {
+      switch (couleur) {
+        case 'Blanc':
+          return 'Blanc'
+        case 'Bleu':
+          return 'Bleu'
+        case 'Noir':
+          return 'Noir'
+        case 'Rouge':
+          return 'Rouge'
+        case 'Jaune':
+          return 'Jaune'
+        case 'Rose':
+          return 'Rose'
+        case 'Vert':
+          return 'Vert'
+        case 'Orange':
+          return 'Orange'
+        case 'Gris':
+          return 'Gris'
+      }
+    }
+
+    const plateau2d = []
+    let b
+    for (let X = 0; X < 16; X++) {
+      for (let Y = 0; Y < 12; Y++) {
+        switch (type) {
+          case 1:
+            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.7, colorFill: traducColor(plateauNLC[11 - Y][X]) })
+            b.opacite = 0.5
+            break
+          case 2:
+            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.7, colorFill: traducColor(plateauNLC[11 - Y][X]), tailleTexte: 0.8, texteIn: traducNum(plateauNLC[11 - Y][X]) })
+            b.opacite = 0.5
+            break
+          case 3:
+            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 0.6, texteIn: traducLettres(plateauNLC[11 - Y][X]) })
+            b.opacite = 0.5
+            break
+          case 4:
+            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 0.8, texteIn: traducNum(plateauNLC[11 - Y][X]) })
+            b.opacite = 0.5
+            break
+        }
+        plateau2d.push(b)
+      }
+    }
+    plateau2d.push(texteParPositionEchelle('-30', -1.6, -0.3, 'milieu', 'black', 0.8, 'middle', true))
+    plateau2d.push(texteParPositionEchelle('30', 1.5, -0.3, 'milieu', 'black', 0.8, 'middle', true))
+    plateau2d.push(texteParPositionEchelle('-30', -0.6, -1.6, 'milieu', 'black', 0.8, 'middle', true))
+    plateau2d.push(texteParPositionEchelle('30', -0.4, 1.6, 'milieu', 'black', 0.8, 'middle', true))
+    plateau2d.push(texteParPositionEchelle('x', 11.5, 0.3, 'milieu', 'purple', 0.8, 'middle', true))
+    plateau2d.push(texteParPositionEchelle('y', -0.3, 8.5, 'milieu', 'purple', 0.8, 'middle', true))
+    plateau2d.push(texteParPositionEchelle('+', 12.5, 0, 'milieu', 'purple', 0.8, 'middle', true))
+    plateau2d.push(texteParPositionEchelle('-', -12.5, 0.2, 'milieu', 'purple', 0.8, 'middle', true))
+    plateau2d.push(texteParPositionEchelle('+', 0, 9.5, 'milieu', 'purple', 0.8, 'middle', true))
+    plateau2d.push(texteParPositionEchelle('-', 0, -9.3, 'milieu', 'purple', 0.8, 'middle', true))
+    plateau2d.push(segment(0, -9, 0, 9, 'purple'))
+    plateau2d.push(segment(-12, 0, 12, 0, 'purple'))
+
+    this.svg = function (coeff) {
+      let code = ''
+      for (const objet of plateau2d) {
+        code += objet.svg(coeff) + '\n'
+      }
+      return code
+    }
+    this.tikz = function () {
+      let code = ''
+      for (const objet of plateau2d) {
+        code += objet.tikz() + '\n'
+      }
+      return code
+    }
+  }
+}
+
+export function plateau2dNLC (type = 1, melange = false) {
+  return new Plateau2dNLC(type, melange)
+}
 /*********************************************/
 /** ***************Triangles ******************/
 /*********************************************/
@@ -5842,7 +6033,7 @@ export function labelY (...args) {
 }
 
 /**
- * grille(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
+ * grille(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordonnées
  *
  * @author Rémi Angot
  */
@@ -5896,7 +6087,7 @@ function Grille (
 }
 
 /**
- * grille(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
+ * grille(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordonnées
  *
  * @author Rémi Angot
  */
@@ -8489,10 +8680,37 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
     this.svg = function (coeff) {
       return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '').svg(coeff)
     }
+    this.tikz = function () {
+      let code = ''
+      if (typeof orientation === 'number') {
+        let anchor = 'center'
+        if (ancrageDeRotation === 'gauche') {
+          anchor = 'west'
+        }
+        if (ancrageDeRotation === 'droite') {
+          anchor = 'east'
+        }
+        code = `\\draw [${color}] (${A.x},${A.y
+          }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
+      } else {
+        let anchor = ''
+        if (orientation === 'gauche') {
+          anchor = `node[anchor = east,scale=${scale}]`
+        }
+        if (orientation === 'droite') {
+          anchor = `node[anchor = west,scale=${scale}]`
+        }
+        if (orientation === 'milieu') {
+          anchor = `node[anchor = center,scale=${scale}]`
+        }
+        code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`
+      }
+      return code
+    }
   } else {
     this.svg = function (coeff) {
       let code = ''; let style = ''
-      if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" ' // désactivé par Jean-Claude Lhote
+      if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" '
       if (this.contour) style += ` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
       else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
@@ -8526,36 +8744,37 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
       }
       return code
     }
-  }
-  this.tikz = function () {
-    let code = ''
-    if (texte.charAt(0) !== '$') {
-      if (mathOn) texte = '$' + texte + '$'
-    } // on le laisse en Latex, parce que ça fonctionne !
-    if (typeof orientation === 'number') {
-      let anchor = 'center'
-      if (ancrageDeRotation === 'gauche') {
-        anchor = 'west'
+    this.tikz = function () {
+      let code = ''
+      if (typeof orientation === 'number') {
+        let anchor = 'center'
+        if (ancrageDeRotation === 'gauche') {
+          anchor = 'west'
+        }
+        if (ancrageDeRotation === 'droite') {
+          anchor = 'east'
+        }
+        code = `\\draw [${color}] (${A.x},${A.y
+          }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
+      } else {
+        let anchor = ''
+        if (orientation === 'gauche') {
+          anchor = `node[anchor = east,scale=${scale}]`
+        }
+        if (orientation === 'droite') {
+          anchor = `node[anchor = west,scale=${scale}]`
+        }
+        if (orientation === 'milieu') {
+          anchor = `node[anchor = center,scale=${scale}]`
+        }
+        if (mathOn) {
+          code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {$${texte}$};`
+        } else {
+          code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`
+        }
       }
-      if (ancrageDeRotation === 'droite') {
-        anchor = 'east'
-      }
-      code = `\\draw [${color}] (${A.x},${A.y
-        }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
-    } else {
-      let anchor = ''
-      if (orientation === 'gauche') {
-        anchor = `node[anchor = east,scale=${scale}]`
-      }
-      if (orientation === 'droite') {
-        anchor = `node[anchor = west,scale=${scale}]`
-      }
-      if (orientation === 'milieu') {
-        anchor = `node[anchor = center,scale=${scale}]`
-      }
-      code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`
+      return code
     }
-    return code
   }
 }
 export function texteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
@@ -8570,7 +8789,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
   this.opacite = 1
   this.svg = function (coeff) {
     let code = ''; let style = ''
-    if (mathOn) style = ' font-family= "KaTeX_Math" '
+    if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" '
     if (this.contour) style += ` style="font-size:${this.taille * coeff / 20}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
     else style += ` style="font-size:${this.taille * coeff / 20}px;fill:${this.color};fill-opacity:${this.opacite}" `
     if (typeof (orientation) === 'number') {
@@ -8605,8 +8824,9 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
 
     return code
   }
-  this.tikz = function (scaleFigure) {
+  this.tikz = function () {
     let code = ''
+    const scaleFigure = context.scale
     if (mathOn) texte = '$' + texte + '$'
     if (typeof orientation === 'number') {
       let anchor = 'center'
@@ -8616,7 +8836,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
       if (ancrageDeRotation === 'droite') {
         anchor = 'east'
       }
-      code = `\\draw [${color}] (${A.x},${A.y
+      code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y
         }) node[anchor = ${anchor},scale=${scale * scaleFigure}, rotate = ${-orientation}] {${texte}};`
     } else {
       let anchor = ''
@@ -8629,15 +8849,17 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
       if (orientation === 'milieu') {
         anchor = `node[anchor = center,scale=${scale * scaleFigure}]`
       }
-      code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`
+      code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
     }
     return code
   }
 }
-export function texteParPointEchelle (...args) {
-  return new TexteParPointEchelle(...args)
+export function texteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
+  return new TexteParPointEchelle(texte, A, orientation, color, scale, ancrageDeRotation, mathOn)
 }
-
+export function texteParPositionEchelle (texte, x, y, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
+  return texteParPointEchelle(texte, point(x, y), orientation, color, scale, ancrageDeRotation, mathOn)
+}
 /**
  * texteParPoint('mon texte',x,y) // Écrit 'mon texte' avec le point de coordonnées (x,y) au centre du texte
  * texteParPoint('mon texte',x,y,'gauche') // Écrit 'mon texte' à gauche du point de coordonnées (x,y) (qui sera la fin du texte)
@@ -9138,9 +9360,9 @@ export function ajouterAy (y, lutin = context.lutin) {
 export function attendre (tempo, lutin = context.lutin) {
   const x = lutin.x; const y = lutin.y
   for (let i = 0; i < tempo; i++) {
-    lutin.listeTraces.push([x, y, x + 0.1, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x + 0.1, y, x - 0.1, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x - 0.1, y, x, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([x, y, x + 0.03, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([x + 0.03, y, x - 0.03, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([x - 0.03, y, x, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   }
 }
 
