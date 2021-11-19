@@ -1,5 +1,6 @@
 import decompositionFacteursPremiers from '../3e/3A11-2.js'
 export const titre = 'Décomposer un nombre entier en produit de facteurs premiers'
+export { interactifReady, interactifType } from '../3e/3A11-2.js'
 
 /**
  * @author Guillaume Valmont
