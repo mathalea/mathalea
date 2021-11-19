@@ -2355,7 +2355,7 @@ class Plateau2dNLC {
         console.log(plateauNLC[y1][x1], plateauNLC[y2][x2])
       }
     }
-    function traducColor (couleur) {
+    this.traducColor = function (couleur) {
       switch (couleur) {
         case 'Blanc':
           return 'white'
@@ -2377,7 +2377,7 @@ class Plateau2dNLC {
           return 'gray'
       }
     }
-    function traducNum (couleur) {
+    this.traducNum = function (couleur) {
       switch (couleur) {
         case 'Blanc':
           return '0'
@@ -2399,7 +2399,7 @@ class Plateau2dNLC {
           return '8'
       }
     }
-    function traducLettres (couleur) {
+    this.traducLettres = function (couleur) {
       switch (couleur) {
         case 'Blanc':
           return 'Blanc'
@@ -2428,19 +2428,19 @@ class Plateau2dNLC {
       for (let Y = 0; Y < 12; Y++) {
         switch (type) {
           case 1:
-            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.7, colorFill: traducColor(plateauNLC[11 - Y][X]) })
+            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(plateauNLC[11 - Y][X]) })
             b.opacite = 0.5
             break
           case 2:
-            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.7, colorFill: traducColor(plateauNLC[11 - Y][X]), tailleTexte: 0.8, texteIn: traducNum(plateauNLC[11 - Y][X]) })
+            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(plateauNLC[11 - Y][X]), tailleTexte: 0.8, texteIn: this.traducNum(plateauNLC[11 - Y][X]) })
             b.opacite = 0.5
             break
           case 3:
-            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 0.6, texteIn: traducLettres(plateauNLC[11 - Y][X]) })
+            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 0.6, texteIn: this.traducLettres(plateauNLC[11 - Y][X]) })
             b.opacite = 0.5
             break
           case 4:
-            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 0.8, texteIn: traducNum(plateauNLC[11 - Y][X]) })
+            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 0.8, texteIn: this.traducNum(plateauNLC[11 - Y][X]) })
             b.opacite = 0.5
             break
         }

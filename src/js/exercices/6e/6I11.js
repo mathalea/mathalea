@@ -251,6 +251,7 @@ export default function Note_la_couleur () {
     context.unitesLutinParCm = 20
     context.pixelsParCm = 20
     let pion
+    const lePlateau = plateau2dNLC(this.sup, this.sup4)
 
     /*  if (this.sup) {
       objetsCorrection = [fondEcran('assets/images/nlc_an.png', -450, -345, 900, 690)]
@@ -260,9 +261,8 @@ export default function Note_la_couleur () {
       objetsEnonce = [fondEcran('assets/images/nlc_sn.png', -450, -345, 900, 690)]
     }
     */
-    console.log(this.sup, this.sup4)
-    objetsEnonce.push(plateau2dNLC(this.sup, this.sup4))
-    objetsCorrection.push(plateau2dNLC(this.sup, this.sup4))
+    objetsEnonce.push(lePlateau)
+    objetsCorrection.push(lePlateau)
     let texte = ''
     let texteCorr = ''
     let compteur = 0
@@ -515,9 +515,9 @@ export default function Note_la_couleur () {
         : ''} ${mathalea2d(paramsCorrection, objetsEnonce)} \n\\end{minipage}`
     }
     texteCorr = 'On obtient la série de couleurs suivante :<br> '
-    texteCorr += `${texteGras(couleurs[0])} `
+    texteCorr += `${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateau.traducNum(couleurs[0]) + ')' + couleurs[0] : couleurs[0])} `
     for (let i = 1; i < couleurs.length; i++) {
-      texteCorr += `- ${texteGras(couleurs[i])} `
+      texteCorr += `- ${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateau.traducNum(couleurs[i]) + ')' + couleurs[i] : couleurs[i])} `
     }
     lutin.animation = `<radialGradient id="Ball" cx="8" cy="-3" r="20" gradientUnits="userSpaceOnUse">
     <stop offset="0" style="stop-color:#FFFF99"/>
