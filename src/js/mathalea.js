@@ -327,8 +327,8 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       if (obj.consigne) {
         contenuUnExercice += `<h4> ${obj.consigne} </h4>`
       }
-      contenuUnExercice += '<ol>'
-      contenuUneCorrection += '<ol>'
+      contenuUnExercice += (obj.nbQuestions !== 1) ? '<ol>' : ''
+      contenuUneCorrection += (obj.nbQuestions !== 1) ? '<ol>' : ''
       for (let numQuestion = 0, cpt = 0; numQuestion < obj.nbQuestions && cpt < 50; cpt++) {
         try {
           obj.nouvelleVersion()
@@ -337,7 +337,11 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         }
 
         if (obj.questionJamaisPosee(numQuestion, obj.question)) {
-          contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}`
+          if (obj.nbQuestions === 1) {
+            contenuUnExercice += `<div><div class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}</div></div>`
+          } else {
+            contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}`
+          }
           if (obj.interactif && obj.interactifReady) {
             if (obj.formatChampTexte) {
               if (obj.optionsChampTexte) {
@@ -353,17 +357,22 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
               }
             }
           }
-          contenuUnExercice += '</li>'
+          contenuUnExercice += (obj.nbQuestions !== 1) ? '</li>' : ''
           if (obj.formatInteractif) {
             setReponse(obj, numQuestion, obj.reponse, { formatInteractif: obj.formatInteractif })
           } else {
             setReponse(obj, numQuestion, obj.reponse)
           }
-          contenuUneCorrection += `<li class="correction">${obj.correction}</li>`
+          if (obj.nbQuestions === 1) {
+            contenuUneCorrection += `<div><div class="correction">${obj.correction}</div></div>`
+          } else {
+            contenuUneCorrection += `<li class="correction">${obj.correction}</li>`
+          }
           numQuestion++
         }
       }
-      contenuUnExercice += '</ol>'
+      contenuUnExercice += (obj.nbQuestions !== 1) ? '</ol>' : ''
+      contenuUneCorrection += (obj.nbQuestions !== 1) ? '</ol>' : ''
       if (obj.interactif || obj.interactifObligatoire) {
         contenuUnExercice += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
         exerciceInteractif(obj)
