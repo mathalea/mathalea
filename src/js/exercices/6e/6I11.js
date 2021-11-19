@@ -503,12 +503,16 @@ export default function Note_la_couleur () {
     if (context.isHtml) {
       texte += '<table><tr><td>' +
       scratchblock(pion.codeScratch) +
-      '</td><td>' +
+      '</td><td>' + `${this.sup === 4 || this.sup === 2
+        ? 'Correspondance chiffre-couleur : <br>0=Blanc ; 1=Noir ; 2=Rouge ; 3=Bleu ; 4=Orange ; 5=Rose ; 6=Jaune ; 7=Vert ; 8=Gris<br>'
+        : ''}` +
       mathalea2d(paramsCorrection, objetsEnonce) +
       '</td></tr></table>'
     } else {
       texte += `\\begin{minipage}{.3 \\linewidth} \n\t ${scratchblock(pion.codeScratch)} \n \\end{minipage}
-      \\begin{minipage}{.7 \\linewidth} \n\t ${mathalea2d(paramsCorrection, objetsEnonce)} \n\\end{minipage}`
+      \\begin{minipage}{.7 \\linewidth} \n\t ${this.sup === 4 || this.sup === 2
+        ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
+        : ''} ${mathalea2d(paramsCorrection, objetsEnonce)} \n\\end{minipage}`
     }
     texteCorr = 'On obtient la série de couleurs suivante :<br> '
     texteCorr += `${texteGras(couleurs[0])} `

@@ -2276,7 +2276,20 @@ export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
   }
   return polygone(p, color)
 }
-
+/**
+ * Objet composé d'un rectangle horizontal et d'un texte optionnel à l'intérieur
+ * Les paramètres sont les suivants :
+ * Xmin, Ymin : coordonnées du sommet en bas à gauche
+ * Xmax,Ymax : coordonnées du sommet en haut à droite
+ * color : la couleur de la bordure
+ * colorFill : false si on ne veut pas de remplissage, sinon, la couleur de remplissage (exemple : 'orange')
+ * opaciteDeRemplissage : valeur de 0 (transparent) à 1 (opaque)
+ * texteIn : texte à mettre à l'intérieur
+ * tailleTexte : comme son nom l'indique la taille du texte (1 par défaut)
+ * texteColor : sa couleur
+ * textMath : un booléen qui détermine la police (true -> Book Antiqua Italic)
+ * @author Jean-Claude Lhote
+ */
 class Boite {
   constructor ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteMath = false } = {}) {
     ObjetMathalea2D.call(this)
