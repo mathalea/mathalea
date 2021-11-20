@@ -7652,14 +7652,10 @@ export default {
     }
   },
   "6N22": {
-    "titre": "Recomposer un nombre décimal représenté par des fractions du cube unité",
+    "titre": "Effectuer des calculs simples avec des fractions",
     "url": "/exercices/6e/6N22.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
+    "amcReady": false,
+    "interactifReady": false,
     "name": "6N22",
     "newEx": {
       "isNew": false,
@@ -7788,6 +7784,25 @@ export default {
     "name": "6N23-6",
     "newEx": {
       "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6N23-7": {
+    "titre": "Recomposer un nombre décimal représenté par des fractions du cube unité",
+    "url": "/exercices/6e/6N23-7.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6N23-7",
+    "newEx": {
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
