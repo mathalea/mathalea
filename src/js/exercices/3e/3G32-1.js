@@ -74,7 +74,7 @@ export default function CalculsTrigonometriques1 () {
       if (this.questionJamaisPosee(i, alpha)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isAmc) {
-          this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 3, feedback: '' }], reponse: { texte: 'Longueur arrondie au km près', valeur: reponse, options: { digits: 0, decimals: 0 } } }
+          this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 3, feedback: '' }], reponse: { texte: 'Longueur arrondie au km près', valeur: [reponse], options: { digits: 0, decimals: 0 } } }
         } else {
           texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' $L=$', texteApres: ' km' })
           setReponse(this, i, reponse)

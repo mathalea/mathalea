@@ -273,7 +273,7 @@ export default function LecturesGraphiques () {
               statut: '',
               reponse: {
                 texte: '',
-                valeur: reponses[i],
+                valeur: [reponses[i]],
                 param: {
                   digits: 1,
                   decimals: 0,
@@ -292,7 +292,7 @@ export default function LecturesGraphiques () {
               statut: '',
               reponse: {
                 texte: '',
-                valeur: reponses[i],
+                valeur: [reponses[i]],
                 param: {
                   digits: 2,
                   decimals: 1,
