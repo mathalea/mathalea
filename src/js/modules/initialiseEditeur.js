@@ -2,6 +2,7 @@ import { texteParPointEchelle, angleScratchTo2d, appartientSegment, appartientDr
 import { sensDeRotation3d, cube, cube3d, plaque3d, paveLPH3d, barre3d, point3d, vecteur3d, arete3d, droite3d, demicercle3d, cercle3d, polygone3d, sphere3d, cone3d, cylindre3d, prisme3d, pave3d, rotationV3d, rotation3d, translation3d } from './3d.js'
 import { pointCliquable } from './2dinteractif.js'
 import { randint, texNombre, nombreDecimal, calcul } from './outils.js'
+import { fraction } from './fractions.js'
 import { context } from './context.js'
 import { calcule } from './fonctionsMaths.js'
 import Sval from 'sval'
@@ -18,6 +19,7 @@ export default function initialiseEditeur () {
   window.nombreDecimal = nombreDecimal
   window.calcul = calcul
   window.calcule = calcule
+  window.fraction = fraction
 
   window.numId = 0 // Pour identifier tous les objets MathALEA2D
   window.texteParPointEchelle = texteParPointEchelle
@@ -230,6 +232,7 @@ export default function initialiseEditeur () {
     mathalea: window.mathalea,
     fenetreMathalea2d: [-1, -10, 29, 10],
     pixelsParCm: 20,
+    fraction: window.fraction,
     randint: window.randint,
     texNombre: window.texNombre,
     nombreDecimal: window.nombreDecimal,
