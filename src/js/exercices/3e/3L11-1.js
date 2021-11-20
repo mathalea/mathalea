@@ -96,9 +96,9 @@ export default function DoubleDistributivite () {
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: 4 }]
-        this.autoCorrection[i].reponse = { texte: '$x^2 $ ', textePosition: 'right', valeur: reponse1, param: { digits: 2, decimals: 0, approx: 0, signe: false, exposantNbChiffres: 0, vertical: true } }
-        this.autoCorrection[i].reponse2 = { texte: '$x $ ', textePosition: 'right', valeur: reponse2, param: { digits: 3, decimals: 0, approx: 0, signe: true, exposantNbChiffres: 0, vertical: true } }
-        this.autoCorrection[i].reponse3 = { texte: '', textePosition: 'right', valeur: reponse3, param: { digits: 2, decimals: 0, approx: 0, signe: true, exposantNbChiffres: 0, vertical: true } }
+        this.autoCorrection[i].reponse = { texte: '$x^2 $ ', textePosition: 'right', valeur: [reponse1], param: { digits: 2, decimals: 0, approx: 0, signe: false, exposantNbChiffres: 0, vertical: true } }
+        this.autoCorrection[i].reponse2 = { texte: '$x $ ', textePosition: 'right', valeur: [reponse2], param: { digits: 3, decimals: 0, approx: 0, signe: true, exposantNbChiffres: 0, vertical: true } }
+        this.autoCorrection[i].reponse3 = { texte: '', textePosition: 'right', valeur: [reponse3], param: { digits: 2, decimals: 0, approx: 0, signe: true, exposantNbChiffres: 0, vertical: true } }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
