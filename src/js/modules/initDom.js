@@ -48,6 +48,7 @@ const liToDiv = () => {
     }
     div.innerHTML = element.innerHTML
     div.classList = element.classList
+    div.dataset.taille = element.dataset.taille || 1
     div.id = element.id
     element.replaceWith(div)
   }

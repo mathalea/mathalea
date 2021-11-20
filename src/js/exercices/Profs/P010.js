@@ -18,7 +18,7 @@ export default function variationPolynomeDegre3 () {
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = '-1/-2/3/1' // Niveau de difficulté
   this.sup2 = true
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.listePackages = 'tkz-tab'
   this.typeExercice = 'XCas'

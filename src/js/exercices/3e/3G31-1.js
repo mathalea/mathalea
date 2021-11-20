@@ -24,7 +24,7 @@ export default function MonSuperExerciceTropBeau () {
   this.correctionDetailleeDisponible = true
   context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
   // this.sup = 1; // Niveau de difficulté
-  // this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  // this.tailleDiaporama = 3; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {

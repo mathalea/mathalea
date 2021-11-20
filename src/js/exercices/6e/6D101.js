@@ -21,7 +21,7 @@ export default function HeuresDecimales () {
   this.spacing = 2
   this.nbQuestions = 5
   this.nbColsCorr = 1
-  this.tailleDiaporama = 200
+  this.tailleDiaporama = 300
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

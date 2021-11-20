@@ -19,7 +19,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
   this.nbQuestions = 3// On complète le nb de questions
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.video = ''
   this.spacing = 1
   this.spacingCorr = 1

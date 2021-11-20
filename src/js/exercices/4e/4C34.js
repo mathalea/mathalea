@@ -64,7 +64,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 1
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.video = 'https://youtu.be/0G9xWLl-0zg' // Id YouTube ou url
   this.spacing = context.isHtml ? 3 : 1
   this.spacingCorr = context.isHtml ? 3 : 1

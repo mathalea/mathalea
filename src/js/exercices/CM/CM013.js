@@ -19,7 +19,7 @@ export default function ComplementAUneDizaine () {
   this.nbQuestions = 10
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

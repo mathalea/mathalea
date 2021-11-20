@@ -24,7 +24,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.titre = titre
   this.consigne = 'Calculer :'
   this.spacing = 2
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.interactifType = parseInt(this.sup2) === 2 ? 'mathLive' : 'qcm'
