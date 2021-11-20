@@ -170,6 +170,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1E16": {
+    "titre": "Résoudre une inéquation du second degré",
+    "url": "/exercices/1e/1E16.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E16",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1F10": {
     "titre": "Calculs de dérivées",
     "url": "/exercices/1e/1F10.js",
@@ -2940,8 +2955,12 @@ export default {
   "4A10": {
     "titre": "Nombre premier ou pas",
     "url": "/exercices/4e/4A10.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "4A10",
     "newEx": {
       "isNew": false,
@@ -2972,7 +2991,8 @@ export default {
     "titre": "Décomposer un nombre entier en produit de facteurs premiers",
     "url": "/exercices/4e/4A11-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4A11-1",
     "newEx": {
       "isNew": false,
@@ -3488,8 +3508,12 @@ export default {
   "4C33-1": {
     "titre": "Puissances : Le sens des règles de calculs",
     "url": "/exercices/4e/4C33-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C33-1",
     "newEx": {
       "isNew": false,
@@ -3971,8 +3995,12 @@ export default {
   "4L11": {
     "titre": "Factoriser une expression littérale",
     "url": "/exercices/4e/4L11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4L11",
     "newEx": {
       "isNew": false,
@@ -7748,6 +7776,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6N23-6": {
+    "titre": "Valeur décimale d'une fraction",
+    "url": "/exercices/6e/6N23-6.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "numerique",
+    "name": "6N23-6",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6N23": {
     "titre": "Donner l’écriture décimale d’une fraction décimale",
     "url": "/exercices/6e/6N23.js",
@@ -10665,7 +10712,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2L07",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

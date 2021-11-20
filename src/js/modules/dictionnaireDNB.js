@@ -2229,7 +2229,7 @@ export const dictionnaireDNB = {
   },
 
   // Maroc
-  dnb_2015_06_etrangers_1: {
+  dnb_2015_06_etrangers_maroc_1: {
     annee: '2015',
     lieu: 'Centres étrangers - Maroc',
     mois: 'Juin',
@@ -2564,7 +2564,6 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_09_metropole_7.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_09_metropole_7_cor.tex',
-    tags: ['Durées', 'Pourcentages', 'Probabilités', 'Statistiques'],
     tags: ["Prise d'initiatives", 'Pythagore', 'Trigonométrie']
   },
   dnb_2015_09_polynesie_1: {

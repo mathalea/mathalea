@@ -15,7 +15,7 @@ export default function alignementdetroispoints () {
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   // this.consigne = 'Déterminer si les points donnés ci-dessous, sont ou non, alignés. <br> <i>On demande une démonstration en lien avec les équations de droites</i>'
   this.nouvelleVersion = function () {

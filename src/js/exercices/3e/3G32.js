@@ -16,7 +16,7 @@ export default function CalculsTrigonometriques () {
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = true
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.nbQuestions = 1
   this.spacingCorr = 2

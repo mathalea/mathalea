@@ -18,7 +18,7 @@ export default function lecturefonctionaffine () {
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 3// On complète le nb de questions
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.video = ''
   this.nbCols = 1
   this.nbColsCorr = 1

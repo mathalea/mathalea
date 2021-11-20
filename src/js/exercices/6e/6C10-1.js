@@ -14,5 +14,5 @@ export default function TablesParametres (tablesParDefaut = '2-3-4-5-6-7-8-9') {
   this.titre = titre
   TablesDeMultiplications.call(this, tablesParDefaut)
   this.sup2 = 2
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
 }

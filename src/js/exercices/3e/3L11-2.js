@@ -47,22 +47,29 @@ export default function ReductionSiPossible () {
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b}*x)`)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b}*x)`)}=${printlatex(`${a + b}x`)}$`
           reponse = printlatex(`${a + b}x`)
+          coeffa = a + b
+          constb = 0
           break
         case 'ax+bx2':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b}*x^2)`)}$`
           texteCorr = texte
           reponse = printlatex(`${a}*x+(${b}*x^2)`)
+          // celui-ci ne peut pas être choisi pour AMC
           break
         case 'ax*b':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x`)}\\times ${ecritureParentheseSiNegatif(b)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x`)}\\times ${ecritureParentheseSiNegatif(b)}=${printlatex(`${a * b}*x`)}$`
           reponse = printlatex(`${a * b}*x`)
+          coeffa = a * b
+          constb = 0
           break
         case 'b*ax':
           a = randint(1, 11)
           texte = `$${lettreDepuisChiffre(i + 1)}=${b}\\times ${printlatex(`${a}*x`)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${b}\\times ${printlatex(`${a}*x`)}=${printlatex(`${b * a}*x`)}$`
           reponse = printlatex(`${b * a}*x`)
+          coeffa = a * b
+          constb = 0
           break
         case 'ax+b+cx+d':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})+(${c})*x+(${d})`)}$`
@@ -71,17 +78,25 @@ export default function ReductionSiPossible () {
             if (a + c === 0) {
               texteCorr += '=0$'
               reponse = '0'
+              coeffa = 0
+              constb = 0
             } else {
               texteCorr += `=${printlatex(`${a + c}*x`)}$`
               reponse = printlatex(`${a + c}*x`)
+              coeffa = a + c
+              constb = 0
             }
           } else {
             if (a + c === 0) {
               texteCorr += `=${b + d}$`
               reponse = `${b + d}`
+              constb = b + d
+              coeffa = 0
             } else {
               texteCorr += `=${printlatex(`${a + c}*x+(${b + d})`)}$`
               reponse = printlatex(`${a + c}*x+(${b + d})`)
+              coeffa = a + c
+              constb = b + d
             }
           }
           break
@@ -92,16 +107,24 @@ export default function ReductionSiPossible () {
             if (a + c === 0) {
               texteCorr += '=0$'
               reponse = '0'
+              coeffa = 0
+              constb = 0
             } else {
               texteCorr += `=${printlatex(`${a + c}*x`)}$`
+              coeffa = a + c
+              constb = 0
             }
           } else {
             if (a + c === 0) {
               texteCorr += `=${b + d}$`
               reponse = `${b + d}$`
+              coeffa = 0
+              constb = b + d
             } else {
               texteCorr += `=${printlatex(`${a + c}*x+(${b + d})`)}$`
               reponse = printlatex(`${a + c}*x+(${b + d})`)
+              coeffa = a + c
+              constb = b + d
             }
           }
           break
@@ -110,6 +133,8 @@ export default function ReductionSiPossible () {
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})+x`)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})+x`)}=${printlatex(`${a + 1}*x+(${b})`)}$`
           reponse = printlatex(`${a + 1}*x+(${b})`)
+          coeffa = a + 1
+          constb = b
           break
       }
       if (!context.isAmc) {
@@ -133,7 +158,7 @@ export default function ReductionSiPossible () {
                 statut: '',
                 reponse: {
                   texte: 'valeur de $a$ dans $ax+b$',
-                  valeur: coeffa,
+                  valeur: [coeffa],
                   param: {
                     digits: 2,
                     decimals: 0,
@@ -150,7 +175,7 @@ export default function ReductionSiPossible () {
                 statut: '',
                 reponse: {
                   texte: 'valeur de $b$ dans $ax+b$',
-                  valeur: constb,
+                  valeur: [constb],
                   param: {
                     digits: 2,
                     decimals: 0,
