@@ -171,7 +171,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
         this.listeCorrections.push(texteCorr)
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: 3 }]
-        this.autoCorrection[i].reponse = { texte: 'résultat', valeur: reponse, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)), decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false } }
+        this.autoCorrection[i].reponse = { texte: 'résultat', valeur: [reponse], param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)), decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false } }
         i++
       }
       cpt++
