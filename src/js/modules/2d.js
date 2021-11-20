@@ -37,6 +37,19 @@ export function ObjetMathalea2D () {
   context.objets2D.push(this)
 }
 
+class Vide2d {
+  constructor () {
+    this.tikz = function () {
+      return ''
+    }
+    this.svg = function () {
+      return ''
+    }
+  }
+}
+export function vide2d () {
+  return new Vide2d()
+}
 /**
  *
  * @param {url} url de l'image
@@ -973,7 +986,16 @@ export function dessousDessus (d, A) {
     else return 'dessus'
   }
 }
-
+/**
+ *
+ * @param {point} A
+ * @param {droite} d
+ * @returns true si A appartient à d
+ * @author Jean-Claude Lhote
+ */
+export function estSurDroite (A, d) {
+  return dessousDessus(d, A) === 'sur'
+}
 /**
  * d = droiteParPointEtVecteur(A,v,'d1',red') //Droite passant par A, de vecteur directeur v et de couleur rouge
  * @author Jean-Claude Lhote
