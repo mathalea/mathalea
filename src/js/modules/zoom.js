@@ -1,6 +1,6 @@
 export function zoomAffichage (facteur) {
-  let tailleH3 = 17
-  let tailleH4 = 17
+  let tailleH3 = 15
+  let tailleH4 = 14
   let taille = 14
   taille *= facteur
   tailleH3 *= facteur
