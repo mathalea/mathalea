@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 362 
-- nombre d'exos interactifReady 499 
+- nombre d'exos amcReady 365 
+- nombre d'exos interactifReady 503 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -87,7 +87,9 @@
 |3P10|Variations en pourcentage|KO|KO|OK|mathLive|
 |3S12|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
 |3S15|Calculer des étendues|KO|KO|OK|mathLive|
+|4A10|Nombre premier ou pas|OK|qcmMono|OK|qcm|
 |4A11-0|Décomposer un nombre entier en produit de (petits) facteurs premiers|KO|KO|OK|mathLive|
+|4A11-1|Décomposer un nombre entier en produit de facteurs premiers|KO|KO|OK|mathLive|
 |4A12|Problèmes d'évenements récurrents|OK|AMCNum|OK|mathLive|
 |4AI1-1|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
 |4C10-0|Signe d’un produit ou d’un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
@@ -127,6 +129,7 @@
 |4G41|Utiliser le cosinus pour calculer la mesure d’un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G53|Calculs de volumes|OK|AMCNum|OK|qcm,mathLive|
 |4L10|Utiliser la simple distributivité|KO|KO|OK|mathLive|
+|4L11|Factoriser une expression littérale|OK|AMCOpen|OK|mathLive|
 |4L20-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
 |4L20|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |4S11|Déterminer des médianes|OK|AMCNum|OK|mathLive|
@@ -236,7 +239,7 @@
 |6N23-1|Différentes écritures des nombres décimaux|OK|AMCHybride|OK|mathLive|
 |6N23-2|Lire des abscisses décimales sous trois formes|OK|AMCHybride|OK|mathLive|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
-|6N23-6|Divisions décimales|OK|AMCNum|OK|numerique|
+|6N23-6|Valeur décimale d'une fraction|OK|AMCNum|OK|numerique|
 |6N23|Donner l’écriture décimale d’une fraction décimale|OK|AMCNum|OK|mathLive|
 |6N24|Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)|OK|AMCNum|OK|mathLive|
 |6N30-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCOpen|OK|mathLive|
