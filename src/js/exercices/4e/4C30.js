@@ -77,7 +77,7 @@ export default function PuissancesDeDix () {
 
       switch (typesDeQuestions) {
         case 1: // produit de puissances de même base
-          texte = `$${lettre}=10^${exp[0]}\\times 10^${exp[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `$${lettre}=10^${exp[0]}\\times 10^${exp[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
 
           texteCorr = `$${lettre}=10^${exp[0]}\\times 10^${exp[1]}$`
           if (this.correctionDetaillee) {
@@ -112,7 +112,7 @@ export default function PuissancesDeDix () {
             couleurExp1 = coul0
           }
 
-          texte = `$${lettre}=\\dfrac{10^${exp[0]}}{10^${exp[1]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `$${lettre}=\\dfrac{10^${exp[0]}}{10^${exp[1]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
 
           texteCorr = `$${lettre}=\\dfrac{10^${exp[0]}}{10^${exp[1]}}$`
           if (this.correctionDetaillee) {
@@ -180,19 +180,18 @@ export default function PuissancesDeDix () {
             texteCorr += '<br><br>'
             texteCorr += `$${lettre}=10^{${exp[0]}-${exp[1]}}=10^{${exp[0] - exp[1]
               }}`
-            setReponse(this, i, `10^{${exp[0] - exp[1]}}`, { formatInteractif: 'puissance' })
-
             // if (simpNotPuissance(10, exp[0] - exp[1]) != ` `) {
             // if ((exp[0] - exp[1])%2==0) {
             //   texteCorr += `=${simpNotPuissance(10, exp[0] - exp[1])}`;
             // }
           }
+          setReponse(this, i, `10^{${exp[0] - exp[1]}}`, { formatInteractif: 'puissance' })
           texteCorr += '$'
           texteCorr += '<br>'
           break
         case 3: // exponentiation
           exp = [randint(2, 4), randint(2, 4)] // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
-          texte = `$${lettre}=(10^${exp[0]})^{${exp[1]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `$${lettre}=(10^${exp[0]})^{${exp[1]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
 
           texteCorr = `$${lettre}=(10^${exp[0]})^{${exp[1]}}$`
           if (this.correctionDetaillee) {
@@ -230,7 +229,7 @@ export default function PuissancesDeDix () {
           break
         case 4:
           exp = [randint(1, 7, [1]), randint(1, 7, [1]), randint(1, 7, [1])] // on a besoin de 3 exposants distincts
-          texte = `$\\dfrac{10^${exp[0]}\\times 100}{10^${exp[1]} \\times 10^${exp[2]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `$\\dfrac{10^${exp[0]}\\times 100}{10^${exp[1]} \\times 10^${exp[2]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
           texteCorr = `$\\dfrac{10^${exp[0]}\\times 100}{10^${exp[1]} \\times 10^${exp[2]}}`
           texteCorr += ` = \\dfrac{10^${exp[0]}\\times 10^{2}}{10^${exp[1]} \\times 10^${exp[2]}}`
           texteCorr += ` = \\dfrac{10^{${exp[0]}+2}}{10^{${exp[1]}+${exp[2]}}}`
@@ -251,7 +250,7 @@ export default function PuissancesDeDix () {
           break
         case 5:
           exp = [randint(1, 7, [1]), randint(1, 7, [1])] // on a besoin de 2 exposants distincts
-          texte = `$\\dfrac{10^${exp[0]}\\times 1000}{10^${exp[1]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `$\\dfrac{10^${exp[0]}\\times 1000}{10^${exp[1]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
           texteCorr = `$\\dfrac{10^${exp[0]}\\times 1000}{10^${exp[1]}}`
           texteCorr += ` = \\dfrac{10^${exp[0]}\\times 10^3}{10^${exp[1]}}`
           texteCorr += ` = \\dfrac{10^{${exp[0]}+3}}{10^${exp[1]}}`
@@ -269,13 +268,13 @@ export default function PuissancesDeDix () {
           exp = [randint(1, 7, [1]), randint(1, 2)] // on a besoin de 2 exposants distincts
           // le second exposant ne peut valoir que 1 ou 2 la fonction testExp ne convient pas à l'affichage ici
           if (exp[1] === 2) {
-            texte = `$\\dfrac{10\\times 10^${exp[0]}}{100^${exp[1]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+            texte = `$\\dfrac{10\\times 10^${exp[0]}}{100^${exp[1]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
             texteCorr = `$\\dfrac{10\\times 10^${exp[0]}}{100^${exp[1]}}`
             texteCorr += `=\\dfrac{10^{1+${exp[0]}}}{(10^2)^${exp[1]}}`
             texteCorr += `=\\dfrac{10^{1+${exp[0]}}}{10^{2 \\times ${exp[1]}}}`
             texteCorr += `=\\dfrac{10^{${1 + exp[0]}}}{10^{${2 * exp[1]}}}`
           } else {
-            texte = `$\\dfrac{10\\times 10^${exp[0]}}{100}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+            texte = `$\\dfrac{10\\times 10^${exp[0]}}{100}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
             texteCorr = `$\\dfrac{10\\times 10^${exp[0]}}{100}`
             texteCorr += `=\\dfrac{10^{1+${exp[0]}}}{10^2}`
           }
@@ -291,7 +290,7 @@ export default function PuissancesDeDix () {
           break
         case 7:
           exp = [randint(1, 7, [1])] // on a besoin de 1 exposant
-          texte = `$\\dfrac{10\\times 10^${exp[0]}}{100\\times 100}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `$\\dfrac{10\\times 10^${exp[0]}}{100\\times 100}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
           texteCorr = `$\\dfrac{10\\times 10^${exp[0]}}{100\\times 100}`
           texteCorr += `=\\dfrac{10^{1+${exp[0]}}}{10^2\\times 10^2}`
           texteCorr += `=\\dfrac{10^{${1 + exp[0]}}}{10^{2+2}}`
@@ -307,7 +306,7 @@ export default function PuissancesDeDix () {
           break
         case 8:
           exp = [randint(1, 7, [1])] // on a besoin de 1 exposant
-          texte = `$\\dfrac{100^${exp[0]}}{10}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `$\\dfrac{100^${exp[0]}}{10}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
           texteCorr = `$\\dfrac{100^${exp[0]}}{10}`
           texteCorr += `=\\dfrac{(10^2)^${exp[0]}}{10}`
           texteCorr += `=\\dfrac{10^{2\\times ${exp[0]}}}{10}`
@@ -320,7 +319,7 @@ export default function PuissancesDeDix () {
           break
         case 9:
           exp = [randint(1, 3, [1])] // on a besoin de 1 exposant
-          texte = `$\\dfrac{1000^${exp[0]}}{10}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `$\\dfrac{1000^${exp[0]}}{10}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
           texteCorr = `$\\dfrac{1000^${exp[0]}}{10}`
           texteCorr += `=\\dfrac{(10^3)^${exp[0]}}{10}`
           texteCorr += `=\\dfrac{10^{3\\times ${exp[0]}}}{10}`
@@ -332,7 +331,7 @@ export default function PuissancesDeDix () {
           break
         case 10:
           exp = [randint(1, 7, [1]), randint(1, 7, [1]), randint(1, 4, [1])] // on a besoin de 3 exposants distincts
-          texte = `$\\dfrac{10^${exp[0]}\\times 10^${exp[1]}}{100^${exp[2]}}\\times 10$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `$\\dfrac{10^${exp[0]}\\times 10^${exp[1]}}{100^${exp[2]}}\\times 10$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
           texteCorr = `$\\dfrac{10^${exp[0]}\\times 10^${exp[1]}}{100^${exp[2]}}\\times 10`
           texteCorr += `=\\dfrac{10^{${exp[0]}+${exp[1]}}}{(10^2)^${exp[2]}}\\times 10`
           texteCorr += `=\\dfrac{10^{${exp[0] + exp[1]}}}{10^{2\\times ${exp[2]
@@ -359,7 +358,7 @@ export default function PuissancesDeDix () {
           break
         case 11:
           exp = [randint(1, 7, [1])] // on a besoin de 1 exposant
-          texte = `$\\dfrac{1000\\times 10}{100^${exp[0]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `$\\dfrac{1000\\times 10}{100^${exp[0]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
           texteCorr = `$\\dfrac{1000\\times 10}{100^${exp[0]}}`
           texteCorr += `=\\dfrac{10^3\\times 10}{(10^2)^${exp[0]}}`
           texteCorr += `=\\dfrac{10^{3+1}}{10^{2\\times${exp[0]}}}`
