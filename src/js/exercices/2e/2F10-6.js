@@ -69,11 +69,11 @@ export default function variationsfonctionaffine () {
           ligne1 = ['Var', 10, '+/', 30, '-/', 30]
         }
         texteCorr += 'On peut synthétiser cela dans un tableau de variations :<br><br>'
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += mathalea2d({ xmin: -2, ymin: -6.1, xmax: 15, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-              ['$x$', 2, 30], [`$f(x)=${reduireAxPlusB(a, b)}$`, 2, 50]
+              ['$x$', 2, 30], [`$f(x)=${reduireAxPlusB(a, b)}$`, 2, 100]
             ],
             // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
             ['$-\\infty$', 30, '$+\\infty$', 30]
@@ -89,11 +89,11 @@ export default function variationsfonctionaffine () {
 
         texteCorr += 'Pour illustrer la situation, on peut représenter graphiquement la fonction :<br><br>'
         const f = x => a * x + b
-        monRepere = repere2()
+        monRepere = repere2({ xMin: -5, grilleXMin: -5 })
         maCourbe = courbe2(f, { repere: monRepere })
         // this.spacing = (context.isHtml) ? 2 : 1
         texteCorr += mathalea2d({
-          xmin: -5,
+          xmin: -7,
           ymin: -5,
           xmax: 6,
           ymax: 6
