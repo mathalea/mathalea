@@ -167,6 +167,15 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
   }
 }
 /**
+ *
+ * @param {string} texte
+ * @returns le texte centré dans la page selon le contexte.
+ * @author Jean-Claude Lhote
+ */
+export function centrage (texte) {
+  return context.isHtml ? `<center>${texte}</center>` : `\\begin{center}\n\t${texte}\n\\end{center}\n`
+}
+/**
  * Contraint une valeur à rester dans un intervalle donné. Si elle est trop petite, elle prend la valeur min, si elle est trop grande elle prend la valeur max
  * @author Jean-Claude Lhote à partir du code de Eric Elter
  * @param {number} min borne inférieur
