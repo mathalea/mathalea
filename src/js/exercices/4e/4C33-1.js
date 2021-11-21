@@ -1,7 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, lettreDepuisChiffre, texteGras, simpNotPuissance, eclatePuissance, reorganiseProduitPuissance, modalPdf } from '../../modules/outils.js'
+
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+
 export const titre = 'Puissances : Le sens des règles de calculs'
+
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true // pour définir que l'exercice est exportable AMC
+export const amcType = 'AMCNum'
 
 /**
  * Puissances d'un relatif (1)
@@ -82,6 +90,8 @@ export default function PuissancesDunRelatif1 () {
         lettre,
         texte,
         texteCorr,
+        reponseInteractive,
+        exposantInteractif,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
@@ -135,13 +145,13 @@ export default function PuissancesDunRelatif1 () {
           texteCorr += '<br>'
           texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}+${exp[1]}} = ${baseUtile}^{${exp[0] + exp[1]}}$`
           // attention la baseUtile est de type str alors que la fonction switch sur un type number
-          // if (simpNotPuissance(base, exp[0] + exp[1]) != ` `) {
           if ((base < 0) && ((exp[1] + exp[0]) % 2 === 0)) {
             texteCorr += `$=${simpNotPuissance(base, exp[1] + exp[0])}$`
           };
           texteCorr += remarquesPuissances(base, baseUtile, exp[1] + exp[0])
           texteCorr += '<br>'
-
+          reponseInteractive = `${baseUtile}^${exp[1] + exp[0]}`
+          exposantInteractif = exp[1] + exp[0]
           break
         case 2: // quotient de puissances de même base
           // Pour que la couleur de la base associée à l'exposant max soit toujours rouge.
@@ -156,6 +166,7 @@ export default function PuissancesDunRelatif1 () {
           texte = `$${lettre}=\\dfrac{${baseUtile}^${exp[0]}}{${baseUtile}^${exp[1]}}$`
 
           texteCorr += `$${lettre}=\\dfrac{${baseUtile}^${exp[0]}}{${baseUtile}^${exp[1]}}$`
+
           if (this.correctionDetaillee) {
             texteCorr += '<br><br>'
             texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(baseUtile, exp[0], couleurExp0)}}{${eclatePuissance(baseUtile, exp[1], couleurExp1)}}$`
@@ -197,12 +208,10 @@ export default function PuissancesDunRelatif1 () {
             }
             texteCorr += '<br><br>'
             texteCorr += `$${lettre}=\\dfrac{1}{${baseUtile}^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{${baseUtile}^{${exp[1] - exp[0]}}}$`
-            // if (simpNotPuissance(base, exp[1] - exp[0]) != ` `) {
             if ((base < 0) && ((exp[1] - exp[0]) % 2 === 0)) {
               texteCorr += `$=\\dfrac{1}{${simpNotPuissance(
                 base,
                 exp[1] - exp[0]
-                // )}}=${simpNotPuissance(base, exp[0] - exp[1])}`;
               )}}=${simpNotPuissance(base, exp[0] - exp[1])}$`
             } else {
               texteCorr += `$=${baseUtile}^{${exp[0] - exp[1]}}$`
@@ -225,19 +234,21 @@ export default function PuissancesDunRelatif1 () {
             }
             texteCorr += '<br><br>'
             texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}-${exp[1]}}=${baseUtile}^{${exp[0] - exp[1]}}$`
-            // if (simpNotPuissance(base, exp[0] - exp[1]) != ` `) {
             if ((base < 0) && ((exp[0] - exp[1]) % 2 === 0)) {
               texteCorr += `$=${simpNotPuissance(base, exp[0] - exp[1])}$`
             }
           }
           texteCorr += remarquesPuissances(base, baseUtile, exp[0] - exp[1])
           texteCorr += '<br>'
+          reponseInteractive = `${baseUtile}^${exp[0] - exp[1]}`
+          exposantInteractif = exp[0] - exp[1]
           break
         case 3: // exponentiation
           exp = [randint(2, 4), randint(2, 4)] // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
           texte = `$${lettre}=(${baseUtile}^${exp[0]})^{${exp[1]}}$`
 
           texteCorr += `$${lettre}=(${baseUtile}^${exp[0]})^{${exp[1]}}$`
+
           if (this.correctionDetaillee) {
             texteCorr += '<br>'
             texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(
@@ -262,12 +273,13 @@ export default function PuissancesDunRelatif1 () {
           texteCorr += '<br>'
           texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}\\times${exp[1]
             }} = ${baseUtile}^{${exp[0] * exp[1]}}$`
-          // if (simpNotPuissance(base, exp[0] * exp[1]) != ` `) {
           if ((base < 0) && ((exp[1] * exp[0]) % 2 === 0)) {
             texteCorr += `$= ${simpNotPuissance(base, exp[0] * exp[1])}$`
           }
           texteCorr += remarquesPuissances(base, baseUtile, exp[0] * exp[1])
           texteCorr += '<br>'
+          reponseInteractive = `${baseUtile}^${exp[0] * exp[1]}`
+          exposantInteractif = exp[0] * exp[1]
           break
         case 4: // produit de puissances de même exposant
           base0 = randint(2, 8, [4, 6])
@@ -277,6 +289,7 @@ export default function PuissancesDunRelatif1 () {
           texte = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`
           texteCorr += '<br>'
           texteCorr += `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`
+
           if (this.correctionDetaillee) {
             texteCorr += '<br>'
             texteCorr += `$${lettre}=${eclatePuissance(
@@ -298,9 +311,18 @@ export default function PuissancesDunRelatif1 () {
             }}} \\color{black}{\\times} \\color{${coul1}}{\\mathbf{${base[1]
             }}}\\color{black}{)^{${exp}}}=${base[0] * base[1]}^${exp}$`
           texteCorr += '<br>'
+          reponseInteractive = `${base[0] * base[1]}^${exp}`
+          baseUtile = base[0] * base[1]
+          exposantInteractif = exp
           break
       }
-
+      if (this.interactif && !context.isAmc) {
+        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: baseUtile, exposantPuissance: exposantInteractif })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+      }
+      if (context.isAmc) {
+        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: baseUtile, exposantPuissance: exposantInteractif })
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

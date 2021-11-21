@@ -31,7 +31,7 @@ export default function AdditionnerSoustrairesDecimaux () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
   this.nbQuestions = 4
   this.sup = 3
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
@@ -158,11 +158,10 @@ export default function AdditionnerSoustrairesDecimaux () {
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
         this.autoCorrection[i].reponse.param = { digits: nombreDeChiffresDansLaPartieEntiere(reponse) + nombreDeChiffresDansLaPartieDecimale(reponse) + 2, decimals: nombreDeChiffresDansLaPartieDecimale(reponse) + 1, signe: false, exposantNbChiffres: 0 }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        // this.qcm[1].push([texte, [texteCorr, reponse], { digits: 0, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }])
         i++
       }
       cpt++

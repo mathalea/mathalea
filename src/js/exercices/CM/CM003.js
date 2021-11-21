@@ -24,7 +24,7 @@ export default function TablesMultiplicationsDivisions (
   this.sup2 = 1 // classique|a_trous|melange
   this.consigne = 'Calculer'
   this.spacing = 2
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

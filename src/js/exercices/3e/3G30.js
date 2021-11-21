@@ -266,7 +266,7 @@ export default function CalculDeLongueur () {
         ],
         reponse: {
           texte: 'résultat',
-          valeur: reponse,
+          valeur: [reponse],
           param: {
             digits: 3,
             decimals: 1,
@@ -280,9 +280,9 @@ export default function CalculDeLongueur () {
     }
     if (context.isHtml) {
       texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline', { texteApres: ' cm' })
-      this.listeQuestions.push(texte)
       setReponse(this, 0, arrondiVirgule(reponse))
     }
+    this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }

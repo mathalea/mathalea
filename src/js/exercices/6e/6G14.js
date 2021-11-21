@@ -185,7 +185,7 @@ export default function ProprietesParallelesPerpendiculaires () {
           textetemp += '\\perp'
           couleurd.push((couleurd[j] + 1) % 6)
         }
-        textetemp += `$(d_${numDroites[code[j][1] - 1]})$`
+        textetemp += `(d_${numDroites[code[j][1] - 1]})$`
         phrases.push(textetemp)
       }
       // phrases=shuffle(phrases)

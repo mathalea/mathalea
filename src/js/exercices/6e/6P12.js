@@ -309,15 +309,15 @@ function questionDillution (exo, i) { // questions de mélange de volumes
   const texteCorr = `Commençons par trouver combien est-ce qu'il faut de ${liste[alea1].solute} pour 1 ${liste[alea1].unite_solvant[0]} d'eau. <br>` +
   ` ${volumeInitial} ${liste[alea1].unite_solvant[1]} d'eau, c'est ${texteEnCouleur(volumeInitial)} fois 1 ${liste[alea1].unite_solvant[0]} d'eau. ` +
   `Pour 1 ${liste[alea1].unite_solvant[0]} d'eau, il faut donc ${texteEnCouleur(volumeInitial)} fois moins que ${texNombrec(quantite)} ${liste[alea1].unite_solute}.<br>` +
-  `${texNombrec(quantite)} ${liste[alea1].unite_solute} $\\div $ ${texteEnCouleur(volumeInitial)} = ${texNombrec(liste[alea1].volumeUnitaire[alea2])} ${liste[alea1].unite_solute} <br>` +
+  `${texNombrec(quantite)} ${liste[alea1].unite_solute} $\\div $ ${texteEnCouleur(volumeInitial)} = ${texNombrec(quantite / volumeInitial)} ${liste[alea1].unite_solute} <br>` +
   texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
-  ` il faut ${texteEnCouleur(texNombrec(liste[alea1].volumeUnitaire[alea2]), 'blue')} ${liste[alea1].unite_solute} de ${liste[alea1].solute} pour 1 ${liste[alea1].unite_solvant[0]} d'eau. <br>` +
+  ` il faut ${texteEnCouleur(texNombrec(quantite / volumeInitial), 'blue')} ${liste[alea1].unite_solute} de ${liste[alea1].solute} pour 1 ${liste[alea1].unite_solvant[0]} d'eau. <br>` +
       ` Cherchons maintenant la quantité nécessaire pour ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau. <br>` +
   ` ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau, c'est ${texteEnCouleur(volumeFinalAff)} fois 1 ${liste[alea1].unite_solvant[0]} d'eau.` +
-  ` Il faut donc ${texteEnCouleur(volumeFinalAff)} fois plus de ${liste[alea1].solute} que ${texNombrec(liste[alea1].volumeUnitaire[alea2])} ${liste[alea1].unite_solute} :` +
-  `<br> ${texteEnCouleur(texNombrec(liste[alea1].volumeUnitaire[alea2]), 'blue')} ${liste[alea1].unite_solute} $\\times$ ${texteEnCouleur(volumeFinalAff)} = ${texNombrec(liste[alea1].volumeUnitaire[alea2] * volumeFinal)} ${liste[alea1].unite_solute}<br>` +
-  `${texteEnCouleurEtGras('Conclusion :', 'black')} il faut prévoir ${texNombrec(liste[alea1].volumeUnitaire[alea2] * volumeFinal)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute}.`
-  setReponse(exo, i, calcul(liste[alea1].volumeUnitaire[alea2] * volumeFinal))
+  ` Il faut donc ${texteEnCouleur(volumeFinalAff)} fois plus de ${liste[alea1].solute} que ${texNombrec(quantite / volumeInitial)} ${liste[alea1].unite_solute} :` +
+  `<br> ${texteEnCouleur(texNombrec(quantite / volumeInitial), 'blue')} ${liste[alea1].unite_solute} $\\times$ ${texteEnCouleur(volumeFinalAff)} = ${texNombrec(quantite / volumeInitial * volumeFinal)} ${liste[alea1].unite_solute}<br>` +
+  `${texteEnCouleurEtGras('Conclusion :', 'black')} il faut prévoir ${texNombrec(quantite / volumeInitial * volumeFinal)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute}.`
+  setReponse(exo, i, calcul(quantite / volumeInitial * volumeFinal))
   return {
     qtexte: texte,
     qtexteCorr: texteCorr

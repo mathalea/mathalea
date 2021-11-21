@@ -34,7 +34,7 @@ export default function QuestionsPrix () {
   this.sup4 = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.interactifType = 'mathLive'
 
@@ -158,7 +158,7 @@ export default function QuestionsPrix () {
             correctionAMC += `Grâce à son bon de réduction, ${quidame} ne paierait que ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
             break
           case 5:
-            enonceAMC += `Si ${quidame} achetait $${NbArticles2}$ ${ArticlePluriel} et son ${Personnage1} en achetait également $${NbArticles3}$, quelle somme d'argent paierait-ils à eux deux${sp()}?<br><br>`
+            enonceAMC += `Si ${quidame} achetait $${NbArticles2}$ ${ArticlePluriel} et son ${Personnage1} en achetait également $${NbArticles3}$, quelle somme d'argent paieraient-ils à eux deux${sp()}?<br><br>`
             reponseAMC = arrondi((NbArticles2 + NbArticles3) * PrixUnitaire)
             correctionAMC += ` $${NbArticles2} + ${NbArticles3} = ${NbArticles2 + NbArticles3}$<br>`
             correctionAMC += `${quidame} et son ${Personnage1} achèteraient $${NbArticles2 + NbArticles3}$ ${ArticlePluriel}.<br>`
@@ -244,7 +244,7 @@ export default function QuestionsPrix () {
                  reponse:
                    {
                      texte: (this.sup4 === 1) ? enonceAMC : '',
-                     valeur: reponseAMC,
+                     valeur: [reponseAMC],
                      param:
                        {
                          digits: digitAMC,

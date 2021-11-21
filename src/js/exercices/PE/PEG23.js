@@ -91,7 +91,7 @@ export default function ProduitDeDeuxLongueurs () {
     anim.regleMasquer()
     anim.crayonMasquer()
 
-    const texte = 'À partir d\'un segment unité, d\'un segment de longueur $a$ et d\'un segment de longueur $b$, contruire un segment de longueur $a\\times b$.'
+    const texte = 'À partir d\'un segment unité, d\'un segment de longueur $a$ et d\'un segment de longueur $b$, construire un segment de longueur $a\\times b$.'
     let texteCorr = texteGras('Programme de construction :')
     texteCorr += '<br>On trace une demi-droite $[OA)$ telle que $OA = a$.'
     texteCorr += '<br>On trace une demi-droite de même origine $[OB)$ telle que $OB = b$.'

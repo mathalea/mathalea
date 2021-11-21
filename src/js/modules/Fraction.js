@@ -152,6 +152,8 @@ class Fraction {
      * @type {number}
      */
     this.valeurDecimale = arrondi(this.num / this.den, 6)
+
+    return this.texFraction
   }
 
   /**
@@ -697,7 +699,7 @@ class Fraction {
    * @param label
    * @return {Object[]}
    */
-  representation (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '') {
+  representation (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '', listeAColorier1 = [], listeAColorier2 = [], couleur1 = 'gray', couleur2 = 'lightgray') {
     const objets = []
     let num, k, dep, s, a, O, C
     const n = quotientier(this.num, this.den)
@@ -829,6 +831,26 @@ class Fraction {
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
         }
+      }
+
+      // ToFix ne fonctionne pas pour les "tablettes de chocolat". Ne fonctionne que pour les barres à un étage
+      for (let i = listeAColorier1[0] - 1; i < listeAColorier1[1]; i++) {
+        O = point(x + i * rayon / diviseur + quotientier(i, diviseur), 0)
+        C = translation(O, vecteur(rayon / diviseur, 0))
+        dep = carre(O, C)
+        dep.color = 'black'
+        dep.couleurDeRemplissage = couleur1
+        dep.opaciteDeRemplissage = 0.7
+        objets.push(dep)
+      }
+      for (let i = listeAColorier2[0] - 1; i < listeAColorier2[1]; i++) {
+        O = point(x + i * rayon / diviseur + quotientier(i, diviseur), 0)
+        C = translation(O, vecteur(rayon / diviseur, 0))
+        dep = carre(O, C)
+        dep.color = 'black'
+        dep.couleurDeRemplissage = couleur2
+        dep.opaciteDeRemplissage = 0.7
+        objets.push(dep)
       }
     }
     return objets

@@ -21,7 +21,7 @@ const epsilon = 0.000001
  */
 export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
-    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`)
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`, exercice.tailleDiaporama)
     if (exercice.interactif && exercice.interactifReady) {
       exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
@@ -2306,20 +2306,19 @@ export function texIntroduction (texte) {
 * @param spacing interligne (line-height en css)
 * @author Rémi Angot
 */
-export function htmlEnumerate (liste, spacing, classe = 'question', id = '') {
+export function htmlEnumerate (liste, spacing, classe = 'question', id = '', tailleDiaporama = 1) {
   let result = ''
-
   if (liste.length > 1) {
     (spacing > 1) ? result = `<ol style="line-height: ${spacing};">` : result = '<ol>'
     for (const i in liste) {
-      result += `<li class="${classe}" ${id ? 'id="' + id + i + '"' : ''}>` + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+      result += `<li class="${classe}" ${id ? 'id="' + id + i + '"' : ''} ${dataTaille(tailleDiaporama)}>` + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     }
     result += '</ol>'
   } else if (liste.length === 1) {
     // Pour garder la même hiérarchie avec une ou plusieurs questions
     // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
     // Utile pour la vue can
-    (spacing > 1) ? result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''} style="line-height: ${spacing}; margin-bottom: 20px">` : result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''}>`
+    (spacing > 1) ? result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''} style="line-height: ${spacing}; margin-bottom: 20px" ${dataTaille(tailleDiaporama)}>` : result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''}>`
     result += liste[0].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     result += '</div></div>'
   }
@@ -2442,10 +2441,11 @@ export function texConsigne (consigne) {
 * @author Rémi Angot
 */
 export function texNombre (nb) {
-  // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
-  // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres.
+  // Ecrit \numprint{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces en latex)
+  // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres sinon.
   if (context.isHtml) {
-    return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,'\\thickspace ').replace(',','{,}');
+    // return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,'\\thickspace ').replace(',','{,}');
+    return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ')
   } else {
     let result
     if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
@@ -8450,4 +8450,19 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   }
   codeLatex += '\\end{document}\n'
   return codeLatex
+}
+
+export function dataTailleDiaporama (exercice) {
+  if (context.vue !== 'diap') {
+    return ''
+  } else if (exercice.tailleDiaporama !== 1) {
+    return `data-taille = "${exercice.tailleDiaporama}"`
+  }
+}
+function dataTaille (taille) {
+  if (context.vue !== 'diap') {
+    return ''
+  } else if (taille !== 1) {
+    return `data-taille = "${taille}"`
+  }
 }

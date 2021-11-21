@@ -18,7 +18,7 @@ export default function AppliquerUnPourcentage () {
   this.formatChampTexte = 'largeur15 inline'
   this.bis = false
   this.nouvelleVersion = function () {
-    let a, b, p
+    let a, p
     switch (this.bis ? choice([4, 5, 6]) : choice([1, 2, 3])) {
       case 1:// prende 10%
         a = randint(2, 99)
@@ -46,7 +46,7 @@ export default function AppliquerUnPourcentage () {
         p = randint(2, 9) * 10
         a = randint(2, 9, p) * 10
         this.reponse = calcul(p * a / 100)
-        this.question = `$${p}\\%$ de $${b}=$`
+        this.question = `$${p}\\%$ de $${a}=$`
         if (a === 50) {
           this.correction = `$50\\%$  de $${a} = ${this.reponse}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>

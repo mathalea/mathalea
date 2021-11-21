@@ -141,7 +141,13 @@ function listeHtmlDesExercicesDUnNiveauAvecSousTheme (listeDeThemes) { // liste_
     liste += '<div class="content">'
     for (let i = 2; i < theme.length; i++) {
       liste += `<h4 style="color:#f15929">${theme[i]}</h4>`
-      liste += listeHtmlDesExercicesDUnTheme(theme[i].substr(0, 4))
+      if (theme[0].substr(0, 5) === 'canc3') {
+        liste += listeHtmlDesExercicesDUnTheme(theme[i].substr(0, 6))
+      } else if (theme[0].substr(0, 3) === 'can') {
+        liste += listeHtmlDesExercicesDUnTheme(theme[i].substr(0, 5))
+      } else {
+        liste += listeHtmlDesExercicesDUnTheme(theme[i].substr(0, 4))
+      }
     }
     liste += '</div>'
   }
@@ -170,29 +176,31 @@ function getListeHtmlDesExercicesDNBTheme () {
     //   "Arithmétique",
     //   "Calcul littéral",
     //   "Calculs numériques",
-    //   "Géométrie dans l'espace",
     //   "Durées",
     //   "Équations",
-    //   "Fractions",
     //   "Fonctions",
+    //   "Fractions",
+    //   "Géométrie dans l'espace",
     //   "Géométrie plane",
     //   "Grandeurs composées",
+    //   "Lecture graphique",
     //   "Pourcentages",
     //   "Prise d'initiatives",
-    //   "Programme de calculs",
     //   "Probabilités",
+    //   "Programme de calculs",
     //   "Proportionnalité",
     //   "Puissances",
     //   "Pythagore",
     //   "QCM",
+    //   "Recherche d'informations",
+    //   "Statistiques",
+    //   "Tableur",
     //   "Thalès",
     //   "Transformations",
     //   "Trigonométrie",
     //   "Vitesses",
     //   "Volumes",
-    //   "Vrai-faux",
-    //   "Statistiques",
-    //   "Tableur"
+    //   "Vrai-faux"
     // ]){
     liste += `<div class="title"><i class="dropdown icon"></i> ${theme}</div><div class="content">`
     liste += listeHtmlDesExercicesDNBTheme(theme)
@@ -236,7 +244,7 @@ function addExercice (e) {
     $('#exoModeInteractif').remove()
   }
   const numero = $(e.target).attr('data-id_exercice') ? $(e.target).attr('data-id_exercice') : $(e.target).parents('a.lien_id_exercice').attr('data-id_exercice')
-  if ($('#choix_des_exercices').val() === '' || context.vue=='alc') { //Pour a la carte on ne selectionne qu'un seul exercice pour choisir ses paramètres.
+  if ($('#choix_des_exercices').val() === '' || context.vue === 'alc') { // Pour a la carte on ne selectionne qu'un seul exercice pour choisir ses paramètres.
     $('#choix_des_exercices').val(numero)
   } else {
     $('#choix_des_exercices').val(
@@ -373,9 +381,16 @@ export function menuDesExercicesDisponibles () {
     document.getElementById('liste_des_exercices').innerHTML = ''
   }
   const listeThemesCan = [
-    ['canc3', 'canc3 - Course aux nombres niveau CM1-CM2'], ['can6', 'can6 - Course aux nombres niveau 6e'], ['can5', 'can5 - Course aux nombres niveau 5e'], ['can4', 'can4 - Course aux nombres niveau 4e'],
-    ['can3', 'can3 - Course aux nombres niveau 3e'], ['can2', 'can2 - Course aux nombres niveau 2e'], ['can1', 'can1 - Course aux nombres niveau 1e'],
-    ['canT', 'canT - Course aux nombres niveau Terminale'], ['canEx', 'canExpert - Course aux nombres niveau Terminale expert'], ['canP', 'canPredef - Courses aux nombres clé en main']]
+    ['canc3', 'canc3 - Course aux nombres niveau CM1-CM2', 'canc3C - Calculs', 'canc3D - Durées', 'canc3M - Mesures', 'canc3N - Numération'],
+    ['can6', 'can6 - Course aux nombres niveau 6e', 'can6C - Calculs', 'can6D - Durées', 'can6G - Géométrie', 'can6M - Mesures', 'can6N - Numération', 'can6P - Proportionnalité', 'can6S - Statistiques'],
+    ['can5', 'can5 - Course aux nombres niveau 5e', 'can5C - Calculs', 'can5D - Durées', 'can5G - Géométrie', 'can5M - Mesures', 'can5N - Numération', 'can5P - Proportionnalité', 'can5S - Statistiques'],
+    ['can4', 'can4 - Course aux nombres niveau 4e', 'can4C - Calculs', 'can4D - Durées', 'can4G - Géométrie', 'can4L - Calcul littéral', 'can4N - Numération', 'can4P - Proportionnalité', 'can4S - Statistiques'],
+    ['can3', 'can3 - Course aux nombres niveau 3e', 'can3C - Calculs', 'can3E - Équations', 'can3F - Fonctions', 'can3G - Géométrie', 'can3L - Calcul littéral', 'can3M - Mesures', 'can3N - Numération', 'can3P - Proportionnalité', 'can3S - Statistiques & probabilités'],
+    ['can2', 'can2 - Course aux nombres niveau 2e', 'can2C - Calculs', 'can2F - Fonctions', 'can2G - Géométrie', 'can2L - Calcul littéral', 'can2N - Numération', 'can2P - Probabilités'],
+    ['can1', 'can1 - Course aux nombres niveau 1e', 'can1C - Calculs', 'can1F - Fonctions', 'can1G - Géométrie', 'can1L - Calcul littéral', 'can1N - Numération', 'can1P - Proportionnalité', 'can1S - Statistiques et probabilités'],
+    ['canT', 'canT - Course aux nombres niveau Terminale'],
+    ['canEx', 'canExpert - Course aux nombres niveau Terminale expert'],
+    ['canP', 'canPredef - Courses aux nombres clé en main']]
   const listeThemesC3 = [
     ['c3C1', 'c3C1 - Calculs niveau 1'], ['c3C2', 'c3C2 - Calculs niveau 2'], ['c3C3', 'c3C3 - Calculs niveau 3'],
     ['c3N1', 'c3N1 - Numération Niveau 1'], ['c3N2', 'c3N2 - Numération Niveau 2'], ['c3N3', 'c3N3 - Numération Niveau 3']]
@@ -477,7 +492,7 @@ export function menuDesExercicesDisponibles () {
     ca: {
       label: 'Course aux nombres',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemesCan),
+      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveauAvecSousTheme(listeThemesCan),
       lignes_tableau: ''
     },
     c3: {

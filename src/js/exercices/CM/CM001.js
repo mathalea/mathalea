@@ -12,5 +12,5 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Table
  */
 export default function TablesParametres (tablesParDefaut = '2-3-4-5-6-7-8-9') {
   TablesDeMultiplications.call(this, tablesParDefaut)
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
 }

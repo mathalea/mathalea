@@ -26,8 +26,6 @@ export default function PlacerLaVirgule () {
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.consigne = 'Les calculs suivants sont faux. Placer la virgule correctement dans le résultat pour que le calcul soit juste.'
-  this.qcmDisponible = true
-  this.modeQcm = false
   this.sup = false
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
@@ -117,6 +115,4 @@ export default function PlacerLaVirgule () {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
   this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
-  // this.besoin_formulaire2_case_a_cocher = ["Mode QCM",false];
-  // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
 } // Fin de l'exercice.

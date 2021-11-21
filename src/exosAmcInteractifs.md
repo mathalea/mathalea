@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 354 
-- nombre d'exos interactifReady 487 
+- nombre d'exos amcReady 365 
+- nombre d'exos interactifReady 503 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -24,8 +24,18 @@
 |2N20-2|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|OK|qcm|
 |2N20-4|Primalité ou pas|OK|qcmMono|OK|qcm|
 |2N20-5|Décomposition en facteurs premiers|KO|KO|OK|mathLive|
+|2N31-1|Notation scientifique|OK|AMCNum|OK|mathLive|
+|2N31-4|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
 |2N32-4|Simplifier une somme de racines carrées|KO|KO|OK|mathLive|
-|2N41-1|Calculer avec les identités remarquables|KO|KO|OK|mathLive|
+|2N40-1|Traduire un programme de calcul par une expression littérale|OK|qcmMono|OK|qcm|
+|2N40-2|Calculer la valeur d'une expression littérale.|KO|KO|OK|mathLive|
+|2N40-3|Écrire une expression littérale|OK|qcmMult|OK|qcm|
+|2N40-4|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
+|2N40-5|Factoriser une expression|OK|AMCOpen|OK|mathLive|
+|2N40-6|Calcul mental et calcul littéral|KO|KO|OK|mathLive|
+|2N41-1|Factoriser une expression complexe|KO|KO|OK|mathLive|
+|2N41-2|Factoriser a²-b²|KO|KO|OK|mathLive|
+|2N41-3|Développer (a-b)(a+b)|KO|KO|OK|mathLive|
 |2N41-4|Développer (a+b)²|KO|KO|OK|mathLive|
 |2N41-5|Développer (a-b)²|KO|KO|OK|mathLive|
 |2N51-4|Équations du premier degré|OK|AMCHybride|OK|mathLive|
@@ -77,7 +87,9 @@
 |3P10|Variations en pourcentage|KO|KO|OK|mathLive|
 |3S12|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
 |3S15|Calculer des étendues|KO|KO|OK|mathLive|
+|4A10|Nombre premier ou pas|OK|qcmMono|OK|qcm|
 |4A11-0|Décomposer un nombre entier en produit de (petits) facteurs premiers|KO|KO|OK|mathLive|
+|4A11-1|Décomposer un nombre entier en produit de facteurs premiers|KO|KO|OK|mathLive|
 |4A12|Problèmes d'évenements récurrents|OK|AMCNum|OK|mathLive|
 |4AI1-1|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
 |4C10-0|Signe d’un produit ou d’un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
@@ -100,6 +112,7 @@
 |4C30|Puissances de 10 : Le sens des règles de calculs|KO|KO|OK|mathLive|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|mathLive|
+|4C33-1|Puissances : Le sens des règles de calculs|OK|AMCNum|OK|mathLive|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
 |4F12|Problème s’appuyant sur la lecture d’une représentation graphique|OK|AMCHybride|KO|KO|
 |4G10-1|Trouver les coordonnée de l’image d’un point par une translation|OK|AMCHybride|OK|mathLive|
@@ -116,6 +129,7 @@
 |4G41|Utiliser le cosinus pour calculer la mesure d’un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G53|Calculs de volumes|OK|AMCNum|OK|qcm,mathLive|
 |4L10|Utiliser la simple distributivité|KO|KO|OK|mathLive|
+|4L11|Factoriser une expression littérale|OK|AMCOpen|OK|mathLive|
 |4L20-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
 |4L20|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |4S11|Déterminer des médianes|OK|AMCNum|OK|mathLive|
@@ -182,7 +196,7 @@
 |6C34|Dernier chiffre d’un calcul|OK|AMCNum|OK|numerique|
 |6C35|Modéliser des problèmes|KO|KO|OK|mathLive|
 |6D101|Utiliser les heures décimales|OK|AMCHybride|OK|mathLive|
-|6D13|Conversion en heures et minutes|OK|AMCHybride|OK|mathLive|
+|6D13|Conversion min->h et min ou s->min et s|OK|AMCHybride|OK|mathLive|
 |6G10-3|Choisir la bonne figure|OK|qcmMono|OK|cliqueFigure|
 |6G11|Tracer des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12-1|Tracer des parallèles et des perpendiculaires|OK|AMCOpen|KO|KO|
@@ -220,11 +234,12 @@
 |6N20-2|Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale|KO|KO|OK|mathLive|
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1)|KO|KO|OK|mathLive|
 |6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
-|6N22|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
 |6N23-0|Écrire un nombre décimal en chiffres ou en lettres|OK|AMCNum|OK|mathLive|
 |6N23-1|Différentes écritures des nombres décimaux|OK|AMCHybride|OK|mathLive|
 |6N23-2|Lire des abscisses décimales sous trois formes|OK|AMCHybride|OK|mathLive|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|qcm|
+|6N23-6|Valeur décimale d'une fraction|OK|AMCNum|OK|numerique|
+|6N23-7|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
 |6N23|Donner l’écriture décimale d’une fraction décimale|OK|AMCNum|OK|mathLive|
 |6N24|Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)|OK|AMCNum|OK|mathLive|
 |6N30-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCOpen|OK|mathLive|
@@ -454,10 +469,10 @@
 |can6C27|Petits problèmes d'arithmétique|KO|KO|OK|mathLive|
 |can6C28|Petit problème de fraction|KO|KO|OK|mathLive|
 |can6C29|Partage|KO|KO|OK|mathLive|
-|can6D01|Conversion Heures minutes|OK|AMCNum|OK|mathLive|
+|can6D01|Conversion Heures et minutes vers minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calcul de durée en minutes|OK|AMCNum|OK|mathLive|
-|can6D04|Convertir minutes heures|OK|AMCHybride|OK|mathLive|
+|can6D04|Convertir minutes->heures ou secondes->minutes|OK|AMCHybride|OK|mathLive|
 |can6G01|Symétrique de point 6e|OK|AMCHybride|OK|mathLive|
 |can6G02|Compter les cubes|OK|AMCNum|OK|mathLive|
 |can6G03|Compter les cubes manquants|OK|AMCNum|OK|mathLive|
@@ -494,6 +509,7 @@
 |canc3C01|Calculs automatiques|OK|AMCNum|OK|mathLive|
 |canc3C02|Composition de nombre entier|OK|AMCNum|OK|mathLive|
 |canc3C03|Table de multiplication à trous|KO|KO|OK|mathLive|
+|canc3C04|Double ou moitié|OK|AMCNum|OK|mathLive|
 |canc3D01|Lire l'heure|KO|KO|OK|mathLive|
 |canc3D02|Lire une durée|KO|KO|OK|mathLive|
 |canc3M01|Trouver la bonne unité|KO|KO|OK|mathLive|
@@ -501,3 +517,4 @@
 |canc3N02|Suite sur une droite graduée|OK|AMCNum|OK|mathLive|
 |canc3N03|Le plus grand nombre entier|OK|AMCNum|OK|mathLive|
 |canc3N04|Arrondi à l'unité|OK|AMCHybride|OK|mathLive|
+|canc3N05|Composition de nombre décimal|OK|AMCNum|OK|mathLive|

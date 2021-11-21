@@ -141,13 +141,20 @@ function verifQuestionMathLive (exercice, i) {
       // saisie = neTientCompteQueDuDernierMembre(saisie)
       }
       // Pour le calcul numérique, on transforme la saisie en nombre décimal
-      if (typeof reponse === 'number' || typeof reponse === 'string') saisie = saisie.toString().replace(',', '.')
+      if (typeof reponse === 'number' || typeof reponse === 'string') {
+        saisie = saisie.toString().replace(',', '.')
+        reponse = reponse.toString().replace(',', '.')
+      }
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
       }
       // Pour les exercices où la saisie du texte avec prise en compte de la casse
     } else if (formatInteractif === 'ecritureScientifique') { // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
-      if (typeof reponse === 'string') saisie = saisie.toString().replace(',', '.')
+      if (typeof reponse === 'string') {
+        saisie = saisie.toString().replace(',', '.')
+        reponse = reponse.replace(',', '.')
+      }
+      console.log(saisie, engine.canonical(parse(saisie)), reponse, engine.canonical(parse(reponse)))
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         saisie = saisie.split('\\times')
         if (number(saisie[0]) >= 1 & number(saisie[0]) < 10) { resultat = 'OK' }
@@ -179,7 +186,7 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
     } else if (formatInteractif === 'fractionEgale') {
-      // Si l'utilisateur entre un entier n, on transforme en n/1
+      // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
       if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
         saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
       } else {

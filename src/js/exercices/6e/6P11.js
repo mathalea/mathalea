@@ -199,7 +199,7 @@ texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} dépensera ${texPrix(y * x / n)
             statut: '',
             reponse: {
               texte: 'a) ',
-              valeur: arrondi(y * x / n, 2),
+              valeur: [arrondi(y * x / n, 2)],
               param: {
                 digits: nombreDeChiffresDe(arrondi(y * x / n, 2)),
                 decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(y * x / n, 2)),
@@ -216,7 +216,7 @@ texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} dépensera ${texPrix(y * x / n)
             statut: '',
             reponse: {
               texte: 'b) ',
-              valeur: arrondi(z * n / x, 0),
+              valeur: [arrondi(z * n / x, 0)],
               param: {
                 digits: nombreDeChiffresDansLaPartieEntiere(arrondi(z * n / x, 0)),
                 decimals: 0,
@@ -295,7 +295,7 @@ function questionRecette (exo, i) { // questions avec des masses pour un nombre 
             statut: '',
             reponse: {
               texte: 'a) ',
-              valeur: quantiteReponse,
+              valeur: [quantiteReponse],
               param: {
                 digits: nombreDeChiffresDe(quantiteReponse),
                 decimals: nombreDeChiffresDansLaPartieDecimale(quantiteReponse),
@@ -312,7 +312,7 @@ function questionRecette (exo, i) { // questions avec des masses pour un nombre 
             statut: '',
             reponse: {
               texte: 'b) ',
-              valeur: calcul(nbPersonneInit * quantite2 / quantite),
+              valeur: [calcul(nbPersonneInit * quantite2 / quantite)],
               param: {
                 digits: nombreDeChiffresDansLaPartieEntiere(calcul(nbPersonneInit * quantite2 / quantite)),
                 decimals: 0,
@@ -377,9 +377,10 @@ function questionDillution (exo, i) { // questions de mélange de volumes
   }
   const volumeFinalAff = texNombrec(volumeFinal) // pour affichage avec bon séparateur.
   const volumeInitialAff = texNombrec(volumeInitial) // pour affichage avec bon séparateur.
-  const texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} ${getVueFromUrl() === 'multi' ? '<br>' : ' '} qu'il faut ` +
-` ${texNombrec(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour ${volumeInitialAff} ${liste[alea1].unite_solvant[0]} d'eau.<br> ` +
-`On veut utiliser ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau.` +
+  let texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} ${getVueFromUrl() === 'multi' ? '<br>' : ' '} qu'il faut ` +
+` $${texNombrec(quantite)}$ ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour $${volumeInitialAff}$ `
+  texte += volumeInitialAff < 2 ? `${liste[alea1].unite_solvant[0]} d'eau.<br> ` : `${liste[alea1].unite_solvant[1]} d'eau.<br> `
+  texte += `On veut utiliser $${volumeFinalAff}$ ${uniteSolvantVolumeFinal} d'eau.` +
 `<br> Quel volume de ${liste[alea1].solute} doit-on prévoir ? ` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' ' + liste[alea1].unite_solute })
   const texteCorr = `Le volume de ${liste[alea1].solute} est proportionnel au volume d'eau. <br> ` +
 ` ${texteEnCouleur(volumeFinalAff)} ${uniteSolvantVolumeFinal} d'eau, c'est ${texteEnCouleur(texNombrec(volumeFinal / volumeInitial))} fois ${volumeInitialAff} ${liste[alea1].unite_solvant[0]} d'eau. <br> ` +
@@ -399,7 +400,7 @@ function questionDillution (exo, i) { // questions de mélange de volumes
             statut: '',
             reponse: {
               texte: 'a) ',
-              valeur: calcul(quantite * volumeFinal / volumeInitial),
+              valeur: [calcul(quantite * volumeFinal / volumeInitial)],
               param: {
                 digits: nombreDeChiffresDe(calcul(quantite * volumeFinal / volumeInitial)),
                 decimals: nombreDeChiffresDansLaPartieDecimale(calcul(quantite * volumeFinal / volumeInitial)),
@@ -499,7 +500,7 @@ function questionDistance (exo, i) { // questions de distance parcourue à une v
               statut: '',
               reponse: {
                 texte: 'a) ',
-                valeur: calcul(distance * dureeR / dureeQ),
+                valeur: [calcul(distance * dureeR / dureeQ)],
                 param: {
                   digits: nombreDeChiffresDe(calcul(distance * dureeR / dureeQ)),
                   decimals: nombreDeChiffresDansLaPartieDecimale(calcul(distance * dureeR / dureeQ)),
@@ -531,7 +532,7 @@ function questionDistance (exo, i) { // questions de distance parcourue à une v
               statut: '',
               reponse: {
                 texte: 'a) ',
-                valeur: reponseQ1,
+                valeur: [reponseQ1],
                 param: {
                   digits: nombreDeChiffresDe(reponseQ1),
                   decimals: nombreDeChiffresDansLaPartieDecimale(reponseQ1),
@@ -548,7 +549,7 @@ function questionDistance (exo, i) { // questions de distance parcourue à une v
               statut: '',
               reponse: {
                 texte: 'b) ',
-                valeur: calcul(rapportQuestion2[alea3] * 60),
+                valeur: [calcul(rapportQuestion2[alea3] * 60)],
                 param: {
                   digits: nombreDeChiffresDe(calcul(rapportQuestion2[alea3] * 60)),
                   decimals: nombreDeChiffresDansLaPartieDecimale(calcul(rapportQuestion2[alea3] * 60)),
@@ -603,7 +604,7 @@ function questionEchelle (exo, i) { // X cm sur une carte correspond à x km dan
             statut: '',
             reponse: {
               texte: 'a) ',
-              valeur: calcul(rapport[alea1] * distanceReel),
+              valeur: [calcul(rapport[alea1] * distanceReel)],
               param: {
                 digits: nombreDeChiffresDe(calcul(rapport[alea1] * distanceReel)),
                 decimals: nombreDeChiffresDansLaPartieDecimale(calcul(rapport[alea1] * distanceReel)),
@@ -620,7 +621,7 @@ function questionEchelle (exo, i) { // X cm sur une carte correspond à x km dan
             statut: '',
             reponse: {
               texte: 'b) ',
-              valeur: calcul(rapport[alea2] * distanceCarte),
+              valeur: [calcul(rapport[alea2] * distanceCarte)],
               param: {
                 digits: nombreDeChiffresDe(calcul(rapport[alea2] * distanceCarte)),
                 decimals: nombreDeChiffresDansLaPartieDecimale(calcul(rapport[alea2] * distanceCarte)),
@@ -706,7 +707,7 @@ texteEnCouleurEtGras(`Conclusion : elle doit en acheter ${quantiteF} ${liste[ale
               statut: '',
               reponse: {
                 texte: 'a) ',
-                valeur: quantiteF,
+                valeur: [quantiteF],
                 param: {
                   digits: nombreDeChiffresDe(quantiteF),
                   decimals: nombreDeChiffresDansLaPartieDecimale(quantiteF),
@@ -760,7 +761,7 @@ fois ${texteEnCouleur(texNombrec(liste[alea1].qtt_surface[alea3]), 'blue')} m${e
                 statut: '',
                 reponse: {
                   texte: 'a) ',
-                  valeur: calcul(rapport[alea4] * quantite),
+                  valeur: [calcul(rapport[alea4] * quantite)],
                   param: {
                     digits: nombreDeChiffresDe(calcul(rapport[alea4] * quantite)),
                     decimals: nombreDeChiffresDansLaPartieDecimale(calcul(rapport[alea4] * quantite)),
@@ -796,7 +797,7 @@ fois ${texteEnCouleur(texNombrec(liste[alea1].qtt_surface[alea3]), 'blue')} m${e
                 statut: '',
                 reponse: {
                   texte: 'a) ',
-                  valeur: calcul(rapport[alea4] * quantite),
+                  valeur: [calcul(rapport[alea4] * quantite)],
                   param: {
                     digits: nombreDeChiffresDe(calcul(rapport[alea4] * quantite)),
                     decimals: nombreDeChiffresDansLaPartieDecimale(calcul(rapport[alea4] * quantite)),

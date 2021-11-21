@@ -34,7 +34,7 @@ All notable changes to this project will be documented in this file. See [standa
 * PEA12 additions et soustractions en base différente de 10 avec correction détaillée pour les additions ([67e53d2](https://github.com/mathalea/mathalea/commits/67e53d29589ed8658358f31938636934a5b8c5c7))
 * PEA14 multiplications dans d'autres bases ([1a76b89](https://github.com/mathalea/mathalea/commits/1a76b89ee67dcce272b0e1c20f2c866b5d3b9cce))
 * PEG20 partage d'un segment au compad et à la règle non graduée ([364fa5e](https://github.com/mathalea/mathalea/commits/364fa5e8be9771a571d0b071f1355a3bf8efd5f4))
-* PEG21 contruire la racine d'un nombre au compas et à la règle non graduée. ([affd418](https://github.com/mathalea/mathalea/commits/affd418fbb1eea9df2d9dc1dc4038154498d0bd6))
+* PEG21 construire la racine d'un nombre au compas et à la règle non graduée. ([affd418](https://github.com/mathalea/mathalea/commits/affd418fbb1eea9df2d9dc1dc4038154498d0bd6))
 * PEG22 racine au compas et à la règle non graduée avec le théorème de Pythagore ([09294f0](https://github.com/mathalea/mathalea/commits/09294f0c30ce7ece1a57658256dbb0f59f7ad4ab))
 * PEG23 et PEG24 multiplication ou quotient de longueurs ([0c9bb73](https://github.com/mathalea/mathalea/commits/0c9bb7342fdd64debff29e4da500ae8297730992))
 * Une question d'horloge. canc3D01 ([114dc88](https://github.com/mathalea/mathalea/commits/114dc88a62be871d1363b66af189740851bac311))
