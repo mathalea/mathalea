@@ -254,6 +254,13 @@ function verifQuestionMathLive (exercice, i) {
         if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
           formatOK = true
         }
+        // gérer le cas mantisse négative a et exposant impair e, -a^e est correct mais pas du format attendu
+        // si la mantisse attendue est négative on nettoie la chaine des parenthèses
+        if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && expoReponse % 2 === 1) {
+          if ((saisie === `${mantisseReponse.replace(/[()]/g, '')}^{${expoReponse}}`) || (saisie === `${mantisseReponse.replace(/[()]/g, '')}^${expoReponse}`)) {
+            formatKO = true
+          }
+        }
       } else {
         // Dans tous ces cas on est sûr que le format n'est pas bon
         // Toutefois la valeur peu l'être donc on vérifie
@@ -306,6 +313,9 @@ function verifQuestionMathLive (exercice, i) {
     spanReponseLigne.style.fontSize = 'large'
   }
   if (resultat !== 'essaieEncoreLongueur') champTexte.readOnly = true
+
+  // console.log('rep : ' + reponses)
+  // console.log('saisie : ' + saisie)
 
   return resultat
 }
