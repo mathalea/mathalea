@@ -58,7 +58,7 @@ export default function NotationPuissance () {
     listeSignesExposants = combinaisonListes(listeSignesExposants, this.nbQuestions)
     const listeSignes = combinaisonListes(['', '-'], this.nbQuestions)
     const listeSignesMantisse = combinaisonListes(['', '-'], this.nbQuestions)
-    for (let i = 0, texte, texteCorr, a, b, pl, pr, produit, produitAlt, puissance, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, b, pl, pr, apl, apr, signeContraire, produit, produitAlt, puissance, puissances, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(2, 10)
       if (listeSignesMantisse[i] === '-') a = -a
       if (listeTypeDeQuestions[i] === 'puissance') {
@@ -69,18 +69,24 @@ export default function NotationPuissance () {
       if (a < 0) {
         pl = '('
         pr = ')'
+        apl = ''
+        apr = ''
       } else {
         pl = ''
         pr = ''
+        apl = '('
+        apr = ')'
       }
+      listeSignes[i] === '-' ? signeContraire = '' : signeContraire = '-'
       if (listeSignesExposants[i] === 'négatif') {
         b = b * -1
       }
-      if (b < 0) { // Les cas sont séparés pour avoir avoir une comparaison correcte en interactif
-        puissance = `${listeSignes[i] + pl + a + pr}^{${b}}`
-      } else {
-        puissance = `${listeSignes[i] + pl + a + pr}^${b}`
-      }
+      puissance = `${listeSignes[i] + pl + a + pr}^{${b}}`
+      puissances = []
+      let exp
+      b < 0 ? exp = `{${b}}` : exp = `${b}` // distinction importante pour comparer les chaînes de caractères en interactif
+      puissances.push(`${listeSignes[i] + pl + a + pr}^${exp}`) // réponse de base
+      b % 2 === 0 ? puissances.push(`${listeSignes[i] + apl + -a + apr}^${exp}`) : puissances.push(`${signeContraire + apl + -a + apr}^${exp}`) // si l'exposant est pair, on peut changer le signe de la mantisse sans changer le signe devant et s'il est impair, on peut changer les deux signes
       produit = `${pl + a + pr}`
       produitAlt = produit
       for (let j = 0; j < Math.abs(b) - 1; j++) {
@@ -125,7 +131,7 @@ export default function NotationPuissance () {
             texte += `$${listeSignes[i]} ${produit}$`
             texteCorr = `$${listeSignes[i]} ${produit} = ${puissance}$`
           }
-          setReponse(this, i, puissance, { formatInteractif: 'ignorerCasse' })
+          setReponse(this, i, puissances, { formatInteractif: 'ignorerCasse' })
           break
       }
       if (this.interactif) { // Si l'exercice est interactif
