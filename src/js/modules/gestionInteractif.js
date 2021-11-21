@@ -261,6 +261,13 @@ function verifQuestionMathLive (exercice, i) {
             formatKO = true
           }
         }
+        // si l'exposant est négatif, il se peut qu'on ait une puissance au dénominateur
+        if (parseInt(expoReponse) < 0) {
+          // Si la mantisse est positive
+          if ((saisie === `\\frac{1}{${parseInt(mantisseReponse)}^{${-expoReponse}}`) || (saisie === `\\frac{1}{${parseInt(mantisseReponse)}^${-expoReponse}}`)) {
+            formatKO = true
+          }
+        }
       } else {
         // Dans tous ces cas on est sûr que le format n'est pas bon
         // Toutefois la valeur peu l'être donc on vérifie
