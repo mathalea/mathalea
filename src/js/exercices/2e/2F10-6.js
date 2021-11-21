@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, reduireAxPlusB, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
 import { tableauDeVariation, mathalea2d, courbe2, repere2 } from '../../modules/2d.js'
 
 export const titre = 'Déterminer le sens de variation d’une fonction affine'
@@ -12,7 +12,7 @@ export default function variationsfonctionaffine () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = ''
-  this.nbQuestions = 3 // On complète le nb de questions
+  this.nbQuestions = 2 // On complète le nb de questions
   this.nbCols = 1
   this.nbColsCorr = 1
   this.tailleDiaporama = 100
@@ -30,7 +30,7 @@ export default function variationsfonctionaffine () {
 
     // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, a, b, monRepere, maCourbe, ligne1, texte, texteCorr, cpt = 0;
+    for (let i = 0, a, b, t, monRepere, maCourbe, ligne1, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       // typesDeQuestions = listeTypeDeQuestions[i]
       if (this.sup === 1) {
@@ -41,10 +41,23 @@ export default function variationsfonctionaffine () {
           a = 1
         }
 
-        texte = `Déterminer le sens de variation de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ .<br>`
+        texte = 'Déterminer le sens de variation de la fonction $f$ définie sur $\\mathbb R$ par'
+        if (b < 0) {
+          t = randint(1, 3)
+          if (t > 1 && a !== 1) { texte += `$f(x)=${b} ${ecritureAlgebrique(a)}x$. <br>` }
+          if (t > 1 && a === 1) { texte += `$f(x)=${b}${ecritureAlgebriqueSauf1(a)}x$.<br>` }
+          if (t > 1) {
+            texteCorr = 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$, '
+            texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>`
+            texteCorr += `On a donc : $f(x)=${reduireAxPlusB(a, b)}$ .<br>`
+          }
+          if (t === 1) { texte += `$f(x)=${reduireAxPlusB(a, b)}$ .<br>` }
+        } else {
+          texte += `$f(x)=${reduireAxPlusB(a, b)}$ .<br>`
+          texteCorr = 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$, '
+          texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>`
+        }
 
-        texteCorr = 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$, '
-        texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>`
         // texteCorr += `Selon les notations, on peut aussi appeler $f$ sous la forme $f(x)=mx+p$ avec : $m=${a}$ et $p=${b}$. <br>`
         texteCorr += 'On sait qu\'une fonction affine est monotone sur $\\mathbb{R}$.<br> '
         texteCorr += 'Son sens de variation dépend du signe de $a$.<br>'
