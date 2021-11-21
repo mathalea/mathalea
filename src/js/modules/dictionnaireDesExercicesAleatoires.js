@@ -1001,8 +1001,12 @@ export default {
   "2N31-2": {
     "titre": "Puissances : le sens des règles de calculs",
     "url": "/exercices/2e/2N31-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "2N31-2",
     "newEx": {
       "isNew": false,
@@ -2940,8 +2944,12 @@ export default {
   "4A10": {
     "titre": "Nombre premier ou pas",
     "url": "/exercices/4e/4A10.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "4A10",
     "newEx": {
       "isNew": false,
@@ -2972,7 +2980,8 @@ export default {
     "titre": "Décomposer un nombre entier en produit de facteurs premiers",
     "url": "/exercices/4e/4A11-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4A11-1",
     "newEx": {
       "isNew": false,
@@ -3507,8 +3516,12 @@ export default {
   "4C33-3": {
     "titre": "Puissances : Calculs automatisés et règles de calculs",
     "url": "/exercices/4e/4C33-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C33-3",
     "newEx": {
       "isNew": false,
@@ -3975,8 +3988,12 @@ export default {
   "4L11": {
     "titre": "Factoriser une expression littérale",
     "url": "/exercices/4e/4L11.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4L11",
     "newEx": {
       "isNew": false,
@@ -7753,7 +7770,7 @@ export default {
     }
   },
   "6N23-6": {
-    "titre": "Divisions décimales",
+    "titre": "Valeur décimale d'une fraction",
     "url": "/exercices/6e/6N23-6.js",
     "amcReady": true,
     "amcType": {
@@ -7763,7 +7780,7 @@ export default {
     "interactifType": "numerique",
     "name": "6N23-6",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

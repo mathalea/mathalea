@@ -1,7 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, simpExp, modalPdf } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, simpExp, modalPdf, calcul } from '../../modules/outils.js'
+
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+
 export const titre = 'Puissances : Calculs automatisés et règles de calculs'
+
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true // pour définir que l'exercice est exportable AMC
+export const amcType = 'AMCNum'
 
 /**
  * Puissances d'un relatif (2)
@@ -28,7 +36,8 @@ export default function PuissancesDUnRelatif2 () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
+    // const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
+    const typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions
@@ -42,7 +51,7 @@ export default function PuissancesDUnRelatif2 () {
     )
 
     for (
-      let i = 0, base, exp, texte, texteCorr, cpt = 0;
+      let i = 0, base, exp, texte, texteCorr, reponseInteractive, exposantInteractif, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -69,7 +78,15 @@ export default function PuissancesDUnRelatif2 () {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(base, exp[0] + 2 - exp[1] - exp[2])
           }
+          //   reponseInteractive = simpExp(base, exp[0] + 2 - exp[1] - exp[2])
+          // } else {
+          //   reponseInteractive = `${base}^{${exp[0] + 2 - exp[1] - exp[2]}}`
+          // }
           texteCorr += '$'
+          reponseInteractive = `${base}^{${exp[0] + 2 - exp[1] - exp[2]}}`
+          // reponseInteractive = simpExp(base, exp[0] + 2 - exp[1] - exp[2]).trim()
+          // reponseInteractive = `${base}^{${exp[0] + 2 - exp[1] - exp[2]}}`
+          exposantInteractif = exp[0] + 2 - exp[1] - exp[2]
           break
         case 2:
           base = 2 // on travaille sur cette base mais on pourrait rendre la base aléatoire
@@ -88,7 +105,14 @@ export default function PuissancesDUnRelatif2 () {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(base, exp[0] + 3 - exp[1])
           }
+            // reponseInteractive = simpExp(base, exp[0] + 3 - exp[1])
+          // } else {
+          //   reponseInteractive = `${base}^{${exp[0] + 3 - exp[1]}}`
+          // }
           texteCorr += '$'
+          // reponseInteractive = [simpExp(base, exp[0] + 3 - exp[1]).trim(), `${base}^{${exp[0] + 3 - exp[1]}}`]
+          reponseInteractive = `${base}^{${exp[0] + 3 - exp[1]}}`
+          exposantInteractif = exp[0] + 3 - exp[1]
           break
         case 3:
           base = 5 // on travaille sur cette base mais on pourrait rendre la base aléatoire
@@ -114,8 +138,12 @@ export default function PuissancesDUnRelatif2 () {
           if (1 + exp[0] - 2 * exp[1] === 0 || 1 + exp[0] - 2 * exp[1] === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(base, 1 + exp[0] - 2 * exp[1])
+            reponseInteractive = simpExp(base, 1 + exp[0] - 2 * exp[1])
+          } else {
+            reponseInteractive = `${base}^{${1 + exp[0] - 2 * exp[1]}}`
           }
           texteCorr += '$'
+          exposantInteractif = 1 + exp[0] - 2 * exp[1]
           break
         case 4:
           base = 2 // on travaille sur cette base mais on pourrait rendre la base aléatoire
@@ -132,8 +160,12 @@ export default function PuissancesDUnRelatif2 () {
           if (1 + exp[0] - 2 - 2 === 0 || 1 + exp[0] - 2 - 2 === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(base, 1 + exp[0] - 2 - 2)
+            reponseInteractive = simpExp(base, 1 + exp[0] - 2 - 2)
+          } else {
+            reponseInteractive = `${base}^{${1 + exp[0] - 2 - 2}}`
           }
           texteCorr += '$'
+          exposantInteractif = 1 + exp[0] - 2 - 2
           break
         case 5:
           base = 2 // on travaille sur cette base mais on pourrait rendre la base aléatoire
@@ -146,6 +178,8 @@ export default function PuissancesDUnRelatif2 () {
           texteCorr += `=${base}^{${2 * exp[0]}-1}`
           texteCorr += `=${base}^{${2 * exp[0] - 1}}$`
           // Inutile de tester l'exposant final car il vaut au minimum 3
+          reponseInteractive = `${base}^{${2 * exp[0] - 1}}`
+          exposantInteractif = 2 * exp[0] - 1
           break
         case 6:
           base = 3 // on travaille sur cette base mais on pourrait rendre la base aléatoire
@@ -158,6 +192,8 @@ export default function PuissancesDUnRelatif2 () {
           texteCorr += `=${base}^{${3 * exp[0]}-1}`
           texteCorr += `=${base}^{${3 * exp[0] - 1}}$`
           // inutile de tester l'exposant final car il vaut au minimum 5
+          reponseInteractive = `${base}^{${3 * exp[0] - 1}}`
+          exposantInteractif = 3 * exp[0] - 1
           break
         case 7:
           base = 3 // on travaille sur cette base mais on pourrait rendre la base aléatoire
@@ -185,8 +221,12 @@ export default function PuissancesDUnRelatif2 () {
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
             texteCorr += '=' + simpExp(base, exp[0] + exp[1] + 1 - 2 * exp[2])
+            reponseInteractive = simpExp(base, exp[0] + exp[1] + 1 - 2 * exp[2])
+          } else {
+            reponseInteractive = `${base}^{${exp[0] + exp[1] + 1 - 2 * exp[2]}}`
           }
           texteCorr += '$'
+          exposantInteractif = exp[0] + exp[1] + 1 - 2 * exp[2]
           break
         case 8:
           base = 2 // on travaille sur cette base mais on pourrait rendre la base aléatoire
@@ -203,11 +243,23 @@ export default function PuissancesDUnRelatif2 () {
           if (3 + 1 - 2 * exp[0] === 0 || 3 + 1 - 2 * exp[0] === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
             texteCorr += '=' + simpExp(base, 3 + 1 - 2 * exp[0])
+            reponseInteractive = simpExp(base, 3 + 1 - 2 * exp[0])
+          } else {
+            reponseInteractive = `${base}^{${3 + 1 - 2 * exp[0]}}`
           }
           texteCorr += '$'
+          exposantInteractif = 3 + 1 - 2 * exp[0]
           break
       }
-
+      if (this.interactif && !context.isAmc) {
+        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: base, exposantPuissance: exposantInteractif })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')        
+        texte += 'rep : ' + reponseInteractive + ' -- '
+        texte += 'case : ' + typesDeQuestions  
+      }
+      if (context.isAmc) {
+        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: base, exposantPuissance: exposantInteractif })
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

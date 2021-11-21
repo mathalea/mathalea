@@ -229,7 +229,7 @@ function verifQuestionMathLive (exercice, i) {
       if (grandeurSaisie) {
         if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
       } else {
-        resultat = 'essaieEncore'
+        resultat = 'essaieEncoreLongueur'
       }
       // Pour les exercice où la saisie doit être dans un intervalle
     } else if (formatInteractif === 'intervalleStrict') {
@@ -239,31 +239,79 @@ function verifQuestionMathLive (exercice, i) {
       const nombreSaisi = Number(saisie.replace(',', '.'))
       if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
     } else if (formatInteractif === 'puissance') {
-      const nombreSaisi = saisie.split('^')
-      const mantisseSaisie = nombreSaisi[0]
-      const expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : ''
-      const nombreAttendu = reponse.split('^')
-      const mantisseReponse = nombreAttendu[0]
-      const expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
-      if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
-        resultat = 'OK'
+      let nombreSaisi, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
+      // formatOK et formatKO sont deu x variables globale,
+      // sinon dans le cas où reponses est un tableau, la valeur n'est pas conservée d'un tour de boucle sur l'autre
+      // eslint-disable-next-line no-var
+      var formatOK, formatKO
+      if (saisie.indexOf('^') !== -1) {
+        console.log('la saise contient ^')
+        nombreSaisi = saisie.split('^')
+        mantisseSaisie = nombreSaisi[0]
+        expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : ''
+        nombreAttendu = reponse.split('^')
+        mantisseReponse = nombreAttendu[0]
+        expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
+        if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
+          formatOK = true
+        }
       } else {
-        resultat = 'KO'
+        console.log('la saise ne contient pas contient ^')
+        // Dans tous ces cas on est sûr que le format n'est pas bon
+        // Toutefois la valeur peu l'être donc on vérifie
+        nombreSaisi = saisie
+        console.log(typeof nombreSaisi)
+        nombreAttendu = reponse.split('^')
+        mantisseReponse = nombreAttendu[0]
+        expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
+        if (parseInt(expoReponse) < 0) {
+          if (nombreSaisi === `\\frac{1}{${mantisseReponse ** (-expoReponse)}}`) {
+            formatKO = true
+          }
+        }
+        if (parseInt(expoReponse) > 0) {
+          if (nombreSaisi === `${mantisseReponse ** (expoReponse)}`) {
+            formatKO = true
+          }
+        }
+        if (parseInt(expoReponse) === 0) {
+          if (nombreSaisi === '1') {
+            formatKO = true
+          }
+        }
       }
+      if (formatOK) {
+        resultat = 'OK'
+      }
+      if (formatKO) {
+        resultat = 'essaieEncorePuissance'
+      }
+      // if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
+      //   resultat = 'OK'
+      // } else {
+      //   resultat = 'KO'
+      // }
     }
   }
   if (resultat === 'OK') {
     spanReponseLigne.innerHTML = '😎'
     spanReponseLigne.style.fontSize = 'large'
-  } else if (resultat === 'essaieEncore') {
+  } else if (resultat === 'essaieEncoreLongueur') {
     spanReponseLigne.innerHTML = '<em>Il faut saisir une longueur et une unité (cm par exemple).</em>'
+    spanReponseLigne.style.color = '#f15929'
+    spanReponseLigne.style.fontWeight = 'bold'
+  } else if (resultat === 'essaieEncorePuissance') {
+    spanReponseLigne.innerHTML = '<br><em>Attention, la réponse est mathématiquement correcte mais n\'a pas le format demandé.</em>'
     spanReponseLigne.style.color = '#f15929'
     spanReponseLigne.style.fontWeight = 'bold'
   } else {
     spanReponseLigne.innerHTML = '☹️'
     spanReponseLigne.style.fontSize = 'large'
   }
-  if (resultat !== 'essaieEncore') champTexte.readOnly = true
+  if (resultat !== 'essaieEncoreLongueur') champTexte.readOnly = true
+
+  console.log('saisie : ' + saisie)
+  console.log('reponses : ' + reponses)
   return resultat
 }
 
