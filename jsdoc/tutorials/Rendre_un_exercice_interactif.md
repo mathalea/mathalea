@@ -417,7 +417,7 @@ De ce fait, pour permettre une bonne cohabitation entre l'interactivité avec Ma
 >> }
 >>```
 
->>>>## <a id="export_AMC_automatise_mathLive_calcul" href="#export_AMC_automatise_mathLive_calcul"></a> [3. 1. 1. Avec `formatInteractif : 'calcul'` ou `formatInteractif: 'ecritureScientifique'`](#export_AMC_automatise_mathLive_calcul)
+>>>>## <a id="export_AMC_automatise_mathLive_calcul" href="#export_AMC_automatise_mathLive_calcul"></a> [3. 1. 1. Avec `formatInteractif : 'calcul'`](#export_AMC_automatise_mathLive_calcul)
 
 Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'un nombre avec `formatInteractif : 'calcul'` (ou rien puisque c'est le format par défaut) et que vous utilisiez :
 
