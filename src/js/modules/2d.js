@@ -2471,8 +2471,8 @@ class Plateau2dNLC {
     }
     if (this.relatif) plateau2d.push(texteParPositionEchelle('-30', -1.6, -0.3, 'milieu', 'black', 1.2, 'middle', true, scale))
     plateau2d.push(texteParPositionEchelle('30', 1.5, -0.3, 'milieu', 'black', 1.2, 'middle', true, scale))
-    if (this.relatif) plateau2d.push(texteParPositionEchelle('-30', -0.5, -1.6, 'milieu', 'black', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('30', -0.5, 1.6, 'milieu', 'black', 1.2, 'middle', true, scale))
+    if (this.relatif) plateau2d.push(texteParPositionEchelle('-30', -0.5, -1.5, 'milieu', 'black', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('30', -0.5, 1.5, 'milieu', 'black', 1.2, 'middle', true, scale))
     plateau2d.push(texteParPositionEchelle('x', 11.5 + 13 * (this.relatif ? 0 : 1), 0.3 - (this.relatif ? 0 : 0.6), 'milieu', 'purple', 1.2, 'middle', true, scale))
     plateau2d.push(texteParPositionEchelle('y', -0.3, 8.5 + 10 * (this.relatif ? 0 : 1), 'milieu', 'purple', 1.2, 'middle', true, scale))
     if (this.relatif) {

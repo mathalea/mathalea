@@ -29,25 +29,28 @@ export const titre = 'Note la couleur (scratch)'
  */
 
 class NoteLaCouleur {
-  constructor (x = 15, y = 15, orientation = 90, plateau = [
-    ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
-    ['Blanc', 'Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir', 'Jaune', 'Blanc'],
-    ['Blanc', 'Rouge', 'Bleu', 'Orange', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Bleu', 'Rouge', 'Gris', 'Rouge', 'Blanc'],
-    ['Blanc', 'Rose', 'Vert', 'Gris', 'Rouge', 'Noir', 'Bleu', 'Vert', 'Noir', 'Vert', 'Bleu', 'Rose', 'Gris', 'Vert', 'Orange', 'Blanc'],
-    ['Blanc', 'Vert', 'Bleu', 'Rose', 'Vert', 'Bleu', 'Orange', 'Gris', 'Rouge', 'Orange', 'Jaune', 'Gris', 'Rouge', 'Rose', 'Bleu', 'Blanc'],
-    ['Blanc', 'Noir', 'Orange', 'Rouge', 'Orange', 'Jaune', 'Rouge', 'Blanc', 'Blanc', 'Noir', 'Gris', 'Orange', 'Noir', 'Jaune', 'Rose', 'Blanc'],
-    ['Blanc', 'Rose', 'Gris', 'Noir', 'Bleu', 'Vert', 'Bleu', 'Blanc', 'Blanc', 'Rouge', 'Bleu', 'Gris', 'Vert', 'Rouge', 'Noir', 'Blanc'],
-    ['Blanc', 'Noir', 'Rouge', 'Rose', 'Vert', 'Orange', 'Rose', 'Noir', 'Orange', 'Vert', 'Jaune', 'Rose', 'Noir', 'Rose', 'Vert', 'Blanc'],
-    ['Blanc', 'Orange', 'Gris', 'Rouge', 'Jaune', 'Noir', 'Vert', 'Rouge', 'Rose', 'Noir', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Gris', 'Blanc'],
-    ['Blanc', 'Bleu', 'Jaune', 'Orange', 'Vert', 'Gris', 'Jaune', 'Gris', 'Orange', 'Gris', 'Rose', 'Bleu', 'Rouge', 'Bleu', 'Orange', 'Blanc'],
-    ['Blanc', 'Rose', 'Bleu', 'Jaune', 'Rose', 'Orange', 'Rouge', 'Bleu', 'Noir', 'Jaune', 'Gris', 'Vert', 'Jaune', 'Noir', 'Rouge', 'Blanc'],
-    ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc']
-  ]) {
+  constructor ({
+    x = 15, y = 15, orientation = 90, plateau = [
+      ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
+      ['Blanc', 'Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir', 'Jaune', 'Blanc'],
+      ['Blanc', 'Rouge', 'Bleu', 'Orange', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Bleu', 'Rouge', 'Gris', 'Rouge', 'Blanc'],
+      ['Blanc', 'Rose', 'Vert', 'Gris', 'Rouge', 'Noir', 'Bleu', 'Vert', 'Noir', 'Vert', 'Bleu', 'Rose', 'Gris', 'Vert', 'Orange', 'Blanc'],
+      ['Blanc', 'Vert', 'Bleu', 'Rose', 'Vert', 'Bleu', 'Orange', 'Gris', 'Rouge', 'Orange', 'Jaune', 'Gris', 'Rouge', 'Rose', 'Bleu', 'Blanc'],
+      ['Blanc', 'Noir', 'Orange', 'Rouge', 'Orange', 'Jaune', 'Rouge', 'Blanc', 'Blanc', 'Noir', 'Gris', 'Orange', 'Noir', 'Jaune', 'Rose', 'Blanc'],
+      ['Blanc', 'Rose', 'Gris', 'Noir', 'Bleu', 'Vert', 'Bleu', 'Blanc', 'Blanc', 'Rouge', 'Bleu', 'Gris', 'Vert', 'Rouge', 'Noir', 'Blanc'],
+      ['Blanc', 'Noir', 'Rouge', 'Rose', 'Vert', 'Orange', 'Rose', 'Noir', 'Orange', 'Vert', 'Jaune', 'Rose', 'Noir', 'Rose', 'Vert', 'Blanc'],
+      ['Blanc', 'Orange', 'Gris', 'Rouge', 'Jaune', 'Noir', 'Vert', 'Rouge', 'Rose', 'Noir', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Gris', 'Blanc'],
+      ['Blanc', 'Bleu', 'Jaune', 'Orange', 'Vert', 'Gris', 'Jaune', 'Gris', 'Orange', 'Gris', 'Rose', 'Bleu', 'Rouge', 'Bleu', 'Orange', 'Blanc'],
+      ['Blanc', 'Rose', 'Bleu', 'Jaune', 'Rose', 'Orange', 'Rouge', 'Bleu', 'Noir', 'Jaune', 'Gris', 'Vert', 'Jaune', 'Noir', 'Rouge', 'Blanc'],
+      ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc']
+    ], relatif = true
+  }) {
     this.plateauNLC = plateau
     this.currentPos = { x: x, y: y }
     this.currentOrientation = orientation
     this.codeScratch = ''
     this.currentIndex = 0
+    this.relatif = relatif
     this.nlc = function () {
       return this.plateauNLC[Math.ceil((165 + (this.relatif ? 0 : 165) - this.currentPos.y) / 30)][Math.ceil((225 - (this.relatif ? 0 : 240) + this.currentPos.x) / 30)]
     }
@@ -173,7 +176,7 @@ class NoteLaCouleur {
     this.testSequence = function (codes) {
       let sorti = false
       let test
-      const pionfantome = new NoteLaCouleur(0, 0, 0, this.plateauNLC)
+      const pionfantome = new NoteLaCouleur({ x: 0, y: 0, orientation: 0, plateau: this.plateauNLC, relatif: true })
       pionfantome.currentPos.x = this.currentPos.x
       pionfantome.currentPos.y = this.currentPos.y
       pionfantome.currentOrientation = this.currentOrientation
@@ -200,7 +203,7 @@ class NoteLaCouleur {
     this.testBoucle = function (repetitions, codes) {
       let sortiboucle = false
       let test
-      const pionfantome = new NoteLaCouleur(0, 0, 0, this.plateauNLC)
+      const pionfantome = new NoteLaCouleur({ x: 0, y: 0, orientation: 0, plateau: this.plateauNLC, relatif: true })
       pionfantome.currentPos.x = this.currentPos.x
       pionfantome.currentPos.y = this.currentPos.y
       pionfantome.currentOrientation = this.currentOrientation
@@ -293,7 +296,7 @@ export default function Note_la_couleur () {
             xdepart = -225 + randint(4, 11) * 30 + (this.relatif ? 0 : 240)
             ydepart = -165 + randint(3, 8) * 30 + (this.relatif ? 0 : 180)
 
-            pion = new NoteLaCouleur(xdepart, ydepart, angledepart, lePlateau.plateauNLC)
+            pion = new NoteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif })
             lutin.color = context.isHtml ? 'green' : 'black'
             lutin.epaisseur = 2
             lutin.pointilles = 2
@@ -386,7 +389,7 @@ export default function Note_la_couleur () {
             xdepart = -225 + randint(4, 11) * 30 + (this.relatif ? 0 : 240)
             ydepart = -165 + randint(3, 8) * 30 + (this.relatif ? 0 : 180)
 
-            pion = new NoteLaCouleur(xdepart, ydepart, angledepart, lePlateau.plateauNLC)
+            pion = new NoteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif })
             pion.codeScratch = ''
             lutin.color = context.isHtml ? 'green' : 'black'
             lutin.epaisseur = 2
@@ -546,9 +549,9 @@ export default function Note_la_couleur () {
       }
       lutin.animation += '" begin="10s" dur="10s" repeatCount="indefinite" />; </circle>'
       if (this.correctionDetaillee) {
-        for (let i = 0; i < 16; i++) {
+        for (let i = 1; i < 16; i++) {
           if (this.relatif) {
-            if (i !== 7 && i !== 9) {
+            if (i < 7 || i > 9) {
               objetsCorrection.push(texteParPositionEchelle(texNombre(-240 + 30 * i), -12.1 + 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
             }
           } else {
@@ -557,10 +560,10 @@ export default function Note_la_couleur () {
             }
           }
         }
-        for (let i = 0; i < 12; i++) {
+        for (let i = 1; i < 12; i++) {
           if (this.relatif) {
-            if (i !== 6 && i !== 8) {
-              objetsCorrection.push(texteParPositionEchelle(texNombre(-240 + 30 * i), -0.5, -10.6 + 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+            if (i < 5 || i > 7) {
+              objetsCorrection.push(texteParPositionEchelle(texNombre(-180 + 30 * i), -0.5, -9 + 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
             }
           } else {
             if (i !== 1) {
