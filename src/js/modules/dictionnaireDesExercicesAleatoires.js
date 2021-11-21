@@ -1046,8 +1046,12 @@ export default {
   "2N31-2": {
     "titre": "Puissances : le sens des règles de calculs",
     "url": "/exercices/2e/2N31-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "2N31-2",
     "newEx": {
       "isNew": false,
@@ -3576,8 +3580,12 @@ export default {
   "4C33-3": {
     "titre": "Puissances : Calculs automatisés et règles de calculs",
     "url": "/exercices/4e/4C33-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C33-3",
     "newEx": {
       "isNew": false,
@@ -4961,6 +4969,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "5G51",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "5I11": {
+    "titre": "Note la couleur (scratch) 5e",
+    "url": "/exercices/5e/5I11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5I11",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -9614,12 +9637,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele10_simple_question-reponse copy": {
+  "betaModele10_simple_question-reponse": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele10_simple_question-reponse copy.js",
+    "url": "/exercices/beta/betaModele10_simple_question-reponse.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele10_simple_question-reponse copy",
+    "name": "betaModele10_simple_question-reponse",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"

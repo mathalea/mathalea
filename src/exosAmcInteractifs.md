@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 369 
-- nombre d'exos interactifReady 510 
+- nombre d'exos amcReady 371 
+- nombre d'exos interactifReady 512 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -25,6 +25,7 @@
 |2N20-4|Primalité ou pas|OK|qcmMono|OK|qcm|
 |2N20-5|Décomposition en facteurs premiers|KO|KO|OK|mathLive|
 |2N31-1|Notation scientifique|OK|AMCNum|OK|mathLive|
+|2N31-2|Puissances : le sens des règles de calculs|OK|AMCNum|OK|mathLive|
 |2N31-4|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
 |2N32-4|Simplifier une somme de racines carrées|KO|KO|OK|mathLive|
 |2N40-1|Traduire un programme de calcul par une expression littérale|OK|qcmMono|OK|qcm|
@@ -114,6 +115,7 @@
 |4C32|Notation scientifique|OK|AMCNum|OK|mathLive|
 |4C33-0|Utiliser la notation puissance|OK|AMCOpen|OK|mathLive|
 |4C33-1|Puissances : Le sens des règles de calculs|OK|AMCNum|OK|mathLive|
+|4C33-3|Puissances : Calculs automatisés et règles de calculs|OK|AMCNum|OK|mathLive|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|OK|mathLive|
 |4F12|Problème s’appuyant sur la lecture d’une représentation graphique|OK|AMCHybride|KO|KO|
 |4G10-1|Trouver les coordonnée de l’image d’un point par une translation|OK|AMCHybride|OK|mathLive|
