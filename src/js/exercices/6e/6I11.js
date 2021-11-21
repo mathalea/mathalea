@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
+import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, point, plateau2dNLC } from '../../modules/2d.js'
 export const titre = 'Note la couleur (scratch)'
 
@@ -29,27 +29,27 @@ export const titre = 'Note la couleur (scratch)'
  */
 
 class NoteLaCouleur {
-  constructor (x = 15, y = 15, orientation = 90) {
-    const plateauNLC = [
-      ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
-      ['Blanc', 'Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir', 'Jaune', 'Blanc'],
-      ['Blanc', 'Rouge', 'Bleu', 'Orange', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Bleu', 'Rouge', 'Gris', 'Rouge', 'Blanc'],
-      ['Blanc', 'Rose', 'Vert', 'Gris', 'Rouge', 'Noir', 'Bleu', 'Vert', 'Noir', 'Vert', 'Bleu', 'Rose', 'Gris', 'Vert', 'Orange', 'Blanc'],
-      ['Blanc', 'Vert', 'Bleu', 'Rose', 'Vert', 'Bleu', 'Orange', 'Gris', 'Rouge', 'Orange', 'Jaune', 'Gris', 'Rouge', 'Rose', 'Bleu', 'Blanc'],
-      ['Blanc', 'Noir', 'Orange', 'Rouge', 'Orange', 'Jaune', 'Rouge', 'Blanc', 'Blanc', 'Noir', 'Gris', 'Orange', 'Noir', 'Jaune', 'Rose', 'Blanc'],
-      ['Blanc', 'Rose', 'Gris', 'Noir', 'Bleu', 'Vert', 'Bleu', 'Blanc', 'Blanc', 'Rouge', 'Bleu', 'Gris', 'Vert', 'Rouge', 'Noir', 'Blanc'],
-      ['Blanc', 'Noir', 'Rouge', 'Rose', 'Vert', 'Orange', 'Rose', 'Noir', 'Orange', 'Vert', 'Jaune', 'Rose', 'Noir', 'Rose', 'Vert', 'Blanc'],
-      ['Blanc', 'Orange', 'Gris', 'Rouge', 'Jaune', 'Noir', 'Vert', 'Rouge', 'Rose', 'Noir', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Gris', 'Blanc'],
-      ['Blanc', 'Bleu', 'Jaune', 'Orange', 'Vert', 'Gris', 'Jaune', 'Gris', 'Orange', 'Gris', 'Rose', 'Bleu', 'Rouge', 'Bleu', 'Orange', 'Blanc'],
-      ['Blanc', 'Rose', 'Bleu', 'Jaune', 'Rose', 'Orange', 'Rouge', 'Bleu', 'Noir', 'Jaune', 'Gris', 'Vert', 'Jaune', 'Noir', 'Rouge', 'Blanc'],
-      ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc']
-    ]
+  constructor (x = 15, y = 15, orientation = 90, plateau = [
+    ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
+    ['Blanc', 'Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir', 'Jaune', 'Blanc'],
+    ['Blanc', 'Rouge', 'Bleu', 'Orange', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Bleu', 'Rouge', 'Gris', 'Rouge', 'Blanc'],
+    ['Blanc', 'Rose', 'Vert', 'Gris', 'Rouge', 'Noir', 'Bleu', 'Vert', 'Noir', 'Vert', 'Bleu', 'Rose', 'Gris', 'Vert', 'Orange', 'Blanc'],
+    ['Blanc', 'Vert', 'Bleu', 'Rose', 'Vert', 'Bleu', 'Orange', 'Gris', 'Rouge', 'Orange', 'Jaune', 'Gris', 'Rouge', 'Rose', 'Bleu', 'Blanc'],
+    ['Blanc', 'Noir', 'Orange', 'Rouge', 'Orange', 'Jaune', 'Rouge', 'Blanc', 'Blanc', 'Noir', 'Gris', 'Orange', 'Noir', 'Jaune', 'Rose', 'Blanc'],
+    ['Blanc', 'Rose', 'Gris', 'Noir', 'Bleu', 'Vert', 'Bleu', 'Blanc', 'Blanc', 'Rouge', 'Bleu', 'Gris', 'Vert', 'Rouge', 'Noir', 'Blanc'],
+    ['Blanc', 'Noir', 'Rouge', 'Rose', 'Vert', 'Orange', 'Rose', 'Noir', 'Orange', 'Vert', 'Jaune', 'Rose', 'Noir', 'Rose', 'Vert', 'Blanc'],
+    ['Blanc', 'Orange', 'Gris', 'Rouge', 'Jaune', 'Noir', 'Vert', 'Rouge', 'Rose', 'Noir', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Gris', 'Blanc'],
+    ['Blanc', 'Bleu', 'Jaune', 'Orange', 'Vert', 'Gris', 'Jaune', 'Gris', 'Orange', 'Gris', 'Rose', 'Bleu', 'Rouge', 'Bleu', 'Orange', 'Blanc'],
+    ['Blanc', 'Rose', 'Bleu', 'Jaune', 'Rose', 'Orange', 'Rouge', 'Bleu', 'Noir', 'Jaune', 'Gris', 'Vert', 'Jaune', 'Noir', 'Rouge', 'Blanc'],
+    ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc']
+  ]) {
+    this.plateauNLC = plateau
     this.currentPos = { x: x, y: y }
     this.currentOrientation = orientation
     this.codeScratch = ''
     this.currentIndex = 0
     this.nlc = function () {
-      return plateauNLC[Math.ceil((165 - this.currentPos.y) / 30)][Math.ceil((225 + this.currentPos.x) / 30)]
+      return this.plateauNLC[Math.ceil((165 - this.currentPos.y) / 30)][Math.ceil((225 + this.currentPos.x) / 30)]
     }
     this.testCoords = function (x, y) {
       if ((x < -225) || (x > 225) || (y < -165) || (y > 165)) return false
@@ -120,6 +120,13 @@ class NoteLaCouleur {
             avance(120, lutin)
           }
           break
+        case 'AV150':
+          [x, y] = avancepion(150, x, y, orientation)
+          latex = '\\blockmove{avancer de \\ovalnum{150} pas}'
+          if (lutin !== undefined) {
+            avance(150, lutin)
+          }
+          break
 
         case 'TD90':
           if (orientation === 180) orientation = -90
@@ -166,7 +173,7 @@ class NoteLaCouleur {
     this.testSequence = function (codes) {
       let sorti = false
       let test
-      const pionfantome = new NoteLaCouleur()
+      const pionfantome = new NoteLaCouleur(0, 0, 0, this.plateauNLC)
       pionfantome.currentPos.x = this.currentPos.x
       pionfantome.currentPos.y = this.currentPos.y
       pionfantome.currentOrientation = this.currentOrientation
@@ -193,7 +200,7 @@ class NoteLaCouleur {
     this.testBoucle = function (repetitions, codes) {
       let sortiboucle = false
       let test
-      const pionfantome = new NoteLaCouleur()
+      const pionfantome = new NoteLaCouleur(0, 0, 0, this.plateauNLC)
       pionfantome.currentPos.x = this.currentPos.x
       pionfantome.currentPos.y = this.currentPos.y
       pionfantome.currentOrientation = this.currentOrientation
@@ -250,6 +257,7 @@ export default function Note_la_couleur () {
     context.unitesLutinParCm = 20
     context.pixelsParCm = 20
     let pion
+    const typeDeQuestion = Number(this.sup2) === 1 ? combinaisonListes([1], this.nbQuestions) : Number(this.sup2) === 2 ? combinaisonListes([2], this.nbQuestions) : combinaisonListes([1, 2], this.nbQuestions)
     const lePlateau = plateau2dNLC(this.sup, this.sup4, echelleDessin)
     for (let q = 0; q < this.nbQuestions;) {
       objetsCorrection = []
@@ -262,11 +270,11 @@ export default function Note_la_couleur () {
       let retour_a_la_case_depart
       let compteur_essais_boucle
       let compteur_essais_sequence
-      switch (parseInt(this.sup2)) {
+      switch (typeDeQuestion[q]) {
         case 1: {
-          commandes_disponibles = [['AV30', 'AV30', 'AV60', 'AV60', 'AV90', 'AV120'], ['TD90', 'TD90', 'TG90', 'TG90', 'TD90', 'TG90', 'TG180']]
-          for (let m = 0, ins1; m < 6; m++) {
-            for (let n = 0, ins2; n < 7; n++) {
+          commandes_disponibles = [['AV30', 'AV60', 'AV90', 'AV120', 'AV150'], ['TD90', 'TG90', 'TG90', 'TG180']]
+          for (let m = 0, ins1; m < 5; m++) {
+            for (let n = 0, ins2; n < 4; n++) {
               ins1 = commandes_disponibles[0][m]
               ins2 = commandes_disponibles[1][n]
               sequences_disponibles.push([ins1, ins2, 'NLC'], [ins2, ins1, 'NLC'])
@@ -279,9 +287,9 @@ export default function Note_la_couleur () {
             angledepart = choice([90, 0, -90, 180])
             xdepart = -225 + randint(4, 11) * 30
             ydepart = -165 + randint(3, 8) * 30
-            pion = new NoteLaCouleur(xdepart, ydepart, angledepart)
-            lutin.color = 'green'
-            lutin.epaisseur = 3
+            pion = new NoteLaCouleur(xdepart, ydepart, angledepart, lePlateau.plateauNLC)
+            lutin.color = context.isHtml ? 'green' : 'black'
+            lutin.epaisseur = 2
             lutin.pointilles = 2
             allerA(xdepart, ydepart, lutin)
             orienter(angleScratchTo2d(angledepart), lutin)
@@ -298,7 +306,7 @@ export default function Note_la_couleur () {
             liste_instructions = []
             j = 0
             compteur_essais_sequence = 0
-            pion.codeScratch = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n \\blockinit{quand \\greenflag est cliqué}\n '
+            pion.codeScratch = '\\begin{scratch}[print,fill,blocks,scale=0.7]\n \\blockinit{quand \\greenflag est cliqué}\n '
             pion.codeScratch += `\\blockmove{aller à x: \\ovalnum{${xdepart}} y: \\ovalnum{${ydepart}}}\n \\blockmove{s'orienter à \\ovalnum{${angledepart}}}\n`
             pion.currentIndex += pion.codeScratch.length
             while (nb_couleurs > j && compteur_essais_sequence < 10) {
@@ -344,11 +352,11 @@ export default function Note_la_couleur () {
           break
         }
         case 2: { // programmes à boucles
-          commandes_disponibles = [['AV30', 'AV60', 'AV90'], ['TD90', 'TG90', 'TD90', 'TG180']]
+          commandes_disponibles = [['AV30', 'AV60', 'AV90', 'AV120'], ['TD90', 'TG90', 'TD90', 'TG180']]
           for (let m = 0, ins1; m < 3; m++) {
-            for (let n = 0, ins2; n < 4; n++) {
+            for (let n = 0, ins2; n < 3; n++) {
               for (let p = 0, ins3; p < 3; p++) {
-                for (let q = 0, ins4; q < 4; q++) {
+                for (let q = 0, ins4; q < 3; q++) {
                   ins1 = commandes_disponibles[0][m]
                   ins2 = commandes_disponibles[1][n]
                   ins3 = commandes_disponibles[0][p]
@@ -371,10 +379,10 @@ export default function Note_la_couleur () {
             angledepart = choice([90, 0, -90, 180])
             xdepart = -225 + randint(4, 11) * 30
             ydepart = -165 + randint(3, 8) * 30
-            pion = new NoteLaCouleur(xdepart, ydepart, angledepart)
+            pion = new NoteLaCouleur(xdepart, ydepart, angledepart, lePlateau.plateauNLC)
             pion.codeScratch = ''
-            lutin.color = 'green'
-            lutin.epaisseur = 3
+            lutin.color = context.isHtml ? 'green' : 'black'
+            lutin.epaisseur = 2
             lutin.pointilles = 2
             allerA(xdepart, ydepart, lutin)
             orienter(angleScratchTo2d(angledepart), lutin)
@@ -384,7 +392,7 @@ export default function Note_la_couleur () {
             compteur++
             if (compteur > 5) break // 5 tentatives infructueuses -> On sort de la boucle.
             compteur_essais_boucle = 0
-            pion.codeScratch = '\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n '
+            pion.codeScratch = '\\begin{scratch}[print,fill,blocks,scale=0.7]\n \\blockinit{quand \\greenflag est cliqué}\n '
             pion.codeScratch += `\\blockmove{aller à x: \\ovalnum{${xdepart}} y: \\ovalnum{${ydepart}}}\n \\blockmove{s'orienter à \\ovalnum{${angledepart}}}\n`
             pion.currentIndex += pion.codeScratch.length
             // On choisit le code à l'intérieur de la boucle
@@ -488,11 +496,13 @@ export default function Note_la_couleur () {
       //    texte += mathalea2d(paramsEnonce, objetsEnonce);
       //  texteCorr += mathalea2d(paramsCorrection, objetsCorrection);
       pion.codeScratch += '\\end{scratch}'
-      texte = `Cet exercice est tiré de l'excellente activité débranchée ${modalUrl(numeroExercice, 'https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur', 'info circle')} de Jean-Yves Labouche.<br>`
-      texte += 'Il a été conçu pour étendre les possibilités de fiches proposées.<br>'
-      texte += `N'hésitez pas à vous rendre sur le site ${modalUrl(numeroExercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
-      texte += `Pour jouer, regarder les règles du jeu${modalPdf(numeroExercice + 2, '../../pdf/reglesnlc.pdf', 'Règles du jeu', 'Règles - PDF', 'file pdf')} .<br>`
-      texte += 'Exécuter le programme et trouver la succession de couleur.<br>'
+      if (context.isHtml) {
+        texte = `Cet exercice est tiré de l'excellente activité débranchée ${modalUrl(numeroExercice, 'https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur', 'info circle')} de Jean-Yves Labouche.<br>`
+        texte += 'Il a été conçu pour étendre les possibilités de fiches proposées.<br>'
+        texte += `N'hésitez pas à vous rendre sur le site ${modalUrl(numeroExercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
+        texte += `Pour jouer, regarder les règles du jeu${modalPdf(numeroExercice + 2, '../../pdf/reglesnlc.pdf', 'Règles du jeu', 'Règles - PDF', 'file pdf')} .<br>`
+      } else { texte = '' }
+      texte += 'Exécuter le programme et trouver la succession de couleur.<br><br>'
       if (context.isHtml) {
         texte += '<table><tr><td>' +
       scratchblock(pion.codeScratch) +
@@ -506,6 +516,9 @@ export default function Note_la_couleur () {
       \\begin{minipage}{.7 \\linewidth} \n\t ${this.sup === 4 || this.sup === 2
         ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
         : ''} ${mathalea2d(paramsCorrection, objetsEnonce)} \n\\end{minipage}`
+        if (q < this.nbQuestions - 1 && !context.isHtml) {
+          texte += '\n\\newpage'
+        }
       }
       texteCorr = 'On obtient la série de couleurs suivante :<br> '
       texteCorr += `${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateau.traducNum(couleurs[0]) + ')' + couleurs[0] : couleurs[0])} `
@@ -535,7 +548,7 @@ export default function Note_la_couleur () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type de plateau', 4, '1 : Plateau couleur sans numéro\n2 : Plateau couleur avec numéros\n3 : Plateau noir et blanc avec nom des couleurs\n4 : Plateau noir et blanc avec numéros']
-  this.besoinFormulaire2Numerique = ['Type de programme', 2, '1 : Avancer et tourner\n2 : Boucles']
+  this.besoinFormulaire2Numerique = ['Type de programme', 3, '1 : Avancer et tourner\n2 : Boucles\n3 : Mélange']
   this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximmum 6)', 6]
   this.besoinFormulaire4CaseACocher = ['Plateau de jeu original', false]
 }
