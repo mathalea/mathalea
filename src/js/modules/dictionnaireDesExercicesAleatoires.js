@@ -3535,6 +3535,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "4C33-0": {
+    "titre": "Utiliser la notation puissance",
+    "url": "/exercices/4e/4C33-0.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4C33-0",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4C33-1": {
     "titre": "Puissances : Le sens des règles de calculs",
     "url": "/exercices/4e/4C33-1.js",
@@ -3576,11 +3595,16 @@ export default {
     "amcType": {
       "text": "AMCOpenNum"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C34",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "4F12": {
@@ -7685,7 +7709,8 @@ export default {
     "titre": "Effectuer des calculs simples avec des fractions",
     "url": "/exercices/6e/6N22.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N22",
     "newEx": {
       "isNew": false,
@@ -9589,12 +9614,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele10_simple_question-reponse": {
+  "betaModele10_simple_question-reponse copy": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele10_simple_question-reponse.js",
+    "url": "/exercices/beta/betaModele10_simple_question-reponse copy.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele10_simple_question-reponse",
+    "name": "betaModele10_simple_question-reponse copy",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -9686,6 +9711,22 @@ export default {
     "interactifReady": true,
     "interactifType": "cliqueFigure",
     "name": "betaModele32_cliqueFigure",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betaModele33_cliqueFractions": {
+    "titre": "Fractions interactives",
+    "url": "/exercices/beta/betaModele33_cliqueFractions.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "betaModele33_cliqueFractions",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -10000,7 +10041,7 @@ export default {
     "interactifType": "mathLive",
     "name": "c3C13",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13815,7 +13856,10 @@ export default {
   "canc3C03": {
     "titre": "Table de multiplication à trous",
     "url": "/exercices/can/c3/canc3C03.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "canc3C03",
@@ -13838,6 +13882,44 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "canc3C04",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "canc3C05": {
+    "titre": "Est-il pair ?",
+    "url": "/exercices/can/c3/canc3C05.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "canc3C05",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "canc3C06": {
+    "titre": "Compléments",
+    "url": "/exercices/can/c3/canc3C06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3C06",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -13870,6 +13952,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "canc3D02",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "canc3D03": {
+    "titre": "Ajouter des durées",
+    "url": "/exercices/can/c3/canc3D03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3D03",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
