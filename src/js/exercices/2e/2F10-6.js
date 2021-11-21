@@ -43,8 +43,8 @@ export default function variationsfonctionaffine () {
 
         texte = `Déterminer le sens de variation de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ .<br>`
 
-        texteCorr = 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$.<br>'
-        texteCorr += `Son coefficient $a$ vaut $${a}~$ et son coefficient $b$ vaut $${b}$. <br>`
+        texteCorr = 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$, '
+        texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>`
         // texteCorr += `Selon les notations, on peut aussi appeler $f$ sous la forme $f(x)=mx+p$ avec : $m=${a}$ et $p=${b}$. <br>`
         texteCorr += 'On sait qu\'une fonction affine est monotone sur $\\mathbb{R}$.<br> '
         texteCorr += 'Son sens de variation dépend du signe de $a$.<br>'
@@ -55,7 +55,7 @@ export default function variationsfonctionaffine () {
 
           ligne1 = ['Var', 10, '+/', 30, '-/', 30]
         }
-        texteCorr += 'On peut synthétiser cela dans un tableau de signes :<br><br>'
+        texteCorr += 'On peut synthétiser cela dans un tableau de variations :<br><br>'
         texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
@@ -98,5 +98,5 @@ export default function variationsfonctionaffine () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
+  //this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
 }
