@@ -57,8 +57,10 @@ export default function NotationPuissance () {
     }
     listeSignesExposants = combinaisonListes(listeSignesExposants, this.nbQuestions)
     const listeSignes = combinaisonListes(['', '-'], this.nbQuestions)
+    const listeSignesMantisse = combinaisonListes(['', '-'], this.nbQuestions)
     for (let i = 0, texte, texteCorr, a, b, pl, pr, produit, produitAlt, puissance, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      a = randint(-10, 10, [0, 1])
+      a = randint(2, 10)
+      if (listeSignesMantisse[i] === '-') a = -a
       if (listeTypeDeQuestions[i] === 'puissance') {
         b = randint(2, 8)
       } else {
