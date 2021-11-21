@@ -98,5 +98,4 @@ export default function variationsfonctionaffine () {
 
     listeQuestionsToContenu(this)
   }
-  //this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
 }
