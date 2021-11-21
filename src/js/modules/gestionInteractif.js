@@ -245,7 +245,6 @@ function verifQuestionMathLive (exercice, i) {
       // eslint-disable-next-line no-var
       var formatOK, formatKO
       if (saisie.indexOf('^') !== -1) {
-        console.log('la saise contient ^')
         nombreSaisi = saisie.split('^')
         mantisseSaisie = nombreSaisi[0]
         expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : ''
@@ -256,11 +255,9 @@ function verifQuestionMathLive (exercice, i) {
           formatOK = true
         }
       } else {
-        console.log('la saise ne contient pas contient ^')
         // Dans tous ces cas on est sûr que le format n'est pas bon
         // Toutefois la valeur peu l'être donc on vérifie
         nombreSaisi = saisie
-        console.log(typeof nombreSaisi)
         nombreAttendu = reponse.split('^')
         mantisseReponse = nombreAttendu[0]
         expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
@@ -310,8 +307,6 @@ function verifQuestionMathLive (exercice, i) {
   }
   if (resultat !== 'essaieEncoreLongueur') champTexte.readOnly = true
 
-  console.log('saisie : ' + saisie)
-  console.log('reponses : ' + reponses)
   return resultat
 }
 
