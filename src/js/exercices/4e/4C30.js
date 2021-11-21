@@ -373,7 +373,7 @@ export default function PuissancesDeDix () {
           break
       }
       if (this.interactif && !context.isAmc) {
-        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: 10, exposantPuissance: exposantInteractif })
+        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance' })
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
       }
       if (context.isAmc) {

@@ -233,7 +233,7 @@ export default function PuissancesDUnRelatif2 () {
           break
       }
       if (this.interactif && !context.isAmc) {
-        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: base, exposantPuissance: exposantInteractif })
+        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance' })
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
         // texte += 'rep : ' + reponseInteractive + ' -- '
         // texte += 'case : ' + typesDeQuestions
