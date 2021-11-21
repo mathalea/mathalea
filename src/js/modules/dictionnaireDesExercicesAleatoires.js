@@ -313,6 +313,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F10-6": {
+    "titre": "Déterminer le sens de variation d’une fonction affine",
+    "url": "/exercices/2e/2F10-6.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F10-6",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F20-1": {
     "titre": "Montrer qu’un point appartient ou non à une courbe",
     "url": "/exercices/2e/2F20-1.js",
@@ -9985,7 +10000,7 @@ export default {
     "interactifType": "mathLive",
     "name": "c3C13",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
