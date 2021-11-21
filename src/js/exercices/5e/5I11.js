@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, combinaisonListes, texNombre } from '../../modules/outils.js'
-import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, point, plateau2dNLC, texteParPositionEchelle } from '../../modules/2d.js'
+import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
+import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, point, plateau2dNLC } from '../../modules/2d.js'
 export const titre = 'Note la couleur (scratch)'
 
 /**
@@ -49,10 +49,10 @@ class NoteLaCouleur {
     this.codeScratch = ''
     this.currentIndex = 0
     this.nlc = function () {
-      return this.plateauNLC[Math.ceil((165 + (this.relatif ? 0 : 165) - this.currentPos.y) / 30)][Math.ceil((225 - (this.relatif ? 0 : 240) + this.currentPos.x) / 30)]
+      return this.plateauNLC[Math.ceil((165 + (this.relatif ? 0 : 165) - this.currentPos.y) / 30)][Math.ceil((225 - (this.relatif ? 0 : 225) + this.currentPos.x) / 30)]
     }
     this.testCoords = function (x, y) {
-      if ((x < -225 + (this.relatif ? 0 : 240)) || (x > 225 + (this.relatif ? 0 : 240)) || (y < -165 + (this.relatif ? 0 : 180)) || (y > 165 + (this.relatif ? 0 : 180))) return false
+      if ((x < -225 + this.relatif ? 0 : 225) || (x > 225 + this.relatif ? 0 : 225) || (y < -165 + this.relatif ? 0 : 165) || (y > 165 + this.relatif ? 0 : 165)) return false
       return true
     }
     /**
@@ -226,6 +226,7 @@ class NoteLaCouleur {
 export default function Note_la_couleur () {
   'use strict'
   Exercice.call(this)
+  this.relatif = true // mettre à true pour avoir des coordonnées relatives... false = plateau positif pour les 6e.
   this.titre = titre
   this.nbQuestions = 1
   this.nbQuestionsModifiable = true
@@ -239,9 +240,6 @@ export default function Note_la_couleur () {
   this.sup2 = 1
   this.sup3 = 4
   this.sup4 = false
-  this.relatif = false
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
 
   this.nouvelleVersion = function (numeroExercice) {
     this.sup = contraindreValeur(1, 4, this.sup, 1)
@@ -290,9 +288,8 @@ export default function Note_la_couleur () {
             objetsEnonce.length = 1
             lutin = creerLutin()
             angledepart = choice([90, 0, -90, 180])
-            xdepart = -225 + randint(4, 11) * 30 + (this.relatif ? 0 : 240)
-            ydepart = -165 + randint(3, 8) * 30 + (this.relatif ? 0 : 180)
-
+            xdepart = -225 + randint(4, 11) * 30 + this.relatif ? 0 : 225
+            ydepart = -165 + randint(3, 8) * 30 + this.relatif ? 0 : 165
             pion = new NoteLaCouleur(xdepart, ydepart, angledepart, lePlateau.plateauNLC)
             lutin.color = context.isHtml ? 'green' : 'black'
             lutin.epaisseur = 2
@@ -349,8 +346,8 @@ export default function Note_la_couleur () {
                 }
               } else {
                 angledepart = choice([90, 0, -90, 180])
-                xdepart = -225 + randint(4, 11) * 30 + (this.relatif ? 0 : 240)
-                ydepart = -165 + randint(3, 8) * 30 + (this.relatif ? 0 : 180)
+                xdepart = -225 + randint(4, 11) * 30 + this.relatif ? 0 : 225
+                ydepart = -165 + randint(3, 8) * 30 + this.relatif ? 0 : 165
               }
             }
           }
@@ -383,9 +380,8 @@ export default function Note_la_couleur () {
             objetsEnonce.length = 1
             lutin = creerLutin()
             angledepart = choice([90, 0, -90, 180])
-            xdepart = -225 + randint(4, 11) * 30 + (this.relatif ? 0 : 240)
-            ydepart = -165 + randint(3, 8) * 30 + (this.relatif ? 0 : 180)
-
+            xdepart = -225 + randint(4, 11) * 30 + this.relatif ? 0 : 225
+            ydepart = -165 + randint(3, 8) * 30 + this.relatif ? 0 : 165
             pion = new NoteLaCouleur(xdepart, ydepart, angledepart, lePlateau.plateauNLC)
             pion.codeScratch = ''
             lutin.color = context.isHtml ? 'green' : 'black'
@@ -482,8 +478,8 @@ export default function Note_la_couleur () {
               }
             } else {
               angledepart = choice([90, 0, -90, 180])
-              xdepart = -225 + randint(4, 11) * 30 + (this.relatif ? 0 : 240)
-              ydepart = -165 + randint(3, 8) * 30 + (this.relatif ? 0 : 180)
+              xdepart = -225 + randint(4, 11) * 30 + this.relatif ? 0 : 225
+              ydepart = -165 + randint(3, 8) * 30 + this.relatif ? 0 : 165
             }
           }
           break
@@ -545,30 +541,6 @@ export default function Note_la_couleur () {
         lutin.animation += ` ${B.xSVG(context.pixelsParCm)} ${B.ySVG(context.pixelsParCm)} `
       }
       lutin.animation += '" begin="10s" dur="10s" repeatCount="indefinite" />; </circle>'
-      if (this.correctionDetaillee) {
-        for (let i = 0; i < 16; i++) {
-          if (this.relatif) {
-            if (i !== 7 && i !== 9) {
-              objetsCorrection.push(texteParPositionEchelle(texNombre(-240 + 30 * i), -12.1 + 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
-            }
-          } else {
-            if (i !== 1) {
-              objetsCorrection.push(texteParPositionEchelle(texNombre(30 * i), 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
-            }
-          }
-        }
-        for (let i = 0; i < 12; i++) {
-          if (this.relatif) {
-            if (i !== 6 && i !== 8) {
-              objetsCorrection.push(texteParPositionEchelle(texNombre(-240 + 30 * i), -0.5, -10.6 + 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
-            }
-          } else {
-            if (i !== 1) {
-              objetsCorrection.push(texteParPositionEchelle(texNombre(30 * i), -0.5, 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
-            }
-          }
-        }
-      }
       texteCorr += '<br><br>' + mathalea2d(paramsCorrection, objetsCorrection, lutin)
       if (this.questionJamaisPosee(q, xdepart, ydepart, angledepart)) {
         this.listeQuestions.push(texte)
