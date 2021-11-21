@@ -12,7 +12,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author
  * Référence
 */
-export default function NomExercice () {
+export default function Variationsapartirtableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Consigne'
   this.nbQuestions = 10 // Nombre de questions par défaut
@@ -34,13 +34,13 @@ export default function NomExercice () {
           texte = 'On donne ci-dessous, le tableau de variations d\'une fonction $f$. <br>'
 
           x1 = randint(-8, -3) // 3 antécédents 1ère ligne tableau
-          x2 = randint(x1 + 5, x1 + 12)// 3 antécédents 1ère ligne tableau
+          x2 = randint(x1 + 10, x1 + 17)// 3 antécédents 1ère ligne tableau
           x3 = randint(x2 + 6, x2 + 12)// 3 antécédents 1ère ligne tableau
           y1 = randint(-10, -2)// 3 images des antécédents 1ère ligne tableau
           y2 = randint(y2 + 2, y2 + 10)// 3 images des antécédents 1ère ligne tableau
           y3 = randint(y2 - 3, y3 - 10)// 3 images des antécédents 1ère ligne tableau
-          a1 = randint(x1 + 1, x2 - 1) // 1er antécédent dont on doit comparer l'image
-          a2 = randint(x2 + 1, x3 - 1) // 1er antécédent dont on doit comparer l'image
+          a1 = randint(x1 + 1, x1 + 4) // 1er antécédent dont on doit comparer l'image
+          a2 = randint(a1, x2 - 1) // 1er antécédent dont on doit comparer l'image
           texte += `A partir des informations de l'énoncé, comparer : $f(${a1})$ et $f(${a2})$<br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
@@ -49,7 +49,7 @@ export default function NomExercice () {
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                ['$x$', 2, 30], ['$f(x)$', 2, 50]
+                ['$x$', 2, 30], ['$f(x)$', 3, 50]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
               [`$${x1}$`, 20, `$${x2}$`, 20, `$${x3}$`, 30]
@@ -63,7 +63,13 @@ export default function NomExercice () {
             hauteurLignes: [15, 15]
           }))
 
-          texteCorr = `Correction ${i + 1} de type 1`
+          texteCorr = `On observe que la fonction $f$ est croissante sur $[${x1};${x2}]$<br>`
+          texteCorr += `On observe aussi que  $${a1}\\in[${x1};${x2}]$ et que  $${a2}\\in[${x1};${x2}]$, avec $${a1}<${a2}$<br>`
+          texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, <br>'
+          texteCorr += 'alors ses antécédents et ses images sont rangées dans le même ordre, <br>'
+          texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, <br>'
+          texteCorr += 'Si $x_1<x_2$ alors $f(x_1)<f(x_2)$. <br>'
+          texteCorr += `Par conséquent, comme $${a1}<${a2}$, alors $f(${a1})<f(${a2})$.`
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
