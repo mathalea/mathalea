@@ -55,7 +55,7 @@ class NoteLaCouleur {
       return this.plateauNLC[Math.ceil((165 + (this.relatif ? 0 : 165) - this.currentPos.y) / 30)][Math.ceil((225 - (this.relatif ? 0 : 240) + this.currentPos.x) / 30)]
     }
     this.testCoords = function (x, y) {
-      if ((x < -225 + (this.relatif ? 0 : 240)) || (x > 225 + (this.relatif ? 0 : 240)) || (y < -165 + (this.relatif ? 0 : 180)) || (y > 165 + (this.relatif ? 0 : 180))) return false
+      if ((x < (this.relatif ? 0 : 240) - 225) || (x > 225 + (this.relatif ? 0 : 240)) || (y < -165 + (this.relatif ? 0 : 180)) || (y > 165 + (this.relatif ? 0 : 180))) return false
       return true
     }
     /**
@@ -176,7 +176,7 @@ class NoteLaCouleur {
     this.testSequence = function (codes) {
       let sorti = false
       let test
-      const pionfantome = new NoteLaCouleur({ x: 0, y: 0, orientation: 0, plateau: this.plateauNLC, relatif: true })
+      const pionfantome = new NoteLaCouleur({ x: 0, y: 0, orientation: 0, plateau: this.plateauNLC, relatif: this.relatif })
       pionfantome.currentPos.x = this.currentPos.x
       pionfantome.currentPos.y = this.currentPos.y
       pionfantome.currentOrientation = this.currentOrientation
@@ -203,7 +203,7 @@ class NoteLaCouleur {
     this.testBoucle = function (repetitions, codes) {
       let sortiboucle = false
       let test
-      const pionfantome = new NoteLaCouleur({ x: 0, y: 0, orientation: 0, plateau: this.plateauNLC, relatif: true })
+      const pionfantome = new NoteLaCouleur({ x: 0, y: 0, orientation: 0, plateau: this.plateauNLC, relatif: this.relatif })
       pionfantome.currentPos.x = this.currentPos.x
       pionfantome.currentPos.y = this.currentPos.y
       pionfantome.currentOrientation = this.currentOrientation
