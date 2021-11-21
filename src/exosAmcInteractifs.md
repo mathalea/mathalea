@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 365 
-- nombre d'exos interactifReady 503 
+- nombre d'exos amcReady 369 
+- nombre d'exos interactifReady 508 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -112,8 +112,9 @@
 |4C30|Puissances de 10 : Le sens des règles de calculs|KO|KO|OK|mathLive|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|mathLive|
+|4C33-0|Utiliser la notation puissance|OK|AMCOpen|OK|mathLive|
 |4C33-1|Puissances : Le sens des règles de calculs|OK|AMCNum|OK|mathLive|
-|4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
+|4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|OK|mathLive|
 |4F12|Problème s’appuyant sur la lecture d’une représentation graphique|OK|AMCHybride|KO|KO|
 |4G10-1|Trouver les coordonnée de l’image d’un point par une translation|OK|AMCHybride|OK|mathLive|
 |4G10|Trouver l’image d’un point par une symétrie axiale ou centrale ou par une translation|OK|AMCHybride|OK|mathLive|
@@ -508,10 +509,13 @@
 |canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|
 |canc3C01|Calculs automatiques|OK|AMCNum|OK|mathLive|
 |canc3C02|Composition de nombre entier|OK|AMCNum|OK|mathLive|
-|canc3C03|Table de multiplication à trous|KO|KO|OK|mathLive|
+|canc3C03|Table de multiplication à trous|OK|AMCNum|OK|mathLive|
 |canc3C04|Double ou moitié|OK|AMCNum|OK|mathLive|
+|canc3C05|Est-il pair ?|OK|qcmMono|OK|qcm|
+|canc3C06|Compléments|OK|AMCNum|OK|mathLive|
 |canc3D01|Lire l'heure|KO|KO|OK|mathLive|
 |canc3D02|Lire une durée|KO|KO|OK|mathLive|
+|canc3D03|Ajouter des durées|KO|KO|OK|mathLive|
 |canc3M01|Trouver la bonne unité|KO|KO|OK|mathLive|
 |canc3N01|Écriture de nombre entier|OK|qcmMono|OK|qcm|
 |canc3N02|Suite sur une droite graduée|OK|AMCNum|OK|mathLive|
