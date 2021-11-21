@@ -328,6 +328,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F31-2": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/2e/2F31-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F31-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F32": {
     "titre": "Lecture graphique",
     "url": "/exercices/2e/2F32.js",
