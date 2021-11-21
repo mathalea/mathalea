@@ -244,7 +244,7 @@ export default function QuestionsPrix () {
                  reponse:
                    {
                      texte: (this.sup4 === 1) ? enonceAMC : '',
-                     valeur: reponseAMC,
+                     valeur: [reponseAMC],
                      param:
                        {
                          digits: digitAMC,

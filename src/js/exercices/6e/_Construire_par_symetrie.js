@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone, numAlpha } from '../../modules/outils.js'
-import { point, tracePoint, pointSurDroite, labelPoint, droite, droiteVerticaleParPoint, droiteParPointEtPente, codageMediatrice, codageMilieu, segment, polygone, nommePolygone, rotation, symetrieAxiale, grille, seyes, mathalea2d, droiteHorizontaleParPoint, dessousDessus, aireTriangle, projectionOrtho, longueur, translation, vecteur, norme, homothetie, texteParPoint } from '../../modules/2d.js'
+import { point, tracePoint, pointSurDroite, labelPoint, droite, droiteVerticaleParPoint, droiteParPointEtPente, codageMediatrice, codageMilieu, segment, polygone, nommePolygone, rotation, symetrieAxiale, grille, seyes, mathalea2d, droiteHorizontaleParPoint, dessousDessus, aireTriangle, projectionOrtho, longueur, translation, vecteur, norme, homothetie, texteParPoint, estSurDroite, vide2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const dateDeModificationImportante = '14/11/2021'
 
@@ -187,12 +187,12 @@ export default function ConstruireParSymetrie () {
           CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'above')
           DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above')
           EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above')
-          cC = codageMediatrice(C, CC, 'red', '|')
-          cD = codageMediatrice(D, DD, 'blue', 'X')
-          cE = codageMediatrice(E, EE, 'green', 'O')
-          sC = segment(C, CC)
-          sD = segment(D, DD)
-          sE = segment(E, EE)
+          cC = estSurDroite(C, d) ? C : codageMediatrice(C, CC, 'red', '|')
+          cD = estSurDroite(D, d) ? D : codageMediatrice(D, DD, 'blue', 'X')
+          cE = estSurDroite(E, d) ? E : codageMediatrice(E, EE, 'green', 'O')
+          sC = estSurDroite(C, d) ? vide2d() : segment(C, CC)
+          sD = estSurDroite(D, d) ? vide2d() : segment(D, DD)
+          sE = estSurDroite(E, d) ? vide2d() : segment(E, EE)
           sCE = droite(CC, EE, '', 'gray')
           sCE.pointilles = true
           sED = droite(EE, D, '', 'gray')
@@ -241,12 +241,12 @@ export default function ConstruireParSymetrie () {
           CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'above')
           DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above')
           EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above')
-          cC = codageMediatrice(C, CC, 'red', '|')
-          cD = codageMediatrice(D, DD, 'blue', 'X')
-          cE = codageMediatrice(E, EE, 'green', 'O')
-          sC = segment(C, CC)
-          sD = segment(D, DD)
-          sE = segment(E, EE)
+          cC = estSurDroite(C, d) ? C : codageMediatrice(C, CC, 'red', '|')
+          cD = estSurDroite(D, d) ? D : codageMediatrice(D, DD, 'blue', 'X')
+          cE = estSurDroite(E, d) ? E : codageMediatrice(E, EE, 'green', 'O')
+          sC = estSurDroite(C, d) ? vide2d() : segment(C, CC)
+          sD = estSurDroite(D, d) ? vide2d() : segment(D, DD)
+          sE = estSurDroite(E, d) ? vide2d() : segment(E, EE)
           sCE = droite(CC, EE, '', 'gray')
           sCE.pointilles = true
           sED = droite(EE, D, '', 'gray')
@@ -293,12 +293,12 @@ export default function ConstruireParSymetrie () {
           CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'above')
           DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above')
           EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above')
-          cC = codageMediatrice(C, CC, 'red', '|')
-          cD = codageMediatrice(D, DD, 'blue', 'X')
-          cE = codageMediatrice(E, EE, 'green', 'O')
-          sC = segment(C, CC)
-          sD = segment(D, DD)
-          sE = segment(E, EE)
+          cC = estSurDroite(C, d) ? C : codageMediatrice(C, CC, 'red', '|')
+          cD = estSurDroite(D, d) ? D : codageMediatrice(D, DD, 'blue', 'X')
+          cE = estSurDroite(E, d) ? E : codageMediatrice(E, EE, 'green', 'O')
+          sC = estSurDroite(C, d) ? vide2d() : segment(C, CC)
+          sD = estSurDroite(D, d) ? vide2d() : segment(D, DD)
+          sE = estSurDroite(E, d) ? vide2d() : segment(E, EE)
           sCE = segment(CC, EE, 'gray')
           sCE.pointilles = true
           sED = segment(EE, D, 'gray')
@@ -363,9 +363,13 @@ export default function ConstruireParSymetrie () {
           p2.listePoints[2].nom = `${p1nom[4]}'`
           CC = nommePolygone(p1)
           DD = nommePolygone(p2)
-          cC = codageMediatrice(p1.listePoints[0], p2.listePoints[0], 'red', '|')
-          cD = codageMediatrice(p1.listePoints[1], p2.listePoints[1], 'blue', 'X')
-          cE = codageMediatrice(p1.listePoints[2], p2.listePoints[2], 'green', 'O')
+          cC = estSurDroite(p1.listePoints[0], d) ? vide2d() : codageMediatrice(p1.listePoints[0], p2.listePoints[0], 'red', '|')
+          cD = estSurDroite(p1.listePoints[1], d) ? vide2d() : codageMediatrice(p1.listePoints[1], p2.listePoints[1], 'blue', 'X')
+          cE = estSurDroite(p1.listePoints[2], d) ? vide2d() : codageMediatrice(p1.listePoints[2], p2.listePoints[2], 'green', 'O')
+          sC = estSurDroite(p1.listePoints[0], d) ? vide2d() : segment(p1.listePoints[0], p2.listePoints[0], 'red')
+          sD = estSurDroite(p1.listePoints[1], d) ? vide2d() : segment(p1.listePoints[1], p2.listePoints[1], 'blue')
+          sE = estSurDroite(p1.listePoints[2], d) ? vide2d() : segment(p1.listePoints[2], p2.listePoints[2], 'green')
+
           sC = segment(p1.listePoints[0], p2.listePoints[0], 'red')
           sD = segment(p1.listePoints[1], p2.listePoints[1], 'blue')
           sE = segment(p1.listePoints[2], p2.listePoints[2], 'green')
