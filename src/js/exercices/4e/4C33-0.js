@@ -1,8 +1,13 @@
 import Exercice from '../Exercice.js'
 import { randint, combinaisonListes, listeQuestionsToContenu } from '../../modules/outils.js'
+import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 export const titre = 'Utiliser la notation puissance'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true // pour définir que l'exercice est exportable AMC
+export const amcType = 'AMCOpen'
 
-export const dateDePublication = '20/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '21/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Passer d'un produit à la notation puissance et inversement
@@ -16,9 +21,7 @@ export default function NotationPuissance () {
   this.besoinFormulaireNumerique = ['Type de calcul', 3, '1 : Écrire sous forme de produit\n2 : Écrire sous forme de puissance\n3 : Mélange'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
   this.sup = 1
   this.besoinFormulaire2Numerique = ['Exposant', 3, '1 : Positif\n2 : Négatif\n3 : Mélange']
-  this.sup2 = 2
-  this.besoinFormulaire3CaseACocher = ['Grands nombres']
-  this.sup3 = false
+  this.sup2 = 1
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
@@ -54,12 +57,8 @@ export default function NotationPuissance () {
     }
     listeSignesExposants = combinaisonListes(listeSignesExposants, this.nbQuestions)
     const listeSignes = combinaisonListes(['', '-'], this.nbQuestions)
-    for (let i = 0, texte, texteCorr, a, b, pl, pr, produit, puissance, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      if (this.sup3) {
-        a = randint(-999, 999)
-      } else {
-        a = randint(-10, 10)
-      }
+    for (let i = 0, texte, texteCorr, a, b, pl, pr, produit, produitAlt, puissance, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      a = randint(-10, 10, [0, 1])
       if (listeTypeDeQuestions[i] === 'puissance') {
         b = randint(2, 8)
       } else {
@@ -75,37 +74,44 @@ export default function NotationPuissance () {
       if (listeSignesExposants[i] === 'négatif') {
         b = b * -1
       }
-      puissance = `${listeSignes[i] + pl + a + pr}^{${b}}`
+      if (b < 0) { // Les cas sont séparés pour avoir avoir une comparaison correcte en interactif
+        puissance = `${listeSignes[i] + pl + a + pr}^{${b}}`
+      } else {
+        puissance = `${listeSignes[i] + pl + a + pr}^${b}`
+      }
       produit = `${pl + a + pr}`
+      produitAlt = produit
       for (let j = 0; j < Math.abs(b) - 1; j++) {
-        produit += ` \\times ${pl + a + pr}`
+        produit += `\\times${pl + a + pr}`
+        produitAlt += `(${a})`
       }
       switch (listeTypeDeQuestions[i]) {
         case 'produit':
-          this.sup === 3 ? texte = 'Donner la signification de ' : texte = ''
-          texte += `$${puissance}$.`
+          if (this.sup === 3) {
+            texte = `Donner la signification de $${puissance}$.`
+          } else {
+            texte = `$${puissance}$`
+          }
           texteCorr = `$${puissance} = `
-          if (b === 0) texteCorr += listeSignes[i] + 1 + '$'
-          else if (b === 1) {
+          if (b === 0) {
+            texteCorr += listeSignes[i] + 1 + '$'
+            setReponse(this, i, listeSignes[i] + 1, { formatInteractif: 'ignorerCasse' })
+          } else if (b === 1) {
             if (listeSignes[i] === '') {
               pl = ''
               pr = ''
             }
             texteCorr += `${listeSignes[i] + pl + a + pr}$`
+            setReponse(this, i, listeSignes[i] + pl + a + pr, { formatInteractif: 'ignorerCasse' })
           } else if (b > 1) {
             texteCorr += listeSignes[i] + produit + '$'
+            setReponse(this, i, [listeSignes[i] + produit, listeSignes[i] + produitAlt], { formatInteractif: 'ignorerCasse' })
           } else if (b === -1) {
-            if (listeSignes[i] === '') {
-              pl = ''
-              pr = ''
-            }
-            if (listeSignes[i] === '-') {
-              texteCorr += `- \\dfrac{1}{${a}}$`
-            } else {
-              texteCorr += `\\dfrac{1}{${a}}$`
-            }
+            texteCorr += `${listeSignes[i]}\\dfrac{1}{${a}}$`
+            setReponse(this, i, `${listeSignes[i]}\\frac{1}{${a}}`, { formatInteractif: 'ignorerCasse' })
           } else if (b < -1) {
-            texteCorr += `${listeSignes[i]} \\dfrac{1}{${produit}}$`
+            texteCorr += `${listeSignes[i]}\\dfrac{1}{${produit}}$`
+            setReponse(this, i, [`${listeSignes[i]}\\frac{1}{${produit}}`, `${listeSignes[i]}\\frac{1}{${produitAlt}}`], { formatInteractif: 'ignorerCasse' })
           }
           break
         case 'puissance':
@@ -117,11 +123,15 @@ export default function NotationPuissance () {
             texte += `$${listeSignes[i]} ${produit}$`
             texteCorr = `$${listeSignes[i]} ${produit} = ${puissance}$`
           }
+          setReponse(this, i, puissance, { formatInteractif: 'ignorerCasse' })
           break
+      }
+      if (this.interactif) { // Si l'exercice est interactif
+        texte += ajouteChampTexteMathLive(this, i, 'inline')
       }
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, a, b, listeTypeDeQuestions[i], listeSignesExposants[i], listeSignes[i])) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, b, listeTypeDeQuestions[i], listeSignesExposants[i], listeSignes[i])) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
