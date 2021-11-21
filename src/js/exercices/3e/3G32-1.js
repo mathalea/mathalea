@@ -22,7 +22,7 @@ export default function CalculsTrigonometriques1 () {
   this.nbQuestions = 1
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.spacingCorr = 2
   this.spacing = 2
@@ -74,7 +74,7 @@ export default function CalculsTrigonometriques1 () {
       if (this.questionJamaisPosee(i, alpha)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isAmc) {
-          this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 3, feedback: '' }], reponse: { texte: 'Longueur arrondie au km près', valeur: reponse, options: { digits: 0, decimals: 0 } } }
+          this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 3, feedback: '' }], reponse: { texte: 'Longueur arrondie au km près', valeur: [reponse], options: { digits: 0, decimals: 0 } } }
         } else {
           texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' $L=$', texteApres: ' km' })
           setReponse(this, i, reponse)

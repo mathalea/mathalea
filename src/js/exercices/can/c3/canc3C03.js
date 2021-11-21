@@ -3,6 +3,8 @@ import { randint, choice, miseEnEvidence } from '../../../modules/outils.js'
 export const titre = 'Table de multiplication à trous'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres

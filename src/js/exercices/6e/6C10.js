@@ -31,7 +31,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
   this.nbQuestions = 5
   this.listePackages = 'xlop'
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -150,11 +150,11 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: reponse,
+                  texte: '',
                   statut: '',
                   reponse: {
                     texte: 'Résultat',
-                    valeur: reponse,
+                    valeur: [reponse],
                     param: {
                       digits: nombreDeChiffresDe(reponse),
                       decimals: 0,

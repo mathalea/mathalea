@@ -21,7 +21,7 @@ const epsilon = 0.000001
  */
 export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
-    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`)
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`, exercice.tailleDiaporama)
     if (exercice.interactif && exercice.interactifReady) {
       exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
@@ -165,6 +165,15 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
     \\end{minipage}
     `
   }
+}
+/**
+ *
+ * @param {string} texte
+ * @returns le texte centré dans la page selon le contexte.
+ * @author Jean-Claude Lhote
+ */
+export function centrage (texte) {
+  return context.isHtml ? `<center>${texte}</center>` : `\\begin{center}\n\t${texte}\n\\end{center}\n`
 }
 /**
  * Contraint une valeur à rester dans un intervalle donné. Si elle est trop petite, elle prend la valeur min, si elle est trop grande elle prend la valeur max
@@ -2306,20 +2315,19 @@ export function texIntroduction (texte) {
 * @param spacing interligne (line-height en css)
 * @author Rémi Angot
 */
-export function htmlEnumerate (liste, spacing, classe = 'question', id = '') {
+export function htmlEnumerate (liste, spacing, classe = 'question', id = '', tailleDiaporama = 1) {
   let result = ''
-
   if (liste.length > 1) {
     (spacing > 1) ? result = `<ol style="line-height: ${spacing};">` : result = '<ol>'
     for (const i in liste) {
-      result += `<li class="${classe}" ${id ? 'id="' + id + i + '"' : ''}>` + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+      result += `<li class="${classe}" ${id ? 'id="' + id + i + '"' : ''} ${dataTaille(tailleDiaporama)}>` + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     }
     result += '</ol>'
   } else if (liste.length === 1) {
     // Pour garder la même hiérarchie avec une ou plusieurs questions
     // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
     // Utile pour la vue can
-    (spacing > 1) ? result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''} style="line-height: ${spacing}; margin-bottom: 20px">` : result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''}>`
+    (spacing > 1) ? result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''} style="line-height: ${spacing}; margin-bottom: 20px" ${dataTaille(tailleDiaporama)}>` : result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''}>`
     result += liste[0].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     result += '</div></div>'
   }
@@ -7454,6 +7462,7 @@ export function exportQcmAmc (exercice, idExo) {
           }
           texQr += '\n'
           texQr += `Base\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.basePuissance}}{digits=${digitsBase},decimals=0,sign=false,approx=0,`
+          if (autoCorrection[j].reponse.param.aussiCorrect !== undefined) texQr += `alsocorrect=${autoCorrection[j].reponse.param.aussiCorrect}`
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n'
           texQr += '\\AMCquestionNumberfalse\\def\\AMCbeginQuestion#1#2{}'
@@ -8451,4 +8460,19 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   }
   codeLatex += '\\end{document}\n'
   return codeLatex
+}
+
+export function dataTailleDiaporama (exercice) {
+  if (context.vue !== 'diap') {
+    return ''
+  } else if (exercice.tailleDiaporama !== 1) {
+    return `data-taille = "${exercice.tailleDiaporama}"`
+  }
+}
+function dataTaille (taille) {
+  if (context.vue !== 'diap') {
+    return ''
+  } else if (taille !== 1) {
+    return `data-taille = "${taille}"`
+  }
 }

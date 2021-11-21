@@ -48,6 +48,7 @@ const liToDiv = () => {
     }
     div.innerHTML = element.innerHTML
     div.classList = element.classList
+    div.dataset.taille = element.dataset.taille || 1
     div.id = element.id
     element.replaceWith(div)
   }
@@ -489,6 +490,10 @@ export async function initDom () {
       })
       menuEval.innerHTML = ''
       const questions = document.querySelectorAll('div.question')
+      // Centre les questions (mais pas la consigne)
+      for (const question of questions) {
+        question.classList.add('ui', 'center', 'aligned', 'container')
+      }
       for (let i = 0, element; i < questions.length; i++) {
         element = addElement(menuEval, 'button', { id: 'btnMenu' + questions[i].id, style: 'margin: 5px', class: 'circular ui button' })
         element.textContent = `${i + 1}`
@@ -608,8 +613,17 @@ export async function initDom () {
   // Le footer
   if (vue === 'recto' || vue === 'verso' || vue === 'embed' || vue === 'e' || vue === 'can') {
     await addFetchHtmlToParent('templates/footer1logo.html', document.body, 'footer')
-  } else if (vue !== 'exMoodle' && vue !== 'correctionMoodle') {
+  } else if (vue !== 'exMoodle' && vue !== 'correctionMoodle' && vue !== 'diap') {
     await addFetchHtmlToParent('templates/footer.html', document.body, 'footer')
+  } else if (vue === 'diap') {
+    const footer = addElement(document.body, 'footer')
+    footer.style.position = 'absolute'
+    footer.style.bottom = '10px'
+    footer.style.right = '10px'
+    footer.innerHTML = `<a href="mailto:contact@coopmaths.fr" style="color: black; padding-right: 2em"><i class="mail icon"></i>contact@coopmaths.fr</a>
+    <a href="/twitter" targer="_blank" style="color: black; padding-right: 2em"><i class="twitter icon"></i>@CoopMaths_fr</a>
+    <img class="ui middle aligned image" height="25" src="assets/images/logo2.png" />
+    <span class="ui header"></span>`
   }
 
   // Pour toutes les vues

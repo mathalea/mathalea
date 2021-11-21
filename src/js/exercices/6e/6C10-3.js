@@ -23,7 +23,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
   this.titre = titre
   this.consigne = 'Calculer :'
   this.spacing = 2
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.nbQuestions = 10
 
   this.nouvelleVersion = function () {

@@ -23,7 +23,7 @@ export default function LecturesGraphiques () {
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
@@ -273,7 +273,7 @@ export default function LecturesGraphiques () {
               statut: '',
               reponse: {
                 texte: '',
-                valeur: reponses[i],
+                valeur: [reponses[i]],
                 param: {
                   digits: 1,
                   decimals: 0,
@@ -292,7 +292,7 @@ export default function LecturesGraphiques () {
               statut: '',
               reponse: {
                 texte: '',
-                valeur: reponses[i],
+                valeur: [reponses[i]],
                 param: {
                   digits: 2,
                   decimals: 1,

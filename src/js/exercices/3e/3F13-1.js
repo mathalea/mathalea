@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { deuxColonnes, randint, texConsigne, numAlpha } from '../../modules/outils.js'
+import { deuxColonnes, randint, texConsigne, numAlpha, calcul } from '../../modules/outils.js'
 import { repere2, graphiqueInterpole, mathalea2d } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Lecture graphique d’images et d’antécédents'
@@ -52,38 +52,38 @@ export default function AntecedentEtImageGraphique () {
     }
     this.contenu += '<br><br>'
     let cont1 = `${numAlpha(0)} Quelle est l'image de $${x0}$ ?`
-    cont1 += ajouteChampTexteMathLive(this, 1)
+    cont1 += ajouteChampTexteMathLive(this, 0)
     cont1 += `<br>${numAlpha(1)} Quelle est l'image de $${x0 + 5}$ ?`
-    cont1 += ajouteChampTexteMathLive(this, 2)
+    cont1 += ajouteChampTexteMathLive(this, 1)
     const ordre = randint(1, 2)
     let cont2
     if (ordre === 1) {
       cont2 = `${numAlpha(2)} Déterminer le (ou les) antécédent(s) de $${b}$.`
-      cont2 += ajouteChampTexteMathLive(this, 3)
+      cont2 += ajouteChampTexteMathLive(this, 2)
       cont2 += `<br>${numAlpha(3)} Déterminer le (ou les) antécédent(s) de $${c}$.`
-      cont2 += ajouteChampTexteMathLive(this, 4)
+      cont2 += ajouteChampTexteMathLive(this, 3)
     } else {
       cont2 = `${numAlpha(2)} Déterminer le (ou les) antécédent(s) de $${c}$.`
-      cont2 += ajouteChampTexteMathLive(this, 3)
+      cont2 += ajouteChampTexteMathLive(this, 2)
       cont2 += `<br>${numAlpha(3)} Déterminer le (ou les) antécédent(s) de $${b}$.`
-      cont2 += ajouteChampTexteMathLive(this, 4)
+      cont2 += ajouteChampTexteMathLive(this, 3)
     }
     this.contenu += deuxColonnes(cont1, cont2)
     this.contenu += mathalea2d({ xmin: -7, ymin: -4.5, xmax: 7, ymax: 4.5, pixelsParCm: 30 }, r, gr)
     this.contenuCorrection = `${numAlpha(0)} L'image de $${x0}$ est $${a}$, on note $f(${x0})=${a}$.`
-    setReponse(this, 1, a)
+    setReponse(this, 0, a)
     this.contenuCorrection += `<br>${numAlpha(1)} L'image de $${x0 + 5}$ est $${(b + c) / 2}$, on note $f(${x0 + 5})=${(b + c) / 2}$.`
-    setReponse(this, 2, (b + c) / 2)
+    setReponse(this, 1, calcul((b + c) / 2))
     if (ordre === 1) {
       this.contenuCorrection += `<br>${numAlpha(2)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`
-      setReponse(this, 3, x0 + 4)
+      setReponse(this, 2, x0 + 4)
       this.contenuCorrection += `<br>${numAlpha(3)} $${c}$ a deux antécédents $${x0 + 2}$ et $${x0 + 6}$, on note $f(${x0 + 2})=f(${x0 + 6})=${c}$.`
-      setReponse(this, 4, [`${x0 + 2};${x0 + 6}`, `${x0 + 6};${x0 + 2}`])
+      setReponse(this, 3, [`${x0 + 2};${x0 + 6}`, `${x0 + 6};${x0 + 2}`])
     } else {
       this.contenuCorrection += `<br>${numAlpha(2)} $${c}$ a deux antécédents $${x0 + 2}$ et $${x0 + 6}$, on note $f(${x0 + 2})=f(${x0 + 6})=${c}$.`
-      setReponse(this, 3, [`${x0 + 2};${x0 + 6}`, `${x0 + 6};${x0 + 2}`])
+      setReponse(this, 2, [`${x0 + 2};${x0 + 6}`, `${x0 + 6};${x0 + 2}`])
       this.contenuCorrection += `<br>${numAlpha(3)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`
-      setReponse(this, 4, x0 + 4)
+      setReponse(this, 3, x0 + 4)
     }
     if (this.interactif && context.isHtml) {
       this.contenu += `<br><button class="ui button checkReponses" type="submit" style="margin-bottom: 20px" id="btnValidationEx${this.numeroExercice}-${this.id}">Vérifier les réponses</button>`

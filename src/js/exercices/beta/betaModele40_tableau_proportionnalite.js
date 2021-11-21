@@ -18,7 +18,7 @@ export default function NomExercice () {
   this.nbQuestions = 1
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.video = ''
 
   this.nouvelleVersion = function (numeroExercice) {

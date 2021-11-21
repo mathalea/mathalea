@@ -20,7 +20,7 @@ export default function CalculValeurApprocheeRacineCarree () {
 
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.video = ''
   this.besoinFormulaireNumerique = ['Avec ou sans calculatrice', 3, '1 : Avec calculatrice\n2 : Sans calculatrice\n3 : Mélange']
   this.sup = 3
@@ -120,7 +120,7 @@ export default function CalculValeurApprocheeRacineCarree () {
                     statut: '',
                     reponse: {
                       texte: `arrondi de $\\sqrt{${a}}$ ${type} près :`,
-                      valeur: parseFloat(reponse.replaceAll(',', '.')),
+                      valeur: [parseFloat(reponse.replaceAll(',', '.'))],
                       param: {
                         digits: nombreDeChiffresDansLaPartieEntiere(parseFloat(reponse.replaceAll(',', '.'))) + nbDec,
                         decimals: nbDec,
@@ -150,7 +150,7 @@ export default function CalculValeurApprocheeRacineCarree () {
                     statut: '',
                     reponse: {
                       texte: 'Entier inférieur',
-                      valeur: reponseG,
+                      valeur: [reponseG],
                       param: {
                         digits: nombreDeChiffresDansLaPartieEntiere(reponseG),
                         decimals: 0,
@@ -167,7 +167,7 @@ export default function CalculValeurApprocheeRacineCarree () {
                     statut: '',
                     reponse: {
                       texte: 'Entier supérieur',
-                      valeur: reponseD,
+                      valeur: [reponseD],
                       param: {
                         digits: nombreDeChiffresDansLaPartieEntiere(reponseD),
                         decimals: 0,

@@ -80,7 +80,6 @@ export default function PuissancesDeDix () {
       switch (typesDeQuestions) {
         case 1: // produit de puissances de même base
           texte = `$${lettre}=10^${exp[0]}\\times 10^${exp[1]}$`
-
           texteCorr = `$${lettre}=10^${exp[0]}\\times 10^${exp[1]}$`
           if (this.correctionDetaillee) {
             texteCorr += '<br>'
@@ -113,9 +112,7 @@ export default function PuissancesDeDix () {
             couleurExp0 = coul1
             couleurExp1 = coul0
           }
-
           texte = `$${lettre}=\\dfrac{10^${exp[0]}}{10^${exp[1]}}$`
-
           texteCorr = `$${lettre}=\\dfrac{10^${exp[0]}}{10^${exp[1]}}$`
           if (this.correctionDetaillee) {
             texteCorr += '<br><br>'
@@ -181,6 +178,7 @@ export default function PuissancesDeDix () {
             texteCorr += `$${lettre}=10^{${exp[0]}-${exp[1]}}=10^{${exp[0] - exp[1]
               }}`
           }
+          setReponse(this, i, `10^{${exp[0] - exp[1]}}`, { formatInteractif: 'puissance' })
           texteCorr += '$'
           texteCorr += '<br>'
           reponseInteractive = `10^{${exp[0] - exp[1]}}`
@@ -189,7 +187,6 @@ export default function PuissancesDeDix () {
         case 3: // exponentiation
           exp = [randint(2, 4), randint(2, 4)] // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
           texte = `$${lettre}=(10^${exp[0]})^{${exp[1]}}$`
-
           texteCorr = `$${lettre}=(10^${exp[0]})^{${exp[1]}}$`
           if (this.correctionDetaillee) {
             texteCorr += '<br>'

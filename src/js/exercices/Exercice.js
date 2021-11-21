@@ -58,7 +58,7 @@ export default function Exercice () {
   // Gestion de la sortie autre que LateX
   // ////////////////////////////////////////////
   this.beamer = false // booléen pour savoir si la sortie devra être un diaporama beamer
-  this.tailleDiaporama = 50 // Taille en pixels pour le calcul chronométré.
+  this.tailleDiaporama = 1 // Facteur par lequel multiplier la police pour la vue 'diap'
 
   // ////////////////////////////////////////////
   // Paramètres

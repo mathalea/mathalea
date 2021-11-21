@@ -31,7 +31,7 @@ export default function AdditionnerSoustrairesDecimaux () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
   this.nbQuestions = 4
   this.sup = 3
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
