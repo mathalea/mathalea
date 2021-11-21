@@ -16,7 +16,7 @@ export default function representerfonctionaffine () {
   this.nbQuestions = 3 // On complète le nb de questions
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.video = ''
   this.spacing = 1
   this.spacingCorr = 1

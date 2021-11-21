@@ -14,5 +14,5 @@ export default function DivisionsEuclidiennesNiv2 () {
   DivisionsEuclidiennes.call(this)
   this.sup = 2
   this.titre = titre
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
 }

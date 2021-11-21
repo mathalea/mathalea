@@ -1,5 +1,5 @@
 /* global $ jQuery JSZip saveAs */
-import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi } from './modules/outils.js'
+import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi, dataTailleDiaporama } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGo, replaceQueryParam, goTabVue } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
@@ -338,9 +338,9 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
 
         if (obj.questionJamaisPosee(numQuestion, obj.question)) {
           if (obj.nbQuestions === 1) {
-            contenuUnExercice += `<div><div class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}</div></div>`
+            contenuUnExercice += `<div><div class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question}</div></div>`
           } else {
-            contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}">${obj.question}`
+            contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question}`
           }
           if (obj.interactif && obj.interactifReady) {
             if (obj.formatChampTexte) {
@@ -377,7 +377,7 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         contenuUnExercice += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
         exerciceInteractif(obj)
       }
-    } else {
+    } else { // Exercice classique
       try {
         obj.nouvelleVersion(numeroExercice - 1)
       } catch (error) {

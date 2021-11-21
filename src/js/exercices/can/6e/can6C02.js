@@ -14,6 +14,7 @@ export const amcType = 'AMCNum'
 export default function NombrePairFois5 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
+  this.tailleDiaporama = 5
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {

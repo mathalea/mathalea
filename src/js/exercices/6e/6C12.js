@@ -34,7 +34,7 @@ export default function QuestionsPrix () {
   this.sup4 = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.interactifType = 'mathLive'
 
@@ -244,7 +244,7 @@ export default function QuestionsPrix () {
                  reponse:
                    {
                      texte: (this.sup4 === 1) ? enonceAMC : '',
-                     valeur: reponseAMC,
+                     valeur: [reponseAMC],
                      param:
                        {
                          digits: digitAMC,

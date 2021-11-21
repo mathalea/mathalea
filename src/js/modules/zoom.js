@@ -1,6 +1,8 @@
+import { context } from './context'
+
 export function zoomAffichage (facteur) {
-  let tailleH3 = 17
-  let tailleH4 = 17
+  let tailleH3 = 15
+  let tailleH4 = 14
   let taille = 14
   taille *= facteur
   tailleH3 *= facteur
@@ -11,6 +13,12 @@ export function zoomAffichage (facteur) {
   divCorrections.style.lineHeight = 'normal'
   divExercices.style.fontSize = `${taille}px`
   divCorrections.style.fontSize = `${taille}px`
+  if (context.vue === 'diap') {
+    const questions = document.querySelectorAll('div.question')
+    for (const question of questions) {
+      question.style.fontSize = parseInt(question.dataset.taille) * taille + 'px'
+    }
+  }
   const tousLesH4 = document.querySelectorAll('#exercices h4') // Pour les énoncés
   const tousLesH3 = document.querySelectorAll('#exercices h3') // Pour les énoncés
   for (const enonce of tousLesH4) {

@@ -5,6 +5,7 @@ export const titre = 'Lire l\'heure'
 export const dateDePublication = '4/11/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+
 /*!
  * @author Jean-Claude Lhote
  * Créé le 4/11/2021

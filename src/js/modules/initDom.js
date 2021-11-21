@@ -48,6 +48,7 @@ const liToDiv = () => {
     }
     div.innerHTML = element.innerHTML
     div.classList = element.classList
+    div.dataset.taille = element.dataset.taille || 1
     div.id = element.id
     element.replaceWith(div)
   }
@@ -489,6 +490,10 @@ export async function initDom () {
       })
       menuEval.innerHTML = ''
       const questions = document.querySelectorAll('div.question')
+      // Centre les questions (mais pas la consigne)
+      for (const question of questions) {
+        question.classList.add('ui', 'center', 'aligned', 'container')
+      }
       for (let i = 0, element; i < questions.length; i++) {
         element = addElement(menuEval, 'button', { id: 'btnMenu' + questions[i].id, style: 'margin: 5px', class: 'circular ui button' })
         element.textContent = `${i + 1}`

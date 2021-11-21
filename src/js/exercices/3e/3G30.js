@@ -266,7 +266,7 @@ export default function CalculDeLongueur () {
         ],
         reponse: {
           texte: 'résultat',
-          valeur: reponse,
+          valeur: [reponse],
           param: {
             digits: 3,
             decimals: 1,
