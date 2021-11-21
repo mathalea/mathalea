@@ -269,8 +269,15 @@ function verifQuestionMathLive (exercice, i) {
         mantisseReponse = nombreAttendu[0]
         expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
         if (parseInt(expoReponse) < 0) {
+          // Si la mantisse est positive
           if (nombreSaisi === `\\frac{1}{${mantisseReponse ** (-expoReponse)}}`) {
             formatKO = true
+          }
+          // Si elle est négative, le signe - peut être devant la fraction ou au numérateur  ou au dénominateur
+          if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && ((-expoReponse) % 2 === 1)) {
+            if ((nombreSaisi === `-\\frac{1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{-1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{1}{-${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`)) {
+              formatKO = true
+            }
           }
         }
         if (parseInt(expoReponse) > 0) {
