@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureNombreRelatif, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
+import { context } from '../../modules/context.js'
 
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
@@ -31,8 +32,10 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
-    if (!this.sup3) {
+    if (!this.sup3 && !context.isAmc) {
       this.consigne = 'Calculer :'
+    } else {
+      this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
     }
     this.sup = parseInt(this.sup)
     this.autoCorrection = []
