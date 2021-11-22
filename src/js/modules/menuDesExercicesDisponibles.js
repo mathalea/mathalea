@@ -405,6 +405,7 @@ export function menuDesExercicesDisponibles () {
   const listeThemes5 = [
     ['5A1', '5A1 - Arithmetique'], ['5C1', '5C1 - Calculs'],
     ['5G1', '5G1 - Symétries'], ['5G2', '5G2 - Triangles'], ['5G3', '5G3 - Angles'], ['5G4', '5G4 - Parallélogrammes'], ['5G5', '5G5 - Espace'],
+    ['5I1', '5I1 - Algorithmique'],
     ['5L1', '5L1 - Calcul littéral'],
     ['5M1', '5M1 - Périmètres et aires'], ['5M2', '5M2 - Volumes'], ['5M3', '5M3 - Durées'],
     ['5N1', '5N1 - Numération et fractions niveau 1'], ['5N2', '5N2 - Calculs avec les fractions'],
