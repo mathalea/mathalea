@@ -509,7 +509,7 @@ export function enleveElementNoBis (array, index) {
 */
 export function choice (liste, listeAEviter = []) {
   // copie la liste pour ne pas y toucher (ce n'est pas le but de choice)
-  if (!Number(listeAEviter).isNan) {
+  if (!Array.isArray(listeAEviter)) {
     listeAEviter = [listeAEviter]
   }
   const listebis = liste.slice()
@@ -517,6 +517,7 @@ export function choice (liste, listeAEviter = []) {
   for (let i = 0; i < listeAEviter.length; i++) {
     enleveElement(listebis, listeAEviter[i])
   }
+  console.log(listebis)
   const index = Math.floor(Math.random() * listebis.length)
   return listebis[index]
 }
