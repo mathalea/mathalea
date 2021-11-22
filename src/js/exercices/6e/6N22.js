@@ -39,7 +39,7 @@ export default function FractionsCalculsSimples () {
       let c, n, f1, f2, f3
       const b = choice([2, 3, 4, 5])
       const a = randint(1, b - 1)
-      let xmax = 19
+      const xmax = 19
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'a/b+c/b':
           c = randint(1, b + 4, [b, 2 * b, 3 * b, 4 * b])
