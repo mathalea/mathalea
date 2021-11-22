@@ -517,7 +517,6 @@ export function choice (liste, listeAEviter = []) {
   for (let i = 0; i < listeAEviter.length; i++) {
     enleveElement(listebis, listeAEviter[i])
   }
-  console.log(listebis)
   const index = Math.floor(Math.random() * listebis.length)
   return listebis[index]
 }
