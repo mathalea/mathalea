@@ -108,7 +108,7 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
   const bordure = polygone(A, B, C, D)
   if (!options) options = {}
   const out = options.out || { opacity: 0 }
-  const over = options.over || { opacity: 0.5 }
+  const over = options.over || { opacity: 0.2 }
   const click = options.click || { opacity: 1 }
   const couleur = options.couleur || '#f15929'
   const cliquable = (options.cliquable !== undefined) ? options.cliquable : true
@@ -121,7 +121,7 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
     rectangle.couleurDeRemplissage = options.color || options.couleur || options.couleurDeRemplissage || '#f15929'
     rectangle.epaisseur = 0
     rectangle.isVisible = false
-    code = `<g id="${this.id}">\n`
+    code = `<g id="rectangle${this.id}">\n`
     code += rectangle.svg(coeff) + '\n'
     code += '</g>'
     code += bordure.svg(coeff)
@@ -135,7 +135,7 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
   const moi = this // Pour utiliser this dans les fonctions
   const gestionDeLaSouris = () => {
     document.removeEventListener('exercicesAffiches', gestionDeLaSouris)
-    const groupe = document.getElementById(`${this.id}`)
+    const groupe = document.getElementById('rectangle' + this.id)
     const changeEtatPoint = (etat) => {
       this.etat = etat
     }

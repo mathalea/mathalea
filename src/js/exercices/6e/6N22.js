@@ -39,7 +39,7 @@ export default function FractionsCalculsSimples () {
       let c, n, f1, f2, f3
       const b = choice([2, 3, 4, 5])
       const a = randint(1, b - 1)
-      let xmax
+      let xmax = 19
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'a/b+c/b':
           c = randint(1, b + 4, [b, 2 * b, 3 * b, 4 * b])
@@ -48,11 +48,10 @@ export default function FractionsCalculsSimples () {
           f3 = new Fraction(a + c, b)
           texte = `$${f1.texFraction} + ${f2.texFraction}$`
           texteCorr = `$${f1.texFraction} + ${f2.texFraction} = ${f3.texFraction} ${(f3.estEntiere()) ? `=${f3.texFractionSimplifiee}` : ''}$`
-          schema = fractionCliquable(0, 0, quotientier(a + c, b) + 1, b)
-          if (this.sup && context.isHtml) texte += '<br`>' + mathalea2d({ scale: 0.5, xmin: 0, xmax, ymin: -1, ymax: 2 }, schema)
+          schema = fractionCliquable(0, 0, 4, b)
+          if (this.sup && context.isHtml) texte += '<br`>' + mathalea2d({ scale: 0.5, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schema)
           schemaCorr = fractionCliquable(0, 0, quotientier(a + c, b) + 1, b, { cliquable: false, liste1: rangeMinMax(1, a), liste2: rangeMinMax(a + 1, a + c) })
-          xmax = (quotientier(a + c, b) + 1) * 5
-          if (this.correctionDetaillee) texteCorr += '<br>' + mathalea2d({ scale: 0.5, xmin: 0, xmax, ymin: -1, ymax: 2 }, schemaCorr)
+          if (this.correctionDetaillee) texteCorr += '<br>' + mathalea2d({ scale: 0.5, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schemaCorr)
           setReponse(this, i, new Fraction(a + c, b), { formatInteractif: 'fractionEgale' })
           texte += ajouteChampTexteMathLive(this, i)
           break
@@ -63,11 +62,10 @@ export default function FractionsCalculsSimples () {
           f3 = new Fraction(n * b + a, b)
           texte = `$${n} + ${f1.texFraction}$`
           texteCorr = `$${n} + ${f1.texFraction} = ${f2.texFraction} + ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere()) ? `=${f3.texFractionSimplifiee}` : ''}$`
-          schema = fractionCliquable(0, 0, quotientier(n * b + a, b) + 1, b)
+          schema = fractionCliquable(0, 0, 4, b)
           schemaCorr = fractionCliquable(0, 0, quotientier(n * b + a, b) + 1, b, { cliquable: false, liste1: rangeMinMax(1, n * b), liste2: rangeMinMax(n * b + 1, n * b + a) })
-          xmax = (quotientier(n * b + a, b) + 1) * 5
-          if (this.sup && context.isHtml) texte += '<br`>' + mathalea2d({ scale: 0.5, xmin: 0, xmax, ymin: -1, ymax: 2 }, schema)
-          if (this.correctionDetaillee) texteCorr += '<br>' + mathalea2d({ scale: 0.5, xmin: 0, xmax, ymin: -1, ymax: 2 }, schemaCorr)
+          if (this.sup && context.isHtml) texte += '<br`>' + mathalea2d({ scale: 0.5, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schema)
+          if (this.correctionDetaillee) texteCorr += '<br>' + mathalea2d({ scale: 0.5, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schemaCorr)
           setReponse(this, i, new Fraction(n * b + a, b), { formatInteractif: 'fractionEgale' })
           texte += ajouteChampTexteMathLive(this, i)
           break
@@ -79,14 +77,11 @@ export default function FractionsCalculsSimples () {
           texteCorr = `$${n} \\times ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere()) ? `=${f3.texFractionSimplifiee}` : ''}$`
           texteCorr += '<br>'
           if (this.correctionDetaillee) {
-            schemaCorr = fractionCliquable(0, 0, quotientier(a, b) + 1, b, { cliquable: false, liste1: rangeMinMax(1, a) })
-            for (let f = 0; f < n; f++) {
-              const xmin = (f === 0) ? 0 : -1
-              texteCorr += mathalea2d({ scale: 0.5, xmin, xmax: 4, ymin: -1, ymax: 2, style: 'display: inline' }, schemaCorr)
-            }
+            schemaCorr = fractionCliquable(0, 0, quotientier(n * a, b) + 1, b, { cliquable: false, liste1: rangeMinMax(1, n * a) })
+            texteCorr += mathalea2d({ scale: 0.5, xmin: -0.2, xmax: (quotientier(n * a, b) + 1) * 5, ymin: -1, ymax: 2, style: 'display: inline' }, schemaCorr)
           }
-          schema = fractionCliquable(0, 0, n, b)
-          if (this.sup && context.isHtml) texte += '<br>' + mathalea2d({ scale: 0.5, xmin: 0, xmax: 5 * n, ymin: -1, ymax: 2, style: 'display: inline' }, schema)
+          schema = fractionCliquable(0, 0, 4, b)
+          if (this.sup && context.isHtml) texte += '<br>' + mathalea2d({ scale: 0.5, xmin: -0.2, xmax, ymin: -1, ymax: 2, style: 'display: inline' }, schema)
           setReponse(this, i, new Fraction(n * a, b), { formatInteractif: 'fractionEgale' })
           texte += ajouteChampTexteMathLive(this, i)
           break
@@ -98,10 +93,9 @@ export default function FractionsCalculsSimples () {
           texte = `$${n} - ${f1.texFraction}$`
           texteCorr = `$${n} - ${f1.texFraction} = ${f2.texFraction} - ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere()) ? `=${f3.texFractionSimplifiee}` : ''}$`
           schemaCorr = fractionCliquable(0, 0, quotientier(n * b + a, b) + 1, b, { cliquable: false, liste2: rangeMinMax(1, n * b), hachures1: true, liste1: rangeMinMax(n * b - a + 1, n * b), couleur2: context.isHtml ? '#f15929' : 'gray' })
-          schema = fractionCliquable(0, 0, quotientier(n * b + a, b) + 1, b)
-          xmax = (n + 1) * 5
-          if (this.correctionDetaillee) texteCorr += '<br>' + mathalea2d({ scale: 0.5, xmin: 0, xmax, ymin: -1, ymax: 2 }, schemaCorr)
-          if (this.sup && context.isHtml) texte += '<br>' + mathalea2d({ scale: 0.5, xmin: 0, xmax, ymin: -1, ymax: 2 }, schema)
+          schema = fractionCliquable(0, 0, 4, b)
+          if (this.correctionDetaillee) texteCorr += '<br>' + mathalea2d({ scale: 0.5, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schemaCorr)
+          if (this.sup && context.isHtml) texte += '<br>' + mathalea2d({ scale: 0.5, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schema)
           setReponse(this, i, new Fraction(n * b - a, b), { formatInteractif: 'fractionEgale' })
           texte += ajouteChampTexteMathLive(this, i)
           break
