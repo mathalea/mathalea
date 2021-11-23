@@ -77,7 +77,14 @@ export default function FractionsCalculsSimples () {
           texteCorr = `$${n} \\times ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere()) ? `=${f3.texFractionSimplifiee}` : ''}$`
           texteCorr += '<br>'
           if (this.correctionDetaillee) {
-            schemaCorr = fractionCliquable(0, 0, quotientier(n * a, b) + 1, b, { cliquable: false, liste1: rangeMinMax(1, n * a) })
+            // Liste pour alterner les couleurs
+            const liste1 = []
+            const liste2 = []
+            for (let k = 0; k < n; k++) {
+              if (k % 2 === 0) liste1.push(...rangeMinMax(k * a + 1, (k + 1) * a))
+              else liste2.push(...rangeMinMax(k * a + 1, (k + 1) * a))
+            }
+            schemaCorr = fractionCliquable(0, 0, quotientier(n * a, b) + 1, b, { cliquable: false, liste1, liste2 })
             texteCorr += mathalea2d({ scale: 0.5, xmin: -0.2, xmax: (quotientier(n * a, b) + 1) * 5, ymin: -1, ymax: 2, style: 'display: inline' }, schemaCorr)
           }
           schema = fractionCliquable(0, 0, 4, b)
