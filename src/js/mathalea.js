@@ -299,11 +299,11 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
   if (!isdiaporama) {
     if (obj.typeExercice === 'dnb') {
       contenuUnExercice += ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroExercice})</h3>`
-      contenuUnExercice += `<img width="90%" src="${obj.png}">`
+      contenuUnExercice += `<div><div class="question"><img width="90%" src="${obj.png}"></div></div>`
       contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${
         obj.numeroExercice
       },'${numeroExercice - 1}')</h3>`
-      contenuUneCorrection += `<img width="90%" src="${obj.pngcor}">`
+      contenuUneCorrection += `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
       obj.video = false
     } else if (obj.typeExercice === 'simple') {
       if (obj.interactif) {
