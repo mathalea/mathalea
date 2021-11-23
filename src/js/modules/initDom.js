@@ -617,8 +617,6 @@ export async function initDom () {
     await addFetchHtmlToParent('templates/footer.html', document.body, 'footer')
   } else if (vue === 'diap') {
     const footer = addElement(document.body, 'footer')
-    const divExercices = document.getElementById('exercices').offsetHeight
-    console.log(divExercices)
     footer.style.position = 'fixed'
     footer.style.bottom = '10px'
     footer.style.right = '10px'
