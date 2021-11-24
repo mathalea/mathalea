@@ -38,7 +38,7 @@ export default function PasserDUneBaseA1Autre () {
         case 'vers_base_10':
           n = randint(1, b - 1) * 10 + randint(0, b - 1)
           m = randint(1, b - 1) * 1000 + randint(0, b - 1) * 100 + randint(0, b - 1) * 10 + randint(0, b - 1)
-          texte = `Les nombre $(${n})_${b}$ et $(${m})_${b}$ sont écrits en base ${b}. Donner leur écriture en base 10.`
+          texte = `Les nombres $(${n})_${b}$ et $(${m})_${b}$ sont écrits en base ${b}. Exprimer leur écriture en base 10.`
           texteCorr = `$(${n})_${b}=${n.toString()[0]}\\times${b}+${n.toString()[1]}=${parseInt(n, b)}$`
           texteCorr += `<br>$(${m})_${b}=${m.toString()[0]}\\times${b}^3+${m.toString()[1]}\\times${b}^2+${m.toString()[2]}\\times${b}+${m.toString()[3]}=${parseInt(m, b)}$`
           break
@@ -47,7 +47,7 @@ export default function PasserDUneBaseA1Autre () {
           chiffre2 = randint(0, b - 1)
           chiffre3 = randint(0, b - 1)
           n = chiffre1 * b ** 2 + chiffre2 * b + chiffre3
-          texte = `Écrire en base ${b} le nombre ${n}.`
+          texte = `Écrire en base ${b} le nombre dont l'écriture décimale est ${n}.`
           texteCorr = `$${n}=${b}\\times${Math.floor(n / b)}+${miseEnEvidence(n % b)}$`
           texteCorr += `<br>$${Math.floor(n / b)}=${b}\\times${miseEnEvidence(chiffre1)}+${miseEnEvidence(chiffre2)}$`
           texteCorr += `<br> Finalement $${n}=(${chiffre1}${chiffre2}${chiffre3})_${b}$`
@@ -58,14 +58,14 @@ export default function PasserDUneBaseA1Autre () {
           chiffre3 = randint(0, b - 1)
           chiffre4 = randint(0, b - 1)
           n = chiffre1 * b ** 3 + chiffre2 * b ** 2 + chiffre3 * b + chiffre4
-          texte = `Écrire en base ${b} le nombre ${n}.`
+          texte = `Écrire en base ${b} le nombre dont l'écriture décimale est ${n}.`
           texteCorr = `$${n}=${b}\\times${Math.floor(n / b)}+${miseEnEvidence(n % b)}$`
           texteCorr += `<br>$${Math.floor(n / b)}=${b}\\times${Math.floor(Math.floor(n / b) / b)}+${miseEnEvidence(Math.floor(n / b) % b)}$`
           texteCorr += `<br>$${Math.floor(Math.floor(n / b) / b)}=${b}\\times${miseEnEvidence(chiffre1)}+${miseEnEvidence(chiffre2)}$`
           texteCorr += `<br> Finalement $${n}=(${chiffre1}${chiffre2}${chiffre3}${chiffre4})_${b}$`
           break
         case 'plus_grand_4_chiffres':
-          texte = `Quel est le plus grand nombre à 4 chiffres que l'on peut écrire en base ${b}.`
+          texte = `Quel est le plus grand nombre à 4 chiffres que l'on peut écrire en base ${b} ?`
           texte += `<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`
           texteCorr = `En base ${b} les chiffres sont 0`
           for (let i = 1; i < b; i++) {
@@ -75,7 +75,7 @@ export default function PasserDUneBaseA1Autre () {
           texteCorr += `<br> $(10000)_${b}=1\\times${b}^4=${texNombre(b ** 4)}$ donc $(${b - 1}${b - 1}${b - 1}${b - 1})_${b}=${b ** 4}-1=${texNombre(b ** 4 - 1)}$.`
           break
         case 'plus_grand_3_chiffres':
-          texte = `Quel est le plus grand nombre à 3 chiffres que l'on peut écrire en base ${b}.`
+          texte = `Quel est le plus grand nombre à 3 chiffres que l'on peut écrire en base ${b} ?`
           texte += `<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`
           texteCorr = `En base ${b} les chiffres sont 0`
           for (let i = 1; i < b; i++) {
