@@ -27,7 +27,7 @@ export default function Intervalles () {
         c = calcul(randint(-4, -1) + randint(-9, -1) / 10)
         N = choice(['a', 'b', 'c', 'd', 'e'])//, ${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}     Bigg[${a}  ${sp(2)} ; ${sp(2)} ${b}\\Bigg]$ <br><br>$\\left]${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right]$?<br>
         if (N === 'a') {
-          this.question = `Combien y a-t-il d'entiers dans l'intervalle  $\\bigg[${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg]$       
+          this.question = `Combien y a-t-il d'entiers dans l'intervalle  $\\bigg[${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg]$ ?      
                     `
           this.correction = ` Il y a $${b - a + 1}$ entiers dans l'intervalle $\\bigg[${a}${sp(1)} ; ${sp(1)}${b}\\bigg]$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
