@@ -238,7 +238,11 @@ $${showFracNumDenDec(f.num, f.den)}=${showFracNumDenDec(fEqOrNot.num, fEqOrNot.d
           texte: 'Cet exercice ne correspondait plus au programme de 5e, vous le retrouvez au niveau 4e <a href="https://coopmaths.fr/mathalea.html?ex=4C20-2"> en cliquant ici</a>.',
           couleur: 'nombres'
         })
-        texteCorr = ''
+        texteCorr = infoMessage({
+          titre: 'Hors programme 5e',
+          texte: 'Cet exercice ne correspondait plus au programme de 5e, vous le retrouvez au niveau 4e <a href="https://coopmaths.fr/mathalea.html?ex=4C20-2"> en cliquant ici</a>.',
+          couleur: 'nombres'
+        })
       }
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
