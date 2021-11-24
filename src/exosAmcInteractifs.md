@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 371 
-- nombre d'exos interactifReady 512 
+- nombre d'exos amcReady 372 
+- nombre d'exos interactifReady 513 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -100,6 +100,7 @@
 |4C10-4|Quotient de deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-6|Multiplications et quotients de relatifs : signe avec une lettre|OK|qcmMono|OK|qcm|
 |4C11|Calculs utilisant les priorités opératoires|KO|KO|OK|mathLive|
+|4C20-2|Fractions égales et égalité des produits en croix 4e|OK|qcmMono|OK|qcm|
 |4C20|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
 |4C21-1|Additionner deux fractions|OK|AMCNum|OK|mathLive|
 |4C21|Additionner ou soustraire deux fractions|OK|AMCNum|OK|mathLive|
@@ -397,7 +398,7 @@
 |can4C06|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can4C07|Différence de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
 |can4C08|Somme de puissances de 10|OK|AMCNum|OK|mathLive|
-|can4C09|Puissances de 2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
+|can4C09|Puissances de +/-2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
 |can4C10|Somme ou différence de fractions égyptiennes|OK|AMCNum|OK|mathLive|
 |can4G01|Calcul d’une longueur d’un côté avec le Théorème de Pythagore|OK|AMCNum|OK|mathLive|
 |can4G02|Image de point par transformation 4e|KO|KO|OK|mathLive|
