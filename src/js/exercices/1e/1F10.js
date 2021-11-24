@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, lettreMinusculeDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, lettreMinusculeDepuisChiffre, rienSi1 } from '../../modules/outils.js'
 import { simplify, parse, derivative } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Calculs de dérivées'
@@ -55,7 +55,7 @@ export default function CalculsDeDerives () {
           a = randint(-10, 10, 0)
           b = randint(-10, 10, 0)
           c = randint(-10, 10, 0)
-          expression = `${a} x^2  ${ecritureAlgebriqueSauf1(b)} x  ${ecritureAlgebrique(c)}`
+          expression = `${rienSi1(a)} x^2  ${ecritureAlgebriqueSauf1(b)} x  ${ecritureAlgebrique(c)}`
           ensembleDerivation = '\\mathbb{R}'
           break
         case 'xn':
@@ -112,7 +112,7 @@ export default function CalculsDeDerives () {
           break
         case 'racine(ax)':
           a = randint(2, 10, [4, 9])
-          expression = `sqrt(${a}x)`
+          expression = `sqrt(${rienSi1(a)}x)`
           ensembleDerivation = '[0,+\\infin['
           break
       }

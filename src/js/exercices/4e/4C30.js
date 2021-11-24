@@ -64,6 +64,8 @@ export default function PuissancesDeDix () {
         lettre,
         texte,
         texteCorr,
+        reponseInteractive,
+        exposantInteractif,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
@@ -77,8 +79,7 @@ export default function PuissancesDeDix () {
 
       switch (typesDeQuestions) {
         case 1: // produit de puissances de même base
-          texte = `$${lettre}=10^${exp[0]}\\times 10^${exp[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
-
+          texte = `$${lettre}=10^${exp[0]}\\times 10^${exp[1]}$`
           texteCorr = `$${lettre}=10^${exp[0]}\\times 10^${exp[1]}$`
           if (this.correctionDetaillee) {
             texteCorr += '<br>'
@@ -93,14 +94,14 @@ export default function PuissancesDeDix () {
           texteCorr += '<br>'
           texteCorr += `$${lettre}=10^{${exp[0]}+${exp[1]}} = 10^{${exp[0] + exp[1]
             }}`
-          setReponse(this, i, `10^{${exp[0] + exp[1]}}`, { formatInteractif: 'puissance' })
           // attention la base est de type str alors que la fonction switch sur un type number
-          // if (simpNotPuissance(10, exp[0] + exp[1]) != ` `) {
           if ((exp[1] + exp[0]) % 2 === 0) {
             texteCorr += `=${simpNotPuissance(10, exp[0] + exp[1])}`
           }
           texteCorr += '$'
           texteCorr += '<br>'
+          reponseInteractive = `10^{${exp[0] + exp[1]}}`
+          exposantInteractif = exp[0] + exp[1]
           break
         case 2: // quotient de puissances de même base
           // Pour que la couleur de la 10 associée à l'exposant max soit toujours rouge.
@@ -111,9 +112,7 @@ export default function PuissancesDeDix () {
             couleurExp0 = coul1
             couleurExp1 = coul0
           }
-
-          texte = `$${lettre}=\\dfrac{10^${exp[0]}}{10^${exp[1]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
-
+          texte = `$${lettre}=\\dfrac{10^${exp[0]}}{10^${exp[1]}}$`
           texteCorr = `$${lettre}=\\dfrac{10^${exp[0]}}{10^${exp[1]}}$`
           if (this.correctionDetaillee) {
             texteCorr += '<br><br>'
@@ -154,9 +153,7 @@ export default function PuissancesDeDix () {
               )}\\times${eclatePuissance(10, exp[1] - exp[0], couleurExp1)}}$`
             }
             texteCorr += '<br><br>'
-            texteCorr += `$${lettre}=\\dfrac{1}{10^{${exp[1]}-${exp[0]
-              }}}=\\dfrac{1}{10^{${exp[1] - exp[0]}}}`
-            // if (simpNotPuissance(10, exp[1] - exp[0]) != ` `) {
+            texteCorr += `$${lettre}=\\dfrac{1}{10^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{10^{${exp[1] - exp[0]}}}`
             if ((exp[1] - exp[0]) % 2 === 0) {
               texteCorr += `=\\dfrac{1}{${simpNotPuissance(
                 10,
@@ -180,19 +177,16 @@ export default function PuissancesDeDix () {
             texteCorr += '<br><br>'
             texteCorr += `$${lettre}=10^{${exp[0]}-${exp[1]}}=10^{${exp[0] - exp[1]
               }}`
-            // if (simpNotPuissance(10, exp[0] - exp[1]) != ` `) {
-            // if ((exp[0] - exp[1])%2==0) {
-            //   texteCorr += `=${simpNotPuissance(10, exp[0] - exp[1])}`;
-            // }
           }
           setReponse(this, i, `10^{${exp[0] - exp[1]}}`, { formatInteractif: 'puissance' })
           texteCorr += '$'
           texteCorr += '<br>'
+          reponseInteractive = `10^{${exp[0] - exp[1]}}`
+          exposantInteractif = exp[0] - exp[1]
           break
         case 3: // exponentiation
           exp = [randint(2, 4), randint(2, 4)] // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
-          texte = `$${lettre}=(10^${exp[0]})^{${exp[1]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
-
+          texte = `$${lettre}=(10^${exp[0]})^{${exp[1]}}$`
           texteCorr = `$${lettre}=(10^${exp[0]})^{${exp[1]}}$`
           if (this.correctionDetaillee) {
             texteCorr += '<br>'
@@ -218,18 +212,14 @@ export default function PuissancesDeDix () {
           texteCorr += '<br>'
           texteCorr += `$${lettre}=10^{${exp[0]}\\times${exp[1]}} = 10^{${exp[0] * exp[1]
             }}`
-          setReponse(this, i, `10^{${exp[0] * exp[1]}}`, { formatInteractif: 'puissance' })
-
-          // if (simpNotPuissance(10, exp[0] * exp[1]) != ` `) {
-          // if ((exp[1] * exp[0])%2==0) {
-          //   texteCorr += `= ${simpNotPuissance(10, exp[0] * exp[1])}`;
-          // }
           texteCorr += '$'
           texteCorr += '<br>'
+          reponseInteractive = `10^{${exp[0] * exp[1]}}`
+          exposantInteractif = exp[0] * exp[1]
           break
         case 4:
           exp = [randint(1, 7, [1]), randint(1, 7, [1]), randint(1, 7, [1])] // on a besoin de 3 exposants distincts
-          texte = `$\\dfrac{10^${exp[0]}\\times 100}{10^${exp[1]} \\times 10^${exp[2]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
+          texte = `$\\dfrac{10^${exp[0]}\\times 100}{10^${exp[1]} \\times 10^${exp[2]}}$`
           texteCorr = `$\\dfrac{10^${exp[0]}\\times 100}{10^${exp[1]} \\times 10^${exp[2]}}`
           texteCorr += ` = \\dfrac{10^${exp[0]}\\times 10^{2}}{10^${exp[1]} \\times 10^${exp[2]}}`
           texteCorr += ` = \\dfrac{10^{${exp[0]}+2}}{10^{${exp[1]}+${exp[2]}}}`
@@ -244,13 +234,13 @@ export default function PuissancesDeDix () {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(10, exp[0] + 2 - exp[1] - exp[2])
           }
-          setReponse(this, i, `10^{${exp[0] + 2 - exp[1] - exp[2]}}`, { formatInteractif: 'puissance' })
-
           texteCorr += '$'
+          reponseInteractive = `10^{${exp[0] + 2 - exp[1] - exp[2]}}`
+          exposantInteractif = exp[0] + 2 - exp[1] - exp[2]
           break
         case 5:
           exp = [randint(1, 7, [1]), randint(1, 7, [1])] // on a besoin de 2 exposants distincts
-          texte = `$\\dfrac{10^${exp[0]}\\times 1000}{10^${exp[1]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
+          texte = `$\\dfrac{10^${exp[0]}\\times 1000}{10^${exp[1]}}$`
           texteCorr = `$\\dfrac{10^${exp[0]}\\times 1000}{10^${exp[1]}}`
           texteCorr += ` = \\dfrac{10^${exp[0]}\\times 10^3}{10^${exp[1]}}`
           texteCorr += ` = \\dfrac{10^{${exp[0]}+3}}{10^${exp[1]}}`
@@ -261,20 +251,21 @@ export default function PuissancesDeDix () {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(10, exp[0] + 3 - exp[1])
           }
-          setReponse(this, i, `10^{${exp[0] + 3 - exp[1]}}`, { formatInteractif: 'puissance' })
           texteCorr += '$'
+          reponseInteractive = `10^{${exp[0] + 3 - exp[1]}}`
+          exposantInteractif = exp[0] + 3 - exp[1]
           break
         case 6:
           exp = [randint(1, 7, [1]), randint(1, 2)] // on a besoin de 2 exposants distincts
           // le second exposant ne peut valoir que 1 ou 2 la fonction testExp ne convient pas à l'affichage ici
           if (exp[1] === 2) {
-            texte = `$\\dfrac{10\\times 10^${exp[0]}}{100^${exp[1]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
+            texte = `$\\dfrac{10\\times 10^${exp[0]}}{100^${exp[1]}}$`
             texteCorr = `$\\dfrac{10\\times 10^${exp[0]}}{100^${exp[1]}}`
             texteCorr += `=\\dfrac{10^{1+${exp[0]}}}{(10^2)^${exp[1]}}`
             texteCorr += `=\\dfrac{10^{1+${exp[0]}}}{10^{2 \\times ${exp[1]}}}`
             texteCorr += `=\\dfrac{10^{${1 + exp[0]}}}{10^{${2 * exp[1]}}}`
           } else {
-            texte = `$\\dfrac{10\\times 10^${exp[0]}}{100}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
+            texte = `$\\dfrac{10\\times 10^${exp[0]}}{100}$`
             texteCorr = `$\\dfrac{10\\times 10^${exp[0]}}{100}`
             texteCorr += `=\\dfrac{10^{1+${exp[0]}}}{10^2}`
           }
@@ -284,13 +275,13 @@ export default function PuissancesDeDix () {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(10, 1 + exp[0] - 2 * exp[1])
           }
-          setReponse(this, i, `10^{${1 + exp[0] - 2 * exp[1]}}`, { formatInteractif: 'puissance' })
-
           texteCorr += '$'
+          reponseInteractive = `10^{${1 + exp[0] - 2 * exp[1]}}`
+          exposantInteractif = 1 + exp[0] + 2 * exp[1]
           break
         case 7:
           exp = [randint(1, 7, [1])] // on a besoin de 1 exposant
-          texte = `$\\dfrac{10\\times 10^${exp[0]}}{100\\times 100}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
+          texte = `$\\dfrac{10\\times 10^${exp[0]}}{100\\times 100}$`
           texteCorr = `$\\dfrac{10\\times 10^${exp[0]}}{100\\times 100}`
           texteCorr += `=\\dfrac{10^{1+${exp[0]}}}{10^2\\times 10^2}`
           texteCorr += `=\\dfrac{10^{${1 + exp[0]}}}{10^{2+2}}`
@@ -301,37 +292,40 @@ export default function PuissancesDeDix () {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(10, exp[0] - 3)
           }
-          setReponse(this, i, `10^{${exp[0] - 3}}`, { formatInteractif: 'puissance' })
+
           texteCorr += '$'
+          reponseInteractive = `10^{${exp[0] - 3}}`
+          exposantInteractif = exp[0] - 3
           break
         case 8:
           exp = [randint(1, 7, [1])] // on a besoin de 1 exposant
-          texte = `$\\dfrac{100^${exp[0]}}{10}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
+          texte = `$\\dfrac{100^${exp[0]}}{10}$`
           texteCorr = `$\\dfrac{100^${exp[0]}}{10}`
           texteCorr += `=\\dfrac{(10^2)^${exp[0]}}{10}`
           texteCorr += `=\\dfrac{10^{2\\times ${exp[0]}}}{10}`
           texteCorr += `=\\dfrac{10^{${2 * exp[0]}}}{10}`
           texteCorr += `=10^{${2 * exp[0]}-1}`
           texteCorr += `=10^{${2 * exp[0] - 1}}$`
-          setReponse(this, i, `10^{${2 * exp[0] - 1}}`, { formatInteractif: 'puissance' })
-
+          reponseInteractive = `10^{${2 * exp[0] - 1}}`
+          exposantInteractif = 2 * exp[0] - 1
           // Inutile de tester l'exposant final car il vaut au minimum 3
           break
         case 9:
           exp = [randint(1, 3, [1])] // on a besoin de 1 exposant
-          texte = `$\\dfrac{1000^${exp[0]}}{10}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
+          texte = `$\\dfrac{1000^${exp[0]}}{10}$`
           texteCorr = `$\\dfrac{1000^${exp[0]}}{10}`
           texteCorr += `=\\dfrac{(10^3)^${exp[0]}}{10}`
           texteCorr += `=\\dfrac{10^{3\\times ${exp[0]}}}{10}`
           texteCorr += `=\\dfrac{10^{${3 * exp[0]}}}{10}`
           texteCorr += `=10^{${3 * exp[0]}-1}`
           texteCorr += `=10^{${3 * exp[0] - 1}}$`
-          setReponse(this, i, `10^{${3 * exp[0] - 1}}`, { formatInteractif: 'puissance' })
+          reponseInteractive = `10^{${3 * exp[0] - 1}}`
+          exposantInteractif = 3 * exp[0] - 1
           // inutile de tester l'exposant final car il vaut au minimum 5
           break
         case 10:
           exp = [randint(1, 7, [1]), randint(1, 7, [1]), randint(1, 4, [1])] // on a besoin de 3 exposants distincts
-          texte = `$\\dfrac{10^${exp[0]}\\times 10^${exp[1]}}{100^${exp[2]}}\\times 10$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
+          texte = `$\\dfrac{10^${exp[0]}\\times 10^${exp[1]}}{100^${exp[2]}}\\times 10$`
           texteCorr = `$\\dfrac{10^${exp[0]}\\times 10^${exp[1]}}{100^${exp[2]}}\\times 10`
           texteCorr += `=\\dfrac{10^{${exp[0]}+${exp[1]}}}{(10^2)^${exp[2]}}\\times 10`
           texteCorr += `=\\dfrac{10^{${exp[0] + exp[1]}}}{10^{2\\times ${exp[2]
@@ -353,12 +347,13 @@ export default function PuissancesDeDix () {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
             texteCorr += '=' + simpExp(10, exp[0] + exp[1] + 1 - 2 * exp[2])
           }
-          setReponse(this, i, `10^{${exp[0] + exp[1] + 1 - 2 * exp[2]}}`, { formatInteractif: 'puissance' })
           texteCorr += '$'
+          reponseInteractive = `10^{${exp[0] + exp[1] + 1 - 2 * exp[2]}}`
+          exposantInteractif = exp[0] + exp[1] + 1 - 2 * exp[2]
           break
         case 11:
           exp = [randint(1, 7, [1])] // on a besoin de 1 exposant
-          texte = `$\\dfrac{1000\\times 10}{100^${exp[0]}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
+          texte = `$\\dfrac{1000\\times 10}{100^${exp[0]}}$`
           texteCorr = `$\\dfrac{1000\\times 10}{100^${exp[0]}}`
           texteCorr += `=\\dfrac{10^3\\times 10}{(10^2)^${exp[0]}}`
           texteCorr += `=\\dfrac{10^{3+1}}{10^{2\\times${exp[0]}}}`
@@ -369,9 +364,17 @@ export default function PuissancesDeDix () {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
             texteCorr += '=' + simpExp(10, 3 + 1 - 2 * exp[0])
           }
-          setReponse(this, i, `10^{${4 - 2 * exp[0]}}`, { formatInteractif: 'puissance' })
           texteCorr += '$'
+          reponseInteractive = `10^{${4 - 2 * exp[0]}}`
+          exposantInteractif = 4 - 2 * exp[0]
           break
+      }
+      if (this.interactif && !context.isAmc) {
+        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+      }
+      if (context.isAmc) {
+        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: 10, exposantPuissance: exposantInteractif })
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre

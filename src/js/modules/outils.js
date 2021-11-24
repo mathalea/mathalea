@@ -167,6 +167,15 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
   }
 }
 /**
+ *
+ * @param {string} texte
+ * @returns le texte centré dans la page selon le contexte.
+ * @author Jean-Claude Lhote
+ */
+export function centrage (texte) {
+  return context.isHtml ? `<center>${texte}</center>` : `\\begin{center}\n\t${texte}\n\\end{center}\n`
+}
+/**
  * Contraint une valeur à rester dans un intervalle donné. Si elle est trop petite, elle prend la valeur min, si elle est trop grande elle prend la valeur max
  * @author Jean-Claude Lhote à partir du code de Eric Elter
  * @param {number} min borne inférieur
@@ -500,7 +509,7 @@ export function enleveElementNoBis (array, index) {
 */
 export function choice (liste, listeAEviter = []) {
   // copie la liste pour ne pas y toucher (ce n'est pas le but de choice)
-  if (!Number(listeAEviter).isNan) {
+  if (!Array.isArray(listeAEviter)) {
     listeAEviter = [listeAEviter]
   }
   const listebis = liste.slice()
@@ -7453,6 +7462,7 @@ export function exportQcmAmc (exercice, idExo) {
           }
           texQr += '\n'
           texQr += `Base\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.basePuissance}}{digits=${digitsBase},decimals=0,sign=false,approx=0,`
+          if (autoCorrection[j].reponse.param.aussiCorrect !== undefined) texQr += `alsocorrect=${autoCorrection[j].reponse.param.aussiCorrect}`
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n'
           texQr += '\\AMCquestionNumberfalse\\def\\AMCbeginQuestion#1#2{}'

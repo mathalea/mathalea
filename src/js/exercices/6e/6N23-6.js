@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, arrondi, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, arrondi, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale, texFraction, arrondiVirgule } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 export const amcReady = true // Jusqu'à l'adaptation à la version 2.6
 export const interactifReady = true
@@ -100,7 +100,7 @@ export default function DivisionFraction () {
       }
       if (this.sup === 2) {
         this.consigne =
-          'Calculer une valeur approchée au millième près des fractions suivantes.'
+          'Calculer une valeur approchée au centième près des fractions suivantes.'
       }
       texte = `$${texFraction(texNombre(a), texNombre(b))}$`
       if (this.sup === 1) {
@@ -108,7 +108,7 @@ export default function DivisionFraction () {
         texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}=${texNombre(q)}$`
       } else {
         texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
-        texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}\\approx${texNombre(q)}$`
+        texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}\\approx${arrondiVirgule(q)}$`
       }
       setReponse(this, i, q)
       if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexte(this, i)

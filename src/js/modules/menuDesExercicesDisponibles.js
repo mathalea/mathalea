@@ -18,7 +18,7 @@ for (const item in dictionnaireDNB) {
   }
 }
 // transforme le set en tableau dans l'ordre alphabétique
-const tableauTags = ([...tags].sort())
+const tableauTags = ([...tags].sort((a, b) => { return a.localeCompare(b) })) // Ordre alphabétique avec localCompare pour tenir compte des accents
 enleveElement(tableauTags, "Système d'équations")
 enleveElement(tableauTags, 'Hors programme')
 
