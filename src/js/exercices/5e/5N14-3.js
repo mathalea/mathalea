@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombre2, texteEnCouleur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombre2, texteEnCouleur, infoMessage } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Fractions égales et égalité des produits en croix'
@@ -39,6 +39,7 @@ export default function EqResolvantesThales () {
 
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
+  this.niveau = '5e'
 
   this.nouvelleVersion = function () {
     let typesDeQuestionsDisponibles = []
@@ -230,6 +231,12 @@ $${showFracNumDenDec(f.num, f.den)}=${showFracNumDenDec(fEqOrNot.num, fEqOrNot.d
           };
           break
       };
+      if (this.niveau = '5e') {
+        texte = infoMessage({
+
+        })
+        texteCorr=''
+      }
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
