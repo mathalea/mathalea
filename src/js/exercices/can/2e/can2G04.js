@@ -44,7 +44,7 @@ export default function CalculCoordonneesMilieu () {
         Déterminer les coordonnées du milieu de $[O${nom[0]}]$ sous forme décimale.`
         this.optionsChampTexte = { texteApres: '' }
         this.correction = `Comme les coordonnées du point $O$ sont $(0;0)$, les coordonnées du milieu sont  données par : 
-        $\\left(\\dfrac{0+${ecritureParentheseSiNegatif(a)}}{2};\\dfrac{0+${ecritureParentheseSiNegatif(a)}}{2}\\right)
+        $\\left(\\dfrac{0+${ecritureParentheseSiNegatif(a)}}{2};\\dfrac{0+${ecritureParentheseSiNegatif(b)}}{2}\\right)
         =(${texNombrec((a) / 2)};${texNombrec((b) / 2)})$<br>`
         this.correction += texteEnCouleur(` Mentalement : <br>
        Puisque le premier point est l'orogine du repère, les coordonnées du milieu sont données par la moitié de l'abscisse et de l'ordonnée du deuxième point.
