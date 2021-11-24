@@ -2314,7 +2314,7 @@ export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
  * @author Jean-Claude Lhote
  */
 class Boite {
-  constructor ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteMath = false, echelleFigure = 1 } = {}) {
+  constructor ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteOpacite = 0.7, texteMath = false, echelleFigure = 1 } = {}) {
     ObjetMathalea2D.call(this)
     this.forme = polygone([point(Xmin, Ymin), point(Xmax, Ymin), point(Xmax, Ymax), point(Xmin, Ymax)], color)
     if (colorFill) {
@@ -2323,7 +2323,7 @@ class Boite {
     }
     if (texteIn !== '') {
       this.texte = texteParPositionEchelle(texteIn, (Xmin + Xmax) / 2, (Ymin + Ymax) / 2, 'milieu', texteColor, tailleTexte, 'middle', texteMath, echelleFigure)
-      this.texte.opacite = 0.5
+      this.texte.opacite = texteOpacite
     } else {
       this.texte = false
     }
@@ -2336,8 +2336,8 @@ class Boite {
   }
 }
 
-export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteMath = false, echelleFigure = 1 } = {}) {
-  return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor, texteMath: texteMath, echelleFigure: echelleFigure })
+export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteOpacite = 0.7, texteMath = false, echelleFigure = 1 } = {}) {
+  return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor: texteColor, texteOpacite: texteOpacite, texteMath: texteMath, echelleFigure: echelleFigure })
 }
 
 class Plateau2dNLC {
@@ -2450,20 +2450,20 @@ class Plateau2dNLC {
       for (let Y = 0; Y < 12; Y++) {
         switch (type) {
           case 1:
-            b = boite({ Xmin: X * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymin: Y * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), Xmax: (X + 1) * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymax: (Y + 1) * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), color: 'gray', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(this.plateauNLC[11 - Y][X]), echelleFigure: scale })
-            b.opacite = 0.5
+            b = boite({ Xmin: X * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymin: Y * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), Xmax: (X + 1) * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymax: (Y + 1) * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), color: 'black', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(this.plateauNLC[11 - Y][X]), echelleFigure: scale })
+            b.opacite = 0.8
             break
           case 2:
-            b = boite({ Xmin: X * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymin: Y * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), Xmax: (X + 1) * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymax: (Y + 1) * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), color: 'gray', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(this.plateauNLC[11 - Y][X]), tailleTexte: 1.2, texteIn: this.traducNum(this.plateauNLC[11 - Y][X]), echelleFigure: scale })
-            b.opacite = 0.5
+            b = boite({ Xmin: X * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymin: Y * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), Xmax: (X + 1) * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymax: (Y + 1) * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), color: 'black', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(this.plateauNLC[11 - Y][X]), tailleTexte: 1.2, texteColor: 'black', texteOpacite: 0.8, texteIn: this.traducNum(this.plateauNLC[11 - Y][X]), echelleFigure: scale })
+            b.opacite = 0.8
             break
           case 3:
-            b = boite({ Xmin: X * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymin: Y * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), Xmax: (X + 1) * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymax: (Y + 1) * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 0.8, texteIn: this.traducLettres(this.plateauNLC[11 - Y][X]), echelleFigure: scale })
-            b.opacite = 0.5
+            b = boite({ Xmin: X * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymin: Y * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), Xmax: (X + 1) * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymax: (Y + 1) * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), color: 'black', opaciteDeRemplissage: 1, colorFill: 'white', tailleTexte: 0.9, texteColor: 'black', texteOpacite: 0.9, texteIn: this.traducLettres(this.plateauNLC[11 - Y][X]), echelleFigure: scale })
+            b.opacite = 0.8
             break
           case 4:
-            b = boite({ Xmin: X * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymin: Y * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), Xmax: (X + 1) * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymax: (Y + 1) * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 1.2, texteIn: this.traducNum(this.plateauNLC[11 - Y][X]), echelleFigure: scale })
-            b.opacite = 0.5
+            b = boite({ Xmin: X * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymin: Y * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), Xmax: (X + 1) * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymax: (Y + 1) * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), color: 'black', opaciteDeRemplissage: 1, colorFill: 'white', tailleTexte: 1.2, texteColor: 'black', texteOpacite: 0.9, texteIn: this.traducNum(this.plateauNLC[11 - Y][X]), echelleFigure: scale })
+            b.opacite = 0.8
             break
         }
         plateau2d.push(b)
