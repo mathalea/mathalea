@@ -573,6 +573,9 @@ export default function Note_la_couleur () {
         }
       }
       texteCorr += '<br><br>' + mathalea2d(paramsCorrection, objetsCorrection, lutin)
+      if (q < this.nbQuestions - 1 && !context.isHtml) {
+        texteCorr += '\n\\newpage'
+      }
       if (this.questionJamaisPosee(q, xdepart, ydepart, angledepart)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
