@@ -6090,7 +6090,7 @@ export default {
     "interactifType": "mathLive",
     "name": "6C11-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9629,11 +9629,11 @@ export default {
     "interactifType": "mathLive",
     "name": "betaModele00_simple_Course_au_Nombres",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9644,11 +9644,11 @@ export default {
     "interactifReady": false,
     "name": "betaModele10_simple_question-reponse",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9659,11 +9659,11 @@ export default {
     "interactifReady": false,
     "name": "betaModele11_parametrable",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9674,11 +9674,11 @@ export default {
     "interactifReady": false,
     "name": "betaModele20_plusieurs_types_de_questions",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9689,11 +9689,11 @@ export default {
     "interactifReady": false,
     "name": "betaModele21_parametrables",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9704,11 +9704,11 @@ export default {
     "interactifReady": false,
     "name": "betaModele30_constructions_géométriques",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9719,11 +9719,11 @@ export default {
     "interactifReady": false,
     "name": "betaModele31_parametrables",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9735,11 +9735,11 @@ export default {
     "interactifType": "cliqueFigure",
     "name": "betaModele32_cliqueFigure",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9751,11 +9751,11 @@ export default {
     "interactifType": "custom",
     "name": "betaModele33_cliqueFractions",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9766,11 +9766,11 @@ export default {
     "interactifReady": false,
     "name": "betaModele40_tableau_proportionnalite",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9781,11 +9781,11 @@ export default {
     "interactifReady": false,
     "name": "betaModele41_tableau_signes_variations",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -10495,7 +10495,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2F04",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10805,7 +10805,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2L06",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11218,7 +11218,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can3F06",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11234,7 +11234,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can3F07",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11250,7 +11250,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can3F08",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11266,7 +11266,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can3F09",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11438,7 +11438,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can3L05",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11454,7 +11454,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can3L06",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11733,7 +11733,7 @@ export default {
     }
   },
   "can4C09": {
-    "titre": "Puissances de 2, 3, 4 ou 5",
+    "titre": "Puissances de +/-2, 3, 4 ou 5",
     "url": "/exercices/can/4e/can4C09.js",
     "amcReady": true,
     "amcType": {
@@ -12080,7 +12080,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can4P04",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

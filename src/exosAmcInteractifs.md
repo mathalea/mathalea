@@ -397,7 +397,7 @@
 |can4C06|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can4C07|Différence de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
 |can4C08|Somme de puissances de 10|OK|AMCNum|OK|mathLive|
-|can4C09|Puissances de 2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
+|can4C09|Puissances de +/-2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
 |can4C10|Somme ou différence de fractions égyptiennes|OK|AMCNum|OK|mathLive|
 |can4G01|Calcul d’une longueur d’un côté avec le Théorème de Pythagore|OK|AMCNum|OK|mathLive|
 |can4G02|Image de point par transformation 4e|KO|KO|OK|mathLive|
