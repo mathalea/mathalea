@@ -8932,7 +8932,7 @@ export default {
     }
   },
   "PEA11": {
-    "titre": "Passer de la base 10 à une autre base et inversement",
+    "titre": "Passer de la base dix à une autre base et inversement",
     "url": "/exercices/PE/PEA11.js",
     "amcReady": false,
     "interactifReady": false,
@@ -10278,7 +10278,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1L01",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13811,7 +13811,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canExC01",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13830,7 +13830,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canExC02",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
