@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombre2, texteEnCouleur, infoMessage } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombre2, texteEnCouleur } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Fractions égales et égalité des produits en croix'
@@ -55,13 +55,13 @@ export default function EqResolvantesThales () {
 
     // const listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
-    if (this.niveau === '5e') {
-      this.introduction = infoMessage({
-        titre: 'ATTENTION - Hors programme 5e',
-        texte: 'Cet exercice ne correspond plus au programme de 5e, vous le retrouvez au niveau 4e <a href="https://coopmaths.fr/mathalea.html?ex=4C20-2"> en cliquant ici</a>.',
-        couleur: 'nombres'
-      })
-    }
+    // if (this.niveau === '5e') {
+    //   this.introduction = infoMessage({
+    //     titre: 'ATTENTION - Hors programme 5e',
+    //     texte: 'Cet exercice ne correspond plus au programme de 5e, vous le retrouvez au niveau 4e <a href="https://coopmaths.fr/mathalea.html?ex=4C20-2"> en cliquant ici</a>.',
+    //     couleur: 'nombres'
+    //   })
+    // }
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On a besoin d'un booléen pour que tout ne soit pas vrai ou faux
       let equalOrNot
