@@ -2402,10 +2402,9 @@ export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black'
 }
 
 class Plateau2dNLC {
-  constructor (type = 1, melange = false, scale = 0.5, relatif = true) {
-    ObjetMathalea2D.call(this)
-    this.relatif = relatif
-    this.plateauNLC = [
+  constructor ({
+    type = 1, melange = false, scale = 0.5, relatif = true, pas = 30, nx = 16, ny = 12,
+    plateau = [
       ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
       ['Blanc', 'Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir', 'Jaune', 'Blanc'],
       ['Blanc', 'Rouge', 'Bleu', 'Orange', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Bleu', 'Rouge', 'Gris', 'Rouge', 'Blanc'],
@@ -2419,6 +2418,16 @@ class Plateau2dNLC {
       ['Blanc', 'Rose', 'Bleu', 'Jaune', 'Rose', 'Orange', 'Rouge', 'Bleu', 'Noir', 'Jaune', 'Gris', 'Vert', 'Jaune', 'Noir', 'Rouge', 'Blanc'],
       ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc']
     ]
+
+  } = {}) {
+    ObjetMathalea2D.call(this)
+    this.relatif = relatif
+    this.pas = pas
+    this.type = 1
+    this.scale = scale
+    this.nx = nx
+    this.ny = ny
+    this.plateauNLC = plateau
     if (melange) {
       for (let i = 0, x1, x2, y1, y2, kase; i < 20; i++) {
         y1 = randint(1, 10)
@@ -2507,44 +2516,44 @@ class Plateau2dNLC {
 
     const plateau2d = []
     let b
-    for (let X = 0; X < 16; X++) {
-      for (let Y = 0; Y < 12; Y++) {
+    for (let X = 0; X < this.nx; X++) {
+      for (let Y = 0; Y < this.ny; Y++) {
         switch (type) {
           case 1:
-            b = boite({ Xmin: X * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymin: Y * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), Xmax: (X + 1) * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymax: (Y + 1) * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), color: 'black', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(this.plateauNLC[11 - Y][X]), echelleFigure: scale })
+            b = boite({ Xmin: X * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymin: Y * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), Xmax: (X + 1) * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymax: (Y + 1) * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), color: 'black', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(this.plateauNLC[ny - 1 - Y][X]), echelleFigure: this.scale })
             b.opacite = 0.8
             break
           case 2:
-            b = boite({ Xmin: X * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymin: Y * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), Xmax: (X + 1) * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymax: (Y + 1) * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), color: 'black', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(this.plateauNLC[11 - Y][X]), tailleTexte: 1.2, texteColor: 'black', texteOpacite: 0.8, texteIn: this.traducNum(this.plateauNLC[11 - Y][X]), echelleFigure: scale })
+            b = boite({ Xmin: X * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymin: Y * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), Xmax: (X + 1) * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymax: (Y + 1) * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), color: 'black', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(this.plateauNLC[ny - 1 - Y][X]), tailleTexte: 1.2, texteColor: 'black', texteOpacite: 0.8, texteIn: this.traducNum(this.plateauNLC[ny - 1 - Y][X]), echelleFigure: this.scale })
             b.opacite = 0.8
             break
           case 3:
-            b = boite({ Xmin: X * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymin: Y * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), Xmax: (X + 1) * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymax: (Y + 1) * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), color: 'black', opaciteDeRemplissage: 1, colorFill: 'white', tailleTexte: 0.9, texteColor: 'black', texteOpacite: 0.9, texteIn: this.traducLettres(this.plateauNLC[11 - Y][X]), echelleFigure: scale })
+            b = boite({ Xmin: X * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymin: Y * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), Xmax: (X + 1) * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymax: (Y + 1) * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), color: 'black', opaciteDeRemplissage: 1, colorFill: 'white', tailleTexte: 0.9, texteColor: 'black', texteOpacite: 0.9, texteIn: this.traducLettres(this.plateauNLC[ny - 1 - Y][X]), echelleFigure: this.scale })
             b.opacite = 0.8
             break
           case 4:
-            b = boite({ Xmin: X * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymin: Y * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), Xmax: (X + 1) * 1.5 - 12 + 12 * (this.relatif ? 0 : 1), Ymax: (Y + 1) * 1.5 - 9 + 9 * (this.relatif ? 0 : 1), color: 'black', opaciteDeRemplissage: 1, colorFill: 'white', tailleTexte: 1.2, texteColor: 'black', texteOpacite: 0.9, texteIn: this.traducNum(this.plateauNLC[11 - Y][X]), echelleFigure: scale })
+            b = boite({ Xmin: X * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymin: Y * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), Xmax: (X + 1) * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymax: (Y + 1) * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), color: 'black', opaciteDeRemplissage: 1, colorFill: 'white', tailleTexte: 1.2, texteColor: 'black', texteOpacite: 0.9, texteIn: this.traducNum(this.plateauNLC[ny - 1 - Y][X]), echelleFigure: this.scale })
             b.opacite = 0.8
             break
         }
         plateau2d.push(b)
       }
     }
-    if (this.relatif) plateau2d.push(texteParPositionEchelle('-30', -1.6, -0.3, 'milieu', 'black', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('30', 1.5, -0.3, 'milieu', 'black', 1.2, 'middle', true, scale))
-    if (this.relatif) plateau2d.push(texteParPositionEchelle('-30', -0.5, -1.5, 'milieu', 'black', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('30', -0.5, 1.5, 'milieu', 'black', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('x', 11.5 + 13 * (this.relatif ? 0 : 1), 0.3 - (this.relatif ? 0 : 0.6), 'milieu', 'purple', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('y', -0.3, 8.5 + 10 * (this.relatif ? 0 : 1), 'milieu', 'purple', 1.2, 'middle', true, scale))
+    if (this.relatif) plateau2d.push(texteParPositionEchelle(`-${this.pas}`, -1.6, -0.3, 'milieu', 'black', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle(`${this.pas}`, 1.5, -0.3, 'milieu', 'black', 1.2, 'middle', true, scale))
+    if (this.relatif) plateau2d.push(texteParPositionEchelle(`-${this.pas}`, -0.5, -1.5, 'milieu', 'black', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle(`${this.pas}`, -0.5, 1.5, 'milieu', 'black', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('x', this.nx * (this.relatif ? 0.75 : 1.5) + 0.7, -(this.relatif ? 0.6 : 0.6), 'milieu', 'purple', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('y', -0.3, this.ny * (this.relatif ? 0.75 : 1.5) + 0.7, 'milieu', 'purple', 1.2, 'middle', true, scale))
     if (this.relatif) {
-      plateau2d.push(texteParPositionEchelle('+', 12.5, 0, 'milieu', 'purple', 1.2, 'middle', true, scale))
-      plateau2d.push(texteParPositionEchelle('-', -12.5, 0.2, 'milieu', 'purple', 1.2, 'middle', true, scale))
-      plateau2d.push(texteParPositionEchelle('+', 0, 9.5, 'milieu', 'purple', 1.2, 'middle', true, scale))
-      plateau2d.push(texteParPositionEchelle('-', 0, -9.3, 'milieu', 'purple', 1.2, 'middle', true, scale))
+      plateau2d.push(texteParPositionEchelle('+', (this.nx >> 1) * 1.5 + 0.8, 0, 'milieu', 'purple', 1.2, 'middle', true, scale))
+      plateau2d.push(texteParPositionEchelle('-', -(this.nx >> 1) * 1.5 - 0.5, 0.2, 'milieu', 'purple', 1.2, 'middle', true, scale))
+      plateau2d.push(texteParPositionEchelle('+', 0, (this.ny >> 1) * 1.5 + 0.8, 'milieu', 'purple', 1.2, 'middle', true, scale))
+      plateau2d.push(texteParPositionEchelle('-', 0, -(this.ny >> 1) * 1.5 - 0.5, 'milieu', 'purple', 1.2, 'middle', true, scale))
     }
-    const flechey = segment(0, -9 + 9 * (this.relatif ? 0 : 1), 0, 9 + 9 * (this.relatif ? 0 : 1), 'purple')
+    const flechey = segment(0, (this.ny >> 1) * (this.relatif ? -1.5 : 0), 0, (this.ny >> 1) * (this.relatif ? 1.5 : 3) + 0.5, 'purple')
     flechey.styleExtremites = '->'
-    const flechex = segment(-12 + 12 * (this.relatif ? 0 : 1), 0, 12 + 12 * (this.relatif ? 0 : 1), 0, 'purple')
+    const flechex = segment((this.nx >> 1) * (this.relatif ? -1.5 : 0), 0, (this.nx >> 1) * (this.relatif ? 1.5 : 3) + 0.5, 0, 'purple')
     flechex.styleExtremites = '->'
     plateau2d.push(flechey)
     plateau2d.push(flechex)
