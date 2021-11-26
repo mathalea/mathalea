@@ -996,6 +996,67 @@ export function dessousDessus (d, A) {
 export function estSurDroite (A, d) {
   return dessousDessus(d, A) === 'sur'
 }
+
+/**
+ *
+ * @param {object} objets
+ * @returns {object} {xmin, ymin, xmax, ymax}
+ */
+export function fixeBordures (objets) {
+  let xmin = 0; let ymin = 0; let xmax = 0; let ymax = 0
+  for (const objet of objets) {
+    xmin = Math.min(xmin, objet.x - 1 || 0)
+    xmax = Math.max(xmax, objet.x + 1 || 0)
+    ymin = Math.min(ymin, objet.y - 1 || 0)
+    ymax = Math.max(ymax, objet.y + 1 || 0)
+  }
+  return { xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax }
+}
+
+/**
+ *
+ * @param {droite} d
+ * @param {{number}} param1 les bordures de la fenêtre
+ * @returns le point qui servira à placer le label.
+ */
+export function positionLabelDroite (d, { xmin = 0, ymin = 0, xmax = 10, ymax = 10 }) {
+  let xLab, yLab
+  let fXmax, fYmax, fXmin, fYmin
+  if (d.b === 0) { // Si la droite est verticale son équation est x = -d.c/d.a on choisit un label au Nord.
+    xLab = -d.b / d.c - 0.5
+    yLab = ymax - 0.5
+  } else { // la droite n'étant pas verticale, on peut chercher ses intersections avec les différents bords.
+    const f = x => (-d.c - d.a * x) / d.b
+    fXmax = f(xmax)
+    if (fXmax < ymax && fXmax > ymin) { // la droite coupe le bord Est entre ymin+1 et ymax-1
+      xLab = xmax - 0.8
+      yLab = f(xLab)
+    } else {
+      fXmin = f(xmin)
+      if (fXmin < ymax && fXmin > ymin) {
+        xLab = xmin + 0.8
+        yLab = f(xLab)
+      } else { // la droite ne coupe ni la bordue Est ni la bordure Ouest elle coupe donc les bordures Nord et Sud
+        const g = y => (-d.c - d.b * y) / d.a
+        fYmax = g(ymax)
+        if (fYmax < xmax && fYmax > xmin) {
+          yLab = ymax - 0.8
+          xLab = g(yLab)
+        } else {
+          fYmin = g(ymin)
+          if (fYmin < xmax && fYmin > xmin) {
+            yLab = ymin + 0.8
+            xLab = g(yLab)
+          } else { // La droite ne passe pas dans la fenêtre on retourne un objet vide
+            return vide2d()
+          }
+        }
+      }
+    }
+  }
+  const position = translation(point(xLab, yLab), homothetie(vecteur(d.a, d.b), point(0, 0), 0.5 / norme(vecteur(d.a, d.b))))
+  return position
+}
 /**
  * d = droiteParPointEtVecteur(A,v,'d1',red') //Droite passant par A, de vecteur directeur v et de couleur rouge
  * @author Jean-Claude Lhote
