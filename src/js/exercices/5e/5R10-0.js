@@ -7,7 +7,7 @@ export const dateDeModifImportante = '26/11/2021'
 * * Remplir un tableau en utilisant la notion d'opposé
 * * 5R10-0
 * @author Sébastien Lozano
-* Ajout d'un paramètre pour afficher quelques fois le signe des nombres positif et ajout de l'interactivité par Guillaume Valmont le 26/11/2021
+* Ajout d'un paramètre pour afficher quelques fois le signe des nombres positif par Guillaume Valmont le 26/11/2021
 */
 
 export default function TrouverOppose () {
