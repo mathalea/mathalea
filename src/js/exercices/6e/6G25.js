@@ -1,7 +1,6 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre } from '../../modules/outils.js'
-import { point, tracePoint, pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, codageMediatrice, segmentAvecExtremites, cercle, pointIntersectionLC, dansLaCibleCarree, cibleCarree, homothetie, similitude, texteParPoint, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, codageMediatrice, segmentAvecExtremites, cercle, pointIntersectionLC, dansLaCibleCarree, cibleCarree, homothetie, similitude, texteParPoint, mathalea2d, positionLabelDroite, fixeBordures } from '../../modules/2d.js'
 export const titre = 'Construire des médiatrices avec cible auto-corrective'
 
 /**
@@ -32,14 +31,14 @@ export default function ConstruireMediatrices6e () {
     }
     // On prépare la figure...
     const noms = choisitLettresDifferentes(4, 'QI', true)
-    texte = `Construire la médiatrice $(d_1)$ du segment $[${noms[0]}${noms[1]}]$ et la médiatrice $(d_2)$ du segment $[${noms[2]}${noms[3]}]$.<br>`
-    texte += 'Prolonger les droites $(d_1)$ et $(d_2)$ pour obtenir leur point d\'intersection.<br>'
+    texte = `Construire la médiatrice $(d)$ du segment $[${noms[0]}${noms[1]}]$ et la médiatrice $(d')$ du segment $[${noms[2]}${noms[3]}]$.<br>`
+    texte += 'Prolonger les droites $(d)$ et $(d\')$ pour obtenir leur point d\'intersection.<br>'
     const marks = ['/', '//', '///', 'x', 'o', 'S', 'V']
     const I = point(0, 0, 'I')
     const A = pointAdistance(I, randint(3, 6))
     const B = similitude(A, I, randint(65, 150), randint(8, 15) / 10)
-    const medA = droite(I, A, '(d_1)')
-    const medB = droite(I, B, '(d_2)')
+    const medA = droite(I, A)
+    const medB = droite(I, B)
 
     const dA = droiteParPointEtPerpendiculaire(A, medA)
     const dB = droiteParPointEtPerpendiculaire(B, medB)
@@ -77,15 +76,22 @@ export default function ConstruireMediatrices6e () {
     //      objetsCorrection.push(segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i]))
     //      objetsCorrection.push(traceCompas(A1,N[i],20),traceCompas(B,N[i],20))
     texteCorr += `Le point $I$ d'intersection des deux médiatrices est dans la case ${cellule} de la grille.<br>`
-    const xMin = Math.min(A1.x - 1, A2.x - 1, B1.x - 1, B2.x - 1, I.x - 4)
+    /* const xMin = Math.min(A1.x - 1, A2.x - 1, B1.x - 1, B2.x - 1, I.x - 4)
     const yMin = Math.min(A1.y - 1, A2.y - 1, B1.y - 1, B2.y - 1, I.y - 4)
     const xMax = Math.max(A1.x + 1, A2.x + 1, B1.x + 1, B2.x + 1, I.x + 4)
     const yMax = Math.max(A1.y + 1, A2.y + 1, B1.y + 1, B2.y + 1, I.y + 4)
+    */
+    // On appelle la fonction fixBordures qui va détérminer la fenêtre Mathalea2d.
+    // Ici, la cible était un objet centré sur (cible.x, cible.y) et de taille 4, on crée deux points en diagonale
+    // afin qu'elle soit prise en compte dans son intégralité avec les entêtes de lignes et de colonnes.
+    const params = fixeBordures([A1, A2, B1, B2, point(cible.x - 2.5, cible.y - 2.5), point(cible.x + 2.5, cible.y + 2.5)])
+    params.pixelsParCm = 20
+    params.scale = 0.7
+    objetsCorrection.push(texteParPoint('(d)', positionLabelDroite(medA, params), 'milieu', 'black', 1, 'middle', true))
+    objetsCorrection.push(texteParPoint('(d\')', positionLabelDroite(medB, params), 'milieu', 'black', 1, 'middle', true))
 
-    context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
-
-    this.listeQuestions.push(texte + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsEnonce))
-    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsCorrection))
+    this.listeQuestions.push(texte + mathalea2d(params, objetsEnonce))
+    this.listeCorrections.push(texteCorr + mathalea2d(params, objetsCorrection))
     listeQuestionsToContenu(this)
   }
 }
