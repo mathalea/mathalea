@@ -15,6 +15,7 @@ export const interactifType = 'mathLive'
 export default function LireUneDuree () {
   Exercice.call(this)
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {

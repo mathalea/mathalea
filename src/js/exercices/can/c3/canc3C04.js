@@ -16,6 +16,7 @@ export default function DoubleOuBienMoitie () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 3
   this.nouvelleVersion = function () {
     let a = randint(2, 4) * 10 + randint(1, 9)
     if (choice([true, false])) {
