@@ -67,6 +67,7 @@ export default function Exercice () {
   this.pointsParQuestions = 1 // Pour définir la note par défaut d'un exercice dans sa sortie Moodle
   this.correctionDetailleeDisponible = false // booléen qui indique si une correction détaillée est disponible.
   this.correctionDetaillee = true // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
+  this.correctionIsCachee = false // pour cacher une correction
   this.video = '' // Chaine de caractère pour un complément numérique (id Youtube, url, code iframe...).
   // Interactivité
   this.interactif = false // Exercice sans saisie utilisateur par défaut.
