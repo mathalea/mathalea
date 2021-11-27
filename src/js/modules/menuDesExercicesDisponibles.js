@@ -382,7 +382,7 @@ export function menuDesExercicesDisponibles () {
   }
   const listeThemesCan = [
     ['canc3', 'canc3 - Course aux nombres niveau CM1-CM2', 'canc3C - Calculs', 'canc3D - Durées', 'canc3M - Mesures', 'canc3N - Numération'],
-    ['can6', 'can6 - Course aux nombres niveau 6e', 'can6C - Calculs', 'can6D - Durées', 'can6G - Géométrie', 'can6M - Mesures', 'can6N - Numération', 'can6P - Proportionnalité', 'can6S - Statistiques'],
+    ['can6', 'can6 - Course aux nombres niveau 6e', 'can6C - Calculs', 'can6D - Durées', 'can6G - Géométrie', 'can6I - Algorithmique', 'can6M - Mesures', 'can6N - Numération', 'can6P - Proportionnalité', 'can6S - Statistiques'],
     ['can5', 'can5 - Course aux nombres niveau 5e', 'can5C - Calculs', 'can5D - Durées', 'can5G - Géométrie', 'can5M - Mesures', 'can5N - Numération', 'can5P - Proportionnalité', 'can5S - Statistiques'],
     ['can4', 'can4 - Course aux nombres niveau 4e', 'can4C - Calculs', 'can4D - Durées', 'can4G - Géométrie', 'can4L - Calcul littéral', 'can4N - Numération', 'can4P - Proportionnalité', 'can4S - Statistiques'],
     ['can3', 'can3 - Course aux nombres niveau 3e', 'can3C - Calculs', 'can3E - Équations', 'can3F - Fonctions', 'can3G - Géométrie', 'can3L - Calcul littéral', 'can3M - Mesures', 'can3N - Numération', 'can3P - Proportionnalité', 'can3S - Statistiques & probabilités'],
@@ -392,7 +392,7 @@ export function menuDesExercicesDisponibles () {
     ['canEx', 'canExpert - Course aux nombres niveau Terminale expert'],
     ['canP', 'canPredef - Courses aux nombres clé en main']]
   const listeThemesC3 = [
-    ['c3C1', 'c3C1 - Calculs niveau 1'], ['c3C2', 'c3C2 - Calculs niveau 2'], ['c3C3', 'c3C3 - Calculs niveau 3'],
+    ['c3C1', 'c3C1 - Calculs niveau 1'], ['c3C2', 'c3C2 - Calculs niveau 2'], ['c3C3', 'c3C3 - Calculs niveau 3'], ['c3I1', 'c3I1 - Algorithmique'],
     ['c3N1', 'c3N1 - Numération Niveau 1'], ['c3N2', 'c3N2 - Numération Niveau 2'], ['c3N3', 'c3N3 - Numération Niveau 3']]
   const listeThemes6 = [
     ['6C1', '6C1 - Calculs niveau 1'], ['6C2', '6C2 - Calculs niveau 2'], ['6C3', '6C3 - Calculs niveau 3'],

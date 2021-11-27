@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre } from '../../modules/outils.js'
-import { point, tracePoint, pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, codageMediatrice, segmentAvecExtremites, cercle, pointIntersectionLC, dansLaCibleCarree, cibleCarree, homothetie, similitude, texteParPoint, mathalea2d, positionLabelDroite, fixeBordures } from '../../modules/2d.js'
+import { point, tracePoint, pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, codageMediatrice, segmentAvecExtremites, cercle, pointIntersectionLC, dansLaCibleCarree, cibleCarree, homothetie, similitude, texteParPoint, mathalea2d, positionLabelDroite, fixeBordures, norme, translation, vecteur } from '../../modules/2d.js'
 export const titre = 'Construire des médiatrices avec cible auto-corrective'
 
 /**
@@ -57,10 +57,10 @@ export default function ConstruireMediatrices6e () {
 
     const objetsEnonce = []
     const objetsCorrection = []
-    const nomA1 = texteParPoint(noms[0], homothetie(A1, A2, 1.1), 'milieu', 'black', 1, '', true)
-    const nomA2 = texteParPoint(noms[1], homothetie(A2, A1, 1.1), 'milieu', 'black', 1, '', true)
-    const nomB1 = texteParPoint(noms[2], homothetie(B1, B2, 1.1), 'milieu', 'black', 1, '', true)
-    const nomB2 = texteParPoint(noms[3], homothetie(B2, B1, 1.1), 'milieu', 'black', 1, '', true)
+    const nomA1 = texteParPoint(noms[0], translation(A1, homothetie(vecteur(A2, A1), A, 0.5 / norme(vecteur(A2, A1)))), 'milieu', 'black', 1, '', true)
+    const nomA2 = texteParPoint(noms[1], translation(A2, homothetie(vecteur(A1, A2), A, 0.5 / norme(vecteur(A2, A1)))), 'milieu', 'black', 1, '', true)
+    const nomB1 = texteParPoint(noms[2], translation(B1, homothetie(vecteur(B2, B1), A, 0.5 / norme(vecteur(B2, B1)))), 'milieu', 'black', 1, '', true)
+    const nomB2 = texteParPoint(noms[3], translation(B2, homothetie(vecteur(B1, B2), A, 0.5 / norme(vecteur(B2, B1)))), 'milieu', 'black', 1, '', true)
 
     const cellule = celluleAlea(6)
     result = dansLaCibleCarree(I.x, I.y, 6, 0.6, cellule)
