@@ -1453,7 +1453,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
         if (urlVars[i].cc) {
           listeObjetsExercice[i].correctionIsCachee = !!urlVars[i].cc
           formCorrectionIsCachee[i].checked = !!urlVars[i].cc
-          context.seedSpecial = !!urlVars[i].cc
+          context.seedSpecial = !!urlVars[i].cc && context.isHtml
         }
         if (urlVars[i].cd !== undefined) {
           if (urlVars[i].cd === 1 && listeObjetsExercice[i].correctionDetailleeDisponible) {
@@ -2111,7 +2111,7 @@ function parametresExercice (exercice) {
         formCorrectionIsCachee[i].addEventListener('change', function (e) {
           // Dès que le statut change, on met à jour
           exercice[i].correctionIsCachee = e.target.checked
-          context.seedSpecial = e.target.checked
+          context.seedSpecial = e.target.checked && context.isHtml
           miseAJourDuCode()
         })
       }
@@ -2251,7 +2251,7 @@ function parametresExercice (exercice) {
       formCorrectionIsCachee[i].addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
         exercice[i].correctionIsCachee = e.target.checked
-        context.seedSpecial = e.target.checked
+        context.seedSpecial = e.target.checked && context.isHtml
         miseAJourDuCode()
       })
     }
