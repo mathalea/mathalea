@@ -13,7 +13,7 @@ export const titre = 'Note la couleur (scratch)'
  * Publié le 11/04/2021
  * @author Jean-Claude Lhote
  */
-export default function canNoteLaCouleur6 () {
+export default function CanNoteLaCouleur6 () {
   'use strict'
   Exercice.call(this)
   this.titre = titre
