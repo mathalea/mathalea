@@ -12,7 +12,7 @@ La page d'accueil de la documentation est générée à partir du fichier `src/d
 
 Les différents tutoriels sont dans le dossier `jsdoc/tutorials/`.
 
-Pour créer un nouveau tutoriel, il suffit de créer un fichier MarkDown (.md) dans le dossier `jsdoc/tutorials/`. ([ien vers une "anti-sèche" MarkDown](https://www.markdownguide.org/cheat-sheet) en anglais).
+Pour créer un nouveau tutoriel, il suffit de créer un fichier MarkDown (.md) dans le dossier `jsdoc/tutorials/`. ([Lien vers une "anti-sèche" MarkDown](https://www.markdownguide.org/cheat-sheet) en anglais).
 
 Les fichiers et dossiers à l'intérieur de `jsdoc/static/` sont copiés tels quels à la racine du dossier de documentation lorsque celle-ci est générée. Cela permet d'avoir des fichiers et des adresses statiques qui ne passent pas à la moulinette comme le reste. L'intérêt principal étant de disposer d'un dossier d'images utilisables par la documentation.
 
