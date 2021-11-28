@@ -4,7 +4,7 @@ import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, te
 export const titre = 'Homothétie (calculs)'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '27/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '28/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Calculs dans une homothétie : longueurs, aires.
@@ -14,7 +14,7 @@ export const dateDePublication = '27/11/2021' // La date de publication initiale
 export default function calculsHomothetie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
-  this.nbQuestions = 6 // Nombre de questions par défaut
+  this.nbQuestions = 3 // Nombre de questions par défaut
   this.nbCols = 0 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 0 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 50 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
@@ -29,10 +29,10 @@ export default function calculsHomothetie () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typeQuestionsDisponibles = []
-    if (this.sup === 8) {
-      typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent']
+    if (this.sup === 9) {
+      typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport']
     } else {
-      typeQuestionsDisponibles = [['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent'][this.sup - 1]]
+      typeQuestionsDisponibles = [['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport'][this.sup - 1]]
     }
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, approx, environ, melange, donnee1, donnee2, donnee3, donnees, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -43,15 +43,17 @@ export default function calculsHomothetie () {
       const B = lettres[3]
       const hB = lettres[4]
       let k = choice([randint(15, 40) / 10, randint(1, 9) / 10])
-      const longueurEntiere = randint(1, 99)
+      let kAire = choice([randint(1, 4) + 0.5+choice([0, 0.5]), randint(1, 9) / 10])
+      const longueurEntiere = randint(10, 99)
       let OA = (k > 1) ? longueurEntiere / 10 : longueurEntiere
-      let Aire = OA ** 2
-      let OB = randint(1, 99, [longueurEntiere]) / 10
+      let Aire = randint(10, 99) // Avec ce choix il n'y a plus d'arrondi à faire
+      let OB = randint(10, 99, [longueurEntiere]) / 10
       const hOB = texNombrec(k * OB)
       const hOA = texNombrec(k * OA)
-      const hAire = texNombrec(k ** 2 * Aire)
-      const hAireArrondie = texNombrec(arrondi(k ** 2 * Aire))
+      const hAire = texNombrec(kAire ** 2 * Aire)
+      const hAireArrondie = texNombrec(arrondi(kAire ** 2 * Aire))
       k = texNombrec(k)
+      kAire = texNombrec(kAire)
       OA = texNombrec(OA)
       OB = texNombrec(OB)
       Aire = texNombrec(Aire)
@@ -175,16 +177,16 @@ export default function calculsHomothetie () {
           texte = String.raw`
                 Une figure a pour aire $ {${Aire}\text{ cm}^2}$.
                 <br>
-                Calculer l'aire de son image par une homothétie de rapport $${k}$ (arrondir au $ {\text{mm}^2}$ près si besoin).
+                Calculer l'aire de son image par une homothétie de rapport $${kAire}$ (arrondir au $ {\text{mm}^2}$ près si besoin).
                 `
           texteCorr = String.raw`
-                $ {${k}^2 \times ${Aire} ${approx} ${hAireArrondie}~\text{cm}^2}$
+                $ {${kAire}^2 \times ${Aire} ${approx} ${hAireArrondie}~\text{cm}^2}$
                 `
           if (this.correctionDetaillee) {
             texteCorr = String.raw`
                 Une homothétie de rapport positif est une transformation qui multiplie toutes les aires par le carré de son rapport.
                 <br>
-                $${k}^2 \times ${Aire} = ${hAire}$
+                $${kAire}^2 \times ${Aire} = ${hAire}$
                 <br>
                 Donc l'aire de l'image de cette figure est ${environ} $ {${hAireArrondie}~\text{cm}^2}$.
                 `
@@ -192,28 +194,49 @@ export default function calculsHomothetie () {
           break
         case 'aireAntécédent':
           texte = String.raw`
-                  L'image d'une figure par une homothétie de rapport $${k}$ a pour aire $ {${hAire}\text{ cm}^2}$.
+                  L'image d'une figure par une homothétie de rapport $${kAire}$ a pour aire $ {${hAire}\text{ cm}^2}$.
                   <br>
                   Calculer l'aire de la figure de départ.
                   `
           texteCorr = String.raw`
-                  $ {\dfrac{${hAire}}{${k}^2} = ${Aire}~\text{cm}^2}$
+                  $ {\dfrac{${hAire}}{${kAire}^2} = ${Aire}~\text{cm}^2}$
                   `
           if (this.correctionDetaillee) {
             texteCorr = String.raw`
                   Une homothétie de rapport positif est une transformation qui multiplie toutes les aires par le carré de son rapport.
                   <br>
                   Notons $\mathscr{A}$ l'aire de la figure de départ.<br>
-                  D'où $${k}^2 \times \mathscr{A} = ${hAire}$
+                  D'où $${kAire}^2 \times \mathscr{A} = ${hAire}$
                   <br>
-                  Puis $\mathscr{A}=\dfrac{${hAire}}{${k}^2}=${Aire}$ 
+                  Puis $\mathscr{A}=\dfrac{${hAire}}{${kAire}^2}=${Aire}$ 
                   <br>
                   Donc l'aire de la figure de départ est $ {${Aire}~\text{cm}^2}$.
                   `
           }
           break
+        case 'aireRapport':
+          texte = String.raw`
+                    Une figure et son image par une homothétie de rapport positif ont respectivement pour aires $ {${Aire}\text{ cm}^2}$ et $ {${hAire}\text{ cm}^2}$.
+                    <br>
+                    Calculer le rapport de l'homothétie.
+                    `
+          texteCorr = String.raw`
+                    $ {k=\sqrt{\dfrac{${hAire}}{${Aire}}} = ${kAire}}$
+                    `
+          if (this.correctionDetaillee) {
+            texteCorr = String.raw`
+                    Une homothétie de rapport positif est une transformation qui multiplie toutes les aires par le carré de son rapport.
+                    <br>
+                    Notons $k$ le rapport de cette homothétie.
+                    On a donc $k^2 \times ${Aire} = ${hAire}$,
+                    ou encore $k^2=\dfrac{${hAire}}{${Aire}}$.
+                    <br>
+                    D'où $ {k=\sqrt{\dfrac{${hAire}}{${Aire}}} = ${kAire}}$
+                    `
+          }
+          break
       }
-      if (this.questionJamaisPosee(i, k, OA, melange)) {
+      if (this.questionJamaisPosee(i, k, OA, kAire)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -223,7 +246,7 @@ export default function calculsHomothetie () {
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
   this.besoinFormulaireNumerique = [
-    'Type d\'exercice', 8, [
+    'Type d\'exercice', 9, [
       '1 : Calculer le rapport',
       '2 : Calculer une longueur image',
       '3 : Calculer une longueur antécédent',
@@ -231,7 +254,8 @@ export default function calculsHomothetie () {
       '5 : Calculer une longueur antécédent (deux étapes)',
       '6 : Calculer une aire image',
       '7 : Calculer une aire antécédent',
-      '8 : Mélange des types de questions'
+      '8 : Calculer le rapport à partir des aires',
+      '9 : Mélange des types de questions'
     ].join('\n')
   ]
 }
