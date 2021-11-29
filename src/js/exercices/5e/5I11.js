@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import Note_la_couleur from '../6e/6I11.js'
+import NoteLaCouleur6e from '../6e/6I11.js'
 export const titre = 'Note la couleur (scratch) 5e'
 
 export default function NoteLaCouleur5e () {
   'use strict'
-  Note_la_couleur.call(this)
+  NoteLaCouleur6e.call(this)
   this.relatif = true
 }

@@ -2,7 +2,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, combinaisonListes, texNombre } from '../../modules/outils.js'
-import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, point, plateau2dNLC, texteParPositionEchelle } from '../../modules/2d.js'
+import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, baisseCrayon, allerA, point, texteParPositionEchelle } from '../../modules/2d.js'
+import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 export const titre = 'Note la couleur (scratch)'
 
 /**
@@ -11,222 +12,12 @@ export const titre = 'Note la couleur (scratch)'
  * Ref : 6Algo11
  * Publié le 11/04/2021
  * @author Jean-Claude Lhote
- * A faire : ajouter d'autres niveaux avec des boucles, des instructions conditionnelles, des blocs définis...
- * Ajouter un pion et la correction animée.
+ * A faire : ajouter d'autres niveaux avec des instructions conditionnelles, des blocs définis...
  */
-
-/**
- * Classe NoteLaCouleur (objet Pion)
- * this.plateau est le tableau des couleurs de cases.
- * this.currentPos est {x,y} les coordonnées courantes du pion
- * this.currentOrientation est l'orientation courante du pion
- * this.codeScratch est le programme en code Latex du pion.
- * this.currentIndex est l'index qui parcourt le codeScratch...
- * this.nlc() retourne la couleur de la case sur laquelle est le pion
- * this.tesCoords(x,y) est une méthode qui dit si le point de coordonnées (x,y) est bien dans le plateau de jeu.
- * this.testInstruction(code) est une méthode qui dit si une instruction est valide (ne sort pas) et retourne un tableau
- * this.testSequence([...code]) est une méthode qui retourne true si la séquence d'instructions est valide.
- */
-
-class NoteLaCouleur {
-  constructor ({
-    x = 15, y = 15, orientation = 90, plateau = [
-      ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
-      ['Blanc', 'Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir', 'Jaune', 'Blanc'],
-      ['Blanc', 'Rouge', 'Bleu', 'Orange', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Bleu', 'Rouge', 'Gris', 'Rouge', 'Blanc'],
-      ['Blanc', 'Rose', 'Vert', 'Gris', 'Rouge', 'Noir', 'Bleu', 'Vert', 'Noir', 'Vert', 'Bleu', 'Rose', 'Gris', 'Vert', 'Orange', 'Blanc'],
-      ['Blanc', 'Vert', 'Bleu', 'Rose', 'Vert', 'Bleu', 'Orange', 'Gris', 'Rouge', 'Orange', 'Jaune', 'Gris', 'Rouge', 'Rose', 'Bleu', 'Blanc'],
-      ['Blanc', 'Noir', 'Orange', 'Rouge', 'Orange', 'Jaune', 'Rouge', 'Blanc', 'Blanc', 'Noir', 'Gris', 'Orange', 'Noir', 'Jaune', 'Rose', 'Blanc'],
-      ['Blanc', 'Rose', 'Gris', 'Noir', 'Bleu', 'Vert', 'Bleu', 'Blanc', 'Blanc', 'Rouge', 'Bleu', 'Gris', 'Vert', 'Rouge', 'Noir', 'Blanc'],
-      ['Blanc', 'Noir', 'Rouge', 'Rose', 'Vert', 'Orange', 'Rose', 'Noir', 'Orange', 'Vert', 'Jaune', 'Rose', 'Noir', 'Rose', 'Vert', 'Blanc'],
-      ['Blanc', 'Orange', 'Gris', 'Rouge', 'Jaune', 'Noir', 'Vert', 'Rouge', 'Rose', 'Noir', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Gris', 'Blanc'],
-      ['Blanc', 'Bleu', 'Jaune', 'Orange', 'Vert', 'Gris', 'Jaune', 'Gris', 'Orange', 'Gris', 'Rose', 'Bleu', 'Rouge', 'Bleu', 'Orange', 'Blanc'],
-      ['Blanc', 'Rose', 'Bleu', 'Jaune', 'Rose', 'Orange', 'Rouge', 'Bleu', 'Noir', 'Jaune', 'Gris', 'Vert', 'Jaune', 'Noir', 'Rouge', 'Blanc'],
-      ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc']
-    ], relatif = true
-  }) {
-    this.plateauNLC = plateau
-    this.currentPos = { x: x, y: y }
-    this.currentOrientation = orientation
-    this.codeScratch = ''
-    this.currentIndex = 0
-    this.relatif = relatif
-    this.nlc = function () {
-      return this.plateauNLC[Math.ceil((165 + (this.relatif ? 0 : 165) - this.currentPos.y) / 30)][Math.ceil((225 - (this.relatif ? 0 : 240) + this.currentPos.x) / 30)]
-    }
-    this.testCoords = function (x, y) {
-      if ((x < (this.relatif ? 0 : 240) - 225) || (x > 225 + (this.relatif ? 0 : 240)) || (y < -165 + (this.relatif ? 0 : 180)) || (y > 165 + (this.relatif ? 0 : 180))) return false
-      return true
-    }
-    /**
-       * méthode pour tester une instruction : retourne un tableau dont le premier élément indique si l'instruction est valide.
-       * c'est à dire qu'elle n'entraine pas une sortie de plateau.
-       * true -> l'instruction maintient le lutin sur le plateau
-       * false -> l'instruction le fait sortir du plateau
-       * Les autres éléments du tableau sont dans cet ordre :
-       * - les positions x et y du pion après l'instruction
-       * - son orientation après l'instruction
-       * - le code Latex de l'instruction
-       */
-    this.testInstruction = function (code, lutin) {
-      const avancepion = function (d, x, y, s) {
-        switch (s) {
-          case 0:
-          case 360:
-            y += d
-            break
-          case 90:
-          case -270:
-            x += d
-            break
-          case 180:
-          case -180:
-            y -= d
-            break
-          case 270:
-          case -90:
-            x -= d
-            break
-        }
-        return [x, y]
-      }
-      let x = this.currentPos.x
-      let y = this.currentPos.y
-      let orientation = this.currentOrientation
-      let latex
-      switch (code) {
-        case 'AV30':
-          [x, y] = avancepion(30, x, y, orientation)
-          latex = '\\blockmove{avancer de \\ovalnum{30} pas}'
-          if (lutin !== undefined) {
-            avance(30, lutin)
-          }
-          break
-        case 'AV60':
-          [x, y] = avancepion(60, x, y, orientation)
-          latex = '\\blockmove{avancer de \\ovalnum{60} pas}'
-          if (lutin !== undefined) {
-            avance(60, lutin)
-          }
-          break
-        case 'AV90':
-          [x, y] = avancepion(90, x, y, orientation)
-          latex = '\\blockmove{avancer de \\ovalnum{90} pas}'
-          if (lutin !== undefined) {
-            avance(90, lutin)
-          }
-          break
-        case 'AV120':
-          [x, y] = avancepion(120, x, y, orientation)
-          latex = '\\blockmove{avancer de \\ovalnum{120} pas}'
-          if (lutin !== undefined) {
-            avance(120, lutin)
-          }
-          break
-        case 'AV150':
-          [x, y] = avancepion(150, x, y, orientation)
-          latex = '\\blockmove{avancer de \\ovalnum{150} pas}'
-          if (lutin !== undefined) {
-            avance(150, lutin)
-          }
-          break
-
-        case 'TD90':
-          if (orientation === 180) orientation = -90
-          else orientation += 90
-          latex = '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}'
-          if (lutin !== undefined) {
-            tournerD(90, lutin)
-          }
-          break
-        case 'TG90':
-          if (orientation === -90) orientation = 180
-          else orientation -= 90
-          latex = '\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}'
-          if (lutin !== undefined) {
-            tournerG(90, lutin)
-          }
-          break
-        case 'TD180':
-        case 'TG180':
-          if (orientation === 0) orientation = 180
-          else if (orientation === -90) orientation = 90
-          else if (orientation === 90) orientation = -90
-          else orientation = 0
-          latex = '\\blockmove{tourner \\turnright{} de \\ovalnum{180} degrés}'
-          if (lutin !== undefined) {
-            tournerD(180, lutin)
-          }
-          break
-        case 'NLC':
-          latex = '\\blocklist{Note la couleur}'
-          break
-      }
-      if (this.testCoords(x, y)) {
-        return [true, x, y, orientation, latex, lutin]
-      } else return [false, this.currentPos.x, this.currentPos.y, this.currentOrientation, latex, lutin]
-    }
-
-    /**
-        * méthode pour tester une séquence : retourne
-        *
-        * [true,x,y,orientation] si la séquence reste dans le jeu
-        * [false,x,y,orientation] en cas de sortie de plateau.
-        */
-    this.testSequence = function (codes) {
-      let sorti = false
-      let test
-      const pionfantome = new NoteLaCouleur({ x: 0, y: 0, orientation: 0, plateau: this.plateauNLC, relatif: this.relatif })
-      pionfantome.currentPos.x = this.currentPos.x
-      pionfantome.currentPos.y = this.currentPos.y
-      pionfantome.currentOrientation = this.currentOrientation
-      for (let i = 0; i < codes.length; i++) {
-        test = pionfantome.testInstruction(codes[i])
-        if (!test[0]) { // si le lutin est sorti du plateau pendant l'instruction
-          sorti = true
-          break
-        } else {
-          pionfantome.currentPos.x = test[1]
-          pionfantome.currentPos.y = test[2]
-          pionfantome.currentOrientation = test[3]
-        }
-      }
-      // si il est sorti, alors la séquence est false, sinon, elle est true.
-      return [!sorti, pionfantome.currentPos.x, pionfantome.currentPos.y, pionfantome.currentOrientation]
-    }
-    /**
-     *
-     * @param {number} repetitions
-     * @param {string[]} codes la séquence d'instructions à répéter
-     * @returns {boolean} true si la boucle n'a à aucun moment fait sortir le lutin du plateau, false sinon
-     */
-    this.testBoucle = function (repetitions, codes) {
-      let sortiboucle = false
-      let test
-      const pionfantome = new NoteLaCouleur({ x: 0, y: 0, orientation: 0, plateau: this.plateauNLC, relatif: this.relatif })
-      pionfantome.currentPos.x = this.currentPos.x
-      pionfantome.currentPos.y = this.currentPos.y
-      pionfantome.currentOrientation = this.currentOrientation
-      for (let i = 0; i < repetitions; i++) {
-        test = pionfantome.testSequence(codes)
-        if (!test[0]) { // si le lutin est sorti pendant la séquence alors la boucle n'est pas valide.
-          sortiboucle = true
-          break
-        } else { // il n'est pas sorti, on continue le test à partir de la nouvelle position
-          pionfantome.currentPos.x = test[1]
-          pionfantome.currentPos.y = test[2]
-          pionfantome.currentOrientation = test[3]
-        }
-      }
-      // Si il est sorti, alors on retourne false en premier argument, sinon, on retourne true.
-      return [!sortiboucle, pionfantome.currentPos.x, pionfantome.currentPos.y, pionfantome.currentOrientation]
-    }
-  }
-}
 /**
  * Fonction exercice.
  */
-export default function Note_la_couleur () {
+export default function NoteLaCouleur6e () {
   'use strict'
   Exercice.call(this)
   this.titre = titre
@@ -247,6 +38,20 @@ export default function Note_la_couleur () {
   this.correctionDetaillee = true
 
   this.nouvelleVersion = function (numeroExercice) {
+    const damier = [
+      ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
+      ['Blanc', 'Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir', 'Jaune', 'Blanc'],
+      ['Blanc', 'Rouge', 'Bleu', 'Orange', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Bleu', 'Rouge', 'Gris', 'Rouge', 'Blanc'],
+      ['Blanc', 'Rose', 'Vert', 'Gris', 'Rouge', 'Noir', 'Bleu', 'Vert', 'Noir', 'Vert', 'Bleu', 'Rose', 'Gris', 'Vert', 'Orange', 'Blanc'],
+      ['Blanc', 'Vert', 'Bleu', 'Rose', 'Vert', 'Bleu', 'Orange', 'Gris', 'Rouge', 'Orange', 'Jaune', 'Gris', 'Rouge', 'Rose', 'Bleu', 'Blanc'],
+      ['Blanc', 'Noir', 'Orange', 'Rouge', 'Orange', 'Jaune', 'Rouge', 'Blanc', 'Blanc', 'Noir', 'Gris', 'Orange', 'Noir', 'Jaune', 'Rose', 'Blanc'],
+      ['Blanc', 'Rose', 'Gris', 'Noir', 'Bleu', 'Vert', 'Bleu', 'Blanc', 'Blanc', 'Rouge', 'Bleu', 'Gris', 'Vert', 'Rouge', 'Noir', 'Blanc'],
+      ['Blanc', 'Noir', 'Rouge', 'Rose', 'Vert', 'Orange', 'Rose', 'Noir', 'Orange', 'Vert', 'Jaune', 'Rose', 'Noir', 'Rose', 'Vert', 'Blanc'],
+      ['Blanc', 'Orange', 'Gris', 'Rouge', 'Jaune', 'Noir', 'Vert', 'Rouge', 'Rose', 'Noir', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Gris', 'Blanc'],
+      ['Blanc', 'Bleu', 'Jaune', 'Orange', 'Vert', 'Gris', 'Jaune', 'Gris', 'Orange', 'Gris', 'Rose', 'Bleu', 'Rouge', 'Bleu', 'Orange', 'Blanc'],
+      ['Blanc', 'Rose', 'Bleu', 'Jaune', 'Rose', 'Orange', 'Rouge', 'Bleu', 'Noir', 'Jaune', 'Gris', 'Vert', 'Jaune', 'Noir', 'Rouge', 'Blanc'],
+      ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc']
+    ]
     this.sup = contraindreValeur(1, 4, this.sup, 1)
     const echelleDessin = 0.5
     this.listeQuestions = []
@@ -266,7 +71,7 @@ export default function Note_la_couleur () {
     context.pixelsParCm = 20
     let pion
     const typeDeQuestion = Number(this.sup2) === 1 ? combinaisonListes([1], this.nbQuestions) : Number(this.sup2) === 2 ? combinaisonListes([2], this.nbQuestions) : combinaisonListes([1, 2], this.nbQuestions)
-    const lePlateau = plateau2dNLC(this.sup, this.sup4, echelleDessin, this.relatif)
+    const lePlateau = plateau2dNLC({ type: this.sup, melange: this.sup4, scale: echelleDessin, relatif: this.relatif, nx: 16, ny: 12, pas: 30, plateau: damier })
     for (let q = 0; q < this.nbQuestions;) {
       objetsCorrection = []
       objetsEnonce = []
@@ -296,7 +101,7 @@ export default function Note_la_couleur () {
             xdepart = -225 + randint(4, 11) * 30 + (this.relatif ? 0 : 240)
             ydepart = -165 + randint(3, 8) * 30 + (this.relatif ? 0 : 180)
 
-            pion = new NoteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif })
+            pion = noteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif })
             lutin.color = context.isHtml ? 'green' : 'black'
             lutin.epaisseur = 2
             lutin.pointilles = 2
@@ -389,7 +194,7 @@ export default function Note_la_couleur () {
             xdepart = -225 + randint(4, 11) * 30 + (this.relatif ? 0 : 240)
             ydepart = -165 + randint(3, 8) * 30 + (this.relatif ? 0 : 180)
 
-            pion = new NoteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif })
+            pion = noteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif })
             pion.codeScratch = ''
             lutin.color = context.isHtml ? 'green' : 'black'
             lutin.epaisseur = 2

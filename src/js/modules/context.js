@@ -17,7 +17,8 @@ export const context = {
   // duree: 10,
   nbBonnesReponses: 0,
   nbMauvaisesReponses: 0,
-  zoom: 1
+  zoom: 1,
+  seedSpecial: false // Change le numéro de série si une correction est cachée
 }
 
 export function setOutputHtml () {
