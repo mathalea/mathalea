@@ -262,18 +262,10 @@ class Plateau2dNLC {
     this.plateauNLC = plateau
     if (melange) {
       for (let i = 0, x1, x2, y1, y2, kase; i < 20; i++) {
-        y1 = randint(1, 10)
-        y2 = randint(1, 10, y1)
-        if (y1 === 5 || y1 === 6) {
-          x1 = randint(1, 14, [7, 8])
-        } else {
-          x1 = randint(1, 14)
-        }
-        if (y2 === 5 || y2 === 6) {
-          x2 = randint(1, 14, [7, 8])
-        } else {
-          x2 = randint(1, 14)
-        }
+        y1 = randint(1, this.ny - 2)
+        y2 = randint(1, this.ny - 2, y1)
+        x1 = randint(1, this.nx - 2)
+        x2 = randint(1, this.nx - 2)
         kase = this.plateauNLC[y1][x1] // case est un mot réservé
         this.plateauNLC[y1][x1] = this.plateauNLC[y2][x2]
         this.plateauNLC[y2][x2] = kase
