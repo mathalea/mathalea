@@ -281,52 +281,13 @@ export function ecrireNombre2D (x, y, n) {
   return nombre2D
 }
 
-class NombreDecimal {
-  constructor (nombre) {
-    if (nombre < 0) {
-      this.signe = '-'
-      nombre = calcul(-nombre)
-    } else this.signe = '+'
-    this.exposant = Math.floor(Math.log10(nombre))
-    nombre = nombre / 10 ** this.exposant
-    this.mantisse = []
-    for (let k = 0; k < 16; k++) {
-      if (egal(Math.ceil(nombre) - nombre, 0, 0.00001)) {
-        this.mantisse.push(Math.ceil(nombre))
-        nombre = (this.mantisse[k] - nombre) * 10
-      } else {
-        this.mantisse.push(Math.floor(nombre))
-        nombre = (nombre - this.mantisse[k]) * 10
-      }
-      if (egal(nombre, 0, 0.001)) { break }
-    }
-  }
-
-  get valeur () {
-    return this.recompose()
-  }
-
-  recompose () {
-    let val = 0
-    for (let i = 0; i < 10; i++) { val += this.mantisse[i] * 10 ** (-i) }
-    val = val * 10 ** this.exposant
-    if (this.signe === '+') return val
-    else return calcul(-val)
-  }
-}
-export function decimal (n) {
-  return new NombreDecimal(n)
-}
-
-// FIXME {liste} n'existe pas dans jsdoc, si c'est un array de strings ça se note {string[]}
-
 /**
 * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
 * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
 * Si le nombre de couples possibles est inférieur à nombreDeCouplesMin alors
 * on concatène 2 fois la même liste mais avec des ordres différents.
-* @param {liste} E1 - Liste
-* @param {liste} E2 - Liste
+* @param {string[]} E1 - Liste
+* @param {string[]} E2 - Liste
 * @param {int} nombreDeCouplesMin=10 - Nombre de couples souhaités
 * @author Rémi Angot
 */
