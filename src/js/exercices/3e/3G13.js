@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, mathalea2d } from '../../modules/2d.js'
+import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, mathalea2d, fixeBordures } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNombrec, combinaisonListes, arrondi } from '../../modules/outils.js'
 export const titre = 'Homothétie (calculs)'
@@ -17,7 +17,7 @@ export default function calculsHomothetie () {
   this.consigne = ''
   this.nbQuestions = 3 // Nombre de questions par défaut
   this.nbCols = 0 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 0 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 50 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.correctionDetailleeDisponible = true
@@ -31,7 +31,7 @@ export default function calculsHomothetie () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typeQuestionsDisponibles = []
-    if (this.sup === 9) {
+    if (this.sup === 0) {
       typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport']
     } else {
       typeQuestionsDisponibles = [['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport'][this.sup - 1]]
@@ -80,7 +80,9 @@ export default function calculsHomothetie () {
       const fs3 = segmentAvecExtremites(fO, fB)
       const fs4 = segmentAvecExtremites(fB, fhB)
       const fc1 = arcPointPointAngle(fhA, fO, 60, false)
+      fc1.pointilles = true
       const fc2 = arcPointPointAngle(fO, fA, 60, false)
+      fc2.pointilles = true
       const fc3 = arcPointPointAngle(fhB, fO, 60, false)
       const fc4 = arcPointPointAngle(fO, fB, 60, false)
       const fOA = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, `$${OA}~\\text{cm}$`, 'below')
@@ -96,6 +98,7 @@ export default function calculsHomothetie () {
       const flabelsAntecedent = labelPoint(fO, fA, fhA, fOhA, fOAi)
       const flabelsImage2etapes = labelPoint(fO, fA, fhA, fB, fhB)
       const flabelsAntecedent2etapes = labelPoint(fO, fA, fhA, fB, fhB)
+      const fscale = kpositif ? 1 : 0.7
       switch (listeTypeQuestions[i]) {
         case 'rapport':
           donnees = [String.raw`${O}${hA}=${OhA}\text{ cm}`, String.raw`${O}${A}=${OA}\text{ cm}`]
@@ -119,7 +122,7 @@ export default function calculsHomothetie () {
                   donc c'est ${unAgrandissement} et on a ${intervallek}.
                   <br>
                   `
-            texteCorr += mathalea2d({ xmin: (kpositif ? -1 : -7.3), xmax: 7.3, ymin: -2, ymax: 1.9, style: 'inline' }, fs1, fs2, fc1, fc2, flabelsRapport)
+            texteCorr += mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, fc1, fc2, flabelsRapport)
             texteCorr += String.raw`
                   <br>
                   Le rapport de cette homothétie est ${lopposedu} quotient
@@ -144,7 +147,7 @@ export default function calculsHomothetie () {
                 ${intervallek} donc $[${O}${hA}]$ est ${unAgrandissement} de $[${O}${A}]$.
                 <br>
                 `
-            texteCorr += mathalea2d({ xmin: (kpositif ? -1 : -7.3), xmax: 7.3, ymin: -2, ymax: 1.9, style: 'inline' }, fs1, fs2, fc1, fc2, flabelsImage)
+            texteCorr += mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, fc1, fc2, flabelsImage)
             texteCorr += String.raw`
                 <br>
                 Une homothétie de rapport ${positif} est
@@ -171,7 +174,7 @@ export default function calculsHomothetie () {
                 ${intervallek} donc $[${O}${hA}]$ est ${unAgrandissement} de $[${O}${A}]$.
                 <br>
                 `
-            texteCorr += mathalea2d({ xmin: (kpositif ? -1 : -7.3), xmax: 7.3, ymin: -2, ymax: 1.9, style: 'inline' }, fs1, fs2, fc1, fc2, flabelsAntecedent)
+            texteCorr += mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, fc1, fc2, flabelsAntecedent)
             texteCorr += String.raw`
             <br>
             Une homothétie de rapport ${positif} est
@@ -208,7 +211,7 @@ export default function calculsHomothetie () {
                     donc c'est ${unAgrandissement} et on a ${intervallek}.
                     <br>
                     `
-            texteCorr += mathalea2d({ xmin: (kpositif ? -1 : -7.3), xmax: 7.3, ymin: (kpositif ? -2 : -0.9 - 3 * 7 / 4), ymax: 0.9 + 3 * 7 / 4, style: 'inline' }, fs1, fs2, fs3, fs4, flabelsImage2etapes)
+            texteCorr += mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA, fB, fhB, fOB, fOhB]), { style: 'inline', scale: fscale }), fs1, fs2, fs3, fs4, flabelsImage2etapes)
             texteCorr += String.raw`
                     <br>        
                     Le rapport de cette homothétie est
@@ -217,7 +220,9 @@ export default function calculsHomothetie () {
                     <br>
                     Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
                     <br>
-                    Une homothétie de rapport ${positif}
+                    $[${O}${hB}]$ est l'image de $[${O}${B}]$.
+                    <br>
+                    Or une homothétie de rapport ${positif}
                     est une transformation qui multiplie
                     toutes les longueurs par ${lopposede} son rapport.
                     <br>
@@ -249,7 +254,7 @@ export default function calculsHomothetie () {
                     donc c'est ${unAgrandissement} et on a ${intervallek}.
                     <br>
                     `
-            texteCorr += mathalea2d({ xmin: (kpositif ? -1 : -7.3), xmax: 7.3, ymin: -2, ymax: 0.9 + 3 * 7 / 4, style: 'inline' }, fs1, fs2, fs3, fs4, flabelsAntecedent2etapes)
+            texteCorr += mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA, fB, fhB, fOB, fOhB]), { style: 'inline', scale: fscale }), fs1, fs2, fs3, fs4, flabelsAntecedent2etapes)
             texteCorr += String.raw`
                       <br>
                       Le rapport d'une homothétie est ${lopposedu} quotient
@@ -257,7 +262,9 @@ export default function calculsHomothetie () {
                       <br>
                       Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
                       <br>
-                      Une homothétie de rapport ${positif} est
+                      $[${O}${hB}]$ est l'image de $[${O}${B}]$.
+                      <br>
+                      Or une homothétie de rapport ${positif} est
                       une transformation qui multiplie
                       toutes les longueurs par ${lopposede} son rapport.
                       <br>
@@ -333,7 +340,7 @@ export default function calculsHomothetie () {
           }
           break
       }
-      if (this.questionJamaisPosee(i, k, OA, kAire)) {
+      if (this.questionJamaisPosee(i, k, OA, kAire, signek)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -344,6 +351,7 @@ export default function calculsHomothetie () {
   }
   this.besoinFormulaireNumerique = [
     'Type de question', 9, [
+      '0 : Mélange des types de questions',
       '1 : Calculer le rapport',
       '2 : Calculer une longueur image',
       '3 : Calculer une longueur antécédent',
@@ -351,8 +359,7 @@ export default function calculsHomothetie () {
       '5 : Calculer une longueur antécédent (deux étapes)',
       '6 : Calculer une aire image',
       '7 : Calculer une aire antécédent',
-      '8 : Calculer le rapport à partir des aires',
-      '9 : Mélange des types de questions'
+      '8 : Calculer le rapport à partir des aires'
     ].join('\n')
   ]
   this.besoinFormulaire2Numerique = [
