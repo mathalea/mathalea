@@ -15,13 +15,15 @@ export default function PlusGrandNombreEntier () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
     const chiffres = numTrie([a, b, c])
 
-    this.question = `Quel est le plus grand nombre écrit avec les chiffres : ${a}, ${b} et ${c}.`
+    this.question = `Quel est le plus grand nombre que l'on peut écrire avec les trois chiffres : ${a}, ${b} et ${c} ?`
     this.reponse = chiffres[2] * 100 + chiffres[1] * 10 + chiffres[0]
     this.correction = `Le plus grand nombre possible est : $${chiffres[2]}\\times 100 + ${chiffres[1]}\\times 10 + ${chiffres[0]}=${chiffres[2] * 100 + chiffres[1] * 10 + chiffres[0]}$`
   }

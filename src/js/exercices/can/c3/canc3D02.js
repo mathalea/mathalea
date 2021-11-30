@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export default function LireUneDuree () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.tailleDiaporama = 2
+  this.tailleDiaporama = 1
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -71,11 +71,11 @@ export default function LireUneDuree () {
     petiteAiguille2.color = 'green'
     petiteAiguille2.epaisseur = 3
     this.question = enonce + (context.isHtml ? '<table><tr><td>' : '\\begin{multicols}{2}\n') +
-    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 1 }, horloge, grandeAiguille1, petiteAiguille1, texteParPosition('Heure de début', 0, -2.5)) +
+    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 1, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge, grandeAiguille1, petiteAiguille1, texteParPosition('Heure de début', 0, -2.5)) +
 (context.isHtml ? '</td><td>' : '') +
-    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 1 }, horloge, grandeAiguille2, petiteAiguille2, texteParPosition('Heure de fin', 0, -2.5)) +
+    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 1, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge, grandeAiguille2, petiteAiguille2, texteParPosition('Heure de fin', 0, -2.5)) +
     (context.isHtml ? '</td></tr></table>' : '\\end{multicols}\n') +
-          'Combien de temps cela a-t-il duré ?'
+          'Combien de temps cela a-t-il duré ? (...h....)'
     this.reponse = `${h2 - h1}h ${m2 - m1}`
     this.correction = `On regarde de combien de graduations la grande aiguille a avancé : elle a avancé de ${calcul((m2 - m1) / 5)} graduations soit ${m2 - m1} minutes.<br>`
     this.correction += 'Ensuite on regarde si la petite aiguille a avancé d\'au moins une graduation.<br>'

@@ -25,14 +25,14 @@ export default function TrouverLaBonneUnite () {
       case 0:
       case 1:
       case 2:
-        this.question = `$${a}$${unite} $= ${texNombrec(a * prefixes[typeDeQuestion][0])}$ ${this.interactif ? '' : '$\\ldots$'}`
+        this.question = `Compléter avec l'unité qui convient : <br>$${a}$${unite} $= ${texNombrec(a * prefixes[typeDeQuestion][0])}$ ${this.interactif ? '' : '$\\ldots$'}`
         this.reponse = `${prefixes[typeDeQuestion][1]}${unite}`
         this.correction = `$${a}$${unite} $= ${texNombrec(a * prefixes[typeDeQuestion][0])}$ ${prefixes[typeDeQuestion][1]}${unite}`
         break
       case 3:
       case 4:
       case 5:
-        this.question = `$${a}$${unite} $= ${texNombrec(a / prefixes[typeDeQuestion][0])}$ ${this.interactif ? '' : '$\\ldots$'}`
+        this.question = `Compléter avec l'unité qui convient : <br>$${a}$${unite} $= ${texNombrec(a / prefixes[typeDeQuestion][0])}$ ${this.interactif ? '' : '$\\ldots$'}`
         this.reponse = `${prefixes[typeDeQuestion][1]}${unite}`
         this.correction = `$${a}$${unite} $= ${texNombrec(a / prefixes[typeDeQuestion][0])}$ ${prefixes[typeDeQuestion][1]}${unite}`
         break

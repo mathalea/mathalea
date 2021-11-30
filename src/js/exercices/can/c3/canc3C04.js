@@ -16,16 +16,17 @@ export default function DoubleOuBienMoitie () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 3
+  this.tailleDiaporama = 2
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a = randint(2, 4) * 10 + randint(1, 9)
     if (choice([true, false])) {
       this.reponse = a << 1
-      this.question = `Le double de ${a} est égal à `
+      this.question = `Le double de ${a} est égal à :`
       this.correction = `$${a}\\times 2 = ${a << 1}$`
     } else {
       if (a % 2 === 1) { a++ }
-      this.question = `La moitié de ${a} est égal à `
+      this.question = `La moitié de ${a} est égal à :`
       this.reponse = a >> 1
       this.correction = `$${a}\\div 2 = ${a >> 1}$`
     }
