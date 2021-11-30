@@ -1,12 +1,23 @@
 # ignorer le dossier de config de visual studio code
 .vscode/
+# idem pour webstorm
+.idea
+# d'autres éditeurs
+Session.vim
+.emacs*
+*.cache
+*.sublime-workspace
+# leurs backups automatiques
+*~
+*.bak
 
 # ignorer les dossier tex/, tex/png/, dnb/ et tous leurs enfants
 # tex/*
 # tex/png/*
 dnb/
 
-#ignorer le fichier de config de jshintrc
+# ignorer le fichier de config de jshintrc (le projet utilise eslint
+# configuré dans le package.json)
 .jshintrc
 
 # ignorer les zip du dossier fichierszip/
@@ -29,9 +40,9 @@ src/js/modules/doc
 _private
 
 # Par défaut, on utilise pnpm.
-# On enlève ce fichier pour ceux qui utilisent npm
+.pnpm-debug.log
+# On ignore ce fichier pour ceux qui utilisent npm (ça reste local chez eux)
 package-lock.json
-
 
 # traces MacOS
 .DS_Store
@@ -45,5 +56,3 @@ src/json/scoresCodesVipSebSeul.json
 
 # Dossier avec les fichiers utiles pour l'hebergement de tests php SebLOZ
 src/slozano54
-.husky/.gitignore
-.pnpm-debug.log
