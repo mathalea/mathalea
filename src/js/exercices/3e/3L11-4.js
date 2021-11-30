@@ -89,7 +89,7 @@ export default function FactoriserParNombreOux () {
         case 'nka-mkb':
           texte = `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*a-(${m * k})*b`)}$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${n}a-${k}\\times${m}b$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${ecritureParentheseSiNegatif(n)}a-${k}\\times${m}b$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${n}a-${m}b)$`
           reponse = [`${k}(${n}a-${m}b)`, `${-k}(${-n}a+${m}b)`]
           break
@@ -110,14 +110,14 @@ export default function FactoriserParNombreOux () {
         case 'nx2+x':
           texte = `<br>$${lettreDepuisChiffre(i + 1)}=${n}x^2+x$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x\\times ${n}x+x\\times 1$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x\\times ${ecritureParentheseSiNegatif(n)}x+x\\times 1$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x(${n}x+1)$`
           reponse = [`x(${n}x+1)`, `-x(${-n}x-1)`]
           break
         case 'nx2+mx':
           texte = `<br>$${lettreDepuisChiffre(i + 1)}=${n}x^2+${m}x$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x\\times ${n}x+x\\times ${m}$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x\\times ${ecritureParentheseSiNegatif(n)}x+x\\times ${m}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x(${n}x+${m})$`
           reponse = [`x(${n}x+${m})`, `-x(${-n}x-${m})`]
           break
