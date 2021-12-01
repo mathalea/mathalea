@@ -90,8 +90,8 @@ export default function calculsHomothetie () {
       const signek = kpositif ? '' : '-'
       const lopposede = kpositif ? '' : 'l\'opposé de '
       const lopposedu = kpositif ? 'le' : 'l\'opposé du '
-      OhB = texNum(OhB).replace(',', '{,}').replace('{{,}}', '{,}')
       OhA = texNum(OhA).replace(',', '{,}').replace('{{,}}', '{,}')
+      OhB = texNum(OhB).replace(',', '{,}').replace('{{,}}', '{,}')
       hAire = texNum(hAire).replace(',', '{,}').replace('{{,}}', '{,}')
       hAireArrondie = texNum(hAireArrondie).replace(',', '{,}').replace('{{,}}', '{,}')
       k = texNum(k, this.sup3).replace(',', '{,}').replace('{{,}}', '{,}')
@@ -123,12 +123,18 @@ export default function calculsHomothetie () {
       // const fOBi = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, '$\\text{?}$', 'below')
       const fOhAi = point((signek + 1) * (agrandissement ? 3.5 : 2), (signek + 1) * (agrandissement ? 1 : 0.5), '$\\text{?}$', kpositif ? 'above' : 'below')
       // const fOhBi = point(agrandissement ? 3.5 : 2, agrandissement ? 1 : 0.5, '$\\text{?}$', 'above')
-      const flabelsRapport = labelPoint(fO, fA, fhA, fOhA, fOA)
-      const flabelsImage = labelPoint(fO, fA, fhA, fOhAi, fOA)
-      const flabelsAntecedent = labelPoint(fO, fA, fhA, fOhA, fOAi)
-      const flabelsImage2etapes = labelPoint(fO, fA, fhA, fB, fhB)
-      const flabelsAntecedent2etapes = labelPoint(fO, fA, fhA, fB, fhB)
       const fscale = kpositif ? 1 : 0.7
+      // const figureSimple = mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, labelPoint(fO, fA, fhA))
+      const flabelsRapport = labelPoint(fO, fA, fhA, fOhA, fOA)
+      const frapport = mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, fc1, fc2, flabelsRapport)
+      const flabelsImage = labelPoint(fO, fA, fhA, fOhAi, fOA)
+      const fImage = mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, fc1, fc2, flabelsImage)
+      const flabelsAntecedent = labelPoint(fO, fA, fhA, fOhA, fOAi)
+      const fAntecedent = mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, fc1, fc2, flabelsAntecedent)
+      const flabelsImage2etapes = labelPoint(fO, fA, fhA, fB, fhB)
+      const fImage2etapes = mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA, fB, fhB, fOB, fOhB]), { style: 'inline', scale: fscale }), fs1, fs2, fs3, fs4, flabelsImage2etapes)
+      const flabelsAntecedent2etapes = labelPoint(fO, fA, fhA, fB, fhB)
+      const fAntecedent2etapes = mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA, fB, fhB, fOB, fOhB]), { style: 'inline', scale: fscale }), fs1, fs2, fs3, fs4, flabelsAntecedent2etapes)
       switch (listeTypeQuestions[i]) {
         case 'rapport':
           donnees = [String.raw`${O}${hA}=${OhA}\text{ cm}`, String.raw`${O}${A}=${OA}\text{ cm}`]
@@ -141,7 +147,9 @@ export default function calculsHomothetie () {
                     et de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
                     <br>
                     Calculer le rapport $k$ de cette homothétie.
+                    <br>
                     `
+          // texte += figureSimple
           texteCorr = String.raw`
                 $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
                 `
@@ -152,7 +160,7 @@ export default function calculsHomothetie () {
                   donc c'est ${unAgrandissement} et on a ${intervallek}.
                   <br>
                   `
-            texteCorr += mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, fc1, fc2, flabelsRapport)
+            texteCorr += frapport
             texteCorr += String.raw`
                   <br>
                   Le rapport de cette homothétie est ${lopposedu} quotient
@@ -177,7 +185,7 @@ export default function calculsHomothetie () {
                 ${intervallek} donc $[${O}${hA}]$ est ${unAgrandissement} de $[${O}${A}]$.
                 <br>
                 `
-            texteCorr += mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, fc1, fc2, flabelsImage)
+            texteCorr += fImage
             texteCorr += String.raw`
                 <br>
                 Une homothétie de rapport ${positif} est
@@ -204,7 +212,7 @@ export default function calculsHomothetie () {
                 ${intervallek} donc $[${O}${hA}]$ est ${unAgrandissement} de $[${O}${A}]$.
                 <br>
                 `
-            texteCorr += mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, fc1, fc2, flabelsAntecedent)
+            texteCorr += fAntecedent
             texteCorr += String.raw`
             <br>
             Une homothétie de rapport ${positif} est
@@ -241,7 +249,7 @@ export default function calculsHomothetie () {
                     donc c'est ${unAgrandissement} et on a ${intervallek}.
                     <br>
                     `
-            texteCorr += mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA, fB, fhB, fOB, fOhB]), { style: 'inline', scale: fscale }), fs1, fs2, fs3, fs4, flabelsImage2etapes)
+            texteCorr += fImage2etapes
             texteCorr += String.raw`
                     <br>        
                     Le rapport de cette homothétie est
@@ -284,7 +292,7 @@ export default function calculsHomothetie () {
                     donc c'est ${unAgrandissement} et on a ${intervallek}.
                     <br>
                     `
-            texteCorr += mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA, fB, fhB, fOB, fOhB]), { style: 'inline', scale: fscale }), fs1, fs2, fs3, fs4, flabelsAntecedent2etapes)
+            texteCorr += fAntecedent2etapes
             texteCorr += String.raw`
                       <br>
                       Le rapport d'une homothétie est ${lopposedu} quotient
