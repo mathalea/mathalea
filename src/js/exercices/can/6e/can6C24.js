@@ -15,6 +15,7 @@ export default function MultiplierParPuissanceDixNeg () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 9)
@@ -25,7 +26,7 @@ export default function MultiplierParPuissanceDixNeg () {
     this.reponse = calcul(facteur * d)
 
     if (d === 0.1) {
-      this.question = `$${facteur}\\times ${texNombre(d)}$`
+      this.question = `$${facteur}\\times ${texNombre(d)}=$`
       this.correction = `$${facteur}\\times ${texNombre(d)}=${texNombre(this.reponse)}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
   Multiplier par $0,1$ revient à diviser par $10$. <br>
@@ -36,7 +37,7 @@ export default function MultiplierParPuissanceDixNeg () {
      `)
     }
     if (d === 0.01) {
-      this.question = `$${facteur}\\times ${texNombre(d)}$`
+      this.question = `$${facteur}\\times ${texNombre(d)}=$`
       this.correction = `$${facteur}\\times ${texNombre(d)}=${texNombre(this.reponse)}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
   Multiplier par $0,01$ revient à diviser par $100$. <br>
@@ -47,7 +48,7 @@ export default function MultiplierParPuissanceDixNeg () {
      `)
     }
     if (d === 0.001) {
-      this.question = `$${facteur}\\times ${texNombre(d)}$`
+      this.question = `$${facteur}\\times ${texNombre(d)}=$`
       this.correction = `$${facteur}\\times ${texNombre(d)}=${texNombre(this.reponse)}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
   Multiplier par $0,001$ revient à diviser par $1000$. <br>

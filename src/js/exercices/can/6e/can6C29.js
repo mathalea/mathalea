@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texteEnCouleur } from '../../../modules/outils.js'
-export const titre = 'Partage'
+export const titre = 'Résoudre un petit problème de partage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '1/11/2021'
@@ -14,6 +14,7 @@ export default function Partage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: ' €' }
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -28,7 +29,7 @@ export default function Partage () {
     n = nombre[2]
     this.reponse = randint(21, 29) // La réponse, c'est ce nombre
     prix = this.reponse * n // calcul n'est pas utile pour la multiplication d'entiers
-    this.question = `${a} amis mangent au restaurant. L'addition sélève à $${prix}$ euros. <br>
+    this.question = `${a} amis mangent au restaurant. L'addition sélève à $${prix}$ euros. 
     Les amis décident de partager la note en ${b}.<br>
     Quelle est la somme payée par chacun ?`
     this.correction = `$${prix}\\div ${n}=${this.reponse}$.`
