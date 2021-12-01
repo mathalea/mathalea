@@ -9,6 +9,9 @@ export const interactifType = ['qcm']
 
 export const titre = 'Trouver les informations utiles ou inutiles pour résoudre des problèmes'
 
+// Gestion de la date de publication initiale
+export const dateDePublication = '01/12/2021'
+
 /**
  * Trouver les informations utiles ou inutiles pour résoudre des problèmes
  * On peut choisir des problèmes qui n'ont pas de solution.
