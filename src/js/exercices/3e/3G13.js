@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, mathalea2d, fixeBordures } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNombrec, combinaisonListes, arrondi } from '../../modules/outils.js'
+import { fraction, abs, multiply, evaluate, divide } from 'mathjs'
 export const titre = 'Homothétie (calculs)'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -26,7 +27,28 @@ export default function calculsHomothetie () {
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   this.sup = 1
   this.sup2 = 1 // 1 : Homothéties de rapport positif, 2: de rapport négatif 3 : mélange
-
+  this.sup3 = false // true pour l'utilisation d'une fraction pour le rapport (en projet)
+  this.sup4 = false // Valeurs entières pour un calcul mental (en projet)
+  this.besoinFormulaireNumerique = [
+    'Type de question', 9, [
+      '0 : Mélange des types de questions',
+      '1 : Calculer le rapport',
+      '2 : Calculer une longueur image',
+      '3 : Calculer une longueur antécédent',
+      '4 : Calculer une longueur image (deux étapes)',
+      '5 : Calculer une longueur antécédent (deux étapes)',
+      '6 : Calculer une aire image',
+      '7 : Calculer une aire antécédent',
+      '8 : Calculer le rapport à partir des aires'
+    ].join('\n')
+  ]
+  this.besoinFormulaire2Numerique = [
+    'Signe du rapport',
+    3,
+    '1 : positif\n2 : négatif\n3 : mélange'
+  ]
+  this.besoinFormulaire3CaseACocher = ['Utilisation d\'une fraction pour le rapport', false]
+  this.besoinFormulaire4CaseACocher = ['Décomposition avec des Valeurs entières pour les longueurs', false]
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -44,28 +66,36 @@ export default function calculsHomothetie () {
       const O = lettres[2]
       const B = lettres[3]
       const hB = lettres[4]
-      let k = choice([randint(15, 40) / 10, randint(1, 9) / 10]) * choice([[1], [-1], [-1, 1]][this.sup2 - 1])
-      let absk = Math.abs(k)
-      const agrandissement = absk > 1
-      const kpositif = k > 0
+      const ks = fraction(choice([[1], [-1], [-1, 1]][this.sup2 - 1]))
+      let k = fraction(1, 1)
+      while (abs(k).toString() === '1') {
+        k = this.sup3 ? multiply(fraction(randint(1, 9), randint(1, 9)), ks) : multiply(choice([randint(15, 40) / 10, randint(1, 9) / 10]), ks)
+      }
+      let absk = abs(k)
+      const agrandissement = evaluate(absk > 1)
+      const kpositif = evaluate(k > 0)
+      const longueurEntiere = this.sup4 ? fraction(randint(1, 19)) : fraction(randint(11, 99))
+      let OA = multiply(agrandissement ? divide(longueurEntiere, 10) : longueurEntiere, 10 ** (this.sup4) * absk.d ** (this.sup3))
+      let OhA = multiply(absk, OA)
+      let OB = multiply(divide(randint(10, 99, [parseInt(longueurEntiere.toString())]), 10), 10 ** (this.sup4) * absk.d ** (this.sup3))
+      let OhB = multiply(absk, OB)
       let kAire = choice([randint(1, 4) + 0.5 + choice([0, 0.5]), randint(1, 9) / 10])
-      const longueurEntiere = randint(10, 99)
-      let OA = agrandissement ? longueurEntiere / 10 : longueurEntiere
       let Aire = randint(10, 99) // Avec ce choix il n'y a plus d'arrondi à faire
-      let OB = randint(10, 99, [longueurEntiere]) / 10
-      const OhB = texNombrec(absk * OB).replace(',', '{,}').replace('{{,}}', '{,}')
-      const OhA = texNombrec(absk * OA).replace(',', '{,}').replace('{{,}}', '{,}')
-      const hAire = texNombrec(kAire ** 2 * Aire).replace(',', '{,}').replace('{{,}}', '{,}')
-      const hAireArrondie = texNombrec(arrondi(kAire ** 2 * Aire)).replace(',', '{,}').replace('{{,}}', '{,}')
+      let hAire = kAire ** 2 * Aire
+      let hAireArrondie = arrondi(kAire ** 2 * Aire)
       const plusgrandque = agrandissement ? '>' : '<'
       const unAgrandissement = agrandissement ? 'un agrandissement' : 'une réduction'
-      const intervallek = agrandissement ? (k > 0 ? '$k > 1$' : '$k < -1$') : (k > 0 ? '$0 < k < 1$' : '$-1 < k < 0$')
+      const intervallek = agrandissement ? (kpositif ? '$k > 1$' : '$k < -1$') : (kpositif ? '$0 < k < 1$' : '$-1 < k < 0$')
       const positif = kpositif ? 'positif' : 'négatif'
       const signek = kpositif ? '' : '-'
       const lopposede = kpositif ? '' : 'l\'opposé de '
       const lopposedu = kpositif ? 'le' : 'l\'opposé du '
-      k = texNombrec(k).replace(',', '{,}').replace('{{,}}', '{,}')
-      absk = texNombrec(absk).replace(',', '{,}').replace('{{,}}', '{,}')
+      OhB = texNombrec(OhB).replace(',', '{,}').replace('{{,}}', '{,}')
+      OhA = texNombrec(OhA).replace(',', '{,}').replace('{{,}}', '{,}')
+      hAire = texNombrec(hAire).replace(',', '{,}').replace('{{,}}', '{,}')
+      hAireArrondie = texNombrec(hAireArrondie).replace(',', '{,}').replace('{{,}}', '{,}')
+      k = texNombrec(k, this.sup3).replace(',', '{,}').replace('{{,}}', '{,}')
+      absk = texNombrec(absk, this.sup3).replace(',', '{,}').replace('{{,}}', '{,}')
       kAire = texNombrec(kAire).replace(',', '{,}').replace('{{,}}', '{,}')
       OA = texNombrec(OA).replace(',', '{,}').replace('{{,}}', '{,}')
       OB = texNombrec(OB).replace(',', '{,}').replace('{{,}}', '{,}')
@@ -73,8 +103,8 @@ export default function calculsHomothetie () {
       const fO = point(0, 0, `$${O}$`)
       const fA = point(agrandissement ? 4 : 7, 0, `$${A}$`, 'below')
       const fB = point(agrandissement ? 4 : 7, 3, `$${B}$`)
-      const fhA = point((signek + 1) * (agrandissement ? 7 : 4), 0, `$${hA}$`, 'below')
-      const fhB = point((signek + 1) * (agrandissement ? 7 : 4), (signek + 1) * (agrandissement ? 3 * 7 / 4 : 3 * 4 / 7), `$${hB}$`)
+      const fhA = point((signek + 1) * (agrandissement ? 7 : 4), 0, `$${hA}$`, kpositif ? 'below' : 'above')
+      const fhB = point((signek + 1) * (agrandissement ? 7 : 4), (signek + 1) * (agrandissement ? 3 * 7 / 4 : 3 * 4 / 7), `$${hB}$`, kpositif ? 'above' : 'below')
       const fs1 = segmentAvecExtremites(fO, fA)
       const fs2 = segmentAvecExtremites(fA, fhA)
       const fs3 = segmentAvecExtremites(fO, fB)
@@ -83,16 +113,16 @@ export default function calculsHomothetie () {
       fc1.pointilles = true
       const fc2 = arcPointPointAngle(fO, fA, 60, false)
       fc2.pointilles = true
-      const fc3 = arcPointPointAngle(fhB, fO, 60, false)
-      const fc4 = arcPointPointAngle(fO, fB, 60, false)
+      // const fc3 = arcPointPointAngle(fhB, fO, 60, false)
+      // const fc4 = arcPointPointAngle(fO, fB, 60, false)
       const fOA = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, `$${OA}~\\text{cm}$`, 'below')
       const fOB = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, `$${OB}~\\text{cm}$`, 'below')
       const fOhA = point((signek + 1) * (agrandissement ? 3.5 : 2), (signek + 1) * (agrandissement ? 1 : 0.5), `$${OhA}~\\text{cm}$`, kpositif ? 'above' : 'below')
       const fOhB = point(agrandissement ? 3.5 : 2, agrandissement ? 1 : 0.5, `$${OhB}~\\text{cm}$`, 'above')
       const fOAi = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, '$\\text{?}$', 'below')
-      const fOBi = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, '$\\text{?}$', 'below')
-      const fOhAi = point((signek + 1) * (agrandissement ? 3.5 : 2), (signek + 1) * (agrandissement ? 1 : 0.5), '$\\text{?}$',  kpositif ? 'above' : 'below')
-      const fOhBi = point(agrandissement ? 3.5 : 2, agrandissement ? 1 : 0.5, '$\\text{?}$', 'above')
+      // const fOBi = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, '$\\text{?}$', 'below')
+      const fOhAi = point((signek + 1) * (agrandissement ? 3.5 : 2), (signek + 1) * (agrandissement ? 1 : 0.5), '$\\text{?}$', kpositif ? 'above' : 'below')
+      // const fOhBi = point(agrandissement ? 3.5 : 2, agrandissement ? 1 : 0.5, '$\\text{?}$', 'above')
       const flabelsRapport = labelPoint(fO, fA, fhA, fOhA, fOA)
       const flabelsImage = labelPoint(fO, fA, fhA, fOhAi, fOA)
       const flabelsAntecedent = labelPoint(fO, fA, fhA, fOhA, fOAi)
@@ -349,22 +379,4 @@ export default function calculsHomothetie () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = [
-    'Type de question', 9, [
-      '0 : Mélange des types de questions',
-      '1 : Calculer le rapport',
-      '2 : Calculer une longueur image',
-      '3 : Calculer une longueur antécédent',
-      '4 : Calculer une longueur image (deux étapes)',
-      '5 : Calculer une longueur antécédent (deux étapes)',
-      '6 : Calculer une aire image',
-      '7 : Calculer une aire antécédent',
-      '8 : Calculer le rapport à partir des aires'
-    ].join('\n')
-  ]
-  this.besoinFormulaire2Numerique = [
-    'Signe du rapport',
-    3,
-    '1 : positif\n2 : négatif\n3 : mélange'
-  ]
 }
