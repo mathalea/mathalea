@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, mathalea2d, fixeBordures } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNombrec, combinaisonListes, arrondi } from '../../modules/outils.js'
+import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes, arrondi } from '../../modules/outils.js'
 import { fraction, abs, multiply, evaluate, divide } from 'mathjs'
 export const titre = 'Homothétie (calculs)'
 
@@ -48,7 +48,7 @@ export default function calculsHomothetie () {
     '1 : positif\n2 : négatif\n3 : mélange'
   ]
   this.besoinFormulaire3CaseACocher = ['Utilisation d\'une fraction pour le rapport', false]
-  this.besoinFormulaire4CaseACocher = ['Décomposition avec des Valeurs entières pour les longueurs', false]
+  this.besoinFormulaire4CaseACocher = ['Utilisation de valeurs entières pour les longueurs', false]
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -90,16 +90,16 @@ export default function calculsHomothetie () {
       const signek = kpositif ? '' : '-'
       const lopposede = kpositif ? '' : 'l\'opposé de '
       const lopposedu = kpositif ? 'le' : 'l\'opposé du '
-      OhB = texNombrec(OhB).replace(',', '{,}').replace('{{,}}', '{,}')
-      OhA = texNombrec(OhA).replace(',', '{,}').replace('{{,}}', '{,}')
-      hAire = texNombrec(hAire).replace(',', '{,}').replace('{{,}}', '{,}')
-      hAireArrondie = texNombrec(hAireArrondie).replace(',', '{,}').replace('{{,}}', '{,}')
-      k = texNombrec(k, this.sup3).replace(',', '{,}').replace('{{,}}', '{,}')
-      absk = texNombrec(absk, this.sup3).replace(',', '{,}').replace('{{,}}', '{,}')
-      kAire = texNombrec(kAire).replace(',', '{,}').replace('{{,}}', '{,}')
-      OA = texNombrec(OA).replace(',', '{,}').replace('{{,}}', '{,}')
-      OB = texNombrec(OB).replace(',', '{,}').replace('{{,}}', '{,}')
-      Aire = texNombrec(Aire).replace(',', '{,}').replace('{{,}}', '{,}')
+      OhB = texNum(OhB).replace(',', '{,}').replace('{{,}}', '{,}')
+      OhA = texNum(OhA).replace(',', '{,}').replace('{{,}}', '{,}')
+      hAire = texNum(hAire).replace(',', '{,}').replace('{{,}}', '{,}')
+      hAireArrondie = texNum(hAireArrondie).replace(',', '{,}').replace('{{,}}', '{,}')
+      k = texNum(k, this.sup3).replace(',', '{,}').replace('{{,}}', '{,}')
+      absk = texNum(absk, this.sup3).replace(',', '{,}').replace('{{,}}', '{,}')
+      kAire = texNum(kAire).replace(',', '{,}').replace('{{,}}', '{,}')
+      OA = texNum(OA).replace(',', '{,}').replace('{{,}}', '{,}')
+      OB = texNum(OB).replace(',', '{,}').replace('{{,}}', '{,}')
+      Aire = texNum(Aire).replace(',', '{,}').replace('{{,}}', '{,}')
       const fO = point(0, 0, `$${O}$`)
       const fA = point(agrandissement ? 4 : 7, 0, `$${A}$`, 'below')
       const fB = point(agrandissement ? 4 : 7, 3, `$${B}$`)
