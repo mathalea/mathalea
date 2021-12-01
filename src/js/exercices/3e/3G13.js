@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, mathalea2d, fixeBordures } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes, arrondi } from '../../modules/outils.js'
-import { fraction, abs, multiply, evaluate, divide } from 'mathjs'
+import { fraction, abs, multiply, evaluate, divide, isInteger } from 'mathjs'
 export const titre = 'Homothétie (calculs)'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -69,7 +69,7 @@ export default function calculsHomothetie () {
       const ks = fraction(choice([[1], [-1], [-1, 1]][this.sup2 - 1]))
       let k = fraction(1, 1)
       while (abs(k).toString() === '1') {
-        k = this.sup3 ? multiply(fraction(randint(1, 9), randint(1, 9)), ks) : multiply(choice([randint(15, 40) / 10, randint(1, 9) / 10]), ks)
+        k = this.sup3 ? multiply(fraction(randint(1, 9), randint(1, 9)), ks) : multiply(fraction(choice([randint(15, 40) / 10, randint(1, 9) / 10])), ks)
       }
       let absk = abs(k)
       const agrandissement = evaluate(absk > 1)
@@ -77,7 +77,7 @@ export default function calculsHomothetie () {
       const longueurEntiere = this.sup4 ? fraction(randint(1, 19)) : fraction(randint(11, 99))
       let OA = multiply(agrandissement ? divide(longueurEntiere, 10) : longueurEntiere, 10 ** (this.sup4) * absk.d ** (this.sup3))
       let OhA = multiply(absk, OA)
-      let OB = multiply(divide(randint(10, 99, [parseInt(longueurEntiere.toString())]), 10), 10 ** (this.sup4) * absk.d ** (this.sup3))
+      let OB = multiply(divide(randint(10, 99, [parseInt(longueurEntiere.toString())]), fraction(10)), 10 ** (this.sup4) * absk.d ** (this.sup3))
       let OhB = multiply(absk, OB)
       let kAire = choice([randint(1, 4) + 0.5 + choice([0, 0.5]), randint(1, 9) / 10])
       let Aire = randint(10, 99) // Avec ce choix il n'y a plus d'arrondi à faire
@@ -90,7 +90,11 @@ export default function calculsHomothetie () {
       const signek = kpositif ? '' : '-'
       const lopposede = kpositif ? '' : 'l\'opposé de '
       const lopposedu = kpositif ? 'le' : 'l\'opposé du '
+      let kinverse = abs(divide(1, k))
+      const OhAdivkInversed = texNum(divide(OhA, kinverse.d)).replace(',', '{,}').replace('{{,}}', '{,}')
+      kinverse = { tex: texNum(kinverse, this.sup3).replace(',', '{,}').replace('{{,}}', '{,}'), n: kinverse.n, d: kinverse.d }
       OhA = texNum(OhA).replace(',', '{,}').replace('{{,}}', '{,}')
+      const OhAtimeskinverse = (this.sup3 && !isInteger(absk)) ? `=${OhA}\\times ${kinverse.tex}` + (kinverse.d !== 1 ? `=\\dfrac{${OhA}}{${kinverse.d}}\\times ${kinverse.n}=${OhAdivkInversed}\\times ${kinverse.n}` : '') : ''
       OhB = texNum(OhB).replace(',', '{,}').replace('{{,}}', '{,}')
       hAire = texNum(hAire).replace(',', '{,}').replace('{{,}}', '{,}')
       hAireArrondie = texNum(hAireArrondie).replace(',', '{,}').replace('{{,}}', '{,}')
@@ -221,7 +225,7 @@ export default function calculsHomothetie () {
             <br>
             Soit $${O}${hA}=${absk} \times ${O}${A}$.
             <br>
-            Donc $${O}${A}=\dfrac{${O}${hA}}{${absk}}=\dfrac{${OhA}}{${absk}} = ${OA}~\text{cm}$.
+            Donc $${O}${A}=\dfrac{${O}${hA}}{${absk}}=\dfrac{${OhA}}{${absk}} ${OhAtimeskinverse} = ${OA}~\text{cm}$.
             `
           }
           break
