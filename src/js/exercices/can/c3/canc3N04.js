@@ -15,6 +15,8 @@ export default function ArrondiUnite () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
+  this.formatChampTexte = 'largeur15 inline'
   this.consigne = ''
 
   this.nouvelleVersion = function () {

@@ -16,6 +16,7 @@ export const dateDePublication = '20/11/2021'
 export default function PariteDunNombre () {
   Exercice.call(this)
   this.nbQuestions = 1
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []

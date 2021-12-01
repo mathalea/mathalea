@@ -15,6 +15,8 @@ export default function DoubleOuBienMoitie () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b
     if (choice([true, false])) { // décimal ou entier ?
