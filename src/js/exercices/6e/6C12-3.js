@@ -3,11 +3,14 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, texNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jour, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 'qcmMulti' // type de question AMC
+export const amcType = 'qcmMult' // type de question AMC
 export const interactifReady = true
 export const interactifType = ['qcm']
 
 export const titre = 'Trouver les informations utiles ou inutiles pour résoudre des problèmes'
+
+// Gestion de la date de publication initiale
+export const dateDePublication = '01/12/2021'
 
 /**
  * Trouver les informations utiles ou inutiles pour résoudre des problèmes
