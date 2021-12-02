@@ -1723,9 +1723,32 @@ export function nombreDecimal (expression, arrondir = false) {
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
 * @author Rémi Angot
 */
+
 export function texNombrec (expression) {
   return texNombre(parseFloat(Algebrite.eval(expression)))
 }
+
+/**
+* Formattage pour une sortie LaTeX entre $$
+* formatFraction = false : si l'expression est un objet fraction du module mathjs alors elle peut donner l'écriture fractionnaire
+* Pour une fraction négative la sortie est -\dfrac{6}{7} au lieu de \dfrac{-6}{7}
+* @author Frédéric PIOU
+*/
+
+export function texNum (expression, formatFraction = false) {
+  if (typeof expression === 'object') {
+    const signe = expression.s === 1 ? '' : '-'
+    if (formatFraction === true) {
+      expression = expression.d !== 1 ? signe + texFraction(expression.n, expression.d) : signe + expression.n
+    } else {
+      expression = texNombre(evaluate(format(expression)))
+    }
+  } else {
+    expression = texNombre(parseFloat(Algebrite.eval(expression)))
+  }
+  return expression
+}
+
 /**
  * renvoie le résultat de l'expression en couleur (vert=positif, rouge=négatif, noir=nul)
  * @param {string} expression l'expression à calculer
