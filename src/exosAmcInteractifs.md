@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 372 
-- nombre d'exos interactifReady 513 
+- nombre d'exos interactifReady 515 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -268,35 +268,17 @@
 |6P13|Augmenter ou diminuer d’un pourcentage|OK|AMCHybride|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
-|CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
-|CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
-|CM002|Tables de divisions|OK|AMCNum|OK|numerique|
-|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
-|CM004|Les quatre opérations|OK|AMCNum|OK|numerique|
-|CM005|Ajouter 9|OK|AMCNum|OK|numerique|
-|CM006|Soustraire 9|OK|AMCNum|OK|numerique|
-|CM007|Ajouter 11|OK|AMCNum|OK|numerique|
-|CM008|Soustraire 11|OK|AMCNum|OK|numerique|
-|CM009|Moitié|OK|AMCNum|OK|numerique|
-|CM010|Tiers|OK|AMCNum|OK|numerique|
-|CM011|Quart|OK|AMCNum|OK|numerique|
-|CM012|Complément à 100|OK|AMCNum|OK|numerique|
-|CM013|Complément à une dizaine|OK|AMCNum|OK|numerique|
-|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|numerique|
-|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|numerique|
-|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
-|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
-|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
-|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
-|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
+|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |betaModele33_cliqueFractions|Fractions interactives|KO|KO|OK|custom|
+|betaTestcanPredef6_10qN1|CAN 6ième 10 questions (niveau 1)|KO|KO|OK|mathLive|
+|betaTestcanPredef6_10qN2|CAN 6ième 10 questions (niveau 2)|KO|KO|OK|mathLive|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|mathLive|
 |c3C10-4|Tables d’addition|OK|AMCNum|OK|numerique|
 |c3C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCHybride|OK|mathLive|
@@ -475,43 +457,41 @@
 |can6C27|Petits problèmes d'arithmétique|KO|KO|OK|mathLive|
 |can6C28|Petit problème de fraction|KO|KO|OK|mathLive|
 |can6C29|Partage|KO|KO|OK|mathLive|
-|can6D01|Conversion Heures et minutes vers minutes|OK|AMCNum|OK|mathLive|
-|can6D02|Reste en minutes|OK|AMCNum|OK|mathLive|
-|can6D03|Calcul de durée en minutes|OK|AMCNum|OK|mathLive|
-|can6D04|Convertir minutes->heures ou secondes->minutes|OK|AMCHybride|OK|mathLive|
-|can6G01|Symétrique de point 6e|OK|AMCHybride|OK|mathLive|
+|can6D01|Convertir des Heures/minutes en minutes|OK|AMCNum|OK|mathLive|
+|can6D02|Chercher un reste en minutes|OK|AMCNum|OK|mathLive|
+|can6D03|Calculer une durée en minutes|OK|AMCNum|OK|mathLive|
+|can6D04|Convertir minutes<->heures ou secondes<->minutes|OK|AMCHybride|OK|mathLive|
+|can6G01|Trouver le symétrique d’un point|OK|AMCHybride|OK|mathLive|
 |can6G02|Compter les cubes|OK|AMCNum|OK|mathLive|
 |can6G03|Compter les cubes manquants|OK|AMCNum|OK|mathLive|
-|can6G04|Problèmes de longueurs|OK|AMCNum|OK|mathLive|
-|can6G05|Problèmes de longueurs (inverse)|OK|AMCNum|OK|mathLive|
-|can6G06|Nombre de faces ou d'arêtes|OK|AMCNum|OK|mathLive|
-|can6M01|Question de périmètres|OK|qcmMono|OK|qcm|
-|can6M02|La bonne unité|OK|qcmMono|OK|qcm|
+|can6G04|Résoudre un problème de longueurs|OK|AMCNum|OK|mathLive|
+|can6G05|Résoudre un problème de longueurs (inverse)|OK|AMCNum|OK|mathLive|
+|can6G06|Trouver le nombre de faces ou d'arêtes d’un solide|OK|AMCNum|OK|mathLive|
+|can6M01|Comparer des périmètres (V/F)|OK|qcmMono|OK|qcm|
+|can6M02|Trouver la bonne unité|OK|qcmMono|OK|qcm|
 |can6M03|Convertir en mètres|OK|AMCNum|OK|mathLive|
-|can6M04|Conversions en tous sens|OK|AMCNum|OK|mathLive|
-|can6M05|Conversions m$^3$ et litres|OK|AMCNum|OK|mathLive|
-|can6M06|Périmètre d’une figure|OK|AMCNum|OK|mathLive|
+|can6M04|Convertir en tous sens|OK|AMCNum|OK|mathLive|
+|can6M05|Convertir des m$^3$ et litres|OK|AMCNum|OK|mathLive|
+|can6M06|Calculer le périmètre d’une figure|OK|AMCNum|OK|mathLive|
 |can6M07|Compléter un volume au litre|OK|AMCNum|OK|mathLive|
-|can6M08|Question d'aires|OK|qcmMono|OK|qcm|
-|can6M09|Périmètre carré et rectangle|KO|KO|OK|mathLive|
-|can6N01|Recomposer entier|OK|AMCNum|OK|mathLive|
-|can6N02|Recomposer entier simple|OK|AMCNum|OK|mathLive|
-|can6N03|Recomposer entier moins simple|OK|AMCNum|OK|mathLive|
-|can6N04|Abscisse fractionnaire|OK|AMCHybride|OK|mathLive|
-|can6N05|Chiffre des ...|OK|AMCHybride|OK|mathLive|
-|can6N06|Arrondi au dixième ou au centième|OK|AMCHybride|OK|mathLive|
+|can6M08|Comparer des aires (V/F)|OK|qcmMono|OK|qcm|
+|can6M09|Calculer des longueurs à partir des périmètres|KO|KO|OK|mathLive|
+|can6N01|Recomposer un entier|OK|AMCNum|OK|mathLive|
+|can6N02|Recomposer un entier (bis)|OK|AMCNum|OK|mathLive|
+|can6N03|Recomposer un entier*|OK|AMCNum|OK|mathLive|
+|can6N04|Trouver une abscisse fractionnaire|OK|AMCHybride|OK|mathLive|
+|can6N05|Déterminer le chiffre des ...|OK|AMCHybride|OK|mathLive|
+|can6N06|Arrondir au dixième ou au centième|OK|AMCHybride|OK|mathLive|
 |can6N07|Lire l'abscisse décimale d'un point repéré par une fraction|OK|AMCNum|OK|mathLive|
-|can6N08|Position des chiffres|OK|AMCNum|OK|mathLive|
-|can6N09|Suite décimale|OK|AMCNum|OK|mathLive|
-|can6P01|Proportionnalité simple|OK|AMCNum|OK|mathLive|
-|can6P02|Proportionnalité compliquée|OK|AMCNum|OK|mathLive|
-|can6P03|Question de vitesse|OK|AMCNum|OK|mathLive|
+|can6N08|Déterminer le nombre de centaines, dizaines|OK|AMCNum|OK|mathLive|
+|can6N09|Trouver le nombre qui suit|OK|AMCNum|OK|mathLive|
+|can6P01|Utiliser une proportionnalité|OK|AMCNum|OK|mathLive|
+|can6P02|Utiliser une proportionnalité*|OK|AMCNum|OK|mathLive|
+|can6P03|Déterminer le nombre de km avec une vitesse|OK|AMCNum|OK|mathLive|
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |can6P05|Appliquer un pourcentage (bis)|OK|AMCNum|OK|mathLive|
-|can6S01|Lecture de diagramme en barres|OK|AMCNum|OK|mathLive|
+|can6S01|Lire un diagramme en barres|OK|AMCNum|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
-|canExC01|Somme de nombres complexes|OK|AMCHybride|OK|mathLive|
-|canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|
 |canc3C01|Calculs automatiques|OK|AMCNum|OK|mathLive|
 |canc3C02|Composition de nombre entier|OK|AMCNum|OK|mathLive|
 |canc3C03|Table de multiplication à trous|OK|AMCNum|OK|mathLive|
@@ -527,3 +507,25 @@
 |canc3N03|Le plus grand nombre entier|OK|AMCNum|OK|mathLive|
 |canc3N04|Arrondi à l'unité|OK|AMCHybride|OK|mathLive|
 |canc3N05|Composition de nombre décimal|OK|AMCNum|OK|mathLive|
+|canExC01|Somme de nombres complexes|OK|AMCHybride|OK|mathLive|
+|canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|
+|CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
+|CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
+|CM002|Tables de divisions|OK|AMCNum|OK|numerique|
+|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
+|CM004|Les quatre opérations|OK|AMCNum|OK|numerique|
+|CM005|Ajouter 9|OK|AMCNum|OK|numerique|
+|CM006|Soustraire 9|OK|AMCNum|OK|numerique|
+|CM007|Ajouter 11|OK|AMCNum|OK|numerique|
+|CM008|Soustraire 11|OK|AMCNum|OK|numerique|
+|CM009|Moitié|OK|AMCNum|OK|numerique|
+|CM010|Tiers|OK|AMCNum|OK|numerique|
+|CM011|Quart|OK|AMCNum|OK|numerique|
+|CM012|Complément à 100|OK|AMCNum|OK|numerique|
+|CM013|Complément à une dizaine|OK|AMCNum|OK|numerique|
+|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|numerique|
+|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|numerique|
+|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
+|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
+|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
+|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|

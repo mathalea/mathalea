@@ -1,6 +1,6 @@
 import { calcul, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Conversion Heures et minutes vers minutes'
+export const titre = 'Convertir des Heures/minutes en minutes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,6 +15,7 @@ export default function ConversionHeuresEtMinutesVersMinutes () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur15 inline'
   if (!this.interactif) {
     this.question += ' .... minutes'
