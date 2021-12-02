@@ -1,6 +1,6 @@
 import { calcul, choice, randint, texPrix } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Proportionnalité compliquée'
+export const titre = 'Utiliser une proportionnalité*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

@@ -1,6 +1,6 @@
 import Transformations from '../../6e/_Transformations.js'
 export { interactifReady, interactifType, amcType, amcReady } from '../../6e/_Transformations.js'
-export const titre = 'Symétrique de point 6e'
+export const titre = 'Trouver le symétrique d’un point'
 
 /*!
  * @author Jean-Claude Lhote
