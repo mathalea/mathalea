@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 372 
-- nombre d'exos interactifReady 513 
+- nombre d'exos amcReady 376 
+- nombre d'exos interactifReady 518 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -154,6 +154,7 @@
 |5L14-2|Substitution|OK|AMCNum|OK|numerique|
 |5L14|Calculer la valeur d’une expression littérale|KO|KO|OK|mathLive|
 |5M20|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|5N11-3|Écrire une fraction sur 100 puis sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
 |5N110|Variation en pourcentages|OK|AMCNum|OK|mathLive|
 |5N13-2|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
 |5N13|Simplification de fractions|OK|AMCOpen|OK|mathLive|
@@ -180,6 +181,7 @@
 |6C11-2|Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne|OK|AMCOpen|OK|mathLive|
 |6C11|Divisions euclidiennes|OK|AMCOpen|OK|mathLive|
 |6C12-1|Résoudre des problèmes de masses|OK|AMCHybride|OK|mathLive|
+|6C12-3|Trouver les informations utiles ou inutiles pour résoudre des problèmes|OK|qcmMult|OK|qcm|
 |6C12|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
 |6C20|Additions et soustractions de nombres décimaux|OK|AMCNum|OK|numerique|
 |6C21|Divisions euclidiennes - Niveau 2|OK|AMCOpen|OK|mathLive|
@@ -253,6 +255,8 @@
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |6N31-4|Intercaler un nombre décimal entre deux nombres décimaux|KO|KO|OK|mathLive|
 |6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|OK|numerique|
+|6N33-2|Problèmes de calcul de pourcentage par complément à 100%|OK|AMCNum|OK|mathLive|
+|6N33-3|Problèmes avec des calculs de pourcentages|OK|AMCNum|OK|mathLive|
 |6N33|Calculer la fraction d’un nombre|OK|AMCNum|OK|mathLive|
 |6N34|Effectuer des conversions avec tous les préfixes de milli à tera|OK|AMCNum|OK|mathLive|
 |6N41|Égalités entre fractions simples|OK|qcmMono|OK|mathLive|
@@ -340,6 +344,7 @@
 |can2G10|Relation de Chasles, réductions vectorielles (niveau 1) QCM|KO|KO|OK|qcm|
 |can2G11|Relation de Chasles, réductions vectorielles (niveau 2) QCM|KO|KO|OK|qcm|
 |can2G12|Vecteurs colinéaires (V/F)|KO|KO|OK|qcm|
+|can2G13|Calcul de la norme d’un vecteur|KO|KO|OK|mathLive|
 |can2L01|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Coordonnées point d’intersection axe des abscisses/droite|KO|KO|OK|mathLive|
@@ -446,35 +451,35 @@
 |can5P02|Pourcentage (proportion) 2|OK|AMCNum|OK|mathLive|
 |can5P03|Problèmes de proportionnalité|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
-|can6C01|Ordre de grandeur QCM|OK|qcmMono|OK|qcm|
-|can6C02|Multiplier nombre pair par 5|OK|AMCNum|OK|mathLive|
-|can6C03|Addition à trou|OK|AMCNum|OK|mathLive|
+|can6C01|Trouver un ordre de grandeur (QCM)|OK|qcmMono|OK|qcm|
+|can6C02|Multiplier un nombre pair par 5|OK|AMCNum|OK|mathLive|
+|can6C03|Rechercher un terme dans une somme|OK|AMCNum|OK|mathLive|
 |can6C04|Ajouter 10n + 9|OK|AMCNum|OK|mathLive|
 |can6C05|Multiplier astucieusement|OK|AMCNum|OK|mathLive|
 |can6C06|Diviser par 9|OK|AMCNum|OK|mathLive|
-|can6C07|Reste de division par 3|OK|AMCNum|OK|mathLive|
-|can6C08|Quart ou Tiers|OK|AMCNum|OK|mathLive|
+|can6C07|Trouver le reste d’une division par 3|OK|AMCNum|OK|mathLive|
+|can6C08|Calculer le quart ou le tiers|OK|AMCNum|OK|mathLive|
 |can6C09|Soustraire 10n+9|OK|AMCNum|OK|mathLive|
-|can6C10|Tables de x du 5 au 9|OK|AMCNum|OK|mathLive|
-|can6C11|Double ou triple (décimal)|OK|AMCNum|OK|mathLive|
-|can6C12|Double ou triple|OK|AMCNum|OK|mathLive|
-|can6C13|Somme de deux décimaux|OK|AMCNum|OK|mathLive|
-|can6C14|Somme de quatre entiers qui se marient|OK|AMCNum|OK|mathLive|
-|can6C15|Fraction comme facteur manquant|OK|AMCHybride|OK|mathLive|
-|can6C16|Double et moitié|OK|AMCNum|OK|mathLive|
-|can6C17|Fraction simple de quantité|OK|AMCNum|OK|mathLive|
-|can6C18|Reste de la division euclidienne|OK|AMCNum|OK|mathLive|
-|can6C19|Complément à 100|OK|AMCNum|OK|mathLive|
-|can6C20|Complément à 1|OK|AMCNum|OK|mathLive|
-|can6C21|Complément à 1 Niveau 2|OK|AMCNum|OK|mathLive|
-|can6C22|Valeurs décimales de fractions|OK|AMCNum|OK|mathLive|
-|can6C23|Calcul avec +/-99 ou +/-999|OK|AMCNum|OK|mathLive|
+|can6C10|Connaître les tables de multiplication (de 5 à 9)|OK|AMCNum|OK|mathLive|
+|can6C11|Calculer le double ou le triple (décimal)|OK|AMCNum|OK|mathLive|
+|can6C12|Calculer le double ou le triple|OK|AMCNum|OK|mathLive|
+|can6C13|Calculer la somme de deux décimaux|OK|AMCNum|OK|mathLive|
+|can6C14|Calculer la somme de quatre entiers qui se marient|OK|AMCNum|OK|mathLive|
+|can6C15|Trouver la fraction (définition)|OK|AMCHybride|OK|mathLive|
+|can6C16|Calculer le double ou la moitié|OK|AMCNum|OK|mathLive|
+|can6C17|Calculer la fraction d’une quantité|OK|AMCNum|OK|mathLive|
+|can6C18|Trouver le reste d’une division euclidienne|OK|AMCNum|OK|mathLive|
+|can6C19|Déterminer le complément à 100|OK|AMCNum|OK|mathLive|
+|can6C20|Trouver le complément à 1|OK|AMCNum|OK|mathLive|
+|can6C21|Trouver le complément à 1*|OK|AMCNum|OK|mathLive|
+|can6C22|Déterminer la valeur décimale d’une fraction|OK|AMCNum|OK|mathLive|
+|can6C23|Calculer avec +/-99 ou +/-999|OK|AMCNum|OK|mathLive|
 |can6C24|Multiplier par 0,1 ou 0,01 ou 0,001|OK|AMCNum|OK|mathLive|
-|can6C25|Recherche d’un prix unitaire|KO|KO|OK|mathLive|
+|can6C25|Rechercher un prix unitaire|KO|KO|OK|mathLive|
 |can6C26|Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01|KO|KO|OK|mathLive|
-|can6C27|Petits problèmes d'arithmétique|KO|KO|OK|mathLive|
-|can6C28|Petit problème de fraction|KO|KO|OK|mathLive|
-|can6C29|Partage|KO|KO|OK|mathLive|
+|can6C27|Résoudre un petit problème d'arithmétique|KO|KO|OK|mathLive|
+|can6C28|Résoudre un petit problème de fraction|KO|KO|OK|mathLive|
+|can6C29|Résoudre un petit problème de partage|KO|KO|OK|mathLive|
 |can6D01|Conversion Heures et minutes vers minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calcul de durée en minutes|OK|AMCNum|OK|mathLive|
