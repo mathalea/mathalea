@@ -86,16 +86,16 @@ export default function ConstruireRotationPoint3e () {
     }
 
     for (let i = 0; i < nbpoints; i++) {
-      xMin = Math.min(xMin, N[i].x - 3, M[i].x - 3)
-      yMin = Math.min(yMin, N[i].y - 3, M[i].y - 3)
-      xMax = Math.max(xMax, N[i].x + 3, M[i].x + 3)
-      yMax = Math.max(yMax, N[i].y + 3, M[i].y + 3)
+      xMin = Math.min(xMin, N[i].x - 2, M[i].x - 2)
+      yMin = Math.min(yMin, N[i].y - 2, M[i].y - 2)
+      xMax = Math.max(xMax, N[i].x + 2, M[i].x + 2)
+      yMax = Math.max(yMax, N[i].y + 2, M[i].y + 2)
     }
 
     context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
 
-    this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }, objetsEnonce))
-    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsCorrection))
+    this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 18 / Math.max((xMax - xMin), (yMax - yMin)) }, objetsEnonce))
+    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 18 / Math.max((xMax - xMin), (yMax - yMin)) }, objetsCorrection))
     listeQuestionsToContenu(this)
 
     //  let nonchoisi,coords=[],x,y,objetsEnonce=[],objetsCorrection=[],nomd,label_pos
