@@ -1024,6 +1024,125 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2N30-1": {
+    "titre": "Décomposer une fraction (partie entière +fraction inférieure à 1) puis donner l'écriture décimale",
+    "url": "/exercices/2e/2N30-1.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N30-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N30-2": {
+    "titre": "Additionner ou soustraire deux fractions",
+    "url": "/exercices/2e/2N30-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N30-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N30-3": {
+    "titre": "Multiplier des fractions",
+    "url": "/exercices/2e/2N30-3.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N30-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N30-4": {
+    "titre": "Diviser des fractions",
+    "url": "/exercices/2e/2N30-4.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N30-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N30-5": {
+    "titre": "Fractions et priorités opératoires",
+    "url": "/exercices/2e/2N30-5.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2N30-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N30-6": {
+    "titre": "Fractions irréductibles",
+    "url": "/exercices/2e/2N30-6.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N30-6",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N30-7": {
+    "titre": "Calculer des probabilités dans une expérience aléatoire à deux épreuves",
+    "url": "/exercices/2e/2N30-7.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N30-7",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2N31-1": {
     "titre": "Notation scientifique",
     "url": "/exercices/2e/2N31-1.js",
@@ -1173,6 +1292,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "2N32-6",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N32-7": {
+    "titre": "Ecrire le nombre proposé sous la forme $a\\sqrt{b}$",
+    "url": "/exercices/2e/2N32-7.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N32-7",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -5351,8 +5485,12 @@ export default {
   "5N11-3": {
     "titre": "Écrire une fraction sur 100 puis sous la forme d’un pourcentage",
     "url": "/exercices/5e/5N11-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5N11-3",
     "newEx": {
       "isNew": false,
@@ -6163,6 +6301,27 @@ export default {
     "name": "6C12-1",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6C12-3": {
+    "titre": "Trouver les informations utiles ou inutiles pour résoudre des problèmes",
+    "url": "/exercices/6e/6C12-3.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMult"
+    },
+    "interactifReady": true,
+    "interactifType": [
+      "qcm"
+    ],
+    "name": "6C12-3",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8164,8 +8323,12 @@ export default {
   "6N33-2": {
     "titre": "Problèmes de calcul de pourcentage par complément à 100%",
     "url": "/exercices/6e/6N33-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N33-2",
     "newEx": {
       "isNew": false,
@@ -8179,8 +8342,12 @@ export default {
   "6N33-3": {
     "titre": "Problèmes avec des calculs de pourcentages",
     "url": "/exercices/6e/6N33-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N33-3",
     "newEx": {
       "isNew": false,
@@ -9154,38 +9321,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaSys2x2CombLin",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "betaTestcanPredef6_10qN1": {
-    "titre": "CAN 6ième 10 questions (niveau 1)",
-    "url": "/exercices/beta/betaTestcanPredef6_10qN1.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaTestcanPredef6_10qN1",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "betaTestcanPredef6_10qN2": {
-    "titre": "CAN 6ième 10 questions (niveau 2)",
-    "url": "/exercices/beta/betaTestcanPredef6_10qN2.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "betaTestcanPredef6_10qN2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -11934,7 +12069,7 @@ export default {
     }
   },
   "can6C01": {
-    "titre": "Ordre de grandeur QCM",
+    "titre": "Trouver un ordre de grandeur (QCM)",
     "url": "/exercices/can/6e/can6C01.js",
     "amcReady": true,
     "amcType": {
@@ -11953,7 +12088,7 @@ export default {
     }
   },
   "can6C02": {
-    "titre": "Multiplier nombre pair par 5",
+    "titre": "Multiplier un nombre pair par 5",
     "url": "/exercices/can/6e/can6C02.js",
     "amcReady": true,
     "amcType": {
@@ -11972,7 +12107,7 @@ export default {
     }
   },
   "can6C03": {
-    "titre": "Addition à trou",
+    "titre": "Rechercher un terme dans une somme",
     "url": "/exercices/can/6e/can6C03.js",
     "amcReady": true,
     "amcType": {
@@ -12048,7 +12183,7 @@ export default {
     }
   },
   "can6C07": {
-    "titre": "Reste de division par 3",
+    "titre": "Trouver le reste d’une division par 3",
     "url": "/exercices/can/6e/can6C07.js",
     "amcReady": true,
     "amcType": {
@@ -12067,7 +12202,7 @@ export default {
     }
   },
   "can6C08": {
-    "titre": "Quart ou Tiers",
+    "titre": "Calculer le quart ou le tiers",
     "url": "/exercices/can/6e/can6C08.js",
     "amcReady": true,
     "amcType": {
@@ -12105,7 +12240,7 @@ export default {
     }
   },
   "can6C10": {
-    "titre": "Tables de x du 5 au 9",
+    "titre": "Connaître les tables de multiplication (de 5 à 9)",
     "url": "/exercices/can/6e/can6C10.js",
     "amcReady": true,
     "amcType": {
@@ -12124,7 +12259,7 @@ export default {
     }
   },
   "can6C11": {
-    "titre": "Double ou triple (décimal)",
+    "titre": "Calculer le double ou le triple (décimal)",
     "url": "/exercices/can/6e/can6C11.js",
     "amcReady": true,
     "amcType": {
@@ -12143,7 +12278,7 @@ export default {
     }
   },
   "can6C12": {
-    "titre": "Double ou triple",
+    "titre": "Calculer le double ou le triple",
     "url": "/exercices/can/6e/can6C12.js",
     "amcReady": true,
     "amcType": {
@@ -12162,7 +12297,7 @@ export default {
     }
   },
   "can6C13": {
-    "titre": "Somme de deux décimaux",
+    "titre": "Calculer la somme de deux décimaux",
     "url": "/exercices/can/6e/can6C13.js",
     "amcReady": true,
     "amcType": {
@@ -12181,7 +12316,7 @@ export default {
     }
   },
   "can6C14": {
-    "titre": "Somme de quatre entiers qui se marient",
+    "titre": "Calculer la somme de quatre entiers qui se marient",
     "url": "/exercices/can/6e/can6C14.js",
     "amcReady": true,
     "amcType": {
@@ -12200,7 +12335,7 @@ export default {
     }
   },
   "can6C15": {
-    "titre": "Fraction comme facteur manquant",
+    "titre": "Trouver la fraction (définition)",
     "url": "/exercices/can/6e/can6C15.js",
     "amcReady": true,
     "amcType": {
@@ -12219,7 +12354,7 @@ export default {
     }
   },
   "can6C16": {
-    "titre": "Double et moitié",
+    "titre": "Calculer le double ou la moitié",
     "url": "/exercices/can/6e/can6C16.js",
     "amcReady": true,
     "amcType": {
@@ -12238,7 +12373,7 @@ export default {
     }
   },
   "can6C17": {
-    "titre": "Fraction simple de quantité",
+    "titre": "Calculer la fraction d’une quantité",
     "url": "/exercices/can/6e/can6C17.js",
     "amcReady": true,
     "amcType": {
@@ -12257,7 +12392,7 @@ export default {
     }
   },
   "can6C18": {
-    "titre": "Reste de la division euclidienne",
+    "titre": "Trouver le reste d’une division euclidienne",
     "url": "/exercices/can/6e/can6C18.js",
     "amcReady": true,
     "amcType": {
@@ -12276,7 +12411,7 @@ export default {
     }
   },
   "can6C19": {
-    "titre": "Complément à 100",
+    "titre": "Déterminer le complément à 100",
     "url": "/exercices/can/6e/can6C19.js",
     "amcReady": true,
     "amcType": {
@@ -12295,7 +12430,7 @@ export default {
     }
   },
   "can6C20": {
-    "titre": "Complément à 1",
+    "titre": "Trouver le complément à 1",
     "url": "/exercices/can/6e/can6C20.js",
     "amcReady": true,
     "amcType": {
@@ -12314,7 +12449,7 @@ export default {
     }
   },
   "can6C21": {
-    "titre": "Complément à 1 Niveau 2",
+    "titre": "Trouver le complément à 1*",
     "url": "/exercices/can/6e/can6C21.js",
     "amcReady": true,
     "amcType": {
@@ -12333,7 +12468,7 @@ export default {
     }
   },
   "can6C22": {
-    "titre": "Valeurs décimales de fractions",
+    "titre": "Déterminer la valeur décimale d’une fraction",
     "url": "/exercices/can/6e/can6C22.js",
     "amcReady": true,
     "amcType": {
@@ -12352,7 +12487,7 @@ export default {
     }
   },
   "can6C23": {
-    "titre": "Calcul avec +/-99 ou +/-999",
+    "titre": "Calculer avec +/-99 ou +/-999",
     "url": "/exercices/can/6e/can6C23.js",
     "amcReady": true,
     "amcType": {
@@ -12390,7 +12525,7 @@ export default {
     }
   },
   "can6C25": {
-    "titre": "Recherche d’un prix unitaire",
+    "titre": "Rechercher un prix unitaire",
     "url": "/exercices/can/6e/can6C25.js",
     "amcReady": false,
     "interactifReady": true,
@@ -12422,7 +12557,7 @@ export default {
     }
   },
   "can6C27": {
-    "titre": "Petits problèmes d'arithmétique",
+    "titre": "Résoudre un petit problème d'arithmétique",
     "url": "/exercices/can/6e/can6C27.js",
     "amcReady": false,
     "interactifReady": true,
@@ -12438,7 +12573,7 @@ export default {
     }
   },
   "can6C28": {
-    "titre": "Petit problème de fraction",
+    "titre": "Résoudre un petit problème de fraction",
     "url": "/exercices/can/6e/can6C28.js",
     "amcReady": false,
     "interactifReady": true,
@@ -12454,7 +12589,7 @@ export default {
     }
   },
   "can6C29": {
-    "titre": "Partage",
+    "titre": "Résoudre un petit problème de partage",
     "url": "/exercices/can/6e/can6C29.js",
     "amcReady": false,
     "interactifReady": true,
