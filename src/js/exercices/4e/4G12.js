@@ -170,7 +170,7 @@ export default function SerieDeTransformations () {
       case 'rot180': // pas besoin du sens, mais le milieu choisit dépend de depart et arrivee
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie de centre le milieu du segment $[${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie de centre le milieu du segment $[${sp(1)}\\ldots${sp(1)}]$.`
-        texteInteractif = "Un symétrie centrale de centre un milieu d'un segment d'éxtrémités deux points du quadrillage."
+        texteInteractif = "Une symétrie centrale de centre un milieu d'un segment d'éxtrémités deux points du quadrillage."
         return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6]) }
     }
   }
