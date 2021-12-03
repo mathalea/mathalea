@@ -8723,70 +8723,106 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
   this.contour = false
   this.taille = 10 * scale
   this.opacite = 1
-  this.svg = function (coeff) {
-    let code = ''; let style = ''
-    if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" '
-    if (this.contour) style += ` style="font-size:${this.taille * coeff / 20}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
-    else style += ` style="font-size:${this.taille * coeff / 20}px;fill:${this.color};fill-opacity:${this.opacite}" `
-    if (typeof (orientation) === 'number') {
-      code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+  this.couleurDeRemplissage = color
+  this.opaciteDeRemplissage = this.opacite
+  if (texte.charAt(0) === '$') {
+    A.positionLabel = 'centre'
+    this.svg = function (coeff) {
+      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '').svg(coeff)
+    }
+    this.tikz = function () {
+      let code = ''
+      if (typeof orientation === 'number') {
+        let anchor = 'center'
+        if (ancrageDeRotation === 'gauche') {
+          anchor = 'west'
+        }
+        if (ancrageDeRotation === 'droite') {
+          anchor = 'east'
+        }
+        code = `\\draw [${color}] (${A.x},${A.y
+          }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
+      } else {
+        let anchor = ''
+        if (orientation === 'gauche') {
+          anchor = `node[anchor = east,scale=${scale * scaleFigure * 1.25}]`
+        }
+        if (orientation === 'droite') {
+          anchor = `node[anchor = west,scale=${scale * scaleFigure * 1.25}]`
+        }
+        if (orientation === 'milieu') {
+          anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
+        }
+        code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`
+      }
+      return code
+    }
+  } else {
+    this.svg = function (coeff) {
+      let code = ''; let style = ''
+      if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" '
+      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
+      else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
+      if (typeof (orientation) === 'number') {
+        code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
       )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color
         }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
         )})" id="${this.id}" >${texte}</text>\n `
-    } else {
-      switch (orientation) {
-        case 'milieu':
-          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+      } else {
+        switch (orientation) {
+          case 'milieu':
+            code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="middle" dominant-baseline="central" fill="${this.color
             }" id="${this.id}" >${texte}</text>\n `
-          break
-        case 'gauche':
-          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+            break
+          case 'gauche':
+            code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="end" dominant-baseline="central" fill="${this.color
             }" id="${this.id}" >${texte}</text>\n `
-          break
-        case 'droite':
-          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+            break
+          case 'droite':
+            code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="start" dominant-baseline="central" fill="${this.color
             }" id="${this.id}" >${texte}</text>\n `
-          break
+            break
+        }
       }
-    }
 
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    if (mathOn) texte = '$' + texte + '$'
-    if (typeof orientation === 'number') {
-      let anchor = 'center'
-      if (ancrageDeRotation === 'gauche') {
-        anchor = 'west'
-      }
-      if (ancrageDeRotation === 'droite') {
-        anchor = 'east'
-      }
-      code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y
-        }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
-    } else {
-      let anchor = ''
-      if (orientation === 'gauche') {
-        anchor = `node[anchor = east,scale=${scale * scaleFigure * 1.25}]`
-      }
-      if (orientation === 'droite') {
-        anchor = `node[anchor = west,scale=${scale * scaleFigure * 1.25}]`
-      }
-      if (orientation === 'milieu') {
-        anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
-      }
-      code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
+      return code
     }
-    return code
+    this.tikz = function () {
+      let code = ''
+      if (mathOn) texte = '$' + texte + '$'
+      if (typeof orientation === 'number') {
+        let anchor = 'center'
+        if (ancrageDeRotation === 'gauche') {
+          anchor = 'west'
+        }
+        if (ancrageDeRotation === 'droite') {
+          anchor = 'east'
+        }
+        code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y
+        }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
+      } else {
+        let anchor = ''
+        if (orientation === 'gauche') {
+          anchor = `node[anchor = east,scale=${scale * scaleFigure * 1.25}]`
+        }
+        if (orientation === 'droite') {
+          anchor = `node[anchor = west,scale=${scale * scaleFigure * 1.25}]`
+        }
+        if (orientation === 'milieu') {
+          anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
+        }
+        code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
+      }
+      return code
+    }
   }
 }
 export function texteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, scaleFigure = 1) {

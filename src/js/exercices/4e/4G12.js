@@ -1,13 +1,15 @@
 import Exercice from '../Exercice.js'
-import { choice, lettreDepuisChiffre, listeQuestionsToContenu } from '../../modules/outils.js'
-import { grille, labelPoint, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, barycentre, texteParPointEchelle, texteParPoint } from '../../modules/2d.js'
+import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes } from '../../modules/outils.js'
+import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
+export const dateDePublication = '3/12/2021'
+export const titre = 'Séries de transformations'
 
-export const titre = 'Exo zéro Mathalea2d'
-
-export default function SuperExoMathalea2d () {
+export default function SerieDeTransformations () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
+  this.spacing = context.isHtml ? 2 : 1
   this.nbCols = 1
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
@@ -16,7 +18,19 @@ export default function SuperExoMathalea2d () {
   const typeDeTransfos = ['symax', 'trans', 'rot90', 'rot180']
   const motifs = [
     polygone([point(1, 1), point(2, 1), point(2, 4), point(6, 4), point(6, 5), point(3, 5), point(3, 6), point(1, 6)]),
-    polygone([point(1, 1), point(3, 1), point(3, 4), point(6, 4), point(6, 6), point(3, 6), point(3, 5), point(1, 5)])
+    polygone([point(1, 1), point(3, 1), point(3, 4), point(6, 4), point(6, 6), point(3, 6), point(3, 5), point(1, 5)]),
+    polygone([point(2, 1), point(3, 1), point(3, 3), point(4, 3), point(4, 4), point(3, 4), point(3, 5), point(5, 5), point(5, 6), point(2, 6), point(2, 4), point(1, 4), point(1, 3), point(2, 3)]),
+    polygone([point(1, 1), point(4, 1), point(4, 2), point(5, 2), point(5, 4), point(4, 4), point(4, 5), point(3, 5), point(3, 6), point(2, 6), point(2, 2), point(1, 2)]),
+    polygone([point(2, 1), point(5, 1), point(5, 3), point(6, 3), point(6, 4), point(4, 4), point(4, 3), point(3, 3), point(3, 5), point(5, 5), point(5, 6), point(2, 6)]),
+    polygone([point(1, 1), point(5, 1), point(5, 2), point(2, 2), point(2, 3), point(3, 3), point(3, 4), point(2, 4), point(2, 5), point(4, 5), point(4, 6), point(1, 6)]),
+    polygone([point(2, 6), point(2, 1), point(5, 1), point(5, 2), point(3, 2), point(3, 6)]),
+    polygone([point(2, 6), point(5, 6), point(5, 5), point(4, 5), point(4, 1), point(1, 1), point(1, 2), point(3, 2), point(3, 5), point(2, 5)]),
+    polygone([point(2, 1), point(3, 1), point(6, 1), point(6, 2), point(3, 2), point(3, 3), point(5, 3), point(5, 5), point(3, 5), point(3, 6), point(2, 6)]),
+    polygone([point(2, 1), point(3, 1), point(3, 3), point(5, 3), point(5, 6), point(2, 6)]),
+    polygone([point(2, 1), point(2, 6), point(5, 6), point(5, 3), point(3, 3), point(5, 1), point(4, 1), point(3, 2), point(3, 1)]),
+    polygone([point(2, 1), point(6, 1), point(6, 4), point(3, 4), point(3, 5), point(5, 5), point(5, 6), point(2, 6), point(2, 3), point(5, 3), point(5, 2), point(2, 2)]),
+    polygone([point(2, 1), point(4, 1), point(5, 2), point(5, 1), point(6, 1), point(6, 6), point(5, 6), point(5, 3), point(4, 2), point(3, 2), point(3, 6), point(2, 6)])
+
   ]
   const noeuds = []
   const maGrille = []
@@ -120,17 +134,26 @@ export default function SuperExoMathalea2d () {
         return pol
     }
   }
-  function definitElements (type, depart, arrivee, leSens = true) {
+  function definitElements (type, depart, arrivee, leSens = true, num = 0) {
+    let texte, texteCorr
     const Est = (arrivee - depart === 6) // si on va vers la droite il y a 6 numéros d'écart entre arrivée et départ sinon, c'est 1 (vers le haut)
     switch (type) {
       case 'symax': // vers l'est la droite est définie par arrivee et arrivee+1 sinon c'est arrivee et arrivee+6
-        return { type: type, axe: Est ? droite(noeuds[arrivee], noeuds[arrivee + 1]) : droite(noeuds[arrivee], noeuds[arrivee + 6]) }
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie d'axe $(${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom})$.`
+        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie d'axe $(${sp(1)}\\ldots${sp(1)})$.`
+        return { texte: texte, texteCorr: texteCorr, type: type, axe: Est ? droite(noeuds[arrivee], noeuds[arrivee + 1]) : droite(noeuds[arrivee], noeuds[arrivee + 6]) }
       case 'trans': // facile pour la translation : depart->arrivee
-        return { type: type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$.`
+        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la translation transformant ${sp(1)}\\ldots${sp(1)} en ${sp(1)}\\ldots${sp(1)}.`
+        return { texte: texte, texteCorr: texteCorr, type: type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
       case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
-        return { type: type, centre: Est ? (leSens ? noeuds[arrivee + 1] : noeuds[arrivee]) : (leSens ? noeuds[arrivee] : noeuds[arrivee + 6]), sens: leSens }
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$ d'angle $90\\degree$ dans le sens ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
+        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la rotation de centre ${sp(1)}\\ldots${sp(1)} d'angle $90\\degree$ dans le sens  ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
+        return { texte: texte, texteCorr: texteCorr, type: type, centre: Est ? (leSens ? noeuds[arrivee + 1] : noeuds[arrivee]) : (leSens ? noeuds[arrivee] : noeuds[arrivee + 6]), sens: leSens }
       case 'rot180': // pas besoin du sens, mais le milieu choisit dépend de depart et arrivee
-        return { type: type, centre: milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6]) }
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie de centre le milieu du segment $[${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]$.`
+        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie de centre le mileu du segment $[${sp(1)}\\ldots${sp(1)}]$.`
+        return { texte: texte, texteCorr: texteCorr, type: type, centre: milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6]) }
     }
   }
   this.nouvelleVersion = function () {
@@ -159,7 +182,7 @@ export default function SuperExoMathalea2d () {
 
       chemin = choice(parcours)
       for (let k = 0; k < 8; k++) {
-        transfos[k] = definitElements(choice(typeDeTransfos), chemin[k], chemin[k + 1], choice([true, false]))
+        transfos[k] = definitElements(choice(typeDeTransfos), chemin[k], chemin[k + 1], choice([true, false]), k)
         polys[chemin[k + 1]] = transfoPoly(polys[chemin[k]], transfos[k])
       }
       objetsEnonce = []
@@ -169,10 +192,10 @@ export default function SuperExoMathalea2d () {
 
       for (let x = 0; x < 5; x++) {
         for (let y = 0, numero; y < 5; y++) {
-          numero = texteParPoint(Number(x * 6 + y).toString(), point(x * 3.2 + 1.6, y * 3.2 + 1.6), 'milieu', 'yellow', 1.2, 'middle', true)
-          numero.contour = true
+          numero = texteParPointEchelle(Number(x * 6 + y).toString(), point(x * 3.2 + 1.6, y * 3.2 + 1.6), 'milieu', context.isHtml ? 'yellow' : 'black', 1.2, 'middle', true, 0.4)
+          numero.contour = context.isHtml
           numero.couleurDeRemplissage = 'black'
-          numero.opacite = 0.5
+          numero.opacite = context.isHtml ? 0.5 : 1
           numero.opaciteDeRemplissage = 1
           maGrille.push(numero)
           polys[x * 6 + y].opacite = 0.4
@@ -180,33 +203,47 @@ export default function SuperExoMathalea2d () {
         }
       }
 
-      polys[0].opaciteDeRemplissage = 0.5
-      polys[0].color = 'blue'
-      polys[0].couleurDeRemplissage = 'blue'
-      polys[28].opaciteDeRemplissage = 0.5
-      polys[28].color = 'red'
-      polys[28].couleurDeRemplissage = 'red'
+      polys[0].opaciteDeRemplissage = 0.7
+      polys[0].color = texcolors(8)
+      polys[0].couleurDeRemplissage = texcolors(8)
+      polys[28].opaciteDeRemplissage = 0.7
+      polys[28].color = texcolors(16)
+      polys[28].couleurDeRemplissage = texcolors(16)
       objetsEnonce.push(...maGrille)
-      objetsCorrection.push(...maGrille)
 
       objetsEnonce.push(...polys)
       for (let x = 0; x < 6; x++) {
         for (let y = 0, label; y < 6; y++) {
-          label = texteParPoint(noeuds[x * 6 + y].nom, translation(noeuds[x * 6 + y], vecteur(0.3, 0.3)), 'milieu', 'red', 1.2, 'middle', true)
-          label.contour = true
+          label = texteParPointEchelle(noeuds[x * 6 + y].nom, translation(noeuds[x * 6 + y], vecteur(0.3, 0.3)), 'milieu', context.isHtml ? 'red' : 'black', 1.2, 'middle', true, 0.4)
+          label.contour = context.isHtml
           label.couleurDeRemplissage = 'black'
-          label.opacite = 0.8
+          label.opacite = context.isHtml ? 0.8 : 1
           label.opaciteDeRemplissage = 1
           objetsEnonce.push(label)
         }
       }
-      const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 18, ymax: 18, pixelsParCm: 20, scale: 1, mainlevee: false }
+      const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.7 }
+      const paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.7 }
+      for (let k = 1, figure; k < 8; k++) {
+        figure = translation(polys[chemin[k]], vecteur(0, 0))
+        figure.color = texcolors(k + 8)
+        figure.couleurDeRemplissage = texcolors(k + 8)
+        figure.opaciteDeRemplissage = 0.6
+        objetsCorrection.push(figure)
+      }
+      objetsCorrection.push(...objetsEnonce)
+      for (let etape = 0; etape < 8; etape++) {
+        texte += transfos[etape].texte + '<br>'
+        texteCorr += transfos[etape].texteCorr + '<br>'
+      }
+      if (context.isHtml) {
+        texte = deuxColonnes(texte, mathalea2d(paramsEnonce, objetsEnonce), 50)
+        texteCorr = deuxColonnes(texteCorr, mathalea2d(paramsCorrection, objetsCorrection), 50)
+      } else {
+        texte += '\n' + mathalea2d(paramsEnonce, objetsEnonce)
+        texteCorr += '\n' + mathalea2d(paramsCorrection, objetsCorrection)
+      }
 
-      const paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 18, ymax: 18, pixelsParCm: 20, scale: 1 }
-
-      texte += mathalea2d(paramsEnonce, objetsEnonce)
-
-      texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
