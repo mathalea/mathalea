@@ -8,7 +8,6 @@ export const titre = 'Séries de transformations'
 export default function SerieDeTransformations () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
   this.spacing = context.isHtml ? 2 : 1
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -29,8 +28,11 @@ export default function SerieDeTransformations () {
     polygone([point(2, 1), point(3, 1), point(3, 3), point(5, 3), point(5, 6), point(2, 6)]),
     polygone([point(2, 1), point(2, 6), point(5, 6), point(5, 3), point(3, 3), point(5, 1), point(4, 1), point(3, 2), point(3, 1)]),
     polygone([point(2, 1), point(6, 1), point(6, 4), point(3, 4), point(3, 5), point(5, 5), point(5, 6), point(2, 6), point(2, 3), point(5, 3), point(5, 2), point(2, 2)]),
-    polygone([point(2, 1), point(4, 1), point(5, 2), point(5, 1), point(6, 1), point(6, 6), point(5, 6), point(5, 3), point(4, 2), point(3, 2), point(3, 6), point(2, 6)])
-
+    polygone([point(2, 1), point(4, 1), point(5, 2), point(5, 1), point(6, 1), point(6, 6), point(5, 6), point(5, 3), point(4, 2), point(3, 2), point(3, 6), point(2, 6)]),
+    polygone([point(1, 6), point(2, 6), point(4, 3), point(5, 5), point(6, 5), point(4, 1), point(3, 1)]),
+    polygone([point(2, 6), point(3, 6), point(4, 4), point(5, 6), point(6, 6), point(3, 1), point(2, 1), point(3, 3)]),
+    polygone([point(1, 1), point(6, 1), point(6, 2), point(3, 5), point(5, 5), point(5, 6), point(1, 6), point(5, 2), point(1, 2)]),
+    polygone([point(3, 6), point(3, 5), point(2, 5), point(2, 4), point(3, 4), point(3, 3), point(1, 3), point(1, 2), point(3, 2), point(3, 1), point(4, 1), point(4, 2), point(5, 2), point(5, 3), point(4, 3), point(4, 4), point(6, 4), point(6, 5), point(4, 5), point(4, 6)])
   ]
   const noeuds = []
   const maGrille = []
@@ -243,7 +245,8 @@ export default function SerieDeTransformations () {
         texte += '\n' + mathalea2d(paramsEnonce, objetsEnonce)
         texteCorr += '\n' + mathalea2d(paramsCorrection, objetsCorrection)
       }
-
+      texte += context.isHtml ? '<br>' : '\n\\newpage'
+      texteCorr += context.isHtml ? '<br>' : '\n\\newpage'
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
