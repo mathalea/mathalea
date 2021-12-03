@@ -2,8 +2,11 @@ import Exercice from '../Exercice.js'
 import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes, centrage, texteEnCouleur } from '../../modules/outils.js'
 import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const dateDePublication = '3/12/2021'
 export const titre = 'Séries de transformations'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export default function SerieDeTransformations () {
   Exercice.call(this)
@@ -46,7 +49,7 @@ export default function SerieDeTransformations () {
   const noeuds = []
   const maGrille = []
   const labels = []
-  maGrille.push(grille(0, 0, 16, 16, 'gray', 0.4, 0.4))
+  maGrille.push(grille(0, 0, 16, 16, 'black', 0.2, 0.4))
   for (let i = 0; i < 6; i++) {
     maGrille.push(segment(i * 3.2, 0, i * 3.2, 16))
     maGrille.push(segment(0, i * 3.2, 16, i * 3.2))
@@ -146,25 +149,29 @@ export default function SerieDeTransformations () {
     }
   }
   function definitElements (type, depart, arrivee, leSens = true, num = 0) {
-    let texte, texteCorr
+    let texte, texteCorr, texteInteractif
     const Est = (arrivee - depart === 6) // si on va vers la droite il y a 6 numéros d'écart entre arrivée et départ sinon, c'est 1 (vers le haut)
     switch (type) {
       case 'symax': // vers l'est la droite est définie par arrivee et arrivee+1 sinon c'est arrivee et arrivee+6
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie d'axe $(${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom})$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie d'axe $(${sp(1)}\\ldots${sp(1)})$.`
-        return { texte: texte, texteCorr: texteCorr, type: type, axe: Est ? droite(noeuds[arrivee], noeuds[arrivee + 1]) : droite(noeuds[arrivee], noeuds[arrivee + 6]) }
+        texteInteractif = "Une symétrie axiale d'axe passant par deux points du quadrillage."
+        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, axe: Est ? droite(noeuds[arrivee], noeuds[arrivee + 1]) : droite(noeuds[arrivee], noeuds[arrivee + 6]) }
       case 'trans': // facile pour la translation : depart->arrivee
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la translation transformant ${sp(1)}\\ldots${sp(1)} en ${sp(1)}\\ldots${sp(1)}.`
-        return { texte: texte, texteCorr: texteCorr, type: type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
+        texteInteractif = 'Une translation définie par deux points du quadrillage.'
+        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
       case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$ d'angle $90\\degree$ dans le sens ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la rotation de centre ${sp(1)}\\ldots${sp(1)} d'angle $90\\degree$ dans le sens  ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
-        return { texte: texte, texteCorr: texteCorr, type: type, centre: Est ? (leSens ? noeuds[arrivee + 1] : noeuds[arrivee]) : (leSens ? noeuds[arrivee] : noeuds[arrivee + 6]), sens: leSens }
+        texteInteractif = "Une rotation d'angle 90° et de centre un point du quadrillage."
+        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: Est ? (leSens ? noeuds[arrivee + 1] : noeuds[arrivee]) : (leSens ? noeuds[arrivee] : noeuds[arrivee + 6]), sens: leSens }
       case 'rot180': // pas besoin du sens, mais le milieu choisit dépend de depart et arrivee
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie de centre le milieu du segment $[${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie de centre le milieu du segment $[${sp(1)}\\ldots${sp(1)}]$.`
-        return { texte: texte, texteCorr: texteCorr, type: type, centre: milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6]) }
+        texteInteractif = "Un symétrie centrale de centre un milieu d'un segment d'éxtrémités deux points du quadrillage."
+        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6]) }
     }
   }
   this.nouvelleVersion = function () {
@@ -198,7 +205,9 @@ export default function SerieDeTransformations () {
       }
       objetsEnonce = []
       objetsCorrection = []
-      texte = "On passe de la figure $0$ à la figure $28$ en passant par des cases adjacentes. Retrouver les transformations successives qui sont listées dans l'ordre.<br>"
+      texte = this.interactif
+        ? 'Compléter la liste des figures successives obtenues avec cette suite de transformations.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des virgules.<br><br>'
+        : "On passe de la figure $0$ à la figure $28$ en passant par des cases adjacentes. Retrouver les transformations successives qui sont listées dans l'ordre.<br>"
       texteCorr = ''
 
       for (let x = 0; x < 5; x++) {
@@ -209,7 +218,7 @@ export default function SerieDeTransformations () {
           numero.opacite = context.isHtml ? 0.5 : 1
           numero.opaciteDeRemplissage = 1
           maGrille.push(numero)
-          polys[x * 6 + y].opacite = 0.4
+          polys[x * 6 + y].opacite = 0.7
           polys[x * 6 + y].color = 'blue'
         }
       }
@@ -244,10 +253,15 @@ export default function SerieDeTransformations () {
       }
       objetsCorrection.push(...objetsEnonce)
       for (let etape = 0; etape < 8; etape++) {
-        texte += texteEnCouleur(transfos[etape].texte, etape % 2 === 0 ? 'black' : 'brown') + '<br>'
+        texte += (this.interactif && context.isHtml)
+          ? texteEnCouleur(transfos[etape].texteInteractif, etape % 2 === 0
+            ? 'black'
+            : 'brown') + '<br>'
+          : texteEnCouleur(transfos[etape].texte, etape % 2 === 0 ? 'black' : 'brown') + '<br>'
         texteCorr += transfos[etape].texteCorr + '<br>'
       }
       if (context.isHtml) {
+        texte += ajouteChampTexteMathLive(this, i, 'largeur75 inline')
         texte = deuxColonnes(texte, mathalea2d(paramsEnonce, objetsEnonce), 50)
         texteCorr = deuxColonnes(texteCorr, mathalea2d(paramsCorrection, objetsCorrection), 50)
       } else {
@@ -256,6 +270,7 @@ export default function SerieDeTransformations () {
       }
       texte += context.isHtml ? '<br>' : '\n\\newpage'
       texteCorr += context.isHtml ? '<br>' : '\n\\newpage'
+      setReponse(this, i, chemin.toString(), { formatInteractif: 'texte' })
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
