@@ -31,12 +31,19 @@ export default function Rendreentier () {
         texte = ` $A=\\dfrac{ ${a} }{\\sqrt{${b}}} $ `
         texteCorr = `Pour lever l'irrationnalité du dénominateur, il suffit de multiplier le numérateur et le dénominateur de la fraction par $\\sqrt{${b}}$`
         texteCorr += `<br>$A=\\dfrac{ ${a} }{\\sqrt{${b}}}=\\dfrac{ ${a} \\times \\sqrt{${b}}} {\\sqrt{${b}} \\times \\sqrt{${b}}} $`
-        texteCorr += `<br>$A=\\dfrac{ ${a} \\sqrt{${b}}} {${b}} $`
+        texteCorr += `<br>Au final, $A=\\dfrac{ ${a} \\sqrt{${b}}} {${b}} $`
+        n = pgcd(a, b)
+        if (n !== 1) {
+          if (b === n && a === n) { texteCorr += `<br>Ou encore : $A=\\sqrt{${b}} $` }
+          if (b === n && a !== n) { texteCorr += `<br>Ou encore : $A= ${a / n} \\sqrt{${b}} $` }
+          if (b !== n && a === n) { texteCorr += `<br>Ou encore : $A= \\dfrac{ \\sqrt{${b}}} {${b / n}}$` }
+          if (b !== n && a !== n) { texteCorr += `<br>Ou encore : $A= \\dfrac{ ${a / n} \\sqrt{${b}}} {${b / n}}$` }
+        }
       }
       if (this.sup === 2) {
         texte = `$A=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{${b}}} $ `
         texteCorr = 'Pour lever l\'irrationnalité du dénominateur d\'une fraction,  la stratégie consiste à utiliser sa "quantité conjuguée" pour faire apparaître l\'identité remarquable $a^2-b^2$.'
-        texteCorr +='<br>Ici, il faut donc multiplier le numérateur et le dénominateur de la fraction par '
+        texteCorr += '<br>Ici, il faut donc multiplier le numérateur et le dénominateur de la fraction par '
         texteCorr += `par  $ ${c}${ecritureAlgebrique(-d)}\\sqrt{${b}}$<br>`
         texteCorr += `<br>$A=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{${b}}}=\\dfrac{ ${a}\\times (${c}${ecritureAlgebrique(-d)}\\sqrt{${b}}) }{(${c}${ecritureAlgebrique(-d)}\\sqrt{${b}})(${c}${ecritureAlgebrique(d)}\\sqrt{${b}})}$`
         texteCorr += `<br>On obtient donc : $A=\\dfrac{ ${a * c} ${ecritureAlgebrique(-a * d)}\\sqrt{${b}}}{(${c})^2-\\left(${d}\\sqrt{${b}}\\right)^2}$ `
