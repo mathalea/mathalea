@@ -58,7 +58,7 @@ export default function DevelopperIdentitesRemarquables3 () {
       }
 
       setReponse(this, i, reponse)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.sup === 1 ? this.questionJamaisPosee(i, a) : this.sup === 2 ? this.questionJamaisPosee(i, a, b) : this.questionJamaisPosee(i, a, ns, ds)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
