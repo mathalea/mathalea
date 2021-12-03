@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes } from '../../modules/outils.js'
+import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes, centrage, texteEnCouleur } from '../../modules/outils.js'
 import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const dateDePublication = '3/12/2021'
@@ -8,7 +8,7 @@ export const titre = 'Séries de transformations'
 export default function SerieDeTransformations () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.spacing = context.isHtml ? 2 : 1
+  this.spacing = 1
   this.nbCols = 1
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
@@ -37,7 +37,11 @@ export default function SerieDeTransformations () {
     polygone([point(2, 2), point(3, 3), point(3, 2), point(4, 3), point(4, 2), point(5, 3), point(5, 2), point(6, 3), point(6, 5), point(2, 5)]),
     polygone([point(1, 1), point(3, 1), point(3, 5), point(5, 5), point(5, 6), point(2, 6), point(2, 2), point(1, 2)]),
     polygone([point(1, 1), point(6, 1), point(6, 2), point(4, 2), point(4, 4), point(5, 4), point(5, 5), point(1, 5), point(1, 4), point(3, 4), point(3, 2), point(1, 2)]),
-    polygone([point(2, 1), point(2, 3), point(4, 3), point(4, 4), point(3, 4), point(3, 6), point(6, 6), point(6, 4), point(5, 4), point(5, 3), point(6, 3), point(6, 1), point(5, 1), point(5, 2), point(4, 2), point(4, 1)])
+    polygone([point(2, 1), point(2, 3), point(4, 3), point(4, 4), point(3, 4), point(3, 6), point(6, 6), point(6, 4), point(5, 4), point(5, 3), point(6, 3), point(6, 1), point(5, 1), point(5, 2), point(4, 2), point(4, 1)]),
+    polygone([point(2, 6), point(2, 4), point(1, 4), point(1, 2), point(2, 2), point(2, 1), point(3, 1), point(3, 3), point(5, 3), point(5, 4), point(4, 4), point(4, 5), point(3, 5), point(3, 6)]),
+    polygone([point(1, 3), point(1, 1), point(3, 1), point(3, 2), point(6, 2), point(6, 5), point(3, 5), point(3, 3)]),
+    polygone([point(2, 1), point(2, 2), point(1, 2), point(1, 4), point(2, 4), point(2, 3), point(3, 3), point(3, 2), point(4, 2), point(4, 4), point(3, 4), point(3, 6), point(6, 6), point(6, 4), point(5, 4), point(5, 3), point(6, 3), point(6, 1)]),
+    polygone([point(3, 1), point(3, 2), point(1, 2), point(1, 3), point(2, 3), point(2, 4), point(3, 4), point(3, 5), point(5, 5), point(5, 4), point(6, 4), point(6, 3), point(5, 3), point(5, 2), point(4, 2), point(4, 1)])
   ]
   const noeuds = []
   const maGrille = []
@@ -194,7 +198,7 @@ export default function SerieDeTransformations () {
       }
       objetsEnonce = []
       objetsCorrection = []
-      texte = ''
+      texte = "On passe de la figure $0$ à la figure $28$ en passant par des cases adjacentes. Retrouver les transformations successives qui sont listées dans l'ordre.<br>"
       texteCorr = ''
 
       for (let x = 0; x < 5; x++) {
@@ -216,9 +220,9 @@ export default function SerieDeTransformations () {
       polys[28].opaciteDeRemplissage = 0.7
       polys[28].color = texcolors(16)
       polys[28].couleurDeRemplissage = texcolors(16)
+      objetsEnonce.push(...polys)
       objetsEnonce.push(...maGrille)
 
-      objetsEnonce.push(...polys)
       for (let x = 0; x < 6; x++) {
         for (let y = 0, label; y < 6; y++) {
           label = texteParPointEchelle(noeuds[x * 6 + y].nom, translation(noeuds[x * 6 + y], vecteur(0.3, 0.3)), 'milieu', context.isHtml ? 'red' : 'black', 1.2, 'middle', true, 0.4)
@@ -230,7 +234,7 @@ export default function SerieDeTransformations () {
         }
       }
       const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.7 }
-      const paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.7 }
+      const paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
       for (let k = 1, figure; k < 8; k++) {
         figure = translation(polys[chemin[k]], vecteur(0, 0))
         figure.color = texcolors(k + 8)
@@ -240,15 +244,15 @@ export default function SerieDeTransformations () {
       }
       objetsCorrection.push(...objetsEnonce)
       for (let etape = 0; etape < 8; etape++) {
-        texte += transfos[etape].texte + '<br>'
+        texte += texteEnCouleur(transfos[etape].texte, etape % 2 === 0 ? 'black' : 'brown') + '<br>'
         texteCorr += transfos[etape].texteCorr + '<br>'
       }
       if (context.isHtml) {
         texte = deuxColonnes(texte, mathalea2d(paramsEnonce, objetsEnonce), 50)
         texteCorr = deuxColonnes(texteCorr, mathalea2d(paramsCorrection, objetsCorrection), 50)
       } else {
-        texte += '\n' + mathalea2d(paramsEnonce, objetsEnonce)
-        texteCorr += '\n' + mathalea2d(paramsCorrection, objetsCorrection)
+        texte += '\n' + centrage(mathalea2d(paramsEnonce, objetsEnonce))
+        texteCorr += '\n' + centrage(mathalea2d(paramsCorrection, objetsCorrection))
       }
       texte += context.isHtml ? '<br>' : '\n\\newpage'
       texteCorr += context.isHtml ? '<br>' : '\n\\newpage'
