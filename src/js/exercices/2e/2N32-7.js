@@ -10,7 +10,7 @@ export const titre = 'Rendre entier le dénominateur d\'une fraction.'
 export default function Rendreentier () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = 'Rendre entier le dénominateur d\'une fraction.'
-  this.consigne = ' Rendre entier le dénominateur de la fraction :'
+  this.consigne = ' Supprimer la racine carrée du dénominateur de la fraction :'
   this.nbQuestions = 1
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -65,6 +65,7 @@ export default function Rendreentier () {
       }
       if (this.sup === 3) {
         d = randint(2, 9)
+       
         texte = `$A=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{x}} $ définie sur $D=\\left]${texFractionReduite(c ** 2, d ** 2)};+\\infty\\right[$`
         texteCorr = 'Pour lever l\'irrationnalité du dénominateur d\'une fraction,  la stratégie consiste à utiliser sa "quantité conjuguée" pour faire apparaître l\'identité remarquable $a^2-b^2$ au dénominateur.'
         texteCorr += '<br>Ici, il faut donc multiplier le numérateur et le dénominateur de la fraction par '
