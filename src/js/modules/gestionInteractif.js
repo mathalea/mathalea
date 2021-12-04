@@ -426,9 +426,9 @@ function verifQuestionListeDeroulante (exercice, i) {
   return resultat
 }
 
-export const choixDeroulant = (exercice, i, c, choix) => {
+export const choixDeroulant = (exercice, i, c, choix, type = 'nombre') => {
   let result = `<select class="ui fluid dropdown ex${exercice.numeroExercice}" id="ex${exercice.numeroExercice}Q${i}" data-choix="${c}">
-    <option> Choisir un nombre</option>`
+    <option> Choisir ${type === 'nombre' ? 'un nombre' : 'une réponse'} </option>`
   for (const a of choix) {
     result += `<option>${a}</option>`
   }

@@ -1,11 +1,12 @@
 import Exercice from '../Exercice.js'
-import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, randint, deuxColonnes } from '../../modules/outils.js'
+import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, randint, deuxColonnes, contraindreValeur } from '../../modules/outils.js'
 import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle, symetrieAnimee, translationAnimee, rotationAnimee } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
+import { choixDeroulant, setReponse } from '../../modules/gestionInteractif.js'
 export const dateDePublication = '3/12/2021'
 export const titre = 'Trouver la transformation'
-export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifReady = false // Pour l'instant le listeDeroulante n'est pas au point avec les chaines ???
+export const interactifType = 'listeDeroulante'
 
 export default function TrouverLaTransformations () {
   Exercice.call(this)
@@ -16,7 +17,8 @@ export default function TrouverLaTransformations () {
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
   const A = point(0, 0)
-  const typeDeTransfos = ['symax', 'trans', 'rot90', 'rot180']
+  let typeDeTransfos
+  this.sup = 3
   const motifs = [
     polygone([point(1, 1), point(2, 1), point(2, 4), point(6, 4), point(6, 5), point(3, 5), point(3, 6), point(1, 6)]),
     polygone([point(1, 1), point(3, 1), point(3, 4), point(6, 4), point(6, 6), point(3, 6), point(3, 5), point(1, 5)]),
@@ -98,15 +100,28 @@ export default function TrouverLaTransformations () {
         animation = rotationAnimee(poly1, centre, leSens ? 90 : -90, 'begin="0s" dur="5s" repeatCount="indefinite"')
         return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: centre, sens: leSens }
       case 'rot180': // pas besoin du sens, mais le milieu choisit dépend de depart et arrivee
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie de centre le milieu du segment $[${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]$.`
-        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie de centre le milieu du segment $[${sp(1)}\\ldots${sp(1)}]$.`
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie de centre le milieu de $[${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]$.`
+        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie de centre le milieu de $[${sp(1)}\\ldots${sp(1)}]$.`
         texteInteractif = "Une symétrie centrale de centre un milieu d'un segment d'éxtrémités deux points du quadrillage."
         centre = milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6])
         animation = rotationAnimee(poly1, centre, 180, 'begin="0s" dur="5s" repeatCount="indefinite"')
         return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: centre }
     }
   }
+  function transformation (type) {
+    switch (type) {
+      case 'symax' : return 'symétrie axiale'
+      case 'rot180' : return 'symétrie centrale'
+      case 'trans' : return 'translation'
+      case 'rot90' : return 'quart de tour'
+    }
+  }
   this.nouvelleVersion = function () {
+    this.autoCorrection = []
+    this.sup = contraindreValeur(1, 3, this.sup, 3)
+    if (this.sup === 1) typeDeTransfos = ['symax', 'rot180']
+    else if (this.sup === 2) typeDeTransfos = ['symax', 'trans', 'rot180']
+    else typeDeTransfos = ['symax', 'trans', 'rot90', 'rot180']
     this.listeQuestions = []
     this.listeCorrections = []
     const objetsEnonce = []
@@ -175,9 +190,10 @@ export default function TrouverLaTransformations () {
     const paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
     for (let i = 0, texte, texteCorr; i < this.nbQuestions; i++) {
       texte = this.interactif
-        ? 'Compléter la liste des figures successives obtenues avec cette suite de transformations.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des virgules.<br><br>'
+        ? `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ? ` + choixDeroulant(this, i, 0, ['symétrie axiale', 'symétrie centrale', 'translation', 'quart de tour'], 'texte')
         : `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ?`
       texteCorr = transfos[i].texteCorr
+      setReponse(this, i, [transformation(transfos[i].type), { formatInteractif: 'texte' }])
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
@@ -185,4 +201,5 @@ export default function TrouverLaTransformations () {
     this.contenu = deuxColonnes(this.contenu, mathalea2d(paramsEnonce, objetsEnonce), 50)
     this.contenuCorrection = deuxColonnes(this.contenuCorrection, mathalea2d(paramsCorrection, objetsCorrection), 50)
   }
+  this.besoinFormulaireNumerique = ['Types de transformations possibles', 3, '1 : Symétries axiales et centrales\n2 : Symétries et translations\n3 : Symétries, translations et quarts de tour']
 }

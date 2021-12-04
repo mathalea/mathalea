@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes, centrage, texteEnCouleur } from '../../modules/outils.js'
+import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes, centrage, texteEnCouleur, contraindreValeur } from '../../modules/outils.js'
 import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
@@ -7,6 +7,8 @@ export const dateDePublication = '3/12/2021'
 export const titre = 'Séries de transformations'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 export default function SerieDeTransformations () {
   Exercice.call(this)
@@ -17,7 +19,8 @@ export default function SerieDeTransformations () {
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
   const A = point(0, 0)
-  const typeDeTransfos = ['symax', 'trans', 'rot90', 'rot180']
+  let typeDeTransfos
+  this.sup = 4
   const motifs = [
     polygone([point(1, 1), point(2, 1), point(2, 4), point(6, 4), point(6, 5), point(3, 5), point(3, 6), point(1, 6)]),
     polygone([point(1, 1), point(3, 1), point(3, 4), point(6, 4), point(6, 6), point(3, 6), point(3, 5), point(1, 5)]),
@@ -168,16 +171,23 @@ export default function SerieDeTransformations () {
         texteInteractif = "Une rotation d'angle 90° et de centre un point du quadrillage."
         return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: Est ? (leSens ? noeuds[arrivee + 1] : noeuds[arrivee]) : (leSens ? noeuds[arrivee] : noeuds[arrivee + 6]), sens: leSens }
       case 'rot180': // pas besoin du sens, mais le milieu choisit dépend de depart et arrivee
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie de centre le milieu du segment $[${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]$.`
-        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie de centre le milieu du segment $[${sp(1)}\\ldots${sp(1)}]$.`
-        texteInteractif = "Une symétrie centrale de centre un milieu d'un segment d'éxtrémités deux points du quadrillage."
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie de centre le milieu de $[${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]$.`
+        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie de centre le milieu de $[${sp(1)}\\ldots${sp(1)}]$.`
+        texteInteractif = "Une symétrie centrale de centre un milieu d'un côté de case."
         return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6]) }
     }
   }
   this.nouvelleVersion = function () {
+    this.autoCorrection = []
+    this.sup = contraindreValeur(1, 4, this.sup, 4)
+    if (this.sup === 1) typeDeTransfos = ['symax']
+    else if (this.sup === 2) typeDeTransfos = ['symax', 'rot180']
+    else if (this.sup === 3) typeDeTransfos = ['symax', 'trans', 'rot180']
+    else typeDeTransfos = ['symax', 'trans', 'rot90', 'rot180']
     this.listeQuestions = []
     this.listeCorrections = []
     for (let i = 0, texte, texteCorr, chemin, objetsEnonce, objetsCorrection, polys, transfos, leurre0; i < this.nbQuestions; i++) {
+      this.autoCorrection[i] = {}
       polys = []
       transfos = []
       polys[0] = homothetie(choice(motifs), A, 0.4)
@@ -268,12 +278,26 @@ export default function SerieDeTransformations () {
         texte += '\n' + centrage(mathalea2d(paramsEnonce, objetsEnonce))
         texteCorr += '\n' + centrage(mathalea2d(paramsCorrection, objetsCorrection))
       }
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          propositions: {
+            texte: texteCorr,
+            statut: 0,
+            feedback: '',
+            sanscadre: true
+          }
+        }
+      } else {
+        setReponse(this, i, chemin.toString(), { formatInteractif: 'texte' })
+      }
       texte += context.isHtml ? '<br>' : '\n\\newpage'
       texteCorr += context.isHtml ? '<br>' : '\n\\newpage'
-      setReponse(this, i, chemin.toString(), { formatInteractif: 'texte' })
+
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
   }
+  this.besoinFormulaireNumerique = ['Types de transformations possibles', 4, '1 : Symétries axiales seulement\n2 : Symétries axiales et centrales\n3 : Symétries et translations\n4 : Symétries, translations et quarts de tour']
 }
