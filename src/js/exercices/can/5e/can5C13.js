@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, calcul, choice, texNombre, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
 
-export const titre = 'Calcul astucieux avec 100 ou 10'
+export const titre = 'Calculer astucieusement avec 100 ou 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -17,6 +17,7 @@ export default function CalculAstucieux1 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 9)
@@ -28,14 +29,14 @@ export default function CalculAstucieux1 () {
     const g = randint(10, 90)
     switch (choice(['a', 'b', 'c', 'd', 'e', 'f', 'g'])) { //
       case 'a':
-        this.question = `$4 \\times ${texNombre(d)}\\times 25$`
+        this.question = `$4 \\times ${texNombre(d)}\\times 25=$`
         this.correction = `$4 \\times ${texNombre(d)}\\times 25 = ${texNombrec(100 * d)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         $4 \\times ${texNombre(d)}\\times 25 =\\underbrace{4\\times 25}_{100}\\times ${texNombre(d)}= 100 \\times ${texNombre(d)} = ${texNombrec(100 * d)}$ `)
         this.reponse = calcul(100 * d)
         break
       case 'b':
-        this.question = `$2 \\times ${texNombre(d)}\\times 50$`
+        this.question = `$2 \\times ${texNombre(d)}\\times 50=$`
         this.correction = `$2 \\times ${texNombre(d)}\\times 50 =  ${texNombrec(100 * d)}$`
         this.reponse = calcul(100 * d)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -43,21 +44,21 @@ export default function CalculAstucieux1 () {
         break
 
       case 'c':
-        this.question = `$25 \\times ${texNombre(d)}\\times 4$`
+        this.question = `$25 \\times ${texNombre(d)}\\times 4=$`
         this.correction = `$25 \\times ${texNombre(d)}\\times 4 =  ${texNombrec(100 * d)}$`
         this.reponse = calcul(100 * d)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         $25 \\times ${texNombre(d)}\\times 4 = \\underbrace{4\\times 25}_{100} \\times ${texNombre(d)} = ${texNombrec(100 * d)}$  `)
         break
       case 'd':
-        this.question = `$2,5 \\times ${texNombre(d)}\\times 4$`
+        this.question = `$2,5 \\times ${texNombre(d)}\\times 4=$`
         this.correction = `$2,5 \\times ${texNombre(d)}\\times 4 = 10 \\times ${texNombre(d)} = ${texNombrec(10 * d)}$`
         this.reponse = calcul(10 * d)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         $2,5 \\times ${texNombre(d)}\\times 4 =\\underbrace{2,5\\times 4}_{10} \\times ${texNombre(d)} = ${texNombrec(10 * d)}$ `)
         break
       case 'e':
-        this.question = `$${texNombre(e)} \\times ${texNombre(d)}+${texNombrec(10 - e)}\\times ${texNombre(d)}$`
+        this.question = `$${texNombre(e)} \\times ${texNombre(d)}+${texNombrec(10 - e)}\\times ${texNombre(d)}=$`
         this.correction = `$${texNombre(e)} \\times ${texNombre(d)}+${texNombrec(10 - e)}\\times ${texNombre(d)}=${texNombre(d)}\\times 10=${texNombrec(10 * d)}$`
         this.reponse = calcul(10 * d)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -65,7 +66,7 @@ export default function CalculAstucieux1 () {
         $${texNombre(e)} \\times ${texNombre(d)}+${texNombrec(10 - e)}\\times ${texNombre(d)}=${texNombre(d)}\\times(\\underbrace{${texNombre(e)}+${texNombrec(10 - e)}}_{10})=${texNombre(d)}\\times 10=${texNombrec(10 * d)}$  `)
         break
       case 'f':
-        this.question = `$${texNombre(f)} \\times ${texNombre(d)}+${texNombrec(10 - f)}\\times ${texNombre(d)}$`
+        this.question = `$${texNombre(f)} \\times ${texNombre(d)}+${texNombrec(10 - f)}\\times ${texNombre(d)}=$`
         this.correction = `$${texNombre(f)} \\times ${texNombre(d)}+${texNombrec(10 - f)}\\times ${texNombre(d)}=${texNombrec(10 * d)}$`
         this.reponse = calcul(10 * d)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -73,7 +74,7 @@ export default function CalculAstucieux1 () {
         $${texNombre(f)} \\times ${texNombre(d)}+${texNombrec(10 - f)}\\times ${texNombre(d)}=${texNombre(d)}\\times(\\underbrace{${texNombre(f)}+${texNombrec(10 - f)}}_{10})=${texNombre(d)}\\times 10=${texNombrec(10 * d)}$. `)
         break
       case 'g':
-        this.question = `$${texNombre(g)} \\times ${texNombre(d)}+${texNombrec(100 - g)}\\times ${texNombre(d)}$`
+        this.question = `$${texNombre(g)} \\times ${texNombre(d)}+${texNombrec(100 - g)}\\times ${texNombre(d)}=$`
         this.correction = `$${g} \\times ${texNombre(d)}+${texNombrec(100 - g)}\\times ${texNombre(d)}=${texNombrec(100 * d)}$`
         this.reponse = calcul(100 * d)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>

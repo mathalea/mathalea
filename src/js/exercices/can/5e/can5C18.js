@@ -1,7 +1,7 @@
 import { fraction } from '../../../modules/fractions'
 import { calcul, choice, randint, texNombre, texNombrec } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Somme d\'entier et fraction(s) vers nombre décimal'
+export const titre = 'Convertir une fraction ou une somme vers un décimal'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,6 +14,7 @@ export default function EntierPlusFractionVersDecimal () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let a, b, c, maFraction, maFraction2
     let resultat
@@ -26,13 +27,13 @@ export default function EntierPlusFractionVersDecimal () {
         if (choice([true, false])) {
           maFraction = fraction(a, 5)
           resultat = calcul(a / 5)
-          this.question = `Donner la valeur décimale de  $${maFraction.texFraction}$ :`
+          this.question = `La valeur décimale de  $${maFraction.texFraction}$ est :`
           this.correction = `$${maFraction.texFraction}=${texNombre(resultat)}$`
           this.reponse = resultat
         } else {
           maFraction = fraction(b, 4)
           resultat = calcul(b / 4)
-          this.question = `Donner la valeur décimale de  $${maFraction.texFraction}$ :`
+          this.question = `La valeur décimale de  $${maFraction.texFraction}$ est :`
           this.correction = `$${maFraction.texFraction}=${texNombre(resultat)}$`
           this.reponse = resultat
         }
@@ -43,7 +44,8 @@ export default function EntierPlusFractionVersDecimal () {
         maFraction = fraction(b, c)
         a = randint(1, 4)
         resultat = calcul(a + b / c)
-        this.question = `Calculer sous la forme décimale :  $${a}+${maFraction.texFraction}$`
+        this.question = ` $${a}+${maFraction.texFraction}=$<br>
+        (résultat sous forme décimale)`
         this.correction = `$${a}+${maFraction.texFraction} = ${a} + ${texNombre(maFraction.valeurDecimale)}= ${texNombre(resultat)}$`
         this.reponse = resultat
         break
@@ -55,7 +57,8 @@ export default function EntierPlusFractionVersDecimal () {
         maFraction = fraction(c, b)
         resultat = calcul(a + c / b)
 
-        this.question = `Ecrire le résultat sous forme décimale  :  $${a}+${maFraction.texFraction}$`
+        this.question = ` $${a}+${maFraction.texFraction}=$<br>
+        (résultat sous forme décimale)`
         this.correction = `$${a}+${maFraction.texFraction} = ${texNombre(resultat)}$`
         this.reponse = resultat
         break
@@ -66,7 +69,8 @@ export default function EntierPlusFractionVersDecimal () {
         maFraction = fraction(b, 100)
         maFraction2 = fraction(c, 1000)
         resultat = calcul(a + b / 100 + c / 1000)
-        this.question = `Ecrire le résultat sous forme décimale  :  $${a}+${maFraction.texFraction}+${maFraction2.texFraction}$`
+        this.question = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=$<br>
+        (résultat sous forme décimale)`
         this.correction = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=${a}+${texNombrec(b / 100)}+${texNombrec(c / 1000)}=${texNombrec(resultat)}$.`
         this.reponse = resultat
         break
@@ -77,7 +81,8 @@ export default function EntierPlusFractionVersDecimal () {
         maFraction = fraction(b, 1000)
         maFraction2 = fraction(c, 100)
         resultat = calcul(a + b / 1000 + c / 100)
-        this.question = `Ecrire le résultat sous forme décimale  :  $${a}+${maFraction.texFraction}+${maFraction2.texFraction}$`
+        this.question = ` $${a}+${maFraction.texFraction}+${maFraction2.texFraction}=$<br>
+        (résultat sous forme décimale)`
         this.correction = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=${a}+${texNombrec(b / 1000)}+${texNombrec(c / 100)}=${texNombre(resultat)}$.`
         this.reponse = resultat
         break

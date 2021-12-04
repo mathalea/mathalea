@@ -1,6 +1,6 @@
 import { randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Quotient entier'
+export const titre = 'Calculer un quotient entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,6 +14,7 @@ export const amcType = 'AMCNum'
 export default function Division5e () {
   Exercice.call(this)
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -21,7 +22,7 @@ export default function Division5e () {
     const b = randint(3, 6)
     const c = a * b
     this.reponse = a
-    this.question = `$${c} \\div ${b}$`
+    this.question = `$${c} \\div ${b}=$`
     this.correction = `$${c} \\div ${b}=${a}$`
     this.correction += texteEnCouleur(`
     <br> Mentalement : <br>

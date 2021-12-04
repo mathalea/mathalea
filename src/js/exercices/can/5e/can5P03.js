@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { calcul, choice, texNombrec, randint, texPrix } from '../../../modules/outils.js'
-export const titre = 'Problèmes de proportionnalité'
+export const titre = 'Résoudre un problème de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

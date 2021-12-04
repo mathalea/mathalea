@@ -1,6 +1,6 @@
 import { randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Priorité opératoire'
+export const titre = 'Utiliser une priorité opératoire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,6 +14,7 @@ export const amcType = 'AMCNum'
 export default function PrioriteOperatoire5e () {
   Exercice.call(this)
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -21,7 +22,7 @@ export default function PrioriteOperatoire5e () {
     const b = 20 - a
     const c = randint(3, 9)
     this.reponse = b + a * c
-    this.question = `$${b} + ${a} \\times ${c}$`
+    this.question = `$${b} + ${a} \\times ${c}=$`
     this.correction = `$${b} + ${a} \\times ${c}= ${b} + ${a * c} = ${this.reponse}$`
     this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
