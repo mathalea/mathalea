@@ -21,6 +21,7 @@ export default function SerieDeTransformations () {
   const A = point(0, 0)
   let typeDeTransfos
   this.sup = 4
+  this.sup2 = false
   const motifs = [
     polygone([point(1, 1), point(2, 1), point(2, 4), point(6, 4), point(6, 5), point(3, 5), point(3, 6), point(1, 6)]),
     polygone([point(1, 1), point(3, 1), point(3, 4), point(6, 4), point(6, 6), point(3, 6), point(3, 5), point(1, 5)]),
@@ -269,7 +270,9 @@ export default function SerieDeTransformations () {
             : 'brown') + '<br>'
           : (etape === 0)
               ? texteEnCouleur(transfos[etape].texte, etape % 2 === 0 ? 'black' : 'brown') + '<br>'
-              : texteEnCouleur('qui' + transfos[etape].texte.substr(21) + (etape === 7 ? '.' : ''), etape % 2 === 0 ? 'black' : 'brown') + '<br>'
+              : this.sup2
+                ? texteEnCouleur('qui' + transfos[etape].texte.substr(21) + (etape === 7 ? '.' : ''), etape % 2 === 0 ? 'black' : 'brown') + '<br>'
+                : texteEnCouleur(transfos[etape].texte + '.', etape % 2 === 0 ? 'black' : 'brown') + '<br>'
         texteCorr += transfos[etape].texteCorr + '<br>'
       }
       if (context.isHtml) {
@@ -302,4 +305,5 @@ export default function SerieDeTransformations () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Types de transformations possibles', 4, '1 : Symétries axiales seulement\n2 : Symétries axiales et centrales\n3 : Symétries et translations\n4 : Symétries, translations et quarts de tour']
+  this.besoinFormulaire2CaseACocher = ['Énoncés raccourcis', false]
 }
