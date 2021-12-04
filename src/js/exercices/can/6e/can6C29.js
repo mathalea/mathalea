@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texteEnCouleur } from '../../../modules/outils.js'
-export const titre = 'Résoudre un petit problème de partage'
+export const titre = 'Résoudre un problème de partage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '1/11/2021'

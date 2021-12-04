@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texNombrec, prenomF, prenomM, texPrix, texteEnCouleurEtGras, texteEnCouleur, calcul } from '../../../modules/outils.js'
-export const titre = 'Résoudre un petit problème d\'arithmétique'
+export const titre = 'Résoudre un problème concret'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -18,8 +18,8 @@ export default function PetitsProblemeArithmetique () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    let a, b, r, q, e, m, somme, prenom1, prenom2
-    switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9])) {
+    let a, b, r, e, m, somme, prenom1, prenom2
+    switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) {
       case 1:// de plus
         r = randint(4, 7) * 10
         e = randint(1, 3) * 10
@@ -123,15 +123,6 @@ Combien me rend-on ?`
         this.reponse = a / b
         this.question = `  ${prenomF()} veut partager $${a}$ billes équitablement en $${b}$ enfants. Combien chacun aura-t-il de billes ? <br>`
         this.correction = `Chaque enfant aura  $${a}\\div ${b}=${texNombrec(a / b)}$ billes.`
-        break
-      case 9:// division euclidienne
-        q = randint(11, 15)
-        b = randint(8, 11)
-        r = randint(1, b - 1)
-        a = b * q + r
-        this.question = `   En utilisant l'égalité $${a}=${b}\\times ${q}+${r}$, donner le reste de la division euclidienne de $${a}$ par $${b}$.`
-        this.correction = `Puisque $${r}$ est strictement inférieur à $${b}$, le reste est $${r}$.`
-        this.reponse = r
         break
     }
   }
