@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, abs, listeQuestionsToContenu, pgcd, randint } from '../../modules/outils.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, abs, listeQuestionsToContenu, pgcd, randint, texFractionReduite } from '../../modules/outils.js'
 
 export const titre = 'Rendre entier le dénominateur d\'une fraction.'
 
@@ -45,19 +45,48 @@ export default function Rendreentier () {
         texteCorr = 'Pour lever l\'irrationnalité du dénominateur d\'une fraction,  la stratégie consiste à utiliser sa "quantité conjuguée" pour faire apparaître l\'identité remarquable $a^2-b^2$.'
         texteCorr += '<br>Ici, il faut donc multiplier le numérateur et le dénominateur de la fraction par '
         texteCorr += ` $ ${c}${ecritureAlgebrique(-d)}\\sqrt{${b}}$.<br>`
-        texteCorr += `<br>$A=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{${b}}}$<br>$\\phantom{A}=\\dfrac{ ${a}\\times (${c}${ecritureAlgebrique(-d)}\\sqrt{${b}}) }{(${c}${ecritureAlgebrique(d)}\\sqrt{${b}})(${c}${ecritureAlgebrique(-d)}\\sqrt{${b}})}$`
-        texteCorr += `<br>$\\phantom{A}=\\dfrac{ ${a * c} ${ecritureAlgebrique(-a * d)}\\sqrt{${b}}}{(${c})^2-\\left(${abs(d)}\\sqrt{${b}}\\right)^2}$ `
-        texteCorr += `<br>$\\phantom{A}=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{${b}}}{${(c * c)}-(${d * d}\\times${b})}$<br>$\\phantom{A}=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{${b}}}{${c * c}-${d * d * b}}$ `
+        texteCorr += `<br>$\\begin{aligned}A&=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{${b}}}\\\\`
+        texteCorr += `&=\\dfrac{ ${a}\\times (${c}${ecritureAlgebrique(-d)}\\sqrt{${b}}) }{(${c}${ecritureAlgebrique(d)}\\sqrt{${b}})(${c}${ecritureAlgebrique(-d)}\\sqrt{${b}})}\\\\`
+        texteCorr += `&=\\dfrac{ ${a * c} ${ecritureAlgebrique(-a * d)}\\sqrt{${b}}}{(${c})^2-\\left(${abs(d)}\\sqrt{${b}}\\right)^2}\\\\ `
+        texteCorr += `&=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{${b}}}{${(c * c)}-(${d * d}\\times${b})}\\\\`
+        texteCorr += `&=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{${b}}}{${c * c}-${d * d * b}}\\\\`
 
         n = pgcd(a * c, -a * d, c * c - d * d * b)
         if (n === 1) {
-          texteCorr += `<br> $\\phantom{A}=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{${b}}}{${c * c - d * d * b}}$ `
-          if (c * c - d * d * b < 0) { texteCorr += `<br>Ou encore : $A=\\dfrac{ ${-a * c} ${(a * d)}\\sqrt{${b}}}{${-c * c + d * d * b}}$ ` }
+          texteCorr += `&=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{${b}}}{${c * c - d * d * b}}\\\\ `
+          if (c * c - d * d * b < 0) { texteCorr += `&=\\dfrac{ ${-a * c} ${(a * d)}\\sqrt{${b}}}{${-c * c + d * d * b}}\\\\ ` }
         }
         if (n !== 1) {
-          texteCorr += `<br> $\\phantom{A}=\\dfrac{ ${a * c} ${(-a * d)}\\sqrt{${b}}}{${c * c - d * d * b}}$ <br> `
-          texteCorr += `<br>En réduisant la fraction, on obtient : $A=\\dfrac{ ${a * c / n} ${ecritureAlgebriqueSauf1(-a * d / n)}\\sqrt{${b}}}{${c * c / n - d * d * b / n}}$ `
-          if (c * c - d * d * b < 0) { texteCorr += `<br>Ou encore, pour obtenir un dénominateur positif :$A=\\dfrac{ ${-a * c / n} ${ecritureAlgebriqueSauf1(a * d / n)}\\sqrt{${b}}}{${-c * c / n + d * d * b / n}}$ ` }
+          texteCorr += `&=\\dfrac{ ${a * c} ${(-a * d)}\\sqrt{${b}}}{${c * c - d * d * b}}\\\\`
+          texteCorr += `&=\\dfrac{ ${a * c / n} ${ecritureAlgebriqueSauf1(-a * d / n)}\\sqrt{${b}}}{${c * c / n - d * d * b / n}}\\\\ `
+          if (c * c - d * d * b < 0) { texteCorr += `=&\\dfrac{ ${-a * c / n} ${ecritureAlgebriqueSauf1(a * d / n)}\\sqrt{${b}}}{${-c * c / n + d * d * b / n}}\\\\ ` }
+        }
+        texteCorr += '\\end{aligned}$'
+      }
+      if (this.sup === 3) {
+        d = randint(2, 9)
+        texte = `$A=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{x}} $ définie sur $D=\\left]${texFractionReduite(c ** 2, d ** 2)};+\\infty\\right[$`
+        texteCorr = 'Pour lever l\'irrationnalité du dénominateur d\'une fraction,  la stratégie consiste à utiliser sa "quantité conjuguée" pour faire apparaître l\'identité remarquable $a^2-b^2$.'
+        texteCorr += '<br>Ici, il faut donc multiplier le numérateur et le dénominateur de la fraction par '
+        texteCorr += ` $ ${c}${ecritureAlgebrique(-d)}\\sqrt{x}$.<br>`
+        texteCorr += 'On vérifie bien que cette expression ne s\'annule pas sur $D$ :<br>'
+        texteCorr += ` $\\begin{aligned} \\phantom{\\iff} &${c}${ecritureAlgebrique(-d)}\\sqrt{x}=0\\\\`
+        texteCorr += ` \\iff & ${d}\\sqrt{x}=${c}\\\\`
+        texteCorr += ` \\iff & \\sqrt{x}=\\dfrac{${c}}{${d}}\\\\`
+        texteCorr += ` \\iff & \\sqrt{x}=${texFractionReduite(c, d)}\\\\`
+        texteCorr += ` \\iff & x=${texFractionReduite(c ** 2, d ** 2)}\\\\`
+        texteCorr += '\\end{aligned}$'
+        texteCorr += `<br>Comme $${texFractionReduite(c ** 2, d ** 2)} \\notin D$, la quantité conjuguée ne s'annule pas sur $D$.`
+        texteCorr += '<br>On peut donc simplifier l\'expression :<br>'
+        texteCorr += `<br>$\\begin{aligned}A&=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{x}}\\\\`
+        texteCorr += `&=\\dfrac{ ${a}\\times (${c}${ecritureAlgebrique(-d)}\\sqrt{x}) }{(${c}${ecritureAlgebrique(d)}\\sqrt{x})(${c}${ecritureAlgebrique(-d)}\\sqrt{x})}\\\\`
+        texteCorr += `&=\\dfrac{ ${a * c} ${ecritureAlgebrique(-a * d)}\\sqrt{x}}{(${c})^2-\\left(${abs(d)}\\sqrt{x}\\right)^2}\\\\ `
+        texteCorr += `&=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{x}}{${(c * c)}-${d * d} x}\\\\`
+        texteCorr += '\\end{aligned}$'
+        n = pgcd(a * d, c * c, d * d, a * c)
+        if (n !== 1) {
+          texteCorr += '<br>Ou encore  :  '
+          texteCorr += `$A=\\dfrac{ ${a * c / n} ${ecritureAlgebriqueSauf1(-a * d / n)}\\sqrt{x}}{${c * c / n}${ecritureAlgebriqueSauf1(-d * d / n)}x}$`
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
@@ -69,5 +98,5 @@ export default function Rendreentier () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Dénominateur racine (a)\n2 : Dénominateur a+\\sqrt{b}']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Dénominateur sqrt{a}\\n2 : Dénominateur a+\\sqrt{b}\\n3 :Dénominateur a+b sqrt{x} ']
 }
