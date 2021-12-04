@@ -42,7 +42,7 @@ export default function Rendreentier () {
       }
       if (this.sup === 2) {
         texte = `$A=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{${b}}} $ `
-        texteCorr = 'Pour lever l\'irrationnalité du dénominateur d\'une fraction,  la stratégie consiste à utiliser sa "quantité conjuguée" pour faire apparaître l\'identité remarquable $a^2-b^2$.'
+        texteCorr = 'Pour lever l\'irrationnalité du dénominateur d\'une fraction,  la stratégie consiste à utiliser sa "quantité conjuguée" pour faire apparaître l\'identité remarquable $a^2-b^2$ au dénominateur.'
         texteCorr += '<br>Ici, il faut donc multiplier le numérateur et le dénominateur de la fraction par '
         texteCorr += ` $ ${c}${ecritureAlgebrique(-d)}\\sqrt{${b}}$.<br>`
         texteCorr += `<br>$\\begin{aligned}A&=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{${b}}}\\\\`
@@ -66,7 +66,7 @@ export default function Rendreentier () {
       if (this.sup === 3) {
         d = randint(2, 9)
         texte = `$A=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{x}} $ définie sur $D=\\left]${texFractionReduite(c ** 2, d ** 2)};+\\infty\\right[$`
-        texteCorr = 'Pour lever l\'irrationnalité du dénominateur d\'une fraction,  la stratégie consiste à utiliser sa "quantité conjuguée" pour faire apparaître l\'identité remarquable $a^2-b^2$.'
+        texteCorr = 'Pour lever l\'irrationnalité du dénominateur d\'une fraction,  la stratégie consiste à utiliser sa "quantité conjuguée" pour faire apparaître l\'identité remarquable $a^2-b^2$ au dénominateur.'
         texteCorr += '<br>Ici, il faut donc multiplier le numérateur et le dénominateur de la fraction par '
         texteCorr += ` $ ${c}${ecritureAlgebrique(-d)}\\sqrt{x}$.<br>`
         texteCorr += 'On vérifie bien que cette expression ne s\'annule pas sur $D$ :<br>'
