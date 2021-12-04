@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, listeQuestionsToContenu, pgcd, randint } from '../../modules/outils.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, abs, listeQuestionsToContenu, pgcd, randint } from '../../modules/outils.js'
 
 export const titre = 'Rendre entier le dénominateur d\'une fraction.'
 
@@ -10,7 +10,7 @@ export const titre = 'Rendre entier le dénominateur d\'une fraction.'
 export default function Rendreentier () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = 'Rendre entier le dénominateur d\'une fraction.'
-  this.consigne = ' Rendre entier le dénominateur de chaque fraction ci-dessous :'
+  this.consigne = ' Rendre entier le dénominateur de la fraction :'
   this.nbQuestions = 1
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -25,11 +25,11 @@ export default function Rendreentier () {
     for (let i = 0, a, b, c, d, n, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(2, 11)
       b = randint(2, 11, [4, 8, 9])
-      c = randint(-7, 7, [0, 1])
+      c = randint(2, 9)
       d = randint(-7, 7, [-1, 0, 1])
       if (this.sup === 1) {
         texte = ` $A=\\dfrac{ ${a} }{\\sqrt{${b}}} $ `
-        texteCorr = `Pour lever l'irrationnalité du dénominateur, il suffit de multiplier le numérateur et le dénominateur de la fraction par $\\sqrt{${b}}$`
+        texteCorr = `Pour lever l'irrationnalité du dénominateur, il suffit de multiplier le numérateur et le dénominateur de la fraction par $\\sqrt{${b}}$.`
         texteCorr += `<br>$A=\\dfrac{ ${a} }{\\sqrt{${b}}}=\\dfrac{ ${a} \\times \\sqrt{${b}}} {\\sqrt{${b}} \\times \\sqrt{${b}}} $`
         texteCorr += `<br>Au final, $A=\\dfrac{ ${a} \\sqrt{${b}}} {${b}} $`
         n = pgcd(a, b)
@@ -44,20 +44,20 @@ export default function Rendreentier () {
         texte = `$A=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{${b}}} $ `
         texteCorr = 'Pour lever l\'irrationnalité du dénominateur d\'une fraction,  la stratégie consiste à utiliser sa "quantité conjuguée" pour faire apparaître l\'identité remarquable $a^2-b^2$.'
         texteCorr += '<br>Ici, il faut donc multiplier le numérateur et le dénominateur de la fraction par '
-        texteCorr += `par  $ ${c}${ecritureAlgebrique(-d)}\\sqrt{${b}}$<br>`
-        texteCorr += `<br>$A=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{${b}}}=\\dfrac{ ${a}\\times (${c}${ecritureAlgebrique(-d)}\\sqrt{${b}}) }{(${c}${ecritureAlgebrique(-d)}\\sqrt{${b}})(${c}${ecritureAlgebrique(d)}\\sqrt{${b}})}$`
-        texteCorr += `<br>On obtient donc : $A=\\dfrac{ ${a * c} ${ecritureAlgebrique(-a * d)}\\sqrt{${b}}}{(${c})^2-\\left(${d}\\sqrt{${b}}\\right)^2}$ `
-        texteCorr += `<br>D'où : $A=\\dfrac{ ${a * c} ${(-a * d)}\\sqrt{${b}}}{${c * c}-(${d * d}\\times${b})}=\\dfrac{ ${a * c} ${(-a * d)}\\sqrt{${b}}}{${c * c}-${d * d * b}}$ `
+        texteCorr += ` $ ${c}${ecritureAlgebrique(-d)}\\sqrt{${b}}$.<br>`
+        texteCorr += `<br>$A=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{${b}}}$<br>$\\phantom{A}=\\dfrac{ ${a}\\times (${c}${ecritureAlgebrique(-d)}\\sqrt{${b}}) }{(${c}${ecritureAlgebrique(d)}\\sqrt{${b}})(${c}${ecritureAlgebrique(-d)}\\sqrt{${b}})}$`
+        texteCorr += `<br>$\\phantom{A}=\\dfrac{ ${a * c} ${ecritureAlgebrique(-a * d)}\\sqrt{${b}}}{(${c})^2-\\left(${abs(d)}\\sqrt{${b}}\\right)^2}$ `
+        texteCorr += `<br>$\\phantom{A}=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{${b}}}{${(c * c)}-(${d * d}\\times${b})}$<br>$\\phantom{A}=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{${b}}}{${c * c}-${d * d * b}}$ `
 
         n = pgcd(a * c, -a * d, c * c - d * d * b)
         if (n === 1) {
-          texteCorr += `<br>Au final: $A=\\dfrac{ ${a * c} ${(-a * d)}\\sqrt{${b}}}{${c * c - d * d * b}}$ `
+          texteCorr += `<br> $\\phantom{A}=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{${b}}}{${c * c - d * d * b}}$ `
           if (c * c - d * d * b < 0) { texteCorr += `<br>Ou encore : $A=\\dfrac{ ${-a * c} ${(a * d)}\\sqrt{${b}}}{${-c * c + d * d * b}}$ ` }
         }
         if (n !== 1) {
-          texteCorr += `<br>Donc $A=\\dfrac{ ${a * c} ${(-a * d)}\\sqrt{${b}}}{${c * c - d * d * b}}$ <br> `
-          texteCorr += `<br>Au final $A=\\dfrac{ ${a * c / n} ${ecritureAlgebriqueSauf1(-a * d / n)}\\sqrt{${b}}}{${c * c / n - d * d * b / n}}$ `
-          if (c * c - d * d * b < 0) { texteCorr += `<br>Ou encore $A=\\dfrac{ ${-a * c / n} ${ecritureAlgebriqueSauf1(a * d / n)}\\sqrt{${b}}}{${-c * c / n + d * d * b / n}}$ ` }
+          texteCorr += `<br> $\\phantom{A}=\\dfrac{ ${a * c} ${(-a * d)}\\sqrt{${b}}}{${c * c - d * d * b}}$ <br> `
+          texteCorr += `<br>En réduisant la fraction, on obtient : $A=\\dfrac{ ${a * c / n} ${ecritureAlgebriqueSauf1(-a * d / n)}\\sqrt{${b}}}{${c * c / n - d * d * b / n}}$ `
+          if (c * c - d * d * b < 0) { texteCorr += `<br>Ou encore, pour obtenir un dénominateur positif :$A=\\dfrac{ ${-a * c / n} ${ecritureAlgebriqueSauf1(a * d / n)}\\sqrt{${b}}}{${-c * c / n + d * d * b / n}}$ ` }
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
