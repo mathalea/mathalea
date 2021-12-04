@@ -16,6 +16,8 @@ export default function CompositionDeNombreDecimalC3 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
@@ -23,18 +25,18 @@ export default function CompositionDeNombreDecimalC3 () {
     switch (choice([1, 2, 3])) {
       case 1:
         this.reponse = calcul(a + b / 10 + c / 100)
-        this.question = `$${a} + ${texNombrec(b / 10 + c / 100)}$`
-        this.correction = `$${a} + ${texNombrec(b / 10 + c / 100)}=${this.reponse}$`
+        this.question = `$${a} + ${texNombrec(b / 10 + c / 100)}=$`
+        this.correction = `$${a} + ${texNombrec(b / 10 + c / 100)}=${texNombrec(this.reponse)}$`
         break
       case 2:
         this.reponse = calcul(a + b / 100 + c / 1000)
-        this.question = `$${a} + ${texNombrec(b / 100 + c / 1000)}$`
-        this.correction = `$${a}+ ${texNombrec(b / 100 + c / 1000)}=${this.reponse}$`
+        this.question = `$${a} + ${texNombrec(b / 100 + c / 1000)}=$`
+        this.correction = `$${a}+ ${texNombrec(b / 100 + c / 1000)}=${texNombrec(this.reponse)}$`
         break
       case 3:
         this.reponse = calcul(a + b / 10 + c / 1000)
-        this.question = `$${a} + ${texNombrec(b / 10 + c / 1000)}$`
-        this.correction = `$${a} + ${texNombrec(b / 10 + c / 1000)}=${this.reponse}$`
+        this.question = `$${a} + ${texNombrec(b / 10 + c / 1000)}=$`
+        this.correction = `$${a} + ${texNombrec(b / 10 + c / 1000)}=${texNombrec(this.reponse)}$`
         break
     }
   }

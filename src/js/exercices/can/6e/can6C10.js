@@ -1,6 +1,6 @@
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Tables de x du 5 au 9'
+export const titre = 'Connaître les tables de multiplication (de 5 à 9)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,12 +15,13 @@ export default function Tables5A9 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(3, 9)
     const b = randint(5, 9)
     this.reponse = a * b
-    this.question = `$${a} \\times ${b}$`
+    this.question = `$${a} \\times ${b}=$`
     this.correction = `$${a} \\times ${b}=${a * b}$`
   }
 }

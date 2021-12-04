@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texNombrec, prenomF } from '../../../modules/outils.js'
-export const titre = 'Recherche d’un prix unitaire'
+export const titre = 'Rechercher un prix unitaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -14,6 +14,7 @@ export default function RecherchePrix () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: ' €' }
@@ -28,7 +29,7 @@ export default function RecherchePrix () {
     const t = choice([10, 20])
     const prenom1 = prenomF()
     const pu = choice([0.9, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6])
-    this.question = `A la boulangerie, ${prenom1} achète $${a}$ ${p}.
+    this.question = `A la boulangerie, ${prenom1} achète $${a}$ ${p}.<br>
      Elle paie avec un billet de $${t}$ euros.<br>
     On lui rend $${texNombrec(t - a * pu)}$ euros.<br>
     Quel est le prix d'${s} ?`

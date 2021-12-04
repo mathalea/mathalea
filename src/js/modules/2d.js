@@ -996,6 +996,67 @@ export function dessousDessus (d, A) {
 export function estSurDroite (A, d) {
   return dessousDessus(d, A) === 'sur'
 }
+
+/**
+ *
+ * @param {object} objets
+ * @returns {object} {xmin, ymin, xmax, ymax}
+ */
+export function fixeBordures (objets) {
+  let xmin = 0; let ymin = 0; let xmax = 0; let ymax = 0
+  for (const objet of objets) {
+    xmin = Math.min(xmin, objet.x - 1 || 0)
+    xmax = Math.max(xmax, objet.x + 1 || 0)
+    ymin = Math.min(ymin, objet.y - 1 || 0)
+    ymax = Math.max(ymax, objet.y + 1 || 0)
+  }
+  return { xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax }
+}
+
+/**
+ *
+ * @param {droite} d
+ * @param {{number}} param1 les bordures de la fenêtre
+ * @returns le point qui servira à placer le label.
+ */
+export function positionLabelDroite (d, { xmin = 0, ymin = 0, xmax = 10, ymax = 10 }) {
+  let xLab, yLab
+  let fXmax, fYmax, fXmin, fYmin
+  if (d.b === 0) { // Si la droite est verticale son équation est x = -d.c/d.a on choisit un label au Nord.
+    xLab = -d.b / d.c - 0.5
+    yLab = ymax - 0.5
+  } else { // la droite n'étant pas verticale, on peut chercher ses intersections avec les différents bords.
+    const f = x => (-d.c - d.a * x) / d.b
+    fXmax = f(xmax)
+    if (fXmax < ymax && fXmax > ymin) { // la droite coupe le bord Est entre ymin+1 et ymax-1
+      xLab = xmax - 0.8
+      yLab = f(xLab)
+    } else {
+      fXmin = f(xmin)
+      if (fXmin < ymax && fXmin > ymin) {
+        xLab = xmin + 0.8
+        yLab = f(xLab)
+      } else { // la droite ne coupe ni la bordue Est ni la bordure Ouest elle coupe donc les bordures Nord et Sud
+        const g = y => (-d.c - d.b * y) / d.a
+        fYmax = g(ymax)
+        if (fYmax < xmax && fYmax > xmin) {
+          yLab = ymax - 0.8
+          xLab = g(yLab)
+        } else {
+          fYmin = g(ymin)
+          if (fYmin < xmax && fYmin > xmin) {
+            yLab = ymin + 0.8
+            xLab = g(yLab)
+          } else { // La droite ne passe pas dans la fenêtre on retourne un objet vide
+            return vide2d()
+          }
+        }
+      }
+    }
+  }
+  const position = translation(point(xLab, yLab), homothetie(vecteur(d.a, d.b), point(0, 0), 0.5 / norme(vecteur(d.a, d.b))))
+  return position
+}
 /**
  * d = droiteParPointEtVecteur(A,v,'d1',red') //Droite passant par A, de vecteur directeur v et de couleur rouge
  * @author Jean-Claude Lhote
@@ -2314,7 +2375,7 @@ export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
  * @author Jean-Claude Lhote
  */
 class Boite {
-  constructor ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteMath = false, echelleFigure = 1 } = {}) {
+  constructor ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteOpacite = 0.7, texteMath = false, echelleFigure = 1 } = {}) {
     ObjetMathalea2D.call(this)
     this.forme = polygone([point(Xmin, Ymin), point(Xmax, Ymin), point(Xmax, Ymax), point(Xmin, Ymax)], color)
     if (colorFill) {
@@ -2323,7 +2384,7 @@ class Boite {
     }
     if (texteIn !== '') {
       this.texte = texteParPositionEchelle(texteIn, (Xmin + Xmax) / 2, (Ymin + Ymax) / 2, 'milieu', texteColor, tailleTexte, 'middle', texteMath, echelleFigure)
-      this.texte.opacite = 0.5
+      this.texte.opacite = texteOpacite
     } else {
       this.texte = false
     }
@@ -2336,173 +2397,10 @@ class Boite {
   }
 }
 
-export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteMath = false, echelleFigure = 1 } = {}) {
-  return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor, texteMath: texteMath, echelleFigure: echelleFigure })
+export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteOpacite = 0.7, texteMath = false, echelleFigure = 1 } = {}) {
+  return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor: texteColor, texteOpacite: texteOpacite, texteMath: texteMath, echelleFigure: echelleFigure })
 }
 
-class Plateau2dNLC {
-  constructor (type = 1, melange = false, scale = 0.5) {
-    ObjetMathalea2D.call(this)
-    const plateauNLC = [
-      ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
-      ['Blanc', 'Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir', 'Jaune', 'Blanc'],
-      ['Blanc', 'Rouge', 'Bleu', 'Orange', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Bleu', 'Rouge', 'Gris', 'Rouge', 'Blanc'],
-      ['Blanc', 'Rose', 'Vert', 'Gris', 'Rouge', 'Noir', 'Bleu', 'Vert', 'Noir', 'Vert', 'Bleu', 'Rose', 'Gris', 'Vert', 'Orange', 'Blanc'],
-      ['Blanc', 'Vert', 'Bleu', 'Rose', 'Vert', 'Bleu', 'Orange', 'Gris', 'Rouge', 'Orange', 'Jaune', 'Gris', 'Rouge', 'Rose', 'Bleu', 'Blanc'],
-      ['Blanc', 'Noir', 'Orange', 'Rouge', 'Orange', 'Jaune', 'Rouge', 'Blanc', 'Blanc', 'Noir', 'Gris', 'Orange', 'Noir', 'Jaune', 'Rose', 'Blanc'],
-      ['Blanc', 'Rose', 'Gris', 'Noir', 'Bleu', 'Vert', 'Bleu', 'Blanc', 'Blanc', 'Rouge', 'Bleu', 'Gris', 'Vert', 'Rouge', 'Noir', 'Blanc'],
-      ['Blanc', 'Noir', 'Rouge', 'Rose', 'Vert', 'Orange', 'Rose', 'Noir', 'Orange', 'Vert', 'Jaune', 'Rose', 'Noir', 'Rose', 'Vert', 'Blanc'],
-      ['Blanc', 'Orange', 'Gris', 'Rouge', 'Jaune', 'Noir', 'Vert', 'Rouge', 'Rose', 'Noir', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Gris', 'Blanc'],
-      ['Blanc', 'Bleu', 'Jaune', 'Orange', 'Vert', 'Gris', 'Jaune', 'Gris', 'Orange', 'Gris', 'Rose', 'Bleu', 'Rouge', 'Bleu', 'Orange', 'Blanc'],
-      ['Blanc', 'Rose', 'Bleu', 'Jaune', 'Rose', 'Orange', 'Rouge', 'Bleu', 'Noir', 'Jaune', 'Gris', 'Vert', 'Jaune', 'Noir', 'Rouge', 'Blanc'],
-      ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc']
-    ]
-    if (melange) {
-      for (let i = 0, x1, x2, y1, y2, kase; i < 20; i++) {
-        y1 = randint(1, 10)
-        y2 = randint(1, 10, y1)
-        if (y1 === 5 || y1 === 6) {
-          x1 = randint(1, 14, [7, 8])
-        } else {
-          x1 = randint(1, 14)
-        }
-        if (y2 === 5 || y2 === 6) {
-          x2 = randint(1, 14, [7, 8])
-        } else {
-          x2 = randint(1, 14)
-        }
-        kase = plateauNLC[y1][x1] // case est un mot réservé
-        console.log(plateauNLC[y1][x1], plateauNLC[y2][x2])
-        plateauNLC[y1][x1] = plateauNLC[y2][x2]
-        plateauNLC[y2][x2] = kase
-        console.log(plateauNLC[y1][x1], plateauNLC[y2][x2])
-      }
-    }
-    this.traducColor = function (couleur) {
-      switch (couleur) {
-        case 'Blanc':
-          return 'white'
-        case 'Bleu':
-          return 'blue'
-        case 'Noir':
-          return 'black'
-        case 'Rouge':
-          return 'red'
-        case 'Jaune':
-          return 'yellow'
-        case 'Rose':
-          return 'pink'
-        case 'Vert':
-          return 'green'
-        case 'Orange':
-          return 'orange'
-        case 'Gris':
-          return 'gray'
-      }
-    }
-    this.traducNum = function (couleur) {
-      switch (couleur) {
-        case 'Blanc':
-          return '0'
-        case 'Bleu':
-          return '3'
-        case 'Noir':
-          return '1'
-        case 'Rouge':
-          return '2'
-        case 'Jaune':
-          return '6'
-        case 'Rose':
-          return '5'
-        case 'Vert':
-          return '7'
-        case 'Orange':
-          return '4'
-        case 'Gris':
-          return '8'
-      }
-    }
-    this.traducLettres = function (couleur) {
-      switch (couleur) {
-        case 'Blanc':
-          return 'Blanc'
-        case 'Bleu':
-          return 'Bleu'
-        case 'Noir':
-          return 'Noir'
-        case 'Rouge':
-          return 'Rouge'
-        case 'Jaune':
-          return 'Jaune'
-        case 'Rose':
-          return 'Rose'
-        case 'Vert':
-          return 'Vert'
-        case 'Orange':
-          return 'Orange'
-        case 'Gris':
-          return 'Gris'
-      }
-    }
-
-    const plateau2d = []
-    let b
-    for (let X = 0; X < 16; X++) {
-      for (let Y = 0; Y < 12; Y++) {
-        switch (type) {
-          case 1:
-            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(plateauNLC[11 - Y][X]), echelleFigure: scale })
-            b.opacite = 0.5
-            break
-          case 2:
-            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(plateauNLC[11 - Y][X]), tailleTexte: 1.2, texteIn: this.traducNum(plateauNLC[11 - Y][X]), echelleFigure: scale })
-            b.opacite = 0.5
-            break
-          case 3:
-            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 0.8, texteIn: this.traducLettres(plateauNLC[11 - Y][X]), echelleFigure: scale })
-            b.opacite = 0.5
-            break
-          case 4:
-            b = boite({ Xmin: X * 1.5 - 12, Ymin: Y * 1.5 - 9, Xmax: (X + 1) * 1.5 - 12, Ymax: (Y + 1) * 1.5 - 9, color: 'gray', opaciteDeRemplissage: 0.6, colorFill: 'white', tailleTexte: 1.2, texteIn: this.traducNum(plateauNLC[11 - Y][X]), echelleFigure: scale })
-            b.opacite = 0.5
-            break
-        }
-        plateau2d.push(b)
-      }
-    }
-    plateau2d.push(texteParPositionEchelle('-30', -1.6, -0.3, 'milieu', 'black', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('30', 1.5, -0.3, 'milieu', 'black', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('-30', -0.6, -1.6, 'milieu', 'black', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('30', -0.4, 1.6, 'milieu', 'black', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('x', 11.5, 0.3, 'milieu', 'purple', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('y', -0.3, 8.5, 'milieu', 'purple', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('+', 12.5, 0, 'milieu', 'purple', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('-', -12.5, 0.2, 'milieu', 'purple', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('+', 0, 9.5, 'milieu', 'purple', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('-', 0, -9.3, 'milieu', 'purple', 1.2, 'middle', true, scale))
-    plateau2d.push(segment(0, -9, 0, 9, 'purple'))
-    plateau2d.push(segment(-12, 0, 12, 0, 'purple'))
-
-    this.svg = function (coeff) {
-      let code = ''
-      for (const objet of plateau2d) {
-        code += objet.svg(coeff) + '\n'
-      }
-      return code
-    }
-    this.tikz = function () {
-      let code = ''
-      for (const objet of plateau2d) {
-        code += objet.tikz() + '\n'
-      }
-      return code
-    }
-  }
-}
-
-export function plateau2dNLC (type = 1, melange = false, scale = 0.5) {
-  return new Plateau2dNLC(type, melange, scale)
-}
 /*********************************************/
 /** ***************Triangles ******************/
 /*********************************************/
@@ -8708,6 +8606,8 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   this.contour = false
   this.taille = 10 * scale
   this.opacite = 1
+  this.couleurDeRemplissage = color
+  this.opaciteDeRemplissage = this.opacite
   if (typeof texte !== 'string') {
     texte = String(texte)
   }
@@ -8747,12 +8647,12 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
     this.svg = function (coeff) {
       let code = ''; let style = ''
       if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" '
-      if (this.contour) style += ` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
+      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
       else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
         code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
-      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color
+      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.couleurDeRemplissage
         }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
         )})" id="${this.id}" >${texte}</text>\n `
@@ -8761,19 +8661,19 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
           case 'milieu':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="middle" dominant-baseline="central" fill="${this.color
+          )}" text-anchor="middle" dominant-baseline="central" fill="${this.couleurDeRemplissage
             }" id="${this.id}" >${texte}</text>\n `
             break
           case 'gauche':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="end" dominant-baseline="central" fill="${this.color
+          )}" text-anchor="end" dominant-baseline="central" fill="${this.couleurDeRemplissage
             }" id="${this.id}" >${texte}</text>\n `
             break
           case 'droite':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="start" dominant-baseline="central" fill="${this.color
+          )}" text-anchor="start" dominant-baseline="central" fill="${this.couleurDeRemplissage
             }" id="${this.id}" >${texte}</text>\n `
             break
         }
@@ -8823,70 +8723,106 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
   this.contour = false
   this.taille = 10 * scale
   this.opacite = 1
-  this.svg = function (coeff) {
-    let code = ''; let style = ''
-    if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" '
-    if (this.contour) style += ` style="font-size:${this.taille * coeff / 20}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
-    else style += ` style="font-size:${this.taille * coeff / 20}px;fill:${this.color};fill-opacity:${this.opacite}" `
-    if (typeof (orientation) === 'number') {
-      code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+  this.couleurDeRemplissage = color
+  this.opaciteDeRemplissage = this.opacite
+  if (texte.charAt(0) === '$') {
+    A.positionLabel = 'centre'
+    this.svg = function (coeff) {
+      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '').svg(coeff)
+    }
+    this.tikz = function () {
+      let code = ''
+      if (typeof orientation === 'number') {
+        let anchor = 'center'
+        if (ancrageDeRotation === 'gauche') {
+          anchor = 'west'
+        }
+        if (ancrageDeRotation === 'droite') {
+          anchor = 'east'
+        }
+        code = `\\draw [${color}] (${A.x},${A.y
+          }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
+      } else {
+        let anchor = ''
+        if (orientation === 'gauche') {
+          anchor = `node[anchor = east,scale=${scale * scaleFigure * 1.25}]`
+        }
+        if (orientation === 'droite') {
+          anchor = `node[anchor = west,scale=${scale * scaleFigure * 1.25}]`
+        }
+        if (orientation === 'milieu') {
+          anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
+        }
+        code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`
+      }
+      return code
+    }
+  } else {
+    this.svg = function (coeff) {
+      let code = ''; let style = ''
+      if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" '
+      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
+      else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
+      if (typeof (orientation) === 'number') {
+        code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
       )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color
         }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
         )})" id="${this.id}" >${texte}</text>\n `
-    } else {
-      switch (orientation) {
-        case 'milieu':
-          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+      } else {
+        switch (orientation) {
+          case 'milieu':
+            code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="middle" dominant-baseline="central" fill="${this.color
             }" id="${this.id}" >${texte}</text>\n `
-          break
-        case 'gauche':
-          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+            break
+          case 'gauche':
+            code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="end" dominant-baseline="central" fill="${this.color
             }" id="${this.id}" >${texte}</text>\n `
-          break
-        case 'droite':
-          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+            break
+          case 'droite':
+            code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="start" dominant-baseline="central" fill="${this.color
             }" id="${this.id}" >${texte}</text>\n `
-          break
+            break
+        }
       }
-    }
 
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    if (mathOn) texte = '$' + texte + '$'
-    if (typeof orientation === 'number') {
-      let anchor = 'center'
-      if (ancrageDeRotation === 'gauche') {
-        anchor = 'west'
-      }
-      if (ancrageDeRotation === 'droite') {
-        anchor = 'east'
-      }
-      code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y
-        }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
-    } else {
-      let anchor = ''
-      if (orientation === 'gauche') {
-        anchor = `node[anchor = east,scale=${scale * scaleFigure * 1.25}]`
-      }
-      if (orientation === 'droite') {
-        anchor = `node[anchor = west,scale=${scale * scaleFigure * 1.25}]`
-      }
-      if (orientation === 'milieu') {
-        anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
-      }
-      code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
+      return code
     }
-    return code
+    this.tikz = function () {
+      let code = ''
+      if (mathOn) texte = '$' + texte + '$'
+      if (typeof orientation === 'number') {
+        let anchor = 'center'
+        if (ancrageDeRotation === 'gauche') {
+          anchor = 'west'
+        }
+        if (ancrageDeRotation === 'droite') {
+          anchor = 'east'
+        }
+        code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y
+        }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
+      } else {
+        let anchor = ''
+        if (orientation === 'gauche') {
+          anchor = `node[anchor = east,scale=${scale * scaleFigure * 1.25}]`
+        }
+        if (orientation === 'droite') {
+          anchor = `node[anchor = west,scale=${scale * scaleFigure * 1.25}]`
+        }
+        if (orientation === 'milieu') {
+          anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
+        }
+        code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
+      }
+      return code
+    }
   }
 }
 export function texteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, scaleFigure = 1) {
@@ -9394,11 +9330,16 @@ export function ajouterAy (y, lutin = context.lutin) {
  */
 export function attendre (tempo, lutin = context.lutin) {
   const x = lutin.x; const y = lutin.y
+  lutin.listeTraces.push([x, y, x + 0.08, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   for (let i = 0; i < tempo; i++) {
-    lutin.listeTraces.push([x, y, x + 0.03, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x + 0.03, y, x - 0.03, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x - 0.03, y, x, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([x + 0.08, y, x + 0.08, y + 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([x + 0.08, y + 0.08, x - 0.08, y + 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([x + 0.08, y + 0.08, x - 0.08, y + 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([x - 0.08, y + 0.08, x - 0.08, y - 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([x - 0.08, y - 0.08, x + 0.08, y - 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([x + 0.08, y - 0.08, x + 0.08, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   }
+  lutin.listeTraces.push([x + 0.03, y, x, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
 }
 
 /**
@@ -9917,12 +9858,12 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
  */
 
 export function mathalea2d (
-  { xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, scale = 1, optionsTikz, mainlevee = false, amplitude = 1, style = 'display: block', id = '' } = {},
+  { xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, scale = 1, zoom = 1, optionsTikz, mainlevee = false, amplitude = 1, style = 'display: block', id = '' } = {},
   ...objets
 ) {
   let code = ''
   if (context.isHtml) {
-    code = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm}" height="${(ymax - ymin) * pixelsParCm
+    code = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
       }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
       } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" ${style ? `style="${style}"` : ''}>\n`
     // code += codeSvg(...objets);

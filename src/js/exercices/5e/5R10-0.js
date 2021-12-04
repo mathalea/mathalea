@@ -1,16 +1,20 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, calcul, texNombre, miseEnEvidence, texteEnCouleur, tableauColonneLigne } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, texteEnCouleur, tableauColonneLigne, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Trouver l’opposé d’un nombre relatif'
+export const dateDeModifImportante = '26/11/2021'
 
 /**
 * * Remplir un tableau en utilisant la notion d'opposé
 * * 5R10-0
 * @author Sébastien Lozano
+* Ajout d'un paramètre pour afficher quelques fois le signe des nombres positif par Guillaume Valmont le 26/11/2021
 */
+
 export default function TrouverOppose () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
+  this.besoinFormulaireCaseACocher = ['Afficher quelques fois le signe des nombres positifs']
   this.sup = 1
   if (this.debug) {
     this.nbQuestions = 1
@@ -23,9 +27,6 @@ export default function TrouverOppose () {
 
   this.nbCols = 1
   this.nbColsCorr = 1
-  // this.nbQuestionsModifiable = false;
-  // context.isHtml? this.spacing = 3 : this.spacing = 2;
-  // context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
 
   let typesDeQuestionsDisponibles
 
@@ -39,19 +40,29 @@ export default function TrouverOppose () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    // typesDeQuestionsDisponibles=[1];
-
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+    const listeSignesPositifs = combinaisonListes(['+', ''], 6 * this.nbQuestions)
+    const listeSignes = combinaisonListes(['+', '-'], 6 * this.nbQuestions)
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, signePositif, indice = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let sup
+      parseInt(this.sup) === 1 ? sup = false : sup = this.sup // Pour rester compatible avec l'ancien paramètre this.sup = 1 par défaut (et inutilisé)
       // une fonction pour générer un relatif et son opposé
       function nbRelatifEtSonOppose () {
-        const nbNum = calcul(randint(-9, 9) + calcul(randint(-9, 9) / 10))
-
-        return {
-          nb: texNombre(nbNum),
-          opp: texNombre(-nbNum)
+        sup ? signePositif = listeSignesPositifs[indice] : signePositif = ''
+        const nbNum = randint(0, 9) + randint(0, 9) / 10
+        if (listeSignes[indice] === '+') {
+          indice++
+          return {
+            nb: signePositif + texNombre(nbNum),
+            opp: texNombre(-nbNum)
+          }
+        } else {
+          indice++
+          return {
+            nb: texNombre(-nbNum),
+            opp: signePositif + texNombre(nbNum)
+          }
         }
       }
       const nbLigneNombres = ['\\text{Nombre}']
@@ -118,6 +129,4 @@ export default function TrouverOppose () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
 }

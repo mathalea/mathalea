@@ -1,6 +1,6 @@
 import { randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Reste de la division euclidienne'
+export const titre = 'Trouver le reste d’une division euclidienne'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,6 +15,7 @@ export default function ResteDivisionEuclidienne () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(7, 9)

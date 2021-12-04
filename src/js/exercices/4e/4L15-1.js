@@ -1,6 +1,6 @@
 import EqResolvantesThales from '../3e/3L13-2.js'
 
-export const titre = 'Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$'
+export const titre = 'Équations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$'
 
 /**
  * * Equation type x/a=b/c
