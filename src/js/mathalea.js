@@ -125,13 +125,15 @@ function ajoutHandlersEtiquetteExo () {
         $('.choix_exercices:last').focus()
       }
     })
-  $('#choix_exercices_div').sortable({
-    cancel: 'i',
-    placeholder: 'sortableplaceholder',
-    update: function () {
-      copierVersExerciceForm()
-    }
-  })
+  if (typeof($('#choix_exercices_div').sortable) === 'function') { //quelques cas dans bugsnag, dans ces rares cas, le glissé-déposé des étiquettes pour changer l'ordre n'est pas optimal mais tout le reste fonctionne.
+      $('#choix_exercices_div').sortable({
+      cancel: 'i',
+      placeholder: 'sortableplaceholder',
+      update: function () {
+        copierVersExerciceForm()
+      }
+    })
+  }
   $('.choix_exercices')
     .off('mousedown')
     .on('mousedown', function () {
@@ -509,40 +511,42 @@ function miseAJourDuCode () {
         finUrl += 'mathalea.html'
       }
       finUrl += `?ex=${listeDesExercices[0]}`
-      if (listeObjetsExercice[0].sup !== undefined) {
-        finUrl += `,s=${listeObjetsExercice[0].sup}`
+      if (listeObjetsExercice[0]) {
+        if (listeObjetsExercice[0].sup !== undefined) {
+          finUrl += `,s=${listeObjetsExercice[0].sup}`
+        }
+        if (listeObjetsExercice[0].sup2 !== undefined) {
+          finUrl += `,s2=${listeObjetsExercice[0].sup2}`
+        }
+        if (listeObjetsExercice[0].sup3 !== undefined) {
+          finUrl += `,s3=${listeObjetsExercice[0].sup3}`
+        }
+        if (listeObjetsExercice[0].sup4 !== undefined) {
+          finUrl += `,s4=${listeObjetsExercice[0].sup4}`
+        }
+        if (listeObjetsExercice[0].nbQuestionsModifiable) {
+          finUrl += `,n=${listeObjetsExercice[0].nbQuestions}`
+        }
+        if (listeObjetsExercice[0].video.length > 1) {
+          finUrl += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
+        }
+        if (listeObjetsExercice[0].correctionIsCachee) {
+          finUrl += ',cc=1'
+        }
+        if (listeObjetsExercice[0].correctionDetaillee && listeObjetsExercice[0].correctionDetailleeDisponible) {
+          finUrl += ',cd=1'
+        }
+        if (!listeObjetsExercice[0].correctionDetaillee && listeObjetsExercice[0].correctionDetailleeDisponible) {
+          finUrl += ',cd=0'
+        }
+        if (listeObjetsExercice[0].interactif && !context.isDiaporama) {
+          finUrl += ',i=1'
+        }
+        if (!listeObjetsExercice[0].interactif && listeObjetsExercice[0].interactifReady && !context.isDiaporama) {
+          finUrl += ',i=0'
+        }
+        listeObjetsExercice[0].numeroExercice = 0
       }
-      if (listeObjetsExercice[0].sup2 !== undefined) {
-        finUrl += `,s2=${listeObjetsExercice[0].sup2}`
-      }
-      if (listeObjetsExercice[0].sup3 !== undefined) {
-        finUrl += `,s3=${listeObjetsExercice[0].sup3}`
-      }
-      if (listeObjetsExercice[0].sup4 !== undefined) {
-        finUrl += `,s4=${listeObjetsExercice[0].sup4}`
-      }
-      if (listeObjetsExercice[0].nbQuestionsModifiable) {
-        finUrl += `,n=${listeObjetsExercice[0].nbQuestions}`
-      }
-      if (listeObjetsExercice[0].video.length > 1) {
-        finUrl += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
-      }
-      if (listeObjetsExercice[0].correctionIsCachee) {
-        finUrl += ',cc=1'
-      }
-      if (listeObjetsExercice[0].correctionDetaillee && listeObjetsExercice[0].correctionDetailleeDisponible) {
-        finUrl += ',cd=1'
-      }
-      if (!listeObjetsExercice[0].correctionDetaillee && listeObjetsExercice[0].correctionDetailleeDisponible) {
-        finUrl += ',cd=0'
-      }
-      if (listeObjetsExercice[0].interactif && !context.isDiaporama) {
-        finUrl += ',i=1'
-      }
-      if (!listeObjetsExercice[0].interactif && listeObjetsExercice[0].interactifReady && !context.isDiaporama) {
-        finUrl += ',i=0'
-      }
-      listeObjetsExercice[0].numeroExercice = 0
       for (let i = 1; i < listeDesExercices.length; i++) {
         finUrl += `&ex=${listeDesExercices[i]}`
         if (listeObjetsExercice[i].sup !== undefined) {
@@ -691,7 +695,7 @@ function miseAJourDuCode () {
     document.getElementById('corrections').innerHTML = ''
     let contenuDesExercices = ''
     let contenuDesCorrections = ''
-    if (listeDesExercices.length > 0) {
+    if (listeDesExercices.length > 0 && listeObjetsExercice.length > 0) {
       for (let i = 0; i < listeDesExercices.length; i++) {
         // const contenu_un_exercice = ''; const contenu_une_correction = ''
         listeObjetsExercice[i].id = listeDesExercices[i]
