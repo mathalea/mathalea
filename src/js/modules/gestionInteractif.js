@@ -951,8 +951,8 @@ export function exerciceNonInteractif (exercice) {
     button.innerHTML = 'Voir la correction pour s\'auto-corriger'
     button.style.margin = '1em'
 
-    let divMsg = document.querySelector('#msgExNonIteractif')
-    if (!divMsg) divMsg = addElement(divAffichageExo, 'div', { className: '', id: 'msgExNonIteractif' })
+    let divMsg = document.querySelector(`#msgExNonIteractif${exercice.numeroExercice}-${exercice.id}`)
+    if (!divMsg) divMsg = addElement(divAffichageExo, 'div', { className: '', id: `msgExNonIteractif${exercice.numeroExercice}-${exercice.id}` })
     divMsg.innerHTML = 'Cet exercice n’est pas interactif, faites-le au brouillon avant de vous auto-corriger.'
     divMsg.style.color = '#f15929'
     divMsg.style.fontWeight = 'bold'
