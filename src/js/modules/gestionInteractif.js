@@ -942,39 +942,41 @@ export function exerciceNonInteractif (exercice) {
       gestionCan(exercice)
     }
 
-    const divAffichageExo = document.querySelector(`#exercice${exercice.numeroExercice}`)
+    if (getVueFromUrl() === 'eval') {
+      const divAffichageExo = document.querySelector(`#exercice${exercice.numeroExercice}`)
 
-    let button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
-    if (!button) {
-      button = addElement(divAffichageExo, 'button', { className: 'ui button checkReponses', id: `#btnValidationEx${exercice.numeroExercice}-${exercice.id}` })
-    }
-    button.innerHTML = 'Voir la correction pour s\'auto-corriger'
-    button.style.margin = '1em'
+      let button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
+      if (!button) {
+        button = addElement(divAffichageExo, 'button', { className: 'ui button checkReponses', id: `#btnValidationEx${exercice.numeroExercice}-${exercice.id}` })
+      }
+      button.innerHTML = 'Voir la correction pour s\'auto-corriger'
+      button.style.margin = '1em'
 
-    let divMsg = document.querySelector(`#msgExNonIteractif${exercice.numeroExercice}-${exercice.id}`)
-    if (!divMsg) divMsg = addElement(divAffichageExo, 'div', { className: '', id: `msgExNonIteractif${exercice.numeroExercice}-${exercice.id}` })
-    divMsg.innerHTML = 'Cet exercice n’est pas interactif, faites-le au brouillon avant de vous auto-corriger.'
-    divMsg.style.color = '#f15929'
-    divMsg.style.fontWeight = 'bold'
-    divMsg.style.fontSize = 'x-large'
-    divMsg.style.display = 'block'
-    divMsg.style.margin = '1em'
+      let divMsg = document.querySelector(`#msgExNonIteractif${exercice.numeroExercice}-${exercice.id}`)
+      if (!divMsg) divMsg = addElement(divAffichageExo, 'div', { className: '', id: `msgExNonIteractif${exercice.numeroExercice}-${exercice.id}` })
+      divMsg.innerHTML = 'Cet exercice n’est pas interactif, faites-le au brouillon avant de vous auto-corriger.'
+      divMsg.style.color = '#f15929'
+      divMsg.style.fontWeight = 'bold'
+      divMsg.style.fontSize = 'x-large'
+      divMsg.style.display = 'block'
+      divMsg.style.margin = '1em'
 
-    if (button) {
-      if (!button.hasMathaleaListener) {
-        button.addEventListener('click', event => {
-          // Ici on met 1 bonne réponse dans tous les cas car les exos ne sont pas interactifs
-          // Cela signifie que l'exo a été visualisé
-          // À améliorer pour l'enregistrement dans le fichier de scores
-          const nbBonnesReponses = 1
-          const nbMauvaisesReponses = 0
-          const besoinDe2eEssai = false
-          if (!besoinDe2eEssai) {
-            button.classList.add('disabled')
-            afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
-          }
-        })
-        button.hasMathaleaListener = true
+      if (button) {
+        if (!button.hasMathaleaListener) {
+          button.addEventListener('click', event => {
+            // Ici on met 1 bonne réponse dans tous les cas car les exos ne sont pas interactifs
+            // Cela signifie que l'exo a été visualisé
+            // À améliorer pour l'enregistrement dans le fichier de scores
+            const nbBonnesReponses = 1
+            const nbMauvaisesReponses = 0
+            const besoinDe2eEssai = false
+            if (!besoinDe2eEssai) {
+              button.classList.add('disabled')
+              afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
+            }
+          })
+          button.hasMathaleaListener = true
+        }
       }
     }
   })
