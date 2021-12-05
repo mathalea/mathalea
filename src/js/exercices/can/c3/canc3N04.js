@@ -1,6 +1,6 @@
 import { calcul, randint, texNombre } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Arrondi à l\'unité'
+export const titre = 'Arrondir à l\'unité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,6 +15,8 @@ export default function ArrondiUnite () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
+  this.formatChampTexte = 'largeur15 inline'
   this.consigne = ''
 
   this.nouvelleVersion = function () {

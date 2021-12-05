@@ -152,6 +152,8 @@ class Fraction {
      * @type {number}
      */
     this.valeurDecimale = arrondi(this.num / this.den, 6)
+
+    return this.texFraction
   }
 
   /**

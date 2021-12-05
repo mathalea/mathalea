@@ -134,7 +134,7 @@ export default function ExerciceSubstituer (difficulte = 1) {
         ],
         reponse: {
           texte: 'résultat',
-          valeur: reponse,
+          valeur: [reponse],
           param: {
             digits: 3,
             decimals: 0,

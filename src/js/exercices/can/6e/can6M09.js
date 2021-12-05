@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { calcul, choice, randint, texNombrec } from '../../../modules/outils.js'
-export const titre = 'Périmètre carré et rectangle'
+export const titre = 'Calculer des longueurs à partir des périmètres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -23,8 +23,7 @@ export default function PerimetreCarreRectangle () {
       case 'a':
         a = randint(5, 10) * 2
         this.question = `Le périmètre d'un carré est $${a}$ cm.<br>
-         Quelle est la longueur du côté du carré ? <br>
-         Donner le résultat sous forme décimale.          `
+         Quelle est la longueur du côté du carré ? <br>(valeur décimale ou entière) `
         this.correction = `On calcule le périmètre d'un carré 
         en multipliant par $4$ la longueur de son côté. <br>
         On obtient donc la longueur du côté en divisant par $4$ son périmètre : $${a}\\div 4=${texNombrec(a / 4)}$ cm.`

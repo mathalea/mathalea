@@ -1,6 +1,6 @@
 import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Fraction simple de quantité'
+export const titre = 'Calculer la fraction d’une quantité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,6 +15,7 @@ export default function FractionSimpleDeQuantite () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: ' L' }
   this.nouvelleVersion = function () {

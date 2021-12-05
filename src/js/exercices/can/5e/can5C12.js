@@ -1,7 +1,7 @@
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { calcul, choice, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Fraction d’entier qui va bien'
+export const titre = 'Calculer la fraction d’entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,6 +16,7 @@ export default function FractionDEntierQuiVaBien () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur25 inline'
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())

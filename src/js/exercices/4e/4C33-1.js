@@ -82,6 +82,7 @@ export default function PuissancesDunRelatif1 () {
         base1,
         base,
         baseUtile,
+        baseUtileBisAMC,
         exp0,
         exp1,
         exp,
@@ -150,7 +151,12 @@ export default function PuissancesDunRelatif1 () {
           };
           texteCorr += remarquesPuissances(base, baseUtile, exp[1] + exp[0])
           texteCorr += '<br>'
-          reponseInteractive = `${baseUtile}^${exp[1] + exp[0]}`
+          if (base < 0 && ((exp[0] + exp[1]) % 2) === 0) {
+            reponseInteractive = [`${baseUtile}^${exp[1] + exp[0]}`, `${-base}^${exp[1] + exp[0]}`]
+            baseUtileBisAMC = -base
+          } else {
+            reponseInteractive = `${baseUtile}^${exp[1] + exp[0]}`
+          }
           exposantInteractif = exp[1] + exp[0]
           break
         case 2: // quotient de puissances de même base
@@ -240,7 +246,12 @@ export default function PuissancesDunRelatif1 () {
           }
           texteCorr += remarquesPuissances(base, baseUtile, exp[0] - exp[1])
           texteCorr += '<br>'
-          reponseInteractive = `${baseUtile}^${exp[0] - exp[1]}`
+          if (base < 0 && ((exp[0] - exp[1]) % 2) === 0) {
+            reponseInteractive = [`${baseUtile}^${exp[0] - exp[1]}`, `${-base}^${exp[0] - exp[1]}`]
+            baseUtileBisAMC = -base
+          } else {
+            reponseInteractive = `${baseUtile}^${exp[0] - exp[1]}`
+          }
           exposantInteractif = exp[0] - exp[1]
           break
         case 3: // exponentiation
@@ -278,7 +289,12 @@ export default function PuissancesDunRelatif1 () {
           }
           texteCorr += remarquesPuissances(base, baseUtile, exp[0] * exp[1])
           texteCorr += '<br>'
-          reponseInteractive = `${baseUtile}^${exp[0] * exp[1]}`
+          if (base < 0 && (exp[0] * exp[1] % 2) === 0) {
+            reponseInteractive = [`${baseUtile}^${exp[0] * exp[1]}`, `${-base}^${exp[0] * exp[1]}`]
+            baseUtileBisAMC = -base
+          } else {
+            reponseInteractive = `${baseUtile}^${exp[0] * exp[1]}`
+          }
           exposantInteractif = exp[0] * exp[1]
           break
         case 4: // produit de puissances de même exposant
@@ -311,17 +327,21 @@ export default function PuissancesDunRelatif1 () {
             }}} \\color{black}{\\times} \\color{${coul1}}{\\mathbf{${base[1]
             }}}\\color{black}{)^{${exp}}}=${base[0] * base[1]}^${exp}$`
           texteCorr += '<br>'
+          // Ici la base ne peut jamais être négative
           reponseInteractive = `${base[0] * base[1]}^${exp}`
           baseUtile = base[0] * base[1]
+          baseUtileBisAMC = base[0] * base[1] // juste pour ne pas avoir à ajouter un batterie de ligne spécifique pour ce cas, je mets deux fois la même chose
           exposantInteractif = exp
           break
       }
       if (this.interactif && !context.isAmc) {
-        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: baseUtile, exposantPuissance: exposantInteractif })
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' $=$' })
+        // texte += 'rep : ' + reponseInteractive + ' -- '
+        // texte += 'case : ' + typesDeQuestions
       }
       if (context.isAmc) {
-        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: baseUtile, exposantPuissance: exposantInteractif })
+        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: baseUtile, exposantPuissance: exposantInteractif, aussiCorrect: baseUtileBisAMC })
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre

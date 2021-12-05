@@ -1,6 +1,6 @@
 import { calcul, choice, randint, texNombrec, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Complément à 1'
+export const titre = 'Trouver le complément à 1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,7 +16,7 @@ export default function ComplementAUn () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.typeExercice = 'simple'
-
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let a
     switch (choice([1, 2, 3])) {

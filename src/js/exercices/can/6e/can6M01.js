@@ -2,7 +2,7 @@ import { context } from '../../../modules/context'
 import { propositionsQcm } from '../../../modules/gestionInteractif'
 import { listeQuestionsToContenu, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Question de périmètres'
+export const titre = 'Comparer des périmètres (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -16,7 +16,7 @@ export const amcType = 'qcmMono'
 export default function QuestionDePerimetres () {
   Exercice.call(this)
   this.nbQuestions = 1
-
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []

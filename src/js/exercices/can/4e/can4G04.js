@@ -3,7 +3,7 @@ import { randint, creerNomDePolygone, texNombrec, texteEnCouleur, extraireRacine
 import {
   mathalea2d, point, pointAdistance, polygoneAvecNom, codageAngleDroit, texteParPosition, milieu
 } from '../../../modules/2d.js'
-export const titre = 'Calcul d’un côté avec Pythagore'
+export const titre = 'Calculer un côté avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -47,7 +47,7 @@ export default function CalculCotePythagore () {
     //  latexParPoint(`${texNombrec(a)}`, similitude(B, A, -10, 0.5, '', 'center'), 'black', 20, 10, '')
     // )
     this.question = `Sur cette figure, déterminer la valeur exacte de $${nom[1]}${nom[2]}$.<br>`
-    this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.7 }, objets)
+    this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
     this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
       On obtient :<br>
       $\\begin{aligned}\n

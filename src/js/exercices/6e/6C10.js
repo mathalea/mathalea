@@ -150,11 +150,11 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: reponse,
+                  texte: '',
                   statut: '',
                   reponse: {
                     texte: 'Résultat',
-                    valeur: reponse,
+                    valeur: [reponse],
                     param: {
                       digits: nombreDeChiffresDe(reponse),
                       decimals: 0,

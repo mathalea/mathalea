@@ -6,6 +6,7 @@ import { format, evaluate, isPrime, max, gcd } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { elimineDoublons, setReponse } from './gestionInteractif.js'
+import { getVueFromUrl } from './gestionUrl.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -22,7 +23,7 @@ const epsilon = 0.000001
 export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`, exercice.tailleDiaporama)
-    if (exercice.interactif && exercice.interactifReady) {
+    if ((exercice.interactif && exercice.interactifReady) || getVueFromUrl() === 'eval') {
       exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr, 'correction')
@@ -167,6 +168,15 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
   }
 }
 /**
+ *
+ * @param {string} texte
+ * @returns le texte centré dans la page selon le contexte.
+ * @author Jean-Claude Lhote
+ */
+export function centrage (texte) {
+  return context.isHtml ? `<center>${texte}</center>` : `\\begin{center}\n\t${texte}\n\\end{center}\n`
+}
+/**
  * Contraint une valeur à rester dans un intervalle donné. Si elle est trop petite, elle prend la valeur min, si elle est trop grande elle prend la valeur max
  * @author Jean-Claude Lhote à partir du code de Eric Elter
  * @param {number} min borne inférieur
@@ -272,52 +282,13 @@ export function ecrireNombre2D (x, y, n) {
   return nombre2D
 }
 
-class NombreDecimal {
-  constructor (nombre) {
-    if (nombre < 0) {
-      this.signe = '-'
-      nombre = calcul(-nombre)
-    } else this.signe = '+'
-    this.exposant = Math.floor(Math.log10(nombre))
-    nombre = nombre / 10 ** this.exposant
-    this.mantisse = []
-    for (let k = 0; k < 16; k++) {
-      if (egal(Math.ceil(nombre) - nombre, 0, 0.00001)) {
-        this.mantisse.push(Math.ceil(nombre))
-        nombre = (this.mantisse[k] - nombre) * 10
-      } else {
-        this.mantisse.push(Math.floor(nombre))
-        nombre = (nombre - this.mantisse[k]) * 10
-      }
-      if (egal(nombre, 0, 0.001)) { break }
-    }
-  }
-
-  get valeur () {
-    return this.recompose()
-  }
-
-  recompose () {
-    let val = 0
-    for (let i = 0; i < 10; i++) { val += this.mantisse[i] * 10 ** (-i) }
-    val = val * 10 ** this.exposant
-    if (this.signe === '+') return val
-    else return calcul(-val)
-  }
-}
-export function decimal (n) {
-  return new NombreDecimal(n)
-}
-
-// FIXME {liste} n'existe pas dans jsdoc, si c'est un array de strings ça se note {string[]}
-
 /**
 * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
 * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
 * Si le nombre de couples possibles est inférieur à nombreDeCouplesMin alors
 * on concatène 2 fois la même liste mais avec des ordres différents.
-* @param {liste} E1 - Liste
-* @param {liste} E2 - Liste
+* @param {string[]} E1 - Liste
+* @param {string[]} E2 - Liste
 * @param {int} nombreDeCouplesMin=10 - Nombre de couples souhaités
 * @author Rémi Angot
 */
@@ -500,7 +471,7 @@ export function enleveElementNoBis (array, index) {
 */
 export function choice (liste, listeAEviter = []) {
   // copie la liste pour ne pas y toucher (ce n'est pas le but de choice)
-  if (!Number(listeAEviter).isNan) {
+  if (!Array.isArray(listeAEviter)) {
     listeAEviter = [listeAEviter]
   }
   const listebis = liste.slice()
@@ -1753,9 +1724,32 @@ export function nombreDecimal (expression, arrondir = false) {
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
 * @author Rémi Angot
 */
+
 export function texNombrec (expression) {
   return texNombre(parseFloat(Algebrite.eval(expression)))
 }
+
+/**
+* Formattage pour une sortie LaTeX entre $$
+* formatFraction = false : si l'expression est un objet fraction du module mathjs alors elle peut donner l'écriture fractionnaire
+* Pour une fraction négative la sortie est -\dfrac{6}{7} au lieu de \dfrac{-6}{7}
+* @author Frédéric PIOU
+*/
+
+export function texNum (expression, formatFraction = false) {
+  if (typeof expression === 'object') {
+    const signe = expression.s === 1 ? '' : '-'
+    if (formatFraction === true) {
+      expression = expression.d !== 1 ? signe + texFraction(expression.n, expression.d) : signe + expression.n
+    } else {
+      expression = texNombre(evaluate(format(expression)))
+    }
+  } else {
+    expression = texNombre(parseFloat(Algebrite.eval(expression)))
+  }
+  return expression.replace(',', '{,}').replace('{{,}}', '{,}')
+}
+
 /**
  * renvoie le résultat de l'expression en couleur (vert=positif, rouge=négatif, noir=nul)
  * @param {string} expression l'expression à calculer
@@ -7453,6 +7447,7 @@ export function exportQcmAmc (exercice, idExo) {
           }
           texQr += '\n'
           texQr += `Base\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.basePuissance}}{digits=${digitsBase},decimals=0,sign=false,approx=0,`
+          if (autoCorrection[j].reponse.param.aussiCorrect !== undefined) texQr += `alsocorrect=${autoCorrection[j].reponse.param.aussiCorrect}`
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n'
           texQr += '\\AMCquestionNumberfalse\\def\\AMCbeginQuestion#1#2{}'

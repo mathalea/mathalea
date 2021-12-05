@@ -39,6 +39,7 @@ export default function EqResolvantesThales () {
 
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
+  this.niveau = '5e'
 
   this.nouvelleVersion = function () {
     let typesDeQuestionsDisponibles = []
@@ -54,7 +55,13 @@ export default function EqResolvantesThales () {
 
     // const listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
-
+    // if (this.niveau === '5e') {
+    //   this.introduction = infoMessage({
+    //     titre: 'ATTENTION - Hors programme 5e',
+    //     texte: 'Cet exercice ne correspond plus au programme de 5e, vous le retrouvez au niveau 4e <a href="https://coopmaths.fr/mathalea.html?ex=4C20-2"> en cliquant ici</a>.',
+    //     couleur: 'nombres'
+    //   })
+    // }
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On a besoin d'un booléen pour que tout ne soit pas vrai ou faux
       let equalOrNot
@@ -65,10 +72,10 @@ export default function EqResolvantesThales () {
       // On a besoin d'un string pour stocker l'égalité et un autre pour la justification
       let egalite, justification
       /**
-* Une fonction pour rendre deux fractions égales ou pas
-* @param {boolean} bool
-* @returns deux fractions egales ou non
-*/
+      * Une fonction pour rendre deux fractions égales ou pas
+      * @param {boolean} bool
+      * @returns deux fractions egales ou non
+      */
       function fracEqualOrNot (bool, n, d) {
         // On a besoin de deux fractions
         let f2
@@ -81,36 +88,38 @@ export default function EqResolvantesThales () {
         return { frac: f1, fracEqualOrNot: f2 }
       }
       /**
-* Une fonction pour afficher des fraction avec num et/ou den décimaux
-* @param num le numerateur de type number
-* @param den le dénominateur de type number
-*/
+      * Une fonction pour afficher des fraction avec num et/ou den décimaux
+      * @param num le numerateur de type number
+      * @param den le dénominateur de type number
+      */
       function showFracNumDenDec (num, den) {
         const f = fraction(num, den)
         return `\\dfrac{${texNombre2(f.num)}}{${texNombre2(f.den)}}`
       }
 
       /**
-* Une fonction pour la correction
-* @param bool le booléen pour savoir si il y a égalité ou pas
-* @param f une fraction
-* @param fEqOrNot l'autre fraction égale ou pas
-*/
+      * Une fonction pour la correction
+      * @param bool le booléen pour savoir si il y a égalité ou pas
+      * @param f une fraction
+      * @param fEqOrNot l'autre fraction égale ou pas
+      */
       function justifyEq (bool, f, fEqOrNot) {
         let strOut
         if (bool) {
-          strOut = `Les produits en croix sont égaux :<br>
-${texNombre2(f.num)}$\\times$${texNombre2(fEqOrNot.den)} ${texteEnCouleur('$=$')} ${texNombre2(f.den)}$\\times$${texNombre2(fEqOrNot.num)}<br>
-`
+          strOut = `D'une part, ${texNombre2(f.num)}$\\times$${texNombre2(fEqOrNot.den)} $=$ ${texteEnCouleur(texNombre2(f.num * fEqOrNot.den))}.<br>
+          D'autre part, ${texNombre2(f.den)}$\\times$${texNombre2(fEqOrNot.num)} $=$ ${texteEnCouleur(texNombre2(f.den * fEqOrNot.num))}.<br>
+          On constate que les produits en croix sont égaux.<br>
+          `
           if (Number.isInteger(f.num)) {
             strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ sont donc égales.`
           } else {
             strOut += `Les fractions $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ sont donc égales.`
           }
         } else {
-          strOut = `Les produits en croix ne sont pas égaux :<br>
-${texNombre2(f.num)}$\\times$${texNombre2(fEqOrNot.den)} ${texteEnCouleur('$\\neq$')} ${texNombre2(f.den)}$\\times$${texNombre2(fEqOrNot.num)}<br>
-`
+          strOut = `D'une part, ${texNombre2(f.num)}$\\times$${texNombre2(fEqOrNot.den)} $=$ ${texteEnCouleur(texNombre2(f.num * fEqOrNot.den))}.<br>
+          D'autre part, ${texNombre2(f.den)}$\\times$${texNombre2(fEqOrNot.num)} $=$ ${texteEnCouleur(texNombre2(f.den * fEqOrNot.num))}.<br>
+          On constate que les produits en croix ne sont pas égaux.<br>
+          `
           if (Number.isInteger(f.num)) {
             strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ ne sont donc pas égales.`
           } else {
@@ -127,16 +136,14 @@ ${texNombre2(f.num)}$\\times$${texNombre2(fEqOrNot.den)} ${texteEnCouleur('$\\ne
           equalOrNot = choice([true, false])
           num = randint(1, 9)
           den = randint(2, 9, num)
-          egalite = `
-$${fracEqualOrNot(equalOrNot, num, den).frac.texFraction}\\overset{?}{=}${fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot.texFraction}$`
+          egalite = `$${fracEqualOrNot(equalOrNot, num, den).frac.texFraction}\\overset{?}{=}${fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot.texFraction}$`
           justification = justifyEq(equalOrNot, fracEqualOrNot(equalOrNot, num, den).frac, fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot)
           break
         case 2: // grands entiers
           equalOrNot = choice([true, false])
           num = randint(11, 99)
           den = randint(11, 99, num)
-          egalite = `
-$${fracEqualOrNot(equalOrNot, num, den).frac.texFraction}=${fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot.texFraction}$`
+          egalite = `$${fracEqualOrNot(equalOrNot, num, den).frac.texFraction}=${fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot.texFraction}$`
           justification = justifyEq(equalOrNot, fracEqualOrNot(equalOrNot, num, den).frac, fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot)
           break
         case 3: // décimaux
@@ -145,8 +152,7 @@ $${fracEqualOrNot(equalOrNot, num, den).frac.texFraction}=${fracEqualOrNot(equal
           den = calcul(randint(11, 99, num) * 0.1)
           f = fracEqualOrNot(equalOrNot, num, den).frac
           fEqOrNot = fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot
-          egalite = `
-$${showFracNumDenDec(f.num, f.den)}=${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$`
+          egalite = `$${showFracNumDenDec(f.num, f.den)}=${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$`
           justification = justifyEq(equalOrNot, fracEqualOrNot(equalOrNot, num, den).frac, fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot)
           break
         case 4: // mélange

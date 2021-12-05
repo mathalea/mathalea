@@ -19,7 +19,7 @@ export default function PlacerPointsSurAxeRelatifs () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = ' Placer trois points sur un axe gradué.'
+  this.consigne = ''
   this.nbQuestions = 5
   this.nbQuestionsModifiable = true
   this.nbCols = 1
