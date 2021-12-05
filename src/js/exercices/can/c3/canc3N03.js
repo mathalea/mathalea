@@ -1,6 +1,6 @@
 import { numTrie, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Le plus grand nombre entier'
+export const titre = 'Trouver le plus grand nombre entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

@@ -1,6 +1,6 @@
 import { calcul, choice, randint, texNombre } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Compléments'
+export const titre = 'Trouver le nombre manquant dans une somme'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

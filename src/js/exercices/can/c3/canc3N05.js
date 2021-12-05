@@ -1,6 +1,6 @@
 import { calcul, choice, randint, texNombrec } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Composition de nombre décimal'
+export const titre = 'Calculer une somme (partie entière/décimale)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

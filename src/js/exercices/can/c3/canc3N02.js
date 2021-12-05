@@ -1,7 +1,7 @@
 import { droiteGraduee2, mathalea2d } from '../../../modules/2d'
 import { randint, texNombre, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Suite sur une droite graduée'
+export const titre = 'Trouver un nombre sur une droite graduée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
