@@ -1009,19 +1009,19 @@ export function fixeBordures (objets) {
     xmax = Math.max(xmax, objet.x + 1 || 0)
     ymin = Math.min(ymin, objet.y - 1 || 0)
     ymax = Math.max(ymax, objet.y + 1 || 0)
-    if (typeof objet.posLegende !== 'undefined') {
-      if (typeof objet.posLegende[Symbol.iterator] === 'function') {
-        for (const obj of objet.posLegende) {
+    if (typeof objet.bordure !== 'undefined') {
+      if (typeof objet.bordure[Symbol.iterator] === 'function') {
+        for (const obj of objet.bordure) {
           xmin = Math.min(xmin, obj.x - 1 || 0)
           xmax = Math.max(xmax, obj.x + 1 || 0)
           ymin = Math.min(ymin, obj.y - 1 || 0)
           ymax = Math.max(ymax, obj.y + 1 || 0)
         }
       } else {
-        xmin = Math.min(xmin, objet.posLegende.x - 1 || 0)
-        xmax = Math.max(xmax, objet.posLegende.x + 1 || 0)
-        ymin = Math.min(ymin, objet.posLegende.y - 1 || 0)
-        ymax = Math.max(ymax, objet.posLegende.y + 1 || 0)
+        xmin = Math.min(xmin, objet.bordure.x - 1 || 0)
+        xmax = Math.max(xmax, objet.bordure.x + 1 || 0)
+        ymin = Math.min(ymin, objet.bordure.y - 1 || 0)
+        ymax = Math.max(ymax, objet.bordure.y + 1 || 0)
       }
     }
   }
@@ -1749,27 +1749,27 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.y1 = arrondi(arg1.y, 2)
     this.x2 = arrondi(arg2.x, 2)
     this.y2 = arrondi(arg2.y, 2)
-    this.posLegende = [arg1, arg2]
+    this.bordure = [arg1, arg2]
   } else if (arguments.length === 3) {
     this.x1 = arrondi(arg1.x, 2)
     this.y1 = arrondi(arg1.y, 2)
     this.x2 = arrondi(arg2.x, 2)
     this.y2 = arrondi(arg2.y, 2)
-    this.posLegende = [arg1, arg2]
+    this.bordure = [arg1, arg2]
     this.color = arg3
   } else if (arguments.length === 4) {
     this.x1 = arrondi(arg1, 2)
     this.y1 = arrondi(arg2, 2)
     this.x2 = arrondi(arg3, 2)
     this.y2 = arrondi(arg4, 2)
-    this.posLegende = [point(arg1, arg2), point(arg3, arg4)]
+    this.bordure = [point(arg1, arg2), point(arg3, arg4)]
   } else {
     // 5 arguments
     this.x1 = arrondi(arg1, 2)
     this.y1 = arrondi(arg2, 2)
     this.x2 = arrondi(arg3, 2)
     this.y2 = arrondi(arg4, 2)
-    this.posLegende = [point(arg1, arg2), point(arg3, arg4)]
+    this.bordure = [point(arg1, arg2), point(arg3, arg4)]
     this.color = color
   }
   this.extremite1 = point(this.x1, this.y1)
@@ -3139,7 +3139,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
-  this.posLegende = rotation(M, Omega, angle / 2)
+  this.bordure = rotation(M, Omega, angle / 2)
   if (typeof (angle) !== 'number') {
     angle = arrondi(angleOriente(M, Omega, angle), 1)
   }
@@ -5077,7 +5077,7 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
   this.extremite2 = B
   this.distance = d
   this.texte = texte
-  this.posLegende = pointSurSegment(milieu(this.extremite1, this.extremite2), rotation(this.extremite1, milieu(this.extremite1, this.extremite2), -90), this.distance)
+  this.bordure = pointSurSegment(milieu(this.extremite1, this.extremite2), rotation(this.extremite1, milieu(this.extremite1, this.extremite2), -90), this.distance)
   /* let O = milieu(A, B);
    let M = rotation(A, O, -90);
    let N = pointSurSegment(O, M, d);
@@ -5139,9 +5139,9 @@ export function texteSurSegment (...args) {
 }
 
 /**
- * texteSurSegment(A,B) // Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * texteSurArc(texte, A, B, angle) // Écrit un texte au milieu de l'arc AB, au dessus si A est le point le plus à gauche sinon au dessous
  *
- * @author Rémi Angot
+ * @author Rémi Angot et Frédéric Piou
  */
 function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
   ObjetMathalea2D.call(this)
@@ -5162,9 +5162,9 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
   const Omegay = calcul((-f.c + (d1.c * f.a) / d1.a) / (f.b - (f.a * d1.b) / d1.a))
   const Omegax = calcul(-d1.c / d1.a - (d1.b * Omegay) / d1.a)
   const Omega = point(Omegax, Omegay)
-  this.posLegende = rotation(A, Omega, angle / 2)
+  this.bordure = rotation(A, Omega, angle / 2)
   this.svg = function (coeff) {
-    const N = pointSurSegment(this.posLegende, Omega, this.distance * 20 / coeff)
+    const N = pointSurSegment(this.bordure, Omega, this.distance * 20 / coeff)
     const s = segment(this.extremite1, this.extremite2)
     s.isVisible = false
     let angle
@@ -5180,7 +5180,7 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
     }
   }
   this.tikz = function () {
-    const N = pointSurSegment(this.posLegende, Omega, this.distance / context.scale)
+    const N = pointSurSegment(this.bordure, Omega, this.distance / context.scale)
     const s = segment(this.extremite1, this.extremite2)
     s.isVisible = false
     let angle
@@ -5194,14 +5194,14 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
 }
 /**
  * Écrit un texte au milieu de l'arc AB au dessus si A est le point le plus à gauche sinon au dessous
- * @param {string} texte
- * @param {Point} A
- * @param {Point} B
- * @param {number} angle
+ * @param {string} texte Texte à afficher (éviter les $$ pour les affichages diaporama)
+ * @param {Point} A Extrémité de l'arc
+ * @param {Point} B Extrémité de l'arc
+ * @param {number} angle Angle au centre
  * @param {string} [color='black'] Facultatif, 'black' par défaut
  * @param {number} [d=0.5] Distance à la droite. Facultatif, 0.5 par défaut
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
- * @author Rémi Angot
+ * @author Rémi Angot et Frédéric Piou
  */
 export function texteSurArc (...args) {
   return new TexteSurArc(...args)
