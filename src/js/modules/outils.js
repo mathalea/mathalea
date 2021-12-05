@@ -6,6 +6,7 @@ import { format, evaluate, isPrime, max, gcd } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { elimineDoublons, setReponse } from './gestionInteractif.js'
+import { getVueFromUrl } from './gestionUrl.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -22,7 +23,7 @@ const epsilon = 0.000001
 export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`, exercice.tailleDiaporama)
-    if (exercice.interactif && exercice.interactifReady) {
+    if ((exercice.interactif && exercice.interactifReady) || getVueFromUrl() === 'eval') {
       exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr, 'correction')
