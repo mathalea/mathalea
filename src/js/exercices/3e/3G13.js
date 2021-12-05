@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, mathalea2d, fixeBordures } from '../../modules/2d.js'
+import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, mathalea2d, fixeBordures, texteSurSegment, texteSurArc } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes } from '../../modules/outils.js'
 import { fraction, abs, multiply, evaluate, divide, isInteger, pow, round } from 'mathjs'
@@ -55,8 +55,6 @@ export default function calculsHomothetie () {
     '1 : k est décimal (0.1 < k < 4) \n2 : k est une fraction k = a/b avec (a,b) in [1;9]\n3 : k est une fraction et les mesures sont des entiers'
   ]
   this.besoinFormulaire4CaseACocher = ['Figure dans l`énoncé (1-6)', false]
-  // this.besoinFormulaire3CaseACocher = ['Utilisation d\'une fraction pour le rapport', false]
-  // this.besoinFormulaire4CaseACocher = ['Utilisation de valeurs entières pour les longueurs', false]
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -102,62 +100,75 @@ export default function calculsHomothetie () {
       const lopposedu = kpositif ? 'le' : 'l\'opposé du '
       const derapportpositifet = this.sup4 ? '' : `de rapport ${positif} et `
       let kinverse = abs(divide(1, k))
-      const OhAdivkInversed = texNum(divide(OhA, kinverse.d)).replace(',', '{,}').replace('{{,}}', '{,}')
-      const OhBdivkInversed = texNum(divide(OhB, kinverse.d)).replace(',', '{,}').replace('{{,}}', '{,}')
-      kinverse = { tex: texNum(kinverse, kEstEntier).replace(',', '{,}').replace('{{,}}', '{,}'), n: kinverse.n, d: kinverse.d }
-      OhA = texNum(OhA).replace(',', '{,}').replace('{{,}}', '{,}')
+      const OhAdivkInversed = texNum(divide(OhA, kinverse.d))
+      const OhBdivkInversed = texNum(divide(OhB, kinverse.d))
+      kinverse = { tex: texNum(kinverse, kEstEntier), n: kinverse.n, d: kinverse.d }
+      OhA = texNum(OhA)
       const OhAtimeskinverse = (valeursSimples && !isInteger(absk)) ? `=${OhA}\\times ${kinverse.tex}` + (kinverse.d !== 1 ? `=\\dfrac{${OhA}}{${kinverse.d}}\\times ${kinverse.n}=${OhAdivkInversed}\\times ${kinverse.n}` : '') : ''
-      OhB = texNum(OhB).replace(',', '{,}').replace('{{,}}', '{,}')
+      OhB = texNum(OhB)
       const OhBtimeskinverse = (valeursSimples && !isInteger(absk)) ? `=${OhB}\\times ${kinverse.tex}` + (kinverse.d !== 1 ? `=\\dfrac{${OhB}}{${kinverse.d}}\\times ${kinverse.n}=${OhBdivkInversed}\\times ${kinverse.n}` : '') : ''
-      hAire = texNum(hAire).replace(',', '{,}').replace('{{,}}', '{,}')
-      hAireArrondie = texNum(hAireArrondie).replace(',', '{,}').replace('{{,}}', '{,}')
-      k = texNum(k, kEstEntier).replace(',', '{,}').replace('{{,}}', '{,}')
-      absk = texNum(absk, kEstEntier).replace(',', '{,}').replace('{{,}}', '{,}')
-      kAire = texNum(kAire, kEstEntier).replace(',', '{,}').replace('{{,}}', '{,}')
+      hAire = texNum(hAire)
+      hAireArrondie = texNum(hAireArrondie)
+      k = texNum(k, kEstEntier)
+      absk = texNum(absk, kEstEntier)
+      kAire = texNum(kAire, kEstEntier)
       const parentheseskAire = kEstEntier ? String.raw`\left(${kAire}\right)` : kAire
-      OA = texNum(OA).replace(',', '{,}').replace('{{,}}', '{,}')
-      OB = texNum(OB).replace(',', '{,}').replace('{{,}}', '{,}')
-      Aire = texNum(Aire).replace(',', '{,}').replace('{{,}}', '{,}')
-      const fO = point(0, 0, `${O}`)
-      const fA = point(agrandissement ? 4 : 7, 0, `${A}`, 'below')
-      const fB = point(agrandissement ? 4 : 7, 3, `${B}`)
-      const fhA = point((signek + 1) * (agrandissement ? 7 : 4), 0, `${hA}`, kpositif ? 'below' : 'above')
-      const fhB = point((signek + 1) * (agrandissement ? 7 : 4), (signek + 1) * (agrandissement ? 3 * 7 / 4 : 3 * 4 / 7), `$${hB}$`, kpositif ? 'above' : 'below')
-      const fs1 = segmentAvecExtremites(fO, fA)
-      const fs2 = segmentAvecExtremites(fA, fhA)
-      const fs3 = segmentAvecExtremites(fO, fB)
-      const fs4 = segmentAvecExtremites(fB, fhB)
-      const fc1 = arcPointPointAngle(fhA, fO, 60, false)
-      fc1.pointilles = true
-      const fc2 = arcPointPointAngle(fO, fA, 60, false)
-      fc2.pointilles = true
-      // const fc3 = arcPointPointAngle(fhB, fO, 60, false)
-      // const fc4 = arcPointPointAngle(fO, fB, 60, false)
-      const fOA = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, `${OA.replace('{,}', ',')} cm`, 'below')
-      const fOB = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, `${OB.replace('{,}', ',')} cm`, 'below')
-      const fOhA = point((signek + 1) * (agrandissement ? 3.5 : 2), (signek + 1) * (agrandissement ? 1 : 0.5), `${OhA.replace('{,}', ',')} cm`, kpositif ? 'above' : 'below')
-      const fOhB = point(agrandissement ? 3.5 : 2, agrandissement ? 1 : 0.5, `${OhB.replace('{,}', ',')} cm`, 'above')
-      const fOAi = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, '?', 'below')
-      // const fOBi = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, '$\\text{?}$', 'below')
-      const fOhAi = point((signek + 1) * (agrandissement ? 3.5 : 2), (signek + 1) * (agrandissement ? 1 : 0.5), '$\\text{?}$', kpositif ? 'above' : 'below')
-      // const fOhBi = point(agrandissement ? 3.5 : 2, agrandissement ? 1 : 0.5, '$\\text{?}$', 'above')
+      OA = texNum(OA)
+      OB = texNum(OB)
+      Aire = texNum(Aire)
+      let figure = {
+        O: point(0, 0, `${O}`),
+        A: point(agrandissement ? 4 : 7, 0, `${A}`, 'below'),
+        B: point(agrandissement ? 4 : 7, 3, `${B}`),
+        hA: point((signek + 1) * (agrandissement ? 7 : 4), 0, `${hA}`, kpositif ? 'below' : 'above'),
+        hB: point((signek + 1) * (agrandissement ? 7 : 4), (signek + 1) * (agrandissement ? 3 * 7 / 4 : 3 * 4 / 7), `${hB}`, kpositif ? 'above' : 'below')
+      }
+      figure = Object.assign({}, figure, {
+        segmentOA: segmentAvecExtremites(figure.O, figure.A),
+        segmentOhA: segmentAvecExtremites(figure.O, figure.hA),
+        segmentOB: segmentAvecExtremites(figure.O, figure.B),
+        segmentOhB: segmentAvecExtremites(figure.O, figure.hB)
+      })
+      figure = Object.assign({}, figure, {
+        arcOA: agrandissement || !kpositif ? figure.A : arcPointPointAngle(figure.O, figure.A, 60, false),
+        arcOhA: !agrandissement || !kpositif ? figure.hA : arcPointPointAngle(figure.O, figure.hA, 60, false),
+        arcOB: agrandissement || !kpositif ? figure.B : arcPointPointAngle(figure.B, figure.O, 60, false),
+        arcOhB: !agrandissement || !kpositif ? figure.hB : arcPointPointAngle(figure.hB, figure.O, 60, false),
+        legendeOA: agrandissement || !kpositif ? texteSurSegment(`${OA.replace('{,}', ',')} cm`, figure.A, figure.O, 'black', 0.30) : texteSurArc(`${OA.replace('{,}', ',')} cm`, figure.O, figure.A, 60, 'black', 0.30),
+        legendeOhA: !agrandissement || !kpositif ? texteSurSegment(`${OhA.replace('{,}', ',')} cm`, figure.hA, figure.O, 'black', 0.30) : texteSurArc(`${OhA.replace('{,}', ',')} cm`, figure.O, figure.hA, 60, 'black', 0.30),
+        legendeOB: agrandissement || !kpositif ? texteSurSegment(`${OB.replace('{,}', ',')} cm`, figure.O, figure.B, 'black', 0.30) : texteSurArc(`${OB.replace('{,}', ',')} cm`, figure.B, figure.O, 60, 'black', 0.30),
+        legendeOhB: !agrandissement || !kpositif ? texteSurSegment(`${OhB.replace('{,}', ',')} cm`, figure.O, figure.hB, 'black', 0.30) : texteSurArc(`${OhB.replace('{,}', ',')} cm`, figure.hB, figure.O, 60, 'black', 0.30)
+      })
+      figure = Object.assign({}, figure, {
+        legendeOAi: agrandissement || !kpositif ? texteSurSegment('?', figure.O, figure.A, 'black', 0.30) : texteSurArc('?', figure.O, figure.A, 60, 'black', 0.30),
+        legendeOhAi: !agrandissement || !kpositif ? texteSurSegment('?', figure.O, figure.hA, 'black', 0.30) : texteSurArc('?', figure.O, figure.hA, 60, 'black', 0.30),
+        legendeOBi: agrandissement || !kpositif ? texteSurSegment('?', figure.O, figure.B, 'black', 0.30) : texteSurArc('?', figure.B, figure.O, 60, 'black', 0.30),
+        legendeOhBi: !agrandissement || !kpositif ? texteSurSegment('?', figure.O, figure.hB, 'black', 0.30) : texteSurArc('?', figure.hB, figure.O, 60, 'black', 0.30)
+      })
+      figure.arcOA.pointilles = true
+      figure.arcOhA.pointilles = true
+      figure.arcOB.pointilles = true
+      figure.arcOhB.pointilles = true
+      // const fOB = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, `${OB.replace('{,}', ',')} cm`, 'below')
+      // const fOhA = point((signek + 1) * (agrandissement ? 3.5 : 2), (signek + 1) * (agrandissement ? 1 : 0.5), `${OhA.replace('{,}', ',')} cm`, kpositif ? 'above' : 'below')
+      // const fOhB = point(agrandissement ? 3.5 : 2, agrandissement ? 1 : 0.5, `${OhB.replace('{,}', ',')} cm`, 'above')
+      // const fOAi = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, '?', 'below')
+      // const fOhAi = point((signek + 1) * (agrandissement ? 3.5 : 2), (signek + 1) * (agrandissement ? 1 : 0.5), '?', kpositif ? 'above' : 'below')
       const fscale = kpositif ? 1 : 0.7
-      // const figureSimple = this.sup4 ? mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, labelPoint(fO, fA, fhA)) : ''
-      // const figureComplexe = this.sup4 ? mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fB, fhB]), { style: 'inline', scale: fscale }), fs1, fs2, fs3, fs4, labelPoint(fO, fA, fhA, fB, fhB)) : ''
-      const flabelsRapport = labelPoint(fO, fA, fhA, fOhA, fOA)
-      let frapport = mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, fc1, fc2, flabelsRapport)
-      frapport = { enonce: (this.sup4 ? frapport : ''), solution: frapport }
-      const flabelsImage = labelPoint(fO, fA, fhA, fOhAi, fOA)
-      let fImage = mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, fc1, fc2, flabelsImage)
+      const flabelsRapport = labelPoint(figure.O, figure.A, figure.hA)
+      let frapport = mathalea2d(Object.assign({}, fixeBordures([figure.segmentOA, figure.segmentOhA, figure.legendeOA, figure.legendeOhA]), { style: 'inline', scale: fscale }), figure.segmentOA, figure.segmentOhA, figure.arcOA, figure.arcOhA, figure.legendeOA, figure.legendeOhA, flabelsRapport)
+      frapport = { enonce: (this.sup4 ? '<br>' + frapport : ''), solution: frapport }
+      const flabelsImage = labelPoint(figure.O, figure.A, figure.hA)
+      let fImage = mathalea2d(Object.assign({}, fixeBordures([figure.A, figure.O, figure.hA, figure.segmentOA, figure.segmentOhA, figure.legendeOA, figure.legendeOhA]), { style: 'inline', scale: fscale }), figure.segmentOA, figure.segmentOhA, figure.arcOA, figure.arcOhA, figure.legendeOA, figure.legendeOhAi, flabelsImage)
       fImage = { enonce: (this.sup4 ? fImage : ''), solution: fImage }
-      const flabelsAntecedent = labelPoint(fO, fA, fhA, fOhA, fOAi)
-      let fAntecedent = mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA]), { style: 'inline', scale: fscale }), fs1, fs2, fc1, fc2, flabelsAntecedent)
+      const flabelsAntecedent = labelPoint(figure.O, figure.A, figure.hA)
+      let fAntecedent = mathalea2d(Object.assign({}, fixeBordures([figure.A, figure.O, figure.hA, figure.segmentOA, figure.segmentOhA, figure.legendeOA, figure.legendeOhA]), { style: 'inline', scale: fscale }), figure.segmentOA, figure.segmentOhA, figure.arcOA, figure.arcOhA, figure.legendeOAi, figure.legendeOhA, flabelsAntecedent)
       fAntecedent = { enonce: (this.sup4 ? fAntecedent : ''), solution: fAntecedent }
-      const flabelsImage2etapes = labelPoint(fO, fA, fhA, fB, fhB)
-      let fImage2etapes = mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA, fB, fhB, fOB, fOhB]), { style: 'inline', scale: fscale }), fs1, fs2, fs3, fs4, flabelsImage2etapes)
+      const flabelsImage2etapes = labelPoint(figure.O, figure.A, figure.hA, figure.B, figure.hB)
+      let fImage2etapes = mathalea2d(Object.assign({}, fixeBordures([figure.A, figure.O, figure.hA, figure.segmentOA, figure.segmentOhA, figure.B, figure.hB, figure.segmentOB, figure.segmentOhB, figure.legendeOA, figure.legendeOhA, figure.legendeOB, figure.legendeOhB]), { style: 'inline', scale: fscale }), figure.segmentOA, figure.segmentOhA, figure.segmentOB, figure.segmentOhB, figure.legendeOB, figure.arcOB, figure.legendeOhBi, figure.arcOhB, figure.legendeOA, figure.arcOA, figure.legendeOhA, figure.arcOhA, flabelsImage2etapes)
       fImage2etapes = { enonce: (this.sup4 ? fImage2etapes : ''), solution: fImage2etapes }
-      const flabelsAntecedent2etapes = labelPoint(fO, fA, fhA, fB, fhB)
-      let fAntecedent2etapes = mathalea2d(Object.assign({}, fixeBordures([fA, fO, fhA, fOA, fOhA, fB, fhB, fOB, fOhB]), { style: 'inline', scale: fscale }), fs1, fs2, fs3, fs4, flabelsAntecedent2etapes)
+      const flabelsAntecedent2etapes = labelPoint(figure.O, figure.A, figure.hA, figure.B, figure.hB)
+      let fAntecedent2etapes = mathalea2d(Object.assign({}, fixeBordures([figure.A, figure.O, figure.hA, figure.segmentOA, figure.segmentOhA, figure.B, figure.hB, figure.segmentOB, figure.segmentOhB, figure.legendeOA, figure.legendeOhA, figure.legendeOB, figure.legendeOhB]), { style: 'inline', scale: fscale }), figure.segmentOA, figure.segmentOhA, figure.segmentOB, figure.segmentOhB, figure.legendeOBi, figure.arcOB, figure.legendeOhB, figure.arcOhB, figure.legendeOA, figure.arcOA, figure.legendeOhA, figure.arcOhA, flabelsAntecedent2etapes)
       fAntecedent2etapes = { enonce: (this.sup4 ? fAntecedent2etapes : ''), solution: fAntecedent2etapes }
       switch (listeTypeQuestions[i]) {
         case 'rapport':
@@ -171,7 +182,7 @@ export default function calculsHomothetie () {
                     de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
                     <br>
                     Calculer le rapport $k$ de cette homothétie.
-                    <br>${frapport.enonce}
+                    ${frapport.enonce}
                     `
           texteCorr = String.raw`
                 $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
@@ -196,7 +207,7 @@ export default function calculsHomothetie () {
         case 'image':
           texte = String.raw`
                 $${hA}$ est l'image de $${A}$ par une homothétie
-                de centre $${O}$ et de rapport $${k}$
+                de centre $${O}$ et de rapport $k=${k}$
                 tel que $ {${O}${A}=${OA}\text{ cm}}$.
                 <br>
                 Calculer $${O}${hA}$.
@@ -224,7 +235,9 @@ export default function calculsHomothetie () {
           break
         case 'antécédent':
           texte = String.raw`
-                $${hA}$ est l'image de $${A}$ par une homothétie de centre $${O}$ et de rapport $${k}$ tel que $ {${O}${hA}=${OhA}\text{ cm}}$.
+                $${hA}$ est l'image de $${A}$ par une
+                homothétie de centre $${O}$ et de rapport
+                $k=${k}$ tel que $ {${O}${hA}=${OhA}\text{ cm}}$.
                 <br>
                 Calculer $${O}${A}$.
                 <br>${fAntecedent.enonce}
@@ -257,8 +270,8 @@ export default function calculsHomothetie () {
           donnee3 = donnees[melange[2]]
           texte = String.raw`
                     $${hA}$ et $${hB}$ sont les images respectives
-                    de $${A}$ et $${B}$ par une homothétie de centre $${O}$
-                    et de rapport ${positif} tel que
+                    de $${A}$ et $${B}$ par une homothétie
+                    ${derapportpositifet} de centre $${O}$ tel que
                     $ {${donnee1}}$, $ {${donnee2}}$ et $ {${donnee3}}$.
                     <br>
                     Calculer $${O}${hB}$.
@@ -300,8 +313,8 @@ export default function calculsHomothetie () {
           donnee3 = donnees[melange[2]]
           texte = String.raw`
                       $${hA}$ et $${hB}$ sont les images respectives
-                      de $${A}$ et $${B}$ par une homothétie de centre $${O}$
-                      et de rapport ${positif} tel que
+                      de $${A}$ et $${B}$ par une homothétie ${derapportpositifet}
+                      de centre $${O}$ tel que
                       $ {${donnee1}}$, $ {${donnee2}}$ et $ {${donnee3}}$.
                       <br>
                       Calculer $${O}${B}$.
