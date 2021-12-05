@@ -97,8 +97,17 @@ const affichageUniquementQuestion = (i) => {
     window.addEventListener('keyup', (e) => {
       if (e.keyCode === 13) {
         e.preventDefault()
-        const listeBoutonsValider = document.querySelectorAll('[id^=boutonVerifex]')
-        listeBoutonsValider[context.questionCanEnCours - 1].click()
+        if (context.vue === 'can') {
+          const listeBoutonsValider = document.querySelectorAll('[id^=boutonVerif]')
+          listeBoutonsValider[context.questionCanEnCours - 1].click()
+        }
+        if (context.vue === 'diap') {
+          if (document.getElementById('btnReady')) {
+            document.getElementById('btnReady').click()
+          } else {
+            questionSuivante()
+          }
+        }
       }
     })
     context.enterHasListenner = true
@@ -523,7 +532,7 @@ export async function initDom () {
     })
     // Gestion du pré-show
     const sectionTemp = addElement(document.body, 'section', { class: 'ui center aligned container', id: 'sectionTemporaire', style: 'margin: 300px' })
-    const btnReady = addElement(sectionTemp, 'button', { class: 'massive ui button' }, 'Prêt ?')
+    const btnReady = addElement(sectionTemp, 'button', { class: 'massive ui button', id: 'btnReady' }, 'Prêt ?')
     btnReady.addEventListener(
       'click',
       () => {
