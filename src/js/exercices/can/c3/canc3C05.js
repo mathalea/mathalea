@@ -2,7 +2,7 @@ import { context } from '../../../modules/context'
 import { propositionsQcm } from '../../../modules/gestionInteractif'
 import { choice, listeQuestionsToContenu, randint, texNombre, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Est-il pair ?'
+export const titre = 'Déterminer si un nombre est pair (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
