@@ -15,7 +15,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 export default function Variationsapartirtableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Consigne'
-  this.nbQuestions = 3 // Nombre de questions par défaut
+  this.nbQuestions = 2 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
@@ -25,7 +25,7 @@ export default function Variationsapartirtableau () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typeQuestionsDisponibles = ['type1', 'type2', 'type3']
+    const typeQuestionsDisponibles = ['type4', 'type4']
     this.nbQuestionsModifiable = false
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, ligne1, a1, a2, a3, a4, x1, x2, x3, y1, y2, y3, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -42,7 +42,7 @@ export default function Variationsapartirtableau () {
       a3 = randint(x2 + 1, x3 - 6) // 1er antécédent dont on doit comparer l'image
       a4 = randint(a3 + 1, x3 - 1) // 1er antécédent dont on doit comparer l'image
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'type1':
+        case 'type1':// parabole en U ; 2 images sur intervalle où f croissant
           texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a2})$<br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
@@ -73,7 +73,7 @@ export default function Variationsapartirtableau () {
           texteCorr += 'Si $x_1 < x_2$ alors $f(x_1) < f(x_2)$. <br>'
           texteCorr += `Par conséquent, comme $${a1}<${a2}$, alors $f(${a1}) < f(${a2})$.`
           break
-        case 'type2':
+        case 'type2':// parabole en U ; 2 images sur intervalle où f décroissant
           texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a3})$ et $f(${a4})$<br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
@@ -102,10 +102,11 @@ export default function Variationsapartirtableau () {
           texteCorr += 'alors ses antécédents et ses images sont rangés dans l\'ordre inverse. <br>'
           texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, <br>'
           texteCorr += 'Si $x_1 < x_2$ alors $f(x_1) > f(x_2)$. <br>'
-          texteCorr += `Par conséquent, comme $${a3}<${a4}$, alors $f(${a3}) < f(${a4})$.`
+          texteCorr += `Par conséquent, comme $${a3}<${a4}$, alors $f(${a3}) > f(${a4})$.`
           break
-        case 'type3':
+        case 'type3':// parabole en U ; 2 images sur intervalle où f pas monotone, mais on peut répondre
           texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$<br>`
+          y3 = randint(y1 - 12, y1 - 2)// 3 images des antécédents 1ère ligne tableau
           ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
@@ -133,9 +134,44 @@ export default function Variationsapartirtableau () {
           texteCorr += 'alors ses antécédents et ses images sont rangés dans le même ordre.<br>'
           texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, <br>'
           texteCorr += 'Si $x_1 < x_2$ alors $f(x_1) < f(x_2)$. <br>'
-          texteCorr += `Par conséquent, comme $${x1}<${a1}$, alors $f(${x1}) < f(${a1})$.` 
-          texteCorr += `Comme $f(${x1}) =${y1}$, on a montré que :  $f(${a1}) > ${y1}$.<br>`
+          texteCorr += `Par conséquent, comme $${x1}<${a1}$, alors $f(${x1}) < f(${a1})$.`
+          texteCorr += `<br>Comme $f(${x1}) =${y1}$, on a montré que :  $f(${a1}) > ${y1}$.<br>`
           texteCorr += `On en déduit que :  $f(${a1}) > ${y1} > ${y3} > f(${x3})$.<br>`
+          break
+        case 'type4':// parabole en U ; 2 images sur intervalle où f pas monotone, et on ne peut pas répondre
+          texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$<br>`
+          y3 = randint(y1 +2, y2 - 1)// 3 images des antécédents 1ère ligne tableau
+          ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
+
+          // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
+          texte += mathalea2d({ xmin: -0.5, ymin: -9.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            tabInit: [
+              [
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                ['$x$', 2, 30], ['$f(x)$', 3, 50]
+              ],
+              // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+              [`$${x1}$`, 20, `$${x2}$`, 20, `$${x3}$`, 30]
+            ],
+            // tabLines ci-dessous contient les autres lignes du tableau.
+            tabLines: [ligne1],
+            colorBackground: '',
+            espcl: 3.5, // taille en cm entre deux antécédents
+            deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+            lgt: 8, // taille de la première colonne en cm
+            hauteurLignes: [15, 15]
+          }))
+
+          texteCorr = `On observe qu'on connaît $f(${x3})=${y3}$.<br>`
+          texteCorr += `On observe aussi que  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction $f$ est croissante.<br>`
+          texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, <br>'
+          texteCorr += 'alors ses antécédents et ses images sont rangés dans le même ordre.<br>'
+          texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, <br>'
+          texteCorr += 'Si $x_1 < x_2$ alors $f(x_1) < f(x_2)$. <br>'
+          texteCorr += `Par conséquent, comme $${x1}<${a1}<${x2}$, alors $f(${x1})< f(${a1}) < f(${x2})$.`
+          texteCorr += `<br>On a donc montré que :  $${y1} < f(${a1}) < ${y2}$.<br>`
+          texteCorr += `Comme $f(${x3})=${y3} \\in [${y1};${y2}]$,<br>` 
+          texteCorr += `on ne peut pas conclure sans plus d'informations pour comparer $f(${x3})$ et $f(${a1})$.`
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
