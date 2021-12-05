@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, ecritureParentheseSiNegatif, texteEnCouleur, calcul, abs } from '../../../modules/outils.js'
-export const titre = 'Recherche un nombre à ajouter'
+export const titre = 'Rechercher un nombre à ajouter'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -14,6 +14,7 @@ export default function NombreATrouver () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {

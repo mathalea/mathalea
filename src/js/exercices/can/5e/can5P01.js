@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, calcul, choice, texNombrec, texNombre, texteEnCouleur } from '../../../modules/outils.js'
-export const titre = 'Pourcentage (évolution)'
+export const titre = 'Calculer un prix après une évolution en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
