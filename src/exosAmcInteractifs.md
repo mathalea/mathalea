@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 380 
-- nombre d'exos interactifReady 525 
+- nombre d'exos amcReady 383 
+- nombre d'exos interactifReady 528 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -127,6 +127,7 @@
 |4G10-1|Trouver les coordonnée de l’image d’un point par une translation|OK|AMCHybride|OK|mathLive|
 |4G10|Trouver l’image d’un point par une symétrie axiale ou centrale ou par une translation|OK|AMCHybride|OK|mathLive|
 |4G11-1|Trouver l’image d’une figure par une translation dans un pavage|OK|AMCHybride|OK|mathLive|
+|4G12|Séries de transformations|OK|AMCOpen|OK|mathLive|
 |4G20-1|Donner ou compléter une égalité de Pythagore|KO|KO|OK|mathLive|
 |4G20-2|Déterminer la racine carrée d’un carré parfait (calcul mental)|OK|AMCNum|OK|numerique|
 |4G20-4|Arrondir une racine carrée|KO|KO|OK|mathLive|
@@ -153,6 +154,7 @@
 |5G11-5|Trouver les coordonnée de l’image d’un point par une symétrie axiale ou centrale|OK|AMCHybride|OK|mathLive|
 |5G11|Trouver l’image d’un point par une symétrie axiale ou centrale|OK|AMCHybride|OK|mathLive|
 |5G12-1|Symétrique d’une figure dans un pavage|OK|AMCHybride|OK|mathLive|
+|5G12-2|Trouver les symétries successives dans un damiers|OK|AMCOpen|OK|mathLive|
 |5L10-2|Traduire un programme de calcul par une expression littérale|OK|qcmMono|OK|qcm|
 |5L10|Écrire une expression littérale|OK|qcmMult|OK|qcm|
 |5L13|Réduire une expression de la forme $ax+bx$ |KO|KO|OK|mathLive|
@@ -217,6 +219,7 @@
 |6G24|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
 |6G25-1|Symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
 |6G25-2|Trouver l’image d’une figure par une symétrie axiale dans un pavage carré|OK|AMCHybride|OK|mathLive|
+|6G26|Trouver les symétries axiales successives dans un damiers|OK|AMCOpen|OK|mathLive|
 |6G33|Reconnaitre un quadrilatère particulier à partir de ses propriétés|OK|qcmMult|OK|qcm|
 |6G41|Compléter une représentation en perspective cavalière|OK|AMCOpen|KO|KO|
 |6G43|Représentation de solides|OK|AMCNum|OK|mathLive|
@@ -382,34 +385,34 @@
 |can3S04|Etendue|KO|KO|OK|mathLive|
 |can3S05|Moyenne|KO|KO|OK|mathLive|
 |can3S06|Médiane|KO|KO|OK|mathLive|
-|can4C01|Priorité opératoire et relatifs|OK|AMCNum|OK|mathLive|
-|can4C02|Opposé de fraction|OK|AMCNum|OK|mathLive|
-|can4C03|Quotient d’entier qui va bien par fraction|OK|AMCNum|OK|mathLive|
-|can4C04|Règle des signes|OK|AMCNum|OK|mathLive|
-|can4C05|Somme de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
-|can4C06|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
-|can4C07|Différence de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
-|can4C08|Somme de puissances de 10|OK|AMCNum|OK|mathLive|
-|can4C09|Puissances de +/-2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
-|can4C10|Somme ou différence de fractions égyptiennes|OK|AMCNum|OK|mathLive|
-|can4G01|Calcul d’une longueur d’un côté avec le Théorème de Pythagore|OK|AMCNum|OK|mathLive|
+|can4C01|Utiliser les priorités opératoires avec des relatifs|OK|AMCNum|OK|mathLive|
+|can4C02|Trouver l’opposé ou l’inverse d’une fraction|OK|AMCNum|OK|mathLive|
+|can4C03|Effectuer une division avec une fraction|OK|AMCNum|OK|mathLive|
+|can4C04|Utiliser la règle des signes|OK|AMCNum|OK|mathLive|
+|can4C05|Déterminer la somme de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
+|can4C06|Trouver le nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
+|can4C07|Calculer la différence de fractions à dénominateurs compatibles|OK|AMCNum|OK|mathLive|
+|can4C08|Calculer une somme de puissances de 10|OK|AMCNum|OK|mathLive|
+|can4C09|Calculer des puissances de +/-2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
+|can4C10|Calculer une somme/différence de fractions égyptiennes|OK|AMCNum|OK|mathLive|
+|can4G01|Déterminer une longueur avec des triangles semblables|OK|AMCNum|OK|mathLive|
 |can4G02|Image de point par transformation 4e|KO|KO|OK|mathLive|
-|can4G03|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
-|can4G04|Calcul d’un côté avec Pythagore|KO|KO|OK|mathLive|
-|can4G05|Calcul de la diagonale d’un carré|KO|KO|OK|mathLive|
-|can4G06|Calcul d’une longueur avec Thalès|KO|KO|OK|mathLive|
-|can4G07|Calcul d’une longueur avec Thalès (milieu)|KO|KO|OK|mathLive|
-|can4G08|Questions d'aires et de périmètres (niveau 2)|KO|KO|OK|mathLive|
+|can4G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|
+|can4G04|Calculer un côté avec le théorème de Pythagore|KO|KO|OK|mathLive|
+|can4G05|Calculer la diagonale d’un carré|KO|KO|OK|mathLive|
+|can4G06|Calculer une longueur avec le théorème de Thalès|KO|KO|OK|mathLive|
+|can4G07|Calculer une longueur avec le théorème de Thalès (milieu)|KO|KO|OK|mathLive|
+|can4G08|Calculer une aire ou un périmètre (carré et rectangle)|KO|KO|OK|mathLive|
 |can4L01|Résoudre une équation niveau 1|OK|AMCNum|OK|mathLive|
 |can4L02|Résoudre une équation niveau 2|OK|AMCNum|OK|mathLive|
 |can4L03|Résoudre une équation niveau 3|OK|AMCNum|OK|mathLive|
-|can4L04|Substitution négative|OK|AMCNum|OK|mathLive|
-|can4L05|Développements (niveau 1)|OK|AMCNum|OK|mathLive|
-|can4L06|Calcul d'expression (substitution)|OK|AMCNum|OK|mathLive|
-|can4P01|Problèmes de robinets|OK|AMCNum|OK|mathLive|
-|can4P02|Problèmes de vitesse|OK|AMCNum|OK|mathLive|
-|can4P03|Quatrième proportionnelle|OK|AMCNum|OK|mathLive|
-|can4P04|Proportionnalité et notes|KO|KO|OK|mathLive|
+|can4L04|Calculer une expression pour une valeur particulière|OK|AMCNum|OK|mathLive|
+|can4L05|Développer (niveau 1)|OK|AMCNum|OK|mathLive|
+|can4L06|Calculer une expression pour une valeur particulière*|OK|AMCNum|OK|mathLive|
+|can4P01|Résoudre un problème de robinets|OK|AMCNum|OK|mathLive|
+|can4P02|Résoudre un problème de vitesse|OK|AMCNum|OK|mathLive|
+|can4P03|Calculer une quatrième proportionnelle|OK|AMCNum|OK|mathLive|
+|can4P04|Résoudre un problème avec la proportionnalité|KO|KO|OK|mathLive|
 |can5A01|Répétitions Scratch|OK|AMCNum|OK|mathLive|
 |can5C01|Produit de nombres entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Somme de nombres entiers|OK|AMCNum|OK|mathLive|

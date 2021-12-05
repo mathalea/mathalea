@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { choice, randint, texteEnCouleur, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
-export const titre = 'Somme ou différence de fractions égyptiennes'
+export const titre = 'Calculer une somme/différence de fractions égyptiennes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,6 +16,7 @@ export default function SommeDifferenceFractionsEgyptiennes () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {

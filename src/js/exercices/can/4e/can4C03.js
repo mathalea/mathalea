@@ -1,7 +1,7 @@
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { calcul, choice, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Quotient d’entier qui va bien par fraction'
+export const titre = 'Effectuer une division avec une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,13 +16,14 @@ export default function QuotientEntierQuiVaBienParFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur25 inline'
   this.formatInteractif = 'calcul'
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3, 4, 5, 6])
     const b = a.num * c
-    this.question = `$${b}\\div ${a.texFraction}$`
+    this.question = `$${b}\\div ${a.texFraction}=$`
     this.reponse = calcul(a.den * c)
     if (a.num === 1) {
       this.correction = `Diviser par un nombre revient à multiplier par son inverse. <br>

@@ -3869,6 +3869,40 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "4G12-1": {
+    "titre": "Trouver la transformation",
+    "url": "/exercices/4e/4G12-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4G12-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "4G12": {
+    "titre": "Séries de transformations",
+    "url": "/exercices/4e/4G12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4G12",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4G15": {
     "titre": "Tranformations de triangle",
     "url": "/exercices/4e/4G15.js",
@@ -4824,6 +4858,40 @@ export default {
     "name": "5G12-1",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "5G12-2": {
+    "titre": "Trouver les symétries successives dans un damiers",
+    "url": "/exercices/5e/5G12-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "5G12-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "5G12-3": {
+    "titre": "Identifier une transformation",
+    "url": "/exercices/5e/5G12-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5G12-3",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -7145,6 +7213,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6G26": {
+    "titre": "Trouver les symétries axiales successives dans un damiers",
+    "url": "/exercices/6e/6G26.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6G26",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6G32-1": {
     "titre": "Propriétés de conservation de la symétrie axiale",
     "url": "/exercices/6e/6G32-1.js",
@@ -7767,7 +7854,7 @@ export default {
     "interactifType": "qcm",
     "name": "6N12-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8809,21 +8896,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta4C31",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "beta4G12": {
-    "titre": "Exo zéro Mathalea2d",
-    "url": "/exercices/beta/beta4G12.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta4G12",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -11113,7 +11185,7 @@ export default {
     }
   },
   "can4C01": {
-    "titre": "Priorité opératoire et relatifs",
+    "titre": "Utiliser les priorités opératoires avec des relatifs",
     "url": "/exercices/can/4e/can4C01.js",
     "amcReady": true,
     "amcType": {
@@ -11132,7 +11204,7 @@ export default {
     }
   },
   "can4C02": {
-    "titre": "Opposé de fraction",
+    "titre": "Trouver l’opposé ou l’inverse d’une fraction",
     "url": "/exercices/can/4e/can4C02.js",
     "amcReady": true,
     "amcType": {
@@ -11146,12 +11218,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can4C03": {
-    "titre": "Quotient d’entier qui va bien par fraction",
+    "titre": "Effectuer une division avec une fraction",
     "url": "/exercices/can/4e/can4C03.js",
     "amcReady": true,
     "amcType": {
@@ -11170,7 +11242,7 @@ export default {
     }
   },
   "can4C04": {
-    "titre": "Règle des signes",
+    "titre": "Utiliser la règle des signes",
     "url": "/exercices/can/4e/can4C04.js",
     "amcReady": true,
     "amcType": {
@@ -11189,7 +11261,7 @@ export default {
     }
   },
   "can4C05": {
-    "titre": "Somme de fractions à dénominateurs compatibles",
+    "titre": "Déterminer la somme de fractions à dénominateurs compatibles",
     "url": "/exercices/can/4e/can4C05.js",
     "amcReady": true,
     "amcType": {
@@ -11208,7 +11280,7 @@ export default {
     }
   },
   "can4C06": {
-    "titre": "Nombre de nombres entiers entre deux valeurs",
+    "titre": "Trouver le nombre de nombres entiers entre deux valeurs",
     "url": "/exercices/can/4e/can4C06.js",
     "amcReady": true,
     "amcType": {
@@ -11227,7 +11299,7 @@ export default {
     }
   },
   "can4C07": {
-    "titre": "Différence de fractions à dénominateurs compatibles",
+    "titre": "Calculer la différence de fractions à dénominateurs compatibles",
     "url": "/exercices/can/4e/can4C07.js",
     "amcReady": true,
     "amcType": {
@@ -11246,7 +11318,7 @@ export default {
     }
   },
   "can4C08": {
-    "titre": "Somme de puissances de 10",
+    "titre": "Calculer une somme de puissances de 10",
     "url": "/exercices/can/4e/can4C08.js",
     "amcReady": true,
     "amcType": {
@@ -11265,7 +11337,7 @@ export default {
     }
   },
   "can4C09": {
-    "titre": "Puissances de +/-2, 3, 4 ou 5",
+    "titre": "Calculer des puissances de +/-2, 3, 4 ou 5",
     "url": "/exercices/can/4e/can4C09.js",
     "amcReady": true,
     "amcType": {
@@ -11284,7 +11356,7 @@ export default {
     }
   },
   "can4C10": {
-    "titre": "Somme ou différence de fractions égyptiennes",
+    "titre": "Calculer une somme/différence de fractions égyptiennes",
     "url": "/exercices/can/4e/can4C10.js",
     "amcReady": true,
     "amcType": {
@@ -11303,7 +11375,7 @@ export default {
     }
   },
   "can4G01": {
-    "titre": "Calcul d’une longueur d’un côté avec le Théorème de Pythagore",
+    "titre": "Déterminer une longueur avec des triangles semblables",
     "url": "/exercices/can/4e/can4G01.js",
     "amcReady": true,
     "amcType": {
@@ -11338,7 +11410,7 @@ export default {
     }
   },
   "can4G03": {
-    "titre": "Calcul de l’hypoténuse avec Pythagore",
+    "titre": "Calculer l’hypoténuse avec le théorème de Pythagore",
     "url": "/exercices/can/4e/can4G03.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11354,7 +11426,7 @@ export default {
     }
   },
   "can4G04": {
-    "titre": "Calcul d’un côté avec Pythagore",
+    "titre": "Calculer un côté avec le théorème de Pythagore",
     "url": "/exercices/can/4e/can4G04.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11370,7 +11442,7 @@ export default {
     }
   },
   "can4G05": {
-    "titre": "Calcul de la diagonale d’un carré",
+    "titre": "Calculer la diagonale d’un carré",
     "url": "/exercices/can/4e/can4G05.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11386,7 +11458,7 @@ export default {
     }
   },
   "can4G06": {
-    "titre": "Calcul d’une longueur avec Thalès",
+    "titre": "Calculer une longueur avec le théorème de Thalès",
     "url": "/exercices/can/4e/can4G06.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11402,7 +11474,7 @@ export default {
     }
   },
   "can4G07": {
-    "titre": "Calcul d’une longueur avec Thalès (milieu)",
+    "titre": "Calculer une longueur avec le théorème de Thalès (milieu)",
     "url": "/exercices/can/4e/can4G07.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11418,7 +11490,7 @@ export default {
     }
   },
   "can4G08": {
-    "titre": "Questions d'aires et de périmètres (niveau 2)",
+    "titre": "Calculer une aire ou un périmètre (carré et rectangle)",
     "url": "/exercices/can/4e/can4G08.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11491,7 +11563,7 @@ export default {
     }
   },
   "can4L04": {
-    "titre": "Substitution négative",
+    "titre": "Calculer une expression pour une valeur particulière",
     "url": "/exercices/can/4e/can4L04.js",
     "amcReady": true,
     "amcType": {
@@ -11510,7 +11582,7 @@ export default {
     }
   },
   "can4L05": {
-    "titre": "Développements (niveau 1)",
+    "titre": "Développer (niveau 1)",
     "url": "/exercices/can/4e/can4L05.js",
     "amcReady": true,
     "amcType": {
@@ -11529,7 +11601,7 @@ export default {
     }
   },
   "can4L06": {
-    "titre": "Calcul d'expression (substitution)",
+    "titre": "Calculer une expression pour une valeur particulière*",
     "url": "/exercices/can/4e/can4L06.js",
     "amcReady": true,
     "amcType": {
@@ -11548,7 +11620,7 @@ export default {
     }
   },
   "can4P01": {
-    "titre": "Problèmes de robinets",
+    "titre": "Résoudre un problème de robinets",
     "url": "/exercices/can/4e/can4P01.js",
     "amcReady": true,
     "amcType": {
@@ -11567,7 +11639,7 @@ export default {
     }
   },
   "can4P02": {
-    "titre": "Problèmes de vitesse",
+    "titre": "Résoudre un problème de vitesse",
     "url": "/exercices/can/4e/can4P02.js",
     "amcReady": true,
     "amcType": {
@@ -11586,7 +11658,7 @@ export default {
     }
   },
   "can4P03": {
-    "titre": "Quatrième proportionnelle",
+    "titre": "Calculer une quatrième proportionnelle",
     "url": "/exercices/can/4e/can4P03.js",
     "amcReady": true,
     "amcType": {
@@ -11605,7 +11677,7 @@ export default {
     }
   },
   "can4P04": {
-    "titre": "Proportionnalité et notes",
+    "titre": "Résoudre un problème avec la proportionnalité",
     "url": "/exercices/can/4e/can4P04.js",
     "amcReady": false,
     "interactifReady": true,
@@ -13517,7 +13589,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3M01",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

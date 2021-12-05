@@ -1,6 +1,6 @@
 import { choice, ecritureAlgebrique, ecritureParentheseSiNegatif, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Priorité opératoire et relatifs'
+export const titre = 'Utiliser les priorités opératoires avec des relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,6 +15,7 @@ export default function PrioriteOperatoireEtRelatifs () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur25 inline'
   this.nouvelleVersion = function () {
     let a = randint(-12, 12, 0)

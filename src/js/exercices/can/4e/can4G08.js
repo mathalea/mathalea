@@ -4,7 +4,7 @@ import {
   mathalea2d, point, labelPoint, segment, texteParPosition, milieu, tracePoint, codageAngleDroit
 } from '../../../modules/2d.js'
 import { fraction } from '../../../modules/fractions.js'
-export const titre = 'Questions d\'aires et de périmètres (niveau 2)'
+export const titre = 'Calculer une aire ou un périmètre (carré et rectangle)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -18,7 +18,7 @@ export default function QuestionsAiresEtPerimetres () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.date = 1635092507483
-  this.formatChampTexte = 'largeur25 inline'
+  this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -73,13 +73,13 @@ export default function QuestionsAiresEtPerimetres () {
         D = point(2, 5, 'R')
 
         objets.push(segment(A, B), segment(B, C), segment(C, D), segment(D, A), tracePoint(A, B, C, D))
-        objets.push(texteParPosition(`${texNombrec(b)}\\text{m}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition(`${texNombrec(a)}\\text{m}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition(`${texNombrec(c)}\\text{m}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition(`${texNombrec(d)}\\text{m}`, milieu(C, D).x, milieu(C, D).y + 0.5, 'milieu', 'black', 1, 'middle', true))
+        objets.push(texteParPosition(`${texNombrec(b)} m`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition(`${texNombrec(a)} m`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition(`${texNombrec(c)} m`, milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition(`${texNombrec(d)} m`, milieu(C, D).x, milieu(C, D).y + 0.5, 'milieu', 'black', 1, 'middle', true))
 
-        this.question = 'Quel est le périmètre de cette figure (en m) ?'
-        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 6, pixelsParCm: 30, mainlevee: true, amplitude: 0.5, scale: 0.7 }, objets)
+        this.question = 'Quel est le périmètre de cette figure (en m) ?<br>'
+        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 6, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
         this.correction = ` Le périmètre est donné par : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)}+${texNombrec(d)}=${texNombrec(a + b + c + d)}$.<br>`
         this.reponse = a + b + c + d
 
@@ -138,11 +138,11 @@ export default function QuestionsAiresEtPerimetres () {
         C = point(6, 3.46, 'C')
 
         objets.push(segment(A, B), segment(B, C), segment(C, A), labelPoint(A, B, C), tracePoint(A, B, C), codageAngleDroit(A, C, B))
-        objets.push(texteParPosition(`${texNombrec(a)}\\text{m}`, milieu(B, C).x + 0.5, milieu(B, C).y + 0.5, 'milieu', 'black', 1, 'middle', true)
+        objets.push(texteParPosition(`${texNombrec(a)} m`, milieu(B, C).x + 0.5, milieu(B, C).y + 0.5, 'milieu', 'black', 1, 'middle', true)
         )
 
-        this.question = ` L'aire du triangle $ABC$ est $${b}$ m$^2$. Donner la longueur $AC$ (en m).<br>Le schéma n'est pas en vraie grandeur.`
-        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 9, ymax: 4.5, pixelsParCm: 30, mainlevee: true, amplitude: 0.5, scale: 0.7 }, objets)
+        this.question = ` L'aire du triangle $ABC$ est $${b}$ m$^2$. Donner la longueur $AC$ (en m).<br>`
+        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 9, ymax: 4.5, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
         this.correction = ` L'aire de ce triangle rectangle est donnée par : $\\dfrac{BC\\times AC}{2}$.<br>
           On cherche $AC$ telle que $\\dfrac{${a}\\times AC}{2}=${b}$. <br>
           $AC=\\dfrac{2\\times ${b}}{${a}}=${texFractionReduite(2 * b, a)}$ m.
