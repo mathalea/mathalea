@@ -945,10 +945,7 @@ export function exerciceNonInteractif (exercice) {
     if (getVueFromUrl() === 'eval') {
       const divAffichageExo = document.querySelector(`#exercice${exercice.numeroExercice}`)
 
-      let button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
-      if (!button) {
-        button = addElement(divAffichageExo, 'button', { className: 'ui button checkReponses', id: `#btnValidationEx${exercice.numeroExercice}-${exercice.id}` })
-      }
+      const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
       button.innerHTML = 'Voir la correction pour s\'auto-corriger'
       button.style.margin = '1em'
 
