@@ -251,7 +251,7 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
           )}-${ecritureParentheseSiNegatif(c)}=${(a + 1) * x2 - c}$<br>`
           texteCorr += `$${a * x2 + b}\\not=${(a + 1) * x2 - c}$ donc l'égalité n'est pas vraie.<br>`
           texteCorr += `${texteEnCouleur(
-            `$x=${x1}$ n'est donc pas solution de l'équation $${ecritureParentheseSiNegatif(
+            `$x=${x2}$ n'est donc pas solution de l'équation $${ecritureParentheseSiNegatif(
               a
             )}x+${ecritureParentheseSiNegatif(b)}=${a + 1}x-${ecritureParentheseSiNegatif(c)}~$`
           )}<br><br>`
@@ -288,7 +288,7 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
           )}=${b + 2 * x2}$<br>`
           texteCorr += `$${a - 2 * x2}\\not=${b + 2 * x2}$ donc l'égalité n'est pas vraie.<br>`
           texteCorr += `${texteEnCouleur(
-            `$x=${x1}$ n'est donc pas solution de l'équation $${a}-2x=${b}+2x~$`
+            `$x=${x2}$ n'est donc pas solution de l'équation $${a}-2x=${b}+2x~$`
           )}<br><br>`
           break
         case 6: // ax-ab=x²-bx (a-x)(x-b)=0 solutions a et b.
@@ -465,7 +465,7 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
           )}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x2 + b}=${4 * (2 * x2 + b)}$<br>`
           texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br>'
           texteCorr += `${texteEnCouleur(
-            `$x=${x1}$ est donc solution de l'équation $12x-${ecritureParentheseSiNegatif(
+            `$x=${x2}$ est donc solution de l'équation $12x-${ecritureParentheseSiNegatif(
               4 * a
             )}=4(2x+${ecritureParentheseSiNegatif(b)})~$`
           )}<br><br>`
