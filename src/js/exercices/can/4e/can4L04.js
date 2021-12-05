@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, calcul, ecritureAlgebrique, texteEnCouleur } from '../../../modules/outils.js'
-export const titre = 'Substitution négative'
+export const titre = 'Calculer une expression pour une valeur particulière'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,12 +15,13 @@ export default function SubstitutionRelatif () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur25 inline'
+  this.tailleDiaporama = 2
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = -randint(2, 6)
     const b = randint(12, 25)
     const c = randint(3, 7)
-    this.question = `Calcule $${b}+${c}x$ pour $x=${a}$`
+    this.question = `Calculer $${b}+${c}x$ pour $x=${a}$`
     this.correction = `$${b}+${c}x=${b}+${c}\\times (${a})=${b}${ecritureAlgebrique(c * a)}=${b + c * a}$ `
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
        On commence par calculer le produit :  $${c}\\times (${a})$ qui donne $${a * c}$.<br>

@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
-export const titre = 'Calcul de la diagonale d’un carré'
+export const titre = 'Calculer la diagonale d’un carré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -13,8 +13,9 @@ export const interactifType = 'mathLive'
 export default function DiagonaleCarre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
-  this.formatChampTexte = 'largeur25 inline'
+  this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {

@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, creerNomDePolygone, texteEnCouleur, texNombrec } from '../../../modules/outils.js'
 import { afficheLongueurSegment, codeAngle, mathalea2d, point, pointAdistance, polygoneAvecNom } from '../../../modules/2d.js'
-export const titre = 'Calcul d’une longueur d’un côté avec le Théorème de Pythagore'
+export const titre = 'Déterminer une longueur avec des triangles semblables'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -46,24 +46,24 @@ export default function LongueurPythagore () {
       case 0: // calcul du côté horizontal de l'angle droit
         objets.push(pol[0], pol[1], la, lb, codeAngle(A, B, C))
         this.question = `Un triangle dont les côtés ont pour longueurs $3$, $4$ et $5$ est un triangle rectangle.<br>
-        En utilisant cette information, calculer la longueur $${nom[0]}${nom[1]}$.`
-        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 200 / b, scale: 8 / b }, objets) + '<br>'
+        En utilisant cette information, calculer la longueur $${nom[0]}${nom[1]}$.<br>`
+        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 140 / b, scale: 6 / b, style: 'margin: auto' }, objets) + '<br>'
         this.correction = ` $${nom[0]}${nom[1]}=${b}$ cm.`
         this.reponse = b
         break
       case 1: // calcul du côté vertical de l'angle droit
         objets.push(pol[0], pol[1], lc, lb, codeAngle(A, B, C))
         this.question = `Un triangle dont les côtés ont pour longueurs $3$, $4$ et $5$ est un triangle rectangle.<br>
-        En utilisant cette information, calculer la longueur $${nom[1]}${nom[2]}$.`
-        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 200 / b, scale: 8 / b }, objets) + '<br>'
+        En utilisant cette information, calculer la longueur $${nom[1]}${nom[2]}$.<br>`
+        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 140 / b, scale: 6 / b, style: 'margin: auto' }, objets) + '<br>'
         this.correction = ` $${nom[1]}${nom[2]}=${a}$ cm.`
         this.reponse = a
         break
       case 2: // calcul de l'hypoténuse.
         objets.push(pol[0], pol[1], la, lc, codeAngle(A, B, C))
         this.question = `Un triangle dont les côtés ont pour longueurs $3$, $4$ et $5$ est un triangle rectangle.<br>
-        En utilisant cette information, calculer la longueur $${nom[0]}${nom[2]}$.`
-        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 200 / b, scale: 8 / b }, objets) + '<br>'
+        En utilisant cette information, calculer la longueur $${nom[0]}${nom[2]}$.<br>`
+        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 140 / b, scale: 6 / b, style: 'margin: auto' }, objets) + '<br>'
 
         this.correction = ` $${nom[0]}${nom[2]}=${c}$ cm.`
         this.reponse = c

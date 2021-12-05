@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
-export const titre = 'Puissances de +/-2, 3, 4 ou 5'
+export const titre = 'Calculer des puissances de +/-2, 3, 4 ou 5'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,7 +14,7 @@ export const amcType = 'AMCNum'
 export default function PuissancesDe2345 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.tailleDiaporama = 5
+  this.tailleDiaporama = 2
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {

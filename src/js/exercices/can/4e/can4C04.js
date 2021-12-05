@@ -1,6 +1,6 @@
 import { ecritureParentheseSiNegatif, miseEnEvidence, randint, shuffle } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Règle des signes'
+export const titre = 'Utiliser la règle des signes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,6 +15,7 @@ export default function RegleDesSignes () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a = randint(-5, 5, [-1, 0, 1])
@@ -36,10 +37,10 @@ export default function RegleDesSignes () {
         ${Math.abs(f[0] * f[1])}$, 
         on cherche le nombre qui multiplié par $${Math.abs(f[0] * f[1])}$ donne $${Math.abs(d)}$.
          C'est $${Math.abs(d)}\\div ${Math.abs(f[0] * f[1])}=${Math.abs(f[2])}$. <br>`
-        this.correction += `On en déduit que le facteur manquant est : $${f[2]}$. On a bien : $${f[0]}\\times ${ecritureParentheseSiNegatif(f[1])}\\times ${miseEnEvidence(ecritureParentheseSiNegatif(f[2]))}=${d}$`
+        this.correction += `On en déduit que le facteur manquant est : $${f[2]}$.<br> On a bien : $${f[0]}\\times ${ecritureParentheseSiNegatif(f[1])}\\times ${miseEnEvidence(ecritureParentheseSiNegatif(f[2]))}=${d}$`
         break
       case 1:
-        this.question = `$${f[0]}\\times$ ? $\\times ${ecritureParentheseSiNegatif(f[2])}=${d}$.<br>
+        this.question = `$${f[0]}\\times$ ? $\\times ${ecritureParentheseSiNegatif(f[2])}=${d}$<br>
         ? $=$`
         this.reponse = f[1]
         this.correction = `Comme le produit $${f[0]}\\times ${ecritureParentheseSiNegatif(f[2])}$ 
@@ -48,17 +49,17 @@ export default function RegleDesSignes () {
         on cherche le nombre qui multiplié par $${Math.abs(f[0] * f[2])}$ donne $${Math.abs(d)}$.
         C'est $${Math.abs(d)}\\div ${Math.abs(f[0] * f[2])}=${Math.abs(f[1])}$. <br>`
         this.correction += `On en déduit que le facteur manquant est : 
-        $${f[1]}$. On a bien : $${f[0]}\\times ${miseEnEvidence(ecritureParentheseSiNegatif(f[1]))} \\times ${ecritureParentheseSiNegatif(f[2])}=${d}$. <br>`
+        $${f[1]}$. <br>On a bien : $${f[0]}\\times ${miseEnEvidence(ecritureParentheseSiNegatif(f[1]))} \\times ${ecritureParentheseSiNegatif(f[2])}=${d}$. <br>`
         break
       case 2:
-        this.question = `? $\\times ${ecritureParentheseSiNegatif(f[1])}\\times ${ecritureParentheseSiNegatif(f[2])}=${d}$.<br>
+        this.question = `? $\\times ${ecritureParentheseSiNegatif(f[1])}\\times ${ecritureParentheseSiNegatif(f[2])}=${d}$<br>
         ? $=$`
         this.reponse = f[0]
         this.correction = `Comme le produit $${f[1]}\\times ${ecritureParentheseSiNegatif(f[2])}$ est ${f[1] * f[2] > 0 ? 'positif' : 'négatif'} et que le résultat est ${d > 0 ? 'positif' : 'négatif'} alors le facteur manquant est forcément ${f[0] > 0 ? 'positif' : 'négatif'}.<br>`
         this.correction += `De plus, comme $${Math.abs(f[1])}\\times ${Math.abs(f[2])}=${Math.abs(f[1] * f[2])}$, 
         on cherche le nombre qui multiplié par $${Math.abs(f[1] * f[2])}$ donne $${Math.abs(d)}$.
         C'est $${Math.abs(d)}\\div ${Math.abs(f[1] * f[2])}=${Math.abs(f[0])}$. <br>`
-        this.correction += `On en déduit que le facteur manquant est : $${f[0]}$. On a bien : $${miseEnEvidence(f[0])}\\times ${ecritureParentheseSiNegatif(f[1])} \\times ${ecritureParentheseSiNegatif(f[2])}=${d}$`
+        this.correction += `On en déduit que le facteur manquant est : $${f[0]}$. <br>On a bien : $${miseEnEvidence(f[0])}\\times ${ecritureParentheseSiNegatif(f[1])} \\times ${ecritureParentheseSiNegatif(f[2])}=${d}$`
         break
     }
   }
