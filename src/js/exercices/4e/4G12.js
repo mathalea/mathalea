@@ -1,14 +1,25 @@
 import Exercice from '../Exercice.js'
-import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes, centrage, texteEnCouleur, contraindreValeur } from '../../modules/outils.js'
+import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes, centrage, texteEnCouleur, contraindreValeur, enleveElement, compteOccurences, miseEnEvidence } from '../../modules/outils.js'
 import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-export const dateDePublication = '3/12/2021'
-export const titre = 'Séries de transformations'
+import { mod } from 'mathjs'
+
+export const titre = 'Trouver une série de symétries axiales'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
+
+export const dateDePublication = '3/12/2021'
+
+/**
+ * A partir de la figure 0, l'idée est de trouver un chemin qui mène à la figure 28 par une série
+ * de transformations entre deux figures strictement voisines.
+ * Ref 4G12
+ * @author : Jean-Claude Lhote (et modifié par Eric Elter)
+ * publié le 03/12/2021
+ */
 
 export default function SerieDeTransformations () {
   Exercice.call(this)
@@ -21,7 +32,8 @@ export default function SerieDeTransformations () {
   const A = point(0, 0)
   let typeDeTransfos
   this.sup = 4
-  this.sup2 = false
+  this.sup2 = 5
+  this.sup3 = false
   const motifs = [
     polygone([point(1, 1), point(2, 1), point(2, 4), point(6, 4), point(6, 5), point(3, 5), point(3, 6), point(1, 6)]),
     polygone([point(1, 1), point(3, 1), point(3, 4), point(6, 4), point(6, 6), point(3, 6), point(3, 5), point(1, 5)]),
@@ -63,83 +75,9 @@ export default function SerieDeTransformations () {
       maGrille.push(tracePoint(noeuds[i * 6 + j]))
     }
   }
-  const parcours = [ // différents parcours pour aller de la figure de départ à celle d'arrivée.
-    [0, 1, 2, 3, 4, 10, 16, 22, 28],
-    [0, 1, 2, 3, 9, 10, 16, 22, 28],
-    [0, 1, 2, 3, 9, 15, 16, 22, 28],
-    [0, 1, 2, 3, 9, 15, 21, 22, 28],
-    [0, 1, 2, 3, 9, 15, 21, 27, 28],
-    [0, 1, 2, 8, 9, 10, 16, 22, 28],
-    [0, 1, 2, 8, 9, 15, 16, 22, 28],
-    [0, 1, 2, 8, 9, 15, 21, 22, 28],
-    [0, 1, 2, 8, 9, 15, 21, 27, 28],
-    [0, 1, 2, 8, 14, 15, 16, 22, 28],
-    [0, 1, 2, 8, 14, 15, 21, 22, 28],
-    [0, 1, 2, 8, 14, 15, 21, 27, 28],
-    [0, 1, 2, 8, 14, 20, 21, 22, 28],
-    [0, 1, 2, 8, 14, 20, 21, 27, 28],
-    [0, 1, 2, 8, 14, 20, 26, 27, 28],
-    [0, 1, 7, 8, 9, 10, 16, 22, 28],
-    [0, 1, 7, 8, 9, 15, 16, 22, 28],
-    [0, 1, 7, 8, 9, 15, 21, 22, 28],
-    [0, 1, 7, 8, 9, 15, 21, 27, 28],
-    [0, 1, 7, 8, 14, 15, 16, 22, 28],
-    [0, 1, 7, 8, 14, 15, 21, 22, 28],
-    [0, 1, 7, 8, 14, 15, 21, 27, 28],
-    [0, 1, 7, 8, 14, 20, 21, 22, 28],
-    [0, 1, 7, 8, 14, 20, 21, 27, 28],
-    [0, 1, 7, 8, 14, 20, 26, 27, 28],
-    [0, 1, 7, 13, 14, 15, 16, 22, 28],
-    [0, 1, 7, 13, 14, 15, 21, 22, 28],
-    [0, 1, 7, 13, 14, 15, 21, 27, 28],
-    [0, 1, 7, 13, 14, 20, 21, 22, 28],
-    [0, 1, 7, 13, 14, 20, 21, 22, 28],
-    [0, 1, 7, 13, 14, 20, 21, 27, 28],
-    [0, 1, 7, 13, 14, 20, 26, 27, 28],
-    [0, 1, 7, 13, 19, 20, 21, 22, 28],
-    [0, 1, 7, 13, 19, 20, 21, 27, 28],
-    [0, 1, 7, 13, 19, 20, 26, 27, 28],
-    [0, 1, 7, 13, 19, 25, 26, 27, 28],
-    [0, 6, 7, 8, 9, 10, 16, 22, 28],
-    [0, 6, 7, 8, 9, 15, 16, 22, 28],
-    [0, 6, 7, 8, 9, 15, 21, 22, 28],
-    [0, 6, 7, 8, 9, 15, 21, 27, 28],
-    [0, 6, 7, 8, 14, 15, 16, 22, 28],
-    [0, 6, 7, 8, 14, 15, 21, 22, 28],
-    [0, 6, 7, 8, 14, 15, 21, 27, 28],
-    [0, 6, 7, 8, 14, 20, 21, 22, 28],
-    [0, 6, 7, 8, 14, 20, 21, 27, 28],
-    [0, 6, 7, 8, 14, 20, 26, 27, 28],
-    [0, 6, 7, 13, 14, 15, 16, 22, 28],
-    [0, 6, 7, 13, 14, 15, 21, 22, 28],
-    [0, 6, 7, 13, 14, 15, 21, 27, 28],
-    [0, 6, 7, 13, 14, 20, 21, 22, 28],
-    [0, 6, 7, 13, 14, 20, 21, 22, 28],
-    [0, 6, 7, 13, 14, 20, 21, 27, 28],
-    [0, 6, 7, 13, 14, 20, 26, 27, 28],
-    [0, 6, 7, 13, 19, 20, 21, 22, 28],
-    [0, 6, 7, 13, 19, 20, 21, 27, 28],
-    [0, 6, 7, 13, 19, 20, 26, 27, 28],
-    [0, 6, 7, 13, 19, 25, 26, 27, 28],
-    [0, 6, 12, 13, 14, 15, 16, 22, 28],
-    [0, 6, 12, 13, 14, 15, 21, 22, 28],
-    [0, 6, 12, 13, 14, 15, 21, 27, 28],
-    [0, 6, 12, 13, 14, 20, 21, 22, 28],
-    [0, 6, 12, 13, 14, 20, 21, 22, 28],
-    [0, 6, 12, 13, 14, 20, 21, 27, 28],
-    [0, 6, 12, 13, 14, 20, 26, 27, 28],
-    [0, 6, 12, 13, 19, 20, 21, 22, 28],
-    [0, 6, 12, 13, 19, 20, 21, 27, 28],
-    [0, 6, 12, 13, 19, 20, 26, 27, 28],
-    [0, 6, 12, 13, 19, 25, 26, 27, 28],
-    [0, 6, 12, 18, 19, 20, 21, 22, 28],
-    [0, 6, 12, 18, 19, 20, 21, 27, 28],
-    [0, 6, 12, 18, 19, 20, 26, 27, 28],
-    [0, 6, 12, 18, 19, 25, 26, 27, 28],
-    [0, 6, 12, 18, 24, 25, 26, 27, 28]
-  ]
+
   function transfoPoly (pol, { type = 'symax', centre, axe, vecteur, angle = 90, sens = true }) {
-    switch (type) { // type est l'une des chaine suivante 'symax', 'trans', 'rot90', 'rot180'
+    switch (type) { // type est l'une des chaines suivantes 'symax', 'trans', 'rot90', 'rot180'
       case 'symax':
         return symetrieAxiale(pol, axe)
       case 'trans':
@@ -153,29 +91,83 @@ export default function SerieDeTransformations () {
     }
   }
   function definitElements (type, depart, arrivee, leSens = true, num = 0) {
-    let texte, texteCorr, texteInteractif
-    const Est = (arrivee - depart === 6) // si on va vers la droite il y a 6 numéros d'écart entre arrivée et départ sinon, c'est 1 (vers le haut)
+    let texte, texteCorr, texteInteractif, axeSymetrie, nomDroite, nomCentreRotation, centreRotation, centreSymetrie, nomSegment
+    const sensProgression = (arrivee - depart === 6) ? 'Est' : (arrivee - depart === -6) ? 'Ouest' : (arrivee - depart === 1) ? 'Nord' : 'Sud'
     switch (type) {
       case 'symax': // vers l'est la droite est définie par arrivee et arrivee+1 sinon c'est arrivee et arrivee+6
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie d'axe $(${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom})$.`
-        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie d'axe $(${sp(1)}\\ldots${sp(1)})$`
-        texteInteractif = "Une symétrie axiale d'axe passant par deux points du quadrillage."
-        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, axe: Est ? droite(noeuds[arrivee], noeuds[arrivee + 1]) : droite(noeuds[arrivee], noeuds[arrivee + 6]) }
+        switch (sensProgression) {
+          case 'Est' :
+            axeSymetrie = droite(noeuds[arrivee], noeuds[arrivee + 1])
+            nomDroite = '(' + noeuds[arrivee].nom + noeuds[arrivee + 1].nom + ')'
+            break
+          case 'Ouest' :
+            axeSymetrie = droite(noeuds[depart], noeuds[depart + 1])
+            nomDroite = '(' + noeuds[depart].nom + noeuds[depart + 1].nom + ')'
+            break
+          case 'Nord' :
+            axeSymetrie = droite(noeuds[arrivee], noeuds[arrivee + 6])
+            nomDroite = '(' + noeuds[arrivee].nom + noeuds[arrivee + 6].nom + ')'
+            break
+          case 'Sud' :
+            axeSymetrie = droite(noeuds[depart], noeuds[depart + 6])
+            nomDroite = '(' + noeuds[depart].nom + noeuds[depart + 6].nom + ')'
+            break
+        }
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la symétrie d'axe $${nomDroite}$.`
+        texte = `La figure${sp(1)}...${sp(1)}a pour image la figure${sp(1)}\\ldots${sp(1)}par la symétrie d'axe $(${sp(1)}\\ldots${sp(1)})$`
+        texteInteractif = "Une symétrie axiale dont l'axe passe par deux points du quadrillage."
+        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, axe: axeSymetrie }
       case 'trans': // facile pour la translation : depart->arrivee
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$.`
-        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la translation transformant ${sp(1)}\\ldots${sp(1)} en ${sp(1)}\\ldots${sp(1)}`
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$.`
+        texte = `La figure${sp(1)}...${sp(1)}a pour image la figure${sp(1)}\\ldots${sp(1)}par la translation transformant ${sp(1)}\\ldots${sp(1)} en ${sp(1)}\\ldots${sp(1)}`
         texteInteractif = 'Une translation définie par deux points du quadrillage.'
         return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
       case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$ d'angle $90\\degree$ dans le sens ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
-        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la rotation de centre ${sp(1)}\\ldots${sp(1)} d'angle $90\\degree$ dans le sens  ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}`
-        texteInteractif = "Une rotation d'angle 90° et de centre un point du quadrillage."
-        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: Est ? (leSens ? noeuds[arrivee + 1] : noeuds[arrivee]) : (leSens ? noeuds[arrivee] : noeuds[arrivee + 6]), sens: leSens }
+        switch (sensProgression) {
+          case 'Est' :
+            centreRotation = leSens ? noeuds[arrivee + 1] : noeuds[arrivee]
+            nomCentreRotation = leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom
+            break
+          case 'Ouest' :
+            centreRotation = leSens ? noeuds[depart] : noeuds[depart + 1]
+            nomCentreRotation = leSens ? noeuds[depart].nom : noeuds[depart + 1].nom
+            break
+          case 'Nord' :
+            centreRotation = leSens ? noeuds[arrivee] : noeuds[arrivee + 6]
+            nomCentreRotation = leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom
+            break
+          case 'Sud' :
+            centreRotation = leSens ? noeuds[depart + 6] : noeuds[depart]
+            nomCentreRotation = leSens ? noeuds[depart + 6].nom : noeuds[depart].nom
+            break
+        }
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la rotation de centre $${nomCentreRotation}$ d'angle $90\\degree$ dans le sens ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
+        texte = `La figure${sp(1)}...${sp(1)}a pour image la figure${sp(1)}\\ldots${sp(1)}par la rotation de centre ${sp(1)}\\ldots${sp(1)} d'angle $90\\degree$ dans le sens  ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}`
+        texteInteractif = "Une rotation d'angle 90° et dont le centre est un point du quadrillage."
+        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: centreRotation, sens: leSens }
       case 'rot180': // pas besoin du sens, mais le milieu choisit dépend de depart et arrivee
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie de centre le milieu de $[${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]$.`
-        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie de centre le milieu de $[${sp(1)}\\ldots${sp(1)}]$`
-        texteInteractif = "Une symétrie centrale de centre un milieu d'un côté de case."
-        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6]) }
+        switch (sensProgression) {
+          case 'Est' :
+            centreSymetrie = milieu(noeuds[arrivee], noeuds[arrivee + 1])
+            nomSegment = '[' + noeuds[arrivee + 1].nom + noeuds[arrivee].nom + ']'
+            break
+          case 'Ouest' :
+            centreSymetrie = milieu(noeuds[depart], noeuds[depart + 1])
+            nomSegment = '[' + noeuds[depart + 1].nom + noeuds[depart].nom + ']'
+            break
+          case 'Nord' :
+            centreSymetrie = milieu(noeuds[arrivee], noeuds[arrivee + 6])
+            nomSegment = '[' + noeuds[arrivee + 6].nom + noeuds[arrivee].nom + ']'
+            break
+          case 'Sud' :
+            centreSymetrie = milieu(noeuds[depart], noeuds[depart + 6])
+            nomSegment = '[' + noeuds[depart + 6].nom + noeuds[depart].nom + ']'
+            break
+        }
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la symétrie dont le centre est le milieu de $${nomSegment}$.`
+        texte = `La figure${sp(1)}...${sp(1)}a pour image la figure${sp(1)}\\ldots${sp(1)}par la symétrie dont le centre est le milieu de $[${sp(1)}\\ldots${sp(1)}]$`
+        texteInteractif = "Une symétrie centrale dont le centre est un milieu d'un côté de case."
+        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: centreSymetrie }
     }
   }
   this.nouvelleVersion = function () {
@@ -187,7 +179,7 @@ export default function SerieDeTransformations () {
     else typeDeTransfos = ['symax', 'trans', 'rot90', 'rot180']
     this.listeQuestions = []
     this.listeCorrections = []
-    for (let i = 0, texte, texteCorr, chemin, objetsEnonce, objetsCorrection, polys, transfos, leurre0; i < this.nbQuestions; i++) {
+    for (let i = 0, texte, texteCorr, paramsCorrection, paramsEnonce, nbTransfMin, nbTransfMax, nbVoisins, futursVoisinsPossibles, parcoursPossible, numeroFigure, chemin, objetsEnonce, objetsCorrection, polys, transfos, leurre0; i < this.nbQuestions; i++) {
       this.autoCorrection[i] = {}
       polys = []
       transfos = []
@@ -209,16 +201,85 @@ export default function SerieDeTransformations () {
         }
       }
 
-      chemin = choice(parcours)
-      for (let k = 0; k < 8; k++) {
+      // Construction d'un chemin pour aller de la figure de départ à celle d'arrivée
+      chemin = []
+      this.sup2 = parseInt(this.sup2)
+      switch (this.sup2) {
+        case 1 :
+          nbTransfMin = 8
+          nbTransfMax = 10
+          break
+        case 2 :
+          nbTransfMin = 10
+          nbTransfMax = 12
+          break
+        case 3 :
+          nbTransfMin = 12
+          nbTransfMax = 14
+          break
+        case 4 :
+          nbTransfMin = 14
+          nbTransfMax = 18
+          break
+        default :
+          nbTransfMin = 8
+          nbTransfMax = 18
+          break
+      }
+      while (chemin.length < nbTransfMin || chemin.length > nbTransfMax) {
+        chemin = [0]
+        numeroFigure = 0
+        parcoursPossible = [numeroFigure - 6, numeroFigure - 1, numeroFigure + 1, numeroFigure + 6]
+
+        while (numeroFigure !== 28) {
+          parcoursPossible = [numeroFigure - 6, numeroFigure - 1, numeroFigure + 1, numeroFigure + 6]
+          if (mod(numeroFigure, 6) === 0) { // bord bas de la figure
+            enleveElement(parcoursPossible, numeroFigure - 6)
+            enleveElement(parcoursPossible, numeroFigure - 1)
+          } else if (mod(numeroFigure, 6) === 4) { // bord haut de la figure
+            enleveElement(parcoursPossible, numeroFigure - 6)
+            enleveElement(parcoursPossible, numeroFigure + 1)
+          } else if (mod(numeroFigure, 6) === 3) { // Avant-dernière ligne de la figure
+            enleveElement(parcoursPossible, numeroFigure - 6) // Interdiction d'aller à gauche sous peine de retour impossible
+          }
+          if (numeroFigure >= 24) { // bord droit de la figure
+            enleveElement(parcoursPossible, numeroFigure + 6)
+            enleveElement(parcoursPossible, numeroFigure - 1)
+          } else if (numeroFigure <= 4) { // bord gauche de la figure
+            enleveElement(parcoursPossible, numeroFigure - 6)
+            enleveElement(parcoursPossible, numeroFigure - 1)
+          } else if (numeroFigure <= 22 && numeroFigure >= 18) { // Avant-dernière colonne de la figure
+            enleveElement(parcoursPossible, numeroFigure - 1)// Interdiction d'aller en bas sous peine de retour impossible
+          }
+          numeroFigure = choice(parcoursPossible)
+          futursVoisinsPossibles = [numeroFigure - 6, numeroFigure - 1, numeroFigure + 1, numeroFigure + 6]
+          nbVoisins = 0
+          for (let kk = 0; kk < 4; kk++) {
+            nbVoisins = nbVoisins + compteOccurences(chemin, futursVoisinsPossibles[kk])
+          }
+          while (compteOccurences(chemin, numeroFigure) !== 0 || nbVoisins > 1) { // Il ne faut pas choisir une case qui soit voisine avec une case déjà choisie car sinon on pourrait avoir des raccourcis non désirés.
+            enleveElement(parcoursPossible, numeroFigure)
+            numeroFigure = choice(parcoursPossible)
+            futursVoisinsPossibles = [numeroFigure - 6, numeroFigure - 1, numeroFigure + 1, numeroFigure + 6]
+            nbVoisins = 0
+            for (let kk = 0; kk < 4; kk++) {
+              nbVoisins = nbVoisins + compteOccurences(chemin, futursVoisinsPossibles[kk])
+            }
+          }
+          chemin.push(numeroFigure)
+        }
+      }
+      for (let k = 0; k < chemin.length - 1; k++) {
         transfos[k] = definitElements(choice(typeDeTransfos), chemin[k], chemin[k + 1], choice([true, false]), k)
         polys[chemin[k + 1]] = transfoPoly(polys[chemin[k]], transfos[k])
       }
       objetsEnonce = []
       objetsCorrection = []
       texte = this.interactif
-        ? 'Compléter la liste des figures successives obtenues avec cette suite de transformations.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des virgules.<br><br>'
-        : "On passe de la figure $0$ à la figure $28$ en passant par des cases adjacentes. Retrouver les transformations successives qui sont listées dans l'ordre.<br>"
+        ? this.sup === 1
+          ? 'Compléter la liste des figures successives obtenues avec une suite de symétries axiales.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des virgules.<br><br>'
+          : 'Compléter la liste des figures successives obtenues avec cette suite de transformations.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des virgules.<br><br>'
+        : 'On passe de la figure $0$ à la figure $28$ en passant par des cases adjacentes, en suivant les transformations listées dans l\'ordre précis des phrases ci-dessous qu\'il faut compléter.<br><br>'
       texteCorr = ''
 
       for (let x = 0; x < 5; x++) {
@@ -235,11 +296,9 @@ export default function SerieDeTransformations () {
       }
 
       polys[0].opaciteDeRemplissage = 0.7
-      polys[0].color = texcolors(8)
-      polys[0].couleurDeRemplissage = texcolors(8)
+      polys[0].couleurDeRemplissage = texcolors(11)
       polys[28].opaciteDeRemplissage = 0.7
-      polys[28].color = texcolors(16)
-      polys[28].couleurDeRemplissage = texcolors(16)
+      polys[28].couleurDeRemplissage = texcolors(11 + (chemin.length - 1))
       objetsEnonce.push(...polys)
       objetsEnonce.push(...maGrille)
 
@@ -253,26 +312,36 @@ export default function SerieDeTransformations () {
           objetsEnonce.push(label)
         }
       }
-      const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.7 }
-      const paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
-      for (let k = 1, figure; k < 8; k++) {
+      if (context.isHtml || chemin.length - 1 === 8 || (this.sup === 1 && chemin.length - 1 < 15)) {
+        paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.7 }
+        paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
+      } else if (this.sup === 1) {
+        paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.7 }
+        paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.5 }
+      } else {
+        paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
+        paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.55 - mod(chemin.length - 1, 10) / 20 }
+      }
+      for (let k = 1, figure; k < chemin.length - 1; k++) {
         figure = translation(polys[chemin[k]], vecteur(0, 0))
-        figure.color = texcolors(k + 8)
-        figure.couleurDeRemplissage = texcolors(k + 8)
+        figure.color = texcolors(k + 11)
+        figure.couleurDeRemplissage = texcolors(k + 11)
         figure.opaciteDeRemplissage = 0.6
         objetsCorrection.push(figure)
       }
       objetsCorrection.push(...objetsEnonce)
-      for (let etape = 0; etape < 8; etape++) {
+      for (let etape = 0; etape < chemin.length - 1; etape++) {
         texte += (this.interactif && context.isHtml)
-          ? texteEnCouleur(transfos[etape].texteInteractif, etape % 2 === 0
+          ? this.sup === 1
+            ? ''
+            : `$${miseEnEvidence(etape + 1 + ')' + sp(1))}$` + texteEnCouleur(transfos[etape].texteInteractif, etape % 2 === 0
             ? 'black'
             : 'brown') + '<br>'
           : (etape === 0)
-              ? texteEnCouleur(transfos[etape].texte, etape % 2 === 0 ? 'black' : 'brown') + '<br>'
-              : this.sup2
-                ? texteEnCouleur('qui' + transfos[etape].texte.substr(21) + (etape === 7 ? '.' : ''), etape % 2 === 0 ? 'black' : 'brown') + '<br>'
-                : texteEnCouleur(transfos[etape].texte + '.', etape % 2 === 0 ? 'black' : 'brown') + '<br>'
+              ? `$${miseEnEvidence(etape + 1 + ')' + sp(1))}$` + texteEnCouleur(transfos[0].texte + (this.sup3 ? ',' : '.') + '<br>', 'black')
+              : this.sup3
+                ? `$${miseEnEvidence(etape + 1 + ')' + sp(1))}$` + texteEnCouleur('qui' + transfos[etape].texte.substr(17) + (etape === chemin.length - 2 ? '.' : ','), etape % 2 === 0 ? 'black' : 'brown') + '<br>'
+                : `$${miseEnEvidence(etape + 1 + ')' + sp(1))}$` + texteEnCouleur(transfos[etape].texte + '.', etape % 2 === 0 ? 'black' : 'brown') + '<br>'
         texteCorr += transfos[etape].texteCorr + '<br>'
       }
       if (context.isHtml) {
@@ -284,15 +353,19 @@ export default function SerieDeTransformations () {
         texteCorr += '\n' + centrage(mathalea2d(paramsCorrection, objetsCorrection))
       }
       if (context.isAmc) {
-        this.autoCorrection[i] = {
-          enonce: texte,
-          propositions: {
-            texte: texteCorr,
-            statut: 0,
-            feedback: '',
-            sanscadre: true
+        this.autoCorrection = [
+          {
+            enonce: texte,
+            propositions: [
+              {
+                texte: texteCorr,
+                statut: 3,
+                feedback: '',
+                sanscadre: true
+              }
+            ]
           }
-        }
+        ]
       } else {
         setReponse(this, i, chemin.toString(), { formatInteractif: 'texte' })
       }
@@ -305,5 +378,6 @@ export default function SerieDeTransformations () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Types de transformations possibles', 4, '1 : Symétries axiales seulement\n2 : Symétries axiales et centrales\n3 : Symétries et translations\n4 : Symétries, translations et quarts de tour']
-  this.besoinFormulaire2CaseACocher = ['Énoncés raccourcis', false]
+  this.besoinFormulaire2Numerique = ['Nombre de transformations entre le départ et l\'arrivée', 4, '1 : 8\n2 : 10\n3 : 12\n4 : 14 ou 16\n5 : Entre 8 et 16']
+  this.besoinFormulaire3CaseACocher = ['Énoncés raccourcis', false]
 }
