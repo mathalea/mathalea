@@ -32,7 +32,7 @@ export default function NormeVecteur () {
           \\sqrt{${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2}=
           \\sqrt{${a ** 2}+ ${b ** 2}}=
           \\sqrt{${a ** 2 + b ** 2}}=
-          ${Math.sqrt(a ** 2 + b ** 2)}=$.<br>`
+          ${Math.sqrt(a ** 2 + b ** 2)}$.<br><br>`
           this.correction += texteEnCouleur(`Comme $${a ** 2 + b ** 2}$ est un carré parfait, on simplie la racine carrée.
            `)
           this.reponse = Math.sqrt(a ** 2 + b ** 2)
@@ -44,7 +44,7 @@ export default function NormeVecteur () {
           this.correction = `$\\| \\overrightarrow{u} \\| =
           \\sqrt{${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2}=
           \\sqrt{${a ** 2}+ ${b ** 2}}=
-          \\sqrt{${a ** 2 + b ** 2}}$<br>`
+          \\sqrt{${a ** 2 + b ** 2}}$<br><br>`
           this.correction += texteEnCouleur(`Comme $${a ** 2 + b ** 2}$ n'est pas un carré parfait, on ne simplifie pas (la réponse doit être sous la forme $\\sqrt{a}$ ou d'un entier). <br>
           `)
           this.reponse = [`\\sqrt{${a ** 2 + b ** 2}}`, `${Math.sqrt(a ** 2 + b ** 2)}`]
