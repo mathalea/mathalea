@@ -28,7 +28,8 @@ export default function NormeVecteur () {
         Déterminer la norme du vecteur $\\overrightarrow{u}$.<br><br>
         Donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant.`
           this.optionsChampTexte = { texteApres: '' }
-          this.correction = `$ \\| \\overrightarrow{u} \\|=
+          this.correction = `D'après le cours, si $\\overrightarrow{u}(x;y)$ alors $\\| \\overrightarrow{u} \\|=\\sqrt{x^2+y^2}$. On a donc : <br><br>
+          $ \\| \\overrightarrow{u} \\|=
           \\sqrt{${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2}=
           \\sqrt{${a ** 2}+ ${b ** 2}}=
           \\sqrt{${a ** 2 + b ** 2}}=
@@ -41,7 +42,8 @@ export default function NormeVecteur () {
           Déterminer la norme du vecteur $\\overrightarrow{u}$.<br><br>
           Donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant.`
           this.optionsChampTexte = { texteApres: '' }
-          this.correction = `$\\| \\overrightarrow{u} \\| =
+          this.correction = `D'après le cours, si $\\overrightarrow{u}(x;y)$ alors $\\| \\overrightarrow{u} \\|=\\sqrt{x^2+y^2}$. On a donc : <br><br>
+          $\\| \\overrightarrow{u} \\| =
           \\sqrt{${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2}=
           \\sqrt{${a ** 2}+ ${b ** 2}}=
           \\sqrt{${a ** 2 + b ** 2}}$<br><br>`
