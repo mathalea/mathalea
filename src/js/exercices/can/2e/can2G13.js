@@ -3,6 +3,7 @@ import { randint, choice, ecritureParentheseSiNegatif, texteEnCouleur, extraireR
 export const titre = 'Calcul de la norme d’un vecteur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '3/12/2021'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -24,8 +25,8 @@ export default function NormeVecteur () {
         reduction = extraireRacineCarree(a ** 2 + b ** 2)
         if (a ** 2 + b ** 2 === 1 || a ** 2 + b ** 2 === 4 || a ** 2 + b ** 2 === 9 || a ** 2 + b ** 2 === 16 || a ** 2 + b ** 2 === 25 || a ** 2 + b ** 2 === 36 || a ** 2 + b ** 2 === 49 || a ** 2 + b ** 2 === 64 || a ** 2 + b ** 2 === 81 || a ** 2 + b ** 2 === 100) {
           this.question = `Dans un repère orthonormé du plan, on donne $\\overrightarrow{u}(${a};${b})$ .<br>
-        Déterminer la norme du vecteur $\\overrightarrow{u}$.<br>
-        (donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant)`
+        Déterminer la norme du vecteur $\\overrightarrow{u}$.<br><br>
+        Donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant.`
           this.optionsChampTexte = { texteApres: '' }
           this.correction = `$ \\| \\overrightarrow{u} \\|=
           \\sqrt{${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2}=
@@ -37,8 +38,8 @@ export default function NormeVecteur () {
           this.reponse = Math.sqrt(a ** 2 + b ** 2)
         } else {
           this.question = `Dans un repère orthonormé du plan, on donne $\\overrightarrow{u}(${a};${b})$ .<br>
-          Déterminer la norme du vecteur $\\overrightarrow{u}$.<br>
-          (donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant)`
+          Déterminer la norme du vecteur $\\overrightarrow{u}$.<br><br>
+          Donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant.`
           this.optionsChampTexte = { texteApres: '' }
           this.correction = `$\\| \\overrightarrow{u} \\| =
           \\sqrt{${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2}=
