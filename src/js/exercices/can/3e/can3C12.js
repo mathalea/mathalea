@@ -12,6 +12,7 @@ export const amcType = 'AMCNum'
 export default function EncadrementRacineCarree () {
   Exercice.call(this)
   this.typeExercice = 'simple'
+  this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.nouvelleVersion = function () {
     const a = randint(3, 99, [4, 9, 16, 25, 36, 49, 64, 81]) // numérateur

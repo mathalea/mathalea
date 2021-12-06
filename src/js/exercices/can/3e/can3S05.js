@@ -58,7 +58,7 @@ export default function MoyenneStat () {
           this.correction = `La somme des $3$ valeurs est : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)} =${texNombrec(3 * a)}$.<br>
           La moyenne est donc $\\dfrac{${texNombrec(3 * a)}}{3}=${texNombrec(a)}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          En écrivant les valeurs dans l'ordre croissant : $\\underbrace{${texNombrec(b)}}_{${texNombrec(a)}- ${texNombrec(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombrec(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombrec(c)}}_{${texNombrec(a)}+ ${texNombrec(e)}}$, 
+          En écrivant les valeurs dans l'ordre croissant : <br>$\\underbrace{${texNombrec(b)}}_{${texNombrec(a)}- ${texNombrec(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombrec(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombrec(c)}}_{${texNombrec(a)}+ ${texNombrec(e)}}$, 
                     on remarque que les écarts entre la valeur intermédiaire ($${texNombrec(a)}$) et les deux autres valeurs ($${texNombrec(a - e)}$ et $${texNombrec(a + e)}$) sont égaux (ils valent $${texNombrec(e)}$).<br>
           On en déduit que la moyenne est la valeur intermédiaire : $${texNombrec(a)}$.
 
@@ -77,7 +77,7 @@ export default function MoyenneStat () {
           this.correction = `La somme des $3$ valeurs est : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)} =${texNombrec(3 * a)}$.<br>
           La moyenne est donc $\\dfrac{${texNombrec(3 * a)}}{3}=${texNombrec(a)}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          En écrivant les valeurs dans l'ordre croissant : $\\underbrace{${texNombrec(b)}}_{${texNombrec(a)}- ${texNombrec(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombrec(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombrec(c)}}_{${texNombrec(a)}+ ${texNombrec(e)}}$, 
+          En écrivant les valeurs dans l'ordre croissant : <br>$\\underbrace{${texNombrec(b)}}_{${texNombrec(a)}- ${texNombrec(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombrec(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombrec(c)}}_{${texNombrec(a)}+ ${texNombrec(e)}}$, 
                     on remarque que les écarts entre la valeur intermédiaire ($${texNombrec(a)}$) et les deux autres valeurs ($${texNombrec(a - e)}$ et $${texNombrec(a + e)}$) sont égaux (ils valent $${texNombrec(e)}$).<br>
           On en déduit que la moyenne est la valeur intermédiaire : $${texNombrec(a)}$.
 

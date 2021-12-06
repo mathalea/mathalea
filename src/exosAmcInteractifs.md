@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 383 
-- nombre d'exos interactifReady 528 
+- nombre d'exos interactifReady 529 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -318,6 +318,7 @@
 |can2C06|Simplifications de racines carrées|KO|KO|OK|mathLive|
 |can2C07|Calcul avec racine carrée niveau 2|KO|KO|OK|mathLive|
 |can2C08|Calcul avec racine carrée niveau 3|KO|KO|OK|mathLive|
+|can2C09|Calculer le "milieu" entre 1 et une fraction|KO|KO|OK|mathLive|
 |can2F01|Calcul d’une image second degré|KO|KO|OK|mathLive|
 |can2F02|Calcul d’une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
@@ -375,16 +376,16 @@
 |can3L02|Résoudre une équation du type ax+b=0|OK|AMCNum|OK|mathLive|
 |can3L03|Résoudre une équation du type ax+b=c|OK|AMCNum|OK|mathLive|
 |can3L04|Vérifier si un nombre est solution d’une inéquation (V/F)|KO|KO|OK|qcm|
-|can3L05|Utiliser la proportionnalité sur une expression algébrique|KO|KO|OK|mathLive|
-|can3L06|Calculer le produit des solutions d’une équation produit nul|KO|KO|OK|mathLive|
+|can3L05|Calculer le produit des solutions d’une équation produit nul|KO|KO|OK|mathLive|
 |can3M01|Calculer l’aire ou un périmètre d’un carré|OK|AMCNum|OK|mathLive|
 |can3M02|Calculer un volume de pyramide|OK|AMCNum|OK|mathLive|
+|can3P01|Utiliser la proportionnalité sur une expression algébrique|KO|KO|OK|mathLive|
 |can3S01|Calculer une probabilité|OK|AMCNum|OK|mathLive|
 |can3S02|Calculer la probabilité d’ un évènement contraire|KO|KO|OK|mathLive|
 |can3S03|Calculer une probabilités*|KO|KO|OK|mathLive|
 |can3S04|Calculer une étendue|KO|KO|OK|mathLive|
 |can3S05|Calculer une moyenne|KO|KO|OK|mathLive|
-|can3S06|Calculer une médiane|KO|KO|OK|mathLive|
+|can3S06|Déterminer le rang d’une médiane|KO|KO|OK|mathLive|
 |can4C01|Utiliser les priorités opératoires avec des relatifs|OK|AMCNum|OK|mathLive|
 |can4C02|Trouver l’opposé ou l’inverse d’une fraction|OK|AMCNum|OK|mathLive|
 |can4C03|Effectuer une division avec une fraction|OK|AMCNum|OK|mathLive|

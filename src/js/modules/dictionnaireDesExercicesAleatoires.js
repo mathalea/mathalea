@@ -10058,6 +10058,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can2C09": {
+    "titre": "Calculer le \"milieu\" entre 1 et une fraction",
+    "url": "/exercices/can/2e/can2C09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C09",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can2F01": {
     "titre": "Calcul d’une image second degré",
     "url": "/exercices/can/2e/can2F01.js",
@@ -10625,7 +10641,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -11031,28 +11047,12 @@ export default {
     }
   },
   "can3L05": {
-    "titre": "Utiliser la proportionnalité sur une expression algébrique",
+    "titre": "Calculer le produit des solutions d’une équation produit nul",
     "url": "/exercices/can/3e/can3L05.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3L05",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "can3L06": {
-    "titre": "Calculer le produit des solutions d’une équation produit nul",
-    "url": "/exercices/can/3e/can3L06.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "can3L06",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -11091,6 +11091,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3M02",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can3P01": {
+    "titre": "Utiliser la proportionnalité sur une expression algébrique",
+    "url": "/exercices/can/3e/can3P01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3P01",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -11184,7 +11200,7 @@ export default {
     }
   },
   "can3S06": {
-    "titre": "Calculer une médiane",
+    "titre": "Déterminer le rang d’une médiane",
     "url": "/exercices/can/3e/can3S06.js",
     "amcReady": false,
     "interactifReady": true,
