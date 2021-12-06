@@ -3,7 +3,7 @@ import { randint, choice, ecritureParentheseSiNegatif, texteEnCouleur, extraireR
 export const titre = 'Calcul de la norme d’un vecteur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDePublication = '3/12/2021'
+export const dateDePublication = '6/12/2021'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
