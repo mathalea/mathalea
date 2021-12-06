@@ -1,6 +1,6 @@
 import CalculsImagesFonctions from '../../3e/3F10-2.js'
 export { interactifReady, interactifType, amcReady, amcType } from '../../3e/3F10-2.js'
-export const titre = 'Calcul d’antécédent par fonction linéaire'
+export const titre = 'Calculer un antécédent par une fonction linéaire'
 
 /*!
  * @author Jean-Claude Lhote

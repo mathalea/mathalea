@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texFractionReduite, texNombrec, texFraction, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
-export const titre = 'Calculs de probabilités2'
+export const titre = 'Calculer une probabilités*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -31,7 +31,7 @@ export default function CalculsProbabilite2 () {
         this.correction = `Dans une situation d'équiprobabilité, 
         on calcule la probabilité d'un événement par le quotient : 
         $\\dfrac{\\text{Nombre d'issues favorables}}{\\text{Nombre total d'issue}}$. <br>
-        La probabilité est donc donnée par : 
+        La probabilité est donc donnée par : <br>
         $\\dfrac{\\text{Nombre de boules ${choix ? 'noire' : 'blanche'}s}}{\\text{Nombre total de boules}}
              =${choix ? texFraction(a, a + b) : texFraction(b, a + b)}  ${choix ? simplificationDeFractionAvecEtapes(a, a + b) : simplificationDeFractionAvecEtapes(b, a + b)}$
         `
@@ -49,7 +49,7 @@ export default function CalculsProbabilite2 () {
           this.correction = `Dans une situation d'équiprobabilité, 
           on calcule la probabilité d'un événement par le quotient : 
           $\\dfrac{\\text{Nombre d'issues favorables}}{\\text{Nombre total d'issue}}$. <br>
-          La probabilité est donc donnée par : 
+          La probabilité est donc donnée par : <br>
           $\\dfrac{\\text{Nombre de boules ${choix ? 'bleue' : 'rouge'}s}}{\\text{Nombre total de boules}}
                =${choix ? texFraction(a, a + b) : texFraction(b, a + b)} =${choix ? texNombrec(a / 10) : texNombrec(b / 10)}$
           `
@@ -65,7 +65,7 @@ export default function CalculsProbabilite2 () {
           this.correction = `Dans une situation d'équiprobabilité, 
           on calcule la probabilité d'un événement par le quotient : 
           $\\dfrac{\\text{Nombre d'issues favorables}}{\\text{Nombre total d'issue}}$. <br>
-          La probabilité est donc donnée par : 
+          La probabilité est donc donnée par : <br>
           $\\dfrac{\\text{Nombre de boules ${choix ? 'bleue' : 'rouge'}s}}{\\text{Nombre total de boules}}
                =${choix ? texFraction(a, a + b) : texFraction(b, a + b)} =${choix ? texNombrec(a / 100) : texNombrec(b / 100)}$
           `

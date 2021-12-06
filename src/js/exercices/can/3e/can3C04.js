@@ -1,7 +1,7 @@
 import { fraction } from '../../../modules/fractions'
 import { obtenirListeFractionsIrreductibles, choice, texFraction, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Somme Entier et fraction à réduire'
+export const titre = 'Calculer une somme entre fraction et entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,7 +16,8 @@ export default function SommeEntierEtFractionIrred () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur15'
+  this.tailleDiaporama = 2
+  this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
     const maFraction = choice(obtenirListeFractionsIrreductibles())

@@ -2,7 +2,7 @@ import { context } from '../../../modules/context'
 import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif'
 import { choice, listeQuestionsToContenu, miseEnEvidence, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Puissances de nombre entier'
+export const titre = 'Calculer avec des puissances'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,6 +16,7 @@ export const amcType = 'AMCNum'
 export default function CalculPuissanceSimple () {
   Exercice.call(this)
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     this.listeQuestions = []
