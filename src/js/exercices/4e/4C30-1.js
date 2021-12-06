@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, sp } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -8,7 +8,7 @@ export const titre = 'Encadrer avec des puissances de 10'
 /**
  * Encadrer par des puissances de 10
  * 4C30-1
- * @author Sébastien Lozano
+ * @author Sébastien Lozano (Modifications apportées par Eric Elter)
  */
 export default function PuissancesEncadrement () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -124,107 +124,32 @@ export default function PuissancesEncadrement () {
         })
         nombreDecInfUn.push(calcul(randint(signe * 10 ** (4 - i - 1) + 1, 10 ** (4 - i)) / 10000))
       }
-
-      switch (listeTypeDeQuestions[i]) {
-        case 1: // nombre enier positif
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${entPos[0].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, entPos[0].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, entPos[0].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${entPos[0].puissance_inf} \\leqslant ${entPos[0].val} \\leqslant ${entPos[0].puissance_sup}$`
-          texteCorr += ` car $${entPos[0].puissance_inf} = ${entPos[0].puissance_inf_num}$ et $${entPos[0].puissance_sup} = ${entPos[0].puissance_sup_num}$`
-          break
-        case 2: // nombre enier positif
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${entPos[1].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, entPos[1].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, entPos[1].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${entPos[1].puissance_inf} \\leqslant ${entPos[1].val} \\leqslant ${entPos[1].puissance_sup}$`
-          texteCorr += ` car $${entPos[1].puissance_inf} = ${entPos[1].puissance_inf_num}$ et $${entPos[1].puissance_sup} = ${entPos[1].puissance_sup_num}$`
-          break
-        case 3: // nombre enier positif
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${entPos[2].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, entPos[2].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, entPos[2].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${entPos[2].puissance_inf} \\leqslant ${entPos[2].val} \\leqslant ${entPos[2].puissance_sup}$`
-          texteCorr += ` car $${entPos[2].puissance_inf} = ${entPos[2].puissance_inf_num}$ et $${entPos[2].puissance_sup} = ${entPos[2].puissance_sup_num}$`
-          break
-        case 4: // nombre enier positif
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${entPos[3].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, entPos[3].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, entPos[3].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${entPos[3].puissance_inf} \\leqslant ${entPos[3].val} \\leqslant ${entPos[3].puissance_sup}$`
-          texteCorr += ` car $${entPos[3].puissance_inf} = ${entPos[3].puissance_inf_num}$ et $${entPos[3].puissance_sup} = ${entPos[3].puissance_sup_num}$`
-          break
-        case 5: // nombre enier positif
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${entPos[4].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, entPos[4].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, entPos[4].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${entPos[4].puissance_inf} \\leqslant ${entPos[4].val} \\leqslant ${entPos[4].puissance_sup}$`
-          texteCorr += ` car $${entPos[4].puissance_inf} = ${entPos[4].puissance_inf_num}$ et $${entPos[4].puissance_sup} = ${entPos[4].puissance_sup_num}$`
-          break
-        case 6: // nombre enier positif
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${entPos[5].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, entPos[5].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, entPos[5].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${entPos[5].puissance_inf} \\leqslant ${entPos[5].val} \\leqslant ${entPos[5].puissance_sup}$`
-          texteCorr += ` car $${entPos[5].puissance_inf} = ${entPos[5].puissance_inf_num}$ et $${entPos[5].puissance_sup} = ${entPos[5].puissance_sup_num}$`
-          break
-        case 7: // nombre décimal positif
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${decPos[0].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, decPos[0].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, decPos[0].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${decPos[0].puissance_inf} \\leqslant ${decPos[0].val} \\leqslant ${decPos[0].puissance_sup}$`
-          texteCorr += ` car $${decPos[0].puissance_inf} = ${decPos[0].puissance_inf_num}$ et $${decPos[0].puissance_sup} = ${decPos[0].puissance_sup_num}$`
-          break
-        case 8: // nombre décimal positif
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${decPos[1].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, decPos[1].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, decPos[1].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${decPos[1].puissance_inf} \\leqslant ${decPos[1].val} \\leqslant ${decPos[1].puissance_sup}$`
-          texteCorr += ` car $${decPos[1].puissance_inf} = ${decPos[1].puissance_inf_num}$ et $${decPos[1].puissance_sup} = ${decPos[1].puissance_sup_num}$`
-          break
-        case 9: // nombre décimal positif
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${decPos[2].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, decPos[2].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, decPos[2].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${decPos[2].puissance_inf} \\leqslant ${decPos[2].val} \\leqslant ${decPos[2].puissance_sup}$`
-          texteCorr += ` car $${decPos[2].puissance_inf} = ${decPos[2].puissance_inf_num}$ et $${decPos[2].puissance_sup} = ${decPos[2].puissance_sup_num}$`
-          break
-        case 10: // nombre décimal positif
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${decPos[3].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, decPos[3].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, decPos[3].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${decPos[3].puissance_inf} \\leqslant ${decPos[3].val} \\leqslant ${decPos[3].puissance_sup}$`
-          texteCorr += ` car $${decPos[3].puissance_inf} = ${decPos[3].puissance_inf_num}$ et $${decPos[3].puissance_sup} = ${decPos[3].puissance_sup_num}$`
-          break
-        case 11: // nombre décimal positif inferieur à 1
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${decPosInfUn[0].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, decPosInfUn[0].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, decPosInfUn[0].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${decPosInfUn[0].puissance_inf} \\leqslant ${decPosInfUn[0].val} \\leqslant ${decPosInfUn[0].puissance_sup}$`
-          texteCorr += ` car $${decPosInfUn[0].puissance_inf} = ${decPosInfUn[0].puissance_inf_num}$ et $${decPosInfUn[0].puissance_sup} = ${decPosInfUn[0].puissance_sup_num}$`
-          break
-        case 12: // nombre décimal positif inferieur à 1
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${decPosInfUn[1].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, decPosInfUn[1].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, decPosInfUn[1].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${decPosInfUn[1].puissance_inf} \\leqslant ${decPosInfUn[1].val} \\leqslant ${decPosInfUn[1].puissance_sup}$`
-          texteCorr += ` car $${decPosInfUn[1].puissance_inf} = ${decPosInfUn[1].puissance_inf_num}$ et $${decPosInfUn[1].puissance_sup} = ${decPosInfUn[1].puissance_sup_num}$`
-          break
-        case 13: // nombre décimal positif inferieur à 1
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${decPosInfUn[2].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, decPosInfUn[2].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, decPosInfUn[2].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${decPosInfUn[2].puissance_inf} \\leqslant ${decPosInfUn[2].val} \\leqslant ${decPosInfUn[2].puissance_sup}$`
-          texteCorr += ` car $${decPosInfUn[2].puissance_inf} = ${decPosInfUn[2].puissance_inf_num}$ et $${decPosInfUn[2].puissance_sup} = ${decPosInfUn[2].puissance_sup_num}$`
-          break
-        case 14: // nombre décimal positif inferieur à 1
-          texte = ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$\\leqslant ${decPosInfUn[3].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline')
-          setReponse(this, 2 * i, decPosInfUn[3].puissance_inf, { formatInteractif: 'puissance' })
-          setReponse(this, 2 * i + 1, decPosInfUn[3].puissance_sup, { formatInteractif: 'puissance' })
-          texteCorr = `$${decPosInfUn[3].puissance_inf} \\leqslant ${decPosInfUn[3].val} \\leqslant ${decPosInfUn[3].puissance_sup}$`
-          texteCorr += ` car $${decPosInfUn[3].puissance_inf} = ${decPosInfUn[3].puissance_inf_num}$ et $${decPosInfUn[3].puissance_sup} = ${decPosInfUn[3].puissance_sup_num}$`
-          break
+      if (listeTypeDeQuestions[i] < 7) { // nombre entier positif
+        texte = this.interactif
+          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
+          : `$\\dots\\dots\\dots${sp(1)}\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
+        setReponse(this, 2 * i, entPos[listeTypeDeQuestions[i] - 1].puissance_inf, { formatInteractif: 'puissance' })
+        setReponse(this, 2 * i + 1, entPos[listeTypeDeQuestions[i] - 1].puissance_sup, { formatInteractif: 'puissance' })
+        texteCorr = `$${entPos[listeTypeDeQuestions[i] - 1].puissance_inf} \\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val} \\leqslant ${entPos[listeTypeDeQuestions[i] - 1].puissance_sup}$`
+        texteCorr += ` car $${entPos[listeTypeDeQuestions[i] - 1].puissance_inf} = ${entPos[listeTypeDeQuestions[i] - 1].puissance_inf_num}$ et $${entPos[listeTypeDeQuestions[i] - 1].puissance_sup} = ${entPos[listeTypeDeQuestions[i] - 1].puissance_sup_num}$`
+      } else if (listeTypeDeQuestions[i] < 11) { // nombre décimal positif
+        texte = this.interactif
+          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
+          : `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
+        setReponse(this, 2 * i, decPos[listeTypeDeQuestions[i] - 7].puissance_inf, { formatInteractif: 'puissance' })
+        setReponse(this, 2 * i + 1, decPos[listeTypeDeQuestions[i] - 7].puissance_sup, { formatInteractif: 'puissance' })
+        texteCorr = `$${decPos[listeTypeDeQuestions[i] - 7].puissance_inf} \\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val} \\leqslant ${decPos[listeTypeDeQuestions[i] - 7].puissance_sup}$`
+        texteCorr += ` car $${decPos[listeTypeDeQuestions[i] - 7].puissance_inf} = ${decPos[listeTypeDeQuestions[i] - 7].puissance_inf_num}$ et $${decPos[listeTypeDeQuestions[i] - 7].puissance_sup} = ${decPos[listeTypeDeQuestions[i] - 7].puissance_sup_num}$`
+      } else { // nombre décimal positif inferieur à 1
+        texte = this.interactif
+          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPosInfUn[0].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
+          : `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPosInfUn[0].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
+        setReponse(this, 2 * i, decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_inf, { formatInteractif: 'puissance' })
+        setReponse(this, 2 * i + 1, decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_sup, { formatInteractif: 'puissance' })
+        texteCorr = `$${decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_inf} \\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val} \\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_sup}$`
+        texteCorr += ` car $${decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_inf} = ${decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_inf_num}$ et $${decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_sup} = ${decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_sup_num}$`
       }
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
