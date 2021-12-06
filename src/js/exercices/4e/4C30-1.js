@@ -126,7 +126,7 @@ export default function PuissancesEncadrement () {
       }
       if (listeTypeDeQuestions[i] < 7) { // nombre entier positif
         texte = this.interactif
-          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texteApres: sp(10) }) + `$\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline')
+          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
           : `$\\dots\\dots\\dots${sp(1)}\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         setReponse(this, 2 * i, entPos[listeTypeDeQuestions[i] - 1].puissance_inf, { formatInteractif: 'puissance' })
         setReponse(this, 2 * i + 1, entPos[listeTypeDeQuestions[i] - 1].puissance_sup, { formatInteractif: 'puissance' })
@@ -134,7 +134,7 @@ export default function PuissancesEncadrement () {
         texteCorr += ` car $${entPos[listeTypeDeQuestions[i] - 1].puissance_inf} = ${entPos[listeTypeDeQuestions[i] - 1].puissance_inf_num}$ et $${entPos[listeTypeDeQuestions[i] - 1].puissance_sup} = ${entPos[listeTypeDeQuestions[i] - 1].puissance_sup_num}$`
       } else if (listeTypeDeQuestions[i] < 11) { // nombre décimal positif
         texte = this.interactif
-          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline')
+          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
           : `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         setReponse(this, 2 * i, decPos[listeTypeDeQuestions[i] - 7].puissance_inf, { formatInteractif: 'puissance' })
         setReponse(this, 2 * i + 1, decPos[listeTypeDeQuestions[i] - 7].puissance_sup, { formatInteractif: 'puissance' })
@@ -142,7 +142,7 @@ export default function PuissancesEncadrement () {
         texteCorr += ` car $${decPos[listeTypeDeQuestions[i] - 7].puissance_inf} = ${decPos[listeTypeDeQuestions[i] - 7].puissance_inf_num}$ et $${decPos[listeTypeDeQuestions[i] - 7].puissance_sup} = ${decPos[listeTypeDeQuestions[i] - 7].puissance_sup_num}$`
       } else { // nombre décimal positif inferieur à 1
         texte = this.interactif
-          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPosInfUn[0].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline')
+          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPosInfUn[0].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
           : `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPosInfUn[0].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         setReponse(this, 2 * i, decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_inf, { formatInteractif: 'puissance' })
         setReponse(this, 2 * i + 1, decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_sup, { formatInteractif: 'puissance' })
