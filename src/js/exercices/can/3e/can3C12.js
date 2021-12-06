@@ -1,6 +1,6 @@
 import { choice, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Encadrement de racine carrée'
+export const titre = 'Encadrer une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

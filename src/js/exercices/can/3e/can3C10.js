@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texNombrec } from '../../../modules/outils.js'
-export const titre = 'Encadrement avec puissance de 10'
+export const titre = 'Encadrer avec des puissances de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
