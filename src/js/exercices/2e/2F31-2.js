@@ -43,7 +43,7 @@ export default function Variationsapartirtableau () {
       a4 = randint(a3 + 1, x3 - 1) // 4eme antécédent dont on doit comparer l'image
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':// parabole en U ; 2 images sur intervalle où f croissant
-          texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a2})$<br>`
+          texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a2})$<br><br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
@@ -59,18 +59,38 @@ export default function Variationsapartirtableau () {
             // tabLines ci-dessous contient les autres lignes du tableau.
             tabLines: [ligne1],
             colorBackground: '',
-            espcl: 3.5, // taille en cm entre deux antécédents
+            espcl: 2, // taille en cm entre deux antécédents
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 8, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
           }))
 
-          texteCorr = `On observe que la fonction $f$ est croissante sur $[${x1};${x2}]$<br>`
-          texteCorr += `On observe aussi que  $${a1}\\in[${x1};${x2}]$ et que  $${a2}\\in[${x1};${x2}]$, avec $${a1}<${a2}$<br>`
+          texteCorr = `D'après le tableau de variations, la fonction $f$ est croissante sur $[${x1};${x2}]$, `
+          texteCorr += ` $${a1}\\in[${x1};${x2}]$, $${a2}\\in[${x1};${x2}]$, avec $${a1}<${a2}$.<br>`
+          ligne1 = ['Var', 10, `-/$${y1}$`, 10, 't/', 10, 't/$f($x{2})$', 10, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
+
+          // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
+          texteCorr += mathalea2d({ xmin: -0.5, ymin: -9.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            tabInit: [
+              [
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                ['$x$', 2, 30], ['$f(x)$', 3, 50]
+              ],
+              // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+              [`$${x1}$`, 10, `$${a1}$`, 10, `$${a2}$`, 10, `$${x2}$`, 10, `$${x3}$`, 30]
+            ],
+            // tabLines ci-dessous contient les autres lignes du tableau.
+            tabLines: [ligne1],
+            colorBackground: '',
+            espcl: 3.5, // taille en cm entre deux antécédents
+            deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+            lgt: 8, // taille de la première colonne en cm
+            hauteurLignes: [15, 15]
+          }))
           texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, <br>'
           texteCorr += 'alors ses antécédents et ses images sont rangés dans le même ordre, <br>'
-          texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, <br>'
-          texteCorr += 'Si $x_1 < x_2$ alors $f(x_1) < f(x_2)$. <br>'
+          texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, '
+          texteCorr += 'si $x_1 < x_2$ alors $f(x_1) < f(x_2)$. <br><br>'
           texteCorr += `Par conséquent, comme $${a1}<${a2}$, alors $f(${a1}) < f(${a2})$.`
           break
         case 'type2':// parabole en U ; 2 images sur intervalle où f décroissant
@@ -96,12 +116,12 @@ export default function Variationsapartirtableau () {
             hauteurLignes: [15, 15]
           }))
 
-          texteCorr = `On observe que la fonction $f$ est décroissante sur $[${x2};${x3}]$<br>`
-          texteCorr += `On observe aussi que  $${a3}\\in[${x2};${x3}]$ et que  $${a4}\\in[${x2};${x3}]$, avec $${a3}<${a4}$<br>`
+          texteCorr = `D'après le tableau de variations, la fonction $f$ est décroissante sur $[${x2};${x3}]$, `
+          texteCorr += `  $${a3}\\in[${x2};${x3}]$,  $${a4}\\in[${x2};${x3}]$, avec $${a3}<${a4}$.<br>`
           texteCorr += 'On sait que si une fonction est décroissante sur un intervalle $[a;b]$, <br>'
           texteCorr += 'alors ses antécédents et ses images sont rangés dans l\'ordre inverse. <br>'
-          texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, <br>'
-          texteCorr += 'Si $x_1 < x_2$ alors $f(x_1) > f(x_2)$. <br>'
+          texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, '
+          texteCorr += 'si $x_1 < x_2$ alors $f(x_1) > f(x_2)$. <br><br>'
           texteCorr += `Par conséquent, comme $${a3}<${a4}$, alors $f(${a3}) > f(${a4})$.`
           break
         case 'type3':// parabole en U ; 2 images sur intervalle où f pas monotone, mais on peut répondre
@@ -128,14 +148,14 @@ export default function Variationsapartirtableau () {
             hauteurLignes: [15, 15]
           }))
 
-          texteCorr = `On observe qu'on connaît $f(${x3})=${y3}$.<br>`
-          texteCorr += `On observe aussi que  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction $f$ est croissante.<br>`
+          texteCorr = `D'après le tableau de variations, $f(${x3})=${y3}$, `
+          texteCorr += `et $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction $f$ est croissante.<br>`
           texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, <br>'
           texteCorr += 'alors ses antécédents et ses images sont rangés dans le même ordre.<br>'
-          texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, <br>'
-          texteCorr += 'Si $x_1 < x_2$ alors $f(x_1) < f(x_2)$. <br>'
+          texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, '
+          texteCorr += 'si $x_1 < x_2$ alors $f(x_1) < f(x_2)$. <br>'
           texteCorr += `Par conséquent, comme $${x1}<${a1}$, alors $f(${x1}) < f(${a1})$.`
-          texteCorr += `<br>Comme $f(${x1}) =${y1}$, on a montré que :  $f(${a1}) > ${y1}$.<br>`
+          texteCorr += `<br>Comme $f(${x1}) =${y1}$, on a montré que :  $f(${a1}) > ${y1}$.<br><br>`
           texteCorr += `On en déduit que :  $f(${a1}) > ${y1} > ${y3} > f(${x3})$.<br>`
           break
         case 'type4':// parabole en U ; 2 images sur intervalle où f pas monotone, et on ne peut pas répondre
@@ -162,14 +182,14 @@ export default function Variationsapartirtableau () {
             hauteurLignes: [15, 15]
           }))
 
-          texteCorr = `On observe qu'on connaît $f(${x3})=${y3}$.<br>`
-          texteCorr += `On observe aussi que  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction $f$ est croissante.<br>`
+          texteCorr = `D'après le tableau de variations,  $f(${x3})=${y3}$`
+          texteCorr += `et $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction $f$ est croissante.<br>`
           texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, <br>'
           texteCorr += 'alors ses antécédents et ses images sont rangés dans le même ordre.<br>'
-          texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, <br>'
-          texteCorr += 'Si $x_1 < x_2$ alors $f(x_1) < f(x_2)$. <br>'
+          texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, '
+          texteCorr += 'si $x_1 < x_2$ alors $f(x_1) < f(x_2)$. <br>'
           texteCorr += `Par conséquent, comme $${x1}<${a1}<${x2}$, alors $f(${x1})< f(${a1}) < f(${x2})$.`
-          texteCorr += `<br>On a donc montré que :  $${y1} < f(${a1}) < ${y2}$.<br>`
+          texteCorr += `<br>On a donc montré que :  $${y1} < f(${a1}) < ${y2}$.<br><br>`
           texteCorr += `Comme $f(${x3})=${y3} \\in [${y1};${y2}]$,<br>`
           texteCorr += `on ne peut pas conclure sans plus d'informations pour comparer $f(${x3})$ et $f(${a1})$.`
           break
@@ -196,10 +216,10 @@ export default function Variationsapartirtableau () {
             hauteurLignes: [15, 15]
           }))
 
-          texteCorr = `On observe aussi que  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction est croissante<br>`
+          texteCorr = `D'après le tableau de variations,  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction est croissante<br>`
           texteCorr += ` et que  $${a3}\\in[${x2};${x3}]$, intervalle sur lequel la fonction est décroissante. <br>`
-          texteCorr += `La fonction $f$ n'est donc pas monotone sur $[${a1};${a3}]$<br>`
-          texteCorr += `On ne peut donc pas utiliser les propriétés des variations de fonctions pour classer $f(${a1})$ et $f(${a3})$. <br>`
+          texteCorr += `La fonction $f$ n'est donc pas monotone sur $[${a1};${a3}]$<br><br>`
+          texteCorr += ` Le tableau de variations ne permet pas de comparer $f(${a1})$ et $f(${a3})$. <br>`
           texteCorr += '<br>On ne peut donc pas conclure sans plus d\'informations.'
           break
       }
