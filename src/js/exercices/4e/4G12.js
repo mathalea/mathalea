@@ -5,7 +5,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { mod } from 'mathjs'
 
-export const titre = 'Trouver une série de symétries axiales'
+export const titre = 'Trouver une série de transformations'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -32,7 +32,7 @@ export default function SerieDeTransformations () {
   const A = point(0, 0)
   let typeDeTransfos
   this.sup = 4
-  this.sup2 = 5
+  this.sup2 = 6
   this.sup3 = false
   const motifs = [
     polygone([point(1, 1), point(2, 1), point(2, 4), point(6, 4), point(6, 5), point(3, 5), point(3, 6), point(1, 6)]),
@@ -219,6 +219,10 @@ export default function SerieDeTransformations () {
           break
         case 4 :
           nbTransfMin = 14
+          nbTransfMax = 16
+          break
+        case 5 :
+          nbTransfMin = 16
           nbTransfMax = 18
           break
         default :
@@ -319,7 +323,7 @@ export default function SerieDeTransformations () {
         paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.7 }
         paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.5 }
       } else {
-        paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
+        paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 - mod(chemin.length - 1, 10) / 40 }
         paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.55 - mod(chemin.length - 1, 10) / 20 }
       }
       for (let k = 1, figure; k < chemin.length - 1; k++) {
@@ -340,7 +344,7 @@ export default function SerieDeTransformations () {
           : (etape === 0)
               ? `$${miseEnEvidence(etape + 1 + ')' + sp(1))}$` + texteEnCouleur(transfos[0].texte + (this.sup3 ? ',' : '.') + '<br>', 'black')
               : this.sup3
-                ? `$${miseEnEvidence(etape + 1 + ')' + sp(1))}$` + texteEnCouleur('qui' + transfos[etape].texte.substr(17) + (etape === chemin.length - 2 ? '.' : ','), etape % 2 === 0 ? 'black' : 'brown') + '<br>'
+                ? `$${miseEnEvidence(etape + 1 + ')' + sp(1))}$` + texteEnCouleur('qui' + transfos[etape].texte.substr(context.isHtml ? 17 : 13) + (etape === chemin.length - 2 ? '.' : ','), etape % 2 === 0 ? 'black' : 'brown') + '<br>'
                 : `$${miseEnEvidence(etape + 1 + ')' + sp(1))}$` + texteEnCouleur(transfos[etape].texte + '.', etape % 2 === 0 ? 'black' : 'brown') + '<br>'
         texteCorr += transfos[etape].texteCorr + '<br>'
       }
@@ -378,6 +382,6 @@ export default function SerieDeTransformations () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Types de transformations possibles', 4, '1 : Symétries axiales seulement\n2 : Symétries axiales et centrales\n3 : Symétries et translations\n4 : Symétries, translations et quarts de tour']
-  this.besoinFormulaire2Numerique = ['Nombre de transformations entre le départ et l\'arrivée', 4, '1 : 8\n2 : 10\n3 : 12\n4 : 14 ou 16\n5 : Entre 8 et 16']
+  this.besoinFormulaire2Numerique = ['Nombre de transformations entre le départ et l\'arrivée', 4, '1 : 8\n2 : 10\n3 : 12\n4 : 14\n5 : 16\n6 : Entre 8 et 16']
   this.besoinFormulaire3CaseACocher = ['Énoncés raccourcis', false]
 }
