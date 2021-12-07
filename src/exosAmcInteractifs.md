@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 383 
-- nombre d'exos interactifReady 529 
+- nombre d'exos interactifReady 530 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -280,11 +280,31 @@
 |6P13|Augmenter ou diminuer d’un pourcentage|OK|AMCHybride|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
+|CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
+|CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
+|CM002|Tables de divisions|OK|AMCNum|OK|numerique|
+|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
+|CM004|Les quatre opérations|OK|AMCNum|OK|numerique|
+|CM005|Ajouter 9|OK|AMCNum|OK|numerique|
+|CM006|Soustraire 9|OK|AMCNum|OK|numerique|
+|CM007|Ajouter 11|OK|AMCNum|OK|numerique|
+|CM008|Soustraire 11|OK|AMCNum|OK|numerique|
+|CM009|Moitié|OK|AMCNum|OK|numerique|
+|CM010|Tiers|OK|AMCNum|OK|numerique|
+|CM011|Quart|OK|AMCNum|OK|numerique|
+|CM012|Complément à 100|OK|AMCNum|OK|numerique|
+|CM013|Complément à une dizaine|OK|AMCNum|OK|numerique|
+|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|numerique|
+|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|numerique|
+|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
+|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
+|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
+|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
-|betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
+|betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
@@ -310,49 +330,50 @@
 |can1F02|Second degré variations (QCM)|KO|KO|OK|qcm|
 |can1L01|Discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
-|can2C01|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
-|can2C02|Calcul différence de deux carrés|OK|AMCNum|OK|mathLive|
-|can2C03|Calcul avec puissance|OK|AMCNum|OK|mathLive|
+|can2C01|Trouver le nombre d’entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
+|can2C02|Calculer une différence de deux carrés|OK|AMCNum|OK|mathLive|
+|can2C03|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
 |can2C04|Calculer avec les identités remarquables - simple|KO|KO|OK|mathLive|
 |can2C05|Calculer avec les identités remarquables - Guidé|KO|KO|OK|mathLive|
-|can2C06|Simplifications de racines carrées|KO|KO|OK|mathLive|
-|can2C07|Calcul avec racine carrée niveau 2|KO|KO|OK|mathLive|
-|can2C08|Calcul avec racine carrée niveau 3|KO|KO|OK|mathLive|
+|can2C06|Simplifier des racines carrées|KO|KO|OK|mathLive|
+|can2C07|Calculer avec une racine carrée|KO|KO|OK|mathLive|
+|can2C08|Calculer avec une racine carrée*|KO|KO|OK|mathLive|
 |can2C09|Calculer le "milieu" entre 1 et une fraction|KO|KO|OK|mathLive|
-|can2F01|Calcul d’une image second degré|KO|KO|OK|mathLive|
-|can2F02|Calcul d’une image avec un quotient|KO|KO|OK|mathLive|
-|can2F03|Signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
-|can2F04|Valeur interdite d’une fonction|KO|KO|OK|mathLive|
-|can2F05|Antécédent avec fonction racine carrée|KO|KO|OK|mathLive|
-|can2G01|Agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
-|can2G02|Calcul d’un côté avec Pythagore|KO|KO|OK|mathLive|
-|can2G03|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
-|can2G04|Calculs des coordonnées du milieu|KO|KO|OK|mathLive|
-|can2G05|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
-|can2G06|Coefficient directeur d'une droite|KO|KO|OK|mathLive|
-|can2G07|Coordonnées d’un vecteur 1|KO|KO|OK|mathLive|
-|can2G08|Coordonnées d’un vecteur 2|KO|KO|OK|mathLive|
-|can2G09|Vecteurs colinéaires|KO|KO|OK|mathLive|
-|can2G10|Relation de Chasles, réductions vectorielles (niveau 1) QCM|KO|KO|OK|qcm|
-|can2G11|Relation de Chasles, réductions vectorielles (niveau 2) QCM|KO|KO|OK|qcm|
-|can2G12|Vecteurs colinéaires (V/F)|KO|KO|OK|qcm|
-|can2L01|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
-|can2L02|Coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
-|can2L03|Coordonnées point d’intersection axe des abscisses/droite|KO|KO|OK|mathLive|
-|can2L04|Coordonnées point d’intersection axe des ordonnées/droite|KO|KO|OK|mathLive|
-|can2L05|Solution d’une inéquation (QCM)|KO|KO|OK|qcm|
-|can2L06|Développer avec égalités remarquables|KO|KO|OK|mathLive|
-|can2L07|Factoriser|KO|KO|OK|mathLive|
-|can2N01|Intervalles|KO|KO|OK|mathLive|
-|can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
-|can2P02|Dénombrement|KO|KO|OK|mathLive|
+|can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
+|can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
+|can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
+|can2F04|Trouver les valeurs interdites d’une fonction|KO|KO|OK|mathLive|
+|can2F05|Déterminer un antécédent avec la racine carrée|KO|KO|OK|mathLive|
+|can2G01|Déterminer un agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
+|can2G02|Calculer une longueur avec le théorème de Pythagore|KO|KO|OK|mathLive|
+|can2G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|
+|can2G04|Calculer les coordonnées du milieu|KO|KO|OK|mathLive|
+|can2G05|Calculer une distance avec les coordonnées|KO|KO|OK|mathLive|
+|can2G06|Déterminer le coefficient directeur d'une droite|KO|KO|OK|mathLive|
+|can2G07|Déterminer les coordonnées d’un vecteur|KO|KO|OK|mathLive|
+|can2G08|Déterminer les coordonnées d’un vecteur (bis)|KO|KO|OK|mathLive|
+|can2G09|Déterminer le coefficient de colinéarité entre deux vecteurs|KO|KO|OK|mathLive|
+|can2G10|Utiliser la relation de Chasles/réductions vectorielles (QCM)|KO|KO|OK|qcm|
+|can2G11|Utiliser la relation de Chasles/réductions vectorielles* (QCM)|KO|KO|OK|qcm|
+|can2G12|Reconnaître des vecteurs colinéaires (V/F)|KO|KO|OK|qcm|
+|can2G13|Calcul de la norme d’un vecteur|KO|KO|OK|mathLive|
+|can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
+|can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
+|can2L03|Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite|KO|KO|OK|mathLive|
+|can2L04|Calculer les coordonnées du point d’intersection entre l’axe des ordonnées/droite|KO|KO|OK|mathLive|
+|can2L05|Résoudre une inéquation (QCM)|KO|KO|OK|qcm|
+|can2L06|Développer avec les égalités remarquables|KO|KO|OK|mathLive|
+|can2L07|Factoriser une expression|KO|KO|OK|mathLive|
+|can2N01|Utiliser les intervalles|KO|KO|OK|mathLive|
+|can2P01|Calculer une probabilité|OK|AMCNum|OK|mathLive|
+|can2P02|Dénombrer dans une situation concrète|KO|KO|OK|mathLive|
 |can3C01|Calculer avec des puissances|OK|AMCNum|OK|mathLive|
 |can3C02|Calculer une moyenne avec des décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Rendre irréductible une fraction|OK|AMCNum|OK|mathLive|
 |can3C04|Calculer une somme entre fraction et entier|OK|AMCNum|OK|mathLive|
 |can3C05|Calculer avec  une puissance de 10|OK|AMCNum|OK|mathLive|
 |can3C06|Calculer avec des carrés/priorité opératoire|OK|AMCNum|OK|mathLive|
-|can3C07|Calculer le "milieu" entre a et b|KO|KO|OK|mathLive|
+|can3C07|Calculer l’abscisse d’un milieu|KO|KO|OK|mathLive|
 |can3C08|Calculer avec un programme de calcul|KO|KO|OK|mathLive|
 |can3C09|Calculer avec une racine carrée|KO|KO|OK|mathLive|
 |can3C10|Encadrer avec des puissances de 10|KO|KO|OK|mathLive|
@@ -506,6 +527,8 @@
 |can6P05|Appliquer un pourcentage (bis)|OK|AMCNum|OK|mathLive|
 |can6S01|Lire un diagramme en barres|OK|AMCNum|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
+|canExC01|Somme de nombres complexes|OK|AMCHybride|OK|mathLive|
+|canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|
 |canc3C01|Déterminer un nombre à partir d’une phrase|OK|AMCNum|OK|mathLive|
 |canc3C02|Calculer à partir d’une décomposition|OK|AMCNum|OK|mathLive|
 |canc3C03|Trouver le nombre dans une table de multiplication |OK|AMCNum|OK|mathLive|
@@ -521,25 +544,3 @@
 |canc3N03|Trouver le plus grand nombre entier|OK|AMCNum|OK|mathLive|
 |canc3N04|Arrondir à l'unité|OK|AMCHybride|OK|mathLive|
 |canc3N05|Calculer une somme (partie entière/décimale)|OK|AMCNum|OK|mathLive|
-|canExC01|Somme de nombres complexes|OK|AMCHybride|OK|mathLive|
-|canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|
-|CM000|Additions et de soustractions|OK|AMCNum|OK|numerique|
-|CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
-|CM002|Tables de divisions|OK|AMCNum|OK|numerique|
-|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
-|CM004|Les quatre opérations|OK|AMCNum|OK|numerique|
-|CM005|Ajouter 9|OK|AMCNum|OK|numerique|
-|CM006|Soustraire 9|OK|AMCNum|OK|numerique|
-|CM007|Ajouter 11|OK|AMCNum|OK|numerique|
-|CM008|Soustraire 11|OK|AMCNum|OK|numerique|
-|CM009|Moitié|OK|AMCNum|OK|numerique|
-|CM010|Tiers|OK|AMCNum|OK|numerique|
-|CM011|Quart|OK|AMCNum|OK|numerique|
-|CM012|Complément à 100|OK|AMCNum|OK|numerique|
-|CM013|Complément à une dizaine|OK|AMCNum|OK|numerique|
-|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|numerique|
-|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|numerique|
-|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
-|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|numerique|
-|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|numerique|
-|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
