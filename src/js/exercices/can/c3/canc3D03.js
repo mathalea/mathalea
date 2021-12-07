@@ -13,6 +13,7 @@ export default function AjouterDesDurees () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   if (!this.interactif) {
     this.question += ' .... minutes'

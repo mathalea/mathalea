@@ -1,6 +1,6 @@
 import { calcul, randint, texNombre, texteEnCouleur, choice } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Recomposer entier'
+export const titre = 'Recomposer un entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

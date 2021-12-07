@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice } from '../../../modules/outils.js'
-export const titre = 'Calcul avec racine carrée niveau 1'
+export const titre = 'Calculer avec une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -14,6 +14,7 @@ export default function CalculAvecRacineCarree1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 

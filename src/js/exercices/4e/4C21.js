@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureNombreRelatif, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
+import { context } from '../../modules/context.js'
 
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
@@ -23,6 +24,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2 // Niveau de difficulté
   this.sup2 = false // Avec ou sans relatifs
+  this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée
   this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
   this.spacing = 2
   this.spacingCorr = 2
@@ -30,6 +32,11 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
+    if (!this.sup3 && !context.isAmc) {
+      this.consigne = 'Calculer :'
+    } else {
+      this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
+    }
     this.sup = parseInt(this.sup)
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
@@ -161,8 +168,14 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
         }
         den = b
       }
-      texteCorr += `=${texFraction(num, den)}`
-      texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
+
+      if (this.sup3) {
+        texteCorr += `=${texFraction(num, den)}`
+        texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
+      } else {
+        texteCorr += `=${texFraction(num, den)}`
+        texteCorr += '$'
+      }
       // Pour l'instant pour tester je mets num et den dans reponse
 
       if (this.interactif) {
@@ -178,4 +191,5 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
+  this.besoinFormulaire3CaseACocher = ['Avec l\'écriture simplifiée de la fraction résultat']
 }

@@ -15,6 +15,7 @@ export default function AppliquerUnPourcentage () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.bis = false
   this.nouvelleVersion = function () {
@@ -47,7 +48,7 @@ export default function AppliquerUnPourcentage () {
         a = randint(2, 9, p) * 10
         this.reponse = calcul(p * a / 100)
         this.question = `$${p}\\%$ de $${a}=$`
-        if (a === 50) {
+        if (p === 50) {
           this.correction = `$50\\%$  de $${a} = ${this.reponse}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
             Prendre $50\\%$  d'une quantité revient à la diviser par $2$.<br>

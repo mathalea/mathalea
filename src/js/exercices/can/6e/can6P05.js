@@ -10,4 +10,5 @@ export const dateDePublication = '13/11/2021'
 export default function AppliquerUnPourcentageBis () {
   AppliquerUnPourcentage.call(this)
   this.bis = true
+  this.tailleDiaporama = 2
 }

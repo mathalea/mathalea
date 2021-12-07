@@ -1,7 +1,7 @@
 import { choice } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 import Fraction from '../../../modules/Fraction.js'
-export const titre = 'Agrandissement/réduction avec fraction'
+export const titre = 'Déterminer un agrandissement/réduction avec fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

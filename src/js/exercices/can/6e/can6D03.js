@@ -1,6 +1,6 @@
 import { prenomM, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Calcul de durée en minutes'
+export const titre = 'Calculer une durée en minutes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,6 +14,7 @@ export const amcType = 'AMCNum'
 export default function CalculDureeMinutes () {
   Exercice.call(this)
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: ' minutes' }

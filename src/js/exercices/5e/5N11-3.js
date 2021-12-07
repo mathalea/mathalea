@@ -1,6 +1,12 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texNombre, choice, calcul } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Écrire une fraction sur 100 puis sous la forme d’un pourcentage'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcType = 'AMCNum'
+export const amcReady = true
 
 /**
  * Une fraction étant donnée, il faut l'écrire avec 100 au dénominateur puis donner son écriture sous forme de pourcentage.
@@ -25,7 +31,7 @@ export default function FractionVersPourcentage () {
 
     const typeDeDenominateurs = [10, 20, 50, 1000, 2, 4, 5, 200] // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typeDeDenominateurs, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, den, num, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, percenti, den, num, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       den = listeTypeDeQuestions[i]
       if (den === 2) {
@@ -37,13 +43,14 @@ export default function FractionVersPourcentage () {
       } else {
         num = randint(1, den - 1)
       }
-      texte = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{\\phantom{XXXXXX}}{}=\\dfrac{}{100}=\\ldots\\ldots\\%$`
+      percenti = calcul(num * 100 / den)
+      texte = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{\\phantom{XXXXXX}}{}=\\dfrac{}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
       if (den < 100) {
-        texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${calcul(100 / den)}}}{${den}{\\color{blue}\\times${calcul(100 / den)}}}=\\dfrac{${calcul(num * 100 / den)}}{100}=${calcul(num * 100 / den)}~\\%$`
+        texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${calcul(100 / den)}}}{${den}{\\color{blue}\\times${calcul(100 / den)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
       } else {
-        texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${calcul(den / 100)}}}{${den}{\\color{blue}\\div${calcul(den / 100)}}}=\\dfrac{${calcul(num * 100 / den)}}{100}=${calcul(num * 100 / den)}~\\%$`
+        texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${calcul(den / 100)}}}{${den}{\\color{blue}\\div${calcul(den / 100)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
       }
-
+      setReponse(this, i, percenti, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

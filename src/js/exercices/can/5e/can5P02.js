@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { calcul, choice, texNombrec, randint, texNombre, texFractionReduite, texteEnCouleur } from '../../../modules/outils.js'
-export const titre = 'Pourcentage (proportion) 2'
+export const titre = 'Déterminer (ou calculer avec) un pourcentage de proportion'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,6 +15,7 @@ export default function PoucentageP2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur25 inline'
   this.nouvelleVersion = function () {
     const listeCarac = [['filles', 'Elles'], ['garçons', 'Ils'], ['sportifs', 'Ils'], ['musiciens', 'Ils']]

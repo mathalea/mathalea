@@ -51,7 +51,7 @@ export default function ExerciceComparerQuatreFractions () {
       n1 = randint(1, 10)
       n2 = randint(1, 10)
       n3 = randint(1, 10)
-      n4 = choice([d4 + randint(1, 3), d4 * 2 + randint(1, 2)], randint(1, 10))
+      n4 = choice([d4 + randint(1, 3), d4 * 2 + randint(1, 2), randint(1, 10)])
       // [num,den,calcul de mise au même dénominateur, num qui correspond au denominateur commun]
       while (((n1 / d1 - n2 / d2) * (n1 / d1 - n3 / d3) * (n1 / d1 - n4 / d4) * (n2 / d2 - n3 / d3) * (n2 / d3 - n4 / d4) * (n3 / d3 - n4 / d4) < 0.1) || (n1 % d1 === 0) || (n2 % d2 === 0) || (n3 % d3 === 0) || (n4 % d4 === 0)) {
         n1 = randint(1, 11)

@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, calcul, choice, ecritureParentheseSiNegatif, abs } from '../../../modules/outils.js'
-export const titre = 'Calcul divers avec carrés/priorité opératoire'
+export const titre = 'Calculer avec des carrés/priorité opératoire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,6 +16,7 @@ export default function CalculDivers1 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c

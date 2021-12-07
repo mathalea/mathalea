@@ -1,6 +1,6 @@
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Recomposer entier moins simple'
+export const titre = 'Recomposer un entier*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,6 +15,7 @@ export default function RecomposerEntierMoinsSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(20, 70)

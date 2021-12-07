@@ -2,7 +2,7 @@ import { context } from '../../../modules/context'
 import { propositionsQcm } from '../../../modules/gestionInteractif'
 import { choice, exposant, listeQuestionsToContenu, randint, texNombrec } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Question d\'aires'
+export const titre = 'Comparer des aires (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -16,7 +16,7 @@ export const amcType = 'qcmMono'
 export default function QuestionDAires () {
   Exercice.call(this)
   this.nbQuestions = 1
-
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []

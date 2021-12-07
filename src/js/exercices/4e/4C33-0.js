@@ -135,7 +135,8 @@ export default function NotationPuissance () {
           break
       }
       if (this.interactif) { // Si l'exercice est interactif
-        texte += ajouteChampTexteMathLive(this, i, 'inline')
+        if (listeTypeDeQuestions[i] === 'produit') texte += ajouteChampTexteMathLive(this, i, 'inline fixed-width-400')
+        if (listeTypeDeQuestions[i] === 'puissance') texte += ajouteChampTexteMathLive(this, i, 'inline fixed-width-150')
       }
 
       // Si la question n'a jamais été posée, on l'enregistre

@@ -1,47 +1,48 @@
-import { calcul, choice, randint, texNombre } from '../../../modules/outils'
+import { calcul, choice, randint, texNombrec } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Position des chiffres'
+export const titre = 'Déterminer le nombre de centaines, dizaines'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-
+export const dateDePublication = '02/12/2021'
 /*!
- * Jean-Claude Lhote
- * Publié le 11 / 09 / 2021
+ * Gilles Mora
+ * Publié le 02 / 12 / 2021
  * Référence can6N06
  */
-export default function PositionDesChiffres () {
+export default function NombreDeDizaines () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.consigne = ''
 
   this.nouvelleVersion = function () {
-    const a = randint(1, 2)
+    const a = randint(0, 4)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
     const d = randint(1, 9, [a, b, c])
-    const e = randint(1, 9, [a, b, c, d])
-    const f = randint(1, 9, [a, b, c, d, e])
-    const m = choice(['dizaines', 'dixièmes', 'centièmes', 'millièmes'])
-    const n = calcul(a * 100 + b * 10 + c + d * 0.1 + e * 0.01 + f * 0.001)
-    this.question = `Dans $${texNombre(n)}$ quel est le chiffre des ${m} ? `
-    if (m === 'dizaines') {
-      this.correction = `Le chiffre des ${m} est $${b}$.`
-      this.reponse = b
-    } if (m === 'dixièmes') {
-      this.correction = `Le chiffre des ${m} est $${d}$.`
-      this.reponse = d
-    }
-    if (m === 'centièmes') {
-      this.correction = `Le chiffre des ${m} est $${e}$.`
-      this.reponse = e
-    }
-    if (m === 'millièmes') {
-      this.correction = `Le chiffre des ${m} est $${f}$.`
-      this.reponse = f
+    const m = choice(['centaines', 'dizaines'])
+    const n = calcul(a * 1000 + b * 100 + c * 10 + d)
+    this.question = `Combien y a-t-il de ${m} dans $${texNombrec(n)}$ ? `
+    if (a !== 0) {
+      if (m === 'centaines') {
+        this.correction = `Comme $${a * 1000 + b * 100 + c * 10 + d}=${a * 10 + b}\\times 100+${c * 10 + d}$, il y a $${a * 10 + b}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
+        this.reponse = a * 10 + b
+      } if (m === 'dizaines') {
+        this.correction = `Comme $${a * 1000 + b * 100 + c * 10 + d}=${a * 100 + b * 10 + c}\\times 10+${d}$, il y a $${a * 100 + b * 10 + c}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
+        this.reponse = a * 100 + b * 10 + c
+      }
+    } else {
+      if (m === 'centaines') {
+        this.correction = `Comme  $${b * 100 + c * 10 + d}=${b}\\times 100+${c * 10 + d}$, il y a $${b}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
+        this.reponse = b
+      } if (m === 'dizaines') {
+        this.correction = `Comme $${b * 100 + c * 10 + d}=${b * 10 + c}\\times 10+${d}$, il y a $${b * 10 + c}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
+        this.reponse = b * 10 + c
+      }
     }
   }
 }

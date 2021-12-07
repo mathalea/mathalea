@@ -1,7 +1,7 @@
 import { mathalea2d, repere2, traceBarreHorizontale } from '../../../modules/2d'
 import { prenom, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Lecture de diagramme en barres'
+export const titre = 'Lire un diagramme en barres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -49,7 +49,7 @@ export default function LectureDiagrammeBarre () {
       traceBarreHorizontale(c, 4, valeurs[n][2][2], { epaisseur: 1, couleurDeRemplissage: 'green', hachures: true }))
     this.reponse = a + b + c
     this.question = `${quidam} a compté les ${valeurs[n][0]} dans ${valeurs[n][1]}. Les effectifs sont représentés sur le diagramme ci-dessous.<br>`
-    this.question += mathalea2d({ xmin: -3, xmax: 17, ymin: -2, ymax: 6, scale: 0.5 }, objets)
+    this.question += mathalea2d({ xmin: -3, xmax: 17, ymin: -1, ymax: 6, scale: 0.5 }, objets)
     this.question += `<br> Combien y a-t-il de ${valeurs[n][0]} en tout ?`
     this.correction = `Il y a $${a}+${b}+${c} = ${this.reponse}$ ${valeurs[n][0]} en tout.`
   }

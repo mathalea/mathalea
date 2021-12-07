@@ -1,6 +1,6 @@
 import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Multiplier nombre pair par 5'
+export const titre = 'Multiplier un nombre pair par 5'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,7 +14,7 @@ export const amcType = 'AMCNum'
 export default function NombrePairFois5 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.tailleDiaporama = 5
+  this.tailleDiaporama = 2
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {

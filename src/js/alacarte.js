@@ -9,7 +9,7 @@
  @example   http://coopmaths.fr/alacarte
 */
 
-import { telechargeFichier, introLatex, introLatexCoop } from './modules/outils.js'
+import { telechargeFichier, introLatex, introLatexCoop, exerciceSimpleToContenu } from './modules/outils.js'
 import dictionnaireDesExercicesAleatoires from './modules/dictionnaireDesExercicesAleatoires'
 import { dictionnaireC3 } from './modules/dictionnaireC3.js'
 import { dictionnaireDNB } from './modules/dictionnaireDNB.js'
@@ -170,6 +170,9 @@ function item_to_contenu (txt) {
     exercice_aleatoire.id = idExerciceMathALEA
     if (exercice_aleatoire.typeExercice !== 'dnb') {
       exercice_aleatoire.nouvelleVersion()
+    }
+    if (exercice_aleatoire.typeExercice === 'simple') {
+      exerciceSimpleToContenu(exercice_aleatoire)
     }
     codeLatex += `\n\n%%% ${e} : Exercice aléatoire - ${exercice_aleatoire.titre}%%%\n\n`
     codeLatex += exercice_aleatoire.contenu + '\n\n'

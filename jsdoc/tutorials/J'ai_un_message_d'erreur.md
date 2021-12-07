@@ -69,3 +69,17 @@ Ce n'est pas un message d'erreur ! Il vous dit juste que ça c'est bien passé !
 **Solution :**
 * Lancer
     * `git pull origin nomDeLaBranche` dans un terminal
+
+---
+**<a id="6" href="#6">#</a> Message d'erreur :**
+
+![](img/Erreur-5.png)
+
+**Description de l'erreur :**
+* Vous avez lancé un `pnpm i` (par exemple lors de la première installation)
+* Il y a un souci avec le serveur de certificats de votre système Linux
+
+**Solution :**
+* Lancer
+    * `sudo apt-get install --reinstall ca-certificates` dans un terminal
+    * puis à nouveau `pnpm i`

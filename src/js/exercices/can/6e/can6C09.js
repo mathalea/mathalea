@@ -15,13 +15,14 @@ export default function SoustraireX9 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(5, 9)
     const b = randint(1, 8)
     const c = randint(1, 4)
     this.reponse = calcul(a * 10 + b - c * 10 - 9)
-    this.question = `$${a * 10 + b} - ${c * 10 + 9}$`
+    this.question = `$${a * 10 + b} - ${c * 10 + 9}=$`
     this.correction = `$${a * 10 + b} - ${c * 10 + 9}= ${this.reponse}$`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Soustraire $${c * 10 + 9}$ revient à soustraire $${c * 10 + 10}$, puis à ajouter $1$.<br>

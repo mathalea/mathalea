@@ -154,7 +154,6 @@ function verifQuestionMathLive (exercice, i) {
         saisie = saisie.toString().replace(',', '.')
         reponse = reponse.replace(',', '.')
       }
-      console.log(saisie, engine.canonical(parse(saisie)), reponse, engine.canonical(parse(reponse)))
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         saisie = saisie.split('\\times')
         if (number(saisie[0]) >= 1 & number(saisie[0]) < 10) { resultat = 'OK' }
@@ -229,7 +228,7 @@ function verifQuestionMathLive (exercice, i) {
       if (grandeurSaisie) {
         if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
       } else {
-        resultat = 'essaieEncore'
+        resultat = 'essaieEncoreLongueur'
       }
       // Pour les exercice où la saisie doit être dans un intervalle
     } else if (formatInteractif === 'intervalleStrict') {
@@ -239,31 +238,98 @@ function verifQuestionMathLive (exercice, i) {
       const nombreSaisi = Number(saisie.replace(',', '.'))
       if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
     } else if (formatInteractif === 'puissance') {
-      const nombreSaisi = saisie.split('^')
-      const mantisseSaisie = nombreSaisi[0]
-      const expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : ''
-      const nombreAttendu = reponse.split('^')
-      const mantisseReponse = nombreAttendu[0]
-      const expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
-      if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
-        resultat = 'OK'
+      let nombreSaisi, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
+      // formatOK et formatKO sont deu x variables globale,
+      // sinon dans le cas où reponses est un tableau, la valeur n'est pas conservée d'un tour de boucle sur l'autre
+      // eslint-disable-next-line no-var
+      var formatOK, formatKO
+      if (saisie.indexOf('^') !== -1) {
+        nombreSaisi = saisie.split('^')
+        mantisseSaisie = nombreSaisi[0]
+        expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : ''
+        nombreAttendu = reponse.split('^')
+        mantisseReponse = nombreAttendu[0]
+        expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
+        if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
+          formatOK = true
+        }
+        // gérer le cas mantisse négative a et exposant impair e, -a^e est correct mais pas du format attendu
+        // si la mantisse attendue est négative on nettoie la chaine des parenthèses
+        if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && expoReponse % 2 === 1) {
+          if ((saisie === `${mantisseReponse.replace(/[()]/g, '')}^{${expoReponse}}`) || (saisie === `${mantisseReponse.replace(/[()]/g, '')}^${expoReponse}`)) {
+            formatKO = true
+          }
+        }
+        // si l'exposant est négatif, il se peut qu'on ait une puissance au dénominateur
+        if (parseInt(expoReponse) < 0) {
+          // Si la mantisse est positive
+          if ((saisie === `\\frac{1}{${parseInt(mantisseReponse)}^{${-expoReponse}}`) || (saisie === `\\frac{1}{${parseInt(mantisseReponse)}^${-expoReponse}}`)) {
+            formatKO = true
+          }
+        }
       } else {
-        resultat = 'KO'
+        // Dans tous ces cas on est sûr que le format n'est pas bon
+        // Toutefois la valeur peu l'être donc on vérifie
+        nombreSaisi = saisie
+        nombreAttendu = reponse.split('^')
+        mantisseReponse = nombreAttendu[0]
+        expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
+        if (parseInt(expoReponse) < 0) {
+          // Si la mantisse est positive
+          if (nombreSaisi === `\\frac{1}{${mantisseReponse ** (-expoReponse)}}`) {
+            formatKO = true
+          }
+          // Si elle est négative, le signe - peut être devant la fraction ou au numérateur  ou au dénominateur
+          if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && ((-expoReponse) % 2 === 1)) {
+            if ((nombreSaisi === `-\\frac{1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{-1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{1}{-${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`)) {
+              formatKO = true
+            }
+          }
+        }
+        if (parseInt(expoReponse) > 0) {
+          if (nombreSaisi === `${mantisseReponse ** (expoReponse)}`) {
+            formatKO = true
+          }
+        }
+        if (parseInt(expoReponse) === 0) {
+          if (nombreSaisi === '1') {
+            formatKO = true
+          }
+        }
       }
+      if (formatOK) {
+        resultat = 'OK'
+      }
+      if (formatKO) {
+        resultat = 'essaieEncorePuissance'
+      }
+      // if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
+      //   resultat = 'OK'
+      // } else {
+      //   resultat = 'KO'
+      // }
     }
   }
   if (resultat === 'OK') {
     spanReponseLigne.innerHTML = '😎'
     spanReponseLigne.style.fontSize = 'large'
-  } else if (resultat === 'essaieEncore') {
+  } else if (resultat === 'essaieEncoreLongueur') {
     spanReponseLigne.innerHTML = '<em>Il faut saisir une longueur et une unité (cm par exemple).</em>'
+    spanReponseLigne.style.color = '#f15929'
+    spanReponseLigne.style.fontWeight = 'bold'
+  } else if (resultat === 'essaieEncorePuissance') {
+    spanReponseLigne.innerHTML = '<br><em>Attention, la réponse est mathématiquement correcte mais n\'a pas le format demandé.</em>'
     spanReponseLigne.style.color = '#f15929'
     spanReponseLigne.style.fontWeight = 'bold'
   } else {
     spanReponseLigne.innerHTML = '☹️'
     spanReponseLigne.style.fontSize = 'large'
   }
-  if (resultat !== 'essaieEncore') champTexte.readOnly = true
+  if (resultat !== 'essaieEncoreLongueur') champTexte.readOnly = true
+
+  // console.log('rep : ' + reponses)
+  // console.log('saisie : ' + saisie)
+
   return resultat
 }
 
@@ -360,9 +426,9 @@ function verifQuestionListeDeroulante (exercice, i) {
   return resultat
 }
 
-export const choixDeroulant = (exercice, i, c, choix) => {
+export const choixDeroulant = (exercice, i, c, choix, type = 'nombre') => {
   let result = `<select class="ui fluid dropdown ex${exercice.numeroExercice}" id="ex${exercice.numeroExercice}Q${i}" data-choix="${c}">
-    <option> Choisir un nombre</option>`
+    <option> Choisir ${type === 'nombre' ? 'un nombre' : 'une réponse'} </option>`
   for (const a of choix) {
     result += `<option>${a}</option>`
   }
@@ -876,39 +942,38 @@ export function exerciceNonInteractif (exercice) {
       gestionCan(exercice)
     }
 
-    const divAffichageExo = document.querySelector(`#exercice${exercice.numeroExercice}`)
+    if (getVueFromUrl() === 'eval') {
+      const divAffichageExo = document.querySelector(`#exercice${exercice.numeroExercice}`)
 
-    let button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
-    if (!button) {
-      button = addElement(divAffichageExo, 'button', { className: 'ui button checkReponses', id: `#btnValidationEx${exercice.numeroExercice}-${exercice.id}` })
-    }
-    button.innerHTML = 'Voir la correction pour s\'auto-corriger'
-    button.style.margin = '1em'
+      const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
+      button.innerHTML = 'Voir la correction pour s\'auto-corriger'
+      button.style.margin = '1em'
 
-    let divMsg = document.querySelector('#msgExNonIteractif')
-    if (!divMsg) divMsg = addElement(divAffichageExo, 'div', { className: '', id: 'msgExNonIteractif' })
-    divMsg.innerHTML = 'Cet exercice n’est pas interactif, faites-le au brouillon avant de vous auto-corriger.'
-    divMsg.style.color = '#f15929'
-    divMsg.style.fontWeight = 'bold'
-    divMsg.style.fontSize = 'x-large'
-    divMsg.style.display = 'block'
-    divMsg.style.margin = '1em'
+      let divMsg = document.querySelector(`#msgExNonIteractif${exercice.numeroExercice}-${exercice.id}`)
+      if (!divMsg) divMsg = addElement(divAffichageExo, 'div', { className: '', id: `msgExNonIteractif${exercice.numeroExercice}-${exercice.id}` })
+      divMsg.innerHTML = 'Cet exercice n’est pas interactif, faites-le au brouillon avant de vous auto-corriger.'
+      divMsg.style.color = '#f15929'
+      divMsg.style.fontWeight = 'bold'
+      divMsg.style.fontSize = 'x-large'
+      divMsg.style.display = 'block'
+      divMsg.style.margin = '1em'
 
-    if (button) {
-      if (!button.hasMathaleaListener) {
-        button.addEventListener('click', event => {
-          // Ici on met 1 bonne réponse dans tous les cas car les exos ne sont pas interactifs
-          // Cela signifie que l'exo a été visualisé
-          // À améliorer pour l'enregistrement dans le fichier de scores
-          const nbBonnesReponses = 1
-          const nbMauvaisesReponses = 0
-          const besoinDe2eEssai = false
-          if (!besoinDe2eEssai) {
-            button.classList.add('disabled')
-            afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
-          }
-        })
-        button.hasMathaleaListener = true
+      if (button) {
+        if (!button.hasMathaleaListener) {
+          button.addEventListener('click', event => {
+            // Ici on met 1 bonne réponse dans tous les cas car les exos ne sont pas interactifs
+            // Cela signifie que l'exo a été visualisé
+            // À améliorer pour l'enregistrement dans le fichier de scores
+            const nbBonnesReponses = 1
+            const nbMauvaisesReponses = 0
+            const besoinDe2eEssai = false
+            if (!besoinDe2eEssai) {
+              button.classList.add('disabled')
+              afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
+            }
+          })
+          button.hasMathaleaListener = true
+        }
       }
     }
   })

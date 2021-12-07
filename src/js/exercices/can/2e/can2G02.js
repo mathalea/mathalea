@@ -3,7 +3,7 @@ import { randint, calcul, creerNomDePolygone, texNombrec } from '../../../module
 import {
   mathalea2d, point, texteParPosition, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit
 } from '../../../modules/2d.js'
-export const titre = 'Calcul d’un côté avec Pythagore'
+export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -36,11 +36,11 @@ export default function CalculCotePythagore () {
 
     objets.push(pol[0], pol[1], codageAngleDroit(A, B, C)) // pol[0], c'est le tracé et pol[1] ce sont les labels
     objets.push(texteParPosition(`${texNombrec(b)}`, milieu(A, C).x + 0.2, milieu(A, C).y - 0.3, 'milieu', 'black', 1, 'middle', true),
-      texteParPosition(`${texNombrec(a)}`, milieu(A, B).x - 0.5, milieu(A, B).y, 'milieu', 'black', 1, 'middle', true),
-      texteParPosition('x', milieu(B, C).x, milieu(B, C).y + 0.5, 'milieu', 'black', 1, 'middle', true)
+      texteParPosition(`${texNombrec(a)}`, milieu(A, B).x - 0.3, milieu(A, B).y, 'milieu', 'black', 1, 'middle', true),
+      texteParPosition('x', milieu(B, C).x, milieu(B, C).y + 0.3, 'milieu', 'black', 1, 'middle', true)
     )
     this.question = 'Sur cette figure $x=\\sqrt{a}$ avec $a=$<br>'
-    this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.7 }, objets)
+    this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.3, scale: 0.7, style: 'margin: auto' }, objets)
     this.correction = ` En utilisant le théorème de Pythagore, on a :<br>
         $${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2=${nom[0]}${nom[2]}^2$, soit
         $${nom[1]}${nom[2]}^2=${nom[0]}${nom[2]}^2-${nom[0]}${nom[1]}^2$. <br>

@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { choice, extraireRacineCarree } from '../../../modules/outils.js'
-export const titre = 'Simplifications de racines carrées'
+export const titre = 'Simplifier des racines carrées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

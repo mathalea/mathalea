@@ -1,6 +1,6 @@
 import { calcul, choice, randint, texNombre } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Compléments'
+export const titre = 'Trouver le nombre manquant dans une somme'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,6 +15,8 @@ export default function DoubleOuBienMoitie () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b
     if (choice([true, false])) { // décimal ou entier ?
