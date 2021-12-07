@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, ecritureParentheseSiNegatif, creerNomDePolygone, texteEnCouleur } from '../../../modules/outils.js'
-export const titre = 'Calcul d’une distance dans un repère'
+export const titre = 'Calculer une distance avec les coordonnées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

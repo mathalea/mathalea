@@ -2,7 +2,7 @@ import { fraction } from '../../../modules/fractions'
 import Exercice from '../../Exercice.js'
 import { randint, rienSi1, ecritureParentheseSiNegatif, choice, texteEnCouleur, reduireAxPlusB, sp, listeQuestionsToContenuSansNumero } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/gestionInteractif.js'
-export const titre = 'Signe d’une fonction affine (V/F)'
+export const titre = 'Déterminer le signe d’une fonction affine (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

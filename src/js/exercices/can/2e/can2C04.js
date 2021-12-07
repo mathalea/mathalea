@@ -15,6 +15,7 @@ export default function identitesCalculs2e () {
   identitesCalculs.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.can = true
   this.canVersion = 'v1'

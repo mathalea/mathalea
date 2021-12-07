@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, texteEnCouleur, ecritureParentheseSiNegatif, randint, choice, calcul } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/gestionInteractif.js'
-export const titre = 'Vecteurs colinéaires (V/F)'
+export const titre = 'Reconnaître des vecteurs colinéaires (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -30,7 +30,7 @@ export default function VecteursColineairesVF () {
         k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
         vx = k * ux
         vy = k * uy
-        texte = `Dans un repère du plan, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
+        texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
         Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
         this.autoCorrection[0] = {
           enonce: texte,
@@ -71,7 +71,7 @@ export default function VecteursColineairesVF () {
         k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
         ux = k * vx
         uy = k * vy
-        texte = `Dans un repère du plan, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
+        texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
         Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
         this.autoCorrection[0] = {
           enonce: texte,
@@ -113,7 +113,7 @@ export default function VecteursColineairesVF () {
         k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
         vx = k * ux
         vy = k * uy + 1
-        texte = `Dans un repère du plan, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
+        texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
             Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
         this.autoCorrection[0] = {
           enonce: texte,
@@ -155,7 +155,7 @@ export default function VecteursColineairesVF () {
         k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
         vx = k * ux + 1
         vy = k * uy
-        texte = `Dans un repère du plan, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
+        texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
             Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
         this.autoCorrection[0] = {
           enonce: texte,
@@ -196,7 +196,7 @@ export default function VecteursColineairesVF () {
         k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
         vx = k * ux
         vy = k * uy * (-1)
-        texte = `Dans un repère du plan, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
+        texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
             Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
         this.autoCorrection[0] = {
           enonce: texte,

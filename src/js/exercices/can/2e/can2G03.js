@@ -3,7 +3,7 @@ import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../.
 import {
   mathalea2d, point, texteParPosition, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude
 } from '../../../modules/2d.js'
-export const titre = 'Calcul de l’hypoténuse avec Pythagore'
+export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -41,7 +41,7 @@ export default function CalculHypotenusePythagore () {
           texteParPosition(`${texNombrec(b)}`, milieu(B, C).x + 0.2, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true)
         )
         this.question = 'Sur cette figure $x=\\sqrt{a}$ avec $a=$<br>'
-        this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.7 }, objets)
+        this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 22, mainlevee: false, amplitude: 0.3, scale: 0.7, style: 'margin: auto' }, objets)
         this.correction = ` En utilisant le théorème de Pythagore, on a :<br>
         $${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2=${nom[0]}${nom[2]}^2$, soit
         $${a}^2+${b}^2=x^2$, d'où $x=\\sqrt{${a}^2+${b}^2}=\\sqrt{${a ** 2 + b ** 2}}$

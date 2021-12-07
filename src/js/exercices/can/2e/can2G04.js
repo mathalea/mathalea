@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texNombrec, ecritureParentheseSiNegatif, texteEnCouleur, creerNomDePolygone } from '../../../modules/outils.js'
-export const titre = 'Calculs des coordonnées du milieu'
+export const titre = 'Calculer les coordonnées du milieu'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

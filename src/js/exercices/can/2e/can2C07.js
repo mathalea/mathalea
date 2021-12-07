@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { extraireRacineCarree, choice } from '../../../modules/outils.js'
-export const titre = 'Calcul avec racine carrée niveau 2'
+export const titre = 'Calculer avec une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
