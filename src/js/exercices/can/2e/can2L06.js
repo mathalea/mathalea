@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice } from '../../../modules/outils.js'
-export const titre = 'Développer avec égalités remarquables'
+export const titre = 'Développer avec les égalités remarquables'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '25/10/2021'
@@ -22,13 +22,13 @@ export default function DevelopperEgalitesRemarquables () {
     const b = randint(2, 5)
     switch (choice([1, 2, 3, 4, 5, 6])) {
       case 1 :
-        this.question = ` Développer $(${inconnue}+${a})^2$.` // (x+a)²
+        this.question = ` Développer $(${inconnue}+${a})^2$` // (x+a)²
         this.correction = `On utilise l'égalité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $a=${inconnue}$ et $b=${a}$.<br>
       $(${inconnue}+${a})^2=${inconnue}^2+2 \\times ${a} \\times ${inconnue}+${a}^2=${inconnue}^2+${2 * a}${inconnue}+${a * a}$`
         this.reponse = [`${inconnue}^2+${2 * a}${inconnue}+${a * a}`]
         break
       case 2 :
-        this.question = ` Développer $(${inconnue}-${a})^2$.` // (x-a)²
+        this.question = ` Développer $(${inconnue}-${a})^2$` // (x-a)²
         this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=${inconnue}$ et $b=${a}$.<br>
       $(${inconnue}+${a})^2=${inconnue}^2-2 \\times ${a} \\times ${inconnue}+${a}^2=${inconnue}^2-${2 * a}${inconnue}+${a * a}$`
         this.reponse = [`${inconnue}^2-${2 * a}${inconnue}+${a * a}`]

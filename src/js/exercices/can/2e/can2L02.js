@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, ecritureParentheseSiNegatif, texNombrec, reduireAxPlusB, texteCentre, listeQuestionsToContenuSansNumero, sp } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
-export const titre = 'Coordonnées d’un point sur une droite'
+export const titre = 'Calculer les coordonnées d’un point sur une droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

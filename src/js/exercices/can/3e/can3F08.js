@@ -1,8 +1,8 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions'
-import { randint, texFraction, miseEnEvidence, abs, ecritureAlgebrique, texFractionReduite, egal, calcul } from '../../../modules/outils.js'
+import { randint, texFraction, miseEnEvidence, abs, ecritureAlgebrique, texFractionReduite, egal, calcul, texteCentre } from '../../../modules/outils.js'
 import { mathalea2d, repere2, texteParPosition, segment, droite } from '../../../modules/2d.js'
-export const titre = 'Lecture graphique fonction affine niveau 2'
+export const titre = 'Lire graphiquement une fonction affine*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -22,7 +22,7 @@ export default function LectureGraphiqueFonctionAffine2 () {
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'calcul'
   this.nouvelleVersion = function () {
-    const o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)
+    const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
     let s1, s2, t
     const a = randint(-5, 5, [0, 4]) // numérateut coefficient directeur non nul
     const b = randint(-2, 2) // ordonnée à l'origine
@@ -33,22 +33,28 @@ export default function LectureGraphiqueFonctionAffine2 () {
 
     c.color = 'red'
     c.epaisseur = 2
-    this.question = 'La droite ci-dessous représente une fonction affine $f$.<br>'
+    this.question = '$f$ est une fonction affine définie par $f(x)=...$<br>'
     this.question += `${mathalea2d({
         xmin: -7,
         ymin: -7,
         xmax: 7,
-        ymax: 7
-        }, r, c, o)}<br>Compléter : $f(x)=$`// On trace le graphique
+        ymax: 7,
+pixelsParCm: 15,
+scale: 0.6,
+style: 'margin: auto'
+        }, r, c, o)}`// On trace le graphique
 
     this.reponse = [`${texFractionReduite(a, d)}x${ecritureAlgebrique(b)}`]
     if (egal(a * 1000 / d, Math.round(a * 1000 / d))) {
       this.reponse.push(`${calcul(a / d)}x${ecritureAlgebrique(b)}`)
     }
-    this.correction = `<br>$f$ est une fonction affine. On en déduit que son écriture algébrique est de la forme 
-    $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale) et $b$ l'ordonnée à l'origine.<br>L'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées) est $b=${b}$.<br>Le coefficient directeur de la droite est donné  par $a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=
-    ${texFraction(miseEnEvidence(a, 'red'), miseEnEvidence(d, 'green'))}$.<br>  `
-
+    this.correction = `<br> $f$ est de la forme 
+    $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale) 
+    et $b$ l'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées).<br>
+    L'ordonnée à l'origine  est $b=${b}$ et :`
+    this.correction += texteCentre(`$a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=
+    ${texFraction(miseEnEvidence(a, 'red'), miseEnEvidence(1, 'green'))}=${a}$`)
+    this.correction += `On en déduit que la fonction $f$ est définie par : $f(x)=${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(b)}$.`
     if (a > 0) {
       s1 = segment(0, b - a, -d, b - a, 'green')
       s2 = segment(0, b - a, 0, b, 'red')
@@ -66,10 +72,11 @@ export default function LectureGraphiqueFonctionAffine2 () {
         xmin: -7,
         ymin: -7,
         xmax: 7,
-        ymax: 7
-
+        ymax: 7,
+        pixelsParCm: 15,
+        scale: 0.6,
+        style: 'margin: auto'
         }, r, s1, s2, t, c, o)}`
     }// On trace le graphique
-    this.correction += `On en déduit que la fonction $f$ est définie par : $f(x)=${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(b)}$.`
   }
 }

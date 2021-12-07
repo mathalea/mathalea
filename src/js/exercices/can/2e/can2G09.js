@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, sp } from '../../../modules/outils.js'
-export const titre = 'Vecteurs colinéaires'
+export const titre = 'Déterminer le coefficient de colinéarité entre deux vecteurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

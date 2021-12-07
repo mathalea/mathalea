@@ -3,7 +3,7 @@ import { choice, creerNomDePolygone, randint } from '../../../modules/outils.js'
 import {
   mathalea2d, point, segment, polygoneAvecNom, codageAngleDroit, rotation, afficheLongueurSegment, pointAdistance, similitude
 } from '../../../modules/2d.js'
-export const titre = 'Trigonométrie'
+export const titre = 'Utiliser la trigonométrie'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -46,18 +46,19 @@ export default function Trigo () {
       case 'a':
 
         this.question = `$\\cos\\widehat{${nom[2]}}=$<br>
-        (Sous forme d'une fraction irréductible)`
+        (Sous forme d'une fraction irréductible)<br>`
         this.question += mathalea2d({
           xmin: xmin,
           ymin: ymin,
           xmax: xmax,
           ymax: ymax,
-          pixelsParCm: 200 / c,
+          pixelsParCm: 170 / c,
           mainlevee: false,
           amplitude: 0.5,
-          scale: 0.7
+          scale: 0.7,
+          style: 'margin: auto'
         }, objets)
-        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : 
+        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : <br>
         $\\cos\\widehat{${nom[2]}}=\\dfrac{\\text{Côté adjacent à } \\widehat{${nom[2]}}}{\\text{Hypoténuse}}=\\dfrac{${b}}{${c}}.$
       <br>`
 
@@ -66,18 +67,19 @@ export default function Trigo () {
       case 'b':
 
         this.question = `$\\sin\\widehat{${nom[2]}}=$<br>
-        (Sous forme d'une fraction irréductible)`
+        (Sous forme d'une fraction irréductible)<br>`
         this.question += mathalea2d({
           xmin: xmin,
           ymin: ymin,
           xmax: xmax,
           ymax: ymax,
-          pixelsParCm: 200 / c,
+          pixelsParCm: 170 / c,
           mainlevee: false,
           amplitude: 0.5,
-          scale: 0.7
+          scale: 0.7,
+          style: 'margin: auto'
         }, objets)
-        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : 
+        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : <br>
         $\\sin\\widehat{${nom[2]}}=\\dfrac{\\text{Côté opposé à } \\widehat{${nom[2]}}}{\\text{Hypoténuse}}=\\dfrac{${a}}{${c}}.$
       <br>`
 
@@ -86,18 +88,19 @@ export default function Trigo () {
       case 'c':
 
         this.question = `$\\tan\\widehat{${nom[2]}}=$<br>
-        (Sous forme d'une fraction irréductible)`
+        (Sous forme d'une fraction irréductible)<br>`
         this.question += mathalea2d({
           xmin: xmin,
           ymin: ymin,
           xmax: xmax,
           ymax: ymax,
-          pixelsParCm: 200 / c,
+          pixelsParCm: 170 / c,
           mainlevee: false,
           amplitude: 0.5,
-          scale: 0.7
+          scale: 0.7,
+          style: 'margin: auto'
         }, objets)
-        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : 
+        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : <br>
         $\\tan\\widehat{${nom[2]}}=\\dfrac{\\text{Côté opposé à } \\widehat{${nom[2]}}}{\\text{Côté adjacent à } \\widehat{${nom[2]}}}=\\dfrac{${a}}{${b}}.$
       <br>`
 
@@ -106,18 +109,19 @@ export default function Trigo () {
       case 'd':
 
         this.question = `$\\cos\\widehat{${nom[0]}}=$<br>
-        (Sous forme d'une fraction irréductible)`
+        (Sous forme d'une fraction irréductible)<br>`
         this.question += mathalea2d({
           xmin: xmin,
           ymin: ymin,
           xmax: xmax,
           ymax: ymax,
-          pixelsParCm: 200 / c,
+          pixelsParCm: 170 / c,
           mainlevee: false,
           amplitude: 0.5,
-          scale: 0.7
+          scale: 0.7,
+          style: 'margin: auto'
         }, objets)
-        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : 
+        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : <br>
         $\\cos\\widehat{${nom[0]}}=\\dfrac{\\text{Côté adjacent à } \\widehat{${nom[0]}}}{\\text{Hypoténuse}}=\\dfrac{${a}}{${c}}.$
       <br>`
 
@@ -126,18 +130,19 @@ export default function Trigo () {
       case 'e':
 
         this.question = `$\\sin\\widehat{${nom[0]}}=$<br>
-        (Sous forme d'une fraction irréductible)`
+        (Sous forme d'une fraction irréductible)<br>`
         this.question += mathalea2d({
           xmin: xmin,
           ymin: ymin,
           xmax: xmax,
           ymax: ymax,
-          pixelsParCm: 200 / c,
+          pixelsParCm: 170 / c,
           mainlevee: false,
           amplitude: 0.5,
-          scale: 0.7
+          scale: 0.7,
+          style: 'margin: auto'
         }, objets)
-        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : 
+        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a :<br> 
         $\\cos\\widehat{${nom[0]}}=\\dfrac{\\text{Côté opposé à } \\widehat{${nom[0]}}}{\\text{Hypoténuse}}=\\dfrac{${b}}{${c}}.$
       <br>`
 
@@ -146,18 +151,19 @@ export default function Trigo () {
       case 'f':
 
         this.question = `$\\tan\\widehat{${nom[0]}}=$<br>
-        (Sous forme d'une fraction irréductible)`
+        (Sous forme d'une fraction irréductible)<br>`
         this.question += mathalea2d({
           xmin: xmin,
           ymin: ymin,
           xmax: xmax,
           ymax: ymax,
-          pixelsParCm: 200 / c,
+          pixelsParCm: 170 / c,
           mainlevee: false,
           amplitude: 0.5,
-          scale: 0.7
+          scale: 0.7,
+          style: 'margin: auto'
         }, objets)
-        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[0]}$, on a : 
+        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[0]}$, on a : <br>
         $\\tan\\widehat{${nom[0]}}=\\dfrac{\\text{Côté opposé à } \\widehat{${nom[0]}}}{\\text{Côté adjacent à } \\widehat{${nom[0]}}}=\\dfrac{${b}}{${a}}.$
       <br>`
 

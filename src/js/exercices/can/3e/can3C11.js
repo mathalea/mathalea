@@ -1,7 +1,7 @@
 import { fraction } from '../../../modules/fractions'
 import { calcul, choice, randint, texNombre, texNombrec } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Simplifications de fractions ou de racines carrées'
+export const titre = 'Simplifier des fractions ou des racines carrées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,6 +14,7 @@ export default function SimplifieFractionOuRacinesCarrees () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let a, b, n, k, maFraction
     let resultat

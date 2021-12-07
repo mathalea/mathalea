@@ -1,6 +1,6 @@
 import { texNombrec, randint, sp, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Moyenne entière de trois décimaux'
+export const titre = 'Calculer une moyenne avec des décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,6 +15,7 @@ export default function MoyenneEntiereDeDecimaux () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     this.reponse = randint(7, 15) // la moyenne attendue on la multiplie par 10 pour l'avoir en 1/10e
@@ -31,7 +32,7 @@ export default function MoyenneEntiereDeDecimaux () {
       }
       c = this.reponse * 30 - a - b
     } while (b < 0 || c < 0)
-    this.question = `Calculer la moyenne des nombres :${sp(8)}${texNombrec(a / 10)}${sp(8)}${texNombrec(b / 10)}${sp(8)}${texNombrec(c / 10)}`
+    this.question = `Calculer la moyenne des nombres :<br>${sp(8)}${texNombrec(a / 10)}${sp(8)}${texNombrec(b / 10)}${sp(8)}${texNombrec(c / 10)}`
     this.correction = `La moyenne des trois nombres est : $\\dfrac{${texNombrec(a / 10)}+${texNombrec(b / 10)}+${texNombrec(c / 10)}}{3}
     =\\dfrac{${texNombrec(a / 10 + b / 10 + c / 10)}}{3}= ${this.reponse}$.`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>

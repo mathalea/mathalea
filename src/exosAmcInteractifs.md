@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 383 
-- nombre d'exos interactifReady 526 
+- nombre d'exos interactifReady 530 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -309,6 +309,8 @@
 |betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |betaModele33_cliqueFractions|Fractions interactives|KO|KO|OK|custom|
+|betaTestcanPredef6_10qN1|CAN 6ième 10 questions (niveau 1)|KO|KO|OK|mathLive|
+|betaTestcanPredef6_10qN2|CAN 6ième 10 questions (niveau 2)|KO|KO|OK|mathLive|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|mathLive|
 |c3C10-4|Tables d’addition|OK|AMCNum|OK|numerique|
 |c3C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCHybride|OK|mathLive|
@@ -328,81 +330,83 @@
 |can1F02|Second degré variations (QCM)|KO|KO|OK|qcm|
 |can1L01|Discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
-|can2C01|Nombre de nombres entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
-|can2C02|Calcul différence de deux carrés|OK|AMCNum|OK|mathLive|
-|can2C03|Calcul avec puissance|OK|AMCNum|OK|mathLive|
+|can2C01|Trouver le nombre d’entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
+|can2C02|Calculer une différence de deux carrés|OK|AMCNum|OK|mathLive|
+|can2C03|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
 |can2C04|Calculer avec les identités remarquables - simple|KO|KO|OK|mathLive|
 |can2C05|Calculer avec les identités remarquables - Guidé|KO|KO|OK|mathLive|
-|can2C06|Simplifications de racines carrées|KO|KO|OK|mathLive|
-|can2C07|Calcul avec racine carrée niveau 2|KO|KO|OK|mathLive|
-|can2C08|Calcul avec racine carrée niveau 3|KO|KO|OK|mathLive|
-|can2F01|Calcul d’une image second degré|KO|KO|OK|mathLive|
-|can2F02|Calcul d’une image avec un quotient|KO|KO|OK|mathLive|
-|can2F03|Signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
-|can2F04|Valeur interdite d’une fonction|KO|KO|OK|mathLive|
-|can2F05|Antécédent avec fonction racine carrée|KO|KO|OK|mathLive|
-|can2G01|Agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
-|can2G02|Calcul d’un côté avec Pythagore|KO|KO|OK|mathLive|
-|can2G03|Calcul de l’hypoténuse avec Pythagore|KO|KO|OK|mathLive|
-|can2G04|Calculs des coordonnées du milieu|KO|KO|OK|mathLive|
-|can2G05|Calcul d’une distance dans un repère|KO|KO|OK|mathLive|
-|can2G06|Coefficient directeur d'une droite|KO|KO|OK|mathLive|
-|can2G07|Coordonnées d’un vecteur 1|KO|KO|OK|mathLive|
-|can2G08|Coordonnées d’un vecteur 2|KO|KO|OK|mathLive|
-|can2G09|Vecteurs colinéaires|KO|KO|OK|mathLive|
-|can2G10|Relation de Chasles, réductions vectorielles (niveau 1) QCM|KO|KO|OK|qcm|
-|can2G11|Relation de Chasles, réductions vectorielles (niveau 2) QCM|KO|KO|OK|qcm|
-|can2G12|Vecteurs colinéaires (V/F)|KO|KO|OK|qcm|
-|can2L01|Nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
-|can2L02|Coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
-|can2L03|Coordonnées point d’intersection axe des abscisses/droite|KO|KO|OK|mathLive|
-|can2L04|Coordonnées point d’intersection axe des ordonnées/droite|KO|KO|OK|mathLive|
-|can2L05|Solution d’une inéquation (QCM)|KO|KO|OK|qcm|
-|can2L06|Développer avec égalités remarquables|KO|KO|OK|mathLive|
-|can2L07|Factoriser|KO|KO|OK|mathLive|
-|can2N01|Intervalles|KO|KO|OK|mathLive|
-|can2P01|Calculs de probabilités|OK|AMCNum|OK|mathLive|
-|can2P02|Dénombrement|KO|KO|OK|mathLive|
-|can3C01|Puissances de nombre entier|OK|AMCNum|OK|mathLive|
-|can3C02|Moyenne entière de trois décimaux|OK|AMCNum|OK|mathLive|
-|can3C03|Fraction irréductible|OK|AMCNum|OK|mathLive|
-|can3C04|Somme Entier et fraction à réduire|OK|AMCNum|OK|mathLive|
-|can3C05|Calcul avec puissance de 10|OK|AMCNum|OK|mathLive|
-|can3C06|Calcul divers avec carrés/priorité opératoire|OK|AMCNum|OK|mathLive|
-|can3C07|milieu entre 1 et fraction avec graphique|KO|KO|OK|mathLive|
-|can3C08|Programme de calcul|KO|KO|OK|mathLive|
-|can3C09|Calcul avec racine carrée niveau 1|KO|KO|OK|mathLive|
-|can3C10|Encadrement avec puissance de 10|KO|KO|OK|mathLive|
-|can3C11|Simplifications de fractions ou de racines carrées|OK|AMCNum|OK|mathLive|
-|can3C12|Encadrement de racine carrée|OK|AMCNum|OK|mathLive|
-|can3E01|Calcul de volume 3e|OK|AMCNum|OK|mathLive|
-|can3F01|Lecture graphique|OK|AMCNum|OK|mathLive|
-|can3F02|Calcul d’image par fonction linéaire|OK|AMCNum|OK|mathLive|
-|can3F03|Calcul d’image par fonction affine|OK|AMCNum|OK|mathLive|
-|can3F04|Calcul d’antécédent par fonction linéaire|OK|AMCNum|OK|mathLive|
-|can3F05|Calcul d’antécédent par fonction affine|OK|AMCNum|OK|mathLive|
+|can2C06|Simplifier des racines carrées|KO|KO|OK|mathLive|
+|can2C07|Calculer avec une racine carrée|KO|KO|OK|mathLive|
+|can2C08|Calculer avec une racine carrée*|KO|KO|OK|mathLive|
+|can2C09|Calculer le "milieu" entre 1 et une fraction|KO|KO|OK|mathLive|
+|can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
+|can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
+|can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
+|can2F04|Trouver les valeurs interdites d’une fonction|KO|KO|OK|mathLive|
+|can2F05|Déterminer un antécédent avec la racine carrée|KO|KO|OK|mathLive|
+|can2G01|Déterminer un agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
+|can2G02|Calculer une longueur avec le théorème de Pythagore|KO|KO|OK|mathLive|
+|can2G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|
+|can2G04|Calculer les coordonnées du milieu|KO|KO|OK|mathLive|
+|can2G05|Calculer une distance avec les coordonnées|KO|KO|OK|mathLive|
+|can2G06|Déterminer le coefficient directeur d'une droite|KO|KO|OK|mathLive|
+|can2G07|Déterminer les coordonnées d’un vecteur|KO|KO|OK|mathLive|
+|can2G08|Déterminer les coordonnées d’un vecteur (bis)|KO|KO|OK|mathLive|
+|can2G09|Déterminer le coefficient de colinéarité entre deux vecteurs|KO|KO|OK|mathLive|
+|can2G10|Utiliser la relation de Chasles/réductions vectorielles (QCM)|KO|KO|OK|qcm|
+|can2G11|Utiliser la relation de Chasles/réductions vectorielles* (QCM)|KO|KO|OK|qcm|
+|can2G12|Reconnaître des vecteurs colinéaires (V/F)|KO|KO|OK|qcm|
+|can2G13|Calcul de la norme d’un vecteur|KO|KO|OK|mathLive|
+|can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
+|can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
+|can2L03|Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite|KO|KO|OK|mathLive|
+|can2L04|Calculer les coordonnées du point d’intersection entre l’axe des ordonnées/droite|KO|KO|OK|mathLive|
+|can2L05|Résoudre une inéquation (QCM)|KO|KO|OK|qcm|
+|can2L06|Développer avec les égalités remarquables|KO|KO|OK|mathLive|
+|can2L07|Factoriser une expression|KO|KO|OK|mathLive|
+|can2N01|Utiliser les intervalles|KO|KO|OK|mathLive|
+|can2P01|Calculer une probabilité|OK|AMCNum|OK|mathLive|
+|can2P02|Dénombrer dans une situation concrète|KO|KO|OK|mathLive|
+|can3C01|Calculer avec des puissances|OK|AMCNum|OK|mathLive|
+|can3C02|Calculer une moyenne avec des décimaux|OK|AMCNum|OK|mathLive|
+|can3C03|Rendre irréductible une fraction|OK|AMCNum|OK|mathLive|
+|can3C04|Calculer une somme entre fraction et entier|OK|AMCNum|OK|mathLive|
+|can3C05|Calculer avec  une puissance de 10|OK|AMCNum|OK|mathLive|
+|can3C06|Calculer avec des carrés/priorité opératoire|OK|AMCNum|OK|mathLive|
+|can3C07|Calculer l’abscisse d’un milieu|KO|KO|OK|mathLive|
+|can3C08|Calculer avec un programme de calcul|KO|KO|OK|mathLive|
+|can3C09|Calculer avec une racine carrée|KO|KO|OK|mathLive|
+|can3C10|Encadrer avec des puissances de 10|KO|KO|OK|mathLive|
+|can3C11|Simplifier des fractions ou des racines carrées|OK|AMCNum|OK|mathLive|
+|can3C12|Encadrer une racine carrée|OK|AMCNum|OK|mathLive|
+|can3F01|Lire une image graphiquement|OK|AMCNum|OK|mathLive|
+|can3F02|Calculer une image par une fonction linéaire|OK|AMCNum|OK|mathLive|
+|can3F03|Calculer une image par une fonction affine|OK|AMCNum|OK|mathLive|
+|can3F04|Calculer un antécédent par une fonction linéaire|OK|AMCNum|OK|mathLive|
+|can3F05|Calculer un antécédent par fonction affine|OK|AMCNum|OK|mathLive|
 |can3F06|Déterminer le coefficient d’une fonction affine|KO|KO|OK|mathLive|
-|can3F07|Lecture graphique fonction affine niveau 1|KO|KO|OK|mathLive|
-|can3F08|Lecture graphique fonction affine niveau 2|KO|KO|OK|mathLive|
+|can3F07|Lire graphiquement une fonction affine|KO|KO|OK|mathLive|
+|can3F08|Lire graphiquement une fonction affine*|KO|KO|OK|mathLive|
 |can3F09|Reconnaître une fonction affine|KO|KO|OK|mathLive|
-|can3G01|Agrandissement/réduction|OK|AMCNum|OK|mathLive|
-|can3G02|Image de point par transformation 3e|KO|KO|OK|mathLive|
-|can3G03|Calcul d’une longueur avec Thalès2|KO|KO|OK|mathLive|
-|can3G04|Recherche valeur avec Pythagore|KO|KO|OK|mathLive|
-|can3G05|Trigonométrie|KO|KO|OK|mathLive|
-|can3L01|Équation ax=b|OK|AMCNum|OK|mathLive|
-|can3L02|Équation ax+b=0|OK|AMCNum|OK|mathLive|
-|can3L03|Équation ax+b=c|OK|AMCNum|OK|mathLive|
-|can3L04|Solution d’une inéquation (V/F)|KO|KO|OK|qcm|
-|can3L05|Proportionnalité sur expression algébrique|KO|KO|OK|mathLive|
-|can3L06|Solutions équation produit nul|KO|KO|OK|mathLive|
-|can3M01|Aire et carré|OK|AMCNum|OK|mathLive|
-|can3S01|Calcul de probabilité simple|OK|AMCNum|OK|mathLive|
-|can3S02|Probabilité de l’évènement contraire|KO|KO|OK|mathLive|
-|can3S03|Calculs de probabilités2|KO|KO|OK|mathLive|
-|can3S04|Etendue|KO|KO|OK|mathLive|
-|can3S05|Moyenne|KO|KO|OK|mathLive|
-|can3S06|Médiane|KO|KO|OK|mathLive|
+|can3G01|Calculer et utiliser un agrandissement/réduction|OK|AMCNum|OK|mathLive|
+|can3G02|Trouver l’image d’un point par une  transformation 3e|KO|KO|OK|mathLive|
+|can3G03|Calculer une longueur avec le théorème de Thalès|KO|KO|OK|mathLive|
+|can3G04|Rechercher une valeur avec Pythagore|KO|KO|OK|mathLive|
+|can3G05|Utiliser la trigonométrie|KO|KO|OK|mathLive|
+|can3L01|Résoudre une équation du type ax=b|OK|AMCNum|OK|mathLive|
+|can3L02|Résoudre une équation du type ax+b=0|OK|AMCNum|OK|mathLive|
+|can3L03|Résoudre une équation du type ax+b=c|OK|AMCNum|OK|mathLive|
+|can3L04|Vérifier si un nombre est solution d’une inéquation (V/F)|KO|KO|OK|qcm|
+|can3L05|Calculer le produit des solutions d’une équation produit nul|KO|KO|OK|mathLive|
+|can3M01|Calculer l’aire ou un périmètre d’un carré|OK|AMCNum|OK|mathLive|
+|can3M02|Calculer un volume de pyramide|OK|AMCNum|OK|mathLive|
+|can3P01|Utiliser la proportionnalité sur une expression algébrique|KO|KO|OK|mathLive|
+|can3S01|Calculer une probabilité|OK|AMCNum|OK|mathLive|
+|can3S02|Calculer la probabilité d’ un évènement contraire|KO|KO|OK|mathLive|
+|can3S03|Calculer une probabilités*|KO|KO|OK|mathLive|
+|can3S04|Calculer une étendue|KO|KO|OK|mathLive|
+|can3S05|Calculer une moyenne|KO|KO|OK|mathLive|
+|can3S06|Déterminer le rang d’une médiane|KO|KO|OK|mathLive|
 |can4C01|Utiliser les priorités opératoires avec des relatifs|OK|AMCNum|OK|mathLive|
 |can4C02|Trouver l’opposé ou l’inverse d’une fraction|OK|AMCNum|OK|mathLive|
 |can4C03|Effectuer une division avec une fraction|OK|AMCNum|OK|mathLive|

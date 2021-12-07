@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, calcul, choice, prenomM } from '../../../modules/outils.js'
-export const titre = 'Dénombrement'
+export const titre = 'Dénombrer dans une situation concrète'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
