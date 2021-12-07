@@ -213,14 +213,14 @@ export default function PuissancesDunRelatif1 () {
               )}}$`
             }
             texteCorr += '<br><br>'
-            texteCorr += `$${lettre}=\\dfrac{1}{${baseUtile}^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{${baseUtile}^{${exp[1] - exp[0]}}}$`
+            texteCorr += `$${lettre}=\\dfrac{1}{${baseUtile}^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{${baseUtile}^{${exp[1] - exp[0]}}}`
             if ((base < 0) && ((exp[1] - exp[0]) % 2 === 0)) {
-              texteCorr += `$=\\dfrac{1}{${simpNotPuissance(
+              texteCorr += `=\\dfrac{1}{${simpNotPuissance(
                 base,
                 exp[1] - exp[0]
               )}}=${simpNotPuissance(base, exp[0] - exp[1])}$`
             } else {
-              texteCorr += `$=${baseUtile}^{${exp[0] - exp[1]}}$`
+              texteCorr += `=${baseUtile}^{${exp[0] - exp[1]}}$`
             }
           } else {
             if (this.correctionDetaillee) {
@@ -337,11 +337,9 @@ export default function PuissancesDunRelatif1 () {
       if (this.interactif && !context.isAmc) {
         setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance' })
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' $=$' })
-        // texte += 'rep : ' + reponseInteractive + ' -- '
-        // texte += 'case : ' + typesDeQuestions
       }
       if (context.isAmc) {
-        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: baseUtile, exposantPuissance: exposantInteractif, aussiCorrect: baseUtileBisAMC })
+        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: base, exposantPuissance: exposantInteractif, aussiCorrect: baseUtileBisAMC })
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
