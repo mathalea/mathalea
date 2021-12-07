@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
-import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, mathalea2d, fixeBordures, texteSurSegment, texteSurArc } from '../../modules/2d.js'
+import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, mathalea2d, fixeBordures, texteSurSegment, texteSurArc, rotation, homothetie } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes } from '../../modules/outils.js'
-import { fraction, abs, multiply, evaluate, divide, isInteger, pow, round } from 'mathjs'
+import { fraction, abs, multiply, evaluate, divide, isInteger, pow, round, subtract, max } from 'mathjs'
 export const titre = 'Homothétie (calculs)'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -29,10 +29,8 @@ export default function calculsHomothetie () {
   this.sup2 = 3 // 1 : Homothéties de rapport positif, 2: de rapport négatif 3 : mélange
   this.sup3 = 1 // Choix des valeurs
   this.sup4 = true // Affichage des figures facultatives dans l'énoncé (en projet)
-  // this.sup3 = false // true pour l'utilisation d'une fraction pour le rapport (en projet)
-  // this.sup4 = false // Valeurs entières pour un calcul mental (en projet)
   this.besoinFormulaireNumerique = [
-    'Type de question', 9, [
+    'Type de question', 10, [
       '0 : Mélange des types de questions',
       '1 : Calculer le rapport',
       '2 : Calculer une longueur image',
@@ -41,7 +39,8 @@ export default function calculsHomothetie () {
       '5 : Calculer une longueur antécédent (deux étapes)',
       '6 : Calculer une aire image',
       '7 : Calculer une aire antécédent',
-      '8 : Calculer le rapport à partir des aires'
+      '8 : Calculer le rapport à partir des aires',
+      '9 : Calculer le rapport connaissant OA et AA\''
     ].join('\n')
   ]
   this.besoinFormulaire2Numerique = [
@@ -60,20 +59,16 @@ export default function calculsHomothetie () {
     this.listeCorrections = [] // Liste de questions corrigées
     let typeQuestionsDisponibles = []
     if (this.sup === 0) {
-      typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport']
+      typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2']
     } else {
-      typeQuestionsDisponibles = [['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport'][this.sup - 1]]
+      typeQuestionsDisponibles = [['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2'][this.sup - 1]]
     }
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     const kEstEntier = this.sup3 > 1
     const valeursSimples = this.sup3 === 3
     for (let i = 0, approx, environ, melange, donnee1, donnee2, donnee3, donnees, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const lettres = choisitLettresDifferentes(5, ['P', 'Q', 'U', 'V', 'W', 'X', 'Y', 'Z'])
-      const A = lettres[0]
-      const hA = lettres[1]
-      const O = lettres[2]
-      const B = lettres[3]
-      const hB = lettres[4]
+      const A = lettres[0]; const hA = lettres[1]; const O = lettres[2]; const B = lettres[3]; const hB = lettres[4]
       const ks = fraction(choice([[1], [-1], [-1, 1]][this.sup2 - 1]))
       let k = fraction(1, 1)
       while (abs(k).toString() === '1') {
@@ -84,9 +79,10 @@ export default function calculsHomothetie () {
       const kpositif = evaluate(k > 0)
       const longueurEntiere = valeursSimples ? fraction(randint(1, 19)) : fraction(randint(11, 99))
       let OA = multiply(agrandissement ? divide(longueurEntiere, 10) : longueurEntiere, 10 ** (valeursSimples) * absk.d ** (kEstEntier))
-      let OhA = multiply(absk, OA)
+      let OhA = multiply(k, OA)
       let OB = multiply(divide(randint(10, 99, [parseInt(longueurEntiere.toString())]), fraction(10)), 10 ** (valeursSimples) * absk.d ** (kEstEntier))
-      let OhB = multiply(absk, OB)
+      let OhB = multiply(k, OB)
+      let AhA = subtract(OhA, OA)
       let kAire = fraction(choice([randint(1, 4) + 0.5 + choice([0, 0.5]), randint(1, 9) / 10]))
       let Aire = valeursSimples ? fraction(randint(10, 99)) : fraction(randint(100, 999) / 10)
       let hAire = multiply(pow(kAire, 2), Aire)
@@ -100,12 +96,43 @@ export default function calculsHomothetie () {
       const lopposedu = kpositif ? 'le' : 'l\'opposé du '
       const derapportpositifet = this.sup4 ? '' : `de rapport ${positif} et `
       let kinverse = abs(divide(1, k))
-      const OhAdivkInversed = texNum(divide(OhA, kinverse.d))
-      const OhBdivkInversed = texNum(divide(OhB, kinverse.d))
+      const OhAdivkInversed = texNum(abs(divide(OhA, kinverse.d)))
+      const OhBdivkInversed = texNum(abs(divide(OhB, kinverse.d)))
+      const largeurFigure = divide(10, max(abs(OA), abs(OhA), abs(AhA)))
+      let testFigureCorrigee = true
+      let correctionOhA = OhA
+      let correctionOA = OA
+      if (evaluate(abs(k) < 0.3)) {
+        correctionOhA = multiply(multiply(fraction(3, 10), OA), (-1) ** evaluate(k < 0))
+        // console.log(i + 1, k.toString(), 'cas1')
+      } else if (evaluate(abs(k) < 1 && abs(k) > 0.7)) {
+        correctionOhA = multiply(multiply(fraction(7, 10), OA), (-1) ** evaluate(k < 0))
+        // console.log(i + 1, k.toString(), 'cas2')
+      } else if (evaluate(abs(k) > 1 && abs(k) < 1.3)) {
+        correctionOhA = multiply(multiply(fraction(13, 10), OA), (-1) ** evaluate(k < 0))
+        // console.log(i + 1, k.toString(), 'cas3')
+      } else if (evaluate(abs(k) > 4)) {
+        correctionOA = multiply(fraction(2, 1), OA)
+        // console.log(i + 1, k.toString(), 'cas4')
+      } else {
+        testFigureCorrigee = false
+        // console.log(i + 1, k.toString(), 'cas5')
+      }
+      const figurealechelle = !(testFigureCorrigee && this.sup4) || [4, 5, 6, 7, 8].includes(listeTypeQuestions[i]) ? '' : '(La figure n\'est pas à l\'échelle)'
+      const figurealechelle2 = !(this.sup4) ? '' : '(La figure n\'est pas à l\'échelle)'
+      let figure = {
+        O: point(0, 0, `${O}`),
+        A: point(multiply(correctionOA, largeurFigure), 0, `${A}`, 'below'),
+        hA: point(multiply(correctionOhA, largeurFigure), 0, `${hA}`, kpositif ? 'below' : 'above')
+      }
+      figure = Object.assign({}, figure, {
+        B: homothetie(rotation(figure.A, figure.O, 40), figure.O, 1.2, `${B}`),
+        hB: homothetie(rotation(figure.hA, figure.O, 40), figure.O, 1.2, `${hB}`, kpositif ? 'above' : 'below')
+      })
       kinverse = { tex: texNum(kinverse, kEstEntier), n: kinverse.n, d: kinverse.d }
-      OhA = texNum(OhA)
+      OhA = texNum(abs(OhA))
       const OhAtimeskinverse = (valeursSimples && !isInteger(absk)) ? `=${OhA}\\times ${kinverse.tex}` + (kinverse.d !== 1 ? `=\\dfrac{${OhA}}{${kinverse.d}}\\times ${kinverse.n}=${OhAdivkInversed}\\times ${kinverse.n}` : '') : ''
-      OhB = texNum(OhB)
+      OhB = texNum(abs(OhB))
       const OhBtimeskinverse = (valeursSimples && !isInteger(absk)) ? `=${OhB}\\times ${kinverse.tex}` + (kinverse.d !== 1 ? `=\\dfrac{${OhB}}{${kinverse.d}}\\times ${kinverse.n}=${OhBdivkInversed}\\times ${kinverse.n}` : '') : ''
       hAire = texNum(hAire)
       hAireArrondie = texNum(hAireArrondie)
@@ -114,15 +141,10 @@ export default function calculsHomothetie () {
       kAire = texNum(kAire, kEstEntier)
       const parentheseskAire = kEstEntier ? String.raw`\left(${kAire}\right)` : kAire
       OA = texNum(OA)
+      AhA = texNum(abs(AhA))
       OB = texNum(OB)
       Aire = texNum(Aire)
-      let figure = {
-        O: point(0, 0, `${O}`),
-        A: point(agrandissement ? 4 : 7, 0, `${A}`, 'below'),
-        B: point(agrandissement ? 4 : 7, 3, `${B}`),
-        hA: point((signek + 1) * (agrandissement ? 7 : 4), 0, `${hA}`, kpositif ? 'below' : 'above'),
-        hB: point((signek + 1) * (agrandissement ? 7 : 4), (signek + 1) * (agrandissement ? 3 * 7 / 4 : 3 * 4 / 7), `${hB}`, kpositif ? 'above' : 'below')
-      }
+      const calculsOhA = !kpositif ? `${hA}${A} - ${O}${A} = ${AhA} - ${OA}` : agrandissement ? `${O}${A} + ${A}${hA} = ${OA} + ${AhA} ` : `${O}${A} - ${A}${hA} = ${OA} - ${AhA}`
       figure = Object.assign({}, figure, {
         segmentOA: segmentAvecExtremites(figure.O, figure.A),
         segmentOhA: segmentAvecExtremites(figure.O, figure.hA),
@@ -134,10 +156,12 @@ export default function calculsHomothetie () {
         arcOhA: !agrandissement || !kpositif ? figure.hA : arcPointPointAngle(figure.O, figure.hA, 60, false),
         arcOB: agrandissement || !kpositif ? figure.B : arcPointPointAngle(figure.B, figure.O, 60, false),
         arcOhB: !agrandissement || !kpositif ? figure.hB : arcPointPointAngle(figure.hB, figure.O, 60, false),
+        arcAhA: kpositif ? figure.A : arcPointPointAngle(figure.hA, figure.A, 60, false),
         legendeOA: agrandissement || !kpositif ? texteSurSegment(`${OA.replace('{,}', ',')} cm`, figure.A, figure.O, 'black', 0.30) : texteSurArc(`${OA.replace('{,}', ',')} cm`, figure.O, figure.A, 60, 'black', 0.30),
         legendeOhA: !agrandissement || !kpositif ? texteSurSegment(`${OhA.replace('{,}', ',')} cm`, figure.hA, figure.O, 'black', 0.30) : texteSurArc(`${OhA.replace('{,}', ',')} cm`, figure.O, figure.hA, 60, 'black', 0.30),
         legendeOB: agrandissement || !kpositif ? texteSurSegment(`${OB.replace('{,}', ',')} cm`, figure.O, figure.B, 'black', 0.30) : texteSurArc(`${OB.replace('{,}', ',')} cm`, figure.B, figure.O, 60, 'black', 0.30),
-        legendeOhB: !agrandissement || !kpositif ? texteSurSegment(`${OhB.replace('{,}', ',')} cm`, figure.O, figure.hB, 'black', 0.30) : texteSurArc(`${OhB.replace('{,}', ',')} cm`, figure.hB, figure.O, 60, 'black', 0.30)
+        legendeOhB: !agrandissement || !kpositif ? texteSurSegment(`${OhB.replace('{,}', ',')} cm`, figure.O, figure.hB, 'black', 0.30) : texteSurArc(`${OhB.replace('{,}', ',')} cm`, figure.hB, figure.O, 60, 'black', 0.30),
+        legendeAhA: kpositif ? texteSurSegment(`${AhA.replace('{,}', ',')} cm`, figure.hA, figure.A, 'black', 0.30) : texteSurArc(`${AhA.replace('{,}', ',')} cm`, figure.hA, figure.A, 60, 'black', 0.30)
       })
       figure = Object.assign({}, figure, {
         legendeOAi: agrandissement || !kpositif ? texteSurSegment('?', figure.O, figure.A, 'black', 0.30) : texteSurArc('?', figure.O, figure.A, 60, 'black', 0.30),
@@ -149,12 +173,9 @@ export default function calculsHomothetie () {
       figure.arcOhA.pointilles = true
       figure.arcOB.pointilles = true
       figure.arcOhB.pointilles = true
-      // const fOB = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, `${OB.replace('{,}', ',')} cm`, 'below')
-      // const fOhA = point((signek + 1) * (agrandissement ? 3.5 : 2), (signek + 1) * (agrandissement ? 1 : 0.5), `${OhA.replace('{,}', ',')} cm`, kpositif ? 'above' : 'below')
-      // const fOhB = point(agrandissement ? 3.5 : 2, agrandissement ? 1 : 0.5, `${OhB.replace('{,}', ',')} cm`, 'above')
-      // const fOAi = point(agrandissement ? 2 : 3.5, agrandissement ? -0.5 : -1, '?', 'below')
-      // const fOhAi = point((signek + 1) * (agrandissement ? 3.5 : 2), (signek + 1) * (agrandissement ? 1 : 0.5), '?', kpositif ? 'above' : 'below')
-      const fscale = kpositif ? 1 : 0.7
+      figure.arcAhA.pointilles = true
+      // const fscale = context.isHtml ? kpositif ? 1 : 0.7 : kpositif ? 0.7 : 0.5
+      const fscale = context.isHtml ? 1 : kpositif ? 0.7 : 0.6
       const flabelsRapport = labelPoint(figure.O, figure.A, figure.hA)
       let frapport = mathalea2d(Object.assign({}, fixeBordures([figure.segmentOA, figure.segmentOhA, figure.legendeOA, figure.legendeOhA]), { style: 'inline', scale: fscale }), figure.segmentOA, figure.segmentOhA, figure.arcOA, figure.arcOhA, figure.legendeOA, figure.legendeOhA, flabelsRapport)
       frapport = { enonce: (this.sup4 ? '<br>' + frapport : ''), solution: frapport }
@@ -170,6 +191,8 @@ export default function calculsHomothetie () {
       const flabelsAntecedent2etapes = labelPoint(figure.O, figure.A, figure.hA, figure.B, figure.hB)
       let fAntecedent2etapes = mathalea2d(Object.assign({}, fixeBordures([figure.A, figure.O, figure.hA, figure.segmentOA, figure.segmentOhA, figure.B, figure.hB, figure.segmentOB, figure.segmentOhB, figure.legendeOA, figure.legendeOhA, figure.legendeOB, figure.legendeOhB]), { style: 'inline', scale: fscale }), figure.segmentOA, figure.segmentOhA, figure.segmentOB, figure.segmentOhB, figure.legendeOBi, figure.arcOB, figure.legendeOhB, figure.arcOhB, figure.legendeOA, figure.arcOA, figure.legendeOhA, figure.arcOhA, flabelsAntecedent2etapes)
       fAntecedent2etapes = { enonce: (this.sup4 ? fAntecedent2etapes : ''), solution: fAntecedent2etapes }
+      let frapport2 = mathalea2d(Object.assign({}, fixeBordures([figure.segmentOA, figure.segmentOhA, figure.legendeOA, figure.legendeAhA]), { style: 'inline', scale: fscale }), figure.segmentOA, figure.segmentOhA, figure.arcOA, figure.arcAhA, figure.legendeOA, figure.legendeAhA, flabelsRapport)
+      frapport2 = { enonce: (this.sup4 ? '<br>' + frapport2 : ''), solution: frapport2 }
       switch (listeTypeQuestions[i]) {
         case 'rapport':
           donnees = [String.raw`${O}${hA}=${OhA}\text{ cm}`, String.raw`${O}${A}=${OA}\text{ cm}`]
@@ -181,7 +204,7 @@ export default function calculsHomothetie () {
                     par une homothétie ${derapportpositifet}
                     de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
                     <br>
-                    Calculer le rapport $k$ de cette homothétie.
+                    Calculer le rapport $k$ de cette homothétie ${figurealechelle}.
                     ${frapport.enonce}
                     `
           texteCorr = String.raw`
@@ -210,7 +233,7 @@ export default function calculsHomothetie () {
                 de centre $${O}$ et de rapport $k=${k}$
                 tel que $ {${O}${A}=${OA}\text{ cm}}$.
                 <br>
-                Calculer $${O}${hA}$.
+                Calculer $${O}${hA}$  ${figurealechelle}.
                 <br>${fImage.enonce}
                 `
           texteCorr = String.raw`
@@ -239,7 +262,7 @@ export default function calculsHomothetie () {
                 homothétie de centre $${O}$ et de rapport
                 $k=${k}$ tel que $ {${O}${hA}=${OhA}\text{ cm}}$.
                 <br>
-                Calculer $${O}${A}$.
+                Calculer $${O}${A}$  ${figurealechelle}.
                 <br>${fAntecedent.enonce}
                 `
           texteCorr = String.raw`
@@ -274,7 +297,7 @@ export default function calculsHomothetie () {
                     ${derapportpositifet} de centre $${O}$ tel que
                     $ {${donnee1}}$, $ {${donnee2}}$ et $ {${donnee3}}$.
                     <br>
-                    Calculer $${O}${hB}$.
+                    Calculer $${O}${hB}$ ${figurealechelle2}.
                     <br>${fImage2etapes.enonce}
                     `
           texteCorr = String.raw`
@@ -317,7 +340,7 @@ export default function calculsHomothetie () {
                       de centre $${O}$ tel que
                       $ {${donnee1}}$, $ {${donnee2}}$ et $ {${donnee3}}$.
                       <br>
-                      Calculer $${O}${B}$.
+                      Calculer $${O}${B}$ ${figurealechelle2}.
                       <br>${fAntecedent2etapes.enonce}
                       `
           texteCorr = String.raw`
@@ -414,8 +437,43 @@ export default function calculsHomothetie () {
                     `
           }
           break
+        case 'rapport2':
+          donnees = [String.raw`${A}${hA}=${AhA}\text{ cm}`, String.raw`${O}${A}=${OA}\text{ cm}`]
+          melange = combinaisonListes([0, 1])
+          donnee1 = donnees[melange[0]]
+          donnee2 = donnees[melange[1]]
+          texte = String.raw`
+                    $${hA}$ est l'image de $${A}$
+                    par une homothétie ${derapportpositifet}
+                    de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
+                    <br>
+                    Calculer le rapport $k$ de cette homothétie ${figurealechelle}.
+                    ${frapport2.enonce}
+                    `
+          texteCorr = String.raw`
+                $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
+                `
+          if (this.correctionDetaillee) {
+            texteCorr = String.raw`
+                  $${O}${hA} = ${calculsOhA} = ${OhA}\text{ cm}$
+                  <br>
+                  $[${O}${hA}]$ est l'image de $[${O}${A}]$
+                  et $${O} ${hA} ${plusgrandque} ${O} ${A}$
+                  donc c'est ${unAgrandissement} et on a ${intervallek}.
+                  <br> ${frapport.solution}
+                  `
+            texteCorr += String.raw`
+                  <br>
+                  Le rapport de cette homothétie est ${lopposedu} quotient
+                  de la longueur d'un segment "à l'arrivée"
+                  par sa longueur "au départ".
+                  <br>
+                  Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
+                  `
+          }
+          break
       }
-      if (this.questionJamaisPosee(i, k, OA, kAire, signek)) {
+      if (this.questionJamaisPosee(i, k)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
