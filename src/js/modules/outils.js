@@ -1744,10 +1744,11 @@ export function texNum (expression, formatFraction = false) {
     } else {
       expression = texNombre(evaluate(format(expression)))
     }
+    expression = expression.replace(',', '{,}').replace('{{,}}', '{,}')
   } else {
     expression = texNombre(parseFloat(Algebrite.eval(expression)))
   }
-  return expression.replace(',', '{,}').replace('{{,}}', '{,}')
+  return expression
 }
 
 /**
