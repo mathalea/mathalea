@@ -1,6 +1,6 @@
 import { calcul, randint, texNombrec, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Complément à 1 Niveau 2'
+export const titre = 'Trouver le complément à 1*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -13,6 +13,7 @@ export const amcType = 'AMCNum'
 export default function ComplementAUn () {
   Exercice.call(this)
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.typeExercice = 'simple'
 

@@ -2,7 +2,7 @@ import { scratchblock } from '../../../modules/2d'
 import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../../modules/gestionInteractif'
 import { calcul, choice, listeQuestionsToContenuSansNumero, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Répétitions Scratch'
+export const titre = 'Travailler les répétitions (Scratch)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

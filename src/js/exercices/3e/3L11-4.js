@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { choice, combinaisonListes, abs, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
+import { choice, combinaisonListes, abs, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
@@ -78,42 +78,46 @@ export default function FactoriserParNombreOux () {
         case 'nka+mkb':
           texte = `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*a+(${m * k})*b`)}$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${n}a+${k}\\times${m}b$`
+          if (n < 0) {
+            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times(${n}a)+${k}\\times${m}b$`
+          } else {
+            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${n}a+${k}\\times${m}b$`
+          }
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${n}a+${m}b)$`
           reponse = [`${k}(${n}a+${m}b)`, `${-k}(${-n}a-${m}b)`]
           break
         case 'nka-mkb':
           texte = `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*a-(${m * k})*b`)}$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${n}a-${k}\\times${m}b$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${ecritureParentheseSiNegatif(n)}a-${k}\\times${m}b$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${n}a-${m}b)$`
           reponse = [`${k}(${n}a-${m}b)`, `${-k}(${-n}a+${m}b)`]
           break
         case 'nkx+mkx2':
           texte = `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*x+(${m * k})*x^2`)}$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x\\times${n}+${k}x\\times${m}x$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x\\times${ecritureParentheseSiNegatif(n)}+${k}x\\times${m}x$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x(${n}+${m}x)$`
           reponse = [`${k}x(${n}+${m}x)`, `${-k}x(${-n}-${m}x)`]
           break
         case 'nkx-mkx2':
           texte = `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*x-(${m * k})*x^2`)}$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x\\times${n}-${k}x\\times${m}x$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x\\times${ecritureParentheseSiNegatif(n)}-${k}x\\times${m}x$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x(${n}-${m}x)$`
           reponse = [`${k}x(${n}-${m}x)`, `${-k}x(${-n}+${m}x)`]
           break
         case 'nx2+x':
           texte = `<br>$${lettreDepuisChiffre(i + 1)}=${n}x^2+x$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x\\times ${n}x+x\\times 1$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x\\times ${ecritureParentheseSiNegatif(n)}x+x\\times 1$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x(${n}x+1)$`
           reponse = [`x(${n}x+1)`, `-x(${-n}x-1)`]
           break
         case 'nx2+mx':
           texte = `<br>$${lettreDepuisChiffre(i + 1)}=${n}x^2+${m}x$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x\\times ${n}x+x\\times ${m}$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x\\times ${ecritureParentheseSiNegatif(n)}x+x\\times ${m}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x(${n}x+${m})$`
           reponse = [`x(${n}x+${m})`, `-x(${-n}x-${m})`]
           break

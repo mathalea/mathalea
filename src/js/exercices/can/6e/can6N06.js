@@ -1,6 +1,6 @@
 import { arrondi, calcul, randint, texNombre, choice } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Arrondi au dixième ou au centième'
+export const titre = 'Arrondir au dixième ou au centième'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

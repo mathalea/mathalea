@@ -3,7 +3,7 @@ import { randint, choice, creerNomDePolygone, texNombrec, texteEnCouleur, extrai
 import {
   mathalea2d, point, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude, texteParPosition
 } from '../../../modules/2d.js'
-export const titre = 'Calcul de l’hypoténuse avec Pythagore'
+export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -48,7 +48,7 @@ export default function CalculHypotenusePythagore () {
           texteParPosition(`${texNombrec(b)}`, milieu(B, C).x + 0.2, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true)
         )
         this.question = `Sur cette figure, calculer la valeur exacte de $${nom[0]}${nom[2]}$.<br>`
-        this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.7 }, objets)
+        this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 22, mainlevee: false, amplitude: 0.3, scale: 0.3, style: 'margin: auto' }, objets)
 
         if (entiere) {
           this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>

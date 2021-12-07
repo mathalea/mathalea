@@ -2,7 +2,7 @@ import { context } from '../../../modules/context'
 import { propositionsQcm } from '../../../modules/gestionInteractif'
 import { choice, listeQuestionsToContenu, nombreEnLettres, randint, texNombre } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Écriture de nombre entier'
+export const titre = 'Écrire en lettres un nombre entier (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -16,6 +16,8 @@ export const amcType = 'qcmMono'
 export default function EcritureDeNombreEntier () {
   Exercice.call(this)
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []

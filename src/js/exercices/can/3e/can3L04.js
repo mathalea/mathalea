@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, rienSi1, ecritureParentheseSiNegatif, sp, texteEnCouleur, choice, listeQuestionsToContenuSansNumero, ecritureAlgebrique } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/gestionInteractif.js'
-export const titre = 'Solution d’une inéquation (V/F)'
+export const titre = 'Vérifier si un nombre est solution d’une inéquation (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -14,6 +14,7 @@ export const interactifType = 'qcm'
 export default function SolutionInequation () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   let a, b, c, d
   this.date = 1635094684684

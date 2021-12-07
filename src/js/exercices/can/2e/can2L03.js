@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, sp, listeQuestionsToContenuSansNumero, reduireAxPlusB, texFractionReduite, texteCentre } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
-export const titre = 'Coordonnées point d’intersection axe des abscisses/droite'
+export const titre = 'Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texNombrec, prenomF, prenomM, texPrix, texteEnCouleurEtGras, texteEnCouleur, calcul } from '../../../modules/outils.js'
-export const titre = 'Petits problèmes d\'arithmétique'
+export const titre = 'Résoudre un problème concret'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -14,15 +14,17 @@ export default function PetitsProblemeArithmetique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    let a, b, r, q, e, m, somme, prenom1, prenom2
-    switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9])) {
+    let a, b, r, e, m, somme, prenom1, prenom2
+    switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) {
       case 1:// de plus
         r = randint(4, 7) * 10
         e = randint(1, 3) * 10
         m = r - e
+        somme = m + r
         this.reponse = m + r
         prenom1 = prenomF()
         prenom2 = prenomF()
@@ -30,7 +32,7 @@ export default function PetitsProblemeArithmetique () {
           prenom2 = prenomF()
         }
         this.question = ` ${prenom2} dit à ${prenom1}  : "J'ai ${texPrix(r)} € soit ${texPrix(e)} € de plus que toi."<br>`
-        this.question += 'Combien d\'argent en tout possèdent les deux filles ?<br>Les deux filles possèdent en tout : '
+        this.question += 'Combien d\'argent en tout possèdent les deux filles ?'
         this.correction = `D'après l'énoncé ${prenom2} a : ${texPrix(r)} €<br>${prenom2}  a ${texPrix(e)} €`
         this.correction += texteEnCouleurEtGras(' de plus ')
         this.correction += `que ${prenom1} signifie que ${prenom1} a ${texPrix(e)}€`
@@ -44,6 +46,7 @@ export default function PetitsProblemeArithmetique () {
         r = randint(4, 7) * 10
         e = randint(1, 3) * 10
         m = r + e
+        somme = m + r
         this.reponse = m + r
         prenom1 = prenomF()
         prenom2 = prenomF()
@@ -51,7 +54,7 @@ export default function PetitsProblemeArithmetique () {
           prenom2 = prenomF()
         }
         this.question = ` ${prenom2} dit à ${prenom1}  : "J'ai ${texPrix(r)} € soit ${texPrix(e)} € de moins que toi."<br>`
-        this.question += 'Combien d\'argent en tout possèdent les deux filles ?<br>Les deux filles possèdent en tout : '
+        this.question += 'Combien d\'argent en tout possèdent les deux filles ? '
 
         this.correction = `D'après l'énoncé ${prenom2} a : ${texPrix(r)} €<br>${prenom2}  a ${texPrix(e)} €`
         this.correction += texteEnCouleurEtGras(' de moins ')
@@ -67,7 +70,7 @@ export default function PetitsProblemeArithmetique () {
         b = randint(2, 8)
         this.reponse = a - b
         this.question = `${prenomF()} a ${a} ans.`
-        this.question += `<br>Sachant qu'elle a ${b} ans de plus que son frère, quel âge a celui-ci ?`
+        this.question += `<br>Sachant qu'elle a ${b} ans de plus que son frère, quel âge a celui-ci?`
         this.correction = `L'âge de son frère est  : $${a}-${b}=${a - b}$ ans.`
         break
 
@@ -83,14 +86,14 @@ export default function PetitsProblemeArithmetique () {
         a = randint(12, 22) * 10
         if (a / 20 % 1 !== 0) {
           this.reponse = Math.ceil(a / 20)
-          this.question = `${prenomM()} a $${a}$ kg de gravats à déplacer avec sa brouette. Dans celle-ci, il met $20$ kg de gravats.<br>
-              Combien de brouettes faudra-t-il pour déplacer tous les gravats ? `
+          this.question = `${prenomM()} a $${a}$ kg de gravats à déplacer avec sa brouette.<br> Dans celle-ci, il met $20$ kg de gravats.<br>
+              Combien de brouettes faudra-t-il pour déplacer tous les gravats? `
           this.correction = `$${a}=20\\times${Math.floor(a / 20)} + ${a - 20 * Math.floor(a / 20)}$.<br>
               Il faudra donc $${Math.floor(a / 20)}+1$ brouettes pour déplacer tous les gravats.`
         } else {
           this.reponse = Math.floor(a / 20)
-          this.question = `${prenomM()} a $${a}$ kg de gravats à déplacer avec sa brouette. Dans celle-ci, il met $20$ kg de gravats.<br>
-              Combien de brouettes faudra-t-il pour déplacer tous les gravats ? `
+          this.question = `${prenomM()} a $${a}$ kg de gravats à déplacer avec sa brouette.<br> Dans celle-ci, il met $20$ kg de gravats.<br>
+              Combien de brouettes faudra-t-il pour déplacer tous les gravats? `
           this.correction = `$${a}=20\\times${Math.floor(a / 20)} + ${a - 20 * Math.floor(a / 20)}$.<br>
               Il faudra donc $${Math.floor(a / 20)}$ brouettes pour déplacer tous les gravats.`
         }
@@ -109,7 +112,8 @@ Combien me rend-on ?`
       case 7://  rendu de monnaie2
         a = randint(1, 6) + (randint(1, 9)) / 10
         this.reponse = 10 - a
-        this.question = `Chez le boulanger, je dois payer  ${texPrix(a)} €. Je donne un billet de $10$  €. <br>
+        this.question = `Chez le boulanger, je dois payer  $${texPrix(a)}$ €. <br>
+        Je donne un billet de $10$  €. <br>
 Combien me rend-on ?`
         this.correction = `On doit me rendre $10-${texNombrec(a)}=${texNombrec(10 - a)}$ €.`
         break
@@ -119,15 +123,6 @@ Combien me rend-on ?`
         this.reponse = a / b
         this.question = `  ${prenomF()} veut partager $${a}$ billes équitablement en $${b}$ enfants. Combien chacun aura-t-il de billes ? <br>`
         this.correction = `Chaque enfant aura  $${a}\\div ${b}=${texNombrec(a / b)}$ billes.`
-        break
-      case 9:// division euclidienne
-        q = randint(11, 15)
-        b = randint(8, 11)
-        r = randint(1, b - 1)
-        a = b * q + r
-        this.question = `   En utilisant l'égalité $${a}=${b}\\times ${q}+${r}$, donner le reste de la division euclidienne de $${a}$ par $${b}$.`
-        this.correction = `Puisque $${r}$ est strictement inférieur à $${b}$, le reste est $${r}$.`
-        this.reponse = r
         break
     }
   }

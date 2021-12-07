@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texNombre2, puissanceEnProduit } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texNombre2, puissanceEnProduit, sp } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Écriture décimale d’une puissance de 10'
 export const interactifReady = true
@@ -16,7 +16,7 @@ export const amcType = 'AMCNum'
 export default function EcritureDecimalePuissanceDe10 () {
   Exercice.call(this)
   this.titre = titre
-  this.consigne = "Donner l'écriture décimale."
+  this.consigne = "Donner l'écriture décimale des nombres suivants."
   this.nbQuestions = 8
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -41,7 +41,9 @@ export default function EcritureDecimalePuissanceDe10 () {
       switch (listeTypeDeQuestions[i]) {
         case '+':
           n = randint(0, 10)
-          texte = `$10^{${n}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' $=$' })
+          texte = this.interactif
+            ? `$10^{${n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+            : `$10^{${n}}${sp()}=${sp()}\\dots$`
           setReponse(this, i, Math.pow(10, n))
           if (n < 2) {
             texteCorr = `$10^${n}=${10 ** n}$`
@@ -55,7 +57,9 @@ export default function EcritureDecimalePuissanceDe10 () {
           break
         case '-':
           n = randint(1, 10)
-          texte = `$10^{${-n}}$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' $=$' })
+          texte = this.interactif
+            ? `$10^{${-n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+            : `$10^{${-n}}${sp()}=${sp()}\\dots$`
           setReponse(this, i, Math.pow(10, -n))
           if (context.isHtml) {
             texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n)}}=${texNombre2(1 / 10 ** n)}$`

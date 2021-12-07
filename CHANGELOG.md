@@ -2,6 +2,98 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.8.1](https://github.com/mathalea/mathalea/compare/v2.8.0...v2.8.1) (2021-11-23)
+
+
+### Nouveaux exercices
+
+* 2 nouvelles can en c3 : C05 et D03 ([1cf3381](https://github.com/mathalea/mathalea/commits/1cf33818c5459efa09a620afb4309d62f6ccd648))
+* 2F20-1 un point appartient-il à la courbe représentative d'une fonction ([bc14fdc](https://github.com/mathalea/mathalea/commits/bc14fdc324a781e5fd8b7f590052cbb7ef84cdf4))
+* 5A11-2 qui est une variante de 5A11-1 ([ff58f9e](https://github.com/mathalea/mathalea/commits/ff58f9ea4ceea26796246f3d878c32cfda4532e9))
+* 6N22 => 6N23-7 et nouveau 6N22 sur les calculs de fractions ([0b511f2](https://github.com/mathalea/mathalea/commits/0b511f290353d2d27779dcad73657512b8ead22f))
+* Ajout can6P05 ([9f5afb4](https://github.com/mathalea/mathalea/commits/9f5afb46467588fbc4f8aa7983b6c714abfc60c0))
+* Ajout de 2 can cycle3 ([4ea7cfe](https://github.com/mathalea/mathalea/commits/4ea7cfe99b20df57dacaff93bdf1687edbb7aa8b))
+* Ajout de 4C33 Utiliser la notation puissance ([afb80b5](https://github.com/mathalea/mathalea/commits/afb80b5211faf8b78b8bcdc8407328e3f0f5c36a))
+* canc3C06 ([83f9de7](https://github.com/mathalea/mathalea/commits/83f9de7953bfa0ddbd9bb18e2c1cf8737ffdc768))
+* Nouveau 5I11 remplace 6I11 qui devient un exo d'algo sur quart de plan ([43e30f4](https://github.com/mathalea/mathalea/commits/43e30f43009d05a9c0fcb379b4f4714f0b8ff765))
+
+
+### Nouvelles fonctionnalités
+
+* 3F12-2 accepte des fractions équivalentes ou un résultat décimal ([cdcaa22](https://github.com/mathalea/mathalea/commits/cdcaa22b9e1d17264bb324675fcf1583ad9cece8))
+* 3L11-4 Ajouts de possibilités d'expressions avec plus de signes - ([f743dcb](https://github.com/mathalea/mathalea/commits/f743dcb96306551437abc9ca2fe813c81b848ff1))
+* 4C33-1 est devenu interactif donc 2N31-2 aussi ([fbeb572](https://github.com/mathalea/mathalea/commits/fbeb5728f7350df22761b0c4cf82bdf1d29eaf71))
+* 4C33-1 et ses clones deviennent intractifs et AMC ([99f80a4](https://github.com/mathalea/mathalea/commits/99f80a4537d40f673a90297f32c77636e5561128))
+* 4C33-3 interactif + nettoyage gestionInteractif.js ([05d1495](https://github.com/mathalea/mathalea/commits/05d14954251881885ccc6b499d87fdecf779b97e))
+* 5A11-1 paramètre texte pour choisir les critères de divisibilité ([4495df5](https://github.com/mathalea/mathalea/commits/4495df5067a0d6788d85cb0de1f6746485adf47e))
+* 6G24-1 et 6G24-2 : points placés ([d29beff](https://github.com/mathalea/mathalea/commits/d29beffdf0dce18839a2aa0227945d9df2780148))
+* 6I11 accepte plusieurs questions ([42c6c44](https://github.com/mathalea/mathalea/commits/42c6c442789d297ab11117cdabe9b109397dc3e2))
+* 6I11 adaptation de la correction numérotée ([c4f75ca](https://github.com/mathalea/mathalea/commits/c4f75ca85566c7421532143e33d41227c7c59624))
+* 6I11 coordonnées positives amélioration des axes et correction détaillée ([b227c25](https://github.com/mathalea/mathalea/commits/b227c2594cb64169edf441b7f640f2c37829c3a0))
+* 6N22 avec des représentations interactives de fractions ([a8d214c](https://github.com/mathalea/mathalea/commits/a8d214c1a407a336ebb4a3d48628bba80551eab8))
+* Ajout d'une fonction outil : centrage(texte) ([391b998](https://github.com/mathalea/mathalea/commits/391b998d65a0eb35b3489eb2dddff524afcd9406))
+* boutons de lecture/pause/navigation/affichage correction pour le diaporama ([44778e5](https://github.com/mathalea/mathalea/commits/44778e5b011f012560326cb0a5d3fc3f65ba2614))
+* format interactif puissance gère le cas mathématiquement correct d'une mantisse négative et d'un exposant impair ([30a97ae](https://github.com/mathalea/mathalea/commits/30a97aec9344e23ca34171b118e1cfbea745c67a))
+* gestion du temps et bouton 'prêt ?' pour la vue diap ([84469c1](https://github.com/mathalea/mathalea/commits/84469c196c9d38393d1dab07ec341c11675f8744))
+* L'interactivité de 4C33-0 accepte maintenant des écritures alternatives ([6d9bd33](https://github.com/mathalea/mathalea/commits/6d9bd33b78235aac97816a954c26e480e94c7e7e))
+* Meilleure gestion de l'aléatoire dans 4C33-0 ([3b40e18](https://github.com/mathalea/mathalea/commits/3b40e18bccf8aba735b6ca71d4d5f6298faf9873))
+* Menu accordéons à l'intérieur des can ([5dd92ca](https://github.com/mathalea/mathalea/commits/5dd92ca500c565c0b0c09e753a8339b4f027b7c8))
+* modification du format interactif puissance pour qu'il signale une réponse mathématiquement correcte mais mal formattée ([d1f5005](https://github.com/mathalea/mathalea/commits/d1f50050036892158b34fe8fc08a2febb8e8f712))
+* navigation avec les flèches du clavier en vue diap ([7009233](https://github.com/mathalea/mathalea/commits/70092333900208717c14a169236f79a3013eaa86))
+* Nouveautés dans 6I11 ([d84ea7d](https://github.com/mathalea/mathalea/commits/d84ea7d290e3f43d0870a4b270668a518880866a))
+* Nouveaux formats Interactifs : 'Num' 'Den' et 'NumDen'. ([d4f3e02](https://github.com/mathalea/mathalea/commits/d4f3e02a26a494965795f73719f70d5ef5b96eeb))
+* Nouvelle contrainte pour 6G24-1, 6G24-2 : points éloignés de (d) ([425ea7a](https://github.com/mathalea/mathalea/commits/425ea7a268c14351ee8febe522a8ef2edff7b985))
+* Nouvelle vue diap avec une question à la fois ([6c30b70](https://github.com/mathalea/mathalea/commits/6c30b70c7d1cf62a7234edce612bce80b6a20aa0))
+* On peut définir un facteur de zoom par défaut pour les exercices en vue diaporama ([6f345ad](https://github.com/mathalea/mathalea/commits/6f345ad5502b415d843d0d0a6e503117c21ef433))
+* paramètre d'url z= pour le facteur de zoom ([dfab7e0](https://github.com/mathalea/mathalea/commits/dfab7e02183e16bd5c92174af50ae4eafa817f4b))
+* Rendu 4C33-0 interactif ([04726de](https://github.com/mathalea/mathalea/commits/04726debd68cc418ff03eccad23e23ba8e56dc20))
+* Rendu interactif l'exercice 4C34 ([1e3fdb1](https://github.com/mathalea/mathalea/commits/1e3fdb10f40d6355545a5ef18cab374a2a42903b))
+
+
+### Bug réparés
+
+* 2F10-6 réglages esthétiques. ([b50b371](https://github.com/mathalea/mathalea/commits/b50b371d1e62fbb17f988de76143e71c2e499df4))
+* 3F13-1 erreur de calcul js. + index autoCorrection ([2054869](https://github.com/mathalea/mathalea/commits/2054869a4fb82c708ed3c8f2cceb3609e3f8361e))
+* 3G30 AMC ([7c12fcf](https://github.com/mathalea/mathalea/commits/7c12fcf6475c5634e8c4e4775811073789606632))
+* 3G30 en sortie LaTeX (ne fonctionnait pas avec this.sup à true) ([34257b2](https://github.com/mathalea/mathalea/commits/34257b28eaa5f57c056359d1821357450b0f7b14))
+* 3L11-1 et 3L11-2 AMC réparé. ([3ad0443](https://github.com/mathalea/mathalea/commits/3ad04431d96285796e58a03e4ef715cb091f05a5))
+* 3L11-4 facteur k manquant dans 2 cas pour les réponses ([c057a94](https://github.com/mathalea/mathalea/commits/c057a94633f06f417546f9baccf180ee5d386606))
+* 3P10-1 : Nombre décimal en latex. ([1f90a0b](https://github.com/mathalea/mathalea/commits/1f90a0b3aad5d3969fccb3c2f88b1000ec85e7ed))
+* 4C30 interactif réparé ([06567c1](https://github.com/mathalea/mathalea/commits/06567c10823686ea6a58ae4669bb211d7bcd9c49))
+* 4C30 partie interactive ([0a75ee4](https://github.com/mathalea/mathalea/commits/0a75ee48061b9c6250a9c35e8ac6e01b4cc3fd35))
+* 4C32 analyse une réponse en écriture scientifique ([07a8072](https://github.com/mathalea/mathalea/commits/07a8072ddfbec566e73d02943c742f9d1fd78d3f))
+* 4C33-1 partie intive ([9419b1a](https://github.com/mathalea/mathalea/commits/9419b1ac4c6c08c7d8bc8b5af80d7ceb81f87b87))
+* 5A11-1 : les parcours ne sont plus les mêmes à chaque question ([9f1dd35](https://github.com/mathalea/mathalea/commits/9f1dd3584255bd3ebb13d1781bec12cce112d2d3))
+* 5N14 ([10529ec](https://github.com/mathalea/mathalea/commits/10529ec6eb0677e3a8b82f37a9591f4787ad7ca6))
+* 5N14 et 4C30 on retire le cas particulier de la comparaison à 0 ([86ba1ed](https://github.com/mathalea/mathalea/commits/86ba1ede461330ee7bef4024447d0b2344f3be10))
+* 5N14-2, 4C20-1 ([3240b4c](https://github.com/mathalea/mathalea/commits/3240b4c3159889a0bef73597de7f35140b92514d))
+* 5N20 formatInteractif variable ([3e819eb](https://github.com/mathalea/mathalea/commits/3e819eb4d68185076d940c79383bb4d946da2e46))
+* 5N20 version AMC corrigée ([5518b7f](https://github.com/mathalea/mathalea/commits/5518b7ffe32a269a8215f4da7add6605777371ab))
+* 5S11 récupérationdes constantes pour AMC et interactif. 6S10 ajout des champs interactifs pout this.sup2 = 2 ([0eaeac5](https://github.com/mathalea/mathalea/commits/0eaeac5afc87f9d7ebf4879fadd4c3a74017dc66))
+* 6G24-1 plus de segments de longueur 0 et plus de médiatrice de point. ([2af27a6](https://github.com/mathalea/mathalea/commits/2af27a67372112087eb1880aad49808444917f88))
+* 6I11 les couleurs correspondent ([e1a36e9](https://github.com/mathalea/mathalea/commits/e1a36e93c89d3e4ac2e648f6367bb2f5aa3bc5d0))
+* 6I11 lutin sortant du plateau (resolu) ([d3cf0fe](https://github.com/mathalea/mathalea/commits/d3cf0fe610b9b1bbb8926881de23f93ba4a8859d))
+* 6N11-2 ([99e96be](https://github.com/mathalea/mathalea/commits/99e96be4a2680d9df187998a11faa2a151c1a1d0))
+* 6N22 ([5ba4ad6](https://github.com/mathalea/mathalea/commits/5ba4ad6bb2f1b8c02086364f0e75143264ccf0ae))
+* 6P04 suppression du bug undefined sur un cas ([cba1da2](https://github.com/mathalea/mathalea/commits/cba1da2b155e7e92ac526a1723b5a71e2a9265c1))
+* Ajout de 5I1 dans les menus. ([4e3095e](https://github.com/mathalea/mathalea/commits/4e3095e5fed953af4c7775c9b4f31ab7b41db6f1))
+* bugs dans 6P05 ([83b9d06](https://github.com/mathalea/mathalea/commits/83b9d060ac1947850328ec118fcccc72c2cf1dae))
+* can2G02 & can3G04 mise au point affichage latex ([c5682d5](https://github.com/mathalea/mathalea/commits/c5682d507c12193985ecc0eb80f3455483bc0c67))
+* coquille avec un perp qui apparaissait par erreur ([9cb6750](https://github.com/mathalea/mathalea/commits/9cb675000f485de73aaf640a307b8a21a360f0e0))
+* entrée doublon + double propriété tags ([a854ca1](https://github.com/mathalea/mathalea/commits/a854ca1abc2f83cac86099d8ce2ff2534cb4a124))
+* Erreur dans le correction de 6P12 ([addbe6e](https://github.com/mathalea/mathalea/commits/addbe6e8ba07f22d2b50777f8092585d6eee251f))
+* export amcType supprimé ([edb96bf](https://github.com/mathalea/mathalea/commits/edb96bf76c7c79436caa1f18a264ae69fa681afb))
+* Exports interactivité manquants + doc mise à jour ([6b0695a](https://github.com/mathalea/mathalea/commits/6b0695aa22a2b731e8f9b040ed9aae4ab4e4264e))
+* formatInteractif puissance => cas de l'inverse d'une puissance de 10 d'exposant negative mal formatée, écrit comme l'inverse de la puissance de 10 d'exposant positif ([0b3d315](https://github.com/mathalea/mathalea/commits/0b3d315249a85545b4de0aadf5e803b5636cd270))
+* formatInteractif puissance => gestion des différentes formes fractionnaires mal formatée correcte selon la place du signe ([d636d61](https://github.com/mathalea/mathalea/commits/d636d61918b2f6acc3c31f5544cc9b6defdabf51))
+* gestionInteractif écriture scientifique. ([6b528cd](https://github.com/mathalea/mathalea/commits/6b528cd739ac24acbc0784b86d7faaf8719b1e03))
+* labyrinthe suite de la mise au point graphique ([99d5206](https://github.com/mathalea/mathalea/commits/99d5206523bd7046038e450ed4bf51a7d8f33c3c))
+* les exercices de DNB en vue diap ([d31bef8](https://github.com/mathalea/mathalea/commits/d31bef8c3156bfb60a88ff6e4b3725f6c9846450))
+* menu can 1ere ([8157632](https://github.com/mathalea/mathalea/commits/815763230d6f6c2c2ceb65cfa0efb478f9c908c5))
+* plus de randint impossible ([2d942fa](https://github.com/mathalea/mathalea/commits/2d942fa3c464d3f647b5e88e3db62a01cd3206cb))
+* règle le problème de la virgule dans les chaines de réponse ([9a0c159](https://github.com/mathalea/mathalea/commits/9a0c159b82fe9ad0b13da2f0ecacc9da2b455600))
+* taille des labyrinthe paramétrable. 6C10-5 à n questions. ([3c1e8ae](https://github.com/mathalea/mathalea/commits/3c1e8ae912a1c95e0b8017526f245f623630ed93))
+
 ## [2.8.0](https://github.com/mathalea/mathalea/compare/v2.7.0...v2.8.0) (2021-11-12)
 
 

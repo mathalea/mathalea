@@ -2,7 +2,7 @@ import { context } from '../../../modules/context'
 import Fraction from '../../../modules/Fraction'
 import { pgcd, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Fraction comme facteur manquant'
+export const titre = 'Trouver la fraction (définition)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -17,6 +17,7 @@ export default function FractionCommeFacteurManquant () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fractionEgale'
   this.consigne = ''

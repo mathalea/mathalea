@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
-import { point, tracePoint, codeSegments, labelPoint, segment, axes, grille, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, segment, axes, grille, mathalea2d } from '../../modules/2d.js'
 
 export const titre = 'Déterminer les coordonnées milieu d’un segment dans un repère'
 
@@ -21,7 +21,7 @@ export default function Milieu () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let typesDeQuestionsDisponibles = [1, 2, 3, 4]; let typesDeQuestions
+    let typesDeQuestionsDisponibles = [1, 2]; let typesDeQuestions
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
     }
@@ -30,12 +30,10 @@ export default function Milieu () {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, g, s, s1, s2, s3, xA, yA, xB, yB, xI0, xI1, yI0, yI1, xI, yI, A, B, T, L, M, I, J, O, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, g, s, xA, yA, xB, yB, xI0, xI1, yI0, yI1, xI, yI, A, B, T, L, M, I, J, O, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
-        // Cas par cas, on définit le type de nombres que l'on souhaite
-        // Combien de chiffres ? Quelles valeurs ?
-        case 1:
+        case 1:// cas simple du milieu
           xA = 0
           xB = 0
           yA = 0
@@ -92,25 +90,25 @@ export default function Milieu () {
 
           ;
           break
-        case 2:
+        case 2: // cas où on connaît A et I, on cherche B
 
           xA = randint(0, 4) * choice([-1, 1])
           yA = randint(0, 4) * choice([-1, 1])
           xI = randint(0, 4) * choice([-1, 1])
           yI = randint(0, 4) * choice([-1, 1])
-          while (abs(xI - xA) < 2 || abs(xI - xA) > 5) {
+          while (abs(xI - xA) < 2 || abs(xI - xA) > 5) { // on choisit A et I ni trop près, ni trop loin
             xI = randint(0, 4) * choice([-1, 1])
             xA = randint(0, 4) * choice([-1, 1])
           }
-          while (abs(yI - yA) < 2 || abs(yI - yA) > 5) {
+          while (abs(yI - yA) < 2 || abs(yI - yA) > 5) { // on choisit A et I ni trop près, ni trop loin
             yA = randint(0, 4) * choice([-1, 1])
             yI = randint(0, 4) * choice([-1, 1])
           }
 
-          xI0 = fractionSimplifiee(xA + xB, 2)[0]
-          xI1 = fractionSimplifiee(xA + xB, 2)[1]
-          yI0 = fractionSimplifiee(yA + yB, 2)[0]
-          yI1 = fractionSimplifiee(yA + yB, 2)[1]
+         // xI0 = fractionSimplifiee(xA + xB, 2)[0]
+          // xI1 = fractionSimplifiee(xA + xB, 2)[1]
+          // yI0 = fractionSimplifiee(yA + yB, 2)[0]
+          // yI1 = fractionSimplifiee(yA + yB, 2)[1]
           g = grille(-9, -9, 9, 9)
           A = point(xA, yA, 'A', 'red')
           B = point(2 * xI - xA, 2 * yI - yA, 'B', 'red')

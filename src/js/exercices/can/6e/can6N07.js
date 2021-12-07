@@ -25,7 +25,7 @@ export default function LireAbscisseDecimaleDeFraction () {
       case 1:// droite graduée     /4 resultat décimal
         a = choice([1, 3, 5, 6, 7, 9, 10, 11]) // numérateur
         this.reponse = calcul(a / 4)
-        this.question = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
+        this.question = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee2({
           Unite: 3,
           Min: 0,
           Max: 3.2,
@@ -48,7 +48,7 @@ export default function LireAbscisseDecimaleDeFraction () {
       case 2:// droite graduée     /5 resultat décimal
         a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
         this.reponse = calcul(a / 5)
-        this.question = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
+        this.question = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee2({
           Unite: 3,
           Min: 0,
           Max: 3.2,
@@ -71,7 +71,7 @@ export default function LireAbscisseDecimaleDeFraction () {
       case 3:// droite graduée     /5 b
         a = choice([1, 2, 3, 4]) // numérateur
         this.reponse = calcul(a / 5)
-        this.question = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous la forme d\'une fraction irréductible.' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
+        this.question = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous la forme d\'une fraction irréductible.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee2({
           Unite: 6,
           Min: 0,
           Max: 1.2,

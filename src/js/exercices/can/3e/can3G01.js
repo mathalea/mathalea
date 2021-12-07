@@ -1,6 +1,6 @@
 import { choice, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Agrandissement/réduction'
+export const titre = 'Calculer et utiliser un agrandissement/réduction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

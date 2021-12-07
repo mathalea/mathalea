@@ -1,4 +1,4 @@
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, scientifiqueToDecimal } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, scientifiqueToDecimal, sp } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 
@@ -87,21 +87,21 @@ export default function NotationScientifique () {
         } else {
           reponse = `${texNombrec(mantisse)}\\times10^${exp}`
         }
-        texte = `$${decimalstring}$`
+        texte = `$${decimalstring}${sp()}=$`
         texteCorr = `$${decimalstring} = ${scientifiquestring}$`
         if (this.interactif) {
-          texte = ajouteChampTexteMathLive(this, i, 'largeur25 inline', {
-            texte: `$${decimalstring} = $`
-          })
+          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        } else {
+          texte += `$${sp()}\\dots$`
         }
       } else {
         reponse = mantisse * 10 ** exp
         texteCorr = `$${scientifiquestring} = ${decimalstring}$`
-        texte = `$${scientifiquestring}$`
+        texte = `$${scientifiquestring}${sp()}=$`
         if (this.interactif) {
-          texte = ajouteChampTexteMathLive(this, i, 'largeur25 inline', {
-            texte: `$${scientifiquestring} = $`
-          })
+          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        } else {
+          texte += `$${sp()}\\dots$`
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

@@ -1,6 +1,6 @@
 import { choice, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Encadrement de racine carrée'
+export const titre = 'Encadrer une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -12,6 +12,7 @@ export const amcType = 'AMCNum'
 export default function EncadrementRacineCarree () {
   Exercice.call(this)
   this.typeExercice = 'simple'
+  this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.nouvelleVersion = function () {
     const a = randint(3, 99, [4, 9, 16, 25, 36, 49, 64, 81]) // numérateur

@@ -26,9 +26,7 @@ export default function DeterminerFonctionAffine () {
   this.interactifType = interactifType
   this.consigne = ''
   this.sup = 1
-  this.nbQuestionsModifiable = false
-  this.correctionDetailleeDisponible = false
-  this.correctionDetaillee = true
+  this.nbQuestions = 2
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   // this.sup = 1
@@ -37,10 +35,6 @@ export default function DeterminerFonctionAffine () {
 
   this.nouvelleVersion = function () {
     this.titre = titre
-    this.nbQuestions = 5 // Ici le nombre de questions
-    this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
-    this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-    this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []

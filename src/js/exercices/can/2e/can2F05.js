@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions'
 import { randint, calcul, miseEnEvidence } from '../../../modules/outils.js'
-export const titre = 'Antécédent avec fonction racine carrée'
+export const titre = 'Déterminer un antécédent avec la racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

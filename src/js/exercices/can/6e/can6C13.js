@@ -1,6 +1,6 @@
 import { calcul, randint, texNombrec, choice, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Somme de deux décimaux'
+export const titre = 'Calculer la somme de deux décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,6 +16,7 @@ export default function FSomme2Decimaux () {
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let a, b, c, d, e
     if (choice([true, false])) {
@@ -26,7 +27,7 @@ export default function FSomme2Decimaux () {
       e = randint(10, 13)
       this.consigne = 'Calculer.'
       this.reponse = calcul(e + b * 0.1)
-      this.question = `$${texNombrec(a + b * 0.1)}+${texNombrec(e - a)}$`
+      this.question = `$${texNombrec(a + b * 0.1)}+${texNombrec(e - a)}=$`
       this.correction = `$${texNombrec(a + b * 0.1)}+${texNombrec(e - a)}=${texNombrec(e + b * 0.1)}$`
       this.correction += texteEnCouleur(`
       <br> Mentalement : <br>
@@ -41,7 +42,7 @@ export default function FSomme2Decimaux () {
 
       this.consigne = 'Calculer.'
       this.reponse = calcul(a + c + (b + d) * 0.1)
-      this.question = `$${texNombrec(a + b * 0.1)}+${texNombrec(c + d * 0.1)}$`
+      this.question = `$${texNombrec(a + b * 0.1)}+${texNombrec(c + d * 0.1)}=$`
       this.correction = `$${texNombrec(a + b * 0.1)}+${texNombrec(c + d * 0.1)}=${texNombrec(a + c + (b + d) * 0.1)}$`
       this.correction += texteEnCouleur(`
         <br> Mentalement : <br>

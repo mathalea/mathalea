@@ -1,6 +1,6 @@
 import ExerciceEquationASolutionEntiere from '../../4e/4L20-0.js'
 export { interactifReady, interactifType, amcReady, amcType } from '../../4e/4L20-0.js'
-export const titre = 'Résoudre une équation niveau 2'
+export const titre = 'Résoudre une équation ax+b=c'
 
 /*!
  * @author Jean-Claude Lhote
@@ -10,6 +10,9 @@ export const titre = 'Résoudre une équation niveau 2'
 export default function UneEquationMoyenne () {
   ExerciceEquationASolutionEntiere.call(this)
   this.nbQuestions = 1
+  this.correctionDetaillee = false
   this.sup = false
   this.sup2 = 2
+  this.spacingCorr = 1
+  this.consigne = 'Résoudre l’équation :'
 }

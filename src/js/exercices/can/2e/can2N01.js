@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, sp, texNombrec, texteEnCouleur, calcul } from '../../../modules/outils.js'
-export const titre = 'Intervalles'
+export const titre = 'Utiliser les intervalles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -27,7 +27,7 @@ export default function Intervalles () {
         c = calcul(randint(-4, -1) + randint(-9, -1) / 10)
         N = choice(['a', 'b', 'c', 'd', 'e'])//, ${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}     Bigg[${a}  ${sp(2)} ; ${sp(2)} ${b}\\Bigg]$ <br><br>$\\left]${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right]$?<br>
         if (N === 'a') {
-          this.question = `Combien y a-t-il d'entiers dans l'intervalle  $\\bigg[${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg]$       
+          this.question = `Combien y a-t-il d'entiers dans l'intervalle $\\bigg[${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg]$ ?      
                     `
           this.correction = ` Il y a $${b - a + 1}$ entiers dans l'intervalle $\\bigg[${a}${sp(1)} ; ${sp(1)}${b}\\bigg]$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -87,19 +87,19 @@ export default function Intervalles () {
           this.reponse = a + 1
         }
         if (N === 'b') {
-          this.question = `Quel est le plus petit entier appartenant à l'intervalle 
+          this.question = `Quel est le plus petit entier de l'intervalle 
           $\\bigg]${texNombrec(c)}  ${sp(1)} ; ${sp(1)} ${b}\\bigg[$ ?`
           this.correction = `C'est le plus petit entier strictement supérieur à  $${texNombrec(c)}$ : il s'agit de $${Math.trunc(c)}$.`
           this.reponse = Math.trunc(c)
         }
         if (N === 'c') {
-          this.question = `Quel est le plus grand entier appartenant à l'intervalle 
+          this.question = `Quel est le plus grand entier de l'intervalle 
           $\\bigg]${texNombrec(c)}  ${sp(1)} ; ${sp(1)} ${texNombrec(d)}\\bigg[$ ?`
           this.correction = `C'est le plus grand entier strictement inférieur à  $${texNombrec(d)}$ : il s'agit de $${Math.trunc(d) - 1}$.`
           this.reponse = Math.trunc(d) - 1
         }
         if (N === 'd') {
-          this.question = `Quel est le plus grand entier appartenant à l'intervalle 
+          this.question = `Quel est le plus grand entier de l'intervalle 
           $\\bigg]${texNombrec(e - 4)}  ${sp(1)} ; ${sp(1)} ${texNombrec(e)}\\bigg[$ ?`
           this.correction = `C'est le plus grand entier strictement inférieur à  $${texNombrec(e)}$ : il s'agit de $${e - 1}$.`
           this.reponse = e - 1

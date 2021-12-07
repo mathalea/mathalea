@@ -119,8 +119,9 @@ Les concepteurs plus curieux, trouveront, aussi, dans ce chapitre :
 >>```js 
 >> // syntaxe de ajouteChampTexteMathLive() : ajouteChampTexteMathLive(this, i, 'style', {...options})
 >>texte += ajouteChampTexteMathLive(this, i,'largeur 25') // 25 % de la largeur de la page est occupés par le champ de réponses
+>>texte += ajouteChampTexteMathLive(this, i,'fixed-width-150') // Fixe la largeur du champ à 150 pixels (disponible de 50 en 50 de 100 jusqu'à 500 puis de 100 en 100 jusqu'à 1000)
 >>texte += ajouteChampTexteMathLive(this, i,'inline') // sans retour à la ligne 
->>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25') // mélange des deux options précédentes
+>>texte += ajouteChampTexteMathLive(this, i,'inline fixed-width-150') // mélange des deux options précédentes
 >>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texte: 'avant' })) // écrit "avant" devant le champ de réponses
 >>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texteApres: 'après' })) // écrit "après" derrière le champ de réponses
 >>texte += ajouteChampTexteMathLive(this, i,'longueur') // le champ de réponses oblige l'élève à remplir une valeur numérique ET une unité de longueur (ou d'aires).

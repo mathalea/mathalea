@@ -1,7 +1,7 @@
 import { fraction } from '../../../modules/fractions'
 import { randint, choice } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Calcul de probabilité simple'
+export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

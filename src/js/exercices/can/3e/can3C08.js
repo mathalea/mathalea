@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texNombrec, texteEnCouleur, calcul, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
-export const titre = 'Programme de calcul'
+export const titre = 'Calculer avec un programme de calcul'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
