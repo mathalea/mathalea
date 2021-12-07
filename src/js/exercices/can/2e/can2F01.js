@@ -3,7 +3,7 @@ import {
   randint, calcul, choice, ecritureParentheseSiNegatif, texNombrec,
   ecritureAlgebrique, rienSi1, texteEnCouleur
 } from '../../../modules/outils.js'
-export const titre = 'Calcul d’une image second degré'
+export const titre = 'Calculer une image avec le second degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

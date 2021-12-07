@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, creerNomDePolygone, miseEnEvidence, choice, sp } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/gestionInteractif.js'
-export const titre = 'Relation de Chasles, réductions vectorielles (niveau 1) QCM'
+export const titre = 'Utiliser la relation de Chasles/réductions vectorielles (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

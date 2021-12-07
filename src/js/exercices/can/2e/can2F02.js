@@ -3,7 +3,7 @@ import {
   randint, ecritureParentheseSiNegatif,
   ecritureAlgebrique, texteEnCouleur, texFractionReduite, reduireAxPlusB, simplificationDeFractionAvecEtapes, texFraction
 } from '../../../modules/outils.js'
-export const titre = 'Calcul d’une image avec un quotient'
+export const titre = 'Calculer une image avec un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

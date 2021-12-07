@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, calcul, choice } from '../../../modules/outils.js'
-export const titre = 'Nombre de nombres entiers entre deux valeurs'
+export const titre = 'Trouver le nombre d’entiers entre deux valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -19,15 +19,8 @@ export default function NombreDeNombresEntiersEntreDeuxValeurs2 () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b
-    switch (choice(['a', 'b', 'c', 'd'])) {
+    switch (choice(['a', 'b', 'c'])) {
       case 'a':
-        a = randint(1, 10)
-        b = randint(15, 30)
-        this.question = `Le nombre d'entiers strictement compris entre $${a}$ et $${b}$ est :`
-        this.correction = `Il y a $${b}-${a}-1$ soit $${b - a - 1}$ entiers strictement compris entre $${a}$ et $${b}$ `
-        this.reponse = calcul(b - a - 1)
-        break
-      case 'b':
         a = randint(3, 5)
         b = randint(8, 18)
         this.question = `Combien y a-t-il d'entiers $n$ tels que : $${a}\\leqslant n \\leqslant ${b}$ ?`
@@ -35,14 +28,14 @@ export default function NombreDeNombresEntiersEntreDeuxValeurs2 () {
         this.reponse = calcul(b - a + 1)
         break
 
-      case 'c':
+      case 'b':
         a = randint(3, 5)
         b = randint(8, 18)
         this.question = `Combien y a-t-il d'entiers $n$ tels que : $${a}< n \\leqslant ${b}$ ?`
         this.correction = `Il y en a $${b}-${a}$, soit $${b - a}$.`
         this.reponse = calcul(b - a)
         break
-      case 'd':
+      case 'c':
         a = randint(3, 5)
         b = randint(8, 18)
         this.question = `Combien y a-t-il d'entiers $n$ tels que : $${a}\\leqslant n < ${b}$ ?`
