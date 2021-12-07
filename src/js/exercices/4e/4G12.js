@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes, centrage, texteEnCouleur, contraindreValeur, enleveElement, compteOccurences, miseEnEvidence } from '../../modules/outils.js'
+import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes, centrage, texteEnCouleur, contraindreValeur, enleveElement, compteOccurences, miseEnEvidence, calcul } from '../../modules/outils.js'
 import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
@@ -316,15 +316,12 @@ export default function SerieDeTransformations () {
           objetsEnonce.push(label)
         }
       }
-      if (context.isHtml || chemin.length - 1 === 8 || (this.sup === 1 && chemin.length - 1 < 15)) {
-        paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.7 }
-        paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
-      } else if (this.sup === 1) {
-        paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.7 }
-        paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.5 }
-      } else {
-        paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 - mod(chemin.length - 1, 10) / 40 }
-        paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.55 - mod(chemin.length - 1, 10) / 20 }
+      if (this.sup === 1) { // cas des symétries axiales seules (une seule ligne par étape) plus de place pour la figure qui rétrécit en F° du nombre d'étapes.
+        paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: calcul(1.1 - chemin.length * 0.03125) }
+        paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: calcul(1 - chemin.length * 0.03125) }
+      } else { // à partir de la symétrie centrale, il peut y avoir 2 lignes par étapes, donc on rétrécit davantage la figure.
+        paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: calcul(1.2 - chemin.length * 0.05) }
+        paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: calcul(1.1 - chemin.length * 0.05) }
       }
       for (let k = 1, figure; k < chemin.length - 1; k++) {
         figure = translation(polys[chemin[k]], vecteur(0, 0))
@@ -382,6 +379,6 @@ export default function SerieDeTransformations () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Types de transformations possibles', 4, '1 : Symétries axiales seulement\n2 : Symétries axiales et centrales\n3 : Symétries et translations\n4 : Symétries, translations et quarts de tour']
-  this.besoinFormulaire2Numerique = ['Nombre de transformations entre le départ et l\'arrivée', 4, '1 : 8\n2 : 10\n3 : 12\n4 : 14\n5 : 16\n6 : Entre 8 et 16']
+  this.besoinFormulaire2Numerique = ['Nombre de transformations entre le départ et l\'arrivée', 6, '1 : 8\n2 : 10\n3 : 12\n4 : 14\n5 : 16\n6 : Entre 8 et 16']
   this.besoinFormulaire3CaseACocher = ['Énoncés raccourcis', false]
 }
