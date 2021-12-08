@@ -7306,7 +7306,7 @@ export function exportQcmAmc (exercice, idExo) {
   let lastchoice = false
   let ordered = false
   let nbChiffresPd, nbChiffresPe
-
+  let melange = true
   for (let j = 0; j < autoCorrection.length; j++) {
     if (autoCorrection[j] === undefined) { // normalement, cela ne devrait jamais arriver !
       autoCorrection[j] = {}
@@ -7447,14 +7447,15 @@ export function exportQcmAmc (exercice, idExo) {
             digitsExposant = nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.exposantPuissance)
           }
           texQr += '\n'
-          texQr += `Base\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.basePuissance}}{digits=${digitsBase},decimals=0,sign=false,approx=0,`
-          if (autoCorrection[j].reponse.param.aussiCorrect !== undefined) texQr += `alsocorrect=${autoCorrection[j].reponse.param.aussiCorrect}`
+          texQr += `Base\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.basePuissance}}{digits=${digitsBase},decimals=0,sign=${autoCorrection[j].reponse.param.basePuissance < 0 ? 'true' : 'false'},approx=0,`
+          if (autoCorrection[j].reponse.param.aussiCorrect !== undefined) texQr += `alsocorrect=${autoCorrection[j].reponse.param.aussiCorrect},`
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n'
           texQr += '\\AMCquestionNumberfalse\\def\\AMCbeginQuestion#1#2{}'
           texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 1}} \n `
           texQr += '\\vspace{18pt}'
-          texQr += `Exposant\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=false,approx=0,`
+          // texQr += `Exposant\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=${autoCorrection[j].reponse.param.exposantPuissance < 0 ? 'true' : 'false'},approx=0,`
+          texQr += `Exposant\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=true,approx=0,`
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n\\end{multicols}\n\\end{minipage}\n}\n\n'
           id += 2
@@ -7570,10 +7571,8 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
-        // texQr += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
-          // reponse = autoCorrection[j].reponse.valeur[0]
           if (autoCorrection[j].reponse.param.digits === 0) {
             nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(valeurAMCNum)
             autoCorrection[j].reponse.param.decimals = nbChiffresPd
@@ -7812,19 +7811,28 @@ export function exportQcmAmc (exercice, idExo) {
           autoCorrection[j].enonce = exercice.listeQuestions[j]
         }
         if (autoCorrection[j].propositions === undefined) {
-          // console.log(`Il ne peut pas y avoir de type AMCHybride si exercice.autoCorrection[${j}].propositions n'est pas défini !`)
           break
+        }
+        if (autoCorrection[j].melange !== undefined) {
+          melange = autoCorrection[j].melange
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
         if (autoCorrection[j].enonceAvant === undefined) { // Dans une suite de questions, il se peut qu'il n'y ait pas d'énoncé général donc pas besoin de saut de ligne non plus.
           texQr += `${autoCorrection[j].enonce} \\\\\n `
+        } else if (autoCorrection[j].enonceAvant) {
+          texQr += `${autoCorrection[j].enonce} \\\\\n `
+        } else if (autoCorrection[j].enonceAvantUneFois !== undefined) {
+          if (autoCorrection[j].enonceAvantUneFois && j === 0) {
+            texQr += `${autoCorrection[j].enonce} \\\\\n `
+          }
         }
+
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicols) {
             texQr += '\\begin{multicols}{2}\n'
           }
         }
-        for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les question-reponse de l'élément j
+        for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les questions-reponses de l'élément j
           prop = autoCorrection[j].propositions[qr] // prop est un objet avec cette structure : {type,propositions,reponse}
           qrType = prop.type
 
@@ -7939,13 +7947,14 @@ export function exportQcmAmc (exercice, idExo) {
                   digitsExposant = nombreDeChiffresDansLaPartieEntiere(rep.param.exposantPuissance)
                 }
                 texQr += '\n'
-                texQr += `Base\n \\AMCnumericChoices{${rep.param.basePuissance}}{digits=${digitsBase},decimals=0,sign=false,approx=0,`
+                texQr += `Base\n \\AMCnumericChoices{${rep.param.basePuissance}}{digits=${digitsBase},decimals=0,sign=${rep.param.basePuissance < 0 ? 'true' : 'false'},approx=0,`
                 texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
                 texQr += '\\end{questionmultx}\n'
                 texQr += '\\AMCquestionNumberfalse\\def\\AMCbeginQuestion#1#2{}'
                 texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 1}} \n `
                 texQr += '\\vspace{18pt}'
-                texQr += `Exposant\n \\AMCnumericChoices{${rep.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=false,approx=0,`
+                // texQr += `Exposant\n \\AMCnumericChoices{${rep.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=${rep.param.exposantPuissance < 0 ? 'true' : 'false'},approx=0,`
+                texQr += `Exposant\n \\AMCnumericChoices{${rep.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=true,approx=0,`
                 texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
                 texQr += '\\end{questionmultx}\\end{multicols}\n\\end{minipage}\n\n'
                 id += 2
@@ -8050,15 +8059,24 @@ export function exportQcmAmc (exercice, idExo) {
                 id++
               }
               break
-            case 'AMCOpen':
-              // texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-              texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+            case 'AMCOpen': // AMCOpen de Hybride
+              if (propositions[0].numQuestionVisible === undefined) {
+                texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+              } else if (propositions[0].numQuestionVisible) {
+                texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+              } else {
+                texQr += `\t\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse \\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}}\\QuestionIndicative \n `
+              }
               if (!(propositions[0].enonce === undefined)) texQr += `\t${propositions[0].enonce}\n`
               texQr += `\t\t\\explain{${propositions[0].texte}}\n`
-              texQr += `\t\t\\notation{${propositions[0].statut}}`
-              if (!(isNaN(propositions[0].sanscadre))) {
-                texQr += `[${propositions[0].sanscadre}]` // le statut contiendra le nombre de lignes pour ce type
+
+              if (propositions[0].numQuestionVisible === undefined) {
+                texQr += `\t\t\\notation{${propositions[0].statut}}`
+                if (!(isNaN(propositions[0].sanscadre))) {
+                  texQr += `[${propositions[0].sanscadre}]` // le statut contiendra le nombre de lignes pour ce type
+                }
               }
+
               texQr += '\n' // le statut contiendra le nombre de lignes pour ce type
               texQr += '\t\\end{question}\n'
               id++
@@ -8074,7 +8092,7 @@ export function exportQcmAmc (exercice, idExo) {
         break
     }
   }
-  return [texQr, ref, exercice.nbQuestions, titre]
+  return [texQr, ref, exercice.nbQuestions, titre, melange]
 }
 
 /**
@@ -8093,9 +8111,9 @@ export function exportQcmAmc (exercice, idExo) {
  * 4=questionmultx avec AMCnumeriqueChoices question ouverte à réponse numérique codée
  *
  * nbQuestions est un tableau pour préciser le nombre de questions à prendre dans chaque groupe pour constituer une copie
- * si il est indéfini, toutes les questions du groupe seront posées.
- * nb_exemplaire est le nombre de copie à générer
- * matiere et titre se passe de commentaires : ils renseigne l'entête du sujet.
+ * s'il est indéfini, toutes les questions du groupe seront posées.
+ * nb_exemplaire est le nombre de copies à générer
+ * matiere et titre se passent de commentaires : ils renseignent l'entête du sujet.
  */
 export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation', typeEntete = 'AMCcodeGrid', format = 'A4' }) {
   // Attention questions est maintenant un tableau de tous les this.amc des exos
@@ -8104,7 +8122,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   let idExo = 0; let code; let indexOfCode
   const nombreDeQuestionsIndefinie = []
   const graine = randint(1, 100000)
-  const groupeDeQuestions = []; const texQuestions = [[]]; const titreQuestion = []
+  const groupeDeQuestions = []; const texQuestions = [[]]; const titreQuestion = []; const melangeQuestion = []
   for (const exercice of questions) {
     code = exportQcmAmc(exercice, idExo)
     idExo++
@@ -8123,6 +8141,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
       }
       // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
       titreQuestion[indexOfCode] = code[3]
+      melangeQuestion[indexOfCode] = code[4]
     } else { // Donc le groupe existe, on va vérifier si la question existe déjà et si non, on l'ajoute.
       if (texQuestions[indexOfCode].indexOf(code[0]) === -1) {
         texQuestions[indexOfCode] += code[0]
@@ -8422,6 +8441,9 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
     \\vspace{1mm}
     \\hrule
   \\end{center}\n`
+    if (!melangeQuestion[i]) {
+      contenuCopie += `\\setgroupmode{${g}}{cyclic}\n\n`
+    }
     if (nbQuestions[i] > 0) {
       contenuCopie += `\\restituegroupe[${nbQuestions[i]}]{${g}}\n\n`
     } else {
