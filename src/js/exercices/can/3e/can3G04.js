@@ -3,7 +3,7 @@ import { randint, choice, texNombrec, creerNomDePolygone } from '../../../module
 import {
   mathalea2d, point, segment, milieu, polygoneAvecNom, texteParPosition
 } from '../../../modules/2d.js'
-export const titre = 'Rechercher une valeur avec Pythagore'
+export const titre = 'Rechercher une valeur avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
