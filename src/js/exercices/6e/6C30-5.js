@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, combinaisonListes, randint, texNombre2, texFraction, choice, miseEnEvidence } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, combinaisonListes, randint, texNombre2, texFraction, choice, miseEnEvidence, sp } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
@@ -63,10 +63,10 @@ export default function MultiplierPar001 () {
       resultat = calcul(nombre * 10 ** coef)
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1:
-          texte = `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$`
+          texte = `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}${sp(2)}=${sp(2)}\\ldots\\ldots\\ldots\\ldots$`
           texteCorr = `Quand on multiplie par $${texNombre2(calcul(10 ** coef))}=${texFraction(1, calcul(10 ** (-coef)))}$, chaque chiffre prend une valeur $${texNombre2(calcul(10 ** (-coef)))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
-          texteCorr += `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ =~~ ${miseEnEvidence(texNombre2(resultat), 'blue')}$`
+          texteCorr += `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}${sp(2)}=${sp(2)}${miseEnEvidence(texNombre2(resultat), 'blue')}$`
 
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
@@ -95,10 +95,10 @@ export default function MultiplierPar001 () {
           break
 
         case 2:
-          texte = `$${texNombre2(nombre)} \\times \\ldots\\ldots\\ldots~~ = ~~${texNombre2(resultat)}$`
+          texte = `$${texNombre2(nombre)} \\times \\ldots\\ldots\\ldots${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
           texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFraction(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
-          texteCorr += `$${texNombre2(nombre)} \\times ${miseEnEvidence(texNombre2(10 ** coef), 'blue')} ~~=~~ ${texNombre2(resultat)}$`
+          texteCorr += `$${texNombre2(nombre)} \\times ${miseEnEvidence(texNombre2(10 ** coef), 'blue')}${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
@@ -126,10 +126,10 @@ export default function MultiplierPar001 () {
           break
 
         case 3:
-          texte = `$\\ldots\\ldots\\ldots\\ldots \\times ${texNombre2(10 ** coef)}~~ = ~~${texNombre2(resultat)}$`
+          texte = `$\\ldots\\ldots\\ldots\\ldots \\times ${texNombre2(10 ** coef)}${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
           texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFraction(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
-          texteCorr += `$${miseEnEvidence(texNombre2(nombre), 'blue')} \\times ${texNombre2(10 ** coef)} = ${texNombre2(resultat)}$`
+          texteCorr += `$${miseEnEvidence(texNombre2(nombre), 'blue')} \\times ${texNombre2(10 ** coef)}${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
