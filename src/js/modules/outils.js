@@ -7295,7 +7295,7 @@ export async function scratchTraductionFr () {
  */
 
 export function exportQcmAmc (exercice, idExo) {
-  const ref = exercice.id
+  const ref = `${exercice.id}${exercice.sup ? 'S:' + exercice.sup : ''}${exercice.sup2 ? 'S2:' + exercice.sup2 : ''}${exercice.sup3 ? 'S3:' + exercice.sup3 : ''}${exercice.sup4 ? 'S4:' + exercice.sup4 : ''}`
   const autoCorrection = exercice.autoCorrection
   const titre = exercice.titre
   const type = exercice.amcType
