@@ -278,10 +278,10 @@ export default function modeliserEquations () {
           texte += '<br>Déterminer les nombres éventuels que l\'on peut entrer dans ces deux programmes pour qu\'au final ils donnent le même résultat.<br><br>'
           texteCorr = `En notant $x$ le nombre choisi au départ : <br>
                  
-                 On obtient avec le ${texteGras('programme 1 :')} :<br>
+                 On obtient avec le ${texteGras('programme 1 :')} <br>
       $\\bullet$ Ajouter $${a}$ :${sp(5)} $x+${a}$ ;<br>
       $\\bullet$ Prendre le carré du résultat :${sp(5)} $(x+${a})^2=x^2+2\\times x\\times ${a}+${a}^2=x^2+${texNombrec(2 * a)}x+${texNombrec(a * a)}$ ;<br>
-                  <br> On obtient avec le ${texteGras('programme 2 :')} :<br>
+                  <br> On obtient avec le ${texteGras('programme 2 :')} <br>
       $\\bullet$ Multiplier par $${texNombrec(2 * a)}$ :${sp(5)} $x\\times ${texNombrec(2 * a)}=${texNombrec(2 * a)}x$ ;<br>
       $\\bullet$ Ajouter $${b}$ : ${sp(5)} $${texNombrec(2 * a)}x+${b}$.<br><br>
       Les deux programmes donnent le même résultat lorsque : <br>
@@ -340,7 +340,7 @@ export default function modeliserEquations () {
                    
                    On obtient avec le ${texteGras('programme 1 :')} :<br>
         $\\bullet$ Prendre l'opposé de ce nombre :${sp(10)} $-x$ <br>
-        $\\bullet$ Multiplier par $${b}$ :${sp(10)} $${b}\\times x= -${b}x$ <br>
+        $\\bullet$ Multiplier par $${b}$ :${sp(10)} $${b}\\times (-x)= -${b}x$ <br>
         $\\bullet$ Ajouter $${a}$ :${sp(10)} $-${b}x+${a}$ <br>
                 <br> On obtient avec le ${texteGras('programme 1 :')} :<br>
         $\\bullet$ Multiplier par $${c}$ :${sp(10)} $x\\times ${c}=${c}x$ <br>
