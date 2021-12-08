@@ -105,7 +105,7 @@ export default function PuissancesDunRelatif1 () {
           sortie += `${texteGras('Remarque : ')} Dans ce cas comme les puissances d'exposant pair de deux nombres opposés sont égaux, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${baseUtile}^{${exposant}}$`
         };
         if (base < 0 && exposant % 2 === 1) {
-          sortie += '$<br>'
+          sortie += '<br>'
           sortie += `${texteGras('Remarque : ')} Dans ce cas comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base, exposant)}$  à la place de $${baseUtile}^{${exposant}}$`
         };
 
@@ -195,7 +195,7 @@ export default function PuissancesDunRelatif1 () {
               )}}$`
             }
             texteCorr += '<br><br>'
-            texteCorr += `$${lettre}=1$`
+            texteCorr += `$${lettre}=1`
           } else if (exp[0] - exp[1] < 0) {
             if (this.correctionDetaillee) {
               texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(
@@ -210,17 +210,17 @@ export default function PuissancesDunRelatif1 () {
                 baseUtile,
                 exp[1] - exp[0],
                 couleurExp1
-              )}}$`
+              )}}`
             }
-            texteCorr += '<br><br>'
+            texteCorr += '$<br><br>'
             texteCorr += `$${lettre}=\\dfrac{1}{${baseUtile}^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{${baseUtile}^{${exp[1] - exp[0]}}}`
             if ((base < 0) && ((exp[1] - exp[0]) % 2 === 0)) {
               texteCorr += `=\\dfrac{1}{${simpNotPuissance(
                 base,
                 exp[1] - exp[0]
-              )}}=${simpNotPuissance(base, exp[0] - exp[1])}$`
+              )}}=${simpNotPuissance(base, exp[0] - exp[1])}`
             } else {
-              texteCorr += `=${baseUtile}^{${exp[0] - exp[1]}}$`
+              texteCorr += `=${baseUtile}^{${exp[0] - exp[1]}}`
             }
           } else {
             if (this.correctionDetaillee) {
@@ -340,7 +340,7 @@ export default function PuissancesDunRelatif1 () {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' $=$' })
       }
       if (context.isAmc) {
-        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: base, exposantPuissance: exposantInteractif, aussiCorrect: baseUtileBisAMC })
+        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: base, exposantPuissance: exposantInteractif, exposantNbChiffres: 2, aussiCorrect: baseUtileBisAMC })
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
