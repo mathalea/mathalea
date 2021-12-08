@@ -147,9 +147,11 @@ export default function PuissancesDunRelatif1 () {
           texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}+${exp[1]}} = ${baseUtile}^{${exp[0] + exp[1]}}`
           // attention la baseUtile est de type str alors que la fonction switch sur un type number
           if ((base < 0) && ((exp[1] + exp[0]) % 2 === 0)) {
-            texteCorr += `=${simpNotPuissance(base, exp[1] + exp[0])}`
-          };
-          texteCorr += '$' + remarquesPuissances(base, baseUtile, exp[1] + exp[0])
+            texteCorr += `=${simpNotPuissance(base, exp[1] + exp[0])}$`
+          } else {
+            texteCorr += '$'
+          }
+          texteCorr += remarquesPuissances(base, baseUtile, exp[1] + exp[0])
           texteCorr += '<br>'
           if (base < 0 && ((exp[0] + exp[1]) % 2) === 0) {
             reponseInteractive = [`${baseUtile}^${exp[1] + exp[0]}`, `${-base}^${exp[1] + exp[0]}`]
@@ -195,7 +197,7 @@ export default function PuissancesDunRelatif1 () {
               )}}$`
             }
             texteCorr += '<br><br>'
-            texteCorr += `$${lettre}=1`
+            texteCorr += `$${lettre}=1$`
           } else if (exp[0] - exp[1] < 0) {
             if (this.correctionDetaillee) {
               texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(
@@ -210,17 +212,17 @@ export default function PuissancesDunRelatif1 () {
                 baseUtile,
                 exp[1] - exp[0],
                 couleurExp1
-              )}}`
+              )}}$`
             }
-            texteCorr += '$<br><br>'
+            texteCorr += '<br><br>'
             texteCorr += `$${lettre}=\\dfrac{1}{${baseUtile}^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{${baseUtile}^{${exp[1] - exp[0]}}}`
             if ((base < 0) && ((exp[1] - exp[0]) % 2 === 0)) {
               texteCorr += `=\\dfrac{1}{${simpNotPuissance(
                 base,
                 exp[1] - exp[0]
-              )}}=${simpNotPuissance(base, exp[0] - exp[1])}`
+              )}}=${simpNotPuissance(base, exp[0] - exp[1])}$`
             } else {
-              texteCorr += `=${baseUtile}^{${exp[0] - exp[1]}}`
+              texteCorr += `=${baseUtile}^{${exp[0] - exp[1]}}$`
             }
           } else {
             if (this.correctionDetaillee) {
@@ -241,10 +243,12 @@ export default function PuissancesDunRelatif1 () {
             texteCorr += '<br><br>'
             texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}-${exp[1]}}=${baseUtile}^{${exp[0] - exp[1]}}`
             if ((base < 0) && ((exp[0] - exp[1]) % 2 === 0)) {
-              texteCorr += `=${simpNotPuissance(base, exp[0] - exp[1])}`
+              texteCorr += `=${simpNotPuissance(base, exp[0] - exp[1])}$`
+            } else {
+              texteCorr += '$'
             }
           }
-          texteCorr += '$' + remarquesPuissances(base, baseUtile, exp[0] - exp[1])
+          texteCorr += remarquesPuissances(base, baseUtile, exp[0] - exp[1])
           texteCorr += '<br>'
           if (base < 0 && ((exp[0] - exp[1]) % 2) === 0) {
             reponseInteractive = [`${baseUtile}^${exp[0] - exp[1]}`, `${-base}^${exp[0] - exp[1]}`]
@@ -285,9 +289,11 @@ export default function PuissancesDunRelatif1 () {
           texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}\\times${exp[1]
             }} = ${baseUtile}^{${exp[0] * exp[1]}}`
           if ((base < 0) && ((exp[1] * exp[0]) % 2 === 0)) {
-            texteCorr += `= ${simpNotPuissance(base, exp[0] * exp[1])}`
+            texteCorr += `= ${simpNotPuissance(base, exp[0] * exp[1])}$`
+          } else {
+            texteCorr += '$'
           }
-          texteCorr += '$' + remarquesPuissances(base, baseUtile, exp[0] * exp[1])
+          texteCorr += remarquesPuissances(base, baseUtile, exp[0] * exp[1])
           texteCorr += '<br>'
           if (base < 0 && (exp[0] * exp[1] % 2) === 0) {
             reponseInteractive = [`${baseUtile}^${exp[0] * exp[1]}`, `${-base}^${exp[0] * exp[1]}`]
