@@ -102,20 +102,20 @@ export default function DiviserPar101001000 () {
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${texNombre2(calcul(10 ** -coef))}$`,
-              statut: true
+              texte: `$${texNombre2(calcul(10 ** 1))}$`,
+              statut: -coef === 1
             },
             {
-              texte: `$${texNombre2(calcul(10 ** (-coef + 1)))}$`,
-              statut: false
+              texte: `$${texNombre2(calcul(10 ** 2))}$`,
+              statut: -coef === 2
             },
             {
-              texte: `$${texNombre2(calcul(10 ** (-coef - 1)))}$`,
-              statut: false
+              texte: `$${texNombre2(calcul(10 ** 3))}$`,
+              statut: -coef === 3
             },
             {
-              texte: `$${texNombre2(calcul(10 ** (-coef)))}$`,
-              statut: false
+              texte: `$${texNombre2(calcul(10 ** 4))}$`,
+              statut: -coef === 4
             }
           ]
           this.autoCorrection[i].options = {
