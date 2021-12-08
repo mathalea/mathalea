@@ -2,7 +2,8 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre } from '../../modules/outils.js'
 import { point, tracePoint, pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, codageMediatrice, segmentAvecExtremites, cercle, pointIntersectionLC, dansLaCibleCarree, cibleCarree, homothetie, similitude, texteParPoint, mathalea2d, positionLabelDroite, fixeBordures, norme, translation, vecteur } from '../../modules/2d.js'
 export const titre = 'Construire des médiatrices avec cible auto-corrective'
-
+export const amcReady = true
+export const amcType = 'AMCOpen'
 /**
  * Construction de médiatrices avec dispositif d'auto-correction aléatoire
  * Ref 6G25
@@ -81,7 +82,7 @@ export default function ConstruireMediatrices6e () {
     const xMax = Math.max(A1.x + 1, A2.x + 1, B1.x + 1, B2.x + 1, I.x + 4)
     const yMax = Math.max(A1.y + 1, A2.y + 1, B1.y + 1, B2.y + 1, I.y + 4)
     */
-    // On appelle la fonction fixBordures qui va détérminer la fenêtre Mathalea2d.
+    // On appelle la fonction fixBordures qui va déterminer la fenêtre Mathalea2d.
     // Ici, la cible était un objet centré sur (cible.x, cible.y) et de taille 4, on crée deux points en diagonale
     // afin qu'elle soit prise en compte dans son intégralité avec les entêtes de lignes et de colonnes.
     const params = fixeBordures([A1, A2, B1, B2, point(cible.x - 2.5, cible.y - 2.5), point(cible.x + 2.5, cible.y + 2.5)])
@@ -89,6 +90,22 @@ export default function ConstruireMediatrices6e () {
     params.scale = 0.7
     objetsCorrection.push(texteParPoint('(d)', positionLabelDroite(medA, params), 'milieu', 'black', 1, 'middle', true))
     objetsCorrection.push(texteParPoint('(d\')', positionLabelDroite(medB, params), 'milieu', 'black', 1, 'middle', true))
+
+    this.autoCorrection = [
+      {
+        enonce: texte + mathalea2d(params, objetsEnonce),
+        propositions: [
+          {
+            texte: texteCorr + mathalea2d(params, objetsCorrection),
+            statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+            feedback: '',
+            enonce: 'Texte écrit au dessus ou avant les cases à cocher', // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+            sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+
+          }
+        ]
+      }
+    ]
 
     this.listeQuestions.push(texte + mathalea2d(params, objetsEnonce))
     this.listeCorrections.push(texteCorr + mathalea2d(params, objetsCorrection))
