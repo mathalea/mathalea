@@ -283,11 +283,11 @@ export default function PuissancesDunRelatif1 () {
           texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $${baseUtile}$`
           texteCorr += '<br>'
           texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}\\times${exp[1]
-            }} = ${baseUtile}^{${exp[0] * exp[1]}}$`
+            }} = ${baseUtile}^{${exp[0] * exp[1]}}`
           if ((base < 0) && ((exp[1] * exp[0]) % 2 === 0)) {
-            texteCorr += `$= ${simpNotPuissance(base, exp[0] * exp[1])}$`
+            texteCorr += `= ${simpNotPuissance(base, exp[0] * exp[1])}`
           }
-          texteCorr += remarquesPuissances(base, baseUtile, exp[0] * exp[1])
+          texteCorr += '$' + remarquesPuissances(base, baseUtile, exp[0] * exp[1])
           texteCorr += '<br>'
           if (base < 0 && (exp[0] * exp[1] % 2) === 0) {
             reponseInteractive = [`${baseUtile}^${exp[0] * exp[1]}`, `${-base}^${exp[0] * exp[1]}`]
