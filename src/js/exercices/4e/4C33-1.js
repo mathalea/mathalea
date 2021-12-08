@@ -331,6 +331,7 @@ export default function PuissancesDunRelatif1 () {
           reponseInteractive = `${base[0] * base[1]}^${exp}`
           baseUtile = base[0] * base[1]
           baseUtileBisAMC = base[0] * base[1] // juste pour ne pas avoir à ajouter un batterie de ligne spécifique pour ce cas, je mets deux fois la même chose
+          base = baseUtile
           exposantInteractif = exp
           break
       }
