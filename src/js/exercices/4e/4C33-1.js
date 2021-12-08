@@ -144,12 +144,12 @@ export default function PuissancesDunRelatif1 () {
           texteCorr += '<br>'
           texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $${baseUtile}$`
           texteCorr += '<br>'
-          texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}+${exp[1]}} = ${baseUtile}^{${exp[0] + exp[1]}}$`
+          texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}+${exp[1]}} = ${baseUtile}^{${exp[0] + exp[1]}}`
           // attention la baseUtile est de type str alors que la fonction switch sur un type number
           if ((base < 0) && ((exp[1] + exp[0]) % 2 === 0)) {
-            texteCorr += `$=${simpNotPuissance(base, exp[1] + exp[0])}$`
+            texteCorr += `=${simpNotPuissance(base, exp[1] + exp[0])}`
           };
-          texteCorr += remarquesPuissances(base, baseUtile, exp[1] + exp[0])
+          texteCorr += '$' + remarquesPuissances(base, baseUtile, exp[1] + exp[0])
           texteCorr += '<br>'
           if (base < 0 && ((exp[0] + exp[1]) % 2) === 0) {
             reponseInteractive = [`${baseUtile}^${exp[1] + exp[0]}`, `${-base}^${exp[1] + exp[0]}`]
@@ -239,12 +239,12 @@ export default function PuissancesDunRelatif1 () {
               )}}$`
             }
             texteCorr += '<br><br>'
-            texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}-${exp[1]}}=${baseUtile}^{${exp[0] - exp[1]}}$`
+            texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}-${exp[1]}}=${baseUtile}^{${exp[0] - exp[1]}}`
             if ((base < 0) && ((exp[0] - exp[1]) % 2 === 0)) {
-              texteCorr += `$=${simpNotPuissance(base, exp[0] - exp[1])}$`
+              texteCorr += `=${simpNotPuissance(base, exp[0] - exp[1])}`
             }
           }
-          texteCorr += remarquesPuissances(base, baseUtile, exp[0] - exp[1])
+          texteCorr += '$' + remarquesPuissances(base, baseUtile, exp[0] - exp[1])
           texteCorr += '<br>'
           if (base < 0 && ((exp[0] - exp[1]) % 2) === 0) {
             reponseInteractive = [`${baseUtile}^${exp[0] - exp[1]}`, `${-base}^${exp[0] - exp[1]}`]
@@ -283,11 +283,11 @@ export default function PuissancesDunRelatif1 () {
           texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $${baseUtile}$`
           texteCorr += '<br>'
           texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}\\times${exp[1]
-            }} = ${baseUtile}^{${exp[0] * exp[1]}}$`
+            }} = ${baseUtile}^{${exp[0] * exp[1]}}`
           if ((base < 0) && ((exp[1] * exp[0]) % 2 === 0)) {
-            texteCorr += `$= ${simpNotPuissance(base, exp[0] * exp[1])}$`
+            texteCorr += `= ${simpNotPuissance(base, exp[0] * exp[1])}`
           }
-          texteCorr += remarquesPuissances(base, baseUtile, exp[0] * exp[1])
+          texteCorr += '$' + remarquesPuissances(base, baseUtile, exp[0] * exp[1])
           texteCorr += '<br>'
           if (base < 0 && (exp[0] * exp[1] % 2) === 0) {
             reponseInteractive = [`${baseUtile}^${exp[0] * exp[1]}`, `${-base}^${exp[0] * exp[1]}`]
@@ -331,6 +331,7 @@ export default function PuissancesDunRelatif1 () {
           reponseInteractive = `${base[0] * base[1]}^${exp}`
           baseUtile = base[0] * base[1]
           baseUtileBisAMC = base[0] * base[1] // juste pour ne pas avoir à ajouter un batterie de ligne spécifique pour ce cas, je mets deux fois la même chose
+          base = baseUtile
           exposantInteractif = exp
           break
       }
