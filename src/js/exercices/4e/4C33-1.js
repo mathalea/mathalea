@@ -239,12 +239,12 @@ export default function PuissancesDunRelatif1 () {
               )}}$`
             }
             texteCorr += '<br><br>'
-            texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}-${exp[1]}}=${baseUtile}^{${exp[0] - exp[1]}}$`
+            texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}-${exp[1]}}=${baseUtile}^{${exp[0] - exp[1]}}`
             if ((base < 0) && ((exp[0] - exp[1]) % 2 === 0)) {
-              texteCorr += `$=${simpNotPuissance(base, exp[0] - exp[1])}$`
+              texteCorr += `=${simpNotPuissance(base, exp[0] - exp[1])}`
             }
           }
-          texteCorr += remarquesPuissances(base, baseUtile, exp[0] - exp[1])
+          texteCorr += '$' + remarquesPuissances(base, baseUtile, exp[0] - exp[1])
           texteCorr += '<br>'
           if (base < 0 && ((exp[0] - exp[1]) % 2) === 0) {
             reponseInteractive = [`${baseUtile}^${exp[0] - exp[1]}`, `${-base}^${exp[0] - exp[1]}`]
