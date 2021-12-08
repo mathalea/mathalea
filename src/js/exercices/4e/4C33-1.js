@@ -144,12 +144,12 @@ export default function PuissancesDunRelatif1 () {
           texteCorr += '<br>'
           texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $${baseUtile}$`
           texteCorr += '<br>'
-          texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}+${exp[1]}} = ${baseUtile}^{${exp[0] + exp[1]}}$`
+          texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}+${exp[1]}} = ${baseUtile}^{${exp[0] + exp[1]}}`
           // attention la baseUtile est de type str alors que la fonction switch sur un type number
           if ((base < 0) && ((exp[1] + exp[0]) % 2 === 0)) {
-            texteCorr += `$=${simpNotPuissance(base, exp[1] + exp[0])}$`
+            texteCorr += `=${simpNotPuissance(base, exp[1] + exp[0])}`
           };
-          texteCorr += remarquesPuissances(base, baseUtile, exp[1] + exp[0])
+          texteCorr += '$' + remarquesPuissances(base, baseUtile, exp[1] + exp[0])
           texteCorr += '<br>'
           if (base < 0 && ((exp[0] + exp[1]) % 2) === 0) {
             reponseInteractive = [`${baseUtile}^${exp[1] + exp[0]}`, `${-base}^${exp[1] + exp[0]}`]
