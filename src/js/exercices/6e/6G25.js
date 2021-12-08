@@ -7,7 +7,7 @@ export const amcType = 'AMCOpen'
 /**
  * Construction de médiatrices avec dispositif d'auto-correction aléatoire
  * Ref 6G25
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote (Ajout AMC par Eric Elter)
  * Publié le 30/11/2020
  */
 export default function ConstruireMediatrices6e () {
