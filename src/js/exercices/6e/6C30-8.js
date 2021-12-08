@@ -102,15 +102,15 @@ export default function DiviserPar101001000 () {
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${texNombre2(calcul(10 ** coef))}$`,
+              texte: `$${texNombre2(calcul(10 ** -coef))}$`,
               statut: true
             },
             {
-              texte: `$${texNombre2(calcul(10 ** (coef - 1)))}$`,
+              texte: `$${texNombre2(calcul(10 ** (-coef + 1)))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calcul(10 ** (coef - 1)))}$`,
+              texte: `$${texNombre2(calcul(10 ** (-coef - 1)))}$`,
               statut: false
             },
             {
@@ -173,6 +173,6 @@ export default function DiviserPar101001000 () {
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
   this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
-  this.besoinFormulaire2Numerique = ['Type de questions', 4, ' 1 : Résultat à calculer\n 2 : Nombre à retrouver\n 3 : Fraction décimale à retrouver\n 4 : Mélange']
+  this.besoinFormulaire2Numerique = ['Type de questions', 4, ' 1 : Résultat à calculer\n 2 : Nombre à retrouver\n 3 : 10, 100 ou 1 000 à retrouver\n 4 : Mélange']
   // this.besoinFormulaire3CaseACocher =['Mode QCM',false]
 } // Fin de l'exercice.
