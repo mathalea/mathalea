@@ -1,7 +1,11 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, minToHoraire, minToHour, prenomF, prenom } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Calculer des durées ou déterminer un horaire'
+
+export const amcReady = true // pour définir que l'exercice peut servir à AMC
+export const amcType = 'AMCHybride'
 
 /**
  * Problèmes où il faut calculer la durée d'un évèbement ou un horaire.
@@ -26,7 +30,7 @@ export default function CalculsDeDureesOuHoraires () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
+    this.autoCorrection = []
     const typeDeContexte = combinaisonListes(
       [1, 2, 3, 4, 5],
       this.nbQuestions
@@ -231,7 +235,29 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `Le voyage a commencé à ${d1}.`
         }
       }
-
+      if (context.isAmc) {
+        this.autoCorrection[i] =
+          {
+            enonce: 'En plus de mettre les calculs effectués dans l\'encadré, répondre à chaque question par une phrase.<br>',
+            enonceAvant: false,
+            enonceAvantUneFois: true,
+            melange: false,
+            propositions: [
+              {
+                type: 'AMCOpen',
+                propositions: [
+                  {
+                    texte: ' ',
+                    statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                    feedback: '',
+                    enonce: texte + '<br>', // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                    sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                  }
+                ]
+              }
+            ]
+          }
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
