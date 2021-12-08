@@ -2473,7 +2473,7 @@ export function texNombre2 (nb) {
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
     partieEntiere = partieEntiere.substring(0, i) + '\\thickspace ' + partieEntiere.substring(i)
   }
-  for (let i = 3; i <= partieDecimale.length; i += 3) {
+  for (let i = 3; i < partieDecimale.length; i += 3) {
     partieDecimale = partieDecimale.substring(0, i) + '\\thickspace ' + partieDecimale.substring(i)
     i += 12
   }

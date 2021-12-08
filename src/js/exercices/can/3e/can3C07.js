@@ -18,7 +18,8 @@ export default function MilieuEntre1EtFraction () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 5)
-    const b = calcul(a + 1 + randint(1, 9, 5) / 5)
+    const c = randint(1, 9)
+    const b = calcul(a + c + randint(1, 9, 5) / 5)
     const A = point(0, 0, '1', 'below')
     const B = point(4, 0, 'M', 'below')
     const C = point(8, 0)
@@ -40,6 +41,7 @@ export default function MilieuEntre1EtFraction () {
       scale: 0.7,
       style: 'margin: auto'
     }, objets)
+    this.question += '<br>'
     this.correction = `On calcule la moyenne de $${texNombrec(a)}$ et $${texNombrec(b)}$ :<br>  
     $x_M=\\dfrac{${texNombrec(a)}+${texNombrec(b)}}{2}=
     \\dfrac{${texNombrec(a + b)}}{2}=${texNombrec((a + b) / 2)}$`
