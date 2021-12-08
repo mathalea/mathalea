@@ -346,7 +346,7 @@ export default function PuissancesDunRelatif1 () {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' $=$' })
       }
       if (context.isAmc) {
-        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: base, exposantPuissance: exposantInteractif, exposantNbChiffres: 2, aussiCorrect: baseUtileBisAMC })
+        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: base, exposantPuissance: exposantInteractif, exposantNbChiffres: 2, signe: true, aussiCorrect: baseUtileBisAMC })
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
