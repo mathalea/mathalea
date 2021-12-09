@@ -91,21 +91,21 @@ export default function ConstruireParSymetrie () {
     switch (this.sup) {
       case 1:
         if (this.figure) {
-          typesDeQuestionsDisponibles = [4]
+          typesDeQuestionsDisponibles = [3]
         } else {
           typesDeQuestionsDisponibles = [0]
         }
         break
       case 2:
         if (this.figure) {
-          typesDeQuestionsDisponibles = [5]
+          typesDeQuestionsDisponibles = [4]
         } else {
           typesDeQuestionsDisponibles = [1]
         }
         break
       case 3:
         if (this.figure) {
-          typesDeQuestionsDisponibles = [6]
+          typesDeQuestionsDisponibles = [5]
         } else {
           typesDeQuestionsDisponibles = [2]
         }
