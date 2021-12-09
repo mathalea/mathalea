@@ -152,7 +152,7 @@ export default function SymetrieAxialeConservation1 () {
           while (appartientDroite(points[index(choix)], points[index(choix + 1)], points[index(choix + 2)])) {
             choix = randint(0, 9) + randint(0, 1) * 12
           }
-          texte += numAlpha(i) + `Quel est le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ ?`
+          texte = numAlpha(i) + `Quel est le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ ?`
           texteCorr = numAlpha(i) + `Le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ est le triangle $${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}$.`
           objetsCorrection.push(polygone([points[index(choix)], points[index(choix + 1)], points[index(choix + 2)]], texcolors(i * 3 + 2)))
           objetsCorrection.push(polygone([points[index(choix + 12)], points[index(choix + 13)], points[index(choix + 14)]], texcolors(i * 3 + 2)))

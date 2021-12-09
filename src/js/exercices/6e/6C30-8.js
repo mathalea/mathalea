@@ -29,21 +29,22 @@ export default function DiviserPar101001000 () {
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
 
   this.sup = false
-  this.sup2 = 4
+  this.sup2 = true
+  this.sup3 = 4
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   this.nouvelleVersion = function () {
-    this.sup2 = parseInt(this.sup2)
+    this.sup3 = parseInt(this.sup3)
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     let typeDeQuestionsDisponibles
-    if (parseInt(this.sup2) === 4) {
+    if (parseInt(this.sup3) === 4) {
       typeDeQuestionsDisponibles = [1, 2, 3]
     } else {
-      typeDeQuestionsDisponibles = [parseInt(this.sup2)]
+      typeDeQuestionsDisponibles = [parseInt(this.sup3)]
     }
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
     const rang = ['millièmes', 'centièmes', 'dixièmes']
@@ -52,10 +53,24 @@ export default function DiviserPar101001000 () {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
       coef = -randint(1, 3)
-      if (!this.sup) {
-        exposant = -randint(1, 3)
+      if (this.sup2) {
+        if (this.sup) {
+          exposant = 0
+        } else {
+          switch (coef) {
+            case -1:
+              exposant = -randint(0, 2)
+              break
+            case -2:
+              exposant = -randint(0, 1)
+              break
+            case -3:
+              exposant = -randint(0, 0)
+              break
+          }
+        }
       } else {
-        exposant = 0
+        exposant = this.sup ? 0 : exposant = -randint(1, 3)
       }
       nombreentier = calcul(randint(10, 1000) + randint(10, 999) * choice([0, 1000]))
       nombre = calcul(nombreentier * 10 ** exposant)
@@ -102,20 +117,20 @@ export default function DiviserPar101001000 () {
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${texNombre2(calcul(10 ** -coef))}$`,
-              statut: true
+              texte: `$${texNombre2(calcul(10 ** 1))}$`,
+              statut: -coef === 1
             },
             {
-              texte: `$${texNombre2(calcul(10 ** (-coef + 1)))}$`,
-              statut: false
+              texte: `$${texNombre2(calcul(10 ** 2))}$`,
+              statut: -coef === 2
             },
             {
-              texte: `$${texNombre2(calcul(10 ** (-coef - 1)))}$`,
-              statut: false
+              texte: `$${texNombre2(calcul(10 ** 3))}$`,
+              statut: -coef === 3
             },
             {
-              texte: `$${texNombre2(calcul(10 ** (-coef)))}$`,
-              statut: false
+              texte: `$${texNombre2(calcul(10 ** 4))}$`,
+              statut: -coef === 4
             }
           ]
           this.autoCorrection[i].options = {
@@ -171,8 +186,10 @@ export default function DiviserPar101001000 () {
   }
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
-  // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-  this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
-  this.besoinFormulaire2Numerique = ['Type de questions', 4, ' 1 : Résultat à calculer\n 2 : Nombre à retrouver\n 3 : 10, 100 ou 1 000 à retrouver\n 4 : Mélange']
+  // Il sont associés respectivement aux paramètres sup, sup3 et sup3.
+  this.besoinFormulaireCaseACocher = ['Que des nombres entiers', false]
+  this.besoinFormulaire2CaseACocher = ['Que trois décimales maximum', true]
+  this.besoinFormulaire3Numerique = ['Type de questions', 4, ' 1 : Résultat à calculer\n 2 : Nombre à retrouver\n 3 : 10, 100 ou 1 000 à retrouver\n 4 : Mélange']
+
   // this.besoinFormulaire3CaseACocher =['Mode QCM',false]
 } // Fin de l'exercice.
