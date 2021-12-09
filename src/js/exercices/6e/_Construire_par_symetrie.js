@@ -3,9 +3,11 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDe
 import { point, tracePoint, pointSurDroite, labelPoint, droite, droiteVerticaleParPoint, droiteParPointEtPente, codageMediatrice, codageMilieu, segment, polygone, nommePolygone, rotation, symetrieAxiale, grille, seyes, mathalea2d, droiteHorizontaleParPoint, dessousDessus, aireTriangle, projectionOrtho, longueur, translation, vecteur, norme, homothetie, texteParPoint, estSurDroite, vide2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const dateDeModificationImportante = '14/11/2021'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote  (Ajout AMC par Eric Elter)
  * Fonction générale pour les exercices de construction de symétriques (centrale/axiale et points/triangles)
  * références  6G24-1, 6G24-2, 5G10-1, 5G10-2, 5G11-1 et 5G11-2
  * Permet une sortie html/pdf sur petits carreaux/gros carreaux/papier blanc
@@ -89,21 +91,21 @@ export default function ConstruireParSymetrie () {
     switch (this.sup) {
       case 1:
         if (this.figure) {
-          typesDeQuestionsDisponibles = [4]
+          typesDeQuestionsDisponibles = [3]
         } else {
           typesDeQuestionsDisponibles = [0]
         }
         break
       case 2:
         if (this.figure) {
-          typesDeQuestionsDisponibles = [5]
+          typesDeQuestionsDisponibles = [4]
         } else {
           typesDeQuestionsDisponibles = [1]
         }
         break
       case 3:
         if (this.figure) {
-          typesDeQuestionsDisponibles = [6]
+          typesDeQuestionsDisponibles = [5]
         } else {
           typesDeQuestionsDisponibles = [2]
         }
@@ -614,6 +616,22 @@ export default function ConstruireParSymetrie () {
         params,
         objetsCorrection
       )
+
+      if (context.isAmc) {
+        this.autoCorrection[i] =
+          {
+            enonce: enonce,
+            propositions: [
+              {
+                texte: correction,
+                statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                feedback: '',
+                sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              }
+            ]
+          }
+      }
+
       if (this.listeQuestions.indexOf(enonce) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(enonce + '<br>')
