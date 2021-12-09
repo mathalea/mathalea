@@ -620,20 +620,13 @@ export default function ConstruireParSymetrie () {
       if (context.isAmc) {
         this.autoCorrection[i] =
           {
-            enonce: 'Peu importe',
-            enonceAvant: false,
+            enonce: enonce,
             propositions: [
               {
-                type: 'AMCOpen',
-                propositions: [
-                  {
-                    texte: ' ',
-                    statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                    feedback: '',
-                    enonce: enonce, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                    sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                  }
-                ]
+                texte: correction,
+                statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                feedback: '',
+                sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
               }
             ]
           }
