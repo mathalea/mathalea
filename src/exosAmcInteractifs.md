@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 383 
-- nombre d'exos interactifReady 530 
+- nombre d'exos amcReady 384 
+- nombre d'exos interactifReady 531 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -46,6 +46,7 @@
 |2N41-5|Développer (a-b)²|KO|KO|OK|mathLive|
 |2N51-4|Équations du premier degré|OK|AMCHybride|OK|mathLive|
 |2N51-5|Équations du premier degré (utilisant la distributivité)|KO|KO|OK|mathLive|
+|2S10-1|Effectifs et proportions|KO|KO|OK|mathLive|
 |2S11-1|Calculer un CM à partir d'un taux d'évolution et inversement|KO|KO|OK|mathLive|
 |2S11-2|Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale|KO|KO|OK|mathLive|
 |2S20-1|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
@@ -127,7 +128,7 @@
 |4G10-1|Trouver les coordonnée de l’image d’un point par une translation|OK|AMCHybride|OK|mathLive|
 |4G10|Trouver l’image d’un point par une symétrie axiale ou centrale ou par une translation|OK|AMCHybride|OK|mathLive|
 |4G11-1|Trouver l’image d’une figure par une translation dans un pavage|OK|AMCHybride|OK|mathLive|
-|4G12|Séries de transformations|OK|AMCOpen|OK|mathLive|
+|4G12|Trouver une série de transformations|OK|AMCOpen|OK|mathLive|
 |4G20-1|Donner ou compléter une égalité de Pythagore|KO|KO|OK|mathLive|
 |4G20-2|Déterminer la racine carrée d’un carré parfait (calcul mental)|OK|AMCNum|OK|numerique|
 |4G20-4|Arrondir une racine carrée|KO|KO|OK|mathLive|
@@ -197,8 +198,8 @@
 |6C30-1|Multiplier un nombre décimal par 10, 100 ou 1 000|OK|AMCNum|OK|numerique|
 |6C30-2|Calculer le produit de deux décimaux connaissant le produit de deux entiers|OK|AMCNum|OK|numerique|
 |6C30-3|Opérations avec les nombres décimaux|OK|qcmMono|OK|qcm|
-|6C30-4|Multiplication par 0,1 ; 0,01 ; 0,001 (placer la virgule)|OK|qcmMono|OK|qcm|
-|6C30-5|Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)|OK|qcmMono|OK|qcm|
+|6C30-4|Multiplier par 0,1 ; 0,01 ; 0,001 (placer la virgule)|OK|qcmMono|OK|qcm|
+|6C30-5|Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)|OK|qcmMono|OK|qcm|
 |6C30-6|Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ...|OK|qcmMono|OK|qcm|
 |6C30-7|Par combien diviser un nombre pour que le chiffre des unités devienne le chiffre des ...|OK|qcmMono|OK|qcm|
 |6C30|Multiplications posées de nombres décimaux|OK|AMCNum|OK|numerique|
@@ -220,6 +221,7 @@
 |6G25-1|Symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
 |6G25-2|Trouver l’image d’une figure par une symétrie axiale dans un pavage carré|OK|AMCHybride|OK|mathLive|
 |6G26|Trouver les symétries axiales successives dans un damiers|OK|AMCOpen|OK|mathLive|
+|6G32-1|Propriétés de conservation de la symétrie axiale|OK|AMCHybride|KO|KO|
 |6G33|Reconnaitre un quadrilatère particulier à partir de ses propriétés|OK|qcmMult|OK|qcm|
 |6G41|Compléter une représentation en perspective cavalière|OK|AMCOpen|KO|KO|
 |6G43|Représentation de solides|OK|AMCNum|OK|mathLive|
@@ -238,7 +240,7 @@
 |6N10-0|Écrire un nombre en chiffres ou en lettres|KO|KO|OK|mathLive|
 |6N10-1|Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...|OK|AMCNum|OK|mathLive|
 |6N10-2|Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale)|OK|AMCNum|OK|mathLive|
-|6N10-3|Chiffre des ... Nombre de ...|OK|AMCNum|OK|mathLive|
+|6N10-3|Décomposer un nombre entier (nombre de ..., chiffres des ...)|OK|AMCNum|OK|mathLive|
 |6N10|Écrire un nombre entier en chiffres ou en lettres|KO|KO|OK|mathLive|
 |6N11-2|Placer un point d’abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
 |6N11|Lire l’abscisse entière d’un point (grands nombres)|OK|AMCOpen|OK|mathLive|
@@ -391,7 +393,7 @@
 |can3G01|Calculer et utiliser un agrandissement/réduction|OK|AMCNum|OK|mathLive|
 |can3G02|Trouver l’image d’un point par une  transformation 3e|KO|KO|OK|mathLive|
 |can3G03|Calculer une longueur avec le théorème de Thalès|KO|KO|OK|mathLive|
-|can3G04|Rechercher une valeur avec Pythagore|KO|KO|OK|mathLive|
+|can3G04|Rechercher une valeur avec le théorème de Pythagore|KO|KO|OK|mathLive|
 |can3G05|Utiliser la trigonométrie|KO|KO|OK|mathLive|
 |can3L01|Résoudre une équation du type ax=b|OK|AMCNum|OK|mathLive|
 |can3L02|Résoudre une équation du type ax+b=0|OK|AMCNum|OK|mathLive|
@@ -450,10 +452,9 @@
 |can5C12|Calculer la fraction d’entier|OK|AMCNum|OK|mathLive|
 |can5C13|Calculer astucieusement avec 100 ou 10|OK|AMCNum|OK|mathLive|
 |can5C14|Diviser avec des décimaux|OK|AMCNum|OK|mathLive|
-|can5C15|Calculer avec une proportion|OK|AMCNum|OK|mathLive|
-|can5C16|Rechercher un nombre à ajouter|KO|KO|OK|mathLive|
-|can5C17|Calculer astucieusement avec une factorisation|KO|KO|OK|mathLive|
-|can5C18|Convertir une fraction ou une somme vers un décimal|OK|AMCNum|OK|mathLive|
+|can5C15|Rechercher un nombre à ajouter|KO|KO|OK|mathLive|
+|can5C16|Calculer astucieusement avec une factorisation|KO|KO|OK|mathLive|
+|can5C17|Convertir une fraction ou une somme vers un décimal|OK|AMCNum|OK|mathLive|
 |can5D01|Convertir en heures/minutes|OK|AMCNum|OK|mathLive|
 |can5G01|Trouver le symétrique d’un point 5e|KO|KO|OK|mathLive|
 |can5G02|Calculer un angle dans un triangle isocèle|KO|KO|OK|mathLive|
@@ -462,6 +463,7 @@
 |can5P01|Calculer un prix après une évolution en pourcentage|OK|AMCNum|OK|mathLive|
 |can5P02|Déterminer (ou calculer avec) un pourcentage de proportion|OK|AMCNum|OK|mathLive|
 |can5P03|Résoudre un problème de proportionnalité|OK|AMCNum|OK|mathLive|
+|can5P04|Calculer avec une proportion|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |can6C01|Trouver un ordre de grandeur (QCM)|OK|qcmMono|OK|qcm|
 |can6C02|Multiplier un nombre pair par 5|OK|AMCNum|OK|mathLive|

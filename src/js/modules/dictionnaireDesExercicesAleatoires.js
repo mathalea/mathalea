@@ -1761,6 +1761,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2S10-1": {
+    "titre": "Effectifs et proportions",
+    "url": "/exercices/2e/2S10-1.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2S10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2S11-1": {
     "titre": "Calculer un CM à partir d'un taux d'évolution et inversement",
     "url": "/exercices/2e/2S11-1.js",
@@ -3900,7 +3916,7 @@ export default {
     }
   },
   "4G12": {
-    "titre": "Séries de transformations",
+    "titre": "Trouver une série de transformations",
     "url": "/exercices/4e/4G12.js",
     "amcReady": true,
     "amcType": {
@@ -6580,7 +6596,7 @@ export default {
     }
   },
   "6C30-4": {
-    "titre": "Multiplication par 0,1 ; 0,01 ; 0,001 (placer la virgule)",
+    "titre": "Multiplier par 0,1 ; 0,01 ; 0,001 (placer la virgule)",
     "url": "/exercices/6e/6C30-4.js",
     "amcReady": true,
     "amcType": {
@@ -6599,7 +6615,7 @@ export default {
     }
   },
   "6C30-5": {
-    "titre": "Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)",
+    "titre": "Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)",
     "url": "/exercices/6e/6C30-5.js",
     "amcReady": true,
     "amcType": {
@@ -7250,16 +7266,15 @@ export default {
   "6G32-1": {
     "titre": "Propriétés de conservation de la symétrie axiale",
     "url": "/exercices/6e/6G32-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": false,
     "name": "6G32-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G33": {
@@ -7726,7 +7741,7 @@ export default {
     }
   },
   "6N10-3": {
-    "titre": "Chiffre des ... Nombre de ...",
+    "titre": "Décomposer un nombre entier (nombre de ..., chiffres des ...)",
     "url": "/exercices/6e/6N10-3.js",
     "amcReady": true,
     "amcType": {
@@ -10000,12 +10015,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques",
+    "name": "betaModele30_constructions_géométriques",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -11391,7 +11406,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -11708,7 +11723,7 @@ export default {
     }
   },
   "can3G04": {
-    "titre": "Rechercher une valeur avec Pythagore",
+    "titre": "Rechercher une valeur avec le théorème de Pythagore",
     "url": "/exercices/can/3e/can3G04.js",
     "amcReady": false,
     "interactifReady": true,
@@ -12772,12 +12787,9 @@ export default {
     }
   },
   "can5C15": {
-    "titre": "Calculer avec une proportion",
+    "titre": "Rechercher un nombre à ajouter",
     "url": "/exercices/can/5e/can5C15.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
+    "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can5C15",
@@ -12791,7 +12803,7 @@ export default {
     }
   },
   "can5C16": {
-    "titre": "Rechercher un nombre à ajouter",
+    "titre": "Calculer astucieusement avec une factorisation",
     "url": "/exercices/can/5e/can5C16.js",
     "amcReady": false,
     "interactifReady": true,
@@ -12807,31 +12819,15 @@ export default {
     }
   },
   "can5C17": {
-    "titre": "Calculer astucieusement avec une factorisation",
-    "url": "/exercices/can/5e/can5C17.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "can5C17",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "can5C18": {
     "titre": "Convertir une fraction ou une somme vers un décimal",
-    "url": "/exercices/can/5e/can5C18.js",
+    "url": "/exercices/can/5e/can5C17.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can5C18",
+    "name": "can5C17",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -12961,7 +12957,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -12975,6 +12971,25 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can5P03",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can5P04": {
+    "titre": "Calculer avec une proportion",
+    "url": "/exercices/can/5e/can5P04.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5P04",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
