@@ -7295,7 +7295,7 @@ export async function scratchTraductionFr () {
  */
 
 export function exportQcmAmc (exercice, idExo) {
-  const ref = exercice.id
+  const ref = `${exercice.id}${exercice.sup ? 'S:' + exercice.sup : ''}${exercice.sup2 ? 'S2:' + exercice.sup2 : ''}${exercice.sup3 ? 'S3:' + exercice.sup3 : ''}${exercice.sup4 ? 'S4:' + exercice.sup4 : ''}`
   const autoCorrection = exercice.autoCorrection
   const titre = exercice.titre
   const type = exercice.amcType
@@ -7447,7 +7447,7 @@ export function exportQcmAmc (exercice, idExo) {
             digitsExposant = nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.exposantPuissance)
           }
           texQr += '\n'
-          texQr += `Base\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.basePuissance}}{digits=${digitsBase},decimals=0,sign=${autoCorrection[j].reponse.param.basePuissance < 0 ? 'true' : 'false'},approx=0,`
+          texQr += `Base\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.basePuissance}}{digits=${digitsBase},decimals=0,sign=${autoCorrection[j].reponse.param.basePuissance < 0 || autoCorrection[j].reponse.param.signe ? 'true' : 'false'},approx=0,`
           if (autoCorrection[j].reponse.param.aussiCorrect !== undefined) texQr += `alsocorrect=${autoCorrection[j].reponse.param.aussiCorrect},`
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n'
