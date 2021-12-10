@@ -102,17 +102,17 @@ export default function Proportions () {
               texte = `Lors d'un concert, il y a $${texNombre(sous)}$ spectacteurs de plus de 60 ans, ce qui représente $${taux}~\\%$ du public. <br>Combien de spectateurs ont assisté au concert ?`
               texteCorr = `Soit $x$ le nombre total de spectateur. <br> Comme $${taux}~\\%$ de $x$ est égal à $${texNombre(sous)}$, on a :`
               texteCorr += `<br>$\\begin{aligned}
-              \\dfrac{${taux}}{100} \\times x &= ${sous} \\\\\\
-              ${texNombre(p)} \\times x &= ${sous} \\\\
+              \\dfrac{${taux}}{100} \\times x &= ${texNombre(sous)} \\\\\\
+              ${texNombre(p)} \\times x &= ${texNombre(sous)} \\\\
               x &= \\dfrac{${texNombre(sous)}}{${texNombre(p)}} \\\\
-              x &= ${totale}
+              x &= ${texNombre(totale)}
               \\end{aligned}$`
               texteCorr += `<br>Il y avait donc $${texNombre(totale)}$ spectateurs.`
               reponse = totale
               break
             case 'proportion':
-              texte = `Parmi les $${texNombre(totale)}$ spectacteurs d'un concert, $${texNombre(sous)}$ ont moins de 18 ans. <br>Calculer la proportion des personnes mineurs dans le public en pourcentage.`
-              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${sous}}{${totale}} = ${texNombre(p)}$.`
+              texte = `Parmi les $${texNombre(totale)}$ spectacteurs d'un concert, $${texNombre(sous)}$ ont moins de 18 ans. <br>Calculer la proportion des personnes mineures dans le public en pourcentage.`
+              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous)}}{${texNombre(totale)}} = ${texNombre(p)}$.`
               texteCorr += `<br>$${texNombre(p)}=\\dfrac{${texNombre(taux)}}{100}$. Il y a donc $${taux}~\\%$ de personnes mineures dans le public.`
               reponse = taux
               break
@@ -152,14 +152,14 @@ export default function Proportions () {
               \\dfrac{${taux}}{100} \\times x &= ${sous} \\\\\\
               ${texNombre(p)} \\times x &= ${sous} \\\\
               x &= \\dfrac{${texPrix(sous)}}{${texNombre(p)}} \\\\
-              x &= ${totale}
+              x &= ${texPrix(totale)}
               \\end{aligned}$`
               texteCorr += `<br>Le cadeau coûte $${texPrix(totale)}$ €.`
               reponse = totale
               break
             case 'proportion':
               texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${texPrix(sous)}$ €. <br>Calculer la proportion de ma participation sur le prix total du cadeau.`
-              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${sous}}{${totale}} = ${texNombre(p)}$.`
+              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texPrix(sous)}}{${texPrix}} = ${texNombre(p)}$.`
               texteCorr += `<br>$${texNombre(p)}=\\dfrac{${texNombre(taux)}}{100}$. J'ai donc donné $${taux}~\\%$ du montant total du cadeau.`
               reponse = taux
               break
@@ -197,17 +197,17 @@ export default function Proportions () {
               texte = `Dans une réserve de protection d'oiseaux, il y a $${texNombre(sous)}$ ${espèces}, ce qui représente $${taux}~\\%$ du nombre total d'oiseaux. <br>Quel est le nombre d'oiseaux de cette réserve ?`
               texteCorr = `Soit $x$ le nombre d'oiseaux. <br> Comme $${taux}~\\%$ de $x$ est égal à $${texNombre(sous)}$, on a :`
               texteCorr += `<br>$\\begin{aligned}
-                \\dfrac{${taux}}{100} \\times x &= ${sous} \\\\\\
-                ${texNombre(p)} \\times x &= ${sous} \\\\
+                \\dfrac{${taux}}{100} \\times x &= ${texNombre(sous)} \\\\\\
+                ${texNombre(p)} \\times x &= ${texNombre(sous)} \\\\
                 x &= \\dfrac{${texNombre(sous)}}{${texNombre(p)}} \\\\
-                x &= ${totale}
+                x &= ${texNombre(totale)}
                 \\end{aligned}$`
               texteCorr += `<br>Il y a $${texNombre(totale)}$ oiseaux dans la réserve.`
               reponse = totale
               break
             case 'proportion':
               texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale)}$ individus d'oiseaux. On dénombre $${texNombre(sous)}$ ${espèces}. <br>Calculer la proportion de ${espèces} dans la réserve.`
-              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${sous}}{${totale}} = ${texNombre(p)}$.`
+              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous)}}{${texNombre(totale)}} = ${texNombre(p)}$.`
               texteCorr += `<br>$${texNombre(p)}=\\dfrac{${texNombre(taux)}}{100}$. Le pourcentage de ${espèces} dans la réserve est donc de $${taux}~\\%$.`
               reponse = taux
               break
