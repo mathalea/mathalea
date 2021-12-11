@@ -46,18 +46,18 @@ export default function Rendreentier () {
         texteCorr += '<br>Ici, il faut donc multiplier le numérateur et le dénominateur de la fraction par '
         texteCorr += ` $ ${c}${ecritureAlgebrique(-d)}\\sqrt{${b}}$.<br>`
         texteCorr += `<br>$\\begin{aligned}A&=\\dfrac{ ${a} }{${c}${ecritureAlgebrique(d)}\\sqrt{${b}}}\\\\`
+ 
         texteCorr += `&=\\dfrac{ ${a}\\times (${c}${ecritureAlgebrique(-d)}\\sqrt{${b}}) }{(${c}${ecritureAlgebrique(d)}\\sqrt{${b}})(${c}${ecritureAlgebrique(-d)}\\sqrt{${b}})}\\\\`
         texteCorr += `&=\\dfrac{ ${a * c} ${ecritureAlgebrique(-a * d)}\\sqrt{${b}}}{(${c})^2-\\left(${abs(d)}\\sqrt{${b}}\\right)^2}\\\\ `
         texteCorr += `&=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{${b}}}{${(c * c)}-(${d * d}\\times${b})}\\\\`
         texteCorr += `&=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{${b}}}{${c * c}-${d * d * b}}\\\\`
-
         n = pgcd(a * c, -a * d, c * c - d * d * b)
         if (n === 1) {
           texteCorr += `&=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{${b}}}{${c * c - d * d * b}}\\\\ `
-          if (c * c - d * d * b < 0) { texteCorr += `&=\\dfrac{ ${-a * c} ${(a * d)}\\sqrt{${b}}}{${-c * c + d * d * b}}\\\\ ` }
+          if (c * c - d * d * b < 0) { texteCorr += `&=\\dfrac{ ${-a * c} ${ecritureAlgebriqueSauf1(a * d)}\\sqrt{${b}}}{${-c * c + d * d * b}}\\\\ ` }
         }
         if (n !== 1) {
-          texteCorr += `&=\\dfrac{ ${a * c} ${(-a * d)}\\sqrt{${b}}}{${c * c - d * d * b}}\\\\`
+          texteCorr += `&=\\dfrac{ ${a * c} ${ecritureAlgebriqueSauf1(-a * d)}\\sqrt{${b}}}{${c * c - d * d * b}}\\\\`
           texteCorr += `&=\\dfrac{ ${a * c / n} ${ecritureAlgebriqueSauf1(-a * d / n)}\\sqrt{${b}}}{${c * c / n - d * d * b / n}}\\\\ `
           if (c * c - d * d * b < 0) { texteCorr += `=&\\dfrac{ ${-a * c / n} ${ecritureAlgebriqueSauf1(a * d / n)}\\sqrt{${b}}}{${-c * c / n + d * d * b / n}}\\\\ ` }
         }
