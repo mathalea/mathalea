@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 386 
-- nombre d'exos interactifReady 533 
+- nombre d'exos amcReady 388 
+- nombre d'exos interactifReady 534 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -218,9 +218,11 @@
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
 |6G14|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
 |6G23-1|Mesurer un angle|OK|qcmMono|OK|qcm|
+|6G24-2|Construire le symétrique d’une figure par rapport à une droite (cas simples)|OK|AMCOpen|KO|KO|
 |6G24|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
 |6G25-1|Symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
 |6G25-2|Trouver l’image d’une figure par une symétrie axiale dans un pavage carré|OK|AMCHybride|OK|mathLive|
+|6G25|Construire des médiatrices avec cible auto-corrective|OK|AMCOpen|KO|KO|
 |6G26|Trouver les symétries axiales successives dans un damiers|OK|AMCOpen|OK|mathLive|
 |6G32-1|Propriétés de conservation de la symétrie axiale|OK|AMCHybride|KO|KO|
 |6G33|Reconnaitre un quadrilatère particulier à partir de ses propriétés|OK|qcmMult|OK|qcm|
@@ -286,6 +288,7 @@
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
+|betacan2F06|Dresser le tableau de signes d’une fonction affine|KO|KO|OK|qcm|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
@@ -322,8 +325,8 @@
 |can2C07|Calculer avec une racine carrée|KO|KO|OK|mathLive|
 |can2C08|Calculer avec une racine carrée*|KO|KO|OK|mathLive|
 |can2C09|Calculer le "milieu" entre 1 et une fraction|KO|KO|OK|mathLive|
-|can2C10|Passer du taux au coefficient multiplicateur|KO|KO|OK|mathLive|
-|can2C11|Passer du coefficient multiplicateur au taux|KO|KO|OK|mathLive|
+|can2C10|Passer du taux d’évolution au coefficient multiplicateur|KO|KO|OK|mathLive|
+|can2C11|Passer du coefficient multiplicateur au taux d’évolution|KO|KO|OK|mathLive|
 |can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
 |can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|

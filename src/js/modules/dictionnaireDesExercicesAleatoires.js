@@ -6026,7 +6026,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -7132,16 +7132,15 @@ export default {
   "6G24-2": {
     "titre": "Construire le symétrique d’une figure par rapport à une droite (cas simples)",
     "url": "/exercices/6e/6G24-2.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6G24-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G24-3": {
@@ -7234,16 +7233,15 @@ export default {
   "6G25": {
     "titre": "Construire des médiatrices avec cible auto-corrective",
     "url": "/exercices/6e/6G25.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6G25",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G26": {
@@ -9059,6 +9057,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "betacan2F06": {
+    "titre": "Dresser le tableau de signes d’une fonction affine",
+    "url": "/exercices/beta/betacan2F06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "betacan2F06",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "betaCan2G01": {
     "titre": "Périmètres de carrés et de rectangles",
     "url": "/exercices/beta/betaCan2G01.js",
@@ -10092,14 +10106,14 @@ export default {
     }
   },
   "can2C10": {
-    "titre": "Passer du taux au coefficient multiplicateur",
+    "titre": "Passer du taux d’évolution au coefficient multiplicateur",
     "url": "/exercices/can/2e/can2C10.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2C10",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10108,14 +10122,14 @@ export default {
     }
   },
   "can2C11": {
-    "titre": "Passer du coefficient multiplicateur au taux",
+    "titre": "Passer du coefficient multiplicateur au taux d’évolution",
     "url": "/exercices/can/2e/can2C11.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2C11",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
