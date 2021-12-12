@@ -125,8 +125,8 @@ function ajoutHandlersEtiquetteExo () {
         $('.choix_exercices:last').focus()
       }
     })
-  if (typeof($('#choix_exercices_div').sortable) === 'function') { //quelques cas dans bugsnag, dans ces rares cas, le glissé-déposé des étiquettes pour changer l'ordre n'est pas optimal mais tout le reste fonctionne.
-      $('#choix_exercices_div').sortable({
+  if (typeof ($('#choix_exercices_div').sortable) === 'function') { // quelques cas dans bugsnag, dans ces rares cas, le glissé-déposé des étiquettes pour changer l'ordre n'est pas optimal mais tout le reste fonctionne.
+    $('#choix_exercices_div').sortable({
       cancel: 'i',
       placeholder: 'sortableplaceholder',
       update: function () {
@@ -613,7 +613,7 @@ function miseAJourDuCode () {
       if (context.isAmc) {
         finUrl += `&f=${format}&e=${typeEntete}`
       }
-      window.history.pushState('', '', finUrl)
+      window.history.replaceState('', '', finUrl)
       const url = window.location.href.split('&serie')[0] + '&v=l' // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série et en ajoutant le paramètre pour le mettre en plein écran
       const clipboardURL = new Clipboard('#btnCopieURL', { text: () => url })
       clipboardURL.on('success', function (e) {
@@ -2455,6 +2455,38 @@ function parametresExercice (exercice) {
 
 // Initialisation de la page
 document.addEventListener('DOMContentLoaded', async () => {
+  // On force la réactualisation dela page quand l'utilisateur utilise les boutons précédent ou suivant de son navigateur
+  function urlToListeDesExercices () {
+    // Récupère la graine pour l'aléatoire dans l'URL
+    const params = new URL(document.location).searchParams
+    const serie = params.get('serie')
+    if (serie) {
+      context.graine = serie
+    }
+    const vue = params.get('v')
+    if (vue) {
+      context.vue = vue
+    }
+    if (params.get('duree')) {
+      context.duree = params.get('duree')
+    }
+    const urlVars = getUrlVars()
+    listeDesExercices = []
+    if (urlVars.length > 0) {
+      for (let i = 0; i < urlVars.length; i++) {
+        listeDesExercices.push(urlVars[i].id)
+      }
+      if (formChoixDesExercices !== null) {
+        formChoixDesExercices.value = listeDesExercices.join(',')
+        copierExercicesFormVersAffichage(listeDesExercices)
+      }
+      miseAJourDeLaListeDesExercices()
+    }
+  }
+  // À l'appui sur précédent ou suivant, on relance l'analyse de l'URL
+  window.onpopstate = function () {
+    urlToListeDesExercices()
+  }
   await initDom()
   // Gestion des paramètres
   div = document.getElementById('div_codeLatex') // Récupère le div dans lequel le code va être affiché
@@ -2533,7 +2565,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const newParams = searchParams.toString()
       const url = window.location.href.split('?')[0] + '?' + decodeURIComponent(newParams)
       let modeTableauActif = false // Gestion pour le mode tableau particulière pour gérer l'activation de "datatable"
-      window.history.pushState('', '', url)
+      window.history.replaceState('', '', url)
       if ($('#mode_choix_liste').is(':visible')) {
         $('#mode_choix_liste').trigger('click')
         modeTableauActif = true
@@ -2572,6 +2604,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (document.getElementById('form_serie')) {
       document.getElementById('form_serie').value = context.graine // mise à jour du formulaire
     }
+    context.aGarderDansHistorique = true
+    // Dans l'historique du navigateur, tous les changements d'URL sont consignés
+    // Mais pour l'historique de navigation, on ne garde que les appuis sur Nouvelles Données
     miseAJourDuCode()
   }
 
@@ -2580,13 +2615,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     $('#btn_zoom_plus').click(function () {
       context.zoom = arrondi(Number(context.zoom) + 0.5)
       zoomAffichage(context.zoom)
-      window.history.pushState('', '', getUrlSearch())
+      window.history.replaceState('', '', getUrlSearch())
     })
     $('#btn_zoom_moins').click(function () {
       if (Number(context.zoom > 0.5)) {
         context.zoom = arrondi(Number(context.zoom) - 0.5)
         zoomAffichage(context.zoom)
-        window.history.pushState('', '', getUrlSearch())
+        window.history.replaceState('', '', getUrlSearch())
       }
     })
   }
@@ -3397,28 +3432,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     })
   }
 
-  // Récupère la graine pour l'aléatoire dans l'URL
-  const params = new URL(document.location).searchParams
-  const serie = params.get('serie')
-  if (serie) {
-    context.graine = serie
-  }
-  const vue = params.get('v')
-  if (vue) {
-    context.vue = vue
-  }
-  if (params.get('duree')) {
-    context.duree = params.get('duree')
-  }
-  const urlVars = getUrlVars()
-  if (urlVars.length > 0) {
-    for (let i = 0; i < urlVars.length; i++) {
-      listeDesExercices.push(urlVars[i].id)
-    }
-    if (formChoixDesExercices !== null) {
-      formChoixDesExercices.value = listeDesExercices.join(',')
-      copierExercicesFormVersAffichage(listeDesExercices)
-    }
-    miseAJourDeLaListeDesExercices()
-  }
+  urlToListeDesExercices()
 })

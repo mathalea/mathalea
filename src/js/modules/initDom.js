@@ -544,7 +544,7 @@ export async function initDom () {
     )
     // Gestion du bouton nouvelles données
     document.getElementById('btnRedo').addEventListener('click', () => {
-      window.history.pushState('', '', window.location.protocol + '//' + window.location.host + window.location.pathname + replaceQueryParam('serie', ''))
+      window.history.replaceState('', '', window.location.protocol + '//' + window.location.host + window.location.pathname + replaceQueryParam('serie', ''))
       document.location.reload()
     })
     // Affichage de la correction

@@ -31,7 +31,7 @@ export const initDiaporama = () => {
       chrono = context.duree
       const params = new URL(document.location).searchParams
       params.set('duree', context.duree)
-      window.history.pushState(null, null, '?' + params.toString())
+      window.history.replaceState(null, null, '?' + params.toString())
     }
   })
 
