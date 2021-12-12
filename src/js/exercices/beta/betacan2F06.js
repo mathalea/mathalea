@@ -31,7 +31,7 @@ export default function TableauSignes () {
       a = 1
     }
     if (this.interactif) {
-      texte = `Quel est le tableau de signes de la fonction $f$ définie $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ `
+      texte = `Quel est le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ `
       this.autoCorrection[0] = {
         enonce: texte,
         options: { vertical: true },
@@ -41,7 +41,7 @@ export default function TableauSignes () {
             statut: true
           },
           {
-            texte: 'Tableau avec avec la valeur opposé de -b/a ',
+            texte: 'Tableau avec avec la valeur opposée de -b/a ',
             statut: false
           },
           {
@@ -54,15 +54,15 @@ export default function TableauSignes () {
       texte += propositionsQcm(this, 0).texte
 
          } else {
-      texte = `Dresser le tableau de signes de la fonction $f$ définie $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ `
-    }
+      texte = `Dresser le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ `}
+    
     texteCorr = `$f$ est une fonction affine. Elle s’annule en $x_0=${texFractionReduite(-b, a)}$. `
     if (a > 0) {
       texteCorr += `Comme $${a}>0~$, $~f(x)$ est positif pour $~x>${texFractionReduite(-b, a)} ~$ et négatif pour $~x<${texFractionReduite(-b, a)} $<br>`
       ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+']
     } else {
       texteCorr += `<br>Comme $${a}<0$,  $f(x)~$ est négatif pour $~x>${texFractionReduite(-b, a)} ~$ et positif pour $~x<${texFractionReduite(-b, a)} $<br>`
-      ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
+      ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']}
       texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
         tabInit: [
           [
@@ -80,7 +80,7 @@ export default function TableauSignes () {
         lgt: 5, // taille de la première colonne en cm
         hauteurLignes: [15, 15]
       }))
-    }
+    
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
