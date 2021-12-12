@@ -391,10 +391,9 @@ De ce fait, lorsqu'on conçoit un exercice interactif, il serait bien de penser 
 >>    ........
 >> }
 >>
->> // Cette remarque est d'ordre générale, il peut y avoir des cas particuliers, notamment pour les AMCNum
+>> // Cette remarque est d'ordre général, il peut y avoir des cas particuliers, notamment pour les AMCNum.
 >>```
 
-Octobre 2021 : Des retours sont encore attendus en cas d'utilisation de cette méthode car on n'a pas assez d'expérience et il peut donc rester des bugs bien qu'on ait fait de nombreux tests.
 
 >>## <a id="export_AMC_automatise_mathLive" href="#export_AMC_automatise_mathLive"></a> [3. 1. L'export AMC automatisé avec `mathLive`](#export_AMC_automatise_mathLive)
 
@@ -418,7 +417,7 @@ De ce fait, pour permettre une bonne cohabitation entre l'interactivité avec Ma
 >> }
 >>```
 
->>>>## <a id="export_AMC_automatise_mathLive_calcul" href="#export_AMC_automatise_mathLive_calcul"></a> [3. 1. 1. Avec `formatInteractif : 'calcul'` ou `formatInteractif: 'ecritureScientifique'`](#export_AMC_automatise_mathLive_calcul)
+>>>>## <a id="export_AMC_automatise_mathLive_calcul" href="#export_AMC_automatise_mathLive_calcul"></a> [3. 1. 1. Avec `formatInteractif : 'calcul'`](#export_AMC_automatise_mathLive_calcul)
 
 Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'un nombre avec `formatInteractif : 'calcul'` (ou rien puisque c'est le format par défaut) et que vous utilisiez :
 
