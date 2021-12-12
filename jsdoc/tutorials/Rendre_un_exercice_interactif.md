@@ -391,10 +391,9 @@ De ce fait, lorsqu'on conçoit un exercice interactif, il serait bien de penser 
 >>    ........
 >> }
 >>
->> // Cette remarque est d'ordre générale, il peut y avoir des cas particuliers, notamment pour les AMCNum
+>> // Cette remarque est d'ordre général, il peut y avoir des cas particuliers, notamment pour les AMCNum.
 >>```
 
-Octobre 2021 : Des retours sont encore attendus en cas d'utilisation de cette méthode car on n'a pas assez d'expérience et il peut donc rester des bugs bien qu'on ait fait de nombreux tests.
 
 >>## <a id="export_AMC_automatise_mathLive" href="#export_AMC_automatise_mathLive"></a> [3. 1. L'export AMC automatisé avec `mathLive`](#export_AMC_automatise_mathLive)
 
