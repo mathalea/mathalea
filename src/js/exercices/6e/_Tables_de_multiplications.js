@@ -26,6 +26,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     if (!this.sup) {
       // Si aucune table n'est saisie
       this.sup = '2-3-4-5-6-7-8-9'

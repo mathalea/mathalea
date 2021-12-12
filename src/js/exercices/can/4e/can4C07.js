@@ -30,7 +30,7 @@ export default function DifferenceFractionsCompatibles () {
     on multiplie son numérateur et son dénominateur par $${c}$.<br><br>
     Ainsi,
     $${a.texFraction} - ${b.texFraction}=
-   \\dfrac{${a.num}\\times ${c}}{${a.den}\\times ${c}}+ ${b.texFraction}
+   \\dfrac{${a.num}\\times ${c}}{${a.den}\\times ${c}}- ${b.texFraction}
     =${a.fractionEgale(c).texFraction} - ${b.texFraction}=\\dfrac{${a.num * c}-${b.num}}{${b.den}}=\\dfrac{${a.num * c - b.num}}{${b.den}}${simplificationDeFractionAvecEtapes(a.num * c - b.num, b.den)}$`
     this.reponse = a.differenceFraction(b).simplifie()
   }

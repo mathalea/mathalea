@@ -189,21 +189,26 @@ export function getUrlSearch () {
  * Met à jour l'URL avec la vue et le userId s'ils sont connus
  */
 export function setUrl () {
-  window.history.pushState('', '', getUrlSearch())
+  if (context.aGarderDansHistorique) {
+    window.history.pushState('', '', getUrlSearch())
+    context.aGarderDansHistorique = false
+  } else {
+    window.history.replaceState('', '', getUrlSearch())
+  }
 }
 
 /**
  * Met à jour l'URL avec la vue et le userId s'ils sont connus et go
  */
 export function setUrlAndGo () {
-  window.history.pushState('', '', getUrlSearch())
+  window.history.replaceState('', '', getUrlSearch())
   document.location.reload()
 }
 /**
  * Met à jour l'URL avec la vue et le userId s'ils sont connus et go
  */
 export function setUrlAndGoTab () {
-  window.history.pushState('', '', getUrlSearch())
+  window.history.replaceState('', '', getUrlSearch())
   window.open(document.location)
 }
 /**

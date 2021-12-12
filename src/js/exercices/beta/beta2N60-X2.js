@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint, texNombrec, miseEnEvidence, listeQuestionsToContenu, combinaisonListes, sp,  rienSi1, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
+import { randint, texNombrec, miseEnEvidence, listeQuestionsToContenu, combinaisonListes, sp, rienSi1, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
 import { texteSurSegment, codeSegments, codageAngleDroit, segmentAvecExtremites, milieu, labelPoint, point, segment, texteParPosition, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Modéliser une situation géométrique à l\'aide d\'une équation'
 
@@ -24,7 +24,7 @@ export default function modeliserEquationsGeometrie () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7', 'typeE8'] // 
+    const typeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7', 'typeE8'] //
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, a, b, c, d, e, A, B, C, D, E, M, N, P, H, F, K, L, objets, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
@@ -32,7 +32,7 @@ export default function modeliserEquationsGeometrie () {
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'typeE1':
           a = randint(1, 10)// valeur ajoutée
-          d = randint(1,7)// largeur
+          d = randint(1, 7)// largeur
           b = randint(4 * d + 2 * a + 1, 50)// périmètre
           c = b - 2 * a - 2 * d
           A = point(0, 0, 'A', 'below')
@@ -90,14 +90,14 @@ export default function modeliserEquationsGeometrie () {
        $\\begin{aligned}
         ${rienSi1(d)}x+${d * a}&=${b}\\\\
         ${rienSi1(d)}x+${d * a}${miseEnEvidence(-d * a)}&=${b}${miseEnEvidence(-d * a)}\\\\
-                ${rienSi1(d)}x&=${b-d * a}
+                ${rienSi1(d)}x&=${b - d * a}
         \\end{aligned}$<br>`
-        if(d!==1){
-          texteCorr += `${sp(18)}$\\begin{aligned}
-          \\dfrac{${d}x}{${miseEnEvidence(d)}}&=\\dfrac{${b-d * a}}{${miseEnEvidence(d)}}\\\\
-               x&=${texFractionReduite(b - d * a, d)}\\end{aligned}$<br>`}
-        else{ texteCorr += ``}
-      texteCorr += ` La longueur $x$ du rectangle initial est  $${texFractionReduite(b - d * a, d)}$ cm.
+          if (d !== 1) {
+            texteCorr += `${sp(18)}$\\begin{aligned}
+          \\dfrac{${d}x}{${miseEnEvidence(d)}}&=\\dfrac{${b - d * a}}{${miseEnEvidence(d)}}\\\\
+               x&=${texFractionReduite(b - d * a, d)}\\end{aligned}$<br>`
+          } else { texteCorr += '' }
+          texteCorr += ` La longueur $x$ du rectangle initial est  $${texFractionReduite(b - d * a, d)}$ cm.
         `
           break
         case 'typeE3':
@@ -112,7 +112,7 @@ export default function modeliserEquationsGeometrie () {
           texte = ` Un triangle $ABC$ est rectangle en $A$. On a $AB= ${a}$ cm  et $AC= x$ cm.<br>
          Sachant que le carré de son hypoténuse est $${b}$, déterminer la valeur exacte de $x$. `
           texteCorr = ' On réalise une petite figure à main levée pour visualiser la situation :<br>'
-          texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: 12, ymax: 8, pixelsParCm: 20, mainlevee: true,amplitude: 0.5, scale: 0.7 }, objets)
+          texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: 12, ymax: 8, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.7 }, objets)
           texteCorr += `Le carré de l'hypoténuse  est égal à $${b}$. On a donc $BC^2=${b}$.<br>
           Le triangle $ABC$ est rectangle en $A$, d'après le théorème de Pythagore :<br>
         $\\begin{aligned}
@@ -184,7 +184,7 @@ export default function modeliserEquationsGeometrie () {
       \\cancel{x^2}+ ${2 * a}x+${a}^2-\\cancel{x^2}&=${b}\\\\
        ${2 * a}x+${a * a}&=${b}\\\\
         ${2 * a}x+${a * a}${miseEnEvidence(-a * a)}&=${b}${miseEnEvidence(-a * a)}\\\\
-         ${2 * a}x&=${b-a * a}\\\\
+         ${2 * a}x&=${b - a * a}\\\\
          \\dfrac{${2 * a}x}{${miseEnEvidence(2 * a)}}&=\\dfrac{${b - a * a}}{${miseEnEvidence(2 * a)}}\\\\
          x&=${texFractionReduite(b - a * a, 2 * a)}\\end{aligned}$
            <br>
@@ -220,7 +220,7 @@ export default function modeliserEquationsGeometrie () {
           texteCorr = mathalea2d({ xmin: -1, ymin: -3, xmax: 16, ymax: 10, pixelsParCm: 20, scale: 0.7 }, objets)
           texteCorr += `<br>La  hauteur du trapèze est  $x$. Il est constitué du rectangle $HBCD$ et du triangle rectangle $AHD$. <br>
                     Son aire est donc la somme des aires de ces deux figures. <br>
-                    $\\bullet~$ L' aire du rectangle $HBCD$ est : $${b}\\times x=${reduireAxPlusB(b, 0)}$ ;<br>
+                    $\\bullet~$ L' aire du rectangle $HBCD$ est : $${b}\\times x=${reduireAxPlusB(b, 0)}$.<br>
                     $\\bullet~$ L' aire de triangle rectangle $AHD$ est : $\\dfrac{(${a}-${b})\\times x}{2}=${reduireAxPlusB((a - b) / 2, 0)}$.
                     <br>
                     Puisque l'aire du trapèze est $${c}$ cm$^2$, $x$ est donc la solution de l'équation : $${reduireAxPlusB(b, 0)} + ${reduireAxPlusB((a - b) / 2, 0)}=${c}$.<br>
@@ -231,7 +231,7 @@ export default function modeliserEquationsGeometrie () {
                     x&=${texFractionReduite(c, b + d)}
                     \\end{aligned}$<br>
                     La hauteur du trapèze est : $${texFractionReduite(c, b + d)}$ cm.`
-          
+
           break
         case 'typeE7':
 
@@ -274,9 +274,9 @@ export default function modeliserEquationsGeometrie () {
                 \\dfrac{${reduireAxPlusB(a + b / 2, 0)}}{${miseEnEvidence(texNombrec(a + b / 2))}}&=\\dfrac{${texNombrec(d - a * c - (b * c) / 2)}}{${miseEnEvidence(texNombrec(a + b / 2))}}\\\\
                 x&=${texFractionReduite((d - a * c - (b * c) / 2) * 10, (a + b / 2) * 10)}
                 \\end{aligned}$<br> 
-                La valeur de $x$ cherchée est donc : $ ${texFractionReduite((d - a * c - (b * c) / 2) * 10, (a + b / 2) * 10)}$
+                La valeur de $x$ cherchée est donc : $ ${texFractionReduite((d - a * c - (b * c) / 2) * 10, (a + b / 2) * 10)}$.
                 `
- 
+
           break
 
         case 'typeE8':
@@ -305,7 +305,7 @@ export default function modeliserEquationsGeometrie () {
 
           texteCorr += ` Le triangle $AME$ est un triangle équilatéral de côté $x$, son périmètre est donc  $3x$.<br>
       
-      Le carré $MBCD$ a pour côté $MB=${a}-x$. Son périmètre est donc : $4\\times (${a}-x)=${reduireAxPlusB(-4, 4 * a)} $
+      Le carré $MBCD$ a pour côté $MB=${a}-x$. Son périmètre est donc : $4\\times (${a}-x)=${reduireAxPlusB(-4, 4 * a)} $.
       <br>
       On cherche $x$ tel que : <br>
       $\\begin{aligned}
@@ -316,7 +316,7 @@ export default function modeliserEquationsGeometrie () {
       \\dfrac{${reduireAxPlusB(-7, 0)}}{${miseEnEvidence('-7')}}&=\\dfrac{${reduireAxPlusB(0, -4 * a)}}{${miseEnEvidence('-7')}}\\\\
       x&=${texFractionReduite(-4 * a, -7)}
       \\end{aligned}$<br>
-      Les deux périmètres sont égaux lorsque  : $x=${texFractionReduite(-4 * a, -7)}$
+      Les deux périmètres sont égaux lorsque  : $x=${texFractionReduite(-4 * a, -7)}$.
       `
           break
       }
