@@ -78,6 +78,15 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
 >> }
 >> ```
 
+- Afin d'anticiper la mise place d'AMC automatisé ou d'AMC indépendant, il est recommandé d'ajouter l'initialisation de `autoCorrection` dès la création de `nouvelleVersion`, comme sont déjà faites celles de `listeQuestions` et de `listeCorrections`.
+>> ```js
+>> this.nouvelleVersion = function () {
+>>      this.listeQuestions = [] // Liste de questions
+>>      this.listeCorrections = [] // Liste de questions corrigées
+>>      this.autoCorrection = []
+>> ```
+
+
 ## <a id="configurer_typeInteractivite" href="#configurer_typeInteractivite"></a> [2. Configurer le `typeInteractivite` choisi](#configurer_typeInteractivite)
 
 Selon le `typeInteractivite` choisi, la programmation est différente. Les paragraphes suivants détaillent chacune des configurations.
