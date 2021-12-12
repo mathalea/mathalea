@@ -93,9 +93,9 @@ this.autoCorrection = [
     propositions: [
       { 
         texte: 'Ce qui apparaitra sur le corrigé',
-        statut: 3 // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+        statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
         feedback: '',
-        enonce: 'Texte écrit au dessus ou avant les cases à cocher' // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+        enonce: 'Texte écrit au dessus ou avant les cases à cocher', // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
         sanscadre : false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
     
       }
@@ -104,7 +104,7 @@ this.autoCorrection = [
 ]
 ```
 
-L'exemple ci-dessus est pour un exercice ne produisant qu'une seule zone de réponse, quel que soit le nombre de questions.
+L'exemple ci-dessus est pour un exercice ne produisant qu'une seule zone de réponse, quel que soit le nombre de questions. Pour une zone de réponse par question, il faut utiliser le type [`AMCHybride`](#AMCHybride). 
 
 
 
@@ -167,7 +167,9 @@ Dans ce type, chaque question-réponse peut avoir un type différent. Il y a un 
 ```js
 this.autoCorrection[i] = {
   enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
-  enonceAvant: true, //EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de la question. 
+  enonceAvant: true, //EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question. 
+  enonceAvantUneFois: true, //EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
+  melange: false, //EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
   options: { multicols: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
   propositions: [
     {
@@ -243,14 +245,6 @@ this.autoCorrection[i] = {
 }
 ```
 
-basePuissance: baseReponse, exposantPuissance: exposantReponse, baseNbChiffres: 2, exposantNbChiffres: 3})
->> // basePuissance correspond à la base de la réponse
->> // exposantPuissance correspond à l'exposant de la réponse
->> // baseNbChiffres est facultatif et est le nombre de chiffres sur lequel on veut que AMC code la base.
->> //   Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur par défaut (ici 1).
->> // exposantNbChiffres est facultatif et est le nombre de chiffres sur lequel on veut que AMC code l'exposant.
->> //   Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur par défaut (ici 2).
-
 
 Pour le type `AMCHybride`, les possibilités étant si nombreuses qu'il ne faut pas hésiter à aller regarder le code d'un exercice dont la sortie peut correspondre à vos envies de programmeur et dont quelques exemples apparaissent ci-dessous.
 
@@ -261,6 +255,7 @@ Pour le type `AMCHybride`, les possibilités étant si nombreuses qu'il ne faut 
 |**6N23-1**|quadruple usage de `AMCNum`|
 |**6C10**|usage simple de `AMCOpen` et usage simple de `AMCNum`|
 |**4G20-6**|usage de `AMCOpen` et double usage de `AMCNum`|
+|**4G12**|usage multiple de `AMCOpen`|
 
 
 
