@@ -187,8 +187,8 @@ export default function DiviserPar101001000 () {
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup3 et sup3.
-  this.besoinFormulaireCaseACocher = ['Que des nombres entiers', false]
-  this.besoinFormulaire2CaseACocher = ['Que trois décimales maximum', true]
+  this.besoinFormulaireCaseACocher = ['Le dividende est un nombre entier', false]
+  this.besoinFormulaire2CaseACocher = ['Trois décimales maximum', true]
   this.besoinFormulaire3Numerique = ['Type de questions', 4, ' 1 : Résultat à calculer\n 2 : Nombre à retrouver\n 3 : 10, 100 ou 1 000 à retrouver\n 4 : Mélange']
 
   // this.besoinFormulaire3CaseACocher =['Mode QCM',false]

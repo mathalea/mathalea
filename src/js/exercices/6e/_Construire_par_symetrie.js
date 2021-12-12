@@ -4,7 +4,7 @@ import { point, tracePoint, pointSurDroite, labelPoint, droite, droiteVerticaleP
 import { context } from '../../modules/context.js'
 export const dateDeModificationImportante = '14/11/2021'
 export const amcReady = true
-export const amcType = 'AMCOpen'
+export const amcType = 'AMCHybride'
 
 /**
  * @author Jean-Claude Lhote  (Ajout AMC par Eric Elter)

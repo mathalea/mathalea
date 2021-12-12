@@ -176,7 +176,7 @@ export default function CalculsDeDureesOuHoraires () {
         d = minToHour(d)
 
         if (typesDeQuestions[i] === 1) {
-          texte = `Un papa regarde la compétition de gymnastique de sa fille  de ${d1} à ${d2}. Calculer la durée de cette compétition.`
+          texte = `Un papa regarde la compétition de gymnastique de sa fille  de ${d1} à ${d2}. Quelle est la durée de cette compétition ?`
           texteCorr = `${d2} - ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `La compétition dure ${d}.`
@@ -188,7 +188,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `La compétition terminera à ${d2}.`
         }
         if (typesDeQuestions[i] === 3) {
-          texte = `Une compétition de gymnastique qui se termine à ${d2} a duré ${d}. À quelle heure a-t-elle commencé.`
+          texte = `Une compétition de gymnastique qui se termine à ${d2} a duré ${d}. À quelle heure a-t-elle commencé ?`
           texteCorr = `${d2} - ${d} = ${d1}`
           texteCorr += '<br>'
           texteCorr += `La compétition a commencé à ${d1}.`
@@ -217,7 +217,7 @@ export default function CalculsDeDureesOuHoraires () {
         d = minToHour(d)
 
         if (typesDeQuestions[i] === 1) {
-          texte = `Un train part à ${d1} et arrive à destination à ${d2}. Calculer la durée du trajet.`
+          texte = `Un train part à ${d1} et arrive à destination à ${d2}. Quelle est la durée du trajet ?`
           texteCorr = `${d2} - ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `Le trajet dure ${d}.`
@@ -238,7 +238,7 @@ export default function CalculsDeDureesOuHoraires () {
       if (context.isAmc) {
         this.autoCorrection[i] =
           {
-            enonce: 'En plus de mettre les calculs effectués dans l\'encadré, répondre à chaque question par une phrase.<br>',
+            enonce: 'Dans chacun des encadrés, montrer une démarche ou un calcul et répondre par une phrase.<br>',
             enonceAvant: false,
             enonceAvantUneFois: true,
             melange: false,
