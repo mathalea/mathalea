@@ -24,6 +24,7 @@ export default function NomExercice () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     for (let i = 0, texte, texteCorr, ligne1, ligne2, ligne3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 2) // On définit les variables aléatoires de l'exo...
       const b = randint(2, 3) // Ici ça ne sert à rien, c'est juste pour la fonction questionJamaisPosee()
