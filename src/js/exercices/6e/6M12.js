@@ -1,5 +1,5 @@
 import ExerciceConversionsLongueurs from './_ExerciceConversionsLongueurs.js'
-export const titre = 'Conversions de longueurs'
+export const titre = 'Convertir des longueurs'
 export { interactifReady, interactifType, amcReady, amcType } from './_ExerciceConversionsLongueurs.js'
 /** */
 // Référence 6M12

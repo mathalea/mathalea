@@ -23,6 +23,7 @@ export default function ProprietesParallelesPerpendiculaires () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
   this.nouvelleVersion = function () {
+    this.autoCorrection = []
     let typesDeQuestionsDisponibles = []
     let questionsParNiveau = []
     if (!this.sup2) {

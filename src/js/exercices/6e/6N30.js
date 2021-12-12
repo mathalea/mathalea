@@ -33,6 +33,7 @@ export default function LireAbscisseDecimale () {
     let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     if (parseInt(this.sup) === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {

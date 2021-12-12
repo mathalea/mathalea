@@ -57,6 +57,7 @@ export default function ModelisationProblemes () {
     this.sup3 = parseInt(this.sup3)
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     let colorA, colorB
     let lettres
     const schemas = []

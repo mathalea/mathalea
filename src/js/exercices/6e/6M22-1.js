@@ -2,7 +2,7 @@ import { pointAdistance, point, segment, rotation, cercle, tracePoint, mathalea2
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, shuffle, arrondi, texNombre } from '../../modules/outils.js'
 
-export const titre = 'Périmètres et aires de disques'
+export const titre = 'Calculer périmètre et aire de disques'
 
 /**
  * 4 cercles sont tracés, 2 dont on connait le rayon et 2 dont on connait le diamètre.
@@ -27,6 +27,7 @@ export default function PerimetreAireDisques (pa = 3) {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const tableauDesRayons = shuffle([2, 3, 4, 5, 6, 7, 8]) // pour s'assurer que les 4 rayons sont différents
     const r1 = tableauDesRayons[0]
     const r2 = tableauDesRayons[1]

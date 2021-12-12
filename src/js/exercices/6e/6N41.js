@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, miseEnEvidence, texFraction } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import Fraction from '../../modules/Fraction.js'
-export const titre = 'Égalités entre fractions simples'
+export const titre = 'Compléter les égalités entre fractions simples'
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
 export const interactifReady = true
@@ -28,6 +28,7 @@ export default function EgalitesEntreFractions () {
     this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const listeFractions = [
       [1, 2],
       [1, 3],

@@ -40,6 +40,7 @@ export default function MultiplierPar001 () {
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     let typeDeQuestionsDisponibles
     if (parseInt(this.sup2) === 4) {
       typeDeQuestionsDisponibles = [1, 2, 3]

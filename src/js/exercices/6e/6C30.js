@@ -9,7 +9,7 @@ export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
 export const interactifType = 'numerique'
 
-export const titre = 'Multiplications posées de nombres décimaux'
+export const titre = 'Poser des multiplications de nombres décimaux'
 
 /**
  * Multiplication de deux nombres décimaux
@@ -33,6 +33,7 @@ export default function MultiplierDecimaux () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(

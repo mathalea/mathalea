@@ -7,7 +7,7 @@ export const amcType = 'qcmMono' // QCM
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Opérations avec les nombres décimaux'
+export const titre = 'Effectuer des opérations avec les nombres décimaux'
 
 /**
 * @author Erwan Duplessy

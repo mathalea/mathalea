@@ -30,6 +30,7 @@ export default function EncadrerFractionEntre2Entiers () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     this.liste_de_denominateurs = this.lycee ? combinaisonListes([2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions) : combinaisonListes([2, 3, 4, 5, 10], this.nbQuestions)
     this.liste_de_k = this.lycee ? combinaisonListes(rangeMinMax(-5, 5), this.nbQuestions) : combinaisonListes([0, 1, 2, 3, 4, 5], this.nbQuestions)
     console.log(this.lycee)

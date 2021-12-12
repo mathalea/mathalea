@@ -4,7 +4,7 @@ import { mathalea2d } from '../../modules/2d.js'
 import { cube } from '../../modules/3d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
-export const titre = 'Représentation de solides'
+export const titre = 'Compter les cubes manquants ou pas'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
@@ -34,6 +34,7 @@ export default function DenombrerCubes () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     let typesDeQuestionsDisponibles = [] // tableau à compléter par valeurs possibles des types de questions
     switch (parseInt(this.sup)) {
       case 1:

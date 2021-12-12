@@ -27,6 +27,7 @@ export default function ProportionnalitePasProportionnalite () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let bonneReponse
 
     this.nbQuestions > 1 ? this.consigne = 'Répondre aux questions posées en justifiant.' : this.consigne = 'Répondre à la question posée en justifiant.'

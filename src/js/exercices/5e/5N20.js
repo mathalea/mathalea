@@ -36,12 +36,12 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
 
   this.nouvelleVersion = function () {
     if (this.sup3 && !context.isAmc) {
-      this.consigne = 'Calculer et simplifier au maximum le résultat'
+      this.consigne = 'Calculer et simplifier au maximum le résultat.'
     } else {
       if (this.interactif && !context.isAmc) {
-        this.consigne = 'Calculer'
+        this.consigne = 'Calculer.'
       } else if (context.isAmc) {
-        this.consigne = 'Calculer et choisir parmi les réponses proposées la bonne réponse'
+        this.consigne = 'Calculer et choisir parmi les réponses proposées la bonne réponse.'
       } else if (!this.sup3) {
         this.consigne = 'Calculer :'
       }

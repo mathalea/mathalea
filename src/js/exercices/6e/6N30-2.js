@@ -36,6 +36,7 @@ export default function PlacerPointsSurAxe () {
     let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     if (this.sup > 3) {

@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, pgcd, texFractionR
 import { mathalea2d, labyrinthe } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 
-export const titre = 'Labyrinthe de fractions égales'
+export const titre = 'Parcourir un labyrinthe de fractions égales'
 
 /**
  * @author Jean-Claude Lhote
@@ -34,6 +34,7 @@ export default function ExerciceLabyrintheFractionsEgales () {
   this.nouvelleVersion = function () {
     this.listeCorrections = []
     this.listeQuestions = []
+    this.autoCorrection = []
     const mesfractions = []
     let texte, texteCorr, trouve
     const laby = labyrinthe({ taille: tailleChiffre })

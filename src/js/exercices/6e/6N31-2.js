@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, tableauColonneLigne } from '../../modules/outils.js'
-export const titre = 'Ordre de grandeur et opérations sur les décimaux'
+export const titre = 'Trouver ordre de grandeur d\'opérations sur les décimaux'
 
 /**
  * * Ordre de grandeur d'une opération entre décimaux
@@ -38,6 +38,7 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
