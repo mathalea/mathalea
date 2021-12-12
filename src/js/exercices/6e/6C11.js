@@ -9,7 +9,7 @@ export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Divisions euclidiennes'
+export const titre = 'Poser divisions euclidiennes'
 
 /**
  * Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.
