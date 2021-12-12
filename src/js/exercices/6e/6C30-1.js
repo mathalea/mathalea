@@ -29,6 +29,8 @@ export default function MultiplierDecimauxPar101001000 () {
   this.consigne = 'Calculer.'
   this.sup = 3
   this.sup2 = false
+  this.sup3 = true
+  this.sup4 = false
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 8
