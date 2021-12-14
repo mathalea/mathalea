@@ -3,6 +3,8 @@ import { randint, choice, texNombrec, calcul, texNombre, texFraction } from '../
 export const titre = 'Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
