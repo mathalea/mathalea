@@ -23,6 +23,7 @@ export default function DroiteRemarquableDuTriangle () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const triangles = []
     const sommets = [[]]
     const A = []

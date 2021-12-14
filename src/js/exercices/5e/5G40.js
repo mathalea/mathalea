@@ -26,6 +26,7 @@ export default function ConstructionsParallelogrammes () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let texte = ''
     let texteCorr = ''
     const celluleAlea = function (rang) {

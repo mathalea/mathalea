@@ -27,6 +27,7 @@ export default function ReduireDinstinctionSommeProduit () {
     // let typesDeQuestionsDisponibles
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     if (this.debug) {
       typesDeQuestionsDisponibles = [0, 1, 2, 3]
     } else {

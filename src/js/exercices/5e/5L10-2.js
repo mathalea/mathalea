@@ -32,6 +32,7 @@ export default function TraduireUnProgrammeDeCalcul () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const typeDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
