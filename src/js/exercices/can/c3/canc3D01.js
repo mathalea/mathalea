@@ -41,7 +41,7 @@ export default function LireHeure () {
     petiteAiguille.color = 'green'
     petiteAiguille.epaisseur = 3
     horloge.push(petiteAiguille, grandeAiguille)
-    this.question = 'Quelle est l\'heure du matin indiquée par cette horloge ? (...h....)<br>' + mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 1, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge)
+    this.question = 'Quelle est l\'heure du matin indiquée par cette horloge ? (...h....)<br>' + mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.7, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge)
     this.reponse = `${h}h ${m}`
     this.correction = `${h}h ${m}`
   }

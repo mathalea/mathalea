@@ -114,7 +114,7 @@ export default function DenombrerCubes () {
             xmax: cosa * longueur + 0.5,
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -132,7 +132,7 @@ export default function DenombrerCubes () {
             xmax: cosa * longueur + 0.5,
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -151,7 +151,7 @@ export default function DenombrerCubes () {
             xmax: 3 * cosa * longueur + 0.5,
             ymax: -sina * sinb * 3 * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -184,7 +184,7 @@ export default function DenombrerCubes () {
             xmax: cosa * longueur + 0.5,
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -206,7 +206,7 @@ export default function DenombrerCubes () {
             xmax: cosa * longueur + 0.5,
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -225,7 +225,7 @@ export default function DenombrerCubes () {
             xmax: 3 * cosa * longueur + 0.5,
             ymax: -sina * sinb * 3 * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false
           }
           objetsCorrection = []
