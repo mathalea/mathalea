@@ -81,16 +81,16 @@ export default function Proportions () {
             case 'sous-population':
               switch (randint(1, 2)) {
                 case 1:
-                  texte = `$${texNombre(totale)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de 18 ans. <br>Calculer le nombre de personnes mineures dans le public.`
+                  texte = `$${texNombre(totale)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de $18$ ans. <br>Calculer le nombre de personnes mineures dans le public.`
                   texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme $${taux}~\\%$ des $${texNombre(totale)}$ personnes sont mineures, le nombre de personnes mineures est donné par :`
                   texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale)} = ${texNombre(p)} \\times ${texNombre(totale)}=${texNombre(sous)}$`
                   texteCorr += `<br>Il y a donc $${texNombre(sous)}$ personnes mineures dans le public.`
                   reponse = sous
                   break
                 case 2:
-                  texte = `$${texNombre(totale)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de 18 ans. <br>Calculer le nombre de personnes majeures dans le public.`
-                  texteCorr = 'Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$.'
-                  texteCorr += `<br>On commence par déterminer la proportion de personnes majeures avec ce calcul : <br> $100-${taux}=${100 - taux}$.`
+                  texte = `$${texNombre(totale)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de $18$ ans. <br>Calculer le nombre de personnes majeures dans le public.`
+                  texteCorr = `<br>On commence par déterminer la proportion de personnes majeures avec ce calcul : <br> $100-${taux}=${100 - taux}$.`
+                  texteCorr += 'Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$.'
                   texteCorr += `<br>Comme $${100 - taux}~\\%$ des $${texNombre(totale)}$ personnes sont majeures, le nombre de personnes majeures est donné par :`
                   texteCorr += `<br>$\\dfrac{${100 - taux}}{100} \\times ${texNombre(totale)} = ${texNombre(calcul(1 - p))} \\times ${texNombre(totale)} = ${texNombre(sous2)}$`
                   texteCorr += `<br>Il y a donc $${texNombre(sous2)}$ personnes majeures dans le public.`
@@ -99,7 +99,7 @@ export default function Proportions () {
               }
               break
             case 'population-totale':
-              texte = `Lors d'un concert, il y a $${texNombre(sous)}$ spectacteurs de plus de 60 ans, ce qui représente $${taux}~\\%$ du public. <br>Combien de spectateurs ont assisté au concert ?`
+              texte = `Lors d'un concert, il y a $${texNombre(sous)}$ spectacteurs de plus de $60$ ans, ce qui représente $${taux}~\\%$ du public. <br>Combien de spectateurs ont assisté au concert ?`
               texteCorr = `Soit $x$ le nombre total de spectateur. <br> Comme $${taux}~\\%$ de $x$ est égal à $${texNombre(sous)}$, on a :`
               texteCorr += `<br>$\\begin{aligned}
               \\dfrac{${taux}}{100} \\times x &= ${texNombre(sous)} \\\\\\
@@ -111,7 +111,7 @@ export default function Proportions () {
               reponse = totale
               break
             case 'proportion':
-              texte = `Parmi les $${texNombre(totale)}$ spectacteurs d'un concert, $${texNombre(sous)}$ ont moins de 18 ans. <br>Calculer la proportion des personnes mineures dans le public en pourcentage.`
+              texte = `Parmi les $${texNombre(totale)}$ spectacteurs d'un concert, $${texNombre(sous)}$ ont moins de $18$ ans. <br>Calculer la proportion des personnes mineures dans le public en pourcentage.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous)}}{${texNombre(totale)}} = ${texNombre(p)}$.`
               texteCorr += `<br>$${texNombre(p)}=\\dfrac{${texNombre(taux)}}{100}$. Il y a donc $${taux}~\\%$ de personnes mineures dans le public.`
               reponse = taux
@@ -136,7 +136,7 @@ export default function Proportions () {
           p = calcul(taux / 100)
           sous = calcul(totale * p)
           sous2 = totale - sous
-          prénom = choice(['Frédéric', 'Brice', 'Marion', 'Christelle'])
+          prénom = choice(['Frédéric', 'Brice', 'Marion', 'Christelle', 'Léo', 'Gabriel', 'Maël', 'Louise', 'Lina', 'Mia', 'Rose', 'Mohamed', 'Mehdi', 'Rayan', 'Karim', 'Yasmine', 'Noûr', 'Kaïs', 'Louna', 'Nora', 'Fatima', 'Nora', 'Nadia', 'Sohan', 'Timothée', 'Jamal'])
           switch (listeTypeDeQuestions[i]) {
             case 'sous-population':
               texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${taux}~\\%$ du prix total. <br>Combien ai-je donné pour le cadeau de ${prénom} ?`
