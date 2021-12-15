@@ -11017,6 +11017,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can2F06": {
+    "titre": "Dresser le tableau de signes d’une fonction affine",
+    "url": "/exercices/can/2e/can2F06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2F06",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can2G01": {
     "titre": "Déterminer un agrandissement/réduction avec fraction",
     "url": "/exercices/can/2e/can2G01.js",
