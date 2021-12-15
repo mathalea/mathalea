@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { randint, listeQuestionsToContenu, combinaisonListes, texteGras } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
-export const titre = 'Dernier chiffre d’un calcul'
+export const titre = 'Déterminer le dernier chiffre d’un calcul'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
@@ -43,6 +43,7 @@ export default function DernierChiffre () {
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     let typeDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['somme']

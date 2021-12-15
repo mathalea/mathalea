@@ -55,6 +55,7 @@ export default function Priorites () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let questionsDisponibles = [] //
     if (parseInt(this.sup) === 1) {
       questionsDisponibles = range1(12)

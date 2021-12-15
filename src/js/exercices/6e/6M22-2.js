@@ -4,7 +4,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, arrondi, texNombre, calcul } from '../../modules/outils.js'
 
-export const titre = 'Périmètres et aires de portions de cercles'
+export const titre = 'Calculer périmètre et aire de portions de cercles/disques'
 
 /**
  * 3 figures sont données, 1 quart de disque, un demi-disque et un 3-quarts de disque
@@ -33,6 +33,7 @@ export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
     this.sup = parseInt(this.sup)
     this.listeCorrections = [] // Liste de questions corrigées
     this.listeQuestions = []
+    this.autoCorrection = []
     const objetsEnonce = []
     let params
     const C1 = point(5, 10)

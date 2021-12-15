@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, miseEnEvidence, texteEnCouleurEtGras, calcul } from '../../modules/outils.js'
 import { mathalea2d, labyrinthe } from '../../modules/2d.js'
-export const titre = 'Labyrinthe de numération décimale'
+export const titre = 'Parcourir un labyrinthe de numération décimale'
 
 /**
  * @author Jean-Claude Lhote
@@ -26,6 +26,7 @@ export default function ExerciceLabyrintheNumeration () {
   this.nouvelleVersion = function () {
     this.listeCorrections = []
     this.listeQuestions = []
+    this.autoCorrection = []
     const tailleChiffre = 0.7
     let texte, texteCorr, trouve
     const laby = labyrinthe({ taille: tailleChiffre })

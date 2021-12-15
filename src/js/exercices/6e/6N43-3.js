@@ -5,7 +5,7 @@ export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'qcm'
-export const titre = 'Diviseur, multiple, divisible - Vrai ou faux'
+export const titre = 'Reconnaître diviseur, multiple, divisible'
 
 /**
  * Vrai ou faux sur les notions de diviseur ou multiple
@@ -54,6 +54,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
     this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     let typeDeQuestionsDisponibles = ['Ndiviseur', 'divisibleParN', 'multipleDeN', 'NdiviseurF', 'divisibleParNF', 'multipleDeNF', 'NdiviseurEnvers', 'divisibleParNEnvers', 'multipleDeNEnvers']
     if (this.nbQuestions < 8) {

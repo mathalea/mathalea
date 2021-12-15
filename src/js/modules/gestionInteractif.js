@@ -314,7 +314,7 @@ function verifQuestionMathLive (exercice, i) {
     spanReponseLigne.innerHTML = '😎'
     spanReponseLigne.style.fontSize = 'large'
   } else if (resultat === 'essaieEncoreLongueur') {
-    spanReponseLigne.innerHTML = '<em>Il faut saisir une longueur et une unité (cm par exemple).</em>'
+    spanReponseLigne.innerHTML = '<em>Il faut saisir une valeur numérique et une unité (cm ou cm² par exemple).</em>'
     spanReponseLigne.style.color = '#f15929'
     spanReponseLigne.style.fontWeight = 'bold'
   } else if (resultat === 'essaieEncorePuissance') {
@@ -326,9 +326,6 @@ function verifQuestionMathLive (exercice, i) {
     spanReponseLigne.style.fontSize = 'large'
   }
   if (resultat !== 'essaieEncoreLongueur') champTexte.readOnly = true
-
-  // console.log('rep : ' + reponses)
-  // console.log('saisie : ' + saisie)
 
   return resultat
 }
@@ -564,9 +561,8 @@ export function propositionsQcm (exercice, i) {
   } else { // Si les options ne sont pas définies, on mélange
     exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions)
   }
-  if (elimineDoublons(exercice.autoCorrection[i].propositions)) {
-    // console.log('doublons trouvés')
-  }
+  // if (elimineDoublons(exercice.autoCorrection[i].propositions)) {
+  // }
   if (context.isHtml) {
     texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
     texte += '<table>\n\t'

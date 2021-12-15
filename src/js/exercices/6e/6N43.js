@@ -6,7 +6,7 @@ export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Critères de divisibilité'
+export const titre = 'Utiliser les critères de divisibilité'
 
 /**
  * Un nombre est-il divisible par :
@@ -30,6 +30,7 @@ export default function CriteresDeDivisibilite () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let listeExercicesDisponibles
     if (this.sup === 1) {
       listeExercicesDisponibles = [2, 5, 10]

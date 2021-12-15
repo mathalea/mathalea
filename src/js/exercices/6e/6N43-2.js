@@ -7,7 +7,7 @@ export const amcType = 'qcmMult' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Critères de divisibilité (plusieurs possibles)'
+export const titre = 'Utiliser les critères de divisibilité (plusieurs possibles)'
 
 /**
  * Un nombre est-il divisible par 2, 3, 5, 9 ?
@@ -43,6 +43,7 @@ export default function TableauCriteresDeDivisibilite () {
     }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const listeDesNombresPossibles = [
       'div2',

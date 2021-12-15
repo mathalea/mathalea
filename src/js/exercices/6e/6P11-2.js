@@ -23,6 +23,7 @@ export const interactifType = 'mathLive'
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {

@@ -24,6 +24,7 @@ export default function ConstruireUnAngle () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     this.sup = parseInt(this.sup)
     let angle; let anglerot; let Apos; let Bpos; let Cpos; let fleche; const signe = []; let p; let texte; let texteCorr; let A; let B; let s; let C; let s2
     let labels, labels2, secteur, cible, xMin, xMax, yMin, yMax, objetsEnonce, objetsCorrection

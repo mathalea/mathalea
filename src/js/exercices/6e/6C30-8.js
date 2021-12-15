@@ -7,7 +7,7 @@ export const amcType = 'qcmMono' // QCM
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Diviser par 10 ; 100 ; 1 000'
+export const titre = 'Diviser par 10, 100 ou 1 000'
 
 export const dateDePublication = '08/12/2021'
 
@@ -40,6 +40,7 @@ export default function DiviserPar101001000 () {
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     let typeDeQuestionsDisponibles
     if (parseInt(this.sup3) === 4) {
       typeDeQuestionsDisponibles = [1, 2, 3]

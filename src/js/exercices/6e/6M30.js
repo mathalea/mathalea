@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, t
 import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
 import Grandeur from '../../modules/Grandeur.js'
 
-export const titre = 'Calculs de volumes'
+export const titre = 'Calculer le volume de solides donnés'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true

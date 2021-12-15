@@ -844,6 +844,7 @@ export default function ProportionnaliteParLinearite () {
     let indiceQuestion = 0
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let listeIndexSituationsDisponible = []
 
     if (!this.sup2) { // Si aucune liste n'est saisie
