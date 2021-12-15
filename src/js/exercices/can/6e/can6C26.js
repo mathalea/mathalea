@@ -28,7 +28,7 @@ export default function MultiplierDiviserPar10Par100Par1000 () {
         b = choice([10, 100, 1000])
         resultat = calcul(a * b)
         this.question = `$${texNombrec(a)}\\times${texNombre(b)}=$`
-        this.correction = `$${texNombrec(a)}\\times ${b} = ${resultat}$`
+        this.correction = `$${texNombrec(a)}\\times ${b} = ${texNombre(resultat)}$`
         this.reponse = resultat
         break
       case 2:// multiplier par 0,1....
@@ -36,7 +36,7 @@ export default function MultiplierDiviserPar10Par100Par1000 () {
         b = choice([0.1, 0.01, 0.001])
         resultat = texNombrec(a * b)
         this.question = `$${texNombrec(a)}\\times${texNombre(b)}=$`
-        this.correction = `$${texNombrec(a)}\\times ${texNombre(b)} = ${resultat}$`
+        this.correction = `$${texNombrec(a)}\\times ${texNombre(b)} = ${texNombre(resultat)}$`
         this.reponse = resultat
         break
       case 3:// multiplier par 10, 100 et fractions /10, /100....
