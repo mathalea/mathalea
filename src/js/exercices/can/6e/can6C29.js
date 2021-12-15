@@ -4,6 +4,8 @@ export const titre = 'Résoudre un problème de partage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '1/11/2021'
+export const amcType = 'AMCNum'
+export const amcReady = true
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres

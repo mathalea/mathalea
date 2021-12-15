@@ -1,4 +1,4 @@
-import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, labelPoint, segment, vecteur, texteParPosition, latexParCoordonnees, codeSegments, afficheMesureAngle, milieu, translation } from '../../modules/2d.js'
+import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, labelPoint, segment, vecteur, texteParPosition, latexParCoordonnees, codeSegments, afficheMesureAngle, milieu, translation, texteParPositionEchelle } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
@@ -79,8 +79,8 @@ export default function Transformations () {
       for (let j = 0; j < 10; j++) {
         objetsEnonce.push(tracePoint(point(j - 4, i - 4)))
         objetsCorrection.push(tracePoint(point(j - 4, i - 4)))
-        objetsEnonce.push(texteParPosition(j + 10 * i, j - 4.2, i - 4.2, 'milieu', 'gray', 0.8, 'middle', false))
-        objetsCorrection.push(texteParPosition(j + 10 * i, j - 4.2, i - 4.2, 'milieu', 'gray', 0.8, 'middle', false))
+        objetsEnonce.push(texteParPositionEchelle(Number(j + 10 * i).toString(), j - 4.2, i - 4.2, 'milieu', 'black', 0.8, 'middle', false, 0.8))
+        objetsCorrection.push(texteParPositionEchelle(Number(j + 10 * i).toString(), j - 4.2, i - 4.2, 'milieu', 'black', 0.8, 'middle', false, 0.8))
       }
     }
     this.listeQuestions = []
@@ -356,61 +356,87 @@ export default function Transformations () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenuSansNumero(this)
     if (context.isAmc) {
-      this.autoCorrection[0] = {
-        enonce: texte,
-        options: { multicols: true },
-        propositions: [
-          {
-            type: 'AMCNum',
-            propositions: [{
-              texte: texteCorr,
-              statut: '',
-              reponse: {
-                texte: 'a)',
-                valeur: images[0],
-                param: {
-                  digits: 2,
-                  decimals: 0,
-                  signe: false,
-                  approx: 0
+      if (this.can) {
+        this.autoCorrection[0] = {
+          enonce: texte,
+          options: { multicols: true },
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: texteCorr,
+                statut: '',
+                reponse: {
+                  texte: 'a)',
+                  valeur: images[0],
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
                 }
-              }
+              }]
             }]
-          },
-          {
-            type: 'AMCNum',
-            propositions: [{
-              texte: '',
-              statut: '',
-              reponse: {
-                texte: 'b)',
-                valeur: images[1],
-                param: {
-                  digits: 2,
-                  decimals: 0,
-                  signe: false,
-                  approx: 0
+
+        }
+      } else {
+        this.autoCorrection[0] = {
+          enonce: texte,
+          options: { multicols: true },
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: texteCorr,
+                statut: '',
+                reponse: {
+                  texte: 'a)',
+                  valeur: images[0],
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
                 }
-              }
-            }]
-          },
-          {
-            type: 'AMCNum',
-            propositions: [{
-              texte: '',
-              statut: '',
-              reponse: {
-                texte: 'c)',
-                valeur: images[2],
-                param: {
-                  digits: 2,
-                  decimals: 0,
-                  signe: false,
-                  approx: 0
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'b)',
+                  valeur: images[1],
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
                 }
-              }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'c)',
+                  valeur: images[2],
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
             }]
-          }]
+        }
       }
     }
   }
