@@ -288,7 +288,6 @@
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
-|betacan2F06|Dresser le tableau de signes d’une fonction affine|KO|KO|OK|qcm|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
@@ -332,6 +331,7 @@
 |can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
 |can2F04|Trouver les valeurs interdites d’une fonction|KO|KO|OK|mathLive|
 |can2F05|Déterminer un antécédent avec la racine carrée|KO|KO|OK|mathLive|
+|can2F06|Dresser le tableau de signes d’une fonction affine|KO|KO|OK|qcm|
 |can2G01|Déterminer un agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
 |can2G02|Calculer une longueur avec le théorème de Pythagore|KO|KO|OK|mathLive|
 |can2G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|
