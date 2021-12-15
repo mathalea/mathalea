@@ -24,6 +24,8 @@ export default function NomExercice () {
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
+
     const typesDeQuestionsDisponibles = [1] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let A, B, C, D, kare, triangle
