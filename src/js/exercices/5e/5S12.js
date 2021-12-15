@@ -26,6 +26,7 @@ export default function ConstruireUnDiagramme () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     let typesDeQuestionsDisponibles
     if (this.sup3 < 5) {
       typesDeQuestionsDisponibles = [parseInt(this.sup3)]

@@ -1,5 +1,5 @@
 import ExerciceConversionsAires from './_Exercice_conversions_aires.js'
-export const titre = 'Conversions d’aires'
+export const titre = 'Convertir des aires'
 
 export { amcReady, interactifReady, amcType, interactifType } from './_Exercice_conversions_aires.js'
 /**

@@ -21,6 +21,7 @@ export default function RepresenterUneFraction () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let sc
     const ppc = 20
     if (context.isHtml) {

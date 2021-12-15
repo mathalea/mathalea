@@ -31,6 +31,7 @@ export default function FractionsCalculsSimples () {
     if (this.correctionDetaillee) this.nbColsCorr = 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const typeQuestionsDisponibles = ['a/b+c/b', 'n+a/b', 'n+a/b', 'n*a/b', 'n-a/b']//, 'a/b+c/nb']
 

@@ -5,7 +5,7 @@ import { context } from '../../modules/context.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = false
-export const titre = 'Labyrinthe de multiples'
+export const titre = 'Parcourir un labyrinthe de multiples'
 
 /**
  * @author Jean-Claude Lhote
@@ -38,6 +38,7 @@ export default function ExerciceLabyrintheMultiples () {
   this.nouvelleVersion = function () {
     this.listeCorrections = []
     this.listeQuestions = []
+    this.autoCorrection = []
     this.sup = contraindreValeur(1, 4, Number(this.sup), 4)
     let table
     if (this.sup === 1) {

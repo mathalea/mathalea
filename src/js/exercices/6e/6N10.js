@@ -52,6 +52,7 @@ export default function EcrirePetitsNombresEntiers () {
     }
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
 
     let QuestionsDisponibles = []
     let listeQuestions = []

@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { combinaisonListes, listeQuestionsToContenu, randint, choice, creerNomDePolygone, calcul } from '../../modules/outils.js'
 import { mathalea2d, point, tracePointSurDroite, droite, demiDroite, labelPoint, segment } from '../../modules/2d.js'
 
-export const titre = 'Description et notation des droites, segments et demi-droites'
+export const titre = 'Donner description et notation de droites, segments et demi-droites'
 
 /**
  * Utiliser les notations des segments, droites et demi-droites
@@ -20,6 +20,7 @@ export default function DescriptionSegmentDroiteDemiDroite () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const typesDeQuestionsDisponibles = [1, 4, choice([2, 3])]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

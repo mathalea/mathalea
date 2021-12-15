@@ -20,6 +20,7 @@ export default function EcrireUneExpressionMathador () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let expression, calculsSuccessifs, tirage, cible, solutionMathador, quidam
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // traduire un calcul mathador

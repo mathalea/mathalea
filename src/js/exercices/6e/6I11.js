@@ -9,7 +9,7 @@ export const titre = 'Note la couleur (scratch)'
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
  * https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/
- * Ref : 6Algo11
+ * Ref : 6I11
  * Publié le 11/04/2021
  * @author Jean-Claude Lhote
  * A faire : ajouter d'autres niveaux avec des instructions conditionnelles, des blocs définis...
@@ -56,6 +56,7 @@ export default function NoteLaCouleur6e () {
     const echelleDessin = 0.5
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     let j, test
     let objetsEnonce = []; let objetsCorrection = []
     const paramsCorrection = this.relatif

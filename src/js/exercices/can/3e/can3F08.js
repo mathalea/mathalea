@@ -53,7 +53,7 @@ style: 'margin: auto'
     et $b$ l'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées).<br>
     L'ordonnée à l'origine  est $b=${b}$ et :`
     this.correction += texteCentre(`$a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=
-    ${texFraction(miseEnEvidence(a, 'red'), miseEnEvidence(1, 'green'))}=${a}$`)
+    ${texFraction(miseEnEvidence(a, 'red'), miseEnEvidence(d, 'green'))}$`)
     this.correction += `On en déduit que la fonction $f$ est définie par : $f(x)=${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(b)}$.`
     if (a > 0) {
       s1 = segment(0, b - a, -d, b - a, 'green')

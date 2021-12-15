@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, combinaisonListes, randint, texNombre, nombreA
 import Operation from '../../modules/operations.js'
 import { context } from '../../modules/context.js'
 import { choixDeroulant, setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Faire des phrases avec les mots : divisible, diviseur et multiple'
+export const titre = 'Trouver des phrases avec les mots : divisible, diviseur et multiple'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
 
@@ -25,6 +25,7 @@ export default function DivisibleDiviseurMultiple () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let b = randint(6, 17, [9, 10])
     let q = randint(11, 99)
     let r = randint(1, b - 1)

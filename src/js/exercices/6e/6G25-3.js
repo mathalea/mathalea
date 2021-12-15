@@ -115,6 +115,7 @@ export default function PavageEtReflexion2d () {
     }
     this.listeCorrections = []
     this.listeQuestions = []
+    this.autoCorrection = []
     let Nx; let Ny; let index1; let index2; let A; let B; let d; let image; let couples = []; let tailles = []; let monpavage; let fenetre
     let texte = ''; let texteCorr = ''; let typeDePavage = parseInt(this.sup)
     let nombreTentatives; let nombrePavageTestes = 1

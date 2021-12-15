@@ -1,6 +1,6 @@
 import TablesDeMultiplications from './_Tables_de_multiplications.js'
 
-export const titre = 'Tables de multiplication'
+export const titre = 'Réviser les tables de multiplication'
 export { interactifReady, interactifType, amcReady, amcType } from './_Tables_de_multiplications.js'
 
 /**

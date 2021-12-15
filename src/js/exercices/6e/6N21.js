@@ -29,6 +29,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let typeDeQuestions
     if (this.sup > 3) {
       typeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)

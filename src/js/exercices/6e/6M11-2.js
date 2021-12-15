@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenuSansNumero, randint, arrondi, calcul, texNombrec, texNombre, texTexte } from '../../modules/outils.js'
-export const titre = 'Périmètres et aires de figures composées'
+export const titre = 'Calculer périmètre et aire de figures composées'
 
 /**
  * Deux figures composés de rectangles et de triangles sont tracés.
@@ -27,6 +27,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const L1 = randint(4, 7)
     let l1 = randint(2, 4)
     const L2 = randint(2, 4)

@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, calcul, choice, arrondiVirgule, texNombre, texPrix, arrondi } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 
-export const titre = 'Problème - Les courses'
+export const titre = 'Résoudre des problèmes de courses au marché'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -29,6 +29,7 @@ export default function ProblemeCourse () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const prenom = choice([
       'Benjamin',
       'Léa',

@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, arrondiVirgule, calcul, texNombrec, creerNomDePolygone, texNombre, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
+import Grandeur from '../../modules/Grandeur.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,6 +15,7 @@ export const amcType = 'AMCHybride'
  * * 2: Uniquement des cercles
  * * 3 : Les 4 sont demandés
  * @author Rémi Angot// modifié par Mireille Gain pour le support des décimaux
+ * * Relecture EE : Décembre 2021
  */
 export default function ExercicePerimetresEtAires (difficulte = 1) {
   // Calculer le périmètre et l'aire de figures
@@ -21,7 +23,7 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
   this.sup = difficulte
   this.titre = "Calculs de périmètres et d'aires"
   this.consigne =
-    'Pour chacune des figures, calculer son périmètre puis son aire (valeur exacte et si nécessaire valeur approchée au dixième près).'
+    'Pour chacune des figures, calculer son périmètre puis son aire (valeur exacte et si nécessaire, valeur approchée au dixième près).'
   this.spacing = 1
   this.nbQuestions = 4
 
@@ -73,9 +75,9 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
           nomCarre = creerNomDePolygone(4)
           if (choice([true, false])) {
             // 2 énoncés possibles équiprobables
-            texte = `Un carré $${nomCarre}$ de $${texNombre(cote)}$ cm de côté .` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texte: 'Périmètre : ', texteApres: ' $cm$ ' }) + sp(5) + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline', 'largeur25 inline', { texte: 'Aire : ', texteApres: ' $cm^2$' })
+            texte = `Un carré $${nomCarre}$ de $${texNombre(cote)}$ cm de côté .<br>` + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline longueur', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline longueur', { texte: '<br>' + sp(13) + 'Aire : ' })
           } else {
-            texte = `Un carré $${nomCarre}$ tel que $${nomCarre[0] + nomCarre[1]} = ${texNombre(cote)}$ cm.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texte: 'Périmètre : ', texteApres: ' $cm$ ' }) + sp(5) + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline', 'largeur25 inline', { texte: 'Aire : ', texteApres: ' $cm^2$' })
+            texte = `Un carré $${nomCarre}$ tel que $${nomCarre[0] + nomCarre[1]} = ${texNombre(cote)}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline longueur', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline longueur', { texte: '<br>' + sp(13) + 'Aire : ' })
           }
 
           texteCorr = `$\\mathcal{P}_{${nomCarre}}=4\\times${texNombre(cote)}~\\text{cm}=${texNombrec(4 * cote)}~\\text{cm}$<br>`
@@ -89,9 +91,9 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
           nomRectangle = creerNomDePolygone(4)
           if (choice([true, false])) {
             // 2 énoncés possibles équiprobables
-            texte = `Un rectangle $${nomRectangle}$ de $${texNombre(L)}$ cm de longueur et de $${l}$ cm de largeur.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texte: 'Périmètre : ', texteApres: ' $cm$ ' }) + sp(5) + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline', 'largeur25 inline', { texte: 'Aire : ', texteApres: ' $cm^2$' })
+            texte = `Un rectangle $${nomRectangle}$ de $${texNombre(L)}$ cm de longueur et de $${l}$ cm de largeur.<br>` + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline longueur', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline longueur', { texte: '<br>' + sp(13) + 'Aire : ' })
           } else {
-            texte = `Un rectangle $${nomRectangle}$ tel que $${nomRectangle[0] + nomRectangle[1] + ' = ' + texNombre(L)}$ cm et $${nomRectangle[1] + nomRectangle[2] + ' = ' + l}$ cm.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texte: 'Périmètre : ', texteApres: ' $cm$ ' }) + sp(5) + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline', 'largeur25 inline', { texte: 'Aire : ', texteApres: ' $cm^2$' })
+            texte = `Un rectangle $${nomRectangle}$ tel que $${nomRectangle[0] + nomRectangle[1] + ' = ' + texNombre(L)}$ cm et $${nomRectangle[1] + nomRectangle[2] + ' = ' + l}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline longueur', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline longueur', { texte: '<br>' + sp(13) + 'Aire : ' })
           }
           texteCorr = `$\\mathcal{P}_{${nomRectangle}}=(${texNombre(L)}~\\text{cm}+${l}~\\text{cm})\\times2=${texNombrec((L + l) * 2)}~\\text{cm}$<br>`
           texteCorr += `$\\mathcal{A}_{${nomRectangle}}=${texNombre(L)}~\\text{cm}\\times${l}~\\text{cm}=${texNombrec(L * l)}~\\text{cm}^2$`
@@ -107,9 +109,9 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
           nomTriangle = creerNomDePolygone(3)
           if (choice([true, false])) {
             texte = `Un triangle $${nomTriangle}$ rectangle en $${nomTriangle[1]}$ tel que $${nomTriangle[0] + nomTriangle[1] + ' = ' + texNombre(a)}$ cm, $${nomTriangle[1] + nomTriangle[2] + ' = ' + texNombre(b)}$ cm\
- et $${nomTriangle[0] + nomTriangle[2] + ' = ' + texNombre(c)}$ cm.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texte: 'Périmètre : ', texteApres: ' $cm$ ' }) + sp(5) + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline', 'largeur25 inline', { texte: 'Aire : ', texteApres: ' $cm^2$' })
+ et $${nomTriangle[0] + nomTriangle[2] + ' = ' + texNombre(c)}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline longueur', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline longueur', { texte: '<br>' + sp(13) + 'Aire : ' })
           } else {
-            texte = `Un triangle rectangle $${nomTriangle}$ a pour côtés : $${texNombre(a)}$ cm, $${texNombre(c)}$ cm et $${texNombre(b)}$ cm.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texte: 'Périmètre : ', texteApres: ' $cm$ ' }) + sp(5) + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline', 'largeur25 inline', { texte: 'Aire : ', texteApres: ' $cm^2$' })
+            texte = `Un triangle rectangle $${nomTriangle}$ a pour côtés : $${texNombre(a)}$ cm, $${texNombre(c)}$ cm et $${texNombre(b)}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline longueur', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline longueur', { texte: '<br>' + sp(13) + 'Aire : ' })
           }
 
           texteCorr = `$\\mathcal{P}_{${nomTriangle}}=${texNombre(a)}~\\text{cm}+${texNombre(b)}
@@ -122,10 +124,10 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
           R = randint(3, 11)
           donneLeDiametre = choice([true, false])
           if (donneLeDiametre) {
-            texte = `Un cercle de $${2 * R}$ cm de diamètre.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texte: 'Périmètre : ', texteApres: ' $cm$ ' }) + sp(5) + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline', { texte: 'Aire : ', texteApres: ' $cm^2$' })
+            texte = `Un cercle de $${2 * R}$ cm de diamètre.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline longueur', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline longueur', { texte: '<br>' + sp(13) + 'Aire : ' })
             texteCorr = `Le diamètre est de $${2 * R}$ cm donc le rayon est de $${R}$ cm.<br>`
           } else {
-            texte = `Un cercle de $${R}$ cm de rayon.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texte: 'Périmètre : ', texteApres: ' $cm$ ' }) + sp(5) + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline', { texte: 'Aire : ', texteApres: ' $cm^2$' })
+            texte = `Un cercle de $${R}$ cm de rayon.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline longueur', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline longueur', { texte: '<br>' + sp(13) + 'Aire : ' })
             texteCorr = ''
           }
 
@@ -145,8 +147,8 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
       if (reponses.indexOf(resultat1 * resultat2) === -1) {
         reponses.push(resultat1 * resultat2)
         if (!context.isAmc) {
-          setReponse(this, 2 * i, resultat1)
-          setReponse(this, 2 * i + 1, resultat2)
+          setReponse(this, 2 * i, new Grandeur(resultat1, 'cm'), { formatInteractif: 'longueur' })
+          setReponse(this, 2 * i + 1, new Grandeur(resultat2, 'cm^2'), { formatInteractif: 'longueur' })
         } else {
           this.autoCorrection[i] = {
             enonce: texte,

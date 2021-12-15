@@ -1,5 +1,5 @@
 import VocabulaireDesTriangles from '../5e/5G20-1.js'
-export const titre = 'Vocabulaire des triangles'
+export const titre = 'Utiliser le vocabulaire des triangles'
 
 /**
  * Vocabulaire des triangles

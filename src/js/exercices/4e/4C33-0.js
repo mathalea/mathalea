@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { randint, combinaisonListes, listeQuestionsToContenu } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Utiliser la notation puissance'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +27,7 @@ export default function NotationPuissance () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
-
+    this.autoCorrection = []
     let listeTypeDeQuestions
     switch (this.sup) {
       case 1:
@@ -59,6 +60,7 @@ export default function NotationPuissance () {
     const listeSignes = combinaisonListes(['', '-'], this.nbQuestions)
     const listeSignesMantisse = combinaisonListes(['', '-'], this.nbQuestions)
     for (let i = 0, texte, texteCorr, a, b, pl, pr, apl, apr, signeContraire, produit, produitAlt, puissance, puissances, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      this.autoCorrection[i] = {}
       a = randint(2, 10)
       if (listeSignesMantisse[i] === '-') a = -a
       if (listeTypeDeQuestions[i] === 'puissance') {
@@ -138,9 +140,11 @@ export default function NotationPuissance () {
         if (listeTypeDeQuestions[i] === 'produit') texte += ajouteChampTexteMathLive(this, i, 'inline fixed-width-400')
         if (listeTypeDeQuestions[i] === 'puissance') texte += ajouteChampTexteMathLive(this, i, 'inline fixed-width-150')
       }
-
+      if (context.isAmc) {
+        this.autoCorrection[i].propositions = [{ statut: 1, sanscadre: true, texte: texteCorr }]
+      }
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, b, listeTypeDeQuestions[i], listeSignesExposants[i], listeSignes[i])) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, a, b, listeTypeDeQuestions[i], listeSignesExposants[i], listeSignes[i])) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

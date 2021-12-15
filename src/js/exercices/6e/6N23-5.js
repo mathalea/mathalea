@@ -8,7 +8,7 @@ export const amcType = 'qcmMono' // QCM
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Sens de l’écriture fractionnaire'
+export const titre = 'Donner une écriture fractionnaire'
 
 /**
  * Donner la fraction correspondant à un nombre ou à un calcul
@@ -28,6 +28,7 @@ export default function SensDeLaFraction () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     const typeDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
 

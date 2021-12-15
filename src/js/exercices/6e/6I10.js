@@ -3,11 +3,11 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
 import { point, polygone, grille, texteParPosition, mathalea2d } from '../../modules/2d.js'
 
-export const titre = 'Programmer des déplacements (scratch)'
+export const titre = 'Programmer des déplacements (Scratch)'
 
 /**
  * * Colorier le déplacement d'un lutin
- * * 6Algo10
+ * * 6I10
  * @author Erwan Duplessy
  */
 export default function ColorierDeplacement () {
@@ -29,6 +29,7 @@ export default function ColorierDeplacement () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     function scratchblocksTikz (codeSvg, codeTikz) {
       // c'est une ancienne façon de faire. Maintenant il existe une fonction scratchblock() qui effectue la conversion scratch Latex -> scratchblock
       if (context.isHtml) {

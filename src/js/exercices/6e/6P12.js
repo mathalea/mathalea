@@ -478,6 +478,7 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
     this.consigne = this.nbQuestions === 1 ? 'Répondre à la question posée en justifiant.' : 'Répondre aux questions posées en justifiant.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let listeIndexSituationsDisponible = []
     if (!this.sup2) { // Si aucune liste n'est saisie
       listeIndexSituationsDisponible = rangeMinMax(1, 6)

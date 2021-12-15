@@ -39,6 +39,7 @@ export default function EcrireNombresEntiers () {
     }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let typesDeQuestionsDisponibles
     if (parseInt(this.sup2) === 1) typesDeQuestionsDisponibles = [1, 1, 1, 2, 2]
     else if (parseInt(this.sup2) === 2) typesDeQuestionsDisponibles = [1, 2, 2, 2, 3]

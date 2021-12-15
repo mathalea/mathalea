@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, combinaisonListes } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Chiffre des ... Nombre de ...'
+export const titre = 'Décomposer un nombre entier (nombre de ..., chiffres des ...)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -13,23 +13,19 @@ export const amcType = 'AMCNum'
  * * 6N10-3
  * @author Sébastien Lozano
  * Rendu interactif par Jean-Claude Lhote et ajout de paramètre type de questions
+ * Relecture : Décembre 2021 par EE
  */
 
 export default function chiffreNombreDe () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.beta = false
   this.sup = 1
-  if (this.beta) {
-    this.nbQuestions = 6
-  } else {
-    this.nbQuestions = 6
-  };
+
+  this.nbQuestions = 6
 
   this.consigne = ''
 
   this.nbCols = 1
   this.nbColsCorr = 1
-  // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
 
@@ -37,27 +33,23 @@ export default function chiffreNombreDe () {
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    if (this.beta) {
-      typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5]
-    } else {
-      // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      switch (this.sup) {
-        case 1:
-          typesDeQuestionsDisponibles = combinaisonListes([0, 1, 2], this.nbQuestions)
-          break
-        case 2:
-          typesDeQuestionsDisponibles = combinaisonListes([3, 4, 5], this.nbQuestions)
-          break
-        default:
-          typesDeQuestionsDisponibles = combinaisonListes([0, 1, 2, 3, 4, 5], this.nbQuestions)
-          break
-      }
-    };
+
+    switch (this.sup) {
+      case 1:
+        typesDeQuestionsDisponibles = combinaisonListes([0, 1, 2], this.nbQuestions)
+        break
+      case 2:
+        typesDeQuestionsDisponibles = combinaisonListes([3, 4, 5], this.nbQuestions)
+        break
+      default:
+        typesDeQuestionsDisponibles = combinaisonListes([0, 1, 2, 3, 4, 5], this.nbQuestions)
+        break
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
     const reponses = []
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -70,8 +62,6 @@ export default function chiffreNombreDe () {
       const c = randint(0, 9, [mmu, mmd, mmc, mu, md, mc])
       const d = randint(0, 9, [mmu, mmd, mmc, mu, md, mc, c])
       const u = randint(0, 9, [mmu, mmd, mmc, mu, md, mc, c, d])
-      // let nb = randint(100000000,999999999);
-      // let nbStr = nb.toString();
       const nbStr = mmc.toString() + mmd.toString() + mmu.toString() + mc.toString() + md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
       const nb = Number(nbStr)
       const cdu = ['unites', 'dizaines', 'centaines']
@@ -188,83 +178,19 @@ export default function chiffreNombreDe () {
       for (let k = 0; k < situations.length; k++) {
         enonces.push({
           enonce: `
-          Dans $${texNombre(nb)}$, quel est le ${situations[k].type} ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant} ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} ?
-`,
+          Dans $${texNombre(nb)}$, quel est le ${situations[k].type} ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant} ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} ?`,
           question: '',
           correction: `
           Dans $${texNombre(nb)}$,           
           ${nombreDeJustif(situations[k].type, nbStr, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[1])}          
           le ${situations[k].type} ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant}  ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} est 
-          $${miseEnEvidence(texNombre(chiffreNombreCorr(situations[k].type, nbStr, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs)))}$
-`
+          $${miseEnEvidence(texNombre(chiffreNombreCorr(situations[k].type, nbStr, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs)))}$.`
         })
         reponses[k] = chiffreNombreCorr(situations[k].type, nbStr, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs)
       }
 
-      // autant de case que d'elements dans le tableau des situations
-      switch (listeTypeDeQuestions[i]) {
-        case 0:
-          texte = `${enonces[0].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += '             '
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          };
-          break
-        case 1:
-          texte = `${enonces[1].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[1].correction}`
-          };
-          break
-        case 2:
-          texte = `${enonces[2].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[2].correction}`
-          };
-          break
-        case 3:
-          texte = `${enonces[3].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[3].correction}`
-          };
-          break
-        case 4:
-          texte = `${enonces[4].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[4].correction}`
-          };
-          break
-        case 5:
-          texte = `${enonces[5].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[5].correction}`
-          };
-          break
-      };
+      texte = `${enonces[listeTypeDeQuestions[i]].enonce}`
+      texteCorr = `${enonces[listeTypeDeQuestions[i]].correction}`
       setReponse(this, i, reponses[listeTypeDeQuestions[i]])
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], nb)) { // Si la question n'a jamais été posée, on en crée une autre
         texte += ajouteChampTexteMathLive(this, i, 'largeur25')

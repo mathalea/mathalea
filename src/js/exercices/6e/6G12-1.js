@@ -33,6 +33,7 @@ export default function ParalleleEtPerpendiculaires () {
     )
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let Xmin; let Xmax; let Ymin; let Ymax; const ppc = 20; let sc
     let anim
 

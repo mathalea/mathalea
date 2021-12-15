@@ -19,6 +19,7 @@ export default function EcrireNombresEntiersFormates () {
     this.consigne = 'Écrire les nombres en chiffres en supprimant les zéros inutiles et en séparant les classes.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     function zeroSuperflus (n) {
       const nzero = randint(0, 2); let nombrestring = n.toString()
       for (let k = 0; k < nzero; k++) nombrestring = '0' + nombrestring

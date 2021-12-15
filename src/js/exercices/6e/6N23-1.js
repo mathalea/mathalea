@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, te
 import { context } from '../../modules/context.js'
 import { ajouteChampFractionMathLive, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
-export const titre = 'Différentes écritures des nombres décimaux'
+export const titre = 'Donner différentes écritures de nombres décimaux'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
@@ -29,6 +29,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let typesDeQuestions
     const a = context.isAmc
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]

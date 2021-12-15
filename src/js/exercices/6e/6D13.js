@@ -2,7 +2,7 @@ import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif'
 import { calcul, contraindreValeur, listeQuestionsToContenu, randint, sp, texteEnCouleur } from '../../modules/outils'
 import Exercice from '../Exercice'
-export const titre = 'Conversion min->h et min ou s->min et s'
+export const titre = 'Convertir en min vers h et min ou en s vers min et s'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -18,6 +18,7 @@ export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false)
     this.sup = contraindreValeur(1, 2, this.sup, 1)
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     for (let i = 0, cpt = 0, a, b, d, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
       a = randint(2, 4)
       b = randint(10, 59)

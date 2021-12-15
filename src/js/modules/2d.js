@@ -8901,13 +8901,13 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
       } else {
         let anchor = ''
         if (orientation === 'gauche') {
-          anchor = `node[anchor = east,scale=${scale * scaleFigure * 1.25}]`
+          anchor = `node[anchor = east,scale=${calcul(scale * scaleFigure * 1.25)}]`
         }
         if (orientation === 'droite') {
-          anchor = `node[anchor = west,scale=${scale * scaleFigure * 1.25}]`
+          anchor = `node[anchor = west,scale=${calcul(scale * scaleFigure * 1.25)}]`
         }
         if (orientation === 'milieu') {
-          anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
+          anchor = `node[anchor = center,scale=${calcul(scale * scaleFigure * 1.25)}]`
         }
         code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
       }

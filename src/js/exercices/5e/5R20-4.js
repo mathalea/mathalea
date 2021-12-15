@@ -41,6 +41,7 @@ export default function ProblemesAdditifsRelatifs5e () {
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     // typesDeQuestionsDisponibles=[1];
 

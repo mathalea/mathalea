@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 import { point, pointSurSegment, rotation, codeAngle, texteParPoint, mathalea2d } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Problèmes de calcul de pourcentage par complément à 100%'
+export const titre = 'Résoudre des problèmes de calcul de pourcentage par complément à 100%'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
@@ -27,6 +27,7 @@ export default function CalculerUnPourcentage () {
     const listeChoix = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const listeMoyens = ['en bus', 'en deux-roues', 'à  pieds', 'en voiture']
     const listeSports = ['le foot', 'la natation', 'le basket', 'le ping-pong', 'le volley', 'la gym']
     const listeHobbies = ['la couture', 'le cinéma', 'la musique', 'le sport', 'la programmation', 'le jardinage', 'la cuisine']

@@ -21,6 +21,7 @@ export default function MultiplierEntierPar101001000 () {
     )
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, choice([5, 6]), 7, 8, 9]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,

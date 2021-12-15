@@ -46,7 +46,7 @@ export default function LectureGraphiqueFonctionAffine1 () {
     et $b$ l'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées).<br>
     On a  $b=${b}$ et :`
     this.correction += texteCentre(`$a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=${texFraction(miseEnEvidence(a, 'red'), miseEnEvidence(1, 'green'))}=${a}$`)
-    this.correction += `On en déduit que la fonction $f$ est définie par $f(x)=${reduireAxPlusB(a, b)}$`
+    this.correction += `On en déduit que la fonction $f$ est définie par $f(x)=${reduireAxPlusB(a, b)}$.<br>`
     if (a > 0) {
       s1 = segment(0, b, 1, b, 'green')
       s2 = segment(1, b, 1, a + b, 'red')

@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, nombreDeChiffresDansLaPartieEntiere, randint, texNombre } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif'
 import { context } from '../../modules/context.js'
-export const titre = 'Addition de deux entiers'
+export const titre = 'Effectuer addition de deux entiers'
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
@@ -25,6 +25,7 @@ export default function ExerciceTablesAdditions (max = 20) {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     for (
       let i = 0, a, b, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;

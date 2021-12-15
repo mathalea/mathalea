@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { arrondi, choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleur } from '../../modules/outils.js'
 import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, symetrieAnimee, symetrieAxiale, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
-export const titre = 'Symétries axiales en pavage triangulaire'
+export const titre = 'Utiliser des symétries axiales en pavage triangulaire'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -388,8 +388,8 @@ export default function SymetrieAxialePavageTriangulaire () {
     }
     this.introduction = mathalea2d(paramsEnonce, objetsEnonce)
     for (let i = 0; i < this.nbQuestions; i++) {
-      texte = `${texteEnCouleur("Quelle est l'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe $" + d[i].nom + '$ ?', couleurs[i])}`
-      texteCorr = `${texteEnCouleur("L'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe $" + d[i].nom + '$ est la figure ' + question[i].image + '.', couleurs[i])}`
+      texte = `${texteEnCouleur("Quelle est l'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + d[i].nom + ' ?', couleurs[i])}`
+      texteCorr = `${texteEnCouleur("L'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + d[i].nom + ' est la figure ' + question[i].image + '.', couleurs[i])}`
       this.autoCorrection[i] = {
         enonce: texte,
         propositions: [{

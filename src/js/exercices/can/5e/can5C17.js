@@ -1,103 +1,90 @@
-import Exercice from '../../Exercice.js'
-import { randint, texNombrec, choice, calcul } from '../../../modules/outils.js'
-export const titre = 'Calculer astucieusement avec une factorisation'
+import { fraction } from '../../../modules/fractions'
+import { calcul, choice, randint, texNombre, texNombrec } from '../../../modules/outils'
+import Exercice from '../../Exercice'
+export const titre = 'Convertir une fraction ou une somme vers un décimal'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
-/**
- * Modèle d'exercice très simple pour la course aux nombres
+/*!
  * @author Gilles Mora
- * Référence can5C17
- * Date de publication 18/10/2021
-*/
-export default function CalculAstucieuxAvecFactorisation () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+ */
+export default function EntierPlusFractionVersDecimal () {
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    let a, b, c, d
-    switch (choice(['a', 'b', 'c', 'c', 'd', 'e'])) { //
-      case 'a':
-
-        a = randint(5, 99) / 10
-        b = calcul(randint(2, 9) * 5)
-        c = 100 - b
-        this.question = `$${b}\\times${texNombrec(a)} + ${texNombrec(a)}\\times${c}=$ 
-`
-        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
-En factorisant par ce nombre, on obtient : <br>
-$\\begin{aligned}
-${texNombrec(b)}\\times${texNombrec(a)} + ${texNombrec(a)}\\times${c}&=${texNombrec(a)}\\underbrace{(${texNombrec(b)}+${texNombrec(c)})}_{=100}\\\\
-&=${texNombrec(a)}\\times 100\\\\
-&=${texNombrec(100 * a)}
-\\end{aligned}$`
-        this.reponse = 100 * a
+    let a, b, c, maFraction, maFraction2
+    let resultat
+    this.formatChampTexte = 'largeur15 inline'
+    this.formatInteractif = 'calcul'
+    switch (choice([1, 2, 3, 4, 5])) {
+      case 1:// conversion fraction <->décimale cinquième et quart
+        a = randint(1, 9, 5)
+        b = choice([1, 3, 5, 9, 11])
+        if (choice([true, false])) {
+          maFraction = fraction(a, 5)
+          resultat = calcul(a / 5)
+          this.question = `La valeur décimale de  $${maFraction.texFraction}$ est :`
+          this.correction = `$${maFraction.texFraction}=${texNombre(resultat)}$`
+          this.reponse = resultat
+        } else {
+          maFraction = fraction(b, 4)
+          resultat = calcul(b / 4)
+          this.question = `La valeur décimale de  $${maFraction.texFraction}$ est :`
+          this.correction = `$${maFraction.texFraction}=${texNombre(resultat)}$`
+          this.reponse = resultat
+        }
+        break
+      case 2:// fraction addition avec un entier
+        c = choice([2, 4, 5])
+        b = randint(1, c - 1)
+        maFraction = fraction(b, c)
+        a = randint(1, 4)
+        resultat = calcul(a + b / c)
+        this.question = ` $${a}+${maFraction.texFraction}=$<br>
+        (résultat sous forme décimale)`
+        this.correction = `$${a}+${maFraction.texFraction} = ${a} + ${texNombre(maFraction.valeurDecimale)}= ${texNombre(resultat)}$`
+        this.reponse = resultat
         break
 
-      case 'b':
-        a = randint(5, 99) / 100
-        b = randint(2, 8)
-        c = 10 - b
-        this.question = `$ ${b}\\times${texNombrec(a)}+ ${c}\\times${texNombrec(a)}=$ 
-`
-        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
-        En factorisant par ce nombre, on obtient : <br>
-        $\\begin{aligned}
-        ${texNombrec(b)}\\times${texNombrec(a)} + ${texNombrec(c)}\\times${texNombrec(a)}&=${texNombrec(a)}\\underbrace{(${texNombrec(b)}+${texNombrec(c)})}_{=10}\\\\
-        &=${texNombrec(a)}\\times 10\\\\
-        &=${texNombrec(10 * a)}
-        \\end{aligned}$`
-        this.reponse = 10 * a
-        break
+      case 3:// addition entier et fraction avec den =100 ou 1000
+        b = choice([100, 1000])
+        a = randint(1, 15)
+        c = randint(11, 19)
+        maFraction = fraction(c, b)
+        resultat = calcul(a + c / b)
 
-      case 'c':
-        a = randint(5, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90]) / 10
-        b = randint(2, 8) / 10
-        d = randint(1, 2)
-        c = d - b
-        this.question = `$ ${texNombrec(b)}\\times${texNombrec(a)}+ ${texNombrec(c)}\\times${texNombrec(a)}=$ 
-`
-        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
-        En factorisant par ce nombre, on obtient : <br>
-$\\begin{aligned}
-${texNombrec(a)}\\times ${texNombrec(b)}+${texNombrec(a)}\\times ${texNombrec(c)}&=${texNombrec(a)}\\underbrace{(${texNombrec(b)}+${texNombrec(c)})}_{=${d}}\\\\
-&=${texNombrec(a)}\\times ${d}\\\\
-&=${texNombrec(d * a)}
-\\end{aligned}$`
-        this.reponse = d * a
+        this.question = ` $${a}+${maFraction.texFraction}=$<br>
+        (résultat sous forme décimale)`
+        this.correction = `$${a}+${maFraction.texFraction} = ${texNombre(resultat)}$`
+        this.reponse = resultat
         break
-      case 'd':
-        a = calcul(randint(5, 99) / 100)
-        b = calcul(randint(2, 99) / 10)
-        c = 10 - b
-        this.question = `$ ${texNombrec(b)}\\times${texNombrec(a)}+ ${texNombrec(c)}\\times${texNombrec(a)}=$ 
-    `
-        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
-            En factorisant par ce nombre, on obtient : <br>
-            $\\begin{aligned}
-            ${texNombrec(b)}\\times${texNombrec(a)} + ${texNombrec(c)}\\times${texNombrec(a)}&=${texNombrec(a)}\\underbrace{(${texNombrec(b)}+${texNombrec(c)})}_{=10}\\\\
-            &=${texNombrec(a)}\\times 10\\\\
-            &=${texNombrec(10 * a)}
-            \\end{aligned}$`
-        this.reponse = 10 * a
+      case 4:// addition entier et fraction avec den =100 et 1000
+        a = randint(1, 15)
+        b = randint(11, 19)
+        c = randint(1, 9)
+        maFraction = fraction(b, 100)
+        maFraction2 = fraction(c, 1000)
+        resultat = calcul(a + b / 100 + c / 1000)
+        this.question = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=$<br>
+        (résultat sous forme décimale)`
+        this.correction = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=${a}+${texNombrec(b / 100)}+${texNombrec(c / 1000)}=${texNombrec(resultat)}$.`
+        this.reponse = resultat
         break
-      case 'e':
-        a = calcul(randint(1, 12) * 10)
-        b = calcul(randint(2, 9) / 10)
-        c = 5 - b
-        this.question = `$ ${texNombrec(a)}\\times${texNombrec(b)}+ ${texNombrec(c)}\\times${texNombrec(a)}=$ 
-    `
-        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
-            En factorisant par ce nombre, on obtient : <br>
-            $\\begin{aligned}
-            ${texNombrec(a)}\\times${texNombrec(b)}+ ${texNombrec(c)}\\times${texNombrec(a)}&=${texNombrec(a)}\\underbrace{(${texNombrec(b)}+${texNombrec(c)})}_{=5}\\\\
-            &=${texNombrec(a)}\\times 5\\\\
-            &=${texNombrec(5 * a)}
-            \\end{aligned}$`
-        this.reponse = 5 * a
+      case 5:// addition entier et fraction avec den =1000 et 100
+        a = randint(1, 15)
+        b = randint(1, 9)
+        c = randint(1, 9)
+        maFraction = fraction(b, 1000)
+        maFraction2 = fraction(c, 100)
+        resultat = calcul(a + b / 1000 + c / 100)
+        this.question = ` $${a}+${maFraction.texFraction}+${maFraction2.texFraction}=$<br>
+        (résultat sous forme décimale)`
+        this.correction = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=${a}+${texNombrec(b / 1000)}+${texNombrec(c / 100)}=${texNombre(resultat)}$.`
+        this.reponse = resultat
         break
     }
   }

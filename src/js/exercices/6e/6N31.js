@@ -30,6 +30,7 @@ export default function ComparerDecimaux () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const typesDeQuestionsDisponibles = [
       choice([1, 4, 5]),

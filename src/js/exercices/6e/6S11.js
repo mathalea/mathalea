@@ -27,6 +27,7 @@ export default function OrganiserDonneesDepuisTexte () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const nbAmis = 4; let texte; let texteCorr; let m; let S // min = 2
     const nbFruits = parseInt(this.sup2) // min = 2

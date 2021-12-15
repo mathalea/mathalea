@@ -34,6 +34,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     let d1; let texte = ''; let texteCorr = ''; let extremite; const noms = choisitLettresDifferentes(3, 'Q')
     let x1 = 0; let x2 = 0; let x3 = 0; let thickOff; let tableau = []; let xmin; let xmax
