@@ -27,6 +27,7 @@ export default function ConservationSymetrie () {
     context.fenetreMathalea2d = [-6, -6, 6, 6]
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     this.sup = Number(this.sup)
     this.sup2 = Number(this.sup2)
     let typesDeTransformationsDisponibles
