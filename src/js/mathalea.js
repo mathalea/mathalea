@@ -2476,6 +2476,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       for (let i = 0; i < urlVars.length; i++) {
         listeDesExercices.push(urlVars[i].id)
       }
+      const formChoixDesExercices = document.getElementById('choix_des_exercices')
       if (formChoixDesExercices !== null) {
         formChoixDesExercices.value = listeDesExercices.join(',')
         copierExercicesFormVersAffichage(listeDesExercices)
