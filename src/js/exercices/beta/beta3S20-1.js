@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { segment, ObjetMathalea2D, texteParPoint, traceBarre, point, mathalea2d } from '../../modules/2d.js'
+import { polygone, segment, ObjetMathalea2D, texteParPoint, point, mathalea2d, texteParPosition } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { listeEntiersSommeConnue, choice, randint, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { sum, ceil, gcd, fraction, round, max } from 'mathjs'
@@ -7,6 +7,30 @@ export const titre = 'Calculs de probabilités'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '12/12/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+
+function TraceBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
+  ObjetMathalea2D.call(this)
+  this.bordure = [point(x - epaisseur / 2, 0), point(x - epaisseur / 2, y * unite), point(x + epaisseur / 2, y * unite), point(x + epaisseur / 2, 0)]
+  const p = polygone(...this.bordure)
+  p.couleurDeRemplissage = couleurDeRemplissage
+  p.opaciteDeRemplissage = opaciteDeRemplissage
+  p.color = color
+  if (hachures) {
+    p.hachures = hachures
+  }
+  const texte = texteParPosition(legende, x, -0.2, angle, 'black', 1, 'gauche')
+
+  this.tikz = function () {
+    return p.tikz() + '\n' + texte.tikz()
+  }
+  this.svg = function (coeff) {
+    return p.svg(coeff) + '\n' + texte.svg(coeff)
+  }
+}
+
+export function traceBarre (...args) {
+  return new TraceBarre(...args)
+}
 
 function num (nb) {
   return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
