@@ -1,4 +1,4 @@
-import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, labelPoint, segment, vecteur, texteParPosition, latexParCoordonnees, codeSegments, afficheMesureAngle, milieu, translation, texteParPositionEchelle } from '../../modules/2d.js'
+import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, labelPoint, segment, vecteur, latexParCoordonnees, codeSegments, afficheMesureAngle, milieu, translation, texteParPositionEchelle } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
@@ -65,10 +65,10 @@ export default function Transformations () {
     d2.epaisseur = 2
     d3.epaisseur = 2
     d4.epaisseur = 2
-    d1.color = 'green'
-    d2.color = 'green'
-    d3.color = 'green'
-    d4.color = 'green'
+    d1.color = context.isHtml ? 'green' : 'black'
+    d2.color = context.isHtml ? 'green' : 'black'
+    d3.color = context.isHtml ? 'green' : 'black'
+    d4.color = context.isHtml ? 'green' : 'black'
     d1.opacite = 0.5
     d2.opacite = 0.5
     d3.opacite = 0.5

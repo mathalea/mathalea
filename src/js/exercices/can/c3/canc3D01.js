@@ -39,10 +39,10 @@ export default function LireHeure () {
     const beta = 90 - m * 6
     const grandeAiguille = rotation(segment(O, point(1.5, 0)), O, beta)
     const petiteAiguille = rotation(segment(O, point(1, 0)), O, alpha)
-    grandeAiguille.color = 'red'
+    grandeAiguille.color = context.isHtml ? 'red' : 'black'
     grandeAiguille.epaisseur = 2
-    petiteAiguille.color = 'green'
-    petiteAiguille.epaisseur = 3
+    petiteAiguille.color = context.isHtml ? 'blue' : 'black'
+    petiteAiguille.epaisseur = 4
     horloge.push(petiteAiguille, grandeAiguille)
     this.question = 'Quelle est l\'heure du matin indiquée par cette horloge ? (...h....)<br>' + mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.7, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge)
     this.reponse = `${h}h ${m}`
