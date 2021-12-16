@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenuSansNumero, randint, shuffle, combinaisonListes, lettreDepuisChiffre, texcolors, texteGras, numAlpha } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, codeAngle, texteParPosition, mathalea2d, appartientDroite } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Propriétés de conservation de la symétrie axiale'
+export const titre = 'Appliquer les propriétés de conservation de la symétrie axiale'
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -36,6 +36,7 @@ export default function SymetrieAxialeConservation1 () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     this.listeQuestions.push(' ')
     this.listeCorrections.push(`${texteGras('Dans la symétrie d\'axe (d), on observe les choses suivantes.')}`)
     // On prépare la figure...

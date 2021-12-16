@@ -26,6 +26,7 @@ export default function SommeDeDurees () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     let typesDeQuestions
 

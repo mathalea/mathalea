@@ -124,7 +124,7 @@ export default function ExerciceInformationsProblemes () {
               ]
               break
             case 2:
-              texte += 'Quelle est la masse moyenne de livres distribués à chaque enfant ?'
+              texte += 'Quelle est la masse moyenne des livres distribués à chaque enfant ?'
               if (this.sup === 1) {
                 texteCorr += texteEnCouleurEtGras(nb5 + ' g')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' livres') + ' sont utiles pour la résolution du problème.<br>'
@@ -498,7 +498,7 @@ export default function ExerciceInformationsProblemes () {
               ]
               break
             case 2:
-              texte += `Quand elle a acheté son manga, quelle somme d'argent a-t-on rendu à ${quidam2} ?`
+              texte += `Lorsqu'elle a acheté son manga, quelle somme d'argent a-t-on rendu à ${quidam2} ?`
               if (this.sup === 1) {
                 texteCorr += texteEnCouleurEtGras(nb2 + ' €')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' €') + ' sont utiles pour la résolution du problème.<br>'

@@ -9,7 +9,7 @@ export const amcType = 'AMCHybride' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Additions, soustractions et multiplications posées de nombres entiers'
+export const titre = 'Poser additions, soustractions et multiplications de nombres entiers'
 
 /**
  * Additions, soustractions et multiplications posées de nombres entiers
@@ -36,6 +36,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let typesDeQuestions, reponse
     const typesDequestionsDisponibles = [1, 2, 3, 4, 5]
     let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(

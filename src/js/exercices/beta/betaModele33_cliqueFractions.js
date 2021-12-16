@@ -28,6 +28,7 @@ export default function NomExercice () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const longueur = 5
     const hauteur = (context.isHtml) ? 1 : 0.6
     const ecart = 0.5

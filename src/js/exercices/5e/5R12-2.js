@@ -27,6 +27,7 @@ export default function ReperagePointDuPlan () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     let texte, texteCorr
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées

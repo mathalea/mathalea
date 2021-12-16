@@ -5,7 +5,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 export const amcReady = true
-export const titre = 'Problèmes avec des calculs de pourcentages'
+export const titre = 'Résoudre des problèmes avec des calculs de pourcentages'
 
 /**
  * Calculer le montant d'une réduction donnée en pourcentage d'un prix initial
@@ -24,6 +24,7 @@ export default function AppliquerUnPourcentage () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const typesDeQuestionsDisponibles = [1, 2]
     const choix = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const listePourcentages = [10, 20, 30, 40, 50]

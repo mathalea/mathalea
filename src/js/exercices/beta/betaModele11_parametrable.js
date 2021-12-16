@@ -29,6 +29,7 @@ export default function NomExercice () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
 
     this.sup = parseInt(this.sup) // Lorsqu'il est récupéré de l'url, le paramètre peut être un texte, dans le doute on le convertit en nombre
 

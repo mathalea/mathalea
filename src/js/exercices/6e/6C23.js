@@ -13,5 +13,5 @@ export default function ExerciceAdditionnerFractions6e () {
   this.sup2 = 3
   this.level = 6
   this.titre = titre
-  this.besoinFormulaireNumerique2 = false
+  // this.besoinFormulaireNumerique2 = false
 }

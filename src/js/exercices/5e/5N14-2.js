@@ -26,6 +26,7 @@ export default function ExerciceComparerQuatreFractions () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const listeSignes = combinaisonListes([-1, 1], this.nbQuestions * 4)
     for (let i = 0, denominateurs, n1, d1, n2, d2, n3, d3, n4, d4, k, positifOuNegatif = [], texte = '', texteCorr = ''; i < this.nbQuestions; i++) {
       if (this.sup === true) {

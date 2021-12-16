@@ -30,6 +30,7 @@ export default function DiviserUnNombreParPuissanceDeDix () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     const choixUnites = ['millièmes', 'centièmes', 'dixièmes']
     let listeChoixAlea = range(2)
     if (!this.sup2 || this.interactif) { this.nbQuestions = min(this.nbQuestions, 3) }

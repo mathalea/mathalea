@@ -8,7 +8,7 @@ export const amcType = 'AMCNum' // Question numérique
 export const interactifType = 'numerique'
 export const interactifReady = true
 
-export const titre = 'Additions et soustractions de nombres décimaux'
+export const titre = 'Effectuer additions et soustractions de nombres décimaux'
 
 /**
  * Additions et soustractions de nombres décimaux
@@ -36,6 +36,7 @@ export default function AdditionnerSoustrairesDecimaux () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let typesDeQuestions, reponse
     const typesAdditions = combinaisonListes(
       [5, 6, 7, 8],

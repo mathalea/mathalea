@@ -93,9 +93,9 @@ this.autoCorrection = [
     propositions: [
       { 
         texte: 'Ce qui apparaitra sur le corrigé',
-        statut: 3 // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+        statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
         feedback: '',
-        enonce: 'Texte écrit au dessus ou avant les cases à cocher' // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+        enonce: 'Texte écrit au dessus ou avant les cases à cocher', // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
         sanscadre : false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
     
       }
@@ -104,7 +104,7 @@ this.autoCorrection = [
 ]
 ```
 
-L'exemple ci-dessus est pour un exercice ne produisant qu'une seule zone de réponse, quel que soit le nombre de questions.
+L'exemple ci-dessus est pour un exercice ne produisant qu'une seule zone de réponse, quel que soit le nombre de questions. Pour une zone de réponse par question, il faut utiliser le type [`AMCHybride`](#AMCHybride). 
 
 
 
@@ -122,7 +122,7 @@ this.autoCorrection[i] = {
     reponse: {
       texte: 'le texte affiché au dessus du formulaire numerique dans AMC', // facultatif
       valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
-      alignement: 'flushleft' // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
+      alignement: 'flushleft', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
       param: {
         digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
         decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
@@ -133,6 +133,7 @@ this.autoCorrection[i] = {
         vertical : false, // facultatif. Si true, les cases à cocher seront positionnées verticalement
         nbCols : 4, // Ne fonctionne que si vertical est true. Indique le nb de colonnes dans lesquelles seront positionnées les cases à cocher.
         vhead : 'descriptif#1', // Ne fonctionne que si vertical est true. Permet d'écrire au-dessus de la colonne de chaque série de cases à cocher un texte.
+        tpoint : ',', // Facultatif. Permet dans AMCNum de remplacer la virgule par un autre séparateur décimal. 
         digitsNum : 2, // Facultatif. digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder si la réponse est une fraction.
         digitsDen : 3, // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
         basePuissance : 5, // Si la réponse est une puissance, basePuissance correspond à la base de la réponse
@@ -167,7 +168,9 @@ Dans ce type, chaque question-réponse peut avoir un type différent. Il y a un 
 ```js
 this.autoCorrection[i] = {
   enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
-  enonceAvant: true, //EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de la question. 
+  enonceAvant: true, //EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question. 
+  enonceAvantUneFois: true, //EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
+  melange: false, //EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
   options: { multicols: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
   propositions: [
     {
@@ -175,22 +178,23 @@ this.autoCorrection[i] = {
       propositions : [ // une ou plusieurs (Qcms) 'propositions'
         {
           texte: '',// Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm 
-          statut: ,// true au false pour un QCM
+          statut: true,// true au false pour un QCM
           feedback: '',
           reponse: { // utilisé si type = 'AMCNum'
             texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
             valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
-            alignement: 'flushleft' // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
+            alignement: 'flushleft', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
             param: {
               digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
               decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
               signe: false, // (présence d'une case + ou -)
               exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
               exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
-              approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
+              approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
               vertical : false, // facultatif. Si true, les cases à cocher seront positionnées verticalement
-              nbCols : 4 // Ne fonctionne que si vertical est true. Indique le nb de colonnes dans lesquelles seront positionnées les cases à cocher.
+              nbCols : 4, // Ne fonctionne que si vertical est true. Indique le nb de colonnes dans lesquelles seront positionnées les cases à cocher.
               vhead : 'descriptif#1', // Ne fonctionne que si vertical est true. Permet d'écrire au-dessus de la colonne de chaque série de cases à cocher un texte.
+              tpoint : ',', // Facultatif. Permet dans AMCNum de remplacer la virgule par un autre séparateur décimal. 
               digitsNum : 2, // Facultatif. digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder si la réponse est une fraction.
               digitsDen : 3, // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
               basePuissance : 5, // Si la réponse est une puissance, basePuissance correspond à la base de la réponse
@@ -208,22 +212,23 @@ this.autoCorrection[i] = {
       propositions : [ // une ou plusieurs (Qcms) 'propositions'
         {
           texte: '',// Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm 
-          statut: ,// true au false pour un QCM
+          statut: true,// true au false pour un QCM
           feedback: '',
           reponse: { // utilisé si type = 'AMCNum'
             texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
             valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
-            alignement: 'flushleft' // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
+            alignement: 'flushleft', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
             param: {
               digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
               decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
               signe: false, // (présence d'une case + ou -)
               exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
               exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
-              approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
+              approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
               vertical : false, // facultatif. Si true, les cases à cocher seront positionnées verticalement
-              nbCols : 4 // Ne fonctionne que si vertical est true. Indique le nb de colonnes dans lesquelles seront positionnées les cases à cocher.
+              nbCols : 4, // Ne fonctionne que si vertical est true. Indique le nb de colonnes dans lesquelles seront positionnées les cases à cocher.
               vhead : 'descriptif#1', // Ne fonctionne que si vertical est true. Permet d'écrire au-dessus de la colonne de chaque série de cases à cocher un texte.
+              tpoint : ',', // Facultatif. Permet dans AMCNum de remplacer la virgule par un autre séparateur décimal. 
               digitsNum : 2, // Facultatif. digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder si la réponse est une fraction.
               digitsDen : 3, // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
               basePuissance : 5, // Si la réponse est une puissance, basePuissance correspond à la base de la réponse
@@ -243,14 +248,6 @@ this.autoCorrection[i] = {
 }
 ```
 
-basePuissance: baseReponse, exposantPuissance: exposantReponse, baseNbChiffres: 2, exposantNbChiffres: 3})
->> // basePuissance correspond à la base de la réponse
->> // exposantPuissance correspond à l'exposant de la réponse
->> // baseNbChiffres est facultatif et est le nombre de chiffres sur lequel on veut que AMC code la base.
->> //   Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur par défaut (ici 1).
->> // exposantNbChiffres est facultatif et est le nombre de chiffres sur lequel on veut que AMC code l'exposant.
->> //   Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur par défaut (ici 2).
-
 
 Pour le type `AMCHybride`, les possibilités étant si nombreuses qu'il ne faut pas hésiter à aller regarder le code d'un exercice dont la sortie peut correspondre à vos envies de programmeur et dont quelques exemples apparaissent ci-dessous.
 
@@ -261,10 +258,11 @@ Pour le type `AMCHybride`, les possibilités étant si nombreuses qu'il ne faut 
 |**6N23-1**|quadruple usage de `AMCNum`|
 |**6C10**|usage simple de `AMCOpen` et usage simple de `AMCNum`|
 |**4G20-6**|usage de `AMCOpen` et double usage de `AMCNum`|
+|**4G12**|usage multiple de `AMCOpen`|
 
 
 
 
 ## <a id="plusieurs_sorties" href="#plusieurs_sorties"></a> [4. Plusieurs sorties AMC différentes dans un même exercice](#plusieurs_sorties)
 
-On peut aussi faire le choix de ne pas imposer à un utilisateur le choix d'un type AMC mais en proposer plusieurs. Un exercice-témoin de ce type est le **beta6C12** (à modifier qd plus béta) avec une sortie de type `AMCOpen`, une autre sortie de type `AMCNum` et enfin une dernière sortie de type `AMCHybride` avec un usage simple de `AMCOpen` et un usage simple de `AMCNum`.
+On peut aussi faire le choix de ne pas imposer à un utilisateur le choix d'un type AMC mais en proposer plusieurs. Un exercice-témoin de ce type est le **6C12** avec une sortie de type `AMCOpen`, une autre sortie de type `AMCNum` et enfin une dernière sortie de type `AMCHybride` avec un usage simple de `AMCOpen` et un usage simple de `AMCNum`.

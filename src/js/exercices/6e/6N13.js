@@ -1,6 +1,6 @@
 import ExerciceConversions from './_Exercice_conversions.js'
 
-export const titre = 'Conversions de longueurs, masses, contenance, prix ou unités informatiques'
+export const titre = 'Convertir des longueurs, masses, capacités, prix ou unités informatiques'
 export { interactifReady, interactifType, amcReady, amcType } from './_Exercice_conversions.js'
 
 /**

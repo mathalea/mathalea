@@ -35,6 +35,7 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     // let typesDeQuestionsDisponibles = range1(10)
     let typesDeQuestionsDisponibles

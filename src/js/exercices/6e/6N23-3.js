@@ -29,6 +29,7 @@ export default function LireUneAbscisseAvecZoom () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     let d1; let d2; let d3; let d3Corr; let d1Corr; let d2Corr; let texte = ''; let texteCorr = ''; let extremite; let extreme; const noms = choisitLettresDifferentes(5, 'QFN')
     let x1 = 0; let x2 = 0; let x3 = 0; const objets = []; let fenetre; let thickOff = 0; const objetsCorr = []; let xmin; let xmax; let origine; let pA1; let pA2; let pB1; let pB2; let sA; let sB; let x21; let x31; let pC1; let pC2; let pD1; let pD2; let sC; let sD

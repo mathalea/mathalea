@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, creerNomDePolygone, combinaisonListes } from '../../modules/outils.js'
 import { point, labelPoint, droite, segment, demiDroite, mathalea2d } from '../../modules/2d.js'
-export const titre = 'Notation des droites, segments et demi-droites'
+export const titre = 'Utiliser la notation de droites, segments et demi-droites'
 
 /**
  * Utiliser les notations des segments, droites et demi-droites
@@ -19,6 +19,7 @@ export default function NotationSegmentDroiteDemiDroite () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const listeDesTypesDeQuestions = combinaisonListes([1, 1, 2, 3, 4, 4], this.nbQuestions * 3)
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

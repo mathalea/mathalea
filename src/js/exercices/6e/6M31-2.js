@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, texNombre } from '../../modules/outils.js'
-export const titre = 'Conversions avec des unités de volumes ou de capacités'
+export const titre = 'Convertir des volumes ou des capacités'
 
 /**
  * Conversions d'unités de volumes vers les unités de capacité ou inversement.
@@ -30,6 +30,7 @@ export default function UnitesDeVolumesEtDeCapacite (niveau = 1) {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let listeTypeDeQuestions
     this.sup = parseInt(this.sup)
     if (this.sup === 1) {

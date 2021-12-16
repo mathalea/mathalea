@@ -103,6 +103,7 @@ export default function PavageEtDemiTour2D () {
     }
     this.listeCorrections = []
     this.listeQuestions = []
+    this.autoCorrection = []
     let Nx; let Ny; let index1; let A; let B; let d; let image; let couples = []; let tailles = []; let monpavage; let fenetre
     let texte = ''; let texteCorr = ''; let typeDePavage = this.sup
     let nombreTentatives; let nombrePavageTestes = 1

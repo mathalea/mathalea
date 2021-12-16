@@ -20,6 +20,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const pG = randint(20, 60) // pG est un pourcentage
     const pN = randint(10, 100 - pG - 10)

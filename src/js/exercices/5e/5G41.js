@@ -25,6 +25,7 @@ export default function ConstructionsParallelogrammesParticuliers () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let texte = ''; let texteCorr = ''
     const celluleAlea = function (rang) {
       const lettre = lettreDepuisChiffre(randint(1, rang))

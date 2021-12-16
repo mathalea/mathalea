@@ -28,6 +28,7 @@ export default function FractionVersPourcentage () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const typeDeDenominateurs = [10, 20, 50, 1000, 2, 4, 5, 200] // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typeDeDenominateurs, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"

@@ -159,10 +159,10 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
 `
   } else {
     return `\\begin{minipage}{${calcul(largeur1 / 100)}\\linewidth}
-    ${cont1}
+    ${cont1.replaceAll('<br>', '\\\\\n')}
     \\end{minipage}
     \\begin{minipage}{${calcul((100 - largeur1) / 100)}\\linewidth}
-    ${cont2}
+    ${cont2.replaceAll('<br>', '\\\\\n')}
     \\end{minipage}
     `
   }

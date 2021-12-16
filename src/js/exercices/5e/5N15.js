@@ -24,6 +24,7 @@ export default function ProblemeDeRatio () {
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     let prenoms = []
     const objets = ['billes', 'livres', 'perles', 'gâteaux', 'bonbons']
     const sirops = ['de fraise', 'de citron', 'de cerise', 'de menthe', 'd\'orange']

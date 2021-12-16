@@ -25,6 +25,7 @@ export default function FonctionsProbabilite1 () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const listeIndexDisponibles = [0, 1, 2, 3, 4, 5, 6]
     const listeIndex = combinaisonListes(listeIndexDisponibles, this.nbQuestions)
     const listeDeLieuxChoses = [['le frigo', 'yaourts'], ['le frigo', 'desserts lactés'], ['une urne', 'boules'], ['une urne', 'jetons'], ['un paquet de bonbons', 'nounours'], ['un tiroir de la commode', 't-shirts'], ['un tas de jetons de poker', 'jetons']]
