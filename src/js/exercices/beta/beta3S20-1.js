@@ -730,7 +730,7 @@ function exerciceSimplificationRatios () {
   const texteCorr = String.raw`${introduction}
           On peut donc le simplifier par ${k}.
           <br>
-          ${kratios._data.join(':')} = ${ratios._data.join(':')}
+          $${kratios._data.join('{:}')} = ${ratios._data.join('{:}')}$
           `
   return { texte: texte, texteCorr: texteCorr }
 }
