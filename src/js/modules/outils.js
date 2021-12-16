@@ -7459,7 +7459,7 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n\\end{multicols}\n\\end{minipage}\n}\n\n'
           id += 2
-        } else if (valeurAMCNum.num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
+        } else if (valeurAMCNum.num !== undefined) { // Si une fraction a été passée à AMCNum, on met un seul AMCNumericChoice particulier
           texQr += `\\element{${ref}}{\n`
           texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
           texQr += `${autoCorrection[j].enonce} \n`
@@ -7540,7 +7540,10 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
             texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
           }
-          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={,}}\n'
+          if (autoCorrection[j].reponse.param.tpoint !== undefined && autoCorrection[j].reponse.param.tpoint) {
+            texQr += `Tpoint={${autoCorrection[j].reponse.param.tpoint}},`
+          }
+          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1}\n'
           texQr += '\\end{questionmultx}\n }\n\n'
           id++
         }
@@ -7607,7 +7610,10 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
           texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
         }
-        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
+        if (autoCorrection[j].reponse.param.tpoint !== undefined && autoCorrection[j].reponse.param.tpoint) {
+          texQr += `Tpoint={${autoCorrection[j].reponse.param.tpoint}},`
+        }
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,vertical=true}\n'
         texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
         id++
         break
@@ -8050,7 +8056,10 @@ export function exportQcmAmc (exercice, idExo) {
                 if (rep.param.vhead !== undefined && rep.param.vhead) {
                   texQr += `vhead=${rep.param.vhead},`
                 }
-                texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={,}}\n'
+                if (rep.param.tpoint !== undefined && rep.param.tpoint) {
+                  texQr += `Tpoint={${rep.param.tpoint}},`
+                }
+                texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1}\n'
                 if (!(propositions[0].alignement === undefined)) {
                   texQr += '\\end{'
                   texQr += `${propositions[0].alignement}}`
