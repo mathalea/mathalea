@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { polygone, segment, ObjetMathalea2D, texteParPoint, point, mathalea2d, texteParPosition } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { listeEntiersSommeConnue, choice, randint, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
-import { sum, ceil, gcd, fraction, round, max } from 'mathjs'
+import { decompositionFacteursPremiers, listeEntiersSommeConnue, choice, randint, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
+import { multiply, divide, matrix, isPrime, sum, ceil, gcd, fraction, round, max } from 'mathjs'
 export const titre = 'Calculs de probabilités'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -28,7 +28,7 @@ function TraceBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage
   }
 }
 
-export function traceBarre (...args) {
+function traceBarre (...args) {
   return new TraceBarre(...args)
 }
 
@@ -173,12 +173,12 @@ function labelY (...args) {
   return new LabelY(...args)
 }
 
-function diagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleur = 'blue', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false } = {}) {
+function diagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false } = {}) {
   const diagramme = []
   for (let j = 0; j < hauteursBarres.length; j++) {
     const abscisseBarre = j * coeff
     const hauteurBarre = hauteursBarres[j] * hauteurDiagramme / max(hauteursBarres)
-    diagramme.push(traceBarre(abscisseBarre, hauteurBarre, etiquettes[j], 0, couleur, 1))
+    diagramme.push(traceBarre(abscisseBarre, hauteurBarre, etiquettes[j], { couleurDeRemplissage: couleurDeRemplissage }))
     if (reperageTraitPointille) {
       const ligne = segment(-1, hauteurBarre, abscisseBarre, hauteurBarre)
       ligne.pointilles = true
@@ -204,9 +204,9 @@ function diagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
       ytick = 5
     }
     if (labelAxeVert) diagramme.push(labelY(0, max(hauteursBarres), fraction(hauteurDiagramme, max(hauteursBarres)).mul(step), 'black', -1.3, max(hauteursBarres) / hauteurDiagramme))
-    if (axeVertical) diagramme.push(axes(-1, 0, abscisseBarre, hauteurDiagramme + 1, 0.2, abscisseBarre, fraction(hauteurDiagramme, max(hauteursBarres)).mul(step), 0.2, 'black', ytick, titre))
+    if (axeVertical) diagramme.push(axes(-1, 0, abscisseBarre, hauteurDiagramme + 1, 0.2, abscisseBarre, fraction(hauteurDiagramme, max(hauteursBarres)).mul(step), 0.2, 'black', ytick, titreAxeVertical))
   }
-  if (titre !== '') diagramme.push(texteParPoint(titre, point(hauteursBarres.length - 1, hauteurDiagramme + 1)))
+  if (titre !== '') diagramme.push(texteParPoint(titre, point((hauteursBarres.length - 1) * coeff / 2, hauteurDiagramme + 1)))
   return mathalea2d(Object.assign({}, fixeBordures(diagramme, { rxmin: -3, rymin: -2, rymax: 1.5 }), { style: 'inline', scale: 1 }), ...diagramme)
 }
 
@@ -320,7 +320,7 @@ function etapesSimplificationFraction (n = 21, d = 45, A = undefined, methode = 
 }
 
 function diagrammeCalculsFrequences (typeReponseAttendue = 0) {
-  const urne = combinaisonListes(['jaune', 'verte', 'bleue', 'rouge', 'noire']).slice(0, randint(2, 5))
+  const urne = combinaisonListes(['jaune', 'verte', 'bleue', 'rouge', 'noire']).slice(0, randint(2, 3))
   let totalRatios = urne.length + randint(1, 15)
   const ratios = listeEntiersSommeConnue(urne.length, totalRatios, 1) // On choisit au hasard les ratios
   if (gcd(...ratios) !== 1) {
@@ -335,14 +335,14 @@ function diagrammeCalculsFrequences (typeReponseAttendue = 0) {
   for (let j = 0; j < experience.realisees.length; j++) {
     issuesReordonnees.push(urne[experience.realisees[j]])
   }
-  const diagrammeEffectifs = diagrammeBarres(experience.effectifs, issuesReordonnees)
+  const diagrammeEffectifs = diagrammeBarres(experience.effectifs, issuesReordonnees, { axeVertical: true, titreAxeVertical: 'Effectifs' })
   const choixRef = choice(experience.realisees) // Choix d'une référence
   const posRef = experience.realisees.indexOf(choixRef) // Position de la référence dans realises
   const choixIssue = urne[choixRef] // Issue correspondante à ce choix (les billes dans l'urne ne sont listées dans le même ordre)
   const remarque = [
     '$\\textit{* On donnera la valeur exacte et simplifiée.}$',
-    '$\\textit{* On donnera une valeur décimale arrondie au millième.}$',
-    '$\\textit{* On donnera un pourcentage arrondi à l\'unité.}$'
+    '$\\textit{* On donnera une valeur décimale arrondie au millième (si nécessaire).}$',
+    '$\\textit{* On donnera un pourcentage arrondi à l\'unité (si nécessaire).}$'
   ][typeReponseAttendue]
   let solution
   let environ = ''
@@ -377,11 +377,13 @@ function diagrammeCalculsFrequences (typeReponseAttendue = 0) {
     }
   }
   const texte = String.raw`Une urne contient des billes de différentes couleurs.
+          <br>        
           L'expérience consiste à tirer une bille au hasard,
           à noter sa couleur, puis à la remettre dans l'urne.
-          On obtient le diagramme des effectifs ci-dessous
-          au bout de $${nbEssais}$ tirages.
           <br>
+          On obtient le diagramme des effectifs ci-dessous
+          ` +// au bout de $${nbEssais}$ tirages.
+          String.raw`<br>
           ${diagrammeEffectifs}
           <br>
           Calculer la fréquence d'apparition de la couleur ${choixIssue}$\textit{*}$.
@@ -392,6 +394,10 @@ function diagrammeCalculsFrequences (typeReponseAttendue = 0) {
           La fréquence d'apparition d'une couleur est le quotient
           du nombre d'apparitions de cette couleur par le nombre total d'essais.
           <br>
+          $${experience.effectifs.join('+')}=${nbEssais}$
+          <br>
+          Donc il y a eu $${nbEssais}$ essais.
+          <br>
           La bille de couleur ${choixIssue} est apparue
           $${experience.effectifs[posRef]}$ fois sur $${nbEssais}$ tirages.
           ${solution.calculs}
@@ -401,7 +407,7 @@ function diagrammeCalculsFrequences (typeReponseAttendue = 0) {
 }
 
 function ratiosCalculsProbabilites () {
-  const urne = combinaisonListes(['jaune', 'verte', 'bleue', 'rouge', 'noire']).slice(0, randint(2, 5))
+  const urne = combinaisonListes(['jaune', 'verte', 'bleue', 'rouge', 'noire']).slice(0, randint(2, 3))
   let totalRatios = urne.length + randint(1, 15)
   const ratios = listeEntiersSommeConnue(urne.length, totalRatios, 1) // On choisi au hasard les ratios
   if (gcd(...ratios) !== 1) {
@@ -439,34 +445,33 @@ function ratiosCalculsProbabilites () {
 }
 
 function probabilitesCalculsRatios () {
-  const urne = combinaisonListes(['jaune', 'verte', 'bleue', 'rouge', 'noire']).slice(0, randint(2, 5))
-  let totalRatios = urne.length + randint(1, 15)
-  const ratios = listeEntiersSommeConnue(urne.length, totalRatios, 1) // On choisi au hasard les ratios
-  if (gcd(...ratios) !== 1) {
-    for (let j = 0; j < urne.length; j++) {
-      ratios[j] = ratios[j] / gcd(...ratios)
+  const urne = combinaisonListes(['jaune', 'verte', 'bleue', 'rouge', 'noire']).slice(0, 3)
+  let ratios = []
+  let compteurSimplifications = []
+  let simplifications = []
+  let totalRatios = 0
+  while (isPrime(totalRatios) || totalRatios === 0 || compteurSimplifications.length < 3) {
+    compteurSimplifications = []
+    simplifications = []
+    totalRatios = urne.length + randint(1, 45)
+    ratios = listeEntiersSommeConnue(urne.length, totalRatios, 1) // On choisit au hasard les ratios
+    // On simplifie le ratio
+    if (gcd(...ratios) !== 1) {
+      for (let j = 0; j < urne.length; j++) {
+        ratios[j] = ratios[j] / gcd(...ratios)
+      }
+      totalRatios = sum(ratios)
     }
-    totalRatios = sum(ratios)
-  }
-  const simplifications = []
-  let compteurSimplifications = 0
-  for (let j = 0; j < ratios.length; j++) {
-    if (fraction(ratios[j], sum(ratios)).d !== sum(ratios)) {
-      simplifications.push(String.raw`$${fraction2Tex(fraction(ratios[j], sum(ratios)))} = \dfrac{${ratios[j]}}{${sum(ratios)}}$`)
-      compteurSimplifications += 1
-    } else {
-      simplifications.push(String.raw`$${fraction2Tex(fraction(ratios[j], sum(ratios)))}$`)
+    for (let j = 0; j < ratios.length; j++) {
+      if (fraction(ratios[j], sum(ratios)).d !== sum(ratios)) {
+        simplifications.push(String.raw`$${fraction2Tex(fraction(ratios[j], sum(ratios)))} = \dfrac{${ratios[j]}}{${sum(ratios)}}$`)
+      } else {
+        simplifications.push(String.raw`$${fraction2Tex(fraction(ratios[j], sum(ratios)))}$`)
+      }
+      if (compteurSimplifications.indexOf(fraction(ratios[j], sum(ratios)).d) === -1) compteurSimplifications.push(fraction(ratios[j], sum(ratios)).d)
     }
   }
-  let introCorrection
-  if (compteurSimplifications === 0) {
-    introCorrection = 'Toutes les probabilités ont le même dénominateur.'
-  } else {
-    introCorrection = String.raw`Écrivons toutes les probabilités avec le même dénominateur.
-            <br>
-            ${simplifications.join(' ; ')}
-            `
-  }
+  // Pluriels
   const plurielsIssues = []
   for (const issue of urne) {
     plurielsIssues.push(issue + 's')
@@ -487,7 +492,9 @@ function probabilitesCalculsRatios () {
           <br>
           Dans quel ratio les couleurs sont-elles ?`
   const texteCorr = String.raw`
-          ${introCorrection}
+          Écrivons toutes les probabilités avec le même dénominateur.
+          <br>
+          ${simplifications.join(' ; ')}
           <br>
           Donc les couleurs ${plurielsIssues.slice(0, plurielsIssues.length - 1).join(', ')}
           et ${plurielsIssues[plurielsIssues.length - 1]}
@@ -544,6 +551,10 @@ function ratios2EpreuvesCalculsProbabilites () {
   lignes = lignes.join('')
   const corrProba = choixIssue[0] === choixIssue[1] ? 1 : 2
   const issuesquirealisent = choixRatio[0] * choixRatio[1] * corrProba === 1 ? 'issue qui réalise' : 'issues qui réalisent'
+  const solution = {
+    calculs: `${etapesSimplificationFraction(choixRatio[0] * choixRatio[1] * corrProba, issues.issues.length ** 2, '', 0, true)}`,
+    reponse: `$${fraction2Tex(fraction(choixRatio[0] * choixRatio[1] * corrProba, issues.issues.length ** 2), true)}$`
+  }
   const texteCorr = String.raw`
           Listons dans un tableau à double entrée toutes les issues
           de cette expérience.
@@ -559,8 +570,8 @@ function ratios2EpreuvesCalculsProbabilites () {
           et toutes ont la même probabilité d'être obtenue.
           <br>
           Il y a $${choixRatio[0] * choixRatio[1] * corrProba}$ ${issuesquirealisent} l'événement "${evenement}".
-          <br>
-          Donc la probabilité de cet événement est $${fraction2Tex(fraction(choixRatio[0] * choixRatio[1] * corrProba, issues.issues.length ** 2))}$.
+          ${solution.calculs}
+          Donc la probabilité de cet événement est ${solution.reponse}.
           `
   return { texte: texte, texteCorr: texteCorr }
 }
@@ -609,6 +620,10 @@ function ratioPiece2EpreuvesCalculsProbabilites () {
   }
   lignes = lignes.join('')
   const issuesquirealisent = choixRatio[0] * choixRatio[1] === 1 ? 'issue qui réalise' : 'issues qui réalisent'
+  const solution = {
+    calculs: `${etapesSimplificationFraction(choixRatio[0] * choixRatio[1], issues1.issues.length * issues2.issues.length, '', 0, true)}`,
+    reponse: `$${fraction2Tex(fraction(choixRatio[0] * choixRatio[1], issues1.issues.length * issues2.issues.length), true)}$`
+  }
   const texteCorr = String.raw`
           Listons dans un tableau à double entrée toutes les issues
           de cette expérience.
@@ -624,16 +639,16 @@ function ratioPiece2EpreuvesCalculsProbabilites () {
           et toutes ont la même probabilité d'être obtenue.
           <br>
           Il y a $${choixRatio[0] * choixRatio[1]}$ ${issuesquirealisent} l'événement "${evenement}".
-          <br>
-          Donc la probabilité de cet événement est $${fraction2Tex(fraction(choixRatio[0] * choixRatio[1], issues1.issues.length * issues2.issues.length))}$.
+          ${solution.calculs}
+          Donc la probabilité de cet événement est ${solution.reponse}.
           `
   return { texte: texte, texteCorr: texteCorr }
 }
 
 function diagrammeEffectifsCalculsLoiGrandNombre () {
-  const urne = combinaisonListes(['jaune', 'verte', 'bleue', 'rouge', 'noire']).slice(0, randint(2, 5))
+  const urne = combinaisonListes(['jaune', 'verte', 'bleue', 'rouge', 'noire']).slice(0, 4)
   let totalRatios = urne.length + randint(100, 350)
-  const ratios = listeEntiersSommeConnue(urne.length, totalRatios, round(totalRatios / 10)) // On choisi au hasard les ratios
+  const ratios = listeEntiersSommeConnue(urne.length, totalRatios, round(totalRatios / 10)) // On choisit au hasard les ratios
   if (gcd(...ratios) !== 1) {
     for (let j = 0; j < urne.length; j++) {
       ratios[j] = ratios[j] / gcd(...ratios)
@@ -646,12 +661,12 @@ function diagrammeEffectifsCalculsLoiGrandNombre () {
   for (let j = 0; j < experience.realisees.length; j++) {
     issuesReordonnees.push(urne[experience.realisees[j]])
   }
-  const diagrammeEffectifs = diagrammeBarres(experience.effectifs, issuesReordonnees)
+  const diagrammeEffectifs = diagrammeBarres(experience.effectifs, issuesReordonnees, { axeVertical: true, titreAxeVertical: 'Effectifs' })
   const choixRef = choice(experience.realisees) // Choix d'une référence
   const posRef = experience.realisees.indexOf(choixRef) // Position de la référence dans realises
   const choixIssue = urne[choixRef] // Issue correspondante à ce choix (les billes dans l'urne ne sont listées dans le même ordre)
   const solution = {
-    // calculs: `${etapesSimplificationFraction(experience.effectifs[posRef], nbEssais, '', 0, true)}`,
+    calculs: `${etapesSimplificationFraction(experience.effectifs[posRef], nbEssais, '', 0, true)}`,
     reponse: `${fraction2Tex(experience.frequences[posRef])}`
   }
   const texte = String.raw`Une urne contient ${totalRatios} billes de couleurs différentes.
@@ -673,7 +688,7 @@ function diagrammeEffectifsCalculsLoiGrandNombre () {
           <br>
           La bille de couleur ${choixIssue} est apparue
           $${num(experience.effectifs[posRef])}$ fois sur $${num(nbEssais)}$ tirages.
-          <br>
+          ${solution.calculs}
           Donc la fréquence d'apparition de la couleur ${choixIssue} est $${solution.reponse}$.
           <br>
           Pour un nombre suffisamment grand d'essais, la fréquence d'une issue se stabilise autour de sa probabilité.
@@ -686,6 +701,70 @@ function diagrammeEffectifsCalculsLoiGrandNombre () {
           `
   return { texte: texte, texteCorr: texteCorr }
 }
+
+function exerciceSimplificationRatios () {
+  let totalRatios = 3 + randint(1, 15)
+  let ratios = matrix(listeEntiersSommeConnue(3, totalRatios, 1)) // On choisit au hasard les ratios
+  ratios = divide(ratios, gcd(...ratios._data))
+  totalRatios = sum(ratios)
+  const k = randint(2, 16)
+  const kratios = multiply(ratios, k)
+  let listeDecompositions = []
+  for (const n of kratios._data) {
+    const d = String.raw`\bullet\quad${n}=${decompositionFacteursPremiers(n)}`
+    if (listeDecompositions.indexOf(d) === -1) listeDecompositions.push(d)
+  }
+  let introduction = ''
+  if (listeDecompositions.length > 1) {
+    listeDecompositions = '$' + listeDecompositions.join('\\quad') + '$'
+    introduction = `Décomposons chaque partie du ratio en produits de facteurs premiers pour déterminer le PGCD.
+    <br>
+    ${listeDecompositions}
+    <br>
+    Le PGCD des trois parties du ratio est ${k}.
+    <br>
+    `
+  }
+  const texte = String.raw`Simplifier le ratio $${kratios._data.join('{:}')}$
+          `
+  const texteCorr = String.raw`${introduction}
+          On peut donc le simplifier par ${k}.
+          <br>
+          ${kratios._data.join(':')} = ${ratios._data.join(':')}
+          `
+  return { texte: texte, texteCorr: texteCorr }
+}
+
+function exercicesPourcentagesConversion () {
+  const liste = []
+  const listeTexte = []
+  const listeFractionsSimples = ['1/2', '1/4', '3/4', '1/10', '1/5', '2/5', '3/5', '4/5', '3/10', '7/10', '9/10']
+  liste.push(fraction(choice(listeFractionsSimples)))
+  const k = randint(2, 19)
+  listeTexte.push(String.raw`\dfrac{${liste[0].n * k}}{${liste[0].d * k}}`)
+  liste.push(fraction(randint(1, 9), 10))
+  listeTexte.push(num(liste[1].valueOf()))
+  liste.push(fraction(randint(0, 9), 10).add(fraction(randint(0, 9), 100).add(fraction(randint(1, 9), 1000))))
+  listeTexte.push(num(liste[2].valueOf()))
+  const listeEntiere = String.raw`$ {\color{red}a.}~${listeTexte[0]}$
+  $\quad {\color{red}b.}~${listeTexte[1]}$
+  $\quad {\color{red}c.}~${listeTexte[2]}$
+  `
+  const texte = `Sans calculatrice, convertir en pourcentages les nombres de la liste suivante.
+  <br>
+  ${listeEntiere}
+  `
+  const solution = {
+    calculs: `${etapesSimplificationFraction(liste[0].n * k, liste[0].d * k, '', 0, false)}$=${num(liste[0])}=${num(liste[0].mul(100))}\\%$`,
+    reponse: `$${fraction2Tex(liste[0], true)}$`
+  }
+  const texteCorr = String.raw`
+  $ {\color{red}a.}~$ ${solution.calculs}
+  <br>
+  $ {\color{red}b.}~${listeTexte[1]}=${listeTexte[1]}0=${num(liste[1].mul(100))}\% \quad {\color{red}c.}~${listeTexte[2]}=${num(liste[2].mul(100))}\%$
+  `
+  return { texte: texte, texteCorr: texteCorr }
+}
 /**
  * Calculs de fréquences, probabilités, ratios
  * @author Frédéric PIOU
@@ -695,7 +774,7 @@ function diagrammeEffectifsCalculsLoiGrandNombre () {
 export default function CalculsProbabilites () {
   Exercice.call(this)
   this.consigne = ''
-  this.nbQuestions = 8
+  this.nbQuestions = 10
   this.nbCols = 0
   this.nbColsCorr = 0
   this.tailleDiaporama = 1
@@ -715,7 +794,9 @@ export default function CalculsProbabilites () {
       '5 : Calcul d\'un probabilité à partir de pobabilités.',
       '6 : Expérience à deux épreuves (avec remise) : Calcul d\'une probabilité à partir de ratios.',
       '7 : Expérience à deux épreuves différentes : Calcul d\'une probabilité à partir de ratios.',
-      '8 : Diagramme des effectifs : Utilisation de la stabilistation des fréquences.'
+      '8 : Diagramme des effectifs : Utilisation de la stabilistation des fréquences.',
+      '9 : Simplifier un ratio.',
+      '10 : Convertir un nombre en pourcentages.'
     ].join('\n')
   ]
   this.nouvelleVersion = function (numeroExercice) {
@@ -723,7 +804,7 @@ export default function CalculsProbabilites () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
     for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
-      const nquestion = this.sup === 0 ? randint(1, 8) : this.sup
+      const nquestion = this.sup === 0 ? randint(1, 10) : this.sup
       switch (nquestion) {
         case 1:
           exercice = diagrammeCalculsFrequences(0)
@@ -752,6 +833,14 @@ export default function CalculsProbabilites () {
         }
         case 8: {
           exercice = diagrammeEffectifsCalculsLoiGrandNombre()
+          break
+        }
+        case 9: {
+          exercice = exerciceSimplificationRatios()
+          break
+        }
+        case 10: {
+          exercice = exercicesPourcentagesConversion()
           break
         }
       }
