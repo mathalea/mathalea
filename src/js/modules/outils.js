@@ -2,7 +2,7 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate, isPrime, max, gcd } from 'mathjs'
+import { format, evaluate, isPrime, max, gcd, round } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { elimineDoublons, setReponse } from './gestionInteractif.js'
@@ -248,7 +248,7 @@ export function inferieurouegal (a, b, tolerance = epsilon) {
  * @return {boolean}
  */
 export function estentier (a, tolerance = epsilon) {
-  return (Math.abs(a - Math.round(a)) < tolerance)
+  return (Math.abs(a - round(a)) < tolerance)
 }
 
 /**
@@ -1282,8 +1282,9 @@ export function unSiPositifMoinsUnSinon (a) {
  * @return {number}
  */
 export function arrondi (nombre, precision = 2) {
-  const tmp = Math.pow(10, precision)
-  return Math.round(nombre * tmp) / tmp
+  return round(nombre, precision)
+  // const tmp = Math.pow(10, precision)
+  // return Math.round(nombre * tmp) / tmp
 }
 /**
  * Retourne la troncature signée de nombre.
@@ -1310,8 +1311,8 @@ export function abs (a) {
 * @author Rémi Angot
 */
 export function arrondiVirgule (nombre, precision = 2) { //
-  const tmp = Math.pow(10, precision)
-  return String(Math.round(nombre * tmp) / tmp).replace('.', ',')
+  // const tmp = Math.pow(10, precision)
+  return String(round(nombre, precision)).replace('.', ',')
 }
 
 /**
@@ -2534,7 +2535,7 @@ export function texNombre3 (nb) {
 export function sp (nb = 1) {
   let s = ''
   for (let i = 0; i < nb; i++) {
-    if (context.isHtml) s += '&nbsp'
+    if (context.isHtml) s += '&nbsp;'
     else s += '~'
   }
   return s
@@ -3385,7 +3386,7 @@ export function ecriturePuissance (a, b, n) {
     case 1:
       return `$${puissance(b, n)}$`
     default:
-      return `$${String(Math.round(a * 1000) / 1000).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace('.', '{,}')
+      return `$${String(round(a, 3)).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace('.', '{,}')
   }
 }
 

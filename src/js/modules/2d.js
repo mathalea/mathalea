@@ -148,7 +148,31 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
 export function point (x, y, A, labelPosition = 'above') {
   return new Point(x, y, A, labelPosition)
 }
-
+/**
+ * @author Jean-Claude Lhote
+ * @param {number} x abscisse
+ * @param {number} y ordonnée
+ * @param {object} param2 permet de définir le rayon du 'plot', sa couleur, sa couleur de remplissage
+ */
+function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black' } = {}) {
+  ObjetMathalea2D.call(this)
+  if (!couleurDeRemplissage) {
+    this.couleurDeRemplissage = couleur
+  }
+  this.color = couleur
+  this.rayon = rayon
+  this.x = x
+  this.y = y
+  this.svg = function (coeff) {
+    return `\n\t <circle cx="${arrondi(this.x * coeff, 1)}" cy="${arrondi(-this.y * coeff, 1)}" r="${arrondi(this.rayon * coeff, 2)}"/>`
+  }
+  this.tikz = function () {
+    return `\n\t \\draw (${arrondi(this.x, 2)},${arrondi(this.y, 2)}) circle (${arrondi(this.rayon, 2)})`
+  }
+}
+export function plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black' } = {}) {
+  return new Plot(x, y, { rayon: rayon, couleur: couleur, couleurDeRemplissage: couleurDeRemplissage })
+}
 /**
  * tracePoint(A) // Place une croix à l'emplacement du point A
  * tracePoint(A,B,C,D) // Place une croix pour les différents points
@@ -222,6 +246,8 @@ function TracePoint (...points) {
           s1.epaisseur = this.epaisseur
           s1.opacite = this.opacite
           objetssvg.push(s1)
+        } else if (this.style === '.') {
+          s1 = plot(A.y, A.y, { couleur: this.color, rayon: this.epaisseur * 0.05, couleurDeRemplissage: this.couleurDeRemplissage })
         }
       }
     }
@@ -6261,7 +6287,112 @@ function Seyes (xmin = 0, ymin = 0, xmax = 15, ymax = 15, opacite1 = 0.5, opacit
 export function seyes (...args) {
   return new Seyes(...args)
 }
+function PapierPointe ({
+  xmin = -10,
+  xmax = 10,
+  ymin = -10,
+  ymax = 10,
+  xstep = 1,
+  ystep = 1,
+  type = 'quad',
+  pointColor = 'black',
+  pointRayon = 0.05
+}) {
+  ObjetMathalea2D.call(this)
+  const plots = []
+  let xstep1, xstep2, ystep1, stepper
+  switch (type) {
+    case 'quad':
+      for (let x = xmin; x <= xmax; x += xstep) {
+        for (let y = ymin; y <= ymax; y += ystep) {
+          plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor }))
+        }
+      }
+      break
+    case 'hexa':
+      stepper = false
+      ystep1 = Math.min(xstep, ystep)
+      xstep1 = arrondi(0.866 * ystep1, 2)
+      xstep2 = arrondi(1.732 * ystep1, 2)
+      for (let x = xmin; x <= xmax; x += xstep2) {
+        for (let y = ymin; y <= ymax; y += arrondi(1.5 * ystep1, 2)) {
+          stepper = !stepper
+          if (stepper) {
+            plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor }))
+            plots.push(plot(x + xstep1, y + arrondi(ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor }))
+            plots.push(plot(x + xstep1, y + arrondi(ystep1 * 1.5, 2), { rayon: pointRayon, couleur: pointColor }))
+          } else {
+            plots.push(plot(x, y + arrondi(ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor }))
+          }
+        }
+        stepper = !stepper
+      }
+      break
+    case 'equi':
+      stepper = false
+      ystep1 = Math.min(xstep, ystep)
+      xstep1 = arrondi(0.866 * ystep1, 2)
+      xstep2 = arrondi(1.732 * ystep1, 2)
+      for (let x = xmin; x <= xmax; x = arrondi(x + xstep2)) {
+        for (let y = ymin; y <= ymax; y = arrondi(y + 1.5 * ystep1, 2)) {
+          stepper = !stepper
+          if (stepper) {
+            plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor }))
+            plots.push(plot(x, arrondi(y + ystep1, 2), { rayon: pointRayon, couleur: pointColor }))
+            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor }))
+            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1 * 1.5, 2), { rayon: pointRayon, couleur: pointColor }))
+          } else {
+            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1), { rayon: pointRayon, couleur: pointColor }))
+            plots.push(plot(x, arrondi(y + ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor }))
+          }
+        }
+        stepper = !stepper
+      }
+      break
+  }
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of plots) {
+      code += objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of plots) {
+      code += objet.tikz()
+    }
+    return code
+  }
+}
 
+export function papierPointe ({
+  xmin = -10,
+  xmax = 10,
+  ymin = -10,
+  ymax = 10,
+  xstep = 1,
+  ystep = 1,
+  type = 'quad',
+  pointColor = 'black',
+  pointRayon = 0.05
+}) {
+  return new PapierPointe({
+    xmin: xmin,
+    xmax: xmax,
+    ymin: ymin,
+    ymax: ymax,
+    xstep: xstep,
+    ystep: ystep,
+    type: type,
+    pointColor: pointColor,
+    pointRayon: pointRayon
+  })
+}
+
+/**
+ * La fonction Repere n'est pas documentée. Elle est remplacée par la fonction Repere2 qui l'est. Voir ci-dessous.
+ */
 function Repere ({
   xmin = -10,
   xmax = 10,
