@@ -24,6 +24,7 @@ export default function NomExercice () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     let a, b, c, d // On définit les variables aléatoires de l'exo...
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

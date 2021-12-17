@@ -30,6 +30,7 @@ export default function EgaliteDAngles () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     // this.consigne = "Cet exercice est inspiré d'un exercice du manuel sésamath 5e"
     let figure = []; let choix
     const fig1 = function () {

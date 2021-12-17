@@ -37,6 +37,7 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let liste = [[-1, -1], [-1, 1], [1, -1]] // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
     liste = combinaisonListes(liste, this.nbQuestions)
     for (let i = 0, a, b, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles

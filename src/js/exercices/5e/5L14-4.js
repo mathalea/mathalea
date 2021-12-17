@@ -22,6 +22,7 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     let typesDeQuestionsDisponibles = []
     if (!this.sup3 || this.sup3 === 'NaN') { // Si aucune liste n'est saisie

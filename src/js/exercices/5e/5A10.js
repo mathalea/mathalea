@@ -36,6 +36,7 @@ export default function ListeDesDiviseurs5e () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
+    this.autoCorrection = []
 
     const typesDeQuestionsDisponibles = [1, 1, 2]
     const nbChiffresMax = combinaisonListesSansChangerOrdre(this.sup.split('-'), this.nbQuestions)

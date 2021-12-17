@@ -23,6 +23,7 @@ export default function ConstruireSymetriquePoint5e () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let result = [0, 0]; let texteCorr = ''; const nbpoints = parseInt(this.sup)
     const celluleAlea = function (rang) {
       const lettre = lettreDepuisChiffre(randint(1, rang))

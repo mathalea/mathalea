@@ -159,10 +159,10 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
 `
   } else {
     return `\\begin{minipage}{${calcul(largeur1 / 100)}\\linewidth}
-    ${cont1}
+    ${cont1.replaceAll('<br>', '\\\\\n')}
     \\end{minipage}
     \\begin{minipage}{${calcul((100 - largeur1) / 100)}\\linewidth}
-    ${cont2}
+    ${cont2.replaceAll('<br>', '\\\\\n')}
     \\end{minipage}
     `
   }
@@ -7459,7 +7459,7 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n\\end{multicols}\n\\end{minipage}\n}\n\n'
           id += 2
-        } else if (valeurAMCNum.num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
+        } else if (valeurAMCNum.num !== undefined) { // Si une fraction a été passée à AMCNum, on met un seul AMCNumericChoice particulier
           texQr += `\\element{${ref}}{\n`
           texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
           texQr += `${autoCorrection[j].enonce} \n`
@@ -7523,6 +7523,7 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].propositions !== undefined) {
             texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
           }
+          if (autoCorrection[j].reponse.textePosition === 'left') texQr += `${autoCorrection[j].reponse.texte} `
           texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${nbChiffresPe + nbChiffresPd},decimals=${nbChiffresPd},sign=${autoCorrection[j].reponse.param.signe},`
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
             texQr += `exponent=${nbChiffresExpo},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
@@ -7540,7 +7541,11 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
             texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
           }
-          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={,}}\n'
+          if (autoCorrection[j].reponse.param.tpoint !== undefined && autoCorrection[j].reponse.param.tpoint) {
+            texQr += `Tpoint={${autoCorrection[j].reponse.param.tpoint}},`
+          }
+          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1} '
+          if (autoCorrection[j].reponse.textePosition === 'right') texQr += `${autoCorrection[j].reponse.texte}\n`
           texQr += '\\end{questionmultx}\n }\n\n'
           id++
         }
@@ -7607,7 +7612,10 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
           texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
         }
-        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
+        if (autoCorrection[j].reponse.param.tpoint !== undefined && autoCorrection[j].reponse.param.tpoint) {
+          texQr += `Tpoint={${autoCorrection[j].reponse.param.tpoint}},`
+        }
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,vertical=true}\n'
         texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
         id++
         break
@@ -8050,7 +8058,10 @@ export function exportQcmAmc (exercice, idExo) {
                 if (rep.param.vhead !== undefined && rep.param.vhead) {
                   texQr += `vhead=${rep.param.vhead},`
                 }
-                texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={,}}\n'
+                if (rep.param.tpoint !== undefined && rep.param.tpoint) {
+                  texQr += `Tpoint={${rep.param.tpoint}},`
+                }
+                texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1}\n'
                 if (!(propositions[0].alignement === undefined)) {
                   texQr += '\\end{'
                   texQr += `${propositions[0].alignement}}`

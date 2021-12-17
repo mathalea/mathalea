@@ -22,6 +22,7 @@ export default function CalculerDesFrequences () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     this.sup = parseInt(this.sup)
 
     for (let i = 0, temperatures, nombreTemperatures, nombreNotes, notes, nombreDes, nombreFaces, nombreTirages, indexValeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
