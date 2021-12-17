@@ -24,23 +24,29 @@ export default function tauxvariation () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typeQuestionsDisponibles = ['carré', 'inverse'] // On créé 3 types de questions
-    if (this.sup === 1) { // On ajuste la difficulté selon le paramètre.
-      typeQuestionsDisponibles = ['carré']
+    let typesDeQuestionsDisponibles = [1, 2, 3, 4]
+    if (this.sup === 1) {
+      typesDeQuestionsDisponibles = [1]
     }
     if (this.sup === 2) {
-      typeQuestionsDisponibles = ['inverse']
+      typesDeQuestionsDisponibles = [2]
     }
     if (this.sup === 3) {
-      typeQuestionsDisponibles = ['carré', 'inverse']
+      typesDeQuestionsDisponibles = [3]
+    }
+    if (this.sup === 4) {
+      typesDeQuestionsDisponibles = [4]
+    }
+    if (this.sup === 5) {
+      typesDeQuestionsDisponibles = [1, 2, 3, 4]
     }
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, a, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
-  
-
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'carré':
+        case 1:// affine
+          break
+        case 2 :// 'carre':
           a = randint(-5, 5, [0])
           texte = 'Soit $f$ la fonction définie pour tout $x$ de $\\mathbb{R}$ par $f(x)=x^2$.<br>'
           texte += `Déterminer la valeur de  $f'(${a})$, en utilisant la définition de cours.`
@@ -62,7 +68,7 @@ export default function tauxvariation () {
           texteCorr += ` on peut conclure que $f'(${a})=${2 * a} $`
 
           break
-        case 'inverse':
+        case 3 :// 'inverse':
           a = randint(-5, 5, [0])
           texte = 'Soit $f$ la fonction définie pour tout $x$ de $\\mathbb{R}^{*}$ par $f(x)=\\dfrac{1}{x}$.<br>'
           texte += `Déterminer la valeur de  $f'(${a})$, en utilisant la définition de cours.`
@@ -80,9 +86,27 @@ export default function tauxvariation () {
           texteCorr += `<br>$\\lim\\limits_{h \\rightarrow 0} \\dfrac{-1}{(${a}+h)\\times ${ecritureParentheseSiNegatif(a)}}= \\dfrac{-1}{${a * a}} $`
           if (a !== 1 && a !== -1) { texteCorr += `<br>On peut donc conclure que $f'(${a})=\\dfrac{-1}{${a * a}} $` } else { texteCorr += `<br>On peut donc conclure que $f'(${a})=-1 $` }
           break
-        case 'type3':
-          texte = `Question ${i + 1} de type 3`
-          texteCorr = `Correction ${i + 1} de type 3`
+        case 4 :// 'racine_carree':
+          a = randint(1, 8)
+          texte = 'Soit $f$ la fonction définie pour tout $x$ de $\\mathbb{R}_{+}$ par $f(x)=\\sqrt{x}$.<br>'
+          texte += `Déterminer la valeur de  $f'(${a})$, en utilisant la définition de cours.`
+          texteCorr = `Pour déterminer $f'(${a})$, `
+          texteCorr += `on commence par calculer le taux de variation de $f$, <br> entre $${a}$ et $${a}+h$ , `
+          texteCorr += 'noté $\\tau(h)$, où $h$ est un réel non-nul.<br>'
+          texteCorr += `$\\begin{aligned}\\tau(h) &= \\dfrac{f(${a}+h)-f(${a})}{h}&\\text{Définition du taux de variation}\\\\`
+          texteCorr += `&= \\dfrac{\\sqrt{${a}+h}-\\sqrt{${a}}}{h}&\\text{Application à la fonction racine carrée.}\\\\`
+          texteCorr += `&=\\dfrac{(\\sqrt{${a}+h}-\\sqrt{${a}})(\\sqrt{${a}+h}+\\sqrt{${a}})}{h(\\sqrt{${a}+h}+\\sqrt{${a}})}&\\text{Multiplication par la "quantité conjuguée".}\\\\`
+          texteCorr += `&=\\dfrac{${a}+h${ecritureAlgebrique(-a)}}{h(\\sqrt{${a}+h}+\\sqrt{${a}})}&\\text{Identité remarquable : } (a-b)(a+b)=a^2-b^2\\\\`
+
+          texteCorr += `&=\\dfrac{h}{h(\\sqrt{${a}+h}+\\sqrt{${a}})}&\\text{Réduction au numérateur }.\\\\`
+          texteCorr += `&=\\dfrac{1}{\\sqrt{${a}+h}+\\sqrt{${a}}}&\\text{Simplification de la fraction par } h.\\\\`
+
+          texteCorr += '\\end{aligned}$'
+          texteCorr += '<br>On cherche maintenant la limite du taux de variations quand $h$ tend vers $0$.'
+          texteCorr += `<br>$\\lim\\limits_{h \\rightarrow 0} \\dfrac{1}{\\sqrt{${a}+h}+\\sqrt{${a}}}=\\dfrac{1}{2 \\sqrt{${a}}}$`
+          if (a !== 1 && a !== 4) { texteCorr += `<br>On peut donc conclure que $f'(${a})=\\dfrac{1}{2 \\sqrt{${a}}}$` }
+          if (a === 1) { texteCorr += `<br>On peut donc conclure que $f'(${a})=\\dfrac{1}{2} $` }
+          if (a === 4) { texteCorr += `<br>On peut donc conclure que $f'(${a})=\\dfrac{1}{4} $` }
           break
       }
 
@@ -96,4 +120,5 @@ export default function tauxvariation () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
+  this.besoinFormulaireNumerique = ['Type de fonctions :', 5, '1 : Fonction affine 2 : Fonction carré 3: Fonction inverse 4: Fonction racine carrée 5: Méli-mélo']
 }
