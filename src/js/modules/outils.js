@@ -7523,6 +7523,7 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].propositions !== undefined) {
             texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
           }
+          if (autoCorrection[j].reponse.textePosition === 'left') texQr += `${autoCorrection[j].reponse.texte} `
           texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${nbChiffresPe + nbChiffresPd},decimals=${nbChiffresPd},sign=${autoCorrection[j].reponse.param.signe},`
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
             texQr += `exponent=${nbChiffresExpo},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
@@ -7543,7 +7544,8 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].reponse.param.tpoint !== undefined && autoCorrection[j].reponse.param.tpoint) {
             texQr += `Tpoint={${autoCorrection[j].reponse.param.tpoint}},`
           }
-          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1}\n'
+          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1} '
+          if (autoCorrection[j].reponse.textePosition === 'right') texQr += `${autoCorrection[j].reponse.texte}\n`
           texQr += '\\end{questionmultx}\n }\n\n'
           id++
         }
