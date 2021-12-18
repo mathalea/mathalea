@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebrique, randint, ecritureParentheseSiNegatif, ecritureAlgebriquec, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
-export const titre = 'Nom de l\'exercice'
+export const titre = 'Nombre dérivé de fonctions de références'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '16/12/21' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -19,7 +19,7 @@ export default function tauxvariation () {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.sup = 1
+  this.sup = parseInt(this.sup)
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -40,7 +40,7 @@ export default function tauxvariation () {
     if (this.sup === 5) {
       typesDeQuestionsDisponibles = [1, 2, 3, 4]
     }
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, a, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
