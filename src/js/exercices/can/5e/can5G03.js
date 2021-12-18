@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, shuffle } from '../../../modules/outils.js'
-import { droite, longueur, mathalea2d, papierPointe, point, symetrieAxiale, tracePoint } from '../../../modules/2d.js'
+import { labelPoint, longueur, mathalea2d, papierPointe, point, rotation, tracePoint } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Compter les points symétriques manquant'
@@ -48,22 +48,14 @@ export default function CompleterParSymetrieCan () {
       papier = papierPointe({ xmin: 0, ymin: 0, xmax: 6, ymax: 6, type: 'quad' })
 
       objetsEnonce.push(papier)
-
-      switch (randint(1, 2)) {
-        case 1:
-          d = droite(point(3, 0), point(3, 6))
-          break
-        case 2:
-          d = droite(point(0, 3), point(6, 3))
-          break
-      }
+      const O = point(3, 3)
+      d = tracePoint(O)
       d.epaisseur = 2
       d.color = context.isHtml ? 'blue' : 'black'
       objetsEnonce.push(d)
       pointsPossibles = papier.listeCoords.slice()
-      // on prépare les points cliquables pour la version interactive
       while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique
-        image = symetrieAxiale(point(pointsPossibles[0][0], pointsPossibles[0][1]), d)
+        image = rotation(point(pointsPossibles[0][0], pointsPossibles[0][1]), O, 180)
         j = 1
         trouve = false
         while (j < pointsPossibles.length && !trouve) {
@@ -104,15 +96,15 @@ export default function CompleterParSymetrieCan () {
         objetsCorrection.push(tracePoint(pointsEnPlusCorr[p], 'red'))
       }
       texte = context.isAmc
-        ? 'Voici une grille contenant des points et un axe de symétrie.<br>Quel nombre minimum de points faut-il ajouter pour que chacun ait son symétrique ?<br>Écrire le nombre de points ajoutés dans le cadre. Coder ensuite ce nombre de points.<br>'
-        : 'Voici une grille contenant des points et un axe de symétrie.<br>Quel nombre minimum de points faut-il ajouter pour que chacun ait son symétrique ?<br>'
+        ? 'Voici une grille contenant des points et un centre de symétrie.<br>Quel nombre minimum de points faut-il ajouter pour que chacun ait son symétrique ?<br>Écrire le nombre de points ajoutés dans le cadre. Coder ensuite ce nombre de points.<br>'
+        : 'Voici une grille contenant des points et un centre de symétrie.<br>Quel nombre minimum de points faut-il ajouter pour que chacun ait son symétrique ?<br>'
       texteCorr = ''
       // On prépare la figure...
-      texte += mathalea2d({ xmin: -0.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, scale: 0.7 }, ...objetsEnonce)
+      texte += mathalea2d({ xmin: -0.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, scale: 0.7 }, ...objetsEnonce, labelPoint(O))
       if (this.interactif && context.isHtml) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline')
       }
-      texteCorr += mathalea2d({ xmin: -0.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, scale: 0.5 }, ...objetsEnonce, ...objetsCorrection)
+      texteCorr += mathalea2d({ xmin: -0.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, scale: 0.5 }, ...objetsEnonce, ...objetsCorrection, labelPoint(O))
       setReponse(this, i, pointsEnPlusCorr.length)
       if (this.questionJamaisPosee(i, nbCouplesChoisis, nbCouplesComplets, pointsChoisis[0][0], pointsChoisis[0][1])) {
         this.listeQuestions.push(texte)
