@@ -1794,7 +1794,10 @@ export default {
   "2S10-1": {
     "titre": "Effectifs et proportions",
     "url": "/exercices/2e/2S10-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "2S10-1",
@@ -8233,7 +8236,7 @@ export default {
     "interactifType": "numerique",
     "name": "6N23-6",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
