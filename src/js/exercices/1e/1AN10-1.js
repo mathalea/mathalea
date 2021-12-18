@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebrique, randint, ecritureParentheseSiNegatif, ecritureAlgebriquec, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebrique, randint, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, contraindreValeur, reduireAxPlusB } from '../../modules/outils.js'
+import { } from '../../modules/2d.js'
 export const titre = 'Nombre dérivé de fonctions de références'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -19,32 +20,41 @@ export default function tauxvariation () {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.sup = parseInt(this.sup)
+  // this.sup = parseInt(this.sup)
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
     let typesDeQuestionsDisponibles = [1, 2, 3, 4]
-    if (this.sup === 1) {
-      typesDeQuestionsDisponibles = [1]
-    }
-    if (this.sup === 2) {
-      typesDeQuestionsDisponibles = [2]
-    }
-    if (this.sup === 3) {
-      typesDeQuestionsDisponibles = [3]
-    }
-    if (this.sup === 4) {
-      typesDeQuestionsDisponibles = [4]
-    }
-    if (this.sup === 5) {
-      typesDeQuestionsDisponibles = [1, 2, 3, 4]
-    }
-    const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    this.sup = contraindreValeur(1, 5, this.sup, 5)
+    if (this.sup !== 5) typesDeQuestionsDisponibles = [this.sup]
+    else { typesDeQuestionsDisponibles = [1, 2, 3, 4] }
+    const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, a, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, a, p, m, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1:// affine
+          a = randint(-5, 5, [0])
+          m = randint(-5, 5, [0])// coeff dir de ax+b
+          p = randint(-5, 5, [0])
+          texte = `Soit $f$ la fonction définie pour tout $x$ de $\\mathbb{R}$ par $f(x)=${reduireAxPlusB(m, p)} $.<br>`
+          texte += `Déterminer la valeur de  $f'(${a})$, en utilisant la définition de cours.`
+          texteCorr = `Pour déterminer $f'(${a})$, `
+          texteCorr += `on commence par calculer le taux de variation de $f$, <br> entre $${a}$ et $${a}+h$ , `
+          texteCorr += 'noté $\\tau(h)$, où $h$ est un réel non-nul.<br>'
+          texteCorr += `$\\begin{aligned}\\tau(h) &= \\dfrac{f(${a}+h)-f(${a})}{h}&\\text{Définition du taux de variation}\\\\`
+          texteCorr += `&= \\dfrac{${m}(${a}+h)${ecritureAlgebrique(p)}-${ecritureParentheseSiNegatif(m)}\\times ${ecritureParentheseSiNegatif(a)}${ecritureAlgebrique(-p)}}{h}&\\text{Application à la fonction } f(x)=${reduireAxPlusB(m, p)}  \\\\`
+          texteCorr += `&= \\dfrac{${ecritureParentheseSiNegatif(a * m)}${ecritureAlgebriqueSauf1(m)} h ${ecritureAlgebrique(p)}-${ecritureParentheseSiNegatif(a * m)} ${ecritureAlgebriqueSauf1(-p)}}{h}&\\text{Développement au numérateur}  \\\\`
+          texteCorr += `&= \\dfrac{${m} h } {h}&\\text{Réduction au numérateur}  \\\\`
+          texteCorr += `&= ${m} &\\text{Simplification par } h  \\\\`
+          texteCorr += '\\end{aligned}$'
+          texteCorr += '<br>Le taux de variations de $f$ est une constante qui ne dépend pas de $h$.'
+          texteCorr += '<br>Ce résultat était prévisible puisque la représentation graphique d\'une fonction affine est une droite.'
+          texteCorr += `<br>La pente entre deux points de la droite est donc toujours égale au coefficient directeur de la fonction affine, ici ${m}.`
+          texteCorr += '<br>On en déduit facilement la limite du taux de variations quand $h$ tend vers $0$.'
+          texteCorr += `<br>$\\lim\\limits_{h \\rightarrow 0} ${m}=${m} $`
+          texteCorr += `<br>On peut en déduire que $f$ est dérivable en $${a}$ et`
+          texteCorr += ` on peut conclure que $f'(${a})=${m} $`
           break
         case 2 :// 'carre':
           a = randint(-5, 5, [0])
@@ -120,5 +130,5 @@ export default function tauxvariation () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Type de fonctions :', 5, '1 : Fonction affine 2 : Fonction carré 3: Fonction inverse 4: Fonction racine carrée 5: Méli-mélo']
+  this.besoinFormulaireNumerique = ['Type de fonctions ', 5, '1 : Fonction affine 2 : Fonction carré 3: Fonction inverse 4: Fonction racine carrée 5: Méli-mélo']
 }
