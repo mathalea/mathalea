@@ -11,12 +11,12 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 
 /**
- * Symétrie axiale sur papier pointé
- * Ref can6G07
+ * Symétrie centrale sur papier pointé
+ * Ref can5G03
  * @author Jean-Claude Lhote
  * Publié le 18/12/2021
  */
-export default function CompleterParSymetrieCan () {
+export default function CompterlesSymetriquesCan5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 1
@@ -46,11 +46,11 @@ export default function CompleterParSymetrieCan () {
       couples.length = 0
 
       papier = papierPointe({ xmin: 0, ymin: 0, xmax: 6, ymax: 6, type: 'quad' })
-
       objetsEnonce.push(papier)
-      const O = point(3, 3)
+      const O = point(3, 3, 'O')
       d = tracePoint(O)
       d.epaisseur = 2
+      d.style = '+'
       d.color = context.isHtml ? 'blue' : 'black'
       objetsEnonce.push(d)
       pointsPossibles = papier.listeCoords.slice()
