@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, contraindreValeur, randint } from '../../modules/outils.js'
-import { droite, mathalea2d, papierPointe, point } from '../../modules/2d.js'
+import { droite, mathalea2d, papierPointe, plot, point } from '../../modules/2d.js'
 export const titre = 'Compléter un nuage de points symétriques'
 export const dateDePublication = '18/12/2021'
 
@@ -53,6 +53,7 @@ export default function CompleterParSymetrie6e () {
           }
           break
       }
+      objetsEnonce.push(plot(4.5, 4.5, { rayon: 0.2, couleurDeRemplissage: 'red', couleur: 'black', opacite: 0.8, opaciteDeRemplissage: 0.3 }))
       texte = 'Voici une grille contenant des points et une droite.<br>Compléter avec un minimum de points afin que la droite soit un axe de symétrie de la figure.<br>'
       texteCorr = ''
       // On prépare la figure...

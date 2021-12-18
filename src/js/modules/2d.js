@@ -154,24 +154,44 @@ export function point (x, y, A, labelPosition = 'above') {
  * @param {number} y ordonnée
  * @param {object} param2 permet de définir le rayon du 'plot', sa couleur, sa couleur de remplissage
  */
-function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black' } = {}) {
+function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black', opacite = 1, opaciteDeRemplissage = 1 } = {}) {
   ObjetMathalea2D.call(this)
-  if (!couleurDeRemplissage) {
-    this.couleurDeRemplissage = couleur
-  }
   this.color = couleur
+  this.couleurDeRemplissage = couleurDeRemplissage
   this.rayon = rayon
   this.x = x
   this.y = y
+  this.opacite = opacite
+  this.opaciteDeRemplissage = opaciteDeRemplissage
   this.svg = function (coeff) {
-    return `\n\t <circle cx="${arrondi(this.x * coeff, 1)}" cy="${arrondi(-this.y * coeff, 1)}" r="${arrondi(this.rayon * coeff, 2)}"/>`
+    return `\n\t <circle cx="${arrondi(this.x * coeff, 1)}" cy="${arrondi(-this.y * coeff, 1)}" r="${arrondi(this.rayon * coeff, 2)}" stroke="${this.color}" fill="${this.couleurDeRemplissage}" stroke-opacity="${this.opacite || 1}" fill-opacity="${this.opaciteDeRemplissage || 1}"/>`
   }
   this.tikz = function () {
-    return `\n\t \\draw (${arrondi(this.x, 2)},${arrondi(this.y, 2)}) circle (${arrondi(this.rayon, 2)})`
+    const tableauOptions = []
+    if (this.color.length > 1 && this.color !== 'black') {
+      tableauOptions.push(this.color)
+    }
+    if (this.epaisseur !== 1) {
+      tableauOptions.push(`line-width=${this.epaisseur}`)
+    }
+    if (this.opacite !== 1) {
+      tableauOptions.push(`opacity=${this.opacite}`)
+    }
+    if (this.opaciteDeRemplissage !== 1) {
+      tableauOptions.push(`fill opacity=${this.opaciteDeRemplissage}`)
+    }
+    if (this.couleurDeRemplissage !== '') {
+      tableauOptions.push(`fill=${this.couleurDeRemplissage}`)
+    }
+    let optionsDraw = []
+    if (tableauOptions.length > 0) {
+      optionsDraw = '[' + tableauOptions.join(',') + ']'
+    }
+    return `\n\t \\filldraw${optionsDraw} (${arrondi(this.x, 2)},${arrondi(this.y, 2)}) circle (${arrondi(this.rayon, 2)});`
   }
 }
-export function plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black' } = {}) {
-  return new Plot(x, y, { rayon: rayon, couleur: couleur, couleurDeRemplissage: couleurDeRemplissage })
+export function plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black', opacite = 1, opaciteDeRemplissage = 1 } = {}) {
+  return new Plot(x, y, { rayon: rayon, couleur: couleur, couleurDeRemplissage: couleurDeRemplissage, opacite: opacite, opaciteDeRemplissage: opaciteDeRemplissage })
 }
 /**
  * tracePoint(A) // Place une croix à l'emplacement du point A
