@@ -53,8 +53,8 @@ export default function tauxvariation () {
           texteCorr += `<br>La pente entre deux points de la droite est donc toujours égale au coefficient directeur de la fonction affine, ici ${m}.`
           texteCorr += '<br>On en déduit facilement la limite du taux de variations quand $h$ tend vers $0$.'
           texteCorr += `<br>$\\lim\\limits_{h \\rightarrow 0} ${m}=${m} $`
-          texteCorr += `<br>On peut en déduire que $f$ est dérivable en $${a}$ et`
-          texteCorr += ` on peut conclure que $f'(${a})=${m} $`
+          texteCorr += `<br>On peut en conclure que $f$ est dérivable en $${a}$ et`
+          texteCorr += ` donc $f'(${a})=${m} $`
           break
         case 2 :// 'carre':
           a = randint(-5, 5, [0])
