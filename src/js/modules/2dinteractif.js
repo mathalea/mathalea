@@ -10,6 +10,7 @@ import { context } from './context.js'
 function PointCliquable (x, y, options) {
   ObjetMathalea2D.call(this)
   const A = point(x, y)
+  this.point = A
   if (!options) options = {}
   const out = options.out || { opacity: 0 }
   const over = options.over || { opacity: 0.5 }

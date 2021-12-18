@@ -164,7 +164,11 @@ function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = '
   this.opacite = opacite
   this.opaciteDeRemplissage = opaciteDeRemplissage
   this.svg = function (coeff) {
-    return `\n\t <circle cx="${arrondi(this.x * coeff, 1)}" cy="${arrondi(-this.y * coeff, 1)}" r="${arrondi(this.rayon * coeff, 2)}" stroke="${this.color}" fill="${this.couleurDeRemplissage}" stroke-opacity="${this.opacite || 1}" fill-opacity="${this.opaciteDeRemplissage || 1}"/>`
+    if (this.couleurDeRemplissage === '') {
+      return `\n\t <circle cx="${arrondi(this.x * coeff, 1)}" cy="${arrondi(-this.y * coeff, 1)}" r="${arrondi(this.rayon * coeff, 2)}" stroke="${this.color}" stroke-opacity="${this.opacite || 1}"/>`
+    } else {
+      return `\n\t <circle cx="${arrondi(this.x * coeff, 1)}" cy="${arrondi(-this.y * coeff, 1)}" r="${arrondi(this.rayon * coeff, 2)}" stroke="${this.color}" fill="${this.couleurDeRemplissage}" stroke-opacity="${this.opacite || 1}" fill-opacity="${this.opaciteDeRemplissage || 1}"/>`
+    }
   }
   this.tikz = function () {
     const tableauOptions = []
@@ -6316,16 +6320,20 @@ function PapierPointe ({
   ystep = 1,
   type = 'quad',
   pointColor = 'black',
-  pointRayon = 0.05
+  pointRayon = 0.05,
+  opacite = 1,
+  opaciteDeRemplissage = 1
 }) {
   ObjetMathalea2D.call(this)
+  this.listeCoords = []
   const plots = []
   let xstep1, xstep2, ystep1, stepper
   switch (type) {
     case 'quad':
       for (let x = xmin; x <= xmax; x += xstep) {
         for (let y = ymin; y <= ymax; y += ystep) {
-          plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor }))
+          plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+          this.listeCoords.push([x, y])
         }
       }
       break
@@ -6338,11 +6346,13 @@ function PapierPointe ({
         for (let y = ymin; y <= ymax; y += arrondi(1.5 * ystep1, 2)) {
           stepper = !stepper
           if (stepper) {
-            plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor }))
-            plots.push(plot(x + xstep1, y + arrondi(ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor }))
-            plots.push(plot(x + xstep1, y + arrondi(ystep1 * 1.5, 2), { rayon: pointRayon, couleur: pointColor }))
+            plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1 * 1.5, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            this.listeCoords.push([x, y], [arrondi(x + xstep1, 2), arrondi(y + ystep1 / 2, 2)], [arrondi(x + xstep1, 2), arrondi(y + ystep1 * 1.5, 2)])
           } else {
-            plots.push(plot(x, y + arrondi(ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor }))
+            plots.push(plot(x, arrondi(y + ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            this.listeCoords.push([x, arrondi(y + ystep1 / 2, 2)])
           }
         }
         stepper = !stepper
@@ -6357,13 +6367,15 @@ function PapierPointe ({
         for (let y = ymin; y <= ymax; y = arrondi(y + 1.5 * ystep1, 2)) {
           stepper = !stepper
           if (stepper) {
-            plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor }))
-            plots.push(plot(x, arrondi(y + ystep1, 2), { rayon: pointRayon, couleur: pointColor }))
-            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor }))
-            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1 * 1.5, 2), { rayon: pointRayon, couleur: pointColor }))
+            plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(x, arrondi(y + ystep1, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1 * 1.5, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            this.listeCoords.push([x, y], [x, arrondi(y + ystep1, 2)], [arrondi(x + xstep1, 2), arrondi(y + ystep1 / 2, 2)], [arrondi(x + xstep1, 2), arrondi(y + ystep1 * 1.5, 2)])
           } else {
-            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1), { rayon: pointRayon, couleur: pointColor }))
-            plots.push(plot(x, arrondi(y + ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor }))
+            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(x, arrondi(y + ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            this.listeCoords.push([arrondi(x + xstep1, 2), arrondi(y + ystep1)], [x, arrondi(y + ystep1 / 2, 2)])
           }
         }
         stepper = !stepper
@@ -6395,7 +6407,9 @@ export function papierPointe ({
   ystep = 1,
   type = 'quad',
   pointColor = 'black',
-  pointRayon = 0.05
+  pointRayon = 0.05,
+  opacite = 0.4,
+  opaciteDeRemplissage = 0.4
 }) {
   return new PapierPointe({
     xmin: xmin,
@@ -6406,7 +6420,9 @@ export function papierPointe ({
     ystep: ystep,
     type: type,
     pointColor: pointColor,
-    pointRayon: pointRayon
+    pointRayon: pointRayon,
+    opacite: opacite,
+    opaciteDeRemplissage: opaciteDeRemplissage
   })
 }
 

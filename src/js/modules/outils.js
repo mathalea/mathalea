@@ -7576,8 +7576,11 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].propositions !== undefined) {
           texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         }
-        texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
-        texQr += '\\end{question}\n\\end{minipage}\n'
+        texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}`
+        if (!(isNaN(autoCorrection[j].propositions[0].sanscadre))) {
+          texQr += `[${autoCorrection[j].propositions[0].sanscadre}]` // le statut contiendra le nombre de lignes pour ce type
+        }
+        texQr += '\n\t\\end{question}\n\\end{minipage}\n'
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
           if (autoCorrection[j].reponse.param.digits === 0) {
             nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(valeurAMCNum)
