@@ -7,6 +7,7 @@ import { ComputeEngine, parse } from '@cortex-js/math-json'
 import Fraction from './Fraction.js'
 import Grandeur from './Grandeur.js'
 import { getUserIdFromUrl, getVueFromUrl } from './gestionUrl.js'
+import { number } from 'mathjs'
 
 export function exerciceInteractif (exercice) {
   // passage amsType num à string cf commit 385b5ea
@@ -21,6 +22,7 @@ export function exerciceInteractif (exercice) {
     if (exercice.interactifType === 'custom') exerciceCustom(exercice)
     // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
     if (exercice.interactifType === 'mathLive') exerciceMathLive(exercice)
+    if (exercice.interactifType === undefined) exerciceNonInteractif(exercice)
   }
 }
 
@@ -82,10 +84,25 @@ function verifQuestionCliqueFigure (exercice, i) {
 function verifQuestionMathLive (exercice, i) {
   // Au commit 917faac, il y avait un retour console
   const engine = new ComputeEngine()
-  let saisieParsee, signeF
+  let saisieParsee, signeF, num, den, fSaisie
+  const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
-  const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+  let champTexte
+  switch (formatInteractif) {
+    case 'Num':
+      champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`)
+      break
+    case 'Den':
+      champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Den`)
+      break
+    case 'NumDen':
+      champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`)
+      break
+    default :
+      champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+      break
+  }
   let reponses = []
   if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
     reponses = [exercice.autoCorrection[i].reponse.valeur]
@@ -95,7 +112,28 @@ function verifQuestionMathLive (exercice, i) {
   let resultat = 'KO'
   let saisie = champTexte.value
   for (let reponse of reponses) {
-    if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'calcul') { // Le format par défaut
+    if (formatInteractif === 'NumDen') {
+      num = parseInt(document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`).value)
+      den = parseInt(document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Den`).value)
+      fSaisie = new Fraction(num, den)
+      if (fSaisie.egal(reponse)) {
+        resultat = 'OK'
+      }
+    } else if (formatInteractif === 'Num') {
+      num = parseInt(champTexte.value)
+      den = reponse.den
+      fSaisie = new Fraction(num, den)
+      if (fSaisie.egal(reponse)) {
+        resultat = 'OK'
+      }
+    } else if (formatInteractif === 'Den') {
+      den = parseInt(champTexte.value)
+      num = reponse.num
+      fSaisie = new Fraction(num, den)
+      if (fSaisie.egal(reponse)) {
+        resultat = 'OK'
+      }
+    } else if (formatInteractif === 'calcul') { // Le format par défaut
       // Pour le calcul littéral on remplace dfrac en frac
       if (typeof reponse === 'string') {
         reponse = reponse.replaceAll('dfrac', 'frac')
@@ -103,16 +141,35 @@ function verifQuestionMathLive (exercice, i) {
       // saisie = neTientCompteQueDuDernierMembre(saisie)
       }
       // Pour le calcul numérique, on transforme la saisie en nombre décimal
-      if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
+      if (typeof reponse === 'number' || typeof reponse === 'string') {
+        saisie = saisie.toString().replace(',', '.')
+        reponse = reponse.toString().replace(',', '.')
+      }
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
       }
-      // Pour les exercices de simplifications de fraction
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'texte') {
+      // Pour les exercices où la saisie du texte avec prise en compte de la casse
+    } else if (formatInteractif === 'ecritureScientifique') { // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
+      if (typeof reponse === 'string') {
+        saisie = saisie.toString().replace(',', '.')
+        reponse = reponse.replace(',', '.')
+      }
+      if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
+        saisie = saisie.split('\\times')
+        if (number(saisie[0]) >= 1 & number(saisie[0]) < 10) { resultat = 'OK' }
+      }
+      // Pour les exercices où la saisie du texte avec prise en compte de la casse
+    } else if (formatInteractif === 'texte') {
       if (saisie === reponse) {
         resultat = 'OK'
       }
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionPlusSimple') {
+      // Pour les exercices où la saisie du texte sans prise en compte de la casse
+    } else if (formatInteractif === 'ignorerCasse') {
+      if (saisie.toLowerCase() === reponse.toLowerCase()) {
+        resultat = 'OK'
+      // Pour les exercices de simplifications de fraction
+      }
+    } else if (formatInteractif === 'fractionPlusSimple') {
       saisieParsee = parse(saisie)
       if (saisieParsee) {
         if (saisieParsee[0] === 'Negate') {
@@ -127,8 +184,8 @@ function verifQuestionMathLive (exercice, i) {
         }
       }
       // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fractionEgale') {
-      // Si l'utilisateur entre un entier n, on transforme en n/1
+    } else if (formatInteractif === 'fractionEgale') {
+      // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
       if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
         saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
       } else {
@@ -142,12 +199,12 @@ function verifQuestionMathLive (exercice, i) {
           signeF = 1
         }
         if (saisieParsee[1].num && saisieParsee[2].num) {
-          const fSaisie = new Fraction(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+          fSaisie = new Fraction(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
           if (fSaisie.egal(reponse)) resultat = 'OK'
         }
       }
       // Pour les exercices où l'on attend un écriture donnée d'une fraction
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'fraction') {
+    } else if (formatInteractif === 'fraction') {
       if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
         saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
       } else {
@@ -166,32 +223,110 @@ function verifQuestionMathLive (exercice, i) {
         }
       }
       // Pour les exercices où l'on attend une mesure avec une unité au choix
-    } else if (exercice.autoCorrection[i].reponse.param.formatInteractif === 'longueur') {
+    } else if (formatInteractif === 'longueur') {
       const grandeurSaisie = saisieToGrandeur(saisie)
       if (grandeurSaisie) {
         if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
       } else {
-        resultat = 'essaieEncore'
+        resultat = 'essaieEncoreLongueur'
       }
-      // Pour les exercice où la saisie doit correspondre exactement à la réponse
-    } else { // Format texte
-      if (saisie === reponse) {
+      // Pour les exercice où la saisie doit être dans un intervalle
+    } else if (formatInteractif === 'intervalleStrict') {
+      const nombreSaisi = Number(saisie.replace(',', '.'))
+      if (saisie !== '' && nombreSaisi > exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi < exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
+    } else if (formatInteractif === 'intervalle') {
+      const nombreSaisi = Number(saisie.replace(',', '.'))
+      if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
+    } else if (formatInteractif === 'puissance') {
+      let nombreSaisi, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
+      // formatOK et formatKO sont deu x variables globale,
+      // sinon dans le cas où reponses est un tableau, la valeur n'est pas conservée d'un tour de boucle sur l'autre
+      // eslint-disable-next-line no-var
+      var formatOK, formatKO
+      if (saisie.indexOf('^') !== -1) {
+        nombreSaisi = saisie.split('^')
+        mantisseSaisie = nombreSaisi[0]
+        expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : ''
+        nombreAttendu = reponse.split('^')
+        mantisseReponse = nombreAttendu[0]
+        expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
+        if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
+          formatOK = true
+        }
+        // gérer le cas mantisse négative a et exposant impair e, -a^e est correct mais pas du format attendu
+        // si la mantisse attendue est négative on nettoie la chaine des parenthèses
+        if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && expoReponse % 2 === 1) {
+          if ((saisie === `${mantisseReponse.replace(/[()]/g, '')}^{${expoReponse}}`) || (saisie === `${mantisseReponse.replace(/[()]/g, '')}^${expoReponse}`)) {
+            formatKO = true
+          }
+        }
+        // si l'exposant est négatif, il se peut qu'on ait une puissance au dénominateur
+        if (parseInt(expoReponse) < 0) {
+          // Si la mantisse est positive
+          if ((saisie === `\\frac{1}{${parseInt(mantisseReponse)}^{${-expoReponse}}`) || (saisie === `\\frac{1}{${parseInt(mantisseReponse)}^${-expoReponse}}`)) {
+            formatKO = true
+          }
+        }
+      } else {
+        // Dans tous ces cas on est sûr que le format n'est pas bon
+        // Toutefois la valeur peu l'être donc on vérifie
+        nombreSaisi = saisie
+        nombreAttendu = reponse.split('^')
+        mantisseReponse = nombreAttendu[0]
+        expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
+        if (parseInt(expoReponse) < 0) {
+          // Si la mantisse est positive
+          if (nombreSaisi === `\\frac{1}{${mantisseReponse ** (-expoReponse)}}`) {
+            formatKO = true
+          }
+          // Si elle est négative, le signe - peut être devant la fraction ou au numérateur  ou au dénominateur
+          if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && ((-expoReponse) % 2 === 1)) {
+            if ((nombreSaisi === `-\\frac{1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{-1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{1}{-${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`)) {
+              formatKO = true
+            }
+          }
+        }
+        if (parseInt(expoReponse) > 0) {
+          if (nombreSaisi === `${mantisseReponse ** (expoReponse)}`) {
+            formatKO = true
+          }
+        }
+        if (parseInt(expoReponse) === 0) {
+          if (nombreSaisi === '1') {
+            formatKO = true
+          }
+        }
+      }
+      if (formatOK) {
         resultat = 'OK'
       }
+      if (formatKO) {
+        resultat = 'essaieEncorePuissance'
+      }
+      // if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
+      //   resultat = 'OK'
+      // } else {
+      //   resultat = 'KO'
+      // }
     }
   }
   if (resultat === 'OK') {
     spanReponseLigne.innerHTML = '😎'
     spanReponseLigne.style.fontSize = 'large'
-  } else if (resultat === 'essaieEncore') {
-    spanReponseLigne.innerHTML = '<em>Il faut saisir une longueur et une unité (cm par exemple).</em>'
+  } else if (resultat === 'essaieEncoreLongueur') {
+    spanReponseLigne.innerHTML = '<em>Il faut saisir une valeur numérique et une unité (cm ou cm² par exemple).</em>'
+    spanReponseLigne.style.color = '#f15929'
+    spanReponseLigne.style.fontWeight = 'bold'
+  } else if (resultat === 'essaieEncorePuissance') {
+    spanReponseLigne.innerHTML = '<br><em>Attention, la réponse est mathématiquement correcte mais n\'a pas le format demandé.</em>'
     spanReponseLigne.style.color = '#f15929'
     spanReponseLigne.style.fontWeight = 'bold'
   } else {
     spanReponseLigne.innerHTML = '☹️'
     spanReponseLigne.style.fontSize = 'large'
   }
-  if (resultat !== 'essaieEncore') champTexte.readOnly = true
+  if (resultat !== 'essaieEncoreLongueur') champTexte.readOnly = true
+
   return resultat
 }
 
@@ -288,9 +423,9 @@ function verifQuestionListeDeroulante (exercice, i) {
   return resultat
 }
 
-export const choixDeroulant = (exercice, i, c, choix) => {
+export const choixDeroulant = (exercice, i, c, choix, type = 'nombre') => {
   let result = `<select class="ui fluid dropdown ex${exercice.numeroExercice}" id="ex${exercice.numeroExercice}Q${i}" data-choix="${c}">
-    <option> Choisir un nombre</option>`
+    <option> Choisir ${type === 'nombre' ? 'un nombre' : 'une réponse'} </option>`
   for (const a of choix) {
     result += `<option>${a}</option>`
   }
@@ -409,6 +544,7 @@ export function propositionsQcm (exercice, i) {
   let texte = ''
   let texteCorr = ''
   let espace = ''
+  let nbCols = 1; let vertical = false
   if (context.isAmc) return { texte: '', texteCorr: '' }
   if (context.isHtml) {
     espace = '&emsp;'
@@ -417,46 +553,68 @@ export function propositionsQcm (exercice, i) {
   }
   // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
   if (exercice.autoCorrection[i].options !== undefined) {
+    vertical = exercice.autoCorrection[i].options.vertical // est-ce qu'on veut une présentation en colonnes ?
+    nbCols = exercice.autoCorrection[i].options.nbCols > 1 ? exercice.autoCorrection[i].options.nbCols : 1 // Nombre de colonnes avant de passer à la ligne
     if (!exercice.autoCorrection[i].options.ordered) {
       exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions, exercice.autoCorrection[i].options.lastChoice)
     }
   } else { // Si les options ne sont pas définies, on mélange
     exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions)
   }
-  if (elimineDoublons(exercice.autoCorrection[i].propositions)) {
-    console.log('doublons trouvés')
-  }
-  if (!context.isAmc) {
-    if (context.isHtml) {
-      texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
-    } else {
-      texte += '<br>'
+  // if (elimineDoublons(exercice.autoCorrection[i].propositions)) {
+  // }
+  if (context.isHtml) {
+    texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
+    texte += '<table>\n\t'
+    if (vertical) {
+      texte += '<tr>\n\t'
     }
-    for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
-      if (context.isHtml && exercice.interactif) {
+  } else {
+    texte += `\n\n\\begin{multicols}{${nbCols}}\n\t`
+  }
+  for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
+    if (context.isHtml) {
+      if (vertical && (rep % nbCols === 0) && rep > 0) {
+        texte += '</tr>\n<tr>\n'
+      }
+      texte += '<td>\n'
+      if (exercice.interactif) {
         texte += `<div class="ui checkbox ex${exercice.numeroExercice} monQcm">
             <input type="checkbox" tabindex="0" class="hidden" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
             <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
           </div>`
       } else {
-        texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '</td>\n'
+        if (nbCols > 1 && vertical) {
+          texte += '\n\t'
+        }
       }
       if (exercice.autoCorrection[i].propositions[rep].statut) {
         texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
       } else {
         texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
       }
-      if (exercice.autoCorrection[i].options !== undefined) {
-        if (exercice.autoCorrection[i].options.vertical) {
-          texte += '<br>'
-          texteCorr += '<br>'
-        }
+    } else {
+      texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+      if (nbCols > 1 && vertical) {
+        texte += '\\\\\n\t'
+      }
+      if (exercice.autoCorrection[i].propositions[rep].statut) {
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+      } else {
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
       }
     }
-    if (context.isHtml) {
-      texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-      texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
+  }
+  if (context.isHtml) {
+    if (vertical) {
+      texte += '</tr>\n\t'
     }
+    texte += '</table>\n\t'
+    texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
+  } else {
+    texte += '\\end{multicols}'
   }
   return { texte: texte, texteCorr: texteCorr }
 }
@@ -627,25 +785,52 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres 
   }
 }
 
+export function ajouteChampFractionMathLive (exercice, i, numerateur = false, denominateur = 100, style = '', { texte = '', texteApres = '' } = {}) {
+  let code = ''
+  if (context.isHtml && exercice.interactif) {
+    code += `<label>${texte}</label><table style="border-collapse:collapse;text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;"><tr><td style="padding:0px 0px 5px;margin:0px;border-bottom:1px solid #000;">`
+    if (!numerateur) {
+      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}Num"></math-field></span>`
+    } else {
+      code += `${numerateur} `
+    }
+    code += '</td></tr><tr><td style="padding:0px;margin:0px;">'
+    if (!denominateur) {
+      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}Den"></math-field>`
+    } else {
+      code += `${denominateur}`
+    }
+    code += `</td></tr></table> ${texteApres ? '<span>' + texteApres + '</span>' : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    return code
+  } else {
+    return ''
+  }
+}
 /**
  * Précise la réponse attendue
  * @param {'objet exercice'} exercice
  * @param {'numero de la question'} i
  * @param {'array || number'} a
  */
-export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, formatInteractif = 'calcul' } = {}) {
+
+export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, baseNbChiffres, milieuIntervalle, formatInteractif = 'calcul' } = {}) {
   let reponses = []
+
   if (Array.isArray(valeurs)) { // J'ai remis ici une condition non negative.
     reponses = valeurs // reponses contient donc directement le tableau valeurs
     // si valeur est un tableau ou prend le signe de la première valeur
-    if (valeurs[0].num !== undefined) {
-      signe = (valeurs[0].signe === -1) // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
+    if (valeurs[0].num === undefined) {
+      signe = valeurs[0] < 0 ? true : signe // on teste si elle est négative, si oui, on force la case signe pour AMC
     } else {
-      signe = (valeurs[0] < 0) // sinon, on teste si elle est négative.
+      signe = valeurs[0].signe === -1 ? true : signe // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
     }
   } else {
     reponses = [valeurs] // ici, valeurs n'est pas un tableau mais on le met dans reponses sous forme de tableau
-    signe = (valeurs < 0) // Si la valeur est négative, alors signe devient true.
+    if (valeurs.num === undefined) {
+      signe = valeurs < 0 ? true : signe // on teste si elle est négative, si oui, on force la case signe pour AMC
+    } else {
+      signe = valeurs.signe === -1 ? true : signe // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
+    }
   }
   if (exercice.autoCorrection[i] === undefined) {
     exercice.autoCorrection[i] = {}
@@ -653,7 +838,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   if (exercice.autoCorrection[i].reponse === undefined) {
     exercice.autoCorrection[i].reponse = {}
   }
-  exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx, formatInteractif: formatInteractif }
+  exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx, aussiCorrect: aussiCorrect, digitsNum: digitsNum, digitsDen: digitsDen, basePuissance: basePuissance, exposantPuissance: exposantPuissance, milieuIntervalle: milieuIntervalle, baseNbChiffres: baseNbChiffres, formatInteractif: formatInteractif }
   exercice.autoCorrection[i].reponse.valeur = reponses
 }
 
@@ -740,6 +925,56 @@ export function exerciceMathLive (exercice) {
   })
 }
 
+/**
+ * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
+ * on vérifie la présence du bouton de validation d'id btnValidationEx{i} créé par listeQuestionsToContenu
+ * et on y ajoute un listenner pour vérifier les réponses saisies dans les math-field
+ * Si le bouton n'existe pas on le crée
+ * @param {object} exercice
+ */
+export function exerciceNonInteractif (exercice) {
+  document.addEventListener('exercicesAffiches', () => {
+    if (getVueFromUrl() === 'can') {
+      gestionCan(exercice)
+    }
+
+    if (getVueFromUrl() === 'eval') {
+      const divAffichageExo = document.querySelector(`#exercice${exercice.numeroExercice}`)
+
+      const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
+      button.innerHTML = 'Voir la correction pour s\'auto-corriger'
+      button.style.margin = '1em'
+
+      let divMsg = document.querySelector(`#msgExNonIteractif${exercice.numeroExercice}-${exercice.id}`)
+      if (!divMsg) divMsg = addElement(divAffichageExo, 'div', { className: '', id: `msgExNonIteractif${exercice.numeroExercice}-${exercice.id}` })
+      divMsg.innerHTML = 'Cet exercice n’est pas interactif, faites-le au brouillon avant de vous auto-corriger.'
+      divMsg.style.color = '#f15929'
+      divMsg.style.fontWeight = 'bold'
+      divMsg.style.fontSize = 'x-large'
+      divMsg.style.display = 'block'
+      divMsg.style.margin = '1em'
+
+      if (button) {
+        if (!button.hasMathaleaListener) {
+          button.addEventListener('click', event => {
+            // Ici on met 1 bonne réponse dans tous les cas car les exos ne sont pas interactifs
+            // Cela signifie que l'exo a été visualisé
+            // À améliorer pour l'enregistrement dans le fichier de scores
+            const nbBonnesReponses = 1
+            const nbMauvaisesReponses = 0
+            const besoinDe2eEssai = false
+            if (!besoinDe2eEssai) {
+              button.classList.add('disabled')
+              afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
+            }
+          })
+          button.hasMathaleaListener = true
+        }
+      }
+    }
+  })
+}
+
 // function neTientCompteQueDuDernierMembre (texte) {
 //   const i = texte.lastIndexOf('=')
 //   if (i > -1) {
@@ -780,10 +1015,10 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   if (context.duree) {
     // duree = getDureeFromUrl() // Pour quand ce sera fait
     duree = 'à venir'
-    console.log('context duree : ' + duree)
+    // console.log('context duree : ' + duree)
   } else {
     duree = 'à venir'
-    console.log('pas context duree : ' + duree)
+    // console.log('pas context duree : ' + duree)
   }
   // const str = window.location.href
   // const url = new URL(str)
@@ -841,6 +1076,28 @@ function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
 }
 
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
+  if (context.vue === 'exMoodle') {
+    const hauteurExercice = window.document.querySelector('section').scrollHeight + 20
+    const scoreRetenu = (score) => {
+      const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
+      return scoreAcceptes.reduce((prev, curr) => {
+        return (Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev)
+      })
+    }
+    const score = scoreRetenu(nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100)
+    window.parent.postMessage({ score, hauteurExercice }, '*')
+    try {
+      for (let i = 0; i < exercice.nbQuestions; i++) {
+        window.sessionStorage.setItem(`reponse${i}` + context.graine, document.getElementById(`champTexteEx0Q${i}`).value)
+      }
+      window.sessionStorage.setItem('isValide' + context.graine, true)
+    } catch (error) {
+      console.log('Réponse non sauvegardée')
+    }
+  } else {
+    // Envoie un message post avec le nombre de réponses correctes
+    window.parent.postMessage({ url: window.location.href, graine: context.graine, titre: exercice.titre, nbBonnesReponses: nbBonnesReponses, nbMauvaisesReponses: nbMauvaisesReponses }, '*')
+  }
   if (context.timer) {
     clearInterval(context.timer)
     // ToDo à sauvegarder dans les résultats
@@ -856,6 +1113,10 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   divScore.style.fontWeight = 'bold'
   divScore.style.fontSize = 'x-large'
   divScore.style.display = 'inline'
+  // Si l'exercice n'est pas interactif on n'affiche pas la div pour le score
+  if (exercice.interactifType === undefined) {
+    divScore.style.display = 'none'
+  }
   if (context.vue === 'eval') {
     const divCorr = get(`divexcorr${exercice.numeroExercice}`)
     divCorr.style.display = 'block'
@@ -896,7 +1157,6 @@ export function afficheScoreCan (exercice, nbBonnesReponses, nbMauvaisesReponses
   document.getElementById('btnMenuexercice0Q0').click()
   isUserIdOk(exercice, nbBonnesReponses, nbMauvaisesReponses)
 }
-
 const exercicesEvalRestants = () => document.querySelectorAll('[id ^= "btnEx"].circular.ui.button:not(.green):not(.red)')
 const exercicesCanRestants = () => document.querySelectorAll('[id ^= "btnMenuexercice"].circular.ui.button:not(.green):not(.red)')
 const exercicesCanDispoApres = () => {

@@ -30,6 +30,7 @@ export default function FractionDUnNombre () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const listeFractions = [
       [1, 2],
       [1, 3],

@@ -49,8 +49,10 @@ export default function CalculsImagesFonctions () {
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let sousChoix
-    if (!this.sup2) {
+    if (parseInt(this.sup2) === 1) {
       sousChoix = combinaisonListes(rangeMinMax(0, 1), this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
+    } else if (parseInt(this.sup2) === 2) {
+      sousChoix = combinaisonListes(rangeMinMax(2, 4), this.nbQuestions)
     } else {
       sousChoix = combinaisonListes(rangeMinMax(0, 4), this.nbQuestions)
     }
@@ -67,7 +69,7 @@ export default function CalculsImagesFonctions () {
           switch (sousChoix[i]) {
             case 0:
               enonce = `Soit $f$ la fonction définie par $f(x)=\\dfrac{${m}}{${n}}x$. ${sp(5)} Quelle est l'image de $${n * x}$ ?<br>`
-              correction = `$f(x)=\\dfrac{${m}}{${n}}x$ donc ici on a : $f(${x})=\\dfrac{${m}}{${n}} \\times ${ecritureParentheseSiNegatif(n * x)}=\\dfrac{${m * x * n}}{${n}}=${m * x}$`
+              correction = `$f(x)=\\dfrac{${m}}{${n}}x$ donc ici on a : $f(${n * x})=\\dfrac{${m}}{${n}} \\times ${ecritureParentheseSiNegatif(n * x)}=\\dfrac{${m * x * n}}{${n}}=${m * x}$`
               ant = n * x
               tagImage = true
               reponses[i] = m * x
@@ -220,7 +222,6 @@ export default function CalculsImagesFonctions () {
       } else {
         texteCorr = correction + '<br>' + `$f(${miseEnEvidence(texNombre(reponses[i]))})=${img}$`
       }
-      console.log(listeTypeDeQuestions[i], sousChoix[i])
       setReponse(this, i, reponses[i])
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
@@ -250,5 +251,5 @@ export default function CalculsImagesFonctions () {
     5,
     '1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynome de degré 2 \n4 : Fonction rationnelle \n5 : Mélange'
   ]
-  this.besoinFormulaire2CaseACocher = ["Avec des calculs d'antécédents aussi", false]
+  this.besoinFormulaire2Numerique = ['Choix des questions', 3, "1 : Calcul d'image\n2 : Calcul d'antécédent (uniquement pour linéaire et affine)\n3 : Mélange"]
 }

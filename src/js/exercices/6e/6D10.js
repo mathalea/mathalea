@@ -26,7 +26,7 @@ export default function ConversionsDeDurees () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
+    this.autoCorrection = []
     const listeSousTypeDeQuestionV1 = combinaisonListes(
       [1, 2, 3, 4],
       this.nbQuestions

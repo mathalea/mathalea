@@ -1,8 +1,7 @@
 import Exercice from '../Exercice.js'
 import { courbe, repere, mathalea2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite, ecritureAlgebrique, texRacineCarree, ecritureParentheseSiNegatif, calcul, texNombrec, lettreMinusculeDepuisChiffre, texNombre, miseEnEvidence } from '../../modules/outils.js'
-import { calcule } from '../../modules/fonctionsMaths.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite, ecritureAlgebrique, texRacineCarree, ecritureParentheseSiNegatif, calcul, lettreMinusculeDepuisChiffre, texNombre } from '../../modules/outils.js'
 import { simplify, floor } from 'mathjs'
 
 const EgalEnviron = (v, d = 3) => ((Math.abs(v) * 10 ** d) % 1 > 0 ? '\\approx' : '=') + texNombre(calcul(v, 3))
@@ -12,7 +11,7 @@ export const titre = 'Etude d’une parabole'
 /**
  * @author Eric Schrafstetter
  */
-export default function Trouver_equation_parabole () {
+export default function TrouverEquationDeParabole () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Etude d’une parabole'
@@ -24,16 +23,15 @@ export default function Trouver_equation_parabole () {
   this.correctionDetailleeDisponible = true
 
   this.nouvelleVersion = function () {
-    const pixelsParCm = 20
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let listeTypeDeQuestions, typesDeQuestionsDisponibles
+    let typesDeQuestionsDisponibles
     if (this.sup < 4) typesDeQuestionsDisponibles = [parseInt(this.sup)]
     else typesDeQuestionsDisponibles = [1]
-    const f_name = []; let Ymin; let Yscale; let Ymax
-    listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, a, b, c, P, xs, ys, x, y, Psimp, d, x1, x2, x3, f, r, svgYmin, svgYmax, F, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      f_name.push(lettreMinusculeDepuisChiffre(i + 6))
+    const fName = []
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    for (let i = 0, texte, texteCorr, a, b, c, P, xs, ys, x, Psimp, d, x1, x2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      fName.push(lettreMinusculeDepuisChiffre(i + 6))
       texte = 'Faire l\'étude et la représentation graphique de la parabole $P$ d\'équation :'
       switch (listeTypeDeQuestions[i]) {
         case 1 : // passe par 3 points à coordonnées entières dont -x1, 0 et x1.
@@ -46,7 +44,6 @@ export default function Trouver_equation_parabole () {
           P = `${a}*x^2${ecritureAlgebrique(b)}*x${ecritureAlgebrique(c)}`
           Psimp = `${simplify(P).toString().replaceAll('*', '\\times ')}`
           P = P.replaceAll('*', '\\times ')
-          f = x => calcule(a * x ** 2 + b * x + c)
           texte = `$P : y = ${Psimp}$`
 
           texteCorr = `Le coefficient $a=${a}$ devant le terme en $x^2$ est ${['négatif', 'positif'][1 * (a > 0)]}, la parabole $P$ a donc ses branches dirigées vers le ${['bas', 'haut'][1 * (a > 0)]}`
@@ -55,7 +52,7 @@ export default function Trouver_equation_parabole () {
           if (d > 0) {
             x1 = (-b - Math.sqrt(d)) / 2 / a
             x2 = (-b + Math.sqrt(d)) / 2 / a
-            if (c == 0) {
+            if (c === 0) {
               texteCorr += `<br>On peut factoriser l'expression en : $x(${a}\\times x${ecritureAlgebrique(b)})=0$`
               texteCorr += '<br>On en déduit que la parabole $P$ coupe l\'axe des abscisses en '
               texteCorr += `$x_1=0$ et $x_2=${texFractionReduite(-b, a)}$`
@@ -66,7 +63,7 @@ export default function Trouver_equation_parabole () {
               texteCorr += `$x=\\dfrac{${ecritureAlgebrique(-b)}-${texRacineCarree(d)}}{2\\times ${ecritureParentheseSiNegatif(a)}}${EgalEnviron(x1)}$`
               texteCorr += ` et $x=\\dfrac{${ecritureAlgebrique(-b)}+${texRacineCarree(d)}}{2\\times ${ecritureParentheseSiNegatif(a)}}${EgalEnviron(x2)}$`
             }
-          } else if (d == 0) {
+          } else if (d === 0) {
             texteCorr += `<br>Il n'y a qu'une solution donnée par $x=${texFractionReduite(-b, 2 * a)}$`
           } else {
             texteCorr += `<br>C'est une équation du second degré : $${P}=0$ avec $a=${a}$, $b=${b}$ et $c=${c}$`
@@ -88,7 +85,7 @@ export default function Trouver_equation_parabole () {
         texteCorr += '<br>Cherchons les images d\'abscisses à gauche et à droite du sommet :'
         for (let k = -3; k < 4; k++) {
           x = floor(-b / 2 / a) + k
-          points.push([k == 0 ? `x_S${EgalEnviron(-b / 2 / a)}` : x, k == 0 ? `y_S${EgalEnviron(-d / 4 / a)}` : g(x)])
+          points.push([k === 0 ? `x_S${EgalEnviron(-b / 2 / a)}` : x, k === 0 ? `y_S${EgalEnviron(-d / 4 / a)}` : g(x)])
         }
       } else { // on a le sommet et les 2 racines x1 et x2. On ajoute 2 points avant x1 et 2 points après x2
         const xmin = Math.min(x1, x2)

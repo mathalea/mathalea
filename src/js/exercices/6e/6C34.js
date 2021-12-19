@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { randint, listeQuestionsToContenu, combinaisonListes, texteGras } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
-export const titre = 'Dernier chiffre d’un calcul'
+export const titre = 'Déterminer le dernier chiffre d’un calcul'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'numerique'
@@ -15,7 +15,7 @@ export const amcType = 'AMCNum' // Question numérique
 * 6C34
 */
 
-export default function dernierChiffre () {
+export default function DernierChiffre () {
   Exercice.call(this)
   this.sup = 3
   this.titre = titre
@@ -24,7 +24,7 @@ export default function dernierChiffre () {
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
   this.nbCols = 2 // Le nombre de colonnes dans l'énoncé LaTeX
   this.nbColsCorr = 2// Le nombre de colonne pour la correction LaTeX
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.video = '' // Id YouTube ou url
@@ -43,6 +43,7 @@ export default function dernierChiffre () {
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     let typeDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['somme']

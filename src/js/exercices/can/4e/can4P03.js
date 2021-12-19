@@ -1,6 +1,6 @@
 import { calcul, choice, randint, tableauColonneLigne, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Quatrième proportionnelle'
+export const titre = 'Calculer une quatrième proportionnelle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,7 +14,7 @@ export const amcType = 'AMCNum'
 export default function QuatriemeProportionnelle () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur25 inline'
+  this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.nouvelleVersion = function () {
     const a = randint(1, 6)

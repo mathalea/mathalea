@@ -15,7 +15,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.spacing = 4
   this.spacingCorr = 4
@@ -23,6 +23,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const typesDeQuestionsDisponibles = ['type1']// , 'type2', 'type3']; // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"

@@ -23,17 +23,15 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
   this.sup2 = false // écriture simplifiée
   this.consigne = 'Calculer :'
   this.spacing = 2
-  this.qcmDisponible = true
   this.modeQcm = false
   this.sup3 = false
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.modeQcm = this.sup3
-    if (!context.isHtml) this.modeQcm = this.interactif
-    this.interactifType = this.modeQcm ? 'qcm' : 'mathLive'
+    this.interactifType = this.sup3 ? 'qcm' : 'mathLive'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     for (let i = 0, a, b, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(1, this.sup)
       b = randint(1, this.sup)
@@ -68,7 +66,7 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
           statut: false
         }
       ]
-      if (this.modeQcm) {
+      if (this.sup3) {
         texte += propositionsQcm(this, i).texte
       } else {
         texte = texte.replace('\\dotfill $', '$' + ajouteChampTexteMathLive(this, i))

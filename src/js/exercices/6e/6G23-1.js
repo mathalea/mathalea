@@ -30,6 +30,7 @@ export default function MesurerUnAngle () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     let angle; let anglerot; let Apos; let Bpos; let Cpos; let p; let texte; let texteCorr; let A; let B; let C; let s2; let s1; let bis; const signes = []
     let labels, secteur, xMin, xMax, yMin, yMax, objetsEnonce, objetsCorrection, secteur0

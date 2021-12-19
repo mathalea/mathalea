@@ -1,9 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, miseEnEvidence } from '../../modules/outils.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
-export const titre = 'Rapport de deux longueurs sur un segment'
+export const titre = 'Exprimer le rapport de deux longueurs sur un segment'
 
 /**
  * * Exprimer un rapport de longueurs sur un segment
@@ -40,8 +40,8 @@ export default function RapportsSurUnSegment () {
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -53,6 +53,29 @@ export default function RapportsSurUnSegment () {
           return singulier
         };
       };
+
+      // Une fonction pour l'étape de simplification si rapport différent de 1
+      function etapeSimp (n, m) {
+        let sortie
+        const rapport = fraction(n, m).num / fraction(n, m).numIrred
+        if (rapport !== 1) {
+          sortie = `\\dfrac{${fraction(n, m).numIrred} ${miseEnEvidence(`\\times ${fraction(n, m).num / fraction(n, m).numIrred}`)}}{${fraction(n, m).denIrred}${miseEnEvidence(`\\times ${fraction(n, m).num / fraction(n, m).numIrred}`)}}\\mathbf{=}${fraction(n, m).texFractionSimplifiee}`
+        } else {
+          sortie = `${fraction(n, m).texFractionSimplifiee}`
+        }
+        return sortie
+      }
+
+      function Remarque (rapAlph, rapAlphI, n, m) {
+        let sortie
+        const rapport = fraction(n, m).num / fraction(n, m).numIrred
+        if (rapport !== 1) {
+          sortie = `Remarque : Nous verrons plus tard que $${rapAlph}=${etapeSimp(fraction(n, m).num, fraction(n, m).den)}$ et que $${rapAlphI}=${etapeSimp(fraction(m, n).num, fraction(m, n).den)}$<br>`
+        } else {
+          sortie = ''
+        }
+        return sortie
+      }
 
       // on choisit deux entiers pour former les fractions
       const entierMax = 9
@@ -150,10 +173,9 @@ export default function RapportsSurUnSegment () {
           Le segment $${situations[k].segment_corr1}$ compte $${situations[k].m_color_corr}$ ${singPlur(situations[k].m, 'graduation', 'graduations')}.<br>
           ${situations[k].fig_corr2}<br>
           Le segment $${situations[k].segment_corr2}$ compte $${situations[k].n_color_corr}$ ${singPlur(situations[k].n, 'graduation', 'graduations')}.<br><br>
-          Donc $\\dfrac{${situations[k].longueur_corr2}}{${situations[k].longueur_corr1}}=\\dfrac{${situations[k].n_color_corr}}{${situations[k].m_color_corr}}$
-          et $\\dfrac{${situations[k].longueur_corr1}}{${situations[k].longueur_corr2}}=\\dfrac{${situations[k].m_color_corr}}{${situations[k].n_color_corr}}$<br><br>
-          $\\textbf{D'où $\\mathbf{${situations[k].rapport}=}${fraction(situations[k].n, situations[k].m).texFractionSimplifiee}$ et $\\mathbf{${situations[k].rapport_inverse}=}${fraction(situations[k].m, situations[k].n).texFractionSimplifiee}$}$<br>
-
+          $\\textbf{Donc}$ $\\mathbf{\\dfrac{${situations[k].longueur_corr2}}{${situations[k].longueur_corr1}}=\\dfrac{${situations[k].n_color_corr}}{${situations[k].m_color_corr}}}$
+          $\\textbf{et}$ $\\mathbf{\\dfrac{${situations[k].longueur_corr1}}{${situations[k].longueur_corr2}}=\\dfrac{${situations[k].m_color_corr}}{${situations[k].n_color_corr}}}$<br><br>      
+          ${Remarque(situations[k].rapport, situations[k].rapport_inverse, situations[k].n, situations[k].m)}
 `
         })
       };

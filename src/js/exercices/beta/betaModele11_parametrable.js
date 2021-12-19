@@ -2,11 +2,14 @@ import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Nom de l\'exercice'
 
+// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
+export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+
 /**
  * Description didactique de l'exercice
  * @author
  * Référence
- * Date de publication
 */
 export default function NomExercice () {
   Exercice.call(this)
@@ -20,12 +23,13 @@ export default function NomExercice () {
 
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.video = ''
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
 
     this.sup = parseInt(this.sup) // Lorsqu'il est récupéré de l'url, le paramètre peut être un texte, dans le doute on le convertit en nombre
 

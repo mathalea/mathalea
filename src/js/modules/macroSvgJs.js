@@ -11,7 +11,7 @@ import { context } from './context.js'
  * @param {number} h hauteur du conteneur
  * @author Sébastien Lozano
  */
-export function SVG_engrenages (id_du_div, w, h) {
+export function svgEngrenages (id_du_div, w, h) {
   'use strict'
   if (context.isHtml) {
     if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
@@ -45,7 +45,7 @@ export function SVG_engrenages (id_du_div, w, h) {
  * @param {array} etapesExpressions tableau contenant les opérations et les expressions algébriques des étapes
  * @author Sébastien Lozano
  */
-export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, xAnt, etapesExpressions) {
+export function SvgMachineDiag3F12 (id_du_div, w, h, nom, xAnt, etapesExpressions) {
   'use strict'
   const interligne = 10// w/80; //h/10; // unité d'espacement
   if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
@@ -193,7 +193,7 @@ export function SVG_chemin (groupe, chemin, couleur) {
    * @param {array} etapesExpressions tableau contenant les opérations et les expressions algébriques des étapes
    * @author Sébastien Lozano
    */
-export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, xAnt, etapesExpressions) {
+export function SvgMachineDiag3F1ActMono (id_du_div, w, h, nom, xAnt, etapesExpressions) {
   'use strict'
   const interligne = 10// w/80; //h/10; // unité d'espacement
   if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé

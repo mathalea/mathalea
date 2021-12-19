@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'// eslint-disable-next-line camelcase
 import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebriqueSauf1, ecritureAlgebrique, rienSi1, texFraction, texFractionReduite, randint, pgcd, choice } from '../../modules/outils.js'
 export const titre = 'Équations du second degré se ramenant au premier degré'
 
@@ -21,7 +20,7 @@ export default function ExerciceEquations () {
   this.nbColsCorr = 1
   this.sup = 4
   this.spacingCorr = 3
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {

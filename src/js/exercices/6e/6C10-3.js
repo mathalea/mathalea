@@ -7,7 +7,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcType = 'qcmMono' // type de question AMC
 
-export const titre = 'Tables de multiplications et nombres décimaux'
+export const titre = 'Utiliser tables de multiplications pour effectuer produits avec décimaux'
 
 /**
  * Multiplier deux nombres décimaux
@@ -23,7 +23,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
   this.titre = titre
   this.consigne = 'Calculer :'
   this.spacing = 2
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.nbQuestions = 10
 
   this.nouvelleVersion = function () {

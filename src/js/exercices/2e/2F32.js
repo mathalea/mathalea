@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, arrondi, texNombre, inferieurouegal, superieurouegal, texteEnCouleurEtGras, miseEnEvidence, enleveDoublonNum } from '../../modules/outils.js'
-import { antecedentInterpole, graphiqueInterpole, imageInterpolee, latexParCoordonnees, mathalea2d, point, repere2, segment, tracePoint } from '../../modules/2d.js'
+import { antecedentInterpole, graphiqueInterpole, imageInterpolee, mathalea2d, point, repere2, segment, texteParPosition, tracePoint } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Lecture graphique'
@@ -23,7 +23,7 @@ export default function LecturesGraphiques () {
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
@@ -37,7 +37,7 @@ export default function LecturesGraphiques () {
     let antecedentTrouve
     let enonceAMC = ''
     const reponses = []
-    const origine = latexParCoordonnees('O', -0.5, -0.5, 'black', 10, 10, '')
+    const origine = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1, 'middle', true)
     let antecedents = []
     let s = []
     const r = repere2({
@@ -273,7 +273,7 @@ export default function LecturesGraphiques () {
               statut: '',
               reponse: {
                 texte: '',
-                valeur: reponses[i],
+                valeur: [reponses[i]],
                 param: {
                   digits: 1,
                   decimals: 0,
@@ -292,7 +292,7 @@ export default function LecturesGraphiques () {
               statut: '',
               reponse: {
                 texte: '',
-                valeur: reponses[i],
+                valeur: [reponses[i]],
                 param: {
                   digits: 2,
                   decimals: 1,

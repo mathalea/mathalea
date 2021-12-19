@@ -1,15 +1,19 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { arrondi, choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleur } from '../../modules/outils.js'
-import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, symetrieAnimee, symetrieAxiale, texteParPoint, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
+import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, symetrieAnimee, symetrieAxiale, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
-export const titre = 'Symétries axiales en pavage triangulaire'
+export const titre = 'Utiliser des symétries axiales en pavage triangulaire'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
 export const amcType = 'qcmMono'
 
-export default function betaExoPavage6e () {
+/**
+* Relecture : Novembre 2021 par EE
+*/
+
+export default function SymetrieAxialePavageTriangulaire () {
   'use strict'
   Exercice.call(this)
   this.titre = 'Symétrie axiale dans un pavage de triangles équilatéraux'
@@ -29,8 +33,8 @@ export default function betaExoPavage6e () {
   this.interactifReady = interactifReady
   this.amcType = amcType
   this.interactifType = interactifType
-  
-  // on Choisit trois axes parmis les possibilités prédéfinies... 6 types d'axes laissant le pavage invariant
+
+  // on Choisit trois axes parmi les possibilités prédéfinies... 6 types d'axes laissant le pavage invariant
   // un axe horizontal passe par les sommets 0 de deux triangles d'indices 2n et 2n+2 (sauf si 2n%14=12)
   // un axe vertical passe par les centres de gravités de deux triangles d'indice i et i+13 (sauf si i%14=0)
   // un axe parallèle à [AC] passe par les sommets 0 de deux triangles d'indices 2n et 2n+14
@@ -46,7 +50,7 @@ export default function betaExoPavage6e () {
     [[4, 5], [2, 3], [0, 1], [14, 15], [28, 29]], // axes perpendiculaires à [BC]
     [[42, 31], [43, 44], [56, 45], [57, 58], [70, 59], [71, 72]] // axes perpendiculaires à [AC]
   ]
-  // fonction qui *choisit un triangle selon le type d'axe et sa position retourne le triangle choisi, son image et des distracteurs pour un QCM
+  // fonction qui choisit un triangle selon le type d'axe et sa position retourne le triangle choisi, son image et des distracteurs pour un QCM
   const choisitTriangle = function (typeAxe, index) { // retourne {antecedent: number, image: number, distracteurs: [number]}
     let figA
     let antecedent
@@ -342,7 +346,7 @@ export default function betaExoPavage6e () {
       typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5]
     }
     const listeTypesDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, 3)
-    const couleurs = ['blue', 'green', 'red', 'grey', 'cyan', 'purple']
+    const couleurs = ['blue', 'green', 'red', 'grey', 'magenta', 'purple']
     let M
     let N
     const d = []
@@ -356,7 +360,7 @@ export default function betaExoPavage6e () {
         case 3: // axe parallèle à [BC]
           M = triAngles[axes[listeTypesDeQuestions[i]][choix][0]].tri.listePoints[0]
           N = triAngles[axes[listeTypesDeQuestions[i]][choix][1]].tri.listePoints[0]
-          d[i] = droite(M, N, `(d_${i + 1})`, couleurs[i])
+          d[i] = droite(M, N, `$(d_${i + 1})$`, couleurs[i])
           d[i].epaisseur = 3
           d[i].opacite = 0.6
           break
@@ -365,7 +369,7 @@ export default function betaExoPavage6e () {
         case 5: // axe perpendicualire à [AC]
           M = triAngles[axes[listeTypesDeQuestions[i]][choix][0]].gra
           N = triAngles[axes[listeTypesDeQuestions[i]][choix][1]].gra
-          d[i] = droite(M, N, `(d_${i + 1})`, couleurs[i])
+          d[i] = droite(M, N, `$(d_${i + 1})$`, couleurs[i])
           d[i].epaisseur = 3
           d[i].opacite = 0.6
           break
@@ -384,8 +388,8 @@ export default function betaExoPavage6e () {
     }
     this.introduction = mathalea2d(paramsEnonce, objetsEnonce)
     for (let i = 0; i < this.nbQuestions; i++) {
-      texte = `${texteEnCouleur("Quelle est l'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe $" + d[i].nom + '$ ?', couleurs[i])}`
-      texteCorr = `${texteEnCouleur("L'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe $" + d[i].nom + '$ est la figure ' + question[i].image + '.', couleurs[i])}`
+      texte = `${texteEnCouleur("Quelle est l'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + d[i].nom + ' ?', couleurs[i])}`
+      texteCorr = `${texteEnCouleur("L'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + d[i].nom + ' est la figure ' + question[i].image + '.', couleurs[i])}`
       this.autoCorrection[i] = {
         enonce: texte,
         propositions: [{
@@ -423,6 +427,6 @@ export default function betaExoPavage6e () {
       }
     }
   }
-  this.besoinFormulaireNumerique = ['Choix des axes :', 2, '1 : Axe horizontal\n2 : Axe vertical']
+  this.besoinFormulaireNumerique = ['Nombre d\'axes de symétrie ', 2, '1 : 3\n2 : 6']
   this.besoinFormulaire2Texte = ['Échelle de la figure (nombre avec un point comme séparateur décimal)']
 }

@@ -24,6 +24,7 @@ export default function ImageGraphique () {
   this.spacing = 1
   context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
   this.nbQuestions = 1
+  this.pointsParQuestions = 3
   this.nbQuestionsModifiable = false
   this.dimensionsDivMg32 = [800, 600]
   this.pasDeVersionLatex = false
@@ -74,7 +75,7 @@ export default function ImageGraphique () {
         x3 = randint(1, 6)
         fx1 = randint(-5, 5)
         fx3 = randint(-6, 6, c)
-        [[numa, dena], [numb, denb]] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
+        ;[[numa, dena], [numb, denb]] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
       }
       a = numa / dena
       b = numb / denb
@@ -176,9 +177,9 @@ export default function ImageGraphique () {
         setReponse(this, 0, f(x1))
         setReponse(this, 1, f(x1))
       } else {
-        texte += `$f(${x1})=$` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
-        texte += `$f(${x2})=$` + ajouteChampTexteMathLive(this, 1, 'largeur25 inline')
-        texte += `$f(${x3})=$` + ajouteChampTexteMathLive(this, 2, 'largeur25 inline')
+        texte += `<br><br>$f(${x1})=$` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texte += `<br><br>$f(${x2})=$` + ajouteChampTexteMathLive(this, 1, 'largeur25 inline')
+        texte += `<br><br>$f(${x3})=$` + ajouteChampTexteMathLive(this, 2, 'largeur25 inline')
         setReponse(this, 0, f(x1))
         setReponse(this, 1, f(x2))
         setReponse(this, 2, f(x3))

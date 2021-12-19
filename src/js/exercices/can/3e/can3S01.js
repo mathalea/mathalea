@@ -1,7 +1,7 @@
 import { fraction } from '../../../modules/fractions'
 import { randint, choice } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Calcul de probabilité simple'
+export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -23,7 +23,8 @@ export default function CalculProbaSimple () {
     const a = randint(3, 10)
     const k = choice([1, 3, 4, 9])
     const parfum1 = choice(parfums)
-    const parfum2 = choice(parfums, parfum1)
+    let parfum2 = choice(parfums)
+    while (parfum1 === parfum2) { parfum2 = choice(parfums) }
     this.reponse = fraction(1, k + 1)
     this.question = `Un sachet de bonbons contient ${a} bonbons ${parfum1} et ${k * a} bonbons ${parfum2}.<br>
      On choisit un bonbon au hasard. <br>

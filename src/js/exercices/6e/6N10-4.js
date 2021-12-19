@@ -4,9 +4,10 @@ import { listeQuestionsToContenu, randint, choice, texNombre } from '../../modul
 export const titre = 'Écrire correctement les grands nombres entiers'
 
 /**
- * 6N10-4
  * Supprimer les zéros inutiles, séparer les classes d'un nombre entier.
  * @author Jean-Claude Lhote
+ * 6N10-4
+ * Relecture : Novembre 2021 par EE
  */
 export default function EcrireNombresEntiersFormates () {
   Exercice.call(this)
@@ -18,6 +19,7 @@ export default function EcrireNombresEntiersFormates () {
     this.consigne = 'Écrire les nombres en chiffres en supprimant les zéros inutiles et en séparant les classes.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     function zeroSuperflus (n) {
       const nzero = randint(0, 2); let nombrestring = n.toString()
       for (let k = 0; k < nzero; k++) nombrestring = '0' + nombrestring
@@ -46,8 +48,8 @@ export default function EcrireNombresEntiersFormates () {
       nombrestring = zeroSuperflus(nombre)
       if (!context.isDiaporama) texte = `$${nombrestring}$ : \\dotfill`
       else texte = `$${nombrestring}$`
-      if (!context.isDiaporama) texteCorr = `$${nombrestring}=${texNombre(nombre)}$.`
-      else texteCorr = `${texNombre(nombre)}.`
+      if (!context.isDiaporama) texteCorr = `$${nombrestring}=${texNombre(nombre)}$`
+      else texteCorr = `${texNombre(nombre)}`
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
@@ -58,6 +60,4 @@ export default function EcrireNombresEntiersFormates () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
-  // this.besoinFormulaire2Numerique = ['Niveau', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
 }

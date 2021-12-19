@@ -1,6 +1,6 @@
 import { randint, texFraction } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Équation ax=b'
+export const titre = 'Résoudre une équation du type ax=b'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,14 +14,14 @@ export const amcType = 'AMCNum'
 export default function EquationAXEgalB () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.interactif = true
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 1
   this.nouvelleVersion = function () {
     const a = randint(-9, 9, [0, -1, 1]) // b peut être négatif, ça sera une équation du type x-b=c
     this.reponse = randint(-9, 9, [-1, 0, 1])
     const b = a * this.reponse
-    this.question = `Donner la solution de l'équation  $${a}x=${b}$`
+    this.question = `Donner la solution de l'équation :<br> $${a}x=${b}$`
     this.correction = `On cherche le nombre qui multiplié par $${a}$ donne $${b}$.<br>
     Il s'agit de  $x=${texFraction(b, a)}=${this.reponse}$`
   }

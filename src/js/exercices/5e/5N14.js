@@ -24,7 +24,7 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
   this.nbQuestions = 5
   this.nbColsCorr = 1
   this.sup2 = false
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -39,7 +39,7 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
       a = fraction[0] * positifOuNegatif
       b = fraction[1]
       k = randint(2, this.sup)
-      let ecart = choice([-4, -3, -2, -1, 1, 2, 3, 4])
+      let ecart = choice([-4, -3, -2, -1, 1, 2, 3, 4], [-k * a, k * a]) // On exclue -k * a pour ne pas avoir une fraction nulle
       if (k * a + ecart <= 0) {
         ecart = ecart * (-1)
       }

@@ -3,7 +3,7 @@ import { randint, calcul, choice, texNombrec, creerNomDePolygone } from '../../.
 import {
   mathalea2d, point, labelPoint, segment, codeSegments
 } from '../../../modules/2d.js'
-export const titre = 'Calcul d’une longueur avec Thalès (milieu)'
+export const titre = 'Calculer une longueur avec le théorème de Thalès (milieu)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -16,8 +16,7 @@ export const interactifType = 'mathLive'
 export default function CalculLongueurThalesMilieu () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
-  this.interactif = true
-  this.formatChampTexte = 'largeur25 inline'
+  this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -36,10 +35,11 @@ export default function CalculLongueurThalesMilieu () {
       objets.push(segment(A, B), segment(D, E), segment(A, C), segment(B, C),
         codeSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
 
-      this.question = `Sur cette figure, $(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$.<br>
-      $${nom[3]}${nom[4]}=${texNombrec(a)}$. <br>
-      Calculer $${nom[1]}${nom[2]}$.`
-      this.question += mathalea2d({ xmin: -1, ymin: -3, xmax: 8, ymax: 5, pixelsParCm: 30, mainlevee: false, amplitude: 0.5 }, objets)
+      this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et  
+      $${nom[3]}${nom[4]}=${texNombrec(a)}$.
+      Calculer $${nom[1]}${nom[2]}$.<br>
+     `
+      this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 5, pixelsParCm: 18, mainlevee: false, amplitude: 0.5, style: 'margin: auto' }, objets)
       this.correction = ` Les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$ sont 2 fois plus grandes que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
       Le triangle $${nom[0]}${nom[1]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
       Ainsi : $${nom[1]}${nom[2]}=2\\times ${nom[3]}${nom[4]}=2\\times ${texNombrec(a)}=${texNombrec(2 * a)}$.
@@ -58,10 +58,10 @@ export default function CalculLongueurThalesMilieu () {
       objets.push(segment(A, B), segment(D, E), segment(A, C), segment(B, C),
         codeSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
 
-      this.question = `Sur cette figure, $(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$.<br>
-         $${nom[1]}${nom[2]}=${texNombrec(a)}$. <br>
-         Calculer $${nom[3]}${nom[4]}$.`
-      this.question += mathalea2d({ xmin: -1, ymin: -3, xmax: 8, ymax: 5, pixelsParCm: 30, mainlevee: false, amplitude: 0.5 }, objets)
+      this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et 
+       $${nom[1]}${nom[2]}=${texNombrec(a)}$. 
+         Calculer $${nom[3]}${nom[4]}$.<br>`
+      this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 5, pixelsParCm: 18, mainlevee: false, amplitude: 0.5, style: 'margin: auto' }, objets)
       this.correction = ` Les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont 2 fois plus petites que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
       Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est une réduction du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
             Ainsi : $${nom[3]}${nom[4]}= ${nom[1]}${nom[2]} \\div 2 = ${texNombrec(a)}\\div 2 =${texNombrec(a / 2)}$.

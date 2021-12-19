@@ -22,6 +22,7 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     let typesDeQuestionsDisponibles = []
     if (!this.sup3 || this.sup3 === 'NaN') { // Si aucune liste n'est saisie
@@ -40,7 +41,7 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
       nbOperations = parseInt(listeTypeDeQuestions[i])
       val1 = randint(2, 5)
       val2 = randint(6, 9)
-      // resultats=Choisir_expression_litteraleBis(nbOperations,decimal,val1,val2)
+      // resultats=ChoisirUneExpressionLitteraleBis(nbOperations,decimal,val1,val2)
       resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup)
       // expf = resultats[0]
       expn = resultats[1]

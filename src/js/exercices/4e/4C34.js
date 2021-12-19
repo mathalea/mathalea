@@ -1,6 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { calcul, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, randint, choice, range1, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, miseEnEvidence, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const amcReady = true
 export const amcType = 'AMCOpenNum' // type de question AMC
@@ -56,6 +59,7 @@ export const titre = 'Calculs utilisant les priorités opératoires et les puiss
  * @author Mireille Gain
  * Référence 4C34
  * Date 2021-01-23
+ * Ajout de l'interactivité par Guillaume Valmont le 2021-11-20
  */
 export default function PrioritesEtRelatifsEtPuissances () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -64,7 +68,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 1
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.video = 'https://youtu.be/0G9xWLl-0zg' // Id YouTube ou url
   this.spacing = context.isHtml ? 3 : 1
   this.spacingCorr = context.isHtml ? 3 : 1
@@ -167,11 +171,16 @@ export default function PrioritesEtRelatifsEtPuissances () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
+        if (!context.isAmc && this.interactif) { // On vérifie qu'on est pas en AMC pour vérifier qu'on ne casse rien à ce qui a été fait pour AMC
+          setReponse(this, i, reponse)
+          texte += ' =' + ajouteChampTexteMathLive(this, i, 'inline largeur 25')
+        } else if (context.isAmc) {
+          this.autoCorrection[i].enonce = texte
+          this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: 3 }]
+          this.autoCorrection[i].reponse = { texte: 'résultat', valeur: reponse, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)), decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false } }
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        this.autoCorrection[i].enonce = texte
-        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: 3 }]
-        this.autoCorrection[i].reponse = { texte: 'résultat', valeur: reponse, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)), decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false } }
         i++
       }
       cpt++

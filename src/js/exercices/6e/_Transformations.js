@@ -1,7 +1,7 @@
-import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, labelPoint, segment, vecteur, texteParPosition, latexParCoordonnees, codeSegments, afficheMesureAngle, milieu, translation } from '../../modules/2d.js'
+import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, labelPoint, segment, vecteur, latexParCoordonnees, codeSegments, afficheMesureAngle, milieu, translation, texteParPositionEchelle } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -9,22 +9,21 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
- * Transformations : trouvers un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
+ * Transformations : trouver un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
  * @author Jean-Claude Lhote
  * Pas de version LaTeX
+ * Relecture : Novembre 2021 par EE
  */
 export default function Transformations () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
-
-  // this.titre = "Trouver l'image d'un point par une transformation du plan";
   this.can = false
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
-    this.sup = 1
+  this.sup = 1
   const listeTypeDeQuestions = [
     [1, 2, 3, 4],
     [1, 2, 7, 7, 7, 7],
@@ -32,19 +31,22 @@ export default function Transformations () {
     [1, 2, 5, 5, 5, 6, 6, 6, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10]
   ]
 
-  // this.sup = 1; // 1 pour les 6ème, 2 pour les 5èmes, 3 pour les 4èmes, et 4 pour les 3èmes.
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   this.nouvelleVersion = function (numeroExercice) {
     let choixTransformation, nbImages
-    if (typeof this.sup === 'number') {
-      // Si c'est un nombre c'est pour le niveau 1=6e, 4=3e
-      choixTransformation = combinaisonListes(listeTypeDeQuestions[this.sup - 1], 3)
+    if (!this.sup) { // Si aucune liste n'est saisie
+      choixTransformation = rangeMinMax(1, 3)
     } else {
-      choixTransformation = combinaisonListes(this.sup.split('-'), 3) // Sinon on créé un tableau à partir des valeurs séparées par des -
-      for (let i = 0; i < 3; i++) {
-        choixTransformation[i] = parseInt(choixTransformation[i])
+      if (typeof this.sup === 'number') {
+        choixTransformation = combinaisonListes(listeTypeDeQuestions[contraindreValeur(1, 10, this.sup, 10) - 1], 3)
+      } else {
+        choixTransformation = combinaisonListes(this.sup.split('-'), 3) // Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < 3; i++) {
+          choixTransformation[i] = contraindreValeur(1, 10, parseInt(choixTransformation[i]), 10) // parseInt en fait un tableau d'entiers
+        }
       }
     }
+
     if (this.can) {
       nbImages = 1
     } else nbImages = 3
@@ -63,10 +65,10 @@ export default function Transformations () {
     d2.epaisseur = 2
     d3.epaisseur = 2
     d4.epaisseur = 2
-    d1.color = 'green'
-    d2.color = 'green'
-    d3.color = 'green'
-    d4.color = 'green'
+    d1.color = context.isHtml ? 'green' : 'black'
+    d2.color = context.isHtml ? 'green' : 'black'
+    d3.color = context.isHtml ? 'green' : 'black'
+    d4.color = context.isHtml ? 'green' : 'black'
     d1.opacite = 0.5
     d2.opacite = 0.5
     d3.opacite = 0.5
@@ -77,8 +79,8 @@ export default function Transformations () {
       for (let j = 0; j < 10; j++) {
         objetsEnonce.push(tracePoint(point(j - 4, i - 4)))
         objetsCorrection.push(tracePoint(point(j - 4, i - 4)))
-        objetsEnonce.push(texteParPosition(j + 10 * i, j - 4.2, i - 4.2, 'milieu', 'gray', 0.8, 'middle', false))
-        objetsCorrection.push(texteParPosition(j + 10 * i, j - 4.2, i - 4.2, 'milieu', 'gray', 0.8, 'middle', false))
+        objetsEnonce.push(texteParPositionEchelle(Number(j + 10 * i).toString(), j - 4.2, i - 4.2, 'milieu', 'black', 0.8, 'middle', false, 0.8))
+        objetsCorrection.push(texteParPositionEchelle(Number(j + 10 * i).toString(), j - 4.2, i - 4.2, 'milieu', 'black', 0.8, 'middle', false, 0.8))
       }
     }
     this.listeQuestions = []
@@ -177,10 +179,10 @@ export default function Transformations () {
       switch (choixTransformation[i]) {
         case 1:
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro du symétrique du point ${antecedents[i]} par rapport à la droite $(d_1)$.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_1)$ est le point ${images[i]}.<br>`
           objetsEnonce.push(d1, tracePoint(M[i]), latexParCoordonnees('(d_1)', 4.5, 4.2, 'green', 15, 1, ''))
           objetsCorrection.push(d1, tracePoint(M[i], N[i]), latexParCoordonnees('(d_1)', 3.5, 3, 'green', 15, 1, ''),
@@ -189,10 +191,10 @@ export default function Transformations () {
 
         case 2:
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro du symétrique du point ${antecedents[i]} par rapport à la droite $(d_2)$.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_2)$ est le point ${images[i]}.<br>`
           objetsEnonce.push(d2, tracePoint(M[i]), latexParCoordonnees('(d_2)', 4.3, -3.7, 'green', 15, 1, ''))
           objetsCorrection.push(d2, tracePoint(M[i], N[i]), latexParCoordonnees('(d_2)', 4.3, -3.7, 'green', 15, 1, ''),
@@ -201,10 +203,10 @@ export default function Transformations () {
 
         case 3:
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro du symétrique du point ${antecedents[i]} par rapport à la droite $(d_3)$.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_3)$ est le point ${images[i]}.<br>`
           objetsEnonce.push(d3, tracePoint(M[i]), latexParCoordonnees('(d_3)', -4.2, 0.5, 'green', 15, 1, ''))
           objetsCorrection.push(d3, tracePoint(M[i], N[i]), latexParCoordonnees('(d_3)', -4.2, 0.5, 'green', 15, 1, ''),
@@ -213,10 +215,10 @@ export default function Transformations () {
 
         case 4:
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro du symétrique du point ${antecedents[i]} par rapport à la droite $(d_4)$.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_4)$ est le point ${images[i]}.<br>`
           objetsEnonce.push(d4, tracePoint(M[i]), latexParCoordonnees('(d_4)', 0.2, 4.5, 'green', 15, 1, ''))
           objetsCorrection.push(d4, tracePoint(M[i], N[i]), latexParCoordonnees('(d_4)', 0.2, 4.5, 'green', 15, 1, ''),
@@ -225,10 +227,10 @@ export default function Transformations () {
 
         case 5:
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro de  l'image du point ${antecedents[i]} par la rotation de centre O et d'angle 90° dans le sens anti-horaire.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 90° dans le sens anti-horaire est le point ${images[i]}.<br>`
           objetsEnonce.push(tracePoint(M[i], O), labelPoint(O))
           objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
@@ -236,10 +238,10 @@ export default function Transformations () {
 
         case 6:
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro de  l'image du point ${antecedents[i]} par la rotation de centre O et d'angle 90° dans le sens horaire.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 90° dans le sens horaire est le point ${images[i]}.<br>`
           objetsEnonce.push(tracePoint(M[i], O), labelPoint(O))
           objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
@@ -247,10 +249,10 @@ export default function Transformations () {
 
         case 7:
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par la symétrie de centre O.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la symétrie de centre O est le point ${images[i]}.<br>`
           objetsEnonce.push(tracePoint(M[i], O), labelPoint(O))
           objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('O', 'red', M[i], O, O, N[i]))
@@ -258,10 +260,10 @@ export default function Transformations () {
 
         case 11:
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par la rotation de centre O et d'angle 60° dans le sens anti-horaire.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 60° dans le sens anti-horaire est le point ${images[i]}.<br>`
           objetsEnonce.push(tracePoint(M[i], O), labelPoint(O))
           objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
@@ -269,10 +271,10 @@ export default function Transformations () {
 
         case 12:
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par la rotation de centre O et d'angle 60° dans le sens horaire.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 60° dans le sens horaire est le point ${images[i]}.<br>`
           objetsEnonce.push(tracePoint(M[i], O), labelPoint(O))
           objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
@@ -280,10 +282,10 @@ export default function Transformations () {
 
         case 13:
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par la rotation de centre O et d'angle 120° dans le sens anti-horaire.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 120° dans le sens anti-horaire est le point ${images[i]}.<br>`
           objetsEnonce.push(tracePoint(M[i], O), labelPoint(O))
           objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
@@ -291,10 +293,10 @@ export default function Transformations () {
 
         case 14:
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par la rotation de centre O et d'angle 120° dans le sens horaire.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 120° dans le sens horaire est le point ${images[i]}.<br>`
           objetsEnonce.push(tracePoint(M[i], O), labelPoint(O))
           objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
@@ -304,10 +306,10 @@ export default function Transformations () {
           pointM = point(randint(-1, 2, [M[i].x, 0]), randint(-1, 2, [M[i].y, 0]), 'M', 'below')
           pointN = translation(pointM, vecteur(xu, yu), 'N', 'below')
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par la translation qui transforme M en N.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la translation qui transforme M en N est le point ${images[i]}.<br>`
           objetsEnonce.push(tracePoint(M[i], pointM, pointN), labelPoint(pointM, pointN))
           objetsCorrection.push(tracePoint(M[i], N[i], pointM, pointN), labelPoint(pointM, pointN), vecteur(M[i], N[i]).representant(M[i]), vecteur(M[i], N[i]).representant(pointM))
@@ -315,10 +317,10 @@ export default function Transformations () {
 
         case 9:
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport ${k1}.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport ${k1} est le point ${images[i]}.<br>`
           objetsEnonce.push(tracePoint(M[i], O), labelPoint(O))
           objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O), segment(M[i], O, 'blue'), segment(N[i], O, 'orange'))
@@ -326,13 +328,13 @@ export default function Transformations () {
 
         case 10:
           texte +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport $${texFractionReduite(
               1,
               k2
             )}$.<br>`
           texteCorr +=
-            numAlpha(i) +
+          (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport $${texFractionReduite(
               1,
               k2
@@ -342,8 +344,8 @@ export default function Transformations () {
           break
       }
 
-      texte += ajouteChampTexteMathLive(this, i, 'largeur10')
       setReponse(this, i, images[i])
+      texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline')
     }
     /* if (context.isAmc) {
       enonceAMC += '\\\\' + mathalea2d({ xmin: -4.5, ymin: -4.5, xmax: 5.3, ymax: 5.3, pixelsParCm: 40, scale: 0.8, optionsTikz: ['every node/.style={scale=0.6}'], mainlevee: false }, objetsEnonce)
@@ -354,66 +356,92 @@ export default function Transformations () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenuSansNumero(this)
     if (context.isAmc) {
-      this.autoCorrection[0] = {
-        enonce: texte,
-        options: { multicols: true },
-        propositions: [
-          {
-            type: 'AMCNum',
-            propositions: [{
-              texte: texteCorr,
-              statut: '',
-              reponse: {
-                texte: 'a)',
-                valeur: images[0],
-                param: {
-                  digits: 2,
-                  decimals: 0,
-                  signe: false,
-                  approx: 0
+      if (this.can) {
+        this.autoCorrection[0] = {
+          enonce: texte,
+          options: { multicols: true },
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: texteCorr,
+                statut: '',
+                reponse: {
+                  texte: 'a)',
+                  valeur: images[0],
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
                 }
-              }
+              }]
             }]
-          },
-          {
-            type: 'AMCNum',
-            propositions: [{
-              texte: '',
-              statut: '',
-              reponse: {
-                texte: 'b)',
-                valeur: images[1],
-                param: {
-                  digits: 2,
-                  decimals: 0,
-                  signe: false,
-                  approx: 0
+
+        }
+      } else {
+        this.autoCorrection[0] = {
+          enonce: texte,
+          options: { multicols: true },
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: texteCorr,
+                statut: '',
+                reponse: {
+                  texte: 'a)',
+                  valeur: images[0],
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
                 }
-              }
-            }]
-          },
-          {
-            type: 'AMCNum',
-            propositions: [{
-              texte: '',
-              statut: '',
-              reponse: {
-                texte: 'c)',
-                valeur: images[2],
-                param: {
-                  digits: 2,
-                  decimals: 0,
-                  signe: false,
-                  approx: 0
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'b)',
+                  valeur: images[1],
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
                 }
-              }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'c)',
+                  valeur: images[2],
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
             }]
-          }]
+        }
       }
     }
   }
   this.besoinFormulaireTexte = [
     'Choix des transformations',
-    '3 nombres séparés par des tirets\n 1&2 : Symétries obliques\n 3&4 : Symétries horizontales ou verticales\n 5&6 : Rotations de 90°\n 7 : Symétrie centrale\n 8 : Translation\n 9 : Homothéties k>1\n 10 : Homothéties k<1'
+    'Choisir 3 nombres maximum, séparés par des tirets : \n 1 & 2 : Symétries obliques\n 3 & 4 : Symétries horizontales ou verticales\n 5 & 6 : Rotations de 90°\n 7 : Symétrie centrale\n 8 : Translation\n 9 : Homothéties k>1\n 10 : Homothéties k<1'
   ] // Texte, tooltip
 }

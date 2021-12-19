@@ -28,9 +28,12 @@ export default function ProblemesGrandeursComposees () {
     // let listeIndex=combinaisonListes(listeIndex_disponibles,this.nbQuestions);
     let grandeurs = []
     const liste7 = combinaisonListes([0, 1, 2], this.nbQuestions)
-    let flag7 = 0; let flag2 = 0
+    let flag7 = 0
+    let flag2 = 0
     const liste2 = combinaisonListes([0, 1], this.nbQuestions)
-
+    let appareil, puissance, dureeMax, nbQuartsDHeures, prixkWh, h1, h2, l, L, deltaT, r, h
+    let concentration2, tailleFichier
+    let d1, d2, k, n1, n2, I1, I2, allures, v1, v2, volume1, volume2, vMax, unites
     if (!this.sup) {
       // Si aucune grandeur n'est saisie
       grandeurs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
@@ -171,19 +174,19 @@ export default function ProblemesGrandeursComposees () {
       switch (parseInt(listeIndex[i]) % 15) {
         case 1: // problème de consommation éléctrique
           index = randint(0, 3)
-          const appareil = appareils[index][0]
-          const puissance = appareils[index][1]
-          const dureeMax = appareils[index][2]
-          const nbquartsdheures = randint(0, 3)
+          appareil = appareils[index][0]
+          puissance = appareils[index][1]
+          dureeMax = appareils[index][2]
+          nbQuartsDHeures = randint(0, 3)
           nbheures = randint(dureeMax / 4, dureeMax, [1])
-          duree = nbheures + nbquartsdheures * 0.25
-          const prixkwh = calcul(randint(0, 5) / 100 + 0.14)
+          duree = nbheures + nbQuartsDHeures * 0.25
+          prixkWh = calcul(randint(0, 5) / 100 + 0.14)
           texte = `L'étiquette apposée au dos d'un ${appareil} indique une puissance de ${puissance} Watts. On le fait fonctionner pendant ${Math.floor(
             duree
           )} heures `
-          if (nbquartsdheures !== 0) { texte += `et ${nbquartsdheures * 15} minutes` }
+          if (nbQuartsDHeures !== 0) { texte += `et ${nbQuartsDHeures * 15} minutes` }
           texte += `.<br>Le prix d'un kWh est de ${texNombrec(
-            prixkwh
+            prixkWh
           )} €.<br>`
           if (context.isHtml) {
             // les boutons d'aide uniquement pour la version html
@@ -205,15 +208,15 @@ export default function ProblemesGrandeursComposees () {
             ` Un ${appareil} d'une puissance de ${puissance} Watts qui fonctionne pendant ${Math.floor(
               duree
             )} heures `
-          if (nbquartsdheures !== 0) { texteCorr += `et ${nbquartsdheures * 15} minutes` }
+          if (nbQuartsDHeures !== 0) { texteCorr += `et ${nbQuartsDHeures * 15} minutes` }
           texteCorr += ' consomme : <br>'
-          if (nbquartsdheures !== 0) {
-            texteCorr += `$${nbheures}\\text{ h } ${nbquartsdheures * 15
+          if (nbQuartsDHeures !== 0) {
+            texteCorr += `$${nbheures}\\text{ h } ${nbQuartsDHeures * 15
               } = ${nbheures}\\text{ h} + ${texFractionReduite(
-                nbquartsdheures,
+                nbQuartsDHeures,
                 4
               )}\\text{ h} =${texNombre(
-                nbheures + nbquartsdheures * 0.25
+                nbheures + nbQuartsDHeures * 0.25
               )}\\text{ h}$<br>`
           }
           texteCorr += `$${puissance}\\text{ W}\\times${texNombre(
@@ -226,15 +229,15 @@ export default function ProblemesGrandeursComposees () {
           texteCorr +=
             numAlpha(1) +
             ` Le prix de cette énergie consommée est : $${texNombre(
-              prixkwh
+              prixkWh
             )}$ €$\\text{ /kWh} \\times${texNombre(
               calcul(puissance * duree * 0.001)
             )}\\text{ kWh}`
-          if (!((prixkwh * puissance * duree) / 10 === Math.round((prixkwh * puissance * duree) / 10))) {
-            texteCorr += `\\approx${arrondiVirgule(((prixkwh * puissance) / 1000) * duree, 2)}$ €`
+          if (!((prixkWh * puissance * duree) / 10 === Math.round((prixkWh * puissance * duree) / 10))) {
+            texteCorr += `\\approx${arrondiVirgule(((prixkWh * puissance) / 1000) * duree, 2)}$ €`
           } else {
             texteCorr += `=${arrondiVirgule(
-              ((prixkwh * puissance) / 1000) * duree,
+              ((prixkWh * puissance) / 1000) * duree,
               2
             )}$ €`
           }
@@ -244,11 +247,11 @@ export default function ProblemesGrandeursComposees () {
           flag2++
           switch (index1) {
             case 0: // Volume d'une piscine
-              const h1 = 180 + randint(0, 10) * 10
-              const h2 = 80 + randint(0, 4) * 10
-              const l = 5 + randint(0, 5)
-              const L = l * 2 + randint(0, 4) * 2
-              const deltat = randint(2, 5)
+              h1 = 180 + randint(0, 10) * 10
+              h2 = 80 + randint(0, 4) * 10
+              l = 5 + randint(0, 5)
+              L = l * 2 + randint(0, 4) * 2
+              deltaT = randint(2, 5)
               texte = `Une piscine a la forme d'un prisme droit. La profondeur à son extrémité nord est de ${h1} cm et la profondeur à son extrémité sud est de ${h2} cm.<br>`
               texte += `D'une extrémité à l'autre la pente au fond de la piscine est régulière.<br>La largeur de la piscine (Est-Ouest) est de ${l} m et sa longueur (Nord-Sud) est de ${L} m.<br>`
               texte +=
@@ -270,7 +273,7 @@ export default function ProblemesGrandeursComposees () {
                 )} contenu dans cette piscine quand elle est pleine.<br>`
               texte +=
                 numAlpha(1) +
-                ` Sachant que pour élever la température d'un litre d'eau de 1 degré, il faut une énergie de 1,162 Wattheure.<br> Quelle est l'énergie consommée en kWh pour augmenter de ${deltat} degrés ?<br>`
+                ` Sachant que pour élever la température d'un litre d'eau de 1 degré, il faut une énergie de 1,162 Wattheure.<br> Quelle est l'énergie consommée en kWh pour augmenter de ${deltaT} degrés ?<br>`
               texteCorr =
                 numAlpha(0) +
                 ` La base de ce prisme droit est un trapèze rectangle de petite base ${h2} cm, de grande base ${h1} cm et de hauteur ${L} m.<br>`
@@ -305,19 +308,19 @@ export default function ProblemesGrandeursComposees () {
                 )}\\text{ dm}^3=${texNombre(
                   (h1 + h2) * L * l * 5
                 )}\\text{ L}$<br>`
-              texteCorr += ` L'énergie consomée pour élever la température de l'eau de cette piscine de ${deltat} degrés est :<br>`
+              texteCorr += ` L'énergie consomée pour élever la température de l'eau de cette piscine de ${deltaT} degrés est :<br>`
               texteCorr += `$\\mathcal{E}=${texNombre(
                 (h1 + h2) * L * l * 5
-              )}\\text{ L}\\times${deltat}\\text{ °C}\\times 1,162 \\dfrac{\\text{Wh}}{\\text{°C}\\times\\text{L}}=${texNombre(
-                arrondi((h1 + h2) * L * l * 5 * deltat * 1.162, 3)
+              )}\\text{ L}\\times${deltaT}\\text{ °C}\\times 1,162 \\dfrac{\\text{Wh}}{\\text{°C}\\times\\text{L}}=${texNombre(
+                arrondi((h1 + h2) * L * l * 5 * deltaT * 1.162, 3)
               )}\\text{ Wh}=${texNombre(
-                arrondi((((h1 + h2) * L * l) / 200) * deltat * 1.162, 7)
+                arrondi((((h1 + h2) * L * l) / 200) * deltaT * 1.162, 7)
               )}\\text{ kWh}$<br>`
               break
             case 1: // Volume d'un tonneau cylindrique
               index2 = randint(0, 5)
-              const r = randint(10, 15) * 2
-              const h = randint(0, 10) + r * 4
+              r = randint(10, 15) * 2
+              h = randint(0, 10) + r * 4
               texte = `Un tonneau cylindrique a un rayon de ${r} cm et une hauteur de ${h} cm.<br>`
               texte +=
                 numAlpha(0) +
@@ -483,11 +486,11 @@ export default function ProblemesGrandeursComposees () {
           )}\\text{ m}.$`
           break
         case 5: // problème de trafic de coyageurs.
-          const d1 = randint(3, 6)
-          const d2 = randint(3, 6, [d1])
-          const k = randint(5, 8)
-          const n1 = k * d2
-          const n2 = k * d1
+          d1 = randint(3, 6)
+          d2 = randint(3, 6, [d1])
+          k = randint(5, 8)
+          n1 = k * d2
+          n2 = k * d1
           texte =
             numAlpha(0) +
             ` Un bus de ville transporte en moyenne ${n1} personnes à la fois.<br> La longueur moyenne de déplacement est de ${d1} km.<br> Calculer le ` +
@@ -515,7 +518,7 @@ export default function ProblemesGrandeursComposees () {
         case 6: // problème de puissance électrique.
           index = randint(0, 3)
           index1 = randint(0, 3, [index])
-          const I1 = arrondi(appareils[index][1] / 230, 0) + 1
+          I1 = arrondi(appareils[index][1] / 230, 0) + 1
           texte =
             numAlpha(0) +
             ` Un ${appareils[index][0]} est protégé par un fusible de ${I1} ampères, quelle est la ` +
@@ -535,7 +538,7 @@ export default function ProblemesGrandeursComposees () {
             ` La tension du secteur étant de 230V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
           texteCorr += `$230\\text{ V}\\times${I1}\\text{ A}=${230 * I1
             }\\text{ W}$<br>`
-          const I2 = Math.floor(appareils[index1][1] / 230) + 1
+          I2 = Math.floor(appareils[index1][1] / 230) + 1
           texteCorr +=
             numAlpha(1) +
             ' Pour fonctionner à la puissance maximum, cet appareil a besoin d\'un courant d\'une intensité de :<br>'
@@ -707,7 +710,7 @@ export default function ProblemesGrandeursComposees () {
                   'L\'allure est le temps exprimé en h,min,s pour parcourir un kilomètre.<br>L\'unité est alors h/km ou min/km'
                 ) +
                 'pour chaque kilomètre parcouru :'
-              const allures = []
+              allures = []
               for (let j = 0; j < distance; j++) {
                 duree = Math.round(
                   1000 / (vitesseMoy * (1 + randint(-10, 10) * 0.01))
@@ -973,10 +976,10 @@ export default function ProblemesGrandeursComposees () {
         case 11: // problème de masse volumique
           index1 = randint(0, 14)
           index2 = randint(0, 14, [index1])
-          const V1 = randint(50, 100)
+          v1 = randint(50, 100)
           masse2 = randint(5, 30)
-          masse = arrondi((materiaux[index1][1] * V1) / 1000000)
-          const V2 = arrondi(masse2 / materiaux[index2][1], 7)
+          masse = arrondi((materiaux[index1][1] * v1) / 1000000)
+          v2 = arrondi(masse2 / materiaux[index2][1], 7)
           texte =
             numAlpha(0) +
             ' La ' +
@@ -991,7 +994,7 @@ export default function ProblemesGrandeursComposees () {
               materiaux[index1][1]
             )}\\text{ kg/m}^3$.<br>`
           texte += `Quelle est la masse d'une pièce de ce métal de $${texNombre(
-            V1
+            v1
           )}\\text{ cm}^3$ ?<br>`
           texte +=
             numAlpha(1) +
@@ -1004,11 +1007,11 @@ export default function ProblemesGrandeursComposees () {
             } est de :<br>$${texNombre(
               materiaux[index1][1]
             )}\\text{ kg/m}^3\\times ${texNombre(
-              V1
+              v1
             )}\\text{ cm}^3=${texNombre(
               materiaux[index1][1]
             )}\\text{ kg/m}^3\\times ${texNombrec(
-              V1 / 1000000
+              v1 / 1000000
             )}\\text{ m}^3=${texNombre(masse)}\\text{ kg}$.<br>`
           texteCorr +=
             numAlpha(1) +
@@ -1016,34 +1019,33 @@ export default function ProblemesGrandeursComposees () {
             } est de :<br>$${texNombre(masse2)}\\text{ kg}\\div ${texNombre(
               materiaux[index2][1]
             )}\\text{ kg/m}^3\\approx${texNombre(
-              V2
+              v2
             )}\\text{ m}^3\\approx${texNombrec(
-              V2 * 1000000
+              v2 * 1000000
             )}\\text{ cm}^3$<br>`
           break
         case 12: // problème de concentration massique
           index1 = randint(0, 4)
           index2 = randint(0, 4, [index1])
-          const Volume1 = arrondi(randint(2, 15, [10]) / 10)
-          const Volume2 = arrondi(randint(2, 15, [10]) / 10)
+          volume1 = arrondi(randint(2, 15, [10]) / 10)
+          volume2 = arrondi(randint(2, 15, [10]) / 10)
           if (solutes[index1][2] < 10) {
             masse = arrondi(
-              (randint(11, solutes[index1][2] * 10) * Volume1) / 10
+              (randint(11, solutes[index1][2] * 10) * volume1) / 10
             )
-          } else masse = arrondi(randint(2, solutes[index1][2]) * Volume1)
-          let concentration2
+          } else masse = arrondi(randint(2, solutes[index1][2]) * volume1)
           if (solutes[index2][2] < 10) { // concentration en g/L soluté 2.
             concentration2 = arrondi(randint(11, solutes[index2][2] * 10) / 10)
           } else concentration2 = randint(2, solutes[index2][2])
           texte =
             numAlpha(0) +
             ` On a dissout $${texNombre(masse)}\\text{ g}$ de ${solutes[index1][0]
-            } dans $${texNombre(Volume1)}\\text{ litres}$ ${solutes[index1][1]
+            } dans $${texNombre(volume1)}\\text{ litres}$ ${solutes[index1][1]
             }.<br>Calculer la concentration massique de cette solution.<br>`
           texte +=
             numAlpha(1) +
             ` On dispose de $${texNombre(
-              Volume2
+              volume2
             )}$ litres de solution aqueuse de ${solutes[index2][0]
             } à $${texNombre(
               concentration2
@@ -1053,24 +1055,24 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(0) +
             ` La concentration en ${solutes[index1][0]} de cette solution aqueuse est de :<br>`
           texteCorr += ` $\\dfrac{${texNombre(masse)}\\text{ g}}{${texNombre(
-            Volume1
+            volume1
           )}\\text{ litres}}=${texNombrec(
-            arrondi(masse / Volume1)
+            arrondi(masse / volume1)
           )}\\text{ g/L}$<br>`
           texteCorr +=
             numAlpha(1) +
             ` La masse de ${solutes[index2][0]} dissoute est de :<br>`
-          texteCorr += `$${texNombre(Volume2)}\\text{ L}\\times ${texNombre(
+          texteCorr += `$${texNombre(volume2)}\\text{ L}\\times ${texNombre(
             concentration2
           )}\\text{ g/L}=${texNombre(
-            arrondi(Volume2 * concentration2)
+            arrondi(volume2 * concentration2)
           )}\\text{ g}$`
           break
 
         case 13: // problème de débit
           index2 = randint(0, 6)
           duree = randint(2, 24)
-          const vmax = rivieres[index2][3] * 3600
+          vMax = rivieres[index2][3] * 3600
           texte =
             'Le ' +
             katexPopup2(
@@ -1092,7 +1094,7 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(1) +
             ` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${rivieres[index2][5]
             }${rivieres[index2][0]} a débité ${nombreAvecEspace(
-              vmax
+              vMax
             )} m${exposant(
               3
             )} en une heure. Quel a été alors le débit en m³/s ?`
@@ -1108,18 +1110,18 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(1) +
             ` En ${rivieres[index2][4]} lors de la crue historique ${rivieres[index2][6]}${rivieres[index2][0]} à ${rivieres[index2][1]} le débit maximal a été de :<br>`
           texteCorr += `Débit =$${texNombre(
-            vmax
+            vMax
           )}\\text{ m}^3\\text{/h}=\\dfrac{${texNombre(
-            vmax
+            vMax
           )}\\text{ m}^3}{1\\text{ h}}=\\dfrac{${texNombre(
-            vmax
+            vMax
           )}\\text{ m}^3}{${texNombre(3600)}\\text{ s}}=${texNombrec(
-            vmax / 3600
+            vMax / 3600
           )}\\text{ m}^3\\text{/s}$<br>`
 
           break
         case 14: // problème de vitesse de téléchargement
-          const unites = ['ko', 'Mo', 'Go']
+          unites = ['ko', 'Mo', 'Go']
           index = randint(0, 1)
           if (index === 0) vitesseMoy = randint(200, 999)
           else vitesseMoy = randint(1, 20)
@@ -1147,7 +1149,7 @@ export default function ProblemesGrandeursComposees () {
             }/s ?<br>`
           texteCorr =
             numAlpha(0) + ' La taille du fichier téléchargé est :<br>'
-          let tailleFichier = (nbminutes * 60 + nbsecondes) * vitesseMoy
+          tailleFichier = (nbminutes * 60 + nbsecondes) * vitesseMoy
           texteCorr += `$(${nbminutes}\\times 60 +${nbsecondes})\\text{ s}\\times ${vitesseMoy} \\text{ ${unites[index]
             }/s} = ${nbminutes * 60 + nbsecondes
             }\\text{ s}\\times ${vitesseMoy} \\text{ ${unites[index]

@@ -1,6 +1,19 @@
 import { context } from './context'
 
 /**
+ * @param {string} param
+ * @param {string} newval
+ * @param {string} search
+ * @returns string
+ */
+export function replaceQueryParam (param, newval, search = window.location.search) {
+  const regex = new RegExp('([?;&])' + param + '[^&;]*[;&]?')
+  const query = search.replace(regex, '$1').replace(/&$/, '')
+
+  return (query.length > 2 ? query + '&' : '?') + (newval ? param + '=' + newval : '')
+}
+
+/**
  *
  * @returns {string} Filtre depuis l'URL
  */
@@ -23,10 +36,10 @@ export function getVueFromUrl () {
  *
  * @returns {string} Vue depuis l'URL
  */
-export function getTaillePoliceFromUrl () {
+export function getZoomFromUrl () {
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
-  return urlParams.get('p')
+  return urlParams.get('z')
 }
 
 /**
@@ -156,7 +169,7 @@ export function getUrlSearch () {
   const urlParams = new URLSearchParams(queryString)
   if (context.userId) urlParams.set('userId', context.userId)
   if (context.vue) urlParams.set('v', context.vue)
-  if (context.taillePolice) urlParams.set('p', context.taillePolice)
+  if (context.zoom) urlParams.set('z', context.zoom)
   if (context.duree) urlParams.set('duree', context.duree)
   // On finit la réécriture de l'url
   const entries = urlParams.entries()
@@ -176,20 +189,31 @@ export function getUrlSearch () {
  * Met à jour l'URL avec la vue et le userId s'ils sont connus
  */
 export function setUrl () {
-  window.history.pushState('', '', getUrlSearch())
+  if (context.aGarderDansHistorique) {
+    window.history.pushState('', '', getUrlSearch())
+    context.aGarderDansHistorique = false
+  } else {
+    window.history.replaceState('', '', getUrlSearch())
+  }
 }
 
 /**
  * Met à jour l'URL avec la vue et le userId s'ils sont connus et go
  */
 export function setUrlAndGo () {
-  window.history.pushState('', '', getUrlSearch())
+  window.history.replaceState('', '', getUrlSearch())
   document.location.reload()
 }
 /**
  * Met à jour l'URL avec la vue et le userId s'ils sont connus et go
  */
 export function setUrlAndGoTab () {
-  window.history.pushState('', '', getUrlSearch())
+  window.history.replaceState('', '', getUrlSearch())
   window.open(document.location)
+}
+/**
+ * Met à jour l'URL avec la vue et le userId s'ils sont connus et go
+ */
+export function goTabVue (vue) {
+  window.open(window.location.protocol + '//' + window.location.host + window.location.pathname + replaceQueryParam('v', vue))
 }

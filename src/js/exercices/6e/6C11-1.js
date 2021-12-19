@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texteGras, texteEnCouleurEtGras, sp } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-export const titre = "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité"
+export const titre = "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité"
 
 export const amcReady = true
 export const amcType = 'AMCOpenNum✖︎2' // type de question AMC
@@ -13,6 +13,7 @@ export const interactifType = 'mathLive'
  *
  * @author Cédric GROLLEAU
  * Référence 6C11-1
+ * Relecture : Novembre 2021 par EE
  */
 export default function DivisionsEuclidiennesEgalite () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -24,7 +25,7 @@ export default function DivisionsEuclidiennesEgalite () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
   this.nbQuestions = 4
   this.sup = 1
-  
+
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
@@ -125,6 +126,6 @@ export default function DivisionsEuclidiennesEgalite () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     2,
-    "1 : L'égalité correspond à la division euclidienne.\n 2: L'égalité ne correspond pas nécessairement à la division euclidienne."
+    "1 : L'égalité correspond à la division euclidienne.\n2 : L'égalité ne correspond pas nécessairement à la division euclidienne."
   ]
 }

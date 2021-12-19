@@ -1,5 +1,6 @@
 import loadjs from 'loadjs'
 import slick from '../../assets/externalJs/slick/slick'
+import { context } from './context'
 import { UserFriendlyError } from './messages'
 
 /**
@@ -205,8 +206,18 @@ export async function loadMathLive () {
       if (mf.classList.contains('largeur50')) {
         style += ' width: 50%;'
       }
+      if (mf.classList.contains('largeur75')) {
+        style += ' width: 75%;'
+      }
       mf.style = style
     }
+  }
+  // On envoit la hauteur de l'iFrame après le chargement des champs MathLive
+  if (context.vue === 'exMoodle') {
+    const hauteurExercice = window.document.querySelector('section').scrollHeight
+    window.parent.postMessage({ hauteurExercice }, '*')
+    const domExerciceInteractifReady = new window.Event('domExerciceInteractifReady', { bubbles: true })
+    document.dispatchEvent(domExerciceInteractifReady)
   }
 }
 

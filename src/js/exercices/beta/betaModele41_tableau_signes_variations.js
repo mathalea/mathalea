@@ -1,13 +1,16 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
 export const titre = 'Nom de l\'exercice'
+
+// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
+export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Description didactique de l'exercice
  * @author
  * Référence
- * Date de publication
 */
 export default function NomExercice () {
   Exercice.call(this)
@@ -15,13 +18,18 @@ export default function NomExercice () {
   this.nbQuestions = 1
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.video = ''
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     for (let i = 0, texte, texteCorr, ligne1, ligne2, ligne3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const a = randint(1, 2) // On définit les variables aléatoires de l'exo...
+      const b = randint(2, 3) // Ici ça ne sert à rien, c'est juste pour la fonction questionJamaisPosee()
+      const c = randint(13, 54)
+      const d = randint(24, 39)
       // Cet exercice montre juste comment fonctionne la fonction tableauDeVariation
       // Pour le voir appliqué en conditions réelles, voir 2N61-2 pour des tableaux de signes et P010 pour des tableaux de variations
 

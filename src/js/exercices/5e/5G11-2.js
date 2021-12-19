@@ -1,6 +1,6 @@
 import ConstruireParSymetrie from '../6e/_Construire_par_symetrie.js'
 export const titre = 'Construire l’image d’une figure par symétrie centrale'
-
+export const dateDeModificationImportante = '14/11/2021'
 /**
  * @author Jean-Claude Lhote
  * Fonction générale pour les exercices de construction de symétriques (centrale/axiale et points/triangles)
@@ -9,7 +9,8 @@ export const titre = 'Construire l’image d’une figure par symétrie centrale
  */
 export default function ConstruireParSymetrieCentraleFigure () {
   ConstruireParSymetrie.call(this)
-  this.sup = 2
+  this.sup = 5
   this.sup2 = 1
   this.figure = true
+  this.besoinFormulaireNumerique = false
 }

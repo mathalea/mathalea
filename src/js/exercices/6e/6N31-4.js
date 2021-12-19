@@ -1,7 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, infoMessage } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Intercaler un nombre décimal entre deux nombres décimaux'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const dateDeModifImportante = '29/10/2021'
 
 /**
  * Intercaler un nombre décimal entre deux décimaux
@@ -18,6 +22,7 @@ export default function IntercalerDecimalEntre2Decimaux () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const listeTypeDeQuestionsDisponibles = ['a,b1', 'a,b2', 'a,9', 'a,bc', 'a,b9', 'a,99', 'a,b0c', 'a,1', 'a,01', 'a']
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
@@ -100,7 +105,12 @@ export default function IntercalerDecimalEntre2Decimaux () {
           r = calcul(a + 1 / 10)
           break
       }
-      texte = `$${texNombre(a)}<\\ldots\\ldots<${texNombre(b)}$`
+      if (this.interactif) {
+        texte = `$${texNombre(a)}<$` + ajouteChampTexteMathLive(this, i, 'inline') + `$\\quad<${texNombre(b)}$`
+        setReponse(this, i, [a, b], { formatInteractif: 'intervalleStrict' })
+      } else {
+        texte = `$${texNombre(a)}<\\ldots\\ldots<${texNombre(b)}$`
+      }
       texteCorr = `$${texNombre(a)}<${texNombre(r)}<${texNombre(b)}$`
 
       if (this.listeQuestions.indexOf(texte) === -1) {

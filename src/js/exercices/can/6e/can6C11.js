@@ -1,6 +1,6 @@
 import { calcul, choice, randint, texNombre, texteEnCouleur, texNombrec } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Double ou triple (décimal)'
+export const titre = 'Calculer le double ou le triple (décimal)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,6 +15,7 @@ export default function DoubleOuTripleDecimal () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 3)
@@ -35,7 +36,7 @@ export default function DoubleOuTripleDecimal () {
     } else {
       this.reponse = calcul(2 * c)
       this.question = `Quel est le double de $${texNombre(c)}$ ?`
-      this.correction = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${calcul(2 * c)}$.`
+      this.correction = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${texNombrec(2 * c)}$.`
       this.correction += texteEnCouleur(`
       <br> Mentalement : <br>
   On décompose $${texNombrec(a * 10 + b + d * 0.1)}$ en $${texNombrec(a * 10 + b)}+${texNombrec(d * 0.1)}$. <br>

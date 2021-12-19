@@ -1,9 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, calcul, choice, arrondiVirgule, texNombre, texPrix, arrondi, texteEnCouleur } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, calcul, choice, arrondiVirgule, texNombre, texPrix, arrondi } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 
-export const titre = 'Problème - Les courses'
+export const titre = 'Résoudre des problèmes de courses au marché'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -29,6 +29,7 @@ export default function ProblemeCourse () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const prenom = choice([
       'Benjamin',
       'Léa',
@@ -97,7 +98,6 @@ export default function ProblemeCourse () {
     // Pour tolérer l'écriture d'un somme avec des centimes, par exemple 54,1 € ou 54,10 €
     const reponse = arrondiVirgule(prixTotal)
     const reponses = [reponse, `${reponse}0`]
-    console.log(prixTotalAliment2, (prixTotal * 100 - Math.floor(prixTotal * 100) === 0.5) ? prixTotal + '!!!' : prixTotal, reponse)
     setReponse(this, 0, reponses)
     if (context.isAmc) {
       this.autoCorrection[0].reponse.valeur[0] = arrondi(prixTotal, 2)

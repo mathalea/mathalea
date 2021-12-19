@@ -8,11 +8,11 @@ export const amcType = 'AMCNum' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'numerique'
 
-export const titre = 'Calculer le pourcentage d’un nombre de tête'
+export const titre = 'Calculer mentalement le pourcentage d’un nombre'
 
 /**
  * Calculer 10, 20, 30, 40 ou 50% d'un nombre
- * @author Rémi Angot + Jean-claude Lhote
+ * @author Rémi Angot + Jean-Claude Lhote
  * 6N33-1
  * Ajout niveau 2 + 1 correction différente cgrolleau 03/2021
  */
@@ -31,6 +31,7 @@ export default function PourcentageDunNombre () {
     let listePourcentages = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     for (
       let i = 0, p, n, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;

@@ -42,7 +42,7 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
   this.spacing = 2
   this.nbCols = 1
   this.nbColsCorr = 1
-    this.interactifReady = interactifReady
+  this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
@@ -55,6 +55,7 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
     }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     for (let i = 0, a, b, c, d, e, s1, s2, s3, s4, relatifs, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(1, this.sup) * choice([-1, 1])

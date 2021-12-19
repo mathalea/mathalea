@@ -6,9 +6,10 @@ import { fraction } from '../../modules/fractions.js'
 export const titre = 'Mettre bout à bout des segments'
 
 /**
- * Représenter une somme de fracions de même dénominateur sur un segment gradué de façon adaptée.
+ * Représenter une somme de fractions de même dénominateur sur un segment gradué de façon adaptée.
  * @author Jean-Claude Lhote
  * 6N14-2
+ * Relecture : Novembre 2021 par EE
  */
 export default function AjouterDesFractionsDunite () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -16,11 +17,11 @@ export default function AjouterDesFractionsDunite () {
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.sup = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let sc, objets
     const ppc = 20
     if (context.isHtml) {
@@ -64,8 +65,8 @@ export default function AjouterDesFractionsDunite () {
         pixelsParCm: ppc,
         scale: sc
       }
-      texteCorr += mathalea2d(params, fraction(num[0] + num[1] + num[2] + num[3], den).representation(0, 0, 5, 0, 'segment', 'red', 0, 1, 0.6))
-      texteCorr += `<br>La longueur du segment ainsi obtenu est : $${fraction(num[0] + num[1] + num[2] + num[3], den).texFraction}$`
+      texteCorr += mathalea2d(params, fraction(num[0] + num[1] + num[2] + num[3], den).representation(0, 0, 5, 0, 'segment', 'red', 0, 1, 1))
+      texteCorr += `<br>La longueur du segment ainsi obtenu est : $${fraction(num[0] + num[1] + num[2] + num[3], den).texFraction}$.`
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
@@ -76,9 +77,4 @@ export default function AjouterDesFractionsDunite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Type de cahier',
-    3,
-    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
-  ]
 }

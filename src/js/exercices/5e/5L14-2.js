@@ -31,7 +31,7 @@ export default function ExerciceSubstituer (difficulte = 1) {
   this.sup = difficulte
   this.titre = titre
   this.amcType = amcType
-    this.interactifReady = interactifReady
+  this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.consigne = 'Calculer :'
   this.spacing = 1
@@ -134,7 +134,7 @@ export default function ExerciceSubstituer (difficulte = 1) {
         ],
         reponse: {
           texte: 'résultat',
-          valeur: reponse,
+          valeur: [reponse],
           param: {
             digits: 3,
             decimals: 0,

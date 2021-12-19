@@ -7,7 +7,7 @@ export const amcType = 'qcmMono' // QCM
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Opérations avec les nombres décimaux'
+export const titre = 'Effectuer des opérations avec les nombres décimaux'
 
 /**
 * @author Erwan Duplessy
@@ -24,7 +24,7 @@ export default function MultiplicationMentalDecimaux () {
   Exercice.call(this)
   this.titre = titre
   this.interactifObligatoire = true // Il n'existe pas de version non QCM
-    this.consigne = 'Trouver la réponse exacte du calcul parmi les réponses proposées.'
+  this.consigne = 'Trouver la réponse exacte du calcul parmi les réponses proposées.'
   this.nbQuestions = 4 // Ici le nombre de questions
   this.video = ''
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions

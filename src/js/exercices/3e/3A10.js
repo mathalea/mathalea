@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, egal, randint, shuffle, shuffle2tableaux, combinaisonListesSansChangerOrdre, nombreAvecEspace, texteEnCouleur, modalPdf, listeDiviseurs } from '../../modules/outils.js'
+import { listeQuestionsToContenu, egal, randint, shuffle, shuffle2tableaux, combinaisonListesSansChangerOrdre, nombreAvecEspace, texteEnCouleur, modalPdf, listeDiviseurs, contraindreValeur } from '../../modules/outils.js'
 
 export const titre = 'Division Euclidienne - Diviseurs - Multiples'
 
@@ -23,13 +23,26 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   // this.correctionDetailleeDisponible = true;
   this.nbCols = 1
   this.nbColsCorr = 1
+  this.sup = '3'
+  this.sup2 = '10'
+  this.sup3 = 13
 
   this.nouvelleVersion = function (numeroExercice) {
-    let typesDeQuestions
+    const nbChiffresMax = combinaisonListesSansChangerOrdre(this.sup.toString().split('-'), this.nbQuestions)
+    const nbDiviseursMax = combinaisonListesSansChangerOrdre(this.sup2.toString().split('-'), this.nbQuestions)
+    this.sup3 = contraindreValeur(2, 16, parseFloat(this.sup3), 10)
+
+    for (let i = 0; i < this.nbQuestions; i++) {
+      nbChiffresMax[i] = contraindreValeur(1, 5, parseFloat(nbChiffresMax[i]), 2)
+    }
+    for (let i = 0; i < this.nbQuestions; i++) {
+      nbDiviseursMax[i] = contraindreValeur(2, parseInt(this.sup3), parseFloat(nbDiviseursMax[i]), 6)
+    }
+
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       // this.boutonAide = '';
       this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A10.pdf', 'Aide mémoire sur la division euclidienne (Sébastien Lozano)', 'Aide mémoire')
-      // this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+      // this.boutonAide += modalVideo('conteMathsNombresPremiers','https://coopmaths.fr/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
     } else { // sortie LaTeX
     };
 
@@ -42,10 +55,10 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
     // let typesDeQuestionsDisponibles = [1];
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, N, n1, n2, p1, p2, rgDiviseur, multiplicateurs, tableauDeChoix, rangN, rangNb3Chiffres, tableauDeChoix3Chiffres, multiples, textes, textesCorr, candidatsDiviseurs, dividende, diviseur, quotient, reste, diviseurs, quotients, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+    for (let i = 0, M, listeDiviseursM, nbDiviseursM, n1, n2, p1, p2, rgDiviseur, typeDeQuestion, multiplicateurs, multiples, textes, textesCorr, candidatsDiviseurs, dividende, diviseur, quotient, reste, diviseurs, quotients, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      typeDeQuestion = listeTypeDeQuestions[i]
 
-      switch (typesDeQuestions) {
+      switch (typeDeQuestion) {
         case 1: // plus grand reste dans une division euclidienne
           diviseur = randint(2, 99)
           texte = `Dire quel est le plus grand reste possible dans une division euclidienne par ${diviseur}.`
@@ -157,50 +170,41 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
           texteCorr += textesCorr[5]
           texteCorr += '<br>'
           break
-        case 5: // liste des diviseurs
-          // on définit un tableau pour les choix du nombre dont on veut les diviseurs
-          // 3 parmis 2,99 y compris les premiers et 1 parmis les entiers à 3 chiffres ayant au moins 8 diviseurs, il y en a 223 !
-          tableauDeChoix = []
-          for (let k = 0; k < 3; k++) {
-            tableauDeChoix.push(randint(2, 99, tableauDeChoix))
+        case 5:
+          if (nbDiviseursMax[i] > 10) { // les nombres de 2 chiffres ayant plus de 10 diviseurs étant peu nombreux, on force au moins 3 chiffres.
+            nbChiffresMax[i] = Math.max(nbChiffresMax[i], 3)
           }
-          tableauDeChoix3Chiffres = []
-          for (let m = 101; m < 999; m++) {
-            if (listeDiviseurs(m).length > 8) {
-              tableauDeChoix3Chiffres.push(m)
-            };
-          };
-          // on ajoute un nombre à trois chiffre avec au moins 8 diviseurs dans les choix possibles
-          rangNb3Chiffres = randint(0, (tableauDeChoix3Chiffres.length - 1))
-          tableauDeChoix.push(tableauDeChoix3Chiffres[rangNb3Chiffres])
-          rangN = randint(0, (tableauDeChoix.length - 1)) // pour tirer le rang du nombre dans le tableau des choix
-          N = tableauDeChoix[rangN] // on déclare le nombre dont on va chercher les diviseurs
-          texte = `Écrire la liste de tous les diviseurs de ${N}.`
-          texteCorr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}. En écrivant toujours le plus petit facteur en premier.<br>`
-          texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${N}, par exemple ici, ${Math.trunc(Math.sqrt(N))}$\\times$${Math.trunc(Math.sqrt(N))} = ${Math.trunc(Math.sqrt(N)) * Math.trunc(Math.sqrt(N))}<${N}`
-          texteCorr += ` et ${Math.trunc(Math.sqrt(N)) + 1}$\\times$${Math.trunc(Math.sqrt(N)) + 1} = ${(Math.trunc(Math.sqrt(N)) + 1) * (Math.trunc(Math.sqrt(N)) + 1)}>${N} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(N))}.`
-          texteCorr += ` En effet, si ${N} est le produit de deux entiers p$\\times$q avec p < q alors si p$\\times$p > ${N} c'est que q$\\times$q < ${N} mais dans ce cas p serait supérieur à q sinon p$\\times$q serait inférieur à ${N} ce qui ne doit pas être le cas.<br>`
-          if (listeDiviseurs(N).length % 2 === 0) { // si il y a un nombre pair de diviseurs
-            for (let m = 0; m < (listeDiviseurs(N).length / 2); m++) {
-              texteCorr += '' + listeDiviseurs(N)[m] + '$\\times$' + listeDiviseurs(N)[(listeDiviseurs(N).length - m - 1)] + ` = ${N}<br>`
+          do {
+            M = randint(10 ** (nbChiffresMax[i] - 1), 10 ** nbChiffresMax[i] - 1)
+            listeDiviseursM = listeDiviseurs(M)
+            nbDiviseursM = listeDiviseursM.length
+          } while (nbDiviseursM < Math.max(2, nbDiviseursMax[i] - 3) || nbDiviseursM > nbDiviseursMax[i])
+          texte = `Écrire la liste de tous les diviseurs de ${M}.`
+          texteCorr = `Pour trouver la liste des diviseurs de ${M} on cherche tous les produits de deux facteurs qui donnent ${M}. En écrivant toujours le plus petit facteur en premier.<br>`
+          texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${M}, par exemple ici, ${Math.trunc(Math.sqrt(M))}$\\times$${Math.trunc(Math.sqrt(M))} = ${Math.trunc(Math.sqrt(M)) * Math.trunc(Math.sqrt(M))}<${M}`
+          texteCorr += ` et ${Math.trunc(Math.sqrt(M)) + 1}$\\times$${Math.trunc(Math.sqrt(M)) + 1} = ${(Math.trunc(Math.sqrt(M)) + 1) * (Math.trunc(Math.sqrt(M)) + 1)}>${M} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(M))}.`
+          texteCorr += ` En effet, si ${M} est le produit de deux entiers p$\\times$q avec p < q alors si p$\\times$p > ${M} c'est que q$\\times$q < ${M} mais dans ce cas p serait supérieur à q sinon p$\\times$q serait inférieur à ${M} ce qui ne doit pas être le cas.<br>`
+          if (listeDiviseursM.length % 2 === 0) { // si il y a un nombre pair de diviseurs
+            for (let m = 0; m < (listeDiviseursM.length / 2); m++) {
+              texteCorr += '' + listeDiviseursM[m] + '$\\times$' + listeDiviseursM[(listeDiviseursM.length - m - 1)] + ` = ${M}<br>`
             };
           } else {
-            for (let m = 0; m < ((listeDiviseurs(N).length - 1) / 2); m++) {
-              texteCorr += '' + listeDiviseurs(N)[m] + '$\\times$' + listeDiviseurs(N)[(listeDiviseurs(N).length - m - 1)] + '<br>'
+            for (let m = 0; m < ((listeDiviseursM.length - 1) / 2); m++) {
+              texteCorr += '' + listeDiviseursM[m] + '$\\times$' + listeDiviseursM[(listeDiviseursM.length - m - 1)] + ` = ${M}<br>`
             };
-            texteCorr += '' + listeDiviseurs(N)[(listeDiviseurs(N).length - 1) / 2] + '$\\times$' + listeDiviseurs(N)[(listeDiviseurs(N).length - 1) / 2] + ` = ${N}<br>`
+            texteCorr += '' + listeDiviseursM[(listeDiviseursM.length - 1) / 2] + '$\\times$' + listeDiviseursM[(listeDiviseursM.length - 1) / 2] + ` = ${M}<br>`
           };
-          texteCorr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}.<br>`
-          texteCorr += `La liste des diviseurs de ${N} est donc `
+          texteCorr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${M}.<br>`
+          texteCorr += `La liste des diviseurs de ${M} est donc `
           texteCorr += '1'
-          for (let w = 1; w < listeDiviseurs(N).length; w++) {
-            texteCorr += ' ; ' + listeDiviseurs(N)[w]
+          for (let w = 1; w < listeDiviseursM.length; w++) {
+            texteCorr += ' ; ' + listeDiviseursM[w]
           };
           texteCorr += '.'
           break
       };
 
-      if (this.questionJamaisPosee(i, typesDeQuestions, texte)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, typeDeQuestion, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -210,4 +214,6 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
 
     listeQuestionsToContenu(this)
   }
+  this.besoinFormulaireTexte = ['Nombres de chiffres de l\'entier de la question 5']
+  this.besoinFormulaire2Texte = ['Nombre maximum de diviseurs de l\'entier de la question 5']
 }

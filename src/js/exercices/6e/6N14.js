@@ -6,9 +6,10 @@ import { fraction } from '../../modules/fractions.js'
 export const titre = 'Représenter des fractions'
 
 /**
- * 6N14
  * Représenter des fractions simples avec des disques partagés de façon adéquate.
  * @author Jean-Claude Lhote
+ * 6N14
+ * Relecture : Novembre 2021 par EE
  */
 export default function RepresenterUneFraction () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -16,11 +17,11 @@ export default function RepresenterUneFraction () {
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.sup = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let sc
     const ppc = 20
     if (context.isHtml) {
@@ -46,7 +47,7 @@ export default function RepresenterUneFraction () {
       f = fraction(num, den)
       texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`
       texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'))
-      texteCorr = `Voici sur ces dessins, colorié en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`
+      texteCorr = `Voici sur ces dessins, coloriés en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`
       texteCorr += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'blue'))
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
@@ -58,9 +59,4 @@ export default function RepresenterUneFraction () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Type de cahier',
-    3,
-    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
-  ]
 }

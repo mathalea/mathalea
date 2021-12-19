@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texNombrec2, miseEnEvidence, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, miseEnEvidence, texteEnCouleurEtGras, calcul } from '../../modules/outils.js'
 import { mathalea2d, labyrinthe } from '../../modules/2d.js'
-export const titre = 'Labyrinthe de numération décimale'
+export const titre = 'Parcourir un labyrinthe de numération décimale'
 
 /**
  * @author Jean-Claude Lhote
@@ -26,9 +26,10 @@ export default function ExerciceLabyrintheNumeration () {
   this.nouvelleVersion = function () {
     this.listeCorrections = []
     this.listeQuestions = []
-
+    this.autoCorrection = []
+    const tailleChiffre = 0.7
     let texte, texteCorr, trouve
-    const laby = labyrinthe()
+    const laby = labyrinthe({ taille: tailleChiffre })
     laby.niveau = parseInt(this.sup) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
     laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
     laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
@@ -171,7 +172,7 @@ export default function ExerciceLabyrintheNumeration () {
             break
         }
       }
-      nombretemp = texNombrec2(`${Dm}*10000+${Um}*1000+${C}*100+${D}*10+${U}+${d}*0.1+${c}*0.01+${m}*0.001+${dm}*0.0001`, 8)
+      nombretemp = calcul(Dm * 10000 + Um * 1000 + C * 100 + D * 10 + U + d * 0.1 + c * 0.01 + m * 0.001 + dm * 0.0001)
       listeNombresOK.push(nombretemp)
     }
     for (let a = 1; a < 7; a++) {
@@ -191,7 +192,7 @@ export default function ExerciceLabyrintheNumeration () {
         }
       }
     } // Le tableau de nombre étant fait, on place les objets nombres.
-    laby.nombres2d = laby.placeNombres(laby.nombres, 0.7)
+    laby.nombres2d = laby.placeNombres(laby.nombres, tailleChiffre)
     const params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)

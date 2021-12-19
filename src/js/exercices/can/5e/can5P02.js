@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
-import { calcul, choice, texNombrec, randint, texNombre, texFractionReduite, texteEnCouleur } from '../../../modules/outils.js'
-export const titre = 'Pourcentage (proportion) 2'
+import { calcul, choice, texNombrec, randint, texNombre, texFractionReduite, texteEnCouleur, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+export const titre = 'Déterminer (ou calculer avec) un pourcentage de proportion'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -11,17 +11,19 @@ export const amcType = 'AMCNum'
  * Référence
  * Date de publication
 */
+export const dateDeModifImportante = '19/12/2021'
 export default function PoucentageP2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur25 inline'
+  this.tailleDiaporama = 1
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const listeCarac = [['filles', 'Elles'], ['garçons', 'Ils'], ['sportifs', 'Ils'], ['musiciens', 'Ils']]
     const listeCarac2 = [['maisons', 'T2'], ['maisons', 'T3'], ['appartements', 'T2'], ['appartements', 'T3']
     ]
-    let a, b, c, n, d, carac, carac2
-    switch (choice(['a', 'b'])) { //, 'b'
+    let a, b, c, n, d, carac, carac2, choix
+    switch (choice(['a', 'b', 'c', 'd'])) { //
       case 'a':
         if (choice([true, false])) {
           a = choice([20, 40])
@@ -72,6 +74,52 @@ export default function PoucentageP2 () {
        par $2$ ce résultat si on veut en calculer $20$ %, par $3$ si on veut en calculer $30$ %, ....<br>
                            `)
         this.reponse = calcul(c * b * a / 10000)
+        break
+
+      case 'c':
+
+        a = calcul(randint(1, 12) * 10)
+        b = calcul(a * randint(1, 6) / 10)
+        c = (b / a) * 100
+        choix = choice([true, false])
+        this.question = `Le prix d'un article coûtant $${a}$ euros ${choix ? 'baisse' : 'augmente'} de $${b}$ euros.<br>
+          Quel est le pourcentage ${choix ? 'de réduction' : 'd’augmentation'} de ce prix ?`
+        this.optionsChampTexte = { texteApres: '%' }
+        this.correction = `${choix ? 'La réduction' : 'L’augmentation'} est $${b}$ euros sur un total de $${a}$ euros.<br>
+          Le pourcentage  ${choix ? 'de baisse' : 'd’augmentation'} est donné par le quotient : $\\dfrac{${b}}{${a}}${simplificationDeFractionAvecEtapes(b, a)}=${texNombrec(b / a)}= ${texNombrec((b / a) * 100)}\\%$.
+          `
+        this.correction += texteEnCouleur(`<br> Mentalement : <br>
+        Calculez $10 \\%$ du prix. <br>${choix ? 'La réduction' : 'L’augmentation'} est un multiple de $10 \\%$.
+             `)
+        this.reponse = c
+
+        break
+      case 'd':
+
+        a = choice([20, 25, 10, 50])
+        b = randint(10, 30)
+        choix = choice([true, false])
+        this.question = ` Une ${choix ? ' réduction' : 'augmentation'} de $${a}~\\%$  d'un article entraîne une ${choix ? 'réduction' : 'augmentation'} du prix de $${b}$ €.<br>
+          Quel était le prix de cet article avant ${choix ? '  la réduction' : 'l’augmentation'} ?  `
+        this.optionsChampTexte = { texteApres: '€' }
+        if (a === 25) {
+          this.correction = ` $25~\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $4$ fois plus que $${b}$ € (car $4\\times 25=100$).<br>
+        Le prix de l'article était  donc : $4\\times${b}=${4 * b}$ €. `
+        }
+        if (a === 20) {
+          this.correction = ` $20~\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $5$ fois plus que $${b}$ € (car $5\\times 20=100$).<br>
+          Le prix de l'article était donc : $5\\times${b}=${5 * b}$ €.  `
+        }
+        if (a === 10) {
+          this.correction = ` $10~\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $10$ fois plus que $${b}$ € (car $10\\times 10=100$).<br>
+          Le prix de l'article était donc : $10\\times${b}=${10 * b}$ €.  `
+        }
+        if (a === 50) {
+          this.correction = ` $50~\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $2$ fois plus que $${b}$ € (car $2\\times 50=100$).<br>
+           Le prix de l'article était donc : $2\\times${b}=${2 * b}$ €.  `
+        }
+        this.reponse = calcul(100 * b / a)
+
         break
     }
   }

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { ecritureAlgebrique, listeQuestionsToContenu, calcul, randint, rienSi1, texNombre } from '../../modules/outils.js'
-import { mathalea2d, repere2, courbe2, cercle, point, segment, milieu, texteParPoint, droite } from '../../modules/2d.js'
+import { mathalea2d, repere2, cercle, point, segment, milieu, texteParPoint, droite } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = "Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine"
@@ -23,7 +23,7 @@ export default function PenteEtOrdonneeOrigineDroite () {
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   // this.sup = 1; // Niveau de difficulté
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {

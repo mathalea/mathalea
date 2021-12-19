@@ -2,7 +2,7 @@ import { context } from '../../../modules/context'
 import { propositionsQcm } from '../../../modules/gestionInteractif'
 import { enleveElement, listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'La bonne unité'
+export const titre = 'Trouver la bonne unité'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -31,7 +31,7 @@ export default function LaBonneUnite () {
     const a = randint(0, 4)
     const b = randint(hauteurs[a][1], hauteurs[a][2])
     enleveElement(unites, hauteurs[a][3])
-    let texte = `Choisis parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]}.<br>`
+    let texte = `Choisir parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]}.<br>`
     this.autoCorrection[0] = {
       enonce: texte,
       propositions: [

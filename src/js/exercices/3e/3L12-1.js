@@ -16,7 +16,7 @@ export default function DevelopperIdentitesRemarquables3 () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Développer les expressions suivantes.'
+  this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 3 : 2
@@ -52,9 +52,13 @@ export default function DevelopperIdentitesRemarquables3 () {
         texteCorr = `$${lettreDepuisChiffre(i + 1)} = \\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=${texFraction(ns * ns, ds * ds)}x^2-${a * a}$`
         reponse = `${texFraction(ns * ns, ds * ds)}x^2-${a * a}`
       }
-      texte += ajouteChampTexteMathLive(this, i)
+      if (this.interactif) {
+        texte += `<br>$${lettreDepuisChiffre(i + 1)}=$` + ajouteChampTexteMathLive(this, i, 'inline largeur75')
+        texte += '<br>'
+      }
+
       setReponse(this, i, reponse)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.sup === 1 ? this.questionJamaisPosee(i, a) : this.sup === 2 ? this.questionJamaisPosee(i, a, b) : this.questionJamaisPosee(i, a, ns, ds)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

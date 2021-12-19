@@ -40,26 +40,42 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}-(${printlatex(
             `${a}x+(${b})`
           )})$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(
-            i + 1
-          )}}=${printlatex(`${k}+(${-a}*x)+(${-b})`)}=${printlatex(
-            `${-a}*x+(${k - b})`
-          )}$`
+          if (k-b!=0){
+            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(
+              i + 1
+            )}}=${printlatex(`${k}+(${-a}*x)+(${-b})`)}=${printlatex(
+              `${-a}*x+(${k - b})`
+            )}$`
+          } else {
+            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(
+              i + 1
+            )}}=${printlatex(`${k}+(${-a}*x)+(${-b})`)}=${printlatex(
+              `${-a}*x`
+            )}$`
+          }
           break
         case 'a+()':
-          // k-(ax+b)
+          // k+(ax+b)
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}+(${printlatex(
             `${a}x+(${b})`
           )})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}+(${printlatex(
             `${a}x+(${b})`
           )})$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(
-            i + 1
-          )}}=${printlatex(`${k}+(${a}*x)+(${b})`)}=${printlatex(
-            `${a}*x+(${k + b})`
-          )}$`
-          break
+          if (k+b!=0){
+            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(
+              i + 1
+            )}}=${printlatex(`${k}+(${a}*x)+(${b})`)}=${printlatex(
+              `${a}*x+(${k + b})`
+            )}$`
+          } else {
+            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(
+              i + 1
+            )}}=${printlatex(`${k}+(${a}*x)+(${b})`)}=${printlatex(
+              `${a}*x`
+            )}$`
+          }
+          break 
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

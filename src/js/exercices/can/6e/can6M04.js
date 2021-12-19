@@ -1,6 +1,6 @@
 import { calcul, choice, randint, texNombre, texteEnCouleur, texNombrec } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Conversions en tous sens'
+export const titre = 'Convertir en tous sens'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,7 +15,7 @@ export default function ConversionEnTousSens () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let a, resultat
     switch (choice(['a', 'b', 'c', 'd'])) { //
@@ -89,7 +89,7 @@ export default function ConversionEnTousSens () {
           }
           this.formatChampTexte = 'largeur15 inline'
           this.optionsChampTexte = { texteApres: ' mL' }
-          this.correction = `$${texNombre(a)}$ cL$=${texNombrec(a / 10)}$ mL`
+          this.correction = `$${texNombre(a)}$ cL$=${texNombrec(a * 10)}$ mL`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Comme $1$ cL$ =10$ mL,  pour passer des "cL" au "mL", on multiplie par $10$.<br>
             Comme  $${texNombre(a)}\\times 10 =${texNombrec(a * 10)}$, alors $${texNombrec(a)}$ cL$=${texNombrec(a * 10)}$ mL.  `)

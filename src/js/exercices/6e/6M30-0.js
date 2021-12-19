@@ -5,7 +5,7 @@ import { mathalea2d } from '../../modules/2d.js'
 import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
-export const titre = 'Volumes de pavés droit par dénombrement'
+export const titre = 'Déterminer le volume de pavés droit par dénombrement'
 export const interactifReady = true
 export const amcReady = true
 export const interactifType = 'mathLive'
@@ -25,6 +25,7 @@ export default function VolumesPavesParDenombrement () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
     const dimensions = []
@@ -38,27 +39,27 @@ export default function VolumesPavesParDenombrement () {
       barres = []
       plaques = []
 
-      texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: l + 0.9 * p, ymax: h + 0.6 * p }, monPave)
+      texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: l + 0.9 * p, ymax: h + 0.6 * p }, ...monPave.c2d)
       if (!context.isAmc) texte += ajouteChampTexteMathLive(this, q, 'largeur25')
       for (let i = 0; i < h - 1; i++) {
-        pavesCorr.push(plaque3d(0, 0, i * 1.5, 1, l, p, 'black'))
-        plaques.push(plaque3d(0, 0, i * 1.5, 1, l, p))
+        pavesCorr.push(...plaque3d(0, 0, i * 1.5, 1, l, p, 'black').c2d)
+        plaques.push(...plaque3d(0, 0, i * 1.5, 1, l, p).c2d)
       }
-      plaques.push(plaque3d(0, 0, (h - 1) * 1.5, 1, l, p))
+      plaques.push(...plaque3d(0, 0, (h - 1) * 1.5, 1, l, p).c2d)
       for (let i = p - 1; i > 0; i--) {
-        pavesCorr.push(barre3d(0, i * 1.5, h * 1.5 - 1.5, 1, l, 'black'))
-        barres.push(barre3d(0, i * 1.5, 0, 1, l))
+        pavesCorr.push(...barre3d(0, i * 1.5, h * 1.5 - 1.5, 1, l, 'black').c2d)
+        barres.push(...barre3d(0, i * 1.5, 0, 1, l).c2d)
       }
-      barres.push(barre3d(0, 0, 0, 1, l))
+      barres.push(...barre3d(0, 0, 0, 1, l).c2d)
       for (let i = 0; i < l; i++) {
-        pavesCorr.push(cube3d(i * 1.2 - 0.06 * l, 0, h * 1.5 - 1.5, 1, 'black'))
-        cubes.push(cube3d(1.5 * i - 0.06 * l, 0, 0, 1))
+        pavesCorr.push(...cube3d(i * 1.2 - 0.06 * l, 0, h * 1.5 - 1.5, 1, 'black').c2d)
+        cubes.push(...cube3d(1.5 * i - 0.06 * l, 0, 0, 1).c2d)
       }
       if (this.correctionDetaillee) {
         texteCorr = `Il y a ${l} cubes par barre :<br>`
         texteCorr += mathalea2d({ xmin: -0.5, xmax: l * 1.5 + 2, ymin: -0.5, ymax: 1.5 }, cubes)
         texteCorr += `<br>Il y a ${p} barres par plaque :<br>`
-        texteCorr += mathalea2d({ xmin: -0.5, xmax: l + 2, ymin: -0.5, ymax: 1.5 + p * 0.75 }, barres)
+        texteCorr += mathalea2d({ xmin: -0.5, xmax: l * 1.5 + 2, ymin: -0.5, ymax: 1.5 + p * 0.75 }, barres)
         texteCorr += `<br>Enfin, il y a ${h} plaques empilées :<br>`
         texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: h * 1 * 1.5 + p * 0.75 + 0.5 }, plaques)
         texteCorr += `<br>Il y a donc $${l} \\times ${p} \\times ${h} = ${h * l * p}$ cubes.<br>`

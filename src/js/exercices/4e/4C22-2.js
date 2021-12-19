@@ -1,11 +1,10 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, abs, pgcd, texFractionSigne, obtenirListeFractionsIrreductibles, texFraction } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Diviser des fractions'
 export const amcReady = true
-export const amcType = 'AMCOpenNum✖︎2' // type de question AMC
+export const amcType = 'AMCNum' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
@@ -138,45 +137,8 @@ export default function ExerciceDiviserFractions () {
       }
       reponse = fraction((signe === '-' ? -1 : 1) * a * d, b * c).simplifie()
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
-        if (context.isAmc) {
-          this.autoCorrection[i] = {
-            enonce: `Calculer $${texte.substring(1, texte.length - 1)}$ et donner le résultat sous forme irreductible`,
-            propositions: [
-              {
-                texte: texteCorr,
-                statut: 3,
-                feedback: ''
-              }
-            ],
-            reponse: {
-              texte: 'numérateur',
-              valeur: reponse.signe * Math.abs(reponse.num),
-              param: {
-                digits: 2,
-                decimals: 0,
-                exposantNbChiffres: 0,
-                exposantSigne: false,
-                signe: reponse.signe === -1,
-                approx: 0
-              }
-            },
-            reponse2: {
-              texte: 'dénominateur',
-              valeur: Math.abs(reponse.den),
-              param: {
-                digits: 2,
-                decimals: 0,
-                exposantNbChiffres: 0,
-                exposantSigne: false,
-                signe: false,
-                approx: 0
-              }
-            }
-          }
-        } else {
-          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-          setReponse(this, i, reponse, { formatInteractif: 'fraction' })
-        }
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        setReponse(this, i, reponse, { formatInteractif: 'fraction', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

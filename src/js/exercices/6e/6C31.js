@@ -7,7 +7,7 @@ export const amcReady = true // Jusqu'à l'adaptation à la version 2.6
 export const interactifReady = true
 export const interactifType = 'numerique'
 export const amcType = 'AMCNum' // Question numérique
-export const titre = 'Divisions décimales'
+export const titre = 'Effectuer divisions décimales'
 
 /**
  * Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.
@@ -38,6 +38,7 @@ export default function DivisionDecimale () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let typesDeQuestionsDisponibles
 
     parseInt(this.sup) === 1

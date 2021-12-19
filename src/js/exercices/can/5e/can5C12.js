@@ -1,7 +1,7 @@
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
-import { calcul, choice } from '../../../modules/outils'
+import { calcul, choice, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Fraction d’entier qui va bien'
+export const titre = 'Calculer la fraction d’entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,6 +16,7 @@ export default function FractionDEntierQuiVaBien () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur25 inline'
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
@@ -24,18 +25,15 @@ export default function FractionDEntierQuiVaBien () {
     this.reponse = calcul(a.num * c)
     this.question = `$${a.texFraction}\\times ${b}$`
     if (a.num === 1) {
-      this.correction = `$${a.texFraction}\\times ${b}=${a.num * c}$<br>
-    <br> Mentalement : <br>
-    Pour multiplier $${b}$  par $${a.texFraction}$, on divise  $${b}$ par $${a.den}$  : 
-    on obtient $${b}\\div ${a.den}=${b / a.den}$.<br>
-          Ainsi,  $${a.texFraction}\\times ${b}= \\dfrac{${b}}{${a.den}}=${a.num * c}$.`
+      this.correction = `$${a.texFraction}\\times ${b}=${a.num * c}$<br><br>`
+      this.correction += `${texteEnCouleur('Mentalement :')}<br>`
+      this.correction += `${texteEnCouleur('Pour multiplier $' + b + '$ par $' + a.texFraction + '$, on divise $' + b + '$ par $' + a.den + '$ : on obtient $\\dfrac{' + b + '}{' + a.den + '}=' + b / a.den + '$.')}<br>`
+      this.correction += `${texteEnCouleur('Ainsi $' + a.texFraction + '\\times ' + b + ' = \\dfrac{' + b + '}{' + a.den + '}=' + a.num * c + '$.<br>')}`
     } else {
-      this.correction = `$${a.texFraction}\\times ${b}=${a.num * c}$<br>
-<br> Mentalement : <br>
-Pour multiplier $${b}$  par $${a.texFraction}$, on commence par diviser  $${b}$ par $${a.den}$ (car la division "tombe juste") : 
-on obtient $${b}\\div ${a.den}=${b / a.den}$.<br>
-Puis, on multiplie ce résultat par $${a.num}$, ce qui donne : $${a.num}\\times ${b / a.den}=${a.num * c}$.<br>
-   Ainsi,  $${a.texFraction}\\times ${b}=${a.num}\\times \\dfrac{${b}}{${a.den}}=${a.num}\\times ${c}=${a.num * c}$.`
+      this.correction = `$${a.texFraction}\\times ${b}=${a.num * c}$<br><br>`
+      this.correction += `${texteEnCouleur('Mentalement :')}<br>`
+      this.correction += `${texteEnCouleur('Pour multiplier $' + b + '$ par $' + a.texFraction + '$, on commence par diviser  $' + b + '$ par $' + a.den + '$ (car la division "tombe juste") : on obtient $\\dfrac{' + b + '}{' + a.den + '}=' + b / a.den + '$.')}<br>`
+      this.correction += `${texteEnCouleur('Puis, on multiplie ce résultat par $' + a.num + '$, ce qui donne : $' + a.num + '\\times ' + b / a.den + '=' + a.num * c + '$.<br>')}`
     }
   }
 }

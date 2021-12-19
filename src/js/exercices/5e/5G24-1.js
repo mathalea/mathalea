@@ -1,7 +1,6 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { point, pointAdistance, rotation, similitude, translation, vecteur, barycentre, codeSegment, codeAngle, nommePolygone, mathalea2d, triangle2points2longueurs, longueur, angle, polygone } from '../../modules/2d.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, creerNomDePolygone, choisitLettresDifferentes, shuffleLettres } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, choisitLettresDifferentes, shuffleLettres } from '../../modules/outils.js'
 export const titre = 'Triangles égaux et côtés homologues'
 
 /**
@@ -16,7 +15,7 @@ export default function TrianglesEgaux () {
   this.nbQuestions = 3
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté 
+  this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 50 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.spacing = 2
@@ -24,6 +23,7 @@ export default function TrianglesEgaux () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     let typeQuestionsDisponibles = ['rotation', 'similitude', 'rotation2', 'similitude2', 'rotation3', 'similitude3']
     if (this.nbQuestions === 3) {
@@ -310,5 +310,3 @@ export default function TrianglesEgaux () {
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
 }
-
-

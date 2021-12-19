@@ -16,13 +16,21 @@ export const context = {
   graine: '',
   // duree: 10,
   nbBonnesReponses: 0,
-  nbMauvaisesReponses: 0
+  nbMauvaisesReponses: 0,
+  zoom: 1,
+  seedSpecial: false // Change le numéro de série si une correction est cachée
 }
 
 export function setOutputHtml () {
   context.isHtml = true
   context.isAmc = false
   context.isDiaporama = false
+}
+export function setOutputMoodle () {
+  context.isHtml = true
+  context.isAmc = false
+  context.isDiaporama = false
+  context.isMoodle = true
 }
 export function setOutputDiaporama () {
   context.isHtml = true
@@ -38,4 +46,10 @@ export function setOutputAmc () {
   context.isHtml = false
   context.isAmc = true
   context.isDiaporama = false
+}
+export function setOutputAlc () {
+  context.isHtml = false
+  context.isAmc = false
+  context.isDiaporama = false
+  context.isAlc = true
 }

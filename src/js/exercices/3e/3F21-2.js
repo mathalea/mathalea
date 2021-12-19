@@ -26,21 +26,15 @@ export default function DeterminerFonctionAffine () {
   this.interactifType = interactifType
   this.consigne = ''
   this.sup = 1
-  this.nbQuestionsModifiable = false
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
+  this.nbQuestions = 2
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   // this.sup = 1
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     this.titre = titre
-    this.nbQuestions = 5 // Ici le nombre de questions
-    this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
-    this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-    this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []

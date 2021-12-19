@@ -25,7 +25,7 @@ export default function SommeOuProduitFractions () {
   this.nbQuestions = 8 // Nombre de questions par défaut
   this.nbCols = 4 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.sup = 1
   this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.

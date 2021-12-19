@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js'
+import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction, combinaisonListes } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 import { cos } from '../../modules/fonctionsMaths.js'
 
@@ -46,59 +46,63 @@ export default function ArrondirUneValeur () {
     this.listeQuestions = []
     this.listeCorrections = []
     let m, c, d, u, di, ci, mi, me, ce, de, n, den, num, nb, rac, angle, v
-
+    const listeTypeDeQuestion = this.sup < 5 ? combinaisonListes([this.sup], this.nbQuestions) : combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
-      if (this.sup === 1) {
-        m = randint(0, 9)
-        c = randint(0, 9)
-        d = randint(0, 9)
-        u = randint(2, 9)
-        di = randint(1, 9)
-        ci = randint(1, 9)
-        mi = randint(1, 9, 5)
-        me = randint(0, 1)
-        ce = randint(0, 1)
-        de = randint(0, 1)
-        n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001)
-        nb = texNombre(n)
-      } else if (this.sup === 2) {
-        den = choice([7, 9, 11, 13])
-        num = randint(1, 50, [7, 9, 11, 13, 14, 18, 21, 22, 26, 27, 28, 33, 35, 36, 39, 42, 44, 45, 49])
-        n = num / den
-        nb = texFraction(num, den)
-        di = 10 * (troncature(n - troncature(n, 0), 1))
-        ci = 100 * (troncature(n - troncature(n, 1), 2))
-        mi = 1000 * (troncature(n - troncature(n, 2), 3))
-      } else if (this.sup === 3) {
-        rac = randint(2, 300, [listeNombresPremiersStrictJusqua(300)])
-        n = Math.sqrt(rac)
-        nb = `\\sqrt{${rac}}`
-        di = 10 * (troncature(n - troncature(n, 0), 1))
-        ci = 100 * (troncature(n - troncature(n, 1), 2))
-        mi = 1000 * (troncature(n - troncature(n, 2), 3))
-      } else if (this.sup === 4) {
-        v = randint(11, 99) / 10
-        angle = randint(1, 89, 60)
-        if (choice([true, false])) {
-          n = v * cos(angle)
-          nb = `${texNombre(v)}\\cos(${angle})`
+      switch (listeTypeDeQuestion[i]) {
+        case 1:
+          m = randint(0, 9)
+          c = randint(0, 9)
+          d = randint(0, 9)
+          u = randint(2, 9)
+          di = randint(1, 9)
+          ci = randint(1, 9)
+          mi = randint(1, 9, 5)
+          me = randint(0, 1)
+          ce = randint(0, 1)
+          de = randint(0, 1)
+          n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001)
+          nb = texNombre(n)
+          texte = `$${nb}$`
+          break
+        case 2:
+          den = choice([7, 9, 11, 13])
+          num = randint(1, 50, [7, 9, 11, 13, 14, 18, 21, 22, 26, 27, 28, 33, 35, 36, 39, 42, 44, 45, 49])
+          n = num / den
+          nb = texFraction(num, den)
           di = 10 * (troncature(n - troncature(n, 0), 1))
           ci = 100 * (troncature(n - troncature(n, 1), 2))
           mi = 1000 * (troncature(n - troncature(n, 2), 3))
-        } else {
-          n = v / cos(angle)
-          nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle})}`
+          texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${num}\\div ${den}, \\text{~elle~renvoie} : ${texNombre(n)}$.`
+          break
+        case 3:
+          rac = randint(2, 300, [listeNombresPremiersStrictJusqua(300)])
+          n = Math.sqrt(rac)
+          nb = `\\sqrt{${rac}}`
           di = 10 * (troncature(n - troncature(n, 0), 1))
           ci = 100 * (troncature(n - troncature(n, 1), 2))
           mi = 1000 * (troncature(n - troncature(n, 2), 3))
-        }
+          texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$.`
+          break
+        case 4:
+          v = randint(11, 99) / 10
+          angle = randint(1, 89, 60)
+          if (choice([true, false])) {
+            n = v * cos(angle)
+            nb = `${texNombre(v)}\\cos(${angle})`
+            di = 10 * (troncature(n - troncature(n, 0), 1))
+            ci = 100 * (troncature(n - troncature(n, 1), 2))
+            mi = 1000 * (troncature(n - troncature(n, 2), 3))
+          } else {
+            n = v / cos(angle)
+            nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle})}`
+            di = 10 * (troncature(n - troncature(n, 0), 1))
+            ci = 100 * (troncature(n - troncature(n, 1), 2))
+            mi = 1000 * (troncature(n - troncature(n, 2), 3))
+          }
+          texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$.`
+          break
       }
-
-      if (this.sup === 1) texte = `$${nb}$`
-      else if (this.sup === 2) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${num}\\div ${den}, \\text{~elle~renvoie} : ${texNombre(n)}$.`
-      else if (this.sup === 3) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$.`
-      else if (this.sup === 4) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$.`
 
       texteCorr = "Encadrement et arrondi à l'unité : "
       if (di < 5) {

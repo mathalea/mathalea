@@ -8,14 +8,17 @@ export const titre = 'Écrire un nombre entier en chiffres ou en lettres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
+// Gestion de la date de publication initiale
+export const dateDePublication = '19/09/2021'
+
 /**
  * Ecrire en chiffres ou en lettres un nombre entier inférieur à 1 000 000.
  * Avec des paramètres sur le nombre de chiffres des nombres voulus
  * Avec des paramètres sur la présence obligatoire de nombres avec 80 (et ses copains qui n'aiment pas mettre de S dans leur vin) et avec 100 (et ses copains comme ceux de 80)
- * Inspiration de 3A14 et de 6N10
- * @author Eric Elter (Deseux) - C'est mon premier exo : soyez tolérant.
+ * Inspiration de 3A14
+ * @author Eric Elter
  * Référence 6N10
- * 19/09/2021
+ * Relecture : Novembre 2021 par EE
 */
 export default function EcrirePetitsNombresEntiers () {
   Exercice.call(this)
@@ -30,7 +33,7 @@ export default function EcrirePetitsNombresEntiers () {
 
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
   this.video = ''
 
   this.nouvelleVersion = function () {
@@ -49,6 +52,7 @@ export default function EcrirePetitsNombresEntiers () {
     }
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
 
     let QuestionsDisponibles = []
     let listeQuestions = []
@@ -64,13 +68,10 @@ export default function EcrirePetitsNombresEntiers () {
       } else {
         QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          // QuestionsDisponibles[i] = Math.max(Math.min(parseInt(QuestionsDisponibles[i]), 8), 2) // parseInt en fait un tableau d'entiers comprise entre 2 et 6
           QuestionsDisponibles[i] = contraindreValeur(2, 8, parseInt(QuestionsDisponibles[i]), 2)
         }
       }
     }
-    // if (QuestionsDisponibles.length === 0) { QuestionsDisponibles = [2, 3, 4, 5, 6, 7, 8] }
-
     if (!this.sup2) { // Si aucune liste n'est saisie
       OptionsDisponibles = [0]
     } else {

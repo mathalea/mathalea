@@ -2,11 +2,14 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Nom de l\'exercice'
 
+// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
+export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+
 /**
  * Description didactique de l'exercice
  * @author
  * Référence
- * Date de publication
 */
 export default function NomExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -14,12 +17,13 @@ export default function NomExercice () {
   this.nbQuestions = 10 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3'] // On créé 3 types de questions
 

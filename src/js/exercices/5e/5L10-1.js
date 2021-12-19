@@ -6,7 +6,7 @@ export const titre = 'Traduire une phrase par une expression'
  * @author Jean-Claude Lhote
  * Référence 5L10-1
  */
-export default function Traduire_une_phrase_par_une_expression_litterale () {
+export default function TraduireUnePhraseParUneExpressionLitterale () {
   EcrireUneExpressionNumerique.call(this)
   this.version = 1
   this.titre = titre

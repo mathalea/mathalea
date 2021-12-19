@@ -4,7 +4,7 @@ import { mathalea2d } from '../../modules/2d.js'
 import { cube } from '../../modules/3d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
-export const titre = 'Représentation de solides'
+export const titre = 'Compter les cubes manquants ou pas'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
@@ -34,6 +34,7 @@ export default function DenombrerCubes () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     let typesDeQuestionsDisponibles = [] // tableau à compléter par valeurs possibles des types de questions
     switch (parseInt(this.sup)) {
       case 1:
@@ -59,12 +60,12 @@ export default function DenombrerCubes () {
       // deuxième ligne et suivantes
       for (let i = 0; i < larg; i++) {
         for (let j = 1; j < long; j++) {
-          tabHauteurs[i][j] = Math.min(tabHauteurs[i][j - 1] + randint(0, 2), hmax)
+          tabHauteurs[i][j] = Math.min(tabHauteurs[i][j - 1] + randint(1, 2), hmax)
         }
       }
       // Vérification Dernière Ligne : ne pas être vide.
       for (let i = 0; i < larg; i++) {
-        tabHauteurs[i][long - 1] = Math.max(1, tabHauteurs[i][long - 1])
+        tabHauteurs[i][long - 1] = Math.max(2, tabHauteurs[i][long - 1])
       }
       // Ajoute les cubes dans un tableau une dimension
       // il faut trier les cubes : x décroissant puis y décroissant, puis z croissant
@@ -102,7 +103,7 @@ export default function DenombrerCubes () {
           beta = -25 // choix de la projection
           objetsEnonce = []
           for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           cosa = Math.cos(alpha * Math.PI / 180)
           sina = Math.sin(alpha * Math.PI / 180)
@@ -114,7 +115,7 @@ export default function DenombrerCubes () {
             xmax: cosa * longueur + 0.5,
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -124,7 +125,7 @@ export default function DenombrerCubes () {
           beta = -30
           objetsEnonce = []
           for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           paramsEnonce = {
             xmin: -sina * largeur - 0.5,
@@ -132,7 +133,7 @@ export default function DenombrerCubes () {
             xmax: cosa * longueur + 0.5,
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -151,13 +152,13 @@ export default function DenombrerCubes () {
             xmax: 3 * cosa * longueur + 0.5,
             ymax: -sina * sinb * 3 * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
           objetsCorrection = []
           for (let i = 0; i < L.length; i++) {
-            objetsCorrection.push(cube(3 * L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsCorrection.push(...cube(3 * L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
           texteCorr += `Il y a au total ${L.length} cubes.`
@@ -172,7 +173,7 @@ export default function DenombrerCubes () {
           beta = -25
           objetsEnonce = []
           for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           cosa = Math.cos(alpha * Math.PI / 180)
           sina = Math.sin(alpha * Math.PI / 180)
@@ -184,7 +185,7 @@ export default function DenombrerCubes () {
             xmax: cosa * longueur + 0.5,
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -194,7 +195,7 @@ export default function DenombrerCubes () {
           beta = -30
           objetsEnonce = []
           for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           cosa = Math.cos(alpha * Math.PI / 180)
           sina = Math.sin(alpha * Math.PI / 180)
@@ -206,7 +207,7 @@ export default function DenombrerCubes () {
             xmax: cosa * longueur + 0.5,
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -225,12 +226,12 @@ export default function DenombrerCubes () {
             xmax: 3 * cosa * longueur + 0.5,
             ymax: -sina * sinb * 3 * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false
           }
           objetsCorrection = []
           for (let i = 0; i < L.length; i++) {
-            objetsCorrection.push(cube(3 * L[i][0], L[i][1], L[i][2], alpha, beta, {}))
+            objetsCorrection.push(...cube(3 * L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
           }
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
           texteCorr += `Il y a au total $${L.length}$ cubes. On en veut $${longueur}\\times ${largeur} \\times ${hauteur} = ${longueur * largeur * hauteur}$. <br>`

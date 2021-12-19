@@ -1,9 +1,9 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texNombrec, creerNomDePolygone } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, segment, latexParCoordonnees, milieu, polygoneAvecNom
+  mathalea2d, point, segment, milieu, polygoneAvecNom, texteParPosition
 } from '../../../modules/2d.js'
-export const titre = 'Recherche valeur avec Pythagore'
+export const titre = 'Rechercher une valeur avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -16,7 +16,6 @@ export const interactifType = 'mathLive'
 export default function RechercheValeurPythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
-  this.interactif = true
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -35,12 +34,12 @@ export default function RechercheValeurPythagore () {
         objets = []
         objets.push(segment(A, B), segment(B, C), segment(A, C))
         objets.push(pol[0], pol[1])
-        objets.push(latexParCoordonnees(`${texNombrec(a)}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 'black', 20, 10, ''),
-          latexParCoordonnees('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'black', 20, 10, ''),
-          latexParCoordonnees('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'black', 20, 10, ''))
+        objets.push(texteParPosition(`${texNombrec(a)}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true))
         this.question = `Déterminer $x$ pour que le triangle soit rectangle.<br>
-      (donner le résultat sous la forme $\\sqrt{a}$)`
-        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 6, ymax: 5, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+      (donner le résultat sous la forme $\\sqrt{a}$)<br>`
+        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 6, ymax: 5, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
         this.correction = ` Le plus grand côté est $${a}$ (autrement il y aurait deux hypoténuses). On cherche $x$ tel que $x^2+x^2=${a}^2$, soit $2x^2=${a * a}$.<br>
       En divisant par $2$ chacun des membres, on obtient : $x^2=${a * a / 2}$.<br>
       Comme la valeur de $x$ cherchée est positive, on a  $x=\\sqrt{${texNombrec(a ** 2 / 2)}}$.
@@ -58,12 +57,12 @@ export default function RechercheValeurPythagore () {
         objets = []
         objets.push(pol[0], pol[1])
         objets.push(segment(A, B), segment(B, C), segment(A, C))
-        objets.push(latexParCoordonnees(`\\sqrt{${a}}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 'black', 20, 10, ''),
-          latexParCoordonnees('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'black', 20, 10, ''),
-          latexParCoordonnees('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'black', 20, 10, ''))
+        objets.push(texteParPosition(`$\\tiny{\\sqrt{${a}}}$`, milieu(B, C).x + 0.8 + 0, milieu(B, C).y + 1, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true))
 
-        this.question = 'Déterminer $x$ pour que le triangle soit rectangle.'
-        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 6, ymax: 5, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.7 }, objets)
+        this.question = 'Déterminer $x$ pour que le triangle soit rectangle.<br>'
+        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 6, ymax: 5, pixelsParCm: 22, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
         this.correction = ` Le plus grand côté est $\\sqrt{${a}}$ (autrement il y aurait deux hypoténuses).
         On cherche $x$ tel que $x^2+x^2=\\sqrt{${a}}^2$, soit $2x^2=${a}$.<br>
       En divisant par $2$ chacun des membres, on obtient : $x^2=${a / 2}$.<br>

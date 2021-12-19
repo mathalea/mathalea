@@ -24,6 +24,7 @@ export default function CalculerDesMoyennes () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     for (let i = 0, nombreNotes, eleve, notes, effectifs, somme, effectifTotal, nombreTemperatures, temperatures, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (this.sup.toString() === '1') { // ici on trie des notes

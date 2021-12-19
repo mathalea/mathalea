@@ -9,7 +9,7 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
  * @author Jean-Claude Lhote
  * 3S20
  */
-export default function fonctionsProbabilite2 () {
+export default function FonctionsProbabilite2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -201,19 +201,21 @@ export default function fonctionsProbabilite2 () {
         case 3:
           quidam = prenomM()
           quidame = prenomF()
-          p = choice([4, 6, 8, 10, 12])
-          q = choice([4, 6, 8, 10, 12], [p])
-          n[0] = Math.min(p, q) // petit dé de quidam
-          m[0] = Math.max(p, q) // grand dé de quidam
-          p1[0] = n[0] * m[0] // nombre de couples pour quidam
-          p = choice([4, 6, 8, 12])
-          q = choice([4, 6, 8, 12], [p])
-          n[1] = Math.min(p, q) // petit dé de quidame
-          m[1] = Math.max(p, q) // grand dé de quidame
-          p1[1] = n[1] * m[1] // nombre de couples pour quidame
-          somme1 = n[0] + m[0] // maximum pour quidam
-          somme2 = n[1] + m[1] // maximum pour quidame
-          r = Math.min(somme1, somme2) // Plus grand résultat commun.
+          do {
+            p = choice([4, 6, 8, 10, 12])
+            q = choice([4, 6, 8, 10, 12], p)
+            n[0] = Math.min(p, q) // petit dé de quidam
+            m[0] = Math.max(p, q) // grand dé de quidam
+            p1[0] = n[0] * m[0] // nombre de couples pour quidam
+            p = choice([4, 6, 8, 10, 12], [n[0], m[0]])
+            q = choice([4, 6, 8, 10, 12], [n[0], m[0], p])
+            n[1] = Math.min(p, q) // petit dé de quidame
+            m[1] = Math.max(p, q) // grand dé de quidame
+            p1[1] = n[1] * m[1] // nombre de couples pour quidame
+            somme1 = n[0] + m[0] // maximum pour quidam
+            somme2 = n[1] + m[1] // maximum pour quidame
+            r = Math.min(somme1, somme2) // Plus grand résultat commun.
+          } while (n[0] + 1 > somme2)
           for (let j = 0; j < n[0] + m[0] - 1; j++) { fra1[j] = 0 }
           for (let j = 1; j <= n[0]; j++) {
             for (let k = 1; k <= m[0]; k++) {
@@ -331,7 +333,7 @@ export default function fonctionsProbabilite2 () {
               if (trouve === true) { break }
             }
             if (trouve === false) {
-              texteCorr += numAlpha(3) + ` Il n'existe pas de choix qui permette à ${quidam}et à ${quidame} d'avoir la même probabilité de gagner car : <br>`
+              texteCorr += numAlpha(3) + ` Il n'existe pas de choix qui permette à ${quidam} et à ${quidame} d'avoir la même probabilité de gagner car : <br>`
               for (let j = 2; j < r / 2; j++) {
                 texteCorr += `$\\textcolor {${Couleurs[(j) % 10]}}{${texFraction(fra1[j - 2], p1[0])}}\\ne \\textcolor {${Couleurs[(j) % 10]}}{${texFraction(fra2[j - 2], p1[1])}}$ ; `
               }

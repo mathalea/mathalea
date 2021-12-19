@@ -3,7 +3,7 @@ import {
   randint, ecritureParentheseSiNegatif,
   ecritureAlgebrique, texteEnCouleur, texFractionReduite, reduireAxPlusB, simplificationDeFractionAvecEtapes, texFraction
 } from '../../../modules/outils.js'
-export const titre = 'Calcul d’une image avec un quotient'
+export const titre = 'Calculer une image avec un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -16,7 +16,6 @@ export const interactifType = 'mathLive'
 export default function CalculImageQuotient () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
-  this.interactif = true
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

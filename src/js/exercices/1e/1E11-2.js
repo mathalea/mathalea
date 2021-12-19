@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, arrondiVirgule, texFractionReduite, texFractionSigne, texFraction, pgcd } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,7 +13,6 @@ export const titre = 'Résoudre une équation du second degré'
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -21,16 +20,18 @@ export default function ResoudreEquationDegre2 () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
+    this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions
+    this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
     if (this.interactif) {
       this.consigne += '<br>S\'il y a plusieurs solutions, les donner séparées d\'un point virgule. <br>S\'il n\'y a pas de solution, écrire Non'
     }
     if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres', 'pasDeSolution'], this.nbQuestions)
     }
-   
+
     for (let i = 0, texte, texteCorr, a, b, c, x1, x2, y1, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (listeTypeDeQuestions[i] === 'solutionsEntieres') {
         // k(x-x1)(x-x2)
@@ -40,11 +41,6 @@ export default function ResoudreEquationDegre2 () {
         a = k
         b = -k * x1 - k * x2
         c = k * x1 * x2
-        if (pgcd(a, b, c) !== 1) {
-          a = a / pgcd(a, b, c)
-          b = b / pgcd(a, b, c)
-          c = c / pgcd(a, b, c)
-        }
         texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$`
 
         texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`

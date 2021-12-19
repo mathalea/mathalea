@@ -24,12 +24,13 @@ export default function VariationEnPourcentages () {
   this.spacingCorr = 2
   this.nbColsCorr = 1
   this.nbCols = 1
-    this.interactifType = 'mathLive'
+  this.interactifType = 'mathLive'
 
   this.nouvelleVersion = function () {
     let fReponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     for (let i = 0, prix, taux, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       prix = choice([randint(2, 9), randint(1, 9) * 10, randint(1, 9) * 100, calcul(randint(11, 99) / 10)])
       // X | X0 | X00 | X,X0
@@ -66,7 +67,6 @@ export default function VariationEnPourcentages () {
       }
       if (context.isAmc) {
         setReponse(this, i, fReponse.valeurDecimale)
-        console.log(this.autoCorrection[i])
       } else {
         setReponse(this, i, [fReponse.texFraction, fReponse.texFractionSimplifiee, fReponse.valeurDecimale])
       }

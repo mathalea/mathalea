@@ -1,7 +1,7 @@
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Somme de fractions à dénominateurs compatibles'
+export const titre = 'Déterminer la somme de fractions à dénominateurs compatibles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,6 +16,7 @@ export default function SommeFractionsCompatibles () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fractionEgale'
   this.nouvelleVersion = function () {

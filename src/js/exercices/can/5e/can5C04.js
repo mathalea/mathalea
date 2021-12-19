@@ -1,6 +1,6 @@
 import { calcul, randint, texteEnCouleur, texNombrec } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Triple et moitié'
+export const titre = 'Calculer avec triple et moitié'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,6 +14,7 @@ export const amcType = 'AMCNum'
 export default function TripleEtMoitie () {
   Exercice.call(this)
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {

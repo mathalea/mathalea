@@ -8,6 +8,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDeModifImportante = '11/11/2021'
 
 /**
 * Effectuer la soustraction de  2 nombres relatifs.
@@ -17,6 +18,7 @@ export const amcType = 'AMCNum'
 * @author Rémi Angot
 * 5R21
 * Rendu les différentes situations équiprobables le 16/10/2021 par Guillaume Valmont
+* Ajout possibilité correction non détaillée le 11/11/2021 par Mireille Gain
 */
 export default function ExerciceSoustractionsRelatifs (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -29,10 +31,13 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
   this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
+  this.correctionDetailleeDisponible = true
+  this.correctionDetaillee = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let liste = [[-1, -1], [-1, 1], [1, -1]] // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
     liste = combinaisonListes(liste, this.nbQuestions)
     for (let i = 0, a, b, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -49,14 +54,20 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
         if (b > 0) {
           texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a - b} $`
         } else {
-          texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a} ${ecritureAlgebrique(-b)} = ${a - b}$`
+          if (this.correctionDetaillee) {
+            texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a} ${ecritureAlgebrique(-b)} = ${a - b}$`
+          } else { texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a - b}$` }
         }
       } else {
         texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = \\dotfill $'
         if (this.interactif && !context.isAmc) {
           texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = $' + ajouteChampTexteMathLive(this, i, { texte: '' })
         }
-        texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(-1 * b) + ' = ' + ecritureNombreRelatifc(a - b) + ' $'
+        if (this.correctionDetaillee) {
+          texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(-1 * b) + ' = ' + ecritureNombreRelatifc(a - b) + ' $'
+        } else {
+          texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a - b) + ' $'
+        }
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

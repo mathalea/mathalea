@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, calcul, texPrix } from '../../modules/outils.js'
-export const titre = 'Facture'
+export const titre = 'Remplir une facture'
 
 /**
  * Compléter une facture
@@ -18,12 +18,13 @@ export default function CompleterUneFacture () {
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 2 // Niveau de difficulté
-  this.tailleDiaporama = 20 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 30 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     for (let i = 0, article1, q1, p1, article2, q2, p2, article3, q3, p3, r, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeArticles = [['Feuilletés au fromage', calcul(randint(50, 80) / 10)],
@@ -52,7 +53,7 @@ export default function CompleterUneFacture () {
           texte = '$\\begin{array}{|c|c|c|c|}\n'
         }
         texte += '\\hline\n'
-        texte += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n'
+        texte += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texte += '\\hline\n'
         texte += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & \\ldots\\ldots \\\\ \n`
         texte += '\\hline\n'
@@ -74,7 +75,7 @@ export default function CompleterUneFacture () {
           texteCorr = '$\\begin{array}{|c|c|c|c|}\n'
         }
         texteCorr += '\\hline\n'
-        texteCorr += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n'
+        texteCorr += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texteCorr += '\\hline\n'
         texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(calcul(p1 * q1))} \\\\ \n`
         texteCorr += '\\hline\n'
@@ -99,7 +100,7 @@ export default function CompleterUneFacture () {
           texte = '$\\begin{array}{|c|c|c|c|}\n'
         }
         texte += '\\hline\n'
-        texte += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n'
+        texte += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texte += '\\hline\n'
         texte += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & \\ldots\\ldots \\\\ \n`
         texte += '\\hline\n'
@@ -125,7 +126,7 @@ export default function CompleterUneFacture () {
           texteCorr = '$\\begin{array}{|c|c|c|c|}\n'
         }
         texteCorr += '\\hline\n'
-        texteCorr += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n'
+        texteCorr += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texteCorr += '\\hline\n'
         texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(calcul(p1 * q1))} \\\\ \n`
         texteCorr += '\\hline\n'

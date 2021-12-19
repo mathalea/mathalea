@@ -1,16 +1,16 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, choice, katexPopup2 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
 import { point, polygone, grille, texteParPosition, mathalea2d } from '../../modules/2d.js'
 
-export const titre = 'Programmer des déplacements (scratch)'
+export const titre = 'Programmer des déplacements (Scratch)'
 
 /**
  * * Colorier le déplacement d'un lutin
- * * 6Algo10
+ * * 6I10
  * @author Erwan Duplessy
  */
-export default function Colorier_Deplacement () {
+export default function ColorierDeplacement () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'Scratch'
   this.sup = 1 // nombre de commandes = this.sup + 2
@@ -29,18 +29,20 @@ export default function Colorier_Deplacement () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    function scratchblocks_Tikz (code_svg, code_tikz) {
+    this.autoCorrection = []
+    function scratchblocksTikz (codeSvg, codeTikz) {
+      // c'est une ancienne façon de faire. Maintenant il existe une fonction scratchblock() qui effectue la conversion scratch Latex -> scratchblock
       if (context.isHtml) {
-        return code_svg
+        return codeSvg
       } else {
-        return code_tikz
+        return codeTikz
       };
     };
 
     let texte = '' // texte de l'énoncé
     let texteCorr = '' // texte du corrigé
-    let code_tikz = '' // code pour dessiner les blocs en tikz
-    let code_svg = '' // code pour dessiner les blocs en svg
+    let codeTikz = '' // code pour dessiner les blocs en tikz
+    let codeSvg = '' // code pour dessiner les blocs en svg
     const nbCommandes = Number(this.sup) + 2 // nombre de commandes de déplacement dans un script
     let nbRepetition = 1 // Nombre de fois où la boucle est répétée.
     if (this.sup2) {
@@ -50,23 +52,23 @@ export default function Colorier_Deplacement () {
     const lstCommandesTikz = ['\\blockmove{Aller à gauche}', '\\blockmove{Aller à droite}', '\\blockmove{Aller en haut}', '\\blockmove{Aller en bas}', '\\blockmove{Colorier la case}']
     const lstCommandesSVG = ['Aller à gauche', 'Aller à droite', 'Aller en haut', 'Aller en bas', 'Colorier']
     const lstAjoutXY = [[-1, 0], [1, 0], [0, 1], [0, -1], [0, 0]]
-    code_tikz += '\\medskip \\\\ \\begin{scratch} <br>'
-    code_svg += '<pre class=\'blocks\'>'
+    codeTikz += '\\medskip \\\\ \\begin{scratch} <br>'
+    codeSvg += '<pre class=\'blocks\'>'
     let n = 0 // variable temporaire pour stocker le numéro de la commande
     const lstNumCommande = [] // liste des commandes successives
     const lstX = [0] // liste des abscisses successives
     const lstY = [0] // liste des ordonnées successives
     if (this.sup2) {
-      code_svg += `répéter (${nbRepetition}) fois <br>`
-      code_tikz += `\\blockrepeat{répéter \\ovalnum{${nbRepetition}} fois} {`
+      codeSvg += `répéter (${nbRepetition}) fois <br>`
+      codeTikz += `\\blockrepeat{répéter \\ovalnum{${nbRepetition}} fois} {`
     }
 
     for (let i = 0; i < nbCommandes; i++) {
       n = choice([0, 1, 2, 3]) // choix d'un déplacement
-      code_tikz += lstCommandesTikz[n] // ajout d'un déplacement
-      code_svg += lstCommandesSVG[n] + '<br>' // ajout d'un déplacement
-      code_tikz += lstCommandesTikz[4] // ajout de l'instruction "Colorier"
-      code_svg += lstCommandesSVG[4] + '<br>' // ajout de l'instruction "Colorier"
+      codeTikz += lstCommandesTikz[n] // ajout d'un déplacement
+      codeSvg += lstCommandesSVG[n] + '<br>' // ajout d'un déplacement
+      codeTikz += lstCommandesTikz[4] // ajout de l'instruction "Colorier"
+      codeSvg += lstCommandesSVG[4] + '<br>' // ajout de l'instruction "Colorier"
       lstNumCommande.push(n) // ajout d'un déplacement
       lstNumCommande.push(4) // ajout de l'instruction "Colorier"
       lstX.push(lstX[lstX.length - 1] + lstAjoutXY[n][0]) // calcul de la nouvelle abscisse
@@ -79,11 +81,11 @@ export default function Colorier_Deplacement () {
       }
     }
     if (this.sup2) {
-      code_svg += 'fin <br>'
-      code_tikz += '}'
+      codeSvg += 'fin <br>'
+      codeTikz += '}'
     }
-    code_svg += '</pre>'
-    code_tikz += '\\end{scratch}'
+    codeSvg += '</pre>'
+    codeTikz += '\\end{scratch}'
 
     const xLutinMin = Math.min(...lstX)
     const xLutinMax = Math.max(...lstX)
@@ -96,7 +98,7 @@ export default function Colorier_Deplacement () {
       texte += '\\begin{minipage}[t]{.25\\textwidth}'
     }
 
-    texte += scratchblocks_Tikz(code_svg, code_tikz)
+    texte += scratchblocksTikz(codeSvg, codeTikz)
 
     if (context.isHtml) {
       texte += '</td><td>'
@@ -177,14 +179,14 @@ export default function Colorier_Deplacement () {
       }
       texteCorr += mathalea2d({ xmin: xGrilleMin - 3, xmax: xGrilleMax + 1, ymin: yGrilleMin - 1, ymax: yGrilleMax + 1, pixelsParCm: 20, scale: 0.4 }, lstObjet)
       if (context.isHtml) {
-        if (k % 3 == 2) {
+        if (k % 3 === 2) {
           texteCorr += '</td></tr><tr><td style="text-align:center">' // retour à la ligne après 3 grilles dessinées en HTML
         } else {
           texteCorr += '</td><td></td><td style="text-align:center">'
         }
       } else {
         texteCorr += '\\end{minipage}'
-        if (k % 2 == 1) { texteCorr += '\\\\ ' } // retour à la ligne après 2 grilles dessinées en LaTeX
+        if (k % 2 === 1) { texteCorr += '\\\\ ' } // retour à la ligne après 2 grilles dessinées en LaTeX
         texteCorr += '\\begin{minipage}{.49\\textwidth}'
       }
     }

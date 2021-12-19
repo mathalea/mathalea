@@ -28,6 +28,7 @@ export default function LectureDiagrammeBarre () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // vide la liste de questions
     this.listeCorrections = [] // vide la liste de questions corrigées
+    this.autoCorrection = []
     const bornesinf = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
     const lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
     let nbAnimaux = 4 // nombre d'animaux différents dans l'énoncé
@@ -97,6 +98,8 @@ export default function LectureDiagrammeBarre () {
       case 2:
         if (!context.isAmc) {
           texte += numAlpha(2) + ' Donner un encadrement à la centaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
+          texte += ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texte: sp(5) }) + sp(10) + `< nombre de ${lstAnimauxExo[numAnimal]} < `
+          texte += ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { texte: sp(5) })
         } else {
           texte += '3)  Donner un encadrement à la centaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
         }

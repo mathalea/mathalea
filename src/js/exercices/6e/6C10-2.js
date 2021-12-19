@@ -7,7 +7,7 @@ export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 
-export const titre = 'Tables de multiplications et multiples de 10'
+export const titre = 'Utiliser tables de multiplications pour effectuer produits avec multiple de 10'
 
 /**
  * Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
@@ -24,7 +24,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.titre = titre
   this.consigne = 'Calculer :'
   this.spacing = 2
-  this.tailleDiaporama = 100
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.interactifType = parseInt(this.sup2) === 2 ? 'mathLive' : 'qcm'

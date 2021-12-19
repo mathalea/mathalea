@@ -1,49 +1,107 @@
-/* eslint-disable camelcase */
-import { vecteur, polygoneAvecNom, translation, symetrieAxiale, appartientDroite, point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, norme, pointSurDroite, similitude } from './2d.js'
-import { calcul, randint, nombreAvecEspace, arrondi, texNombre } from './outils.js'
 import iepLoadPromise from 'instrumenpoche'
+import { angleOriente, droite, homothetie, longueur, milieu, norme, point, pointAdistance, pointSurSegment, rotation, segment, translation, translation2Points, vecteur } from './2d.js'
 import { context } from './context.js'
+import { bissectriceAuCompas, cercleCirconscrit, hauteur, mediane, mediatriceAuCompas, mediatriceRegleEquerre } from './iepMacros/droitesRemarquables'
+import { paralleleAuCompas, paralleleAuCompasAvecDescription, paralleleRegleEquerre2points3epoint, paralleleRegleEquerreDroitePointAvecDescription, perpendiculaireCompasPoint, perpendiculaireCompasPointSurLaDroite, perpendiculaireRegleEquerre2points3epoint, perpendiculaireRegleEquerreDroitePoint, perpendiculaireRegleEquerrePointSurLaDroite } from './iepMacros/parallelesEtPerpendiculaires.js'
+import { parallelogramme2sommetsConsecutifsCentre, parallelogramme3sommetsConsecutifs, parallelogrammeAngleCentre, partageSegment } from './iepMacros/parallelogrammes'
+import { carre1point1longueur } from './iepMacros/quadrilateres.js'
+import { demiTourPoint, demiTourPolygone, homothetiePoint, homothetiePolygone, rotationPoint, rotationPolygone, symetrieAxialePoint, symetrieAxialePolygone, translationPoint, translationPolygone } from './iepMacros/transformations'
+import { triangle1longueur2angles, triangle2longueurs1angle, triangle3longueurs, triangleEquilateral, triangleEquilateral2Sommets, triangleRectangle2Cotes, triangleRectangleCoteHypotenuse } from './iepMacros/triangles.js'
+import { calcul } from './outils.js'
 
 /*
  * Classe parente de tous les objets Alea2iep
  *
  * @author Rémi Angot
  */
-export default function Alea2iep () {
-  this.idIEP = 0 // Identifiant pour les tracés
-  this.idHTML = 0 // Identifiant pour les div et le svg
-  this.tempo = 5 // Pause par défaut après une instruction
-  this.vitesse = 10 // Vitesse par défaut pour les déplacements d'instruments
-  this.couleur = 'blue' // Couleur par défaut
-  this.couleurCompas = 'forestgreen'
-  this.couleurTexte = 'black'
-  this.couleurPoint = 'black' // Couleur du nom des points
-  this.couleurCodage = '#f15929'
-  this.couleurTraitsDeConstruction = 'gray'
-  this.epaisseur = 2
-  this.epaisseurTraitsDeConstruction = 1
-  this.pointilles = false
-  this.liste_script = [] // Liste des instructions xml mise à jour par les méthodes
+export default class Alea2iep {
+  constructor () {
+    this.idIEP = 0 // Identifiant pour les tracés
+    this.idHTML = 0 // Identifiant pour les div et le svg
+    this.tempo = 5 // Pause par défaut après une instruction
+    this.vitesse = 10 // Vitesse par défaut pour les déplacements d'instruments
+    this.couleur = 'blue' // Couleur par défaut
+    this.couleurCompas = 'forestgreen'
+    this.couleurTexte = 'black'
+    this.couleurPoint = 'black' // Couleur du nom des points
+    this.couleurCodage = '#f15929'
+    this.couleurTraitsDeConstruction = 'gray'
+    this.epaisseur = 2
+    this.epaisseurTraitsDeConstruction = 1
+    this.pointilles = false
+    this.liste_script = [] // Liste des instructions xml mise à jour par les méthodes
 
-  this.translationX = 0
-  this.translationY = 10 // Par défaut l'angle en haut à gauche est le point de coordonnées (0,10)
+    this.translationX = 0
+    this.translationY = 10 // Par défaut l'angle en haut à gauche est le point de coordonnées (0,10)
 
-  this.recadre = function (xmin, ymax) {
-    this.translationX = 1 - xmin
-    this.translationY = ymax + 3
+    this.recadre = function (xmin, ymax) {
+      this.translationX = 1 - xmin
+      this.translationY = ymax + 3
+    }
+
+    // Garde en mémoire les coordonnées extrêmes des objets créés
+    this.xMin = 0
+    this.yMin = 0
+    this.xMax = 0
+    this.yMax = 0
+
+    this.taille = function (width, height) {
+      this.liste_script.push(`<viewBox width="${width}" height="${height}" />`)
+    }
+
+    // Sauvegarde de l'état des instruments
+    this.regle = {
+      visibilite: false,
+      position: point(0, 0),
+      angle: 0,
+      longueur: 15,
+      zoom: 100
+    }
+
+    this.crayon = {
+      visibilite: false,
+      position: point(0, 0),
+      angle: 0,
+      zoom: 100
+    }
+
+    this.equerre = {
+      visibilite: false,
+      position: point(0, 0),
+      angle: 0,
+      zoom: 100
+    }
+
+    this.requerre = {
+      visibilite: false,
+      position: point(0, 0),
+      angle: 0,
+      zoom: 100
+    }
+
+    this.rapporteur = {
+      visibilite: false,
+      position: point(0, 0),
+      angle: 0,
+      zoom: 100
+    }
+
+    this.compas = {
+      visibilite: false,
+      position: point(0, 0),
+      angle: 0,
+      orientation: 'droite',
+      ecartement: 0,
+      leve: false,
+      zoom: 100
+    }
+
+    this.xml = ''
   }
+  /** **** Fin du constructeur */
 
-  // Garde en mémoire les coordonnées extrêmes des objets créés
-  this.xMin = 0
-  this.yMin = 0
-  this.xMax = 0
-  this.yMax = 0
-
-  this.taille = function (width, height) {
-    this.liste_script.push(`<viewBox width="${width}" height="${height}" />`)
-  }
   // Transforme les coordonnées MathALEA2D en coordonnées pour le XML d'IEP
-  this.x = function (A) {
+  x (A) {
     const x = calcul((A.x + this.translationX) * 30, 0)
     if (A.x > this.xMax) {
       this.xMax = A.x
@@ -53,7 +111,8 @@ export default function Alea2iep () {
     }
     return x
   }
-  this.y = function (A) {
+
+  y (A) {
     const y = calcul((-A.y + this.translationY) * 30, 0)
     if (A.y < this.yMin) {
       this.yMin = A.y
@@ -64,60 +123,11 @@ export default function Alea2iep () {
     return y
   }
 
-  // Sauvegarde de l'état des instruments
-  this.regle = {
-    visibilite: false,
-    position: point(0, 0),
-    angle: 0,
-    longueur: 15,
-    zoom: 100
-  }
-
-  this.crayon = {
-    visibilite: false,
-    position: point(0, 0),
-    angle: 0,
-    zoom: 100
-  }
-
-  this.equerre = {
-    visibilite: false,
-    position: point(0, 0),
-    angle: 0,
-    zoom: 100
-  }
-
-  this.requerre = {
-    visibilite: false,
-    position: point(0, 0),
-    angle: 0,
-    zoom: 100
-  }
-
-  this.rapporteur = {
-    visibilite: false,
-    position: point(0, 0),
-    angle: 0,
-    zoom: 100
-  }
-
-  this.compas = {
-    visibilite: false,
-    position: point(0, 0),
-    angle: 0,
-    orientation: 'droite',
-    ecartement: 0,
-    leve: false,
-    zoom: 100
-  }
-
-  this.xml = ''
-
   /**
    * Renvoie le script xml
    *
    */
-  this.script = function () {
+  script () {
     if (this.xml.length > 1) {
       return this.xml
     } else {
@@ -134,7 +144,7 @@ export default function Alea2iep () {
    * @param {int} numeroExercice - Numéro de l'exercice
    * @param {int} i - Numéro de la question
    */
-  this.html = function (id1, id2) {
+  html (id1, id2) {
     if (context.isHtml) {
       const id = `IEP_${id1}_${id2}`
       window.listeScriptsIep[id] = this.script() // On ajoute le script
@@ -150,7 +160,7 @@ export default function Alea2iep () {
    * @param {int} i - Numéro de la question
    * @return Code HTML avec le bouton qui affiche ou masque un div avec l'animation
    */
-  this.htmlBouton = function (id1, id2 = '') {
+  htmlBouton (id1, id2 = '') {
     if (context.isHtml) {
       const id = `IEP_${id1}_${id2}`
       window.listeScriptsIep[id] = this.script() // On ajoute le script
@@ -192,7 +202,7 @@ export default function Alea2iep () {
    * @param {point} A - Point (0, 0) par défaut
    * @param {objet} options - { tempo : 10 }
    */
-  this.montrer = function (objet, A, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
+  montrer (objet, A, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
     if (!this[objet].visibilite || this[objet].position !== A) { // On ajoute une ligne xml que si l'objet est caché ou doit apparaitre à un autre endroit
       let codeXML = ''
       let A1
@@ -217,47 +227,52 @@ export default function Alea2iep () {
    * @param {point} A
    * @param {objet} options
    */
-  this.regleMontrer = function (A, options) {
+  regleMontrer (A, options) {
     this.montrer('regle', A, options)
   }
+
   /**
    *
    * @param {point} A
    * @param {objet} options
    */
-  this.crayonMontrer = function (A, options) {
+  crayonMontrer (A, options) {
     this.montrer('crayon', A, options)
   }
+
   /**
    *
    * @param {point} A
    * @param {objet} options
    */
-  this.equerreMontrer = function (A, options) {
+  equerreMontrer (A, options) {
     this.montrer('equerre', A, options)
   }
+
   /**
    *
    * @param {point} A
    * @param {objet} options
    */
-  this.requerreMontrer = function (A, options) {
+  requerreMontrer (A, options) {
     this.montrer('requerre', A, options)
   }
+
   /**
    *
    * @param {point} A
    * @param {objet} options
    */
-  this.compasMontrer = function (A, options) {
+  compasMontrer (A, options) {
     this.montrer('compas', A, options)
   }
+
   /**
    *
    * @param {point} A
    * @param {objet} options
    */
-  this.rapporteurMontrer = function (A, options) {
+  rapporteurMontrer (A, options) {
     this.montrer('rapporteur', A, options)
   }
 
@@ -266,53 +281,59 @@ export default function Alea2iep () {
    * @param {string} objet
    * @param {objet} param1
    */
-  this.masquer = function (objet, { tempo = this.tempo } = {}) {
+  masquer (objet, { tempo = this.tempo } = {}) {
     if (this[objet].visibilite) { // On ajoute une ligne xml que si l'objet est visible
       const codeXML = `<action objet="${objet}" mouvement="masquer" tempo="${tempo}" />`
       this[objet].visibilite = false
       this.liste_script.push(codeXML)
     }
   }
+
   /**
    *
    * @param {objet} options
    */
-  this.regleMasquer = function (options) {
+  regleMasquer (options) {
     this.masquer('regle', options)
   }
+
   /**
    *
    * @param {objet} options
    */
-  this.crayonMasquer = function (options) {
+  crayonMasquer (options) {
     this.masquer('crayon', options)
   }
+
   /**
    *
    * @param {objet} options
    */
-  this.equerreMasquer = function (options) {
+  equerreMasquer (options) {
     this.masquer('equerre', options)
   }
+
   /**
    *
    * @param {objet} options
    */
-  this.requerreMasquer = function (options) {
+  requerreMasquer (options) {
     this.masquer('requerre', options)
   }
+
   /**
    *
    * @param {objet} options
    */
-  this.compasMasquer = function (options) {
+  compasMasquer (options) {
     this.masquer('compas', options)
   }
+
   /**
    *
    * @param {objet} options
    */
-  this.rapporteurMasquer = function (options) {
+  rapporteurMasquer (options) {
     this.masquer('rapporteur', options)
   }
 
@@ -322,68 +343,75 @@ export default function Alea2iep () {
  * @param {point} A
  * @param {objet} options
  */
-  this.deplacer = function (objet, A, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
+  deplacer (objet, A, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
     if (this[objet].position !== A) { // On n'ajoute une commande xml que s'il y a vraiment un déplacement
       const codeXML = `<action objet="${objet}" mouvement="translation" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" tempo="${tempo}" vitesse="${vitesse}" />`
       this[objet].position = A
       this.liste_script.push(codeXML)
     }
   }
+
   /**
    *
    * @param {point} A
    * @param {objet} options
    */
-  this.regleDeplacer = function (A, options) {
+  regleDeplacer (A, options) {
     this.deplacer('regle', A, options)
   }
+
   /**
    *
    * @param {point} A
    * @param {objet} options
    */
-  this.texteDeplacer = function (id, A, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
+  texteDeplacer (id, A, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
     const codeXML = `<action objet="texte" id="${id}" mouvement="translation" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" tempo="${tempo}" vitesse="${vitesse}" />`
     this.liste_script.push(codeXML)
   }
+
   /**
    *
    * @param {point} A
    * @param {objet} options
    */
-  this.crayonDeplacer = function (A, options) {
+  crayonDeplacer (A, options) {
     this.deplacer('crayon', A, options)
   }
+
   /**
    *
    * @param {point} A
    * @param {objet} options
    */
-  this.equerreDeplacer = function (A, options) {
+  equerreDeplacer (A, options) {
     this.deplacer('equerre', A, options)
   }
+
   /**
    *
    * @param {point} A
    * @param {objet} options
    */
-  this.requerreDeplacer = function (A, options) {
+  requerreDeplacer (A, options) {
     this.deplacer('requerre', A, options)
   }
+
   /**
    *
    * @param {point} A
    * @param {objet} options
    */
-  this.compasDeplacer = function (A, options) {
+  compasDeplacer (A, options) {
     this.deplacer('compas', A, options)
   }
+
   /**
    *
    * @param {point} A
    * @param {objet} options
    */
-  this.rapporteurDeplacer = function (A, options) {
+  rapporteurDeplacer (A, options) {
     this.deplacer('rapporteur', A, options)
   }
 
@@ -393,7 +421,7 @@ export default function Alea2iep () {
  * @param {int} angle
  * @param {objet} options
  */
-  this.rotation = function (objet, a, { tempo = this.tempo, sens = calcul(this.vitesse / 2, 0) } = {}) {
+  rotation (objet, a, { tempo = this.tempo, sens = calcul(this.vitesse / 2, 0) } = {}) {
     let angle
     if (a.typeObjet === 'point') {
       const d = droite(this[objet].position, a)
@@ -412,96 +440,107 @@ export default function Alea2iep () {
       }
     }
   }
+
   /**
  *
  * @param {int} angle
  * @param {objet} options
  */
-  this.regleRotation = function (angle, options) {
+  regleRotation (angle, options) {
     this.rotation('regle', angle, options)
   }
+
   /**
  *
  * @param {int} angle
  * @param {objet} options
  */
-  this.crayonRotation = function (angle, options) {
+  crayonRotation (angle, options) {
     this.rotation('crayon', angle, options)
   }
+
   /**
  *
  * @param {int} angle
  * @param {objet} options
  */
-  this.equerreRotation = function (angle, options) {
+  equerreRotation (angle, options) {
     this.rotation('equerre', angle, options)
   }
+
   /**
  *
  * @param {int} angle
  * @param {objet} options
  */
-  this.requerreRotation = function (angle, options) {
+  requerreRotation (angle, options) {
     this.rotation('requerre', angle, options)
   }
+
   /**
  *
  * @param {int} angle
  * @param {objet} options
  */
-  this.compasRotation = function (angle, options) {
+  compasRotation (angle, options) {
     this.rotation('compas', angle, options)
   }
+
   /**
  *
  * @param {int} angle
  * @param {objet} options
  */
-  this.rapporteurRotation = function (angle, options) {
+  rapporteurRotation (angle, options) {
     this.rotation('rapporteur', angle, options)
   }
+
   /**
  *
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  this.regleZoom = function (k, { tempo = 0 } = {}) {
+  regleZoom (k, { tempo = 0 } = {}) {
     this.regle.zoom = k
     this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="regle" tempo="${tempo}" />`)
   }
+
   /**
  *
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  this.equerreZoom = function (k, { tempo = 0 } = {}) {
+  equerreZoom (k, { tempo = 0 } = {}) {
     this.equerre.zoom = k
     this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="equerre" tempo="${tempo}" />`)
   }
+
   /**
  *
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  this.requerreZoom = function (k, { tempo = 0 } = {}) {
+  requerreZoom (k, { tempo = 0 } = {}) {
     this.requerre.zoom = k
     this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="requerre" tempo="${tempo}" />`)
   }
+
   /**
  *
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  this.rapporteurZoom = function (k, { tempo = 0 } = {}) {
+  rapporteurZoom (k, { tempo = 0 } = {}) {
     this.rapporteur.zoom = k
     this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="rapporteur" tempo="${tempo}" />`)
   }
+
   /**
  *
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  this.compasZoom = function (k, { tempo = 0 } = {}) {
+  compasZoom (k, { tempo = 0 } = {}) {
     this.compas.zoom = k
     this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="compas" />`)
   }
@@ -518,7 +557,7 @@ export default function Alea2iep () {
  * @param {objet} options { label: A.nom, tempo: this.tempo, couleur: this.couleurPoint, couleurLabel: this.couleurTexte, id }
  *
  */
-  this.pointCreer = function (A, { dx = 0.1, dy, label = A.nom, tempo = this.tempo, couleur = this.couleurPoint, couleurLabel = this.couleurTexte, id } = {}) {
+  pointCreer (A, { dx = 0.1, dy, label = A.nom, tempo = this.tempo, couleur = this.couleurPoint, couleurLabel = this.couleurTexte, id } = {}) {
     if (typeof id !== 'undefined') {
       A.id = id
     } else {
@@ -542,13 +581,14 @@ export default function Alea2iep () {
     }
     this.liste_script.push(codeXML)
   }
+
   /**
  * Création de plusieurs points
  * Le dernier argument peut être une option qui sera appliquée à tous les points
  *
  * @param  {...points} points Points séparés par des virgules
  */
-  this.pointsCreer = function (...args) {
+  pointsCreer (...args) {
     if (args[args.length - 1].typeObjet === 'point') {
       for (const point of args) {
         this.pointCreer(point, { tempo: 0 })
@@ -561,12 +601,13 @@ export default function Alea2iep () {
       }
     }
   }
+
   /**
  * Masquer un point
  * @param {point} A
  * @param {objet} options Défaut : { tempo: 0 }
  */
-  this.pointMasquer = function (...args) {
+  pointMasquer (...args) {
     const enleveDernier = arr => arr.slice(0, -1)
     if (args[args.length - 1].typeObjet === 'point') {
       for (const point of args) {
@@ -585,14 +626,16 @@ export default function Alea2iep () {
       }
     }
   }
+
   /**
    * Montrer un point qui aurait été caché
    * @param {point} A
    * @param {objet} options Défaut ; { tempo : this.tempo }
    */
-  this.pointMontrer = function (A, { tempo = this.tempo } = {}) {
+  pointMontrer (A, { tempo = this.tempo } = {}) {
     this.liste_script.push(`<action id="${A.id}" mouvement="montrer" objet="point" tempo="${tempo}" />`)
   }
+
   /**
    * Anime la translation d'un point
    * @param {point} A
@@ -600,17 +643,18 @@ export default function Alea2iep () {
    * @param {int} y Ordonnée du point d'arrivée
    * @param {objet} options Défaut : { tempo: this.tempo, vitesse: this.vitesse }
    */
-  this.pointDeplacer = function (A, x, y, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
+  pointDeplacer (A, x, y, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
     const B = point(x, y)
     this.liste_script.push(`<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" id="${A.id}" mouvement="translation" objet="point" tempo="${tempo}" vitesse="${vitesse}" />`)
   }
+
   /**
    * Ajoute un label au point
    * @param {point} A
    * @param {string} nom
    * @param {objet} options dx pour le déplacement vertical du nom du point, dy pour le déplacemetn horizontal, couleur: this.couleurPoint, tempo: this.tempo
    */
-  this.pointNommer = function (A, nom, { dx, dy, couleur = this.couleurPoint, tempo = this.tempo } = {}) {
+  pointNommer (A, nom, { dx, dy, couleur = this.couleurPoint, tempo = this.tempo } = {}) {
     // const coordonneesTexte = ''
     const M = point(A.x, A.y)
     if (typeof dx !== 'undefined') {
@@ -633,7 +677,7 @@ export default function Alea2iep () {
 * Change l'orientation du compas. Par défaut, elle est vers la droite. L'orientation courante du compas est sauvegardée dans this.compas.orientation
 * @param {objet} options Défaut : { tempo: this.tempo}
 */
-  this.compasRetourner = function ({ tempo = this.tempo } = {}) {
+  compasRetourner ({ tempo = this.tempo } = {}) {
     const codeXML = `<action mouvement="retourner" objet="compas" tempo="${tempo}" />`
     if (this.compas.orientation === 'droite') {
       this.compas.orientation = 'gauche'
@@ -642,22 +686,24 @@ export default function Alea2iep () {
     }
     this.liste_script.push(codeXML)
   }
+
   /**
-   *
-   * @param {int} longueur écartement en cm
-   * @param {objet} options Défaut : { tempo: this.tempo, vitesse: this.vitesse }
-   */
-  this.compasEcarter = function (l, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
+*
+* @param {int} longueur écartement en cm
+* @param {objet} options Défaut : { tempo: this.tempo, vitesse: this.vitesse }
+*/
+  compasEcarter (l, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
     const codeXML = `<action ecart="${calcul(l * 30, 1)}" mouvement="ecarter" objet="compas" tempo="${tempo}" vitesse="${vitesse}" />`
     this.compas.ecartement = l
     this.liste_script.push(codeXML)
   }
+
   /**
-   * Fais apparaitre la règle à l'horizontale, met le compas vertical et écarte le compas le long de la règle pour lire son écartement
-   * @param {int} longueur
-   * @param {*} options Défaut : { tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2 }
-   */
-  this.compasEcarterAvecRegle = function (l, { tempo = this.tempo, vitesse = this.vitesse, sens = this.vitesse / 2 } = {}) {
+* Fais apparaitre la règle à l'horizontale, met le compas vertical et écarte le compas le long de la règle pour lire son écartement
+* @param {int} longueur
+* @param {*} options Défaut : { tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2 }
+*/
+  compasEcarterAvecRegle (l, { tempo = this.tempo, vitesse = this.vitesse, sens = this.vitesse / 2 } = {}) {
     this.regleRotation(0, { tempo: 0, sens: sens })
     this.regleMontrer(this.compas.position, { tempo: 0 })
     this.regleDeplacer(this.compas.position, { tempo: 0, vitesse: vitesse })
@@ -665,13 +711,14 @@ export default function Alea2iep () {
     this.compasRotation(0, { tempo: 0, sens: sens })
     this.compasEcarter(l, { tempo: tempo, vitesse: vitesse, sens: sens })
   }
+
   /**
- *
- * @param {point} A Pointe du compas
- * @param {point} B Mine du compas
- * @param {objet} options Défaut : { tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2 }
- */
-  this.compasEcarter2Points = function (A, B, { tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2) } = {}) {
+*
+* @param {point} A Pointe du compas
+* @param {point} B Mine du compas
+* @param {objet} options Défaut : { tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2 }
+*/
+  compasEcarter2Points (A, B, { tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2) } = {}) {
     this.compasMontrer(A)
     this.compasDeplacer(A, { tempo: tempo, vitesse: vitesse })
     const s = segment(A, B)
@@ -680,36 +727,39 @@ export default function Alea2iep () {
     this.compasRotation(angle, { tempo: tempo, sens: sens })
     this.compasEcarter(longueur(A, B), { tempo: tempo, vitesse: vitesse })
   }
+
   /**
- * Remettre le compas en position standard. Son état est sauvegardé dans le booléen this.compas.leve.
- * @param {objet} options Défaut : { tempo: this.tempo }
- */
-  this.compasLever = function ({ tempo = this.tempo } = {}) {
+* Remettre le compas en position standard. Son état est sauvegardé dans le booléen this.compas.leve.
+* @param {objet} options Défaut : { tempo: this.tempo }
+*/
+  compasLever ({ tempo = this.tempo } = {}) {
     if (!this.compas.leve) { // On ne fait rien si le compas est déjà levé
       const codeXML = `<action mouvement="lever" objet="compas" tempo="${tempo} />`
       this.compas.leve = true
       this.liste_script.push(codeXML)
     }
   }
+
   /**
- * Voir le compas en vue de dessus avant qu'il trace un arc de cercle
- * @param {objet} options Défaut : { tempo: this.tempo }
- */
-  this.compasCoucher = function ({ tempo = this.tempo } = {}) {
+* Voir le compas en vue de dessus avant qu'il trace un arc de cercle
+* @param {objet} options Défaut : { tempo: this.tempo }
+*/
+  compasCoucher ({ tempo = this.tempo } = {}) {
     if (this.compas.leve) { // On ne fait rien si le compas est déjà levé
       const codeXML = `<action mouvement="coucher" objet="compas" tempo="${tempo}" />`
       this.compas.leve = false
       this.liste_script.push(codeXML)
     }
   }
+
   /**
- * Trace un arc de cercle en gardant l'écartement et le centre actuel. L'angle de départ sera choisi pour être le plus proche de l'angle actuel
- * @param {int} angle1
- * @param {int} angle2
- * @param {objet} options Défaut : { tempo: this.tempo, sens: this.vitesse / 2, epaisseur: this.epaisseur, couleur: this.couleurCompas, pointilles: this.pointilles }
- * @return {id}
- */
-  this.compasTracerArc2Angles = function (angle1, angle2, { tempo = this.tempo, sens = calcul(this.vitesse / 2, 0), epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles } = {}) {
+* Trace un arc de cercle en gardant l'écartement et le centre actuel. L'angle de départ sera choisi pour être le plus proche de l'angle actuel
+* @param {int} angle1
+* @param {int} angle2
+* @param {objet} options Défaut : { tempo: this.tempo, sens: this.vitesse / 2, epaisseur: this.epaisseur, couleur: this.couleurCompas, pointilles: this.pointilles }
+* @return {id}
+*/
+  compasTracerArc2Angles (angle1, angle2, { tempo = this.tempo, sens = calcul(this.vitesse / 2, 0), epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles } = {}) {
     const pointillesTexte = pointilles ? 'pointille="tiret"' : ''
     this.idIEP += 1
     if (Math.abs(this.compas.angle - angle1) > Math.abs(this.compas.angle - angle2)) { // On cherche à commencer par le point le plus proche de la position courante du compas
@@ -730,14 +780,15 @@ export default function Alea2iep () {
     this.liste_script.push(codeXML)
     return this.idIEP
   }
+
   /**
-   * Trace un arc de cercle autour d'un point. La longueur de l'arc est déterminée par l'option delta en degré qui est ajoutée de part et d'autre du point
-   * @param {point} centre
-   * @param {point} point
-   * @param {objet} options Défaut : { delta: 10, tempo: this.tempo, sens: this.vitesse / 2, epaisseur: this.epaisseur, couleur: this.couleurCompas, pointilles: this.pointilles }
-   * @return {id}
-   */
-  this.compasTracerArcCentrePoint = function (centre, point, { delta = 10, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2, 0), epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles } = {}) {
+* Trace un arc de cercle autour d'un point. La longueur de l'arc est déterminée par l'option delta en degré qui est ajoutée de part et d'autre du point
+* @param {point} centre
+* @param {point} point
+* @param {objet} options Défaut : { delta: 10, tempo: this.tempo, sens: this.vitesse / 2, epaisseur: this.epaisseur, couleur: this.couleurCompas, pointilles: this.pointilles }
+* @return {id}
+*/
+  compasTracerArcCentrePoint (centre, point, { delta = 10, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2, 0), epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles } = {}) {
     this.compasMontrer()
     this.compasDeplacer(centre, { tempo: tempo, vitesse: vitesse })
     const s = segment(centre, point)
@@ -749,13 +800,14 @@ export default function Alea2iep () {
     }
     return this.compasTracerArc2Angles(angle1, angle2, { tempo: tempo, vitesse: vitesse, epaisseur: epaisseur, sens: sens, couleur: couleur, pointilles: pointilles })
   }
+
   /**
- *
- * @param {point} centre
- * @param {point} point Point de départ du tracé du cercle
- * @param {objet} options Défaut : { tempo: this.tempo, sens: this.vitesse / 2, epaisseur: this.epaisseur, couleur: this.couleurCompas, pointilles: this.pointilles }
- */
-  this.compasCercleCentrePoint = function (centre, point, { tempo = this.tempo, couleur = this.couleur, vitesse = this.vitesse, sens = calcul(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
+*
+* @param {point} centre
+* @param {point} point Point de départ du tracé du cercle
+* @param {objet} options Défaut : { tempo: this.tempo, sens: this.vitesse / 2, epaisseur: this.epaisseur, couleur: this.couleurCompas, pointilles: this.pointilles }
+*/
+  compasCercleCentrePoint (centre, point, { tempo = this.tempo, couleur = this.couleur, vitesse = this.vitesse, sens = calcul(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
     this.compasEcarter2Points(centre, point, { vitesse: vitesse, tempo: tempo })
     const d = droite(centre, point)
     const angle1 = d.angleAvecHorizontale
@@ -773,7 +825,7 @@ export default function Alea2iep () {
    * @param {int} déplacement en nombre de cm (le déplacement peut être positif ou négatif)
    * @param {*} options Défaut : { tempo: this.tempo, vitesse: this.vitesse }
    */
-  this.requerreGlisserEquerre = function (a, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
+  requerreGlisserEquerre (a, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
     this.liste_script.push(`<action abscisse="${a * 30}" mouvement="glisser" objet="requerre" tempo="${tempo}" vitesse="${vitesse}" />`)
   }
 
@@ -795,49 +847,54 @@ export default function Alea2iep () {
    * Masque la graduation externe du rapporteur (laisse l'autre graduation visible)
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
-  this.rapporteurMasquerGraduationsExterieures = function ({ tempo = this.tempo } = {}) {
+  rapporteurMasquerGraduationsExterieures ({ tempo = this.tempo } = {}) {
     this.liste_script.push(`<action mouvement="masquer_nombres" objet="rapporteur" tempo="${tempo}"/>`)
   }
+
   /**
    * Montre la graduation extérieure si elle avait été précédemment cachée
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
-  this.rapporteurMontrerGraduationsExterieures = function ({ tempo = this.tempo } = {}) {
+  rapporteurMontrerGraduationsExterieures ({ tempo = this.tempo } = {}) {
     this.liste_script.push(`<action mouvement="montrer_nombres" objet="rapporteur" tempo="${tempo}"/>`)
   }
+
   /**
    * Masque la graduation interne du rapporteur (laisse l'autre graduation visible)
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
-  this.rapporteurMasquerGraduationsInterieures = function ({ tempo = this.tempo } = {}) {
+  rapporteurMasquerGraduationsInterieures ({ tempo = this.tempo } = {}) {
     this.liste_script.push(`<action mouvement="vide" objet="rapporteur" tempo="${tempo}"/>`)
   }
+
   /**
    * Montre la graduation interne si elle avait été précédemment cachée
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
-  this.rapporteurMontrerGraduationsInterieures = function ({ tempo = this.tempo } = {}) {
+  rapporteurMontrerGraduationsInterieures ({ tempo = this.tempo } = {}) {
     this.liste_script.push(`<action mouvement="graduations" objet="rapporteur" tempo="${tempo}"/>`)
   }
+
   /**
  * Met le rapporteur en position avec le centre en A et le 0 de droite alogné avec le point B
  * @param {point} A
  * @param {point} B
  * @param {objet} options Défaut : { tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2 }
  */
-  this.rapporteurDeplacerRotation2Points = function (A, B, { tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2) } = {}) {
+  rapporteurDeplacerRotation2Points (A, B, { tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2) } = {}) {
     const d = droite(A, B)
     d.isVisible = false
     this.rapporteurMontrer()
     this.rapporteurDeplacer(A, { tempo: tempo, vitesse: vitesse })
     this.rapporteurRotation(d.angleAvecHorizontale, { tempo: tempo, vitesse: vitesse, sens: sens })
   }
+
   /**
  * Fais une petite marque (couleur et épaisseur d'un trait de construction) sur une graduation du rapporteur
  * @param {int} angle
  * @param {objet} options Défaut : { tempo: this.tempo, vitesse: this.vitesse, couleur: this.couleurTraitsDeConstruction, epaisseur: this.epaisseurTraitsDeConstruction }
  */
-  this.rapporteurCrayonMarqueAngle = function (angle, { tempo = this.tempo, vitesse = this.vitesse, couleur = this.couleurTraitsDeConstruction, epaisseur = this.epaisseurTraitsDeConstruction } = {}) {
+  rapporteurCrayonMarqueAngle (angle, { tempo = this.tempo, vitesse = this.vitesse, couleur = this.couleurTraitsDeConstruction, epaisseur = this.epaisseurTraitsDeConstruction } = {}) {
     const O = this.rapporteur.position
     const M = pointAdistance(O, 5.2, angle + this.rapporteur.angle)
     const N = pointAdistance(O, 5.5, angle + this.rapporteur.angle)
@@ -845,6 +902,7 @@ export default function Alea2iep () {
     this.crayonDeplacer(M, { tempo: tempo, vitesse: vitesse })
     this.tracer(N, { tempo: tempo, vitesse: vitesse, couleur: couleur, epaisseur: epaisseur })
   }
+
   /**
  * Le crayon va faire une marque sur la graduation du rapporteur, le rapporteur va se cacher et on trace une demi-droite dont on peut choisir la "longueur" (par défaut 90% de celle de la règle)
  * @param {point} A Centre du rapporteur
@@ -852,7 +910,7 @@ export default function Alea2iep () {
  * @param {int} angle
  * @param {objet} options { longueur: 0.9 * this.regle.longueur, couleur: this.couleur, tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2, epaisseur: this.epaisseur, pointilles: this.pointilles }
  */
-  this.rapporteurTracerDemiDroiteAngle = function (A, B, angle, { longueur = 0.9 * this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
+  rapporteurTracerDemiDroiteAngle (A, B, angle, { longueur = 0.9 * this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
     if (angle > 0) {
       this.rapporteurDeplacerRotation2Points(A, B, { tempo: tempo, vitesse: vitesse, sens: sens })
       this.rapporteurCrayonMarqueAngle(angle, { tempo: tempo, vitesse: vitesse, sens: sens })
@@ -878,32 +936,35 @@ export default function Alea2iep () {
  * Masquer les graduations sur la règle
  * @param {objet} options Défaut : { tempo: this.tempo }
  */
-  this.regleMasquerGraduations = function ({ tempo = this.tempo } = {}) {
+  regleMasquerGraduations ({ tempo = this.tempo } = {}) {
     this.liste_script.push(`<action mouvement="vide" objet="regle" tempo="${tempo}"/>`)
   }
+
   /**
  * Montrer les graduations sur la règle si elles avaient été masquées
  * @param {objet} options Défaut : { tempo: this.tempo }
  */
-  this.regleMontrerGraduations = function ({ tempo = this.tempo } = {}) {
+  regleMontrerGraduations ({ tempo = this.tempo } = {}) {
     this.liste_script.push(`<action mouvement="graduations" objet="regle" tempo="${tempo}"/>`)
   }
+
   /**
    * Modifie la taille de la règle
    * @param {int} longueur
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
-  this.regleModifierLongueur = function (longueur = 20, { tempo = this.tempo } = {}) {
+  regleModifierLongueur (longueur = 20, { tempo = this.tempo } = {}) {
     this.regle.longueur = longueur
     this.liste_script.push(`<action mouvement="modifier_longueur" objet="regle" longueur="${longueur}" tempo="${tempo}"/>`)
   }
+
   /**
  * Trace une demi-droite d'origine O passant par A (ou en direction de A si les points sont trop éloignés)
  * @param {point} O Origine
  * @param {point} A Direction
  * @param {objet} options Défaut {longueur: this.regle.longueur, tempo : this.tempo, vitesse: this.vitesse, sens: this.vitesse / 2}
  */
-  this.regleDemiDroiteOriginePoint = function (O, A, options = {}) {
+  regleDemiDroiteOriginePoint (O, A, options = {}) {
     if (!options.longueur) {
       options.longueur = this.regle.longueur
     }
@@ -917,7 +978,7 @@ export default function Alea2iep () {
    * @param {point} B
    * @param {objet} options Défaut {longueur: this.regle.longueur, tempo : this.tempo, vitesse: this.vitesse, sens: this.vitesse / 2}
    */
-  this.regleDroite = function (A, B, options = {}) {
+  regleDroite (A, B, options = {}) {
     if (!options.longueur) {
       options.longueur = this.regle.longueur
     }
@@ -933,13 +994,14 @@ export default function Alea2iep () {
       this.regleSegment(N, M, options)
     }
   }
+
   /**
  * Avec la règle, on prolonge le segment de l cm du coté de la 2e extrémité si l est positif sinon du côté de la première extrémité
  * @param {point} A
  * @param {point} B
  * @param {objet} options Défaut {longueur: 3, tempo: this.tempo, vitesse: this.vitesse, sens: this.vitesse / 2}
  */
-  this.regleProlongerSegment = function (A, B, options = {}) {
+  regleProlongerSegment (A, B, options = {}) {
     if (!options.longueur) {
       options.longueur = this.regle.longueur - 3
     }
@@ -966,7 +1028,7 @@ export default function Alea2iep () {
  * @param {objet} options Défaut { tempo: this.tempo, vitesse: this.vitesse, epaisseur: this.epaisseur, couleur: this.couleur, pointilles: this.pointilles, vecteur: false }
  * @return {id} id utilisée pour le tracé
  */
-  this.tracer = function (B, { tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = this.pointilles, vecteur = false } = {}) {
+  tracer (B, { tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = this.pointilles, vecteur = false } = {}) {
     const pointillesTexte = pointilles ? 'pointille="tiret"' : ''
     const vecteurTexte = vecteur ? 'style="vecteur"' : ''
     this.idIEP += 1
@@ -975,6 +1037,7 @@ export default function Alea2iep () {
     this.liste_script.push(codeXML)
     return this.idIEP
   }
+
   /**
    * Trace au crayon le segment [AB]
    * @param {point} A Première extrémité
@@ -982,10 +1045,11 @@ export default function Alea2iep () {
    * @param {*} options
    * @return {id} id utilisée pour le tracé
    */
-  this.trait = function (A, B, options = {}) {
+  trait (A, B, options = {}) {
     this.crayonDeplacer(A, options)
     return this.tracer(B, options)
   }
+
   /**
    * Trace au crayon le segment [AB] sans tempo et avec une vitesse multipliée par 1 000
    * @param {point} A Première extrémité
@@ -993,20 +1057,22 @@ export default function Alea2iep () {
    * @param {*} options
    * @return {id} id utilisée pour le tracé
    */
-  this.traitRapide = function (A, B, options = {}) {
+  traitRapide (A, B, options = {}) {
     options.tempo = 0
     options.vitesse = 10000
     this.crayonDeplacer(A, options)
     return this.tracer(B, options)
   }
+
   /**
  * Masque le trait d'id fourni
  * @param {int} id
  * @param {objet} options Défaut : { tempo: 0, vitesse: 200 }
  */
-  this.traitMasquer = function (id, { tempo = 0, vitesse = 200 } = {}) {
+  traitMasquer (id, { tempo = 0, vitesse = 200 } = {}) {
     this.liste_script.push(`<action mouvement="masquer" objet="trait" id="${id}" vitesse="${vitesse}" />`)
   }
+
   /**
    *
    * @param {segment/point} Segment à tracer ou première extrémité
@@ -1014,7 +1080,7 @@ export default function Alea2iep () {
    * @param {objet} options si les deux premiers arguments étaient des points
    * @returns {id} identifiant utilisé pour le trait
    */
-  this.regleSegment = function (arg1, arg2, arg3) {
+  regleSegment (arg1, arg2, arg3) {
     let A, B, options, id
     if (arg1.typeObjet === 'segment') {
       A = arg1.extremite1
@@ -1041,11 +1107,12 @@ export default function Alea2iep () {
     }
     return id
   }
+
   /**
    * Trace un polygone avec les options par défaut que l'on ne peut pas changer ici
    * @param  {...points} sommets du polygonne séparés par des virgules
    */
-  this.polygoneTracer = function (...sommets) {
+  polygoneTracer (...sommets) {
     for (let i = 0; i < sommets.length - 1; i++) {
       this.regleSegment(sommets[i], sommets[i + 1])
     }
@@ -1056,7 +1123,7 @@ export default function Alea2iep () {
    * Trace un polygone avec traitRapide()
    * @param  {...points} sommets du polygonne séparés par des virgules
    */
-  this.polygoneRapide = function (...sommets) {
+  polygoneRapide (...sommets) {
     for (let i = 0; i < sommets.length - 1; i++) {
       this.traitRapide(sommets[i], sommets[i + 1])
     }
@@ -1076,7 +1143,7 @@ export default function Alea2iep () {
    * @param {objet} options Défaut : { tempo: this.tempo, police: false, couleur: this.couleurTexte, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas }
    * @return {id}
    */
-  this.textePoint = function (texte, A, { tempo = this.tempo, police = false, couleur = this.couleurTexte, taille, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas } = {}) {
+  textePoint (texte, A, { tempo = this.tempo, police = false, couleur = this.couleurTexte, taille, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas } = {}) {
     this.idIEP++
     const policeTexte = police ? `police="${police}"` : ''
     let options = ''
@@ -1115,6 +1182,7 @@ export default function Alea2iep () {
     this.liste_script.push(codeXML)
     return this.idIEP
   }
+
   /**
    * Ecris un texte collé au point de coordonnées (x,y). On peut choisir un fond, un cadre, l'opacité du fond, la police...
    * @param {string} texte
@@ -1122,12 +1190,12 @@ export default function Alea2iep () {
    * @param {int} y Ordonnée du coin en haut à gauche
    * @param {objet} options Défaut : { tempo: this.tempo, police: false, couleur: this.couleurTexte, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas }
    */
-  this.textePosition = function (texte, x, y, options) {
+  textePosition (texte, x, y, options) {
     const A = point(x, y)
     return this.textePoint(texte, A, options)
   }
 
-  this.longueurSegment = function (A, B, dy, options) {
+  longueurSegment (A, B, dy, options) {
     const l = calcul(longueur(A, B, 1))
     const v = vecteur(A, B)
     const w = vecteur(-v.y * dy / norme(v), v.x * dy / norme(v))
@@ -1135,17 +1203,18 @@ export default function Alea2iep () {
     return this.textePoint(`${l} cm`, ancrage, options)
   }
 
-  this.mesureAngle = function (A, O, B) {
+  mesureAngle (A, O, B) {
     const a = angleOriente(A, O, B)
     const C = translation(homothetie(rotation(A, O, a / 2), O, 1.3 / longueur(O, A)), vecteur(-0.2, 0.5))
     return this.textePoint(Math.abs(a) + '°', C)
   }
+
   /**
  * Masque le trait d'id fourni
  * @param {array} id
  * @param {objet} options Défaut : { tempo: 0 }
  */
-  this.texteMasquer = function (...args) {
+  texteMasquer (...args) {
     const enleveDernier = arr => arr.slice(0, -1)
     if (Number.isNaN(args[args.length - 1])) {
       if (args[args.length - 1].tempo !== undefined) {
@@ -1166,9 +1235,20 @@ export default function Alea2iep () {
   }
 
   /**
+   * Change la couleur d'un texte déjà créé dont on donne l'id retourné par this.textePoint ou this.textePosition
+   * Nécessité de redonner le texte car on réécrit le texte dans une autre couleur.
+   * @param {string} texte
+   * @param {number} id
+   * @param {string} couleur
+   */
+  texteChangeCouleur (texte, id, couleur) {
+    this.liste_script.push(`\n<action couleur="${couleur}" texte="${texte}" id="${id}" mouvement="ecrire" objet="texte" />`)
+  }
+
+  /**
    * Met l'animation en pause forçant l'utilisateur à appuyer sur lecture pour voir la suite
    */
-  this.pause = function () {
+  pause () {
     this.liste_script.push('<action mouvement="pause" />')
   }
 
@@ -1185,7 +1265,7 @@ export default function Alea2iep () {
    * @param {objet} options si les deux premiers arguments étaient des points. Défaut : { tempo: this.tempo, couleur: this.couleurCodage, codage: '//', }
    * @return {id}
   */
-  this.segmentCodage = function (arg1, arg2 = {}, arg3 = {}) {
+  segmentCodage (arg1, arg2 = {}, arg3 = {}) {
     let s
     let options = {}
     if (arg1.typeObjet === 'segment') {
@@ -1211,22 +1291,25 @@ export default function Alea2iep () {
     this.liste_script.push(codeXML)
     return id
   }
+
   /**
    *
    * @param {int} id Identifiant du codage
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
-  this.segmentCodageMasquer = function (id, { tempo = this.tempo } = {}) {
+  segmentCodageMasquer (id, { tempo = this.tempo } = {}) {
     this.liste_script.push(`<action id="${id}" mouvement="masquer" objet="longueur" tempo="${tempo}" />`)
   }
+
   /**
    *
    * @param {int} id Identifiant du codage
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
-  this.segmentCodageMontrer = function (id, { tempo = this.tempo } = {}) {
+  segmentCodageMontrer (id, { tempo = this.tempo } = {}) {
     this.liste_script.push(`<action id="${id}" mouvement="montrer" objet="longueur" tempo="${tempo}" />`)
   }
+
   /**
    * Trace le petit carré au crayon
    * @param {point} A Point sur un côté de l'angle
@@ -1235,7 +1318,7 @@ export default function Alea2iep () {
    * @param {objet} options Défaut : {longueur : 0.3, couleur: this.couleurCodage}
    * @return {array} [idTrait1, idTrait2]
    */
-  this.codageAngleDroit = function (A, B, C, options = {}) {
+  codageAngleDroit (A, B, C, options = {}) {
     this.crayonMontrer()
     if (options.longueur === undefined) {
       options.longueur = 0.3
@@ -1252,12 +1335,13 @@ export default function Alea2iep () {
     const trait2 = this.trait(M, A1, options)
     return [trait1, trait2]
   }
+
   /**
    * Masque le codage d'un angle droit
    * @param {int} id Identifiant du codage d'un angle droit
    * @param {objet} options Défaut { tempo: 0 }
    */
-  this.codageAngleDroitMasquer = function (id, { tempo = 0 } = {}) {
+  codageAngleDroitMasquer (id, { tempo = 0 } = {}) {
     this.traitMasquer(id[0], { tempo: tempo })
     this.traitMasquer(id[1], { tempo: tempo })
   }
@@ -1273,7 +1357,7 @@ export default function Alea2iep () {
    * @param {objet} options Défaut : { rayon : 1, couleur: this.couleurCodage, codage: 'plein'}
    * @return {id} L'identifiant correspond à l'identifiant des 3 points de l'angle séparés par _
    */
-  this.angleCodage = function (B, A, C, { couleur = this.couleurCodage, codage = 'plein', rayon = 1, tempo = this.tempo } = {}) {
+  angleCodage (B, A, C, { couleur = this.couleurCodage, codage = 'plein', rayon = 1, tempo = this.tempo } = {}) {
     const id = B.id + '_' + A.id + '_' + C.id
     const d1 = droite(A, B)
     const d2 = droite(A, C)
@@ -1293,10 +1377,11 @@ export default function Alea2iep () {
    * @param {point} C
    * @param {objet} options Défaut { tempo: 0 }
    */
-  this.angleCodageMasquer = function (B, A, C, { tempo = 0 } = {}) {
+  angleCodageMasquer (B, A, C, { tempo = 0 } = {}) {
     const id = B.id + '_' + A.id + '_' + C.id
     this.liste_script.push(`<action id="${id}" mouvement="masquer" objet="angle" tempo="${tempo}" />`)
   }
+
   /**
    * Montre un codage préalablement créé
    * @param {point} A
@@ -1304,7 +1389,7 @@ export default function Alea2iep () {
    * @param {point} C
    * @param {objet} options Défaut { tempo: 0 }
    */
-  this.angleCodageMontrer = function (B, A, C, { tempo = 0 } = {}) {
+  angleCodageMontrer (B, A, C, { tempo = 0 } = {}) {
     const id = B.id + '_' + A.id + '_' + C.id
     this.liste_script.push(`<action id="${id}" mouvement="montrer" objet="angle" tempo="${tempo}" />`)
   }
@@ -1314,7 +1399,7 @@ export default function Alea2iep () {
    * @param {string} url
    * @returns {id}
    */
-  this.image = function (url, A = point(0, 0)) {
+  image (url, A = point(0, 0)) {
     this.idIEP++
     let codeXML
     codeXML = `<action id="${this.idIEP}" url="${url}" mouvement="chargement" objet="image" />`
@@ -1322,1563 +1407,43 @@ export default function Alea2iep () {
     this.liste_script.push(codeXML)
     return this.idIEP
   }
-
-  /**
- *****************************************
- ********* MACROS-CONSTRUCTIONS **********
- *****************************************
- */
-
-  /**
-   * Trace la parallèle à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
-   * @param {point} A
-   * @param {point} B
-   * @param {point} C
-   * @param {*} options
-   */
-  this.paralleleRegleEquerre2points3epoint = function (A, B, C, options) {
-    let G, D, H1
-    // G est le point le plus à gauche, D le plus à droite et H le projeté de C sur (AB)
-    // H1 est un point de (AB) à gauche de H, c'est là où seront la règle et l'équerre avant de glisser
-    if (A.x < B.x) {
-      G = A
-      D = B
-    } else {
-      G = B
-      D = A
-    }
-    const d = droite(A, B)
-    const H = projectionOrtho(C, d)
-    if (H.x < D.x) {
-      H1 = pointSurSegment(H, D, -2) // H1 sera plus à gauche que H
-    } else if (H.x > D.x) {
-      H1 = pointSurSegment(H, D, 2)
-    } else {
-      H1 = pointSurSegment(H, G, 2)
-    }
-    const C1 = projectionOrtho(H1, droiteParPointEtParallele(C, d))
-    // C1 est le point d'arrivée de l'équerre après avoir glissé
-    const M = pointSurSegment(C1, C, 6)
-    // Le tracé de la parallèle ne fera que 6 cm pour ne pas dépassr de l'équerre. M est la fin de ce tracé
-
-    if (H.x < G.x && longueur(H, G) > 3) { // Si le pied de la hauteur est trop à gauche
-      this.regleProlongerSegment(D, G)
-      this.regleMasquer()
-    }
-    if (H.x > D.x && longueur(H, D) > 3) { // Si le pied de la hauteur est trop à gauche
-      this.regleProlongerSegment(G, D)
-    }
-
-    this.equerreMontrer(H1)
-    if (M.x > C1.x) {
-      this.equerreRotation(d.angleAvecHorizontale - 90)
-    } else {
-      this.equerreRotation(d.angleAvecHorizontale + 90)
-    }
-    if (H1.y > C1.y) {
-      if (this.regle.visibilite) {
-        this.regleDeplacer(H1, { vitesse: this.vitesse, tempo: 0 })
-        this.regleRotation(C1, { sens: this.vitesse / 2, tempo: 0 })
-      } else {
-        this.regleDeplacer(H1, { vitesse: 1000, tempo: 0 })
-        this.regleRotation(C1, { sens: 1000, tempo: 0 })
-      }
-    } else {
-      const C12 = pointSurSegment(C1, H1, -2) // On monte un peu plus la règle pour que ça soit plus crédible
-      if (this.regle.visibilite) {
-        this.regleDeplacer(C12, { vitesse: this.vitesse, tempo: 0 })
-        this.regleRotation(H1, { sens: this.vitesse / 2, tempo: 0 })
-      } else {
-        this.regleDeplacer(C12, { vitesse: 1000, tempo: 0 })
-        this.regleRotation(H1, { sens: 1000, tempo: 0 })
-      }
-    }
-    this.regleMontrer()
-    this.equerreDeplacer(C1, options)
-    this.crayonMontrer()
-    this.crayonDeplacer(C1, options)
-    this.tracer(M, options)
-  }
-  /**
-     * Trace la perpendiculaire à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
-     * Description désactivée par défaut.
-     * @param {point} A
-     * @param {point} B
-     * @param {point} C
-     * @param {*} options
-     */
-  this.perpendiculaireRegleEquerre2points3epoint = function (A, B, C, description = false) {
-    const longueurRegle = this.regle.longueur
-    const zoomEquerre = this.equerre.zoom
-    const d = droite(A, B)
-    d.nom = `(${A.nom}${B.nom})`
-    let dist
-    if (A.nom === undefined) A.nom = 'A'
-    if (B.nom === undefined) B.nom = 'B'
-    if (appartientDroite(C, A, B)) {
-      dist = 7.5
-    } else {
-      const H = projectionOrtho(C, d)
-      dist = longueur(H, C) + 2
-    }
-    this.equerreZoom(calcul(dist * 100 / 7.5))
-    this.regleModifierLongueur(Math.max(dist * 2, 15))
-    const P1 = homothetie(A, B, 2)
-    const P2 = homothetie(B, A, 2)
-    this.traitRapide(P1, P2)
-    this.pointsCreer(A, B, C)
-    this.perpendiculaireRegleEquerreDroitePoint(d, C, description)
-    this.equerreZoom(zoomEquerre)
-    this.regleModifierLongueur(longueurRegle)
-  }
-
-  /**
-   * Construit à la règle et à l'équerre la perpendiculaire à une droite d passant par un point P n'appartenant pas à d.
-   * description désactivable.
-   * @param {droite} d
-   * @param {point} P
-   * @param {boolean} description
-   */
-  this.perpendiculaireRegleEquerreDroitePoint = function (d, P, description) {
-    const H = projectionOrtho(P, d)
-    const A = rotation(P, H, 90)
-    const B = rotation(A, H, 180)
-    const P3 = homothetie(P, H, 1.2)
-    const alpha = angleOriente(point(10000, H.y), H, B)
-    if (description) this.textePosition(`1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom} et l'autre côté de l'angle droit passant par le point ${P.nom}.`, 0, 10, { couleur: 'lightblue' })
-    this.equerreRotation(alpha)
-    this.equerreMontrer(H)
-    if (description) this.textePosition(`2. Tracer le segment de droite passant par le point ${P.nom}`, 0, 9.3, { couleur: 'lightblue' })
-    this.crayonMontrer(P)
-    this.tracer(H)
-    this.equerreMasquer()
-    if (description) this.textePosition(`3. Prolonger la perpendiculaire à ${d.nom} à la règle.`, 0, 8.6, { couleur: 'lightblue' })
-    this.regleMontrer(P3)
-    this.crayonDeplacer(P3)
-    this.regleRotation(alpha - 90)
-    this.tracer(rotation(P3, H, 180))
-    if (description) this.textePosition('4. coder l\'angle droit.', 0, 7.9, { couleur: 'lightblue' })
-    this.regleMasquer()
-    this.codageAngleDroit(A, H, P)
-  }
-  /**
-   * Trace la perpendiculaire à une droite passant par un point de cette droite à l'équerre et à la règle.
-   * @param {droite} d
-   * @param {number} x  // pour choisir le point sur d : l'abscisse de A
-   * @param {boolean} description
-   */
-  this.perpendiculaireRegleEquerrePointSurLaDroite = function (d, x, description) {
-    const A = pointSurDroite(d, x, 'A')
-    const B = pointSurDroite(d, x + 5)
-    const P1 = rotation(B, A, 90)
-    const P2 = rotation(P1, A, 180)
-    if (d.nom === undefined) {
-      d.nom = '(d)'
-    }
-    this.traitRapide(pointSurDroite(d, -20), pointSurDroite(d, 20))
-    this.pointCreer(A)
-    if (description) this.textePosition(`1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom}.`, 0, 10, { couleur: 'lightblue' })
-    this.equerreRotation(d.angleAvecHorizontale)
-    this.equerreMontrer(B)
-    if (description) {
-      this.textePosition(`2. Faire glisser l'équerre sur la droite jusqu'au point ${A.nom}`, 0, 9.3, { couleur: 'lightblue' })
-    }
-    this.equerreDeplacer(A)
-    if (description) this.textePosition('3. Tracer le long de l\'autre côté de l\'angle droit de l\'équerre.', 0, 8.6, { couleur: 'lightblue' })
-    this.crayonMontrer(A)
-    this.tracer(P1)
-    this.equerreMasquer()
-    if (description) this.textePosition(`4. Prolonger la perpendiculaire à ${d.nom} à la règle.`, 0, 7.9, { couleur: 'lightblue' })
-    this.regleRotation(d.angleAvecHorizontale - 90)
-    this.regleMontrer(P1)
-    this.crayonDeplacer(P1)
-    this.tracer(P2)
-    if (description) this.textePosition('4. coder l\'angle droit.', 0, 7.2, { couleur: 'lightblue' })
-    this.regleMasquer()
-    this.codageAngleDroit(P1, A, B)
-  }
-  /**
-   * Trace la perpendiculaire à une droite passant par un point de cette droite au compas.
-   * @param {droite} d
-   * @param {number} x // pour choisir le point sur d : l'abscisse de A
-   * @param {boolean} description
-   */
-  this.perpendiculaireCompasPointSurLaDroite = function (d, x, description) {
-    const A = pointSurDroite(d, x, 'A')
-    const B = pointSurDroite(d, x + 3, 'B')
-    const C = pointSurDroite(d, x - 3, 'C')
-    const P1 = similitude(B, A, 90, 1.2)
-    const P2 = similitude(B, A, -90, 1.2)
-    if (d.nom === undefined) {
-      d.nom = '(d)'
-    }
-    this.traitRapide(pointSurDroite(d, -20), pointSurDroite(d, 20))
-    this.pointCreer(A)
-    if (description) this.textePosition('1. Avec le compas, marquer deux points B et C de part et d\'autre de A, tels que AB=AC.', 0, 10, { couleur: 'lightblue' })
-    this.compasEcarter2Points(A, B)
-    this.compasTracerArcCentrePoint(A, B, { couleur: 'lightgray', epaisseur: 1 })
-    this.compasTracerArcCentrePoint(A, C, { couleur: 'lightgray', epaisseur: 1 })
-    this.pointsCreer(B, C, { label: true, tempo: 10 })
-    if (description) {
-      this.textePosition('2. Choisir un écartement de compas supérieur à la longueur AB.', 0, 9.3, { couleur: 'lightblue' })
-    }
-    this.compasEcarter2Points(B, P1)
-    if (description) this.textePosition('3. Tracer un arc de cercle de centre B avec cet écartement.', 0, 8.6, { couleur: 'lightblue' })
-    this.compasTracerArcCentrePoint(B, P1, { couleur: 'lightgray', epaisseur: 1 })
-    if (description) this.textePosition('4. Tracer un arc de cercle de centre C en conservant le même écartement.', 0, 7.9, { couleur: 'lightblue' })
-    this.compasTracerArcCentrePoint(C, P1, { couleur: 'lightgray', epaisseur: 1 })
-    this.compasMasquer()
-    if (description) {
-      this.textePosition('4. Tracer la droite qui passe par le point d\'intersection des arcs de cercle et par le point A.', 0, 7.2, { couleur: 'lightblue' })
-    }
-    this.regleRotation(d.angleAvecHorizontale - 90)
-    const P11 = homothetie(P1, A, 1.1)
-    const P12 = homothetie(P2, A, 1.1)
-    this.regleMontrer(P11)
-    this.crayonMontrer(P11)
-    this.tracer(P12)
-    if (description) this.textePosition('5. coder l\'angle droit.', 0, 6.5, { couleur: 'lightblue' })
-    this.regleMasquer()
-    this.codageAngleDroit(P1, A, B)
-  }
-  /**
-   * Trace la perpendiculaire à une droite passant par un point n'appartenant pas à cette droite au compas.
-   * @param {droite} d
-   * @param {number} x // pour choisir le point sur d : l'abscisse de A
-   * @param {boolean} description
-   */
-  this.perpendiculaireCompasPoint = function (d, A, description) {
-    const H = projectionOrtho(A, d)
-    const B = similitude(A, H, -90, 1.2, 'B')
-    const C = homothetie(B, H, -0.7, 'C')
-    const D = rotation(A, H, 180)
-    const P1 = homothetie(A, H, 1.2)
-    const P2 = homothetie(A, H, -1.2)
-    if (d.nom === '') {
-      d.nom = '(d)'
-    }
-    if (A.nom === '') {
-      A.nom = 'A'
-    }
-    this.traitRapide(pointSurDroite(d, -20), pointSurDroite(d, 20))
-    this.textePoint(d.nom, translation(pointSurDroite(d, 0), vecteur(0, -0.5)))
-    this.pointCreer(A)
-    if (description) this.textePosition(`1. Choisir deux points B et C sur la droite ${d.nom}.`, 0, 11, { couleur: 'lightblue', tempo: 20 })
-    this.tempo = 20
-    this.pointCreer(B)
-    this.pointCreer(C)
-    if (description) this.textePosition(`2. Tracer un arc de cercle de centre B passant par A et un autre de centre C passant par ${A.nom}.`, 0, 10.3, { couleur: 'lightblue', tempo: 20 })
-    this.compasEcarter2Points(B, A)
-    this.compasTracerArcCentrePoint(B, D, { couleur: 'lightgray', epaisseur: 1 })
-    this.compasEcarter2Points(C, A)
-    this.compasTracerArcCentrePoint(C, D, { couleur: 'lightgray', epaisseur: 1 })
-    if (description) this.textePosition(`3. Ces deux arcs de cercle se recoupent en un point qui est le symétrique de ${A.nom} par rapport à ${d.nom}`, 0, 9.6, { couleur: 'lightblue', tempo: 20 })
-    this.compasMasquer()
-    if (description) this.textePosition('4. Tracer la droite qui passe par le point d\'intersection des arcs de cercle et par le point A.', 0, 8.9, { couleur: 'lightblue', tempo: 20 })
-    this.regleRotation(d.angleAvecHorizontale - 90)
-    this.regleMontrer(P1)
-    this.crayonMontrer(P1)
-    this.tracer(P2)
-    if (description) this.textePosition('5. coder l\'angle droit.', 0, 8.2, { couleur: 'lightblue', tempo: 20 })
-    this.regleMasquer()
-    this.codageAngleDroit(P1, H, B)
-  }
-  /**
-     * Trace la parallèlee à (AB) passant par C avec la règle et l'équerre.
-     * Cette macro réalise la construction en décrivant ce qu'elle fait à chaque étape
-     * @param {point} A
-     * @param {point} B
-     * @param {point} M
-     * @param {boolean} dessus
-     * @param {*} options
-     */
-  this.paralleleRegleEquerreDroitePointAvecDescription = function (A, B, M, dessus, description = true) {
-    A.nom = 'A'
-    B.nom = 'B'
-    M.nom = 'M'
-    const AA = homothetie(A, B, 2)
-    const BB = homothetie(B, A, 2)
-    const d = droite(A, B)
-    const dd = rotation(d, A, 90)
-    const H = projectionOrtho(M, dd)
-    const N = homothetie(M, H, 1.5)
-    const P = homothetie(H, M, 2)
-    this.tempo = 10
-    this.pointsCreer(A, B, M)
-    this.pointMasquer(AA, BB)
-    this.traitRapide(AA, BB)
-    this.textePosition('Parallèle à une droite passant par un point (règle et équerre)', -10, 10.7, { couleur: 'green', taille: 4, tempo: 20 })
-    if (description) this.textePosition('On veut construire la parallèle à (AB) passant par M à la règle et à l\'equerre.', -10, 10, { couleur: 'red', taille: 4, tempo: 50 })
-    if (description) this.textePosition('1. Placer l\'équerre un côté de l\'angle droit le long de la droite (AB).', -9, 9.3, { couleur: 'lightblue', taille: 2, tempo: 10 })
-    this.equerreMontrer(A)
-    this.equerreRotation(d.angleAvecHorizontale + (dessus ? -90 : 0), { tempo: 20 })
-    if (description) this.textePosition('2. Placer ensuite la règle contre l\'autre côté de l\'angle droit de l\'équerre.', -9, 8.6, { couleur: 'lightblue', taille: 2, tempo: 10 })
-    this.regleRotation(d.angleAvecHorizontale - 90)
-    this.regleMontrer(AA)
-    this.regleDeplacer(homothetie(rotation(B, A, 90), A, 1.5), { tempo: 20 })
-    if (description) this.textePosition('Remarque : On peut tracer des pointillés pour matérialiser la position de la règle.', -9.5, 7.9, { couleur: 'pink', taille: 2, tempo: 10 })
-    this.crayonMontrer(A)
-    this.tracer(homothetie(rotation(B, A, dessus ? 90 : -90), A, 1.5), { pointilles: true })
-    if (description) this.textePosition('3. Faire glisser l\'équerre le long de la règle jusqu\'au point M.', -9, 7.2, { couleur: 'lightblue', taille: 2, tempo: 10 })
-    if (!dessus) {
-      this.equerreRotation(d.angleAvecHorizontale - 90)
-    }
-    this.equerreDeplacer(H, { tempo: 20 })
-    if (description) this.textePosition('4. Tracer le segment de droite passant par M.', -9, 6.5, { couleur: 'lightblue', taille: 2, tempo: 10 })
-    this.crayonDeplacer(H)
-    this.tracer(N)
-    this.equerreMasquer()
-    if (description) this.textePosition('5. Placer la règle sur ce segment et prolonger la parallèle à (AB).', -9, 5.8, { couleur: 'lightblue', taille: 2, tempo: 10 })
-    this.regleDeplacer(P)
-    this.regleRotation(d.angleAvecHorizontale)
-    this.tracer(P)
-    this.regleMasquer()
-    if (description) this.textePosition('6. Pour finir, coder la figure.', -9, 5.1, { couleur: 'lightblue', taille: 2, tempo: 20 })
-    this.codageAngleDroit(B, A, H)
-    this.codageAngleDroit(A, H, M)
-    this.crayonMasquer()
-  }
-
-  /**
-   *
-   * @param {point} A
-   * @param {point} B
-   * @param {point} C
-   * @param {boolean} description
-   */
-  this.paralleleAuCompasAvecDescription = function (A, B, C, description = true) {
-    const D = translation2Points(C, A, B, 'D')
-    A.nom = 'A'
-    B.nom = 'B'
-    C.nom = 'C'
-    const AA = homothetie(A, B, 1.5)
-    const BB = homothetie(B, A, 1.5)
-    const N = homothetie(C, D, 1.5)
-    const P = homothetie(D, C, 1.5)
-    this.tempo = 10
-    this.pointsCreer(A, B, C)
-    this.traitRapide(AA, BB)
-    this.textePosition('Parallèle à une droite passant par un point (compas et règle)', -10, 10.7, { couleur: 'green', taille: 4, tempo: 20 })
-    if (description) this.textePosition('On veut construire la parallèle à (AB) passant par C à la règle et au compas.', -10, 10, { couleur: 'red', taille: 4, tempo: 30 })
-    if (description) this.textePosition('1. Prendre avec le compas l\'écartement correspondant à la longueur AB.', -9, 9.3, { couleur: 'lightblue', taille: 2, tempo: 10 })
-    this.compasEcarter2Points(A, B)
-    if (description) this.textePosition('2. Reporter cette longueur à partir du point C.', -9, 8.6, { couleur: 'lightblue', taille: 2, tempo: 10 })
-    this.compasTracerArcCentrePoint(C, D, { couleur: 'lightgray', epaisseur: 1 })
-    if (description) this.textePosition('3. Prendre ensuite avec le compas l\'écartement correspondant à la longueur AC.', -9, 7.9, { couleur: 'lightblue', taille: 2, tempo: 10 })
-    this.compasEcarter2Points(A, C)
-    if (description) this.textePosition('4. Reporter cette longueur à partir du point B.', -9, 7.2, { couleur: 'lightblue', taille: 2, tempo: 10 })
-    this.compasTracerArcCentrePoint(B, D, { couleur: 'lightgray', epaisseur: 1 })
-    this.compasMasquer()
-    if (description) this.textePosition('5. Noter D, le point d\'intersection des deux arcs de cercle.', -9, 6.5, { couleur: 'lightblue', taille: 2, tempo: 10 })
-    this.pointCreer(D)
-    if (description) this.textePosition('6. Tracer la droite passant par C et D.', -9, 5.8, { couleur: 'lightblue', taille: 2, tempo: 10 })
-    this.regleSegment(N, P)
-    this.regleMasquer()
-    this.crayonMasquer()
-  }
-
-  /**
- *****************************************
- ********* DROITES REMARQUABLES **********
- *****************************************
- */
-
-  /**
- * Trace la médiatrice de [AB] au compas. Le paramétrage des longueurs correspond à la distance entre le milieu du segment et le point d'intersection des arcs de cercles
- *
- * @param {point} A
- * @param {point} B
- * @param {objet} options Défaut : {longueur1: 3, longueur2: 3, codage: 'X', couleurCodage : this.couleurCodage, couleurCompas: this.couleurCompas}
- * @return {array} [arc1, arc2, arc3, arc4, codage1, codage2, codageCarre]
-  */
-  this.mediatriceAuCompas = function (A, B, options = {}) {
-    if (options.longueur1 === undefined) {
-      options.longueur1 = 3
-    }
-    if (options.longueur2 === undefined) {
-      options.longueur2 = -3
-    }
-    if (options.codage === undefined) {
-      options.codage = 'X'
-    }
-    if (options.couleurCodage === undefined) {
-      options.couleurCodage = this.couleurCodage
-    }
-    if (options.couleurCompas === undefined) {
-      options.couleurCompas = this.couleurCompas
-    }
-    const O = milieu(A, B)
-    const O2 = rotation(A, O, -90)
-    const M = pointSurSegment(O, O2, options.longueur1)
-    const N = pointSurSegment(O, O2, options.longueur2)
-    this.compasMontrer()
-    this.compasDeplacer(A, options)
-    let arc1, arc2, arc3, arc4
-    if (options.longueur1 === -1 * options.longueur2) { // Si la distance est la même des deux côtés, on peut faire les arcs de part et d'autre
-      this.compasEcarter(longueur(A, M), { vitesse: options.vitesse, sens: options.vitesse })
-      arc1 = this.compasTracerArcCentrePoint(A, M, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-      arc2 = this.compasTracerArcCentrePoint(A, N, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-      arc3 = this.compasTracerArcCentrePoint(B, M, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-      arc4 = this.compasTracerArcCentrePoint(B, N, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-    } else {
-      this.compasEcarter(longueur(A, M), options)
-      arc1 = this.compasTracerArcCentrePoint(A, M, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-      arc2 = this.compasTracerArcCentrePoint(B, M, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-      arc3 = this.compasTracerArcCentrePoint(B, N, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-      arc4 = this.compasTracerArcCentrePoint(A, N, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-    }
-    this.compasMasquer()
-    if (M.x <= N.x) {
-      this.regleDroite(M, N, options)
-    } else {
-      this.regleDroite(N, M, options)
-    }
-    this.regleMasquer()
-    const codage1 = this.segmentCodage(A, O, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
-    const codage2 = this.segmentCodage(O, B, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
-    const codageCarre = this.codageAngleDroit(A, O, O2, { couleur: options.couleurCodage, tempo: options.tempo, vitesse: options.vitesse })
-    return [arc1, arc2, arc3, arc4, codage1, codage2, codageCarre]
-  }
-  /**
-   * Trace la médiatrice du segment [AB] avec la méthode Règle + équerre.
-   * @param {point} A
-   * @param {point} B
-   * @param {booléen} codage
-   */
-  this.mediatriceRegleEquerre = function (A, B, codage = 'X') {
-    const O = milieu(A, B)
-    this.regleMontrer()
-    this.regleDeplacer(A)
-    this.regleRotation(B)
-    this.crayonMontrer()
-    const O2 = rotation(A, O, -90)
-    const O3 = rotation(A, O, 90)
-    const M = pointSurSegment(O, O2, 0.2)
-    const N = pointSurSegment(O, O3, 0.2)
-    if (this.y(M) > this.y(N)) {
-      this.trait(O, M)
-    } else {
-      this.trait(O, N)
-    }
-    this.regleMasquer()
-    if (this.x(A) < this.x(B)) {
-      this.equerreDeplacer(A)
-      this.equerreMontrer()
-      this.equerreRotation(B)
-    } else {
-      this.equerreDeplacer(B)
-      this.equerreMontrer()
-      this.equerreRotation(A)
-    }
-    this.equerreDeplacer(O)
-    this.crayonDeplacer(O)
-    this.trait(O, O2)
-    this.equerreMasquer()
-    this.regleDroite(O2, O3)
-    this.regleMasquer()
-    this.segmentCodage(A, O, codage)
-    this.segmentCodage(O, B, codage)
-    this.codageAngleDroit(A, O, O2)
-  }
-  /**
-   * Trace la hauteur issue de C dans un triangle ABC. Prolonge si besoin le segment [AB] pour avoir le pied de la hauteur et le codage de l'angle droit.
-   * @param {point} A 1er point de la base
-   * @param {point} B 2e point de la base
-   * @param {point} C Sommet dont est issue la hauteur
-   * @param {booléen} codage angle droit ajouté si true
-   */
-  this.hauteur = function (A, B, C, codage = true) {
-    const d = droite(A, B)
-    d.isVisible = false
-    const H = projectionOrtho(C, d)
-    let G, D
-    if (this.x(A) < this.x(B)) {
-      G = A
-      D = B
-    } else {
-      G = B
-      D = A
-    }
-    if (this.x(H) < this.x(G)) { // si le pied de la hauteur est trop à gauche
-      this.regleProlongerSegment(D, G, longueur(G, H) + 2, this.couleur, this.tempo, this.vitesse, this.epaisseurTraitsDeConstruction, true)
-    }
-    if (this.x(H) > this.x(D)) { // si le pied de la hauteur est trop à droite
-      this.regleProlongerSegment(G, D, longueur(D, H) + 2, this.couleur, this.tempo, this.vitesse, this.epaisseurTraitsDeConstruction, true)
-    }
-    if (this.x(H) < this.x(G) || this.x(H) > this.x(D)) {
-      this.regleMasquer()
-    }
-    if (this.x(A) < this.x(B)) {
-      this.equerreDeplacer(A)
-      this.equerreMontrer()
-      this.equerreRotation(B)
-    } else {
-      this.equerreDeplacer(B)
-      this.equerreMontrer()
-      this.equerreRotation(A)
-    }
-    this.equerreDeplacer(H)
-    this.crayonMontrer()
-    this.crayonDeplacer(H)
-    this.trait(H, C)
-    this.equerreMasquer()
-    if (codage) {
-      this.codageAngleDroit(A, H, C)
-    }
-    this.crayonMasquer()
-  }
-  /**
- * Trace la médiane issue de C passant par le milieu de [AB]
- * @param {point} A
- * @param {point} B
- * @param {point} C
- * @param {objet} options
- */
-  this.mediane = function (A, B, C, options = {}) {
-    if (options.codage === undefined) {
-      options.codage = 'X'
-    }
-    if (options.couleurTraitsDeConstruction === undefined) {
-      options.couleurTraitsDeConstruction = this.couleurTraitsDeConstruction
-    }
-    if (options.epaisseurTraitsDeConstruction === undefined) {
-      options.epaisseurTraitsDeConstruction = this.epaisseurTraitsDeConstruction
-    }
-    const O = milieu(A, B)
-    this.regleMontrer(A, options)
-    this.regleRotation(B, options)
-    this.crayonMontrer()
-    const O2 = rotation(A, O, -90)
-    const O3 = rotation(A, O, 90)
-    const M = pointSurSegment(O, O2, 0.2)
-    const N = pointSurSegment(O, O3, 0.2)
-    if (M.y > N.y) {
-      this.trait(O, M, { vitesse: options.vitesse, tempo: options.tempo, couleur: options.couleurTraitsDeConstruction, epaisseur: options.epaisseurTraitsDeConstruction })
-    } else {
-      this.trait(O, N, { vitesse: options.vitesse, tempo: options.tempo, couleur: options.couleurTraitsDeConstruction, epaisseur: options.epaisseurTraitsDeConstruction })
-    }
-    this.regleSegment(O, C, options)
-    if (options.codage) {
-      this.segmentCodage(A, O, options)
-      this.segmentCodage(O, B, options)
-    }
-  }
-  /**
- * Trace la bissectrice de l'angle ABC au compas.
- * @param {point} A
- * @param {point} B
- * @param {point} C
- * @param {objet} param3
- * @returns {objet} {arc1, arc2, arc3, arc4}
- */
-  this.bissectriceAuCompas = function (A, B, C, { codage = '/', l = 2, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2, 0), epaisseur = this.epaisseur, pointilles = this.pointilles, couleurCodage = this.couleurCodage, masquerTraitsDeConstructions = true } = {}) {
-    const A1 = pointSurSegment(B, A, l)
-    const C1 = pointSurSegment(B, C, l)
-    // const demiangle = calcul(angleOriente(A, B, C) / 2);
-    const angle = angleOriente(A, B, C)
-    const M = rotation(B, A1, -(180 - angle))
-    const options = { couleur: couleur, tempo: tempo, vitesse: vitesse, sens: sens, pointilles: false }
-    const arc1 = this.compasTracerArcCentrePoint(B, A1, options)
-    const arc2 = this.compasTracerArcCentrePoint(B, C1, options)
-    const arc3 = this.compasTracerArcCentrePoint(A1, M, options)
-    const arc4 = this.compasTracerArcCentrePoint(C1, M, options)
-    this.compasMasquer()
-    this.regleDemiDroiteOriginePoint(B, M, { longueur: longueur(B, A), couleur: couleur, tempo: tempo, vitesse: vitesse, sens: sens, epaisseur: epaisseur, pointilles: pointilles })
-    this.regleMasquer()
-    this.crayonMasquer()
-    if (codage) {
-      this.angleCodage(A, B, M, { couleur: couleurCodage, codage: codage, tempo: tempo })
-      this.angleCodage(M, B, C, { couleur: couleurCodage, codage: codage, tempo: tempo })
-    }
-    if (masquerTraitsDeConstructions) {
-      this.traitMasquer(arc1)
-      this.traitMasquer(arc2)
-      this.traitMasquer(arc3)
-      this.traitMasquer(arc4)
-    }
-    return { arc1: arc1, arc2: arc2, arc3: arc3, arc4: arc4 }
-  }
-  /**
- * Construit les 3 médiatrices des côtés du triangle ABC puis le cercle circonscrit au triangle
- * @param {point} A
- * @param {point} B
- * @param {point} C
- * @param {objet} options
- */
-  this.cercleCirconscrit = function (A, B, C, options = {}) {
-    if (options.couleur === undefined) {
-      options.couleur = this.couleur
-    }
-    if (options.couleurMediatrice === undefined) {
-      options.couleurMediatrice = options.couleur
-    }
-    if (options.couleurCercle === undefined) {
-      options.couleurCercle = options.couleur
-    }
-    options.codage = 'X'
-    options.couleur = options.couleurMediatrice
-    const m1 = this.mediatriceAuCompas(A, B, options)
-    this.traitMasquer(m1[0]) // On cache les arcs de cercle une fois la médiatrice tracée
-    this.traitMasquer(m1[1])
-    this.traitMasquer(m1[2])
-    this.traitMasquer(m1[3])
-    options.codage = '||'
-    const m2 = this.mediatriceAuCompas(B, C, options)
-    this.traitMasquer(m2[0])
-    this.traitMasquer(m2[1])
-    this.traitMasquer(m2[2])
-    this.traitMasquer(m2[3])
-    options.codage = '///'
-    const m3 = this.mediatriceAuCompas(A, C, options)
-    this.traitMasquer(m3[0])
-    this.traitMasquer(m3[1])
-    this.traitMasquer(m3[2])
-    this.traitMasquer(m3[3])
-    const O = centreCercleCirconscrit(A, B, C)
-    options.couleur = options.couleurCercle
-    this.compasCercleCentrePoint(O, A, options)
-  }
-
-  /**
- *****************************************
- ************** TRIANGLES ****************
- *****************************************
- */
-
-  /**
-   * Macro de construction d'un triangle à partir de ses 3 dimensions. Le premier point aura pour coordonnées (6,0).
-   * @param {string} ABC Une chaine de caractère de 3 lettre
-   * @param {*} AB Distance entre le 1er et le 2e sommet
-   * @param {*} AC Distance entre le 1er et le 3e sommet
-   * @param {*} BC Distance entre le 2e et le 3e sommet
-   * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
-   * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
-   */
-  this.triangle3longueurs = function (ABC, AB, AC, BC, description = true) {
-    const A = point(6, 0)
-    const B = pointAdistance(A, AB, randint(-20, 20))
-    const p = triangle2points2longueurs(A, B, AC, BC)
-    const C = p.listePoints[2]
-    if (ABC.length !== 3) {
-      description = false
-    } else {
-      A.nom = ABC[0]
-      B.nom = ABC[1]
-      C.nom = ABC[2]
-    }
-
-    if (description) this.textePosition(`${A.nom + B.nom} = ${nombreAvecEspace(AB)} cm`, 0, -2)
-    this.pointCreer(A)
-    // this.regleRotation(droite(A,B).angleAvecHorizontale)
-    // this.regleMontrer(A)
-    this.regleSegment(A, B)
-    this.pointCreer(B)
-    this.crayonMasquer()
-    if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc ${C.nom} appartient au cercle de centre ${A.nom} et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -3)
-    this.couleur = 'forestgreen'
-    this.epaisseur = 2
-    this.compasMontrer(A)
-    this.compasEcarterAvecRegle(AC)
-    this.compasTracerArcCentrePoint(A, C, 40)
-    if (description) this.textePosition(`${B.nom + C.nom} = ${nombreAvecEspace(BC)} cm donc ${C.nom} appartient au cercle de centre ${B.nom} et de rayon ${nombreAvecEspace(BC)} cm.`, 0, -4)
-    this.compasDeplacer(B)
-    this.compasEcarterAvecRegle(BC)
-    this.compasTracerArcCentrePoint(B, C)
-    this.compasMasquer()
-    this.couleur = 'blue'
-    this.epaisseur = 3
-    if (description) this.textePosition(`Le point ${C.nom} est à une intersection des deux cercles.`, 0, -5)
-    this.pointCreer(C)
-    this.regleSegment(B, C)
-    this.regleSegment(C, A)
-    this.crayonMasquer()
-    this.regleMasquer()
-    return [A, B, C]
-  }
-  /**
-   * Macro de construction d'un triangle rectangle (l'angle droit est le 2e point dans l'ordre du nom)
-   *  à partir de la donnée de la longueur d'un côté et de la longueur de l'hypoténuse.
-   *  Le premier sommet aura pour coordonnées (6, 0)
-   * @param {string} ABC Une chaine de caractère de 3 lettre
-   * @param {*} AB Distance entre le 1er et le 2e sommet
-   * @param {*} AC Distance entre le 1er et le 3e sommet (hypoténuse)
-   * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
-   * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
-   */
-  this.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, description = true) { // Triangle rectangle en B
-    const A = point(6, 0)
-    const B = pointAdistance(A, AB, randint(-20, 20))
-    const dAB = droite(A, B)
-    dAB.isVisible = false
-    const dBC = droiteParPointEtPerpendiculaire(B, dAB)
-    dBC.isVisible = false
-    const cAC = cercle(A, AC)
-    cAC.isVisible = false
-    const C = pointIntersectionLC(dBC, cAC)
-    const c = homothetie(C, B, 1.2)
-    if (ABC.length !== 3) {
-      description = false
-    } else {
-      A.nom = ABC[0]
-      B.nom = ABC[1]
-      C.nom = ABC[2]
-    }
-
-    if (longueur(A, C) > 8) this.equerreZoom(150)
-    if (description) this.textePosition(`${A.nom + B.nom} = ${nombreAvecEspace(AB)} cm`, 0, -2)
-    this.equerreRotation(dAB.angleAvecHorizontale)
-    this.pointCreer(A)
-    this.regleSegment(A, B)
-    this.pointCreer(B)
-    if (description) this.textePosition(`${A.nom + B.nom + C.nom} est un triangle rectangle en ${B.nom} donc ${C.nom} appartient à la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -3)
-    this.equerreMontrer(A)
-    this.equerreDeplacer(B)
-    this.tracer(c)
-    this.equerreMasquer()
-    this.codageAngleDroit(A, B, C)
-    this.crayonMasquer()
-    if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc ${C.nom} appartient au cercle de centre ${A.nom} et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -4)
-    this.compasMontrer(A)
-    this.compasEcarterAvecRegle(AC)
-    this.couleur = 'forestgreen'
-    this.epaisseur = 2
-    this.compasTracerArcCentrePoint(A, C)
-    this.couleur = 'blue'
-    this.epaisseur = 2
-    if (description) this.textePosition(`${C.nom} est à une intersection de la perpendiculaire et du cercle.`, 0, -5)
-    this.crayonMontrer(C)
-    this.pointCreer(C)
-    this.compasMasquer()
-    this.regleSegment(A, C)
-    this.regleMasquer()
-    this.crayonMasquer()
-    return [A, B, C]
-  }
-
-  /**
-   * Macro de construction d'un triangle rectangle (l'angle droit est le 2e point dans l'ordre du nom)
-   *  à partir de la donnée de la longueur des deux côtés de l'angle droit.
-   *  Le premier sommet aura pour coordonnées (6, 0)
-   * @param {string} ABC Une chaine de caractère de 3 lettre
-   * @param {*} AB Distance entre le 1er et le 2e sommet
-   * @param {*} AC Distance entre le 1er et le 3e sommet (hypoténuse)
-   * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
-   * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
-   */
-  this.triangleRectangle2Cotes = function (ABC, AB, BC, description = true) { // Triangle rectangle en B
-    const A = point(6, 0)
-    const B = pointAdistance(A, AB, randint(-20, 20))
-    const dAB = droite(A, B)
-    dAB.isVisible = false
-    const dBC = droiteParPointEtPerpendiculaire(B, dAB)
-    dBC.isVisible = false
-    const cBC = cercle(B, BC)
-    cBC.isVisible = false
-    const C = pointIntersectionLC(dBC, cBC)
-    const c = homothetie(C, B, 1.2)
-    if (ABC.length !== 3) {
-      description = false
-    } else {
-      A.nom = ABC[0]
-      B.nom = ABC[1]
-      C.nom = ABC[2]
-    }
-
-    if (longueur(A, C) > 8) this.equerreZoom(150)
-    if (description) this.textePosition(`${A.nom + B.nom} = ${nombreAvecEspace(AB)} cm`, 0, -2)
-    this.equerreRotation(dAB.angleAvecHorizontale)
-    this.pointCreer(A)
-    this.regleSegment(A, B)
-    this.pointCreer(B)
-    if (description) this.textePosition(`${A.nom + B.nom + C.nom} est un triangle rectangle en ${B.nom} donc ${C.nom} appartient à la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -3)
-    this.equerreMontrer(A)
-    this.equerreDeplacer(B)
-    this.tracer(c)
-    this.equerreMasquer()
-    this.codageAngleDroit(A, B, C)
-    if (description) this.textePosition(`${B.nom + C.nom} = ${nombreAvecEspace(BC)} cm donc ${C.nom} est à ${nombreAvecEspace(BC)} cm de ${B.nom} sur la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -4)
-    this.regleMontrer(B)
-    this.regleRotation(C)
-    this.crayonDeplacer(C)
-    this.pointCreer(C)
-    this.couleur = 'blue'
-    this.epaisseur = 2
-    this.compasMasquer()
-    this.regleSegment(A, C)
-    this.regleMasquer()
-    this.crayonMasquer()
-
-    return [A, B, C]
-  }
-  /**
-   * Macro de construction d'un triangle à partir d'une longueur et des 2 angles adajcents au côté connu. Le premier point aura pour coordonnées (6,0).
-   * @param {string} ABC Une chaine de caractère de 3 lettre
-   * @param {*} AB Distance entre le 1er et le 2e sommet
-   * @param {*} BAC Angle au 1er sommet
-   * @param {*} CBA Angle au 2e sommet
-   * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
-   * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
-   */
-  this.triangle1longueur2angles = function (NOM, AB, BAC, CBA, description = true, mesure = false) {
-    const angle = randint(-20, 20)
-    const a1 = BAC
-    const a2 = CBA
-    const A = point(6, 0)
-    const B = pointAdistance(A, AB, angle)
-    const D = pointAdistance(A, 5.2, a1 + angle)
-    const D2 = pointSurSegment(A, D, 10)
-    const D1 = pointSurSegment(D, D2, 0.4)
-    const E = pointAdistance(B, 3, 180 - a2 + angle)
-    const E2 = pointSurSegment(B, E, 10)
-    const E1 = pointSurSegment(E, E2, -0.4)
-    const F = pointAdistance(B, 5.2, 180 - a2 + angle)
-    const F1 = pointSurSegment(F, E2, 0.4)
-    const d = rotation(droite(A, B), A, a1)
-    D.isVisible = false
-    const d2 = rotation(droite(B, A), B, -a2)
-    d2.isVisible = false
-    const C = pointIntersectionDD(d, d2)
-    if (NOM.length !== 3) {
-      description = false
-    } else {
-      A.nom = NOM[0]
-      B.nom = NOM[1]
-      C.nom = NOM[2]
-    }
-    this.couleur = 'blue'
-    this.epaisseur = 3
-    this.pointCreer(A)
-    if (description) this.textePosition(`On trace le côté [${A.nom + B.nom}] de ${nombreAvecEspace(AB)} cm.`, 0, -4)
-    this.regleSegment(A, B)
-    this.pointCreer(B)
-    this.couleur = 'grey'
-    this.epaisseur = 1
-    this.rapporteurMontrer(A)
-    this.rapporteurDeplacer(A)
-    this.rapporteurRotation(angle)
-    if (description) this.textePosition(`On place un repère à ${a1} degrés pour tracer la demi-droite [${A.nom + C.nom}).`, 0, -5)
-    this.epaisseur = 3
-    this.trait(D, D1, 20)
-    this.epaisseur = 1
-    this.rapporteurMasquer()
-    this.regleSegment(A, D2)
-    this.regleMasquer()
-    this.angleCodage(B, A, C)
-    this.rapporteurMontrer(A)
-    this.rapporteurDeplacer(B)
-    if (description) this.textePosition(`On place un repère à ${a2} degrés pour tracer la demi-droite [${B.nom + C.nom}).`, 0, -6)
-    this.epaisseur = 3
-    this.trait(E, E1, 10)
-    this.trait(F, F1, 20)
-    this.epaisseur = 1
-    this.rapporteurMasquer()
-    this.regleMontrer(B)
-    this.regleSegment(B, E2)
-    this.angleCodage(C, B, A)
-    this.pointCreer(C, '', 0)
-    this.pointNommer(C, C.nom, -0.5, 1)
-    this.couleur = 'blue'
-    this.epaisseur = 3
-    this.regleSegment(B, C)
-    this.regleSegment(C, A)
-    this.regleMasquer()
-    this.crayonMasquer()
-    if (description && mesure) this.textePosition(`On peut mesurer ${A.nom + C.nom} ≈ ${nombreAvecEspace(longueur(A, C, 1))} cm et ${B.nom + C.nom} ≈ ${nombreAvecEspace(longueur(B, C, 1))} cm.`, 0, -7)
-
-    return [A, B, C]
-  }
-  /**
-   * Macro de construction d'un triangle à partir des longueurs des deux côtés d'un angle Le premier point a pour coordonnées (6,0).
-   * @param {string} ABC Une chaine de caractère de 3 lettre
-   * @param {*} AB Distance entre le 1er et le 2e sommet
-   * @param {*} AC Distance entre le 1er et le 3e sommet
-   * @param {*} BAC Angle au 1er sommet
-   * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
-   * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
-   */
-  this.triangle2longueurs1angle = function (NOM, AB, AC, BAC, description = true, mesure = false) {
-    const angle = randint(-20, 20)
-    const a1 = BAC
-    const A = point(6, 0)
-    const B = pointAdistance(A, AB, angle)
-    const D = pointAdistance(A, 5.2, a1 + angle)
-    const D2 = pointSurSegment(A, D, 10)
-    const D1 = pointSurSegment(D, D2, 0.4)
-    const C = pointSurSegment(A, D2, AC)
-    if (NOM.length !== 3) {
-      description = false
-    } else {
-      A.nom = NOM[0]
-      B.nom = NOM[1]
-      C.nom = NOM[2]
-    }
-    this.couleur = 'blue'
-    this.epaisseur = 3
-    this.pointCreer(A)
-    if (description) this.textePosition(`On trace le côté [${A.nom + B.nom}] de ${nombreAvecEspace(AB)} cm.`, 0, -4)
-    this.regleSegment(A, B)
-    this.pointCreer(B)
-    this.couleur = 'grey'
-    this.epaisseur = 1
-    this.rapporteurMontrer(A)
-    this.rapporteurDeplacer(A)
-    this.rapporteurRotation(angle)
-    if (description) this.textePosition(`On place un repère à ${a1} degrés pour tracer la demi-droite [${A.nom + C.nom}).`, 0, -5)
-    this.epaisseur = 3
-    this.trait(D, D1, 20)
-    this.epaisseur = 1
-    this.rapporteurMasquer()
-    this.regleSegment(A, D2)
-    this.angleCodage(B, A, C)
-    this.rapporteurMasquer()
-    if (description) this.textePosition(`On place le point ${C.nom} sur la demi-droite [${A.nom + C.nom}) à ${AC} cm de ${A.nom}.`, 0, -6)
-    this.epaisseur = 3
-    this.couleur = 'blue'
-    this.crayonDeplacer(C)
-    this.pointCreer(C)
-    this.regleSegment(A, C)
-    this.crayonMasquer()
-    if (description) this.textePosition(`On trace le côté [${B.nom + C.nom}].`, 0, -7)
-    this.regleMontrer(C)
-    this.crayonMontrer(C)
-    this.regleSegment(C, B)
-    this.regleMasquer()
-    this.crayonMasquer()
-    return [A, B, C]
-  }
-
-  /**
-   * Trace un triangle équilatéral à partir de la donnée de 2 points
-   * @param {point} A
-   * @param {point} B
-   * @param {string} nomC
-   * @return {array} [A, B, C]
-   */
-  this.triangleEquilateral2Sommets = function (A, B, nomC = '') {
-    const C = rotation(B, A, 60)
-    C.nom = nomC
-    this.traitRapide(A, B)
-    this.pointCreer(A, A.nom, 0)
-    this.pointCreer(B, B.nom, 0)
-    this.compasEcarter2Points(A, B)
-    this.compasTracerArcCentrePoint(A, C)
-    this.compasTracerArcCentrePoint(B, C)
-    this.pointCreer(C)
-    this.compasMasquer()
-    this.regleSegment(A, C)
-    this.regleSegment(C, B)
-    this.regleMasquer()
-    this.crayonMasquer()
-    this.segmentCodage(A, B)
-    this.segmentCodage(A, C)
-    this.segmentCodage(B, C)
-    return [A, B, C]
-  }
-  /**
-   * Trace un triangle équilatéral à partir de la donnée de la longueur du côté. Le premier point a pour coordonnées (6;0)
-   * @param {string} NOM
-   * @param {number} AB
-   * @return {array} [A, B, C]
-   */
-
-  this.triangleEquilateral = function (NOM, AB) {
-    const A = point(6, 0)
-    const B = pointAdistance(A, AB, randint(-20, 20))
-    const C = rotation(B, A, 60)
-    if (NOM.length === 3) {
-      A.nom = NOM[0]
-      B.nom = NOM[1]
-      C.nom = NOM[2]
-    }
-    this.regleSegment(A, B)
-    this.pointCreer(A)
-    this.pointCreer(B)
-    this.compasEcarter2Points(A, B)
-    this.compasTracerArcCentrePoint(A, C)
-    this.compasTracerArcCentrePoint(B, C)
-    this.pointCreer(C)
-    this.compasMasquer()
-    this.regleSegment(A, C)
-    this.regleSegment(C, B)
-    this.regleMasquer()
-    this.crayonMasquer()
-    this.segmentCodage(A, B)
-    this.segmentCodage(A, C)
-    this.segmentCodage(B, C)
-    return [A, B, C]
-  }
-
-  /**
- ************************************************
- ************** PARALLELOGRAMMES ****************
- ************************************************
- */
-
-  /**
-   * Trace un parallélogramme à partir de la donnée de 3 sommets consécutifs
-   * @param {point} A
-   * @param {point} B
-   * @param {point} C
-   * @param {string} nomD
-   * @param {boolean} description
-   * @param {boolean} csDejaTraces À true (par défaut), les 2 côtés seront faits immédiatement, sinon, on les tracera à la règle.
-   */
-  this.parallelogramme3sommetsConsecutifs = function (A, B, C, nomD = '', description = true, csDejaTraces = true) {
-    const D = translation2Points(C, B, A)
-    D.nom = nomD
-    const xMin = Math.min(A.x, B.x, C.x, D.x)
-    const yMin = Math.min(A.y, B.y, C.y, D.y)
-    // const xMax = Math.max(A.x, B.x, C.x, D.x)
-    // const yMax = Math.max(A.y, B.y, C.y, D.y)
-    this.traitRapide(A, B)
-    this.traitRapide(B, C)
-    this.pointCreer(A, A.nom, 0)
-    this.pointCreer(B, B.nom, 0)
-    this.pointCreer(C, C.nom, 0)
-    this.textePosition(`${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses côtés opposés sont de même longueur.`, xMin - 1, yMin - 1)
-    this.compasEcarter2Points(B, A)
-    this.textePosition(`${B.nom + A.nom} = ${C.nom + D.nom}`, xMin - 1, yMin - 2)
-    this.compasTracerArcCentrePoint(C, D)
-    this.compasEcarter2Points(B, C)
-    this.textePosition(`${B.nom + C.nom} = ${A.nom + D.nom}`, xMin - 1, yMin - 3)
-    this.compasTracerArcCentrePoint(A, D, 10)
-    this.pointCreer(D)
-    this.compasMasquer()
-    this.regleSegment(C, D)
-    this.regleSegment(D, A)
-    this.regleMasquer()
-    this.crayonMasquer()
-    this.segmentCodage(A, B, { codage: '///', couleur: this.couleurCodage, tempo: 0 })
-    this.segmentCodage(D, C, { codage: '///', couleur: this.couleurCodage, tempo: 0 })
-    this.segmentCodage(B, C, { codage: '//', couleur: this.couleurCodage, tempo: 0 })
-    this.segmentCodage(A, D, { codage: '//', couleur: this.couleurCodage, tempo: 0 })
-  }
-  /**
-   * Trace le parallélogramme ABCD de centre O à partir de [AB] et O.
-   * @param {point} A
-   * @param {point} B
-   * @param {point} O
-   * @param {string} nomC
-   * @param {string} nomD
-   * @param {boolean} description
-   */
-  this.parallelogramme2sommetsConsecutifsCentre = function (A, B, O, nomC = '', nomD = '', description = true) {
-    const C = translation2Points(O, A, O)
-    C.nom = nomC
-    const D = translation2Points(O, B, O)
-    D.nom = nomD
-    const nom = A.nom + B.nom + C.nom + D.nom
-    if (longueur(A, C) > 12 || longueur(B, D) > 12) {
-      this.regleModifierLongueur(30)
-    }
-    const xMin = Math.min(A.x, B.x, C.x, D.x)
-    const yMin = Math.min(A.y, B.y, C.y, D.y)
-    // const xMax = Math.max(A.x, B.x, C.x, D.x)
-    // const yMax = Math.max(A.y, B.y, C.y, D.y)
-    this.traitRapide(A, B)
-    this.pointCreer(A, { tempo: 0 })
-    this.pointCreer(B, { tempo: 0 })
-    this.pointCreer(O, { tempo: 0 })
-    if (description && nom.length === 4) {
-      this.textePosition(`${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses diagonales se coupent en leur milieu.`, xMin - 1, yMin - 1)
-    }
-    this.pointilles = true
-    this.epaisseur = 1
-    this.couleur = this.couleurTraitsDeConstruction
-    this.regleDemiDroiteOriginePoint(A, O, { longueur: longueur(A, C) + 3 })
-    this.regleMasquer()
-    this.crayonMasquer()
-    this.compasEcarter2Points(A, O)
-    if (description && nom.length === 4) {
-      this.textePosition(`${A.nom + O.nom} = ${O.nom + C.nom}`, xMin - 1, yMin - 2)
-    }
-    this.pointilles = false
-    this.compasTracerArcCentrePoint(O, C)
-    this.compasMasquer()
-    this.pointilles = true
-    this.regleDemiDroiteOriginePoint(B, O, { longueur: longueur(B, D) + 3 })
-    this.regleMasquer()
-    this.crayonMasquer()
-    this.pointilles = false
-    this.compasEcarter2Points(B, O)
-    if (description && nom.length === 4) {
-      this.textePosition(`${B.nom + O.nom} = ${O.nom + D.nom}`, xMin - 1, yMin - 3)
-    }
-    this.compasTracerArcCentrePoint(O, D)
-    this.compasMasquer()
-    this.couleur = 'blue'
-    this.epaisseur = 3
-    this.pointCreer(D)
-    this.regleSegment(A, D)
-    this.regleSegment(D, C)
-    this.regleSegment(C, B)
-    this.regleMasquer()
-    this.compasMasquer()
-    this.crayonMasquer()
-    this.segmentCodage(A, O, { codage: '//', couleur: this.couleurCodage, tempo: 0 })
-    this.segmentCodage(O, C, { codage: '//', couleur: this.couleurCodage, tempo: 0 })
-    this.segmentCodage(B, O, { codage: 'O', couleur: this.couleurCodage, tempo: 0 })
-    this.segmentCodage(O, D, { codage: 'O', couleur: this.couleurCodage, tempo: 0 })
-  }
-  /**
-   * Trace la parallélogramme ABCD de centre O en partant de [AD), [AB) et O (mais sans voir la position de B et D au départ)
-   * @param {point} D
-   * @param {point} A
-   * @param {point} B
-   * @param {point} O
-   */
-  this.parallelogrammeAngleCentre = function (D, A, B, O) {
-    const B1 = pointSurSegment(A, B, longueur(A, B) + 2)
-    const D1 = pointSurSegment(A, D, longueur(A, D) + 2)
-    const C = translation2Points(B, A, D)
-    this.traitRapide(A, B1)
-    this.traitRapide(A, D1)
-    this.pointCreer(O, { tempo: 0 })
-    this.pointCreer(A, { tempo: 0 })
-    this.regleDemiDroiteOriginePoint(A, O, { couleur: this.couleurTraitsDeConstruction, epaisseur: 1, pointilles: true })
-    this.pointilles = false
-    this.regleMasquer()
-    this.crayonMasquer()
-    this.compasEcarter2Points(A, O)
-    this.compasTracerArcCentrePoint(O, C, { couleur: this.couleurTraitsDeConstruction })
-    this.compasMasquer()
-    this.paralleleRegleEquerre2points3epoint(B1, A, C, { couleur: this.couleurTraitsDeConstruction, epaisseur: 1 })
-    this.equerreMasquer()
-    this.regleDroite(C, D, { couleur: this.couleurTraitsDeConstruction, epaisseur: 1 })
-    this.paralleleRegleEquerre2points3epoint(A, D1, C, { couleur: this.couleurTraitsDeConstruction, epaisseur: 1 })
-    this.equerreMasquer()
-    this.regleDroite(C, B, { couleur: this.couleurTraitsDeConstruction, epaisseur: 1 })
-    this.pointCreer(D, { tempo: 0 })
-    this.pointCreer(B, { tempo: 0 })
-    this.pointCreer(C, { tempo: 0 })
-    this.regleSegment(B, C)
-    this.regleSegment(C, D)
-    this.regleMasquer()
-    this.crayonMasquer()
-  }
-
-  /**
-   ************************************************
-   ************** Carrés ****************
-   ************************************************
-   */
-
-  /**
-   * Macro crée par Sophie Desruelle
-   * @param {objet} A
-   * @param {number} c
-   * @returns polygoneAvecNom
-   */
-  this.carre1point1longueur = function (nom, A, c) {
-    const interligne = 1
-    A = point(5, 0, nom[0])
-    const B = pointAdistance(A, c, randint(-20, 20), nom[1])
-    const C = rotation(A, B, -90, nom[2])
-    const D = rotation(B, A, 90, nom[3])
-    const E = pointSurSegment(A, D, c + 2, 'E')
-    const F = pointSurSegment(D, C, c + 2, 'F')
-    this.equerreZoom((c + 3) * 100 / 7.5)
-    this.tempo = 20
-
-    this.textePosition(`1) On veut construire un carré dont les côtés mesurent ${c} cm, donc on commence par tracer un segment, ici [${nom[0] + nom[1]}], de cette longueur.`, 0, -2)
-
-    this.pointCreer(A, { tempo: 0 }) // On coupe la pause pour ne pas voir le déplacement du point
-    this.pointNommer(A, A.nom, { dx: -0.5, dy: 0 }) // On déplace le label du point A vers la gauche
-    this.regleSegment(A, B)
-    this.pointCreer(B)
-    this.regleMasquer()
-    this.longueurSegment(A, B, -1)
-
-    this.textePosition(`2) Un carré possède 4 angles droits, donc on trace la perpendiculaire à (${nom[0] + nom[1]}) passant par ${nom[0]}.`, 0, -2 - 1 * interligne)
-
-    this.equerreMontrer()
-    this.equerreDeplacer(A)
-    this.equerreRotation(B)
-    this.trait(A, E)
-    this.equerreMasquer()
-    this.codageAngleDroit(B, A, D)
-
-    this.textePosition(`3) Les 4 côtés d'un carré sont de la même longueur, donc on place le point ${nom[3]} sur cette perpendiculaire, à ${c} cm de ${nom[0]}.`, 0, -2 - 2 * interligne)
-
-    this.regleSegment(A, D)
-    this.pointCreer(D, { tempo: 0 })
-    this.pointNommer(D, D.nom, { dx: -0.7, dy: 0.5 })
-    this.regleMasquer()
-    this.segmentCodage(A, B)
-    this.segmentCodage(A, D)
-
-    this.textePosition(`4) De même, on trace la perpendiculaire à (${nom[0] + nom[3]}) passant par ${nom[3]}, puis on place le point ${nom[2]} sur cette perpendiculaire, à ${c} cm de ${nom[3]}.`, 0, -2 - 3 * interligne)
-
-    this.equerreMontrer()
-    this.equerreDeplacer(D)
-    this.equerreRotation(A)
-    this.trait(D, F)
-    this.equerreMasquer()
-    this.codageAngleDroit(A, D, C)
-
-    this.regleSegment(D, C)
-    this.pointCreer(C, { tempo: 0 })
-    this.pointNommer(C, C.nom, { dx: 0, dy: 0.9 })
-    this.regleMasquer()
-    this.segmentCodage(D, C)
-
-    this.textePosition(`5) On trace le segment [${nom[1] + nom[2]}].`, 0, -2 - 4 * interligne)
-
-    this.regleSegment(C, B)
-    this.regleMasquer()
-    this.segmentCodage(B, C)
-
-    this.textePosition(`6) On vérifie que ${nom[1] + nom[2]} = ${c} cm et que les deux derniers angles tracés sont droits.`, 0, -2 - 5 * interligne)
-
-    this.equerreMontrer(C, { tempo: 0 })
-    this.equerreRotation(D)
-    this.equerreMasquer()
-    this.codageAngleDroit(D, C, B)
-
-    this.equerreMontrer(B, { tempo: 0 })
-    this.equerreRotation(C)
-    this.equerreMasquer()
-    this.codageAngleDroit(C, B, A)
-    return polygoneAvecNom(A, B, C, D)
-  }
-
-  /********************************************/
-  /** *********** Transformations **************/
-  /********************************************/
-
-  /**
-   *
-   * @param {objet} p  le point dont on veut construire l'image
-   * @param {objet} centre le centre de la rotation
-   * @param {number} angle l'angle de la rotation
-   * @param {string} nom le nom de l'image (si pas précisé ce sera le nom de l'antécédent avec un ')
-   * @param {objet} param4 options couleur et couleurCodage
-   * @author Jean-Claude Lhote
-   */
-  this.rotationPoint = function (p, centre, angle, nom, { couleur = this.couleur, couleurCodage = this.couleurCodage, codage = true } = {}) {
-    this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-    this.couleur = 'grey'
-    if (nom === undefined || nom === '') {
-      nom = p.nom + "'"
-    }
-    const image = rotation(p, centre, angle, nom) // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
-    this.regleSegment(centre, p) // On trace le support du rapporteur
-    this.rapporteurMontrer(centre)
-    this.rapporteurTracerDemiDroiteAngle(centre, p, angle) // On trace le deuxième côté
-    this.regleMasquer()
-    this.rapporteurMasquer()
-    this.compasEcarter2Points(centre, p) // on prend l'écartement du compas
-    this.compasTracerArcCentrePoint(centre, image) // On fait l'arc qui coupe la demi-droite
-    this.compasMasquer()
-    this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // On marque le point image (qui est nommé)
-    if (codage) {
-      if (Math.abs(angle) === 90) {
-        this.codageAngleDroit(p, centre, image, { couleur: couleurCodage })
-      } else {
-        this.angleCodage(p, centre, image, { couleur: couleurCodage })
-        this.textePoint(Math.abs(angle) + '°', translation(homothetie(rotation(p, centre, angle / 2), centre, 1.3 / longueur(centre, p)), vecteur(-0.2, 0.5)))
-      }
-    }
-  }
-
-  /**
-   *
-   * @param {objet} p point dont on construit l'image et qui doit être tracé.
-   * @param {objet} d axe de symétrie.
-   * @param {string} nom nom de l'image
-   * @param {objet} options couleur et couleurCodage
-   * @author Liouba Leroux et Jean-Claude Lhote
-   */
-  this.symetrieAxialePoint = function (p, d, nom, { couleur = this.couleur, couleurCodage = this.couleurCodage, codage = '//' } = {}) {
-    this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-    this.couleur = 'grey'
-    if (nom === undefined || nom === '') {
-      nom = p.nom + "'"
-    }
-    const image = symetrieAxiale(p, d, nom) // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
-    if (longueur(p, image) !== 0) {
-      const M = milieu(p, image) // on crée le point milieu
-      const N = rotation(p, M, 90)
-      const D = rotation(N, M, 180)
-      this.regleMasquerGraduations()
-      this.perpendiculaireRegleEquerre2points3epoint(N, D, p)
-      this.compasEcarter2Points(M, p)
-      this.compasTracerArcCentrePoint(M, image)
-      this.regleSegment(p, image)
-      this.regleMasquer()
-      this.equerreMasquer()
-      this.segmentCodage(p, M, { codage: codage, couleur: couleurCodage })
-      this.segmentCodage(image, M, { codage: codage, couleur: couleurCodage })
-      this.crayonMasquer()
-      this.compasMasquer()
-    }
-    this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
-  }
-
-  /**
-   *
-   * @param {objet} p  le point dont on veut construire l'image
-   * @param {objet} le point de départ de la translation
-   * @param {objet} le point d'arrivée de la translation
-   * @param {string} nom le nom de l'image (si pas précisé ce sera le nom de l'antécédent avec un ')
-   * @param {objet} param4 options couleur et couleurCodage
-   * @author Jean-Claude Lhote
-   */
-  this.translationPoint = function (p, A, B, nom, { couleur = 'black', couleurCodage = this.couleurCodage } = {}) {
-    const v = vecteur(A, B)
-    this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-    this.couleur = 'grey'
-    if (nom === undefined || nom === '') {
-      nom = p.nom + "'"
-    }
-    const image = translation(p, v, nom) // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
-    if (longueur(A, p) !== 0) { // si le point de départ A est l'antécédent, alors le point d'arrivée B est l'image... pas besoin de construction
-      this.compasEcarter2Points(A, p)
-      this.compasTracerArcCentrePoint(B, image)
-      this.compasEcarter2Points(A, B)
-      this.compasTracerArcCentrePoint(p, image)
-    }
-    this.compasMasquer()
-    this.pointCreer(image, { couleur: couleur, couleurLabel: couleur })
-    const choix1 = randint(0, 4)
-    const choix2 = randint(0, 4, choix1)
-    const marques = ['/', '//', '///', 'O', '\\\\']
-    const marque1 = marques[choix1]
-    const marque2 = marques[choix2]
-    this.couleur = 'green'
-    this.traitRapide(p, image)
-    this.traitRapide(A, B)
-    this.segmentCodage(p, image, { codage: marque1, couleur: couleurCodage })
-    this.segmentCodage(A, B, { codage: marque1, couleur: couleurCodage })
-    this.couleur = 'red'
-    this.traitRapide(B, image)
-    this.traitRapide(A, p)
-    this.segmentCodage(B, image, { codage: marque2, couleur: couleurCodage })
-    this.segmentCodage(A, p, { codage: marque2, couleur: couleurCodage })
-  }
-
-  /**
-   *
-   * @param {objet} p  le point dont on veut construire l'image
-   * @param {objet} centre le centre de symétrie
-   * @param {string} nom le nom de l'image (si pas précisé ce sera le nom de l'antécédent avec un ')
-   * @param {objet} param3 options couleur, couleurCodage et codage
-   * @author Jean-Claude Lhote
-   */
-  this.demiTourPoint = function (p, centre, nom, { couleur = 'black', couleurCodage = this.couleurCodage, codage = '//' } = {}) {
-    this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-    this.couleur = 'grey'
-    if (nom === undefined || nom === '') {
-      nom = p.nom + "'"
-    }
-    const image = rotation(p, centre, 180, nom) // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
-    this.compasEcarter2Points(centre, p)
-    this.compasTracerArcCentrePoint(centre, image)
-    this.compasMasquer()
-    this.crayonDeplacer(p)
-    this.regleSegment(p, image)
-    this.couleur = couleur
-    this.epaisseur = 2
-    this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
-    this.regleMasquer()
-    this.crayonMasquer()
-    this.segmentCodage(p, centre, { codage: codage, couleur: couleurCodage })
-    this.segmentCodage(centre, image, { codage: codage, couleur: couleurCodage })
-  }
-
-  /**
-   *
-   * @param {objet} p polygone dont on doit construire l'image
-   * @param {objet} centre de l'homothétie
-   * @param {number} k rapport de l'homothétie
-   * @param {array} noms tableau contenant les différents noms des sommets dans le même ordre que ceux de p. Si vide, alors on ajoute ' à ceux de p
-   * @param {objet} param4 options (couleur)
-   */
-  this.homothetiePoint = function (p, centre, k, nom, { couleur = this.couleur, positionTexte = { x: 0, y: 0 } } = {}) {
-    this.epaisseur = 1 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-    const couleurSave = this.couleur
-    this.couleur = 'grey'
-    let t
-    if (nom === undefined || nom === '') {
-      nom = p.nom + "'"
-    }
-    const image = homothetie(p, centre, k, nom) // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
-    if (k > 0) {
-      t = this.textePosition(`Comme le rapport est positif alors les points ${p.nom} et ${image.nom} sont du même côté de ${centre.nom}`, positionTexte.x, positionTexte.y, { taille: 15 })
-    } else {
-      t = this.textePosition(`Comme le rapport est négatif alors ${centre.nom} est entre les points ${p.nom} et ${image.nom}`, positionTexte.x, positionTexte.y, { taille: 15 })
-    }
-    this.regleSegment(p, centre)
-    const l = arrondi(longueur(p, centre), 1)
-    const lprime = arrondi(calcul(l * Math.abs(k)))
-    const t1 = this.textePosition(`La mesure de ${centre.nom}${p.nom} est ${texNombre(arrondi(l, 1))} cm et le rapport de l'homothetie est ${texNombre(k)}`, positionTexte.x, positionTexte.y - 1, { taille: 15 })
-    const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${texNombre(l)} cm × ${texNombre(Math.abs(k))} = ${texNombre(lprime)} cm`, positionTexte.x, positionTexte.y - 2, { taille: 15 })
-    this.regleSegment(centre, image)
-    this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
-    this.regleMasquer()
-    this.crayonMasquer()
-    this.pause()
-    this.texteMasquer(t1)
-    this.texteMasquer(t2)
-    this.texteMasquer(t)
-    this.couleur = couleurSave
-  }
-  /**
-   *
-   * @param {objet} p le polygone qui est déjà tracé
-   * @param {objet} centre le centre de la rotation
-   * @param {number} angle l'angle de rotation
-   * @author Jean-Claude Lhote
-   * @param {objet} param4 options couleur et couleurCodage
-  */
-  this.rotationPolygone = function (p, centre, angle, noms = [], { couleur = this.couleur, couleurCodage = this.couleurCodage } = {}) {
-    let nom
-    const p2 = rotation(p, centre, angle) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
-    this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-    this.couleur = 'grey'
-    let i = 0; let codage
-    for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
-      if (noms[i] !== undefined) {
-        nom = noms[i]
-      } else {
-        nom = sommet.nom + "'"
-      }
-      if (i < 1) {
-        codage = true
-      } else {
-        codage = false
-      }
-      if (longueur(centre, sommet) !== 0) {
-        this.rotationPoint(sommet, centre, angle, nom, { couleur: couleur, couleurCodage: couleurCodage, codage: codage })
-      }
-      i++
-    }
-    this.epaisseur = 2
-    this.couleur = couleur
-    this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
-  }
-
-  /**
-   *
-   * @param {objet} p polygone dont on construit l'image et qui doit être tracé avec ses points nommés.
-   * @param {objet} d axe de symétrie.
-   * @param {string} noms tableau contenant les noms des sommets dans le même ordre que p
-   * @param {objet} param3 options couleur et couleurCodage
-   * @author Liouba Leroux et Jean-Claude Lhote
-   */
-  this.symetrieAxialePolygone = function (p, d, noms = [], { couleur = this.couleur, couleurCodage = this.couleurCodage } = {}) {
-    let nom
-    const p2 = symetrieAxiale(p, d) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
-    // const N = homothetie(milieu(p.listePoints[0], p2.listePoints[0]), milieu(p.listePoints[1], p2.listePoints[1]), 1.23456) // créer unh point de l'axe de symétrie pour les alignements et les mesure d'angles
-    this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-    this.couleur = 'grey'
-    let i = 0
-    const marques = ['/', '//', '///', 'O', '\\\\']
-    for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
-      if (noms[i] !== undefined) {
-        nom = noms[i]
-      } else {
-        nom = sommet.nom + "'"
-      }
-      this.symetrieAxialePoint(sommet, d, nom, { couleur: couleur, couleurCodage: couleurCodage, codage: marques[i] })
-      i++
-    }
-    this.compasMasquer()
-    this.crayonMasquer()
-    this.epaisseur = 2
-    this.couleur = couleur
-    this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
-    this.polygoneRapide(p2)
-  }
-
-  /**
-   *
-   * @param {objet} p polygone dont on construit l'image
-   * @param {objet} A point de départ de la translation
-   * @param {objet} B point d'arrivée de la translation
-   * @param {string} noms tableau contenant les noms des sommets dans le même ordre que p
- * @param {objet} param3 options couleur et couleurCodage
- * @author Jean-Claude Lhote
-*/
-  this.translationPolygone = function (p, A, B, noms = [], { couleur = this.couleur, couleurCodage = this.couleurCodage, codage = 'O' } = {}) {
-    let nom
-    const v = vecteur(A, B)
-    const p2 = translation(p, v) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
-    this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-    this.couleur = 'grey'
-    let i = 0
-    for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
-      if (noms[i] !== undefined) {
-        nom = noms[i]
-      } else {
-        nom = sommet.nom + "'"
-      }
-      this.translationPoint(sommet, A, B, nom, { couleur: couleur, couleurCodage: couleurCodage, codage: codage })
-    }
-    this.epaisseur = 2
-    this.couleur = couleur
-    this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
-    this.polygoneRapide(p2)
-    i++
-  }
-  /**
-   *
-   * @param {objet} p  le polygone dont on veut construire l'image qui doit être tracé
-   * @param {objet} centre le centre de symétrie
-   * @param {array} noms les noms des sommets images (si pas précisé ce sera le nom de l'antécédent avec un ')
-   * @param {objet} param3 options couleur et couleurCodage
-   * @author Jean-Claude Lhote
-   */
-  this.demiTourPolygone = function (p, centre, noms = [], { couleur = this.couleur, couleurCodage = this.couleurCodage } = {}) {
-    const p2 = rotation(p, centre, 180) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
-    this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-    this.couleur = 'grey'
-    let nom
-    let i = 0
-    const marques = ['/', '//', '///', 'O', '\\\\']
-    for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
-      if (noms[i] !== undefined) {
-        nom = noms[i]
-      } else {
-        nom = sommet.nom + "'"
-      }
-      this.demiTourPoint(sommet, centre, nom, { couleur: couleur, couleurCodage: couleurCodage, codage: marques[i] })
-      i++
-    }
-    this.epaisseur = 2
-    this.couleur = couleur
-    this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
-    this.polygoneRapide(p2)// figure svg de l'exercice
-  }
-
-  /**
-   *
-   * @param {objet} p polygone dont on doit construire l'image
-   * @param {objet} centre de l'homothétie
-   * @param {number} k rapport de l'homothétie
-   * @param {array} noms tableau contenant les différents noms des sommets dans le même ordre que ceux de p. Si vide, alors on ajoute ' à ceux de p
-   * @param {objet} param4 options (couleur)
-   */
-  this.homothetiePolygone = function (p, centre, k, noms = [], { couleur = this.couleur } = {}) {
-    let nom
-    const p2 = homothetie(p, centre, k) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
-    this.epaisseur = 1 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-    this.couleur = 'grey'
-    const t = this.textePosition('Comme k est ' + (k >= 0 ? 'positif' : 'négatif') + ' alors ' + (k >= 0 ? 'les figures sont du même côté de ' + centre.nom : centre.nom + ' est entre les figures'), 0, 0, { taille: 15 })
-    let i = 0
-    for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
-      if (noms[i] !== undefined) {
-        nom = noms[i]
-      } else {
-        nom = sommet.nom + "'"
-      }
-      this.homothetiePoint(sommet, centre, k, nom, { couleur: couleur })
-      i++
-    }
-    this.epaisseur = 2
-    this.couleur = couleur
-    this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
-    this.texteMasquer(t)
-  }
-  /** **** Fin de la classe Alea2iep */
 }
+
+Alea2iep.prototype.symetrieAxialePoint = symetrieAxialePoint
+Alea2iep.prototype.parallelogramme3sommetsConsecutifs = parallelogramme3sommetsConsecutifs
+Alea2iep.prototype.parallelogramme2sommetsConsecutifsCentre = parallelogramme2sommetsConsecutifsCentre
+Alea2iep.prototype.parallelogrammeAngleCentre = parallelogrammeAngleCentre
+Alea2iep.prototype.partageSegment = partageSegment
+Alea2iep.prototype.paralleleRegleEquerre2points3epoint = paralleleRegleEquerre2points3epoint
+Alea2iep.prototype.paralleleRegleEquerre2points3epoint = paralleleRegleEquerre2points3epoint
+Alea2iep.prototype.perpendiculaireRegleEquerre2points3epoint = perpendiculaireRegleEquerre2points3epoint
+Alea2iep.prototype.perpendiculaireRegleEquerreDroitePoint = perpendiculaireRegleEquerreDroitePoint
+Alea2iep.prototype.perpendiculaireRegleEquerrePointSurLaDroite = perpendiculaireRegleEquerrePointSurLaDroite
+Alea2iep.prototype.perpendiculaireCompasPointSurLaDroite = perpendiculaireCompasPointSurLaDroite
+Alea2iep.prototype.perpendiculaireCompasPoint = perpendiculaireCompasPoint
+Alea2iep.prototype.paralleleRegleEquerreDroitePointAvecDescription = paralleleRegleEquerreDroitePointAvecDescription
+Alea2iep.prototype.paralleleAuCompasAvecDescription = paralleleAuCompasAvecDescription
+Alea2iep.prototype.paralleleAuCompas = paralleleAuCompas
+Alea2iep.prototype.mediatriceAuCompas = mediatriceAuCompas
+Alea2iep.prototype.mediatriceRegleEquerre = mediatriceRegleEquerre
+Alea2iep.prototype.hauteur = hauteur
+Alea2iep.prototype.mediane = mediane
+Alea2iep.prototype.bissectriceAuCompas = bissectriceAuCompas
+Alea2iep.prototype.cercleCirconscrit = cercleCirconscrit
+Alea2iep.prototype.triangle3longueurs = triangle3longueurs
+Alea2iep.prototype.triangleRectangleCoteHypotenuse = triangleRectangleCoteHypotenuse
+Alea2iep.prototype.triangleRectangle2Cotes = triangleRectangle2Cotes
+Alea2iep.prototype.triangle1longueur2angles = triangle1longueur2angles
+Alea2iep.prototype.triangle2longueurs1angle = triangle2longueurs1angle
+Alea2iep.prototype.triangleEquilateral2Sommets = triangleEquilateral2Sommets
+Alea2iep.prototype.triangleEquilateral = triangleEquilateral
+Alea2iep.prototype.carre1point1longueur = carre1point1longueur
+Alea2iep.prototype.rotationPoint = rotationPoint
+Alea2iep.prototype.translationPoint = translationPoint
+Alea2iep.prototype.demiTourPoint = demiTourPoint
+Alea2iep.prototype.homothetiePoint = homothetiePoint
+Alea2iep.prototype.rotationPolygone = rotationPolygone
+Alea2iep.prototype.symetrieAxialePolygone = symetrieAxialePolygone
+Alea2iep.prototype.translationPolygone = translationPolygone
+Alea2iep.prototype.demiTourPolygone = demiTourPolygone
+Alea2iep.prototype.homothetiePolygone = homothetiePolygone

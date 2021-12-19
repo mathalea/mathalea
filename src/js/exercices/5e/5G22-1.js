@@ -23,6 +23,7 @@ export default function ProprietesMediatrice () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     this.sup = parseInt(this.sup)
     let typesDeQuestionsDisponibles, listeSurLaMediatrice
     if (this.sup === 1) {

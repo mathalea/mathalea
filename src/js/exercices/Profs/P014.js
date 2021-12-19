@@ -19,7 +19,7 @@ export default function TraceCourbeInterpolee1 () {
   this.sup = '3;5;2;1;-2;-1;0' // liste de points
   this.sup2 = '-5;2'
   this.sup3 = 1
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
@@ -38,7 +38,6 @@ export default function TraceCourbeInterpolee1 () {
     const xMax = xMin + liste.length * pas
     let yMin = 100
     let yMax = -100
-    console.log(ordonnees, xMin, pas)
 
     for (let i = 0; i < liste.length; i++) {
       yMin = Math.min(yMin, ordonnees[i])

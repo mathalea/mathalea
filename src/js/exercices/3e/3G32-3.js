@@ -9,14 +9,14 @@ export const titre = 'Calculer la hauteur d’une falaise'
  * @author Jean-Claude Lhote
  * Référence 3G32-3
 */
-export default function Calculs_trigonometriques3 () {
+export default function CalculsTrigonometriques3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = true // Niveau de difficulté
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.nbQuestions = 1
   this.spacingCorr = 2

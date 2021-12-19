@@ -1,11 +1,11 @@
 import Transformations from '../../6e/_Transformations.js'
-export { interactifReady, interactifType } from '../../6e/_Transformations.js'
-export const titre = 'Symétrique de point 6e'
+export { interactifReady, interactifType, amcType, amcReady } from '../../6e/_Transformations.js'
+export const titre = 'Trouver le symétrique d’un point'
 
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can5C10
+ * Référence can6G01
  */
 export default function SymetriqueD1Point () {
   Transformations.call(this)

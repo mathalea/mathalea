@@ -2,7 +2,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, ecritureNombreRelatif, texteEnCouleurEtGras, Relatif, combinaisonListes } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
-import { context } from '../../modules/context.js'
 
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -27,7 +26,7 @@ export default function SigneProduitQuotientRelatifs () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
-  
+
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {

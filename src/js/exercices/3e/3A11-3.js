@@ -1,16 +1,16 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, modalPdf, modalVideo, listeDiviseurs, numAlpha, cribleEratostheneN, tableauColonneLigne } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, miseEnEvidence, modalPdf, modalVideo, listeDiviseurs, numAlpha, cribleEratostheneN, tableauColonneLigne } from '../../modules/outils.js'
 export const titre = 'Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers'
 
 /**
  * 3A11-3 - Lister/Compter les diviseurs d'un entier à partir de sa decomposition en facteurs premiers
  * @author Sébastien Lozano
  */
-export default function Lister_Diviseurs_Par_decompositionFacteursPremiers () {
+export default function listerDiviseursParDecompositionFacteursPremiers () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = 1
+  this.sup = false
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Sans la calculatrice, compter/lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers.'
@@ -21,14 +21,13 @@ export default function Lister_Diviseurs_Par_decompositionFacteursPremiers () {
   // this.correctionDetailleeDisponible = true;
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = 1
 
   this.nouvelleVersion = function (numeroExercice) {
-    let typesDeQuestions
+    // let typesDeQuestions
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       // this.boutonAide = '';
       this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A11.pdf', 'Aide mémoire sur les nombres premiers (Sébastien Lozano)', 'Aide mémoire')
-      this.boutonAide += modalVideo('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
+      this.boutonAide += modalVideo('conteMathsNombresPremiers', 'https://coopmaths.fr/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
     } else { // sortie LaTeX
     };
 
@@ -37,205 +36,205 @@ export default function Lister_Diviseurs_Par_decompositionFacteursPremiers () {
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
 
-    const typesDeQuestionsDisponibles = [1]
+    // const typesDeQuestionsDisponibles = [1]
     // let typesDeQuestionsDisponibles = [1];
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
+    // const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+      // typesDeQuestions = listeTypeDeQuestions[i]
 
-      switch (typesDeQuestions) {
-        case 1: // lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers
-          texte = 'Lister/compter les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
-          // let premiers_dispos = premiersEntreBornes(2,11);
-          // on fixe le nombre de facteurs premier à 3
-          const nb_de_premiers_b = randint(3, 3)
-          // on fixe la limite pour le choix des premiers
-          const max_premier_b = 11
-          // on fixe le rang max pour le choix des premiers
-          const rg_max_b = cribleEratostheneN(max_premier_b).length - 1
-          // on choisit les rangs pour les nombres premiers
-          const tab_rangs_b = []
-          const tab_rangs_exclus_b = []
-          for (let k = 0; k < (nb_de_premiers_b); k++) {
-            for (let m = 0; m < k; m++) {
-              tab_rangs_exclus_b.push(tab_rangs_b[m])
-            }
-            tab_rangs_b[k] = randint(0, rg_max_b, tab_rangs_exclus_b)
-          };
-          // on choisit les premiers
-          const tab_premiers_b = []
-          for (let k = 0; k < tab_rangs_b.length; k++) {
-            tab_premiers_b[k] = cribleEratostheneN(max_premier_b)[tab_rangs_b[k]]
-          };
-          // on range les facteurs premiers dans l'ordre croissant
-          tab_premiers_b.sort(function (a, b) {
-            return a - b
-          })
-          // on choisit les multiplicités
-          const tab_multiplicites_b = []
-          for (let k = 0; k < tab_rangs_b.length; k++) {
-            tab_multiplicites_b[k] = randint(1, 2)
-          };
-          texte = ''
-          let nombre_a_decomposer_b = 1
-          for (let k = 0; k < tab_rangs_b.length; k++) {
-            for (let m = 0; m < tab_multiplicites_b[k]; m++) {
-              nombre_a_decomposer_b = nombre_a_decomposer_b * tab_premiers_b[k]
-            };
-          };
-          texte += `La décomposition en facteurs premiers de $${texNombre(nombre_a_decomposer_b)}$ est : $`
-          if (tab_multiplicites_b[0] == 1) {
-            texte += `${tab_premiers_b[0]}`
-          } else {
-            texte += `${tab_premiers_b[0]}^{${tab_multiplicites_b[0]}}`
-          };
-          for (let k = 1; k < tab_premiers_b.length; k++) {
-            if (tab_multiplicites_b[k] == 1) {
-              texte += `\\times ${tab_premiers_b[k]}`
-            } else {
-              texte += `\\times ${tab_premiers_b[k]}^{${tab_multiplicites_b[k]}}`
-            };
-          };
-          texte += '$, <br>'
-          texte += numAlpha(0) + ' Compléter le tableau ci-dessous.'
-          if (!context.isHtml) {
-            texte += '$\\medskip$'
-          };
-          // on crée le tableau des entetes de lignes et des colonnes
-          let ent_lignes = []
-          const contenu_lignes = []
-          let ent_colonnes = ['\\times']
-          // les entetes des lignes
-          for (let k = 0; k < tab_multiplicites_b[0] + 1; k++) {
-            ent_lignes.push('\\phantom{plusLarge}' + tab_premiers_b[0] + '^{' + k + '}\\phantom{plusLarge}')
-          };
-          // les entetes des colonnes
-          for (let m = 0; m < tab_multiplicites_b[1] + 1; m++) {
-            for (let l = 0; l < tab_multiplicites_b[2] + 1; l++) {
-              ent_colonnes.push(tab_premiers_b[1] + '^{' + m + '}\\times' + tab_premiers_b[2] + '^{' + l + '}')
-            };
-          };
-          // tableau pour la permutation circulaire
-          let tab_temp
-          // on y affecte les lignes
-          tab_temp = ent_lignes
-          // on supprime le x de l'entete des colonnes
-          ent_colonnes.shift()
-          // on affecte ça aux lignes;
-          ent_lignes = ent_colonnes
-          // on remet le x en colonnes et on ajoute le reste
-          ent_colonnes = ['\\times'].concat(tab_temp)
-          // le contenu des lignes
-          for (let l = 0; l < (tab_multiplicites_b[0] + 1); l++) {
-            for (let c = 1; c < (tab_multiplicites_b[1] + 1) * (tab_multiplicites_b[2] + 1) + 1; c++) {
-              // contenu_lignes.push(`l : `+l+`, c : `+Number(c));
-              contenu_lignes.push('')
-            };
-          };
-          texte += '<br>'
-          texte += tableauColonneLigne(ent_colonnes, ent_lignes, contenu_lignes)
-          if (!context.isHtml) {
-            texte += '$\\medskip$'
-          };
-          texte += '<br>'
-          texte += numAlpha(1) + ` En déduire le nombre de diviseurs de $${texNombre(nombre_a_decomposer_b)}$.<br>`
-          texte += numAlpha(2) + ` Enfin, dresser la liste des diviseurs de $${texNombre(nombre_a_decomposer_b)}$.<br>`
-
-          // correction
-          texteCorr = `Avec la décomposition en facteurs premiers de $${texNombre(nombre_a_decomposer_b)}$ qui est : $`
-          if (tab_multiplicites_b[0] == 1) {
-            texteCorr += `${tab_premiers_b[0]}`
-          } else {
-            texteCorr += `${tab_premiers_b[0]}^{${tab_multiplicites_b[0]}}`
-          };
-          for (let k = 1; k < tab_premiers_b.length; k++) {
-            if (tab_multiplicites_b[k] == 1) {
-              texteCorr += `\\times ${tab_premiers_b[k]}`
-            } else {
-              texteCorr += `\\times ${tab_premiers_b[k]}^{${tab_multiplicites_b[k]}}`
-            };
-          };
-          texteCorr += '$, <br>'
-          texteCorr += numAlpha(0) + ' Le tableau donne :'
-          // on crée le tableau des entetes de lignes et des colonnes
-          let ent_lignes_corr = []
-          let ent_lignes_corr_res = []
-          const contenu_lignes_corr = []
-          // let contenu_lignes_corr_res = [];
-          let ent_colonnes_corr = ['\\times']
-          let ent_colonnes_corr_res = [1]
-          // les entetes des lignes
-          for (let k = 0; k < tab_multiplicites_b[0] + 1; k++) {
-            ent_lignes_corr.push(tab_premiers_b[0] + '^{' + k + '}')
-            ent_lignes_corr_res.push(tab_premiers_b[0] ** k)
-          };
-          // les entetes des colonnes
-          for (let m = 0; m < tab_multiplicites_b[1] + 1; m++) {
-            for (let l = 0; l < tab_multiplicites_b[2] + 1; l++) {
-              ent_colonnes_corr.push(tab_premiers_b[1] + '^{' + m + '}\\times' + tab_premiers_b[2] + '^{' + l + '}')
-              ent_colonnes_corr_res.push(tab_premiers_b[1] ** m * tab_premiers_b[2] ** l)
-            };
-          };
-          // tableaux pour les permutations circulaires
-          let tab_temp_corr
-          let tab1_temp_corr
-          // on y affecte les lignes
-          tab_temp_corr = ent_lignes_corr
-          tab1_temp_corr = ent_lignes_corr_res
-          // on supprime le x de l'entete des colonnes
-          ent_colonnes_corr.shift()
-          ent_colonnes_corr_res.shift()
-          // on affecte ça aux lignes;
-          ent_lignes_corr = ent_colonnes_corr
-          ent_lignes_corr_res = ent_colonnes_corr_res
-          // on remet le x en colonnes et on ajoute le reste
-          ent_colonnes_corr = ['\\times'].concat(tab_temp_corr)
-          ent_colonnes_corr_res = [1].concat(tab1_temp_corr)
-          // le contenu des lignes
-          for (let l = 0; l < (tab_multiplicites_b[1] + 1) * (tab_multiplicites_b[2] + 1) + 1; l++) {
-            for (let c = 1; c < (tab_multiplicites_b[0] + 2); c++) {
-              // contenu_lignes_corr.push(`l : `+l+`, c : `+Number(c));
-              contenu_lignes_corr.push(ent_lignes_corr[l] + '\\times' + ent_colonnes_corr[c] + '=' + miseEnEvidence(texNombre(ent_lignes_corr_res[l] * ent_colonnes_corr_res[c])))
-            };
-          };
-          texteCorr += '<br>'
-          texteCorr += tableauColonneLigne(ent_colonnes_corr, ent_lignes_corr, contenu_lignes_corr)
-          texteCorr += '<br>'
-          texteCorr += numAlpha(1) + ` $${texNombre(nombre_a_decomposer_b)}$ a donc `
-          texteCorr += `$(${tab_multiplicites_b[0]}+1)\\times(${tab_multiplicites_b[1]}+1)\\times(${tab_multiplicites_b[2]}+1) = `
-          texteCorr += `${tab_multiplicites_b[0] + 1}\\times${tab_multiplicites_b[1] + 1}\\times${tab_multiplicites_b[2] + 1} = `
-          texteCorr += `${(tab_multiplicites_b[0] + 1) * (tab_multiplicites_b[1] + 1) * (tab_multiplicites_b[2] + 1)}$ diviseurs.<br>`
-          texteCorr += 'En effet, dans la décomposition apparait : '
-          texteCorr += ` <br> - Le facteur premier $${tab_premiers_b[0]}$ avec la multiplicité $${tab_multiplicites_b[0]}$`
-          texteCorr += `, le facteur $${tab_premiers_b[0]}$ apparait donc sous les formes : `
-          for (let k = 0; k < tab_multiplicites_b[0]; k++) {
-            texteCorr += `$${tab_premiers_b[0]}^{` + k + '}$ ou '
-          };
-          texteCorr += `$${tab_premiers_b[0]}^{` + tab_multiplicites_b[0] + `}$ d'où le facteur $(${tab_multiplicites_b[0]}+1)$.`
-
-          texteCorr += ` <br> - Le facteur premier $${tab_premiers_b[1]}$ avec la multiplicité $${tab_multiplicites_b[1]}$`
-          texteCorr += `, le facteur $${tab_premiers_b[1]}$ apparait donc sous les formes : `
-          for (let k = 0; k < tab_multiplicites_b[1]; k++) {
-            texteCorr += `$${tab_premiers_b[1]}^{` + k + '}$ ou '
-          };
-          texteCorr += `$${tab_premiers_b[1]}^{` + tab_multiplicites_b[1] + `}$ d'où le facteur $(${tab_multiplicites_b[1]}+1)$.`
-
-          texteCorr += ` <br> - Le facteur premier $${tab_premiers_b[2]}$ avec la multiplicité $${tab_multiplicites_b[2]}$`
-          texteCorr += `, le facteur $${tab_premiers_b[2]}$ apparait donc sous les formes : `
-          for (let k = 0; k < tab_multiplicites_b[2]; k++) {
-            texteCorr += `$${tab_premiers_b[2]}^{` + k + '}$ ou '
-          };
-          texteCorr += `$${tab_premiers_b[2]}^{` + tab_multiplicites_b[2] + `}$ d'où le facteur $(${tab_multiplicites_b[2]}+1)$.`
-          texteCorr += '<br>'
-          texteCorr += numAlpha(2) + ` Enfin, voici la liste des $${(tab_multiplicites_b[0] + 1) * (tab_multiplicites_b[1] + 1) * (tab_multiplicites_b[2] + 1)}$ diviseurs de $${texNombre(nombre_a_decomposer_b)}$ issus du tableau ci-dessus : `
-          texteCorr += '$1'
-          for (let w = 1; w < listeDiviseurs(nombre_a_decomposer_b).length; w++) {
-            texteCorr += '\\text{ ; }' + texNombre(listeDiviseurs(nombre_a_decomposer_b)[w])
-          };
-          texteCorr += '.$'
-          break
+      // switch (typesDeQuestions) {
+      // case 1: // lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers
+      texte = 'Lister/compter les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
+      // let premiers_dispos = premiersEntreBornes(2,11);
+      // on fixe le nombre de facteurs premier à 3
+      const nbDePremiersb = 3
+      // on fixe la limite pour le choix des premiers
+      let maxPremierb
+      if (this.sup) maxPremierb = 13
+      else maxPremierb = 11
+      // on fixe le rang max pour le choix des premiers
+      const rgMaxb = cribleEratostheneN(maxPremierb).length - 1
+      // on choisit les rangs pour les nombres premiers
+      const tabRangsb = []
+      const tabRangsExclusb = []
+      for (let k = 0; k < (nbDePremiersb); k++) {
+        for (let m = 0; m < k; m++) {
+          tabRangsExclusb.push(tabRangsb[m])
+        }
+        tabRangsb[k] = randint(0, rgMaxb, tabRangsExclusb)
       };
+      // on choisit les premiers
+      const tabPremiersb = []
+      for (let k = 0; k < tabRangsb.length; k++) {
+        tabPremiersb[k] = cribleEratostheneN(maxPremierb)[tabRangsb[k]]
+      };
+      // on range les facteurs premiers dans l'ordre croissant
+      tabPremiersb.sort(function (a, b) {
+        return a - b
+      })
+      // on choisit les multiplicités
+      const tabMultiplicitesb = []
+      for (let k = 0; k < tabRangsb.length; k++) {
+        tabMultiplicitesb[k] = randint(1, this.sup ? 4 : 2)
+      };
+      texte = ''
+      let nombreADecomposerb = 1
+      for (let k = 0; k < tabRangsb.length; k++) {
+        for (let m = 0; m < tabMultiplicitesb[k]; m++) {
+          nombreADecomposerb = nombreADecomposerb * tabPremiersb[k]
+        };
+      };
+      texte += `La décomposition en facteurs premiers de $${texNombre(nombreADecomposerb)}$ est : $`
+      if (tabMultiplicitesb[0] === 1) {
+        texte += `${tabPremiersb[0]}`
+      } else {
+        texte += `${tabPremiersb[0]}^{${tabMultiplicitesb[0]}}`
+      };
+      for (let k = 1; k < tabPremiersb.length; k++) {
+        if (tabMultiplicitesb[k] === 1) {
+          texte += `\\times ${tabPremiersb[k]}`
+        } else {
+          texte += `\\times ${tabPremiersb[k]}^{${tabMultiplicitesb[k]}}`
+        };
+      };
+      texte += '$, <br>'
+      texte += numAlpha(0) + ' Compléter le tableau ci-dessous.'
+      if (!context.isHtml) {
+        texte += '$\\medskip$'
+      };
+      // on crée le tableau des entetes de lignes et des colonnes
+      let entLignes = []
+      const contenuLignes = []
+      let entColonnes = ['\\times']
+      // les entetes des lignes
+      for (let k = 0; k < tabMultiplicitesb[0] + 1; k++) {
+        entLignes.push('\\phantom{plusLarge}' + tabPremiersb[0] + '^{' + k + '}\\phantom{plusLarge}')
+      };
+      // les entetes des colonnes
+      for (let m = 0; m < tabMultiplicitesb[1] + 1; m++) {
+        for (let l = 0; l < tabMultiplicitesb[2] + 1; l++) {
+          entColonnes.push(tabPremiersb[1] + '^{' + m + '}\\times' + tabPremiersb[2] + '^{' + l + '}')
+        };
+      };
+      // tableau pour la permutation circulaire
+      const tabTemp = entLignes
+      // on y affecte les lignes
+
+      // on supprime le x de l'entete des colonnes
+      entColonnes.shift()
+      // on affecte ça aux lignes;
+      entLignes = entColonnes
+      // on remet le x en colonnes et on ajoute le reste
+      entColonnes = ['\\times'].concat(tabTemp)
+      // le contenu des lignes
+      for (let l = 0; l < (tabMultiplicitesb[0] + 1); l++) {
+        for (let c = 1; c < (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1) + 1; c++) {
+          // contenuLignes.push(`l : `+l+`, c : `+Number(c));
+          contenuLignes.push('')
+        };
+      };
+      texte += '<br>'
+      texte += tableauColonneLigne(entColonnes, entLignes, contenuLignes)
+      if (!context.isHtml) {
+        texte += '$\\medskip$'
+      };
+      texte += '<br>'
+      texte += numAlpha(1) + ` En déduire le nombre de diviseurs de $${texNombre(nombreADecomposerb)}$.<br>`
+      texte += numAlpha(2) + ` Enfin, dresser la liste des diviseurs de $${texNombre(nombreADecomposerb)}$.<br>`
+
+      // correction
+      texteCorr = `Avec la décomposition en facteurs premiers de $${texNombre(nombreADecomposerb)}$ qui est : $`
+      if (tabMultiplicitesb[0] === 1) {
+        texteCorr += `${tabPremiersb[0]}`
+      } else {
+        texteCorr += `${tabPremiersb[0]}^{${tabMultiplicitesb[0]}}`
+      };
+      for (let k = 1; k < tabPremiersb.length; k++) {
+        if (tabMultiplicitesb[k] === 1) {
+          texteCorr += `\\times ${tabPremiersb[k]}`
+        } else {
+          texteCorr += `\\times ${tabPremiersb[k]}^{${tabMultiplicitesb[k]}}`
+        };
+      };
+      texteCorr += '$, <br>'
+      texteCorr += numAlpha(0) + ' Le tableau donne :'
+      // on crée le tableau des entetes de lignes et des colonnes
+      let entLignesCorr = []
+      let entLignesCorrRes = []
+      const contenuLignesCorr = []
+      // let contenuLignesCorr_res = [];
+      let entColonnesCorr = ['\\times']
+      let entColonnesCorrRes = [1]
+      // les entetes des lignes
+      for (let k = 0; k < tabMultiplicitesb[0] + 1; k++) {
+        entLignesCorr.push(tabPremiersb[0] + '^{' + k + '}')
+        entLignesCorrRes.push(tabPremiersb[0] ** k)
+      };
+      // les entetes des colonnes
+      for (let m = 0; m < tabMultiplicitesb[1] + 1; m++) {
+        for (let l = 0; l < tabMultiplicitesb[2] + 1; l++) {
+          entColonnesCorr.push(tabPremiersb[1] + '^{' + m + '}\\times' + tabPremiersb[2] + '^{' + l + '}')
+          entColonnesCorrRes.push(tabPremiersb[1] ** m * tabPremiersb[2] ** l)
+        };
+      };
+      // tableaux pour les permutations circulaires
+      const tabTempCorr = entLignesCorr
+      const tab1TempCorr = entLignesCorrRes
+      // on y affecte les lignes
+      // on supprime le x de l'entete des colonnes
+      entColonnesCorr.shift()
+      entColonnesCorrRes.shift()
+      // on affecte ça aux lignes;
+      entLignesCorr = entColonnesCorr
+      entLignesCorrRes = entColonnesCorrRes
+      // on remet le x en colonnes et on ajoute le reste
+      entColonnesCorr = ['\\times'].concat(tabTempCorr)
+      entColonnesCorrRes = [1].concat(tab1TempCorr)
+      // le contenu des lignes
+      for (let l = 0; l < (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1) + 1; l++) {
+        for (let c = 1; c < (tabMultiplicitesb[0] + 2); c++) {
+          // contenuLignesCorr.push(`l : `+l+`, c : `+Number(c));
+          contenuLignesCorr.push(entLignesCorr[l] + '\\times' + entColonnesCorr[c] + '=' + miseEnEvidence(texNombre(entLignesCorrRes[l] * entColonnesCorrRes[c])))
+        };
+      };
+      texteCorr += '<br>'
+      texteCorr += tableauColonneLigne(entColonnesCorr, entLignesCorr, contenuLignesCorr)
+      texteCorr += '<br>'
+      texteCorr += numAlpha(1) + ` $${texNombre(nombreADecomposerb)}$ a donc `
+      texteCorr += `$(${tabMultiplicitesb[0]}+1)\\times(${tabMultiplicitesb[1]}+1)\\times(${tabMultiplicitesb[2]}+1) = `
+      texteCorr += `${tabMultiplicitesb[0] + 1}\\times${tabMultiplicitesb[1] + 1}\\times${tabMultiplicitesb[2] + 1} = `
+      texteCorr += `${(tabMultiplicitesb[0] + 1) * (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1)}$ diviseurs.<br>`
+      texteCorr += 'En effet, dans la décomposition apparait : '
+      texteCorr += ` <br> - Le facteur premier $${tabPremiersb[0]}$ avec la multiplicité $${tabMultiplicitesb[0]}$`
+      texteCorr += `, le facteur $${tabPremiersb[0]}$ apparait donc sous les formes : `
+      for (let k = 0; k < tabMultiplicitesb[0]; k++) {
+        texteCorr += `$${tabPremiersb[0]}^{` + k + '}$ ou '
+      };
+      texteCorr += `$${tabPremiersb[0]}^{` + tabMultiplicitesb[0] + `}$ d'où le facteur $(${tabMultiplicitesb[0]}+1)$.`
+
+      texteCorr += ` <br> - Le facteur premier $${tabPremiersb[1]}$ avec la multiplicité $${tabMultiplicitesb[1]}$`
+      texteCorr += `, le facteur $${tabPremiersb[1]}$ apparait donc sous les formes : `
+      for (let k = 0; k < tabMultiplicitesb[1]; k++) {
+        texteCorr += `$${tabPremiersb[1]}^{` + k + '}$ ou '
+      };
+      texteCorr += `$${tabPremiersb[1]}^{` + tabMultiplicitesb[1] + `}$ d'où le facteur $(${tabMultiplicitesb[1]}+1)$.`
+
+      texteCorr += ` <br> - Le facteur premier $${tabPremiersb[2]}$ avec la multiplicité $${tabMultiplicitesb[2]}$`
+      texteCorr += `, le facteur $${tabPremiersb[2]}$ apparait donc sous les formes : `
+      for (let k = 0; k < tabMultiplicitesb[2]; k++) {
+        texteCorr += `$${tabPremiersb[2]}^{` + k + '}$ ou '
+      };
+      texteCorr += `$${tabPremiersb[2]}^{` + tabMultiplicitesb[2] + `}$ d'où le facteur $(${tabMultiplicitesb[2]}+1)$.`
+      texteCorr += '<br>'
+      texteCorr += numAlpha(2) + ` Enfin, voici la liste des $${(tabMultiplicitesb[0] + 1) * (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1)}$ diviseurs de $${texNombre(nombreADecomposerb)}$ issus du tableau ci-dessus : `
+      texteCorr += '$1'
+      for (let w = 1; w < listeDiviseurs(nombreADecomposerb).length; w++) {
+        texteCorr += '\\text{ ; }' + texNombre(listeDiviseurs(nombreADecomposerb)[w])
+      };
+      texteCorr += '.$'
+      //   break
+      // };
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

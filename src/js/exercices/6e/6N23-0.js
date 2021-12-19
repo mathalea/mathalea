@@ -1,10 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, nombreEnLettres } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif'
 export const titre = 'Écrire un nombre décimal en chiffres ou en lettres'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
@@ -22,14 +24,24 @@ export default function EcrireNombresDecimal () {
   this.sup2 = 1
   this.sup3 = 3
   this.nouvelleVersion = function () {
+    let formatEcriture = []
+    if (parseInt(this.sup) === 1) {
+      formatEcriture = combinaisonListes([true], this.nbQuestions)
+    } else if (parseInt(this.sup) === 2) {
+      formatEcriture = combinaisonListes([false], this.nbQuestions)
+    } else {
+      formatEcriture = combinaisonListes([false, true], this.nbQuestions)
+    }
     if (context.isAmc) {
-      this.sup = 2
+      formatEcriture = combinaisonListes([false], this.nbQuestions)
       this.sup2 = 1
     }
-    if (parseInt(this.sup) === 2) { this.consigne = 'Écrire le nombre en chiffres.' } else { this.consigne = 'Écrire le nombre en lettres.' }
-
+    if (this.interactif && context.isHtml) {
+      formatEcriture = combinaisonListes([false], this.nbQuestions)
+    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const typesDeQuestionsDemandees = parseInt(this.sup2) + 1 // <1 000, <1 000 000)
     let typesDeQuestionsDisponibles
     if (this.sup3 === 1) {
@@ -72,22 +84,36 @@ export default function EcrireNombresDecimal () {
         if (tranche[1] < 2) nombre = 0
         if (tranche[0] === 0) nombre = 0
       }
-      if (parseInt(this.sup) === 1) {
-        if (!context.isDiaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
-        else texte = `$${texNombre(nombre)}$`
-        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre, type)}.`
-        else texteCorr = `${nombreEnLettres(nombre, type)}.`
+      if (formatEcriture[i]) {
+        if (!context.isDiaporama) {
+          texte = `Écris le nombre $${texNombre(nombre)}$ en lettres ${type === 2 ? 'en utilisant le mot virgule' : 'sans utiliser le mot virgule'} : '\\dotfill'`
+        } else texte = `$${texNombre(nombre)}$`
+        if (!context.isDiaporama) {
+          texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre, type)}.`
+        } else {
+          texteCorr = `${nombreEnLettres(nombre, type)}.`
+        }
       } else {
-        if (!context.isDiaporama) texte = ` ${nombreEnLettres(nombre, type)} : \\dotfill`
-        else texte = ` ${nombreEnLettres(nombre, type)}`
-        if (!context.isDiaporama) texteCorr = ` ${nombreEnLettres(nombre, type)} : $${texNombre(nombre)}$.`
-        else texteCorr = `$${texNombre(nombre)}$.`
+        if (!context.isDiaporama) {
+          texte = `Écris le nombre ${nombreEnLettres(nombre, type)} en chiffres :  ${this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline') : '\\dotfill'}`
+        } else {
+          texte = ` ${nombreEnLettres(nombre, type)}`
+        }
+        if (!context.isDiaporama) {
+          texteCorr = ` ${nombreEnLettres(nombre, type)} : $${texNombre(nombre)}$.`
+        } else {
+          texteCorr = `$${texNombre(nombre)}$.`
+        }
+      }
+      if (!formatEcriture[i]) {
+        setReponse(this, i, nombre, { formatInteractif: 'calcul' })
       }
       texte = texte.replace('et-un unités', 'et-une unités')
       texteCorr = texteCorr.replace('et-un unités', 'et-une unités')
-      setReponse(this, i, nombre)
-      this.autoCorrection[i].reponse.param.digits = 6
-      this.autoCorrection[i].reponse.param.decimals = 3
+      if (context.isAmc) {
+        this.autoCorrection[i].reponse.param.digits = 6
+        this.autoCorrection[i].reponse.param.decimals = 3
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
@@ -98,7 +124,7 @@ export default function EcrireNombresDecimal () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type d\'exercices', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres']
+  this.besoinFormulaireNumerique = ['Type d\'exercices', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Mélange']
   this.besoinFormulaire2Numerique = ['Classe maximum', 2, '1 : Unités\n2 : Milliers']
   this.besoinFormulaire3Numerique = ['Type d\'écriture', 3, '1 : Écriture avec le mot virgule\n2 : Ériture sans le mot virgule\n3 : Mélange']
 }

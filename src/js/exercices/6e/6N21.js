@@ -22,15 +22,16 @@ export default function PlacerPointsAbscissesFractionnaires () {
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let typeDeQuestions
-    if (this.sup === 4) {
+    if (this.sup > 3) {
       typeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     } else {
       typeDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions)
@@ -42,25 +43,25 @@ export default function PlacerPointsAbscissesFractionnaires () {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (typeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: // Placer des demis aux quarts sur un axe
-          origine = 0
+          origine = this.sup > 4 ? randint(-4, 1) : 0
           den = randint(2, 4)
-          num = randint(1, den * 4)
+          num = origine * den + randint(1, den * 4)
           break
         case 2: // Placer des cinquièmes aux neuvièmes sur un axe
-          origine = 0
+          origine = this.sup > 4 ? randint(-4, 1) : 0
           den = randint(5, 9)
-          num = randint(1, den * 4)
+          num = origine * den + randint(1, den * 4)
           break
         case 3: // Placer des demis aux neuvièmes à partir d'un entier >=1 sur un axe
-          origine = randint(1, 7)
+          origine = this.sup > 4 ? randint(-4, 1) : randint(1, 7)
           den = randint(2, 9)
-          num = randint(origine * den + 1, (origine + 4) * den)
+          num = randint(origine * den + 1, (origine + 4) * den, den)
       }
       if (this.interactif) {
         texte = `Placer le point $${lettreDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
       } else {
-        num2 = randint(origine + 1, (origine + 4) * den, num)
-        num3 = randint(origine + 1, (origine + 4) * den, [num, num2])
+        num2 = randint(origine * den + 1, (origine + 4) * den, [num, den])
+        num3 = randint(origine * den + 1, (origine + 4) * den, [num, num2, den])
         texte = `Placer les points $${lettreDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$.`
       }
       const tailleUnite = 4

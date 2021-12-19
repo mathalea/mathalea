@@ -9,14 +9,14 @@ export const amcType = 'AMCNum'
 /**
  * @author Jean-claude Lhote
  */
-export default function CalculDeVolumes_4e () {
+export default function CalculDeVolumes4e () {
   CalculDeVolumes.call(this)
   this.titre = titre
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
-  this.interactifType=interactifType
-  
+  this.interactifType = interactifType
+
   this.sup = 1
   this.classe = 4
 }

@@ -1,21 +1,21 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint } from '../../modules/outils.js'
 import { courbe2, droite, mathalea2d, repere2 } from '../../modules/2d.js'
-export const titre = 'Exercice exemple'
+export const titre = 'Croissance de fonction ?'
 
 /**
  * Description didactique de l'exercice
  * @author
  * Référence
 */
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
+export default function CroissanceDeFonction () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
@@ -24,7 +24,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     const typeFonctionsDisponibles = ['affine', 'carré', 'inverse', 'cube', 'racine carrée'] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeFonctionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, a, b, x0, x1, coeff, y1, f, r, graph, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, b, x0, x1, coeff, f, r, graph, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       r = repere2({ xMin: -10, yMin: -10, xMax: 10, yMax: 10 })
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -116,7 +116,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       graph = courbe2(f, { repere: r, step: 0.3 / coeff, xMin: x0, xMax: x1, color: 'red' })
       texteCorr += mathalea2d({ xmin: Math.min(-1, x0 * coeff - 1), ymin: Math.min(-1, coeff * Math.min(Math.floor(f(x0)), Math.floor(f(x1))) - 1), xmax: Math.max(0, coeff * x1 + 1), ymax: Math.max(0, 1 + coeff * Math.max(Math.ceil(f(x0)), Math.ceil(f(x1)))) }, r, graph)
       if (this.listeQuestions.indexOf(texte) === -1) {
-        console.log(texte)
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

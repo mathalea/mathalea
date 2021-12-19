@@ -81,7 +81,7 @@ window.addEventListener('load', function () {
 
   const url = new URL(window.location.href)
   if (url.searchParams.get('url')) { // Si on spécifie une url
-    fetch(`/assets/m2d/${url.searchParams.get('url')}.m2d`)
+    window.fetch(`/assets/m2d/${url.searchParams.get('url')}.m2d`)
       .then(function (response) {
         if (response.ok) {
           return response.text()
@@ -108,6 +108,14 @@ window.addEventListener('load', function () {
   })
   if (buttonSubmit) {
     buttonSubmit.onclick = function () {
+      // To Fix
+      // AfficherTempo() créé trop d'interval
+      // On cherche l'id le plus grand en pensant que les id sont des int données par ordre croissant
+      const interval_id = window.setInterval(function () {}, Number.MAX_SAFE_INTEGER)
+      // On efface tous les intervalles
+      for (let i = 1; i < interval_id; i++) {
+        window.clearInterval(i)
+      }
       window.numId = 0
       window.localStorage.setItem('Script Mathalea 2D', myCodeMirror.getValue()) // On sauvegarde dans le navigateur le code du script
       if (buttonTelecharger) {
@@ -120,7 +128,7 @@ window.addEventListener('load', function () {
       const mesObjetsCopie = context.objets2D.slice() // codeSVG va ajouter des objets supplémentaires donc on en garde une copie
       const codeSvgcomplet = window.codeSvg(context.fenetreMathalea2d, context.pixelsParCm, context.mainlevee, context.objets2D)
       divSvg.innerHTML = codeSvgcomplet
-      const exercicesAffiches = new Event('exercicesAffiches', { bubbles: true })
+      const exercicesAffiches = new window.Event('exercicesAffiches', { bubbles: true })
       document.dispatchEvent(exercicesAffiches)
       dragNReplace()
       myCodeMirrorSvg.setValue(codeSvgcomplet)

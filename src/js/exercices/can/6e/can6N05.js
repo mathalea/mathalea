@@ -1,10 +1,10 @@
 import { calcul, choice, randint, texNombre } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Chiffre des ...'
+export const titre = 'Déterminer le chiffre des ...'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCHybride'
+export const amcType = 'AMCNum'
 
 /*!
  * @author Gilles Mora & Jean-Claude Lhote

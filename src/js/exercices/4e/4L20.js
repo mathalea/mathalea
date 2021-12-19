@@ -39,11 +39,13 @@ export default function ExerciceEquation1 () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.introduction = lampeMessage({
-      titre: 'Calculatrice autorisée.',
-      texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> Pour une solution comme 0,333... seule une fraction (par ex : $${texFraction(1, 3)})$ est correcte`,
-      couleur: 'nombres'
-    })
+    if (this.interactif) {
+      this.introduction = lampeMessage({
+        titre: 'Calculatrice autorisée.',
+        texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> Pour une solution comme 0,333... seule une fraction (par ex : $${texFraction(1, 3)})$ est correcte`,
+        couleur: 'nombres'
+      })
+    }
     let listeTypeDeQuestions
     switch (this.sup2.toString()) {
       case '1':
@@ -143,7 +145,7 @@ export default function ExerciceEquation1 () {
                   statut: '',
                   reponse: {
                     texte: 'Numérateur ',
-                    valeur: reponse.signe * Math.abs(reponse.num),
+                    valeur: [reponse.signe * Math.abs(reponse.num)],
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.num)),
                       decimals: 0,
@@ -160,7 +162,7 @@ export default function ExerciceEquation1 () {
                   statut: '',
                   reponse: {
                     texte: 'Dénominateur',
-                    valeur: reponse.den,
+                    valeur: [reponse.den],
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(reponse.den),
                       decimals: 0,
@@ -208,7 +210,7 @@ export default function ExerciceEquation1 () {
                   statut: '',
                   reponse: {
                     texte: 'Solution : ',
-                    valeur: reponse,
+                    valeur: [reponse],
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(reponse),
                       decimals: 0,
@@ -259,7 +261,7 @@ export default function ExerciceEquation1 () {
                   statut: '',
                   reponse: {
                     texte: 'Numérateur ',
-                    valeur: reponse.signe * Math.abs(reponse.num),
+                    valeur: [reponse.signe * Math.abs(reponse.num)],
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.num)),
                       decimals: 0,
@@ -276,7 +278,7 @@ export default function ExerciceEquation1 () {
                   statut: '',
                   reponse: {
                     texte: 'Dénominateur',
-                    valeur: reponse.den,
+                    valeur: [reponse.den],
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(reponse.den),
                       decimals: 0,
@@ -379,7 +381,7 @@ export default function ExerciceEquation1 () {
                   statut: '',
                   reponse: {
                     texte: 'Numérateur ',
-                    valeur: reponse.signe * Math.abs(reponse.num),
+                    valeur: [reponse.signe * Math.abs(reponse.num)],
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.num)),
                       decimals: 0,
@@ -396,7 +398,7 @@ export default function ExerciceEquation1 () {
                   statut: '',
                   reponse: {
                     texte: 'Dénominateur',
-                    valeur: reponse.den,
+                    valeur: [reponse.den],
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(reponse.den),
                       decimals: 0,

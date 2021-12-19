@@ -1,6 +1,5 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,combinaisonListes,ecritureAlgebrique} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique } from '../../modules/outils.js'
 export const titre = 'Multiplications de deux entiers relatifs dans un tableau à double entrée'
 
 /**
@@ -9,37 +8,37 @@ export const titre = 'Multiplications de deux entiers relatifs dans un tableau �
 * @author Rémi Angot
 * 4C10-5
 */
-export default function Exercice_tableau_multiplications_relatifs() {
-  Exercice.call(this); // Héritage de la classe Exercice()
-  this.sup = false;
-  this.titre = titre;
+export default function ExerciceTableauMultiplicationsRelatifs () {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.sup = false
+  this.titre = titre
   this.consigne = 'Calculer :'
-  this.spacing = 1;
-  this.nbQuestions = 1;
-  this.nbQuestionsModifiable = false;
+  this.spacing = 1
+  this.nbQuestions = 1
+  this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []; // Liste de questions
-    this.listeCorrections = []; // Liste de questions corrigées
-    let liste_signes1 = combinaisonListes([-1, 1], 4);
-    let a1 = randint(2, 9);
-    let a2 = randint(2, 9, a1);
-    let a3 = randint(2, 9, [a1, a2]);
-    let a4 = randint(2, 9, [a1, a2, a3]);
-    let b1 = randint(2, 9);
-    let b2 = randint(2, 9, b1);
-    let b3 = randint(2, 9, [b1, b2]);
-    let b4 = randint(2, 9, [b1, b2, b3]);
-    a1 *= liste_signes1[0]
-    a2 *= liste_signes1[1]
-    a3 *= liste_signes1[2]
-    a4 *= liste_signes1[3]
-    b1 *= liste_signes1[0]
-    b2 *= liste_signes1[1]
-    b3 *= liste_signes1[2]
-    b4 *= liste_signes1[3]
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    const listeSignes1 = combinaisonListes([-1, 1], 4)
+    let a1 = randint(2, 9)
+    let a2 = randint(2, 9, a1)
+    let a3 = randint(2, 9, [a1, a2])
+    let a4 = randint(2, 9, [a1, a2, a3])
+    let b1 = randint(2, 9)
+    let b2 = randint(2, 9, b1)
+    let b3 = randint(2, 9, [b1, b2])
+    let b4 = randint(2, 9, [b1, b2, b3])
+    a1 *= listeSignes1[0]
+    a2 *= listeSignes1[1]
+    a3 *= listeSignes1[2]
+    a4 *= listeSignes1[3]
+    b1 *= listeSignes1[0]
+    b2 *= listeSignes1[1]
+    b3 *= listeSignes1[2]
+    b4 *= listeSignes1[3]
 
-    let texte = `$\\def\\arraystretch{1.5}\\begin{array}{|c|c|c|c|c|}
+    const texte = `$\\def\\arraystretch{1.5}\\begin{array}{|c|c|c|c|c|}
     \\hline
     \\times & ${ecritureAlgebrique(a1)} & ${ecritureAlgebrique(a2)} & ${ecritureAlgebrique(a3)} & ${ecritureAlgebrique(a4)} \\\\
     \\hline
@@ -53,7 +52,7 @@ export default function Exercice_tableau_multiplications_relatifs() {
     \\hline
     \\end{array}$`
 
-    let texteCorr = `$\\def\\arraystretch{1.5}\\begin{array}{|c|c|c|c|c|}
+    const texteCorr = `$\\def\\arraystretch{1.5}\\begin{array}{|c|c|c|c|c|}
     \\hline
     \\times & ${ecritureAlgebrique(a1)} & ${ecritureAlgebrique(a2)} & ${ecritureAlgebrique(a3)} & ${ecritureAlgebrique(a4)} \\\\
     \\hline
@@ -66,11 +65,8 @@ export default function Exercice_tableau_multiplications_relatifs() {
     ${ecritureAlgebrique(b4)} & ${ecritureAlgebrique(a1 * b4)} & ${ecritureAlgebrique(a2 * b4)} & ${ecritureAlgebrique(a3 * b4)} & ${ecritureAlgebrique(a4 * b4)} \\\\
     \\hline
     \\end{array}$`
-    this.listeQuestions.push(texte);
-    this.listeCorrections.push(texteCorr);
-    listeQuestionsToContenu(this);
-
+    this.listeQuestions.push(texte)
+    this.listeCorrections.push(texteCorr)
+    listeQuestionsToContenu(this)
   }
 }
-
-

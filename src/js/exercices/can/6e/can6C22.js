@@ -1,6 +1,6 @@
 import { calcul, choice, randint, texNombre, texteEnCouleur, texNombrec } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Valeurs décimales de fractions'
+export const titre = 'Déterminer la valeur décimale d’une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -13,6 +13,7 @@ export const amcType = 'AMCNum'
 export default function ValeursDecimalesFractions () {
   Exercice.call(this)
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.typeExercice = 'simple'
 

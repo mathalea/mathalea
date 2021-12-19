@@ -1,6 +1,6 @@
 import { calcul, choice, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Problèmes de vitesse'
+export const titre = 'Résoudre un problème de vitesse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,7 +14,7 @@ export const amcType = 'AMCNum'
 export default function ProblemesDeVitesse () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur25 inline'
+  this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.nouvelleVersion = function () {
     const a = choice([2, 3, 5, 6, 10]) // diviseur de l'heure

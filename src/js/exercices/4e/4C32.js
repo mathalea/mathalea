@@ -1,4 +1,4 @@
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, scientifiqueToDecimal } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, scientifiqueToDecimal, sp } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 
@@ -20,22 +20,10 @@ export default function NotationScientifique () {
   Exercice.call(this)
   this.sup = 1
   this.sup2 = 1
-  this.titre = titre
   this.nbCols = 1
   this.nbColsCorr = 1
   this.nbQuestions = 5
   this.interactif = false
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
-  this.amcReady = amcReady
-
-  /********************************************************************/
-  /** Type 4 : questionmultx avec AMCnumericChoices */
-  // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
-  // {int digits,int decimals,bool signe,int exposantNbChiffres,bool exposantSigne,int approx}
-  // La correction est dans tabQCM[1][0] et la réponse numlérique est dans tabQCM[1][1]
-  /********************************************************************/
 
   this.nouvelleVersion = function () {
     let reponse
@@ -99,39 +87,39 @@ export default function NotationScientifique () {
         } else {
           reponse = `${texNombrec(mantisse)}\\times10^${exp}`
         }
-        texte = `$${decimalstring}$`
+        texte = `$${decimalstring}${sp()}=$`
         texteCorr = `$${decimalstring} = ${scientifiquestring}$`
         if (this.interactif) {
-          texte = ajouteChampTexteMathLive(this, i, 'largeur25 inline', {
-            texte: `$${decimalstring} = $`
-          })
+          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        } else {
+          texte += `$${sp()}\\dots$`
         }
       } else {
-        reponse = decimalstring
+        reponse = mantisse * 10 ** exp
         texteCorr = `$${scientifiquestring} = ${decimalstring}$`
-        texte = `$${scientifiquestring}$`
+        texte = `$${scientifiquestring}${sp()}=$`
         if (this.interactif) {
-          texte = ajouteChampTexteMathLive(this, i, 'largeur25 inline', {
-            texte: `$${scientifiquestring} = $`
-          })
+          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        } else {
+          texte += `$${sp()}\\dots$`
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         if (parseInt(this.sup) === 1) {
-          setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), { formatInteractif: 'texte', digits: listeTypeDeQuestions[i] + 1, decimals: listeTypeDeQuestions[i], signe: false, exposantNbChiffres: 1, exposantSigne: true, approx: 0 })
+          setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), { formatInteractif: 'ecritureScientifique', digits: listeTypeDeQuestions[i] + 1, decimals: listeTypeDeQuestions[i], signe: false, exposantNbChiffres: 1, exposantSigne: true, approx: 0 })
         } else {
-          setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), { formatInteractif: 'texte', strict: false, vertical: false, digits: 2 * Math.abs(exp) + 1, decimals: Math.abs(exp), signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 })
+          setReponse(this, i, reponse, { formatInteractif: 'calcul' })
         }
         if (context.isAmc) {
-          reponse = calcul(mantisse * 10 ** exp)
+          this.autoCorrection[i].reponse.valeur = [calcul(mantisse * 10 ** exp)]
           if (parseInt(this.sup) === 1) {
-            this.amcType = 4
-            this.autoCorrection[i].enonce = "Donner l'écriture scientifique du nombre " + texte
+            this.amcType = 'AMCNum'
+            this.autoCorrection[i].enonce = "Donner l'écriture scientifique du nombre " + texte + '.'
           } else {
-            this.amcType = 1
-            this.autoCorrection[i].enonce = "Donner l'écriture décimale du nombre " + texte
+            this.amcType = 'qcmMono'
+            this.autoCorrection[i].enonce = "Donner l'écriture décimale du nombre " + texte + '.'
             this.autoCorrection[i].options = {
               ordered: false,
               lastChoice: 5

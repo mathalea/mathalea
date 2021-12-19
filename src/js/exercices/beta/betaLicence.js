@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
-import { codageAngleDroit, codeSegments, grille, latexParCoordonnees, mathalea2d, point, polygone, rotation, segment, texteParPosition } from '../../modules/2d.js'
+import { codageAngleDroit, codeSegments, grille, mathalea2d, point, polygone, rotation, segment, texteParPosition } from '../../modules/2d.js'
 export const titre = 'QCM de positionnement'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -19,7 +19,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   // this.sup = 1
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.spacing = 3
 
@@ -509,14 +509,14 @@ function figure13 () {
   const P = point(M.x, l)
   const r = polygone(M, N, O, P)
   const monCodage = codeSegments('X', 'blue', A, B, B, C, C, A)
-  const texte1 = latexParCoordonnees('4x+1', 2, -1)
-  const texte2 = latexParCoordonnees('4x+1,5', 8.5, -1)
-  const texte3 = latexParCoordonnees('2x', 12, 1.5)
+  const texte1 = texteParPosition('4x+1', 2, -1, 'milieu', 'black', 1, 'middle', true)
+  const texte2 = texteParPosition('4x+1,5', 8.5, -1, 'milieu', 'black', 1, 'middle', true)
+  const texte3 = texteParPosition('2x', 12, 1.5, 'milieu', 'black', 1, 'middle', true)
   const c1 = codageAngleDroit(M, N, O)
   const c2 = codageAngleDroit(N, O, P)
   const c3 = codageAngleDroit(O, P, M)
   const c4 = codageAngleDroit(P, M, N)
-  return mathalea2d({ xmin: -0.5, xmax: 13, ymin: -1, ymax: 4 }, t, r, monCodage, texte1, texte2, texte3, c1, c2, c3, c4)
+  return mathalea2d({ xmin: -0.5, xmax: 13, ymin: -2, ymax: 4 }, t, r, monCodage, texte1, texte2, texte3, c1, c2, c3, c4)
 }
 
 function figure7 () {
@@ -566,10 +566,10 @@ function figure16 () {
   const c8 = codageAngleDroit(G, H, E)
   const c9 = codageAngleDroit(H, E, F)
   const r = polygone(E, F, G, H)
-  const t1 = texteParPosition('7', 2, -0.5)
-  const t2 = texteParPosition('6', -0.5, 7 / 6 * 2)
-  const t3 = texteParPosition('5', 8, -0.5)
-  const t4 = texteParPosition('7', 15.5, -0.5)
-  const t5 = texteParPosition('3', 11.5, 1.5)
+  const t1 = texteParPosition('7', 2, -0.5, 'milieu', 'black', 1, 'middle', true)
+  const t2 = texteParPosition('6', -0.5, 7 / 6 * 2, 'milieu', 'black', 1, 'middle', true)
+  const t3 = texteParPosition('5', 8, -0.5, 'milieu', 'black', 1, 'middle', true)
+  const t4 = texteParPosition('7', 15.5, -0.5, 'milieu', 'black', 1, 'middle', true)
+  const t5 = texteParPosition('3', 11.5, 1.5, 'milieu', 'black', 1, 'middle', true)
   return mathalea2d({ xmin: -1.5, xmax: 20.5, ymin: -1.5, ymax: 6, pixelsParCm: 30 }, t, r, c, c1, c2, c3, c4, c5, c6, c7, c8, c9, t1, t2, t3, t4, t5, monCodage)
 }

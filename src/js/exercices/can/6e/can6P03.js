@@ -1,6 +1,6 @@
 import { calcul, randint, texNombrec, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Question de vitesse'
+export const titre = 'Déterminer le nombre de km avec une vitesse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

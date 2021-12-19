@@ -24,7 +24,7 @@ export async function gestionVue (vue) {
     // const btnLaTeX = get('btnLaTeX', false)
     // const btnEmbed = get('btnEmbed', false)
     // const btnQRcode = get('btnQRcode', false)
-    // const buttonFullScreen = get('buttonFullScreen', false)
+    const buttonFullScreen = document.getElementById('buttonFullScreen2')
     const colonneGauche = document.getElementById('left')
     const colonneDroite = document.getElementById('right')
     const container2Colonnes = document.getElementById('mathaleaContainer')
@@ -85,6 +85,7 @@ export async function gestionVue (vue) {
       masqueMenuDesExercices()
       masqueBandeauTitre()
       if (btnEdit) btnEdit.style.display = 'inline'
+      if (buttonFullScreen) buttonFullScreen.style.display = 'none'
       for (const e of [divChoixExercices, titreExerciceAvecChevron]) {
         if (e !== null) e.style.display = 'none'
       }
@@ -92,12 +93,24 @@ export async function gestionVue (vue) {
     if (context.vue === 'exEtChoix') { // Affichage des seuls exercices
       masqueMenuDesExercices()
       if (btnEdit) btnEdit.style.display = 'inline'
+      if (buttonFullScreen) buttonFullScreen.style.display = 'inline'
     }
     if (context.vue === 'menu') { // Affichage des seuls exercices
       demasqueMenuDesExercices()
       if (btnEdit) btnEdit.style.display = 'none'
     }
+    if (context.vue === 'alcexEtChoix') { // Affichage des seuls exercices
+      masqueMenuDesExercices()
+      if (btnEdit) btnEdit.style.display = 'inline'
+      context.vue = 'alc'
+    }
+    if (context.vue === 'alcmenu') { // Affichage des seuls exercices
+      demasqueMenuDesExercices()
+      if (btnEdit) btnEdit.style.display = 'none'
+      context.vue = 'alc'
+    }
     // Met à jour l'URL avec notamment la nouvelle vue
     setUrl()
   }
+  if (document.getElementById('buttonEdit')) document.getElementById('buttonEdit').style.display = 'none'
 }

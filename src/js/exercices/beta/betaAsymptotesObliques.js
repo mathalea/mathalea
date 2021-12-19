@@ -1,4 +1,5 @@
-import { xcas, listeQuestionsToContenu, randint, combinaisonListes, texFraction } from '../../modules/outils.js'
+/* eslint-disable no-unused-vars */
+import { xcas, listeQuestionsToContenu, combinaisonListes, texFraction } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Asymptote oblique'
@@ -15,7 +16,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.typeExercice = 'XCas'
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
@@ -25,17 +26,15 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     const typesDeQuestionsDisponibles = ['type1'] // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, etape, signe, texteCorr, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, etape, signe, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeDeQuestions[i]) {
         case 'type1':
-          a = randint(-5, 5, 0)
-        
           etape = `${xcas('f:=(2*randint(0,1)-1) * randint(4) * x + randint(10) + (2*randint(0,1)-1) * randint(10) / randpoly(1)')}` // f
           // Numérateur, Dénominateur, Quotient, Reste
           etape = [
-            'N:=numer(f)','D:=denom(f)','Q:=quo(N,D)','R:=rem(N,D)'
-          ].forEach(e => `${xcas(e)}`) 
+            'N:=numer(f)', 'D:=denom(f)', 'Q:=quo(N,D)', 'R:=rem(N,D)'
+          ].forEach(e => `${xcas(e)}`)
 
           etape = `${xcas('P:=piecewise(numer(f-Q)>0,\'dessus\',\'dessous\')')}` // par le dessus ou le dessous
           signe = `${xcas('P')}`.includes('dessus') ? '+' : '-'
@@ -78,9 +77,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     }
     listeQuestionsToContenu(this)
   }
-  //this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
+  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
 
-
 // python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
-

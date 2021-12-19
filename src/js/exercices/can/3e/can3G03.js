@@ -1,9 +1,9 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, latexParCoordonnees, pointAdistance, labelPoint, segment, milieu
+  mathalea2d, point, pointAdistance, labelPoint, segment, milieu, texteParPosition
 } from '../../../modules/2d.js'
-export const titre = 'Calcul d’une longueur avec Thalès2'
+export const titre = 'Calculer une longueur avec le théorème de Thalès'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -16,7 +16,6 @@ export const interactifType = 'mathLive'
 export default function CalculLongueurThales2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
-  this.interactif = true
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -44,12 +43,12 @@ export default function CalculLongueurThales2 () {
       ymax = Math.max(A.y, B.y, C.y, D.y, E.y) + 2
       objets = []
       objets.push(segment(B, D), segment(D, E), segment(C, E), segment(B, C), labelPoint(A, B, C, D, E))
-      objets.push(latexParCoordonnees(`${texNombrec(b)}`, milieu(A, B).x, milieu(A, B).y - 0.7, 'black', 20, 10, ''),
-        latexParCoordonnees(`${texNombrec(c)}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'black', 20, 10, ''),
-        latexParCoordonnees(`${texNombrec(a)}`, milieu(A, D).x + 0.5, milieu(A, D).y + 0.5, 'black', 20, 10, ''))
-      this.question = `Sur cette figure les droites $(${nom[1]}${nom[2]})$ et $(${nom[3]}${nom[2]})$ sont parallèles.<br>
-        Calculer $${nom[3]}${nom[4]}$.`
-      this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 2 }, objets)
+      objets.push(texteParPosition(`${texNombrec(b)}`, milieu(A, B).x, milieu(A, B).y - 0.7, 'milieu', 'black', 1, 'middle', true),
+        texteParPosition(`${texNombrec(c)}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+        texteParPosition(`${texNombrec(a)}`, milieu(A, D).x + 0.5, milieu(A, D).y + 0.5, 'milieu', 'black', 1, 'middle', true))
+      this.question = `Les droites $(${nom[1]}${nom[2]})$ et $(${nom[3]}${nom[4]})$ sont parallèles.
+        Calculer $${nom[3]}${nom[4]}$.<br>`
+      this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 8, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est un agrandissement du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
     Le coefficient d'agrandissement est  donné par :  $\\dfrac{${nom[0]}${nom[3]}}{${nom[0]}${nom[1]}}=\\dfrac{${texNombrec(a)}}{${b}}=${texNombrec(a / b)}$.<br>
     On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont $${texNombrec(a / b)}$ fois plus grandes que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
@@ -77,12 +76,11 @@ export default function CalculLongueurThales2 () {
       ymax = Math.max(A.y, B.y, C.y, D.y, E.y) + 2
       objets = []
       objets.push(segment(B, D), segment(D, E), segment(C, E), segment(B, C), labelPoint(A, B, C, D, E))
-      objets.push(latexParCoordonnees(`${texNombrec(b)}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'black', 20, 10, ''),
-        latexParCoordonnees(`${texNombrec(c)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'black', 20, 10, ''),
-        latexParCoordonnees(`${texNombrec(a)}`, milieu(D, E).x - 0.5, milieu(D, E).y, 'black', 20, 10, ''))
-      this.question = `Sur cette figure les droites $(${nom[1]}${nom[2]})$ et $(${nom[3]}${nom[2]})$ sont parallèles.<br>
-           Calculer $${nom[3]}${nom[0]}$.`
-      this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 2 }, objets)
+      objets.push(texteParPosition(`${texNombrec(b)}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+        texteParPosition(`${texNombrec(c)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
+        texteParPosition(`${texNombrec(a)}`, milieu(D, E).x - 0.8, milieu(D, E).y, 'milieu', 'black', 1, 'middle', true))
+      this.question = `Les droites $(${nom[1]}${nom[2]})$ et $(${nom[3]}${nom[4]})$ sont parallèles. Calculer $${nom[3]}${nom[0]}$.<br>`
+      this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 8, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est un agrandissement du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
        Le coefficient d'agrandissement est  donné par : $\\dfrac{${nom[3]}${nom[4]}}{${nom[2]}${nom[1]}}=\\dfrac{${texNombrec(a)}}{${b}}=${texNombrec(a / b)}$.<br>
        On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont $${texNombrec(a / b)}$ fois plus grandes que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>

@@ -58,14 +58,16 @@ export default function Exercice () {
   // Gestion de la sortie autre que LateX
   // ////////////////////////////////////////////
   this.beamer = false // booléen pour savoir si la sortie devra être un diaporama beamer
-  this.tailleDiaporama = 50 // Taille en pixels pour le calcul chronométré.
+  this.tailleDiaporama = 1 // Facteur par lequel multiplier la police pour la vue 'diap'
 
   // ////////////////////////////////////////////
   // Paramètres
   // ////////////////////////////////////////////
   this.nbQuestions = 10 // Nombre de questions par défaut (récupéré dans l'url avec le paramètre `,n=`)
+  this.pointsParQuestions = 1 // Pour définir la note par défaut d'un exercice dans sa sortie Moodle
   this.correctionDetailleeDisponible = false // booléen qui indique si une correction détaillée est disponible.
   this.correctionDetaillee = true // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
+  this.correctionIsCachee = false // pour cacher une correction
   this.video = '' // Chaine de caractère pour un complément numérique (id Youtube, url, code iframe...).
   // Interactivité
   this.interactif = false // Exercice sans saisie utilisateur par défaut.
@@ -93,16 +95,23 @@ export default function Exercice () {
   // this.typeExercice = 'MG32' // Pour charger MathGraph32.
   this.mg32Editable = false // Les figures MG32 ne sont pas interactives par défaut.
   // this.dimensionsDivMg32 = [500, 450] // Dimensions du SVG créé par MathGraph32.
+
   // this.typeExercice = 'Scratch' // Pour charger Scratchblocks.
   // this.typeExercice = 'IEP' // Pour charger InstrumEnPoche.
   // this.typeExercice = 'dnb' // Ce n’est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
   // this.typeExercice = 'XCas' // Pour charger le JavaScript de XCas qui provient de https://www-fourier.ujf-grenoble.fr/~parisse/giac_fr.html
-  this.listeArguments = []
+  // this.typeExercice = 'simple' // Pour les exercices plus simples destinés aux courses aux nombres
 
+  this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
+
+  /**
+   * Fonction qui est appellée pour chaque exercice
+   * @param {number} numeroExercice numéro de l'exercice utilisé pour avoir des identifiants uniques pour associer un champ avec le bon exercice (pour l'interactivité par exemple)
+   */
   this.nouvelleVersion = function (numeroExercice) {}
 
   /**
-   *
+   * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
    * @param {int} i indice de la question
    * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
    * @returns {boolean} true si la question n'a jamais été posée

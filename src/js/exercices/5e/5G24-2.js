@@ -1,7 +1,6 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { point, pointAdistance, rotation, similitude, translation, vecteur, barycentre, codeSegment, codeAngle, nommePolygone, mathalea2d, triangle2points2longueurs, longueur, angle, polygone } from '../../modules/2d.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, creerNomDePolygone, choisitLettresDifferentes, shuffleLettres, texteEnCouleur } from '../../modules/outils.js'
+import { point, pointAdistance, rotation, translation, vecteur, barycentre, codeSegment, codeAngle, nommePolygone, mathalea2d, triangle2points2longueurs } from '../../modules/2d.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, creerNomDePolygone, texteEnCouleur } from '../../modules/outils.js'
 export const titre = 'Justifier que deux triangles sont égaux'
 
 /**
@@ -16,7 +15,7 @@ export default function TrianglesEgaux () {
   this.nbQuestions = 4
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté 
+  this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 50 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.spacing = 2
@@ -24,6 +23,7 @@ export default function TrianglesEgaux () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const typeQuestionsDisponibles = ['CCC', 'CAC', 'ACA', 'AAA', 'CC']
 
@@ -109,7 +109,7 @@ export default function TrianglesEgaux () {
             scale: 0.5
           },
           p1, p2, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, nommeP2)
-          texteCorr = `Ces deux triangles ne sont pas égaux. Ils ont la même forme mais leurs longueurs peuvent être différentes. On dit qu'ils sont ${texteEnCouleur('semblables')}`
+          texteCorr = `On ne peut pas déterminer si ces triangles sont égaux. Ils ont la même forme mais leurs longueurs peuvent être différentes. On dit qu'ils sont ${texteEnCouleur('semblables')}`
           break
         case 'CC':
           texte = '<br>' + mathalea2d({
@@ -120,7 +120,7 @@ export default function TrianglesEgaux () {
             scale: 0.5
           },
           p1, p2, code1, code2, code5, code6, nommeP1, nommeP2)
-          texteCorr = 'Ces deux triangles ne sont pas égaux.'
+          texteCorr = 'On ne peut pas déterminer si ces triangles sont égaux.'
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -135,5 +135,3 @@ export default function TrianglesEgaux () {
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
 }
-
-

@@ -22,7 +22,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
 
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
@@ -47,7 +47,6 @@ export default function CourseAuxNombresCM (numeroExercice) {
       questions[i] = parseInt(questions[i]) - 1
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    console.log(listeIndex)
     const typeQuestionsDisponibles = [ // les dix premières sont communes à betaCaNCM1
       'q1', // Somme d'entiers\n
       'q2', // Différence d'entiers\n
